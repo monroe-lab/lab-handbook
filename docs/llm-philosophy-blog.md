@@ -5,7 +5,7 @@
 I’m dictating this post into my laptop microphone while ChatGPT helps me turn a long, messy stream-of-consciousness transcript into something coherent and structured. That alone illustrates my core point:
 
 > Large language models (LLMs) are not a replacement for thinking.  
-> They are an **amplifier** for people who already know what they’re doing.
+> They are an **amplifier** for human knowledge, and an assistant to liberate us from work dudgery (i.e. manually formatting a markdown file).
 
 This is my attempt to lay out a philosophy for using LLMs effectively in research and coding, based on how I actually work right now.
 
@@ -16,7 +16,7 @@ This is my attempt to lay out a philosophy for using LLMs effectively in researc
 I’m writing this at the end of 2025. Over the past year, LLMs have crossed an important threshold in my daily work:
 
 - They are now **good enough** to be a constant, embedded assistant.
-- They can write usable boilerplate code, sbatch headers, standard loops, and “textbook” bioinformatics calls.
+- They can easily write usable boilerplate code... sbatch headers, standard loops, and “textbook” bioinformatics calls.
 - They can help me refactor and document messy scripts into clean, reusable functions.
 
 Used well, LLMs have cut the time for certain tasks by **orders of magnitude**. I genuinely think we’ll look back on the pre‑LLM era and wonder how we ever got anything done as slowly as we did.
@@ -55,7 +55,7 @@ So, paradoxically:
 > LLMs don’t make learning to code less important.  
 > They make it **more** important, because the payoff is now even bigger.
 
-People who learn to code and understand data will be able to leverage this new tool to do far more than before. People who don’t will increasingly be left behind.
+People who learn to code and understand data will be able to leverage this new tool to do far more than before. People who don’t will increasingly be left behind.  Imagine if LLMs are like a Formula 1 race car. Only people who know how to drive will be able to actually leverage the power/speed (at all and especially safely!). If you didn't know how to drive (code), you're going to be left behind in a world of people driving Formula 1 cars. So you need to learn to drive so you can use the car. 
 
 ---
 
