@@ -8,7 +8,7 @@ storage, and workflows.
 ## Table of contents
 
 - [Cluster access](docs/cluster-access.md)
-- [Slurm basics](docs/slurm-basics.md)
+- [Slurm basics](docs/slurm_basics.md)
 - [Storage & backup](docs/storage-and-backup.md)
 - [Software environments](docs/software-envs.md)
 - [Onboarding checklist](docs/onboarding-checklist.md)
