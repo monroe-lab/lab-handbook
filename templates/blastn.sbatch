@@ -20,6 +20,8 @@ set -euo pipefail
 #   $1 = reference FASTA (for BLAST database)
 #   $2 = query FASTA
 #   $3 = output prefix (optional, default: blast_results)
+# 
+# info: made by Grey, Dec 5, 2025
 ########################################
 
 if [ "$#" -lt 2 ]; then
