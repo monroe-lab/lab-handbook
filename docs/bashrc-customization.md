@@ -8,7 +8,7 @@ This note shows you how to:
 - Set up a few **Farm- and Slurm-specific helpers**
 
 Most of this is just copy-paste examples you can adapt.
-hi
+
 ---
 
 ## 1. What is `~/.bashrc`?
