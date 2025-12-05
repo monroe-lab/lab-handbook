@@ -7,11 +7,6 @@ This guide covers the **absolute essentials** you need to use the Farm cluster f
 - Organize your projects
 - Run scripts and inspect outputs
 
-Later parts (not written yet) will cover:
-
-- **Part 2:** Bioinformatics tools, modules, conda environments, etc.  
-- **Part 3:** Containers (e.g. Singularity/Apptainer), workflow managers, more advanced shell tricks.
-
 For now, this is **Part 1: Linux 101 for Farm**.
 
 ---
