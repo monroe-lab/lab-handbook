@@ -21,7 +21,7 @@ For now, this is **Part 1: Linux 101 for Farm**.
 When you log in to Farm, you land in a **shell** (usually `bash`). You’ll see a **prompt**, something like:
 
 ```bash
-[USERNAME@farm-login ~]$
+[USERNAME@farm ~]$
 ```
 
 You type **commands** and press Enter. A command is usually:
