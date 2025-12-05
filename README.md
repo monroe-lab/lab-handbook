@@ -21,5 +21,8 @@ storage, and workflows.
 - [Part 4: Software, modules, and environments](docs/farm-software-part4.md)
 - [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
 
+## Words of Wisdom
+- [Project directory structures on Farm, by Grey](docs/project-structure-on-farm.md)
+
 ## Code!
 - [Job sbatch script templates](templates/)
