@@ -24,6 +24,8 @@ storage, and workflows.
 ## Words of Wisdom
 - [Project directory structures on Farm, by Grey](docs/project-structure-on-farm.md)
 - [Coding Strategy, by Grey](docs/coding-strategy.md)
+- [my LLM philosophy, by Grey](docs/llm-philosophy-blog.md)
+
 
 ## Code!
 - [Job sbatch script templates](templates/)
