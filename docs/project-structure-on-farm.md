@@ -28,7 +28,7 @@ The high‑level idea:
 
   ```text
   /group/gmonroegrp3/pistachio_mutation_2025/
-  /group/gmonroegrp3/poplar_CBI_experiment1/
+  /group/gmonroegrp3/cassava_genomes/
   ```
 
 - Within those, you might have:
@@ -41,7 +41,7 @@ The high‑level idea:
   └── sample2_R2.fastq.gz
   ```
 
-Raw data in Group 3 is your **single source of truth**. Don’t copy these files all over the place—link to them.
+Raw data in Group 3 is your **single source of truth**. These are irreplaceable. Don’t copy these files all over the place—link to them.
 
 ---
 
@@ -59,7 +59,7 @@ Here, for each project, create a project folder like:
 ~/projects/pistachio_mutation_2025/
 ```
 
-Inside that project folder, we recommend **three top‑level directories**:
+Inside that project folder, recommend **three top‑level directories** or more:
 
 ```text
 pistachio_mutation_2025/
@@ -131,7 +131,7 @@ Now commands run in your project directory can treat these as local files, but t
 You can also link entire directories:
 
 ```bash
-ln -s /group/gmonroegrp3/pistachio_mutation_2025/raw ./0_raw
+ln -s /group/gmonroegrp3/pistachio_mutation_2025/raw ./0_rawlinks
 ```
 
 ---
@@ -143,6 +143,7 @@ Inside the project’s `data/` directory, we recommend **numbered subdirectories
 ```text
 data/
 ├── samples.txt
+├── 0_rawlinks/
 ├── 1_trimmed/
 ├── 2_aligned/
 └── 3_variants/
@@ -302,7 +303,7 @@ The `results/` directory is for **clean, interpretable outputs**:
 
 - Final VCFs you care about.
 - Assembly FASTA files and corresponding GFF annotations.
-- Summary tables (e.g., TSV/CSV that will be used in R/Python for plotting).
+- Summary tables (e.g., TSV/CSV that will be used in R for plotting).
 - Figures, plots, and small processed datasets.
 
 Example:
