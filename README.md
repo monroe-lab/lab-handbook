@@ -21,8 +21,5 @@ storage, and workflows.
 - [Part 4: Software, modules, and environments](docs/farm-software-part4.md)
 - [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
 
-### coming soon
-- [Software environments](docs/software-envs.md)
-- [Onboarding checklist](docs/onboarding-checklist.md)
-- [Troubleshooting / FAQ](docs/troubleshooting.md)
+## Code!
 - [Job script templates](templates/)
