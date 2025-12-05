@@ -5,7 +5,7 @@
 Welcome! This repo contains internal documentation for our FARM compute cluster,
 storage, and workflows.
 
-## Table of contents
+## Essentials
 
 - [Cluster access](docs/cluster-access.md)
 - [Slurm basics](docs/slurm_basics.md)
