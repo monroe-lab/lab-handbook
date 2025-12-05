@@ -22,4 +22,4 @@ storage, and workflows.
 - [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
 
 ## Code!
-- [Job script templates](templates/)
+- [Job sbatch script templates](templates/)
