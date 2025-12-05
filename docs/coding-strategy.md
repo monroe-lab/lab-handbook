@@ -7,16 +7,15 @@ It’s not a rigid rulebook, but it captures how I currently like to work and wh
 
 ## 1. Big picture philosophy
 
-1. **Use Farm for heavy lifting; use your laptop for thinking.**  
+1. **Use Farm for heavy lifting; use your laptop for the fun stuff.**  
    - Farm is for running big jobs: alignment, variant calling, big matrix ops, etc.  
-   - As soon as data is **small enough**, I try to **download it and do analysis locally** (RStudio, plotting, interactive exploration).
+   - As soon as data is **small enough**, I try to **download it and do analysis locally** (RStudio, plotting, statistical exploration).
 
 2. **Keep projects structured from day 1.**  
    - On Farm, follow the [project directory structure](docs/project-structure-on-farm.md) (or equivalent):
      - Raw data in `/group/gmonroegrp3`
      - Working directories in your home
      - Final results in `/group/gmonroegrp2`
-   - Locally, mirror a simple, consistent folder layout so your future self can find things.
 
 3. **Get to figures as fast as possible.**  
    The real insights often come when you’re looking at plots. The whole workflow is about getting to:
@@ -47,7 +46,7 @@ Why:
   - An integrated **terminal** on Farm
   - A real **editor** for scripts (with syntax highlighting, search, etc.)
   - File browser for the remote filesystem
-- You can edit `sbatch` scripts, shell scripts, and config files directly on Farm, with fewer typos and less friction.
+- You can edit `sbatch` scripts, shell scripts, and config files directly on Farm, with fewer typos and way faster.
 
 On Farm, use the structured layout described in the **project structure guide**:
 
@@ -62,8 +61,6 @@ On Farm, use the structured layout described in the **project structure guide**:
   ```
 
 - Heavy jobs (alignment, variant calling, big matrix pre-processing) happen here.
-- Final, important outputs → `/group/gmonroegrp2`.
-
 ---
 
 ## 3. Moving to local as soon as possible
@@ -72,7 +69,7 @@ My general approach:
 
 1. Run the big, expensive stuff on Farm until you’ve produced **intermediate files that are small enough** to move.
 2. As soon as you have:
-   - Tidy tables
+   - clean tables
    - Summarized matrices
    - Subsets of a larger dataset
    that are a **reasonable size**, download them and switch to local analysis.
@@ -86,7 +83,7 @@ Reasons:
 - In the end, you need:
   - Tables
   - Figures
-  - Objects you can put in a paper / slide deck
+  - Objects you can put in a paper / slide presentation
   Those are easiest to iterate on locally.
 
 ### 3.1 Strategies for shrinking data
@@ -99,6 +96,8 @@ If a file is too big to comfortably download, you can often create a **smaller, 
 - **Subset rows/sites/samples:**
   - Random subset of variants to prototype code.
   - Subset to a single chromosome or region.
+- **Compress**
+  - data.table::fread can read .gz files as can many others.
 - **Convert to more compact formats:**
   - E.g. VCF → genotype matrix; drop unused info fields.
 
@@ -124,7 +123,7 @@ project_name_local/
 └── figures/
 ```
 
-- `data/` – copies or downloads of processed/analysis-ready tables from Farm.
+- `data/` – copies or downloads of processed/analysis-ready tables from Farm, public repositories, etc. some locical internal directories in `data/` are also recommended
 - `code/` – R scripts (and possibly a few helper shell scripts).
 - `figures/` – PDFs (and maybe PNGs) of every figure you make.
 
@@ -140,7 +139,7 @@ dev.off()
 
 Over time:
 
-- `figures/` becomes a **catalog** of everything you’ve tried.
+- `figures/` becomes a **catalog** of everything you’ve examined.
 - These PDFs can later be:
   - Dropped into PowerPoint/Keynote
   - Combined into composite figures
@@ -155,11 +154,12 @@ Inside `code/`, my pattern is usually:
 ```text
 code/
 ├── functions.R
-├── parse_data.R     # or make_tables.R
+├── parse_data.R     # and/or make_tables.R
 ├── load_data.R
-├── analysis_trait1.R
-├── analysis_trait2.R
-└── ...
+├── analysis_1.R
+├── analysis_2.R
+├── ... no more than 5 more...
+└── sandbox.R # working space.. code goes here to either get trashed or become a function
 ```
 
 ### 5.1 `functions.R`
@@ -172,10 +172,10 @@ This file is the **heart** of the project’s code:
 
 Typical workflow:
 
-- As soon as a chunk of code is useful and reusable, I:
-  1. Turn it into a **function**.
+- As soon as Ive written a chunk of code is useful and reusable, I:
+  1. Turn it into a **function**, made insanely fast with LLM assist (ChatGPT)
   2. Put that function into `functions.R`.
-- I **rarely delete** functions from `functions.R`; I might refine or rename them, but I keep the history of useful tools.
+- I **rarely delete** functions from `functions.R`; I might refine them, but I keep the history of useful tools.
 
 By the end of a project, `functions.R` may have **dozens or hundreds of functions**.
 
@@ -267,7 +267,7 @@ This means:
   - All functions are defined.
   - All key data objects are in memory.
 
-### 5.4 Analysis scripts (`analysis_trait1.R`, etc.)
+### 5.4 Analysis scripts (`analysis_1.R`, etc.)
 
 Each analysis script is:
 
@@ -283,7 +283,7 @@ Typical header:
 source("code/functions.R")
 source("code/load_data.R")
 
-# Now perform analysis for Trait 1
+# Now perform analysis for figure 1
 ```
 
 Because the heavy parsing is done in `parse_data.R` and the function definitions are in `functions.R`, these analysis scripts can stay relatively clean and readable.
@@ -320,7 +320,7 @@ This way you get the best of both worlds:
 
 ### 7.1 `data.table` and friends
 
-In R, I strongly recommend:
+In R, I am a fan of:
 
 - `data.table` for:
   - Fast I/O (`fread`, `fwrite`)
@@ -333,15 +333,16 @@ In R, I strongly recommend:
 I increasingly use large language models to:
 
 - Draft initial versions of functions or scripts.
-- Refactor clunky code into something cleaner.
-- Generate boilerplate for plotting, modeling, etc.
-- Help remember syntax or edge cases without digging through documentation.
+- Convert clunky code into something cleaner.
+- Generate boilerplate material for plotting, modeling, etc.
 
 The workflow is still:
 
 1. **You** decide the data structure and logic.
-2. Use an LLM to help **fill in code** and **speed up iteration**.
+2. Use an LLM to help **fill in code** and **speed up iteration**. (It's your full-time assistant)
 3. You test, refine, and adapt.
+4. Avoid relying on LLM do something you couldn't do yourself
+6. Use LLM to save time - not to avoid skill or knowledge
 
 ---
 
