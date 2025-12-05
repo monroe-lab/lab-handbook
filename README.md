@@ -12,7 +12,7 @@ storage, and workflows.
 - [Storage & backup](docs/storage-and-backup.md)
 - [Slurm advanced](docs/slurm_basics.md)
 
-###coming soon
+### coming soon
 - [Software environments](docs/software-envs.md)
 - [Onboarding checklist](docs/onboarding-checklist.md)
 - [Troubleshooting / FAQ](docs/troubleshooting.md)
