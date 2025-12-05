@@ -13,6 +13,14 @@ storage, and workflows.
 - [Interacting with Farm](docs/interacting-with-farm.md)
 - [Slurm advanced](docs/slurm-advanced.md)
 
+## Farm Coding Crash Course
+
+- [Part 1: Linux basics](docs/linux-basics-part1.md)
+- [Part 2: Bash scripting](docs/farm-scripting-part2.md)
+- [Part 3: Bioinformatics tools & file formats](docs/farm-bioinformatics-part3.md)
+- [Part 4: Software, modules, and environments](docs/farm-software-part4.md)
+- [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
+
 ### coming soon
 - [Software environments](docs/software-envs.md)
 - [Onboarding checklist](docs/onboarding-checklist.md)
