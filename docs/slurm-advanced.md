@@ -89,8 +89,7 @@ Examples:
 
 **Best practices:**
 
-- Don’t massively over-request (e.g., 14 days when you only need 2 hours). This can hurt scheduling priority.
-- Start with a reasonable guess; if you get close to the limit, adjust `--time` in the next run based on actual runtime.
+- We are not penalized for requesting more time than needed, so guess high to avoid having job fail due to time out.
 
 ---
 
@@ -117,7 +116,7 @@ Less commonly used, but good to know:
 **Best practices:**
 
 - Match `--cpus-per-task` to the number of threads your program actually uses.
-- If a program is single-threaded, there is no benefit to requesting more than 1 CPU.
+- IMPORTANT: If a program is single-threaded, there is no benefit to requesting more than 1 CPU.
 
 ---
 
@@ -142,8 +141,8 @@ Some sites use `--mem-per-cpu` instead:
 **Best practices:**
 
 - Use `--mem` unless you know the scheduler is tuned for `--mem-per-cpu`.
-- Don’t over-request “just because.” Ask tools how much memory they need, and adjust based on experience.
-- If a job fails with an out-of-memory error, check the logs and increase memory in reasonably small steps.
+- Don’t over-request “just because.” but also avoid under-request which will end up wasting your time too. Check logs or read about tools to infer how much memory they need, and adjust based on experience.
+- If a job fails with an out-of-memory error, check the logs and increase memory in reasonable steps.
 
 ---
 
@@ -160,7 +159,7 @@ Some sites use `--mem-per-cpu` instead:
 
 **Best practices:**
 
-- Always send logs to a dedicated `logs/` directory (not your home root).
+- Always send logs to a dedicated `logs/` directory. (You will need to make sure this directory exists!)
 - Use `%x_%j` so each job has a unique log file.
 - Create `logs/` in your project directory and `.gitignore` it if using git for configs.
 
@@ -207,7 +206,7 @@ For GPU jobs:
    ```
 
 2. **Keep working directories clean**
-   - Use `logs/`, `scripts/`, `results/`, `tmp/` subdirectories.
+   - Use some kind of personalized but standarized system of subdirectories. eg `logs/`, `data/`, `scripts/`, `results/`, `tmp/` 
    - Don’t dump everything into one huge flat directory.
 
 3. **Symlink raw data from Group 3**
@@ -218,7 +217,7 @@ For GPU jobs:
    Instead of copying the same script 100 times, use a job array (see below).
 
 5. **Start small when you’re unsure**
-   - Use short test jobs (`--time=00:15:00`, small subsets of data).
+   - Use short test jobs (small subsets of data, single job).
    - Scale up once you know the pipeline works.
 
 ---
@@ -315,41 +314,6 @@ Use sparingly to avoid inbox spam; `END,FAIL` is usually enough.
   ```
 
 This helps ensure relative paths behave as expected.
-
----
-
-### 3.5 Environment export
-
-By default, Slurm exports your environment to the job, but you can control this:
-
-```bash
-#SBATCH --export=ALL     # (default on many systems)
-#SBATCH --export=NONE    # start with a clean environment
-```
-
-With `--export=NONE`, you’ll need to explicitly load modules, conda envs, etc. Good for reproducibility.
-
----
-
-### 3.6 Requeueing and signals (for advanced users)
-
-If your site supports requeuing/preemption, you can handle it gracefully:
-
-```bash
-#SBATCH --requeue
-#SBATCH --signal=B:USR1@60
-```
-
-- `--signal=B:USR1@60` tells Slurm to send `SIGUSR1` 60 seconds before the job is canceled (e.g., due to time limit or preemption).
-- Your script can trap this signal and write a checkpoint.
-
-Example skeleton:
-
-```bash
-trap 'echo "Received SIGUSR1, checkpointing..."; checkpoint_command; exit 0' USR1
-```
-
-This is advanced, but very powerful for long-running models.
 
 ---
 
