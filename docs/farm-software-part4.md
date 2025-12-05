@@ -62,7 +62,7 @@ Farm uses a **module system** (e.g. Lmod or Environment Modules):
 If you’re having trouble installing something yourself, you can email:
 
 ```text
-farm-hpc@ec.davis.edu
+farm-hpc@ucdavis.edu
 ```
 
 You can:
