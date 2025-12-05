@@ -10,6 +10,7 @@ storage, and workflows.
 - [Cluster access](docs/cluster-access.md)
 - [Slurm basics](docs/slurm_basics.md)
 - [Storage & backup](docs/storage-and-backup.md)
+- [Interacting with Farm](docs/interacting-with-farm.md)
 - [Slurm advanced](docs/slurm-advanced.md)
 
 ### coming soon
