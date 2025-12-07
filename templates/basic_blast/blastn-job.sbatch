@@ -14,7 +14,7 @@ set -euo pipefail
 ########################################
 # Usage:
 #   mkdir -p logs
-#   sbatch blast-job.sbatch ref.fasta query.fasta [out_prefix]
+#   sbatch blastn-job.sbatch ref.fasta query.fasta [out_prefix]
 #
 # Arguments:
 #   $1 = reference FASTA (for BLAST database)
