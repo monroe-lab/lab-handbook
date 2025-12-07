@@ -27,7 +27,7 @@ From a directory where you want to run BLAST:
 mkdir -p logs # FYI: this is just because we have our sbatch job set to write out log files to a directory called 'logs/' in the working directory.  It's not an essential part of Blast, per se  just a feature of our Slurm workflow 
 
 # Basic usage
-sbatch blast-job.sbatch ref.fasta query.fasta
+sbatch blastn-job.sbatch ref.fasta query.fasta
 
 # Optional: specify an output prefix
 sbatch blast-job.sbatch ref.fasta query.fasta my_blast_run
