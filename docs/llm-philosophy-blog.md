@@ -58,38 +58,37 @@ So, paradoxically:
 People who learn to code and understand data will be able to leverage this new tool to do far more than before. People who don’t will increasingly be left behind.  Imagine if LLMs are like a Formula 1 race car. Only people who know how to drive will be able to actually leverage the power/speed (at all and especially safely!). If you didn't know how to drive (code), you're going to be left behind in a world of people driving Formula 1 cars. So you need to learn to drive so you can use the car. 
 
 ---
+## 3. A “junior collaborator” mental model
 
-## 3. The manager–intern mental model
+One mental model that can be helpful:
 
-A mental model I find useful:
-
-> **You are the manager. The LLM is your intern/assistant.**
+> **You are in the lead. The LLM is your junior collaborator.**
 
 LLMs are:
 
-- Tireless
-- Fast
-- Uncomplaining
-- Often surprisingly insightful
+- Tireless  
+- Fast  
+- Able to generate lots of ideas  
+- Often surprisingly insightful  
 
 But they are also:
 
-- Capable of making mistakes
-- Overconfident
-- Sometimes superficial or sycophantic
+- Capable of making mistakes  
+- Overconfident in their answers  
+- Sometimes superficial or overly agreeable  
 
-So I try to treat an LLM like a **bright but junior assistant**:
+So it helps to work with an LLM the way you might work with a **smart collaborator who’s new to the project**:
 
-- I give it **clear tasks**.
-- I specify **inputs, outputs, constraints, and context**.
-- I **check its work**.
-- I ask it to **explain** what it’s doing if anything looks unclear.
+- You give **clear tasks**.
+- You specify **inputs, outputs, constraints, and context**.
+- You **review the results**.
+- You ask it to **explain or show its reasoning** when something looks uncertain.
 
-I **do not** treat it like:
+What I **don’t** do is treat it like:
 
-- A fully trusted senior colleague whose output can be accepted without question.
+- A fully trusted expert whose output can be used without any review.
 
-If you wouldn’t unquestioningly trust a random intern to implement a complex analysis pipeline without reviewing their work, you shouldn’t unquestioningly trust an LLM either.
+If you wouldn’t hand off a complex analysis to someone new to your lab or team and submit their work without looking it over, you also shouldn’t use an LLM’s output without checking it. The goal is to stay in charge of the thinking, and use the model as a powerful support.
 
 ---
 
