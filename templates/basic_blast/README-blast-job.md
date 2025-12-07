@@ -13,7 +13,7 @@ The script will:
 
 1. Check that both FASTA files exist.
 2. Create a BLAST **nucleotide** database from `ref.fasta` (if it doesn’t already exist).
-3. Run `blastn` using the FARM Slurm resources you requested.
+3. Run `blastn` using the FARM Slurm resources you requested. `module load blast`
 4. Write tabular results (`outfmt 6`) to a TSV file.
 
 ---
