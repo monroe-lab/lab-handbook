@@ -13,7 +13,7 @@ The script will:
 
 1. Check that both FASTA files exist.
 2. Create a BLAST **nucleotide** database from `ref.fasta` (if it doesn’t already exist).
-3. Run `blastn` using the FARM Slurm resources you requested. `module load blast`
+3. Load the BLAST module (`module load blast`) and run `blastn` using the FARM Slurm resources you requested.
 4. Write tabular results (`outfmt 6`) to a TSV file.
 
 ---
@@ -23,8 +23,9 @@ The script will:
 From a directory where you want to run BLAST:
 
 ```bash
-
-mkdir -p logs # FYI: this is just because we have our sbatch job set to write out log files to a directory called 'logs/' in the working directory.  It's not an essential part of Blast, per se  just a feature of our Slurm workflow 
+# FYI: we use a "logs/" folder because the sbatch script writes Slurm stdout/stderr there.
+# This is a Slurm/FARM convention, not part of BLAST itself.
+mkdir -p logs
 
 # Basic usage
 sbatch blastn-job.sbatch ref.fasta query.fasta
@@ -43,6 +44,25 @@ Output:
 
 - Alignment results: `<out_prefix>.blastn.outfmt6.tsv`
 - Log files: `logs/blast_job_<jobid>.out` and `.err`
+
+---
+
+## Default BLASTN behavior in this template
+
+The script runs BLAST with a minimal set of options, roughly:
+
+```bash
+blastn   -query "$QUERY_FASTA"   -db "$DB_PREFIX"   -out "$OUT_TAB"   -outfmt 6   -num_threads "${SLURM_CPUS_PER_TASK:-1}"
+```
+
+Everything else uses BLASTN’s built-in defaults. In practice, that means:
+
+- A relatively **permissive E-value threshold** (many weak hits will be reported).
+- **No explicit percent-identity filter** — alignments of any identity can appear if they score well enough.
+- A default **word size**, scoring scheme, and gap penalties that are fine for general DNA–DNA homology searches.
+- BLAST will typically return multiple hits per query, sometimes many, depending on how similar your database is.
+
+For quick exploratory searches, these defaults are usually fine. For more stringent analyses, you’ll probably want to tighten the criteria (see below).
 
 ---
 
@@ -68,20 +88,45 @@ You can parse this file with R, Python, or command-line tools (e.g. `cut`, `awk`
 
 ---
 
-## Notes and modifications
+## Changing BLAST parameters
+
+To change thresholds or behavior, edit the `blastn` command near the bottom of the sbatch script.
+
+Common tweaks:
+
+- **Stricter E-value cutoff (fewer, stronger hits):**
+  ```bash
+  blastn     -query "$QUERY_FASTA"     -db "$DB_PREFIX"     -out "$OUT_TAB"     -outfmt 6     -evalue 1e-5     -num_threads "${SLURM_CPUS_PER_TASK:-1}"
+  ```
+
+- **Limit the number of hits per query:**
+  ```bash
+  blastn     -query "$QUERY_FASTA"     -db "$DB_PREFIX"     -out "$OUT_TAB"     -outfmt 6     -max_target_seqs 50     -num_threads "${SLURM_CPUS_PER_TASK:-1}"
+  ```
+
+- **Require higher percent identity (e.g., ≥95%):**
+  ```bash
+  blastn     -query "$QUERY_FASTA"     -db "$DB_PREFIX"     -out "$OUT_TAB"     -outfmt 6     -perc_identity 95     -num_threads "${SLURM_CPUS_PER_TASK:-1}"
+  ```
+
+You can combine these (e.g. `-evalue 1e-20 -perc_identity 90 -max_target_seqs 20`) depending on how strict you want the search to be.
+
+---
+
+## Notes and other BLAST types
 
 - This script assumes **nucleotide** sequences and uses:
   ```bash
   makeblastdb -dbtype nucl
   blastn -db <db> -query <query>
   ```
-- To adapt for **protein** BLAST, you would:
-  - Build a protein DB (`-dbtype prot`)
-  - Use `blastp`, `tblastn`, or `tblastx` instead of `blastn`
-  - Adjust parameters accordingly
+- To adapt for **protein** or translated BLAST:
+  - Build a protein DB (`-dbtype prot`) from a protein FASTA.
+  - Use `blastp`, `tblastn`, `tblastx`, etc. instead of `blastn`.
+  - Adjust parameters (`-evalue`, scoring matrix, etc.) as needed for your use case.
 
 BLAST+ documentation and other BLAST types:  
-- <https://blast.ncbi.nlm.nih.gov/Blast.cgi>
+- https://blast.ncbi.nlm.nih.gov/Blast.cgi
 
 ---
 
