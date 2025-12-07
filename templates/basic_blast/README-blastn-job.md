@@ -30,7 +30,7 @@ mkdir -p logs # FYI: this is just because we have our sbatch job set to write ou
 sbatch blastn-job.sbatch ref.fasta query.fasta
 
 # Optional: specify an output prefix
-sbatch blast-job.sbatch ref.fasta query.fasta my_blast_run
+sbatch blastn-job.sbatch ref.fasta query.fasta my_blast_run
 ```
 
 Arguments:
