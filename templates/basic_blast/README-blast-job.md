@@ -1,6 +1,6 @@
 # BLASTN sbatch template
 
-**Script:** `blast-job.sbatch`  
+**Script:** `blastn-job.sbatch`  
 **Purpose:** Run a nucleotide BLAST (BLASTN) on FARM, creating a BLAST database from a reference FASTA if needed and searching it with a query FASTA.
 
 This is a simple, general template for “reference vs query” nucleotide alignment.  
