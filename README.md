@@ -25,6 +25,16 @@ Even if you already have HPC/coding experience, please:
 - [Interacting with Farm](docs/interacting-with-farm.md)
 - [Slurm advanced](docs/slurm-advanced.md)
 
+#### Farm Coding crash-course
+
+ Stasrt here (Part 1) if you are fairly new to Linux
+- [Part 1: Linux basics](docs/linux-basics-part1.md)
+These later parts will be relevant for most people working on Farm because they have to do with software installations, scripting, and customizing your experience on farm.
+- [Part 2: Bash scripting 101](docs/farm-scripting-part2.md)
+- [Part 3: Intro to bioinformatics tools & file formats](docs/farm-bioinformatics-part3.md)
+- [Part 4: Software, modules, and environments](docs/farm-software-part4.md)
+- [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
+
 ---
 
 ## Workflow templates (code library)
@@ -44,18 +54,6 @@ This will usually be faster and keeps our workflows more consistent.
 
 ---
 
-## Farm Coding crash-course
-
-For people newer to Linux, scripting, or bioinformatics. If you’re experienced, skim or jump to what you need.
-
-- [Part 1: Linux basics](docs/linux-basics-part1.md)
-- [Part 2: Bash scripting 101](docs/farm-scripting-part2.md)
-- [Part 3: Intro to bioinformatics tools & file formats](docs/farm-bioinformatics-part3.md)
-- [Part 4: Software, modules, and environments](docs/farm-software-part4.md)
-- [Appendix: Customizing your `~/.bashrc`](docs/bashrc-customization.md)
-
----
-
 ## How to contribute (quick version)
 
 You can edit everything directly in the **GitHub web UI** — no command-line git required.
@@ -64,11 +62,11 @@ You can edit everything directly in the **GitHub web UI** — no command-line gi
 - To add a file: go to the folder → **Add file → Create new file** → include path if needed  
   (e.g. `templates/chipseq-macs/README.md`) → **Commit changes**.
 - Please:
-  - Fix typos, unclear sections, or outdated info when you see them.
+  - Even for something that's not yours, like the tutorials I put above,  feel free to fix typos, unclear sections, or outdated info when you see them.
   - Add tips/notes you wish you’d known earlier.
   - Sign new tutorials/scripts with your **name + date** (e.g. at the top or bottom).
 
-Small edits are great. Don’t overthink it.
+Small edits are great and welcome. 
 
 ---
 
@@ -76,7 +74,7 @@ Small edits are great. Don’t overthink it.
 
 This is a place for short “blog posts” or notes to your future self and others: reflections, checklists, tricks, lessons learned.
 
-If you’ve learned something the hard way, this is where you can help the next person avoid it.
+If you’ve learned something the hard way, this is where you can help the next person avoid it. Or if you've had a moment of inspiration and want to pass it along, please spread the word here.
 
 Current posts:
 - [Project directory structures on Farm, by Grey](docs/project-structure-on-farm.md)
@@ -92,7 +90,7 @@ The `templates/` folder is for **reusable workflows that match how we actually u
 Each workflow should live in its own subdirectory, e.g.:
 
 - `templates/chipseq-macs/`
-- `templates/rnaseq-salmon/`
+- `templates/rnaseq/`
 - `templates/blast-basic/`
 
 A good template directory usually has:
