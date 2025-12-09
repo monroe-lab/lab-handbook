@@ -80,14 +80,14 @@ done
 
 What this does, per sample:
 
-- Aligns reads with **pbmm2** (if input is FASTQ).  
+- Aligns reads with **pbmm2**.  
 - If the input is already a BAM, it **skips alignment** but still runs QC + BED12 export.  
 - Submits a follow-on **variant-calling job** (`call_variants.sbatch.sh`) using:
   - `bcftools mpileup + call`
   - `longshot`
   - `pbsv` (structural variants)
 
-You can monitor progress inside a project with:
+You can monitor progress if your `pwd` is your project diretory with:
 
 ```bash
 /home/gmonroe/scripts/hifi_pipeline/check_project_status.sh
