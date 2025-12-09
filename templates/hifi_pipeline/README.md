@@ -1,4 +1,4 @@
-# HiFi Pipeline Scripts (~/scripts/hifi_pipeline)
+# HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)
 
 
 ### This is a fairly basic pipeline for calling variants from PacBio HiFi data. Note, it does not include DeepVariant calling. 
