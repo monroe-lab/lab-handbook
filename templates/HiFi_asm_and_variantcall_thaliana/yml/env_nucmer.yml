@@ -1,0 +1,11 @@
+name: nucmer
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - mummer4
+  - gnuplot
+  - syri
+  - plotsr
+prefix: /home/soya/.conda/envs/nucmer

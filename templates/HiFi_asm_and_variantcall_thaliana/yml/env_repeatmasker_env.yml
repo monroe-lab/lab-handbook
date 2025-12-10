@@ -1,0 +1,12 @@
+name: repeatmasker_env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - gcc=13
+  - repeatmasker
+  - python=3.9
+  - sqlite
+  - h5py
+  - numpy
+prefix: /group/gmonroegrp2/soya/conda_envs/repeatmasker_env
