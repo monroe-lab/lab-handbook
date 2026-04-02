@@ -1,0 +1,88 @@
+site_name: Monroe Lab Handbook
+site_description: Protocols, guides, inventories, and resources for the Monroe Lab at UC Davis
+site_url: https://monroe-lab.github.io/lab-handbook/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+  custom_dir: overrides
+
+plugins:
+  - search
+  - roamlinks
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Wet Lab:
+    - Planting on MS Plates: wet-lab/planting-arabidopsis-on-ms-plates.md
+    - Planting in Soil: wet-lab/planting-in-soil.md
+    - Seed Sterilization: wet-lab/seed-sterilization.md
+    - Stratification: wet-lab/stratification.md
+    - MS Media Recipe: wet-lab/ms-media-recipe.md
+    - Autoclave: wet-lab/autoclave.md
+    - Clean Bench: wet-lab/clean-bench.md
+    - Quick DNA Extraction: wet-lab/quick-dna-extraction.md
+    - PCR Genotyping: wet-lab/pcr-genotyping.md
+    - Gel Electrophoresis: wet-lab/gel-electrophoresis.md
+  - Bioinformatics:
+    - Getting Started:
+      - Cluster Access: bioinformatics/cluster-access.md
+      - Interacting with Farm: bioinformatics/interacting-with-farm.md
+      - Storage & Backup: bioinformatics/storage-and-backup.md
+    - Linux & Scripting:
+      - "Part 1: Linux Basics": bioinformatics/linux-basics-part1.md
+      - "Part 2: Bash Scripting": bioinformatics/farm-scripting-part2.md
+      - Bashrc Customization: bioinformatics/bashrc-customization.md
+    - SLURM:
+      - SLURM Basics: bioinformatics/slurm_basics.md
+      - SLURM Advanced: bioinformatics/slurm-advanced.md
+    - Tools & Pipelines:
+      - "Part 3: Bioinformatics Tools": bioinformatics/farm-bioinformatics-part3.md
+      - "Part 4: Software & Environments": bioinformatics/farm-software-part4.md
+      - Project Structure: bioinformatics/project-structure-on-farm.md
+    - Philosophy:
+      - Coding Strategy: bioinformatics/coding-strategy.md
+      - LLM Philosophy: bioinformatics/llm-philosophy-blog.md
+      - Claude Code Skills: bioinformatics/claude-code-skills.md
+  - Templates:
+    - BLAST: workflow-templates/blast.md
+    - HiFi Pipeline: workflow-templates/hifi-pipeline.md
+    - Strelka2: workflow-templates/strelka2.md
+  - Inventory:
+    - Lab Inventory: wet-lab/monroe-lab-inventory.md
+    - Chemical Inventory: lab-safety/chemical-inventory.md
+
+extra_css:
+  - stylesheets/password-gate.css

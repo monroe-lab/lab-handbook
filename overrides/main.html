@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div id="password-gate">
+  <div class="password-overlay">
+    <div class="password-box">
+      <h2>Monroe Lab Handbook</h2>
+      <p>Enter the lab password to continue.</p>
+      <form id="password-form">
+        <input type="password" id="password-input" placeholder="Password" autocomplete="off" autofocus>
+        <button type="submit">Enter</button>
+      </form>
+      <p id="password-error" style="color: #e53935; display: none; margin-top: 0.5rem;">Incorrect password. Try again.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  // SHA-256 of the password. Change with: echo -n "yourpassword" | shasum -a 256
+  // Current password: "monroelab"
+  var EXPECTED_HASH = "ba04be8e1a9800209d8b590583bea00720aa0b12c829b6df815a15a14a0d3532";
+
+  function sha256(message) {
+    var msgBuffer = new TextEncoder().encode(message);
+    return crypto.subtle.digest("SHA-256", msgBuffer).then(function (hashBuffer) {
+      var hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+    });
+  }
+
+  var gate = document.getElementById("password-gate");
+  if (!gate) return;
+
+  if (sessionStorage.getItem("monroe-lab-auth") === "true") {
+    gate.remove();
+  } else {
+    gate.style.display = "block";
+  }
+
+  var form = document.getElementById("password-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var input = document.getElementById("password-input");
+      var error = document.getElementById("password-error");
+      sha256(input.value).then(function (hash) {
+        if (hash === EXPECTED_HASH) {
+          sessionStorage.setItem("monroe-lab-auth", "true");
+          gate.remove();
+        } else {
+          error.style.display = "block";
+          input.value = "";
+          input.focus();
+        }
+      });
+    });
+  }
+})();
+</script>
+{{ super() }}
+{% endblock %}
