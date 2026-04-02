@@ -1,61 +1,85 @@
 {% extends "base.html" %}
 
-{% block body %}
-<div id="password-gate">
-  <div class="password-overlay">
-    <div class="password-box">
-      <h2>Monroe Lab Handbook</h2>
-      <p>Enter the lab password to continue.</p>
-      <form id="password-form">
-        <input type="password" id="password-input" placeholder="Password" autocomplete="off" autofocus>
-        <button type="submit">Enter</button>
-      </form>
-      <p id="password-error" style="color: #e53935; display: none; margin-top: 0.5rem;">Incorrect password. Try again.</p>
-    </div>
-  </div>
-</div>
+{% block extrahead %}
+<style>
+  #password-gate {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
+  #password-gate .pw-box {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  [data-md-color-scheme="slate"] #password-gate .pw-box {
+    background: #2e2e2e;
+    color: #e0e0e0;
+  }
+  #password-gate h2 { margin: 0 0 0.5rem; font-size: 1.4rem; }
+  #password-gate p { margin: 0 0 1.2rem; color: #666; font-size: 0.9rem; }
+  [data-md-color-scheme="slate"] #password-gate p { color: #aaa; }
+  #password-gate input {
+    width: 100%; padding: 0.7rem; border: 2px solid #ddd;
+    border-radius: 6px; font-size: 1rem; box-sizing: border-box; margin-bottom: 0.8rem;
+  }
+  #password-gate button {
+    width: 100%; padding: 0.7rem; background: #009688; color: white;
+    border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: 600;
+  }
+  #password-gate button:hover { background: #00796b; }
+  #password-gate .pw-err { color: #e53935; display: none; margin-top: 0.5rem; font-size: 0.9rem; }
+</style>
 <script>
-(function () {
-  // SHA-256 of the password. Change with: echo -n "yourpassword" | shasum -a 256
+(function() {
+  // SHA-256 of password. Change with: echo -n "yourpassword" | shasum -a 256
   // Current password: "monroelab"
-  var EXPECTED_HASH = "ba04be8e1a9800209d8b590583bea00720aa0b12c829b6df815a15a14a0d3532";
+  var HASH = "ba04be8e1a9800209d8b590583bea00720aa0b12c829b6df815a15a14a0d3532";
 
-  function sha256(message) {
-    var msgBuffer = new TextEncoder().encode(message);
-    return crypto.subtle.digest("SHA-256", msgBuffer).then(function (hashBuffer) {
-      var hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
-    });
-  }
+  if (sessionStorage.getItem("monroe-lab-auth") === "true") return;
 
-  var gate = document.getElementById("password-gate");
-  if (!gate) return;
+  document.addEventListener("DOMContentLoaded", function() {
+    var gate = document.createElement("div");
+    gate.id = "password-gate";
+    gate.innerHTML =
+      '<div class="pw-box">' +
+      '<h2>Monroe Lab Handbook</h2>' +
+      '<p>Enter the lab password to continue.</p>' +
+      '<form id="pw-form">' +
+      '<input type="password" id="pw-input" placeholder="Password" autocomplete="off" autofocus>' +
+      '<button type="submit">Enter</button>' +
+      '</form>' +
+      '<p class="pw-err" id="pw-err">Incorrect password. Try again.</p>' +
+      '</div>';
+    document.body.prepend(gate);
 
-  if (sessionStorage.getItem("monroe-lab-auth") === "true") {
-    gate.remove();
-  } else {
-    gate.style.display = "block";
-  }
-
-  var form = document.getElementById("password-form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
+    document.getElementById("pw-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      var input = document.getElementById("password-input");
-      var error = document.getElementById("password-error");
-      sha256(input.value).then(function (hash) {
-        if (hash === EXPECTED_HASH) {
+      var input = document.getElementById("pw-input");
+      var msgBuffer = new TextEncoder().encode(input.value);
+      crypto.subtle.digest("SHA-256", msgBuffer).then(function(buf) {
+        var hash = Array.from(new Uint8Array(buf)).map(function(b) {
+          return b.toString(16).padStart(2, "0");
+        }).join("");
+        if (hash === HASH) {
           sessionStorage.setItem("monroe-lab-auth", "true");
           gate.remove();
         } else {
-          error.style.display = "block";
+          document.getElementById("pw-err").style.display = "block";
           input.value = "";
           input.focus();
         }
       });
     });
-  }
+  });
 })();
 </script>
-{{ super() }}
 {% endblock %}
