@@ -8,14 +8,13 @@ type: "protocol"
 
 new stuff testing new again
 
-📖 Clean Bench (Laminar Flow Hood)
+[[clean-bench]]
 
 lets test this
 
-> block quote material
-> 🌱 Col-0 Wild Type
+> block quote material with [[col-0-wild-type]]
 
-> ⚠️ **Variant title**
+> ⚠️ **Warning title**
 > test second line here too
 
 > ℹ️ **Note title**
