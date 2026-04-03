@@ -19,7 +19,7 @@ check 1
 
 > ⚠️ **Warning title**
 > test second line here too
-> and a third 
+> and a third
 > and a fourth
 
 > ℹ️ **Note title**
@@ -27,3 +27,7 @@ check 1
 
 > 💡 **Tip title**
 > Description here
+
+> 💡 **Tip**
+> line 2
+> line 3
