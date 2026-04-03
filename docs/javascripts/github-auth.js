@@ -1,6 +1,9 @@
 /* Shared GitHub OAuth (Web Flow) for Monroe Lab Handbook
    All apps (inventory, sample tracker, feedback) use this single login. */
 (function () {
+  // Prevent duplicate initialization from MkDocs instant navigation
+  if (window.ghAuth && window.ghAuth._initialized) return;
+
   var CLIENT_ID = "Ov23li7RlMB84qZM8Sky";
   // Cloudflare Worker URL for token exchange (keeps client_secret server-side)
   var TOKEN_PROXY = "https://lab-handbook-auth.greymonroe.workers.dev";
@@ -16,7 +19,8 @@
     isLoggedIn: function () { return !!localStorage.getItem(TOKEN_KEY); },
     logout: logout,
     login: startLogin,
-    onLogin: null
+    onLogin: null,
+    _initialized: true
   };
 
   /* ---- inject header UI ---- */

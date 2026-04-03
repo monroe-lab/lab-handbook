@@ -1,5 +1,9 @@
 /* Floating feedback widget — appends entries to docs/feedback.json via GitHub API */
 (function () {
+  // Prevent duplicate initialization from MkDocs instant navigation
+  if (window._fbWidgetLoaded) return;
+  window._fbWidgetLoaded = true;
+
   var REPO = "monroe-lab/lab-handbook";
   var FILE = "docs/feedback.json";
   var BRANCH = "main";
