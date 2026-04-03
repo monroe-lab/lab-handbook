@@ -188,15 +188,18 @@
       var icon = m[1], idx = parseInt(m[2]), type = m[3].toLowerCase(), title = m[4];
       var colors = { variant: { border: '#e65100', bg: '#fff3e0' }, note: { border: '#1565c0', bg: '#e3f2fd' }, tip: { border: '#2e7d32', bg: '#e8f5e9' }, warning: { border: '#e65100', bg: '#fff3e0' } };
       var c = colors[type] || colors.note;
-      p.dataset.calloutStyled = '1';
-      p.contentEditable = 'false';
-      p.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;cursor:default;user-select:none;';
-      // Show title + full body (use <span display:block> not <div> — divs invalid inside <p>)
+      // Replace <p> with a <div> — ProseMirror sanitizes innerHTML of <p> elements
       var stored = _admStore[idx];
       var bodyText = stored && stored.body ? stored.body.trim() : '';
       var bodyHtml = bodyText ? bodyText.split('\n').map(function(l) { return Lab.escHtml(l); }).join('<br>') : '';
-      p.innerHTML = '<span style="display:block;font-weight:600;color:' + c.border + '"><span style="font-size:16px;vertical-align:middle">' + icon + '</span> ' + Lab.escHtml(title) + '</span>' +
-        (bodyHtml ? '<span style="display:block;font-weight:400;font-size:13px;color:#444;margin-top:6px;line-height:1.6">' + bodyHtml + '</span>' : '');
+      var div = document.createElement('div');
+      div.dataset.calloutStyled = '1';
+      div.dataset.calloutIdx = idx;
+      div.contentEditable = 'false';
+      div.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;cursor:default;user-select:none;';
+      div.innerHTML = '<div style="font-weight:600;color:' + c.border + '"><span style="font-size:16px;vertical-align:middle">' + icon + '</span> ' + Lab.escHtml(title) + '</div>' +
+        (bodyHtml ? '<div style="font-weight:400;font-size:13px;color:#444;margin-top:6px;line-height:1.6">' + bodyHtml + '</div>' : '');
+      p.parentNode.replaceChild(div, p);
     });
   }
 
