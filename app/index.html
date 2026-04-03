@@ -180,6 +180,26 @@
       </div>
     </div>
 
+    <!-- People -->
+    <div class="dash-panel">
+      <div class="dash-panel-header">
+        <h2><span class="material-icons-outlined">person</span> People</h2>
+      </div>
+      <div class="dash-panel-body" id="peoplePanel">
+        <div class="loading-state" style="padding:20px"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="dash-panel">
+      <div class="dash-panel-header">
+        <h2><span class="material-icons-outlined">folder_special</span> Projects</h2>
+      </div>
+      <div class="dash-panel-body" id="projectsPanel">
+        <div class="loading-state" style="padding:20px"><div class="spinner"></div></div>
+      </div>
+    </div>
+
     <!-- Quick links -->
     <div class="dash-panel">
       <div class="dash-panel-header">
@@ -221,8 +241,8 @@ async function loadStats() {
     { label: 'Protocols', count: counts.protocol, icon: 'menu_book', color: '#6a1b9a', href: BASE + 'app/protocols.html' },
     { label: 'Resources', count: counts.resource, icon: 'science', color: '#009688', href: BASE + 'app/inventory.html' },
     { label: 'Stocks', count: counts.stock, icon: 'eco', color: '#4caf50', href: BASE + 'app/inventory.html?type=stock' },
-    { label: 'People', count: counts.people, icon: 'person', color: '#1565c0', href: '#' },
-    { label: 'Projects', count: counts.project, icon: 'folder_special', color: '#e65100', href: '#' },
+    { label: 'People', count: counts.people, icon: 'person', color: '#1565c0', href: '#peoplePanel' },
+    { label: 'Projects', count: counts.project, icon: 'folder_special', color: '#e65100', href: '#projectsPanel' },
     { label: 'Notebooks', count: counts.notebook, icon: 'auto_stories', color: '#795548', href: BASE + 'notebook-app/' },
   ];
 
@@ -308,6 +328,49 @@ window.addEventListener('lab-file-saved', function(e) {
   if (e.detail && e.detail.path === 'docs/bulletin.md') loadBulletin();
 });
 
+// ── People ──
+function loadPeople(index) {
+  var el = document.getElementById('peoplePanel');
+  var people = index.filter(function(obj) { return obj.type === 'person'; });
+  if (!people.length) {
+    el.innerHTML = '<div style="color:var(--grey-500);font-size:14px">No people in the vault</div>';
+    return;
+  }
+  var types = Lab.types;
+  el.innerHTML = people.map(function(obj) {
+    var conf = types.get(obj.type);
+    return '<div class="alert-item" onclick="Lab.editorModal.open(\'docs/' + obj.path + '\')" style="cursor:pointer">' +
+      '<span style="font-size:18px">' + conf.icon + '</span>' +
+      '<div style="flex:1"><div style="font-weight:500">' + Lab.escHtml(obj.title || '') + '</div>' +
+      (obj.role ? '<div style="font-size:12px;color:var(--grey-500)">' + Lab.escHtml(obj.role) + '</div>' : '') +
+      '</div>' +
+      (obj.email ? '<span style="font-size:12px;color:var(--grey-400)">' + Lab.escHtml(obj.email) + '</span>' : '') +
+      '</div>';
+  }).join('');
+}
+
+// ── Projects ──
+function loadProjects(index) {
+  var el = document.getElementById('projectsPanel');
+  var projects = index.filter(function(obj) { return obj.type === 'project'; });
+  if (!projects.length) {
+    el.innerHTML = '<div style="color:var(--grey-500);font-size:14px">No projects in the vault</div>';
+    return;
+  }
+  var types = Lab.types;
+  el.innerHTML = projects.map(function(obj) {
+    var conf = types.get(obj.type);
+    var statusColor = obj.status === 'active' ? 'var(--green)' : obj.status === 'paused' ? 'var(--amber)' : 'var(--grey-500)';
+    return '<div class="alert-item" onclick="Lab.editorModal.open(\'docs/' + obj.path + '\')" style="cursor:pointer">' +
+      '<span style="font-size:18px">' + conf.icon + '</span>' +
+      '<div style="flex:1"><div style="font-weight:500">' + Lab.escHtml(obj.title || '') + '</div>' +
+      (obj.pi ? '<div style="font-size:12px;color:var(--grey-500)">PI: ' + Lab.escHtml(obj.pi) + '</div>' : '') +
+      '</div>' +
+      (obj.status ? '<span style="font-size:12px;font-weight:600;color:' + statusColor + '">' + Lab.escHtml(obj.status) + '</span>' : '') +
+      '</div>';
+  }).join('');
+}
+
 // ── Quick Links ──
 function renderQuickLinks() {
   var links = [
@@ -328,6 +391,8 @@ async function init() {
   renderQuickLinks();
   var index = await loadStats();
   loadAlerts(index);
+  loadPeople(index);
+  loadProjects(index);
   loadActivity();
   loadBulletin();
 }

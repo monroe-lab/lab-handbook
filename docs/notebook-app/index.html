@@ -519,8 +519,13 @@ function md2html(md) {
     .replace(/_(.+?)_/g, '<em>$1</em>')
     // Code
     .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // Wikilinks
-    .replace(/\[\[([^\]]+)\]\]/g, '<a href="../$1/">$1</a>')
+    // Wikilinks — render as pills if richInput is available
+    .replace(/\[\[([^\]]+)\]\]/g, function(match, slug) {
+      if (window.Lab && window.Lab.richInput) {
+        return window.Lab.richInput.renderText('[[' + slug + ']]');
+      }
+      return '<a href="../' + slug + '/">' + slug + '</a>';
+    })
     // Markdown links
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     // Checkboxes
@@ -928,6 +933,13 @@ async function init() {
   discoverPeople();
   // Auto-select first person if exists
   if (people.length > 0) selectPerson(people[0]);
+
+  // Enhance entry textarea with [[ autocomplete
+  if (window.Lab && window.Lab.richInput) {
+    Lab.richInput.enhance(document.getElementById('entryContent'));
+    // Pre-load the object index for pill rendering in viewer
+    Lab.richInput.ensureIndex();
+  }
 }
 
 init();
