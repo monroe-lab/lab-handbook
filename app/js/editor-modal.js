@@ -65,8 +65,8 @@
       '.em-surface .toastui-editor-contents pre code{background:transparent!important;padding:0!important;color:inherit!important}',
       '.em-surface .toastui-editor-mode-switch{display:none!important}',
       // Popup modal styles
-      '.em-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}',
-      '.em-overlay.open{opacity:1}',
+      '.em-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}',
+      '.em-overlay.open{opacity:1;pointer-events:auto}',
       '.em-modal{background:#fff;border-radius:12px;width:90%;max-width:620px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .2s}',
       '.em-overlay.open .em-modal{transform:translateY(0)}',
       '.em-modal-header{padding:16px 20px;border-bottom:1px solid var(--grey-200);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}',
@@ -526,9 +526,11 @@
 
   function insertLink(slug, title) {
     if (!linkModalEditor) return;
-    linkModalEditor.changeMode('markdown');
-    linkModalEditor.replaceSelection('[[' + slug + ']]');
-    linkModalEditor.changeMode('wysiwyg');
+    // Insert wikilink directly in WYSIWYG mode using the HTML API
+    // Avoid changeMode() which triggers infinite change→style loops
+    var conf = window.Lab.types ? window.Lab.types.get(slug) : null;
+    // Insert as raw text — the styler will convert it to a pill
+    linkModalEditor.insertText('[[' + slug + ']]');
     linkModalEl.classList.remove('open');
     window.Lab.showToast('Linked: ' + title, 'success');
   }
@@ -554,7 +556,13 @@
   }
 
   // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
+  var _styling = false; // guard against re-entrant calls
   function styleWikilinksInEditor(containerEl) {
+    if (_styling) return;
+    _styling = true;
+    try { _styleWikilinksInner(containerEl); } finally { _styling = false; }
+  }
+  function _styleWikilinksInner(containerEl) {
     var wwContainer = containerEl.querySelector('.toastui-editor-ww-container');
     if (!wwContainer) return;
     var walker = document.createTreeWalker(wwContainer, NodeFilter.SHOW_TEXT, null, false);
