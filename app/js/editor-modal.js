@@ -573,24 +573,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'image', 'code'],
-        [{
-          name: 'insertObjectLink', tooltip: 'Insert Object Link ([[wikilink]])',
-          className: 'toastui-editor-toolbar-icons',
-          text: '\uD83D\uDD17',
-          style: { backgroundImage: 'none', fontSize: '16px', width: '36px' },
-          command: 'insertObjectLink'
-        },
-        'link',
-        {
-          name: 'undo', tooltip: 'Undo', className: 'toastui-editor-toolbar-icons',
-          text: '\u21A9', style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
-          command: 'undo'
-        }, {
-          name: 'redo', tooltip: 'Redo', className: 'toastui-editor-toolbar-icons',
-          text: '\u21AA', style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
-          command: 'redo'
-        }],
+        ['table', 'link', 'image', 'code'],
       ],
       customHTMLRenderer: {
         // Render [[wikilinks]] as styled spans in WYSIWYG preview
@@ -614,17 +597,19 @@
       }
     });
 
-    // Handle toolbar button clicks
-    containerEl.addEventListener('click', function(e) {
-      var btn = e.target.closest('.toastui-editor-toolbar-icons');
-      if (!btn) return;
-      var label = btn.getAttribute('aria-label') || '';
-      if (label.includes('Undo')) document.execCommand('undo');
-      else if (label.includes('Redo')) document.execCommand('redo');
-      if (label.includes('Insert Object Link') || btn.textContent.includes('Link')) {
-        openLinkModal(editor);
-      }
-    });
+    // Inject "Insert Link" pill button into the toolbar
+    var toolbar = containerEl.querySelector('.toastui-editor-defaultUI-toolbar');
+    if (toolbar) {
+      var insertBtn = document.createElement('button');
+      insertBtn.type = 'button';
+      insertBtn.style.cssText = 'background:#6a1b9a;color:#fff;border:none;border-radius:14px;padding:4px 12px 4px 8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;margin-left:8px;vertical-align:middle;transition:background .15s;';
+      insertBtn.innerHTML = '<span style="font-size:14px">\uD83D\uDD17</span> Insert';
+      insertBtn.title = 'Insert link to protocol, reagent, person, etc.';
+      insertBtn.onmouseenter = function() { insertBtn.style.background = '#4a148c'; };
+      insertBtn.onmouseleave = function() { insertBtn.style.background = '#6a1b9a'; };
+      insertBtn.onclick = function(e) { e.preventDefault(); openLinkModal(editor); };
+      toolbar.appendChild(insertBtn);
+    }
 
     return {
       editor: editor,
