@@ -282,18 +282,15 @@
         var n = nodes[i];
         var dx = mx - n.x, dy = my - n.y;
         if (dx * dx + dy * dy < n.radius * n.radius) {
-          var clickBase = '/lab-handbook/';
-          var can = document.querySelector('link[rel="canonical"]');
-          if (can) { var cm = can.href.match(/^https?:\/\/[^/]+(\/[^?#]*)/); if (cm) clickBase = cm[1].replace(/[^/]*$/, ''); }
           if (n.path) {
-            window.location.href = clickBase + n.path.replace(/\.md$/, '/');
+            window.location.href = '/lab-handbook/' + n.path.replace(/\.md$/, '/');
           } else if (n.isGroup) {
             var urlMap = {
               resource: 'resources/', protocol: 'wet-lab/',
               stock: 'stocks/', people: 'people/',
               project: 'projects/', notebook: 'notebook-app/',
             };
-            if (urlMap[n.id]) window.location.href = clickBase + urlMap[n.id];
+            if (urlMap[n.id]) window.location.href = '/lab-handbook/' + urlMap[n.id];
           }
           break;
         }
@@ -389,21 +386,13 @@
       counts[group] = (counts[group] || 0) + 1;
     });
 
-    // Detect base path from canonical link or fall back
-    var base = '/lab-handbook/';
-    var canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      var m = canonical.href.match(/^https?:\/\/[^/]+(\/[^?#]*)/);
-      if (m) base = m[1].replace(/[^/]*$/, '');
-    }
-
     var stats = [
-      { label: 'Protocols', count: counts.protocol || 0, icon: 'menu_book', color: '#6a1b9a', href: base + 'wet-lab/' },
-      { label: 'Resources', count: counts.resource || 0, icon: 'science', color: '#009688', href: base + 'resources/' },
-      { label: 'Stocks', count: counts.stock || 0, icon: 'eco', color: '#4caf50', href: base + 'stocks/' },
-      { label: 'People', count: counts.people || 0, icon: 'person', color: '#1565c0', href: base + 'people/' },
-      { label: 'Projects', count: counts.project || 0, icon: 'folder_special', color: '#e65100', href: base + 'projects/' },
-      { label: 'Notebooks', count: counts.notebook || 0, icon: 'auto_stories', color: '#795548', href: base + 'notebook-app/' },
+      { label: 'Protocols', count: counts.protocol || 0, icon: 'menu_book', color: '#6a1b9a', href: '/lab-handbook/wet-lab/' },
+      { label: 'Resources', count: counts.resource || 0, icon: 'science', color: '#009688', href: '/lab-handbook/resources/' },
+      { label: 'Stocks', count: counts.stock || 0, icon: 'eco', color: '#4caf50', href: '/lab-handbook/stocks/' },
+      { label: 'People', count: counts.people || 0, icon: 'person', color: '#1565c0', href: '/lab-handbook/people/' },
+      { label: 'Projects', count: counts.project || 0, icon: 'folder_special', color: '#e65100', href: '/lab-handbook/projects/' },
+      { label: 'Notebooks', count: counts.notebook || 0, icon: 'auto_stories', color: '#795548', href: '/lab-handbook/notebook-app/' },
     ];
 
     var html = '';

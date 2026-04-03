@@ -1695,6 +1695,11 @@
     "title": "Gel Electrophoresis"
   },
   {
+    "path": "wet-lab/index.md",
+    "type": "protocol",
+    "title": "Index"
+  },
+  {
     "path": "wet-lab/ms-media-recipe.md",
     "type": "protocol",
     "title": "MS Media Recipe"
@@ -1843,6 +1848,11 @@
     "path": "bioinformatics/farm-software-part4.md",
     "type": "protocol",
     "title": "Farm code lesson 4: Software, modules, and environments"
+  },
+  {
+    "path": "bioinformatics/index.md",
+    "type": "protocol",
+    "title": "Index"
   },
   {
     "path": "bioinformatics/interacting-with-farm.md",

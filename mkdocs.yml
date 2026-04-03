@@ -51,6 +51,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Protocols:
+    - wet-lab/index.md
     - Arabidopsis Basics:
       - Planting on MS Plates: wet-lab/planting-arabidopsis-on-ms-plates.md
       - Planting in Soil: wet-lab/planting-in-soil.md
@@ -87,6 +88,7 @@ nav:
       - HiFi Pipeline: workflow-templates/hifi-pipeline.md
       - Strelka2: workflow-templates/strelka2.md
   - Bioinformatics:
+    - bioinformatics/index.md
     - Getting Started:
       - Cluster Access: bioinformatics/cluster-access.md
       - Interacting with Farm: bioinformatics/interacting-with-farm.md
