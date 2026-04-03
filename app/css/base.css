@@ -353,9 +353,10 @@ tr:hover { background: var(--teal-50); }
   gap: 8px;
   user-select: none;
 }
-.admonition summary::before { content: '\u26A0\uFE0F'; }
-.admonition > *:not(summary) { padding: 0 16px; }
-.admonition > p:last-child { padding-bottom: 12px; }
+.admonition summary::before { content: '\26A0\FE0F'; }
+.admonition-body { padding: 12px 16px; font-size: 14px; line-height: 1.6; }
+.admonition-body p { margin: 6px 0; }
+.admonition-body strong { font-weight: 600; }
 .admonition[open] summary { border-bottom: 1px solid rgba(0,0,0,.1); }
 /* Variant type: amber */
 .admonition-variant { border-color: #ff8f0040; background: #fff8e1; }
@@ -363,14 +364,14 @@ tr:hover { background: var(--teal-50); }
 /* Note type: blue */
 .admonition-note { border-color: #1565c040; background: #e3f2fd; }
 .admonition-note summary { background: #e3f2fd; color: #1565c0; }
-.admonition-note summary::before { content: '\u2139\uFE0F'; }
+.admonition-note summary::before { content: '\2139\FE0F'; }
 /* Warning type: red */
 .admonition-warning { border-color: #e5393540; background: #ffebee; }
 .admonition-warning summary { background: #ffebee; color: #c62828; }
 /* Tip type: green */
 .admonition-tip { border-color: #43a04740; background: #e8f5e9; }
 .admonition-tip summary { background: #e8f5e9; color: #2e7d32; }
-.admonition-tip summary::before { content: '\uD83D\uDCA1'; }
+.admonition-tip summary::before { content: '\1F4A1'; }
 
 /* Utility */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }

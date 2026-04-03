@@ -129,10 +129,29 @@
   // Render markdown to HTML (with wikilink + admonition preprocessing)
   async function renderMarkdown(md) {
     await loadMarked();
-    var processed = md;
-    processed = preprocessAdmonitions(processed);
+    // First pass: extract admonitions, render their bodies separately
+    var admonitions = [];
+    var processed = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+      var bodyMd = body.replace(/^    /gm, '');
+      var placeholder = '<!--admonition-' + admonitions.length + '-->';
+      admonitions.push({ expanded: expanded, type: type, title: title, bodyMd: bodyMd });
+      return placeholder + '\n\n';
+    });
+    // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
-    return marked.parse(processed);
+    // Render main markdown
+    var html = marked.parse(processed);
+    // Replace placeholders with rendered admonitions
+    admonitions.forEach(function(a, i) {
+      var bodyProcessed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(a.bodyMd) : a.bodyMd;
+      var bodyHtml = marked.parse(bodyProcessed);
+      var openAttr = a.expanded ? ' open' : '';
+      var adHtml = '<details class="admonition admonition-' + (a.type || 'note') + '"' + openAttr + '>' +
+        '<summary>' + a.title + '</summary>' +
+        '<div class="admonition-body">' + bodyHtml + '</div></details>';
+      html = html.replace('<!--admonition-' + i + '-->', adHtml);
+    });
+    return html;
   }
 
   // ── Popup Mode ──
