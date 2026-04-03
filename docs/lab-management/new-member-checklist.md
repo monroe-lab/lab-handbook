@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Welcome! Checklist for new lab members"
+---
+
 # Welcome! Checklist for new lab members
 
 Slack

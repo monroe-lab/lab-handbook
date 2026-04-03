@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Lab Safety Requirements"
+---
+
 # Lab Safety Requirements
 
 1. Prior to working in the lab, you need to complete the following online training (links below):

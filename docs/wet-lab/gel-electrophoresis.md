@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Gel Electrophoresis"
+---
+
 # Gel Electrophoresis
 
 **Purpose:** Separate PCR products by size to visualize genotyping results. DNA fragments migrate through an agarose matrix under an electric field — smaller fragments move faster, larger fragments move slower.

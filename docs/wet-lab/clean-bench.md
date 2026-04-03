@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Clean Bench (Laminar Flow Hood)"
+---
+
 # Clean Bench (Laminar Flow Hood)
 
 **Purpose:** Provide a sterile work environment for plating seeds, pouring plates, and handling sterile cultures.

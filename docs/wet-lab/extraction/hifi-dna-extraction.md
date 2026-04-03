@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "HiFi DNA Extraction (DIY)"
+---
+
 # HiFi DNA Extraction (DIY)
 
 Soya 2025

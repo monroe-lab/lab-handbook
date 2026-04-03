@@ -118,9 +118,17 @@ nav:
     - BLAST: workflow-templates/blast.md
     - HiFi Pipeline: workflow-templates/hifi-pipeline.md
     - Strelka2: workflow-templates/strelka2.md
-  - Inventory & Tracking:
-    - Chemical Inventory: lab-safety/chemical-inventory.md
+  - Resources:
+    - Overview: resources/index.md
     - Inventory App: https://monroe-lab.github.io/lab-handbook/inventory-app/
+    - Chemical Inventory (EHS): lab-safety/chemical-inventory.md
+  - Stocks:
+    - Overview: stocks/index.md
+  - People:
+    - Overview: people/index.md
+  - Projects:
+    - Overview: projects/index.md
+  - Tools:
     - Sample Tracker: https://monroe-lab.github.io/lab-handbook/sample-tracker/
     - Sample Tracker Guide: lab-management/sample-tracker-guide.md
     - Lab Calendar: https://monroe-lab.github.io/lab-handbook/calendar/
@@ -132,5 +140,5 @@ extra_css:
 
 extra_javascript:
   - javascripts/github-auth.js
-  - javascripts/inventory-links.js
+  - javascripts/object-links.js
   - javascripts/feedback.js

@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "M2 Forward Genetic Screening"
+---
+
 # M2 Forward Genetic Screening
 
 2024 Oct Soya

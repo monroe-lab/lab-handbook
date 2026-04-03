@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "ChIP-seq Protocol"
+---
+
 # ChIP-seq Protocol
 
 ChIP-seq protocol

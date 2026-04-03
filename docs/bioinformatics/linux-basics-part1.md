@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Linux basics for working on Farm (Part 1: Essentials)"
+---
+
 # Linux basics for working on Farm (Part 1: Essentials)
 
 This guide covers the **absolute essentials** you need to use the Farm cluster from the command line. If you can do everything in this document, you can:

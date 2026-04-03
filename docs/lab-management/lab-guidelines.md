@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Monroe Lab Guidelines"
+---
+
 # Monroe Lab Guidelines
 
 Monroe Lab Guide to Success: Cultivating a Thriving Research Environment

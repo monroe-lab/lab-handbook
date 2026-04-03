@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "HMW Extraction for Challenging Plants"
+---
+
 # HMW Extraction for Challenging Plants
 
 Protocols

@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Hazardous Drug SOP (Paraquat)"
+---
+
 # Hazardous Drug SOP (Paraquat)
 
 Hazardous Drugs

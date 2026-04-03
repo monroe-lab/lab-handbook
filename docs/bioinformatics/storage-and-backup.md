@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Storage and backup"
+---
+
 # Storage and backup
 
 Our group has **~300 TB** of storage on Farm. That sounds like a lot, but with modern genomics datasets it can be used very quickly. We need to be intentional about **where** things live and **what** we keep.

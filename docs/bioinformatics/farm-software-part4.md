@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Farm code lesson 4: Software, modules, and environments"
+---
+
 # Farm code lesson 4: Software, modules, and environments
 
 This lesson is about **how we get bioinformatics software running on Farm** without losing our minds.

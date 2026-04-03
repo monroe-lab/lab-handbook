@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Interacting with Farm from your personal computer"
+---
+
 # Interacting with Farm from your personal computer
 
 This tutorial explains how to connect to the **Farm** cluster from your own laptop/desktop using:

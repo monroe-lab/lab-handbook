@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Farm code lesson 3: Bioinformatics tools & file formats (crash course)"
+---
+
 # Farm code lesson 3: Bioinformatics tools & file formats (crash course)
 
 This lesson is a **high‑level tour of bioinformatics on Farm**: what kinds of tools exist, what file formats you’ll see, and what it *feels like* to run real tools at the command line.

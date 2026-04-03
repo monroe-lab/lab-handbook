@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "CUT&Tag Protocol"
+---
+
 # CUT&Tag Protocol
 
 Protocol

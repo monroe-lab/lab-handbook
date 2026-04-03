@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "How I Use LLMs as a Research and Coding Partner"
+---
+
 # How I Use LLMs as a Research and Coding Partner
 
 *Written collaboratively by me and ChatGPT, December 2025.*

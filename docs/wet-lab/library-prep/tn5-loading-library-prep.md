@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Tn5 Loading & Library Prep"
+---
+
 # Tn5 Loading & Library Prep
 
 Transposase Assembly and Validation Protocol

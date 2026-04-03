@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Cluster access"
+---
+
 # Cluster access
 
 This page explains how to get an account on the **Farm** (CAES) cluster and set up SSH access.

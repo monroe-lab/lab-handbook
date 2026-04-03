@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Slurm job headers and advanced options"
+---
+
 # Slurm job headers and advanced options
 
 This page explains the most important `#SBATCH` options in a Slurm job script, recommended defaults for **our lab**, and some advanced features that are easy to overlook.

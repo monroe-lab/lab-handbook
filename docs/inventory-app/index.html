@@ -634,14 +634,26 @@ if (window.self !== window.top) {
 
 <script>
 // --- Config ---
-const REPO_API = 'https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/inventory-app/inventory.json';
+const REPO = 'monroe-lab/lab-handbook';
+const API_BASE = 'https://api.github.com';
+const CONTENTS_URL = `${API_BASE}/repos/${REPO}/contents`;
+const INDEX_URL = `${CONTENTS_URL}/docs/object-index.json`;
 const BRANCH = 'main';
+const RESOURCE_TYPES = ['reagent', 'buffer', 'consumable', 'equipment', 'kit', 'chemical', 'enzyme', 'solution'];
+
+const CATEGORY_MAP = {
+  'Reagent': 'reagent', 'Buffer/Solution': 'buffer', 'Consumable': 'consumable',
+  'Equipment': 'equipment', 'Kit': 'kit',
+};
+const CATEGORY_REVERSE = {
+  'reagent': 'Reagent', 'buffer': 'Buffer/Solution', 'consumable': 'Consumable',
+  'equipment': 'Equipment', 'kit': 'Kit', 'chemical': 'Reagent', 'enzyme': 'Reagent', 'solution': 'Buffer/Solution',
+};
 
 // --- State ---
 let inventory = [];
-let fileSha = null;
-let editingId = null;
-let deletingId = null;
+let editingSlug = null;
+let deletingSlug = null;
 let sortCol = 'name';
 let sortDir = 1; // 1 = asc, -1 = desc
 
@@ -663,27 +675,61 @@ function updateConnStatus() {
 if (window.ghAuth) { window.ghAuth.onLogin = function() { updateConnStatus(); loadInventory(); }; }
 
 // --- Data loading ---
+function slugify(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-');
+}
+
 async function loadInventory() {
   try {
-    const headers = {};
+    const headers = { 'Accept': 'application/vnd.github.v3+json' };
     const token = getToken();
     if (token) headers['Authorization'] = 'token ' + token;
-    headers['Accept'] = 'application/vnd.github.v3+json';
 
-    const resp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    const resp = await fetch(INDEX_URL + '?ref=' + BRANCH, { headers });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
 
     const data = await resp.json();
-    fileSha = data.sha;
     const content = atob(data.content.replace(/\n/g, ''));
-    inventory = JSON.parse(content);
+    const allObjects = JSON.parse(content);
+
+    // Filter to resource types only
+    inventory = allObjects
+      .filter(obj => RESOURCE_TYPES.includes(obj.type))
+      .map(obj => {
+        const slug = obj.path.replace(/\.md$/, '').split('/').pop();
+        return {
+          slug: slug,
+          path: obj.path,
+          name: obj.title || slug,
+          category: CATEGORY_REVERSE[obj.type] || obj.type,
+          type: obj.type,
+          quantity: obj.quantity || 0,
+          unit: obj.unit || 'each',
+          location: obj.location || '',
+          notes: obj.notes || '',
+          lowStockThreshold: obj.low_stock_threshold || 0,
+        };
+      });
   } catch (e) {
     console.warn('GitHub API failed, trying direct file load:', e);
     try {
-      const resp = await fetch('inventory.json?_=' + Date.now());
+      const resp = await fetch('../object-index.json?_=' + Date.now());
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
-      inventory = await resp.json();
-      fileSha = null;
+      const allObjects = await resp.json();
+      inventory = allObjects
+        .filter(obj => RESOURCE_TYPES.includes(obj.type))
+        .map(obj => {
+          const slug = obj.path.replace(/\.md$/, '').split('/').pop();
+          return {
+            slug: slug, path: obj.path,
+            name: obj.title || slug,
+            category: CATEGORY_REVERSE[obj.type] || obj.type,
+            type: obj.type,
+            quantity: obj.quantity || 0, unit: obj.unit || 'each',
+            location: obj.location || '', notes: obj.notes || '',
+            lowStockThreshold: obj.low_stock_threshold || 0,
+          };
+        });
     } catch (e2) {
       toast('Failed to load inventory: ' + e2.message, 'error');
       inventory = [];
@@ -695,56 +741,97 @@ async function loadInventory() {
   renderTable();
 }
 
-// --- GitHub write ---
-async function commitInventory(message) {
+// --- GitHub write (individual markdown files) ---
+function buildMarkdownContent(item) {
+  const type = CATEGORY_MAP[item.category] || 'reagent';
+  let fm = `---\ntype: ${type}\ntitle: "${item.name}"\n`;
+  if (item.location) fm += `location: "${item.location}"\n`;
+  if (item.quantity != null) fm += `quantity: ${item.quantity}\n`;
+  if (item.unit) fm += `unit: "${item.unit}"\n`;
+  if (item.lowStockThreshold) fm += `low_stock_threshold: ${item.lowStockThreshold}\n`;
+  fm += `---\n\n# ${item.name}\n`;
+  if (item.notes) fm += `\n${item.notes}\n`;
+  return fm;
+}
+
+async function commitResourceFile(slug, content, message) {
   const token = getToken();
   if (!token) {
     toast('Connect to GitHub first to save changes', 'error');
-    promptToken();
     return false;
   }
 
-  // Re-fetch SHA to avoid conflicts
+  const filePath = `docs/resources/${slug}.md`;
+  const headers = {
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+
+  // Get existing SHA if file exists
+  let sha = null;
   try {
-    const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
-    const getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    const getResp = await fetch(`${CONTENTS_URL}/${filePath}?ref=${BRANCH}`, { headers });
     if (getResp.ok) {
       const getData = await getResp.json();
-      fileSha = getData.sha;
+      sha = getData.sha;
     }
-  } catch (e) { /* proceed with existing sha */ }
+  } catch (e) { /* new file */ }
 
-  const content = JSON.stringify(inventory, null, 2) + '\n';
   const encoded = btoa(unescape(encodeURIComponent(content)));
-
-  const body = {
-    message: message,
-    content: encoded,
-    branch: BRANCH,
-  };
-  if (fileSha) body.sha = fileSha;
+  const body = { message, content: encoded, branch: BRANCH };
+  if (sha) body.sha = sha;
 
   try {
-    const resp = await fetch(REPO_API, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'token ' + token,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+    const resp = await fetch(`${CONTENTS_URL}/${filePath}`, {
+      method: 'PUT', headers, body: JSON.stringify(body),
     });
-
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
       throw new Error(err.message || 'HTTP ' + resp.status);
     }
-
-    const result = await resp.json();
-    fileSha = result.content.sha;
     return true;
   } catch (e) {
     toast('Save failed: ' + e.message, 'error');
+    return false;
+  }
+}
+
+async function deleteResourceFile(slug, message) {
+  const token = getToken();
+  if (!token) { toast('Connect to GitHub first', 'error'); return false; }
+
+  const filePath = `docs/resources/${slug}.md`;
+  const headers = {
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+
+  // Get SHA
+  let sha = null;
+  try {
+    const getResp = await fetch(`${CONTENTS_URL}/${filePath}?ref=${BRANCH}`, { headers });
+    if (getResp.ok) {
+      const getData = await getResp.json();
+      sha = getData.sha;
+    }
+  } catch (e) { toast('File not found', 'error'); return false; }
+
+  if (!sha) { toast('File not found', 'error'); return false; }
+
+  try {
+    const resp = await fetch(`${CONTENTS_URL}/${filePath}`, {
+      method: 'DELETE', headers,
+      body: JSON.stringify({ message, sha, branch: BRANCH }),
+    });
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.message || 'HTTP ' + resp.status);
+    }
+    return true;
+  } catch (e) {
+    toast('Delete failed: ' + e.message, 'error');
     return false;
   }
 }
@@ -813,10 +900,10 @@ function renderTable() {
         <td class="hide-mobile">${esc(item.notes || '')}</td>
         <td>
           <div class="row-actions">
-            <button class="btn" title="Edit" onclick="openEditModal(${item.id})">
+            <button class="btn" title="Edit" onclick="openEditModal('${esc(item.slug)}')">
               <span class="material-icons-outlined">edit</span>
             </button>
-            <button class="btn del" title="Delete" onclick="openDeleteModal(${item.id})">
+            <button class="btn del" title="Delete" onclick="openDeleteModal('${esc(item.slug)}')">
               <span class="material-icons-outlined">delete</span>
             </button>
           </div>
@@ -833,7 +920,7 @@ function setSort(col) {
 
 // --- Add / Edit ---
 function openAddModal() {
-  editingId = null;
+  editingSlug = null;
   document.getElementById('modalTitle').textContent = 'Add Item';
   document.getElementById('fName').value = '';
   document.getElementById('fCategory').value = 'Reagent';
@@ -846,10 +933,10 @@ function openAddModal() {
   document.getElementById('fName').focus();
 }
 
-function openEditModal(id) {
-  const item = inventory.find(i => i.id === id);
+function openEditModal(slug) {
+  const item = inventory.find(i => i.slug === slug);
   if (!item) return;
-  editingId = id;
+  editingSlug = slug;
   document.getElementById('modalTitle').textContent = 'Edit Item';
   document.getElementById('fName').value = item.name;
   document.getElementById('fCategory').value = item.category;
@@ -882,27 +969,21 @@ async function saveItem() {
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
-  if (editingId !== null) {
-    const item = inventory.find(i => i.id === editingId);
-    if (item) {
-      Object.assign(item, { name, category, quantity, unit, location, lowStockThreshold: threshold, notes });
-    }
-    const ok = await commitInventory(`Update inventory: ${name}`);
-    if (ok) {
-      toast('Item updated', 'success');
-      closeModal();
-    }
-  } else {
-    const maxId = inventory.reduce((m, i) => Math.max(m, i.id), 0);
-    const newItem = { id: maxId + 1, name, category, quantity, unit, location, notes, lowStockThreshold: threshold };
-    inventory.push(newItem);
-    const ok = await commitInventory(`Add to inventory: ${name}`);
-    if (ok) {
-      toast('Item added', 'success');
-      closeModal();
+  const itemData = { name, category, quantity, unit, location, lowStockThreshold: threshold, notes };
+  const slug = editingSlug || slugify(name);
+  const mdContent = buildMarkdownContent(itemData);
+
+  const ok = await commitResourceFile(slug, mdContent, editingSlug ? `Update resource: ${name}` : `Add resource: ${name}`);
+  if (ok) {
+    // Update local state
+    if (editingSlug) {
+      const item = inventory.find(i => i.slug === editingSlug);
+      if (item) Object.assign(item, itemData);
     } else {
-      inventory.pop(); // rollback
+      inventory.push({ slug, path: `resources/${slug}.md`, type: CATEGORY_MAP[category] || 'reagent', ...itemData });
     }
+    toast(editingSlug ? 'Item updated' : 'Item added', 'success');
+    closeModal();
   }
 
   btn.disabled = false;
@@ -911,9 +992,9 @@ async function saveItem() {
 }
 
 // --- Delete ---
-function openDeleteModal(id) {
-  deletingId = id;
-  const item = inventory.find(i => i.id === id);
+function openDeleteModal(slug) {
+  deletingSlug = slug;
+  const item = inventory.find(i => i.slug === slug);
   document.getElementById('deleteName').textContent = item ? item.name : '';
   document.getElementById('deleteModal').classList.add('open');
 }
@@ -923,17 +1004,14 @@ function closeDeleteModal() {
 }
 
 async function confirmDelete() {
-  const item = inventory.find(i => i.id === deletingId);
+  const item = inventory.find(i => i.slug === deletingSlug);
   if (!item) return;
 
-  const idx = inventory.indexOf(item);
-  inventory.splice(idx, 1);
-
-  const ok = await commitInventory(`Remove from inventory: ${item.name}`);
+  const ok = await deleteResourceFile(deletingSlug, `Remove resource: ${item.name}`);
   if (ok) {
+    const idx = inventory.indexOf(item);
+    inventory.splice(idx, 1);
     toast('Item deleted', 'success');
-  } else {
-    inventory.splice(idx, 0, item); // rollback
   }
 
   closeDeleteModal();

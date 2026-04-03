@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Monroe Lab Sample Tracker: How to Use It"
+---
+
 # Monroe Lab Sample Tracker: How to Use It
 
 !!! tip "Quick Links"

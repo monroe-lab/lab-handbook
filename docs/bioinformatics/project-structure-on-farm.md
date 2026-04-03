@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Project directory structure on Farm"
+---
+
 # Project directory structure on Farm
 
 This guide explains how we **recommend structuring your project directories on Farm** so that:

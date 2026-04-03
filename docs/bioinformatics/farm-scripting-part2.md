@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Farm code lesson 2: Bash scripting basics"
+---
+
 # Farm code lesson 2: Bash scripting basics
 
 This lesson builds on **Linux basics (Part 1)** and introduces **Bash scripts** – small programs you write as text files and run on Farm.

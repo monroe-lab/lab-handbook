@@ -375,9 +375,9 @@ body {
 .toastui-editor-mode-switch { display: none !important; }
 .toastui-editor-md-tab-container { display: none !important; }
 
-/* Inventory pill/chip styling inside the WYSIWYG editor */
+/* Object pill/chip styling inside the WYSIWYG editor */
 .document-surface .toastui-editor-contents a[href^="inventory://"],
-.inventory-pill {
+.object-pill {
   display: inline-flex !important;
   align-items: center !important;
   gap: 4px !important;
@@ -393,12 +393,65 @@ body {
   vertical-align: middle !important;
   transition: background .15s !important;
 }
-.document-surface .toastui-editor-contents a[href^="inventory://"]:hover {
-  background: var(--teal-dark) !important;
+.document-surface .toastui-editor-contents a[href^="inventory://"]:hover,
+.object-pill:hover {
+  filter: brightness(0.85) !important;
   text-decoration: none !important;
 }
 
-/* ── Inventory Modal ── */
+/* ── Category Tabs ── */
+.link-category-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 20px 8px;
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+.link-category-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--grey-300);
+  background: #fff;
+  color: var(--grey-700);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.link-category-tab:hover { background: var(--grey-100); }
+.link-category-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+.link-category-tab .material-icons-outlined { font-size: 16px; }
+
+/* ── Create Row ── */
+.link-create-row {
+  padding: 8px 20px 12px;
+  border-top: 1px solid var(--grey-100);
+}
+.link-create-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px dashed var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s;
+}
+.link-create-btn:hover { background: #b2dfdb; }
+.link-create-btn .material-icons-outlined { font-size: 18px; }
+
+/* ── Modal ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -820,35 +873,29 @@ body {
   </main>
 </div>
 
-<!-- Inventory Insert Modal -->
-<div class="modal-overlay" id="inventoryModal">
+<!-- Insert Link Modal -->
+<div class="modal-overlay" id="linkModal">
   <div class="modal">
     <div class="modal-header">
-      <h3><span class="material-icons-outlined">science</span> Insert Inventory Item</h3>
-      <button class="modal-close" onclick="closeInventoryModal()">
+      <h3><span class="material-icons-outlined">link</span> Insert Link</h3>
+      <button class="modal-close" onclick="closeLinkModal()">
         <span class="material-icons-outlined">close</span>
       </button>
     </div>
+    <div class="link-category-tabs" id="linkCategoryTabs"></div>
     <div class="modal-search">
-      <input type="text" id="inventorySearch" placeholder="Search items..." oninput="filterInventory()">
+      <input type="text" id="linkSearch" placeholder="Search or type a new name..." oninput="filterLinkItems()">
     </div>
-    <div class="modal-list" id="inventoryList">
-      <div class="modal-empty">Loading inventory...</div>
+    <div class="modal-list" id="linkList">
+      <div class="modal-empty">Select a category above</div>
+    </div>
+    <div class="link-create-row" id="linkCreateRow" style="display:none">
+      <button class="link-create-btn" onclick="createAndInsertObject()">
+        <span class="material-icons-outlined">add_circle_outline</span>
+        Create "<span id="linkCreateName"></span>" and insert link
+      </button>
     </div>
   </div>
-</div>
-
-<!-- Inventory Popup Card -->
-<div class="inv-popup" id="invPopup">
-  <div class="inv-popup-header">
-    <span class="material-icons-outlined">science</span>
-    <span class="inv-popup-name" id="popupName"></span>
-    <button class="inv-popup-close" onclick="closeInvPopup()">
-      <span class="material-icons-outlined">close</span>
-    </button>
-  </div>
-  <div class="inv-popup-body" id="popupBody"></div>
-  <div class="inv-popup-footer" id="popupFooter"></div>
 </div>
 
 <!-- Token Modal -->
@@ -902,7 +949,48 @@ const REPO = 'monroe-lab/lab-handbook';
 const API_BASE = 'https://api.github.com';
 const TREE_URL = `${API_BASE}/repos/${REPO}/git/trees/main?recursive=1`;
 const CONTENTS_URL = `${API_BASE}/repos/${REPO}/contents`;
-const INVENTORY_PATH = 'docs/inventory-app/inventory.json';
+const OBJECT_INDEX_PATH = 'docs/object-index.json';
+
+// ── Object Type Config ──
+const OBJECT_TYPES = {
+  resources: {
+    label: 'Resources', icon: 'science', color: '#009688',
+    dir: 'resources',
+    subtypes: ['reagent', 'buffer', 'consumable', 'equipment', 'kit', 'chemical', 'enzyme', 'solution'],
+    defaultType: 'reagent',
+  },
+  stocks: {
+    label: 'Stocks', icon: 'eco', color: '#4caf50',
+    dir: 'stocks',
+    subtypes: ['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep'],
+    defaultType: 'seed',
+  },
+  people: {
+    label: 'People', icon: 'person', color: '#1565c0',
+    dir: 'people',
+    subtypes: ['person'],
+    defaultType: 'person',
+  },
+  protocols: {
+    label: 'Protocols', icon: 'menu_book', color: '#6a1b9a',
+    dir: null, // protocols live in multiple dirs
+    subtypes: ['protocol'],
+    defaultType: 'protocol',
+    searchDirs: ['wet-lab', 'bioinformatics', 'lab-management'],
+  },
+  projects: {
+    label: 'Projects', icon: 'folder_special', color: '#e65100',
+    dir: 'projects',
+    subtypes: ['project'],
+    defaultType: 'project',
+  },
+  notebooks: {
+    label: 'Notebooks', icon: 'auto_stories', color: '#795548',
+    dir: 'notebooks',
+    subtypes: ['notebook', 'notebook_entry'],
+    defaultType: 'notebook',
+  },
+};
 
 // ── State ──
 let editor = null;
@@ -911,7 +999,8 @@ let currentSha = null;
 let originalContent = '';
 let hasUnsavedChanges = false;
 let fileTree = [];
-let inventoryItems = [];
+let objectIndex = [];
+let currentLinkCategory = null;
 
 // ── Token ──
 function getToken() { return localStorage.getItem('github-token') || ''; }
@@ -1103,11 +1192,11 @@ function initEditor(content) {
         command: 'redo'
       }],
       [{
-        name: 'inventory',
-        tooltip: 'Insert Inventory Item',
-        className: 'toastui-editor-toolbar-icons inventory-btn',
-        text: '\u{1F9EA} Inventory',
-        command: 'insertInventory',
+        name: 'insertLink',
+        tooltip: 'Insert Object Link',
+        className: 'toastui-editor-toolbar-icons insert-link-btn',
+        text: '\uD83D\uDD17 Link',
+        command: 'insertObjectLink',
         style: { backgroundImage: 'none' }
       }]
     ],
@@ -1122,13 +1211,12 @@ function initEditor(content) {
     customHTMLRenderer: {
       link(node, { entering }) {
         const href = node.destination || '';
+        // Legacy inventory:// links
         if (href.startsWith('inventory://')) {
           const itemId = parseInt(href.replace('inventory://', ''));
-          const item = inventoryItems.find(i => i.id === itemId);
-          const label = item ? item.name : `Item #${itemId}`;
           if (entering) {
             return [
-              { type: 'openTag', tagName: 'a', attributes: { href, class: 'inventory-pill', 'data-inv-id': itemId }, selfClose: false },
+              { type: 'openTag', tagName: 'a', attributes: { href, class: 'object-pill', 'data-inv-id': itemId }, selfClose: false },
               { type: 'html', content: `<span style="font-size:14px">&#129514;</span> ` }
             ];
           }
@@ -1141,20 +1229,6 @@ function initEditor(content) {
       }
     }
   });
-
-  // Intercept clicks on inventory links in WYSIWYG
-  const wwEl = el.querySelector('.toastui-editor-ww-container');
-  if (wwEl) {
-    wwEl.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href^="inventory://"]');
-      if (link) {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = parseInt(link.getAttribute('href').replace('inventory://', ''));
-        showInvPopup(id, link);
-      }
-    });
-  }
 }
 
 function updateFileNameDisplay() {
@@ -1229,89 +1303,172 @@ window.addEventListener('beforeunload', e => {
   if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; }
 });
 
-// ── Inventory ──
-async function loadInventory() {
+// ── Object Index ──
+async function loadObjectIndex() {
   try {
-    const res = await fetch(`${CONTENTS_URL}/${INVENTORY_PATH}`, { headers: authHeaders() });
+    const res = await fetch(`${CONTENTS_URL}/${OBJECT_INDEX_PATH}`, { headers: authHeaders() });
     if (!res.ok) return;
     const data = await res.json();
     const raw = atob(data.content.replace(/\n/g, ''));
     const decoded = decodeURIComponent(escape(raw));
-    inventoryItems = JSON.parse(decoded);
+    objectIndex = JSON.parse(decoded);
   } catch (e) {
-    console.warn('Failed to load inventory:', e);
+    console.warn('Failed to load object index:', e);
   }
 }
 
-function openInventoryModal() {
-  if (!inventoryItems.length) {
-    showToast('Inventory not loaded yet', 'error');
+function slugify(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-');
+}
+
+// ── Insert Link Modal ──
+function openLinkModal() {
+  if (!objectIndex.length) {
+    showToast('Object index not loaded yet', 'error');
     return;
   }
-  document.getElementById('inventoryModal').classList.add('open');
-  document.getElementById('inventorySearch').value = '';
-  renderInventoryList(inventoryItems);
-  setTimeout(() => document.getElementById('inventorySearch').focus(), 100);
+  document.getElementById('linkModal').classList.add('open');
+  document.getElementById('linkSearch').value = '';
+  document.getElementById('linkCreateRow').style.display = 'none';
+  currentLinkCategory = null;
+  renderCategoryTabs();
+  document.getElementById('linkList').innerHTML = '<div class="modal-empty">Select a category above</div>';
+  setTimeout(() => document.getElementById('linkSearch').focus(), 100);
 }
 
-function closeInventoryModal() {
-  document.getElementById('inventoryModal').classList.remove('open');
+function closeLinkModal() {
+  document.getElementById('linkModal').classList.remove('open');
 }
 
-function filterInventory() {
-  const q = document.getElementById('inventorySearch').value.toLowerCase();
-  const filtered = inventoryItems.filter(i =>
-    i.name.toLowerCase().includes(q) ||
-    (i.category || '').toLowerCase().includes(q) ||
-    (i.location || '').toLowerCase().includes(q) ||
-    (i.notes || '').toLowerCase().includes(q)
-  );
-  renderInventoryList(filtered);
+function renderCategoryTabs() {
+  const container = document.getElementById('linkCategoryTabs');
+  container.innerHTML = Object.entries(OBJECT_TYPES).map(([key, cfg]) =>
+    `<button class="link-category-tab${currentLinkCategory === key ? ' active' : ''}" onclick="selectLinkCategory('${key}')">
+      <span class="material-icons-outlined">${cfg.icon}</span> ${cfg.label}
+    </button>`
+  ).join('');
 }
 
-function renderInventoryList(items) {
-  const list = document.getElementById('inventoryList');
+function selectLinkCategory(catKey) {
+  currentLinkCategory = catKey;
+  renderCategoryTabs();
+  document.getElementById('linkSearch').value = '';
+  filterLinkItems();
+}
+
+function getItemsForCategory(catKey) {
+  const cfg = OBJECT_TYPES[catKey];
+  if (!cfg) return [];
+  return objectIndex.filter(obj => cfg.subtypes.includes(obj.type));
+}
+
+function filterLinkItems() {
+  if (!currentLinkCategory) return;
+  const q = document.getElementById('linkSearch').value.toLowerCase().trim();
+  const items = getItemsForCategory(currentLinkCategory);
+  const filtered = q
+    ? items.filter(obj =>
+        (obj.title || '').toLowerCase().includes(q) ||
+        (obj.type || '').toLowerCase().includes(q) ||
+        (obj.location || '').toLowerCase().includes(q) ||
+        (obj.path || '').toLowerCase().includes(q)
+      )
+    : items;
+
+  renderLinkList(filtered);
+
+  // Show "create new" row if search text doesn't match any title exactly
+  const cfg = OBJECT_TYPES[currentLinkCategory];
+  const createRow = document.getElementById('linkCreateRow');
+  if (q && cfg.dir && !items.some(obj => (obj.title || '').toLowerCase() === q)) {
+    document.getElementById('linkCreateName').textContent = document.getElementById('linkSearch').value.trim();
+    createRow.style.display = 'block';
+  } else {
+    createRow.style.display = 'none';
+  }
+}
+
+function renderLinkList(items) {
+  const list = document.getElementById('linkList');
   if (!items.length) {
     list.innerHTML = '<div class="modal-empty">No items found</div>';
     return;
   }
-  list.innerHTML = items.map(item => `
-    <div class="modal-item" onclick="insertInventoryItem(${item.id})">
-      <div class="modal-item-icon">
-        <span class="material-icons-outlined">science</span>
-      </div>
-      <div class="modal-item-info">
-        <div class="modal-item-name">${escHtml(item.name)}</div>
-        <div class="modal-item-meta">
-          <span>${escHtml(item.category || 'Uncategorized')}</span>
-          <span>${item.quantity} ${escHtml(item.unit || '')}</span>
-          <span>${escHtml(item.location || '')}</span>
+  const cfg = OBJECT_TYPES[currentLinkCategory];
+  list.innerHTML = items.map(obj => {
+    const slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    const meta = [obj.type || ''];
+    if (obj.location) meta.push(obj.location);
+    if (obj.quantity != null && obj.unit) meta.push(`${obj.quantity} ${obj.unit}`);
+    if (obj.role) meta.push(obj.role);
+    return `
+      <div class="modal-item" onclick="insertObjectLink('${escHtml(slug)}', '${escHtml(obj.title || slug)}')">
+        <div class="modal-item-icon" style="background:${cfg.color}15;color:${cfg.color}">
+          <span class="material-icons-outlined">${cfg.icon}</span>
         </div>
-      </div>
-    </div>
-  `).join('');
+        <div class="modal-item-info">
+          <div class="modal-item-name">${escHtml(obj.title || slug)}</div>
+          <div class="modal-item-meta"><span>${meta.map(escHtml).join(' · ')}</span></div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
-function insertInventoryItem(id) {
-  const item = inventoryItems.find(i => i.id === id);
-  if (!item || !editor) return;
-
-  // Switch to markdown mode, insert the link, switch back to WYSIWYG
-  // This ensures the link is properly parsed and rendered
+function insertObjectLink(slug, title) {
+  if (!editor) return;
   editor.changeMode('markdown');
-  editor.replaceSelection(`[\u{1F9EA} ${item.name}](inventory://${item.id})`);
+  editor.replaceSelection(`[[${slug}]]`);
   editor.changeMode('wysiwyg');
+  closeLinkModal();
+  showToast(`Linked: ${title}`, 'success');
+}
 
-  closeInventoryModal();
-  showToast(`Inserted: ${item.name}`, 'success');
+async function createAndInsertObject() {
+  const name = document.getElementById('linkSearch').value.trim();
+  if (!name) return;
+  const cfg = OBJECT_TYPES[currentLinkCategory];
+  if (!cfg || !cfg.dir) return;
+  if (!getToken()) { showToast('Set your GitHub token first', 'error'); return; }
+
+  const slug = slugify(name);
+  const path = `docs/${cfg.dir}/${slug}.md`;
+  const frontmatter = `---\ntype: ${cfg.defaultType}\ntitle: "${name}"\n---\n\n# ${name}\n`;
+  const encoded = btoa(unescape(encodeURIComponent(frontmatter)));
+
+  try {
+    const res = await fetch(`${CONTENTS_URL}/${path}`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Add ${cfg.defaultType}: ${name}`,
+        content: encoded,
+        branch: 'main'
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Create failed');
+    }
+
+    // Add to in-memory index
+    objectIndex.push({ path: path.replace('docs/', ''), type: cfg.defaultType, title: name });
+
+    insertObjectLink(slug, name);
+    showToast(`Created: ${name}`, 'success');
+
+    // Refresh file tree in background
+    loadFileTree();
+  } catch (e) {
+    showToast('Failed: ' + e.message, 'error');
+  }
 }
 
 // Handle the custom toolbar button commands
 document.addEventListener('click', e => {
-  const btn = e.target.closest('.inventory-btn');
+  const btn = e.target.closest('.insert-link-btn');
   if (btn) {
     e.preventDefault();
-    openInventoryModal();
+    openLinkModal();
     return;
   }
   // Undo/Redo buttons
@@ -1325,68 +1482,6 @@ document.addEventListener('click', e => {
     }
   }
 });
-
-// ── Inventory Popup ──
-function showInvPopup(id, anchorEl) {
-  const item = inventoryItems.find(i => i.id === id);
-  if (!item) return;
-
-  const popup = document.getElementById('invPopup');
-  document.getElementById('popupName').textContent = item.name;
-
-  let bodyHtml = '';
-  bodyHtml += `<div class="inv-popup-row"><span class="inv-popup-badge">${escHtml(item.category || 'Uncategorized')}</span></div>`;
-  bodyHtml += `<div class="inv-popup-row"><span class="material-icons-outlined">inventory_2</span> <strong>${item.quantity}</strong>&nbsp;${escHtml(item.unit || 'units')}</div>`;
-  if (item.location) {
-    bodyHtml += `<div class="inv-popup-row"><span class="material-icons-outlined">pin_drop</span> ${escHtml(item.location)}</div>`;
-  }
-  if (item.notes) {
-    bodyHtml += `<div class="inv-popup-row"><span class="material-icons-outlined">notes</span> ${escHtml(item.notes)}</div>`;
-  }
-  if (item.lowStockThreshold && item.quantity <= item.lowStockThreshold) {
-    bodyHtml += `<div class="inv-popup-warning"><span class="material-icons-outlined">warning</span> Low stock! Quantity at or below threshold (${item.lowStockThreshold})</div>`;
-  }
-  document.getElementById('popupBody').innerHTML = bodyHtml;
-
-  const sdsQuery = encodeURIComponent(item.name + ' SDS PDF');
-  document.getElementById('popupFooter').innerHTML = `
-    <a class="inv-popup-btn secondary" href="https://www.google.com/search?q=${sdsQuery}" target="_blank" rel="noopener">
-      <span class="material-icons-outlined" style="font-size:14px">description</span> View SDS
-    </a>
-    <a class="inv-popup-btn primary" href="../inventory-app/index.html" target="_blank" rel="noopener">
-      <span class="material-icons-outlined" style="font-size:14px">open_in_new</span> Inventory App
-    </a>
-  `;
-
-  // Position near the anchor
-  const rect = anchorEl.getBoundingClientRect();
-  let top = rect.bottom + 8;
-  let left = rect.left;
-
-  // Keep within viewport
-  if (left + 320 > window.innerWidth) left = window.innerWidth - 330;
-  if (left < 10) left = 10;
-  if (top + 300 > window.innerHeight) top = rect.top - 308;
-
-  popup.style.top = top + 'px';
-  popup.style.left = left + 'px';
-  popup.classList.add('open');
-
-  // Close on click outside
-  setTimeout(() => {
-    document.addEventListener('click', closeInvPopupOutside);
-  }, 10);
-}
-
-function closeInvPopup() {
-  document.getElementById('invPopup').classList.remove('open');
-  document.removeEventListener('click', closeInvPopupOutside);
-}
-
-function closeInvPopupOutside(e) {
-  const popup = document.getElementById('invPopup');
-  if (!popup.contains(e.target)) closeInvPopup();
-}
 
 // ── Token Modal ──
 function openTokenModal() {
@@ -1410,7 +1505,7 @@ function saveToken() {
   }
   closeTokenModal();
   loadFileTree();
-  loadInventory();
+  loadObjectIndex();
 }
 
 // ── New File Modal ──
@@ -1473,7 +1568,6 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-    closeInvPopup();
   }
 });
 
@@ -1491,7 +1585,7 @@ async function init() {
     `;
     return;
   }
-  await Promise.all([loadFileTree(), loadInventory()]);
+  await Promise.all([loadFileTree(), loadObjectIndex()]);
 }
 
 init();

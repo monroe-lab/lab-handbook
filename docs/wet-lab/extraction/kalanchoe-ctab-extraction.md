@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Kalanchoe CTAB Extraction"
+---
+
 # Kalanchoe CTAB Extraction
 
 CTAB Extraction for Kalanchoe

@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Lab Expectations & Best Practices"
+---
+
 # Lab Expectations & Best Practices
 
 Lab Expectations and Best Practices

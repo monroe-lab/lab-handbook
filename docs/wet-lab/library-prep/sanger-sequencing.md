@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Sanger on PCR product"
+---
+
 # Sanger on PCR product
 
 ### 1. Remove primers from your DNA sample by enzymatic digestion

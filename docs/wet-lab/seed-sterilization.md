@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Seed Sterilization"
+---
+
 # Seed Sterilization
 
 **Purpose:** Surface-sterilize Arabidopsis seeds before plating on sterile MS media.

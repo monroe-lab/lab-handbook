@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Sorbitol/CTAB HiFi Extraction"
+---
+
 # Sorbitol/CTAB HiFi Extraction
 
 HiFi Extraction for Challenging Plant Samples

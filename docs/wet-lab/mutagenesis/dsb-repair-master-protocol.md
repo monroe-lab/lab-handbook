@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "DSB DNA Repair - Master Protocol"
+---
+
 # DSB DNA Repair - Master Protocol
 
 Designing Protospacers

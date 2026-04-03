@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Undergrad Onboarding Checklist"
+---
+
 # Undergrad Onboarding Checklist
 
 Tab 2

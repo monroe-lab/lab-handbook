@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Planting Arabidopsis Seeds on MS Plates"
+---
+
 # Planting Arabidopsis Seeds on MS Plates
 
 **Purpose:** Sterilize seeds, prepare MS agar plates, and sow seeds for germination under sterile conditions.

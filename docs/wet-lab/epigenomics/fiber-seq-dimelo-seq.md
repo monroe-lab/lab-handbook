@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Fiber-Seq / DiMeLo-Seq"
+---
+
 # Fiber-Seq / DiMeLo-Seq
 
 Overview of Fiber-Seq

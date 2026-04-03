@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Autoclave"
+---
+
 # Autoclave
 
 **Purpose:** Sterilize media, water, and equipment using high-pressure saturated steam.

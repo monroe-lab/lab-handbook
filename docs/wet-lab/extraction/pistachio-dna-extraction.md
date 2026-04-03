@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Pistachio DNA Extraction (Short-Read)"
+---
+
 # Pistachio DNA Extraction (Short-Read)
 
 Pre-treatment:

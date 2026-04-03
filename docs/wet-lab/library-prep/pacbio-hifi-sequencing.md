@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "PacBio HiFi Sequencing (Col-0)"
+---
+
 # PacBio HiFi Sequencing (Col-0)
 
 Tab 1

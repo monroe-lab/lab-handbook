@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "MS Media Recipe"
+---
+
 # MS Media Recipe
 
 **Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth.
@@ -10,9 +15,9 @@
 
 **MS media** (Murashige & Skoog, 1962) is the standard plant tissue culture medium. The basal salt mixture is a premixed powder containing macro- and micronutrients that plants need to grow in vitro — nitrogen (as NH4NO3 and KNO3), phosphorus, potassium, calcium, magnesium, sulfur, plus trace amounts of iron, manganese, zinc, boron, copper, cobalt, iodine, and molybdenum. It also contains B vitamins (thiamine, pyridoxine, nicotinic acid) and myo-inositol. The idea is to replace everything that soil and associated microbes would normally provide.
 
-[🧪 MS Basal Salt Mixture](inventory://1)
+[[ms-basal-salt-mixture]]
 
-[🧪 Triton X-100](inventory://4)
+[[triton-x-100]]
 
 **What each component does:**
 

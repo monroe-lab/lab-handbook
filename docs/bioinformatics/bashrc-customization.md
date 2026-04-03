@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Customizing your Farm shell with `~/.bashrc`"
+---
+
 # Customizing your Farm shell with `~/.bashrc`
 
 This note shows you how to:

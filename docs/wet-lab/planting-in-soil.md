@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Planting Arabidopsis in Soil"
+---
+
 # Planting Arabidopsis in Soil
 
 **Purpose:** Direct sowing in soil for growing plants to maturity (flowering, crossing, seed set).

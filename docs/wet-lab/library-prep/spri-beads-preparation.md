@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Preparing SPRI Beads"
+---
+
 # Preparing SPRI Beads
 
 Preparing SPRI beads

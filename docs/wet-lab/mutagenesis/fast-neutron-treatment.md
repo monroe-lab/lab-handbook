@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "[protocol][draft] Fast neutron treatment"
+---
+
 # [protocol][draft] Fast neutron treatment
 
 ### Objective

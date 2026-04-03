@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Quick DNA Extraction for PCR (Buffer A Method)"
+---
+
 # Quick DNA Extraction for PCR (Buffer A Method)
 
 **Purpose:** Crude/fast DNA extraction from Arabidopsis leaf tissue for PCR genotyping. Not for sequencing or other applications requiring pure DNA — just enough template for a PCR reaction.

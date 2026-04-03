@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "How I (Grey) like to code: Farm + local workflow"
+---
+
 # How I (Grey) like to code: Farm + local workflow
 
 This document outlines my **general strategy for coding and analysis**.  

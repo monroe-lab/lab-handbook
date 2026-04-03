@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Using Claude Code Skills for Lab Bioinformatics Workflows"
+---
+
 # Using Claude Code Skills for Lab Bioinformatics Workflows
 
 This lab uses [Claude Code](https://claude.ai/code) — an AI coding assistant you can run in your terminal — with custom skills tailored to our workflows on Farm. These skills give Claude context-specific knowledge about our cluster setup, conventions, and pipelines so you get useful, copy-paste-ready output instead of generic advice.

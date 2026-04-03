@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Stratification"
+---
+
 # Stratification
 
 **Purpose:** Cold treatment to break seed dormancy and synchronize germination.

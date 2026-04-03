@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "Slurm basics"
+---
+
 # Slurm basics
 
 Farm uses the **Slurm** workload manager. You don’t run jobs directly on the login node; instead you submit them to the scheduler using `sbatch` (for batch scripts) or `srun` (for interactive jobs).

@@ -1,3 +1,8 @@
+---
+type: protocol
+title: "PCR Genotyping"
+---
+
 # PCR Genotyping
 
 **Purpose:** Amplify a specific DNA region to determine genotype — is this plant a homozygote, heterozygote, or wild-type? Used for T-DNA insertion line validation and F1 hybrid confirmation.
