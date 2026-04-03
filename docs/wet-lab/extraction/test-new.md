@@ -11,30 +11,11 @@ testing new again
 
 lets test this
 
-<br>
-<br>
-\> ⚠️ \*\*Variant: Title\*\*
-\> Description here
-
-<br>
-<br>
-\> ℹ️ \*\*Note: Title\*\*
-\> Description here
-
-<br>
-<br>
-\> 💡 \*\*Tip: Title\*\*
-\> Description here
-
-<br>
 ??? variant "Variant title"
     Description here
 
+??? note "Note title"
+    Description here
 
-```
-ℹ️ **Note: Note title**
-Description here
-
-💡 **Tip: Tip title**
-Description here
-```
+??? tip "Tip title"
+    Description here
