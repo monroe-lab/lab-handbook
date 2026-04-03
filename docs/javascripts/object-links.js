@@ -14,7 +14,7 @@
     reagent:    { color: '#009688', icon: '\uD83E\uDDEA', label: 'Reagent' },
     buffer:     { color: '#e65100', icon: '\uD83E\uDDEA', label: 'Buffer/Solution' },
     consumable: { color: '#1565c0', icon: '\uD83D\uDCE6', label: 'Consumable' },
-    equipment:  { color: '#6a1b9a', icon: '\u2699\uFE0F',  label: 'Equipment' },
+    equipment:  { color: '#455a64', icon: '\u2699\uFE0F',  label: 'Equipment' },
     kit:        { color: '#00838f', icon: '\uD83E\uDDF0', label: 'Kit' },
     chemical:   { color: '#009688', icon: '\uD83E\uDDEA', label: 'Chemical' },
     enzyme:     { color: '#2e7d32', icon: '\uD83E\uDDEC', label: 'Enzyme' },

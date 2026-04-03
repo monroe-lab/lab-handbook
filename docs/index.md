@@ -11,7 +11,7 @@ The central knowledge base for the Monroe Lab at UC Davis. Protocols, resources,
 
 <div id="graphStats" style="display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;"></div>
 
-<div id="knowledgeGraph" style="width:100%;background:rgba(0,0,0,0.02);border-radius:12px;margin:0 0 24px;overflow:hidden;"></div>
+<div id="knowledgeGraph" style="width:100%;min-height:420px;background:rgba(0,0,0,0.02);border-radius:12px;margin:0 0 24px;overflow:hidden;"></div>
 
 ---
 

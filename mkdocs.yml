@@ -20,13 +20,11 @@ theme:
   features:
     - navigation.instant
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
     - navigation.indexes
     - search.suggest
     - search.highlight
-    - header.autohide
   custom_dir: overrides
 
 repo_url: https://monroe-lab.github.io/lab-handbook/editor/
@@ -111,6 +109,7 @@ nav:
       - LLM Philosophy: bioinformatics/llm-philosophy-blog.md
       - Claude Code Skills: bioinformatics/claude-code-skills.md
   - Lab Info:
+    - lab-management/index.md
     - Lab Guidelines: lab-management/lab-guidelines.md
     - Expectations & Best Practices: lab-management/lab-expectations.md
     - New Member Checklist: lab-management/new-member-checklist.md

@@ -200,7 +200,7 @@
     "legacy_inventory_id": 28
   },
   {
-    "path": "resources/autoclave.md",
+    "path": "resources/autoclave-sterilizer.md",
     "type": "equipment",
     "title": "Autoclave",
     "location": "Robbins Hall"
@@ -410,7 +410,7 @@
     "legacy_inventory_id": 43
   },
   {
-    "path": "resources/clean-bench.md",
+    "path": "resources/clean-bench-laminar-flow.md",
     "type": "equipment",
     "title": "Clean Bench",
     "location": "Room 170"
@@ -1918,6 +1918,11 @@
     "path": "lab-management/hydrofluoric-acid-producing-sop.md",
     "type": "protocol",
     "title": "Hydrofluoric Acid Producing Chemicals SOP"
+  },
+  {
+    "path": "lab-management/index.md",
+    "type": "protocol",
+    "title": "Index"
   },
   {
     "path": "lab-management/lab-expectations.md",
