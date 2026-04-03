@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "MS Basal Salt Mixture",
+    "category": "Reagent",
+    "quantity": 2,
+    "unit": "each",
+    "location": "Chemical Cabinet",
+    "notes": "Murashige & Skoog medium. 2 bottles.",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 2,
+    "name": "MES Buffer",
+    "category": "Buffer/Solution",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "2-(N-Morpholino)ethanesulfonic acid",
+    "lowStockThreshold": 10
+  },
+  {
+    "id": 3,
+    "name": "TC Agar A175",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Tissue culture grade agar",
+    "lowStockThreshold": 5
+  },
+  {
+    "id": 4,
+    "name": "Triton X-100",
+    "category": "Reagent",
+    "quantity": 600,
+    "unit": "mL",
+    "location": "Corrosive Cabinet",
+    "notes": "100 mL + 500 mL bottles",
+    "lowStockThreshold": 50
+  },
+  {
+    "id": 5,
+    "name": "Ethanol Absolute",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "each",
+    "location": "Flammable Cabinet",
+    "notes": "1 gallon bottle, 200 proof",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 6,
+    "name": "Kanamycin Sulfate",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Antibiotic selection agent",
+    "lowStockThreshold": 5
+  },
+  {
+    "id": 7,
+    "name": "Hydrogen Peroxide 30%",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Corrosive Cabinet",
+    "notes": "20-35% concentration, handle with care",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 8,
+    "name": "Mitomycin C",
+    "category": "Reagent",
+    "quantity": 10,
+    "unit": "each",
+    "location": "Refrigerator",
+    "notes": "10 mg vial, store at 2-8C, light-sensitive",
+    "lowStockThreshold": 2
+  },
+  {
+    "id": 9,
+    "name": "Chloroform",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Corrosive Cabinet",
+    "notes": "ACS grade, use in fume hood only",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 10,
+    "name": "Agarose",
+    "category": "Reagent",
+    "quantity": 300,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Molecular biology grade, for gel electrophoresis",
+    "lowStockThreshold": 50
+  }
+]

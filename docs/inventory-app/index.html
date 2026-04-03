@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Inventory - Monroe Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #009688;
+  --teal-dark: #00796b;
+  --teal-light: #e0f2f1;
+  --teal-50: #f0fdfb;
+  --red: #e53935;
+  --red-light: #ffebee;
+  --amber: #ff8f00;
+  --amber-light: #fff8e1;
+  --grey-50: #fafafa;
+  --grey-100: #f5f5f5;
+  --grey-200: #eeeeee;
+  --grey-300: #e0e0e0;
+  --grey-500: #9e9e9e;
+  --grey-700: #616161;
+  --grey-900: #212121;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--grey-100);
+  color: var(--grey-900);
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: var(--teal);
+  color: #fff;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header h1 .material-icons-outlined { font-size: 28px; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn-primary { background: #fff; color: var(--teal-dark); }
+.btn-primary:hover { background: var(--teal-light); }
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: var(--teal-dark); }
+.btn-outline { background: transparent; color: var(--grey-700); border: 1px solid var(--grey-300); }
+.btn-outline:hover { background: var(--grey-100); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #c62828; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn .material-icons-outlined { font-size: 18px; }
+
+/* Connection status */
+.conn-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,.8);
+}
+.conn-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #aaa;
+}
+.conn-dot.connected { background: #69f0ae; }
+
+/* Toolbar */
+.toolbar {
+  background: #fff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  padding: 9px 12px 9px 38px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.search-box input:focus { border-color: var(--teal); }
+.search-box .material-icons-outlined {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--grey-500);
+}
+.filter-select {
+  padding: 9px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+.filter-select:focus { border-color: var(--teal); }
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+.stat-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+.stat-card .material-icons-outlined {
+  font-size: 28px;
+  color: var(--teal);
+}
+.stat-card.warning .material-icons-outlined { color: var(--amber); }
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 12px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .5px; }
+
+/* Table */
+.table-wrap {
+  padding: 0 24px 24px;
+}
+.table-container {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+thead { background: var(--grey-50); }
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-700);
+  border-bottom: 2px solid var(--grey-200);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+th:hover { color: var(--teal); }
+th .sort-arrow { font-size: 14px; vertical-align: middle; margin-left: 2px; }
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--grey-200);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: var(--teal-50); }
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-category {
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+.badge-location {
+  background: var(--grey-100);
+  color: var(--grey-700);
+}
+.badge-low {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
+/* Low stock highlight */
+tr.low-stock td:first-child {
+  position: relative;
+}
+tr.low-stock td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--amber);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Row actions */
+.row-actions {
+  display: flex;
+  gap: 4px;
+}
+.row-actions .btn {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--grey-500);
+}
+.row-actions .btn:hover { color: var(--teal); background: var(--teal-light); border-radius: 4px; }
+.row-actions .btn.del:hover { color: var(--red); background: var(--red-light); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s;
+}
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform .2s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--grey-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h2 { font-size: 18px; }
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--grey-500);
+  padding: 4px;
+  border-radius: 4px;
+}
+.modal-close:hover { background: var(--grey-100); }
+.modal-body { padding: 24px; }
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--grey-200);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Form */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-700);
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal);
+}
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: var(--grey-900);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideIn .3s ease;
+}
+.toast.error { background: var(--red); }
+.toast.success { background: var(--teal-dark); }
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--grey-500);
+}
+.empty-state .material-icons-outlined { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 15px; }
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--grey-500);
+}
+.spinner {
+  display: inline-block;
+  width: 32px; height: 32px;
+  border: 3px solid var(--grey-200);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin-bottom: 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 16px; }
+  .toolbar { padding: 12px 16px; }
+  .stats { padding: 12px 16px; }
+  .table-wrap { padding: 0 16px 16px; }
+  td, th { padding: 10px 12px; font-size: 13px; }
+  .hide-mobile { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>
+    <span class="material-icons-outlined">science</span>
+    Lab Inventory
+  </h1>
+  <div class="header-actions">
+    <div class="conn-status">
+      <span class="conn-dot" id="connDot"></span>
+      <span id="connLabel">Not connected</span>
+    </div>
+    <button class="btn btn-primary" id="btnConnect" onclick="promptToken()">
+      <span class="material-icons-outlined">link</span>
+      Connect GitHub
+    </button>
+    <button class="btn btn-primary" onclick="openAddModal()">
+      <span class="material-icons-outlined">add</span>
+      Add Item
+    </button>
+  </div>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="search-box">
+    <span class="material-icons-outlined">search</span>
+    <input type="text" id="searchInput" placeholder="Search inventory..." oninput="renderTable()">
+  </div>
+  <select class="filter-select" id="filterCategory" onchange="renderTable()">
+    <option value="">All Categories</option>
+    <option>Reagent</option>
+    <option>Consumable</option>
+    <option>Equipment</option>
+    <option>Buffer/Solution</option>
+    <option>Other</option>
+  </select>
+  <select class="filter-select" id="filterLocation" onchange="renderTable()">
+    <option value="">All Locations</option>
+    <option>Chemical Cabinet</option>
+    <option>Corrosive Cabinet</option>
+    <option>Flammable Cabinet</option>
+    <option>Refrigerator</option>
+    <option>Freezer -20C</option>
+    <option>Freezer -80C</option>
+    <option>Bench</option>
+    <option>Other</option>
+  </select>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card">
+    <span class="material-icons-outlined">inventory_2</span>
+    <div>
+      <div class="stat-value" id="statTotal">-</div>
+      <div class="stat-label">Total Items</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <span class="material-icons-outlined">category</span>
+    <div>
+      <div class="stat-value" id="statCategories">-</div>
+      <div class="stat-label">Categories</div>
+    </div>
+  </div>
+  <div class="stat-card warning">
+    <span class="material-icons-outlined">warning_amber</span>
+    <div>
+      <div class="stat-value" id="statLow">-</div>
+      <div class="stat-label">Low Stock</div>
+    </div>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-wrap">
+  <div class="table-container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading inventory...</p>
+    </div>
+    <table id="inventoryTable" style="display:none">
+      <thead>
+        <tr>
+          <th onclick="setSort('name')">Name <span class="sort-arrow" id="sort-name"></span></th>
+          <th onclick="setSort('category')">Category <span class="sort-arrow" id="sort-category"></span></th>
+          <th onclick="setSort('quantity')">Qty <span class="sort-arrow" id="sort-quantity"></span></th>
+          <th onclick="setSort('location')">Location <span class="sort-arrow" id="sort-location"></span></th>
+          <th class="hide-mobile">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <span class="material-icons-outlined">search_off</span>
+      <p>No items match your search.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="itemModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add Item</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="fName" placeholder="e.g. Kanamycin Sulfate">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="fCategory">
+            <option>Reagent</option>
+            <option>Consumable</option>
+            <option>Equipment</option>
+            <option>Buffer/Solution</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Location *</label>
+          <select id="fLocation">
+            <option>Chemical Cabinet</option>
+            <option>Corrosive Cabinet</option>
+            <option>Flammable Cabinet</option>
+            <option>Refrigerator</option>
+            <option>Freezer -20C</option>
+            <option>Freezer -80C</option>
+            <option>Bench</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Quantity *</label>
+          <input type="number" id="fQuantity" placeholder="0" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label>Unit</label>
+          <select id="fUnit">
+            <option>each</option>
+            <option>g</option>
+            <option>mL</option>
+            <option>L</option>
+            <option>kg</option>
+            <option>box</option>
+            <option>pack</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Low Stock Alert</label>
+          <input type="number" id="fThreshold" placeholder="0" min="0" step="any">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="fNotes" placeholder="Optional notes..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-teal" id="btnSaveItem" onclick="saveItem()">Save Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h2>Delete Item</h2>
+      <button class="modal-close" onclick="closeDeleteModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <strong id="deleteName"></strong>? This will commit the change to the repository.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Token Modal -->
+<div class="modal-overlay" id="tokenModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h2>Connect to GitHub</h2>
+      <button class="modal-close" onclick="closeTokenModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom:16px;color:var(--grey-700);font-size:14px;">
+        Enter a GitHub Personal Access Token with <strong>repo</strong> scope to enable adding, editing, and deleting items.
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Lab+Inventory" target="_blank" style="color:var(--teal)">Create one here</a>.
+      </p>
+      <div class="form-group">
+        <label>Personal Access Token</label>
+        <input type="password" id="fToken" placeholder="ghp_...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeTokenModal()">Cancel</button>
+      <button class="btn btn-teal" onclick="saveToken()">Connect</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// --- Config ---
+const REPO_API = 'https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/inventory-app/inventory.json';
+const BRANCH = 'main';
+
+// --- State ---
+let inventory = [];
+let fileSha = null;
+let editingId = null;
+let deletingId = null;
+let sortCol = 'name';
+let sortDir = 1; // 1 = asc, -1 = desc
+
+// --- Token management ---
+function getToken() { return localStorage.getItem('gh_inventory_token') || ''; }
+
+function promptToken() {
+  document.getElementById('fToken').value = getToken();
+  document.getElementById('tokenModal').classList.add('open');
+}
+
+function closeTokenModal() {
+  document.getElementById('tokenModal').classList.remove('open');
+}
+
+function saveToken() {
+  const t = document.getElementById('fToken').value.trim();
+  if (!t) { toast('Please enter a token', 'error'); return; }
+  localStorage.setItem('gh_inventory_token', t);
+  closeTokenModal();
+  updateConnStatus();
+  toast('Connected to GitHub', 'success');
+}
+
+function updateConnStatus() {
+  const connected = !!getToken();
+  document.getElementById('connDot').className = 'conn-dot' + (connected ? ' connected' : '');
+  document.getElementById('connLabel').textContent = connected ? 'Connected' : 'Not connected';
+  document.getElementById('btnConnect').innerHTML = connected
+    ? '<span class="material-icons-outlined">link_off</span> Disconnect'
+    : '<span class="material-icons-outlined">link</span> Connect GitHub';
+  document.getElementById('btnConnect').onclick = connected ? disconnect : promptToken;
+}
+
+function disconnect() {
+  localStorage.removeItem('gh_inventory_token');
+  updateConnStatus();
+  toast('Disconnected from GitHub');
+}
+
+// --- Data loading ---
+async function loadInventory() {
+  try {
+    const headers = {};
+    const token = getToken();
+    if (token) headers['Authorization'] = 'token ' + token;
+    headers['Accept'] = 'application/vnd.github.v3+json';
+
+    const resp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    fileSha = data.sha;
+    const content = atob(data.content.replace(/\n/g, ''));
+    inventory = JSON.parse(content);
+  } catch (e) {
+    console.warn('GitHub API failed, trying direct file load:', e);
+    try {
+      const resp = await fetch('inventory.json?_=' + Date.now());
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      inventory = await resp.json();
+      fileSha = null;
+    } catch (e2) {
+      toast('Failed to load inventory: ' + e2.message, 'error');
+      inventory = [];
+    }
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('inventoryTable').style.display = '';
+  renderTable();
+}
+
+// --- GitHub write ---
+async function commitInventory(message) {
+  const token = getToken();
+  if (!token) {
+    toast('Connect to GitHub first to save changes', 'error');
+    promptToken();
+    return false;
+  }
+
+  // Re-fetch SHA to avoid conflicts
+  try {
+    const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
+    const getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    if (getResp.ok) {
+      const getData = await getResp.json();
+      fileSha = getData.sha;
+    }
+  } catch (e) { /* proceed with existing sha */ }
+
+  const content = JSON.stringify(inventory, null, 2) + '\n';
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+
+  const body = {
+    message: message,
+    content: encoded,
+    branch: BRANCH,
+  };
+  if (fileSha) body.sha = fileSha;
+
+  try {
+    const resp = await fetch(REPO_API, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.message || 'HTTP ' + resp.status);
+    }
+
+    const result = await resp.json();
+    fileSha = result.content.sha;
+    return true;
+  } catch (e) {
+    toast('Save failed: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// --- Rendering ---
+function renderTable() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const catFilter = document.getElementById('filterCategory').value;
+  const locFilter = document.getElementById('filterLocation').value;
+
+  let items = inventory.filter(item => {
+    if (catFilter && item.category !== catFilter) return false;
+    if (locFilter && item.location !== locFilter) return false;
+    if (search) {
+      const haystack = [item.name, item.category, item.quantity, item.unit, item.location, item.notes || '']
+        .join(' ').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+
+  // Sort
+  items.sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'quantity') return (va - vb) * sortDir;
+    va = (va || '').toString().toLowerCase();
+    vb = (vb || '').toString().toLowerCase();
+    return va < vb ? -sortDir : va > vb ? sortDir : 0;
+  });
+
+  // Update sort arrows
+  document.querySelectorAll('.sort-arrow').forEach(el => el.textContent = '');
+  const arrow = document.getElementById('sort-' + sortCol);
+  if (arrow) arrow.textContent = sortDir === 1 ? ' \u25B2' : ' \u25BC';
+
+  // Stats
+  const lowCount = inventory.filter(i => i.lowStockThreshold && i.quantity <= i.lowStockThreshold).length;
+  const categories = new Set(inventory.map(i => i.category));
+  document.getElementById('statTotal').textContent = inventory.length;
+  document.getElementById('statCategories').textContent = categories.size;
+  document.getElementById('statLow').textContent = lowCount;
+
+  // Table body
+  const tbody = document.getElementById('tableBody');
+  if (items.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    document.getElementById('inventoryTable').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('inventoryTable').style.display = '';
+
+  tbody.innerHTML = items.map(item => {
+    const isLow = item.lowStockThreshold && item.quantity <= item.lowStockThreshold;
+    return `
+      <tr class="${isLow ? 'low-stock' : ''}">
+        <td>
+          <strong>${esc(item.name)}</strong>
+          ${isLow ? ' <span class="badge badge-low">Low Stock</span>' : ''}
+        </td>
+        <td><span class="badge badge-category">${esc(item.category)}</span></td>
+        <td>${esc(item.quantity.toString())} ${esc(item.unit)}</td>
+        <td><span class="badge badge-location">${esc(item.location)}</span></td>
+        <td class="hide-mobile">${esc(item.notes || '')}</td>
+        <td>
+          <div class="row-actions">
+            <button class="btn" title="Edit" onclick="openEditModal(${item.id})">
+              <span class="material-icons-outlined">edit</span>
+            </button>
+            <button class="btn del" title="Delete" onclick="openDeleteModal(${item.id})">
+              <span class="material-icons-outlined">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  renderTable();
+}
+
+// --- Add / Edit ---
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add Item';
+  document.getElementById('fName').value = '';
+  document.getElementById('fCategory').value = 'Reagent';
+  document.getElementById('fQuantity').value = '';
+  document.getElementById('fUnit').value = 'each';
+  document.getElementById('fLocation').value = 'Chemical Cabinet';
+  document.getElementById('fThreshold').value = '';
+  document.getElementById('fNotes').value = '';
+  document.getElementById('itemModal').classList.add('open');
+  document.getElementById('fName').focus();
+}
+
+function openEditModal(id) {
+  const item = inventory.find(i => i.id === id);
+  if (!item) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Item';
+  document.getElementById('fName').value = item.name;
+  document.getElementById('fCategory').value = item.category;
+  document.getElementById('fQuantity').value = item.quantity;
+  document.getElementById('fUnit').value = item.unit;
+  document.getElementById('fLocation').value = item.location;
+  document.getElementById('fThreshold').value = item.lowStockThreshold || '';
+  document.getElementById('fNotes').value = item.notes || '';
+  document.getElementById('itemModal').classList.add('open');
+  document.getElementById('fName').focus();
+}
+
+function closeModal() {
+  document.getElementById('itemModal').classList.remove('open');
+}
+
+async function saveItem() {
+  const name = document.getElementById('fName').value.trim();
+  const category = document.getElementById('fCategory').value;
+  const quantity = parseFloat(document.getElementById('fQuantity').value);
+  const unit = document.getElementById('fUnit').value;
+  const location = document.getElementById('fLocation').value;
+  const threshold = parseFloat(document.getElementById('fThreshold').value) || 0;
+  const notes = document.getElementById('fNotes').value.trim();
+
+  if (!name) { toast('Name is required', 'error'); return; }
+  if (isNaN(quantity) || quantity < 0) { toast('Quantity must be a non-negative number', 'error'); return; }
+
+  const btn = document.getElementById('btnSaveItem');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  if (editingId !== null) {
+    const item = inventory.find(i => i.id === editingId);
+    if (item) {
+      Object.assign(item, { name, category, quantity, unit, location, lowStockThreshold: threshold, notes });
+    }
+    const ok = await commitInventory(`Update inventory: ${name}`);
+    if (ok) {
+      toast('Item updated', 'success');
+      closeModal();
+    }
+  } else {
+    const maxId = inventory.reduce((m, i) => Math.max(m, i.id), 0);
+    const newItem = { id: maxId + 1, name, category, quantity, unit, location, notes, lowStockThreshold: threshold };
+    inventory.push(newItem);
+    const ok = await commitInventory(`Add to inventory: ${name}`);
+    if (ok) {
+      toast('Item added', 'success');
+      closeModal();
+    } else {
+      inventory.pop(); // rollback
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Save Item';
+  renderTable();
+}
+
+// --- Delete ---
+function openDeleteModal(id) {
+  deletingId = id;
+  const item = inventory.find(i => i.id === id);
+  document.getElementById('deleteName').textContent = item ? item.name : '';
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+}
+
+async function confirmDelete() {
+  const item = inventory.find(i => i.id === deletingId);
+  if (!item) return;
+
+  const idx = inventory.indexOf(item);
+  inventory.splice(idx, 1);
+
+  const ok = await commitInventory(`Remove from inventory: ${item.name}`);
+  if (ok) {
+    toast('Item deleted', 'success');
+  } else {
+    inventory.splice(idx, 0, item); // rollback
+  }
+
+  closeDeleteModal();
+  renderTable();
+}
+
+// --- Utils ---
+function esc(s) {
+  const el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
+}
+
+function toast(msg, type) {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' ' + type : '');
+  const icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
+  el.innerHTML = `<span class="material-icons-outlined" style="font-size:18px">${icon}</span> ${esc(msg)}`;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 4000);
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// Close modals on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+// --- Init ---
+updateConnStatus();
+loadInventory();
+</script>
+</body>
+</html>

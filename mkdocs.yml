@@ -86,6 +86,7 @@ nav:
   - Inventory:
     - Lab Inventory: wet-lab/monroe-lab-inventory.md
     - Chemical Inventory: lab-safety/chemical-inventory.md
+    - Inventory App: https://monroe-lab.github.io/lab-handbook/inventory-app/
 
 extra_css:
   - stylesheets/password-gate.css
