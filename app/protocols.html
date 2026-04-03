@@ -706,7 +706,28 @@ async function saveDoc() {
     currentSha = result.sha;
     Lab.gh.clearObjectIndexCache();
     Lab.showToast('Saved', 'success');
-    loadDoc(currentDoc); // reload rendered view
+
+    // Render saved content directly (avoid GitHub API propagation delay)
+    isEditing = false;
+    editorInstance = null;
+    var html = await Lab.editorModal.renderMarkdown(body);
+    var contentEl = document.getElementById('protoContent');
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+    if (Lab.wikilinks) {
+      await Lab.wikilinks.processRendered(document.getElementById('renderedDoc'));
+    }
+    document.getElementById('protoMain').scrollTop = 0;
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
     btn.disabled = false;
