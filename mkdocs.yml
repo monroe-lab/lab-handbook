@@ -107,6 +107,13 @@ nav:
       - Coding Strategy: bioinformatics/coding-strategy.md
       - LLM Philosophy: bioinformatics/llm-philosophy-blog.md
       - Claude Code Skills: bioinformatics/claude-code-skills.md
+  - Lab Notebooks:
+    - Overview: notebooks/index.md
+    - Daily Entry Template: notebooks/template.md
+    - Alex Chen:
+      - 2026-03-31: notebooks/alex-chen/2026-03-31.md
+      - 2026-04-01: notebooks/alex-chen/2026-04-01.md
+      - 2026-04-02: notebooks/alex-chen/2026-04-02.md
   - Templates:
     - BLAST: workflow-templates/blast.md
     - HiFi Pipeline: workflow-templates/hifi-pipeline.md
