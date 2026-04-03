@@ -730,7 +730,7 @@
           // insertText in WYSIWYG inserts literal text, not markdown.
           // Switch to markdown mode to insert, then switch back.
           editor.changeMode('markdown');
-          editor.replaceSelection('\n\n> ' + c.icon + ' **' + c.label + '**\n> \n\n');
+          editor.replaceSelection('\n\n> ' + c.icon + ' **' + c.label + '**\n\n');
           editor.changeMode('wysiwyg');
         };
         if (quoteBtn && quoteBtn.nextSibling) {
