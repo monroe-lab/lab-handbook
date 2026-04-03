@@ -1296,9 +1296,12 @@ function insertInventoryItem(id) {
   const item = inventoryItems.find(i => i.id === id);
   if (!item || !editor) return;
 
-  // Insert as a markdown link with inventory:// protocol
-  const linkMd = `[\\u{1F9EA} ${item.name}](inventory://${item.id})`;
-  editor.insertText(linkMd);
+  // Switch to markdown mode, insert the link, switch back to WYSIWYG
+  // This ensures the link is properly parsed and rendered
+  editor.changeMode('markdown');
+  editor.replaceSelection(`[\u{1F9EA} ${item.name}](inventory://${item.id})`);
+  editor.changeMode('wysiwyg');
+
   closeInventoryModal();
   showToast(`Inserted: ${item.name}`, 'success');
 }
