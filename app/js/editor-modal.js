@@ -133,8 +133,11 @@
   // and convert back to ??? syntax on save.
   var ADM_ICONS = { variant: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', warning: '\u26A0\uFE0F' };
 
+  var ADM_HEADER_RE = /^(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)\s*\*\*(Variant|Note|Tip|Warning):\s*([^*]+)\*\*/i;
+
   function admonitionsToBlockquotes(md) {
-    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+    // Convert each ??? block to a blockquote, separated by --- to prevent WYSIWYG merging
+    var result = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
       var label = type.charAt(0).toUpperCase() + type.slice(1);
       var bodyLines = body.replace(/^    /gm, '').trimEnd();
@@ -142,18 +145,67 @@
       if (bodyLines) {
         lines += '\n' + bodyLines.split('\n').map(function(l) { return '> ' + l; }).join('\n');
       }
-      return lines + '\n';
+      // Use <!-- adm-sep --> as invisible separator to prevent blockquote merging
+      return lines + '\n\n<!-- adm-sep -->\n\n';
     });
+    // Clean trailing separators
+    return result.replace(/<!-- adm-sep -->\n\n$/g, '');
   }
 
   function blockquotesToAdmonitions(md) {
-    // Match blockquotes starting with emoji + **Type: title**
-    return md.replace(/^(?:> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*(Variant|Note|Tip|Warning): ([^*]+)\*\* *\n)((?:> .*\n?)*)/gim, function(match, type, title, bodyBlock) {
-      var bodyLines = bodyBlock.split('\n')
-        .map(function(l) { return l.replace(/^>\s?/, ''); })
-        .filter(function(l, i, arr) { return i < arr.length - 1 || l.trim(); }); // drop trailing empty
-      var body = bodyLines.map(function(l) { return '    ' + l; }).join('\n');
-      return '??? ' + type.toLowerCase() + ' "' + title + '"\n' + body + '\n';
+    // Remove admonition separators
+    md = md.replace(/\n*<!-- adm-sep -->\n*/g, '\n\n');
+    // Also handle --- that might appear between admonition blockquotes
+    // Process each blockquote block — handles both separate and merged (fused) blockquotes
+    return md.replace(/((?:^>.*\n?)+)/gm, function(bqBlock) {
+      var lines = bqBlock.split('\n');
+      var admonitions = [];
+      var currentType = null, currentTitle = null, currentBody = [];
+      var nonAdmLines = [];
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var stripped = line.replace(/^>\s?/, '');
+        var hm = stripped.match(ADM_HEADER_RE);
+
+        if (hm) {
+          // Flush previous admonition
+          if (currentType) {
+            admonitions.push({ type: currentType, title: currentTitle, body: currentBody });
+            currentBody = [];
+          }
+          currentType = hm[1];
+          currentTitle = hm[2].trim();
+        } else if (currentType) {
+          // Body line (skip empty leading lines)
+          if (stripped.trim() || currentBody.length > 0) {
+            currentBody.push(stripped);
+          }
+        } else {
+          // Not part of an admonition — regular blockquote
+          nonAdmLines.push(line);
+        }
+      }
+      // Flush last
+      if (currentType) {
+        admonitions.push({ type: currentType, title: currentTitle, body: currentBody });
+      }
+
+      if (admonitions.length === 0) return bqBlock; // not an admonition blockquote
+
+      var result = '';
+      // Emit any non-admonition lines first
+      if (nonAdmLines.length && nonAdmLines.some(function(l) { return l.trim(); })) {
+        result += nonAdmLines.join('\n') + '\n\n';
+      }
+      admonitions.forEach(function(a) {
+        // Trim trailing empty body lines
+        while (a.body.length && !a.body[a.body.length - 1].trim()) a.body.pop();
+        result += '??? ' + a.type.toLowerCase() + ' "' + a.title + '"\n';
+        a.body.forEach(function(bl) { result += '    ' + bl + '\n'; });
+        result += '\n';
+      });
+      return result;
     });
   }
 
