@@ -33,6 +33,10 @@ repo_name: Edit Wiki
 plugins:
   - search
   - roamlinks
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      fallback_to_build_date: true
 
 markdown_extensions:
   - tables
