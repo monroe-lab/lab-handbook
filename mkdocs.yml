@@ -52,7 +52,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Wet Lab:
+  - Protocols:
     - Arabidopsis Basics:
       - Planting on MS Plates: wet-lab/planting-arabidopsis-on-ms-plates.md
       - Planting in Soil: wet-lab/planting-in-soil.md
@@ -84,23 +84,10 @@ nav:
       - Fast Neutron Treatment: wet-lab/mutagenesis/fast-neutron-treatment.md
       - M2 Forward Genetic Screening: wet-lab/mutagenesis/m2-forward-genetic-screening.md
       - Protein Induction (BL21): wet-lab/mutagenesis/protein-induction-bl21.md
-  - Lab Management:
-    - Lab Guidelines: lab-management/lab-guidelines.md
-    - Expectations & Best Practices: lab-management/lab-expectations.md
-    - New Member Checklist: lab-management/new-member-checklist.md
-    - Undergrad Onboarding: lab-management/undergrad-onboarding.md
-    - Safety & SOPs:
-      - Lab Safety Requirements: lab-management/lab-safety-requirements.md
-      - Hazardous Drug SOP: lab-management/hazardous-drug-sop.md
-      - Acutely Toxic Solids & Liquids: lab-management/acutely-toxic-solids-liquids-sop.md
-      - Carcinogens: lab-management/carcinogens-sop.md
-      - Corrosives: lab-management/corrosives-sop.md
-      - Cryogens: lab-management/cryogens-sop.md
-      - Flammable Liquids: lab-management/flammable-liquids-sop.md
-      - Flammable Solids: lab-management/flammable-solids-sop.md
-      - Hydrofluoric Acid Producing: lab-management/hydrofluoric-acid-producing-sop.md
-      - Reproductive Toxins: lab-management/reproductive-toxins-sop.md
-      - Working Alone: lab-management/working-alone-sop.md
+    - Workflow Templates:
+      - BLAST: workflow-templates/blast.md
+      - HiFi Pipeline: workflow-templates/hifi-pipeline.md
+      - Strelka2: workflow-templates/strelka2.md
   - Bioinformatics:
     - Getting Started:
       - Cluster Access: bioinformatics/cluster-access.md
@@ -121,32 +108,32 @@ nav:
       - Coding Strategy: bioinformatics/coding-strategy.md
       - LLM Philosophy: bioinformatics/llm-philosophy-blog.md
       - Claude Code Skills: bioinformatics/claude-code-skills.md
-  - Lab Notebooks:
-    - Notebook App: https://monroe-lab.github.io/lab-handbook/notebook-app/
-    - Overview: notebooks/index.md
-    - Daily Entry Template: notebooks/template.md
-    - Alex Chen:
-      - 2026-03-31: notebooks/alex-chen/2026-03-31.md
-      - 2026-04-01: notebooks/alex-chen/2026-04-01.md
-      - 2026-04-02: notebooks/alex-chen/2026-04-02.md
-  - Templates:
-    - BLAST: workflow-templates/blast.md
-    - HiFi Pipeline: workflow-templates/hifi-pipeline.md
-    - Strelka2: workflow-templates/strelka2.md
-  - Resources:
-    - Overview: resources/index.md
-    - Inventory App: https://monroe-lab.github.io/lab-handbook/inventory-app/
+  - Lab Info:
+    - Lab Guidelines: lab-management/lab-guidelines.md
+    - Expectations & Best Practices: lab-management/lab-expectations.md
+    - New Member Checklist: lab-management/new-member-checklist.md
+    - Undergrad Onboarding: lab-management/undergrad-onboarding.md
+    - People: people/index.md
+    - Projects: projects/index.md
+    - Stocks: stocks/index.md
+    - Safety & SOPs:
+      - Lab Safety Requirements: lab-management/lab-safety-requirements.md
+      - Hazardous Drug SOP: lab-management/hazardous-drug-sop.md
+      - Acutely Toxic Solids & Liquids: lab-management/acutely-toxic-solids-liquids-sop.md
+      - Carcinogens: lab-management/carcinogens-sop.md
+      - Corrosives: lab-management/corrosives-sop.md
+      - Cryogens: lab-management/cryogens-sop.md
+      - Flammable Liquids: lab-management/flammable-liquids-sop.md
+      - Flammable Solids: lab-management/flammable-solids-sop.md
+      - Hydrofluoric Acid Producing: lab-management/hydrofluoric-acid-producing-sop.md
+      - Reproductive Toxins: lab-management/reproductive-toxins-sop.md
+      - Working Alone: lab-management/working-alone-sop.md
     - Chemical Inventory (EHS): lab-safety/chemical-inventory.md
-  - Stocks:
-    - Overview: stocks/index.md
-  - People:
-    - Overview: people/index.md
-  - Projects:
-    - Overview: projects/index.md
-  - Tools:
+  - Apps:
+    - Notebooks: https://monroe-lab.github.io/lab-handbook/notebook-app/
+    - Inventory: https://monroe-lab.github.io/lab-handbook/inventory-app/
     - Sample Tracker: https://monroe-lab.github.io/lab-handbook/sample-tracker/
-    - Sample Tracker Guide: lab-management/sample-tracker-guide.md
-    - Lab Calendar: https://monroe-lab.github.io/lab-handbook/calendar/
+    - Calendar: https://monroe-lab.github.io/lab-handbook/calendar/
     - Edit Wiki: https://monroe-lab.github.io/lab-handbook/editor/
 
 extra_css:
