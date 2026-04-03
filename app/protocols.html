@@ -227,9 +227,14 @@
 <div class="protocols-layout">
   <!-- Sidebar -->
   <div class="proto-sidebar" id="sidebar">
-    <div class="proto-sidebar-header" style="position:relative">
-      <span class="material-icons-outlined search-icon">search</span>
-      <input type="text" id="protoSearch" placeholder="Search protocols...">
+    <div class="proto-sidebar-header" style="position:relative;display:flex;gap:6px;align-items:center">
+      <div style="position:relative;flex:1">
+        <span class="material-icons-outlined search-icon">search</span>
+        <input type="text" id="protoSearch" placeholder="Search protocols...">
+      </div>
+      <button id="newProtoBtn" class="btn btn-primary btn-sm" style="display:none;padding:6px 10px;white-space:nowrap" onclick="createNewProtocol()">
+        <span class="material-icons-outlined" style="font-size:18px">add</span>
+      </button>
     </div>
     <div class="proto-tree" id="protoTree">
       <div class="loading-state"><div class="spinner"></div></div>
@@ -516,6 +521,75 @@ function printProtocol() {
   window.print();
 }
 
+// Inject a new doc into the local NAV so sidebar updates immediately
+function injectIntoNav(docPath, title) {
+  var parts = docPath.split('/');
+  parts.pop();
+  var dir = parts.join('/');
+  var label = CATEGORY_CONFIG.labels[dir] || prettifyDir(dir);
+
+  // Find existing category or create one
+  var cat = NAV.find(function(c) { return c.label === label; });
+  if (!cat) {
+    cat = { label: label, items: [] };
+    NAV.push(cat);
+  }
+  // Avoid duplicates
+  if (!cat.items.some(function(i) { return i.path === docPath; })) {
+    cat.items.push({ title: title, path: docPath });
+    cat.items.sort(function(a, b) { return a.title.localeCompare(b.title); });
+  }
+  // Rebuild flat search list
+  allProtocols = [];
+  NAV.forEach(function(c) {
+    c.items.forEach(function(item) {
+      allProtocols.push({ title: item.title, path: item.path, category: c.label });
+    });
+  });
+}
+
+async function createNewProtocol() {
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  var title = prompt('Protocol title:');
+  if (!title || !title.trim()) return;
+  title = title.trim();
+
+  var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  // Pick directory — default to current doc's directory, or wet-lab
+  var dir = 'wet-lab';
+  if (currentDoc) {
+    var parts = currentDoc.split('/');
+    parts.pop();
+    dir = parts.join('/');
+  }
+
+  var user = gh.getUser();
+  var userName = user ? user.name || user.login : 'unknown';
+  var today = new Date().toISOString().slice(0, 10);
+
+  var content = Lab.buildFrontmatter(
+    { title: title, type: 'protocol' },
+    '\n# ' + title + '\n\n*Created by ' + userName + ' on ' + today + '*\n\n'
+  );
+
+  var filePath = 'docs/' + dir + '/' + slug + '.md';
+  var docPath = dir + '/' + slug;
+
+  try {
+    await gh.saveFile(filePath, content, null, 'New protocol: ' + title);
+    gh.clearObjectIndexCache();
+    injectIntoNav(docPath, title);
+    renderSidebar(document.getElementById('protoSearch').value);
+    Lab.showToast('Created: ' + title, 'success');
+    loadDoc(docPath);
+  } catch(e) {
+    Lab.showToast('Create failed: ' + e.message, 'error');
+  }
+}
+
 async function duplicateDoc() {
   if (!currentDoc) return;
   var gh = Lab.gh;
@@ -550,6 +624,8 @@ async function duplicateDoc() {
 
     await gh.saveFile(newPath, newContent, null, 'Duplicate protocol: ' + srcTitle);
     gh.clearObjectIndexCache();
+    injectIntoNav(dir + '/' + newSlug, newTitle);
+    renderSidebar(document.getElementById('protoSearch').value);
     Lab.showToast('Duplicated: ' + newTitle, 'success');
 
     // Load the new doc
@@ -608,6 +684,12 @@ window.addEventListener('popstate', function() {
 (async function init() {
   await buildNav();
   renderSidebar();
+
+  // Show new-protocol button if logged in
+  if (Lab.gh.isLoggedIn()) {
+    document.getElementById('newProtoBtn').style.display = '';
+  }
+
   var params = new URLSearchParams(location.search);
   var doc = params.get('doc');
   if (doc) {
