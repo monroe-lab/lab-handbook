@@ -657,33 +657,43 @@
       insertBar.appendChild(btn);
     });
 
-    // Separator
-    var sep = document.createElement('span');
-    sep.style.cssText = 'width:1px;height:20px;background:var(--grey-300);margin:0 4px;';
-    insertBar.appendChild(sep);
-
-    // Variant/Note/Tip insert buttons
-    var callouts = [
-      { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
-      { type: 'note', label: 'Note', color: '#1565c0', icon: '\u2139\uFE0F' },
-      { type: 'tip', label: 'Tip', color: '#2e7d32', icon: '\uD83D\uDCA1' },
-    ];
-    callouts.forEach(function(c) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;border:1.5px solid ' + c.color + '40;background:' + c.color + '08;color:' + c.color + ';font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
-      btn.textContent = c.icon + ' ' + c.label;
-      btn.onmouseenter = function() { btn.style.background = c.color + '18'; };
-      btn.onmouseleave = function() { btn.style.background = c.color + '08'; };
-      btn.onclick = function(e) {
-        e.preventDefault();
-        var snippet = '\n\n??? ' + c.type + ' "' + c.label + ' title"\n    Description here\n\n';
-        editor.insertText(snippet);
-      };
-      insertBar.appendChild(btn);
-    });
-
     editorUI.insertBefore(insertBar, editorUI.firstChild);
+
+    // Inject Variant/Note/Tip buttons into the Toast UI toolbar row
+    var toolbar = editorUI.querySelector('.toastui-editor-toolbar');
+    if (toolbar) {
+      var calloutGroup = document.createElement('div');
+      calloutGroup.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:6px;border-left:1px solid var(--grey-300);padding-left:8px;';
+
+      var callouts = [
+        { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
+        { type: 'note', label: 'Note', color: '#1565c0', icon: '\u2139\uFE0F' },
+        { type: 'tip', label: 'Tip', color: '#2e7d32', icon: '\uD83D\uDCA1' },
+      ];
+      callouts.forEach(function(c) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.title = 'Insert ' + c.label + ' callout';
+        btn.style.cssText = 'display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border-radius:4px;border:none;background:transparent;color:' + c.color + ';font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;white-space:nowrap;line-height:1;';
+        btn.textContent = c.icon + ' ' + c.label;
+        btn.onmouseenter = function() { btn.style.background = c.color + '12'; };
+        btn.onmouseleave = function() { btn.style.background = 'transparent'; };
+        btn.onclick = function(e) {
+          e.preventDefault();
+          var snippet = '\n\n??? ' + c.type + ' "' + c.label + ' title"\n    Description here\n\n';
+          editor.insertText(snippet);
+        };
+        calloutGroup.appendChild(btn);
+      });
+
+      // Append to the first toolbar group row
+      var toolbarGroup = toolbar.querySelector('.toastui-editor-toolbar-group');
+      if (toolbarGroup) {
+        toolbarGroup.parentNode.appendChild(calloutGroup);
+      } else {
+        toolbar.appendChild(calloutGroup);
+      }
+    }
   }
 
   // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
