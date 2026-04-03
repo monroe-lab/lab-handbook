@@ -175,6 +175,8 @@
     processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
       var type = CALLOUT_COLORS[icon] || 'note';
       var bodyMd = bodyBlock.replace(/^>\s?/gm, '').trim();
+      // Preserve line breaks — markdown collapses consecutive lines into one paragraph
+      bodyMd = bodyMd.replace(/\n/g, '  \n');
       var placeholder = '<!--admonition-' + admonitions.length + '-->';
       admonitions.push({ type: type, title: title.trim(), bodyMd: bodyMd });
       return placeholder + '\n\n';
