@@ -27,8 +27,6 @@ theme:
     - search.highlight
   custom_dir: overrides
 
-repo_url: https://monroe-lab.github.io/lab-handbook/editor/
-repo_name: Edit Wiki
 
 plugins:
   - search
