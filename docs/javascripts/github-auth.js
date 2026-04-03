@@ -3,7 +3,7 @@
 (function () {
   var CLIENT_ID = "Ov23li7RlMB84qZM8Sky";
   // Cloudflare Worker URL for token exchange (keeps client_secret server-side)
-  var TOKEN_PROXY = "";  // Grey: deploy the worker and set this URL
+  var TOKEN_PROXY = "https://lab-handbook-auth.greymonroe.workers.dev";
   var TOKEN_KEY = "gh_lab_token";
   var USER_KEY = "gh_lab_user";
   var SCOPE = "repo";
