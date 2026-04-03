@@ -17,7 +17,7 @@ The central knowledge base for the Monroe Lab at UC Davis. Protocols, resources,
 
 ## Quick Links
 
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0 24px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 24px;">
 
 <div style="padding:16px;border-radius:10px;background:rgba(106,27,154,0.06);">
 <span class="material-icons-outlined" style="color:#6a1b9a;">menu_book</span>
@@ -29,20 +29,20 @@ The central knowledge base for the Monroe Lab at UC Davis. Protocols, resources,
 - [HiFi DNA Extraction](wet-lab/extraction/hifi-dna-extraction.md)
 - [PCR Genotyping](wet-lab/pcr-genotyping.md)
 - [CUT&Tag](wet-lab/epigenomics/cut-and-tag.md)
-- [All protocols...](wet-lab/planting-arabidopsis-on-ms-plates.md)
 
 </div>
 </div>
 
 <div style="padding:16px;border-radius:10px;background:rgba(0,150,136,0.06);">
 <span class="material-icons-outlined" style="color:#009688;">science</span>
-<strong style="margin-left:6px;">Resources & Inventory</strong>
+<strong style="margin-left:6px;">Resources</strong>
 <div style="font-size:14px;margin-top:6px;color:#555;">
 
-- [Browse Resources](resources/)
-- [Inventory App](inventory-app/)
+- [Browse All Resources](resources/)
 - [Chemical Inventory (EHS)](lab-safety/chemical-inventory.md)
-- [Sample Tracker](sample-tracker/)
+- [Stocks](stocks/)
+- [People](people/)
+- [Projects](projects/)
 
 </div>
 </div>
@@ -55,19 +55,19 @@ The central knowledge base for the Monroe Lab at UC Davis. Protocols, resources,
 - [Cluster Access](bioinformatics/cluster-access.md)
 - [Linux Basics](bioinformatics/linux-basics-part1.md)
 - [SLURM Basics](bioinformatics/slurm_basics.md)
-- [All guides...](bioinformatics/cluster-access.md)
+- [Project Structure](bioinformatics/project-structure-on-farm.md)
 
 </div>
 </div>
 
 <div style="padding:16px;border-radius:10px;background:rgba(121,85,72,0.06);">
-<span class="material-icons-outlined" style="color:#795548;">build</span>
-<strong style="margin-left:6px;">Lab Management</strong>
+<span class="material-icons-outlined" style="color:#795548;">apps</span>
+<strong style="margin-left:6px;">Apps</strong>
 <div style="font-size:14px;margin-top:6px;color:#555;">
 
-- [Lab Guidelines](lab-management/lab-guidelines.md)
-- [New Member Checklist](lab-management/new-member-checklist.md)
-- [Safety SOPs](lab-management/lab-safety-requirements.md)
+- [Lab Notebooks](notebook-app/)
+- [Inventory Manager](inventory-app/)
+- [Sample Tracker](sample-tracker/)
 - [Lab Calendar](calendar/)
 - [Edit Wiki](editor/)
 

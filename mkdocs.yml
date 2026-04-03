@@ -20,14 +20,16 @@ theme:
   features:
     - navigation.instant
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
-    - navigation.expand
     - navigation.top
+    - navigation.indexes
     - search.suggest
     - search.highlight
+    - header.autohide
   custom_dir: overrides
 
-repo_url: https://app.pagescms.org/monroe-lab/lab-handbook
+repo_url: https://monroe-lab.github.io/lab-handbook/editor/
 repo_name: Edit Wiki
 
 plugins:
