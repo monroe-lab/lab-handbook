@@ -42,6 +42,15 @@ Arabidopsis seeds carry fungal spores and bacteria on their seed coat from the e
 5. Allow seeds to dry in [[clean-bench|clean bench]] (EtOH evaporates quickly)
 6. Proceed to [[wet-lab/stratification]] or plating
 
+??? variant "Old or contamination-prone seed stocks"
+    **Step 2:** Use **95% ethanol** instead of 70%
+
+    **Step 3:** Extend rotation to **20 min**
+
+    **Add step 4b:** After removing ethanol, add 500 uL 0.5% bleach solution for 2 min, then remove and dry as normal
+
+    *Rationale:* Old seeds or those harvested in humid conditions carry resistant fungal spores. Higher ethanol concentration + brief bleach exposure eliminates these without needing the full Method 2 procedure.
+
 > *If you get contamination with this method:* Switch to Method 2. Some seed batches (especially old ones or those harvested in humid conditions) carry spores that ethanol alone won't kill.
 
 ---
@@ -67,6 +76,28 @@ Final concentration is ~0.5-0.8% NaOCl — enough to kill microbes but mild enou
 7. **Rinse 3x** with sterile water (in [[clean-bench|clean bench]]) — this is critical, residual bleach inhibits germination
 8. Resuspend in 1 mL sterile water
 9. Proceed to [[wet-lab/stratification]] (wrap in foil, 4 C, 2 days)
+
+??? variant "Sensitive genotypes (e.g., Ler, Cvi)"
+    Some accessions have thinner seed coats and are more susceptible to bleach damage.
+
+    **Solution recipe:** Reduce bleach to **0.5 mL** (final ~0.25-0.4% NaOCl)
+
+    **Step 5:** Reduce second wash to **8 min**
+
+    **Step 7:** Rinse **5x** instead of 3x (extra rinses compensate for any residual bleach)
+
+    *Rationale:* Ler and Cvi embryos are more sensitive to oxidative damage. Lower concentration + shorter exposure preserves viability while still achieving adequate sterilization.
+
+??? variant "Very large batches (>1000 seeds)"
+    **Step 1:** Use a 15 mL conical tube instead of 1.5 mL
+
+    **Solution recipe:** Scale up to **25 mL** total volume (2.5 mL bleach, 125 uL Triton, dH2O to 25 mL)
+
+    **Step 7:** Rinse **5x** (larger volume means more residual bleach to wash out)
+
+    **Step 8:** Resuspend in **5 mL** sterile water for easier pipetting
+
+    *Rationale:* Seeds clump in small tubes at high density, preventing even exposure. Larger volume ensures all seeds contact the sterilization solution.
 
 > *Why two washes?* The first wash loosens organic debris (soil particles, dead tissue) that shields microbes. The second wash hits the now-exposed spores directly.
 

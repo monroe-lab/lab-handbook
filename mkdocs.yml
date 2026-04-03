@@ -84,13 +84,13 @@ nav:
     - HiFi Pipeline: workflow-templates/hifi-pipeline.md
     - Strelka2: workflow-templates/strelka2.md
   - Inventory:
-    - Lab Inventory: wet-lab/monroe-lab-inventory.md
     - Chemical Inventory: lab-safety/chemical-inventory.md
     - Inventory App: https://monroe-lab.github.io/lab-handbook/inventory-app/
     - Edit Wiki: https://monroe-lab.github.io/lab-handbook/editor/
 
 extra_css:
   - stylesheets/password-gate.css
+  - stylesheets/variants.css
 
 extra_javascript:
   - javascripts/inventory-links.js
