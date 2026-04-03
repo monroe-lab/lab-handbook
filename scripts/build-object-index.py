@@ -27,6 +27,8 @@ OBJECT_DIRS = [
     "wet-lab/mutagenesis",
     "bioinformatics",
     "lab-management",
+    "lab-safety",
+    "workflow-templates",
     "notebooks",
 ]
 
@@ -77,7 +79,7 @@ def parse_frontmatter(text: str) -> dict | None:
 
 def infer_type_from_path(path: str) -> str | None:
     """Infer object type from directory path for files without frontmatter."""
-    if "wet-lab/" in path or "bioinformatics/" in path or "lab-management/" in path:
+    if "wet-lab/" in path or "bioinformatics/" in path or "lab-management/" in path or "lab-safety/" in path or "workflow-templates/" in path:
         return "protocol"
     if "notebooks/" in path:
         return "notebook"

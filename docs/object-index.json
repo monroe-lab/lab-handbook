@@ -1975,6 +1975,26 @@
     "title": "Working Alone in the Laboratory SOP"
   },
   {
+    "path": "lab-safety/chemical-inventory.md",
+    "type": "protocol",
+    "title": "Chemical Inventory"
+  },
+  {
+    "path": "workflow-templates/blast.md",
+    "type": "protocol",
+    "title": "BLASTN sbatch template"
+  },
+  {
+    "path": "workflow-templates/hifi-pipeline.md",
+    "type": "protocol",
+    "title": "HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)"
+  },
+  {
+    "path": "workflow-templates/strelka2.md",
+    "type": "protocol",
+    "title": "Strelka2"
+  },
+  {
     "path": "notebooks/index.md",
     "type": "notebook",
     "title": "Lab Notebooks"

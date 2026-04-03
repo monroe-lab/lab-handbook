@@ -256,105 +256,93 @@
 <script src="js/wikilinks.js"></script>
 <script src="js/editor-modal.js"></script>
 <script>
-// Protocol navigation structure (from mkdocs.yml)
-var NAV = [
-  { label: 'Arabidopsis Basics', items: [
-    { title: 'Planting on MS Plates', path: 'wet-lab/planting-arabidopsis-on-ms-plates' },
-    { title: 'Planting in Soil', path: 'wet-lab/planting-in-soil' },
-    { title: 'Seed Sterilization', path: 'wet-lab/seed-sterilization' },
-    { title: 'Stratification', path: 'wet-lab/stratification' },
-    { title: 'MS Media Recipe', path: 'wet-lab/ms-media-recipe' },
-    { title: 'Autoclave', path: 'wet-lab/autoclave' },
-    { title: 'Clean Bench', path: 'wet-lab/clean-bench' },
-    { title: 'Quick DNA Extraction', path: 'wet-lab/quick-dna-extraction' },
-    { title: 'PCR Genotyping', path: 'wet-lab/pcr-genotyping' },
-    { title: 'Gel Electrophoresis', path: 'wet-lab/gel-electrophoresis' },
-  ]},
-  { label: 'DNA Extraction', items: [
-    { title: 'HiFi DNA Extraction (DIY)', path: 'wet-lab/extraction/hifi-dna-extraction' },
-    { title: 'Sorbitol/CTAB HiFi Extraction', path: 'wet-lab/extraction/sorbitol-ctab-hifi-extraction' },
-    { title: 'HMW Extraction (Challenging Plants)', path: 'wet-lab/extraction/hmw-extraction-challenging-plants' },
-    { title: 'Kalanchoe CTAB Extraction', path: 'wet-lab/extraction/kalanchoe-ctab-extraction' },
-    { title: 'Pistachio DNA Extraction', path: 'wet-lab/extraction/pistachio-dna-extraction' },
-  ]},
-  { label: 'Library Prep & Sequencing', items: [
-    { title: 'Tn5 Loading & Library Prep', path: 'wet-lab/library-prep/tn5-loading-library-prep' },
-    { title: 'Preparing SPRI Beads', path: 'wet-lab/library-prep/spri-beads-preparation' },
-    { title: 'Sanger Sequencing', path: 'wet-lab/library-prep/sanger-sequencing' },
-    { title: 'PacBio HiFi Sequencing (Col-0)', path: 'wet-lab/library-prep/pacbio-hifi-sequencing' },
-  ]},
-  { label: 'Epigenomics', items: [
-    { title: 'CUT&Tag', path: 'wet-lab/epigenomics/cut-and-tag' },
-    { title: 'ChIP-seq', path: 'wet-lab/epigenomics/chip-seq' },
-    { title: 'Fiber-Seq / DiMeLo-Seq', path: 'wet-lab/epigenomics/fiber-seq-dimelo-seq' },
-  ]},
-  { label: 'Mutagenesis & Genetics', items: [
-    { title: 'DSB Repair Master Protocol', path: 'wet-lab/mutagenesis/dsb-repair-master-protocol' },
-    { title: 'Fast Neutron Treatment', path: 'wet-lab/mutagenesis/fast-neutron-treatment' },
-    { title: 'M2 Forward Genetic Screening', path: 'wet-lab/mutagenesis/m2-forward-genetic-screening' },
-    { title: 'Protein Induction (BL21)', path: 'wet-lab/mutagenesis/protein-induction-bl21' },
-  ]},
-  { label: 'Safety SOPs', items: [
-    { title: 'Lab Safety Requirements', path: 'lab-management/lab-safety-requirements' },
-    { title: 'Hazardous Drug SOP', path: 'lab-management/hazardous-drug-sop' },
-    { title: 'Acutely Toxic Solids & Liquids', path: 'lab-management/acutely-toxic-solids-liquids-sop' },
-    { title: 'Carcinogens', path: 'lab-management/carcinogens-sop' },
-    { title: 'Corrosives', path: 'lab-management/corrosives-sop' },
-    { title: 'Cryogens', path: 'lab-management/cryogens-sop' },
-    { title: 'Flammable Liquids', path: 'lab-management/flammable-liquids-sop' },
-    { title: 'Flammable Solids', path: 'lab-management/flammable-solids-sop' },
-    { title: 'Hydrofluoric Acid Producing', path: 'lab-management/hydrofluoric-acid-producing-sop' },
-    { title: 'Reproductive Toxins', path: 'lab-management/reproductive-toxins-sop' },
-    { title: 'Working Alone', path: 'lab-management/working-alone-sop' },
-  ]},
-  { label: 'Workflow Templates', items: [
-    { title: 'BLAST', path: 'workflow-templates/blast' },
-    { title: 'HiFi Pipeline', path: 'workflow-templates/hifi-pipeline' },
-    { title: 'Strelka2', path: 'workflow-templates/strelka2' },
-  ]},
-  { label: 'Bioinformatics - Getting Started', items: [
-    { title: 'Cluster Access', path: 'bioinformatics/cluster-access' },
-    { title: 'Interacting with Farm', path: 'bioinformatics/interacting-with-farm' },
-    { title: 'Storage & Backup', path: 'bioinformatics/storage-and-backup' },
-  ]},
-  { label: 'Bioinformatics - Linux & Scripting', items: [
-    { title: 'Linux Basics (Part 1)', path: 'bioinformatics/linux-basics-part1' },
-    { title: 'Bash Scripting (Part 2)', path: 'bioinformatics/farm-scripting-part2' },
-    { title: 'Bashrc Customization', path: 'bioinformatics/bashrc-customization' },
-  ]},
-  { label: 'Bioinformatics - SLURM', items: [
-    { title: 'SLURM Basics', path: 'bioinformatics/slurm_basics' },
-    { title: 'SLURM Advanced', path: 'bioinformatics/slurm-advanced' },
-  ]},
-  { label: 'Bioinformatics - Tools & Philosophy', items: [
-    { title: 'Bioinformatics Tools (Part 3)', path: 'bioinformatics/farm-bioinformatics-part3' },
-    { title: 'Software & Environments (Part 4)', path: 'bioinformatics/farm-software-part4' },
-    { title: 'Project Structure', path: 'bioinformatics/project-structure-on-farm' },
-    { title: 'Coding Strategy', path: 'bioinformatics/coding-strategy' },
-    { title: 'LLM Philosophy', path: 'bioinformatics/llm-philosophy-blog' },
-    { title: 'Claude Code Skills', path: 'bioinformatics/claude-code-skills' },
-  ]},
-  { label: 'Lab Management', items: [
-    { title: 'Lab Guidelines', path: 'lab-management/lab-guidelines' },
-    { title: 'Expectations & Best Practices', path: 'lab-management/lab-expectations' },
-    { title: 'New Member Checklist', path: 'lab-management/new-member-checklist' },
-    { title: 'Undergrad Onboarding', path: 'lab-management/undergrad-onboarding' },
-    { title: 'Sample Tracker Guide', path: 'lab-management/sample-tracker-guide' },
-  ]},
-];
+// Category labels and ordering for protocol directories.
+// New directories not listed here auto-generate a label from the folder name.
+var CATEGORY_CONFIG = {
+  order: [
+    'wet-lab', 'wet-lab/extraction', 'wet-lab/library-prep', 'wet-lab/epigenomics', 'wet-lab/mutagenesis',
+    'lab-safety',
+    'lab-management',
+    'workflow-templates',
+    'bioinformatics',
+  ],
+  labels: {
+    'wet-lab':                'Wet Lab Basics',
+    'wet-lab/extraction':     'DNA Extraction',
+    'wet-lab/library-prep':   'Library Prep & Sequencing',
+    'wet-lab/epigenomics':    'Epigenomics',
+    'wet-lab/mutagenesis':    'Mutagenesis & Genetics',
+    'lab-management':         'Lab Management',
+    'lab-safety':             'Lab Safety',
+    'workflow-templates':     'Workflow Templates',
+    'bioinformatics':         'Bioinformatics',
+  }
+};
 
+var NAV = [];
 var currentDoc = null;
 var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
-
-// Build flat list for search
 var allProtocols = [];
-NAV.forEach(function(cat) {
-  cat.items.forEach(function(item) {
-    allProtocols.push({ title: item.title, path: item.path, category: cat.label });
+
+// Build NAV dynamically from object-index.json
+async function buildNav() {
+  var index = await Lab.gh.fetchObjectIndex();
+  var protocols = index.filter(function(o) { return o.type === 'protocol'; });
+
+  // Group by directory path (strip .md, get dir portion)
+  var groups = {};
+  protocols.forEach(function(p) {
+    // p.path is like "wet-lab/autoclave.md" or "wet-lab/extraction/hifi-dna-extraction.md"
+    var parts = p.path.replace(/\.md$/, '').split('/');
+    var slug = parts.pop(); // filename without .md
+    var dir = parts.join('/'); // directory key
+
+    // Skip index files
+    if (slug === 'index') return;
+
+    if (!groups[dir]) groups[dir] = [];
+    groups[dir].push({ title: p.title, path: p.path.replace(/\.md$/, '') });
   });
-});
+
+  // Sort items alphabetically within each group
+  Object.keys(groups).forEach(function(dir) {
+    groups[dir].sort(function(a, b) { return a.title.localeCompare(b.title); });
+  });
+
+  // Build NAV in configured order, then append any new directories not in config
+  var usedDirs = {};
+  NAV = [];
+
+  CATEGORY_CONFIG.order.forEach(function(dir) {
+    if (groups[dir]) {
+      NAV.push({ label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
+      usedDirs[dir] = true;
+    }
+  });
+
+  // Append any directories not in the config (auto-discovered)
+  Object.keys(groups).sort().forEach(function(dir) {
+    if (!usedDirs[dir]) {
+      NAV.push({ label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
+    }
+  });
+
+  // Build flat search list
+  allProtocols = [];
+  NAV.forEach(function(cat) {
+    cat.items.forEach(function(item) {
+      allProtocols.push({ title: item.title, path: item.path, category: cat.label });
+    });
+  });
+}
+
+function prettifyDir(dir) {
+  // "wet-lab/extraction" → "Extraction", "lab-management" → "Lab Management"
+  var last = dir.split('/').pop();
+  return last.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+}
 
 // ── Sidebar ──
 function renderSidebar(filter) {
@@ -617,7 +605,8 @@ window.addEventListener('popstate', function() {
 });
 
 // ── Init ──
-(function init() {
+(async function init() {
+  await buildNav();
   renderSidebar();
   var params = new URLSearchParams(location.search);
   var doc = params.get('doc');
