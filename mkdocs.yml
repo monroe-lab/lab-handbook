@@ -31,7 +31,7 @@ theme:
   custom_dir: overrides
 
 repo_url: https://github.com/monroe-lab/lab-handbook
-edit_uri: https://app.pagescms.org/monroe-lab/lab-handbook/main/content/docs/
+edit_uri: https://app.pagescms.org/monroe-lab/lab-handbook/content/
 
 plugins:
   - search
