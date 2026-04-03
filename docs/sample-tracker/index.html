@@ -431,6 +431,16 @@ tr:hover { background: var(--teal-50); }
 </style>
 </head>
 <body>
+<script>
+if (window.self !== window.top) {
+  document.addEventListener('DOMContentLoaded', function() {
+    var h = document.querySelector('.header');
+    if (h) h.style.display = 'none';
+    document.body.style.paddingTop = '0';
+    if (window.parent.ghAuth) window.ghAuth = window.parent.ghAuth;
+  });
+}
+</script>
 
 <!-- Header -->
 <div class="header">

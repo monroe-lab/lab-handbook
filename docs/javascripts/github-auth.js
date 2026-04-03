@@ -3,6 +3,8 @@
 (function () {
   // Prevent duplicate initialization from MkDocs instant navigation
   if (window.ghAuth && window.ghAuth._initialized) return;
+  // Don't render auth UI inside iframes (parent handles it)
+  var inIframe = window.self !== window.top;
 
   var CLIENT_ID = "Ov23li7RlMB84qZM8Sky";
   // Cloudflare Worker URL for token exchange (keeps client_secret server-side)
@@ -23,7 +25,8 @@
     _initialized: true
   };
 
-  /* ---- inject header UI ---- */
+  /* ---- skip everything in iframes — apps use window.parent.ghAuth ---- */
+  if (inIframe) return;
   var css = document.createElement("style");
   css.textContent = [
     "#gh-auth-bar{display:flex;align-items:center;gap:8px;font-size:13px;font-family:'Inter',-apple-system,sans-serif}",

@@ -458,6 +458,19 @@ body {
 </style>
 </head>
 <body>
+<script>
+// When embedded in an iframe, hide the app header and use parent's auth
+if (window.self !== window.top) {
+  document.documentElement.style.setProperty('--iframe-mode', '1');
+  document.addEventListener('DOMContentLoaded', function() {
+    var h = document.querySelector('.header');
+    if (h) h.style.display = 'none';
+    document.body.style.paddingTop = '0';
+    // Use parent's auth token if available
+    if (window.parent.ghAuth) window.ghAuth = window.parent.ghAuth;
+  });
+}
+</script>
 
 <!-- Header -->
 <div class="header">
