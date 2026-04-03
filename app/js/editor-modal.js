@@ -557,9 +557,13 @@
 
   // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
   var _styling = false; // guard against re-entrant calls
-  function styleWikilinksInEditor(containerEl) {
+  async function styleWikilinksInEditor(containerEl) {
     if (_styling) return;
     _styling = true;
+    // Ensure object index is loaded so we can look up types
+    if (window.Lab.wikilinks && window.Lab.wikilinks.ensureLookup) {
+      await window.Lab.wikilinks.ensureLookup();
+    }
     try { _styleWikilinksInner(containerEl); } finally { _styling = false; }
   }
   function _styleWikilinksInner(containerEl) {
