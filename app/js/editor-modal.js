@@ -171,8 +171,8 @@
     });
 
     // Extract blockquote callouts: > 🔀/⚠️/ℹ️/💡 **Title** followed by > body lines
-    // Body capture includes blank lines (Toast UI splits blockquote paragraphs with empty lines)
-    processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:(?:>.*|)\n)*)/gm, function(match, icon, title, bodyBlock) {
+    // Only captures consecutive > lines (NOT blank lines — those separate blockquotes)
+    processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
       var type = CALLOUT_COLORS[icon] || 'note';
       var bodyMd = bodyBlock.replace(/^>\s?/gm, '').trim();
       var placeholder = '<!--admonition-' + admonitions.length + '-->';
