@@ -34,6 +34,10 @@ jobs:
           cp -r docs/* _deploy/
           # Copy the new app shell
           cp -r app/ _deploy/app/
+          # Cache-bust JS includes so browsers pick up new code
+          HASH=$(git rev-parse --short HEAD)
+          find _deploy/app -name '*.html' -exec sed -i "s|\.js\"|.js?v=$HASH\"|g" {} +
+          find _deploy/app -name '*.html' -exec sed -i "s|\.css\"|.css?v=$HASH\"|g" {} +
           # Root redirect to dashboard
           echo '<meta http-equiv="refresh" content="0;url=app/">' > _deploy/index.html
           # 404 page that redirects old MkDocs URLs to new app
