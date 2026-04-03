@@ -98,49 +98,43 @@ body {
 }
 .conn-dot.connected { background: #69f0ae; }
 
-/* Week navigation */
+/* Week nav */
 .week-nav {
   background: #fff;
-  padding: 16px 24px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   gap: 12px;
   border-bottom: 1px solid var(--grey-200);
   box-shadow: var(--shadow);
 }
-.week-nav-center {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.week-nav-center h2 {
-  font-size: 18px;
-  font-weight: 600;
-  min-width: 220px;
-  text-align: center;
-}
-.week-nav-arrows {
-  display: flex;
-  gap: 4px;
-}
-.week-nav-arrows .btn {
-  padding: 6px 10px;
+.week-nav .btn-nav {
   background: none;
   border: 1px solid var(--grey-300);
-  color: var(--grey-700);
   border-radius: var(--radius);
-}
-.week-nav-arrows .btn:hover {
-  background: var(--teal-light);
-  color: var(--teal-dark);
-  border-color: var(--teal);
-}
-.week-nav-right {
+  cursor: pointer;
+  padding: 6px 10px;
   display: flex;
-  gap: 8px;
   align-items: center;
+  color: var(--grey-700);
+  transition: all .15s;
+}
+.week-nav .btn-nav:hover { background: var(--teal-light); color: var(--teal-dark); }
+.week-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--grey-900);
+  min-width: 200px;
+  text-align: center;
+}
+
+/* Filter bar */
+.filter-bar {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 .filter-select {
   padding: 9px 12px;
@@ -154,6 +148,25 @@ body {
   min-width: 150px;
 }
 .filter-select:focus { border-color: var(--teal); }
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--grey-700);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
 /* Stats */
 .stats {
@@ -180,43 +193,21 @@ body {
 .stat-value { font-size: 24px; font-weight: 700; }
 .stat-label { font-size: 12px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .5px; }
 
-/* Member legend */
-.legend {
-  padding: 0 24px;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--grey-700);
-}
-.legend-swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-}
-
 /* Calendar grid */
 .calendar-wrap {
   padding: 0 24px 24px;
 }
-.calendar-grid {
-  display: grid;
-  grid-template-columns: 60px repeat(5, 1fr);
+.calendar-container {
   background: #fff;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: hidden;
-  min-height: 400px;
+  overflow-x: auto;
 }
-
-/* Day headers */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 60px repeat(5, 1fr);
+  min-width: 700px;
+}
 .cal-header {
   background: var(--grey-50);
   padding: 12px 8px;
@@ -228,126 +219,87 @@ body {
   color: var(--grey-700);
   border-bottom: 2px solid var(--grey-200);
 }
-.cal-header.today {
-  color: var(--teal);
-  border-bottom-color: var(--teal);
+.cal-header.time-col {
+  font-size: 11px;
 }
-.cal-header-date {
+.cal-header .day-date {
+  display: block;
   font-size: 11px;
   font-weight: 400;
   color: var(--grey-500);
   margin-top: 2px;
 }
-.cal-header.today .cal-header-date { color: var(--teal); }
-.cal-corner {
-  background: var(--grey-50);
-  border-bottom: 2px solid var(--grey-200);
-}
-
-/* Time labels */
-.cal-time {
-  padding: 4px 8px;
+.time-label {
+  padding: 0 8px;
   font-size: 11px;
-  font-weight: 500;
   color: var(--grey-500);
   text-align: right;
   border-right: 1px solid var(--grey-200);
-  position: relative;
   height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 2px;
 }
-.cal-time::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -1px;
-  left: 0;
-  height: 1px;
-  background: var(--grey-200);
-}
-
-/* Day columns */
-.cal-day-col {
+.day-column {
   position: relative;
   border-right: 1px solid var(--grey-200);
+  height: 60px;
+  border-bottom: 1px solid var(--grey-100);
 }
-.cal-day-col:last-child { border-right: none; }
+.day-column:last-child { border-right: none; }
 
-.cal-hour-line {
+/* Block cards */
+.block-card {
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--grey-200);
-}
-
-/* Schedule blocks */
-.cal-block {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  overflow: hidden;
-  transition: box-shadow .15s, transform .15s;
-  z-index: 2;
-}
-.cal-block:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
-  z-index: 3;
-}
-.cal-block.assigned {
-  border: 2px solid transparent;
-}
-.cal-block.unassigned {
-  border: 2px dashed;
-  opacity: .75;
-}
-.cal-block-member {
-  font-weight: 600;
+  border-radius: 4px;
+  padding: 3px 6px;
   font-size: 11px;
   line-height: 1.3;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  transition: box-shadow .15s;
+  border-left: 3px solid;
+}
+.block-card:hover {
+  box-shadow: var(--shadow-lg);
+  z-index: 2;
+}
+.block-card .block-member {
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cal-block-time {
+.block-card .block-time {
   font-size: 10px;
-  opacity: .8;
+  opacity: .7;
+}
+.block-card .block-activity {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10px;
   margin-top: 1px;
 }
-.cal-block-activity {
-  font-size: 11px;
-  margin-top: 3px;
-  line-height: 1.3;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+.block-card.unassigned {
+  border-style: dashed;
+  border-width: 1px;
+  border-left-width: 3px;
 }
-
-/* Status dot */
 .status-dot {
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  margin-right: 4px;
+  margin-left: 4px;
   vertical-align: middle;
 }
 .status-dot.scheduled { background: #4caf50; }
 .status-dot.in-progress { background: #2196f3; }
 .status-dot.completed { background: #9e9e9e; }
 .status-dot.cancelled { background: #e53935; }
-
-/* Multi-member overlap: share width */
-.cal-block.col-2-0 { right: calc(50% + 2px); }
-.cal-block.col-2-1 { left: calc(50% + 2px); }
-.cal-block.col-3-0 { right: calc(66.66% + 2px); }
-.cal-block.col-3-1 { left: calc(33.33% + 2px); right: calc(33.33% + 2px); }
-.cal-block.col-3-2 { left: calc(66.66% + 2px); }
 
 /* Modal */
 .modal-overlay {
@@ -397,9 +349,10 @@ body {
   padding: 16px 24px;
   border-top: 1px solid var(--grey-200);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 8px;
 }
+.modal-footer-right { display: flex; gap: 8px; }
 
 /* Form */
 .form-group { margin-bottom: 16px; }
@@ -434,11 +387,18 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 16px;
 }
 .form-check input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   accent-color: var(--teal);
+}
+.form-check label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-700);
+  margin-bottom: 0;
 }
 
 /* Toast */
@@ -491,49 +451,9 @@ body {
 @media (max-width: 768px) {
   .header { padding: 16px; }
   .week-nav { padding: 12px 16px; }
-  .stats { padding: 12px 16px; gap: 8px; }
-  .stat-card { min-width: 130px; padding: 10px 14px; }
-  .stat-value { font-size: 20px; }
+  .filter-bar { padding: 12px 16px; }
+  .stats { padding: 12px 16px; }
   .calendar-wrap { padding: 0 16px 16px; }
-  .legend { padding: 0 16px; }
-
-  /* Stack days vertically on mobile */
-  .calendar-grid {
-    display: block;
-  }
-  .cal-corner { display: none; }
-  .cal-header { display: none; }
-  .cal-time-col { display: none; }
-  .cal-day-col {
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--grey-200);
-    min-height: auto;
-    padding: 8px;
-  }
-  .cal-day-col::before {
-    content: attr(data-day);
-    display: block;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--teal-dark);
-    margin-bottom: 8px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--grey-200);
-  }
-  .cal-block {
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    margin-bottom: 6px;
-    width: 100%;
-  }
-  .cal-block.col-2-0, .cal-block.col-2-1,
-  .cal-block.col-3-0, .cal-block.col-3-1, .cal-block.col-3-2 {
-    left: auto !important;
-    right: auto !important;
-  }
-  .cal-hour-line { display: none; }
 }
 </style>
 </head>
@@ -550,36 +470,35 @@ body {
       <span class="conn-dot" id="connDot"></span>
       <span id="connLabel">Not connected</span>
     </div>
-    <button class="btn btn-primary" id="btnConnect">
+    <button class="btn btn-primary" id="btnConnect" onclick="window.ghAuth ? (window.ghAuth.isLoggedIn() ? window.ghAuth.logout() : window.ghAuth.login()) : alert('Auth not loaded')">
       <span class="material-icons-outlined">link</span>
       Sign in
     </button>
     <button class="btn btn-primary" onclick="openAddModal()">
       <span class="material-icons-outlined">add</span>
-      Add Availability
+      Add Block
     </button>
   </div>
 </div>
 
-<!-- Week Navigation -->
+<!-- Week navigation -->
 <div class="week-nav">
-  <div class="week-nav-center">
-    <div class="week-nav-arrows">
-      <button class="btn" onclick="changeWeek(-1)" title="Previous week">
-        <span class="material-icons-outlined">chevron_left</span>
-      </button>
-      <button class="btn" onclick="changeWeek(1)" title="Next week">
-        <span class="material-icons-outlined">chevron_right</span>
-      </button>
-    </div>
-    <h2 id="weekLabel">Mar 31 &ndash; Apr 4, 2026</h2>
-    <button class="btn btn-outline btn-sm" onclick="goToday()">This Week</button>
-  </div>
-  <div class="week-nav-right">
-    <select class="filter-select" id="filterMember" onchange="renderCalendar()">
-      <option value="">All Members</option>
-    </select>
-  </div>
+  <button class="btn-nav" onclick="changeWeek(-1)" title="Previous week">
+    <svg style="width:20px;height:20px;max-width:20px;max-height:20px;fill:currentColor;display:inline-block" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+  </button>
+  <button class="btn btn-outline btn-sm" onclick="goToday()">This Week</button>
+  <button class="btn-nav" onclick="changeWeek(1)" title="Next week">
+    <svg style="width:20px;height:20px;max-width:20px;max-height:20px;fill:currentColor;display:inline-block" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+  <span class="week-label" id="weekLabel"></span>
+</div>
+
+<!-- Filter bar + legend -->
+<div class="filter-bar">
+  <select class="filter-select" id="filterMember" onchange="renderCalendar()">
+    <option value="">All Members</option>
+  </select>
+  <div class="legend" id="legend"></div>
 </div>
 
 <!-- Stats -->
@@ -588,7 +507,7 @@ body {
     <span class="material-icons-outlined">schedule</span>
     <div>
       <div class="stat-value" id="statHours">-</div>
-      <div class="stat-label">Hours This Week</div>
+      <div class="stat-label">Total Hours</div>
     </div>
   </div>
   <div class="stat-card">
@@ -599,47 +518,45 @@ body {
     </div>
   </div>
   <div class="stat-card">
-    <span class="material-icons-outlined">assignment</span>
+    <span class="material-icons-outlined">task_alt</span>
     <div>
       <div class="stat-value" id="statAssigned">-</div>
-      <div class="stat-label">Assigned</div>
+      <div class="stat-label">Assigned Blocks</div>
     </div>
   </div>
   <div class="stat-card warning">
-    <span class="material-icons-outlined">assignment_late</span>
+    <span class="material-icons-outlined">help_outline</span>
     <div>
       <div class="stat-value" id="statUnassigned">-</div>
-      <div class="stat-label">Unassigned</div>
+      <div class="stat-label">Unassigned Blocks</div>
     </div>
   </div>
 </div>
 
-<!-- Legend -->
-<div class="legend" id="legend"></div>
-
-<!-- Calendar Grid -->
+<!-- Calendar -->
 <div class="calendar-wrap">
-  <div class="loading" id="loadingState">
-    <div class="spinner"></div>
-    <p>Loading schedule...</p>
+  <div class="calendar-container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading schedule...</p>
+    </div>
+    <div class="calendar-grid" id="calendarGrid" style="display:none"></div>
   </div>
-  <div class="calendar-grid" id="calendarGrid" style="display:none"></div>
 </div>
 
-<!-- Add Availability Modal -->
-<div class="modal-overlay" id="addModal">
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="blockModal">
   <div class="modal">
     <div class="modal-header">
-      <h2 id="addModalTitle">Add Availability</h2>
-      <button class="modal-close" onclick="closeAddModal()">
+      <h2 id="modalTitle">Add Block</h2>
+      <button class="modal-close" onclick="closeModal()">
         <span class="material-icons-outlined">close</span>
       </button>
     </div>
     <div class="modal-body">
       <div class="form-group">
         <label>Member Name *</label>
-        <input type="text" id="fMember" placeholder="e.g. Alex Chen" list="memberList">
-        <datalist id="memberList"></datalist>
+        <input type="text" id="fMember" placeholder="e.g. Alex Chen">
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -648,8 +565,9 @@ body {
             <option>Undergraduate</option>
             <option>Graduate Student</option>
             <option>Postdoc</option>
-            <option>Research Assistant</option>
-            <option>Lab Manager</option>
+            <option>Staff</option>
+            <option>PI</option>
+            <option>Volunteer</option>
           </select>
         </div>
         <div class="form-group">
@@ -657,59 +575,31 @@ body {
           <input type="text" id="fMentor" placeholder="e.g. Kehan Zhao">
         </div>
       </div>
-      <div class="form-group">
-        <label>Day *</label>
-        <select id="fDay">
-          <option>Monday</option>
-          <option>Tuesday</option>
-          <option>Wednesday</option>
-          <option>Thursday</option>
-          <option>Friday</option>
-        </select>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Day *</label>
+          <select id="fDay">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+          </select>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Start Time *</label>
-          <select id="fStart"></select>
+          <select id="fStartTime"></select>
         </div>
         <div class="form-group">
           <label>End Time *</label>
-          <select id="fEnd"></select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input type="checkbox" id="fRecurring" checked>
-          <label for="fRecurring" style="margin-bottom:0">Recurring weekly</label>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
-      <button class="btn btn-teal" id="btnSaveAdd" onclick="saveAvailability()">Save</button>
-    </div>
-  </div>
-</div>
-
-<!-- Edit Block Modal -->
-<div class="modal-overlay" id="editModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 id="editModalTitle">Edit Schedule Block</h2>
-      <button class="modal-close" onclick="closeEditModal()">
-        <span class="material-icons-outlined">close</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group" id="editInfoRow" style="margin-bottom:20px">
-        <div style="font-size:13px;color:var(--grey-500)">
-          <strong id="editMemberName"></strong> &middot;
-          <span id="editDayTime"></span>
+          <select id="fEndTime"></select>
         </div>
       </div>
       <div class="form-group">
         <label>Activity</label>
-        <input type="text" id="fActivity" placeholder="What to work on...">
+        <input type="text" id="fActivity" placeholder="e.g. DNA extraction from leaf tissue">
       </div>
       <div class="form-group">
         <label>Status</label>
@@ -722,35 +612,24 @@ body {
       </div>
       <div class="form-group">
         <label>Notes</label>
-        <textarea id="fNotes" placeholder="Mentor instructions, comments..."></textarea>
+        <textarea id="fNotes" placeholder="Optional notes..."></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="fRecurring" checked>
+        <label for="fRecurring">Recurring (every week)</label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" onclick="deleteBlock()" style="margin-right:auto">
-        <span class="material-icons-outlined">delete</span>
-        Delete
-      </button>
-      <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
-      <button class="btn btn-teal" id="btnSaveEdit" onclick="saveEdit()">Save</button>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Confirm Modal -->
-<div class="modal-overlay" id="deleteModal">
-  <div class="modal" style="max-width:400px">
-    <div class="modal-header">
-      <h2>Delete Block</h2>
-      <button class="modal-close" onclick="closeDeleteModal()">
-        <span class="material-icons-outlined">close</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Are you sure you want to delete this schedule block for <strong id="deleteName"></strong>? This will commit the change to the repository.</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
-      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+      <div>
+        <button class="btn btn-danger" id="btnDeleteBlock" onclick="deleteBlock()" style="display:none">
+          <span class="material-icons-outlined">delete</span>
+          Delete
+        </button>
+      </div>
+      <div class="modal-footer-right">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-teal" id="btnSave" onclick="saveBlock()">Save Block</button>
+      </div>
     </div>
   </div>
 </div>
@@ -766,102 +645,27 @@ body {
 var REPO_API = 'https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/calendar/schedule.json';
 var BRANCH = 'main';
 var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-var START_HOUR = 8;
-var END_HOUR = 18;
-
-// Member colors
+var HOUR_START = 8;
+var HOUR_END = 18;
 var MEMBER_COLORS = [
-  { bg: '#e0f2f1', border: '#009688', text: '#00695c', bgLight: '#f0fdfb', borderDash: '#80cbc4' },
-  { bg: '#e3f2fd', border: '#1976d2', text: '#0d47a1', bgLight: '#f5f9ff', borderDash: '#90caf9' },
-  { bg: '#fce4ec', border: '#c62828', text: '#b71c1c', bgLight: '#fff5f7', borderDash: '#ef9a9a' },
-  { bg: '#fff3e0', border: '#ef6c00', text: '#e65100', bgLight: '#fffaf0', borderDash: '#ffcc80' },
-  { bg: '#f3e5f5', border: '#7b1fa2', text: '#4a148c', bgLight: '#faf5fc', borderDash: '#ce93d8' },
-  { bg: '#e8f5e9', border: '#2e7d32', text: '#1b5e20', bgLight: '#f5fbf5', borderDash: '#a5d6a7' },
-  { bg: '#ede7f6', border: '#512da8', text: '#311b92', bgLight: '#f7f4fc', borderDash: '#b39ddb' },
-  { bg: '#fff8e1', border: '#f9a825', text: '#f57f17', bgLight: '#fffdf0', borderDash: '#fff176' },
+  { bg: '#e8f5e9', border: '#4caf50', text: '#1b5e20', bgLight: '#f1f8e9', borderLight: '#a5d6a7' },
+  { bg: '#e3f2fd', border: '#2196f3', text: '#0d47a1', bgLight: '#e8eaf6', borderLight: '#90caf9' },
+  { bg: '#fce4ec', border: '#e91e63', text: '#880e4f', bgLight: '#fce4ec', borderLight: '#f48fb1' },
+  { bg: '#fff3e0', border: '#ff9800', text: '#e65100', bgLight: '#fff8e1', borderLight: '#ffcc80' },
+  { bg: '#f3e5f5', border: '#9c27b0', text: '#4a148c', bgLight: '#f3e5f5', borderLight: '#ce93d8' },
+  { bg: '#e0f2f1', border: '#009688', text: '#004d40', bgLight: '#e0f7fa', borderLight: '#80cbc4' },
+  { bg: '#fff9c4', border: '#fbc02d', text: '#f57f17', bgLight: '#fffde7', borderLight: '#fff176' },
+  { bg: '#efebe9', border: '#795548', text: '#3e2723', bgLight: '#efebe9', borderLight: '#bcaaa4' },
+  { bg: '#e8eaf6', border: '#3f51b5', text: '#1a237e', bgLight: '#e8eaf6', borderLight: '#9fa8da' },
+  { bg: '#e0f7fa', border: '#00bcd4', text: '#006064', bgLight: '#e0f7fa', borderLight: '#80deea' }
 ];
 
 // --- State ---
 var schedule = [];
 var fileSha = null;
-var currentWeekStart = getMonday(new Date());
 var editingId = null;
-var deletingId = null;
+var currentMonday = getMonday(new Date());
 var memberColorMap = {};
-
-// --- Init time selects ---
-(function() {
-  var startSel = document.getElementById('fStart');
-  var endSel = document.getElementById('fEnd');
-  for (var h = START_HOUR; h <= END_HOUR; h++) {
-    var val = (h < 10 ? '0' : '') + h + ':00';
-    var label = formatTime(val);
-    startSel.add(new Option(label, val));
-    endSel.add(new Option(label, val));
-  }
-  startSel.value = '09:00';
-  endSel.value = '12:00';
-})();
-
-// --- Date utils ---
-function getMonday(d) {
-  d = new Date(d);
-  var day = d.getDay();
-  var diff = d.getDate() - day + (day === 0 ? -6 : 1);
-  d.setDate(diff);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-function formatWeekLabel(monday) {
-  var fri = new Date(monday);
-  fri.setDate(fri.getDate() + 4);
-  var mOpts = { month: 'short', day: 'numeric' };
-  var monStr = monday.toLocaleDateString('en-US', mOpts);
-  var friStr = fri.toLocaleDateString('en-US', mOpts);
-  var year = fri.getFullYear();
-  return monStr + ' \u2013 ' + friStr + ', ' + year;
-}
-
-function getWeekDateStr(monday, dayIndex) {
-  var d = new Date(monday);
-  d.setDate(d.getDate() + dayIndex);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function isToday(monday, dayIndex) {
-  var d = new Date(monday);
-  d.setDate(d.getDate() + dayIndex);
-  var today = new Date();
-  return d.getFullYear() === today.getFullYear() &&
-         d.getMonth() === today.getMonth() &&
-         d.getDate() === today.getDate();
-}
-
-function formatTime(t) {
-  var parts = t.split(':');
-  var h = parseInt(parts[0]);
-  var m = parts[1];
-  var ampm = h >= 12 ? 'pm' : 'am';
-  h = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-  return h + (m !== '00' ? ':' + m : '') + ampm;
-}
-
-function timeToMinutes(t) {
-  var parts = t.split(':');
-  return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-}
-
-// --- Week nav ---
-function changeWeek(delta) {
-  currentWeekStart.setDate(currentWeekStart.getDate() + (delta * 7));
-  renderCalendar();
-}
-
-function goToday() {
-  currentWeekStart = getMonday(new Date());
-  renderCalendar();
-}
 
 // --- Auth ---
 function getToken() { return (window.ghAuth && window.ghAuth.getToken()) || ''; }
@@ -879,6 +683,91 @@ function updateConnStatus() {
     : function() { window.ghAuth.login(); };
 }
 if (window.ghAuth) { window.ghAuth.onLogin = function() { updateConnStatus(); loadSchedule(); }; }
+
+// --- Utility ---
+function getMonday(d) {
+  var date = new Date(d);
+  var day = date.getDay();
+  var diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  date.setDate(diff);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+function formatDate(d) {
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate();
+}
+
+function formatWeekLabel(monday) {
+  var friday = new Date(monday);
+  friday.setDate(friday.getDate() + 4);
+  var year = monday.getFullYear();
+  return formatDate(monday) + ' \u2013 ' + formatDate(friday) + ', ' + year;
+}
+
+function isoMonday(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function timeToMinutes(t) {
+  var parts = t.split(':');
+  return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+}
+
+function formatTime12(t) {
+  var parts = t.split(':');
+  var h = parseInt(parts[0]);
+  var m = parts[1];
+  var ampm = h >= 12 ? 'pm' : 'am';
+  if (h > 12) h -= 12;
+  if (h === 0) h = 12;
+  return h + ':' + m + ampm;
+}
+
+function esc(s) {
+  var el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
+}
+
+// --- Week nav ---
+function changeWeek(dir) {
+  currentMonday.setDate(currentMonday.getDate() + dir * 7);
+  renderCalendar();
+}
+
+function goToday() {
+  currentMonday = getMonday(new Date());
+  renderCalendar();
+}
+
+function updateWeekLabel() {
+  document.getElementById('weekLabel').textContent = formatWeekLabel(currentMonday);
+}
+
+// --- Populate time selects ---
+function populateTimeSelects() {
+  var startSel = document.getElementById('fStartTime');
+  var endSel = document.getElementById('fEndTime');
+  startSel.innerHTML = '';
+  endSel.innerHTML = '';
+  for (var h = HOUR_START; h <= HOUR_END; h++) {
+    for (var m = 0; m < 60; m += 30) {
+      if (h === HOUR_END && m > 0) break;
+      var val = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+      var opt1 = document.createElement('option');
+      opt1.value = val;
+      opt1.textContent = formatTime12(val);
+      startSel.appendChild(opt1);
+      var opt2 = document.createElement('option');
+      opt2.value = val;
+      opt2.textContent = formatTime12(val);
+      endSel.appendChild(opt2);
+    }
+  }
+  endSel.value = '12:00';
+}
 
 // --- Data loading ---
 async function loadSchedule() {
@@ -911,7 +800,7 @@ async function loadSchedule() {
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('calendarGrid').style.display = '';
   buildMemberColors();
-  populateFilters();
+  populateMemberFilter();
   renderCalendar();
 }
 
@@ -919,11 +808,11 @@ async function loadSchedule() {
 async function commitSchedule(message) {
   var token = getToken();
   if (!token) {
-    toast('Sign in to GitHub first to save changes', 'error');
+    toast('Connect to GitHub first to save changes', 'error');
     return false;
   }
 
-  // Re-fetch SHA
+  // Re-fetch SHA to avoid conflicts
   try {
     var headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
     var getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers: headers });
@@ -939,7 +828,7 @@ async function commitSchedule(message) {
   var body = {
     message: message,
     content: encoded,
-    branch: BRANCH,
+    branch: BRANCH
   };
   if (fileSha) body.sha = fileSha;
 
@@ -949,9 +838,9 @@ async function commitSchedule(message) {
       headers: {
         'Authorization': 'token ' + token,
         'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
 
     if (!resp.ok) {
@@ -971,8 +860,8 @@ async function commitSchedule(message) {
 // --- Member colors ---
 function buildMemberColors() {
   var members = [];
-  schedule.forEach(function(entry) {
-    if (members.indexOf(entry.member) === -1) members.push(entry.member);
+  schedule.forEach(function(b) {
+    if (members.indexOf(b.member) === -1) members.push(b.member);
   });
   members.sort();
   memberColorMap = {};
@@ -981,279 +870,248 @@ function buildMemberColors() {
   });
 }
 
-function populateFilters() {
+function populateMemberFilter() {
   var sel = document.getElementById('filterMember');
   var current = sel.value;
-  // Clear except first option
-  while (sel.options.length > 1) sel.remove(1);
+  sel.innerHTML = '<option value="">All Members</option>';
   var members = Object.keys(memberColorMap).sort();
-  members.forEach(function(m) {
-    sel.add(new Option(m, m));
-  });
-  sel.value = current || '';
-
-  // Datalist for member name input
-  var dl = document.getElementById('memberList');
-  dl.innerHTML = '';
   members.forEach(function(m) {
     var opt = document.createElement('option');
     opt.value = m;
-    dl.appendChild(opt);
+    opt.textContent = m;
+    sel.appendChild(opt);
+  });
+  sel.value = current;
+
+  // Legend
+  var legend = document.getElementById('legend');
+  legend.innerHTML = '';
+  members.forEach(function(m) {
+    var c = memberColorMap[m];
+    var item = document.createElement('span');
+    item.className = 'legend-item';
+    item.innerHTML = '<span class="legend-dot" style="background:' + c.border + '"></span>' + esc(m);
+    legend.appendChild(item);
+  });
+}
+
+// --- Filter blocks for current week ---
+function getVisibleBlocks() {
+  var mondayStr = isoMonday(currentMonday);
+  var memberFilter = document.getElementById('filterMember').value;
+
+  return schedule.filter(function(b) {
+    if (memberFilter && b.member !== memberFilter) return false;
+    if (b.recurring) return true;
+    if (b.weekOf === mondayStr) return true;
+    return false;
   });
 }
 
 // --- Rendering ---
 function renderCalendar() {
-  document.getElementById('weekLabel').innerHTML = formatWeekLabel(currentWeekStart);
-
-  var filterMember = document.getElementById('filterMember').value;
-
-  // Filter blocks for this week (recurring or matching weekOf)
-  var weekBlocks = schedule.filter(function(entry) {
-    if (filterMember && entry.member !== filterMember) return false;
-    if (entry.recurring) return true;
-    // Non-recurring: check weekOf
-    if (entry.weekOf) {
-      var wof = new Date(entry.weekOf);
-      var mon = getMonday(wof);
-      return mon.getTime() === currentWeekStart.getTime();
-    }
-    return true; // If no weekOf and not recurring, show always for now
-  });
-
-  // Build grid
+  updateWeekLabel();
   var grid = document.getElementById('calendarGrid');
-  grid.innerHTML = '';
+  var blocks = getVisibleBlocks();
 
-  // Reset grid to CSS grid on desktop
-  grid.style.display = '';
-  grid.style.gridTemplateColumns = '60px repeat(5, 1fr)';
-  grid.style.gridTemplateRows = 'auto';
+  // Stats
+  var totalHours = 0;
+  var membersSet = {};
+  var assigned = 0;
+  var unassigned = 0;
+  blocks.forEach(function(b) {
+    var mins = timeToMinutes(b.endTime) - timeToMinutes(b.startTime);
+    totalHours += mins / 60;
+    membersSet[b.member] = true;
+    if (b.activity && b.activity.trim()) assigned++;
+    else unassigned++;
+  });
+  document.getElementById('statHours').textContent = Math.round(totalHours * 10) / 10;
+  document.getElementById('statMembers').textContent = Object.keys(membersSet).length;
+  document.getElementById('statAssigned').textContent = assigned;
+  document.getElementById('statUnassigned').textContent = unassigned;
 
-  var totalHours = END_HOUR - START_HOUR;
-  var rowHeight = 60; // px per hour
+  // Build grid HTML
+  var html = '';
 
-  // Corner cell
-  var corner = document.createElement('div');
-  corner.className = 'cal-corner';
-  grid.appendChild(corner);
-
-  // Day headers
+  // Header row
+  html += '<div class="cal-header time-col">Time</div>';
   DAYS.forEach(function(day, di) {
-    var hdr = document.createElement('div');
-    hdr.className = 'cal-header' + (isToday(currentWeekStart, di) ? ' today' : '');
-    hdr.innerHTML = day.substring(0, 3) + '<div class="cal-header-date">' + getWeekDateStr(currentWeekStart, di) + '</div>';
-    grid.appendChild(hdr);
+    var date = new Date(currentMonday);
+    date.setDate(date.getDate() + di);
+    html += '<div class="cal-header">' + day.substring(0, 3) + '<span class="day-date">' + formatDate(date) + '</span></div>';
   });
 
-  // Time column + day columns in a wrapper
-  // We need a row per hour. Let's use absolute positioning within day columns.
-  // Create a body row that spans the full height
-  var timeCol = document.createElement('div');
-  timeCol.className = 'cal-time-col';
-  timeCol.style.gridRow = '2';
-  timeCol.style.gridColumn = '1';
-  timeCol.style.position = 'relative';
-  timeCol.style.height = (totalHours * rowHeight) + 'px';
-  timeCol.style.borderRight = '1px solid var(--grey-200)';
-
-  for (var h = START_HOUR; h < END_HOUR; h++) {
-    var timeLabel = document.createElement('div');
-    timeLabel.style.position = 'absolute';
-    timeLabel.style.top = ((h - START_HOUR) * rowHeight) + 'px';
-    timeLabel.style.right = '8px';
-    timeLabel.style.fontSize = '11px';
-    timeLabel.style.fontWeight = '500';
-    timeLabel.style.color = 'var(--grey-500)';
-    timeLabel.style.lineHeight = '1';
-    timeLabel.style.transform = 'translateY(-6px)';
-    if (h > START_HOUR) {
-      timeLabel.textContent = formatTime((h < 10 ? '0' : '') + h + ':00');
-    }
-    timeCol.appendChild(timeLabel);
+  // Hour rows
+  for (var h = HOUR_START; h < HOUR_END; h++) {
+    var timeStr = formatTime12(String(h).padStart(2, '0') + ':00');
+    html += '<div class="time-label">' + timeStr + '</div>';
+    DAYS.forEach(function(day) {
+      html += '<div class="day-column" data-day="' + day + '" data-hour="' + h + '"></div>';
+    });
   }
-  grid.appendChild(timeCol);
 
-  // Day columns
-  DAYS.forEach(function(day, di) {
-    var col = document.createElement('div');
-    col.className = 'cal-day-col';
-    col.setAttribute('data-day', day + ' ' + getWeekDateStr(currentWeekStart, di));
-    col.style.gridRow = '2';
-    col.style.gridColumn = (di + 2).toString();
-    col.style.position = 'relative';
-    col.style.height = (totalHours * rowHeight) + 'px';
+  grid.innerHTML = html;
 
-    // Hour lines
-    for (var hr = START_HOUR; hr <= END_HOUR; hr++) {
-      var line = document.createElement('div');
-      line.className = 'cal-hour-line';
-      line.style.top = ((hr - START_HOUR) * rowHeight) + 'px';
-      col.appendChild(line);
-    }
-
-    // Get blocks for this day
-    var dayBlocks = weekBlocks.filter(function(e) { return e.day === day; });
-
-    // Detect overlaps and assign columns
+  // Place blocks into day columns
+  DAYS.forEach(function(day) {
+    var dayBlocks = blocks.filter(function(b) { return b.day === day; });
     var placed = layoutBlocks(dayBlocks);
 
     placed.forEach(function(item) {
-      var entry = item.entry;
-      var colors = memberColorMap[entry.member] || MEMBER_COLORS[0];
-      var hasActivity = entry.activity && entry.activity.trim() !== '';
+      var b = item.block;
+      var startMin = timeToMinutes(b.startTime);
+      var endMin = timeToMinutes(b.endTime);
 
-      var startMin = timeToMinutes(entry.startTime);
-      var endMin = timeToMinutes(entry.endTime);
-      var topPx = ((startMin - START_HOUR * 60) / 60) * rowHeight;
-      var heightPx = ((endMin - startMin) / 60) * rowHeight;
+      // Calculate position relative to the first cell this block starts in
+      var startHour = Math.floor(startMin / 60);
+      if (startHour < HOUR_START) startHour = HOUR_START;
+      var cellTopMin = startHour * 60;
+      var topOffset = (startMin - cellTopMin) / 60 * 60;
+      var height = (endMin - startMin) / 60 * 60;
 
-      var block = document.createElement('div');
-      block.className = 'cal-block ' + (hasActivity ? 'assigned' : 'unassigned');
-      if (item.totalCols > 1) {
-        block.classList.add('col-' + item.totalCols + '-' + item.colIndex);
+      var color = memberColorMap[b.member] || MEMBER_COLORS[0];
+      var isUnassigned = !b.activity || !b.activity.trim();
+
+      var widthPct = 100 / item.totalCols;
+      var leftPct = widthPct * item.col;
+
+      var cardBg = isUnassigned ? color.bgLight : color.bg;
+      var cardBorder = isUnassigned ? color.borderLight : color.border;
+      var cardText = color.text;
+
+      var statusClass = (b.status || 'scheduled').replace(' ', '-');
+
+      var card = document.createElement('div');
+      card.className = 'block-card' + (isUnassigned ? ' unassigned' : '');
+      card.style.cssText = 'top:' + topOffset + 'px;height:' + height + 'px;left:' + leftPct + '%;width:calc(' + widthPct + '% - 4px);background:' + cardBg + ';border-left-color:' + cardBorder + ';color:' + cardText + ';';
+      card.onclick = (function(block) { return function() { openEditModal(block.id); }; })(b);
+
+      var innerHtml = '<div class="block-member">' + esc(b.member);
+      if (!isUnassigned) {
+        innerHtml += '<span class="status-dot ' + statusClass + '"></span>';
       }
-
-      block.style.top = topPx + 'px';
-      block.style.height = Math.max(heightPx - 2, 20) + 'px';
-
-      if (hasActivity) {
-        block.style.background = colors.bg;
-        block.style.borderColor = colors.border;
-        block.style.color = colors.text;
-      } else {
-        block.style.background = colors.bgLight;
-        block.style.borderColor = colors.borderDash;
-        block.style.color = colors.text;
+      innerHtml += '</div>';
+      innerHtml += '<div class="block-time">' + formatTime12(b.startTime) + ' \u2013 ' + formatTime12(b.endTime) + '</div>';
+      if (!isUnassigned) {
+        innerHtml += '<div class="block-activity">' + esc(b.activity) + '</div>';
       }
+      card.innerHTML = innerHtml;
 
-      var statusClass = (entry.status || 'scheduled').replace(/\s+/g, '-');
-      var blockHeight = heightPx;
-
-      var html = '<span class="status-dot ' + esc(statusClass) + '"></span>';
-      html += '<span class="cal-block-member">' + esc(entry.member) + '</span>';
-      html += '<div class="cal-block-time">' + formatTime(entry.startTime) + ' \u2013 ' + formatTime(entry.endTime) + '</div>';
-      if (hasActivity && blockHeight > 40) {
-        html += '<div class="cal-block-activity">' + esc(entry.activity) + '</div>';
+      var cols = grid.querySelectorAll('.day-column[data-day="' + day + '"][data-hour="' + startHour + '"]');
+      if (cols.length > 0) {
+        cols[0].appendChild(card);
       }
-
-      block.innerHTML = html;
-      block.onclick = function() { openEditModal(entry.id); };
-      col.appendChild(block);
     });
-
-    grid.appendChild(col);
   });
-
-  // Update stats
-  updateStats(weekBlocks);
-
-  // Update legend
-  renderLegend();
 }
 
+// Layout overlapping blocks into columns
 function layoutBlocks(dayBlocks) {
   if (dayBlocks.length === 0) return [];
 
-  // Sort by start time
   dayBlocks.sort(function(a, b) {
-    return timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
+    var diff = timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
+    if (diff !== 0) return diff;
+    return timeToMinutes(a.endTime) - timeToMinutes(b.endTime);
   });
 
-  // Find overlapping groups
   var groups = [];
-  var currentGroup = [dayBlocks[0]];
 
-  for (var i = 1; i < dayBlocks.length; i++) {
-    var prev = currentGroup[currentGroup.length - 1];
-    var curr = dayBlocks[i];
-    // Check if curr overlaps with any in currentGroup
-    var overlaps = currentGroup.some(function(g) {
-      return timeToMinutes(curr.startTime) < timeToMinutes(g.endTime) &&
-             timeToMinutes(curr.endTime) > timeToMinutes(g.startTime);
-    });
-    if (overlaps) {
-      currentGroup.push(curr);
-    } else {
-      groups.push(currentGroup);
-      currentGroup = [curr];
+  dayBlocks.forEach(function(block) {
+    var startMin = timeToMinutes(block.startTime);
+    var endMin = timeToMinutes(block.endTime);
+    var placed = false;
+
+    for (var g = 0; g < groups.length; g++) {
+      var group = groups[g];
+      var overlaps = false;
+      for (var i = 0; i < group.length; i++) {
+        var existing = group[i];
+        var eStart = timeToMinutes(existing.startTime);
+        var eEnd = timeToMinutes(existing.endTime);
+        if (startMin < eEnd && endMin > eStart) {
+          overlaps = true;
+          break;
+        }
+      }
+      if (!overlaps) {
+        group.push(block);
+        placed = true;
+        break;
+      }
     }
-  }
-  groups.push(currentGroup);
 
+    if (!placed) {
+      groups.push([block]);
+    }
+  });
+
+  var totalCols = groups.length;
   var result = [];
-  groups.forEach(function(group) {
-    var totalCols = group.length;
-    group.forEach(function(entry, idx) {
-      result.push({ entry: entry, totalCols: totalCols, colIndex: idx });
+
+  groups.forEach(function(group, col) {
+    group.forEach(function(block) {
+      result.push({ block: block, col: col, totalCols: totalCols });
     });
   });
 
   return result;
 }
 
-function updateStats(weekBlocks) {
-  var totalHours = 0;
-  var members = {};
-  var assigned = 0;
-  var unassigned = 0;
-
-  weekBlocks.forEach(function(entry) {
-    var startMin = timeToMinutes(entry.startTime);
-    var endMin = timeToMinutes(entry.endTime);
-    totalHours += (endMin - startMin) / 60;
-    members[entry.member] = true;
-    if (entry.activity && entry.activity.trim()) {
-      assigned++;
-    } else {
-      unassigned++;
-    }
-  });
-
-  document.getElementById('statHours').textContent = Math.round(totalHours * 10) / 10;
-  document.getElementById('statMembers').textContent = Object.keys(members).length;
-  document.getElementById('statAssigned').textContent = assigned;
-  document.getElementById('statUnassigned').textContent = unassigned;
-}
-
-function renderLegend() {
-  var legend = document.getElementById('legend');
-  legend.innerHTML = '';
-  var members = Object.keys(memberColorMap).sort();
-  members.forEach(function(m) {
-    var colors = memberColorMap[m];
-    var item = document.createElement('div');
-    item.className = 'legend-item';
-    item.innerHTML = '<div class="legend-swatch" style="background:' + colors.border + '"></div>' + esc(m);
-    legend.appendChild(item);
-  });
-}
-
-// --- Add Availability ---
+// --- Add / Edit ---
 function openAddModal() {
-  document.getElementById('addModalTitle').textContent = 'Add Availability';
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add Block';
   document.getElementById('fMember').value = '';
   document.getElementById('fRole').value = 'Undergraduate';
   document.getElementById('fMentor').value = '';
   document.getElementById('fDay').value = 'Monday';
-  document.getElementById('fStart').value = '09:00';
-  document.getElementById('fEnd').value = '12:00';
+  document.getElementById('fStartTime').value = '09:00';
+  document.getElementById('fEndTime').value = '12:00';
+  document.getElementById('fActivity').value = '';
+  document.getElementById('fStatus').value = 'scheduled';
+  document.getElementById('fNotes').value = '';
   document.getElementById('fRecurring').checked = true;
-  document.getElementById('addModal').classList.add('open');
+  document.getElementById('btnDeleteBlock').style.display = 'none';
+  document.getElementById('blockModal').classList.add('open');
   document.getElementById('fMember').focus();
 }
 
-function closeAddModal() {
-  document.getElementById('addModal').classList.remove('open');
+function openEditModal(id) {
+  var item = schedule.find(function(b) { return b.id === id; });
+  if (!item) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Block';
+  document.getElementById('fMember').value = item.member;
+  document.getElementById('fRole').value = item.role || 'Undergraduate';
+  document.getElementById('fMentor').value = item.mentor || '';
+  document.getElementById('fDay').value = item.day;
+  document.getElementById('fStartTime').value = item.startTime;
+  document.getElementById('fEndTime').value = item.endTime;
+  document.getElementById('fActivity').value = item.activity || '';
+  document.getElementById('fStatus').value = item.status || 'scheduled';
+  document.getElementById('fNotes').value = item.notes || '';
+  document.getElementById('fRecurring').checked = !!item.recurring;
+  document.getElementById('btnDeleteBlock').style.display = '';
+  document.getElementById('blockModal').classList.add('open');
+  document.getElementById('fActivity').focus();
 }
 
-async function saveAvailability() {
+function closeModal() {
+  document.getElementById('blockModal').classList.remove('open');
+}
+
+async function saveBlock() {
   var member = document.getElementById('fMember').value.trim();
   var role = document.getElementById('fRole').value;
   var mentor = document.getElementById('fMentor').value.trim();
   var day = document.getElementById('fDay').value;
-  var startTime = document.getElementById('fStart').value;
-  var endTime = document.getElementById('fEnd').value;
+  var startTime = document.getElementById('fStartTime').value;
+  var endTime = document.getElementById('fEndTime').value;
+  var activity = document.getElementById('fActivity').value.trim();
+  var status = document.getElementById('fStatus').value;
+  var notes = document.getElementById('fNotes').value.trim();
   var recurring = document.getElementById('fRecurring').checked;
 
   if (!member) { toast('Member name is required', 'error'); return; }
@@ -1262,152 +1120,66 @@ async function saveAvailability() {
     return;
   }
 
-  var btn = document.getElementById('btnSaveAdd');
+  var btn = document.getElementById('btnSave');
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
-  // Look up existing member info for role/mentor defaults
-  var existingMember = schedule.find(function(e) { return e.member === member; });
-  if (existingMember) {
-    if (!mentor) mentor = existingMember.mentor;
-    role = existingMember.role;
-  }
+  var weekOf = recurring ? '' : isoMonday(currentMonday);
 
-  var maxId = schedule.reduce(function(m, i) { return Math.max(m, i.id); }, 0);
-  var newEntry = {
-    id: maxId + 1,
-    member: member,
-    role: role,
-    mentor: mentor,
-    day: day,
-    startTime: startTime,
-    endTime: endTime,
-    recurring: recurring,
-    weekOf: recurring ? '' : getWeekOfStr(),
-    activity: '',
-    status: 'scheduled',
-    notes: ''
-  };
-
-  schedule.push(newEntry);
-  var ok = await commitSchedule('Add schedule: ' + member + ' ' + day + ' ' + startTime + '-' + endTime);
-  if (ok) {
-    toast('Availability added', 'success');
-    closeAddModal();
-    buildMemberColors();
-    populateFilters();
+  if (editingId !== null) {
+    var item = schedule.find(function(b) { return b.id === editingId; });
+    if (item) {
+      Object.assign(item, { member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, activity: activity, status: status, notes: notes, recurring: recurring, weekOf: weekOf });
+    }
+    var ok = await commitSchedule('Update schedule: ' + member + ' ' + day);
+    if (ok) {
+      toast('Block updated', 'success');
+      closeModal();
+    }
   } else {
-    schedule.pop();
+    var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
+    var newBlock = { id: maxId + 1, member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, recurring: recurring, weekOf: weekOf, activity: activity, status: status, notes: notes };
+    schedule.push(newBlock);
+    var ok2 = await commitSchedule('Add schedule block: ' + member + ' ' + day);
+    if (ok2) {
+      toast('Block added', 'success');
+      closeModal();
+    } else {
+      schedule.pop();
+    }
   }
 
   btn.disabled = false;
-  btn.textContent = 'Save';
+  btn.textContent = 'Save Block';
+  buildMemberColors();
+  populateMemberFilter();
   renderCalendar();
 }
 
-function getWeekOfStr() {
-  return currentWeekStart.toISOString().split('T')[0];
-}
+async function deleteBlock() {
+  if (editingId === null) return;
+  var item = schedule.find(function(b) { return b.id === editingId; });
+  if (!item) return;
 
-// --- Edit Block ---
-function openEditModal(id) {
-  var entry = schedule.find(function(e) { return e.id === id; });
-  if (!entry) return;
-  editingId = id;
+  if (!confirm('Delete this block for ' + item.member + ' on ' + item.day + '?')) return;
 
-  document.getElementById('editModalTitle').textContent = 'Edit Schedule Block';
-  document.getElementById('editMemberName').textContent = entry.member + ' (' + entry.role + ')';
-  document.getElementById('editDayTime').textContent = entry.day + ' ' + formatTime(entry.startTime) + ' \u2013 ' + formatTime(entry.endTime);
-  document.getElementById('fActivity').value = entry.activity || '';
-  document.getElementById('fStatus').value = entry.status || 'scheduled';
-  document.getElementById('fNotes').value = entry.notes || '';
-  document.getElementById('editModal').classList.add('open');
-  document.getElementById('fActivity').focus();
-}
-
-function closeEditModal() {
-  document.getElementById('editModal').classList.remove('open');
-  editingId = null;
-}
-
-async function saveEdit() {
-  var entry = schedule.find(function(e) { return e.id === editingId; });
-  if (!entry) return;
-
-  var btn = document.getElementById('btnSaveEdit');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
-
-  var oldActivity = entry.activity;
-  var oldStatus = entry.status;
-  var oldNotes = entry.notes;
-
-  entry.activity = document.getElementById('fActivity').value.trim();
-  entry.status = document.getElementById('fStatus').value;
-  entry.notes = document.getElementById('fNotes').value.trim();
-
-  var msg = entry.activity
-    ? 'Update schedule: ' + entry.member + ' ' + entry.day + ' - ' + entry.activity
-    : 'Update schedule: ' + entry.member + ' ' + entry.day;
-
-  var ok = await commitSchedule(msg);
-  if (ok) {
-    toast('Block updated', 'success');
-    closeEditModal();
-  } else {
-    // rollback
-    entry.activity = oldActivity;
-    entry.status = oldStatus;
-    entry.notes = oldNotes;
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Save';
-  renderCalendar();
-}
-
-// --- Delete ---
-function deleteBlock() {
-  var entry = schedule.find(function(e) { return e.id === editingId; });
-  if (!entry) return;
-  deletingId = editingId;
-  document.getElementById('deleteName').textContent = entry.member + ' (' + entry.day + ' ' + formatTime(entry.startTime) + ' \u2013 ' + formatTime(entry.endTime) + ')';
-  closeEditModal();
-  document.getElementById('deleteModal').classList.add('open');
-}
-
-function closeDeleteModal() {
-  document.getElementById('deleteModal').classList.remove('open');
-  deletingId = null;
-}
-
-async function confirmDelete() {
-  var entry = schedule.find(function(e) { return e.id === deletingId; });
-  if (!entry) return;
-
-  var idx = schedule.indexOf(entry);
+  var idx = schedule.indexOf(item);
   schedule.splice(idx, 1);
 
-  var ok = await commitSchedule('Remove schedule: ' + entry.member + ' ' + entry.day + ' ' + entry.startTime);
+  var ok = await commitSchedule('Remove schedule block: ' + item.member + ' ' + item.day);
   if (ok) {
     toast('Block deleted', 'success');
-    buildMemberColors();
-    populateFilters();
   } else {
-    schedule.splice(idx, 0, entry);
+    schedule.splice(idx, 0, item);
   }
 
-  closeDeleteModal();
+  closeModal();
+  buildMemberColors();
+  populateMemberFilter();
   renderCalendar();
 }
 
-// --- Utils ---
-function esc(s) {
-  var el = document.createElement('span');
-  el.textContent = s;
-  return el.innerHTML;
-}
-
+// --- Toast ---
 function toast(msg, type) {
   var container = document.getElementById('toastContainer');
   var el = document.createElement('div');
@@ -1433,6 +1205,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // --- Init ---
+populateTimeSelects();
 updateConnStatus();
 loadSchedule();
 </script>
