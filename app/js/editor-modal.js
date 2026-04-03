@@ -112,10 +112,26 @@
     return markedPromise;
   }
 
-  // Render markdown to HTML (with wikilink preprocessing)
+  // Preprocess admonitions: ??? variant "title" → <details> HTML
+  // Supports ??? (collapsed) and ???+ (expanded)
+  function preprocessAdmonitions(md) {
+    // Match ??? or ???+ followed by type and optional "title", then indented block
+    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+      var bodyMd = body.replace(/^    /gm, ''); // un-indent
+      var openAttr = expanded ? ' open' : '';
+      var typeClass = type || 'note';
+      // We'll render the body markdown separately, but for now pass it through marked inline
+      return '<details class="admonition admonition-' + typeClass + '"' + openAttr + '>' +
+        '<summary>' + title + '</summary>\n\n' + bodyMd + '\n</details>\n\n';
+    });
+  }
+
+  // Render markdown to HTML (with wikilink + admonition preprocessing)
   async function renderMarkdown(md) {
     await loadMarked();
-    var processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(md) : md;
+    var processed = md;
+    processed = preprocessAdmonitions(processed);
+    processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
     return marked.parse(processed);
   }
 
