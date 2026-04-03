@@ -136,19 +136,22 @@
 
   function extractAdmonitions(md) {
     _admStore = [];
+    console.log('[adm] extractAdmonitions input length:', md.length, 'has ???:', md.indexOf('???') >= 0);
     // Also clean up any leftover blockquote-style callouts from previous broken saves
     md = md.replace(/^> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*\n(?:>[^\n]*\n?)*/gm, '');
     md = md.replace(/\\> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
     md = md.replace(/<!-- adm-sep -->/g, '');
-    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+    var result = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var idx = _admStore.length;
+      console.log('[adm] MATCHED:', type, title, 'body:', JSON.stringify(body.substring(0, 50)));
       var bodyClean = body.replace(/^    /gm, '').trimEnd();
       _admStore.push({ type: type, title: title, body: bodyClean, raw: match });
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
       var label = type.charAt(0).toUpperCase() + type.slice(1);
-      // Plain text placeholder — no special markdown chars that Toast UI could mangle
       return '\n' + icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title + '\n\n';
     });
+    console.log('[adm] extracted:', _admStore.length, 'admonitions, output preview:', result.substring(result.indexOf('???') > -1 ? result.indexOf('???') : Math.max(0, result.length - 100), result.length));
+    return result;
   }
 
   function restoreAdmonitions(md) {
