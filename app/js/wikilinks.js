@@ -2,26 +2,12 @@
 (function() {
   'use strict';
 
-  // Type display config: color, icon emoji, label
-  var TYPE_CONFIG = {
-    reagent:       { color: '#009688', icon: '\uD83E\uDDEA', label: 'Reagent' },
-    buffer:        { color: '#e65100', icon: '\uD83E\uDDEA', label: 'Buffer/Solution' },
-    consumable:    { color: '#1565c0', icon: '\uD83D\uDCE6', label: 'Consumable' },
-    equipment:     { color: '#455a64', icon: '\u2699\uFE0F',  label: 'Equipment' },
-    kit:           { color: '#00838f', icon: '\uD83E\uDDF0', label: 'Kit' },
-    chemical:      { color: '#009688', icon: '\uD83E\uDDEA', label: 'Chemical' },
-    enzyme:        { color: '#2e7d32', icon: '\uD83E\uDDEC', label: 'Enzyme' },
-    solution:      { color: '#e65100', icon: '\uD83E\uDDEA', label: 'Solution' },
-    seed:          { color: '#558b2f', icon: '\uD83C\uDF31', label: 'Seed Stock' },
-    glycerol_stock:{ color: '#4527a0', icon: '\u2744\uFE0F',  label: 'Glycerol Stock' },
-    plasmid:       { color: '#ad1457', icon: '\uD83E\uDDEC', label: 'Plasmid' },
-    agro_strain:   { color: '#558b2f', icon: '\uD83E\uDDA0', label: 'Agro Strain' },
-    dna_prep:      { color: '#0277bd', icon: '\uD83E\uDDEC', label: 'DNA Prep' },
-    person:        { color: '#1565c0', icon: '\uD83D\uDC64', label: 'Person' },
-    project:       { color: '#e65100', icon: '\uD83D\uDCC1', label: 'Project' },
-    protocol:      { color: '#6a1b9a', icon: '\uD83D\uDCD6', label: 'Protocol' },
-    notebook:      { color: '#795548', icon: '\uD83D\uDCD3', label: 'Notebook' },
-  };
+  // Type config: consumed from the unified type system (types.js)
+  function getTypeConfig() { return window.Lab.types ? window.Lab.types.getTypeConfig() : {}; }
+  function getConf(typeName) {
+    if (window.Lab.types) return window.Lab.types.get(typeName);
+    return { color: '#616161', icon: '\uD83D\uDD17', label: 'Link' };
+  }
   var DEFAULT_CONFIG = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link' };
 
   var objectLookup = null; // slug -> object data
@@ -79,7 +65,7 @@
         return;
       }
 
-      var conf = TYPE_CONFIG[obj.type] || DEFAULT_CONFIG;
+      var conf = getConf(obj.type);
       link.classList.add('object-pill');
       link.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:' + conf.color + ';color:#fff;padding:2px 10px 2px 6px;border-radius:20px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;vertical-align:middle;';
       link.textContent = conf.icon + ' ' + (obj.title || target);
@@ -118,7 +104,7 @@
       }
       if (!obj) return;
 
-      var conf = TYPE_CONFIG[obj.type] || DEFAULT_CONFIG;
+      var conf = getConf(obj.type);
       link.classList.add('object-pill');
       link.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:' + conf.color + ';color:#fff;padding:2px 10px 2px 6px;border-radius:20px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;vertical-align:middle;';
       link.textContent = conf.icon + ' ' + (obj.title || 'Item #' + id);
@@ -150,7 +136,7 @@
 
   function showPopup(obj, anchorEl) {
     var p = createPopup();
-    var conf = TYPE_CONFIG[obj.type] || DEFAULT_CONFIG;
+    var conf = getConf(obj.type);
     var isLow = obj.low_stock_threshold && obj.quantity && obj.quantity <= obj.low_stock_threshold;
     var esc = window.Lab ? window.Lab.escHtml : function(s) { return s; };
 
@@ -209,8 +195,6 @@
   window.Lab.wikilinks = {
     preprocess: preprocessWikilinks,
     processRendered: processRenderedLinks,
-    TYPE_CONFIG: TYPE_CONFIG,
-    DEFAULT_CONFIG: DEFAULT_CONFIG,
     ensureLookup: ensureLookup
   };
 })();

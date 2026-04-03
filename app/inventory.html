@@ -183,18 +183,15 @@ tr.low-stock td:first-child::before {
 </div>
 
 <script src="js/shared.js"></script>
+<script src="js/types.js"></script>
 <script src="js/github-api.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/wikilinks.js"></script>
 <script src="js/editor-modal.js"></script>
 <script>
-var RESOURCE_TYPES = ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution','seed','glycerol_stock','plasmid','agro_strain','dna_prep'];
-var TYPE_LABELS = {
-  reagent:'Reagent', buffer:'Buffer', consumable:'Consumable', equipment:'Equipment',
-  kit:'Kit', chemical:'Chemical', enzyme:'Enzyme', solution:'Solution',
-  seed:'Seed Stock', glycerol_stock:'Glycerol Stock', plasmid:'Plasmid',
-  agro_strain:'Agro Strain', dna_prep:'DNA Prep'
-};
+// Type definitions from unified type system
+function isInventoryType(t) { return Lab.types.isInventoryType(t); }
+function typeLabel(t) { return Lab.types.get(t).label; }
 
 var inventory = [];
 var sortCol = 'name';
@@ -206,7 +203,7 @@ async function loadInventory() {
   try {
     var index = await Lab.gh.fetchObjectIndex();
     inventory = index
-      .filter(function(obj) { return RESOURCE_TYPES.indexOf(obj.type) !== -1; })
+      .filter(function(obj) { return isInventoryType(obj.type); })
       .map(function(obj) {
         var slug = obj.path.replace(/\.md$/, '').split('/').pop();
         return {
@@ -214,7 +211,7 @@ async function loadInventory() {
           path: obj.path,
           name: obj.title || slug,
           type: obj.type,
-          typeLabel: TYPE_LABELS[obj.type] || obj.type,
+          typeLabel: typeLabel(obj.type),
           quantity: obj.quantity || 0,
           unit: obj.unit || '',
           location: obj.location || '',

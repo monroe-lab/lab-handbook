@@ -14,66 +14,9 @@
   var toastLoaded = false;
   var toastLoadPromise = null;
 
-  // Frontmatter schemas by type
-  var SCHEMAS = {
-    reagent: [
-      { key: 'title', label: 'Name', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'select', options: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'] },
-      { key: 'location', label: 'Location', type: 'select', options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
-      { key: 'quantity', label: 'Quantity', type: 'number' },
-      { key: 'unit', label: 'Unit', type: 'select', options: ['g','mL','L','kg','each','box','pack'] },
-      { key: 'low_stock_threshold', label: 'Low Stock Threshold', type: 'number' },
-    ],
-    buffer: null, // same as reagent
-    consumable: null,
-    chemical: null,
-    enzyme: null,
-    solution: null,
-    kit: null,
-    equipment: [
-      { key: 'title', label: 'Name', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'equipment' },
-      { key: 'location', label: 'Location', type: 'text' },
-    ],
-    seed: [
-      { key: 'title', label: 'Name', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'seed' },
-      { key: 'organism', label: 'Organism', type: 'text' },
-      { key: 'stock_type', label: 'Stock Type', type: 'hidden', value: 'seed' },
-      { key: 'location', label: 'Location', type: 'text' },
-      { key: 'source', label: 'Source', type: 'text' },
-    ],
-    glycerol_stock: [
-      { key: 'title', label: 'Name', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'glycerol_stock' },
-      { key: 'organism', label: 'Organism', type: 'text' },
-      { key: 'stock_type', label: 'Stock Type', type: 'hidden', value: 'glycerol_stock' },
-      { key: 'location', label: 'Location', type: 'text' },
-      { key: 'source', label: 'Source', type: 'text' },
-    ],
-    person: [
-      { key: 'title', label: 'Name', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'person' },
-      { key: 'role', label: 'Role', type: 'text' },
-      { key: 'email', label: 'Email', type: 'text' },
-    ],
-    project: [
-      { key: 'title', label: 'Title', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'project' },
-      { key: 'status', label: 'Status', type: 'select', options: ['active','completed','paused'] },
-      { key: 'pi', label: 'PI', type: 'text' },
-    ],
-    protocol: [
-      { key: 'title', label: 'Title', type: 'text', required: true },
-      { key: 'type', label: 'Type', type: 'hidden', value: 'protocol' },
-    ],
-  };
-
-  // Resolve schema: types with null inherit from reagent
+  // Field schemas come from the unified type system (types.js)
   function getSchema(type) {
-    if (SCHEMAS[type]) return SCHEMAS[type];
-    if (SCHEMAS[type] === null) return SCHEMAS.reagent;
-    return SCHEMAS.reagent; // default fallback
+    return window.Lab.types ? window.Lab.types.getFields(type) : [];
   }
 
   // ── Load Toast UI Editor on demand ──
@@ -468,14 +411,8 @@
   // This is simpler: the protocols page manages its own layout.
   // We just provide the Toast UI init and save helpers.
 
-  // ── Object Link Categories ──
-  var OBJECT_TYPES = {
-    resources: { label: 'Resources', icon: 'science', color: '#009688', subtypes: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'], dir: 'resources', defaultType: 'reagent' },
-    stocks:    { label: 'Stocks', icon: 'eco', color: '#4caf50', subtypes: ['seed','glycerol_stock','plasmid','agro_strain','dna_prep'], dir: 'stocks', defaultType: 'seed' },
-    people:    { label: 'People', icon: 'person', color: '#1565c0', subtypes: ['person'], dir: 'people', defaultType: 'person' },
-    protocols: { label: 'Protocols', icon: 'menu_book', color: '#6a1b9a', subtypes: ['protocol'], dir: null, defaultType: 'protocol' },
-    projects:  { label: 'Projects', icon: 'folder_special', color: '#e65100', subtypes: ['project'], dir: 'projects', defaultType: 'project' },
-  };
+  // Object link categories come from the unified type system (types.js)
+  function getObjectTypes() { return window.Lab.types ? window.Lab.types.GROUPS : {}; }
 
   // ── Insert Link Modal ──
   var linkModalEl = null;
@@ -533,8 +470,8 @@
 
   function renderLinkCategories() {
     var el = document.getElementById('em-link-cats');
-    el.innerHTML = Object.keys(OBJECT_TYPES).map(function(key) {
-      var cfg = OBJECT_TYPES[key];
+    el.innerHTML = Object.keys(getObjectTypes()).map(function(key) {
+      var cfg = getObjectTypes()[key];
       var isActive = linkModalCategory === key;
       return '<button style="display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid ' + (isActive ? cfg.color : 'var(--grey-300)') + ';background:' + (isActive ? cfg.color + '15' : '#fff') + ';color:' + (isActive ? cfg.color : 'var(--grey-700)') + ';font-size:13px;font-weight:500;cursor:pointer;font-family:inherit" onclick="Lab.editorModal._selectCat(\'' + key + '\')">' +
         '<span class="material-icons-outlined" style="font-size:16px">' + cfg.icon + '</span>' + cfg.label + '</button>';
@@ -551,8 +488,8 @@
   function filterLinkItems() {
     if (!linkModalCategory || !linkModalIndex) return;
     var q = (document.getElementById('em-link-search').value || '').toLowerCase().trim();
-    var cfg = OBJECT_TYPES[linkModalCategory];
-    var items = linkModalIndex.filter(function(obj) { return cfg.subtypes.indexOf(obj.type) !== -1; });
+    var cfg = getObjectTypes()[linkModalCategory];
+    var items = linkModalIndex.filter(function(obj) { return cfg.types.indexOf(obj.type) !== -1; });
     if (q) {
       items = items.filter(function(obj) {
         return (obj.title || '').toLowerCase().includes(q) || (obj.type || '').toLowerCase().includes(q) || (obj.location || '').toLowerCase().includes(q);
@@ -599,7 +536,7 @@
   async function createAndInsertLink() {
     var name = document.getElementById('em-link-search').value.trim();
     if (!name || !linkModalCategory) return;
-    var cfg = OBJECT_TYPES[linkModalCategory];
+    var cfg = getObjectTypes()[linkModalCategory];
     if (!cfg || !cfg.dir) return;
 
     var slug = window.Lab.slugify(name);
@@ -711,7 +648,6 @@
     initFullpage: initFullpageEditor,
     loadMarked: loadMarked,
     renderMarkdown: renderMarkdown,
-    SCHEMAS: SCHEMAS,
     getSchema: getSchema,
     // Expose for onclick handlers in link modal HTML
     _selectCat: selectLinkCategory,
