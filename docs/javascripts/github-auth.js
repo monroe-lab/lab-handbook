@@ -2,7 +2,7 @@
    All apps (inventory, sample tracker, feedback) use this single login. */
 (function () {
   // ---- CONFIGURE: set your GitHub OAuth App client_id here ----
-  var CLIENT_ID = "";  // Grey: create OAuth App at github.com/settings/developers, enable Device Flow
+  var CLIENT_ID = "Ov23li7RlMB84qZM8Sky";
   var TOKEN_KEY = "gh_lab_token";
   var USER_KEY = "gh_lab_user";
   var SCOPE = "repo";
