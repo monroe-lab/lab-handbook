@@ -472,12 +472,16 @@
     injectEditorCSS();
     await loadToast();
 
+    // Calculate height: fill available space (viewport minus nav + edit bar)
+    var rect = containerEl.getBoundingClientRect();
+    var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
+
     var editor = new toastui.Editor({
       el: containerEl,
       initialEditType: 'wysiwyg',
       hideModeSwitch: true,
       previewStyle: 'vertical',
-      height: '100%',
+      height: availableHeight + 'px',
       initialValue: content,
       usageStatistics: false,
       toolbarItems: [
