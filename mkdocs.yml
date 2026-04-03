@@ -118,6 +118,7 @@ nav:
       - LLM Philosophy: bioinformatics/llm-philosophy-blog.md
       - Claude Code Skills: bioinformatics/claude-code-skills.md
   - Lab Notebooks:
+    - Notebook App: https://monroe-lab.github.io/lab-handbook/notebook-app/
     - Overview: notebooks/index.md
     - Daily Entry Template: notebooks/template.md
     - Alex Chen:

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Notebooks - Monroe Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #009688;
+  --teal-dark: #00796b;
+  --teal-light: #e0f2f1;
+  --teal-50: #f0fdfb;
+  --brown: #795548;
+  --brown-light: #efebe9;
+  --red: #e53935;
+  --amber: #ff8f00;
+  --green: #43a047;
+  --grey-50: #fafafa;
+  --grey-100: #f5f5f5;
+  --grey-200: #eeeeee;
+  --grey-300: #e0e0e0;
+  --grey-400: #bdbdbd;
+  --grey-500: #9e9e9e;
+  --grey-600: #757575;
+  --grey-700: #616161;
+  --grey-800: #424242;
+  --grey-900: #212121;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 2px 8px rgba(0,0,0,.1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--grey-100);
+  color: var(--grey-900);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  background: var(--brown);
+  color: #fff;
+  padding: 0 20px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+.header .logo { font-weight: 600; font-size: 16px; }
+.header .logo span { font-weight: 300; opacity: .8; }
+.header-spacer { flex: 1; }
+.header-btn {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background .15s;
+}
+.header-btn:hover { background: rgba(255,255,255,.25); }
+
+/* Layout */
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* Person selector */
+.person-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.person-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 2px solid var(--grey-300);
+  background: #fff;
+  color: var(--grey-700);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.person-chip:hover { border-color: var(--brown); color: var(--brown); }
+.person-chip.active { border-color: var(--brown); background: var(--brown); color: #fff; }
+.person-chip .material-icons-outlined { font-size: 18px; }
+.add-person-chip {
+  border-style: dashed;
+  border-color: var(--grey-400);
+  color: var(--grey-500);
+}
+.add-person-chip:hover { border-color: var(--brown); color: var(--brown); }
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 12px; }
+
+.entry-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow .15s;
+  cursor: pointer;
+}
+.entry-card:hover { box-shadow: var(--shadow-md); }
+.entry-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+}
+.entry-date-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--brown-light);
+  color: var(--brown);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.entry-date-badge .month { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.entry-date-badge .day { font-size: 18px; font-weight: 700; line-height: 1; }
+.entry-info { flex: 1; min-width: 0; }
+.entry-title { font-size: 15px; font-weight: 600; }
+.entry-meta { font-size: 12px; color: var(--grey-500); display: flex; gap: 12px; margin-top: 2px; }
+.entry-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.entry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Entry viewer */
+.entry-viewer {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: none;
+}
+.entry-viewer.open { display: block; }
+.entry-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--grey-200);
+}
+.entry-viewer h2 { font-size: 18px; font-weight: 600; }
+.viewer-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--grey-500);
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+}
+.viewer-close:hover { background: var(--grey-200); }
+.entry-content {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.entry-content h1, .entry-content h2, .entry-content h3 { margin: 16px 0 8px; }
+.entry-content h1 { font-size: 20px; }
+.entry-content h2 { font-size: 16px; }
+.entry-content h3 { font-size: 14px; font-weight: 600; }
+.entry-content p { margin: 8px 0; }
+.entry-content ul, .entry-content ol { margin: 8px 0; padding-left: 24px; }
+.entry-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13px; }
+.entry-content th, .entry-content td { border: 1px solid var(--grey-300); padding: 6px 10px; text-align: left; }
+.entry-content th { background: var(--grey-100); font-weight: 600; }
+.entry-content code { background: var(--grey-100); padding: 1px 4px; border-radius: 3px; font-size: 13px; }
+.entry-content blockquote { border-left: 3px solid var(--grey-300); padding-left: 12px; color: var(--grey-600); }
+.entry-content a { color: var(--teal-dark); }
+
+/* New entry form */
+.new-entry-form {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: none;
+}
+.new-entry-form.open { display: block; }
+.form-row { margin-bottom: 14px; }
+.form-row label { display: block; font-size: 13px; font-weight: 600; color: var(--grey-700); margin-bottom: 4px; }
+.form-row input, .form-row textarea, .form-row select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .15s;
+}
+.form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color: var(--brown); }
+.form-row textarea { min-height: 200px; resize: vertical; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.6; }
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+.btn {
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: background .15s;
+}
+.btn-primary { background: var(--brown); color: #fff; }
+.btn-primary:hover { background: #5d4037; }
+.btn-secondary { background: var(--grey-200); color: var(--grey-700); }
+.btn-secondary:hover { background: var(--grey-300); }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--grey-500);
+}
+.empty-state .material-icons-outlined { font-size: 48px; margin-bottom: 12px; color: var(--grey-400); }
+.empty-state h3 { font-size: 16px; font-weight: 500; color: var(--grey-700); margin-bottom: 6px; }
+
+/* Link insert button */
+.insert-link-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.insert-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--grey-300);
+  background: #fff;
+  color: var(--grey-600);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+.insert-link-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-50); }
+.insert-link-btn .material-icons-outlined { font-size: 14px; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s, visibility .2s;
+}
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  width: 440px;
+  max-width: 90vw;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--grey-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.modal-close { background: none; border: none; cursor: pointer; color: var(--grey-500); padding: 4px; border-radius: 50%; display: flex; }
+.modal-close:hover { background: var(--grey-200); }
+.modal-search { padding: 10px 18px; border-bottom: 1px solid var(--grey-100); }
+.modal-search input { width: 100%; padding: 8px 12px; border: 1px solid var(--grey-300); border-radius: var(--radius); font-size: 14px; font-family: inherit; outline: none; }
+.modal-search input:focus { border-color: var(--teal); }
+.modal-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+.modal-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+  cursor: pointer;
+  gap: 10px;
+  transition: background .1s;
+}
+.modal-item:hover { background: var(--teal-50); }
+.modal-item-name { font-size: 14px; font-weight: 500; }
+.modal-item-meta { font-size: 11px; color: var(--grey-500); }
+.modal-empty { padding: 24px; text-align: center; color: var(--grey-500); font-size: 14px; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--grey-800);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+
+@media (max-width: 640px) {
+  .app { padding: 16px 12px; }
+  .person-chip { padding: 6px 12px; font-size: 13px; }
+  .entry-card-header { padding: 12px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Lab Notebooks <span>/ Monroe Lab</span></div>
+  <div class="header-spacer"></div>
+  <a href="../" class="header-btn" style="text-decoration:none">
+    <span class="material-icons-outlined" style="font-size:16px">home</span> Handbook
+  </a>
+</div>
+
+<div class="app">
+  <!-- Person selector -->
+  <div class="person-bar" id="personBar"></div>
+
+  <!-- New entry button -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <h2 id="notebookTitle" style="font-size:18px;font-weight:600;color:var(--grey-700);">Select a person</h2>
+    <button class="btn btn-primary" id="newEntryBtn" onclick="openNewEntry()" style="display:none">
+      <span class="material-icons-outlined" style="font-size:16px;vertical-align:middle;margin-right:4px">add</span> New Entry
+    </button>
+  </div>
+
+  <!-- New entry form -->
+  <div class="new-entry-form" id="newEntryForm">
+    <h3 style="margin-bottom:14px;font-size:16px;">New Notebook Entry</h3>
+    <div class="form-row">
+      <label>Date</label>
+      <input type="date" id="entryDate">
+    </div>
+    <div class="form-row">
+      <label>Time In</label>
+      <input type="time" id="entryTimeIn">
+    </div>
+    <div class="form-row">
+      <label>Supervisor/Mentor Present</label>
+      <input type="text" id="entrySupervisor" placeholder="e.g. Kehan Zhao">
+    </div>
+    <div class="form-row">
+      <label>Entry Content (Markdown)</label>
+      <div class="insert-link-bar">
+        <button class="insert-link-btn" onclick="openLinkPicker('protocol')"><span class="material-icons-outlined">menu_book</span> Protocol</button>
+        <button class="insert-link-btn" onclick="openLinkPicker('resource')"><span class="material-icons-outlined">science</span> Chemical</button>
+        <button class="insert-link-btn" onclick="openLinkPicker('equipment')"><span class="material-icons-outlined">build</span> Equipment</button>
+        <button class="insert-link-btn" onclick="openLinkPicker('person')"><span class="material-icons-outlined">person</span> Person</button>
+        <button class="insert-link-btn" onclick="openLinkPicker('stock')"><span class="material-icons-outlined">eco</span> Stock</button>
+        <button class="insert-link-btn" onclick="openLinkPicker('project')"><span class="material-icons-outlined">folder_special</span> Project</button>
+      </div>
+      <textarea id="entryContent"></textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeNewEntry()">Cancel</button>
+      <button class="btn btn-primary" id="saveEntryBtn" onclick="saveEntry()">Save Entry</button>
+    </div>
+  </div>
+
+  <!-- Entry viewer -->
+  <div class="entry-viewer" id="entryViewer">
+    <div class="entry-viewer-header">
+      <h2 id="viewerTitle"></h2>
+      <button class="viewer-close" onclick="closeViewer()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="entry-content" id="viewerContent"></div>
+  </div>
+
+  <!-- Timeline -->
+  <div id="timeline" class="timeline"></div>
+</div>
+
+<!-- Link picker modal -->
+<div class="modal-overlay" id="linkModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="linkModalTitle"><span class="material-icons-outlined">link</span> Insert Link</h3>
+      <button class="modal-close" onclick="closeLinkModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-search">
+      <input type="text" id="linkSearchInput" placeholder="Search..." oninput="filterLinks()">
+    </div>
+    <div class="modal-list" id="linkList"></div>
+  </div>
+</div>
+
+<!-- Add person modal -->
+<div class="modal-overlay" id="addPersonModal">
+  <div class="modal" style="width:360px">
+    <div class="modal-header">
+      <h3><span class="material-icons-outlined">person_add</span> New Notebook</h3>
+      <button class="modal-close" onclick="closeAddPerson()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div style="padding:18px;">
+      <div class="form-row">
+        <label>Name</label>
+        <input type="text" id="newPersonName" placeholder="e.g. Alex Chen">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-secondary" onclick="closeAddPerson()">Cancel</button>
+        <button class="btn btn-primary" onclick="createPerson()">Create Notebook</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="../javascripts/github-auth.js"></script>
+<script>
+// ── Config ──
+const REPO = 'monroe-lab/lab-handbook';
+const API_BASE = 'https://api.github.com';
+const CONTENTS_URL = `${API_BASE}/repos/${REPO}/contents`;
+const TREE_URL = `${API_BASE}/repos/${REPO}/git/trees/main?recursive=1`;
+const INDEX_PATH = 'docs/object-index.json';
+const NOTEBOOKS_DIR = 'docs/notebooks';
+
+// ── State ──
+let selectedPerson = null;
+let people = [];
+let entries = [];
+let objectIndex = [];
+let currentLinkType = null;
+let allFiles = [];
+
+// ── Auth ──
+function getToken() { return (window.ghAuth && window.ghAuth.getToken()) || ''; }
+function authHeaders() {
+  const h = { 'Accept': 'application/vnd.github.v3+json' };
+  const t = getToken();
+  if (t) h['Authorization'] = `token ${t}`;
+  return h;
+}
+
+if (window.ghAuth) { window.ghAuth.onLogin = function() { init(); }; }
+
+// ── Utils ──
+function esc(s) { const el = document.createElement('span'); el.textContent = s; return el.innerHTML; }
+function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className = 'toast', 3000);
+}
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// ── Simple markdown to HTML (good enough for notebook entries) ──
+function md2html(md) {
+  let html = md
+    // Headers
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // Bold/italic
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/_(.+?)_/g, '<em>$1</em>')
+    // Code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // Wikilinks
+    .replace(/\[\[([^\]]+)\]\]/g, '<a href="../$1/">$1</a>')
+    // Markdown links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    // Checkboxes
+    .replace(/^- \[x\] (.+)$/gm, '<li style="list-style:none"><input type="checkbox" checked disabled> $1</li>')
+    .replace(/^- \[ \] (.+)$/gm, '<li style="list-style:none"><input type="checkbox" disabled> $1</li>')
+    // List items
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    // Horizontal rule
+    .replace(/^---+$/gm, '<hr>')
+    // Tables (basic)
+    .replace(/^\|(.+)\|$/gm, function(line) {
+      if (line.match(/^\|[\s-:|]+\|$/)) return ''; // separator row
+      const cells = line.split('|').filter(c => c.trim());
+      const tag = line.includes('---') ? 'th' : 'td';
+      return '<tr>' + cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join('') + '</tr>';
+    })
+    // Paragraphs (wrap remaining lines)
+    .replace(/^(?!<[hluot]|<li|<hr|<tr)(.+)$/gm, '<p>$1</p>');
+
+  // Wrap consecutive <tr> in table
+  html = html.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g, '<table>$&</table>');
+  // Wrap consecutive <li> in ul
+  html = html.replace(/(<li[\s\S]*?<\/li>\n?)+/g, '<ul>$&</ul>');
+
+  return html;
+}
+
+// ── Data Loading ──
+async function loadFileTree() {
+  try {
+    const res = await fetch(TREE_URL, { headers: authHeaders() });
+    const data = await res.json();
+    allFiles = (data.tree || []).filter(f => f.type === 'blob').map(f => f.path);
+  } catch (e) {
+    console.warn('Failed to load file tree:', e);
+  }
+}
+
+function discoverPeople() {
+  // Find directories under docs/notebooks/ (each is a person)
+  const dirs = new Set();
+  allFiles.forEach(f => {
+    const m = f.match(/^docs\/notebooks\/([^/]+)\/.+\.md$/);
+    if (m && m[1] !== 'index.md' && m[1] !== 'template.md') {
+      dirs.add(m[1]);
+    }
+  });
+  people = Array.from(dirs).sort();
+  renderPeople();
+}
+
+function discoverEntries() {
+  if (!selectedPerson) return;
+  entries = allFiles
+    .filter(f => f.startsWith(`docs/notebooks/${selectedPerson}/`) && f.endsWith('.md'))
+    .map(f => {
+      const name = f.split('/').pop().replace('.md', '');
+      return { path: f, date: name, filename: f.split('/').pop() };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date)); // newest first
+  renderTimeline();
+}
+
+async function loadObjectIndex() {
+  try {
+    const res = await fetch(CONTENTS_URL + '/' + INDEX_PATH, { headers: authHeaders() });
+    if (!res.ok) return;
+    const data = await res.json();
+    const raw = atob(data.content.replace(/\n/g, ''));
+    objectIndex = JSON.parse(decodeURIComponent(escape(raw)));
+  } catch (e) {
+    console.warn('Failed to load object index:', e);
+  }
+}
+
+// ── Rendering ──
+function renderPeople() {
+  const bar = document.getElementById('personBar');
+  let html = people.map(p => {
+    const display = p.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return `<button class="person-chip${selectedPerson === p ? ' active' : ''}" onclick="selectPerson('${esc(p)}')">
+      <span class="material-icons-outlined">person</span> ${esc(display)}
+    </button>`;
+  }).join('');
+  html += `<button class="person-chip add-person-chip" onclick="openAddPerson()">
+    <span class="material-icons-outlined">add</span> New Notebook
+  </button>`;
+  bar.innerHTML = html;
+}
+
+function selectPerson(slug) {
+  selectedPerson = slug;
+  const display = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  document.getElementById('notebookTitle').textContent = display + "'s Notebook";
+  document.getElementById('newEntryBtn').style.display = '';
+  renderPeople();
+  discoverEntries();
+  closeNewEntry();
+  closeViewer();
+}
+
+function renderTimeline() {
+  const el = document.getElementById('timeline');
+  if (!entries.length) {
+    el.innerHTML = `<div class="empty-state">
+      <span class="material-icons-outlined">auto_stories</span>
+      <h3>No entries yet</h3>
+      <p>Click "New Entry" to create the first notebook entry.</p>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = entries.map(e => {
+    const d = new Date(e.date + 'T12:00:00');
+    const month = isNaN(d) ? '?' : MONTHS[d.getMonth()];
+    const day = isNaN(d) ? e.date : d.getDate();
+    const weekday = isNaN(d) ? '' : d.toLocaleDateString('en-US', { weekday: 'long' });
+    return `<div class="entry-card" onclick="viewEntry('${esc(e.path)}', '${esc(e.date)}')">
+      <div class="entry-card-header">
+        <div class="entry-date-badge">
+          <span class="month">${month}</span>
+          <span class="day">${day}</span>
+        </div>
+        <div class="entry-info">
+          <div class="entry-title">${esc(e.date)}</div>
+          <div class="entry-meta">
+            <span>${weekday}</span>
+          </div>
+        </div>
+        <span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── View Entry ──
+async function viewEntry(path, date) {
+  document.getElementById('viewerTitle').textContent = date;
+  document.getElementById('viewerContent').innerHTML = '<p style="color:var(--grey-500)">Loading...</p>';
+  document.getElementById('entryViewer').classList.add('open');
+
+  try {
+    const res = await fetch(`${CONTENTS_URL}/${path}`, { headers: authHeaders() });
+    const data = await res.json();
+    const raw = atob(data.content.replace(/\n/g, ''));
+    const md = decodeURIComponent(escape(raw));
+    document.getElementById('viewerContent').innerHTML = md2html(md);
+  } catch (e) {
+    document.getElementById('viewerContent').innerHTML = '<p style="color:var(--red)">Failed to load entry.</p>';
+  }
+}
+
+function closeViewer() {
+  document.getElementById('entryViewer').classList.remove('open');
+}
+
+// ── New Entry ──
+function openNewEntry() {
+  if (!selectedPerson) { showToast('Select a person first', 'error'); return; }
+  document.getElementById('newEntryForm').classList.add('open');
+  document.getElementById('entryDate').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('entryTimeIn').value = '';
+  document.getElementById('entrySupervisor').value = '';
+  document.getElementById('entryContent').value = getTemplate();
+}
+
+function closeNewEntry() {
+  document.getElementById('newEntryForm').classList.remove('open');
+}
+
+function getTemplate() {
+  return `### Before Start Checklist
+
+- [ ] Have a general plan for the day's work
+- [ ] Lab safety: closed-toe shoes, long pants, aware of hazards, familiar with PPE needed today
+
+### Summary of Activities
+
+_A few sentences overview of the main tasks performed today._
+
+### Detailed Experimental Notes
+
+**Kits/Reagents Used:**
+
+**Solutions Made or Used:**
+
+**Biological Samples:**
+
+**Procedure & Deviations:**
+
+_Detail the steps of your procedure. Any deviations from standard protocols?_
+
+### Results
+
+_Data, observations, outcomes. Include tables, images, or links to shared sheets._
+
+| Label | Sample Type | Location | QC Result | Notes |
+|-------|-------------|----------|-----------|-------|
+|       |             |          |           |       |
+
+### Concluding Checklist
+
+- [ ] All tubes, plates, and reagents labeled
+- [ ] Reagents, samples, and equipment returned to designated locations
+- [ ] Bench/workspace cleaned before leaving
+- [ ] Sent message to Grey + mentor on Slack with link to this entry and any questions
+
+### Reflections and Questions
+
+_What scientific or technical questions came to mind?_
+
+### Next Time
+
+_Immediate next steps, considerations, or reminders for your next lab session._`;
+}
+
+async function saveEntry() {
+  const date = document.getElementById('entryDate').value;
+  const timeIn = document.getElementById('entryTimeIn').value;
+  const supervisor = document.getElementById('entrySupervisor').value.trim();
+  const content = document.getElementById('entryContent').value;
+
+  if (!date) { showToast('Date is required', 'error'); return; }
+  if (!getToken()) { showToast('Sign in with GitHub first', 'error'); return; }
+
+  const btn = document.getElementById('saveEntryBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  // Build full markdown
+  let md = `# ${date}\n\n`;
+  if (timeIn) md += `**Time In:** ${timeIn}\n`;
+  md += `**Time Out:**\n`;
+  if (supervisor) md += `**Supervisor/Mentor Present:** ${supervisor}\n`;
+  md += `\n${content}\n`;
+
+  const path = `docs/notebooks/${selectedPerson}/${date}.md`;
+  const encoded = btoa(unescape(encodeURIComponent(md)));
+
+  try {
+    // Check if file exists (for SHA)
+    let sha = null;
+    try {
+      const getRes = await fetch(`${CONTENTS_URL}/${path}`, { headers: authHeaders() });
+      if (getRes.ok) {
+        const getData = await getRes.json();
+        sha = getData.sha;
+      }
+    } catch (e) {}
+
+    const body = {
+      message: `Notebook entry: ${selectedPerson} ${date}`,
+      content: encoded,
+      branch: 'main'
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(`${CONTENTS_URL}/${path}`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Save failed');
+    }
+
+    // Update local state
+    if (!allFiles.includes(path)) allFiles.push(path);
+    closeNewEntry();
+    discoverEntries();
+    showToast('Entry saved', 'success');
+  } catch (e) {
+    showToast('Failed: ' + e.message, 'error');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Save Entry';
+}
+
+// ── Link Picker ──
+const TYPE_FILTER = {
+  protocol: ['protocol'],
+  resource: ['reagent', 'buffer', 'consumable', 'chemical', 'enzyme', 'solution', 'kit'],
+  equipment: ['equipment'],
+  person: ['person'],
+  stock: ['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep'],
+  project: ['project'],
+};
+
+const TYPE_ICONS = {
+  protocol: 'menu_book', resource: 'science', equipment: 'build',
+  person: 'person', stock: 'eco', project: 'folder_special',
+};
+
+function openLinkPicker(type) {
+  currentLinkType = type;
+  const types = TYPE_FILTER[type] || [];
+  const icon = TYPE_ICONS[type] || 'link';
+  document.getElementById('linkModalTitle').innerHTML = `<span class="material-icons-outlined">${icon}</span> Insert ${type}`;
+  document.getElementById('linkSearchInput').value = '';
+  filterLinks();
+  document.getElementById('linkModal').classList.add('open');
+  setTimeout(() => document.getElementById('linkSearchInput').focus(), 100);
+}
+
+function closeLinkModal() {
+  document.getElementById('linkModal').classList.remove('open');
+}
+
+function filterLinks() {
+  const q = (document.getElementById('linkSearchInput').value || '').toLowerCase();
+  const types = TYPE_FILTER[currentLinkType] || [];
+  const filtered = objectIndex
+    .filter(obj => types.includes(obj.type))
+    .filter(obj => !q || (obj.title || '').toLowerCase().includes(q) || (obj.path || '').toLowerCase().includes(q))
+    .slice(0, 50);
+
+  const list = document.getElementById('linkList');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="modal-empty">No items found</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(obj => {
+    const slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    return `<div class="modal-item" onclick="insertLink('${esc(slug)}')">
+      <div>
+        <div class="modal-item-name">${esc(obj.title || slug)}</div>
+        <div class="modal-item-meta">${esc(obj.type)}${obj.location ? ' · ' + esc(obj.location) : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function insertLink(slug) {
+  const ta = document.getElementById('entryContent');
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const text = ta.value;
+  const link = `[[${slug}]]`;
+  ta.value = text.substring(0, start) + link + text.substring(end);
+  ta.selectionStart = ta.selectionEnd = start + link.length;
+  ta.focus();
+  closeLinkModal();
+}
+
+// ── Add Person ──
+function openAddPerson() {
+  document.getElementById('newPersonName').value = '';
+  document.getElementById('addPersonModal').classList.add('open');
+  setTimeout(() => document.getElementById('newPersonName').focus(), 100);
+}
+
+function closeAddPerson() {
+  document.getElementById('addPersonModal').classList.remove('open');
+}
+
+async function createPerson() {
+  const name = document.getElementById('newPersonName').value.trim();
+  if (!name) { showToast('Enter a name', 'error'); return; }
+  if (!getToken()) { showToast('Sign in with GitHub first', 'error'); return; }
+
+  const slug = slugify(name);
+
+  // Create a placeholder file so the directory exists
+  const path = `docs/notebooks/${slug}/.gitkeep`;
+  const encoded = btoa('');
+
+  try {
+    const res = await fetch(`${CONTENTS_URL}/${path}`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Create notebook for ${name}`,
+        content: encoded,
+        branch: 'main'
+      })
+    });
+    if (!res.ok) throw new Error('Failed to create');
+
+    allFiles.push(path);
+    people.push(slug);
+    people.sort();
+    closeAddPerson();
+    selectPerson(slug);
+    showToast(`Created notebook for ${name}`, 'success');
+  } catch (e) {
+    showToast('Failed: ' + e.message, 'error');
+  }
+}
+
+// ── Close modals ──
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
+
+// ── Init ──
+async function init() {
+  await Promise.all([loadFileTree(), loadObjectIndex()]);
+  discoverPeople();
+  // Auto-select first person if exists
+  if (people.length > 0) selectPerson(people[0]);
+}
+
+init();
+</script>
+</body>
+</html>
