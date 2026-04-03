@@ -131,11 +131,7 @@ nav:
       - Working Alone: lab-management/working-alone-sop.md
     - Chemical Inventory (EHS): lab-safety/chemical-inventory.md
   - Apps:
-    - Notebooks: https://monroe-lab.github.io/lab-handbook/notebook-app/
-    - Inventory: https://monroe-lab.github.io/lab-handbook/inventory-app/
-    - Sample Tracker: https://monroe-lab.github.io/lab-handbook/sample-tracker/
-    - Calendar: https://monroe-lab.github.io/lab-handbook/calendar/
-    - Edit Wiki: https://monroe-lab.github.io/lab-handbook/editor/
+    - apps/index.md
 
 extra_css:
   - stylesheets/password-gate.css
