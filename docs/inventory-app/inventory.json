@@ -98,5 +98,15 @@
     "location": "Chemical Cabinet",
     "notes": "Molecular biology grade, for gel electrophoresis",
     "lowStockThreshold": 50
+  },
+  {
+    "id": 11,
+    "name": "Microtube",
+    "category": "Consumable",
+    "quantity": 10,
+    "unit": "each",
+    "location": "Freezer -80C",
+    "notes": "test entry",
+    "lowStockThreshold": 2
   }
 ]
