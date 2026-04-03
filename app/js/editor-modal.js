@@ -201,6 +201,7 @@
   // ── Popup Mode ──
   var overlayEl = null;
   var currentEditor = null;
+  var currentEditorEl = null;
   var currentState = null; // { path, sha, meta, body, editing }
 
   function createOverlay() {
@@ -375,6 +376,7 @@
     contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
     var editorEl = contentEl.querySelector('.em-surface');
 
+    currentEditorEl = editorEl;
     currentEditor = new toastui.Editor({
       el: editorEl,
       initialEditType: 'wysiwyg',
@@ -389,7 +391,16 @@
         ['ul', 'ol', 'task'],
         ['table', 'link', 'image', 'code'],
       ],
+      events: {
+        change: function() {
+          clearTimeout(editorEl._wikiTimer);
+          editorEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(editorEl); }, 300);
+        }
+      }
     });
+
+    // Style wikilinks in the popup editor
+    setTimeout(function() { styleWikilinksInEditor(editorEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
@@ -400,7 +411,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = currentEditor.getMarkdown(); // TODO: add wikilink restore for popup editor
+      currentState.body = getMarkdownClean(currentEditor, currentEditorEl);
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -412,6 +423,7 @@
 
     currentState.editing = false;
     currentEditor = null;
+    currentEditorEl = null;
 
     // Switch back to read mode
     document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
@@ -440,9 +452,9 @@
       currentState.meta[key] = val;
     });
 
-    // Get markdown from editor
+    // Get markdown from editor (restore wikilink pills to [[slug]] syntax)
     if (currentEditor) {
-      currentState.body = currentEditor.getMarkdown();
+      currentState.body = getMarkdownClean(currentEditor, currentEditorEl);
     }
 
     // Also include hidden fields from schema
