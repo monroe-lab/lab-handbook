@@ -10,8 +10,11 @@ new stuff testing new again
 
 lets test this
 
-⚠️ **Variant title**Description here
-test text here
-ℹ️ **Note title**Description here
+??? variant "Variant title"
+    Description here
 
-💡 **Tip title**Description here
+??? note "Note title"
+    Description here
+
+??? tip "Tip title"
+    Description here

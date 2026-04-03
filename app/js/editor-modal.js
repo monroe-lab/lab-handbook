@@ -161,17 +161,6 @@
     return md;
   }
 
-  // Add a new admonition to the store and return its placeholder text
-  function createAdmonitionPlaceholder(type, title, body) {
-    var idx = _admStore.length;
-    var bodyIndented = body.split('\n').map(function(l) { return '    ' + l; }).join('\n');
-    var raw = '??? ' + type + ' "' + title + '"\n' + bodyIndented + '\n';
-    _admStore.push({ type: type, title: title, body: body, raw: raw });
-    var icon = ADM_ICONS[type] || '\u2139\uFE0F';
-    var label = type.charAt(0).toUpperCase() + type.slice(1);
-    return icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title;
-  }
-
   // Style callout placeholders in WYSIWYG DOM
   function styleCalloutsInEditor(containerEl) {
     var wwContainer = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
@@ -728,44 +717,6 @@
     });
 
     editorUI.insertBefore(insertBar, editorUI.firstChild);
-
-    // Inject Variant/Note/Tip buttons into the Toast UI toolbar row
-    var toolbar = editorUI.querySelector('.toastui-editor-toolbar');
-    if (toolbar) {
-      var calloutGroup = document.createElement('div');
-      calloutGroup.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:6px;border-left:1px solid var(--grey-300);padding-left:8px;flex-shrink:0;';
-
-      var callouts = [
-        { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
-        { type: 'note', label: 'Note', color: '#1565c0', icon: '\u2139\uFE0F' },
-        { type: 'tip', label: 'Tip', color: '#2e7d32', icon: '\uD83D\uDCA1' },
-      ];
-      callouts.forEach(function(c) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.title = 'Insert ' + c.label + ' callout';
-        btn.style.cssText = 'display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border-radius:4px;border:none;background:transparent;color:' + c.color + ';font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;white-space:nowrap;line-height:1;';
-        btn.textContent = c.icon + ' ' + c.label;
-        btn.onmouseenter = function() { btn.style.background = c.color + '12'; };
-        btn.onmouseleave = function() { btn.style.background = 'transparent'; };
-        btn.onclick = function(e) {
-          e.preventDefault();
-          var placeholder = createAdmonitionPlaceholder(c.type, c.label + ' title', 'Description here');
-          editor.insertText('\n\n' + placeholder + '\n\n');
-          // Style the newly inserted placeholder
-          setTimeout(function() { styleCalloutsInEditor(containerEl); }, 100);
-        };
-        calloutGroup.appendChild(btn);
-      });
-
-      // Append to the first toolbar group row
-      var toolbarGroup = toolbar.querySelector('.toastui-editor-toolbar-group');
-      if (toolbarGroup) {
-        toolbarGroup.parentNode.appendChild(calloutGroup);
-      } else {
-        toolbar.appendChild(calloutGroup);
-      }
-    }
   }
 
   // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
