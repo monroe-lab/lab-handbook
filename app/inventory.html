@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.inv-page { padding: 0; }
+
+/* Toolbar */
+.inv-toolbar {
+  background: #fff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+
+/* Stats */
+.inv-stats {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+
+/* Table wrap */
+.inv-table-wrap { padding: 0 24px 24px; }
+
+/* Low stock highlight */
+tr.low-stock td:first-child { position: relative; }
+tr.low-stock td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--amber);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Row actions */
+.row-actions { display: flex; gap: 4px; }
+.row-actions button {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--grey-500);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.row-actions button:hover { color: var(--teal); background: var(--teal-light); }
+.row-actions button.del:hover { color: var(--red); background: var(--red-light); }
+
+/* Mobile cards */
+.inv-cards { display: none; padding: 0 16px 16px; }
+.inv-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: box-shadow .15s;
+}
+.inv-card:hover { box-shadow: var(--shadow-md); }
+.inv-card-top { display: flex; justify-content: space-between; align-items: center; }
+.inv-card-name { font-weight: 600; font-size: 15px; }
+.inv-card-qty { font-size: 14px; color: var(--grey-600); }
+.inv-card-meta { font-size: 13px; color: var(--grey-500); margin-top: 4px; display: flex; gap: 12px; }
+.inv-card.low-stock { border-left: 3px solid var(--amber); }
+
+@media (max-width: 768px) {
+  .inv-toolbar { padding: 12px 16px; }
+  .inv-stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .inv-stats .stat-card { min-width: 0; }
+  .inv-table-wrap { display: none; }
+  .inv-cards { display: block; }
+  .filter-select { min-width: 0; flex: 1; }
+}
+</style>
+</head>
+<body>
+<div class="inv-page">
+
+  <!-- Toolbar -->
+  <div class="inv-toolbar">
+    <div class="search-box">
+      <span class="material-icons-outlined">search</span>
+      <input type="text" id="searchInput" placeholder="Search inventory...">
+    </div>
+    <select class="filter-select" id="filterType">
+      <option value="">All Types</option>
+      <option value="reagent">Reagent</option>
+      <option value="buffer">Buffer/Solution</option>
+      <option value="consumable">Consumable</option>
+      <option value="equipment">Equipment</option>
+      <option value="seed">Seed Stock</option>
+      <option value="glycerol_stock">Glycerol Stock</option>
+      <option value="kit">Kit</option>
+    </select>
+    <select class="filter-select" id="filterLocation">
+      <option value="">All Locations</option>
+      <option>Chemical Cabinet</option>
+      <option>Corrosive Cabinet</option>
+      <option>Flammable Cabinet</option>
+      <option>Hazardous Cabinet</option>
+      <option>Refrigerator</option>
+      <option>Freezer -20C</option>
+      <option>Freezer -80C</option>
+      <option>Bench</option>
+    </select>
+    <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--grey-600);white-space:nowrap;cursor:pointer">
+      <input type="checkbox" id="lowStockOnly"> Low stock only
+    </label>
+    <button class="btn btn-primary" id="addBtn" style="display:none" onclick="addItem()">
+      <span class="material-icons-outlined">add</span> Add Item
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="inv-stats">
+    <div class="stat-card">
+      <span class="material-icons-outlined">inventory_2</span>
+      <div><div class="stat-value" id="statTotal">-</div><div class="stat-label">Total Items</div></div>
+    </div>
+    <div class="stat-card">
+      <span class="material-icons-outlined">category</span>
+      <div><div class="stat-value" id="statTypes">-</div><div class="stat-label">Types</div></div>
+    </div>
+    <div class="stat-card warning">
+      <span class="material-icons-outlined">warning_amber</span>
+      <div><div class="stat-value" id="statLow">-</div><div class="stat-label">Low Stock</div></div>
+    </div>
+  </div>
+
+  <!-- Desktop table -->
+  <div class="inv-table-wrap">
+    <div class="table-container">
+      <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Loading inventory...</p></div>
+      <table id="invTable" style="display:none">
+        <thead>
+          <tr>
+            <th onclick="setSort('name')">Name <span class="sort-arrow" id="sort-name"></span></th>
+            <th onclick="setSort('type')">Type <span class="sort-arrow" id="sort-type"></span></th>
+            <th onclick="setSort('quantity')">Qty <span class="sort-arrow" id="sort-quantity"></span></th>
+            <th onclick="setSort('location')">Location <span class="sort-arrow" id="sort-location"></span></th>
+            <th class="hide-mobile">Notes</th>
+            <th style="width:80px">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none">
+        <span class="material-icons-outlined">search_off</span><p>No items match your filters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="inv-cards" id="cardView"></div>
+
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h2>Delete Item</h2>
+      <button class="modal-close" onclick="closeDeleteModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body"><p>Are you sure you want to delete <strong id="deleteName"></strong>?</p></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script src="js/github-api.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/wikilinks.js"></script>
+<script src="js/editor-modal.js"></script>
+<script>
+var RESOURCE_TYPES = ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution','seed','glycerol_stock','plasmid','agro_strain','dna_prep'];
+var TYPE_LABELS = {
+  reagent:'Reagent', buffer:'Buffer', consumable:'Consumable', equipment:'Equipment',
+  kit:'Kit', chemical:'Chemical', enzyme:'Enzyme', solution:'Solution',
+  seed:'Seed Stock', glycerol_stock:'Glycerol Stock', plasmid:'Plasmid',
+  agro_strain:'Agro Strain', dna_prep:'DNA Prep'
+};
+
+var inventory = [];
+var sortCol = 'name';
+var sortDir = 1;
+var deletingItem = null;
+
+// ── Load ──
+async function loadInventory() {
+  try {
+    var index = await Lab.gh.fetchObjectIndex();
+    inventory = index
+      .filter(function(obj) { return RESOURCE_TYPES.indexOf(obj.type) !== -1; })
+      .map(function(obj) {
+        var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+        return {
+          slug: slug,
+          path: obj.path,
+          name: obj.title || slug,
+          type: obj.type,
+          typeLabel: TYPE_LABELS[obj.type] || obj.type,
+          quantity: obj.quantity || 0,
+          unit: obj.unit || '',
+          location: obj.location || '',
+          notes: obj.notes || '',
+          lowStockThreshold: obj.low_stock_threshold || 0,
+        };
+      });
+  } catch(e) {
+    Lab.showToast('Failed to load inventory: ' + e.message, 'error');
+    inventory = [];
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('invTable').style.display = '';
+  if (Lab.gh.isLoggedIn()) document.getElementById('addBtn').style.display = '';
+  renderTable();
+}
+
+// ── Filter & Sort ──
+function getFiltered() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var typeFilter = document.getElementById('filterType').value;
+  var locFilter = document.getElementById('filterLocation').value;
+  var lowOnly = document.getElementById('lowStockOnly').checked;
+
+  var items = inventory.filter(function(item) {
+    if (typeFilter && item.type !== typeFilter) return false;
+    if (locFilter && item.location !== locFilter) return false;
+    if (lowOnly && !(item.lowStockThreshold && item.quantity <= item.lowStockThreshold)) return false;
+    if (search) {
+      var hay = [item.name, item.typeLabel, item.location, item.notes].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+
+  items.sort(function(a, b) {
+    var va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'quantity') return (va - vb) * sortDir;
+    va = String(va || '').toLowerCase();
+    vb = String(vb || '').toLowerCase();
+    return va < vb ? -sortDir : va > vb ? sortDir : 0;
+  });
+
+  return items;
+}
+
+function renderTable() {
+  var items = getFiltered();
+
+  // Stats
+  var lowCount = inventory.filter(function(i) { return i.lowStockThreshold && i.quantity <= i.lowStockThreshold; }).length;
+  var types = {};
+  inventory.forEach(function(i) { types[i.type] = true; });
+  document.getElementById('statTotal').textContent = inventory.length;
+  document.getElementById('statTypes').textContent = Object.keys(types).length;
+  document.getElementById('statLow').textContent = lowCount;
+
+  // Sort arrows
+  document.querySelectorAll('.sort-arrow').forEach(function(el) { el.textContent = ''; });
+  var arrow = document.getElementById('sort-' + sortCol);
+  if (arrow) arrow.textContent = sortDir === 1 ? ' \u25B2' : ' \u25BC';
+
+  // Desktop table
+  var tbody = document.getElementById('tableBody');
+  if (!items.length) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    document.getElementById('invTable').style.display = 'none';
+    document.getElementById('cardView').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">search_off</span><p>No items match</p></div>';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('invTable').style.display = '';
+
+  tbody.innerHTML = items.map(function(item) {
+    var isLow = item.lowStockThreshold && item.quantity <= item.lowStockThreshold;
+    return '<tr class="' + (isLow ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<td><strong>' + Lab.escHtml(item.name) + '</strong>' + (isLow ? ' <span class="badge badge-amber">Low</span>' : '') + '</td>' +
+      '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
+      '<td>' + Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') + '</td>' +
+      '<td><span class="badge badge-grey">' + Lab.escHtml(item.location) + '</span></td>' +
+      '<td class="hide-mobile" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.notes) + '</td>' +
+      '<td><div class="row-actions">' +
+        '<button onclick="event.stopPropagation();openItem(\'' + Lab.escHtml(item.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button>' +
+        '<button class="del" onclick="event.stopPropagation();openDeleteModal(\'' + Lab.escHtml(item.slug) + '\')" title="Delete"><span class="material-icons-outlined">delete</span></button>' +
+      '</div></td></tr>';
+  }).join('');
+
+  // Mobile cards
+  var cardView = document.getElementById('cardView');
+  cardView.innerHTML = items.map(function(item) {
+    var isLow = item.lowStockThreshold && item.quantity <= item.lowStockThreshold;
+    return '<div class="inv-card' + (isLow ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + (isLow ? ' <span class="badge badge-amber" style="font-size:10px">Low</span>' : '') + '</span>' +
+      '<span class="inv-card-qty">' + item.quantity + (item.unit ? ' ' + item.unit : '') + '</span></div>' +
+      '<div class="inv-card-meta"><span>' + Lab.escHtml(item.typeLabel) + '</span><span>' + Lab.escHtml(item.location) + '</span></div></div>';
+  }).join('');
+}
+
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  renderTable();
+}
+
+// ── Open item in editor modal ──
+function openItem(slug) {
+  var item = inventory.find(function(i) { return i.slug === slug; });
+  if (!item) return;
+  Lab.editorModal.open('docs/' + item.path);
+}
+
+// ── Add new item ──
+function addItem() {
+  var name = prompt('New item name:');
+  if (!name) return;
+  var slug = Lab.slugify(name);
+  var path = 'docs/resources/' + slug + '.md';
+  var content = Lab.buildFrontmatter({
+    type: 'reagent',
+    title: name,
+    location: 'Chemical Cabinet',
+    quantity: 0,
+    unit: 'each',
+    low_stock_threshold: 0
+  }, '\n# ' + name + '\n');
+
+  Lab.gh.saveFile(path, content, null, 'Add reagent: ' + name).then(function() {
+    Lab.showToast('Created: ' + name, 'success');
+    Lab.gh.clearObjectIndexCache();
+    // Open the new item in editor modal
+    Lab.editorModal.open(path);
+    // Refresh list
+    loadInventory();
+  }).catch(function(e) {
+    Lab.showToast('Failed: ' + e.message, 'error');
+  });
+}
+
+// ── Delete ──
+function openDeleteModal(slug) {
+  deletingItem = inventory.find(function(i) { return i.slug === slug; });
+  if (!deletingItem) return;
+  document.getElementById('deleteName').textContent = deletingItem.name;
+  document.getElementById('deleteModal').classList.add('open');
+}
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+}
+async function confirmDelete() {
+  if (!deletingItem) return;
+  try {
+    await Lab.gh.deleteFile('docs/' + deletingItem.path, null, 'Remove resource: ' + deletingItem.name);
+    inventory = inventory.filter(function(i) { return i.slug !== deletingItem.slug; });
+    Lab.showToast('Deleted: ' + deletingItem.name, 'success');
+    Lab.gh.clearObjectIndexCache();
+  } catch(e) {
+    Lab.showToast('Delete failed: ' + e.message, 'error');
+  }
+  closeDeleteModal();
+  renderTable();
+}
+
+// ── Events ──
+document.getElementById('searchInput').addEventListener('input', renderTable);
+document.getElementById('filterType').addEventListener('change', renderTable);
+document.getElementById('filterLocation').addEventListener('change', renderTable);
+document.getElementById('lowStockOnly').addEventListener('change', renderTable);
+document.querySelectorAll('.modal-overlay').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+});
+
+// Refresh table when editor modal saves
+window.addEventListener('lab-file-saved', function() { loadInventory(); });
+
+// ── Init ──
+loadInventory();
+</script>
+</body>
+</html>

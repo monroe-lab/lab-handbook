@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocols - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.protocols-layout {
+  display: flex;
+  height: calc(100vh - var(--nav-height));
+}
+
+/* Sidebar */
+.proto-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: #fff;
+  border-right: 1px solid var(--grey-200);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.proto-sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--grey-200);
+}
+.proto-sidebar-header input {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.proto-sidebar-header input:focus { border-color: var(--teal); }
+.proto-sidebar-header .search-icon {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--grey-500);
+  pointer-events: none;
+}
+.proto-tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.proto-tree::-webkit-scrollbar { width: 5px; }
+.proto-tree::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
+.proto-category {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+.proto-category:hover { color: var(--teal); }
+.proto-category .material-icons-outlined { font-size: 18px; transition: transform .15s; }
+.proto-category.collapsed .material-icons-outlined { transform: rotate(-90deg); }
+.proto-items { padding-left: 8px; }
+.proto-items.hidden { display: none; }
+.proto-item {
+  display: block;
+  padding: 6px 16px 6px 24px;
+  font-size: 13px;
+  color: var(--grey-700);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  transition: background .1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.proto-item:hover { background: var(--grey-100); color: var(--grey-900); }
+.proto-item.active { background: var(--teal-light); color: var(--teal-dark); font-weight: 500; }
+
+/* Main content */
+.proto-main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--grey-100);
+}
+.proto-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+/* Rendered markdown */
+.proto-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.proto-rendered h1 { font-size: 28px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
+.proto-rendered h2 { font-size: 22px; font-weight: 600; margin: 28px 0 10px; color: var(--grey-800); }
+.proto-rendered h3 { font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.proto-rendered h4 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
+.proto-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.proto-rendered td, .proto-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
+.proto-rendered thead th { background: var(--grey-50); font-weight: 600; }
+.proto-rendered code { background: var(--grey-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.proto-rendered pre { background: var(--grey-900); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
+.proto-rendered pre code { background: transparent; padding: 0; color: inherit; }
+.proto-rendered ul, .proto-rendered ol { padding-left: 24px; margin: 8px 0; }
+.proto-rendered li { margin: 4px 0; }
+.proto-rendered blockquote { border-left: 4px solid var(--teal); padding: 8px 16px; margin: 12px 0; background: var(--teal-50); border-radius: 0 8px 8px 0; }
+.proto-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+.proto-rendered a:not(.object-pill) { color: var(--teal-dark); }
+.proto-rendered hr { border: none; border-top: 1px solid var(--grey-300); margin: 24px 0; }
+
+/* Welcome / card grid */
+.proto-welcome { padding: 32px 40px; max-width: 1100px; margin: 0 auto; }
+.proto-welcome h1 { font-size: 24px; font-weight: 600; margin-bottom: 20px; }
+.proto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.proto-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s;
+  text-decoration: none;
+  color: inherit;
+}
+.proto-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.proto-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.proto-card p { font-size: 13px; color: var(--grey-500); }
+
+/* Edit toolbar */
+.proto-edit-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--grey-200);
+}
+.proto-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); }
+
+/* Editing surface */
+.proto-editor-surface { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; min-height: 500px; }
+
+/* Mobile hamburger */
+.proto-hamburger {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.proto-hamburger .material-icons-outlined { font-size: 24px; }
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.3);
+  z-index: 200;
+}
+
+@media (max-width: 768px) {
+  .proto-sidebar {
+    position: fixed;
+    left: -300px;
+    top: var(--nav-height);
+    bottom: 0;
+    z-index: 300;
+    transition: left .25s ease;
+    box-shadow: 4px 0 16px rgba(0,0,0,.1);
+  }
+  .proto-sidebar.open { left: 0; }
+  .sidebar-backdrop.open { display: block; }
+  .proto-hamburger { display: flex; }
+  .proto-content { padding: 20px 16px; }
+  .proto-welcome { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="protocols-layout">
+  <!-- Sidebar -->
+  <div class="proto-sidebar" id="sidebar">
+    <div class="proto-sidebar-header" style="position:relative">
+      <span class="material-icons-outlined search-icon">search</span>
+      <input type="text" id="protoSearch" placeholder="Search protocols...">
+    </div>
+    <div class="proto-tree" id="protoTree">
+      <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+  </div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Main -->
+  <div class="proto-main" id="protoMain">
+    <div id="protoContent">
+      <div class="loading-state" style="padding-top:80px"><div class="spinner"></div><p>Loading protocols...</p></div>
+    </div>
+  </div>
+</div>
+
+<button class="proto-hamburger" id="hamburger">
+  <span class="material-icons-outlined">menu</span>
+</button>
+
+<script src="js/shared.js"></script>
+<script src="js/github-api.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/wikilinks.js"></script>
+<script src="js/editor-modal.js"></script>
+<script>
+// Protocol navigation structure (from mkdocs.yml)
+var NAV = [
+  { label: 'Arabidopsis Basics', items: [
+    { title: 'Planting on MS Plates', path: 'wet-lab/planting-arabidopsis-on-ms-plates' },
+    { title: 'Planting in Soil', path: 'wet-lab/planting-in-soil' },
+    { title: 'Seed Sterilization', path: 'wet-lab/seed-sterilization' },
+    { title: 'Stratification', path: 'wet-lab/stratification' },
+    { title: 'MS Media Recipe', path: 'wet-lab/ms-media-recipe' },
+    { title: 'Autoclave', path: 'wet-lab/autoclave' },
+    { title: 'Clean Bench', path: 'wet-lab/clean-bench' },
+    { title: 'Quick DNA Extraction', path: 'wet-lab/quick-dna-extraction' },
+    { title: 'PCR Genotyping', path: 'wet-lab/pcr-genotyping' },
+    { title: 'Gel Electrophoresis', path: 'wet-lab/gel-electrophoresis' },
+  ]},
+  { label: 'DNA Extraction', items: [
+    { title: 'HiFi DNA Extraction (DIY)', path: 'wet-lab/extraction/hifi-dna-extraction' },
+    { title: 'Sorbitol/CTAB HiFi Extraction', path: 'wet-lab/extraction/sorbitol-ctab-hifi-extraction' },
+    { title: 'HMW Extraction (Challenging Plants)', path: 'wet-lab/extraction/hmw-extraction-challenging-plants' },
+    { title: 'Kalanchoe CTAB Extraction', path: 'wet-lab/extraction/kalanchoe-ctab-extraction' },
+    { title: 'Pistachio DNA Extraction', path: 'wet-lab/extraction/pistachio-dna-extraction' },
+  ]},
+  { label: 'Library Prep & Sequencing', items: [
+    { title: 'Tn5 Loading & Library Prep', path: 'wet-lab/library-prep/tn5-loading-library-prep' },
+    { title: 'Preparing SPRI Beads', path: 'wet-lab/library-prep/spri-beads-preparation' },
+    { title: 'Sanger Sequencing', path: 'wet-lab/library-prep/sanger-sequencing' },
+    { title: 'PacBio HiFi Sequencing (Col-0)', path: 'wet-lab/library-prep/pacbio-hifi-sequencing' },
+  ]},
+  { label: 'Epigenomics', items: [
+    { title: 'CUT&Tag', path: 'wet-lab/epigenomics/cut-and-tag' },
+    { title: 'ChIP-seq', path: 'wet-lab/epigenomics/chip-seq' },
+    { title: 'Fiber-Seq / DiMeLo-Seq', path: 'wet-lab/epigenomics/fiber-seq-dimelo-seq' },
+  ]},
+  { label: 'Mutagenesis & Genetics', items: [
+    { title: 'DSB Repair Master Protocol', path: 'wet-lab/mutagenesis/dsb-repair-master-protocol' },
+    { title: 'Fast Neutron Treatment', path: 'wet-lab/mutagenesis/fast-neutron-treatment' },
+    { title: 'M2 Forward Genetic Screening', path: 'wet-lab/mutagenesis/m2-forward-genetic-screening' },
+    { title: 'Protein Induction (BL21)', path: 'wet-lab/mutagenesis/protein-induction-bl21' },
+  ]},
+  { label: 'Safety SOPs', items: [
+    { title: 'Lab Safety Requirements', path: 'lab-management/lab-safety-requirements' },
+    { title: 'Hazardous Drug SOP', path: 'lab-management/hazardous-drug-sop' },
+    { title: 'Acutely Toxic Solids & Liquids', path: 'lab-management/acutely-toxic-solids-liquids-sop' },
+    { title: 'Carcinogens', path: 'lab-management/carcinogens-sop' },
+    { title: 'Corrosives', path: 'lab-management/corrosives-sop' },
+    { title: 'Cryogens', path: 'lab-management/cryogens-sop' },
+    { title: 'Flammable Liquids', path: 'lab-management/flammable-liquids-sop' },
+    { title: 'Flammable Solids', path: 'lab-management/flammable-solids-sop' },
+    { title: 'Hydrofluoric Acid Producing', path: 'lab-management/hydrofluoric-acid-producing-sop' },
+    { title: 'Reproductive Toxins', path: 'lab-management/reproductive-toxins-sop' },
+    { title: 'Working Alone', path: 'lab-management/working-alone-sop' },
+  ]},
+  { label: 'Workflow Templates', items: [
+    { title: 'BLAST', path: 'workflow-templates/blast' },
+    { title: 'HiFi Pipeline', path: 'workflow-templates/hifi-pipeline' },
+    { title: 'Strelka2', path: 'workflow-templates/strelka2' },
+  ]},
+  { label: 'Bioinformatics - Getting Started', items: [
+    { title: 'Cluster Access', path: 'bioinformatics/cluster-access' },
+    { title: 'Interacting with Farm', path: 'bioinformatics/interacting-with-farm' },
+    { title: 'Storage & Backup', path: 'bioinformatics/storage-and-backup' },
+  ]},
+  { label: 'Bioinformatics - Linux & Scripting', items: [
+    { title: 'Linux Basics (Part 1)', path: 'bioinformatics/linux-basics-part1' },
+    { title: 'Bash Scripting (Part 2)', path: 'bioinformatics/farm-scripting-part2' },
+    { title: 'Bashrc Customization', path: 'bioinformatics/bashrc-customization' },
+  ]},
+  { label: 'Bioinformatics - SLURM', items: [
+    { title: 'SLURM Basics', path: 'bioinformatics/slurm_basics' },
+    { title: 'SLURM Advanced', path: 'bioinformatics/slurm-advanced' },
+  ]},
+  { label: 'Bioinformatics - Tools & Philosophy', items: [
+    { title: 'Bioinformatics Tools (Part 3)', path: 'bioinformatics/farm-bioinformatics-part3' },
+    { title: 'Software & Environments (Part 4)', path: 'bioinformatics/farm-software-part4' },
+    { title: 'Project Structure', path: 'bioinformatics/project-structure-on-farm' },
+    { title: 'Coding Strategy', path: 'bioinformatics/coding-strategy' },
+    { title: 'LLM Philosophy', path: 'bioinformatics/llm-philosophy-blog' },
+    { title: 'Claude Code Skills', path: 'bioinformatics/claude-code-skills' },
+  ]},
+  { label: 'Lab Management', items: [
+    { title: 'Lab Guidelines', path: 'lab-management/lab-guidelines' },
+    { title: 'Expectations & Best Practices', path: 'lab-management/lab-expectations' },
+    { title: 'New Member Checklist', path: 'lab-management/new-member-checklist' },
+    { title: 'Undergrad Onboarding', path: 'lab-management/undergrad-onboarding' },
+    { title: 'Sample Tracker Guide', path: 'lab-management/sample-tracker-guide' },
+  ]},
+];
+
+var currentDoc = null;
+var currentSha = null;
+var isEditing = false;
+var editorInstance = null;
+
+// Build flat list for search
+var allProtocols = [];
+NAV.forEach(function(cat) {
+  cat.items.forEach(function(item) {
+    allProtocols.push({ title: item.title, path: item.path, category: cat.label });
+  });
+});
+
+// ── Sidebar ──
+function renderSidebar(filter) {
+  var tree = document.getElementById('protoTree');
+  var q = (filter || '').toLowerCase();
+  var html = '';
+
+  NAV.forEach(function(cat) {
+    var items = cat.items;
+    if (q) {
+      items = items.filter(function(i) {
+        return i.title.toLowerCase().includes(q) || cat.label.toLowerCase().includes(q);
+      });
+      if (!items.length) return;
+    }
+
+    html += '<div class="proto-category" onclick="toggleCategory(this)">' +
+      '<span class="material-icons-outlined">expand_more</span>' + Lab.escHtml(cat.label) +
+      '</div><div class="proto-items">';
+
+    items.forEach(function(item) {
+      var active = currentDoc === item.path ? ' active' : '';
+      html += '<div class="proto-item' + active + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+    });
+    html += '</div>';
+  });
+
+  tree.innerHTML = html || '<div class="empty-state"><p>No protocols match</p></div>';
+}
+
+function toggleCategory(el) {
+  el.classList.toggle('collapsed');
+  var items = el.nextElementSibling;
+  if (items) items.classList.toggle('hidden');
+}
+
+// ── Load Document ──
+async function loadDoc(docPath) {
+  currentDoc = docPath;
+  isEditing = false;
+  editorInstance = null;
+
+  renderSidebar(document.getElementById('protoSearch').value);
+  history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
+
+  // Close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarBackdrop').classList.remove('open');
+
+  var contentEl = document.getElementById('protoContent');
+  contentEl.innerHTML = '<div class="loading-state" style="padding-top:80px"><div class="spinner"></div></div>';
+
+  try {
+    var filePath = 'docs/' + docPath + '.md';
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
+    var parsed = Lab.parseFrontmatter(result.content);
+    var title = parsed.meta.title || docPath.split('/').pop();
+
+    var html = await Lab.editorModal.renderMarkdown(parsed.body);
+
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(docPath) + '</div>' +
+          (Lab.gh.isLoggedIn() ?
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
+        '</div>' +
+        '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+
+    // Process wikilinks
+    if (Lab.wikilinks) {
+      await Lab.wikilinks.processRendered(document.getElementById('renderedDoc'));
+    }
+
+    // Scroll to top
+    document.getElementById('protoMain').scrollTop = 0;
+  } catch(e) {
+    contentEl.innerHTML = '<div class="proto-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+  }
+}
+
+// ── Edit Mode ──
+async function startEdit() {
+  if (!currentDoc || isEditing) return;
+  isEditing = true;
+
+  var contentEl = document.getElementById('protoContent');
+  var filePath = 'docs/' + currentDoc + '.md';
+
+  try {
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
+
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + ' (editing)</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span> Cancel</button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()"><span class="material-icons-outlined">save</span> Save</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="proto-editor-surface em-surface" id="editorSurface"></div>' +
+      '</div>';
+
+    editorInstance = await Lab.editorModal.initFullpage(
+      document.getElementById('editorSurface'),
+      result.content,
+      filePath,
+      currentSha
+    );
+  } catch(e) {
+    Lab.showToast('Failed to load for editing: ' + e.message, 'error');
+    isEditing = false;
+  }
+}
+
+async function saveDoc() {
+  if (!editorInstance) return;
+  var btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
+
+  try {
+    await editorInstance.save('Update ' + currentDoc);
+    Lab.showToast('Saved', 'success');
+    loadDoc(currentDoc); // reload rendered view
+  } catch(e) {
+    Lab.showToast('Save failed: ' + e.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+  }
+}
+
+function cancelEdit() {
+  if (currentDoc) loadDoc(currentDoc);
+}
+
+// ── Welcome / Card Grid ──
+function showWelcome() {
+  var contentEl = document.getElementById('protoContent');
+  var html = '<div class="proto-welcome"><h1>Protocols & Guides</h1><div class="proto-grid">';
+  NAV.forEach(function(cat) {
+    html += '<div class="proto-card" onclick="loadDoc(\'' + cat.items[0].path + '\')">' +
+      '<h3>' + Lab.escHtml(cat.label) + '</h3>' +
+      '<p>' + cat.items.length + ' protocol' + (cat.items.length !== 1 ? 's' : '') + '</p></div>';
+  });
+  html += '</div></div>';
+  contentEl.innerHTML = html;
+}
+
+// ── Search ──
+document.getElementById('protoSearch').addEventListener('input', function() {
+  renderSidebar(this.value);
+});
+
+// ── Mobile sidebar ──
+document.getElementById('hamburger').onclick = function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarBackdrop').classList.toggle('open');
+};
+document.getElementById('sidebarBackdrop').onclick = function() {
+  document.getElementById('sidebar').classList.remove('open');
+  this.classList.remove('open');
+};
+
+// ── Keyboard shortcut ──
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's' && isEditing) {
+    e.preventDefault();
+    saveDoc();
+  }
+});
+
+// ── Back/forward navigation ──
+window.addEventListener('popstate', function() {
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else showWelcome();
+});
+
+// ── Init ──
+(function init() {
+  renderSidebar();
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) {
+    loadDoc(doc);
+  } else {
+    showWelcome();
+  }
+})();
+</script>
+</body>
+</html>

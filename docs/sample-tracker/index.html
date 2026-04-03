@@ -458,7 +458,7 @@ if (window.self !== window.top) {
       <span class="conn-dot" id="connDot"></span>
       <span id="connLabel">Not connected</span>
     </div>
-    <button class="btn btn-primary" id="btnConnect" onclick="window.ghAuth ? (window.ghAuth.isLoggedIn() ? window.ghAuth.logout() : window.ghAuth.login()) : alert('Auth not loaded')">
+    <button class="btn btn-primary" id="btnConnect" onclick="(window.Lab && window.Lab.gh) ? (window.Lab.gh.isLoggedIn() ? window.Lab.gh.logout() : window.Lab.gh.login()) : alert('Auth not loaded')">
       <span class="material-icons-outlined">link</span>
       Sign in
     </button>
@@ -470,12 +470,7 @@ if (window.self !== window.top) {
 </div>
 
 <!-- App nav -->
-<nav style="background:#00796b;display:flex;align-items:center;gap:0;padding:0 16px;font-family:Inter,-apple-system,sans-serif;font-size:13px;overflow-x:auto">
-  <a href="../" style="color:rgba(255,255,255,.7);text-decoration:none;padding:10px 14px;white-space:nowrap">Handbook</a>
-  <a href="../inventory-app/" style="color:rgba(255,255,255,.7);text-decoration:none;padding:10px 14px;white-space:nowrap">Inventory</a>
-  <a href="./" style="color:#fff;text-decoration:none;padding:10px 14px;white-space:nowrap;border-bottom:2px solid #fff;font-weight:600">Sample Tracker</a>
-  <a href="../calendar/" style="color:rgba(255,255,255,.7);text-decoration:none;padding:10px 14px;white-space:nowrap">Calendar</a>
-</nav>
+<!-- Nav injected by shared nav.js -->
 
 <!-- Toolbar -->
 <div class="toolbar">
@@ -673,9 +668,9 @@ if (window.self !== window.top) {
   </div>
 </div>
 
-<!-- Auth provided by shared github-auth.js -->
-<script src="../javascripts/github-auth.js"></script>
-<script src="../javascripts/shared-nav.js"></script>
+<script src="../app/js/shared.js"></script>
+<script src="../app/js/github-api.js"></script>
+<script src="../app/js/nav.js"></script>
 
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
@@ -725,22 +720,21 @@ let deletingId = null;
 let sortCol = 'sampleId';
 let sortDir = 1;
 
-// --- Auth (shared via github-auth.js) ---
-function getToken() { return (window.ghAuth && window.ghAuth.getToken()) || ''; }
+// --- Auth (shared via Lab.gh) ---
+function getToken() { return (window.Lab && window.Lab.gh) ? window.Lab.gh.getToken() : ''; }
 
 function updateConnStatus() {
   const connected = !!getToken();
-  const user = window.ghAuth && window.ghAuth.getUser();
+  const user = window.Lab && window.Lab.gh && window.Lab.gh.getUser();
   document.getElementById('connDot').className = 'conn-dot' + (connected ? ' connected' : '');
   document.getElementById('connLabel').textContent = connected ? ('Signed in' + (user ? ' as ' + user.login : '')) : 'Not signed in';
   document.getElementById('btnConnect').innerHTML = connected
     ? '<span class="material-icons-outlined">link_off</span> Sign out'
     : '<span class="material-icons-outlined">link</span> Sign in';
   document.getElementById('btnConnect').onclick = connected
-    ? function() { window.ghAuth.logout(); }
-    : function() { window.ghAuth.login(); };
+    ? function() { window.Lab.gh.logout(); }
+    : function() { window.Lab.gh.login(); };
 }
-if (window.ghAuth) { window.ghAuth.onLogin = function() { updateConnStatus(); loadSamples(); }; }
 
 // --- Data loading ---
 async function loadSamples() {

@@ -24,19 +24,40 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
       - name: Build object index
         run: python scripts/build-object-index.py
 
-      - name: Build site
-        run: mkdocs build
+      - name: Assemble deploy directory
+        run: |
+          mkdir -p _deploy
+          # Copy all docs content (markdown, JSON data, existing apps)
+          cp -r docs/* _deploy/
+          # Copy the new app shell
+          cp -r app/ _deploy/app/
+          # Root redirect to dashboard
+          echo '<meta http-equiv="refresh" content="0;url=app/">' > _deploy/index.html
+          # 404 page that redirects old MkDocs URLs to new app
+          cat > _deploy/404.html << 'HEREDOC'
+          <!DOCTYPE html><html><head>
+          <meta charset="UTF-8">
+          <title>Monroe Lab</title>
+          <script>
+          (function() {
+            var path = location.pathname.replace('/lab-handbook/', '').replace(/\/$/, '');
+            if (path && !path.startsWith('app/') && !path.includes('.')) {
+              location.href = '/lab-handbook/app/protocols.html?doc=' + encodeURIComponent(path);
+            } else {
+              location.href = '/lab-handbook/app/';
+            }
+          })();
+          </script>
+          </head><body><p>Redirecting...</p></body></html>
+          HEREDOC
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: _deploy
 
   deploy:
     environment:
