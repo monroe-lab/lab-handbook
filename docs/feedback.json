@@ -5,5 +5,12 @@
     "page": "/wet-lab/planting-arabidopsis-on-ms-plates",
     "date": "2026-04-03T06:46:35.369Z",
     "comment": "folders on side should be collapsable, files intented, folders bolded or like rounded border around them or something, each page needs an edit icon which takes to the edit wiki"
+  },
+  {
+    "name": "Anonymous",
+    "type": "feedback",
+    "page": "/wet-lab/extraction/kalanchoe-ctab-extraction",
+    "date": "2026-04-03T06:55:11.135Z",
+    "comment": "can you try to add links to chemicals or other inventory here? add new inventory items if they dont exist, and equipment, make euipment tab?"
   }
 ]
