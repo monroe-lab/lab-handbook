@@ -447,13 +447,59 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Day tabs (mobile only) */
+.day-tabs {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header { padding: 16px; }
-  .week-nav { padding: 12px 16px; }
+  .header-actions { flex-wrap: wrap; }
+  .week-nav { padding: 10px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .week-label { min-width: auto; font-size: 14px; }
   .filter-bar { padding: 12px 16px; }
-  .stats { padding: 12px 16px; }
+  .stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { min-width: 0; }
   .calendar-wrap { padding: 0 16px 16px; }
+  .calendar-container { overflow-x: hidden; }
+  .calendar-grid {
+    grid-template-columns: 60px 1fr !important;
+    min-width: 0 !important;
+  }
+  .cal-header.mobile-hide, .day-column.mobile-hide {
+    display: none !important;
+  }
+  .day-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--grey-200);
+    overflow-x: auto;
+  }
+  .day-tab {
+    flex: 1;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--grey-500);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .day-tab.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+  .day-tab:hover { color: var(--teal-dark); }
+  .legend { display: none; }
+  .modal { width: 95vw; max-width: 95vw; }
 }
 </style>
 </head>
@@ -520,6 +566,15 @@ if (window.self !== window.top) {
     <option value="">All Members</option>
   </select>
   <div class="legend" id="legend"></div>
+</div>
+
+<!-- Day tabs (mobile) -->
+<div class="day-tabs" id="dayTabs">
+  <button class="day-tab" data-day="Monday" onclick="selectDayTab('Monday')">Mon</button>
+  <button class="day-tab" data-day="Tuesday" onclick="selectDayTab('Tuesday')">Tue</button>
+  <button class="day-tab" data-day="Wednesday" onclick="selectDayTab('Wednesday')">Wed</button>
+  <button class="day-tab" data-day="Thursday" onclick="selectDayTab('Thursday')">Thu</button>
+  <button class="day-tab" data-day="Friday" onclick="selectDayTab('Friday')">Fri</button>
 </div>
 
 <!-- Stats -->
@@ -1222,6 +1277,83 @@ document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+  }
+});
+
+// --- Mobile day tabs ---
+var activeDayTab = null;
+
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+function getTodayDay() {
+  var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var today = dayNames[new Date().getDay()];
+  if (DAYS.indexOf(today) === -1) today = 'Monday';
+  return today;
+}
+
+function selectDayTab(day) {
+  activeDayTab = day;
+  // Update tab active state
+  document.querySelectorAll('.day-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.getAttribute('data-day') === day);
+  });
+  // Show/hide columns
+  applyMobileDayFilter();
+}
+
+function applyMobileDayFilter() {
+  if (!isMobile() || !activeDayTab) return;
+  var grid = document.getElementById('calendarGrid');
+  if (!grid) return;
+  // Headers: index 0 = time col, 1-5 = Mon-Fri
+  var headers = grid.querySelectorAll('.cal-header');
+  headers.forEach(function(h, i) {
+    if (i === 0) return; // time col always visible
+    var dayIndex = i - 1;
+    if (DAYS[dayIndex] === activeDayTab) {
+      h.classList.remove('mobile-hide');
+    } else {
+      h.classList.add('mobile-hide');
+    }
+  });
+  // Day columns
+  var cols = grid.querySelectorAll('.day-column');
+  cols.forEach(function(col) {
+    if (col.getAttribute('data-day') === activeDayTab) {
+      col.classList.remove('mobile-hide');
+    } else {
+      col.classList.add('mobile-hide');
+    }
+  });
+  // Time labels always visible
+}
+
+// Re-apply filter after each render
+var _origRenderCalendar = renderCalendar;
+renderCalendar = function() {
+  _origRenderCalendar();
+  if (isMobile()) {
+    if (!activeDayTab) selectDayTab(getTodayDay());
+    else applyMobileDayFilter();
+  }
+};
+
+// On resize, toggle mobile behavior
+window.addEventListener('resize', function() {
+  if (isMobile()) {
+    if (!activeDayTab) selectDayTab(getTodayDay());
+    else applyMobileDayFilter();
+  } else {
+    // Remove all mobile-hide on desktop
+    var grid = document.getElementById('calendarGrid');
+    if (grid) {
+      grid.querySelectorAll('.mobile-hide').forEach(function(el) {
+        el.classList.remove('mobile-hide');
+      });
+    }
   }
 });
 

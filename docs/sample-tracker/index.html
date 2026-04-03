@@ -422,11 +422,16 @@ tr:hover { background: var(--teal-50); }
 /* Responsive */
 @media (max-width: 768px) {
   .header { padding: 16px; }
+  .header-actions { flex-wrap: wrap; width: 100%; justify-content: flex-end; }
   .toolbar { padding: 12px 16px; }
-  .stats { padding: 12px 16px; }
+  .toolbar .filter-select { min-width: 120px; font-size: 13px; }
+  .stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { min-width: 0; }
   .table-wrap { padding: 0 16px 16px; }
   td, th { padding: 10px 12px; font-size: 13px; }
-  .hide-mobile { display: none; }
+  .hide-mobile { display: none !important; }
+  .modal { width: 95vw; max-width: 95vw; }
+  .form-row { flex-direction: column; gap: 0; }
 }
 </style>
 </head>
@@ -538,12 +543,12 @@ if (window.self !== window.top) {
           <th onclick="setSort('project')">Project <span class="sort-arrow" id="sort-project"></span></th>
           <th onclick="setSort('species')" class="hide-mobile">Species <span class="sort-arrow" id="sort-species"></span></th>
           <th onclick="setSort('lead')" class="hide-mobile">Lead <span class="sort-arrow" id="sort-lead"></span></th>
-          <th onclick="setSort('sequencingType')">Seq Type <span class="sort-arrow" id="sort-sequencingType"></span></th>
+          <th onclick="setSort('sequencingType')" class="hide-mobile">Seq Type <span class="sort-arrow" id="sort-sequencingType"></span></th>
           <th onclick="setSort('status')">Status <span class="sort-arrow" id="sort-status"></span></th>
           <th onclick="setSort('priority')">Pri <span class="sort-arrow" id="sort-priority"></span></th>
           <th class="hide-mobile" onclick="setSort('currentBlocker')">Blocker <span class="sort-arrow" id="sort-currentBlocker"></span></th>
           <th class="hide-mobile" onclick="setSort('notes')">Notes <span class="sort-arrow" id="sort-notes"></span></th>
-          <th>Link</th>
+          <th class="hide-mobile">Link</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -924,12 +929,12 @@ function renderTable() {
         <td><span class="badge badge-project">${esc(item.project)}</span></td>
         <td class="hide-mobile"><em>${esc(item.species)}</em></td>
         <td class="hide-mobile">${esc(item.lead)}</td>
-        <td>${esc(item.sequencingType)}</td>
+        <td class="hide-mobile">${esc(item.sequencingType)}</td>
         <td><span class="badge badge-${statusColor}">${esc(item.status)}</span></td>
         <td>${priorityHtml}</td>
         <td class="hide-mobile">${blockerHtml}</td>
         <td class="hide-mobile notes-cell" title="${esc(item.notes || '')}">${esc(item.notes || '')}</td>
-        <td>${detailHtml}</td>
+        <td class="hide-mobile">${detailHtml}</td>
         <td>
           <div class="row-actions">
             <button class="btn" title="Edit" onclick="openEditModal(${item.id})">
