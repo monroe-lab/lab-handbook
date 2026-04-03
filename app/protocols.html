@@ -409,6 +409,8 @@ async function loadDoc(docPath) {
 }
 
 // ── Edit Mode ──
+var editFrontmatter = ''; // preserved frontmatter for re-assembly on save
+
 async function startEdit() {
   if (!currentDoc || isEditing) return;
   isEditing = true;
@@ -419,6 +421,11 @@ async function startEdit() {
   try {
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
+
+    // Strip frontmatter — Toast UI can't handle YAML blocks in WYSIWYG mode
+    var parsed = Lab.parseFrontmatter(result.content);
+    editFrontmatter = parsed.meta;
+    var bodyOnly = parsed.body;
 
     contentEl.innerHTML =
       '<div class="proto-content">' +
@@ -434,7 +441,7 @@ async function startEdit() {
 
     editorInstance = await Lab.editorModal.initFullpage(
       document.getElementById('editorSurface'),
-      result.content,
+      bodyOnly,
       filePath,
       currentSha
     );
@@ -451,7 +458,13 @@ async function saveDoc() {
   btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
 
   try {
-    await editorInstance.save('Update ' + currentDoc);
+    // Re-assemble frontmatter + edited body
+    var body = editorInstance.getMarkdown();
+    var fullContent = Lab.buildFrontmatter(editFrontmatter, body);
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await Lab.gh.saveFile(filePath, fullContent, currentSha, 'Update ' + currentDoc);
+    currentSha = result.sha;
+    Lab.gh.clearObjectIndexCache();
     Lab.showToast('Saved', 'success');
     loadDoc(currentDoc); // reload rendered view
   } catch(e) {
