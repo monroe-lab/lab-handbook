@@ -1700,9 +1700,44 @@
     "title": "Storage and backup"
   },
   {
+    "path": "lab-management/acutely-toxic-solids-liquids-sop.md",
+    "type": "protocol",
+    "title": "Acutely Toxic Solids and Liquids SOP"
+  },
+  {
+    "path": "lab-management/carcinogens-sop.md",
+    "type": "protocol",
+    "title": "Carcinogens SOP"
+  },
+  {
+    "path": "lab-management/corrosives-sop.md",
+    "type": "protocol",
+    "title": "Corrosives SOP"
+  },
+  {
+    "path": "lab-management/cryogens-sop.md",
+    "type": "protocol",
+    "title": "Cryogens SOP"
+  },
+  {
+    "path": "lab-management/flammable-liquids-sop.md",
+    "type": "protocol",
+    "title": "Flammable Liquids SOP"
+  },
+  {
+    "path": "lab-management/flammable-solids-sop.md",
+    "type": "protocol",
+    "title": "Flammable Solids SOP"
+  },
+  {
     "path": "lab-management/hazardous-drug-sop.md",
     "type": "protocol",
     "title": "Hazardous Drug SOP (Paraquat)"
+  },
+  {
+    "path": "lab-management/hydrofluoric-acid-producing-sop.md",
+    "type": "protocol",
+    "title": "Hydrofluoric Acid Producing Chemicals SOP"
   },
   {
     "path": "lab-management/lab-expectations.md",
@@ -1725,6 +1760,11 @@
     "title": "Welcome! Checklist for new lab members"
   },
   {
+    "path": "lab-management/reproductive-toxins-sop.md",
+    "type": "protocol",
+    "title": "Reproductive Toxins SOP"
+  },
+  {
     "path": "lab-management/sample-tracker-guide.md",
     "type": "protocol",
     "title": "Monroe Lab Sample Tracker: How to Use It"
@@ -1733,6 +1773,11 @@
     "path": "lab-management/undergrad-onboarding.md",
     "type": "protocol",
     "title": "Undergrad Onboarding Checklist"
+  },
+  {
+    "path": "lab-management/working-alone-sop.md",
+    "type": "protocol",
+    "title": "Working Alone in the Laboratory SOP"
   },
   {
     "path": "notebooks/index.md",

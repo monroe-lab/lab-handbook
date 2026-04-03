@@ -85,8 +85,18 @@ nav:
     - Expectations & Best Practices: lab-management/lab-expectations.md
     - New Member Checklist: lab-management/new-member-checklist.md
     - Undergrad Onboarding: lab-management/undergrad-onboarding.md
-    - Lab Safety Requirements: lab-management/lab-safety-requirements.md
-    - Hazardous Drug SOP (Paraquat): lab-management/hazardous-drug-sop.md
+    - Safety & SOPs:
+      - Lab Safety Requirements: lab-management/lab-safety-requirements.md
+      - Hazardous Drug SOP: lab-management/hazardous-drug-sop.md
+      - Acutely Toxic Solids & Liquids: lab-management/acutely-toxic-solids-liquids-sop.md
+      - Carcinogens: lab-management/carcinogens-sop.md
+      - Corrosives: lab-management/corrosives-sop.md
+      - Cryogens: lab-management/cryogens-sop.md
+      - Flammable Liquids: lab-management/flammable-liquids-sop.md
+      - Flammable Solids: lab-management/flammable-solids-sop.md
+      - Hydrofluoric Acid Producing: lab-management/hydrofluoric-acid-producing-sop.md
+      - Reproductive Toxins: lab-management/reproductive-toxins-sop.md
+      - Working Alone: lab-management/working-alone-sop.md
   - Bioinformatics:
     - Getting Started:
       - Cluster Access: bioinformatics/cluster-access.md
