@@ -472,9 +472,16 @@
     injectEditorCSS();
     await loadToast();
 
+    // Debug: log what we're passing to the editor
+    console.log('[editor-modal] initFullpage called');
+    console.log('[editor-modal] content length:', content ? content.length : 'NULL/UNDEFINED');
+    console.log('[editor-modal] content preview:', content ? content.substring(0, 200) : 'EMPTY');
+    console.log('[editor-modal] container:', containerEl, 'dimensions:', containerEl.offsetWidth, 'x', containerEl.offsetHeight);
+
     // Calculate height: fill available space (viewport minus nav + edit bar)
     var rect = containerEl.getBoundingClientRect();
     var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
+    console.log('[editor-modal] calculated height:', availableHeight);
 
     var editor = new toastui.Editor({
       el: containerEl,
