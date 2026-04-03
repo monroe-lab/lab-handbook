@@ -127,103 +127,66 @@
     });
   }
 
-  // ── Admonition extraction for WYSIWYG editing ──
-  // ??? syntax can't survive WYSIWYG editing (indentation stripped, blockquotes mangled).
-  // Instead: extract admonitions before editing, replace with text placeholders,
-  // and restore the originals on save. Placeholders are styled in the WYSIWYG DOM.
+  // ── Callout helpers ──
+  // Callouts are stored as blockquotes with emoji prefixes: > ⚠️ **Title**
+  // Toast UI handles blockquotes natively. renderMarkdown() renders them as
+  // colored collapsible callouts in the read view.
   var ADM_ICONS = { variant: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', warning: '\u26A0\uFE0F' };
-  var _admStore = []; // stores extracted admonition raw blocks per edit session
 
-  function extractAdmonitions(md) {
-    _admStore = [];
-    console.log('[adm] extractAdmonitions input length:', md.length, 'has ???:', md.indexOf('???') >= 0);
-    // Also clean up any leftover blockquote-style callouts from previous broken saves
-    md = md.replace(/^> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*\n(?:>[^\n]*\n?)*/gm, '');
-    md = md.replace(/\\> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
+  // Convert legacy ??? syntax to blockquote format (one-way migration on edit)
+  function migrateAdmonitions(md) {
+    // Clean up broken remnants from previous conversion attempts
     md = md.replace(/<!-- adm-sep -->/g, '');
-    var result = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
-      var idx = _admStore.length;
-      console.log('[adm] MATCHED:', type, title, 'body:', JSON.stringify(body.substring(0, 50)));
-      var bodyClean = body.replace(/^    /gm, '').trimEnd();
-      _admStore.push({ type: type, title: title, body: bodyClean, raw: match });
+    md = md.replace(/\\> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
+    // Convert ??? blocks to blockquotes
+    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
-      var label = type.charAt(0).toUpperCase() + type.slice(1);
-      return '\n' + icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title + '\n\n';
-    });
-    console.log('[adm] extracted:', _admStore.length, 'admonitions, output preview:', result.substring(result.indexOf('???') > -1 ? result.indexOf('???') : Math.max(0, result.length - 100), result.length));
-    return result;
-  }
-
-  function restoreAdmonitions(md) {
-    // Restore extracted admonitions from placeholders
-    md = md.replace(/(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) CALLOUT (\d+) \w+ [^\n]+/g, function(match, idxStr) {
-      var idx = parseInt(idxStr);
-      if (_admStore[idx]) return _admStore[idx].raw.trimEnd();
-      return match;
-    });
-    return md;
-  }
-
-  // Add a new admonition to the store and return its placeholder text
-  function createAdmonitionPlaceholder(type, title, body) {
-    var idx = _admStore.length;
-    var bodyIndented = body.split('\n').map(function(l) { return '    ' + l; }).join('\n');
-    var raw = '??? ' + type + ' "' + title + '"\n' + bodyIndented + '\n';
-    _admStore.push({ type: type, title: title, body: body, raw: raw });
-    var icon = ADM_ICONS[type] || '\u2139\uFE0F';
-    var label = type.charAt(0).toUpperCase() + type.slice(1);
-    return icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title;
-  }
-
-  // Style callout placeholders in WYSIWYG DOM
-  function styleCalloutsInEditor(containerEl) {
-    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
-    if (!wwContainer) return;
-    var CALLOUT_RE = /^(\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) CALLOUT (\d+) (\w+) (.+)$/;
-    var paragraphs = wwContainer.querySelectorAll('p');
-    paragraphs.forEach(function(p) {
-      if (p.dataset.calloutStyled) return;
-      var m = p.textContent.match(CALLOUT_RE);
-      if (!m) return;
-      var icon = m[1], idx = parseInt(m[2]), type = m[3].toLowerCase(), title = m[4];
-      var colors = { variant: { border: '#e65100', bg: '#fff3e0' }, note: { border: '#1565c0', bg: '#e3f2fd' }, tip: { border: '#2e7d32', bg: '#e8f5e9' }, warning: { border: '#e65100', bg: '#fff3e0' } };
-      var c = colors[type] || colors.note;
-      // Replace <p> with a <div> — ProseMirror sanitizes innerHTML of <p> elements
-      var stored = _admStore[idx];
-      var bodyText = stored && stored.body ? stored.body.trim() : '';
-      var bodyHtml = bodyText ? bodyText.split('\n').map(function(l) { return Lab.escHtml(l); }).join('<br>') : '';
-      var div = document.createElement('div');
-      div.dataset.calloutStyled = '1';
-      div.dataset.calloutIdx = idx;
-      div.contentEditable = 'false';
-      div.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;cursor:default;user-select:none;';
-      div.innerHTML = '<div style="font-weight:600;color:' + c.border + '"><span style="font-size:16px;vertical-align:middle">' + icon + '</span> ' + Lab.escHtml(title) + '</div>' +
-        (bodyHtml ? '<div style="font-weight:400;font-size:13px;color:#444;margin-top:6px;line-height:1.6">' + bodyHtml + '</div>' : '');
-      p.parentNode.replaceChild(div, p);
+      var bodyLines = body.replace(/^    /gm, '').trimEnd();
+      var lines = '> ' + icon + ' **' + title + '**';
+      if (bodyLines) {
+        lines += '\n' + bodyLines.split('\n').map(function(l) { return '> ' + l; }).join('\n');
+      }
+      return lines + '\n';
     });
   }
 
   // Render markdown to HTML (with wikilink + admonition preprocessing)
+  // Supports both legacy ??? syntax AND blockquote callouts (> ⚠️ **Title**)
+  var CALLOUT_COLORS = {
+    '\u26A0\uFE0F': 'variant',
+    '\u2139\uFE0F': 'note',
+    '\uD83D\uDCA1': 'tip',
+  };
   async function renderMarkdown(md) {
     await loadMarked();
-    // First pass: extract admonitions, render their bodies separately
     var admonitions = [];
+
+    // Extract legacy ??? blocks
     var processed = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var bodyMd = body.replace(/^    /gm, '');
       var placeholder = '<!--admonition-' + admonitions.length + '-->';
-      admonitions.push({ expanded: expanded, type: type, title: title, bodyMd: bodyMd });
+      admonitions.push({ type: type, title: title, bodyMd: bodyMd });
       return placeholder + '\n\n';
     });
+
+    // Extract blockquote callouts: > ⚠️ **Title** followed by > body lines
+    processed = processed.replace(/^> *(\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
+      var type = CALLOUT_COLORS[icon] || 'note';
+      var bodyMd = bodyBlock.replace(/^>\s?/gm, '').trim();
+      var placeholder = '<!--admonition-' + admonitions.length + '-->';
+      admonitions.push({ type: type, title: title.trim(), bodyMd: bodyMd });
+      return placeholder + '\n\n';
+    });
+
     // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
-    // Render main markdown
     var html = marked.parse(processed);
-    // Replace placeholders with rendered admonitions
+
+    // Replace placeholders with rendered callouts
     admonitions.forEach(function(a, i) {
       var bodyProcessed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(a.bodyMd) : a.bodyMd;
       var bodyHtml = marked.parse(bodyProcessed);
-      var openAttr = a.expanded === '' ? ' open' : ' open'; // always open by default
-      var adHtml = '<details class="admonition admonition-' + (a.type || 'note') + '"' + openAttr + '>' +
+      var adHtml = '<details class="admonition admonition-' + (a.type || 'note') + '" open>' +
         '<summary>' + a.title + '</summary>' +
         '<div class="admonition-body">' + bodyHtml + '</div></details>';
       html = html.replace('<!--admonition-' + i + '-->', adHtml);
@@ -414,7 +377,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: '300px',
-      initialValue: extractAdmonitions(currentState.body),
+      initialValue: migrateAdmonitions(currentState.body),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -433,7 +396,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = restoreAdmonitions(currentEditor.getMarkdown());
+      currentState.body = currentEditor.getMarkdown();
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -757,9 +720,7 @@
         btn.onmouseleave = function() { btn.style.background = 'transparent'; };
         btn.onclick = function(e) {
           e.preventDefault();
-          var placeholder = createAdmonitionPlaceholder(c.type, c.label + ' title', 'Description here');
-          editor.insertText('\n\n' + placeholder + '\n\n');
-          setTimeout(function() { styleCalloutsInEditor(containerEl); }, 100);
+          editor.insertText('\n\n> ' + c.icon + ' **' + c.label + '**\n> Description here\n\n');
         };
         calloutGroup.appendChild(btn);
       });
@@ -849,7 +810,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: availableHeight + 'px',
-      initialValue: extractAdmonitions(content),
+      initialValue: migrateAdmonitions(content),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -862,24 +823,24 @@
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
           // Re-style wikilinks on content change (debounced)
           clearTimeout(containerEl._wikiTimer);
-          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); styleCalloutsInEditor(containerEl); }, 300);
+          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
         }
       }
     });
 
     // Style wikilinks and admonitions in the WYSIWYG contenteditable area
-    setTimeout(function() { styleWikilinksInEditor(containerEl); styleCalloutsInEditor(containerEl); }, 200);
+    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
-      getMarkdown: function() { return restoreAdmonitions(editor.getMarkdown()); },
+      getMarkdown: function() { return editor.getMarkdown(); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = restoreAdmonitions(editor.getMarkdown());
+        var md = editor.getMarkdown();
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
