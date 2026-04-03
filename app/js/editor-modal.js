@@ -573,8 +573,16 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code'],
+        ['table', 'image', 'code'],
         [{
+          name: 'insertObjectLink', tooltip: 'Insert Object Link ([[wikilink]])',
+          className: 'toastui-editor-toolbar-icons',
+          text: '\uD83D\uDD17',
+          style: { backgroundImage: 'none', fontSize: '16px', width: '36px' },
+          command: 'insertObjectLink'
+        },
+        'link',
+        {
           name: 'undo', tooltip: 'Undo', className: 'toastui-editor-toolbar-icons',
           text: '\u21A9', style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
           command: 'undo'
@@ -582,13 +590,6 @@
           name: 'redo', tooltip: 'Redo', className: 'toastui-editor-toolbar-icons',
           text: '\u21AA', style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
           command: 'redo'
-        }],
-        [{
-          name: 'insertObjectLink', tooltip: 'Insert Object Link',
-          className: 'toastui-editor-toolbar-icons',
-          text: '\uD83D\uDD17 Link',
-          style: { backgroundImage: 'none', fontSize: '13px', width: 'auto', paddingLeft: '8px', paddingRight: '8px' },
-          command: 'insertObjectLink'
         }],
       ],
       customHTMLRenderer: {
