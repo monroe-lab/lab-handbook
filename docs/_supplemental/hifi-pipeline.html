@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HiFi Sequencing Pipeline - Monroe Lab</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --green: #3fb950;
+    --green-bg: #0d2818;
+    --yellow: #d29922;
+    --yellow-bg: #2d2000;
+    --red: #f85149;
+    --red-bg: #3d1014;
+    --blue: #58a6ff;
+    --blue-bg: #0c2d6b;
+    --purple: #bc8cff;
+    --purple-bg: #1f0d3d;
+    --teal: #39d2c0;
+    --arrow: #484f58;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 20px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  .subtitle a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .subtitle a:hover { text-decoration: underline; }
+
+  .vault-link {
+    color: var(--purple);
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px dotted var(--purple);
+  }
+  .vault-link:hover {
+    color: #d4b0ff;
+    border-bottom-style: solid;
+  }
+
+  .ext-link {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .ext-link:hover { text-decoration: underline; }
+
+  /* Pipeline stages */
+  .stage {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 0;
+  }
+
+  .stage.expanded .stage-details { display: block; }
+  .stage-details { display: none; }
+
+  .stage-header {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    gap: 16px;
+  }
+
+  .stage-header:hover .stage-title { color: var(--blue); }
+
+  .stage-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .stage-title-area { flex: 1; }
+
+  .stage-title {
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.15s;
+  }
+
+  .stage-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+
+  .stage-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .recovery-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .recovery-good { background: var(--green-bg); color: var(--green); }
+  .recovery-moderate { background: var(--yellow-bg); color: var(--yellow); }
+  .recovery-bad { background: var(--red-bg); color: var(--red); }
+
+  .toggle-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+    margin-top: 8px;
+  }
+
+  .stage.expanded .toggle-icon { transform: rotate(180deg); }
+
+  .stage-details {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Connector arrows between stages */
+  .connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px 0;
+    color: var(--arrow);
+  }
+
+  .connector svg { width: 24px; height: 32px; }
+
+  .connector-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-bottom: 2px;
+  }
+
+  /* QC table */
+  .qc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+
+  .qc-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .qc-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .qc-table tr:last-child td { border-bottom: none; }
+
+  .note {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--blue);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .note.warning { border-left-color: var(--yellow); }
+  .note.danger { border-left-color: var(--red); }
+  .note.success { border-left-color: var(--green); }
+
+  .note strong { color: var(--text); }
+
+  /* Decision box */
+  .decision-box {
+    background: var(--card);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 0;
+  }
+
+  .decision-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .decision-option {
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .decision-option.go { background: var(--green-bg); border: 1px solid var(--green); }
+  .decision-option.caution { background: var(--yellow-bg); border: 1px solid var(--yellow); }
+  .decision-option.stop { background: var(--red-bg); border: 1px solid var(--red); }
+
+  .decision-option .amount { font-size: 20px; font-weight: 700; }
+  .decision-option .label { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Fork paths */
+  .fork {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fork-option {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .fork-option h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .fork-option .details {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .fork-option .details p { margin: 4px 0; }
+
+  /* Reagent colors */
+  .tube {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  .tube-purple { background: #9b59b6; }
+  .tube-blue { background: #3498db; }
+  .tube-green { background: #27ae60; }
+  .tube-orange { background: #e67e22; }
+  .tube-yellow { background: #f1c40f; }
+  .tube-red { background: #e74c3c; }
+  .tube-lightgreen { background: #82e0aa; }
+
+  /* Overall summary bar */
+  .summary-bar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+    text-align: center;
+  }
+
+  .summary-bar h2 {
+    font-size: 16px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .summary-bar .big-number {
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--green), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .summary-bar .context {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .decision-grid { grid-template-columns: 1fr; }
+    .fork { grid-template-columns: 1fr; }
+    .stage-meta { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>HiFi Sequencing Pipeline</h1>
+<p class="subtitle">
+  Monroe Lab, UC Davis &mdash;
+  <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=HiFi%20Sequencing%20Pipeline">Open vault card</a> &middot;
+  <a class="ext-link" href="https://www.psomagen.com/hubfs/Procedure-checklist-Preparing-whole-genome-and-metagenome-libraries-using-SMRTbell-prep-kit-3.0.pdf" target="_blank">PacBio protocol PDF</a>
+</p>
+
+<!-- STEP 0 -->
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#4a7c59">0</div>
+    <div class="stage-title-area">
+      <div class="stage-title">HMW DNA Extraction</div>
+      <div class="stage-meta">
+        <span>&#9201; 4-8 hrs hands-on, 1-2 days total</span>
+        <span>&#128205; In-house, Monroe Lab</span>
+        <span><a class="vault-link" onclick="event.stopPropagation()" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Vianney%20Ahn">Vianney</a> / <a class="vault-link" onclick="event.stopPropagation()" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Erik%20Spaulding">Erik</a> / <a class="vault-link" onclick="event.stopPropagation()" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Matt%20Davis">Matt</a></span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+
+    <p style="margin-bottom:12px; color:var(--text-dim)">Three protocols depending on organism:</p>
+
+    <table class="qc-table">
+      <tr><th>Organism</th><th>Protocol</th></tr>
+      <tr><td>Arabidopsis, Brassicaceae, Poaceae</td><td>DIY HiFi extraction (Rabanal 2022 / Russo 2022)</td></tr>
+      <tr><td>Pistachio, high polysaccharide plants</td><td>Sorbitol High-Salt CTAB (Inglis 2018, updated Mar 2026)</td></tr>
+      <tr><td>Kalanchoe, other difficult tissue</td><td>HMW Troubleshooting Protocol (updated Feb 2026)</td></tr>
+    </table>
+
+    <h4 style="margin:16px 0 8px; font-size:14px; color:var(--green)">QC Targets</h4>
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Target</th><th>Red Flag</th><th>Instrument</th></tr>
+      <tr><td>Total yield</td><td><strong>&ge;2 &mu;g</strong> (&ge;3 if low quality)</td><td>&lt;1 &mu;g</td><td>Qubit BR</td></tr>
+      <tr><td>260/280</td><td>1.8&ndash;2.0</td><td>&lt;1.6 (protein) or &gt;2.2 (RNA)</td><td>Nanodrop</td></tr>
+      <tr><td>260/230</td><td>&gt;1.5, ideally &gt;2.0</td><td>&lt;1.0 (salt/carb/phenol)</td><td>Nanodrop</td></tr>
+      <tr><td>Qubit vs Nanodrop</td><td>Should agree roughly</td><td>Large gap = RNA contamination</td><td>Compare both</td></tr>
+      <tr><td>Fragment size</td><td>Bulk &gt;30 kb</td><td>Smear below 10 kb</td><td>Gel or FemtoPulse</td></tr>
+    </table>
+
+    <div class="note warning">
+      <strong>Troubleshooting:</strong> Nanodrop &gt;&gt; Qubit? RNA contamination. Fix with RNase A + bead cleanup (0.4X size selection, then 0.7X final). Low 260/230? Additional bead cleanup.
+    </div>
+
+    <div class="note">
+      <strong>Lab experience (pistachio):</strong> 314&ndash;7,990 ng per tube. Multiple tubes per sample is normal. Only one goes forward to shearing; the rest stays in the freezer as backup.
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">&#10003; &ge;2 &mu;g clean HMW DNA</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- STEP 1 SRE -->
+<div class="stage" style="border-style:dashed; opacity:0.75" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#555">1</div>
+    <div class="stage-title-area">
+      <div class="stage-title">Short Read Eliminator (SRE) &mdash; Optional</div>
+      <div class="stage-meta">
+        <span>&#9201; 2.5 hrs</span>
+        <span><span class="recovery-badge recovery-good">Recovery: 65-95%</span></span>
+        <span style="color:var(--yellow)">Monroe Lab skipped this for pistachio</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Input</td><td>40-100 ng/&mu;L in 50 &mu;L (2-5 &mu;g)</td></tr>
+      <tr><td>Process</td><td>1 hr at 50&deg;C + centrifuge, resuspend in 300 &mu;L LTE</td></tr>
+      <tr><td>What it removes</td><td>Fragments &lt;25 kb progressively (most &lt;10 kb removed)</td></tr>
+    </table>
+    <div class="note warning">
+      <strong>Use ONLY on genomic DNA.</strong> Never on sheared DNA or libraries. PacBio recommends it, but it's optional.
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">Safe stop: 4&deg;C</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- STEP 2 SHEARING -->
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#2d5aa0">2</div>
+    <div class="stage-title-area">
+      <div class="stage-title">FemtoPulse QC + CybioFelix Shearing</div>
+      <div class="stage-meta">
+        <span>&#9201; 1-2 weeks turnaround (queue)</span>
+        <span>&#128205; <a class="vault-link" onclick="event.stopPropagation()" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=DNA%20Technologies%20Core">Genome Center</a></span>
+        <span>&#128176; $70/batch + $27/sample QC</span>
+        <span><a class="vault-link" onclick="event.stopPropagation()" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Noravit%20Chumchim">Noravit Chumchim</a></span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <h4 style="margin-bottom:8px; font-size:14px; color:var(--green)">Pre-Shear FemtoPulse QC</h4>
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Target</th></tr>
+      <tr><td>Sample input</td><td>2 &mu;L at ~1 ng/&mu;L in LTE</td></tr>
+      <tr><td>Pass threshold</td><td>GQN &ge;7.0 at 10 kb</td></tr>
+      <tr><td>Lab results</td><td>Pistachio: 8.1-9.1 &middot; Arabidopsis: 8.8-9.3</td></tr>
+    </table>
+
+    <h4 style="margin:16px 0 8px; font-size:14px; color:var(--blue)">Shearing Parameters</h4>
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Target</th><th>Red Flag</th></tr>
+      <tr><td>Input concentration</td><td>&le;10 ng/&mu;L (target ~5)</td><td>&gt;10 ng/&mu;L = undershearing</td></tr>
+      <tr><td>Input volume</td><td>300 &mu;L per sample</td><td>Samples must be same volume</td></tr>
+      <tr><td>Mean fragment size</td><td>15-20 kb</td><td>&lt;12 kb or &gt;25 kb</td></tr>
+      <tr><td>Distribution</td><td>Narrow, 10-30 kb</td><td>Broad smear or bimodal</td></tr>
+    </table>
+
+    <div class="note">
+      <strong>How to submit:</strong> Email <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Noravit%20Chumchim">Noravit</a> (nchumchim@ucdavis.edu) to coordinate, then submit via <a class="ext-link" href="https://ucdavis.coreomics.com" target="_blank">CoreOmics portal</a>. Drop off after 3 PM. Noravit away Apr 9 - May 9, 2026.
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">Safe stop: 4&deg;C</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- STEPS 3-7 LIBRARY PREP -->
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#6e3b8e">3</div>
+    <div class="stage-title-area">
+      <div class="stage-title">Post-Shear Bead Cleanup</div>
+      <div class="stage-meta">
+        <span>&#9201; 30 min</span>
+        <span><span class="recovery-badge recovery-good">Recovery: 80-95%</span></span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Bead ratio</td><td>1.0X v/v SMRTbell cleanup beads</td></tr>
+      <tr><td>Wash</td><td>2x 200 &mu;L 80% EtOH</td></tr>
+      <tr><td>Elution</td><td>47 &mu;L low TE buffer</td></tr>
+      <tr><td>QC</td><td>Qubit HS + FemtoPulse (verify conc + size unchanged)</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">Safe stop: 4&deg;C</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#6e3b8e">4</div>
+    <div class="stage-title-area">
+      <div class="stage-title">Repair & A-tailing</div>
+      <div class="stage-meta">
+        <span>&#9201; 30 min</span>
+        <span><span class="tube tube-purple"></span>Repair buffer + <span class="tube tube-blue"></span>End repair + <span class="tube tube-green"></span>DNA repair</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Input</td><td>46 &mu;L from cleanup</td></tr>
+      <tr><td>Repair mix</td><td>14 &mu;L (<span class="tube tube-purple"></span>8 &mu;L repair buffer + <span class="tube tube-blue"></span>4 &mu;L end repair + <span class="tube tube-green"></span>2 &mu;L DNA repair)</td></tr>
+      <tr><td>Reaction volume</td><td>60 &mu;L total</td></tr>
+      <tr><td>QC</td><td>None &mdash; proceeds directly to ligation</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="connector">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#6e3b8e">5</div>
+    <div class="stage-title-area">
+      <div class="stage-title">Adapter Ligation & Cleanup</div>
+      <div class="stage-meta">
+        <span>&#9201; 1.5 hrs</span>
+        <span><span class="recovery-badge recovery-good">Recovery: 80-95%</span></span>
+        <span><span class="tube tube-orange"></span>Adapter + <span class="tube tube-yellow"></span>Ligation + <span class="tube tube-red"></span>Enhancer</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Adapters</td><td>Universal SMRTbell (<span class="tube tube-orange"></span>) or barcoded (96-well plate)</td></tr>
+      <tr><td>Reaction</td><td>100 &mu;L total</td></tr>
+      <tr><td>QC</td><td>Qubit HS &mdash; expect 1,300&ndash;2,250 ng total</td></tr>
+    </table>
+    <div class="note">
+      <strong>Lab experience (pistachio):</strong> Post-ligation: 32.2-56.2 ng/&mu;L in 40-42 &mu;L = 1,288-2,248 ng total.
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">Safe stop: 4&deg;C</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- NUCLEASE - highlighted as biggest loss -->
+<div class="stage" style="border-color:#f85149; border-width:2px" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#8b2252">6</div>
+    <div class="stage-title-area">
+      <div class="stage-title" style="color:#f85149">Nuclease Treatment &mdash; BIGGEST LOSS STEP</div>
+      <div class="stage-meta">
+        <span>&#9201; 30 min</span>
+        <span><span class="recovery-badge recovery-bad">Recovery: 40-50%</span></span>
+        <span><span class="tube tube-lightgreen"></span>Nuclease mix (keep on ice!)</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>What it degrades</th><th>What it preserves</th></tr>
+      <tr><td>Failed ligation products<br>Unligated linear DNA<br>Adapter dimers<br>Short junk fragments</td><td>Correctly-formed circular SMRTbell templates (capped ends resist exonuclease)</td></tr>
+    </table>
+    <div class="note danger">
+      <strong>You're losing ~50% of material, but it's the bad half.</strong> These are molecules that would waste sequencing capacity. The nuclease preferentially digests short linear fragments while circular SMRTbell templates survive.
+    </div>
+    <div class="note">
+      <strong>Why not skip this if you're doing size selection anyway?</strong> Nuclease removes biochemical junk (dimers, failed ligations). Size selection does physical size cutoff. Different purposes. Skipping cleanup would overload the size selection instrument and contaminate the size-selected fraction.
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label" style="color:var(--red)">40-50% lost here</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#f85149" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#6e3b8e">7</div>
+    <div class="stage-title-area">
+      <div class="stage-title">AMPure PB Bead Cleanup</div>
+      <div class="stage-meta">
+        <span>&#9201; 30 min</span>
+        <span><span class="recovery-badge recovery-moderate">Recovery: 70-80%</span></span>
+        <span>3.1X v/v beads (permissive ratio)</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <table class="qc-table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Bead ratio</td><td>3.1X v/v (35% AMPure PB)</td></tr>
+      <tr><td>Wash</td><td>2x 80% EtOH</td></tr>
+      <tr><td>Elution</td><td>21 &mu;L</td></tr>
+      <tr><td>QC</td><td>Qubit HS &mdash; <strong>dilute 1:10 before measuring!</strong></td></tr>
+      <tr><td>Expected concentration</td><td>16-30 ng/&mu;L</td></tr>
+      <tr><td>Expected total</td><td>340-640 ng</td></tr>
+    </table>
+    <div class="note warning">
+      <strong>This is NOT precise size selection.</strong> The 3.1X ratio retains most fragments &gt;1-2 kb. It's cleanup + coarse selection. Real size selection is next.
+    </div>
+    <div class="note">
+      <strong>Lab experience (pistachio):</strong> 12 samples yielded 342-638 ng in 21 &mu;L. Overall recovery from gDNA: 20-26%.
+    </div>
+  </div>
+</div>
+
+<!-- LIBRARY COMPLETE SUMMARY -->
+<div class="summary-bar">
+  <h2>Library Prep Complete</h2>
+  <div class="big-number">12-34%</div>
+  <div class="context">overall recovery from input gDNA (10-30% per Noravit at Genome Center)</div>
+</div>
+
+<!-- DECISION BOX -->
+<div class="decision-box">
+  <div class="decision-title">Do I have enough library?</div>
+  <p style="color:var(--text-dim); font-size:14px; margin-bottom:12px">Post-nuclease, post-AMPure PB, pre-size selection. Size selection will lose another 30-50%.</p>
+  <div class="decision-grid">
+    <div class="decision-option go">
+      <div class="amount" style="color:var(--green)">&gt;600 ng</div>
+      <div class="label">Comfortable. Meets LBSS minimum. Plenty for Revio after size selection.</div>
+    </div>
+    <div class="decision-option caution">
+      <div class="amount" style="color:var(--yellow)">400-600 ng</div>
+      <div class="label">Borderline. Proceed but Revio loading may be suboptimal. Yields ~200-420 ng post-selection.</div>
+    </div>
+    <div class="decision-option stop">
+      <div class="amount" style="color:var(--red)">&lt;400 ng</div>
+      <div class="label">Risky. Consider redoing from leftover HMW DNA or pooling samples.</div>
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- STEP 8 SIZE SELECTION FORK -->
+<div style="margin-bottom:0">
+  <div style="text-align:center; color:var(--text-dim); font-size:14px; margin-bottom:12px">Step 8: Size Selection &mdash; choose based on sequencing venue</div>
+  <div class="fork">
+    <div class="fork-option" style="border-color:var(--teal)">
+      <h3 style="color:var(--teal)">LBSS / LightBench</h3>
+      <div class="details">
+        <p><strong>Where:</strong> <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=DNA%20Technologies%20Core">UC Davis Genome Center</a></p>
+        <p><strong>Contact:</strong> <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Oanh%20Nguyen">Oanh Nguyen</a></p>
+        <p><strong>Min input:</strong> &gt;600 ng in 25 &mu;L</p>
+        <p><strong>Cutoff:</strong> Removes &lt;12 kb</p>
+        <p><strong>Cost:</strong> Included with GC sequencing</p>
+        <p><span class="recovery-badge recovery-moderate">Recovery: 50-70%</span></p>
+        <p style="margin-top:8px; font-size:12px; color:var(--text-dim)">Best for: smaller batches, troubleshooting support</p>
+      </div>
+    </div>
+    <div class="fork-option" style="border-color:var(--blue)">
+      <h3 style="color:var(--blue)">PippinHT (Sage Science)</h3>
+      <div class="details">
+        <p><strong>Where:</strong> <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=NovoGene%20Sequencing%20Accounting">NovoGene</a></p>
+        <p><strong>Contact:</strong> <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Emma%20Billings">Emma Billings</a></p>
+        <p><strong>Cutoff:</strong> Configurable (&gt;12-15 kb high-pass)</p>
+        <p><strong>Cost:</strong> $80/tube</p>
+        <p><span class="recovery-badge recovery-moderate">Recovery: 50-70%</span></p>
+        <p style="margin-top:8px; font-size:12px; color:var(--text-dim)">Best for: large batches (&ge;20 cells), cheaper per cell</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <span class="connector-label">50-70% recovery</span>
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- STEP 9 SEQUENCING -->
+<div class="stage" onclick="this.classList.toggle('expanded')">
+  <div class="stage-header">
+    <div class="stage-number" style="background:#1a4d7a">9</div>
+    <div class="stage-title-area">
+      <div class="stage-title">Revio SMRT Cell Loading & Sequencing</div>
+      <div class="stage-meta">
+        <span>&#9201; 1-4 weeks turnaround</span>
+        <span>&#128176; $1,400-$2,000 per SMRT cell</span>
+      </div>
+    </div>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="stage-details">
+    <h4 style="margin-bottom:8px; font-size:14px; color:var(--green)">Library Needed for Loading (at 250 pM)</h4>
+    <table class="qc-table">
+      <tr><th>Mean Insert Size</th><th>Library Needed</th><th>Notes</th></tr>
+      <tr><td>15 kb</td><td><strong>243 ng</strong></td><td></td></tr>
+      <tr><td>18 kb</td><td><strong>292 ng</strong></td><td>Typical plant genome target</td></tr>
+      <tr><td>21 kb</td><td><strong>341 ng</strong></td><td></td></tr>
+    </table>
+
+    <p style="margin:12px 0; color:var(--text-dim); font-size:14px">Loading range: 200-300 pM. Minimum viable: ~150-200 ng (suboptimal). Expected output: ~90 Gb HiFi data per cell.</p>
+
+    <div class="fork" style="margin-top:16px">
+      <div class="fork-option">
+        <h3><a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=Oanh%20Nguyen">Genome Center Revio</a></h3>
+        <div class="details">
+          <p>~$2,000/SMRT cell (UC rate)</p>
+          <p>Submit: <a class="ext-link" href="https://ucdavis.coreomics.com" target="_blank">CoreOmics portal</a></p>
+        </div>
+      </div>
+      <div class="fork-option">
+        <h3><a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=NovoGene%20Sequencing%20Accounting">NovoGene Revio</a></h3>
+        <div class="details">
+          <p>$1,400/cell (min 20) + $15/tube QC</p>
+          <p>Submit: <a class="ext-link" href="https://cssamerica.novogene.com" target="_blank">NovoGene CSS portal</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="connector">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- DATA -->
+<div style="text-align:center; padding:32px; background:linear-gradient(135deg, #0c2d6b, #1a4d7a); border-radius:12px; border:1px solid var(--blue)">
+  <div style="font-size:36px; font-weight:700; color:var(--blue)">~90 Gb HiFi Data</div>
+  <div style="color:var(--text-dim); margin-top:4px">per Revio SMRT cell, mean insert &gt;15 kb</div>
+</div>
+
+<!-- CUMULATIVE RECOVERY TABLE -->
+<div style="margin-top:40px">
+  <h2 style="font-size:20px; margin-bottom:16px">Cumulative Recovery Reference</h2>
+  <table class="qc-table" style="background:var(--card); border-radius:8px; overflow:hidden">
+    <tr><th>Step</th><th>Recovery (of previous)</th><th>Cumulative (of input gDNA)</th></tr>
+    <tr><td>Post-SRE (if used)</td><td>65-95%</td><td>65-95%</td></tr>
+    <tr><td>Post-shear bead cleanup</td><td>80-95%</td><td>52-90%</td></tr>
+    <tr><td>Post-ligation bead cleanup</td><td>80-95%</td><td>42-86%</td></tr>
+    <tr><td>Post-nuclease (pre-cleanup)</td><td style="color:var(--red)">40-50%</td><td>17-43%</td></tr>
+    <tr><td>Post-AMPure PB cleanup</td><td>70-80%</td><td style="font-weight:700">12-34%</td></tr>
+    <tr><td>Post-size selection</td><td>50-70%</td><td style="font-weight:700">6-24%</td></tr>
+  </table>
+  <p style="color:var(--text-dim); font-size:13px; margin-top:8px">Rule of thumb: 2 &mu;g input &rarr; 120-480 ng size-selected library. 2.5 &mu;g input &rarr; 150-600 ng.</p>
+</div>
+
+<!-- REAGENT COLOR CODE -->
+<div style="margin-top:32px">
+  <h2 style="font-size:20px; margin-bottom:16px">Reagent Color Code (SMRTbell Prep Kit 3.0)</h2>
+  <table class="qc-table" style="background:var(--card); border-radius:8px; overflow:hidden">
+    <tr><th>Tube</th><th>Reagent</th><th>Step</th></tr>
+    <tr><td><span class="tube tube-purple"></span> Purple</td><td>Repair buffer</td><td>Repair & A-tailing</td></tr>
+    <tr><td><span class="tube tube-blue"></span> Blue</td><td>End repair mix</td><td>Repair & A-tailing</td></tr>
+    <tr><td><span class="tube tube-green"></span> Green</td><td>DNA repair mix</td><td>Repair & A-tailing</td></tr>
+    <tr><td><span class="tube tube-orange"></span> Orange</td><td>SMRTbell adapter</td><td>Adapter ligation</td></tr>
+    <tr><td><span class="tube tube-yellow"></span> Yellow</td><td>Ligation mix</td><td>Adapter ligation</td></tr>
+    <tr><td><span class="tube tube-red"></span> Red</td><td>Ligation enhancer</td><td>Adapter ligation</td></tr>
+    <tr><td><span class="tube tube-lightgreen"></span> Light green</td><td>Nuclease mix</td><td>Nuclease treatment</td></tr>
+  </table>
+  <p style="color:var(--text-dim); font-size:13px; margin-top:8px">All enzyme tubes: keep on ice. Buffers: room temperature OK.</p>
+</div>
+
+<div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--border); text-align:center; color:var(--text-dim); font-size:12px">
+  Monroe Lab, UC Davis &middot; Based on PacBio SMRTbell prep kit 3.0 (102-166-600 REV04, Apr 2024) &middot;
+  <a class="vault-link" href="obsidian://open?vault=Obsidian_ProfessorHQ&file=HiFi%20Sequencing%20Pipeline">Back to vault card</a>
+</div>
+
+</div>
+</body>
+</html>
