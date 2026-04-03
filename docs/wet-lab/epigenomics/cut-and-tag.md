@@ -13,7 +13,7 @@ Nuclei Extraction
 
 |  | Buffer | Final [ ] | Stock [ ] | 50ml |
 | --- | --- | --- | --- | --- |
-|  | NPB     11 ml per sample | 20 mM HEPES  40 mM NaCl  90 mM KCl      2 mM EDTA  0.5 mM EGTA  1X cOMPLETE Protease Inhibitor  0.5mM Spermidine  0.2mM Spermine | 1M  5M  1M  500mM  500mM    2M  200mM | 1ml  400ul  4.5ml  200ul  50ul  1 tablet  12.5ul  5ul |
+|  | NPB     11 ml per sample | 20 mM [[hepes]]  40 mM NaCl  90 mM KCl      2 mM EDTA  0.5 mM [[egta]]  1X cOMPLETE Protease Inhibitor  0.5mM [[spermidine]]  0.2mM [[spermine]] | 1M  5M  1M  500mM  500mM    2M  200mM | 1ml  400ul  4.5ml  200ul  50ul  1 tablet  12.5ul  5ul |
 |  | NEB2  lower density buffer    1ml per sample | 0.25 M Sucrose  10 mM Tris-HCl at pH 8.0  10 mM MgCl2  2% Triton-X 100  1X cOMPLETE Protease Inhibitor | s  1M  1M  20% | 4.279g  500ul  500ul  5ml  1 tablet |
 |  | NEB3  higher density buffer    3-4x;  3.2 ml per sample | 17 M Sucrose  10 mM Tris-HCl at pH 8.0  2 MgCl2  0.75% Triton-X 100  1X cOMPLETE Protease Inhibitor | s  1M  1M  20% | 29.096  500ul  100ul  1.875ml  1 tablet    Add water up to 50ml. |
 - \*add spermidine, spermine, protease inhibitor when the buffer will be used. Store at 4C up to one week.
@@ -172,7 +172,7 @@ STOP Tagmentation & DNA Extraction
 
 In the fume hood.
 
-3. To each sample, add an equal volume (~300ul) of phenol-chloroform-isoamyl alcohol (pH 7.9) to the tagmentation product. Vortex or pipette well until the solution becomes cloudy.
+3. To each sample, add an equal volume (~300ul) of phenol-[[chloroform]]-isoamyl alcohol (pH 7.9) to the tagmentation product. Vortex or pipette well until the solution becomes cloudy.
 4. Transfer the solution from step 3 to the centrifuged phase-lock gel tubes (optional: incubate (in the fume hood) for 10 minutes). It is okay that the solution separates during incubation.
 5. Centrifuge at 16,000 xg for 5 min at RT.
 6. Transfer the upper aqueous phase above the gel matrix to fresh 1.5ml tubes. Add 30ul 3M sodium acetate (pH 5.5), 2ul GlycoBlue, and 330ul cold isopropanol and vortex to mix well.
@@ -244,7 +244,7 @@ Library size distribution considerations:
 
 - CUT&Tag inserts adapters on either side of chromatin particles in the vicinity of the tethered enzyme, although tagmentation within chromatin particles can also occur. So, CUT&Tag reactions targeting a histone modification predominantly result in fragments that are nucleosomal lengths or multiples of that length (~147bp) CUT&Tag targeting transcription factors predominantly produce nucleosome-sized fragments and variable amounts of shorter fragments, from neighboring nucleosomes and the factor-bound site, respectively. Tagmentation of DNA on the surface of nucleosomes also occurs, and plotting fragment lengths with single-base pair resolution reveal a 10-bp sawtooth periodicity, which is typical of successful CUT&Tag experiments [[4](https://www.protocols.io/view/cut-amp-tag-data-processing-and-analysis-tutorial-e6nvw93x7gmk/v1?step=12.3)].
 
-- i.e. on an agarose gel you should be able to see a ladder-like / banding pattern of multiples of nucleosome-size fragments; see examples: [[3](https://www.biorxiv.org/content/10.1101/2024.07.29.604300v1),[5](https://www.biorxiv.org/content/10.1101/2025.01.23.634238v1.abstract)]
+- i.e. on an [[agarose]] gel you should be able to see a ladder-like / banding pattern of multiples of nucleosome-size fragments; see examples: [[3](https://www.biorxiv.org/content/10.1101/2024.07.29.604300v1),[5](https://www.biorxiv.org/content/10.1101/2025.01.23.634238v1.abstract)]
 
 - Note for reference: some [protocols](https://www.cellsignal.com/learn-and-support/technical-support/do-you-recommend-performing-size-selection-of-the-dna-during-the-library-preparation-for-cut-tag-experiments/000002053?srsltid=AfmBOopK8UMbK8WTk_rNJC5nzYxJ0PxUbcXxdC7-a7vWe-4Rh3aKeubv) omit the size-selection step.
 

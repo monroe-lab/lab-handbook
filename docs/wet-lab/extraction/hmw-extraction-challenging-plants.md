@@ -19,13 +19,13 @@ In general, we don't do  High Throughput, but the following method works for al
 
 with following modifications;
 
-(i) we used sodium metabisulfite (1% w/v) instead of 2-mercaptoethanol (1% v/v) in the sorbitol wash buffer and CTAB solution; 
+(i) we used [[sodium-metabisulfite]] (1% w/v) instead of [[2-mercaptoethanol]] (1% v/v) in the sorbitol wash buffer and CTAB solution; 
 
 (ii) we repeated the tissue homogenate wash steps until the supernatant turned clear;
 
 (iii) we performed the CTAB lysis step at 45°C and
 
-(iv) the chloroform extraction step twice using ice-cold chloroform.
+(iv) the [[chloroform]] extraction step twice using ice-cold chloroform.
 
 Inglis et al. PLOS 2018 Paper
 
@@ -211,7 +211,7 @@ We extracted DNA using a phenol/chloroform extraction protocol modified from Cha
 
 We purified the lysate with 10 ml buffer saturated phenol using phase-lock gel falcon tubes, followed by phenol/chloroform-isoamyl alcohol (1:1).
 
-We precipitated the DNA by adding 4 ml of 5 m ammonium acetate and 30 ml ice-cold ethanol.
+We precipitated the DNA by adding 4 ml of 5 m [[ammonium-acetate]] and 30 ml ice-cold ethanol.
 
 We recovered DNA by one of the following methods:
 
@@ -403,7 +403,7 @@ Sorbitol Pre-Wash
 
 0.35 M Sorbitol, 5 mM EDTA pH 8.0
 
-1% (w/v) Polyvinylpyrrolidone (average molecular weight 40,000; PVP-40))
+1% (w/v) [[polyvinylpyrrolidone]] (average molecular weight 40,000; PVP-40))
 
 The buffer base may be stored at 4 ̊C, for up to six months.
 
@@ -674,7 +674,7 @@ Choice between Isopropanol and Ethanol?
 
 - Volume thing…..
 
-Sodium Acetate / Ammonium Acetate/ Potassium Acetate:
+Sodium Acetate / Ammonium Acetate/ [[potassium-acetate]]:
 
 - In solution, sodium acetate dissociates into Na+ and [CH3COO]−
 

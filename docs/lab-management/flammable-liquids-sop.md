@@ -25,7 +25,7 @@ A few examples of common flammable or combustible liquids in use on the UC Davis
   --------------------------------------------------------------------------------------------------------
   **Chemical nameBoiling pointFlash pointClassificationGHS Code**
   ------------------- ---------------------------- ------------------- -------------------- --------------
-  Acetone             56 °C (133 °F)               -17 °C (1 °F)       IB                   H225
+  [[acetone]]             56 °C (133 °F)               -17 °C (1 °F)       IB                   H225
 
   1-Butanol           117 °C (243 °F)              29 °C (84 °F)       IB                   H226
 
@@ -44,11 +44,11 @@ The classification of flammable liquids impacts the Maximum Allowable Quantity (
 >
 Our Lab contains:
 >
-H225 Ethanol, Isopropyl alcohol, Methanol, Acetone, Ethyl Alcohol Absolute, Reagent Alcohol
+H225 Ethanol, [[isopropyl-alcohol]], [[methanol]], Acetone, [[ethyl-alcohol-absolute]], Reagent Alcohol
 >
-H226 Glacial Acetic Acid, 3-Methylbutanol, Aceto-Orcein Solution 2%
+H226 [[glacial-acetic-acid]], [[3-methylbutanol]], Aceto-Orcein Solution 2%
 >
-H227 1-Octanol, Diethyl pyrocarbonate, Dimethyl sulfoxide, 2-Mercaptoethanol, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Chloroform:Isoamyl alcohol 24:1, Formaldehyde (16% methanol free) PFA
+H227 [[1-octanol]], [[diethyl-pyrocarbonate]], [[dimethyl-sulfoxide]], [[2-mercaptoethanol]], Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1, [[chloroform-isoamyl-alcohol-24-1]], [[formaldehyde-16-methanol-free-pfa]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 **Chemical Fume Hood**

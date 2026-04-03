@@ -32,7 +32,7 @@ Materials that meet this criteria can be identified using the following Globally
 
 A few examples of common Reproductive Toxins used at the UC Davis campus include, but are not limited to, the following:
 
-1.  Chloroform
+1.  [[chloroform]]
 
 2.  Toluene
 
@@ -44,13 +44,13 @@ A few examples of common Reproductive Toxins used at the UC Davis campus include
 
 Our Lab contains:
 >
-H340 Acrylamide, Ethyl methanesulfonate
+H340 [[acrylamide]], [[ethyl-methanesulfonate]]
 >
-H341 Methyl methanesulfonate, Zeocin, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Phenol nitroprusside solution, Hydrogen peroxide, 20 to 35 % in water
+H341 [[methyl-methanesulfonate]], [[zeocin]], Phenol - chloroform - isoamyl alcohol mixture 25:24:1, [[phenol-nitroprusside-solution]], Hydrogen peroxide, 20 to 35 % in water
 >
-H360 Boric acid, Formamide, Kanamycin sulfate, Glufosinate-ammonium, Sodium tetraborate
+H360 [[boric-acid]], [[formamide]], [[kanamycin-sulfate]], [[glufosinate-ammonium]], [[sodium-tetraborate]]
 >
-H361 Acrylamide, Cesium chloride, Chloroform, Ethyl methanesulfonate, 2-Mercaptoethanol, Potassium permanganate, Tetracycline hydrochloride, 1-Octanol
+H361 Acrylamide, [[cesium-chloride]], Chloroform, Ethyl methanesulfonate, [[2-mercaptoethanol]], [[potassium-permanganate]], [[tetracycline-hydrochloride]], [[1-octanol]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for all Reproductive Toxins:

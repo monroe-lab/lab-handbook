@@ -151,4 +151,5 @@ extra_css:
 extra_javascript:
   - javascripts/github-auth.js
   - javascripts/object-links.js
+  - javascripts/homepage-graph.js
   - javascripts/feedback.js

@@ -32,7 +32,7 @@ C.  Strong Bases
 
 Solid bases, when dissolved in water, can cause serious damage to eyes and skin by their Corrosive action. Fine dust from almost any solid base can cause severe damage to the eyes, upper respiratory tract, and lungs. Fine dust can also cause skin irritation, particularly to damp skin. Contact with strong bases usually goes unnoticed as immediate pain does not always occur. This allows the base time to react with the body part and serious injury may result.
 >
-Ex. Potassium and Sodium Hydroxide
+Ex. Potassium and [[sodium-hydroxide]]
 
 D.  Other Corrosives
 
@@ -44,11 +44,11 @@ Ex: Phenol, dehydrating agents, and metal halides
 >
 Our Lab contains:
 >
-H290 Bleach, Hydroxylamine hydrochloride, Iron(III) chloride, Potassium hydroxide, Sodium hydroxide, Phenylmethanesulfonyl fluoride
+H290 Bleach, [[hydroxylamine-hydrochloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], Sodium hydroxide, [[phenylmethanesulfonyl-fluoride]]
 >
-H314 Acetic acid, Hydrogen peroxide, Lithium hydroxide, Potassium permanganate, Spermidine, Spermine, Trichloroacetic acid, Sodium hydroxide, Glacial Acetic Acid, Guanidine thiocyanate, Phenylmethanesulfonyl fluoride, Potassium hydroxide, Aceto-Orcein Solution 2%, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Phenol nitroprusside solution, Hydrochloric acid
+H314 Acetic acid, Hydrogen peroxide, Lithium hydroxide, [[potassium-permanganate]], [[spermidine]], [[spermine]], [[trichloroacetic-acid]], Sodium hydroxide, [[glacial-acetic-acid]], [[guanidine-thiocyanate]], Phenylmethanesulfonyl fluoride, Potassium hydroxide, Aceto-Orcein Solution 2%, Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1, [[phenol-nitroprusside-solution]], Hydrochloric acid
 >
-H318 2-Mercaptoethanol, Calcium nitrate tetrahydrate, Cetrimonium bromide, EDTA tetrasodium salt dihydrate, Sodium hydroxide, Spermidine, Spermine, Glacial Acetic Acid, IGEPAL CA-630, Trichloroacetic acid, Guanidine thiocyanate, Phenylmethanesulfonyl fluoride, Potassium permanganate, Manganese(II) chloride, Iron(III) chloride, Potassium hydroxide, Lithium hydroxide monohydrate, Sodium bisulfite, Sodium dodecyl sulfate, Sodium metabisulfite, Sodium pyrophosphate, Triton X-100, Hydrogen peroxide, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Phenol nitroprusside solution, Hydrochloric acid
+H318 [[2-mercaptoethanol]], [[calcium-nitrate-tetrahydrate]], [[cetrimonium-bromide]], [[edta-tetrasodium-salt-dihydrate]], Sodium hydroxide, Spermidine, Spermine, Glacial Acetic Acid, [[igepal-ca-630]], Trichloroacetic acid, Guanidine thiocyanate, Phenylmethanesulfonyl fluoride, Potassium permanganate, [[manganese-ii-chloride]], Iron(III) chloride, Potassium hydroxide, [[lithium-hydroxide-monohydrate]], [[sodium-bisulfite]], [[sodium-dodecyl-sulfate]], [[sodium-metabisulfite]], Sodium pyrophosphate, [[triton-x-100]], Hydrogen peroxide, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Phenol nitroprusside solution, Hydrochloric acid
 
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for all strong Corrosives:

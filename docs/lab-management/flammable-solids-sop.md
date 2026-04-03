@@ -16,11 +16,11 @@ title: "Flammable Solids SOP"
 Flammable Solids are solid or semi-solid substances which are easily ignited by brief contact with an ignition source (e.g., open flame, spark, etc.) or friction. Flammable solids are more hazardous when dispersed in a confined space and can disperse into explosive or pyrophoric mixtures. There are two categories of flammable solids: A) Category 1 - rapidly burning materials very resistant to being extinguished by water; and B) Category 2 - slower burning materials that may be extinguished by water.
 
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
-Flammable solids included in this control band are those which burn rapidly or intensely when ignited, and which may be difficult to extinguish or react violently with water. Examples include powdered aluminum, sodium dodecyl sulfate, camphor, paraformaldehyde, magnesium, zinc metal dust (greater than 44 microns particle size or 325 mesh), etc. Particle size must be considered when determining if materials, such as finely divided metals, have additional hazards for water reactive or pyrophoric behavior. For example, zinc metal dust smaller than 44 microns is considered water reactive and also subject to the requirements of the Water Reactive SOP. Flammable solids for this control band may be identified with the GHS Hazard code H228.
+Flammable solids included in this control band are those which burn rapidly or intensely when ignited, and which may be difficult to extinguish or react violently with water. Examples include powdered aluminum, [[sodium-dodecyl-sulfate]], camphor, paraformaldehyde, magnesium, zinc metal dust (greater than 44 microns particle size or 325 mesh), etc. Particle size must be considered when determining if materials, such as finely divided metals, have additional hazards for water reactive or pyrophoric behavior. For example, zinc metal dust smaller than 44 microns is considered water reactive and also subject to the requirements of the Water Reactive SOP. Flammable solids for this control band may be identified with the GHS Hazard code H228.
 >
 Our Lab contains:
 >
-H228 Activated charcoal, Sodium dodecyl sulfate
+H228 [[activated-charcoal]], Sodium dodecyl sulfate
 
 ## ENGINEERING/VENTILATION CONTROLS
 Some flammable solids are quite fluffy and can be difficult to control and contain in a fume hood or ventilated enclosure. Careful assessment of the handling hazards in the protocol context will determine the need for ventilation controls.

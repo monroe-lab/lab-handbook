@@ -32,7 +32,7 @@ Proper waste disposal is paramount. Follow these guidelines for different types 
 
 Be mindful of these common pitfalls to ensure safety and prevent material loss:
 
-- Organic Solvents: Organic solvents, such as Phenol/Chloroform, are not to be stored in plasticware. They will cause leaks due to material incompatibility. Use only glass containers for these substances.
+- Organic Solvents: Organic solvents, such as Phenol/[[chloroform]], are not to be stored in plasticware. They will cause leaks due to material incompatibility. Use only glass containers for these substances.
 - Stir Bars and Metal Beads: Stir bars and metal beads are reusable lab equipment and are not disposable. Ensure they are cleaned and returned to their designated storage areas after use.
 - Chemical Spills: In the event of a chemical spill, immediately follow the lab's spill response protocol and notify your mentor.
 - Equipment Calibration: Regularly check the calibration dates on instruments that require precise measurements.

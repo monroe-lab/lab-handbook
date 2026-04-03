@@ -38,9 +38,9 @@ Acutely Toxic Materials can be identified using the Globally Harmonized System H
 
 Our lab contains:
 >
-**H300** Mitomycin c, cis-Diamineplatinum(II) dichloride
+**H300** [[mitomycin-c]], [[cis-diamineplatinum-ii-dichloride]]
 >
-**H310** 2-Mercaptoethanol
+**H310** [[2-mercaptoethanol]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for all Acutely Toxic Materials:

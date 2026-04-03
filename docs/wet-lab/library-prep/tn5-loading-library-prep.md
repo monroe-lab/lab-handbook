@@ -71,7 +71,7 @@ Tagmentation activity & efficiency assay:
 | HMW DNA | a ul for 100-150ng |
 | --- | --- |
 | Assembled Tn5 | x ul        (titrate concentrations; e.g. 1-5ul) |
-| 5X TAPS Buffer  (50mM TAPS-NaOH, 25mM MgCl2) | 5ul |
+| 5X [[taps]] Buffer  (50mM TAPS-NaOH, 25mM MgCl2) | 5ul |
 | H2O | 20 - a - x |
 |  | 25 ul total rxn volume |
 2. Incubate at 55C x \*15-20 minutes at 650-700 rpm on the thermomixer.
@@ -83,7 +83,7 @@ Tagmentation activity & efficiency assay:
 
 Library Prep:
 
-6. Use 12-15ul of tagmented DNA as input for library prep. Prepare 25ul PCR reactions, run for 15-20 cycles (only for verification of successful library prep on agarose gel, so higher cycle # ok); 3ul to load gel.
+6. Use 12-15ul of tagmented DNA as input for library prep. Prepare 25ul PCR reactions, run for 15-20 cycles (only for verification of successful library prep on [[agarose]] gel, so higher cycle # ok); 3ul to load gel.
 
 |  | 12-15 ul DNA  5 ul 5X Q5 reaction buffer  4.75 - 1.75 ul nuclease-free water  1.25 ul of each forward/reverse primer (10uM)  0.5 ul dNTPs (10mM)  0.25 ul Q5 polymerase |
 | --- | --- |

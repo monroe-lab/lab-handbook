@@ -24,7 +24,7 @@ title: "MS Media Recipe"
 | Component | Role |
 | --------- | ---- |
 | **MS basal salt** | Complete mineral nutrition. The 4.4 g/L formulation includes vitamins (sometimes sold separately — check the label). |
-| **MES buffer** | Maintains pH during autoclaving and plant growth. Plant roots acidify the medium as they take up NH4+, so buffering matters. pH 5.8 is optimal for nutrient uptake in most plants. |
+| **[[mes-buffer]]** | Maintains pH during autoclaving and plant growth. Plant roots acidify the medium as they take up NH4+, so buffering matters. pH 5.8 is optimal for nutrient uptake in most plants. |
 | **Sucrose** | Carbon/energy source. Plants on plates are often in low light or have small cotyledons, so they're partially heterotrophic early on. Higher sucrose (10 g/L) supports faster growth but also feeds contaminants. |
 | **TC Agar** | Gelling agent. Tissue culture grade agar (A175) is purified to remove inhibitory compounds present in cheaper agars. Regular bacteriological agar can work for simple seed germination but may affect sensitive assays. |
 | **KOH** | pH adjustment. MS salts dissolve to \~pH 4-5. KOH brings it to 5.8 without adding unwanted ions (Na from NaOH can inhibit some plants at high concentrations). |

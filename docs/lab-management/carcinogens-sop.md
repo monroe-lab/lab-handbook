@@ -54,9 +54,9 @@ Note, many Carcinogens have additional chemical hazards. Review a current Safety
 >
 Our Lab contains:
 >
-H350 Acrylamide, Sodium arsenate dibasic heptahydrate, Basic Fuchsin, Chloramphenicol, cis-Diamineplatinum(II) dichloride, Methyl methanesulfonate, Formaldehyde (16% methanol free) PFA
+H350 [[acrylamide]], [[sodium-arsenate-dibasic-heptahydrate]], [[basic-fuchsin]], [[chloramphenicol]], [[cis-diamineplatinum-ii-dichloride]], [[methyl-methanesulfonate]], [[formaldehyde-16-methanol-free-pfa]]
 >
-H351 Chloroform, Mitomycin c, Ethyl methanesulfonate, Formamide, Hydroxylamine hydrochloride, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Chloroform:Isoamyl alcohol 24:1
+H351 [[chloroform]], [[mitomycin-c]], [[ethyl-methanesulfonate]], [[formamide]], [[hydroxylamine-hydrochloride]], Phenol - chloroform - isoamyl alcohol mixture 25:24:1, [[chloroform-isoamyl-alcohol-24-1]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 Use available engineering/ventilation controls to keep exposure to Carcinogens as low as possible. The following is a general plan for Carcinogens:

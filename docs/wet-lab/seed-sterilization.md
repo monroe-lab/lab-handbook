@@ -21,7 +21,7 @@ Arabidopsis seeds carry fungal spores and bacteria on their seed coat from the e
 |-------|-----------|------|------|
 | **70% ethanol** | Disrupts cell membranes, denatures proteins. 70% is more effective than 100% because water helps ethanol penetrate cells. | Fast, simple, no rinse needed (evaporates). | Less effective against fungal spores than bleach. |
 | **Sodium hypochlorite (bleach)** | Strong oxidizer, destroys proteins and nucleic acids on contact. The active ingredient (NaOCl) breaks down organic matter. | Very effective against fungi and bacteria. | Must rinse thoroughly — residual bleach inhibits germination. |
-| **Triton X-100** | Nonionic surfactant (detergent). Reduces surface tension so the sterilization solution wets the seed coat and gets into crevices. | Dramatically improves bleach penetration. | None at these concentrations. |
+| **[[triton-x-100]]** | Nonionic surfactant (detergent). Reduces surface tension so the sterilization solution wets the seed coat and gets into crevices. | Dramatically improves bleach penetration. | None at these concentrations. |
 | **Chlorine gas** | Same chemistry as bleach but in gas phase — penetrates everywhere without liquid handling. | Can sterilize hundreds of tubes at once without opening them. Seeds stay dry. | Toxic gas, must use fume hood. Longer exposure time. |
 
 **Which method to choose:** For this curriculum (small batches of 4 genotypes, <50 seeds each), ethanol is simplest. Bleach/Triton is more thorough and is what the lab uses for high-throughput work. Chlorine gas is for when you're sterilizing seed stocks in bulk.

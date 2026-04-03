@@ -20,18 +20,18 @@ Plant tissues (1 g seedlings, if using less or more, adjust the amount of x1 RI
 Materials
 
 - 10% Igepal
-- 16% (w/v) Formaldehyde Methanol-free (Pierce)
-- 2-mercaptoethanol
+- 16% (w/v) Formaldehyde [[methanol]]-free (Pierce)
+- [[2-mercaptoethanol]]
 - 2x Complete (2 tablets in 1 ml ultra pure water)
-- 2M Glycine
+- 2M [[glycine]]
 - 100mM Pefabloc (200 mg / 8.35 ml ultra pure water)
 - Nuclei isolation buffer
 - Nuclei separation buffer
 - x2 RIPA - triton
 - EGS (for FLAG-targeted ChIP)
 - DMSO
-- 200mM Spermine
-- 2M Spermidine
+- 200mM [[spermine]]
+- 2M [[spermidine]]
 - Rnase GS
 - Proteinase K
 - 70 µm filter x sample number
@@ -170,7 +170,7 @@ Procedure
 
 ## Reagents
 
-- Nuclei isolation buffer 500ml (10mM HEPES pH7.6, 1M sucrose, 5mM KCl, 5mM MgCl2, 5mM EDTA, pH8.0) stored at 4ºC
+- Nuclei isolation buffer 500ml (10mM [[hepes]] pH7.6, 1M sucrose, 5mM KCl, 5mM MgCl2, 5mM EDTA, pH8.0) stored at 4ºC
 
 : 1M HEPES  5ml
 
@@ -196,7 +196,7 @@ Procedure
 
 : Percoll  7.5ml
 
-- 2X RIPA -Triton buffer 50ml (100mM Tris-HCl pH7.8, 0.3M NaCl, 2mM EDTA pH8.0, 0.2% SDS, 2% Triton X-100, 0.2% Sodium deoxycholate), made with autoclaved or filtered solutions and stored RT.
+- 2X RIPA -Triton buffer 50ml (100mM Tris-HCl pH7.8, 0.3M NaCl, 2mM EDTA pH8.0, 0.2% SDS, 2% [[triton-x-100]], 0.2% Sodium deoxycholate), made with autoclaved or filtered solutions and stored RT.
 
 : 1M Tris-HCl  5ml
 

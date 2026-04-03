@@ -14,7 +14,7 @@ Pre-treatment:
 
 Protocol:
 
-1. Weigh 80–100 mg of fresh tissue and put two medium-sized beads into each 2ml microtube, keep the tubes submerged in liquid nitrogen to prevent thawing, then grind the samples into a fine powder using a TissueLyser.
+1. Weigh 80–100 mg of fresh tissue and put two medium-sized beads into each 2ml [[microtube]], keep the tubes submerged in liquid nitrogen to prevent thawing, then grind the samples into a fine powder using a TissueLyser.
 2. Add 800 μL of Buffer AP1 (Lysis Buffer) and 10 μL of RNase A. Vortex vigorously and incubate for 20 minutes at 65°C. Invert the tube every 3–5 minutes during the incubation. (Note: The AP1 volume is adjusted to 800 µL to ensure sufficient lysis without over-diluting the reagents.)
 3. Add 260 μL of Buffer P3. Mix thoroughly by inverting the tube, then incubate for 10–15 minutes at room temperature (to precipitate polysaccharides and proteins).
 4. Centrifuge the lysate for 5 min at 20,000 x g (14,000 rpm).
@@ -43,7 +43,7 @@ Protocol:
 3. Dealing with Polyphenols and Polysaccharides (Steps 2 & 3)
 
 - Using only Buffer AP1 and P3.
-- Recommendation 1 (Lysis Phase): Before adding AP1, supplement it with 1%–2% PVP (Polyvinylpyrrolidone, MW 40,000) or 0.2% β-mercaptoethanol. PVP specifically binds to polyphenols, acting like a sponge, while β-mercaptoethanol provides a reducing environment to prevent polyphenol oxidation.
+- Recommendation 1 (Lysis Phase): Before adding AP1, supplement it with 1%–2% PVP ([[polyvinylpyrrolidone]], MW 40,000) or 0.2% β-mercaptoethanol. PVP specifically binds to polyphenols, acting like a sponge, while β-mercaptoethanol provides a reducing environment to prevent polyphenol oxidation.
 - Recommendation 2 (Precipitation Phase): After adding Buffer P3, extend the ice incubation time from 5 minutes to 10–15 minutes. A longer ice bath allows for much more thorough precipitation of proteins, polysaccharides, and SDS complexes, significantly improving the clarity of the lysate before column loading.
 
 4. Imprecise Binding Step (Step 6)

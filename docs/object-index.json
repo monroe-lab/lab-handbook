@@ -1500,6 +1500,66 @@
     "legacy_inventory_id": 145
   },
   {
+    "path": "stocks/bl21-de3-competent-cells.md",
+    "type": "glycerol_stock",
+    "title": "BL21(DE3) Competent Cells",
+    "location": "-80C Freezer, rack 2",
+    "organism": "E. coli",
+    "stock_type": "glycerol_stock",
+    "source": "NEB"
+  },
+  {
+    "path": "stocks/col-0-wild-type.md",
+    "type": "seed",
+    "title": "Col-0 Wild Type",
+    "location": "Seed cabinet, drawer 1",
+    "organism": "Arabidopsis thaliana",
+    "stock_type": "seed",
+    "source": "ABRC"
+  },
+  {
+    "path": "people/grey-monroe.md",
+    "type": "person",
+    "title": "Grey Monroe",
+    "role": "Principal Investigator",
+    "email": "gmonroe@ucdavis.edu"
+  },
+  {
+    "path": "people/kehan-zhao.md",
+    "type": "person",
+    "title": "Kehan Zhao",
+    "role": "Lab Manager & Safety Coordinator",
+    "email": "kehzhao@ucdavis.edu"
+  },
+  {
+    "path": "people/satoyo-oya.md",
+    "type": "person",
+    "title": "Satoyo Oya",
+    "role": "Postdoctoral Researcher",
+    "email": "soya@ucdavis.edu"
+  },
+  {
+    "path": "projects/alfalfa-pangenome.md",
+    "type": "project",
+    "title": "Alfalfa Pangenome",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
+    "path": "projects/mutation-accumulation.md",
+    "type": "project",
+    "title": "Mutation Accumulation",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
+    "path": "projects/pistachio-pangenome.md",
+    "type": "project",
+    "title": "Pistachio Pangenome",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
     "path": "wet-lab/autoclave.md",
     "type": "protocol",
     "title": "Autoclave"

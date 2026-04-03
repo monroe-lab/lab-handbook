@@ -194,7 +194,7 @@ Add 34 µL of 1× Reaction Buffer to bring the volume to 100 µL and proceed to 
 
 - For the no digestion (negative ctrl) conditions, use (r)CutSmart alone.
 
-4. Load agarose gel of MTase-treated digested sample:
+4. Load [[agarose]] gel of MTase-treated digested sample:
 
 - Prepare a 1% agarose gel during the digestion incubation step.
 - Run samples at 120B for 45 min, using as much of the sample that fits into each well.
@@ -217,8 +217,8 @@ Activation Buffer
 | NaCl | 15mM | 5M | 150ul | 30ul |
 | KCl | 60mM | 1M | 3ml | 0.6 |
 | EDTA, 0.5 M, pH 8.0 | 1 mM |  | 100 uL | 20ul |
-| EGTA, 0.5 M, pH 8.0 | 0.5 mM | 0.5M | 50 uL | 10ul |
-| Spermidine, 6.4 M  or   2M | 0.05 mM | 6.4M | 0.391 uL      or  1.25 ul | 0.08 ul      or  0.25ul |
+| [[egta]], 0.5 M, pH 8.0 | 0.5 mM | 0.5M | 50 uL | 10ul |
+| [[spermidine]], 6.4 M  or   2M | 0.05 mM | 6.4M | 0.391 uL      or  1.25 ul | 0.08 ul      or  0.25ul |
 | BSA | 0.1% | - | 50 mg | 10mg |
 | H2O | - | - | fill to 50 mL | Fill to 10ml |
 | SAM, 32 mM | 800 uM | 32mM | (\*add at activation step) |  |
@@ -321,7 +321,7 @@ Modified Nuclei Extraction:
 - Protocol from PNAS article → uses 500mg of input…
 
 - “For Arabidopsis, maize B73, and Jing724, approximately 500 mg of fresh tissue was ground into a fine powder in liquid nitrogen and
-- incubated with 5 mL of nuclei isolation buffer (0.25 M sucrose, 10 mM Tris-HCl, 10 mM MgCl₂, 1% Triton X-100, 5 mM β-mercaptoethanol, and 1× protease inhibitor cocktail) on ice for 20 min.
+- incubated with 5 mL of nuclei isolation buffer (0.25 M sucrose, 10 mM Tris-HCl, 10 mM MgCl₂, 1% [[triton-x-100]], 5 mM β-mercaptoethanol, and 1× protease inhibitor cocktail) on ice for 20 min.
 - The lysate was filtered through a 30 μm MACS SmartStrainer (Miltenyi Biotec, Cat. #130-098-458) and centrifuged at 3,000 × g for 15 min at 4 °C to pellet the nuclei.
 - The pellet was gently resuspended in 5 mL of nuclei isolation buffer and centrifuged again under the same conditions. The supernatant was discarded, and the nuclear pellet was retained for subsequent steps (3).”
 

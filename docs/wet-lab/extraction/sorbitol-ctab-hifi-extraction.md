@@ -14,7 +14,7 @@ The protocol takes approximately 5-6 hours to complete.
 List of other consumables, enzymes, etc.
 
 - PureLinkTM RNAseA (Thermo Fisher Scientific; #12091021), or 100 mg/ml DNase-free RNase A /(Qiagen, Germantown, MD, United  States)
-- 24:1 (v/v) chloroform:isoamyl alcohol
+- 24:1 (v/v) [[chloroform]]:isoamyl alcohol
 - Qiagen EB Buffer or 10 mM Tris-HCl pH 8.5
 - 0.4% solution of SeraMag SpeedBeads® Carboxyl Magnetic Beads (#65152105050250, Fisher  Scientific) prepared  as  in Schalamun et al. (2019)
 - Collibri DNA beads kit
@@ -42,7 +42,7 @@ Sorbitol Pre-Wash
 | EDTA, pH 8.0 | 0.5 M | 5 mM | 500 ul |
 | PVP-40 |  | 1% (w/v) | 0.5 g |
 | Sorbitol | 182.17 g/mol | 0.35 M | 3.24 g |
-| Na2S2O5  (Sodium Metabisulfite) |  | 1% (w/v) | 0.5 g |
+| Na2S2O5  ([[sodium-metabisulfite]]) |  | 1% (w/v) | 0.5 g |
 | dH2O |  |  | Up to 60 ml  Account for up to 6ml per sample (4 washes) |
 The sorbitol and CTAB buffer bases may be stored at 4 ̊C, for up to six months. Add sodium metabisulfite on the day you are planning to do the extraction.
 

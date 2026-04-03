@@ -64,7 +64,7 @@ Some examples of commonly used Hazardous Drugs used at UC Davis are listed below
 
 | Hazardous Drug Name | CAS # | OEL (8-hr TWA) | Potency/Toxicity Category |
 | --- | --- | --- | --- |
-| Chloramphenicol | 56-75-7 | 500 ug/m3 | 2 |
+| [[chloramphenicol]] | 56-75-7 | 500 ug/m3 | 2 |
 | Cisplatin\* | 15663-27-1 | 2 ug/m3 | 3 |
 | Doxorubicin\* | 25316-40-9 | 0.5 ug/m3 | 3 |
 | Estradiol | 50-28-2 | 0.2 ug/m3 | 3 |
@@ -78,7 +78,7 @@ In the absence of a known OEL, Category 3 is the default Category until further 
 
 All SDSs, [Occupational Health Categorization](https://reader.elsevier.com/reader/sd/pii/S1074909805000389?token=E1A25854A2004AFE9B5952AD37120FBAB98C2DCD9970B737F68FC01381CFD7E84C43BD795EAD6D1013230A2F81A5881B) documentation (provided by the vendor/manufacturer), or other toxicological summary documentation available for a specific Hazardous Drug should be reviewed prior to handling the material. In the absence of such documentation, handling of any Hazardous Drug will be in accordance with the “Laboratory Control Matrix for Active Pharmaceutical Ingredients” (excerpt attached in Appendix I; [full document available on the Safety Services website](https://ucdavis.box.com/s/teczeju5ph7bamo7hxxi6l657z2qnd3y)) based on the known or default categorization for that Hazardous Drug, unless otherwise approved by the Principal Investigator and/or the Laboratory Supervisor.
 
-Our lab contains: Mitomycin c, cis-Diamineplatinum(II) dichloride and Paraquat (N, N′-dimethyl-4,4′-bipyridinium dichloride)
+Our lab contains: [[mitomycin-c]], [[cis-diamineplatinum-ii-dichloride]] and Paraquat (N, N′-dimethyl-4,4′-bipyridinium dichloride)
 
 3. ENGINEERING/VENTILATION CONTROLS
 
@@ -155,7 +155,7 @@ Follow the guidance for chemical spill cleanup from [SafetyNet #13](https://safe
 2. Clean-up of Small Hazardous Drugs Powder Spills - Inside Ventilated Containment
 
 1. Wear lab coat, double gloves, and safety glasses before attempting any cleanup.  Do not undertake a cleanup effort where there is risk of fire, explosion or a risk of inhaling hazardous gases or vapors.
-2. Wipe up powder with damp absorbent material such as gauze pads or paper towels. Water or isopropyl alcohol (IPA) or 70% ethanol may be used as a wetting agent.
+2. Wipe up powder with damp absorbent material such as gauze pads or paper towels. Water or [[isopropyl-alcohol]] (IPA) or 70% ethanol may be used as a wetting agent.
 3. Wipe clean surfaces with an effective decontamination/cleaning solution (such as 0.5% bleach) to decontaminate and/or remove any residual Hazardous Drug.
 4. Dispose of all contaminated materials: refer to Section 7 to ensure proper disposal.
 

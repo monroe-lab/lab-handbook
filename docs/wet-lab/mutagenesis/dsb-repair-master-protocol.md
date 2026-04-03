@@ -45,7 +45,7 @@ Gel Electrophoresis (Confirmation that Digestion and Ligation were successful)
 
 1% Agar Gel
 
-1. Combine 1g agarose for every 100mL 1X TAE Buffer
+1. Combine 1g [[agarose]] for every 100mL 1X TAE Buffer
 2. Mix with stir bar
 3. Microwave until solution is completely clear, pausing intermittently when it bubbles
 4. Pour into mold and let sit for at least 30min to cool and harden completely

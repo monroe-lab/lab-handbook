@@ -40,7 +40,7 @@ Additional information and data for HF is available from [PubChem](https://pubch
 
 6.  Sodium fluoride (CAS-No.: ): H301 Acute oral toxicity, H315 skin irritation, H319 serious eye irritation, strong hydrogen fluoride-releaser in contact with acid.
 
-Our lab contains: Phenylmethanesulfonyl fluoride
+Our lab contains: [[phenylmethanesulfonyl-fluoride]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for HF-producing materials:
@@ -185,7 +185,7 @@ Hazardous waste must be managed according to [Safety Net #8](http://safetyservic
 >
 Waste storage bottles that contain HF-producing wastes may need to be capped with pressure-relief caps. EH&S provides vented caps for 4 L bottles free of charge, contact your Laboratory Safety Professional or [researchsafety@ucdavis.edu](mailto:researchsafety@ucdavis.edu?subject=Vented%20Caps%20for%20Acid%20Waste) to obtain caps for your containers.
 >
-A neutralizing agent specific to HF should be used for initial decontamination of surfaces. Any plastic ware used for a reaction wherein HF is produced should be decontaminated with an aqueous solution of calcium carbonate, then washed as normal with water followed by acetone. It is also recommended to wash the surrounding area in the fume hood with an aqueous solution of calcium carbonate. Final decontamination of surfaces may be performed with wipes moistened with dry, non-polar solvent. Carefully inspect work areas to make sure no residual materials remain. Use detection strips sensitive to the fluoride ion as a final check to verify cleanliness.
+A neutralizing agent specific to HF should be used for initial decontamination of surfaces. Any plastic ware used for a reaction wherein HF is produced should be decontaminated with an aqueous solution of [[calcium-carbonate]], then washed as normal with water followed by [[acetone]]. It is also recommended to wash the surrounding area in the fume hood with an aqueous solution of calcium carbonate. Final decontamination of surfaces may be performed with wipes moistened with dry, non-polar solvent. Carefully inspect work areas to make sure no residual materials remain. Use detection strips sensitive to the fluoride ion as a final check to verify cleanliness.
 >
 Any surface or container contact with these chemicals will be decontaminated. The general procedure detailed is that the work area will be wiped down with a 5% sodium carbonate solution, twice, followed by a water wipe. Signage will be posted on the fume hood that was used/contaminated before and during the decontamination process. Signage will contain spill procedures such as not using kitty litter or direct water.
 >

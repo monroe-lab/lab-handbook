@@ -29,8 +29,8 @@ Works for Arabidopsis (yields 1-4 µg in our lab). Also validated for species fr
 | SDS (add at the last) | 10% | 1.5 ml | 1.5% |
 | H2O (mol. biol. grade) |  | Up to 10 ml |  |
 - PureLinkTM RNAseA (Thermo Fisher Scientific; #12091021), or 100 mg/ml DNase-free RNase A /(Qiagen, Germantown, MD, United  States)
-- 5 M potassium acetate (KAc)
-- 25:24:1 (v/ v/ v) phenol:chloroform:isoamyl alcohol (ROTI; #A156.1)
+- 5 M [[potassium-acetate]] (KAc)
+- 25:24:1 (v/ v/ v) phenol:[[chloroform]]:isoamyl alcohol (ROTI; #A156.1)
 - 24:1 (v/v) chloroform:isoamyl alcohol
 - 0.4% solution of SeraMag SpeedBeads® Carboxyl Magnetic Beads (#65152105050250, Fisher  Scientific) prepared  as  in Schalamun et al. (2019) 
 

@@ -21,11 +21,11 @@ Lysis Buffer (for 5 samples = 100mL) - prepare on the day of use
 | EDTA, pH 8.0 | 0.5 M | 4 ml | 20 mM |
 | β-mercaptoethanol |  | 200 ul | 0.2% (v/v) |
 | PVP-40 |  | 2 g | 2% (w/v) |
-| Na2S2O5  (Sodium Metabisulfite) |  | 0.1 g | 0.1% (w/v) |
+| Na2S2O5  ([[sodium-metabisulfite]]) |  | 0.1 g | 0.1% (w/v) |
 | dH2O |  | Up to 100 ml |  |
 Proteinase K
 
-Chloroform:Isoamyl Alcohol (24:1)
+[[chloroform]]:Isoamyl Alcohol (24:1)
 
 RNase A (100mg/ml)
 
