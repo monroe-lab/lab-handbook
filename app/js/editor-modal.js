@@ -468,20 +468,161 @@
   // This is simpler: the protocols page manages its own layout.
   // We just provide the Toast UI init and save helpers.
 
+  // ── Object Link Categories ──
+  var OBJECT_TYPES = {
+    resources: { label: 'Resources', icon: 'science', color: '#009688', subtypes: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'], dir: 'resources', defaultType: 'reagent' },
+    stocks:    { label: 'Stocks', icon: 'eco', color: '#4caf50', subtypes: ['seed','glycerol_stock','plasmid','agro_strain','dna_prep'], dir: 'stocks', defaultType: 'seed' },
+    people:    { label: 'People', icon: 'person', color: '#1565c0', subtypes: ['person'], dir: 'people', defaultType: 'person' },
+    protocols: { label: 'Protocols', icon: 'menu_book', color: '#6a1b9a', subtypes: ['protocol'], dir: null, defaultType: 'protocol' },
+    projects:  { label: 'Projects', icon: 'folder_special', color: '#e65100', subtypes: ['project'], dir: 'projects', defaultType: 'project' },
+  };
+
+  // ── Insert Link Modal ──
+  var linkModalEl = null;
+  var linkModalEditor = null;
+  var linkModalCategory = null;
+  var linkModalIndex = null;
+
+  function createLinkModal() {
+    if (linkModalEl) return linkModalEl;
+    linkModalEl = document.createElement('div');
+    linkModalEl.className = 'em-overlay';
+    linkModalEl.id = 'em-link-modal';
+    linkModalEl.innerHTML =
+      '<div class="em-modal" style="max-width:560px">' +
+        '<div class="em-modal-header">' +
+          '<h2>Insert Object Link</h2>' +
+          '<button class="modal-close" onclick="document.getElementById(\'em-link-modal\').classList.remove(\'open\')"><span class="material-icons-outlined">close</span></button>' +
+        '</div>' +
+        '<div class="em-modal-body" style="padding:0">' +
+          '<div style="padding:12px 20px;border-bottom:1px solid var(--grey-200)">' +
+            '<input type="text" id="em-link-search" placeholder="Search..." style="width:100%;padding:9px 12px;border:1px solid var(--grey-300);border-radius:var(--radius);font-family:inherit;font-size:14px;outline:none">' +
+          '</div>' +
+          '<div id="em-link-cats" style="display:flex;gap:6px;padding:12px 20px;flex-wrap:wrap"></div>' +
+          '<div id="em-link-list" style="max-height:300px;overflow-y:auto;padding:0 20px 16px"></div>' +
+          '<div id="em-link-create" style="display:none;padding:8px 20px 16px;border-top:1px solid var(--grey-200)">' +
+            '<button class="btn btn-primary btn-sm" onclick="Lab.editorModal._createAndInsert()">Create "<span id="em-link-create-name"></span>" and insert</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    linkModalEl.addEventListener('click', function(e) { if (e.target === linkModalEl) linkModalEl.classList.remove('open'); });
+    document.body.appendChild(linkModalEl);
+
+    document.getElementById('em-link-search').addEventListener('input', filterLinkItems);
+
+    return linkModalEl;
+  }
+
+  function openLinkModal(editor) {
+    linkModalEditor = editor;
+    createLinkModal();
+
+    // Load index
+    window.Lab.gh.fetchObjectIndex().then(function(idx) {
+      linkModalIndex = idx;
+      linkModalCategory = null;
+      renderLinkCategories();
+      document.getElementById('em-link-search').value = '';
+      document.getElementById('em-link-list').innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">Select a category above</div>';
+      document.getElementById('em-link-create').style.display = 'none';
+      linkModalEl.classList.add('open');
+      setTimeout(function() { document.getElementById('em-link-search').focus(); }, 100);
+    });
+  }
+
+  function renderLinkCategories() {
+    var el = document.getElementById('em-link-cats');
+    el.innerHTML = Object.keys(OBJECT_TYPES).map(function(key) {
+      var cfg = OBJECT_TYPES[key];
+      var isActive = linkModalCategory === key;
+      return '<button style="display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid ' + (isActive ? cfg.color : 'var(--grey-300)') + ';background:' + (isActive ? cfg.color + '15' : '#fff') + ';color:' + (isActive ? cfg.color : 'var(--grey-700)') + ';font-size:13px;font-weight:500;cursor:pointer;font-family:inherit" onclick="Lab.editorModal._selectCat(\'' + key + '\')">' +
+        '<span class="material-icons-outlined" style="font-size:16px">' + cfg.icon + '</span>' + cfg.label + '</button>';
+    }).join('');
+  }
+
+  function selectLinkCategory(key) {
+    linkModalCategory = key;
+    renderLinkCategories();
+    document.getElementById('em-link-search').value = '';
+    filterLinkItems();
+  }
+
+  function filterLinkItems() {
+    if (!linkModalCategory || !linkModalIndex) return;
+    var q = (document.getElementById('em-link-search').value || '').toLowerCase().trim();
+    var cfg = OBJECT_TYPES[linkModalCategory];
+    var items = linkModalIndex.filter(function(obj) { return cfg.subtypes.indexOf(obj.type) !== -1; });
+    if (q) {
+      items = items.filter(function(obj) {
+        return (obj.title || '').toLowerCase().includes(q) || (obj.type || '').toLowerCase().includes(q) || (obj.location || '').toLowerCase().includes(q);
+      });
+    }
+
+    var list = document.getElementById('em-link-list');
+    if (!items.length) {
+      list.innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">No items found</div>';
+    } else {
+      var esc = window.Lab.escHtml;
+      list.innerHTML = items.map(function(obj) {
+        var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+        var meta = [obj.type || ''];
+        if (obj.location) meta.push(obj.location);
+        if (obj.quantity != null && obj.unit) meta.push(obj.quantity + ' ' + obj.unit);
+        if (obj.role) meta.push(obj.role);
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--grey-100);cursor:pointer;border-radius:4px" onmouseover="this.style.background=\'var(--grey-50)\'" onmouseout="this.style.background=\'\'" onclick="Lab.editorModal._insertLink(\'' + esc(slug) + '\',\'' + esc(obj.title || slug) + '\')">' +
+          '<span class="material-icons-outlined" style="font-size:20px;color:' + cfg.color + '">' + cfg.icon + '</span>' +
+          '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">' + esc(obj.title || slug) + '</div>' +
+          '<div style="font-size:12px;color:var(--grey-500)">' + meta.map(esc).join(' \u00B7 ') + '</div></div></div>';
+      }).join('');
+    }
+
+    // Show "create new" option
+    var createEl = document.getElementById('em-link-create');
+    if (q && cfg.dir && !items.some(function(obj) { return (obj.title || '').toLowerCase() === q; })) {
+      document.getElementById('em-link-create-name').textContent = document.getElementById('em-link-search').value.trim();
+      createEl.style.display = '';
+    } else {
+      createEl.style.display = 'none';
+    }
+  }
+
+  function insertLink(slug, title) {
+    if (!linkModalEditor) return;
+    linkModalEditor.changeMode('markdown');
+    linkModalEditor.replaceSelection('[[' + slug + ']]');
+    linkModalEditor.changeMode('wysiwyg');
+    linkModalEl.classList.remove('open');
+    window.Lab.showToast('Linked: ' + title, 'success');
+  }
+
+  async function createAndInsertLink() {
+    var name = document.getElementById('em-link-search').value.trim();
+    if (!name || !linkModalCategory) return;
+    var cfg = OBJECT_TYPES[linkModalCategory];
+    if (!cfg || !cfg.dir) return;
+
+    var slug = window.Lab.slugify(name);
+    var path = 'docs/' + cfg.dir + '/' + slug + '.md';
+    var content = '---\ntype: ' + cfg.defaultType + '\ntitle: "' + name + '"\n---\n\n# ' + name + '\n';
+
+    try {
+      await window.Lab.gh.saveFile(path, content, null, 'Add ' + cfg.defaultType + ': ' + name);
+      window.Lab.gh.clearObjectIndexCache();
+      insertLink(slug, name);
+      window.Lab.showToast('Created: ' + name, 'success');
+    } catch(e) {
+      window.Lab.showToast('Failed: ' + e.message, 'error');
+    }
+  }
+
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
 
-    // Debug: log what we're passing to the editor
-    console.log('[editor-modal] initFullpage called');
-    console.log('[editor-modal] content length:', content ? content.length : 'NULL/UNDEFINED');
-    console.log('[editor-modal] content preview:', content ? content.substring(0, 200) : 'EMPTY');
-    console.log('[editor-modal] container:', containerEl, 'dimensions:', containerEl.offsetWidth, 'x', containerEl.offsetHeight);
-
     // Calculate height: fill available space (viewport minus nav + edit bar)
     var rect = containerEl.getBoundingClientRect();
     var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
-    console.log('[editor-modal] calculated height:', availableHeight);
 
     var editor = new toastui.Editor({
       el: containerEl,
@@ -505,7 +646,29 @@
           text: '\u21AA', style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
           command: 'redo'
         }],
+        [{
+          name: 'insertObjectLink', tooltip: 'Insert Object Link',
+          className: 'toastui-editor-toolbar-icons',
+          text: '\uD83D\uDD17 Link',
+          style: { backgroundImage: 'none', fontSize: '13px', width: 'auto', paddingLeft: '8px', paddingRight: '8px' },
+          command: 'insertObjectLink'
+        }],
       ],
+      customHTMLRenderer: {
+        // Render [[wikilinks]] as styled spans in WYSIWYG preview
+        text: function(node) {
+          var text = node.literal || '';
+          // Match [[slug]] or [[slug|label]] patterns
+          if (text.match(/\[\[.+?\]\]/)) {
+            var html = text.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, function(m, target, label) {
+              var display = label || target;
+              return '<span style="background:#6a1b9a;color:#fff;padding:1px 8px 1px 5px;border-radius:16px;font-size:13px;font-weight:500">\uD83D\uDD17 ' + display + '</span>';
+            });
+            return { type: 'html', content: html };
+          }
+          return null; // default rendering
+        }
+      },
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
@@ -513,13 +676,16 @@
       }
     });
 
-    // Handle undo/redo button clicks
+    // Handle toolbar button clicks
     containerEl.addEventListener('click', function(e) {
       var btn = e.target.closest('.toastui-editor-toolbar-icons');
       if (!btn) return;
       var label = btn.getAttribute('aria-label') || '';
       if (label.includes('Undo')) document.execCommand('undo');
       else if (label.includes('Redo')) document.execCommand('redo');
+      if (label.includes('Insert Object Link') || btn.textContent.includes('Link')) {
+        openLinkModal(editor);
+      }
     });
 
     return {
@@ -547,5 +713,9 @@
     renderMarkdown: renderMarkdown,
     SCHEMAS: SCHEMAS,
     getSchema: getSchema,
+    // Expose for onclick handlers in link modal HTML
+    _selectCat: selectLinkCategory,
+    _insertLink: insertLink,
+    _createAndInsert: createAndInsertLink,
   };
 })();
