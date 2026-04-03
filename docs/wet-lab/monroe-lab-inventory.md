@@ -1,18 +1,27 @@
 # Monroe Lab Inventory
 
-**Purpose:** Quick reference for checking reagent availability.
+**Purpose:** Quick reference for checking reagent availability. Edit directly in the spreadsheet below.
 
 ---
 
-## Google Drive Links
+## Reagent & Supply Inventory
 
-- [Monroe lab inventory](https://docs.google.com/spreadsheets/d/1wnnw--aDWpEEF8Cx5MNNoEknlm02BNX8bAhZlSkKnxQ) — master reagent/supply inventory
-- [Monroe Lab Master Sample Tracker](https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI) — sample tracking
-- [Lab samples master sheet](https://docs.google.com/spreadsheets/d/1NRBulm9eYb63kcIAyNj_7jZO4164-gbmH8S7UmkhDWE)
+<iframe src="https://docs.google.com/spreadsheets/d/1wnnw--aDWpEEF8Cx5MNNoEknlm02BNX8bAhZlSkKnxQ/edit?usp=sharing&rm=minimal" width="100%" height="600" frameborder="0"></iframe>
+
+## Sample Tracker
+
+<iframe src="https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/edit?usp=sharing&rm=minimal" width="100%" height="600" frameborder="0"></iframe>
+
+## Lab Samples Master Sheet
+
+<iframe src="https://docs.google.com/spreadsheets/d/1NRBulm9eYb63kcIAyNj_7jZO4164-gbmH8S7UmkhDWE/edit?usp=sharing&rm=minimal" width="100%" height="600" frameborder="0"></iframe>
+
+---
 
 ## Reagents needed for Module 1 (planting + crossing)
 
 Check inventory for:
+
 - [ ] MS basal salt mixture
 - [ ] MES buffer
 - [ ] TC Agar (A175)
