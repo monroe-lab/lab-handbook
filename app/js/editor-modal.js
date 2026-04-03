@@ -400,7 +400,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = currentEditor.getMarkdown();
+      currentState.body = currentEditor.getMarkdown(); // TODO: add wikilink restore for popup editor
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -807,6 +807,26 @@
     });
   }
 
+  // Restore wikilink pills to [[slug]] text before getMarkdown()
+  // Without this, getMarkdown() outputs "📖 Title" instead of "[[slug]]"
+  function restoreWikilinksInDom(containerEl) {
+    var pills = containerEl.querySelectorAll('.wk-pill[data-raw]');
+    pills.forEach(function(span) {
+      var raw = span.getAttribute('data-raw');
+      var textNode = document.createTextNode(raw);
+      span.parentNode.replaceChild(textNode, span);
+    });
+  }
+
+  function getMarkdownClean(editor, containerEl) {
+    // Restore wikilink pills to raw [[slug]] before getMarkdown extracts text
+    restoreWikilinksInDom(containerEl);
+    var md = editor.getMarkdown();
+    // Re-style wikilinks after extraction
+    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 50);
+    return md;
+  }
+
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
@@ -847,11 +867,11 @@
 
     return {
       editor: editor,
-      getMarkdown: function() { return editor.getMarkdown(); },
+      getMarkdown: function() { return getMarkdownClean(editor, containerEl); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = editor.getMarkdown();
+        var md = getMarkdownClean(editor, containerEl);
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
