@@ -22,7 +22,7 @@ Library Prep for PacBio Sequencing
 
 - First bead cleanup step - used the 96-well magnet and added SMRTbeads directly to the plate used for shearing
 
-- Next time, recommend NOT using this method as it is difficult to see supernatant or ethanol left behind during discard and wash steps + balancing centrifuge;
+- Next time, recommend NOT using this method as it is difficult to see supernatant or ethanol left behind during discard and wash steps + balancing [[centrifuge]];
 - Instead transfer all 300ul of the pipet-sheared DNA samples to new lo-bind 1.5ml tubes, then add 1X volume of beads
 
 - Use 1ml 80% ethanol during wash steps

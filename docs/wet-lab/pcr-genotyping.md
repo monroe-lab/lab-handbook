@@ -16,7 +16,7 @@ title: "PCR Genotyping"
 ```
 |████████| Set up master mix on ice              10 min
 |████████| Aliquot into tubes, add template      10 min
-|████| Load thermocycler, start program           2 min
+|████| Load [[thermocycler]], start program           2 min
 |░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| Thermocycler running  70-90 min (walk away)
 |████| Transfer to gel                            5 min
 ```

@@ -44,8 +44,8 @@ Materials
 
 Preparation
 
-- Go chat with Anna to ask if there is any other user working on bioruptor
-- Chill the centrifuge, 50 ml rotor, 1.5 ml rotor
+- Go chat with Anna to ask if there is any other user working on [[bioruptor]]
+- Chill the [[centrifuge]], 50 ml rotor, 1.5 ml rotor
 - Chill the bioruptor (takes 20 min)
 - Aliquot 1.7 ml of 2 M Glycine to 2 ml tubes x sample
 - Mix the following and bring it to room temperature.

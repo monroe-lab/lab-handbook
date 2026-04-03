@@ -26,7 +26,7 @@ title: "Planting Arabidopsis in Soil"
 4. Mist lightly with spray bottle
 5. Cover with humidity dome
 6. Place in **4 C** for 2 days (stratification — can skip if seeds were already stratified in tubes)
-7. Move to growth chamber or [[controlled-environment-facility|CEF]]
+7. Move to [[growth-chamber]] or [[controlled-environment-facility|CEF]]
    - Long day: 16h light / 8h dark
    - 22 C
 8. Remove humidity dome after **3-5 days** (once cotyledons are up)

@@ -17,7 +17,7 @@ Solutions needed
 | --- | --- |
 | Tris pH8 1M | 1 ml |
 | EDTA 0.5M | 200ul |
-| Fill up with water, then autoclave | |
+| Fill up with water, then [[autoclave]] | |
 ·           NaCl-PEG solution
 
 | What | Amount for 250ml | Amount for 50ml |

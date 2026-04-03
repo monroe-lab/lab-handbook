@@ -57,7 +57,7 @@ Sample Prep
 
 OR
 
-- Scale up to 15ml reactions, using 1 - 1.5 g of tissue ground in LN with mortar and pestle.
+- Scale up to 15ml reactions, using 1 - 1.5 g of tissue ground in LN with [[mortar-and-pestle]].
 
 - The paper recommends freezing tubes containing fresh tissue and beads at -80C in addition to flash-freezing in LN before grinding.
 
@@ -95,7 +95,7 @@ Variation 2 Add BOTH BME and sodium metabisulfite at 1% w/v or v/v
 
 3. Vortex samples well (3-5s) to ensure the powdered material is fully suspended.
 
-4. Centrifuge at \*2,500 - 5000 xg for 5 minutes at RT
+4. [[centrifuge]] at \*2,500 - 5000 xg for 5 minutes at RT
 
 - \*Test higher centrifugation speeds (up to 7000 xg)
 
@@ -133,7 +133,7 @@ Pre-warm buffer at 65̊C (modification: 45̊C?) to dissolve PVP.
 3. Cool samples to RT for five minutes.
 4. Add a volume of CI (approx equal to lysis buffer) to each sample tube and mix by inverting the tube 20-25 times.
 
-Optional: incubate for 10 minutes at 20rpm (on hula mixer)
+Optional: incubate for 10 minutes at 20rpm (on [[hula-mixer]])
 
 5. Centrifuge samples at \*2,500 - 5000 x g for 10 minutes at RT.
 
@@ -287,7 +287,7 @@ The sorbitol and CTAB buffer bases may be stored at 4 ̊C, for up to six months.
 1. Grind tissue
 
 - 2 x 6.35mm beads
-- 213 rpm for 60 seconds on automill
+- 213 rpm for 60 seconds on [[automill]]
 
 2. Remove beads and immediately add 1.2 ml of sorbitol wash buffer to the sample and resuspend completely using a wide-bore tip. Transfer the homogenized solution into a new 2ml tube
 
@@ -310,7 +310,7 @@ High Salt CTAB Lysis
 | PVP-40 |  | 1% (w/v) | 0.1 g |
 | Na2S2O5  (Sodium Metabisulfite) |  | 1% (w/v) | 0.1 g |
 | dH2O |  |  | Up to 10 ml |
-| Notes:   - Pre-warm the CTAB buffer at 45 - 55̊C to dissolve PVP. - Pre-warm the thermomixer to 45 ̊C - Make sure the CI is at room temperature. - Take SPRI beads out of the fridge so they are at room temperature for the next step. |
+| Notes:   - Pre-warm the CTAB buffer at 45 - 55̊C to dissolve PVP. - Pre-warm the [[thermomixer]] to 45 ̊C - Make sure the CI is at room temperature. - Take SPRI beads out of the fridge so they are at room temperature for the next step. |
 | --- |
 1. Add 700ul of pre-warmed CTAB lysis buffer to sample tubes and resuspend the samples by inverting the tube 20 times.
 
@@ -348,7 +348,7 @@ To prepare the solution of 0.4% SeraMag Beads:
 0.4% solution of SeraMag SpeedBeads® Carboxyl Magnetic Beads (#65152105050250, Fisher  Scientific) prepared  as  in Schalamun et al. (2019)
 
 1. First combine only Water, Tris-HCl, EDTA and NaCl in a 50 mL tube.
-2. Vortex Sera-Mag SpeedBeads (GE Healthcare, 65152105050250) very well and pipette 40 μl into a 1.5 ml tube, put it on the magnetic rack and wait until solution has cleared up and all beads have bound to the back of the tube
+2. Vortex Sera-Mag SpeedBeads (GE Healthcare, 65152105050250) very well and pipette 40 μl into a 1.5 ml tube, put it on the [[magnetic-rack]] and wait until solution has cleared up and all beads have bound to the back of the tube
 3. Wash beads by removing supernatant and adding 1.5 ml milliQ water
 4. Take tube of the magnet, mix well, spin down in a microcentrifuge and put back on the magnet
 5. Wait for beads to assemble at the back of the tube
@@ -379,7 +379,7 @@ To prepare the solution of 0.4% SeraMag Beads:
 
 - To allow HMW DNA to homogenize in solution
 
-9. Measure the concentration on Qubit BR and Nanodrop.
+9. Measure the concentration on Qubit BR and [[nanodrop]].
 
 Inglis et al. PLOS 2018 Protocol
 

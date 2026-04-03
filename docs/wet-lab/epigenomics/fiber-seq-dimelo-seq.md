@@ -180,7 +180,7 @@ Add 1.5 µL 32 mM SAM and 2 µL Hia5 to each reaction. The final reaction volume
 
 => 0.67ul of Hia5 stock to 20ul, but reaction only lasts 10 minutes
 
-Pipette gently to mix. Incubate reaction for 10 min at 25°C. We recommend using a thermocycler for this incubation for optimal labeling efficiency.
+Pipette gently to mix. Incubate reaction for 10 min at 25°C. We recommend using a [[thermocycler]] for this incubation for optimal labeling efficiency.
 
 After 10 min at 25°C, stop the reaction by adding 6 µL 10% SDS. Vortex to mix.
 
@@ -399,7 +399,7 @@ Right: B1 and B2 nuclei isolates using the default CUT&Tag nuclei isolation prot
 
 Nuclei from A1, A2, B1, B2 combined, pelleted and resuspended in “ ul” reaction buffer.
 
-Notice that the volume is much larger than target/as written in the protocol, as the nuclei pellet size is much larger …… ….many doubts that the CellDrop is under-counting the nuclei.
+Notice that the volume is much larger than target/as written in the protocol, as the nuclei pellet size is much larger …… ….many doubts that the [[celldrop]] is under-counting the nuclei.
 
 NEED TO [OPTIMIZE NUCLEI COUNTING](https://docs.google.com/document/d/1SCxOD0IBdeam4WwZuZ5zC7UfyPRE-9toy1YDwB1vjkY/edit?usp=sharing).
 
@@ -407,7 +407,7 @@ Concentration and 260/280 are ok; however there is a very low 260/230 value → 
 
 Qubit BR concentration:
 
-Nanodrop:
+[[nanodrop]]:
 
 - The protocol / advice is counter-intuitive; says to invert the columns with gDNA wash buffer, yet it says to avoid splashing mixture into upper cap area
 
@@ -515,7 +515,7 @@ Issues with DNA purity using NEB gDNA spin kits:
 - Either:
 
 1. Test a different extraction protocol (e.g. CTAB)
-2. After lysing the nuclei, centrifuge to separate supernatant (containing DNA) and nuclei pellet, then add to spin columns. (similar to CUT&RUN? But it depends on centrifuge speed + duration.)
+2. After lysing the nuclei, [[centrifuge]] to separate supernatant (containing DNA) and nuclei pellet, then add to spin columns. (similar to CUT&RUN? But it depends on centrifuge speed + duration.)
 
 ---
 

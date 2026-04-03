@@ -26,7 +26,7 @@ Note: If you have issues with accessing  [UC Laboratory Safety Fundamentals](ht
 
 2. In-person training
 
-- Please contact Kehan Zhao ([kehzhao@ucdavis.edu](mailto:kehzhao@ucdavis.edu)) to schedule an in-person training
+- Please contact [[kehan-zhao]] ([kehzhao@ucdavis.edu](mailto:kehzhao@ucdavis.edu)) to schedule an in-person training
 
 3. Useful resources for lab safety
 

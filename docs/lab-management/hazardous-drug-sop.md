@@ -17,11 +17,11 @@ This SOP is intended to address the use of Hazardous Drugs in research settings.
 
 | Date SOP Written: | | 11/8/24 | |  | Approval Date: | | | 11/8/24 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SOP Prepared by: | | Kehan Zhao | | | | | | |
+| SOP Prepared by: | | [[kehan-zhao]] | | | | | | |
 | CLSC SOP Task Force | | | | | | |
 | SOP Reviewed and Approved by (name/signature): | | | | Kehan Zhao | | | | |
 | Department: | | Plant Sciences | | | |
-| Principal Investigator/ Laboratory Supervisor: | | Grey Monroe | | | | Phone: | 279-222-8881 | | |
+| Principal Investigator/ Laboratory Supervisor: | | [[grey-monroe]] | | | | Phone: | 279-222-8881 | | |
 | Lab Manager/  Safety Coordinator: | | Kehan Zhao | | | | Phone: | 530-220-0184 | | |
 | Emergency Contact(s): | | Grey Monroe | | | | Phone: | 279-222-8881 | | |
 |  | |  | | | |  |  | | |
@@ -82,7 +82,7 @@ Our lab contains: [[mitomycin-c]], [[cis-diamineplatinum-ii-dichloride]] and Par
 
 3. ENGINEERING/VENTILATION CONTROLS
 
-Open handling of Category 3 Hazardous Drugs in powder form outside of ventilation control must be strictly limited; open handling of Category 4 Hazardous Drugs in powder form outside of ventilation control is not permitted. Preparations should be conducted inside a glove box or powders weigh hood (also known as a ventilated balance enclosure or VBE). If a glove box or powders weigh hood is not available, a fume hood or a Class I Biosafety Cabinet (BSC) may be sufficient if the ventilated engineering control exhaust is HEPA filtered or appropriately exhausted to the outside of the building.
+Open handling of Category 3 Hazardous Drugs in powder form outside of ventilation control must be strictly limited; open handling of Category 4 Hazardous Drugs in powder form outside of ventilation control is not permitted. Preparations should be conducted inside a glove box or powders weigh hood (also known as a ventilated balance enclosure or VBE). If a glove box or powders weigh hood is not available, a [[fume-hood]] or a Class I Biosafety Cabinet (BSC) may be sufficient if the ventilated engineering control exhaust is HEPA filtered or appropriately exhausted to the outside of the building.
 
 Ventilated containment should be used to weigh out solid chemicals (e.g., VBE, etc.).  Alternatively, the tare method can be used to prevent inhalation of the chemical: while working in a fume hood, the Hazardous Drug is added to a pre-weighed container. The container is then sealed and can be re-weighed outside of the fume hood. If material needs to be added or removed, this manipulation is carried out in the fume hood. In this manner, all open chemical handling is conducted under ventilation control.
 

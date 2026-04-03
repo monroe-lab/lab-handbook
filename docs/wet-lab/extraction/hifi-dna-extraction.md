@@ -35,7 +35,7 @@ Works for Arabidopsis (yields 1-4 µg in our lab). Also validated for species fr
 - 0.4% solution of SeraMag SpeedBeads® Carboxyl Magnetic Beads (#65152105050250, Fisher  Scientific) prepared  as  in Schalamun et al. (2019) 
 
 1. First combine only Water, Tris-HCl, EDTA and NaCl in a 50 mL tube.
-2. Vortex Sera-Mag SpeedBeads (GE Healthcare, 65152105050250) very well and pipette 40 μl into a 1.5 ml tube, put it on the magnetic rack and wait until solution has cleared up and all beads have bound to the back of the tube
+2. Vortex Sera-Mag SpeedBeads (GE Healthcare, 65152105050250) very well and pipette 40 μl into a 1.5 ml tube, put it on the [[magnetic-rack]] and wait until solution has cleared up and all beads have bound to the back of the tube
 3. Wash beads by removing supernatant and adding 1.5 ml milliQ water
 4. Take tube of the magnet, mix well, spin down in a microcentrifuge and put back on the magnet
 5. Wait for beads to assemble at the back of the tube
@@ -60,15 +60,15 @@ Works for Arabidopsis (yields 1-4 µg in our lab). Also validated for species fr
 #### Prepare
 
 - Pre-heat the Lysis buffer to 55 ℃ (dissolve PVP!)
-- Pre-warm the thermomixer to 55 ℃
-- Make sure the centrifuge is not chilled
+- Pre-warm the [[thermomixer]] to 55 ℃
+- Make sure the [[centrifuge]] is not chilled
 - Preheat EB buffer to 50℃
 - Move PCI (Phenol/Chloroform/Isoamyl alcohol) to room temperature (RT)
 - Identify the waste container in the chemical hood- waste solutions from the procedures 1 to 10 should be discarded in the appropriate container in the chemical hood.
 
 Procedures
 
-| ◻︎ | 1. | Grind the plant tissue in Automill to obtain fine powder. | 213 rpm x 60 sec for arabidopsis leaf |
+| ◻︎ | 1. | Grind the plant tissue in [[automill]] to obtain fine powder. | 213 rpm x 60 sec for arabidopsis leaf |
 | --- | --- | --- | --- |
 | ◻︎ | 2. | Remove beads, Add 600 µl of pre-warmed lysis buffer to the still frozen sample, vortex for 3-5 s, and incubate for 20 min at 400 rpm, 55 ℃ | Lysis. Deactivate DNases and remove polyphenols. |
 | ◻︎ | 3. | Add 20 µl of RNase (= 400 µg), and incubate for 10 min more at 55 ℃ |  |
@@ -87,12 +87,12 @@ Procedures
 | ◻︎ | 16. | Transfer the supernatant to a new 1.5 ml tube using wide-bore pipet tip. |  |
 | ◻︎ | 17. | Add 20 µl of Collibri beads, rotate at 10 rpm for 15 min at 37℃. Repeat Steps 12-16. | Arabidopsis needs this additional step. Other plants may not. |
 | ◻︎ | 18. | Leave the tube on your bench for overnight | To allow DNA to homogenize and relax |
-| ◻︎ | 19. | Measure the concentration on Qubit BR and nanodrop. |  |
+| ◻︎ | 19. | Measure the concentration on Qubit BR and [[nanodrop]]. |  |
 QC guideline:
 
 1. Concentration: For arabidopsis, I typically get 15~80 ng/µl in Qubit BR
 2. Compare Qubit & nanodrop: If nanodrop concentration is less than the double of Qubit concentration, the quality is good.
-3. FemtoPulse. $27/sample at genome center. Resolves 1 kb-200 kb range. Submit 2 µl in 0.5-1.5 ng/µl in EB or TE buffer.
+3. [[femtopulse]]. $27/sample at genome center. Resolves 1 kb-200 kb range. Submit 2 µl in 0.5-1.5 ng/µl in EB or TE buffer.
 4. Nanodrop A260/A230, A260/A280 over 1.7 is good, but don’t worry if it’s below 1.7- the first step of the library prep includes beads purification.
 
 ---

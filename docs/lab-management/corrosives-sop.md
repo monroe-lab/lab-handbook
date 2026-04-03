@@ -5,7 +5,7 @@ title: "Corrosives SOP"
 
 # Corrosives SOP
 
-**PI:** Grey Monroe (279-222-8881) | **Safety Coordinator:** Kehan Zhao (530-220-0184)
+**PI:** [[grey-monroe]] (279-222-8881) | **Safety Coordinator:** [[kehan-zhao]] (530-220-0184)
 **Location:** Robbins Hall, Room 170 | **Department:** Plant Sciences
 **Date Written:** December 1, 2025
 **Source:** [Google Drive](https://drive.google.com/file/d/1TJ_KycHsCeAKo-oxLR4CQ9h0YchdLdbS/view)
@@ -53,7 +53,7 @@ H318 [[2-mercaptoethanol]], [[calcium-nitrate-tetrahydrate]], [[cetrimonium-brom
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for all strong Corrosives:
 
-A.  All work should be done in a certified chemical fume hood;
+A.  All work should be done in a certified chemical [[fume-hood]];
 
 B.  Using Corrosives at elevated temperatures (*e.g.*, perchloric, nitric, piranha solution) requires facility-specific engineering/ventilation controls. Contact [chem-safety@ucdavis.edu](mailto:chem-safety@ucdavis.edu) for details; and
 

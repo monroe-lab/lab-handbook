@@ -200,6 +200,18 @@
     "legacy_inventory_id": 28
   },
   {
+    "path": "resources/autoclave.md",
+    "type": "equipment",
+    "title": "Autoclave",
+    "location": "Robbins Hall"
+  },
+  {
+    "path": "resources/automill.md",
+    "type": "equipment",
+    "title": "Automill",
+    "location": "Bench 3"
+  },
+  {
     "path": "resources/basic-fuchsin.md",
     "type": "reagent",
     "title": "Basic Fuchsin",
@@ -208,6 +220,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 29
+  },
+  {
+    "path": "resources/bioruptor.md",
+    "type": "equipment",
+    "title": "Bioruptor",
+    "location": "Bench 3"
   },
   {
     "path": "resources/bis-n-n-methylene-bis-acrylamide.md",
@@ -310,6 +328,18 @@
     "legacy_inventory_id": 39
   },
   {
+    "path": "resources/celldrop.md",
+    "type": "equipment",
+    "title": "CellDrop",
+    "location": "Bench 2"
+  },
+  {
+    "path": "resources/centrifuge.md",
+    "type": "equipment",
+    "title": "Centrifuge",
+    "location": "Bench 3"
+  },
+  {
     "path": "resources/cesium-chloride.md",
     "type": "reagent",
     "title": "Cesium chloride",
@@ -378,6 +408,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 43
+  },
+  {
+    "path": "resources/clean-bench.md",
+    "type": "equipment",
+    "title": "Clean Bench",
+    "location": "Room 170"
   },
   {
     "path": "resources/d-glucose.md",
@@ -540,6 +576,12 @@
     "legacy_inventory_id": 58
   },
   {
+    "path": "resources/femtopulse.md",
+    "type": "equipment",
+    "title": "FemtoPulse",
+    "location": "Genome Center"
+  },
+  {
     "path": "resources/ficoll-400.md",
     "type": "reagent",
     "title": "Ficoll 400",
@@ -580,6 +622,12 @@
     "legacy_inventory_id": 61
   },
   {
+    "path": "resources/fume-hood.md",
+    "type": "equipment",
+    "title": "Fume Hood",
+    "location": "Room 170"
+  },
+  {
     "path": "resources/gaseous-hydrochloric-acid.md",
     "type": "reagent",
     "title": "Gaseous hydrochloric acid",
@@ -588,6 +636,12 @@
     "unit": "mL",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 63
+  },
+  {
+    "path": "resources/gel-electrophoresis-tank.md",
+    "type": "equipment",
+    "title": "Gel Electrophoresis Tank",
+    "location": "Bench 1"
   },
   {
     "path": "resources/gentamicin-sulfate-salt.md",
@@ -660,6 +714,12 @@
     "legacy_inventory_id": 70
   },
   {
+    "path": "resources/growth-chamber.md",
+    "type": "equipment",
+    "title": "Growth Chamber",
+    "location": "Controlled Environment Facility"
+  },
+  {
     "path": "resources/guanidine-thiocyanate-2.md",
     "type": "reagent",
     "title": "Guanidine thiocyanate",
@@ -698,6 +758,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 74
+  },
+  {
+    "path": "resources/hula-mixer.md",
+    "type": "equipment",
+    "title": "Hula Mixer",
+    "location": "Bench 3"
   },
   {
     "path": "resources/hydrogen-peroxide-20-to-35-in-water.md",
@@ -900,6 +966,12 @@
     "legacy_inventory_id": 92
   },
   {
+    "path": "resources/magnetic-rack.md",
+    "type": "equipment",
+    "title": "Magnetic Rack",
+    "location": "Bench 2"
+  },
+  {
     "path": "resources/manganese-ii-chloride.md",
     "type": "reagent",
     "title": "Manganese(II) chloride",
@@ -970,6 +1042,12 @@
     "legacy_inventory_id": 8
   },
   {
+    "path": "resources/mortar-and-pestle.md",
+    "type": "equipment",
+    "title": "Mortar and Pestle",
+    "location": "Bench 3"
+  },
+  {
     "path": "resources/ms-basal-salt-mixture.md",
     "type": "reagent",
     "title": "MS Basal Salt Mixture",
@@ -980,6 +1058,12 @@
     "legacy_inventory_id": 1
   },
   {
+    "path": "resources/nanodrop.md",
+    "type": "equipment",
+    "title": "NanoDrop",
+    "location": "Bench 2"
+  },
+  {
     "path": "resources/peptones-casein-tryptone.md",
     "type": "reagent",
     "title": "Peptones, casein (Tryptone)",
@@ -988,6 +1072,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 98
+  },
+  {
+    "path": "resources/ph-meter.md",
+    "type": "equipment",
+    "title": "pH Meter",
+    "location": "Bench 1"
   },
   {
     "path": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1.md",
@@ -1138,6 +1228,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 111
+  },
+  {
+    "path": "resources/qubit-fluorometer.md",
+    "type": "equipment",
+    "title": "Qubit Fluorometer",
+    "location": "Bench 2"
   },
   {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
@@ -1400,6 +1496,18 @@
     "legacy_inventory_id": 137
   },
   {
+    "path": "resources/thermocycler.md",
+    "type": "equipment",
+    "title": "Thermocycler",
+    "location": "Bench 2"
+  },
+  {
+    "path": "resources/thermomixer.md",
+    "type": "equipment",
+    "title": "Thermomixer",
+    "location": "Bench 3"
+  },
+  {
     "path": "resources/trichloroacetic-acid.md",
     "type": "reagent",
     "title": "Trichloroacetic acid",
@@ -1460,6 +1568,12 @@
     "legacy_inventory_id": 142
   },
   {
+    "path": "resources/tube-rotator.md",
+    "type": "equipment",
+    "title": "Tube Rotator",
+    "location": "Bench 3"
+  },
+  {
     "path": "resources/tween-80.md",
     "type": "reagent",
     "title": "TWEEN 80",
@@ -1478,6 +1592,12 @@
     "unit": "g",
     "low_stock_threshold": 1,
     "legacy_inventory_id": 143
+  },
+  {
+    "path": "resources/uv-transilluminator.md",
+    "type": "equipment",
+    "title": "UV Transilluminator",
+    "location": "Bench 1"
   },
   {
     "path": "resources/yeast-extract.md",

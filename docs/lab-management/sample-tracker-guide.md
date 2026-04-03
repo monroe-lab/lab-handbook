@@ -26,7 +26,7 @@ The Sample Tracker is a single dashboard for every sequencing sample in the Monr
 | Column | What It Means | Example |
 |--------|--------------|---------|
 | **Sample ID** | Unique identifier for the sample. Use the naming convention for your project. | `R2_B4_C1`, `MA_founder_1` |
-| **Project** | Which research project this sample belongs to. | `PBTS`, `Pistachio Pangenome`, `MA Lines` |
+| **Project** | Which research project this sample belongs to. | `PBTS`, `[[pistachio-pangenome]]`, `MA Lines` |
 | **Species** | Full species name (genus + species). | `Pistacia vera`, `Arabidopsis thaliana` |
 | **Lead** | Who is responsible for this sample through the pipeline. | `Vianney Ahn / Matt Davis` |
 | **Sequencing Type** | What kind of sequencing this sample needs. | `HiFi`, `Illumina WGS`, `RNA-seq` |
@@ -91,7 +91,7 @@ Priority flags help with scheduling when multiple samples compete for bench time
 | Flag | Meaning | When to Use |
 |------|---------|-------------|
 | ⭐ **Priority** | High priority, process first. | Deadline-driven samples, time-sensitive experiments, samples Grey flags. |
-| 🌾 **Lots** | Large batch of similar samples. | Mutation accumulation lines, population samples, anything where you are processing many at once. |
+| 🌾 **Lots** | Large batch of similar samples. | [[mutation-accumulation]] lines, population samples, anything where you are processing many at once. |
 | 💎 **Rare** | Irreplaceable or hard-to-get material. | Unique genotypes, one-of-a-kind tissue, samples that cannot be re-collected. Handle with extra care. |
 
 Most samples will have no priority flag. That is fine. Only flag samples that genuinely need special attention.

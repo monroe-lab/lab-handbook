@@ -49,7 +49,7 @@ Antibody Buffer (1.5ml)
 - 1.5ml Wash Buffer
 - Chill on ice until use.
 
-Binding Buffer (10ml) - if using Concanavalin A beads instead of centrifuge
+Binding Buffer (10ml) - if using Concanavalin A beads instead of [[centrifuge]]
 
 - 200ul HEPES (1M, pH 7.5)
 - 100ul KCl (1M)
@@ -85,7 +85,7 @@ Pre-cool the centrifuge, rotors, mortar & pestle, filters, and buffers prior to 
 8. Repeat steps 6-8 if the pellet is still green. It should look white-gray.
 9. Discard supernatant and add 1 ml NPB buffer and resuspend gently using a cut tip. The nuclei will fall to the bottom of the tube.
 
-Count the nuclei on the CellDrop:
+Count the nuclei on the [[celldrop]]:
 
 1. Dilute aliquots of the sample to 1:4 and 1:8 in NPB or H2O. Add equal volume of AO/PI dye and proceed to quantitation. No need to incubate.
 2. When measuring the nuclei, make sure to adjust to the proper focus and avoid over-exposure.
@@ -109,7 +109,7 @@ CUT&Tag
 Con-A Bead Activation
 
 1. Fully resuspend Con-A beads (Epicypher CUTANA) by gently pipetting/vortexing. Transfer 11ul per reaction to 1.5ml tube. (10ul of the Con-A beads is sufficient for a single CUT&Tag reaction of up to 500,000 nuclei.)
-2. Place the tube on a magnetic rack and allow the slurry to clear. Remove the supernatant. Move quickly to the next step to avoid bead dry-out.
+2. Place the tube on a [[magnetic-rack]] and allow the slurry to clear. Remove the supernatant. Move quickly to the next step to avoid bead dry-out.
 3. Remove tube from the rack and immediately add 100ul per reaction cold Binding Buffer. Pipette to resuspend. Return tube to magnet to clear and remove supernatant.
 4. Repeat the previous step for a total of 2 washes.
 5. Resuspend the beads in 11ul per reaction cold binding buffer. Place on ice.
@@ -163,14 +163,14 @@ Tagmentation
 1. Centrifuge samples at 1200 xg for 4 min at 4°C.
 2. Remove the supernatant and wash the nuclei pellets with 800ul ice-cold Transposase Incubation Buffer. Centrifuge samples at 1200 xg for 4 min at 4°C. Repeat the wash step.
 3. Mix 300 μl Transposase Incubation Buffer and 3 μl MgCl2 together (=9.9mM) and resuspend the nuclei pellet.
-4. Incubate at 37°C at 500 rpm for 1h in the thermomixer.
+4. Incubate at 37°C at 500 rpm for 1h in the [[thermomixer]].
 
 STOP Tagmentation & DNA Extraction
 
 1. Immediately after 1 hour of tagmentation at 37C, to quench tagmentation, add 10ul EDTA (0.5M), 3ul SDS (10%) and 2.5ul Proteinase K (20mg/ml). Incubate at 55°C  for 1h at 650 rpm to stop tagmentation and release DNA.
 2. Spin phase-lock gel tubes at 16,000 xg for 2min at RT.
 
-In the fume hood.
+In the [[fume-hood]].
 
 3. To each sample, add an equal volume (~300ul) of phenol-[[chloroform]]-isoamyl alcohol (pH 7.9) to the tagmentation product. Vortex or pipette well until the solution becomes cloudy.
 4. Transfer the solution from step 3 to the centrifuged phase-lock gel tubes (optional: incubate (in the fume hood) for 10 minutes). It is okay that the solution separates during incubation.
@@ -194,7 +194,7 @@ Dual Index: [Indexed](https://docs.google.com/spreadsheets/d/1U34uvkJo34-2xFBt99
 
 Mix PCR reactions by pipetting. Flick/gently vortex tubes for a final mix and a quick spin.
 
-4. Follow the thermocycler protocol for CUT&Tag from the active motif kit. (CUT&Tag protocols recommend a non hot-start PCR)
+4. Follow the [[thermocycler]] protocol for CUT&Tag from the active motif kit. (CUT&Tag protocols recommend a non hot-start PCR)
 
 |  |  | 72C for 5 min |
 | --- | --- | --- |

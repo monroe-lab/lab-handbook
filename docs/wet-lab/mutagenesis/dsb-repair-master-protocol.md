@@ -41,7 +41,7 @@ Ligation of pEnChimera and Oligos
 4. Deactivate enzyme at 65C for 10min
 5. Chill on ice
 
-Gel Electrophoresis (Confirmation that Digestion and Ligation were successful)
+[[gel-electrophoresis]] (Confirmation that Digestion and Ligation were successful)
 
 1% Agar Gel
 

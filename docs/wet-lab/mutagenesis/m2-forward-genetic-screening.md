@@ -11,7 +11,7 @@ title: "M2 Forward Genetic Screening"
 
 ### Timeline
 
-Tuesday ; Seed sterilization, Prep MS media, Prep 0.3 % TC Agar solution
+Tuesday ; [[seed-sterilization]], Prep MS media, Prep 0.3 % TC Agar solution
 
 Thursday; X-ray irradiation, then plating of the seed
 
@@ -41,7 +41,7 @@ Materials
 Procedure
 
 - Collect the week’s sample seeds and place them on tube racks
-- If there are seeds sticking to the top part of the tube, tap or centrifuge to let them fall to the bottom
+- If there are seeds sticking to the top part of the tube, tap or [[centrifuge]] to let them fall to the bottom
 - Using pipet, add approx. 5 ml of sterilization solution to each tube. Careful not to overflow
 - Place the tubes on rotator, rotate for 10 min
 - Centrifuge at 500 g for a few seconds to pellet the seeds
@@ -49,7 +49,7 @@ Procedure
 - Using pipet, add approx. 5 ml of sterilization solution to each tube. Careful not to overflow
 - Place the tubes on rotator, rotate for 10 min
 - Centrifuge at 500 g for a few seconds to pellet the seeds
-- Take the tubes & racks to the clean bench[1]
+- Take the tubes & racks to the [[clean-bench]][1]
 - Pour out the sterilization solution. Careful not to pour out the seeds.
 
 - Pour in sterilized water. Careful not to overflow. Close the lid and mix (1st rinse)
@@ -66,7 +66,7 @@ See [Making MS plate and planting A.thliana seeds](https://docs.google.com/docum
 
 ### Make 0.3 %TC Agar (Tuesday)
 
-Add 0.3 g of TC Agar, 100 ml of water and stir bar to a flask and autoclave.
+Add 0.3 g of TC Agar, 100 ml of water and stir bar to a flask and [[autoclave]].
 
 ### Seed plating (Thursday)
 

@@ -57,7 +57,7 @@ The final volume of the assembled Tn5 is arbitrary. To start, for each tube of a
 
 x = 1.11ul of each primer to add
 
-2. Mix by pipette and incubate on a rotating platform (hula mixer) at RT for 1 hour.
+2. Mix by pipette and incubate on a rotating platform ([[hula-mixer]]) at RT for 1 hour.
 3. If needed, dilute to 1 μM in 1X Transposome Storage Buffer (store at RT).
 
 4. Store assembled transposase at -20C.
@@ -74,7 +74,7 @@ Tagmentation activity & efficiency assay:
 | 5X [[taps]] Buffer  (50mM TAPS-NaOH, 25mM MgCl2) | 5ul |
 | H2O | 20 - a - x |
 |  | 25 ul total rxn volume |
-2. Incubate at 55C x \*15-20 minutes at 650-700 rpm on the thermomixer.
+2. Incubate at 55C x \*15-20 minutes at 650-700 rpm on the [[thermomixer]].
 3. Add 2.22ul of 1% SDS (for final conc. 0.1%), and incubate additional 7 min x 55C.
 4. Clean tagmented samples with SPRI beads (1.8X = 36ul) to desalt/remove SDS. Elute DNA in 25ul EB buffer or H2O.
 5. QC: Run tagmented DNA on a gel or load 1-2ul on bioanalyzer to determine optimal volume of transposase for your reaction.
@@ -95,7 +95,7 @@ PCR Cycle Conditions
 | 15-20 cycles | 98C for 10s  63C for 10s |
 | Final Extension | 72C for 1 minute |
 | Hold | 10C |
-For more detailed instructions, refer to the [CUT&Tag protocol](https://docs.google.com/document/d/1rTRJISdgs6TK0SNbs5arAiXBsZ93d-MYPAy5G7-tHCo/edit?usp=sharing).
+For more detailed instructions, refer to the [[[cut-and-tag]]](https://docs.google.com/document/d/1rTRJISdgs6TK0SNbs5arAiXBsZ93d-MYPAy5G7-tHCo/edit?usp=sharing).
 
 7. Use 1.3X (32.5 ul) single-sided SPRI beads for library cleanup (retain >75bp fragments; to remove leftover adapters/primers).
 8. Use cold 80% ethanol for all bead-based cleanups; 2x washes.

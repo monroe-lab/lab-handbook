@@ -55,9 +55,9 @@ EB Buffer (pre-warm to 50°C)
 
 CTAB Protocol for Kalanchoe
 
-1. Grind 1 g -2 g (measure first into 15ml falcon tubes) of LN-frozen tissue to fine powder with a mortar and pestle.
+1. Grind 1 g -2 g (measure first into 15ml falcon tubes) of LN-frozen tissue to fine powder with a [[mortar-and-pestle]].
 2. Transfer tissue to 50 ml falcon tubes and immediately add 20 ml of pre-warmed lysis buffer and 150 μL of proteinase K (NextBio, Russia) to the samples and incubate at 60°C for at least 1 h.
-3. Add an equal volume of chloroform:isoamyl alcohol (24:1) and centrifuge at 4000 xg for 15 min to separate the phases.
+3. Add an equal volume of chloroform:isoamyl alcohol (24:1) and [[centrifuge]] at 4000 xg for 15 min to separate the phases.
 4. Transfer the upper aqueous layer (containing DNA) to fresh 50ml tubes. Note the volume transferred. Repeat step 2 with the new volume.
 5. Transfer the upper aqueous layer to (multiple) fresh 2 ml tubes equally (900 ul each). Add an equal volume of C:I to the tubes and centrifuge at 12000 xg for 5 min. Transfer the aqueous layers to fresh 2 ml tubes. Note the volume transferred. 
 6. Add 400 ul of 3M sodium acetate and equal volume (~700-800ul) of ice-cold isopropanol to precipitate the DNA. Invert to mix. Incubate at -20°C for 1h to overnight.
@@ -97,4 +97,4 @@ Mix well by pipetting up and down or flicking the tube. Do not vortex. Using a s
 5. Transfer the column to a clean 1.5 ml microfuge tube. Use care to ensure that the tip of the column does not touch the flow-through. If in doubt, re-spin for 1 minute.
 6. Add >= 6 μl  (20ul) of pre-warmed EB Buffer (50C) to the center of the matrix. Incubate column at RT for 5 minutes, and spin for 1 minute to elute.
 
-Measure DNA on Qubit and Nanodrop.
+Measure DNA on Qubit and [[nanodrop]].

@@ -31,11 +31,11 @@ Complete the following safety training modules and reviews:
 - Fundamentals of Lab Safety: [https://safetyservices.ucdavis.edu/training/laboratory-safety](https://safetyservices.ucdavis.edu/training/laboratory-safety)
 - Cryogen Safety: [https://safetyservices.ucdavis.edu/training/cryogen-safety](https://safetyservices.ucdavis.edu/training/cryogen-safety)
 - PPE Training: [https://safetyservices.ucdavis.edu/training/laboratory-ppe](https://safetyservices.ucdavis.edu/training/laboratory-ppe)
-- review Autoclave safety [https://safetyservices.ucdavis.edu/safetynet/effective-use-of-autoclaves](https://safetyservices.ucdavis.edu/safetynet/effective-use-of-autoclaves)
+- review [[autoclave]] safety [https://safetyservices.ucdavis.edu/safetynet/effective-use-of-autoclaves](https://safetyservices.ucdavis.edu/safetynet/effective-use-of-autoclaves)
 
 # Step 2: With Monroe Lab safety manager (Kehan)
 
-Coordinate with Kehan Zhao (slack message to get started) a time to complete the following:
+Coordinate with [[kehan-zhao]] (slack message to get started) a time to complete the following:
 
 - Lab safety orientation
 
@@ -65,7 +65,7 @@ Preparing for Lab Work
 - Request to join the lab [Drive folder](https://drive.google.com/drive/folders/172HNx8R4GK4cfva2nKRLJRCx0pBOT1Z6?usp=drive_link).
 - Create your own directory in [Personal](https://drive.google.com/drive/folders/1lPR-LzotIkQivAc8utQhxEeiT_NS_o7o?usp=drive_link) within the lab Drive folder.
 - Make a copy of the "[Monroe Lab Notebook Template](https://drive.google.com/open?id=1Vjn5N1T8zB-3a7Lh6QZHgP1lAaY1EcGXkVd1x0nRS7g&usp=drive_copy)" and place it in your personal folder.
-- Read and agree to the [Monroe Lab Guidelines](https://drive.google.com/open?id=1oHDIgRle9plBW09_y3BA0d11dXG_YkZQCgIixoXgFl0&usp=drive_copy).
+- Read and agree to the [[[lab-guidelines]]](https://drive.google.com/open?id=1oHDIgRle9plBW09_y3BA0d11dXG_YkZQCgIixoXgFl0&usp=drive_copy).
 - Make a copy of [Intention Setting for Lab Members](https://drive.google.com/open?id=1HwmXQwaKLUuplJb0jmnjpbQrtfnCU5mx9DMOz0cbQUQ&usp=drive_copy) and fill out for yourself, send to mentor & Grey on Slack.
 
 Additional Items

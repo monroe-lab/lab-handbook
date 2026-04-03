@@ -54,7 +54,7 @@ For most genotyping, **1.5% agarose** is the default.
   - Working solution lasts ~1 week before degrading
 - Gel tank (Mupid preferred for speed)
 - Power supply
-- UV transilluminator for imaging
+- [[uv-transilluminator]] for imaging
 
 ## Procedure
 

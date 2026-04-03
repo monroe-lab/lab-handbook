@@ -5,7 +5,7 @@ title: "Acutely Toxic Solids and Liquids SOP"
 
 # Acutely Toxic Solids and Liquids SOP
 
-**PI:** Grey Monroe (279-222-8881) | **Safety Coordinator:** Kehan Zhao (530-220-0184)
+**PI:** [[grey-monroe]] (279-222-8881) | **Safety Coordinator:** [[kehan-zhao]] (530-220-0184)
 **Location:** Robbins Hall, Room 170 | **Department:** Plant Sciences
 **Date Written:** December 1, 2025
 **Source:** [Google Drive](https://drive.google.com/file/d/1gFaNi4dOTaPEQ2ClZUZhRbttaLWfSEdK/view)
@@ -55,7 +55,7 @@ A.  Use containment devices (*e.g.,* chemical fume hoods, glove boxes, etc.) whe
 
 B.  Use high-efficiency particulate air (HEPA) filters, carbon filters, or scrubber systems with containment devices to protect effluent and vacuum lines, pumps, and the environment whenever feasible.
 
-C.  Ventilated containment should be used to weigh out solid chemicals (*e.g.,* certified laboratory chemical fume hood). Alternatively, the tare method can be used to prevent inhalation of the chemical. While working in a fume hood, the chemical is added to a pre-weighed container. The container is then sealed and can be re-weighed outside of the fume hood. If a chemical needs to be added or removed, this manipulation is carried out in the fume hood. In this manner, all open chemical handling is conducted in the fume hood.
+C.  Ventilated containment should be used to weigh out solid chemicals (*e.g.,* certified laboratory chemical [[fume-hood]]). Alternatively, the tare method can be used to prevent inhalation of the chemical. While working in a fume hood, the chemical is added to a pre-weighed container. The container is then sealed and can be re-weighed outside of the fume hood. If a chemical needs to be added or removed, this manipulation is carried out in the fume hood. In this manner, all open chemical handling is conducted in the fume hood.
 
 If you must use Acutely Toxic Materials without engineering or ventilation controls, you must contact the Chemical Hygiene Officer or [chem-safety@ucdavis.edu](mailto:chem-safety@ucdavis.edu) for an exposure assessment.
 

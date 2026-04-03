@@ -178,4 +178,4 @@ Example:
 
 ---
 
-See also: [Project directory structure](project-structure-on-farm.md), [Slurm basics](slurm_basics.md), [Slurm advanced](slurm-advanced.md), [Software & environments](farm-software-part4.md)
+See also: [Project directory structure](project-structure-on-farm.md), [[[slurm_basics]]](slurm_basics.md), [Slurm advanced](slurm-advanced.md), [Software & environments](farm-software-part4.md)

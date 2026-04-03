@@ -17,7 +17,7 @@ Protocol:
 1. Weigh 80–100 mg of fresh tissue and put two medium-sized beads into each 2ml [[microtube]], keep the tubes submerged in liquid nitrogen to prevent thawing, then grind the samples into a fine powder using a TissueLyser.
 2. Add 800 μL of Buffer AP1 (Lysis Buffer) and 10 μL of RNase A. Vortex vigorously and incubate for 20 minutes at 65°C. Invert the tube every 3–5 minutes during the incubation. (Note: The AP1 volume is adjusted to 800 µL to ensure sufficient lysis without over-diluting the reagents.)
 3. Add 260 μL of Buffer P3. Mix thoroughly by inverting the tube, then incubate for 10–15 minutes at room temperature (to precipitate polysaccharides and proteins).
-4. Centrifuge the lysate for 5 min at 20,000 x g (14,000 rpm).
+4. [[centrifuge]] the lysate for 5 min at 20,000 x g (14,000 rpm).
 5. Pipet the lysate into a QIAshredder spin column placed in a 2 ml collection tube (650 μL per spin). Centrifuge for 2 min at 20,000 x g. Repeat if there is remaining lysate.
 6. Carefully transfer the flow-through into a new tube without disturbing the pellet. Estimate or measure the exact volume of the flow-through.
 7. Add exactly 1.5 volumes of Buffer AW1 to the flow-through (Ideally you will add Buffer AW1 to the 2 mL line), and mix thoroughly by pipetting.

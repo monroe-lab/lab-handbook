@@ -5,7 +5,7 @@ title: "Flammable Solids SOP"
 
 # Flammable Solids SOP
 
-**PI:** Grey Monroe (279-222-8881) | **Safety Coordinator:** Kehan Zhao (530-220-0184)
+**PI:** [[grey-monroe]] (279-222-8881) | **Safety Coordinator:** [[kehan-zhao]] (530-220-0184)
 **Location:** Robbins Hall, Room 170 | **Department:** Plant Sciences
 **Date Written:** December 1, 2025
 **Source:** [Google Drive](https://drive.google.com/file/d/1tZAmfUPmS0hTzxuwONRYMWG6xmHZc0-C/view)
@@ -23,7 +23,7 @@ Our Lab contains:
 H228 [[activated-charcoal]], Sodium dodecyl sulfate
 
 ## ENGINEERING/VENTILATION CONTROLS
-Some flammable solids are quite fluffy and can be difficult to control and contain in a fume hood or ventilated enclosure. Careful assessment of the handling hazards in the protocol context will determine the need for ventilation controls.
+Some flammable solids are quite fluffy and can be difficult to control and contain in a [[fume-hood]] or ventilated enclosure. Careful assessment of the handling hazards in the protocol context will determine the need for ventilation controls.
 
 ## ADMINISTRATIVE CONTROLS
 The following elements are required:

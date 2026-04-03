@@ -7,13 +7,13 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 
 **Purpose:** Sterilize seeds, prepare MS agar plates, and sow seeds for germination under sterile conditions.
 
-**Source:** Adapted from Satoyo Oya's protocols on Google Drive ([Making MS plate and planting A.thliana seeds](https://docs.google.com/document/d/107eRSRvcNR1QXutD8OpxPUiafcXnMEGLFfiNlwrFDcQ), [Forward Genetic Screening](https://docs.google.com/document/d/1mn61xigAIb3mNqinvhqoZ8evXT8MCpY7s5X6ucObXFU), [Lily's M2 Fwd genetic screening protocol](https://docs.google.com/document/d/1YQmUc_6k04CSZKqEYtecOZi9G54wUs28ohaQ32FD6Rc))
+**Source:** Adapted from [[satoyo-oya]]'s protocols on Google Drive ([Making MS plate and planting A.thliana seeds](https://docs.google.com/document/d/107eRSRvcNR1QXutD8OpxPUiafcXnMEGLFfiNlwrFDcQ), [Forward Genetic Screening](https://docs.google.com/document/d/1mn61xigAIb3mNqinvhqoZ8evXT8MCpY7s5X6ucObXFU), [Lily's M2 Fwd genetic screening protocol](https://docs.google.com/document/d/1YQmUc_6k04CSZKqEYtecOZi9G54wUs28ohaQ32FD6Rc))
 
 **Timeline:** Start 2 days before you want seeds on plates (Day -2: sterilize + stratify, Day 0: plate).
 
 ## Time estimate
 
-**Total wall time:** 3 days (2 days stratification + 1 day plating)
+**Total wall time:** 3 days (2 days [[stratification]] + 1 day plating)
 **Total hands-on time:** ~2.5 hours across all days
 
 ### Day -2: Seed sterilization + stratification (~30 min hands-on)
@@ -29,7 +29,7 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 |████████| Weigh reagents, dissolve, pH   20 min
 |░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| Autoclave  60-90 min (walk away)
 |████| Wait for cooling                   15 min (nearby but idle)
-|████████| Pour plates in clean bench     20 min
+|████████| Pour plates in [[clean-bench]]     20 min
 |░░░░| Plates solidify                    20 min (walk away)
 ```
 
@@ -37,7 +37,7 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 ```
 |████| Set up clean bench, spray, arrange 10 min
 |████████| Plate seeds (4 genotypes)      20 min
-|████| Seal, label, move to growth chamber 5 min
+|████| Seal, label, move to [[growth-chamber]] 5 min
 ```
 
 **Key gaps you can use:** The autoclave step (60-90 min) and stratification (2 full days) are completely free time. The actual hands-on work is short bursts.
@@ -63,8 +63,8 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 - Magnetic stir bar
 - 1 mL pipette tips (for seed placement)
 - Surgical tape (Micropore) for sealing plates
-- Tube rotator (for seed sterilization)
-- pH meter or pH strips
+- [[tube-rotator]] (for seed sterilization)
+- [[ph-meter]] or pH strips
 
 ### Seeds for this project
 - **Col-0** (reference parent)

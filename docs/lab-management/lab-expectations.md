@@ -24,7 +24,7 @@ This document outlines essential best practices and expectations for working in 
 Proper waste disposal is paramount. Follow these guidelines for different types of waste:
 
 - Hazardous Waste: Dispose of all hazardous waste in the designated containers located in the chemical hood.
-- Transgenic Waste: Transgenic materials should be placed in the autoclave bag near the soil bench.
+- Transgenic Waste: Transgenic materials should be placed in the [[autoclave]] bag near the soil bench.
 - Tip Wafers: Used tip wafers are recyclable and should be placed in the recycling container.
 - General Solid Waste: All other solid waste that is not hazardous, transgenic, or recyclable goes into the general trash bin.
 

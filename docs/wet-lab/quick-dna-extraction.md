@@ -5,7 +5,7 @@ title: "Quick DNA Extraction for PCR (Buffer A Method)"
 
 # Quick DNA Extraction for PCR (Buffer A Method)
 
-**Purpose:** Crude/fast DNA extraction from Arabidopsis leaf tissue for PCR genotyping. Not for sequencing or other applications requiring pure DNA — just enough template for a PCR reaction.
+**Purpose:** Crude/fast DNA extraction from Arabidopsis leaf tissue for [[pcr-genotyping]]. Not for sequencing or other applications requiring pure DNA — just enough template for a PCR reaction.
 
 **Source:** [[Satoyo Oya]]'s Genotyping protocol ([Google Doc](https://docs.google.com/document/d/1Ntjr3jwrAEfu_PsRdqjOj0F_NCVHU1GqtIcL2dezXzI))
 
@@ -15,7 +15,7 @@ title: "Quick DNA Extraction for PCR (Buffer A Method)"
 
 ```
 |████████| Cut leaf tissue, place in Buffer A    5 min (1-2 min per 8 samples)
-|████| Load into thermocycler                    1 min
+|████| Load into [[thermocycler]]                    1 min
 |░░░░░░░░| Boil 95 C                             5 min (walk away)
 |████| Add TE, mix                               2 min
 ```

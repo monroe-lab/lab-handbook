@@ -7,7 +7,7 @@ title: "MS Media Recipe"
 
 **Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth.
 
-**Source:** Satoyo Oya's lab recipe; also in [Recipes doc](https://docs.google.com/document/d/1um8iG9L81WxicA_Ez5yNWPw1V0Uhwa0yoWsYKIMmloY)
+**Source:** [[satoyo-oya]]'s lab recipe; also in [Recipes doc](https://docs.google.com/document/d/1um8iG9L81WxicA_Ez5yNWPw1V0Uhwa0yoWsYKIMmloY)
 
 ***
 
@@ -33,7 +33,7 @@ title: "MS Media Recipe"
 
 ### Variants
 
-* **Standard (10 g sucrose + 8 g agar):** Softer plates, better for root growth and observation. Use when contamination risk is low (sterilization was thorough, working in clean bench).
+* **Standard (10 g sucrose + 8 g agar):** Softer plates, better for root growth and observation. Use when contamination risk is low (sterilization was thorough, working in [[clean-bench]]).
 * **Low-contamination (5 g sucrose + 9 g agar):** Firmer plates, less sugar starves fungal contaminants. Use when plating many seeds or if you've had contamination problems.
 * **Half-MS:** Some protocols use 2.2 g/L MS salt (half-strength). Common for root growth assays where full-strength nitrogen can inhibit lateral root formation. Not needed for basic germination.
 * **No-sucrose:** Forces seedlings to photosynthesize. Used for some physiological assays. Slower growth.
@@ -85,7 +85,7 @@ title: "MS Media Recipe"
 3. **Adjust pH to 5.8** with KOH:
     * Add \~100 uL of 5N KOH
     * Fine-adjust with 0.5N KOH (typically 150-300 uL)
-    * Check with pH meter or pH strips
+    * Check with [[ph-meter]] or pH strips
 4. Add agar and swirl (it won't fully dissolve until autoclaved — that's fine)
 5. Leave the magnetic stir bar in the flask
 6. Cover flask mouth loosely with foil

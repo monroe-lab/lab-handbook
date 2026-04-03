@@ -5,7 +5,7 @@ title: "Working Alone in the Laboratory SOP"
 
 # Working Alone in the Laboratory SOP
 
-**PI:** Grey Monroe (279-222-8881) | **Safety Coordinator:** Kehan Zhao (530-220-0184)
+**PI:** [[grey-monroe]] (279-222-8881) | **Safety Coordinator:** [[kehan-zhao]] (530-220-0184)
 **Location:** Robbins Hall, Room 170 | **Department:** Plant Sciences
 **Date Written:** December 1, 2025
 **Source:** [Google Drive](https://drive.google.com/file/d/1crt3ei3MLFNEeWZIeqNi_3-LNDZlF2xf/view)

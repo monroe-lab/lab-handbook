@@ -5,7 +5,7 @@ title: "Flammable Liquids SOP"
 
 # Flammable Liquids SOP
 
-**PI:** Grey Monroe (279-222-8881) | **Safety Coordinator:** Kehan Zhao (530-220-0184)
+**PI:** [[grey-monroe]] (279-222-8881) | **Safety Coordinator:** [[kehan-zhao]] (530-220-0184)
 **Location:** Robbins Hall, Room 170 | **Department:** Plant Sciences
 **Date Written:** December 1, 2025
 **Source:** [Google Drive](https://drive.google.com/file/d/1qwqUdyXD69Zsa8AgsAzJbWg_omGeOtV1/view)
@@ -51,9 +51,9 @@ H226 [[glacial-acetic-acid]], [[3-methylbutanol]], Aceto-Orcein Solution 2%
 H227 [[1-octanol]], [[diethyl-pyrocarbonate]], [[dimethyl-sulfoxide]], [[2-mercaptoethanol]], Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1, [[chloroform-isoamyl-alcohol-24-1]], [[formaldehyde-16-methanol-free-pfa]]
 
 ## ENGINEERING/VENTILATION CONTROLS
-**Chemical Fume Hood**
+**Chemical [[fume-hood]]**
 >
-Flammable liquids should be used in a certified chemical fume hood. Flammable liquids should not be used in reverse-flow laminar flow benches (*e.g.*, clean bench), recirculating biosafety cabinets, poorly-ventilated rooms, or near ignition sources.
+Flammable liquids should be used in a certified chemical fume hood. Flammable liquids should not be used in reverse-flow laminar flow benches (*e.g.*, [[clean-bench]]), recirculating biosafety cabinets, poorly-ventilated rooms, or near ignition sources.
 >
 **Flammable Liquid Storage Cabinets**
 >
