@@ -6,15 +6,15 @@ type: "protocol"
 
 *Created by Grey Monroe on 2026-04-03*
 
-new stuff
-testing new again
+new stuff testing new again
 
 lets test this
 
-<br>
-⚠️ **Variant title**Description here
-sdf
+??? variant "Variant title"
+    Description here
 
-ℹ️ **Note title**Description here
+??? note "Note title"
+    Description here
 
-💡 **Tip title**Description here
+??? tip "Tip title"
+    Description here
