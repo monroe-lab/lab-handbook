@@ -11,7 +11,6 @@ new stuff testing new again
 lets test this
 
 > ⚠️ **Variant title**
-> Description here
 
 > ℹ️ **Note title**
 > Description here
