@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Tracker - Monroe Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #009688;
+  --teal-dark: #00796b;
+  --teal-light: #e0f2f1;
+  --teal-50: #f0fdfb;
+  --red: #e53935;
+  --red-light: #ffebee;
+  --amber: #ff8f00;
+  --amber-light: #fff8e1;
+  --green: #4caf50;
+  --green-light: #e8f5e9;
+  --green-dark: #2e7d32;
+  --yellow: #f9a825;
+  --yellow-light: #fff9c4;
+  --yellow-dark: #f57f17;
+  --purple: #7b1fa2;
+  --purple-light: #f3e5f5;
+  --grey-50: #fafafa;
+  --grey-100: #f5f5f5;
+  --grey-200: #eeeeee;
+  --grey-300: #e0e0e0;
+  --grey-500: #9e9e9e;
+  --grey-700: #616161;
+  --grey-900: #212121;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--grey-100);
+  color: var(--grey-900);
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: var(--teal);
+  color: #fff;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header h1 .material-icons-outlined { font-size: 28px; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn-primary { background: #fff; color: var(--teal-dark); }
+.btn-primary:hover { background: var(--teal-light); }
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: var(--teal-dark); }
+.btn-outline { background: transparent; color: var(--grey-700); border: 1px solid var(--grey-300); }
+.btn-outline:hover { background: var(--grey-100); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #c62828; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn .material-icons-outlined { font-size: 18px; }
+
+/* Connection status */
+.conn-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,.8);
+}
+.conn-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #aaa;
+}
+.conn-dot.connected { background: #69f0ae; }
+
+/* Toolbar */
+.toolbar {
+  background: #fff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  padding: 9px 12px 9px 38px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.search-box input:focus { border-color: var(--teal); }
+.search-box .material-icons-outlined {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--grey-500);
+}
+.filter-select {
+  padding: 9px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+.filter-select:focus { border-color: var(--teal); }
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+.stat-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+.stat-card .material-icons-outlined {
+  font-size: 28px;
+  color: var(--teal);
+}
+.stat-card.stat-green .material-icons-outlined { color: var(--green); }
+.stat-card.stat-amber .material-icons-outlined { color: var(--amber); }
+.stat-card.stat-red .material-icons-outlined { color: var(--red); }
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 12px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .5px; }
+
+/* Table */
+.table-wrap {
+  padding: 0 24px 24px;
+}
+.table-container {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+thead { background: var(--grey-50); }
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-700);
+  border-bottom: 2px solid var(--grey-200);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+th:hover { color: var(--teal); }
+th .sort-arrow { font-size: 14px; vertical-align: middle; margin-left: 2px; }
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--grey-200);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: var(--teal-50); }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge-green { background: var(--green-light); color: var(--green-dark); }
+.badge-yellow { background: var(--yellow-light); color: var(--yellow-dark); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-grey { background: var(--grey-200); color: var(--grey-700); }
+.badge-project { background: var(--teal-light); color: var(--teal-dark); }
+.badge-lead { background: var(--grey-100); color: var(--grey-700); }
+
+/* Priority */
+.priority { font-size: 14px; }
+
+/* Detail link icon */
+.detail-link {
+  color: var(--teal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.detail-link:hover { color: var(--teal-dark); }
+.detail-link .material-icons-outlined { font-size: 20px; }
+
+/* Row actions */
+.row-actions {
+  display: flex;
+  gap: 4px;
+}
+.row-actions .btn {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--grey-500);
+}
+.row-actions .btn:hover { color: var(--teal); background: var(--teal-light); border-radius: 4px; }
+.row-actions .btn.del:hover { color: var(--red); background: var(--red-light); }
+
+/* Blocker text */
+.blocker-text {
+  font-size: 12px;
+  color: var(--amber);
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Notes cell */
+.notes-cell {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s;
+}
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform .2s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--grey-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h2 { font-size: 18px; }
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--grey-500);
+  padding: 4px;
+  border-radius: 4px;
+}
+.modal-close:hover { background: var(--grey-100); }
+.modal-body { padding: 24px; }
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--grey-200);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Form */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-700);
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal);
+}
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: var(--grey-900);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideIn .3s ease;
+}
+.toast.error { background: var(--red); }
+.toast.success { background: var(--teal-dark); }
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--grey-500);
+}
+.empty-state .material-icons-outlined { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 15px; }
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--grey-500);
+}
+.spinner {
+  display: inline-block;
+  width: 32px; height: 32px;
+  border: 3px solid var(--grey-200);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin-bottom: 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 16px; }
+  .toolbar { padding: 12px 16px; }
+  .stats { padding: 12px 16px; }
+  .table-wrap { padding: 0 16px 16px; }
+  td, th { padding: 10px 12px; font-size: 13px; }
+  .hide-mobile { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>
+    <span class="material-icons-outlined">biotech</span>
+    Sample Tracker
+  </h1>
+  <div class="header-actions">
+    <div class="conn-status">
+      <span class="conn-dot" id="connDot"></span>
+      <span id="connLabel">Not connected</span>
+    </div>
+    <button class="btn btn-primary" id="btnConnect" onclick="promptToken()">
+      <span class="material-icons-outlined">link</span>
+      Connect GitHub
+    </button>
+    <button class="btn btn-primary" onclick="openAddModal()">
+      <span class="material-icons-outlined">add</span>
+      Add Sample
+    </button>
+  </div>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="search-box">
+    <span class="material-icons-outlined">search</span>
+    <input type="text" id="searchInput" placeholder="Search samples..." oninput="renderTable()">
+  </div>
+  <select class="filter-select" id="filterProject" onchange="renderTable()">
+    <option value="">All Projects</option>
+  </select>
+  <select class="filter-select" id="filterStatus" onchange="renderTable()">
+    <option value="">All Statuses</option>
+  </select>
+  <select class="filter-select" id="filterSeqType" onchange="renderTable()">
+    <option value="">All Seq Types</option>
+  </select>
+  <select class="filter-select" id="filterLead" onchange="renderTable()">
+    <option value="">All Leads</option>
+  </select>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card">
+    <span class="material-icons-outlined">science</span>
+    <div>
+      <div class="stat-value" id="statTotal">-</div>
+      <div class="stat-label">Total Samples</div>
+    </div>
+  </div>
+  <div class="stat-card stat-amber">
+    <span class="material-icons-outlined">pending</span>
+    <div>
+      <div class="stat-value" id="statInProgress">-</div>
+      <div class="stat-label">In Progress</div>
+    </div>
+  </div>
+  <div class="stat-card stat-green">
+    <span class="material-icons-outlined">check_circle</span>
+    <div>
+      <div class="stat-value" id="statComplete">-</div>
+      <div class="stat-label">Complete</div>
+    </div>
+  </div>
+  <div class="stat-card stat-red">
+    <span class="material-icons-outlined">pause_circle</span>
+    <div>
+      <div class="stat-value" id="statOnHold">-</div>
+      <div class="stat-label">On Hold</div>
+    </div>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-wrap">
+  <div class="table-container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading samples...</p>
+    </div>
+    <table id="sampleTable" style="display:none">
+      <thead>
+        <tr>
+          <th onclick="setSort('sampleId')">Sample ID <span class="sort-arrow" id="sort-sampleId"></span></th>
+          <th onclick="setSort('project')">Project <span class="sort-arrow" id="sort-project"></span></th>
+          <th onclick="setSort('species')" class="hide-mobile">Species <span class="sort-arrow" id="sort-species"></span></th>
+          <th onclick="setSort('lead')" class="hide-mobile">Lead <span class="sort-arrow" id="sort-lead"></span></th>
+          <th onclick="setSort('sequencingType')">Seq Type <span class="sort-arrow" id="sort-sequencingType"></span></th>
+          <th onclick="setSort('status')">Status <span class="sort-arrow" id="sort-status"></span></th>
+          <th onclick="setSort('priority')">Pri <span class="sort-arrow" id="sort-priority"></span></th>
+          <th class="hide-mobile" onclick="setSort('currentBlocker')">Blocker <span class="sort-arrow" id="sort-currentBlocker"></span></th>
+          <th class="hide-mobile" onclick="setSort('notes')">Notes <span class="sort-arrow" id="sort-notes"></span></th>
+          <th>Link</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <span class="material-icons-outlined">search_off</span>
+      <p>No samples match your search.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="itemModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add Sample</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Sample ID *</label>
+        <input type="text" id="fSampleId" placeholder="e.g. R2_B4_C1">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Project *</label>
+          <input type="text" id="fProject" placeholder="e.g. PBTS">
+        </div>
+        <div class="form-group">
+          <label>Species</label>
+          <input type="text" id="fSpecies" placeholder="e.g. Pistacia vera">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Lead</label>
+          <input type="text" id="fLead" placeholder="e.g. Vianney Ahn">
+        </div>
+        <div class="form-group">
+          <label>Sequencing Type *</label>
+          <select id="fSeqType">
+            <option>HiFi</option>
+            <option>WGS</option>
+            <option>RNA-seq</option>
+            <option>EM-seq</option>
+            <option>Hi-C</option>
+            <option>Illumina WGS</option>
+            <option>CUT&Tag</option>
+            <option>CUT&RUN</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status *</label>
+          <select id="fStatus">
+            <option>Not yet received</option>
+            <option>Tissue available</option>
+            <option>Tissue collected</option>
+            <option>DNA extracted</option>
+            <option>Needs QC</option>
+            <option>QC passed</option>
+            <option>Shearing</option>
+            <option>Library prep</option>
+            <option>Ready to submit</option>
+            <option>Submitted</option>
+            <option>Sequencing in progress</option>
+            <option>Data received</option>
+            <option>Complete</option>
+            <option>On hold</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="fPriority">
+            <option value="">(none)</option>
+            <option value="⭐">⭐ Priority</option>
+            <option value="🌾">🌾 Lots</option>
+            <option value="💎">💎 Rare</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Current Blocker</label>
+        <input type="text" id="fBlocker" placeholder="e.g. Waiting for QC results">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="fNotes" placeholder="Optional notes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Detail Sheet Link</label>
+        <input type="url" id="fDetailLink" placeholder="https://docs.google.com/spreadsheets/d/...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-teal" id="btnSaveItem" onclick="saveItem()">Save Sample</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h2>Delete Sample</h2>
+      <button class="modal-close" onclick="closeDeleteModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <strong id="deleteName"></strong>? This will commit the change to the repository.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Token Modal -->
+<div class="modal-overlay" id="tokenModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h2>Connect to GitHub</h2>
+      <button class="modal-close" onclick="closeTokenModal()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom:16px;color:var(--grey-700);font-size:14px;">
+        Enter a GitHub Personal Access Token with <strong>repo</strong> scope to enable adding, editing, and deleting samples.
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Sample+Tracker" target="_blank" style="color:var(--teal)">Create one here</a>.
+      </p>
+      <div class="form-group">
+        <label>Personal Access Token</label>
+        <input type="password" id="fToken" placeholder="ghp_...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeTokenModal()">Cancel</button>
+      <button class="btn btn-teal" onclick="saveToken()">Connect</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// --- Config ---
+const REPO_API = 'https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/sample-tracker/samples.json';
+const BRANCH = 'main';
+
+// --- Status color mapping ---
+const STATUS_COLORS = {
+  'Complete': 'green',
+  'Data received': 'green',
+  'Submitted': 'green',
+  'Ready to submit': 'green',
+  'Sequencing in progress': 'green',
+  'Library prep': 'yellow',
+  'Shearing': 'yellow',
+  'QC passed': 'yellow',
+  'Needs QC': 'yellow',
+  'DNA extracted': 'purple',
+  'Tissue collected': 'purple',
+  'Tissue available': 'purple',
+  'On hold': 'red',
+  'Not yet received': 'grey',
+};
+
+// Pipeline order for sorting
+const STATUS_ORDER = [
+  'Not yet received', 'Tissue available', 'Tissue collected', 'DNA extracted',
+  'Needs QC', 'QC passed', 'Shearing', 'Library prep', 'Ready to submit',
+  'Submitted', 'Sequencing in progress', 'Data received', 'Complete', 'On hold'
+];
+
+// "In progress" statuses (not complete, not on hold, not not-yet-received)
+const IN_PROGRESS_STATUSES = new Set([
+  'Tissue available', 'Tissue collected', 'DNA extracted', 'Needs QC',
+  'QC passed', 'Shearing', 'Library prep', 'Ready to submit', 'Submitted',
+  'Sequencing in progress', 'Data received'
+]);
+
+// --- State ---
+let samples = [];
+let fileSha = null;
+let editingId = null;
+let deletingId = null;
+let sortCol = 'sampleId';
+let sortDir = 1;
+
+// --- Token management ---
+function getToken() { return localStorage.getItem('gh_sample_tracker_token') || ''; }
+
+function promptToken() {
+  document.getElementById('fToken').value = getToken();
+  document.getElementById('tokenModal').classList.add('open');
+}
+
+function closeTokenModal() {
+  document.getElementById('tokenModal').classList.remove('open');
+}
+
+function saveToken() {
+  const t = document.getElementById('fToken').value.trim();
+  if (!t) { toast('Please enter a token', 'error'); return; }
+  localStorage.setItem('gh_sample_tracker_token', t);
+  closeTokenModal();
+  updateConnStatus();
+  toast('Connected to GitHub', 'success');
+}
+
+function updateConnStatus() {
+  const connected = !!getToken();
+  document.getElementById('connDot').className = 'conn-dot' + (connected ? ' connected' : '');
+  document.getElementById('connLabel').textContent = connected ? 'Connected' : 'Not connected';
+  document.getElementById('btnConnect').innerHTML = connected
+    ? '<span class="material-icons-outlined">link_off</span> Disconnect'
+    : '<span class="material-icons-outlined">link</span> Connect GitHub';
+  document.getElementById('btnConnect').onclick = connected ? disconnect : promptToken;
+}
+
+function disconnect() {
+  localStorage.removeItem('gh_sample_tracker_token');
+  updateConnStatus();
+  toast('Disconnected from GitHub');
+}
+
+// --- Data loading ---
+async function loadSamples() {
+  try {
+    const headers = {};
+    const token = getToken();
+    if (token) headers['Authorization'] = 'token ' + token;
+    headers['Accept'] = 'application/vnd.github.v3+json';
+
+    const resp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    fileSha = data.sha;
+    const content = atob(data.content.replace(/\n/g, ''));
+    const decoded = decodeURIComponent(escape(content));
+    samples = JSON.parse(decoded);
+  } catch (e) {
+    console.warn('GitHub API failed, trying direct file load:', e);
+    try {
+      const resp = await fetch('samples.json?_=' + Date.now());
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      samples = await resp.json();
+      fileSha = null;
+    } catch (e2) {
+      toast('Failed to load samples: ' + e2.message, 'error');
+      samples = [];
+    }
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('sampleTable').style.display = '';
+  populateFilters();
+  renderTable();
+}
+
+// --- Populate filter dropdowns from data ---
+function populateFilters() {
+  const projects = [...new Set(samples.map(s => s.project).filter(Boolean))].sort();
+  const statuses = STATUS_ORDER.filter(s => samples.some(sm => sm.status === s));
+  const seqTypes = [...new Set(samples.map(s => s.sequencingType).filter(Boolean))].sort();
+  const leads = [...new Set(samples.map(s => s.lead).filter(Boolean))].sort();
+
+  fillSelect('filterProject', 'All Projects', projects);
+  fillSelect('filterStatus', 'All Statuses', statuses);
+  fillSelect('filterSeqType', 'All Seq Types', seqTypes);
+  fillSelect('filterLead', 'All Leads', leads);
+}
+
+function fillSelect(id, defaultLabel, options) {
+  const sel = document.getElementById(id);
+  const current = sel.value;
+  sel.innerHTML = '<option value="">' + defaultLabel + '</option>';
+  options.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o;
+    opt.textContent = o;
+    sel.appendChild(opt);
+  });
+  sel.value = current;
+}
+
+// --- GitHub write ---
+async function commitSamples(message) {
+  const token = getToken();
+  if (!token) {
+    toast('Connect to GitHub first to save changes', 'error');
+    promptToken();
+    return false;
+  }
+
+  // Re-fetch SHA to avoid conflicts
+  try {
+    const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
+    const getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    if (getResp.ok) {
+      const getData = await getResp.json();
+      fileSha = getData.sha;
+    }
+  } catch (e) { /* proceed with existing sha */ }
+
+  const content = JSON.stringify(samples, null, 2) + '\n';
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+
+  const body = {
+    message: message,
+    content: encoded,
+    branch: BRANCH,
+  };
+  if (fileSha) body.sha = fileSha;
+
+  try {
+    const resp = await fetch(REPO_API, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.message || 'HTTP ' + resp.status);
+    }
+
+    const result = await resp.json();
+    fileSha = result.content.sha;
+    return true;
+  } catch (e) {
+    toast('Save failed: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// --- Rendering ---
+function renderTable() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const projFilter = document.getElementById('filterProject').value;
+  const statusFilter = document.getElementById('filterStatus').value;
+  const seqFilter = document.getElementById('filterSeqType').value;
+  const leadFilter = document.getElementById('filterLead').value;
+
+  let items = samples.filter(item => {
+    if (projFilter && item.project !== projFilter) return false;
+    if (statusFilter && item.status !== statusFilter) return false;
+    if (seqFilter && item.sequencingType !== seqFilter) return false;
+    if (leadFilter && item.lead !== leadFilter) return false;
+    if (search) {
+      const haystack = [item.sampleId, item.project, item.species, item.lead, item.notes || '', item.currentBlocker || '']
+        .join(' ').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+
+  // Sort
+  items.sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'status') {
+      va = STATUS_ORDER.indexOf(va); if (va < 0) va = 99;
+      vb = STATUS_ORDER.indexOf(vb); if (vb < 0) vb = 99;
+      return (va - vb) * sortDir;
+    }
+    va = (va || '').toString().toLowerCase();
+    vb = (vb || '').toString().toLowerCase();
+    return va < vb ? -sortDir : va > vb ? sortDir : 0;
+  });
+
+  // Update sort arrows
+  document.querySelectorAll('.sort-arrow').forEach(el => el.textContent = '');
+  const arrow = document.getElementById('sort-' + sortCol);
+  if (arrow) arrow.textContent = sortDir === 1 ? ' \u25B2' : ' \u25BC';
+
+  // Stats
+  document.getElementById('statTotal').textContent = samples.length;
+  document.getElementById('statInProgress').textContent = samples.filter(s => IN_PROGRESS_STATUSES.has(s.status)).length;
+  document.getElementById('statComplete').textContent = samples.filter(s => s.status === 'Complete' || s.status === 'Data received').length;
+  document.getElementById('statOnHold').textContent = samples.filter(s => s.status === 'On hold').length;
+
+  // Table body
+  const tbody = document.getElementById('tableBody');
+  if (items.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    document.getElementById('sampleTable').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('sampleTable').style.display = '';
+
+  tbody.innerHTML = items.map(item => {
+    const statusColor = STATUS_COLORS[item.status] || 'grey';
+    const priorityHtml = item.priority ? '<span class="priority">' + esc(item.priority) + '</span>' : '';
+    const detailHtml = item.detailSheetLink
+      ? '<a class="detail-link" href="' + esc(item.detailSheetLink) + '" target="_blank" title="Detail sheet"><span class="material-icons-outlined">open_in_new</span></a>'
+      : '';
+    const blockerHtml = item.currentBlocker
+      ? '<span class="blocker-text" title="' + esc(item.currentBlocker) + '">' + esc(item.currentBlocker) + '</span>'
+      : '';
+
+    return `
+      <tr>
+        <td><strong>${esc(item.sampleId)}</strong></td>
+        <td><span class="badge badge-project">${esc(item.project)}</span></td>
+        <td class="hide-mobile"><em>${esc(item.species)}</em></td>
+        <td class="hide-mobile">${esc(item.lead)}</td>
+        <td>${esc(item.sequencingType)}</td>
+        <td><span class="badge badge-${statusColor}">${esc(item.status)}</span></td>
+        <td>${priorityHtml}</td>
+        <td class="hide-mobile">${blockerHtml}</td>
+        <td class="hide-mobile notes-cell" title="${esc(item.notes || '')}">${esc(item.notes || '')}</td>
+        <td>${detailHtml}</td>
+        <td>
+          <div class="row-actions">
+            <button class="btn" title="Edit" onclick="openEditModal(${item.id})">
+              <span class="material-icons-outlined">edit</span>
+            </button>
+            <button class="btn del" title="Delete" onclick="openDeleteModal(${item.id})">
+              <span class="material-icons-outlined">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  renderTable();
+}
+
+// --- Add / Edit ---
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add Sample';
+  document.getElementById('fSampleId').value = '';
+  document.getElementById('fProject').value = '';
+  document.getElementById('fSpecies').value = '';
+  document.getElementById('fLead').value = '';
+  document.getElementById('fSeqType').value = 'HiFi';
+  document.getElementById('fStatus').value = 'Not yet received';
+  document.getElementById('fPriority').value = '';
+  document.getElementById('fBlocker').value = '';
+  document.getElementById('fNotes').value = '';
+  document.getElementById('fDetailLink').value = '';
+  document.getElementById('itemModal').classList.add('open');
+  document.getElementById('fSampleId').focus();
+}
+
+function openEditModal(id) {
+  const item = samples.find(i => i.id === id);
+  if (!item) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Sample';
+  document.getElementById('fSampleId').value = item.sampleId;
+  document.getElementById('fProject').value = item.project;
+  document.getElementById('fSpecies').value = item.species;
+  document.getElementById('fLead').value = item.lead;
+  document.getElementById('fSeqType').value = item.sequencingType;
+  document.getElementById('fStatus').value = item.status;
+  document.getElementById('fPriority').value = item.priority;
+  document.getElementById('fBlocker').value = item.currentBlocker;
+  document.getElementById('fNotes').value = item.notes;
+  document.getElementById('fDetailLink').value = item.detailSheetLink;
+  document.getElementById('itemModal').classList.add('open');
+  document.getElementById('fSampleId').focus();
+}
+
+function closeModal() {
+  document.getElementById('itemModal').classList.remove('open');
+}
+
+async function saveItem() {
+  const sampleId = document.getElementById('fSampleId').value.trim();
+  const project = document.getElementById('fProject').value.trim();
+  const species = document.getElementById('fSpecies').value.trim();
+  const lead = document.getElementById('fLead').value.trim();
+  const sequencingType = document.getElementById('fSeqType').value;
+  const status = document.getElementById('fStatus').value;
+  const priority = document.getElementById('fPriority').value;
+  const currentBlocker = document.getElementById('fBlocker').value.trim();
+  const notes = document.getElementById('fNotes').value.trim();
+  const detailSheetLink = document.getElementById('fDetailLink').value.trim();
+  const lastUpdated = new Date().toISOString().slice(0, 10);
+
+  if (!sampleId) { toast('Sample ID is required', 'error'); return; }
+  if (!project) { toast('Project is required', 'error'); return; }
+
+  const btn = document.getElementById('btnSaveItem');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  if (editingId !== null) {
+    const item = samples.find(i => i.id === editingId);
+    if (item) {
+      Object.assign(item, { sampleId, project, species, lead, sequencingType, status, priority, currentBlocker, lastUpdated, notes, detailSheetLink });
+    }
+    const ok = await commitSamples(`Update sample: ${sampleId}`);
+    if (ok) {
+      toast('Sample updated', 'success');
+      closeModal();
+    }
+  } else {
+    const maxId = samples.reduce((m, i) => Math.max(m, i.id), 0);
+    const newItem = { id: maxId + 1, sampleId, project, species, lead, sequencingType, status, priority, currentBlocker, lastUpdated, notes, detailSheetLink };
+    samples.push(newItem);
+    const ok = await commitSamples(`Add sample: ${sampleId}`);
+    if (ok) {
+      toast('Sample added', 'success');
+      closeModal();
+    } else {
+      samples.pop();
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Save Sample';
+  populateFilters();
+  renderTable();
+}
+
+// --- Delete ---
+function openDeleteModal(id) {
+  deletingId = id;
+  const item = samples.find(i => i.id === id);
+  document.getElementById('deleteName').textContent = item ? item.sampleId : '';
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+}
+
+async function confirmDelete() {
+  const item = samples.find(i => i.id === deletingId);
+  if (!item) return;
+
+  const idx = samples.indexOf(item);
+  samples.splice(idx, 1);
+
+  const ok = await commitSamples(`Remove sample: ${item.sampleId}`);
+  if (ok) {
+    toast('Sample deleted', 'success');
+  } else {
+    samples.splice(idx, 0, item);
+  }
+
+  closeDeleteModal();
+  populateFilters();
+  renderTable();
+}
+
+// --- Utils ---
+function esc(s) {
+  const el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
+}
+
+function toast(msg, type) {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' ' + type : '');
+  const icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
+  el.innerHTML = `<span class="material-icons-outlined" style="font-size:18px">${icon}</span> ${esc(msg)}`;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 4000);
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// Close modals on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+// --- Init ---
+updateConnStatus();
+loadSamples();
+</script>
+</body>
+</html>
