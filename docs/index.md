@@ -19,60 +19,29 @@ The central knowledge base for the Monroe Lab at UC Davis. Protocols, resources,
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 24px;">
 
-<div style="padding:16px;border-radius:10px;background:rgba(106,27,154,0.06);">
+<a href="wet-lab/" style="display:block;padding:16px;border-radius:10px;background:rgba(106,27,154,0.06);text-decoration:none;color:inherit;">
 <span class="material-icons-outlined" style="color:#6a1b9a;">menu_book</span>
 <strong style="margin-left:6px;">Protocols</strong>
-<div style="font-size:14px;margin-top:6px;color:#555;">
+<div style="font-size:13px;color:#757575;margin-top:4px;">Wet lab protocols, safety SOPs, and workflow templates</div>
+</a>
 
-- [Planting on MS Plates](wet-lab/planting-arabidopsis-on-ms-plates.md)
-- [Seed Sterilization](wet-lab/seed-sterilization.md)
-- [HiFi DNA Extraction](wet-lab/extraction/hifi-dna-extraction.md)
-- [PCR Genotyping](wet-lab/pcr-genotyping.md)
-- [CUT&Tag](wet-lab/epigenomics/cut-and-tag.md)
-
-</div>
-</div>
-
-<div style="padding:16px;border-radius:10px;background:rgba(0,150,136,0.06);">
-<span class="material-icons-outlined" style="color:#009688;">science</span>
-<strong style="margin-left:6px;">Resources</strong>
-<div style="font-size:14px;margin-top:6px;color:#555;">
-
-- [Browse All Resources](resources/)
-- [Chemical Inventory (EHS)](lab-safety/chemical-inventory.md)
-- [Stocks](stocks/)
-- [People](people/)
-- [Projects](projects/)
-
-</div>
-</div>
-
-<div style="padding:16px;border-radius:10px;background:rgba(21,101,192,0.06);">
+<a href="bioinformatics/" style="display:block;padding:16px;border-radius:10px;background:rgba(21,101,192,0.06);text-decoration:none;color:inherit;">
 <span class="material-icons-outlined" style="color:#1565c0;">computer</span>
 <strong style="margin-left:6px;">Bioinformatics</strong>
-<div style="font-size:14px;margin-top:6px;color:#555;">
+<div style="font-size:13px;color:#757575;margin-top:4px;">Farm cluster guides, Linux, SLURM, and coding</div>
+</a>
 
-- [Cluster Access](bioinformatics/cluster-access.md)
-- [Linux Basics](bioinformatics/linux-basics-part1.md)
-- [SLURM Basics](bioinformatics/slurm_basics.md)
-- [Project Structure](bioinformatics/project-structure-on-farm.md)
+<a href="resources/" style="display:block;padding:16px;border-radius:10px;background:rgba(0,150,136,0.06);text-decoration:none;color:inherit;">
+<span class="material-icons-outlined" style="color:#009688;">science</span>
+<strong style="margin-left:6px;">Inventory</strong>
+<div style="font-size:13px;color:#757575;margin-top:4px;">Chemicals, reagents, equipment, and consumables</div>
+</a>
 
-</div>
-</div>
-
-<div style="padding:16px;border-radius:10px;background:rgba(121,85,72,0.06);">
-<span class="material-icons-outlined" style="color:#795548;">apps</span>
-<strong style="margin-left:6px;">Apps</strong>
-<div style="font-size:14px;margin-top:6px;color:#555;">
-
-- [Lab Notebooks](notebook-app/)
-- [Inventory Manager](inventory-app/)
-- [Sample Tracker](sample-tracker/)
-- [Lab Calendar](calendar/)
-- [Edit Wiki](editor/)
-
-</div>
-</div>
+<a href="lab-management/" style="display:block;padding:16px;border-radius:10px;background:rgba(121,85,72,0.06);text-decoration:none;color:inherit;">
+<span class="material-icons-outlined" style="color:#795548;">hub</span>
+<strong style="margin-left:6px;">Lab</strong>
+<div style="font-size:13px;color:#757575;margin-top:4px;">People, projects, notebooks, samples, calendar</div>
+</a>
 
 </div>
 
