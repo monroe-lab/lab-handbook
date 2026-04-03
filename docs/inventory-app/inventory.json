@@ -108,5 +108,1395 @@
     "location": "Freezer -80C",
     "notes": "test entry",
     "lowStockThreshold": 2
+  },
+  {
+    "id": 12,
+    "name": "1,8-Naphthalic anhydride",
+    "category": "Reagent",
+    "quantity": 60,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 81-84-5. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 13,
+    "name": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 110923-13-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 14,
+    "name": "1-Octanol",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 111-87-5. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 15,
+    "name": "1M Tris-HCL (pH 8-8.5)",
+    "category": "Buffer/Solution",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1185-53-1. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 16,
+    "name": "2-Mercaptoethanol",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 60-24-2. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 17,
+    "name": "3-Methylbutanol",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 123-51-3. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 18,
+    "name": "4-Morpholineethanesulfonic acid",
+    "category": "Buffer/Solution",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 4432-31-9. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 19,
+    "name": "Aceto-Orcein Solution, 2%",
+    "category": "Buffer/Solution",
+    "quantity": 60,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 64-19-7, 1400-62-0, 7732-18-5,. Liquid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 20,
+    "name": "Acetone",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-64-1. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 21,
+    "name": "Acrylamide",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 79-06-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 22,
+    "name": "Activated charcoal",
+    "category": "Reagent",
+    "quantity": 250,
+    "unit": "g",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 7440-44-0. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 23,
+    "name": "Agar, Plant, TC",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 24,
+    "name": "Ammonium acetate",
+    "category": "Reagent",
+    "quantity": 550,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 631-61-8. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 25,
+    "name": "Ammonium chloride",
+    "category": "Reagent",
+    "quantity": 200,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 12125-02-9. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 26,
+    "name": "Ammonium nitrate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 6484-52-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 27,
+    "name": "Ammonium phosphate monobasic",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7722-76-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 28,
+    "name": "Aristolochic acid I",
+    "category": "Reagent",
+    "quantity": 0.1,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 313-67-7. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 29,
+    "name": "Basic Fuchsin",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 569-61-9. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 30,
+    "name": "Bis (N,N'-Methylene-bis-acrylamide)",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 110-26-9. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 31,
+    "name": "Boric acid",
+    "category": "Reagent",
+    "quantity": 3000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10043-35-3. Solid. 3 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 32,
+    "name": "Bromophenol Blue",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 115-39-9. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 33,
+    "name": "Calcium carbonate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 471-34-1. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 34,
+    "name": "Calcium chloride",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10043-52-4. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 35,
+    "name": "Calcium nitrate tetrahydrate",
+    "category": "Reagent",
+    "quantity": 1250,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 13477-34-4. Solid. 3 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 36,
+    "name": "Carbenicillin disodium salt",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 4800-94-6. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 37,
+    "name": "Carbon, activated",
+    "category": "Reagent",
+    "quantity": 400,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7440-44-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 38,
+    "name": "Casein Hydrolysate",
+    "category": "Reagent",
+    "quantity": 453.6,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 39,
+    "name": "Cefotaxime sodium salt",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 64485-93-4. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 40,
+    "name": "Cesium chloride",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7647-17-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 41,
+    "name": "Cetrimonium bromide",
+    "category": "Reagent",
+    "quantity": 900,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 57-09-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 42,
+    "name": "Chloramphenicol",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 56-75-7. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 43,
+    "name": "Citric acid",
+    "category": "Reagent",
+    "quantity": 6000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 77-92-9. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 44,
+    "name": "D-(+)-Glucose",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 50-99-7. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 45,
+    "name": "D-Mannitol",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 69-65-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 46,
+    "name": "D-Sorbitol",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 50-70-4. Solid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 47,
+    "name": "DKW Medium with Vitamins",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "L",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 6484-52-2, 6381-92-6, 10196-18-6, 10124-37-5, 7758-99-8, 7782-63-0, 10102-40-6, 10034-96-5, 10101-97-0, 10043-35-3. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 48,
+    "name": "Dextran",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 9004-54-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 49,
+    "name": "Diethyl pyrocarbonate",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "mL",
+    "location": "Refrigerator",
+    "notes": "CAS: 1609-47-8. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 50,
+    "name": "Dimethyl sulfoxide",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-68-5. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 51,
+    "name": "Disodium Ethylenediamine Tetraacetate",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 139-33-3. Solid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 52,
+    "name": "EDTA tetrasodium salt dihydrate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10378-23-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 53,
+    "name": "EDTA trisodium salt",
+    "category": "Buffer/Solution",
+    "quantity": 400,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10378-22-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 54,
+    "name": "EGTA",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 67-42-5. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 55,
+    "name": "Ethyl Alcohol Absolute",
+    "category": "Reagent",
+    "quantity": 8544.0,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 64-17-5. Liquid. 4 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 56,
+    "name": "Ethyl methanesulfonate",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 62-50-0. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 57,
+    "name": "Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt",
+    "category": "Reagent",
+    "quantity": 10,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 13368-13-3. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 58,
+    "name": "Ethylenediaminetetraacetic acid, GMP",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 60-00-4. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 59,
+    "name": "Ficoll 400",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 26873-85-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 60,
+    "name": "Formaldehyde (16% methanol free) PFA",
+    "category": "Reagent",
+    "quantity": 10,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 50-00-0. Liquid. Ampule. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 61,
+    "name": "Formamide",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 75-12-7. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 62,
+    "name": "Formamide",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "mL",
+    "location": "Refrigerator",
+    "notes": "CAS: 75-12-7. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 63,
+    "name": "Gaseous hydrochloric acid",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 7647-01-0. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 64,
+    "name": "Gentamicin sulfate salt",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1405-41-0. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 65,
+    "name": "Glacial Acetic Acid",
+    "category": "Reagent",
+    "quantity": 2.5,
+    "unit": "L",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 64-19-7. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 66,
+    "name": "Glacial Acetic Acid",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 64-19-7. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 67,
+    "name": "Glufosinate-ammonium",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 77182-82-2. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 68,
+    "name": "Glycerin",
+    "category": "Reagent",
+    "quantity": 1050,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 56-81-5. Liquid. 3 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 69,
+    "name": "Glycerol, 50% aqueous solution",
+    "category": "Buffer/Solution",
+    "quantity": 350,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 56-81-5. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 70,
+    "name": "Glycine",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 56-40-6. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 71,
+    "name": "Guanidine thiocyanate",
+    "category": "Reagent",
+    "quantity": 60,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 593-84-0. Solid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 72,
+    "name": "Guanidine thiocyanate",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 593-84-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 73,
+    "name": "HEPES",
+    "category": "Buffer/Solution",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7365-45-9. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 74,
+    "name": "Hexadecyltrimethyl-ammonium bromide",
+    "category": "Reagent",
+    "quantity": 1100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 75,
+    "name": "Hydrogen peroxide,  20 to  35 % in water",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 7722-84-1. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 76,
+    "name": "Hydroxylamine hydrochloride",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 5470-11-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 77,
+    "name": "IGEPAL CA-630",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "mL",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 9002-93-1. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 78,
+    "name": "Imidazole hydrochloride",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1467-16-9. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 79,
+    "name": "Iohexol",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 66108-95-0. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 80,
+    "name": "Iron(III) chloride",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7705-08-0. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 81,
+    "name": "Isopropyl alcohol",
+    "category": "Reagent",
+    "quantity": 6,
+    "unit": "L",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-63-0. Liquid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 82,
+    "name": "Isopropyl alcohol",
+    "category": "Reagent",
+    "quantity": 2000,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-63-0. Liquid. 4 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 83,
+    "name": "Isopropyl alcohol, 70% in water",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-63-0. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 84,
+    "name": "Isopropyl alcohol, 70% in water",
+    "category": "Reagent",
+    "quantity": 414.0,
+    "unit": "mL",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-63-0. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 85,
+    "name": "L-Glutamine",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 56-85-9. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 86,
+    "name": "L-Lysine monohydrochloride",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 657-27-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 87,
+    "name": "Lithium acetate dihydrate",
+    "category": "Reagent",
+    "quantity": 250,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 6108-17-4. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 88,
+    "name": "Lithium chloride",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7447-41-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 89,
+    "name": "Lithium hydroxide monohydrate",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1310-66-3. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 90,
+    "name": "Magnesium acetate tetrahydrate",
+    "category": "Reagent",
+    "quantity": 250,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 16674-78-5. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 91,
+    "name": "Magnesium chloride",
+    "category": "Reagent",
+    "quantity": 200,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7786-30-3. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 92,
+    "name": "Magnesium sulfate heptahydrate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10034-99-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 93,
+    "name": "Manganese(II) chloride",
+    "category": "Reagent",
+    "quantity": 10,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7773-01-5. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 94,
+    "name": "Methanol",
+    "category": "Reagent",
+    "quantity": 8,
+    "unit": "L",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 67-56-1. Liquid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 95,
+    "name": "Methyl methanesulfonate",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 66-27-3. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 96,
+    "name": "Mineral oil",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 8042-47-5. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 97,
+    "name": "PIPES, dipotassium salt",
+    "category": "Buffer/Solution",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 108321-27-3. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 98,
+    "name": "Peptones, casein (Tryptone)",
+    "category": "Reagent",
+    "quantity": 1053.6,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 91079-40-2. Solid. 3 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 99,
+    "name": "Phenol nitroprusside solution",
+    "category": "Buffer/Solution",
+    "quantity": 120,
+    "unit": "mL",
+    "location": "Refrigerator",
+    "notes": "CAS: 13755-38-9, 6381-92-6, 108-95-2, 7732-18-5. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 100,
+    "name": "Phenylmethanesulfonyl fluoride",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 329-98-6. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 101,
+    "name": "Piperazine-1,4-bis(2-ethanesulfonic acid)",
+    "category": "Reagent",
+    "quantity": 50,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 5625-37-6. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 102,
+    "name": "Polyethylene glycol (solid)",
+    "category": "Reagent",
+    "quantity": 600,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 25322-68-3. Solid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 103,
+    "name": "Polyvinylpyrrolidone",
+    "category": "Reagent",
+    "quantity": 1200,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 9003-39-8. Solid. 4 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 104,
+    "name": "Ponceau S",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 6226-79-5. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 105,
+    "name": "Potassium acetate",
+    "category": "Reagent",
+    "quantity": 2000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 127-08-2. Solid. 3 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 106,
+    "name": "Potassium chloride",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7447-40-7. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 107,
+    "name": "Potassium hydroxide",
+    "category": "Reagent",
+    "quantity": 0.4,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1310-58-3. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 108,
+    "name": "Potassium nitrate",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7757-79-1. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 109,
+    "name": "Potassium permanganate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7722-64-7. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 110,
+    "name": "Potassium phosphate dibasic",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7758-11-4. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 111,
+    "name": "Potassium phosphate monobasic",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7778-77-0. Solid. 2 containers. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 112,
+    "name": "Reagent Alcohol 100% (200 proof, Denatured)",
+    "category": "Reagent",
+    "quantity": 4,
+    "unit": "L",
+    "location": "Flammable Cabinet",
+    "notes": "CAS: 64-17-5. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 113,
+    "name": "Silwet L-77",
+    "category": "Reagent",
+    "quantity": 10,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 27306-78-1. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 114,
+    "name": "Sodium Acetate, Anhydrous",
+    "category": "Reagent",
+    "quantity": 1500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 127-09-3. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 115,
+    "name": "Sodium Hydroxide, 10.0 Normal",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 1310-73-2. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 116,
+    "name": "Sodium arsenate dibasic heptahydrate",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10048-95-0. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 117,
+    "name": "Sodium bicarbonate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 144-55-8. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 118,
+    "name": "Sodium bisulfite",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7631-90-5. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 119,
+    "name": "Sodium chloride",
+    "category": "Reagent",
+    "quantity": 5450,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7647-14-5. Solid. 6 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 120,
+    "name": "Sodium citrate",
+    "category": "Reagent",
+    "quantity": 2500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 68-04-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 121,
+    "name": "Sodium dodecyl sulfate",
+    "category": "Reagent",
+    "quantity": 160,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 151-21-3. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 122,
+    "name": "Sodium hydroxide",
+    "category": "Reagent",
+    "quantity": 2120,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1310-73-2. Solid. 4 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 123,
+    "name": "Sodium hydroxide",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 1310-73-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 124,
+    "name": "Sodium hydroxide 10N aqueous solution",
+    "category": "Buffer/Solution",
+    "quantity": 1,
+    "unit": "L",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 1310-73-2. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 125,
+    "name": "Sodium metabisulfite",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7681-57-4. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 126,
+    "name": "Sodium phosphate dibasic",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7558-79-4. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 127,
+    "name": "Sodium pyrophosphate decahydrate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 13472-36-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 128,
+    "name": "Sodium sulfite",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 7757-83-7. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 129,
+    "name": "Sodium tetraborate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 1330-43-4. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 130,
+    "name": "Sodium thiosulfate pentahydrate",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 10102-17-7. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 131,
+    "name": "Spermidine",
+    "category": "Reagent",
+    "quantity": 5,
+    "unit": "mL",
+    "location": "Corrosive Cabinet",
+    "notes": "CAS: 124-20-9. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 132,
+    "name": "Spermine",
+    "category": "Reagent",
+    "quantity": 25,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 71-44-3. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 133,
+    "name": "TAPS",
+    "category": "Buffer/Solution",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 29915-38-6. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 134,
+    "name": "TAPSO",
+    "category": "Buffer/Solution",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 68399-81-5. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 135,
+    "name": "TWEEN 80",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 9005-65-6. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 136,
+    "name": "Tetracycline hydrochloride",
+    "category": "Reagent",
+    "quantity": 1,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 64-75-5. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 137,
+    "name": "Tham",
+    "category": "Buffer/Solution",
+    "quantity": 500,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 77-86-1. Solid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 138,
+    "name": "Trichloroacetic acid",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 76-03-9. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 139,
+    "name": "Tricine",
+    "category": "Buffer/Solution",
+    "quantity": 12,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 5704-04-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 140,
+    "name": "Tris base",
+    "category": "Buffer/Solution",
+    "quantity": 2000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 77-86-1. Solid. 2 containers. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 141,
+    "name": "Tris-EDTA (TE) buffer solution",
+    "category": "Buffer/Solution",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 77-86-1. Liquid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 142,
+    "name": "Trizma base",
+    "category": "Buffer/Solution",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 77-86-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 143,
+    "name": "Urea",
+    "category": "Reagent",
+    "quantity": 800,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 57-13-6. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 144,
+    "name": "Yeast extract",
+    "category": "Reagent",
+    "quantity": 100,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 8013-01-2. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 145,
+    "name": "Zeocin",
+    "category": "Reagent",
+    "quantity": 0.1,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 11031-11-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 146,
+    "name": "alpha-D-Glucose",
+    "category": "Reagent",
+    "quantity": 1000,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 492-62-6. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 147,
+    "name": "cis-Diamineplatinum(II) dichloride",
+    "category": "Reagent",
+    "quantity": 0.1,
+    "unit": "g",
+    "location": "Refrigerator",
+    "notes": "CAS: 15663-27-1. Solid. Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 148,
+    "name": "Chloroform:Isoamyl alcohol 24:1",
+    "category": "Reagent",
+    "quantity": 473,
+    "unit": "mL",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 67-66-3, 64-17-5, 123-51-3. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 149,
+    "name": "Phenol-Chloroform-Isoamyl alcohol 25:24:1",
+    "category": "Reagent",
+    "quantity": 500,
+    "unit": "mL",
+    "location": "Refrigerator",
+    "notes": "CAS: 136112-00-0. Liquid. Glass Bottle. Source: EHS inventory",
+    "lowStockThreshold": 1
+  },
+  {
+    "id": 150,
+    "name": "Agar (non-TC)",
+    "category": "Reagent",
+    "quantity": 450,
+    "unit": "g",
+    "location": "Chemical Cabinet",
+    "notes": "CAS: 9002-18-0. Solid. 2 containers (250g + 200g). Plastic Bottle. Source: EHS inventory",
+    "lowStockThreshold": 50
   }
 ]
