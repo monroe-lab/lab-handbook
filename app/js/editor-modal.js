@@ -819,23 +819,33 @@
     });
   }
 
-  // Restore wikilink pills to [[slug]] text before getMarkdown()
-  // Without this, getMarkdown() outputs "📖 Title" instead of "[[slug]]"
-  function restoreWikilinksInDom(containerEl) {
+  // Build a reverse map of pill display text → raw wikilink syntax
+  // Toast UI v3 uses ProseMirror, so getMarkdown() reads from an internal model,
+  // NOT the live DOM. DOM manipulation before getMarkdown() has no effect.
+  // Instead, we post-process the markdown string to restore wikilinks.
+  function getMarkdownClean(editor, containerEl) {
+    // Collect pill mappings: display text → raw [[slug]] syntax
+    var replacements = [];
     var pills = containerEl.querySelectorAll('.wk-pill[data-raw]');
     pills.forEach(function(span) {
       var raw = span.getAttribute('data-raw');
-      var textNode = document.createTextNode(raw);
-      span.parentNode.replaceChild(textNode, span);
+      var display = span.textContent;
+      if (raw && display) {
+        replacements.push({ display: display, raw: raw });
+      }
     });
-  }
 
-  function getMarkdownClean(editor, containerEl) {
-    // Restore wikilink pills to raw [[slug]] before getMarkdown extracts text
-    restoreWikilinksInDom(containerEl);
     var md = editor.getMarkdown();
-    // Re-style wikilinks after extraction
-    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 50);
+
+    // Replace flattened pill text with original [[slug]] syntax
+    // Sort by display text length (longest first) to avoid partial matches
+    replacements.sort(function(a, b) { return b.display.length - a.display.length; });
+    replacements.forEach(function(r) {
+      // Escape special regex chars in the display text
+      var escaped = r.display.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      md = md.replace(new RegExp(escaped, 'g'), r.raw);
+    });
+
     return md;
   }
 

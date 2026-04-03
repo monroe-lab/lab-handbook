@@ -8,17 +8,13 @@ type: "protocol"
 
 new stuff testing new again
 
-ates
-
-📖 Clean Bench (Laminar Flow Hood)
+[[clean-bench]]
 
 lets test this
 edit test
 check 1
 
-> block quote material with
-> 🌱 Col-0 Wild Type
-> newline test
+> block quote material with [[col-0-wild-type]] newline test
 
 > ⚠️ **Warning title**
 > test second line here too
