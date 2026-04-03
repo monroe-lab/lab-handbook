@@ -412,6 +412,7 @@ async function loadDoc(docPath) {
 var editFrontmatter = ''; // preserved frontmatter for re-assembly on save
 
 async function startEdit() {
+  console.log('[protocols] startEdit called, currentDoc:', currentDoc, 'isEditing:', isEditing);
   if (!currentDoc || isEditing) return;
   isEditing = true;
 
@@ -419,13 +420,16 @@ async function startEdit() {
   var filePath = 'docs/' + currentDoc + '.md';
 
   try {
+    console.log('[protocols] fetching file:', filePath);
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
+    console.log('[protocols] file fetched, content length:', result.content.length);
 
     // Strip frontmatter — Toast UI can't handle YAML blocks in WYSIWYG mode
     var parsed = Lab.parseFrontmatter(result.content);
     editFrontmatter = parsed.meta;
     var bodyOnly = parsed.body;
+    console.log('[protocols] parsed body length:', bodyOnly.length, 'preview:', bodyOnly.substring(0, 100));
 
     contentEl.innerHTML =
       '<div class="proto-content">' +
@@ -439,13 +443,18 @@ async function startEdit() {
         '<div class="proto-editor-surface em-surface" id="editorSurface"></div>' +
       '</div>';
 
+    var surface = document.getElementById('editorSurface');
+    console.log('[protocols] editorSurface found:', !!surface, 'Lab.editorModal:', !!Lab.editorModal, 'initFullpage:', !!Lab.editorModal.initFullpage);
+
     editorInstance = await Lab.editorModal.initFullpage(
-      document.getElementById('editorSurface'),
+      surface,
       bodyOnly,
       filePath,
       currentSha
     );
+    console.log('[protocols] editor initialized:', !!editorInstance);
   } catch(e) {
+    console.error('[protocols] startEdit error:', e);
     Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
   }
