@@ -49,7 +49,8 @@
     var style = document.createElement('style');
     style.textContent = [
       '.em-surface .toastui-editor-defaultUI{border:none!important}',
-      '.em-surface .toastui-editor-defaultUI-toolbar{border-bottom:1px solid var(--grey-200)!important;background:var(--grey-50)!important;padding:4px 8px!important}',
+      '.em-surface .toastui-editor-defaultUI-toolbar{border-bottom:1px solid var(--grey-200)!important;background:var(--grey-50)!important;padding:4px 8px!important;overflow:visible!important}',
+      '.em-surface .toastui-editor-toolbar{flex-wrap:wrap!important;overflow:visible!important}',
       '.em-surface .toastui-editor-toolbar-icons{border:none!important;border-radius:4px!important;width:32px!important;height:32px!important;background-color:transparent!important}',
       '.em-surface .toastui-editor-toolbar-icons:hover{background-color:var(--grey-200)!important}',
       '.em-surface .toastui-editor-ww-container{background:#fff!important}',
@@ -123,6 +124,36 @@
       // We'll render the body markdown separately, but for now pass it through marked inline
       return '<details class="admonition admonition-' + typeClass + '"' + openAttr + '>' +
         '<summary>' + title + '</summary>\n\n' + bodyMd + '\n</details>\n\n';
+    });
+  }
+
+  // ── Admonition ↔ Blockquote conversion for WYSIWYG editing ──
+  // Toast UI WYSIWYG strips indentation, breaking ??? syntax.
+  // Convert to blockquotes (which WYSIWYG handles natively) before editing,
+  // and convert back to ??? syntax on save.
+  var ADM_ICONS = { variant: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', warning: '\u26A0\uFE0F' };
+
+  function admonitionsToBlockquotes(md) {
+    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+      var icon = ADM_ICONS[type] || '\u2139\uFE0F';
+      var label = type.charAt(0).toUpperCase() + type.slice(1);
+      var bodyLines = body.replace(/^    /gm, '').trimEnd();
+      var lines = '> ' + icon + ' **' + label + ': ' + title + '**';
+      if (bodyLines) {
+        lines += '\n' + bodyLines.split('\n').map(function(l) { return '> ' + l; }).join('\n');
+      }
+      return lines + '\n';
+    });
+  }
+
+  function blockquotesToAdmonitions(md) {
+    // Match blockquotes starting with emoji + **Type: title**
+    return md.replace(/^(?:> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*(Variant|Note|Tip|Warning): ([^*]+)\*\* *\n)((?:> .*\n?)*)/gim, function(match, type, title, bodyBlock) {
+      var bodyLines = bodyBlock.split('\n')
+        .map(function(l) { return l.replace(/^>\s?/, ''); })
+        .filter(function(l, i, arr) { return i < arr.length - 1 || l.trim(); }); // drop trailing empty
+      var body = bodyLines.map(function(l) { return '    ' + l; }).join('\n');
+      return '??? ' + type.toLowerCase() + ' "' + title + '"\n' + body + '\n';
     });
   }
 
@@ -337,7 +368,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: '300px',
-      initialValue: currentState.body,
+      initialValue: admonitionsToBlockquotes(currentState.body),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -356,7 +387,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = currentEditor.getMarkdown();
+      currentState.body = blockquotesToAdmonitions(currentEditor.getMarkdown());
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -663,7 +694,7 @@
     var toolbar = editorUI.querySelector('.toastui-editor-toolbar');
     if (toolbar) {
       var calloutGroup = document.createElement('div');
-      calloutGroup.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:6px;border-left:1px solid var(--grey-300);padding-left:8px;';
+      calloutGroup.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:6px;border-left:1px solid var(--grey-300);padding-left:8px;flex-shrink:0;';
 
       var callouts = [
         { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
@@ -680,7 +711,7 @@
         btn.onmouseleave = function() { btn.style.background = 'transparent'; };
         btn.onclick = function(e) {
           e.preventDefault();
-          var snippet = '\n\n??? ' + c.type + ' "' + c.label + ' title"\n    Description here\n\n';
+          var snippet = '\n\n> ' + c.icon + ' **' + c.label + ': Title**\n> Description here\n\n';
           editor.insertText(snippet);
         };
         calloutGroup.appendChild(btn);
@@ -758,72 +789,6 @@
     });
   }
 
-  // ── Style admonition blocks (??? variant/note/tip) in WYSIWYG ──
-  var ADMONITION_COLORS = {
-    variant: { border: '#e65100', bg: '#fff3e0', icon: '\u26A0\uFE0F' },
-    note:    { border: '#1565c0', bg: '#e3f2fd', icon: '\u2139\uFE0F' },
-    tip:     { border: '#2e7d32', bg: '#e8f5e9', icon: '\uD83D\uDCA1' },
-    warning: { border: '#e65100', bg: '#fff3e0', icon: '\u26A0\uFE0F' },
-  };
-
-  function styleAdmonitionsInEditor(containerEl) {
-    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
-    if (!wwContainer) return;
-
-    // Style paragraphs that contain ??? syntax in-place (no DOM replacement)
-    var paragraphs = wwContainer.querySelectorAll('p');
-    paragraphs.forEach(function(p) {
-      if (p.dataset.admStyled) return;
-      var text = p.textContent;
-      var m = text.match(/^\?\?\?\+?\s+(variant|note|tip|warning)\s+"([^"]+)"/);
-      if (!m) return;
-
-      var type = m[1];
-      var colors = ADMONITION_COLORS[type] || ADMONITION_COLORS.note;
-
-      // Style the ??? header line as a colored callout header
-      p.dataset.admStyled = '1';
-      p.style.cssText = 'border-left:4px solid ' + colors.border + ';background:' + colors.bg + ';padding:8px 12px;border-radius:0 6px 0 0;margin-bottom:0;font-weight:600;color:' + colors.border + ';font-size:13px;';
-
-      // Style indented body lines that follow
-      var next = p.nextElementSibling;
-      while (next) {
-        var t = next.textContent;
-        if (next.tagName === 'P' && !next.dataset.admStyled && (t.match(/^\s{2,}/) || t.trim() === '')) {
-          next.dataset.admStyled = 'body';
-          next.style.cssText = 'border-left:4px solid ' + colors.border + ';background:' + colors.bg + ';padding:4px 12px;margin-top:0;margin-bottom:0;border-radius:0;font-size:13px;color:#333;';
-          next = next.nextElementSibling;
-        } else {
-          // Round the bottom of the last body element
-          if (next.previousElementSibling && next.previousElementSibling.dataset.admStyled === 'body') {
-            next.previousElementSibling.style.borderRadius = '0 0 6px 0';
-            next.previousElementSibling.style.paddingBottom = '8px';
-            next.previousElementSibling.style.marginBottom = '8px';
-          } else if (p.nextElementSibling === next) {
-            // No body lines, round the header bottom
-            p.style.borderRadius = '0 6px 6px 0';
-            p.style.marginBottom = '8px';
-          }
-          break;
-        }
-      }
-      // Handle case where admonition is last element
-      if (!next) {
-        var last = p;
-        var sib = p.nextElementSibling;
-        while (sib && sib.dataset.admStyled === 'body') { last = sib; sib = sib.nextElementSibling; }
-        if (last !== p) {
-          last.style.borderRadius = '0 0 6px 0';
-          last.style.paddingBottom = '8px';
-          last.style.marginBottom = '8px';
-        } else {
-          p.style.borderRadius = '0 6px 6px 0';
-          p.style.marginBottom = '8px';
-        }
-      }
-    });
-  }
-
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
@@ -838,7 +803,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: availableHeight + 'px',
-      initialValue: content,
+      initialValue: admonitionsToBlockquotes(content),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -851,24 +816,24 @@
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
           // Re-style wikilinks on content change (debounced)
           clearTimeout(containerEl._wikiTimer);
-          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); styleAdmonitionsInEditor(containerEl); }, 300);
+          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
         }
       }
     });
 
     // Style wikilinks and admonitions in the WYSIWYG contenteditable area
-    setTimeout(function() { styleWikilinksInEditor(containerEl); styleAdmonitionsInEditor(containerEl); }, 200);
+    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
-      getMarkdown: function() { return editor.getMarkdown(); },
+      getMarkdown: function() { return blockquotesToAdmonitions(editor.getMarkdown()); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = editor.getMarkdown();
+        var md = blockquotesToAdmonitions(editor.getMarkdown());
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
