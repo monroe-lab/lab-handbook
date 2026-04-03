@@ -131,3 +131,4 @@ extra_css:
 
 extra_javascript:
   - javascripts/inventory-links.js
+  - javascripts/feedback.js
