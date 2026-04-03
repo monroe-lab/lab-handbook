@@ -127,85 +127,72 @@
     });
   }
 
-  // ── Admonition ↔ Blockquote conversion for WYSIWYG editing ──
-  // Toast UI WYSIWYG strips indentation, breaking ??? syntax.
-  // Convert to blockquotes (which WYSIWYG handles natively) before editing,
-  // and convert back to ??? syntax on save.
+  // ── Admonition extraction for WYSIWYG editing ──
+  // ??? syntax can't survive WYSIWYG editing (indentation stripped, blockquotes mangled).
+  // Instead: extract admonitions before editing, replace with text placeholders,
+  // and restore the originals on save. Placeholders are styled in the WYSIWYG DOM.
   var ADM_ICONS = { variant: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', warning: '\u26A0\uFE0F' };
+  var _admStore = []; // stores extracted admonition raw blocks per edit session
 
-  var ADM_HEADER_RE = /^(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)\s*\*\*(Variant|Note|Tip|Warning):\s*([^*]+)\*\*/i;
-
-  function admonitionsToBlockquotes(md) {
-    // Convert each ??? block to a blockquote, separated by --- to prevent WYSIWYG merging
-    var result = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+  function extractAdmonitions(md) {
+    _admStore = [];
+    // Also clean up any leftover blockquote-style callouts from previous broken saves
+    md = md.replace(/^> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*\n(?:>[^\n]*\n?)*/gm, '');
+    md = md.replace(/\\> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
+    md = md.replace(/<!-- adm-sep -->/g, '');
+    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+      var idx = _admStore.length;
+      var bodyClean = body.replace(/^    /gm, '').trimEnd();
+      _admStore.push({ type: type, title: title, body: bodyClean, raw: match });
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
       var label = type.charAt(0).toUpperCase() + type.slice(1);
-      var bodyLines = body.replace(/^    /gm, '').trimEnd();
-      var lines = '> ' + icon + ' **' + label + ': ' + title + '**';
-      if (bodyLines) {
-        lines += '\n' + bodyLines.split('\n').map(function(l) { return '> ' + l; }).join('\n');
-      }
-      // Use <!-- adm-sep --> as invisible separator to prevent blockquote merging
-      return lines + '\n\n<!-- adm-sep -->\n\n';
+      // Plain text placeholder — no special markdown chars that Toast UI could mangle
+      return '\n' + icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title + '\n\n';
     });
-    // Clean trailing separators
-    return result.replace(/<!-- adm-sep -->\n\n$/g, '');
   }
 
-  function blockquotesToAdmonitions(md) {
-    // Remove admonition separators
-    md = md.replace(/\n*<!-- adm-sep -->\n*/g, '\n\n');
-    // Also handle --- that might appear between admonition blockquotes
-    // Process each blockquote block — handles both separate and merged (fused) blockquotes
-    return md.replace(/((?:^>.*\n?)+)/gm, function(bqBlock) {
-      var lines = bqBlock.split('\n');
-      var admonitions = [];
-      var currentType = null, currentTitle = null, currentBody = [];
-      var nonAdmLines = [];
+  function restoreAdmonitions(md) {
+    // Restore extracted admonitions from placeholders
+    md = md.replace(/(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) CALLOUT (\d+) \w+ [^\n]+/g, function(match, idxStr) {
+      var idx = parseInt(idxStr);
+      if (_admStore[idx]) return _admStore[idx].raw.trimEnd();
+      return match;
+    });
+    return md;
+  }
 
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var stripped = line.replace(/^>\s?/, '');
-        var hm = stripped.match(ADM_HEADER_RE);
+  // Add a new admonition to the store and return its placeholder text
+  function createAdmonitionPlaceholder(type, title, body) {
+    var idx = _admStore.length;
+    var bodyIndented = body.split('\n').map(function(l) { return '    ' + l; }).join('\n');
+    var raw = '??? ' + type + ' "' + title + '"\n' + bodyIndented + '\n';
+    _admStore.push({ type: type, title: title, body: body, raw: raw });
+    var icon = ADM_ICONS[type] || '\u2139\uFE0F';
+    var label = type.charAt(0).toUpperCase() + type.slice(1);
+    return icon + ' CALLOUT ' + idx + ' ' + label + ' ' + title;
+  }
 
-        if (hm) {
-          // Flush previous admonition
-          if (currentType) {
-            admonitions.push({ type: currentType, title: currentTitle, body: currentBody });
-            currentBody = [];
-          }
-          currentType = hm[1];
-          currentTitle = hm[2].trim();
-        } else if (currentType) {
-          // Body line (skip empty leading lines)
-          if (stripped.trim() || currentBody.length > 0) {
-            currentBody.push(stripped);
-          }
-        } else {
-          // Not part of an admonition — regular blockquote
-          nonAdmLines.push(line);
-        }
-      }
-      // Flush last
-      if (currentType) {
-        admonitions.push({ type: currentType, title: currentTitle, body: currentBody });
-      }
-
-      if (admonitions.length === 0) return bqBlock; // not an admonition blockquote
-
-      var result = '';
-      // Emit any non-admonition lines first
-      if (nonAdmLines.length && nonAdmLines.some(function(l) { return l.trim(); })) {
-        result += nonAdmLines.join('\n') + '\n\n';
-      }
-      admonitions.forEach(function(a) {
-        // Trim trailing empty body lines
-        while (a.body.length && !a.body[a.body.length - 1].trim()) a.body.pop();
-        result += '??? ' + a.type.toLowerCase() + ' "' + a.title + '"\n';
-        a.body.forEach(function(bl) { result += '    ' + bl + '\n'; });
-        result += '\n';
-      });
-      return result;
+  // Style callout placeholders in WYSIWYG DOM
+  function styleCalloutsInEditor(containerEl) {
+    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
+    if (!wwContainer) return;
+    var CALLOUT_RE = /^(\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) CALLOUT (\d+) (\w+) (.+)$/;
+    var paragraphs = wwContainer.querySelectorAll('p');
+    paragraphs.forEach(function(p) {
+      if (p.dataset.calloutStyled) return;
+      var m = p.textContent.match(CALLOUT_RE);
+      if (!m) return;
+      var icon = m[1], idx = parseInt(m[2]), type = m[3].toLowerCase(), title = m[4];
+      var colors = { variant: { border: '#e65100', bg: '#fff3e0' }, note: { border: '#1565c0', bg: '#e3f2fd' }, tip: { border: '#2e7d32', bg: '#e8f5e9' }, warning: { border: '#e65100', bg: '#fff3e0' } };
+      var c = colors[type] || colors.note;
+      p.dataset.calloutStyled = '1';
+      p.contentEditable = 'false';
+      p.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:' + c.border + ';font-weight:600;font-size:14px;cursor:default;user-select:none;';
+      // Show title + body preview
+      var stored = _admStore[idx];
+      var bodyPreview = stored && stored.body ? stored.body.split('\n')[0] : '';
+      p.innerHTML = '<span style="font-size:16px;vertical-align:middle">' + icon + '</span> <strong>' + Lab.escHtml(title) + '</strong>' +
+        (bodyPreview ? '<div style="font-weight:400;font-size:13px;color:#555;margin-top:4px">' + Lab.escHtml(bodyPreview) + '</div>' : '');
     });
   }
 
@@ -420,7 +407,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: '300px',
-      initialValue: admonitionsToBlockquotes(currentState.body),
+      initialValue: extractAdmonitions(currentState.body),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -439,7 +426,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = blockquotesToAdmonitions(currentEditor.getMarkdown());
+      currentState.body = restoreAdmonitions(currentEditor.getMarkdown());
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -763,8 +750,10 @@
         btn.onmouseleave = function() { btn.style.background = 'transparent'; };
         btn.onclick = function(e) {
           e.preventDefault();
-          var snippet = '\n\n> ' + c.icon + ' **' + c.label + ': Title**\n> Description here\n\n';
-          editor.insertText(snippet);
+          var placeholder = createAdmonitionPlaceholder(c.type, c.label + ' title', 'Description here');
+          editor.insertText('\n\n' + placeholder + '\n\n');
+          // Style the newly inserted placeholder
+          setTimeout(function() { styleCalloutsInEditor(containerEl); }, 100);
         };
         calloutGroup.appendChild(btn);
       });
@@ -855,7 +844,7 @@
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: availableHeight + 'px',
-      initialValue: admonitionsToBlockquotes(content),
+      initialValue: extractAdmonitions(content),
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -868,24 +857,24 @@
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
           // Re-style wikilinks on content change (debounced)
           clearTimeout(containerEl._wikiTimer);
-          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
+          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); styleCalloutsInEditor(containerEl); }, 300);
         }
       }
     });
 
     // Style wikilinks and admonitions in the WYSIWYG contenteditable area
-    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
+    setTimeout(function() { styleWikilinksInEditor(containerEl); styleCalloutsInEditor(containerEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
-      getMarkdown: function() { return blockquotesToAdmonitions(editor.getMarkdown()); },
+      getMarkdown: function() { return restoreAdmonitions(editor.getMarkdown()); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = blockquotesToAdmonitions(editor.getMarkdown());
+        var md = restoreAdmonitions(editor.getMarkdown());
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
