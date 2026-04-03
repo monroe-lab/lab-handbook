@@ -8,6 +8,7 @@
     { label: 'Dashboard', href: BASE + 'app/',                icon: 'dashboard' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
+    { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
     { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
     { label: 'Notebooks', href: BASE + 'notebook-app/',        icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
@@ -15,6 +16,7 @@
 
   function getActiveTab() {
     var path = location.pathname;
+    if (path.includes('/projects'))       return 'Projects';
     if (path.includes('/sample-tracker')) return 'Samples';
     if (path.includes('/notebook-app'))   return 'Notebooks';
     if (path.includes('/calendar'))       return 'Calendar';

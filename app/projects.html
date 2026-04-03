@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.proj-page { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+/* Project cards grid */
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.proj-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s;
+  border-left: 4px solid var(--grey-300);
+}
+.proj-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.proj-card.active { border-left-color: var(--green); }
+.proj-card.paused { border-left-color: var(--amber); }
+.proj-card.completed { border-left-color: var(--grey-400); }
+.proj-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.proj-card-meta { font-size: 13px; color: var(--grey-500); display: flex; gap: 12px; align-items: center; }
+.proj-card-status { font-weight: 600; text-transform: capitalize; }
+.proj-card-status.active { color: var(--green); }
+.proj-card-status.paused { color: var(--amber); }
+.proj-card-status.completed { color: var(--grey-500); }
+
+/* Project detail view */
+.proj-detail { display: none; }
+.proj-detail.visible { display: block; }
+.proj-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--grey-500);
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 4px 0;
+}
+.proj-back:hover { color: var(--teal); }
+.proj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.proj-header h1 { font-size: 24px; font-weight: 700; }
+.proj-header-actions { display: flex; gap: 8px; }
+
+/* Sections */
+.proj-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.proj-section {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.proj-section-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--grey-200);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-600);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.proj-section-header .material-icons-outlined { font-size: 18px; }
+.proj-section-body { padding: 12px 16px; }
+.proj-section-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--grey-100);
+  cursor: pointer;
+}
+.proj-section-item:last-child { border-bottom: none; }
+.proj-section-item:hover { color: var(--teal); }
+.proj-section-empty { color: var(--grey-400); font-size: 13px; padding: 8px 0; }
+
+/* Project body (rendered markdown) */
+.proj-body-panel {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 32px;
+  margin-bottom: 20px;
+}
+.proj-body { font-size: 15px; line-height: 1.7; }
+.proj-body h1 { display: none; } /* hide title dupe */
+.proj-body h2 { font-size: 20px; font-weight: 600; margin: 20px 0 8px; }
+.proj-body h3 { font-size: 16px; font-weight: 600; margin: 16px 0 6px; }
+.proj-body ul, .proj-body ol { padding-left: 24px; margin: 8px 0; }
+.proj-body li { margin: 4px 0; }
+.proj-body a:not(.object-pill) { color: var(--teal-dark); }
+.proj-body table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.proj-body td, .proj-body th { border: 1px solid var(--grey-300); padding: 8px 12px; }
+
+/* Sample mini-table */
+.sample-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--grey-100); }
+.sample-row:last-child { border-bottom: none; }
+.sample-id { font-weight: 600; min-width: 80px; }
+.sample-status { font-size: 12px; }
+
+@media (max-width: 768px) {
+  .proj-page { padding: 16px; }
+  .proj-sections { grid-template-columns: 1fr; }
+  .proj-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="proj-page">
+  <!-- Project list -->
+  <div id="projList">
+    <h1 style="font-size:22px;font-weight:600;margin-bottom:16px">Projects</h1>
+    <div class="proj-grid" id="projGrid">
+      <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <!-- Project detail -->
+  <div class="proj-detail" id="projDetail">
+    <div class="proj-back" onclick="showList()">
+      <span class="material-icons-outlined" style="font-size:18px">arrow_back</span> All Projects
+    </div>
+    <div class="proj-header">
+      <h1 id="projTitle"></h1>
+      <div class="proj-header-actions">
+        <button class="btn btn-outline btn-sm" id="projEditBtn" style="display:none" onclick="editProject()">
+          <span class="material-icons-outlined">edit</span> Edit
+        </button>
+      </div>
+    </div>
+
+    <!-- Project body -->
+    <div class="proj-body-panel">
+      <div class="proj-body" id="projBody">
+        <div class="loading-state"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <!-- Connected objects -->
+    <div class="proj-sections">
+      <div class="proj-section">
+        <div class="proj-section-header"><span class="material-icons-outlined">person</span> Team</div>
+        <div class="proj-section-body" id="projPeople"></div>
+      </div>
+      <div class="proj-section">
+        <div class="proj-section-header"><span class="material-icons-outlined">menu_book</span> Protocols</div>
+        <div class="proj-section-body" id="projProtocols"></div>
+      </div>
+      <div class="proj-section">
+        <div class="proj-section-header"><span class="material-icons-outlined">biotech</span> Samples</div>
+        <div class="proj-section-body" id="projSamples"></div>
+      </div>
+      <div class="proj-section">
+        <div class="proj-section-header"><span class="material-icons-outlined">edit_note</span> Recent Notebooks</div>
+        <div class="proj-section-body" id="projNotebooks"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script src="js/types.js"></script>
+<script src="js/github-api.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/wikilinks.js"></script>
+<script src="js/rich-input.js"></script>
+<script src="js/editor-modal.js"></script>
+<script>
+var BASE = Lab.BASE;
+var projects = [];
+var objectIndex = [];
+var currentProject = null;
+var currentSha = null;
+
+// ── Load ──
+async function init() {
+  objectIndex = await Lab.gh.fetchObjectIndex();
+  projects = objectIndex.filter(function(obj) { return obj.type === 'project'; });
+  renderGrid();
+
+  // Check URL for direct project link
+  var params = new URLSearchParams(location.search);
+  var proj = params.get('project');
+  if (proj) loadProject(proj);
+}
+
+// ── Grid ──
+function renderGrid() {
+  var grid = document.getElementById('projGrid');
+  if (!projects.length) {
+    grid.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">folder_off</span><p>No projects yet</p></div>';
+    return;
+  }
+  grid.innerHTML = projects.map(function(p) {
+    var slug = p.path.replace(/\.md$/, '').split('/').pop();
+    var status = p.status || 'active';
+    return '<div class="proj-card ' + status + '" onclick="loadProject(\'' + Lab.escHtml(slug) + '\')">' +
+      '<h3>' + Lab.escHtml(p.title || slug) + '</h3>' +
+      '<div class="proj-card-meta">' +
+        '<span class="proj-card-status ' + status + '">' + status + '</span>' +
+        (p.pi ? '<span>PI: ' + Lab.escHtml(p.pi) + '</span>' : '') +
+      '</div></div>';
+  }).join('');
+}
+
+// ── Load Project ──
+async function loadProject(slug) {
+  currentProject = slug;
+  document.getElementById('projList').style.display = 'none';
+  document.getElementById('projDetail').classList.add('visible');
+  history.pushState(null, '', location.pathname + '?project=' + encodeURIComponent(slug));
+
+  var filePath = 'docs/projects/' + slug + '.md';
+  document.getElementById('projBody').innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
+    var parsed = Lab.parseFrontmatter(result.content);
+    var title = parsed.meta.title || slug;
+
+    document.getElementById('projTitle').textContent = title;
+    if (Lab.gh.isLoggedIn()) document.getElementById('projEditBtn').style.display = '';
+
+    // Render body
+    var html = await Lab.editorModal.renderMarkdown(parsed.body);
+    var bodyEl = document.getElementById('projBody');
+    bodyEl.innerHTML = '<div class="proj-body-content">' + html + '</div>';
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(bodyEl);
+
+    // Extract wikilinks from the raw markdown to find connected objects
+    var linkedSlugs = [];
+    var linkRegex = /\[\[([^\]|]+?)(?:\|[^\]]+?)?\]\]/g;
+    var m;
+    while ((m = linkRegex.exec(parsed.body)) !== null) {
+      linkedSlugs.push(m[1]);
+    }
+
+    // Populate connected sections
+    populatePeople(linkedSlugs);
+    populateProtocols(linkedSlugs);
+    populateSamples(title, slug);
+    populateNotebooks(linkedSlugs);
+
+  } catch(e) {
+    document.getElementById('projBody').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(e.message) + '</p></div>';
+  }
+}
+
+// ── Connected: People ──
+function populatePeople(linkedSlugs) {
+  var el = document.getElementById('projPeople');
+  var people = objectIndex.filter(function(obj) {
+    if (obj.type !== 'person') return false;
+    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    return linkedSlugs.indexOf(slug) !== -1;
+  });
+  if (!people.length) { el.innerHTML = '<div class="proj-section-empty">No team members linked</div>'; return; }
+  el.innerHTML = people.map(function(p) {
+    var conf = Lab.types.get(p.type);
+    return '<div class="proj-section-item" onclick="Lab.editorModal.open(\'docs/' + p.path + '\')">' +
+      '<span style="font-size:16px">' + conf.icon + '</span>' +
+      '<div><div style="font-weight:500">' + Lab.escHtml(p.title) + '</div>' +
+      (p.role ? '<div style="font-size:12px;color:var(--grey-500)">' + Lab.escHtml(p.role) + '</div>' : '') +
+      '</div></div>';
+  }).join('');
+}
+
+// ── Connected: Protocols ──
+function populateProtocols(linkedSlugs) {
+  var el = document.getElementById('projProtocols');
+  var protocols = objectIndex.filter(function(obj) {
+    if (obj.type !== 'protocol') return false;
+    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    return linkedSlugs.indexOf(slug) !== -1;
+  });
+  if (!protocols.length) { el.innerHTML = '<div class="proj-section-empty">No protocols linked</div>'; return; }
+  el.innerHTML = protocols.map(function(p) {
+    var docPath = p.path.replace(/\.md$/, '');
+    var conf = Lab.types.get(p.type);
+    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'app/protocols.html?doc=' + encodeURIComponent(docPath) + '\'">' +
+      '<span style="font-size:16px">' + conf.icon + '</span>' +
+      '<span>' + Lab.escHtml(p.title) + '</span></div>';
+  }).join('');
+}
+
+// ── Connected: Samples ──
+async function populateSamples(projectTitle, projectSlug) {
+  var el = document.getElementById('projSamples');
+  try {
+    var resp = await fetch(BASE + 'sample-tracker/samples.json?_=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    var samples = await resp.json();
+    // Match by project field (fuzzy: check if project name appears)
+    var titleLower = projectTitle.toLowerCase();
+    var slugLower = projectSlug.toLowerCase();
+    var matched = samples.filter(function(s) {
+      var proj = (s.project || '').toLowerCase();
+      return proj.includes(slugLower) || proj.includes(titleLower) || titleLower.includes(proj);
+    });
+    if (!matched.length) { el.innerHTML = '<div class="proj-section-empty">No samples found for this project</div>'; return; }
+    el.innerHTML = matched.slice(0, 10).map(function(s) {
+      var statusColor = s.status === 'Complete' ? 'var(--green)' : s.status === 'Failed' ? 'var(--red)' : 'var(--amber)';
+      return '<div class="sample-row">' +
+        '<span class="sample-id">' + Lab.escHtml(s.sampleId) + '</span>' +
+        '<span style="flex:1;color:var(--grey-600)">' + Lab.escHtml(s.species || '') + '</span>' +
+        '<span class="sample-status badge" style="background:' + statusColor + '15;color:' + statusColor + ';padding:2px 8px;border-radius:10px">' + Lab.escHtml(s.status) + '</span>' +
+        '</div>';
+    }).join('') +
+    (matched.length > 10 ? '<div style="text-align:center;font-size:12px;color:var(--grey-400);padding:6px">+' + (matched.length - 10) + ' more</div>' : '');
+  } catch(e) {
+    el.innerHTML = '<div class="proj-section-empty">Could not load samples</div>';
+  }
+}
+
+// ── Connected: Notebooks ──
+function populateNotebooks(linkedSlugs) {
+  var el = document.getElementById('projNotebooks');
+  // Find people linked to this project, then show their notebook entries exist
+  var personSlugs = objectIndex.filter(function(obj) {
+    if (obj.type !== 'person') return false;
+    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    return linkedSlugs.indexOf(slug) !== -1;
+  }).map(function(obj) { return obj.path.replace(/\.md$/, '').split('/').pop(); });
+
+  if (!personSlugs.length) {
+    el.innerHTML = '<div class="proj-section-empty">No team members to show notebooks for</div>';
+    return;
+  }
+  el.innerHTML = personSlugs.map(function(slug) {
+    var person = objectIndex.find(function(o) { return o.type === 'person' && o.path.includes(slug); });
+    var name = person ? person.title : slug;
+    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'notebook-app/\'">' +
+      '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-500)">edit_note</span>' +
+      '<span>' + Lab.escHtml(name) + '\'s Notebook</span></div>';
+  }).join('');
+}
+
+// ── Edit ──
+function editProject() {
+  if (!currentProject) return;
+  Lab.editorModal.open('docs/projects/' + currentProject + '.md');
+}
+window.addEventListener('lab-file-saved', function(e) {
+  if (e.detail && e.detail.path && e.detail.path.includes('projects/') && currentProject) {
+    loadProject(currentProject);
+  }
+});
+
+// ── Navigation ──
+function showList() {
+  document.getElementById('projDetail').classList.remove('visible');
+  document.getElementById('projList').style.display = '';
+  currentProject = null;
+  history.pushState(null, '', location.pathname);
+}
+window.addEventListener('popstate', function() {
+  var params = new URLSearchParams(location.search);
+  var proj = params.get('project');
+  if (proj) loadProject(proj);
+  else showList();
+});
+
+init();
+</script>
+</body>
+</html>
