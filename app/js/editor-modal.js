@@ -524,15 +524,47 @@
     }
   }
 
+  var linkModalTextarea = null; // if linking into a textarea instead of Toast UI
+
   function insertLink(slug, title) {
-    if (!linkModalEditor) return;
-    // Insert wikilink directly in WYSIWYG mode using the HTML API
-    // Avoid changeMode() which triggers infinite change→style loops
-    var conf = window.Lab.types ? window.Lab.types.get(slug) : null;
-    // Insert as raw text — the styler will convert it to a pill
-    linkModalEditor.insertText('[[' + slug + ']]');
+    var wikitext = '[[' + slug + ']]';
+
+    if (linkModalTextarea) {
+      // Insert into a plain textarea
+      var ta = linkModalTextarea;
+      var pos = ta.selectionStart || ta.value.length;
+      ta.value = ta.value.substring(0, pos) + wikitext + ta.value.substring(pos);
+      ta.selectionStart = ta.selectionEnd = pos + wikitext.length;
+      ta.focus();
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+      linkModalTextarea = null;
+    } else if (linkModalEditor) {
+      // Insert into Toast UI Editor
+      linkModalEditor.insertText(wikitext);
+    }
+
     linkModalEl.classList.remove('open');
     window.Lab.showToast('Linked: ' + title, 'success');
+  }
+
+  function openLinkForTextarea(textarea, categoryKey) {
+    linkModalTextarea = textarea;
+    linkModalEditor = null;
+    createLinkModal();
+    window.Lab.gh.fetchObjectIndex().then(function(idx) {
+      linkModalIndex = idx;
+      linkModalCategory = categoryKey || null;
+      renderLinkCategories();
+      document.getElementById('em-link-search').value = '';
+      if (categoryKey) {
+        filterLinkItems();
+      } else {
+        document.getElementById('em-link-list').innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">Select a category above</div>';
+      }
+      document.getElementById('em-link-create').style.display = 'none';
+      linkModalEl.classList.add('open');
+      setTimeout(function() { document.getElementById('em-link-search').focus(); }, 100);
+    });
   }
 
   async function createAndInsertLink() {
@@ -652,27 +684,38 @@
     // Style wikilinks in the WYSIWYG contenteditable area
     setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
-    // Inject "Insert" pill button ABOVE the editor, separate from Toast UI toolbar
+    // Inject category insert pills ABOVE the editor
     var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
     if (editorUI) {
       var insertBar = document.createElement('div');
-      insertBar.style.cssText = 'display:flex;align-items:center;padding:6px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:8px;';
+      insertBar.style.cssText = 'display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:6px;flex-wrap:wrap;';
 
-      var insertBtn = document.createElement('button');
-      insertBtn.type = 'button';
-      insertBtn.style.cssText = 'background:#6a1b9a;color:#fff;border:none;border-radius:14px;padding:5px 14px 5px 10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .15s;';
-      insertBtn.innerHTML = '\uD83D\uDD17 Insert Link';
-      insertBtn.title = 'Insert link to protocol, reagent, person, etc.';
-      insertBtn.onmouseenter = function() { insertBtn.style.background = '#4a148c'; };
-      insertBtn.onmouseleave = function() { insertBtn.style.background = '#6a1b9a'; };
-      insertBtn.onclick = function(e) { e.preventDefault(); openLinkModal(editor); };
+      var label = document.createElement('span');
+      label.style.cssText = 'font-size:12px;color:var(--grey-500);margin-right:4px;white-space:nowrap;';
+      label.textContent = 'Insert:';
+      insertBar.appendChild(label);
 
-      var hint = document.createElement('span');
-      hint.style.cssText = 'font-size:12px;color:var(--grey-400);';
-      hint.textContent = 'Link protocols, reagents, people, and more';
+      var groups = getObjectTypes();
+      Object.keys(groups).forEach(function(key) {
+        var g = groups[key];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;border:1.5px solid ' + g.color + '40;background:' + g.color + '08;color:' + g.color + ';font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
+        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">' + g.icon + '</span>' + g.label;
+        btn.onmouseenter = function() { btn.style.background = g.color + '18'; };
+        btn.onmouseleave = function() { btn.style.background = g.color + '08'; };
+        btn.onclick = function(e) {
+          e.preventDefault();
+          linkModalCategory = key; // pre-select this category
+          openLinkModal(editor);
+          // Render the category as pre-selected
+          setTimeout(function() {
+            selectLinkCategory(key);
+          }, 50);
+        };
+        insertBar.appendChild(btn);
+      });
 
-      insertBar.appendChild(insertBtn);
-      insertBar.appendChild(hint);
       editorUI.insertBefore(insertBar, editorUI.firstChild);
     }
 
@@ -704,5 +747,6 @@
     _selectCat: selectLinkCategory,
     _insertLink: insertLink,
     _createAndInsert: createAndInsertLink,
+    _openLinkForTextarea: openLinkForTextarea,
   };
 })();

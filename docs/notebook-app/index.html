@@ -396,14 +396,7 @@ body {
     </div>
     <div class="form-row">
       <label>Entry Content (Markdown)</label>
-      <div class="insert-link-bar">
-        <button class="insert-link-btn" onclick="openLinkPicker('protocol')"><span class="material-icons-outlined">menu_book</span> Protocol</button>
-        <button class="insert-link-btn" onclick="openLinkPicker('resource')"><span class="material-icons-outlined">science</span> Chemical</button>
-        <button class="insert-link-btn" onclick="openLinkPicker('equipment')"><span class="material-icons-outlined">build</span> Equipment</button>
-        <button class="insert-link-btn" onclick="openLinkPicker('person')"><span class="material-icons-outlined">person</span> Person</button>
-        <button class="insert-link-btn" onclick="openLinkPicker('stock')"><span class="material-icons-outlined">eco</span> Stock</button>
-        <button class="insert-link-btn" onclick="openLinkPicker('project')"><span class="material-icons-outlined">folder_special</span> Project</button>
-      </div>
+      <div class="insert-link-bar" id="insertLinkBar"></div>
       <textarea id="entryContent"></textarea>
     </div>
     <div class="form-actions">
@@ -466,7 +459,9 @@ body {
 <script src="../app/js/types.js"></script>
 <script src="../app/js/github-api.js"></script>
 <script src="../app/js/nav.js"></script>
+<script src="../app/js/wikilinks.js"></script>
 <script src="../app/js/rich-input.js"></script>
+<script src="../app/js/editor-modal.js"></script>
 <script>
 // ── Config ──
 const REPO = 'monroe-lab/lab-handbook';
@@ -937,8 +932,25 @@ async function init() {
   // Enhance entry textarea with [[ autocomplete
   if (window.Lab && window.Lab.richInput) {
     Lab.richInput.enhance(document.getElementById('entryContent'));
-    // Pre-load the object index for pill rendering in viewer
     Lab.richInput.ensureIndex();
+  }
+
+  // Build category insert pills from types.js
+  if (window.Lab && window.Lab.types && window.Lab.editorModal) {
+    var bar = document.getElementById('insertLinkBar');
+    var groups = window.Lab.types.GROUPS;
+    Object.keys(groups).forEach(function(key) {
+      var g = groups[key];
+      var btn = document.createElement('button');
+      btn.className = 'insert-link-btn';
+      btn.style.cssText = 'border-color:' + g.color + '40;color:' + g.color + ';';
+      btn.innerHTML = '<span class="material-icons-outlined">' + g.icon + '</span> ' + g.label;
+      btn.onclick = function() {
+        var textarea = document.getElementById('entryContent');
+        Lab.editorModal._openLinkForTextarea(textarea, key);
+      };
+      bar.appendChild(btn);
+    });
   }
 }
 
