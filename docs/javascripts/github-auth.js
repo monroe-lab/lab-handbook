@@ -1,11 +1,13 @@
-/* Shared GitHub OAuth (Device Flow) for Monroe Lab Handbook
+/* Shared GitHub OAuth (Web Flow) for Monroe Lab Handbook
    All apps (inventory, sample tracker, feedback) use this single login. */
 (function () {
-  // ---- CONFIGURE: set your GitHub OAuth App client_id here ----
   var CLIENT_ID = "Ov23li7RlMB84qZM8Sky";
+  // Cloudflare Worker URL for token exchange (keeps client_secret server-side)
+  var TOKEN_PROXY = "";  // Grey: deploy the worker and set this URL
   var TOKEN_KEY = "gh_lab_token";
   var USER_KEY = "gh_lab_user";
   var SCOPE = "repo";
+  var REDIRECT_URI = location.origin + location.pathname;
 
   /* expose globally so apps can use it */
   window.ghAuth = {
@@ -13,8 +15,8 @@
     getUser: function () { try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch (e) { return null; } },
     isLoggedIn: function () { return !!localStorage.getItem(TOKEN_KEY); },
     logout: logout,
-    login: startDeviceFlow,
-    onLogin: null  // apps can set this callback
+    login: startLogin,
+    onLogin: null
   };
 
   /* ---- inject header UI ---- */
@@ -27,46 +29,11 @@
     "#gh-auth-bar button:hover{background:rgba(255,255,255,.25)}",
     "#gh-auth-bar .gh-logout{background:transparent;border:none;opacity:.6;font-size:11px;padding:4px 8px}",
     "#gh-auth-bar .gh-logout:hover{opacity:1}",
-    /* device flow modal */
-    "#gh-device-modal{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.6);align-items:center;justify-content:center}",
-    "#gh-device-modal.open{display:flex}",
-    "#gh-device-box{background:#fff;border-radius:12px;padding:2rem;max-width:400px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.3);font-family:'Inter',-apple-system,sans-serif}",
-    "[data-md-color-scheme=slate] #gh-device-box{background:#2e2e2e;color:#e0e0e0}",
-    "#gh-device-box h3{margin:0 0 .5rem;font-size:1.2rem}",
-    "#gh-device-box .gh-code{font-size:2rem;font-weight:700;letter-spacing:.15em;color:#009688;margin:1rem 0;font-family:'Courier New',monospace}",
-    "#gh-device-box p{color:#666;font-size:.9rem;margin:.5rem 0}",
-    "[data-md-color-scheme=slate] #gh-device-box p{color:#aaa}",
-    "#gh-device-box a{color:#009688;font-weight:600}",
-    "#gh-device-box .gh-spinner{display:inline-block;width:16px;height:16px;border:2px solid #e0e0e0;border-top-color:#009688;border-radius:50%;animation:gh-spin .8s linear infinite;vertical-align:middle;margin-right:6px}",
-    "@keyframes gh-spin{to{transform:rotate(360deg)}}",
-    "#gh-device-box .gh-cancel{background:transparent;color:#616161;border:1px solid #e0e0e0;border-radius:6px;padding:8px 16px;font-size:13px;cursor:pointer;font-family:inherit;margin-top:1rem}",
   ].join("\n");
   document.head.appendChild(css);
 
-  /* device flow modal */
-  var modal = document.createElement("div");
-  modal.id = "gh-device-modal";
-  modal.innerHTML =
-    '<div id="gh-device-box">' +
-    '<h3>Sign in with GitHub</h3>' +
-    '<p>Enter this code at:</p>' +
-    '<p><a id="gh-verify-link" href="https://github.com/login/device" target="_blank">github.com/login/device</a></p>' +
-    '<div class="gh-code" id="gh-user-code">----</div>' +
-    '<p id="gh-poll-status"><span class="gh-spinner"></span> Waiting for authorization...</p>' +
-    '<button class="gh-cancel" id="gh-cancel-flow">Cancel</button>' +
-    '</div>';
-  document.body.appendChild(modal);
-
-  document.getElementById("gh-cancel-flow").addEventListener("click", function () {
-    modal.classList.remove("open");
-    pollAbort = true;
-  });
-
-  var pollAbort = false;
-
   /* ---- render auth state in header ---- */
   function renderAuthUI() {
-    // Wait for MkDocs Material header to load
     var existing = document.getElementById("gh-auth-bar");
     if (existing) existing.remove();
 
@@ -79,13 +46,12 @@
         '<img src="' + user.avatar + '" alt="">' +
         '<span class="gh-user">' + user.login + '</span>' +
         '<button class="gh-logout" onclick="ghAuth.logout()">Sign out</button>';
-    } else if (CLIENT_ID) {
+    } else if (CLIENT_ID && TOKEN_PROXY) {
       bar.innerHTML = '<button onclick="ghAuth.login()">Sign in with GitHub</button>';
-    } else {
-      bar.innerHTML = '<span style="color:rgba(255,255,255,.5);font-size:11px">Auth not configured</span>';
+    } else if (CLIENT_ID && !TOKEN_PROXY) {
+      bar.innerHTML = '<span style="color:rgba(255,255,255,.5);font-size:11px">Auth proxy not configured</span>';
     }
 
-    // Insert into Material header
     var header = document.querySelector(".md-header__inner");
     if (header) {
       var spacer = header.querySelector(".md-header__title");
@@ -97,105 +63,113 @@
     }
   }
 
-  /* ---- Device Flow ---- */
-  async function startDeviceFlow() {
-    if (!CLIENT_ID) {
-      alert("GitHub OAuth not configured. Ask Grey to set up the OAuth App and add the client_id to github-auth.js.");
+  /* ---- Web Application Flow ---- */
+  function startLogin() {
+    // Save current page so we can return after auth
+    sessionStorage.setItem("gh_auth_return", location.href);
+
+    // Generate random state for CSRF protection
+    var state = Math.random().toString(36).substring(2) + Date.now().toString(36);
+    sessionStorage.setItem("gh_auth_state", state);
+
+    // Redirect to GitHub authorization
+    var authUrl = "https://github.com/login/oauth/authorize" +
+      "?client_id=" + CLIENT_ID +
+      "&scope=" + SCOPE +
+      "&state=" + state +
+      "&redirect_uri=" + encodeURIComponent(REDIRECT_URI);
+
+    location.href = authUrl;
+  }
+
+  /* ---- Handle OAuth callback (code in URL) ---- */
+  async function handleCallback() {
+    var params = new URLSearchParams(location.search);
+    var code = params.get("code");
+    var state = params.get("state");
+
+    if (!code) return;
+
+    // Verify state to prevent CSRF
+    var expectedState = sessionStorage.getItem("gh_auth_state");
+    if (state !== expectedState) {
+      console.error("OAuth state mismatch");
+      cleanUrl();
       return;
     }
+    sessionStorage.removeItem("gh_auth_state");
 
-    pollAbort = false;
+    try {
+      // Exchange code for token via our Cloudflare Worker proxy
+      var resp = await fetch(TOKEN_PROXY, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: code, client_id: CLIENT_ID })
+      });
+      var data = await resp.json();
 
-    // Step 1: Request device code
-    var resp = await fetch("https://github.com/login/device/code", {
-      method: "POST",
-      headers: { "Accept": "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ client_id: CLIENT_ID, scope: SCOPE })
-    });
-    var data = await resp.json();
+      if (data.access_token) {
+        localStorage.setItem(TOKEN_KEY, data.access_token);
 
-    if (!data.user_code) {
-      alert("Failed to start login flow. Check OAuth App configuration.");
-      return;
-    }
-
-    // Step 2: Show code to user
-    document.getElementById("gh-user-code").textContent = data.user_code;
-    document.getElementById("gh-verify-link").href = data.verification_uri;
-    document.getElementById("gh-poll-status").innerHTML = '<span class="gh-spinner"></span> Waiting for authorization...';
-    modal.classList.add("open");
-
-    // Copy code to clipboard
-    try { await navigator.clipboard.writeText(data.user_code); } catch (e) { /* fine */ }
-
-    // Step 3: Poll for token
-    var interval = (data.interval || 5) * 1000;
-    var expires = Date.now() + (data.expires_in || 900) * 1000;
-
-    while (Date.now() < expires && !pollAbort) {
-      await new Promise(function (r) { setTimeout(r, interval); });
-      if (pollAbort) break;
-
-      try {
-        var tokenResp = await fetch("https://github.com/login/oauth/access_token", {
-          method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({
-            client_id: CLIENT_ID,
-            device_code: data.device_code,
-            grant_type: "urn:ietf:params:oauth:grant-type:device_code"
-          })
+        // Fetch user info
+        var userResp = await fetch("https://api.github.com/user", {
+          headers: { "Authorization": "token " + data.access_token }
         });
-        var tokenData = await tokenResp.json();
+        var userData = await userResp.json();
+        localStorage.setItem(USER_KEY, JSON.stringify({
+          login: userData.login,
+          avatar: userData.avatar_url,
+          name: userData.name || userData.login
+        }));
 
-        if (tokenData.access_token) {
-          localStorage.setItem(TOKEN_KEY, tokenData.access_token);
-
-          // Fetch user info
-          var userResp = await fetch("https://api.github.com/user", {
-            headers: { "Authorization": "token " + tokenData.access_token }
-          });
-          var userData = await userResp.json();
-          localStorage.setItem(USER_KEY, JSON.stringify({
-            login: userData.login,
-            avatar: userData.avatar_url,
-            name: userData.name || userData.login
-          }));
-
-          modal.classList.remove("open");
-          renderAuthUI();
-          if (window.ghAuth.onLogin) window.ghAuth.onLogin();
-          return;
-        }
-
-        if (tokenData.error === "slow_down") {
-          interval += 5000;
-        }
-        // "authorization_pending" is normal, keep polling
-      } catch (e) {
-        // network error, keep trying
+        renderAuthUI();
+        if (window.ghAuth.onLogin) window.ghAuth.onLogin();
+      } else {
+        console.error("OAuth token exchange failed", data);
       }
+    } catch (e) {
+      console.error("OAuth error", e);
     }
 
-    // Timed out or cancelled
-    modal.classList.remove("open");
+    // Clean URL and return to original page
+    var returnUrl = sessionStorage.getItem("gh_auth_return");
+    sessionStorage.removeItem("gh_auth_return");
+    if (returnUrl && returnUrl !== location.href) {
+      location.href = returnUrl;
+    } else {
+      cleanUrl();
+    }
+  }
+
+  function cleanUrl() {
+    var url = new URL(location.href);
+    url.searchParams.delete("code");
+    url.searchParams.delete("state");
+    history.replaceState(null, "", url.toString());
   }
 
   function logout() {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
     renderAuthUI();
-    // Reload so apps pick up the logged-out state
     location.reload();
   }
 
   /* ---- init ---- */
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderAuthUI);
-  } else {
+  function init() {
+    // Check if this is an OAuth callback
+    if (location.search.includes("code=")) {
+      handleCallback();
+    }
     renderAuthUI();
   }
-  // Also re-render on MkDocs instant navigation
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+  // Re-render on MkDocs instant navigation
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () { setTimeout(renderAuthUI, 100); });
   }
