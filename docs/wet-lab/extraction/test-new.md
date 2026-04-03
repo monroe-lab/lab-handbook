@@ -6,19 +6,19 @@ type: "protocol"
 
 *Created by Grey Monroe on 2026-04-03*
 
-<br>
-<br>
+new stuff
+
 ??? variant "Variant title"
- Description here
+Description here
 
 <br>
 <br>
 ??? note "Note title"
- Description here
+Description here
 
 <br>
 <br>
 ??? tip "Tip title"
- Description here
+Description here
 
 <br>
