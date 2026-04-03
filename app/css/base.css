@@ -358,16 +358,18 @@ tr:hover { background: var(--teal-50); }
 .admonition-body p { margin: 6px 0; }
 .admonition-body strong { font-weight: 600; }
 .admonition[open] summary { border-bottom: 1px solid rgba(0,0,0,.1); }
-/* Variant type: amber */
-.admonition-variant { border-color: #ff8f0040; background: #fff8e1; }
-.admonition-variant summary { background: #fff3e0; color: #e65100; }
+/* Variant type: purple */
+.admonition-variant { border-color: #7b1fa240; background: #f3e5f5; }
+.admonition-variant summary { background: #f3e5f5; color: #7b1fa2; }
+.admonition-variant summary::before { content: '\1F500'; }
 /* Note type: blue */
 .admonition-note { border-color: #1565c040; background: #e3f2fd; }
 .admonition-note summary { background: #e3f2fd; color: #1565c0; }
 .admonition-note summary::before { content: '\2139\FE0F'; }
-/* Warning type: red */
-.admonition-warning { border-color: #e5393540; background: #ffebee; }
-.admonition-warning summary { background: #ffebee; color: #c62828; }
+/* Warning type: red/amber */
+.admonition-warning { border-color: #ff8f0040; background: #fff8e1; }
+.admonition-warning summary { background: #fff3e0; color: #e65100; }
+.admonition-warning summary::before { content: '\26A0\FE0F'; }
 /* Tip type: green */
 .admonition-tip { border-color: #43a04740; background: #e8f5e9; }
 .admonition-tip summary { background: #e8f5e9; color: #2e7d32; }

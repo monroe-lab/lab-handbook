@@ -131,7 +131,7 @@
   // Callouts are stored as blockquotes with emoji prefixes: > ⚠️ **Title**
   // Toast UI handles blockquotes natively. renderMarkdown() renders them as
   // colored collapsible callouts in the read view.
-  var ADM_ICONS = { variant: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', warning: '\u26A0\uFE0F' };
+  var ADM_ICONS = { variant: '\uD83D\uDD00', warning: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1' };
 
   // Convert legacy ??? syntax to blockquote format (one-way migration on edit)
   function migrateAdmonitions(md) {
@@ -153,7 +153,8 @@
   // Render markdown to HTML (with wikilink + admonition preprocessing)
   // Supports both legacy ??? syntax AND blockquote callouts (> ⚠️ **Title**)
   var CALLOUT_COLORS = {
-    '\u26A0\uFE0F': 'variant',
+    '\uD83D\uDD00': 'variant',
+    '\u26A0\uFE0F': 'warning',
     '\u2139\uFE0F': 'note',
     '\uD83D\uDCA1': 'tip',
   };
@@ -710,7 +711,8 @@
     var calloutAnchor = quoteBtn ? quoteBtn.parentNode : editorUI.querySelector('.toastui-editor-toolbar');
     if (calloutAnchor) {
       var callouts = [
-        { type: 'variant', label: 'Variant', icon: '\u26A0\uFE0F' },
+        { type: 'variant', label: 'Variant', icon: '\uD83D\uDD00' },
+        { type: 'warning', label: 'Warning', icon: '\u26A0\uFE0F' },
         { type: 'note', label: 'Note', icon: '\u2139\uFE0F' },
         { type: 'tip', label: 'Tip', icon: '\uD83D\uDCA1' },
       ];
