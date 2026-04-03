@@ -19,7 +19,8 @@ check 1
 
 > ⚠️ **Warning title**
 > test second line here too
-> and a third
+> and a third 
+> and a fourth
 
 > ℹ️ **Note title**
 > Description here
