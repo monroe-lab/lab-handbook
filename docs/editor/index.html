@@ -1586,6 +1586,13 @@ async function init() {
     return;
   }
   await Promise.all([loadFileTree(), loadObjectIndex()]);
+
+  // Auto-open file from URL parameter: ?file=docs/wet-lab/pcr-genotyping.md
+  const params = new URLSearchParams(location.search);
+  const fileParam = params.get('file');
+  if (fileParam) {
+    openFile(fileParam);
+  }
 }
 
 init();

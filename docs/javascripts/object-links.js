@@ -208,16 +208,52 @@
     });
   }
 
+  // ── Edit Button ──
+  function addEditButton() {
+    // Remove existing edit button if any (for instant nav)
+    var existing = document.getElementById('page-edit-btn');
+    if (existing) existing.remove();
+
+    // Determine the file path from the page URL
+    var canonical = document.querySelector('link[rel="canonical"]');
+    var path = '';
+    if (canonical) {
+      var m = canonical.href.match(/\/lab-handbook\/(.+?)\/?\s*$/);
+      if (m) path = m[1];
+    }
+    if (!path || path === '' || path === '/') return;
+
+    // Convert URL path to file path: "wet-lab/pcr-genotyping" -> "docs/wet-lab/pcr-genotyping.md"
+    var filePath = 'docs/' + path.replace(/\/$/, '') + '.md';
+    // Handle index pages
+    if (path.endsWith('/') || !path.includes('.')) {
+      filePath = 'docs/' + path.replace(/\/$/, '') + '.md';
+    }
+
+    var editorUrl = '/lab-handbook/editor/?file=' + encodeURIComponent(filePath);
+
+    var btn = document.createElement('a');
+    btn.id = 'page-edit-btn';
+    btn.href = editorUrl;
+    btn.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:6px;padding:10px 18px;border-radius:28px;background:#009688;color:#fff;text-decoration:none;font-family:Inter,-apple-system,sans-serif;font-size:14px;font-weight:500;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:background .15s;';
+    btn.innerHTML = '<span style="font-size:18px;">&#9998;</span> Edit';
+    btn.onmouseenter = function() { btn.style.background = '#00796b'; };
+    btn.onmouseleave = function() { btn.style.background = '#009688'; };
+
+    document.body.appendChild(btn);
+  }
+
   // Run on page load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', processLinks);
+    document.addEventListener('DOMContentLoaded', function() { processLinks(); addEditButton(); });
   } else {
     processLinks();
+    addEditButton();
   }
 
   // MkDocs Material instant navigation support
   if (typeof document$ !== 'undefined') {
-    document$.subscribe(function() { processLinks(); });
+    document$.subscribe(function() { processLinks(); addEditButton(); });
   } else {
     var observer = new MutationObserver(function(mutations) {
       for (var i = 0; i < mutations.length; i++) {
