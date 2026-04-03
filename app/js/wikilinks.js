@@ -60,15 +60,15 @@
       if (!obj) {
         // Unknown link — style as a plain grey pill
         link.classList.add('object-pill');
-        link.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:#9e9e9e;color:#fff;padding:2px 10px 2px 6px;border-radius:20px;font-size:13px;font-weight:500;text-decoration:none;cursor:default;vertical-align:middle;';
+        link.style.cssText = window.Lab.types.pillStyle('_unknown') + 'cursor:default;';
         link.addEventListener('click', function(e) { e.preventDefault(); });
         return;
       }
 
       var conf = getConf(obj.type);
       link.classList.add('object-pill');
-      link.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:' + conf.color + ';color:#fff;padding:2px 10px 2px 6px;border-radius:20px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;vertical-align:middle;';
-      link.textContent = conf.icon + ' ' + (obj.title || target);
+      link.style.cssText = window.Lab.types.pillStyle(obj.type);
+      link.textContent = window.Lab.types.pillContent(obj.type, obj.title || target);
 
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -104,10 +104,9 @@
       }
       if (!obj) return;
 
-      var conf = getConf(obj.type);
       link.classList.add('object-pill');
-      link.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:' + conf.color + ';color:#fff;padding:2px 10px 2px 6px;border-radius:20px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;vertical-align:middle;';
-      link.textContent = conf.icon + ' ' + (obj.title || 'Item #' + id);
+      link.style.cssText = window.Lab.types.pillStyle(obj.type);
+      link.textContent = window.Lab.types.pillContent(obj.type, obj.title || 'Item #' + id);
       link.addEventListener('click', function(e) {
         e.preventDefault();
         showPopup(obj, link);
@@ -195,6 +194,7 @@
   window.Lab.wikilinks = {
     preprocess: preprocessWikilinks,
     processRendered: processRenderedLinks,
-    ensureLookup: ensureLookup
+    ensureLookup: ensureLookup,
+    _lookup: function(slug) { return objectLookup ? (objectLookup[slug] || null) : null; },
   };
 })();

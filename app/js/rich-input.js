@@ -240,7 +240,8 @@
         conf = { color: '#9e9e9e', icon: '\uD83D\uDD17', label: 'Link' };
       }
       var title = obj ? (obj.title || slug) : slug;
-      return '<span class="ri-pill" style="background:' + conf.color + '" title="' + esc(conf.label) + '">' + conf.icon + ' ' + esc(title) + '</span>';
+      var style = window.Lab.types ? window.Lab.types.pillStyle(obj ? obj.type : '_unknown') : 'background:' + conf.color + ';color:#fff;padding:1px 8px;border-radius:16px;font-size:13px;font-weight:500;';
+      return '<span class="ri-pill" style="' + style + '" title="' + esc(conf.label) + '">' + (window.Lab.types ? window.Lab.types.pillContent(obj ? obj.type : '_unknown', title) : conf.icon + ' ' + esc(title)) + '</span>';
     });
   }
 

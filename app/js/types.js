@@ -306,7 +306,6 @@
   }
 
   // Build a flat TYPE_CONFIG-style map for quick color/icon lookups
-  // (backward compat for wikilinks.js and other consumers)
   var _configCache = null;
   function getTypeConfig() {
     if (_configCache) return _configCache;
@@ -315,6 +314,35 @@
       _configCache[key] = { color: TYPES[key].color, icon: TYPES[key].icon, label: TYPES[key].label };
     });
     return _configCache;
+  }
+
+  // ── Pill Styling (single source of truth) ──
+  // Change this ONE function to change how pills look everywhere:
+  // wikilinks, popups, editor, rich-input, calendar, inventory badges.
+  //
+  // Returns a CSS string for inline style.
+  // mode: 'inline' (default, for inline text pills) or 'badge' (for table badges)
+  function pillStyle(typeName, mode) {
+    var t = TYPES[typeName] || DEFAULT_TYPE;
+    var color = t.color;
+
+    // ── THE pill design — border style ──
+    // Change these lines to change every pill in the entire app.
+    if (mode === 'badge') {
+      return 'display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;' +
+        'background:' + color + '12;color:' + color + ';border:1.5px solid ' + color + '40;';
+    }
+    return 'display:inline-flex;align-items:center;gap:4px;' +
+      'background:' + color + '12;color:' + color + ';' +
+      'border:1.5px solid ' + color + '50;' +
+      'padding:1px 10px 1px 6px;border-radius:16px;font-size:13px;font-weight:500;' +
+      'text-decoration:none;cursor:pointer;vertical-align:middle;white-space:nowrap;';
+  }
+
+  // Returns the icon + title HTML for a pill
+  function pillContent(typeName, title) {
+    var t = TYPES[typeName] || DEFAULT_TYPE;
+    return t.icon + ' ' + title;
   }
 
   // ── Exports ──
@@ -330,5 +358,7 @@
     getTypesInGroup: getTypesInGroup,
     isInventoryType: isInventoryType,
     getTypeConfig: getTypeConfig,
+    pillStyle: pillStyle,
+    pillContent: pillContent,
   };
 })();

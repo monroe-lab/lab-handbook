@@ -578,15 +578,20 @@
         if (match.index > lastIndex) {
           frag.appendChild(document.createTextNode(remaining.substring(lastIndex, match.index)));
         }
-        // Create pill span
+        // Create pill span — look up type for color
         var slug = match[1];
         var label = match[2] || slug;
+        var objType = '_unknown';
+        if (window.Lab.wikilinks && window.Lab.wikilinks._lookup) {
+          var found = window.Lab.wikilinks._lookup(slug);
+          if (found) { objType = found.type; label = match[2] || found.title || slug; }
+        }
         var span = document.createElement('span');
         span.className = 'wk-pill';
         span.contentEditable = 'false';
         span.setAttribute('data-slug', slug);
-        span.style.cssText = 'background:#6a1b9a;color:#fff;padding:2px 10px 2px 6px;border-radius:16px;font-size:13px;font-weight:500;display:inline;cursor:default;white-space:nowrap;';
-        span.textContent = '\uD83D\uDD17 ' + label;
+        span.style.cssText = window.Lab.types.pillStyle(objType) + 'display:inline;cursor:default;';
+        span.textContent = window.Lab.types.pillContent(objType, label);
         // Store raw text so getMarkdown() still returns [[slug]]
         span.setAttribute('data-raw', match[0]);
         frag.appendChild(span);
