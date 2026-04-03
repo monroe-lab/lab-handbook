@@ -49,16 +49,44 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Wet Lab:
-    - Planting on MS Plates: wet-lab/planting-arabidopsis-on-ms-plates.md
-    - Planting in Soil: wet-lab/planting-in-soil.md
-    - Seed Sterilization: wet-lab/seed-sterilization.md
-    - Stratification: wet-lab/stratification.md
-    - MS Media Recipe: wet-lab/ms-media-recipe.md
-    - Autoclave: wet-lab/autoclave.md
-    - Clean Bench: wet-lab/clean-bench.md
-    - Quick DNA Extraction: wet-lab/quick-dna-extraction.md
-    - PCR Genotyping: wet-lab/pcr-genotyping.md
-    - Gel Electrophoresis: wet-lab/gel-electrophoresis.md
+    - Arabidopsis Basics:
+      - Planting on MS Plates: wet-lab/planting-arabidopsis-on-ms-plates.md
+      - Planting in Soil: wet-lab/planting-in-soil.md
+      - Seed Sterilization: wet-lab/seed-sterilization.md
+      - Stratification: wet-lab/stratification.md
+      - MS Media Recipe: wet-lab/ms-media-recipe.md
+      - Autoclave: wet-lab/autoclave.md
+      - Clean Bench: wet-lab/clean-bench.md
+      - Quick DNA Extraction: wet-lab/quick-dna-extraction.md
+      - PCR Genotyping: wet-lab/pcr-genotyping.md
+      - Gel Electrophoresis: wet-lab/gel-electrophoresis.md
+    - DNA Extraction:
+      - HiFi DNA Extraction (DIY): wet-lab/extraction/hifi-dna-extraction.md
+      - Sorbitol/CTAB HiFi Extraction: wet-lab/extraction/sorbitol-ctab-hifi-extraction.md
+      - HMW Extraction (Challenging Plants): wet-lab/extraction/hmw-extraction-challenging-plants.md
+      - Kalanchoe CTAB Extraction: wet-lab/extraction/kalanchoe-ctab-extraction.md
+      - Pistachio DNA Extraction: wet-lab/extraction/pistachio-dna-extraction.md
+    - Library Prep & Sequencing:
+      - Tn5 Loading & Library Prep: wet-lab/library-prep/tn5-loading-library-prep.md
+      - Preparing SPRI Beads: wet-lab/library-prep/spri-beads-preparation.md
+      - Sanger Sequencing: wet-lab/library-prep/sanger-sequencing.md
+      - PacBio HiFi Sequencing (Col-0): wet-lab/library-prep/pacbio-hifi-sequencing.md
+    - Epigenomics:
+      - "CUT&Tag": wet-lab/epigenomics/cut-and-tag.md
+      - ChIP-seq: wet-lab/epigenomics/chip-seq.md
+      - Fiber-Seq / DiMeLo-Seq: wet-lab/epigenomics/fiber-seq-dimelo-seq.md
+    - Mutagenesis & Genetics:
+      - DSB Repair Master Protocol: wet-lab/mutagenesis/dsb-repair-master-protocol.md
+      - Fast Neutron Treatment: wet-lab/mutagenesis/fast-neutron-treatment.md
+      - M2 Forward Genetic Screening: wet-lab/mutagenesis/m2-forward-genetic-screening.md
+      - Protein Induction (BL21): wet-lab/mutagenesis/protein-induction-bl21.md
+  - Lab Management:
+    - Lab Guidelines: lab-management/lab-guidelines.md
+    - Expectations & Best Practices: lab-management/lab-expectations.md
+    - New Member Checklist: lab-management/new-member-checklist.md
+    - Undergrad Onboarding: lab-management/undergrad-onboarding.md
+    - Lab Safety Requirements: lab-management/lab-safety-requirements.md
+    - Hazardous Drug SOP (Paraquat): lab-management/hazardous-drug-sop.md
   - Bioinformatics:
     - Getting Started:
       - Cluster Access: bioinformatics/cluster-access.md
