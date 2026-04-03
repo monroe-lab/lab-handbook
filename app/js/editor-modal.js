@@ -310,6 +310,9 @@
         ['table', 'link', 'image', 'code'],
       ],
     });
+
+    // Add category insert pills
+    injectCategoryPills(editorEl, currentEditor);
   }
 
   async function stopEditing() {
@@ -587,6 +590,40 @@
     }
   }
 
+  // ── Inject category insert pills above any Toast UI editor ──
+  function injectCategoryPills(containerEl, editor) {
+    var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
+    if (!editorUI) return;
+
+    var insertBar = document.createElement('div');
+    insertBar.style.cssText = 'display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:6px;flex-wrap:wrap;';
+
+    var label = document.createElement('span');
+    label.style.cssText = 'font-size:12px;color:var(--grey-500);margin-right:4px;white-space:nowrap;';
+    label.textContent = 'Insert:';
+    insertBar.appendChild(label);
+
+    var groups = getObjectTypes();
+    Object.keys(groups).forEach(function(key) {
+      var g = groups[key];
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;border:1.5px solid ' + g.color + '40;background:' + g.color + '08;color:' + g.color + ';font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
+      btn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">' + g.icon + '</span>' + g.label;
+      btn.onmouseenter = function() { btn.style.background = g.color + '18'; };
+      btn.onmouseleave = function() { btn.style.background = g.color + '08'; };
+      btn.onclick = function(e) {
+        e.preventDefault();
+        linkModalCategory = key;
+        openLinkModal(editor);
+        setTimeout(function() { selectLinkCategory(key); }, 50);
+      };
+      insertBar.appendChild(btn);
+    });
+
+    editorUI.insertBefore(insertBar, editorUI.firstChild);
+  }
+
   // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
   var _styling = false; // guard against re-entrant calls
   async function styleWikilinksInEditor(containerEl) {
@@ -684,40 +721,8 @@
     // Style wikilinks in the WYSIWYG contenteditable area
     setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
-    // Inject category insert pills ABOVE the editor
-    var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
-    if (editorUI) {
-      var insertBar = document.createElement('div');
-      insertBar.style.cssText = 'display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:6px;flex-wrap:wrap;';
-
-      var label = document.createElement('span');
-      label.style.cssText = 'font-size:12px;color:var(--grey-500);margin-right:4px;white-space:nowrap;';
-      label.textContent = 'Insert:';
-      insertBar.appendChild(label);
-
-      var groups = getObjectTypes();
-      Object.keys(groups).forEach(function(key) {
-        var g = groups[key];
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;border:1.5px solid ' + g.color + '40;background:' + g.color + '08;color:' + g.color + ';font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
-        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">' + g.icon + '</span>' + g.label;
-        btn.onmouseenter = function() { btn.style.background = g.color + '18'; };
-        btn.onmouseleave = function() { btn.style.background = g.color + '08'; };
-        btn.onclick = function(e) {
-          e.preventDefault();
-          linkModalCategory = key; // pre-select this category
-          openLinkModal(editor);
-          // Render the category as pre-selected
-          setTimeout(function() {
-            selectLinkCategory(key);
-          }, 50);
-        };
-        insertBar.appendChild(btn);
-      });
-
-      editorUI.insertBefore(insertBar, editorUI.firstChild);
-    }
+    // Add category insert pills
+    injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
