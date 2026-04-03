@@ -11,11 +11,10 @@ testing new again
 
 lets test this
 
-??? variant "Variant title"
-    Description here
+<br>
+⚠️ **Variant title**Description here
+sdf
 
-??? note "Note title"
-    Description here
+ℹ️ **Note title**Description here
 
-??? tip "Tip title"
-    Description here
+💡 **Tip title**Description here
