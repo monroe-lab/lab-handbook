@@ -44,7 +44,8 @@
   var btn = document.createElement("button");
   btn.id = "fb-btn";
   btn.title = "Send feedback";
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>';
+  btn.setAttribute("style","position:fixed;bottom:24px;right:24px;z-index:9990;width:48px;height:48px;border-radius:50%;background:#009688;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:0;padding:0;overflow:hidden");
+  btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:24px;height:24px;max-width:24px;max-height:24px;fill:currentColor;display:block"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>';
   document.body.appendChild(btn);
 
   // overlay
@@ -56,7 +57,7 @@
   var panel = document.createElement("div");
   panel.id = "fb-panel";
   panel.innerHTML =
-    '<div id="fb-panel-hdr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Feedback</div>' +
+    '<div id="fb-panel-hdr"><svg style="width:18px;height:18px;max-width:18px;max-height:18px;fill:currentColor;display:inline-block;flex-shrink:0" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Feedback</div>' +
     '<div id="fb-panel-body">' +
     '<label for="fb-name">Name (optional)</label>' +
     '<input id="fb-name" placeholder="Anonymous" autocomplete="off">' +
