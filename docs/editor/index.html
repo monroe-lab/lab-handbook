@@ -254,17 +254,17 @@ body {
   padding: 4px 8px !important;
 }
 .document-surface .toastui-editor-toolbar-icons {
-  background: none !important;
   border: none !important;
   border-radius: var(--radius-sm) !important;
   width: 32px !important;
   height: 32px !important;
+  background-color: transparent !important;
 }
 .document-surface .toastui-editor-toolbar-icons:hover {
-  background: var(--grey-200) !important;
+  background-color: var(--grey-200) !important;
 }
 .document-surface .toastui-editor-toolbar-icons.active {
-  background: var(--teal-light) !important;
+  background-color: var(--teal-light) !important;
   color: var(--teal-dark) !important;
 }
 .document-surface .toastui-editor-ww-container {
@@ -1087,6 +1087,22 @@ function initEditor(content) {
       ['ul', 'ol', 'task'],
       ['table', 'link', 'image', 'code'],
       [{
+        name: 'undo',
+        tooltip: 'Undo (Cmd+Z)',
+        className: 'toastui-editor-toolbar-icons',
+        text: '↩',
+        style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
+        command: 'undo'
+      },
+      {
+        name: 'redo',
+        tooltip: 'Redo (Cmd+Shift+Z)',
+        className: 'toastui-editor-toolbar-icons',
+        text: '↪',
+        style: { backgroundImage: 'none', fontSize: '16px', fontWeight: 'bold' },
+        command: 'redo'
+      }],
+      [{
         name: 'inventory',
         tooltip: 'Insert Inventory Item',
         className: 'toastui-editor-toolbar-icons inventory-btn',
@@ -1287,12 +1303,23 @@ function insertInventoryItem(id) {
   showToast(`Inserted: ${item.name}`, 'success');
 }
 
-// Handle the custom toolbar button command
+// Handle the custom toolbar button commands
 document.addEventListener('click', e => {
   const btn = e.target.closest('.inventory-btn');
   if (btn) {
     e.preventDefault();
     openInventoryModal();
+    return;
+  }
+  // Undo/Redo buttons
+  const tbBtn = e.target.closest('.toastui-editor-toolbar-icons');
+  if (tbBtn) {
+    const name = tbBtn.getAttribute('aria-label') || '';
+    if (name.includes('Undo')) {
+      document.execCommand('undo');
+    } else if (name.includes('Redo')) {
+      document.execCommand('redo');
+    }
   }
 });
 
