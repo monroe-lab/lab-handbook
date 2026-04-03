@@ -198,22 +198,23 @@
       var title = parsed.meta.title || filePath.split('/').pop().replace('.md', '');
       document.getElementById('em-title').textContent = title;
 
-      // Show edit toggle if logged in
+      // Show edit toggle
       if (gh.isLoggedIn()) {
         document.getElementById('em-edit-toggle').style.display = '';
       }
 
-      // Render fields (read-only initially)
-      renderFields(parsed.meta, false);
-
-      // Render body
-      var html = await renderMarkdown(parsed.body);
-      var contentEl = document.getElementById('em-content');
-      contentEl.innerHTML = '<div class="em-rendered">' + html + '</div>';
-
-      // Process wikilinks in rendered content
-      if (window.Lab.wikilinks) {
-        await window.Lab.wikilinks.processRendered(contentEl);
+      // If logged in, go straight to edit mode
+      if (gh.isLoggedIn()) {
+        await startEditing();
+      } else {
+        // Read-only view for non-authenticated users
+        renderFields(parsed.meta, false);
+        var html = await renderMarkdown(parsed.body);
+        var contentEl = document.getElementById('em-content');
+        contentEl.innerHTML = '<div class="em-rendered">' + html + '</div>';
+        if (window.Lab.wikilinks) {
+          await window.Lab.wikilinks.processRendered(contentEl);
+        }
       }
     } catch(e) {
       document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + window.Lab.escHtml(e.message) + '</p></div>';
