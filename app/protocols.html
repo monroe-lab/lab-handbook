@@ -175,6 +175,24 @@
   z-index: 200;
 }
 
+/* Print styles */
+@media print {
+  #lab-nav, .proto-sidebar, .sidebar-backdrop, .proto-hamburger,
+  .proto-edit-bar, #password-gate { display: none !important; }
+  .protocols-layout { display: block !important; }
+  .proto-main { overflow: visible !important; }
+  .proto-content { max-width: 100% !important; padding: 0 !important; }
+  .proto-rendered { font-size: 12pt; line-height: 1.5; }
+  .proto-rendered h1 { font-size: 18pt; border-bottom: 1px solid #999; }
+  .proto-rendered h2 { font-size: 15pt; }
+  .proto-rendered h3 { font-size: 13pt; }
+  .proto-rendered pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid #ccc; }
+  .proto-rendered table { page-break-inside: avoid; }
+  .object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; }
+  a { color: #000 !important; }
+  body { background: #fff; }
+}
+
 @media (max-width: 768px) {
   .proto-sidebar {
     position: fixed;
@@ -390,8 +408,11 @@ async function loadDoc(docPath) {
       '<div class="proto-content">' +
         '<div class="proto-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(docPath) + '</div>' +
-          (Lab.gh.isLoggedIn() ?
-            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
+            (Lab.gh.isLoggedIn() ?
+              '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
+          '</div>' +
         '</div>' +
         '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
       '</div>';
@@ -481,6 +502,10 @@ async function saveDoc() {
     btn.disabled = false;
     btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
   }
+}
+
+function printProtocol() {
+  window.print();
 }
 
 function cancelEdit() {
