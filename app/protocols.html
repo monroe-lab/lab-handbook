@@ -555,8 +555,6 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
   var srcFilePath = 'docs/' + srcDocPath + '.md';
   var dstFilePath = 'docs/' + targetDir + '/' + slug + '.md';
 
-  if (!confirm('Move "' + title + '" to ' + targetLabel + '?')) return;
-
   try {
     // Fetch source file content and SHA
     var result = await gh.fetchFile(srcFilePath);
