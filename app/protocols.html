@@ -186,6 +186,27 @@
   z-index: 200;
 }
 
+/* Drag and drop */
+.proto-item[draggable="true"] { cursor: grab; }
+.proto-item.dragging { opacity: .4; }
+.proto-items.drag-over { background: var(--teal-50); outline: 2px dashed var(--teal); outline-offset: -2px; border-radius: 4px; }
+.proto-category.drag-over-cat { background: var(--teal-50); color: var(--teal); }
+.new-folder-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--grey-500);
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  font-family: inherit;
+  transition: color .15s;
+}
+.new-folder-btn:hover { color: var(--teal); }
+
 /* Print styles */
 @media print {
   #lab-nav, .proto-sidebar, .sidebar-backdrop, .proto-hamburger,
@@ -350,12 +371,14 @@ function prettifyDir(dir) {
 }
 
 // ── Sidebar ──
+var loggedIn = false;
+
 function renderSidebar(filter) {
   var tree = document.getElementById('protoTree');
   var q = (filter || '').toLowerCase();
   var html = '';
 
-  NAV.forEach(function(cat) {
+  NAV.forEach(function(cat, ci) {
     var items = cat.items;
     if (q) {
       items = items.filter(function(i) {
@@ -369,26 +392,202 @@ function renderSidebar(filter) {
     var collapsed = !q && !hasActive ? ' collapsed' : '';
     var hidden = collapsed ? ' hidden' : '';
 
-    html += '<div class="proto-category' + collapsed + '" onclick="toggleCategory(this)">' +
+    html += '<div class="proto-category' + collapsed + '" data-cat-idx="' + ci + '" onclick="toggleCategory(this)">' +
       '<span class="material-icons-outlined">expand_more</span>' +
       '<span class="material-cat-label">' + Lab.escHtml(cat.label) + '</span>' +
       '<span class="proto-cat-count">' + items.length + '</span>' +
-      '</div><div class="proto-items' + hidden + '">';
+      '</div><div class="proto-items' + hidden + '" data-cat-idx="' + ci + '">';
 
     items.forEach(function(item) {
       var active = currentDoc === item.path ? ' active' : '';
-      html += '<div class="proto-item' + active + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+      var draggable = loggedIn ? ' draggable="true"' : '';
+      html += '<div class="proto-item' + active + '"' + draggable + ' data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
     });
     html += '</div>';
   });
 
+  if (loggedIn && !q) {
+    html += '<button class="new-folder-btn" onclick="createNewFolder()">' +
+      '<span class="material-icons-outlined" style="font-size:16px">create_new_folder</span> New folder' +
+      '</button>';
+  }
+
   tree.innerHTML = html || '<div class="empty-state"><p>No protocols match</p></div>';
+
+  // Wire up drag events
+  if (loggedIn) initDragDrop();
 }
 
 function toggleCategory(el) {
   el.classList.toggle('collapsed');
   var items = el.nextElementSibling;
   if (items) items.classList.toggle('hidden');
+}
+
+// ── New Folder ──
+async function createNewFolder() {
+  var name = prompt('Folder name (e.g. "tissue-culture"):');
+  if (!name || !name.trim()) return;
+  var slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  var label = prompt('Display label:', slug.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '));
+  if (!label || !label.trim()) return;
+
+  // Determine parent dir — for now, all new folders go under docs/wet-lab/ or top-level docs/
+  var parentDir = prompt('Parent directory (e.g. "wet-lab" or leave blank for top-level):', '');
+  var dir = parentDir ? parentDir.trim() + '/' + slug : slug;
+
+  // GitHub requires a file to create a directory — create a placeholder index
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  var indexContent = Lab.buildFrontmatter({ title: 'Index', type: 'index' }, '\n# ' + label.trim() + '\n');
+  try {
+    await gh.saveFile('docs/' + dir + '/index.md', indexContent, null, 'New folder: ' + label.trim());
+    gh.clearObjectIndexCache();
+
+    // Add to CATEGORY_CONFIG and NAV
+    CATEGORY_CONFIG.labels[dir] = label.trim();
+    CATEGORY_CONFIG.order.push(dir);
+    NAV.push({ label: label.trim(), items: [] });
+
+    renderSidebar(document.getElementById('protoSearch').value);
+    Lab.showToast('Created folder: ' + label.trim(), 'success');
+  } catch(e) {
+    Lab.showToast('Failed: ' + e.message, 'error');
+  }
+}
+
+// ── Drag and Drop ──
+var dragData = null;
+
+function initDragDrop() {
+  var items = document.querySelectorAll('.proto-item[draggable="true"]');
+  var containers = document.querySelectorAll('.proto-items');
+  var categories = document.querySelectorAll('.proto-category');
+
+  items.forEach(function(el) {
+    el.addEventListener('dragstart', function(e) {
+      dragData = { path: el.dataset.path, title: el.textContent };
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      // Expand all collapsed categories so user can see drop targets
+      categories.forEach(function(cat) {
+        cat.classList.remove('collapsed');
+        var next = cat.nextElementSibling;
+        if (next) next.classList.remove('hidden');
+      });
+    });
+    el.addEventListener('dragend', function() {
+      el.classList.remove('dragging');
+      dragData = null;
+      containers.forEach(function(c) { c.classList.remove('drag-over'); });
+      categories.forEach(function(c) { c.classList.remove('drag-over-cat'); });
+    });
+  });
+
+  containers.forEach(function(container) {
+    container.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      container.classList.add('drag-over');
+      // Also highlight the category header
+      var catHeader = container.previousElementSibling;
+      if (catHeader) catHeader.classList.add('drag-over-cat');
+    });
+    container.addEventListener('dragleave', function(e) {
+      // Only remove if leaving the container entirely
+      if (!container.contains(e.relatedTarget)) {
+        container.classList.remove('drag-over');
+        var catHeader = container.previousElementSibling;
+        if (catHeader) catHeader.classList.remove('drag-over-cat');
+      }
+    });
+    container.addEventListener('drop', function(e) {
+      e.preventDefault();
+      container.classList.remove('drag-over');
+      var catHeader = container.previousElementSibling;
+      if (catHeader) catHeader.classList.remove('drag-over-cat');
+      if (!dragData) return;
+
+      var targetCatIdx = parseInt(container.dataset.catIdx);
+      var targetCat = NAV[targetCatIdx];
+      if (!targetCat) return;
+
+      // Get target directory from the first item in this category, or from config
+      var targetDir = getNavCategoryDir(targetCat);
+      if (!targetDir && targetDir !== '') {
+        Lab.showToast('Cannot determine target directory', 'error');
+        return;
+      }
+
+      moveProtocol(dragData.path, dragData.title, targetDir, targetCat.label);
+    });
+  });
+}
+
+function getNavCategoryDir(cat) {
+  // Find the directory key for this category by checking items or reversing the label map
+  if (cat.items.length > 0) {
+    var path = cat.items[0].path;
+    var parts = path.split('/');
+    parts.pop();
+    return parts.join('/');
+  }
+  // Empty category — find from config labels
+  for (var dir in CATEGORY_CONFIG.labels) {
+    if (CATEGORY_CONFIG.labels[dir] === cat.label) return dir;
+  }
+  return null;
+}
+
+async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) return;
+
+  // Parse source
+  var srcParts = srcDocPath.split('/');
+  var slug = srcParts.pop();
+  var srcDir = srcParts.join('/');
+
+  // Don't move to same directory
+  if (srcDir === targetDir) return;
+
+  var srcFilePath = 'docs/' + srcDocPath + '.md';
+  var dstFilePath = 'docs/' + targetDir + '/' + slug + '.md';
+
+  if (!confirm('Move "' + title + '" to ' + targetLabel + '?')) return;
+
+  try {
+    // Fetch source file content and SHA
+    var result = await gh.fetchFile(srcFilePath);
+
+    // Create file in new location
+    await gh.saveFile(dstFilePath, result.content, null, 'Move ' + slug + ' to ' + targetDir);
+
+    // Delete from old location
+    await gh.deleteFile(srcFilePath, result.sha, 'Moved ' + slug + ' from ' + srcDir);
+
+    gh.clearObjectIndexCache();
+
+    // Update local NAV
+    var newDocPath = targetDir + '/' + slug;
+    NAV.forEach(function(cat) {
+      cat.items = cat.items.filter(function(i) { return i.path !== srcDocPath; });
+    });
+    injectIntoNav(newDocPath, title);
+    // Remove empty categories (except configured ones)
+    NAV = NAV.filter(function(cat) { return cat.items.length > 0 || CATEGORY_CONFIG.order.indexOf(getNavCategoryDir(cat)) >= 0; });
+
+    renderSidebar(document.getElementById('protoSearch').value);
+    Lab.showToast('Moved to ' + targetLabel, 'success');
+
+    // If we were viewing the moved doc, update URL
+    if (currentDoc === srcDocPath) {
+      loadDoc(newDocPath);
+    }
+  } catch(e) {
+    Lab.showToast('Move failed: ' + e.message, 'error');
+  }
 }
 
 // ── Load Document ──
@@ -685,8 +884,9 @@ window.addEventListener('popstate', function() {
   await buildNav();
   renderSidebar();
 
-  // Show new-protocol button if logged in
-  if (Lab.gh.isLoggedIn()) {
+  // Show logged-in features
+  loggedIn = Lab.gh.isLoggedIn();
+  if (loggedIn) {
     document.getElementById('newProtoBtn').style.display = '';
   }
 
