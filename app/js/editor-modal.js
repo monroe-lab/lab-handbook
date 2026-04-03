@@ -188,7 +188,7 @@
       var bodyHtml = marked.parse(bodyProcessed);
       var adHtml = '<details class="admonition admonition-' + (a.type || 'note') + '" open>' +
         '<summary>' + a.title + '</summary>' +
-        '<div class="admonition-body">' + bodyHtml + '</div></details>';
+        (a.bodyMd.trim() ? '<div class="admonition-body">' + bodyHtml + '</div>' : '') + '</details>';
       html = html.replace('<!--admonition-' + i + '-->', adHtml);
     });
     return html;
@@ -699,38 +699,40 @@
 
     editorUI.insertBefore(insertBar, editorUI.firstChild);
 
-    // Inject Variant/Note/Tip buttons into the Toast UI toolbar row
-    var toolbar = editorUI.querySelector('.toastui-editor-toolbar');
-    if (toolbar) {
-      var calloutGroup = document.createElement('div');
-      calloutGroup.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:6px;border-left:1px solid var(--grey-300);padding-left:8px;flex-shrink:0;';
-
+    // Inject callout icons into toolbar next to the blockquote (66) button
+    var quoteBtn = editorUI.querySelector('.toastui-editor-toolbar-icons[aria-label="Blockquote"]') ||
+                   editorUI.querySelector('button[data-tooltip="Blockquote"]');
+    // Fallback: find the second toolbar group (hr, quote)
+    if (!quoteBtn) {
+      var groups = editorUI.querySelectorAll('.toastui-editor-toolbar-group');
+      if (groups.length > 1) quoteBtn = groups[1].lastElementChild;
+    }
+    var calloutAnchor = quoteBtn ? quoteBtn.parentNode : editorUI.querySelector('.toastui-editor-toolbar');
+    if (calloutAnchor) {
       var callouts = [
-        { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
-        { type: 'note', label: 'Note', color: '#1565c0', icon: '\u2139\uFE0F' },
-        { type: 'tip', label: 'Tip', color: '#2e7d32', icon: '\uD83D\uDCA1' },
+        { type: 'variant', label: 'Variant', icon: '\u26A0\uFE0F' },
+        { type: 'note', label: 'Note', icon: '\u2139\uFE0F' },
+        { type: 'tip', label: 'Tip', icon: '\uD83D\uDCA1' },
       ];
       callouts.forEach(function(c) {
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.title = 'Insert ' + c.label + ' callout';
-        btn.style.cssText = 'display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border-radius:4px;border:none;background:transparent;color:' + c.color + ';font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;white-space:nowrap;line-height:1;';
-        btn.textContent = c.icon + ' ' + c.label;
-        btn.onmouseenter = function() { btn.style.background = c.color + '12'; };
+        btn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;border:none;background:transparent;font-size:16px;cursor:pointer;transition:background .15s;';
+        btn.textContent = c.icon;
+        btn.onmouseenter = function() { btn.style.background = 'var(--grey-200)'; };
         btn.onmouseleave = function() { btn.style.background = 'transparent'; };
         btn.onclick = function(e) {
           e.preventDefault();
-          editor.insertText('\n\n> ' + c.icon + ' **' + c.label + '**\n> Description here\n\n');
+          editor.insertText('\n\n> ' + c.icon + ' **' + c.label + '**\n> \n\n');
         };
-        calloutGroup.appendChild(btn);
+        if (quoteBtn && quoteBtn.nextSibling) {
+          calloutAnchor.insertBefore(btn, quoteBtn.nextSibling);
+          quoteBtn = btn; // chain them after each other
+        } else {
+          calloutAnchor.appendChild(btn);
+        }
       });
-
-      var toolbarGroup = toolbar.querySelector('.toastui-editor-toolbar-group');
-      if (toolbarGroup) {
-        toolbarGroup.parentNode.appendChild(calloutGroup);
-      } else {
-        toolbar.appendChild(calloutGroup);
-      }
     }
   }
 
