@@ -187,12 +187,13 @@
       var c = colors[type] || colors.note;
       p.dataset.calloutStyled = '1';
       p.contentEditable = 'false';
-      p.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;color:' + c.border + ';font-weight:600;font-size:14px;cursor:default;user-select:none;';
-      // Show title + body preview
+      p.style.cssText = 'border-left:4px solid ' + c.border + ';background:' + c.bg + ';padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;cursor:default;user-select:none;';
+      // Show title + full body
       var stored = _admStore[idx];
-      var bodyPreview = stored && stored.body ? stored.body.split('\n')[0] : '';
-      p.innerHTML = '<span style="font-size:16px;vertical-align:middle">' + icon + '</span> <strong>' + Lab.escHtml(title) + '</strong>' +
-        (bodyPreview ? '<div style="font-weight:400;font-size:13px;color:#555;margin-top:4px">' + Lab.escHtml(bodyPreview) + '</div>' : '');
+      var bodyText = stored && stored.body ? stored.body.trim() : '';
+      var bodyHtml = bodyText ? bodyText.split('\n').map(function(l) { return Lab.escHtml(l); }).join('<br>') : '';
+      p.innerHTML = '<div style="font-weight:600;color:' + c.border + '"><span style="font-size:16px;vertical-align:middle">' + icon + '</span> ' + Lab.escHtml(title) + '</div>' +
+        (bodyHtml ? '<div style="font-weight:400;font-size:13px;color:#444;margin-top:6px;line-height:1.6">' + bodyHtml + '</div>' : '');
     });
   }
 
