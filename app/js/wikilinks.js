@@ -44,11 +44,14 @@
     await ensureLookup();
     if (!objectLookup || !containerEl) return;
 
-    var links = containerEl.querySelectorAll('a[href^="obj://"]');
+    // Find obj:// links — check both raw and URL-encoded forms
+    var links = containerEl.querySelectorAll('a');
     links.forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      if (!href.startsWith('obj://') && !href.startsWith('obj%3A//')) return;
       if (link.classList.contains('object-pill')) return;
 
-      var target = link.getAttribute('href').replace('obj://', '');
+      var target = href.replace('obj://', '').replace('obj%3A//', '');
       var obj = objectLookup[target];
 
       // Also try just the last segment as slug
