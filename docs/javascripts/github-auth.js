@@ -43,7 +43,7 @@
     var user = window.ghAuth.getUser();
     if (window.ghAuth.isLoggedIn() && user) {
       bar.innerHTML =
-        '<img src="' + user.avatar + '" alt="">' +
+        '<img src="' + user.avatar + '" alt="" style="width:24px;height:24px;max-width:24px;max-height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3);object-fit:cover;display:inline-block">' +
         '<span class="gh-user">' + user.login + '</span>' +
         '<button class="gh-logout" onclick="ghAuth.logout()">Sign out</button>';
     } else if (CLIENT_ID && TOKEN_PROXY) {
