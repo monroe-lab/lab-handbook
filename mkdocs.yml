@@ -91,3 +91,6 @@ nav:
 
 extra_css:
   - stylesheets/password-gate.css
+
+extra_javascript:
+  - javascripts/inventory-links.js
