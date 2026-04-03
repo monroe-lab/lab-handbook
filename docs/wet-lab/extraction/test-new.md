@@ -8,11 +8,12 @@ type: "protocol"
 
 new stuff testing new again
 
+📖 Clean Bench (Laminar Flow Hood)
+
 lets test this
 
 > block quote material
 > 🌱 Col-0 Wild Type
-> 
 
 > ⚠️ **Variant title**
 
