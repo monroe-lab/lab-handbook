@@ -16,6 +16,7 @@ lets test this
 > 🌱 Col-0 Wild Type
 
 > ⚠️ **Variant title**
+> test second line here too
 
 > ℹ️ **Note title**
 > Description here
