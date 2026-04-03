@@ -23,7 +23,7 @@
   var css = document.createElement("style");
   css.textContent = [
     "#gh-auth-bar{display:flex;align-items:center;gap:8px;font-size:13px;font-family:'Inter',-apple-system,sans-serif}",
-    "#gh-auth-bar img{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3)}",
+    "#gh-auth-bar img{width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important;border-radius:50%!important;border:2px solid rgba(255,255,255,.3)!important;object-fit:cover}",
     "#gh-auth-bar .gh-user{color:#fff;font-weight:500;opacity:.9}",
     "#gh-auth-bar button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}",
     "#gh-auth-bar button:hover{background:rgba(255,255,255,.25)}",
