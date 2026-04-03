@@ -640,18 +640,28 @@
     // Style wikilinks in the WYSIWYG contenteditable area
     setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
-    // Inject "Insert Link" pill button into the toolbar
-    var toolbar = containerEl.querySelector('.toastui-editor-defaultUI-toolbar');
-    if (toolbar) {
+    // Inject "Insert" pill button ABOVE the editor, separate from Toast UI toolbar
+    var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
+    if (editorUI) {
+      var insertBar = document.createElement('div');
+      insertBar.style.cssText = 'display:flex;align-items:center;padding:6px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:8px;';
+
       var insertBtn = document.createElement('button');
       insertBtn.type = 'button';
-      insertBtn.style.cssText = 'background:#6a1b9a;color:#fff;border:none;border-radius:14px;padding:4px 12px 4px 8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;margin-left:8px;vertical-align:middle;transition:background .15s;';
-      insertBtn.innerHTML = '<span style="font-size:14px">\uD83D\uDD17</span> Insert';
+      insertBtn.style.cssText = 'background:#6a1b9a;color:#fff;border:none;border-radius:14px;padding:5px 14px 5px 10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .15s;';
+      insertBtn.innerHTML = '\uD83D\uDD17 Insert Link';
       insertBtn.title = 'Insert link to protocol, reagent, person, etc.';
       insertBtn.onmouseenter = function() { insertBtn.style.background = '#4a148c'; };
       insertBtn.onmouseleave = function() { insertBtn.style.background = '#6a1b9a'; };
       insertBtn.onclick = function(e) { e.preventDefault(); openLinkModal(editor); };
-      toolbar.appendChild(insertBtn);
+
+      var hint = document.createElement('span');
+      hint.style.cssText = 'font-size:12px;color:var(--grey-400);';
+      hint.textContent = 'Link protocols, reagents, people, and more';
+
+      insertBar.appendChild(insertBtn);
+      insertBar.appendChild(hint);
+      editorUI.insertBefore(insertBar, editorUI.firstChild);
     }
 
     return {
