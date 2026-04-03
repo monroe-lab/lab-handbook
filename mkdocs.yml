@@ -130,5 +130,6 @@ extra_css:
   - stylesheets/variants.css
 
 extra_javascript:
+  - javascripts/github-auth.js
   - javascripts/inventory-links.js
   - javascripts/feedback.js

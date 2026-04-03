@@ -3,11 +3,10 @@
   var REPO = "monroe-lab/lab-handbook";
   var FILE = "docs/feedback.json";
   var BRANCH = "main";
-  var TOKEN_KEY = "gh_lab_feedback_token";
 
   /* ---- helpers ---- */
   function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
-  function getToken() { return localStorage.getItem(TOKEN_KEY) || ""; }
+  function getToken() { return (window.ghAuth && window.ghAuth.getToken()) || ""; }
 
   /* ---- inject CSS ---- */
   var css = document.createElement("style");

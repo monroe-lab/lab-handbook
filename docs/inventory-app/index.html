@@ -421,9 +421,9 @@ tr.low-stock td:first-child::before {
       <span class="conn-dot" id="connDot"></span>
       <span id="connLabel">Not connected</span>
     </div>
-    <button class="btn btn-primary" id="btnConnect" onclick="promptToken()">
+    <button class="btn btn-primary" id="btnConnect" onclick="window.ghAuth ? (window.ghAuth.isLoggedIn() ? window.ghAuth.logout() : window.ghAuth.login()) : alert('Auth not loaded')">
       <span class="material-icons-outlined">link</span>
-      Connect GitHub
+      Sign in
     </button>
     <button class="btn btn-primary" onclick="openAddModal()">
       <span class="material-icons-outlined">add</span>
@@ -603,31 +603,8 @@ tr.low-stock td:first-child::before {
   </div>
 </div>
 
-<!-- Token Modal -->
-<div class="modal-overlay" id="tokenModal">
-  <div class="modal" style="max-width:460px">
-    <div class="modal-header">
-      <h2>Connect to GitHub</h2>
-      <button class="modal-close" onclick="closeTokenModal()">
-        <span class="material-icons-outlined">close</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p style="margin-bottom:16px;color:var(--grey-700);font-size:14px;">
-        Enter a GitHub Personal Access Token with <strong>repo</strong> scope to enable adding, editing, and deleting items.
-        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Lab+Inventory" target="_blank" style="color:var(--teal)">Create one here</a>.
-      </p>
-      <div class="form-group">
-        <label>Personal Access Token</label>
-        <input type="password" id="fToken" placeholder="ghp_...">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeTokenModal()">Cancel</button>
-      <button class="btn btn-teal" onclick="saveToken()">Connect</button>
-    </div>
-  </div>
-</div>
+<!-- Auth provided by shared github-auth.js -->
+<script src="../javascripts/github-auth.js"></script>
 
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
@@ -645,42 +622,22 @@ let deletingId = null;
 let sortCol = 'name';
 let sortDir = 1; // 1 = asc, -1 = desc
 
-// --- Token management ---
-function getToken() { return localStorage.getItem('gh_inventory_token') || ''; }
-
-function promptToken() {
-  document.getElementById('fToken').value = getToken();
-  document.getElementById('tokenModal').classList.add('open');
-}
-
-function closeTokenModal() {
-  document.getElementById('tokenModal').classList.remove('open');
-}
-
-function saveToken() {
-  const t = document.getElementById('fToken').value.trim();
-  if (!t) { toast('Please enter a token', 'error'); return; }
-  localStorage.setItem('gh_inventory_token', t);
-  closeTokenModal();
-  updateConnStatus();
-  toast('Connected to GitHub', 'success');
-}
+// --- Auth (shared via github-auth.js) ---
+function getToken() { return (window.ghAuth && window.ghAuth.getToken()) || ''; }
 
 function updateConnStatus() {
   const connected = !!getToken();
+  const user = window.ghAuth && window.ghAuth.getUser();
   document.getElementById('connDot').className = 'conn-dot' + (connected ? ' connected' : '');
-  document.getElementById('connLabel').textContent = connected ? 'Connected' : 'Not connected';
+  document.getElementById('connLabel').textContent = connected ? ('Signed in' + (user ? ' as ' + user.login : '')) : 'Not signed in';
   document.getElementById('btnConnect').innerHTML = connected
-    ? '<span class="material-icons-outlined">link_off</span> Disconnect'
-    : '<span class="material-icons-outlined">link</span> Connect GitHub';
-  document.getElementById('btnConnect').onclick = connected ? disconnect : promptToken;
+    ? '<span class="material-icons-outlined">link_off</span> Sign out'
+    : '<span class="material-icons-outlined">link</span> Sign in';
+  document.getElementById('btnConnect').onclick = connected
+    ? function() { window.ghAuth.logout(); }
+    : function() { window.ghAuth.login(); };
 }
-
-function disconnect() {
-  localStorage.removeItem('gh_inventory_token');
-  updateConnStatus();
-  toast('Disconnected from GitHub');
-}
+if (window.ghAuth) { window.ghAuth.onLogin = function() { updateConnStatus(); loadInventory(); }; }
 
 // --- Data loading ---
 async function loadInventory() {
