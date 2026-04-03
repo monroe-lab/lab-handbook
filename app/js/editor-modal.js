@@ -137,7 +137,7 @@
   function migrateAdmonitions(md) {
     // Clean up broken remnants from previous conversion attempts
     md = md.replace(/<!-- adm-sep -->/g, '');
-    md = md.replace(/\\> *(?:\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
+    md = md.replace(/\\> *(?:\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
     // Convert ??? blocks to blockquotes
     return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
@@ -170,8 +170,8 @@
       return placeholder + '\n\n';
     });
 
-    // Extract blockquote callouts: > ⚠️ **Title** followed by > body lines
-    processed = processed.replace(/^> *(\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
+    // Extract blockquote callouts: > 🔀/⚠️/ℹ️/💡 **Title** followed by > body lines
+    processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
       var type = CALLOUT_COLORS[icon] || 'note';
       var bodyMd = bodyBlock.replace(/^>\s?/gm, '').trim();
       var placeholder = '<!--admonition-' + admonitions.length + '-->';
@@ -726,7 +726,11 @@
         btn.onmouseleave = function() { btn.style.background = 'transparent'; };
         btn.onclick = function(e) {
           e.preventDefault();
-          editor.insertText('\n\n> ' + c.icon + ' **' + c.label + '**\n> \n\n');
+          // insertText in WYSIWYG inserts literal text, not markdown.
+          // Switch to markdown mode to insert, then switch back.
+          editor.changeMode('markdown');
+          editor.replaceSelection('\n\n> ' + c.icon + ' **' + c.label + '**\n> \n\n');
+          editor.changeMode('wysiwyg');
         };
         if (quoteBtn && quoteBtn.nextSibling) {
           calloutAnchor.insertBefore(btn, quoteBtn.nextSibling);
