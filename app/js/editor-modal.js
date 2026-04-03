@@ -145,7 +145,7 @@
     admonitions.forEach(function(a, i) {
       var bodyProcessed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(a.bodyMd) : a.bodyMd;
       var bodyHtml = marked.parse(bodyProcessed);
-      var openAttr = a.expanded ? ' open' : '';
+      var openAttr = a.expanded === '' ? ' open' : ' open'; // always open by default
       var adHtml = '<details class="admonition admonition-' + (a.type || 'note') + '"' + openAttr + '>' +
         '<summary>' + a.title + '</summary>' +
         '<div class="admonition-body">' + bodyHtml + '</div></details>';
@@ -653,6 +653,32 @@
         linkModalCategory = key;
         openLinkModal(editor);
         setTimeout(function() { selectLinkCategory(key); }, 50);
+      };
+      insertBar.appendChild(btn);
+    });
+
+    // Separator
+    var sep = document.createElement('span');
+    sep.style.cssText = 'width:1px;height:20px;background:var(--grey-300);margin:0 4px;';
+    insertBar.appendChild(sep);
+
+    // Variant/Note/Tip insert buttons
+    var callouts = [
+      { type: 'variant', label: 'Variant', color: '#e65100', icon: '\u26A0\uFE0F' },
+      { type: 'note', label: 'Note', color: '#1565c0', icon: '\u2139\uFE0F' },
+      { type: 'tip', label: 'Tip', color: '#2e7d32', icon: '\uD83D\uDCA1' },
+    ];
+    callouts.forEach(function(c) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;border:1.5px solid ' + c.color + '40;background:' + c.color + '08;color:' + c.color + ';font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
+      btn.textContent = c.icon + ' ' + c.label;
+      btn.onmouseenter = function() { btn.style.background = c.color + '18'; };
+      btn.onmouseleave = function() { btn.style.background = c.color + '08'; };
+      btn.onclick = function(e) {
+        e.preventDefault();
+        var snippet = '\n\n??? ' + c.type + ' "' + c.label + ' title"\n    Description here\n\n';
+        editor.insertText(snippet);
       };
       insertBar.appendChild(btn);
     });
