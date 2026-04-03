@@ -9,17 +9,13 @@ type: "protocol"
 new stuff
 testing new again
 
+lets test this
+
 ??? variant "Variant title"
     Description here
-
-
-<br>
-??? note "Note title"
+    
+    ℹ️ **Note: Note title**
     Description here
-
-
-<br>
-??? tip "Tip title"
+    
+    💡 **Tip: Tip title**
     Description here
-
-
