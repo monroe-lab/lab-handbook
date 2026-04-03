@@ -553,6 +553,53 @@
     }
   }
 
+  // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
+  function styleWikilinksInEditor(containerEl) {
+    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container');
+    if (!wwContainer) return;
+    var walker = document.createTreeWalker(wwContainer, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach(function(node) {
+      var text = node.textContent;
+      if (!text.match(/\[\[.+?\]\]/)) return;
+      // Skip if already inside a styled wikilink span
+      if (node.parentElement && node.parentElement.classList.contains('wk-pill')) return;
+
+      var frag = document.createDocumentFragment();
+      var remaining = text;
+      var regex = /\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g;
+      var match;
+      var lastIndex = 0;
+
+      while ((match = regex.exec(remaining)) !== null) {
+        // Text before the match
+        if (match.index > lastIndex) {
+          frag.appendChild(document.createTextNode(remaining.substring(lastIndex, match.index)));
+        }
+        // Create pill span
+        var slug = match[1];
+        var label = match[2] || slug;
+        var span = document.createElement('span');
+        span.className = 'wk-pill';
+        span.contentEditable = 'false';
+        span.setAttribute('data-slug', slug);
+        span.style.cssText = 'background:#6a1b9a;color:#fff;padding:2px 10px 2px 6px;border-radius:16px;font-size:13px;font-weight:500;display:inline;cursor:default;white-space:nowrap;';
+        span.textContent = '\uD83D\uDD17 ' + label;
+        // Store raw text so getMarkdown() still returns [[slug]]
+        span.setAttribute('data-raw', match[0]);
+        frag.appendChild(span);
+        lastIndex = regex.lastIndex;
+      }
+      // Remaining text after last match
+      if (lastIndex < remaining.length) {
+        frag.appendChild(document.createTextNode(remaining.substring(lastIndex)));
+      }
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
@@ -575,27 +622,18 @@
         ['ul', 'ol', 'task'],
         ['table', 'link', 'image', 'code'],
       ],
-      customHTMLRenderer: {
-        // Render [[wikilinks]] as styled spans in WYSIWYG preview
-        text: function(node) {
-          var text = node.literal || '';
-          // Match [[slug]] or [[slug|label]] patterns
-          if (text.match(/\[\[.+?\]\]/)) {
-            var html = text.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, function(m, target, label) {
-              var display = label || target;
-              return '<span style="background:#6a1b9a;color:#fff;padding:1px 8px 1px 5px;border-radius:16px;font-size:13px;font-weight:500">\uD83D\uDD17 ' + display + '</span>';
-            });
-            return { type: 'html', content: html };
-          }
-          return null; // default rendering
-        }
-      },
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
+          // Re-style wikilinks on content change (debounced)
+          clearTimeout(containerEl._wikiTimer);
+          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
         }
       }
     });
+
+    // Style wikilinks in the WYSIWYG contenteditable area
+    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
     // Inject "Insert Link" pill button into the toolbar
     var toolbar = containerEl.querySelector('.toastui-editor-defaultUI-toolbar');
