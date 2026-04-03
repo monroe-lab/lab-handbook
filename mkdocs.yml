@@ -25,13 +25,10 @@ theme:
     - navigation.top
     - search.suggest
     - search.highlight
-    - content.action.edit
-  icon:
-    edit: material/pencil
   custom_dir: overrides
 
-repo_url: https://github.com/monroe-lab/lab-handbook
-edit_uri: https://app.pagescms.org/monroe-lab/lab-handbook/content/
+repo_url: https://app.pagescms.org/monroe-lab/lab-handbook
+repo_name: Edit Wiki
 
 plugins:
   - search
