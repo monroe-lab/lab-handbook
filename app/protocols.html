@@ -53,20 +53,31 @@
 .proto-tree::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
 .proto-category {
   padding: 8px 16px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .5px;
-  color: var(--grey-500);
+  color: var(--grey-600);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 4px;
   user-select: none;
+  background: var(--grey-50);
+  border-bottom: 1px solid var(--grey-200);
 }
-.proto-category:hover { color: var(--teal); }
-.proto-category .material-icons-outlined { font-size: 18px; transition: transform .15s; }
+.proto-category:hover { color: var(--teal); background: var(--teal-50); }
+.proto-category .material-icons-outlined { font-size: 18px; transition: transform .15s; color: var(--grey-400); }
 .proto-category.collapsed .material-icons-outlined { transform: rotate(-90deg); }
+.proto-cat-count {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--grey-400);
+  background: var(--grey-200);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
 .proto-items { padding-left: 8px; }
 .proto-items.hidden { display: none; }
 .proto-item {
@@ -360,9 +371,16 @@ function renderSidebar(filter) {
       if (!items.length) return;
     }
 
-    html += '<div class="proto-category" onclick="toggleCategory(this)">' +
-      '<span class="material-icons-outlined">expand_more</span>' + Lab.escHtml(cat.label) +
-      '</div><div class="proto-items">';
+    // Collapse by default unless searching or a doc in this category is active
+    var hasActive = items.some(function(i) { return i.path === currentDoc; });
+    var collapsed = !q && !hasActive ? ' collapsed' : '';
+    var hidden = collapsed ? ' hidden' : '';
+
+    html += '<div class="proto-category' + collapsed + '" onclick="toggleCategory(this)">' +
+      '<span class="material-icons-outlined">expand_more</span>' +
+      '<span class="material-cat-label">' + Lab.escHtml(cat.label) + '</span>' +
+      '<span class="proto-cat-count">' + items.length + '</span>' +
+      '</div><div class="proto-items' + hidden + '">';
 
     items.forEach(function(item) {
       var active = currentDoc === item.path ? ' active' : '';
@@ -412,6 +430,7 @@ async function loadDoc(docPath) {
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             (Lab.gh.isLoggedIn() ?
+              '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
           '</div>' +
         '</div>' +
@@ -509,21 +528,61 @@ function printProtocol() {
   window.print();
 }
 
+async function duplicateDoc() {
+  if (!currentDoc) return;
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  try {
+    // Fetch source file
+    var srcPath = 'docs/' + currentDoc + '.md';
+    var result = await gh.fetchFile(srcPath);
+    var parsed = Lab.parseFrontmatter(result.content);
+    var srcTitle = parsed.meta.title || currentDoc.split('/').pop();
+
+    // Build new filename: "Name (2).md" in same directory
+    var dir = currentDoc.substring(0, currentDoc.lastIndexOf('/'));
+    var srcSlug = currentDoc.split('/').pop();
+    var newSlug = srcSlug + '-copy';
+    var newPath = 'docs/' + dir + '/' + newSlug + '.md';
+    var newTitle = srcTitle + ' (Copy)';
+
+    // Get user info for attribution
+    var user = gh.getUser();
+    var userName = user ? user.name || user.login : 'unknown';
+    var today = new Date().toISOString().slice(0, 10);
+
+    // Update frontmatter title
+    parsed.meta.title = newTitle;
+
+    // Prepend duplication note to body
+    var dupeNote = '\n> Duplicated from [[' + srcSlug + ']] by ' + userName + ' on ' + today + '\n\n';
+    var newBody = dupeNote + parsed.body;
+    var newContent = Lab.buildFrontmatter(parsed.meta, newBody);
+
+    await gh.saveFile(newPath, newContent, null, 'Duplicate protocol: ' + srcTitle);
+    gh.clearObjectIndexCache();
+    Lab.showToast('Duplicated: ' + newTitle, 'success');
+
+    // Load the new doc
+    loadDoc(dir + '/' + newSlug);
+  } catch(e) {
+    Lab.showToast('Duplicate failed: ' + e.message, 'error');
+  }
+}
+
 function cancelEdit() {
   if (currentDoc) loadDoc(currentDoc);
 }
 
-// ── Welcome / Card Grid ──
+// ── Welcome ──
 function showWelcome() {
   var contentEl = document.getElementById('protoContent');
-  var html = '<div class="proto-welcome"><h1>Protocols & Guides</h1><div class="proto-grid">';
-  NAV.forEach(function(cat) {
-    html += '<div class="proto-card" onclick="loadDoc(\'' + cat.items[0].path + '\')">' +
-      '<h3>' + Lab.escHtml(cat.label) + '</h3>' +
-      '<p>' + cat.items.length + ' protocol' + (cat.items.length !== 1 ? 's' : '') + '</p></div>';
-  });
-  html += '</div></div>';
-  contentEl.innerHTML = html;
+  contentEl.innerHTML =
+    '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--grey-400);gap:12px;padding:60px">' +
+      '<span class="material-icons-outlined" style="font-size:56px;color:var(--grey-300)">menu_book</span>' +
+      '<p style="font-size:15px">Select a protocol from the sidebar</p>' +
+    '</div>';
 }
 
 // ── Search ──
