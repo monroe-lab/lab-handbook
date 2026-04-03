@@ -758,6 +758,72 @@
     });
   }
 
+  // ── Style admonition blocks (??? variant/note/tip) in WYSIWYG ──
+  var ADMONITION_COLORS = {
+    variant: { border: '#e65100', bg: '#fff3e0', icon: '\u26A0\uFE0F' },
+    note:    { border: '#1565c0', bg: '#e3f2fd', icon: '\u2139\uFE0F' },
+    tip:     { border: '#2e7d32', bg: '#e8f5e9', icon: '\uD83D\uDCA1' },
+    warning: { border: '#e65100', bg: '#fff3e0', icon: '\u26A0\uFE0F' },
+  };
+
+  function styleAdmonitionsInEditor(containerEl) {
+    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
+    if (!wwContainer) return;
+
+    // Style paragraphs that contain ??? syntax in-place (no DOM replacement)
+    var paragraphs = wwContainer.querySelectorAll('p');
+    paragraphs.forEach(function(p) {
+      if (p.dataset.admStyled) return;
+      var text = p.textContent;
+      var m = text.match(/^\?\?\?\+?\s+(variant|note|tip|warning)\s+"([^"]+)"/);
+      if (!m) return;
+
+      var type = m[1];
+      var colors = ADMONITION_COLORS[type] || ADMONITION_COLORS.note;
+
+      // Style the ??? header line as a colored callout header
+      p.dataset.admStyled = '1';
+      p.style.cssText = 'border-left:4px solid ' + colors.border + ';background:' + colors.bg + ';padding:8px 12px;border-radius:0 6px 0 0;margin-bottom:0;font-weight:600;color:' + colors.border + ';font-size:13px;';
+
+      // Style indented body lines that follow
+      var next = p.nextElementSibling;
+      while (next) {
+        var t = next.textContent;
+        if (next.tagName === 'P' && !next.dataset.admStyled && (t.match(/^\s{2,}/) || t.trim() === '')) {
+          next.dataset.admStyled = 'body';
+          next.style.cssText = 'border-left:4px solid ' + colors.border + ';background:' + colors.bg + ';padding:4px 12px;margin-top:0;margin-bottom:0;border-radius:0;font-size:13px;color:#333;';
+          next = next.nextElementSibling;
+        } else {
+          // Round the bottom of the last body element
+          if (next.previousElementSibling && next.previousElementSibling.dataset.admStyled === 'body') {
+            next.previousElementSibling.style.borderRadius = '0 0 6px 0';
+            next.previousElementSibling.style.paddingBottom = '8px';
+            next.previousElementSibling.style.marginBottom = '8px';
+          } else if (p.nextElementSibling === next) {
+            // No body lines, round the header bottom
+            p.style.borderRadius = '0 6px 6px 0';
+            p.style.marginBottom = '8px';
+          }
+          break;
+        }
+      }
+      // Handle case where admonition is last element
+      if (!next) {
+        var last = p;
+        var sib = p.nextElementSibling;
+        while (sib && sib.dataset.admStyled === 'body') { last = sib; sib = sib.nextElementSibling; }
+        if (last !== p) {
+          last.style.borderRadius = '0 0 6px 0';
+          last.style.paddingBottom = '8px';
+          last.style.marginBottom = '8px';
+        } else {
+          p.style.borderRadius = '0 6px 6px 0';
+          p.style.marginBottom = '8px';
+        }
+      }
+    });
+  }
+
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
@@ -785,13 +851,13 @@
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
           // Re-style wikilinks on content change (debounced)
           clearTimeout(containerEl._wikiTimer);
-          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
+          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); styleAdmonitionsInEditor(containerEl); }, 300);
         }
       }
     });
 
-    // Style wikilinks in the WYSIWYG contenteditable area
-    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
+    // Style wikilinks and admonitions in the WYSIWYG contenteditable area
+    setTimeout(function() { styleWikilinksInEditor(containerEl); styleAdmonitionsInEditor(containerEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
