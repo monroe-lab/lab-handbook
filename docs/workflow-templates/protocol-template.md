@@ -20,7 +20,7 @@ title: "Protocol Template"
 <br>
 ![1000009772](images/1000009772-annotated.png)
 
-![1000009774](images/1000009774.jpg)
+![1000009774](images/1000009774-annotated.png)
 
 <video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009338.mp4" type="video/mp4">Your browser does not support video.</video>
 
