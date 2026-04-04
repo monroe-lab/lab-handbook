@@ -11,9 +11,9 @@ new stuff testing new again
 [[clean-bench]]
 
 > ⚠️ **Warning**
-> \[BL21\(DE3\) Competent Cells\]\(https://obj\.link/bl21\-de3\-competent\-cells\)
+> [[bl21-de3-competent-cells)
 
-\[1\-Octanol\]\(https://obj\.link/1\-octanol\)
+[1-Octanol](https://obj.link/1-octanol)
 [[clean-bench-laminar-flow]]
 [[1-octanol]]
 edit test
@@ -36,7 +36,7 @@ check 2
 
 ***
 
-[lionky](https://www.biorxiv.org/content/10.64898/2026.03.31.715674v1.full.pdf)
+[lionky](https://www.biorxiv.org/content/10.64898/2026.03.31.715674v1.full.pdf]]
 
 | header |  | columsdnf 1 | column 2 |  |  | as |
 | ------ | --- | ----------- | -------- | --- | --- | --- |
