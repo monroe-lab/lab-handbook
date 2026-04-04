@@ -881,14 +881,15 @@
         editor.changeMode('markdown');
         editor.replaceSelection('\n\n![' + slug.replace(/\.[^.]+$/, '') + '](images/' + slug + ')\n\n');
         editor.changeMode('wysiwyg');
-        // Find the just-inserted broken image and show it immediately via data URL
+        // Show instant preview via data URL for the just-uploaded image.
+        // We set img.src to the data URL so the user sees it immediately.
         setTimeout(function() {
           var ww = containerEl.querySelector('.toastui-editor-ww-container') || containerEl;
           ww.querySelectorAll('img').forEach(function(img) {
             var src = img.getAttribute('src') || '';
             if (src.includes(slug) && (!img.complete || img.naturalWidth === 0)) {
+              img.dataset.realSrc = src;
               img.src = dataUrl;
-              img.dataset.realSrc = src; // preserve for reference
             }
           });
         }, 300);
@@ -991,7 +992,7 @@
           imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;';
 
           // Size options
-          var imgSrc = img.getAttribute('src') || '';
+          var imgSrc = img.dataset.realSrc || img.getAttribute('src') || '';
           var currentSize = getImageSize(imgSrc) || '100%';
           [{ label: '25%', val: '25%' }, { label: '50%', val: '50%' }, { label: '75%', val: '75%' }, { label: '100%', val: '100%' }].forEach(function(s) {
             var isActive = currentSize === s.val || (!getImageSize(imgSrc) && s.val === '100%');
@@ -1002,8 +1003,8 @@
               ev.stopPropagation();
               // Visual resize in editor (DOM only — persisted on save via getMarkdownClean)
               img.style.setProperty('max-width', s.val, 'important');
-              // Track resize for save
-              var src = img.getAttribute('src') || '';
+              // Track resize for save — resolve data URLs to real paths
+              var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
               if (s.val === '100%') {
                 delete _imgSizes[relSrc];
@@ -1125,10 +1126,17 @@
     }
   }
 
+  // Resolve a src to a real path (handles data URLs via mapping)
+  function resolveRealSrc(src) {
+    if (!src) return src;
+    if (src.startsWith('data:') && _dataUrlToPath[src]) return _dataUrlToPath[src];
+    return src;
+  }
+
   // Look up size for an image src (match by filename since paths vary)
   function getImageSize(src) {
     if (!src) return null;
-    // Build a filename lookup on first call / when sizes change
+    src = resolveRealSrc(src);
     var fname = src.split('/').pop().split('?')[0];
     for (var key in _imgSizes) {
       if (key.split('/').pop() === fname) return _imgSizes[key];
@@ -1217,6 +1225,9 @@
   // Track image resizes (src → width%) — applied on save
   var _imgSizes = {};
 
+  // Track data URL → real path for images previewed via base64
+  var _dataUrlToPath = {};
+
   function applyImageSizes(md) {
     Object.keys(_imgSizes).forEach(function(src) {
       var w = _imgSizes[src];
@@ -1230,10 +1241,79 @@
     return md;
   }
 
+  // Replace any data URLs that ProseMirror synced back into markdown with real paths.
+  // ProseMirror may escape special chars in URLs, so we match broadly and use the
+  // _dataUrlToPath map to find the right replacement. As a safety net, any data:image
+  // URL in the output gets replaced even if we can't match it to a specific upload.
+  function restoreDataUrls(md) {
+    if (!Object.keys(_dataUrlToPath).length) return md;
+    // Strategy: find image markdown with data: URLs. The base64 can be huge and may
+    // contain escaped chars, so we match the opening and then find the closing paren.
+    var result = '';
+    var i = 0;
+    while (i < md.length) {
+      // Look for ![...]( followed by data:image
+      var imgStart = md.indexOf('![', i);
+      if (imgStart === -1) { result += md.substring(i); break; }
+      result += md.substring(i, imgStart);
+      // Find the ]( part
+      var bracketClose = md.indexOf('](', imgStart);
+      if (bracketClose === -1) { result += md.substring(imgStart); break; }
+      var urlStart = bracketClose + 2;
+      // Check if this is a data: URL
+      var peek = md.substring(urlStart, urlStart + 12);
+      if (peek.startsWith('data:image/') || peek.startsWith('data:image\\')) {
+        // Find closing paren — scan forward, handling possible escapes
+        var depth = 1;
+        var j = urlStart;
+        while (j < md.length && depth > 0) {
+          if (md[j] === '(' && md[j-1] !== '\\') depth++;
+          else if (md[j] === ')' && md[j-1] !== '\\') depth--;
+          if (depth > 0) j++;
+        }
+        // j now points to the closing paren
+        var dataUrl = md.substring(urlStart, j);
+        var alt = md.substring(imgStart + 2, bracketClose);
+        // Try to match this data URL to a known upload
+        var clean = dataUrl.replace(/\\(.)/g, '$1');
+        var realPath = null;
+        if (_dataUrlToPath[clean]) {
+          realPath = _dataUrlToPath[clean];
+        } else {
+          // Prefix match: first 80 chars should be enough to identify
+          var prefix = clean.substring(0, 80);
+          for (var key in _dataUrlToPath) {
+            if (key.substring(0, 80) === prefix) { realPath = _dataUrlToPath[key]; break; }
+          }
+        }
+        if (realPath) {
+          result += '![' + alt + '](' + realPath + ')';
+        } else {
+          // Unknown data URL — still strip it to prevent save corruption
+          result += '![' + alt + '](' + alt + ')';
+        }
+        i = j + 1;
+      } else {
+        // Not a data URL, keep as-is
+        result += '![';
+        i = imgStart + 2;
+      }
+    }
+    return result;
+  }
+
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
+    // Debug: check if data URLs leaked into the markdown
+    if (md.indexOf('data:image') !== -1) {
+      console.warn('[editor] DATA URL found in raw markdown! Length:', md.length, 'First 200 chars around data:', md.substring(md.indexOf('data:image') - 20, md.indexOf('data:image') + 80));
+    }
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
+    md = restoreDataUrls(md);
+    if (md.indexOf('data:image') !== -1) {
+      console.error('[editor] DATA URL STILL in markdown after restoreDataUrls!');
+    }
     md = linksToWikilinks(md);
     md = unresolveImagePaths(md);
     md = placeholdersToMedia(md);
