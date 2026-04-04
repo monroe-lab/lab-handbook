@@ -8,6 +8,13 @@ title: "Protocol Template"
 
 <br>
 <br>
+![1000009773](images/1000009773.jpg)
+
+<br>
+<br>
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009059.mp4" type="video/mp4">Your browser does not support video.</video>
+
+<br>
 <video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009077.mp4" type="video/mp4">Your browser does not support video.</video>
 
 <br>
