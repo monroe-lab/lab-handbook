@@ -393,6 +393,7 @@
     // Convert [[wikilinks]] to standard links, resolve paths, and placeholder media before feeding to Toast UI
     var prepared = migrateAdmonitions(currentState.body);
     prepared = mediaToPlaceholders(prepared);
+    prepared = loadImageSizes(prepared);
     prepared = await wikilinksToLinks(prepared);
     prepared = resolveImagePaths(prepared);
 
@@ -412,10 +413,11 @@
       ],
     });
 
-    // Fix table header cells so they're editable
+    // Fix table header cells so they're editable, apply image sizes
     setTimeout(function() {
       fixTableHeaders(editorEl);
       addTableContextMenu(editorEl, currentEditor);
+      applyEditorImageSizes(editorEl);
     }, 300);
 
     // Add category insert pills
@@ -983,25 +985,16 @@
             b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (img.style.maxWidth === s.val ? 'var(--teal)' : '#fff') + ';color:' + (img.style.maxWidth === s.val ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
             b.onclick = function(ev) {
               ev.stopPropagation();
-              // Get the image src (relative path)
+              // Visual resize in editor (DOM only — persisted on save via getMarkdownClean)
+              img.style.maxWidth = s.val;
+              // Track resize for save
               var src = img.getAttribute('src') || '';
-              var alt = img.getAttribute('alt') || '';
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
-              // Update markdown: replace ![alt](src) or existing <img> with sized <img> tag
-              editor.changeMode('markdown');
-              var md = editor.getMarkdown();
-              // Match markdown image syntax
-              var mdImgRe = new RegExp('!\\[' + alt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\]\\([^)]*' + relSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\//g, '[/\\\\]') + '[^)]*\\)');
-              // Match existing HTML img tag
-              var htmlImgRe = new RegExp('<img[^>]*src=["\'][^"\']*' + relSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\//g, '[/\\\\]') + '["\'][^>]*>');
-              var newTag = '<img src="' + relSrc + '" alt="' + alt + '"' + (s.val !== '100%' ? ' style="max-width:' + s.val + '"' : '') + '>';
-              if (md.match(htmlImgRe)) {
-                md = md.replace(htmlImgRe, newTag);
-              } else if (md.match(mdImgRe)) {
-                md = md.replace(mdImgRe, newTag);
+              if (s.val === '100%') {
+                delete _imgSizes[relSrc];
+              } else {
+                _imgSizes[relSrc] = s.val;
               }
-              editor.setMarkdown(md);
-              editor.changeMode('wysiwyg');
               if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             };
             imgToolbar.appendChild(b);
@@ -1100,6 +1093,35 @@
   // Resolve relative image paths to full URLs before editor, convert back on save
   var MEDIA_BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
+  function applyEditorImageSizes(containerEl) {
+    if (!Object.keys(_imgSizes).length) return;
+    var imgs = containerEl.querySelectorAll('img');
+    imgs.forEach(function(img) {
+      var src = img.getAttribute('src') || '';
+      Object.keys(_imgSizes).forEach(function(key) {
+        if (src.includes(key) || src.includes(key.split('/').pop())) {
+          img.style.maxWidth = _imgSizes[key];
+        }
+      });
+    });
+  }
+
+  function loadImageSizes(md) {
+    // Parse existing <img> tags with max-width and populate _imgSizes
+    // Also convert them back to ![alt](src) for the editor
+    _imgSizes = {};
+    md = md.replace(/<img\s+src=["']([^"']+)["']\s*(?:alt=["']([^"']*)["'])?\s*(?:style=["'][^"']*max-width:\s*([^;"']+)[^"']*["'])?\s*\/?>/g, function(m, src, alt, width) {
+      if (width) _imgSizes[src] = width.trim();
+      return '![' + (alt || '') + '](' + src + ')';
+    });
+    // Also match with alt before src
+    md = md.replace(/<img\s+(?:alt=["']([^"']*)["']\s+)?src=["']([^"']+)["']\s*(?:style=["'][^"']*max-width:\s*([^;"']+)[^"']*["'])?\s*\/?>/g, function(m, alt, src, width) {
+      if (width) _imgSizes[src] = width.trim();
+      return '![' + (alt || '') + '](' + src + ')';
+    });
+    return md;
+  }
+
   function resolveImagePaths(md) {
     // ![alt](images/foo.jpg) → ![alt](/lab-handbook/images/foo.jpg)
     md = md.replace(/(!\[[^\]]*\]\()(?!http|data:|\/)([^)]+\))/g, function(m, prefix, rest) {
@@ -1163,6 +1185,22 @@
     return md;
   }
 
+  // Track image resizes (src → width%) — applied on save
+  var _imgSizes = {};
+
+  function applyImageSizes(md) {
+    Object.keys(_imgSizes).forEach(function(src) {
+      var w = _imgSizes[src];
+      var escaped = src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Replace ![alt](src) with <img> tag
+      var re = new RegExp('!\\[([^\\]]*)\\]\\(([^)]*' + escaped + '[^)]*)\\)');
+      md = md.replace(re, function(m, alt, fullSrc) {
+        return '<img src="' + fullSrc + '" alt="' + alt + '" style="max-width:' + w + '">';
+      });
+    });
+    return md;
+  }
+
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
     // Clean up zero-width spaces we injected into empty table header cells
@@ -1170,6 +1208,7 @@
     md = linksToWikilinks(md);
     md = unresolveImagePaths(md);
     md = placeholdersToMedia(md);
+    md = applyImageSizes(md);
     return md;
   }
 
@@ -1280,6 +1319,7 @@
     // Convert [[wikilinks]] to standard markdown links, resolve paths, placeholder media
     var prepared = migrateAdmonitions(content);
     prepared = mediaToPlaceholders(prepared);
+    prepared = loadImageSizes(prepared);
     prepared = await wikilinksToLinks(prepared);
     prepared = resolveImagePaths(prepared);
 
