@@ -8,6 +8,11 @@ title: "Protocol Template"
 
 <br>
 <br>
+<br>
+![screenshot-2026-04-04-at-2.04.32-pm](images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png)
+
+<br>
+<br>
 ![1000009773](images/1000009773-annotated.png)
 
 <br>
