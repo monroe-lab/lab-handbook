@@ -182,14 +182,12 @@
       return placeholder + '\n\n';
     });
 
-    // Preserve line breaks in blockquotes — add trailing spaces for <br>
-    processed = processed.replace(/^(>.+)$/gm, function(line) {
-      return line.replace(/\s*$/, '  ');
-    });
+    // Strip standalone <br> tags that Toast UI inserts (breaks table parsing)
+    processed = processed.replace(/^\s*<br>\s*$/gm, '');
 
     // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
-    var html = marked.parse(processed);
+    var html = marked.parse(processed, { breaks: true });
 
     // Replace placeholders with rendered callouts
     admonitions.forEach(function(a, i) {
