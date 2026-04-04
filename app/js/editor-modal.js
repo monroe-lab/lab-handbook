@@ -60,7 +60,7 @@
       '.em-surface .toastui-editor-contents h3{font-size:17px!important;font-weight:600!important;margin-top:16px!important}',
       '.em-surface .toastui-editor-contents table{border-collapse:collapse!important}',
       '.em-surface .toastui-editor-contents td,.em-surface .toastui-editor-contents th{border:1px solid var(--grey-300)!important;padding:8px 12px!important}',
-      '.em-surface .toastui-editor-contents thead th{background:var(--grey-50)!important;min-height:32px!important;min-width:60px!important;height:32px!important}',
+      '.em-surface .toastui-editor-contents thead th{background:var(--grey-50)!important;min-height:32px!important;min-width:60px!important;height:32px!important;cursor:text!important}',
       '.em-surface .toastui-editor-contents code{background:var(--grey-100)!important;padding:2px 6px!important;border-radius:4px!important;font-size:13px!important}',
       '.em-surface .toastui-editor-contents pre{background:var(--grey-900)!important;color:#e0e0e0!important;padding:16px!important;border-radius:8px!important;overflow-x:auto!important}',
       '.em-surface .toastui-editor-contents pre code{background:transparent!important;padding:0!important;color:inherit!important}',
@@ -398,15 +398,10 @@
         ['ul', 'ol', 'task'],
         ['table', 'link', 'image', 'code'],
       ],
-      events: {
-        change: function() {
-          clearTimeout(editorEl._thTimer);
-          editorEl._thTimer = setTimeout(function() { fixEmptyTableHeaders(editorEl); }, 200);
-        }
-      }
     });
 
-    setTimeout(function() { fixEmptyTableHeaders(editorEl); }, 300);
+    // Fix table header cells so they're editable
+    setTimeout(function() { fixTableHeaders(editorEl); }, 300);
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
@@ -798,23 +793,43 @@
     return linksToWikilinks(md);
   }
 
-  // Toast UI's ProseMirror blocks cursor in empty <th> cells.
-  // Inject a zero-width space so they're "non-empty" and clickable.
-  function fixEmptyTableHeaders(containerEl) {
+  // Toast UI's ProseMirror table plugin intercepts clicks on <th> cells
+  // for column selection instead of placing cursor for editing.
+  // Fix: add a click handler that forces cursor into the cell.
+  function fixTableHeaders(containerEl) {
     var ww = containerEl.querySelector('.toastui-editor-ww-container');
-    if (!ww) return;
-    ww.querySelectorAll('th').forEach(function(th) {
-      // Check if cell is effectively empty (no text content or only whitespace)
-      if (!th.textContent.trim() && !th.querySelector('img')) {
-        // Find the paragraph/text node inside and add zero-width space
-        var p = th.querySelector('p');
-        if (p && !p.textContent.trim()) {
-          p.textContent = '\u200B';
-        } else if (!th.childNodes.length) {
-          th.textContent = '\u200B';
+    if (!ww || ww._thFixApplied) return;
+    ww._thFixApplied = true;
+
+    ww.addEventListener('click', function(e) {
+      var th = e.target.closest('th');
+      if (!th) return;
+
+      // Find the editable paragraph inside the th
+      var p = th.querySelector('p');
+      if (!p) return;
+
+      // Stop ProseMirror's table selection handler
+      e.stopPropagation();
+
+      // Place cursor at end of the paragraph
+      var range = document.createRange();
+      var sel = window.getSelection();
+      if (p.childNodes.length > 0) {
+        var lastChild = p.childNodes[p.childNodes.length - 1];
+        if (lastChild.nodeType === Node.TEXT_NODE) {
+          range.setStart(lastChild, lastChild.textContent.length);
+        } else {
+          range.setStartAfter(lastChild);
         }
+      } else {
+        range.setStart(p, 0);
       }
-    });
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      p.focus();
+    }, true); // capture phase — run before ProseMirror's handler
   }
 
   async function initFullpageEditor(containerEl, content, filePath, sha) {
@@ -846,15 +861,14 @@
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
-          // Fix empty table headers on content change (e.g. after inserting a table)
-          clearTimeout(containerEl._thTimer);
-          containerEl._thTimer = setTimeout(function() { fixEmptyTableHeaders(containerEl); }, 200);
+          // Attach table header fix if a table was just inserted
+          fixTableHeaders(containerEl);
         }
       }
     });
 
-    // Fix empty table headers so they're clickable
-    setTimeout(function() { fixEmptyTableHeaders(containerEl); }, 300);
+    // Fix table header cells so they're editable
+    setTimeout(function() { fixTableHeaders(containerEl); }, 300);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
