@@ -838,10 +838,20 @@
         try {
           window.Lab.showToast('Uploading ' + file.name + '...', 'info');
           var token = window.Lab.gh.getToken();
+          // Check if file exists (need SHA to update)
+          var existingSha = null;
+          try {
+            var check = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path + '?ref=' + window.Lab.gh.BRANCH, {
+              headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (check.ok) existingSha = (await check.json()).sha;
+          } catch(e) {}
+          var putBody = { message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH };
+          if (existingSha) putBody.sha = existingSha;
           var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH })
+            body: JSON.stringify(putBody)
           });
           if (!resp.ok) {
             var err = await resp.json().catch(function() { return {}; });
@@ -1127,17 +1137,16 @@
   }
 
   function loadImageSizes(md) {
-    // Parse existing <img> tags with max-width and populate _imgSizes
-    // Also convert them back to ![alt](src) for the editor
+    // Parse existing <img> tags, extract max-width, convert to ![alt](src) for editor
     _imgSizes = {};
-    md = md.replace(/<img\s+src=["']([^"']+)["']\s*(?:alt=["']([^"']*)["'])?\s*(?:style=["'][^"']*max-width:\s*([^;"']+)[^"']*["'])?\s*\/?>/g, function(m, src, alt, width) {
-      if (width) _imgSizes[src] = width.trim();
-      return '![' + (alt || '') + '](' + src + ')';
-    });
-    // Also match with alt before src
-    md = md.replace(/<img\s+(?:alt=["']([^"']*)["']\s+)?src=["']([^"']+)["']\s*(?:style=["'][^"']*max-width:\s*([^;"']+)[^"']*["'])?\s*\/?>/g, function(m, alt, src, width) {
-      if (width) _imgSizes[src] = width.trim();
-      return '![' + (alt || '') + '](' + src + ')';
+    md = md.replace(/<img\b([^>]*)>/gi, function(match, attrs) {
+      var srcMatch = attrs.match(/src=["']([^"']+)["']/);
+      var altMatch = attrs.match(/alt=["']([^"']+)["']/);
+      var widthMatch = attrs.match(/max-width:\s*([^;"']+)/);
+      var src = srcMatch ? srcMatch[1] : '';
+      var alt = altMatch ? altMatch[1] : '';
+      if (widthMatch) _imgSizes[src] = widthMatch[1].trim();
+      return '![' + alt + '](' + src + ')';
     });
     return md;
   }
