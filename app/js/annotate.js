@@ -13,6 +13,9 @@
   var dragging = false;
   var dragOffX = 0, dragOffY = 0;
   var currentTool = { color: '#ffffff', size: 3, rotation: 0 }; // size is % of image width
+  var cropMode = false;
+  var cropStart = null;
+  var cropRect = null; // {x, y, w, h} in canvas coords
   var origSrc = '';           // relative path of the original image
   var onSaveCallback = null;
   var scale = 1;              // canvas display scale
@@ -181,6 +184,50 @@
     };
     toolbar.appendChild(delBtn);
 
+    // Separator
+    var sep = document.createElement('div');
+    sep.style.cssText = 'width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 4px;';
+    toolbar.appendChild(sep);
+
+    // Rotate image 90° buttons
+    var imgRotGroup = document.createElement('div');
+    imgRotGroup.style.cssText = 'display:flex;gap:2px;';
+    [{ icon: 'rotate_left', deg: -90, title: 'Rotate image left' }, { icon: 'rotate_right', deg: 90, title: 'Rotate image right' }].forEach(function(r) {
+      var rb = document.createElement('button');
+      rb.type = 'button';
+      rb.title = r.title;
+      rb.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">' + r.icon + '</span>';
+      rb.style.cssText = 'padding:4px;border-radius:4px;border:1px solid rgba(77,182,172,.5);background:rgba(77,182,172,.15);color:#4db6ac;cursor:pointer;display:flex;';
+      rb.onclick = function() { rotateImage(r.deg); };
+      imgRotGroup.appendChild(rb);
+    });
+    toolbar.appendChild(imgRotGroup);
+
+    // Crop button
+    var cropBtn = document.createElement('button');
+    cropBtn.type = 'button';
+    cropBtn.id = 'annot-crop-btn';
+    cropBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">crop</span> Crop';
+    cropBtn.style.cssText = 'padding:4px 10px;border-radius:4px;border:1px solid rgba(77,182,172,.5);background:rgba(77,182,172,.15);color:#4db6ac;font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;';
+    cropBtn.onclick = function() {
+      cropMode = !cropMode;
+      cropRect = null;
+      cropStart = null;
+      cropBtn.style.background = cropMode ? 'rgba(77,182,172,.4)' : 'rgba(77,182,172,.15)';
+      canvas.style.cursor = cropMode ? 'crosshair' : 'crosshair';
+      draw();
+    };
+    toolbar.appendChild(cropBtn);
+
+    // Apply crop button (hidden until crop rectangle drawn)
+    var applyCropBtn = document.createElement('button');
+    applyCropBtn.type = 'button';
+    applyCropBtn.id = 'annot-apply-crop';
+    applyCropBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">check</span> Apply';
+    applyCropBtn.style.cssText = 'display:none;padding:4px 10px;border-radius:4px;border:none;background:#4db6ac;color:#fff;font-size:12px;cursor:pointer;font-family:inherit;align-items:center;gap:4px;font-weight:500;';
+    applyCropBtn.onclick = function() { applyCrop(); };
+    toolbar.appendChild(applyCropBtn);
+
     toolbarWrap.appendChild(toolbar);
     overlay.appendChild(toolbarWrap);
 
@@ -291,6 +338,104 @@
 
       ctx.restore();
     });
+
+    // Draw crop rectangle overlay
+    if (cropMode && cropRect && cropRect.w > 0 && cropRect.h > 0) {
+      // Dim everything outside the crop
+      ctx.fillStyle = 'rgba(0,0,0,.5)';
+      ctx.fillRect(0, 0, canvas.width, cropRect.y);
+      ctx.fillRect(0, cropRect.y, cropRect.x, cropRect.h);
+      ctx.fillRect(cropRect.x + cropRect.w, cropRect.y, canvas.width - cropRect.x - cropRect.w, cropRect.h);
+      ctx.fillRect(0, cropRect.y + cropRect.h, canvas.width, canvas.height - cropRect.y - cropRect.h);
+      // Crop border
+      ctx.strokeStyle = '#4db6ac';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 4]);
+      ctx.strokeRect(cropRect.x, cropRect.y, cropRect.w, cropRect.h);
+      ctx.setLineDash([]);
+    }
+  }
+
+  // ── Image manipulation ──
+  function rotateImage(deg) {
+    if (!baseImage) return;
+    var rad = deg * Math.PI / 180;
+    var tmpCanvas = document.createElement('canvas');
+    var tmpCtx = tmpCanvas.getContext('2d');
+    if (Math.abs(deg) === 90) {
+      tmpCanvas.width = canvas.height;
+      tmpCanvas.height = canvas.width;
+    } else {
+      tmpCanvas.width = canvas.width;
+      tmpCanvas.height = canvas.height;
+    }
+    tmpCtx.translate(tmpCanvas.width / 2, tmpCanvas.height / 2);
+    tmpCtx.rotate(rad);
+    tmpCtx.drawImage(baseImage, -baseImage.naturalWidth / 2, -baseImage.naturalHeight / 2);
+
+    // Transform annotation coordinates
+    annotations.forEach(function(a) {
+      var ox = a.x, oy = a.y;
+      if (deg === 90) {
+        a.x = canvas.height - oy;
+        a.y = ox;
+      } else if (deg === -90) {
+        a.x = oy;
+        a.y = canvas.width - ox;
+      }
+      a.rotation = (a.rotation || 0) + deg;
+    });
+
+    // Replace baseImage
+    var newImg = new Image();
+    newImg.onload = function() {
+      baseImage = newImg;
+      fitCanvas();
+      draw();
+    };
+    newImg.src = tmpCanvas.toDataURL('image/png');
+  }
+
+  function applyCrop() {
+    if (!cropRect || !baseImage) return;
+    var r = cropRect;
+    // Clamp to canvas bounds
+    var x = Math.max(0, Math.round(r.x));
+    var y = Math.max(0, Math.round(r.y));
+    var w = Math.min(canvas.width - x, Math.round(r.w));
+    var h = Math.min(canvas.height - y, Math.round(r.h));
+    if (w < 10 || h < 10) return;
+
+    var tmpCanvas = document.createElement('canvas');
+    tmpCanvas.width = w;
+    tmpCanvas.height = h;
+    var tmpCtx = tmpCanvas.getContext('2d');
+    tmpCtx.drawImage(baseImage, x, y, w, h, 0, 0, w, h);
+
+    // Shift annotation coordinates
+    annotations.forEach(function(a) {
+      a.x -= x;
+      a.y -= y;
+    });
+    // Remove annotations outside crop area
+    annotations = annotations.filter(function(a) {
+      return a.x >= -50 && a.x <= w + 50 && a.y >= -50 && a.y <= h + 50;
+    });
+
+    var newImg = new Image();
+    newImg.onload = function() {
+      baseImage = newImg;
+      cropMode = false;
+      cropRect = null;
+      cropStart = null;
+      var cropBtn = document.getElementById('annot-crop-btn');
+      if (cropBtn) cropBtn.style.background = 'rgba(77,182,172,.15)';
+      var applyBtn = document.getElementById('annot-apply-crop');
+      if (applyBtn) applyBtn.style.display = 'none';
+      fitCanvas();
+      draw();
+    };
+    newImg.src = tmpCanvas.toDataURL('image/png');
   }
 
   // ── Pointer events ──
@@ -329,6 +474,13 @@
 
   function onPointerDown(e) {
     var p = canvasXY(e);
+
+    if (cropMode) {
+      cropStart = { x: p.x, y: p.y };
+      cropRect = { x: p.x, y: p.y, w: 0, h: 0 };
+      return;
+    }
+
     var hit = hitTest(p.x, p.y);
 
     if (hit >= 0) {
@@ -358,6 +510,17 @@
   }
 
   function onPointerMove(e) {
+    if (cropMode && cropStart) {
+      var p = canvasXY(e);
+      cropRect = {
+        x: Math.min(cropStart.x, p.x),
+        y: Math.min(cropStart.y, p.y),
+        w: Math.abs(p.x - cropStart.x),
+        h: Math.abs(p.y - cropStart.y)
+      };
+      draw();
+      return;
+    }
     if (!dragging || selectedIdx < 0) return;
     var p = canvasXY(e);
     annotations[selectedIdx].x = p.x - dragOffX;
@@ -367,6 +530,11 @@
 
   function onPointerUp() {
     dragging = false;
+    if (cropMode && cropRect && cropRect.w > 10 && cropRect.h > 10) {
+      var applyBtn = document.getElementById('annot-apply-crop');
+      if (applyBtn) applyBtn.style.display = 'inline-flex';
+    }
+    cropStart = null;
     canvas.style.cursor = 'crosshair';
   }
 
