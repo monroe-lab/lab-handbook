@@ -15,6 +15,15 @@ edit test
 check 1
 check 2
 
+<br>
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+
 > block quote material with [[col-0-wild-type]] newline test
 > heres a second line
 > and a third
