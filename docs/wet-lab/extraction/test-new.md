@@ -8,12 +8,16 @@ type: "protocol"
 
 new stuff testing new again
 
+<br>
+<br>
+![1000009831](images/1000009831-annotated.png)
+
+<br>
 [[clean-bench]]
 
 > ⚠️ **Warning**
 > [[kehan-zhao]]
 > [[1-8-naphthalic-anhydride]]
-> 
 
 [[1-8-naphthalic-anhydride]]
 [[gel-electrophoresis]]
