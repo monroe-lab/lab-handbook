@@ -116,21 +116,35 @@
       toolbar.appendChild(cb);
     });
 
-    // Mode toggle (Select / Add)
-    var modeBtn = document.createElement('button');
-    modeBtn.type = 'button';
-    modeBtn.id = 'annot-mode';
-    modeBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">add_circle</span> Add';
-    modeBtn.style.cssText = 'padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.2);color:#fff;font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;';
-    modeBtn.onclick = function() {
-      mode = mode === 'add' ? 'select' : 'add';
-      modeBtn.innerHTML = mode === 'add'
-        ? '<span class="material-icons-outlined" style="font-size:16px">add_circle</span> Add'
-        : '<span class="material-icons-outlined" style="font-size:16px">open_with</span> Select';
-      canvas.style.cursor = mode === 'add' ? 'crosshair' : 'default';
-      modeBtn.style.background = mode === 'select' ? 'rgba(0,229,255,.3)' : 'rgba(255,255,255,.2)';
-    };
-    toolbar.appendChild(modeBtn);
+    // Mode toggle (segmented control)
+    var modeGroup = document.createElement('div');
+    modeGroup.style.cssText = 'display:flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.4);';
+    var modeActive = 'background:rgba(255,255,255,.25);color:#fff;';
+    var modeInactive = 'background:transparent;color:rgba(255,255,255,.5);';
+    var segStyle = 'padding:5px 12px;border:none;font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;transition:all .15s;';
+
+    var addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">add</span> Add';
+    addBtn.style.cssText = segStyle + modeActive;
+
+    var selBtn = document.createElement('button');
+    selBtn.type = 'button';
+    selBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">open_with</span> Move';
+    selBtn.style.cssText = segStyle + modeInactive;
+
+    function setMode(m) {
+      mode = m;
+      canvas.style.cursor = m === 'add' ? 'crosshair' : 'default';
+      addBtn.style.cssText = segStyle + (m === 'add' ? modeActive : modeInactive);
+      selBtn.style.cssText = segStyle + (m === 'select' ? modeActive : modeInactive);
+    }
+    addBtn.onclick = function() { setMode('add'); };
+    selBtn.onclick = function() { setMode('select'); };
+
+    modeGroup.appendChild(addBtn);
+    modeGroup.appendChild(selBtn);
+    toolbar.appendChild(modeGroup);
 
     // Size buttons (% of image width)
     var sizes = [{ label: 'S', val: 1.5 }, { label: 'M', val: 3 }, { label: 'L', val: 5 }, { label: 'XL', val: 8 }];
