@@ -8,6 +8,9 @@ title: "Protocol Template"
 
 <br>
 <br>
+<img src="images/screenshot-2026-03-24-at-6.56.08-pm.png" alt="screenshot-2026-03-24-at-6.56.08-pm" style="max-width:25%">
+
+<br>
 <img src="images/screenshot-2026-04-04-at-3.07.27-pm.png" alt="screenshot-2026-04-04-at-3.07.27-pm" style="max-width:50%">
 
 <br>
