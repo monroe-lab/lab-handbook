@@ -16,6 +16,7 @@ check 1
 
 > block quote material with [[col-0-wild-type]] newline test
 > heres a second line
+> and a third
 
 > ⚠️ **Warning title**
 > test second line here too
