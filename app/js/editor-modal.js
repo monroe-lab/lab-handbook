@@ -785,6 +785,15 @@
     if (window.Lab.wikilinks && window.Lab.wikilinks.ensureLookup) {
       await window.Lab.wikilinks.ensureLookup();
     }
+    // Repair previously mangled obj:// links (escaped by Toast UI): \[text\]\(obj://slug\)
+    md = md.replace(/\\\[([^\\\]]*)\\\]\(obj:\/\/([^)]+)\)/g, function(m, t, s) {
+      var slug = s.replace(/\\/g, '');
+      return '[[' + slug + ']]';
+    });
+    // Also catch unescaped obj:// links saved from before
+    md = md.replace(/\[([^\]]*)\]\(obj:\/\/([^)]+)\)/g, function(m, t, s) {
+      return '[[' + s + ']]';
+    });
     return md.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, function(match, slug, label) {
       var title = label || slug;
       if (window.Lab.wikilinks && window.Lab.wikilinks._lookup) {

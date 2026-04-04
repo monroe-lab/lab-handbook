@@ -33,7 +33,7 @@ check 2
 
 | header |  | columsdnf 1 | column 2 |  |  | as |
 | ------ | --- | ----------- | -------- | --- | --- | --- |
-| \[1\,8\-Naphthalic anhydride\]\(obj://1\-8\-naphthalic\-anhydride\) |  |  |  |  | asdf |  |
+| [[1-8-naphthalic-anhydride]] |  |  |  |  | asdf |  |
 |  |  |  | asdfnalsdfahsldf<br>asdfahs test<br>row 3 |  |  |  |
 |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |
