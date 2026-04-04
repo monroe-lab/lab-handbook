@@ -649,8 +649,8 @@
       linkModalTextarea = null;
     } else if (linkModalEditor) {
       // Insert as standard markdown link (Toast UI mangles [[wikilinks]])
-      // getMarkdownClean() converts obj:// links back to [[slug]] on save
-      linkModalEditor.insertText('[' + title + '](obj://' + slug + ')');
+      // getMarkdownClean() converts https://obj.link/ links back to [[slug]] on save
+      linkModalEditor.insertText('[' + title + '](' + OBJ_LINK_PREFIX + slug + ')');
     }
 
     linkModalEl.classList.remove('open');
@@ -771,24 +771,25 @@
       });
     }
 
-    // Inject code block button next to inline code button
-    var codeBtn = editorUI.querySelector('.toastui-editor-toolbar-icons[aria-label="Code"]') ||
-                  editorUI.querySelector('button[data-tooltip="Code"]');
-    if (codeBtn && codeBtn.parentNode) {
+    // Inject code block button at the end of the last toolbar group
+    var tbGroups = editorUI.querySelectorAll('.toastui-editor-toolbar-group');
+    var lastGroup = tbGroups.length ? tbGroups[tbGroups.length - 1] : null;
+    if (lastGroup) {
       var cbBtn = document.createElement('button');
       cbBtn.type = 'button';
       cbBtn.title = 'Insert code block';
-      cbBtn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;border:none;background:transparent;font-size:15px;cursor:pointer;transition:background .15s;font-family:monospace;font-weight:700;color:var(--grey-600);';
-      cbBtn.textContent = '{;}';
-      cbBtn.onmouseenter = function() { cbBtn.style.background = 'var(--grey-200)'; };
-      cbBtn.onmouseleave = function() { cbBtn.style.background = 'transparent'; };
+      cbBtn.className = 'toastui-editor-toolbar-icons';
+      cbBtn.style.cssText = 'display:inline-flex!important;align-items:center!important;justify-content:center!important;width:32px!important;height:32px!important;border-radius:4px!important;border:none!important;background:transparent!important;font-size:11px!important;cursor:pointer!important;font-family:monospace!important;font-weight:700!important;color:var(--grey-600)!important;background-image:none!important;';
+      cbBtn.textContent = '{ }';
+      cbBtn.onmouseenter = function() { cbBtn.style.setProperty('background', 'var(--grey-200)', 'important'); };
+      cbBtn.onmouseleave = function() { cbBtn.style.setProperty('background', 'transparent', 'important'); };
       cbBtn.onclick = function(e) {
         e.preventDefault();
         editor.changeMode('markdown');
         editor.replaceSelection('\n\n```\n\n```\n\n');
         editor.changeMode('wysiwyg');
       };
-      codeBtn.parentNode.insertBefore(cbBtn, codeBtn.nextSibling);
+      lastGroup.appendChild(cbBtn);
     }
   }
 
