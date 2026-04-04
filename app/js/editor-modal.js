@@ -979,10 +979,13 @@
           imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;';
 
           // Size options
+          var imgSrc = img.getAttribute('src') || '';
+          var currentSize = getImageSize(imgSrc) || '100%';
           [{ label: '25%', val: '25%' }, { label: '50%', val: '50%' }, { label: '75%', val: '75%' }, { label: '100%', val: '100%' }].forEach(function(s) {
+            var isActive = currentSize === s.val || (!getImageSize(imgSrc) && s.val === '100%');
             var b = document.createElement('button');
             b.textContent = s.label;
-            b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (img.style.maxWidth === s.val ? 'var(--teal)' : '#fff') + ';color:' + (img.style.maxWidth === s.val ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
+            b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (isActive ? 'var(--teal)' : '#fff') + ';color:' + (isActive ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
             b.onclick = function(ev) {
               ev.stopPropagation();
               // Visual resize in editor (DOM only — persisted on save via getMarkdownClean)
@@ -1098,12 +1101,23 @@
     var imgs = containerEl.querySelectorAll('img');
     imgs.forEach(function(img) {
       var src = img.getAttribute('src') || '';
-      Object.keys(_imgSizes).forEach(function(key) {
-        if (src.includes(key) || src.includes(key.split('/').pop())) {
-          img.style.maxWidth = _imgSizes[key];
-        }
-      });
+      var w = getImageSize(src);
+      if (w) img.style.maxWidth = w;
     });
+  }
+
+  // Look up size for an image src (handles both resolved and unresolved paths)
+  function getImageSize(src) {
+    if (_imgSizes[src]) return _imgSizes[src];
+    // Try stripping MEDIA_BASE
+    var rel = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
+    if (_imgSizes[rel]) return _imgSizes[rel];
+    // Try matching by filename
+    var fname = src.split('/').pop();
+    for (var key in _imgSizes) {
+      if (key.split('/').pop() === fname) return _imgSizes[key];
+    }
+    return null;
   }
 
   function loadImageSizes(md) {
