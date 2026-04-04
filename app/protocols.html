@@ -660,11 +660,22 @@ function postProcessRendered(el) {
     }
   });
 
-  // Show friendly message for images/videos that haven't deployed yet
+  // If image fails to load from Pages (not deployed yet), try GitHub raw API
   el.querySelectorAll('img').forEach(function(img) {
     img.addEventListener('error', function() {
       if (img.dataset.retried) return;
       img.dataset.retried = '1';
+      // Try raw GitHub content URL (available immediately after upload)
+      var src = img.getAttribute('src') || '';
+      var relPath = src.replace(mediaBase, '');
+      if (relPath.startsWith('images/') && window.Lab && window.Lab.gh) {
+        img.src = 'https://raw.githubusercontent.com/' + window.Lab.gh.REPO + '/' + window.Lab.gh.BRANCH + '/docs/' + relPath;
+      }
+    });
+    // If raw also fails, show placeholder
+    img.addEventListener('error', function() {
+      if (img.dataset.retriedRaw) return;
+      img.dataset.retriedRaw = '1';
       img.style.cssText = 'display:block;padding:24px;background:var(--grey-100);border-radius:8px;color:var(--grey-500);font-size:13px;font-style:italic;min-height:60px;';
       img.alt = 'Image deploying... refresh in a moment';
     });
