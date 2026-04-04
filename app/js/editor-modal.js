@@ -201,7 +201,7 @@
   // ── Popup Mode ──
   var overlayEl = null;
   var currentEditor = null;
-  var currentEditorEl = null;
+
   var currentState = null; // { path, sha, meta, body, editing }
 
   function createOverlay() {
@@ -376,14 +376,18 @@
     contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
     var editorEl = contentEl.querySelector('.em-surface');
 
-    currentEditorEl = editorEl;
+    // Convert [[wikilinks]] to standard links before feeding to Toast UI
+    var prepared = migrateAdmonitions(currentState.body);
+    prepared = await wikilinksToLinks(prepared);
+
+
     currentEditor = new toastui.Editor({
       el: editorEl,
       initialEditType: 'wysiwyg',
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: '300px',
-      initialValue: migrateAdmonitions(currentState.body),
+      initialValue: prepared,
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -391,16 +395,7 @@
         ['ul', 'ol', 'task'],
         ['table', 'link', 'image', 'code'],
       ],
-      events: {
-        change: function() {
-          clearTimeout(editorEl._wikiTimer);
-          editorEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(editorEl); }, 300);
-        }
-      }
     });
-
-    // Style wikilinks in the popup editor
-    setTimeout(function() { styleWikilinksInEditor(editorEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
@@ -411,7 +406,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = getMarkdownClean(currentEditor, currentEditorEl);
+      currentState.body = getMarkdownClean(currentEditor);
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -423,7 +418,6 @@
 
     currentState.editing = false;
     currentEditor = null;
-    currentEditorEl = null;
 
     // Switch back to read mode
     document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
@@ -454,7 +448,7 @@
 
     // Get markdown from editor (restore wikilink pills to [[slug]] syntax)
     if (currentEditor) {
-      currentState.body = getMarkdownClean(currentEditor, currentEditorEl);
+      currentState.body = getMarkdownClean(currentEditor);
     }
 
     // Also include hidden fields from schema
@@ -634,8 +628,9 @@
       ta.dispatchEvent(new Event('input', { bubbles: true }));
       linkModalTextarea = null;
     } else if (linkModalEditor) {
-      // Insert into Toast UI Editor
-      linkModalEditor.insertText(wikitext);
+      // Insert as standard markdown link (Toast UI mangles [[wikilinks]])
+      // getMarkdownClean() converts obj:// links back to [[slug]] on save
+      linkModalEditor.insertText('[' + title + '](obj://' + slug + ')');
     }
 
     linkModalEl.classList.remove('open');
@@ -757,96 +752,37 @@
     }
   }
 
-  // ── Style [[wikilinks]] in WYSIWYG contenteditable area ──
-  var _styling = false; // guard against re-entrant calls
-  async function styleWikilinksInEditor(containerEl) {
-    if (_styling) return;
-    _styling = true;
-    // Ensure object index is loaded so we can look up types
+  // ── Wikilink round-tripping for Toast UI ──
+  // Toast UI doesn't understand [[wikilinks]] and mangles the double brackets.
+  // Solution: convert [[slug]] → [title](obj://slug) before feeding to the editor
+  // (Toast UI handles standard markdown links perfectly), then convert back on save.
+
+  // Pre-process: [[slug]] → [title](obj://slug) before editor init
+  async function wikilinksToLinks(md) {
+    // Ensure object index is loaded for title lookups
     if (window.Lab.wikilinks && window.Lab.wikilinks.ensureLookup) {
       await window.Lab.wikilinks.ensureLookup();
     }
-    try { _styleWikilinksInner(containerEl); } finally { _styling = false; }
-  }
-  function _styleWikilinksInner(containerEl) {
-    var wwContainer = containerEl.querySelector('.toastui-editor-ww-container');
-    if (!wwContainer) return;
-    var walker = document.createTreeWalker(wwContainer, NodeFilter.SHOW_TEXT, null, false);
-    var textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
-
-    textNodes.forEach(function(node) {
-      var text = node.textContent;
-      if (!text.match(/\[\[.+?\]\]/)) return;
-      // Skip if already inside a styled wikilink span
-      if (node.parentElement && node.parentElement.classList.contains('wk-pill')) return;
-
-      var frag = document.createDocumentFragment();
-      var remaining = text;
-      var regex = /\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g;
-      var match;
-      var lastIndex = 0;
-
-      while ((match = regex.exec(remaining)) !== null) {
-        // Text before the match
-        if (match.index > lastIndex) {
-          frag.appendChild(document.createTextNode(remaining.substring(lastIndex, match.index)));
-        }
-        // Create pill span — look up type for color
-        var slug = match[1];
-        var label = match[2] || slug;
-        var objType = '_unknown';
-        if (window.Lab.wikilinks && window.Lab.wikilinks._lookup) {
-          var found = window.Lab.wikilinks._lookup(slug);
-          if (found) { objType = found.type; label = match[2] || found.title || slug; }
-        }
-        var span = document.createElement('span');
-        span.className = 'wk-pill';
-        span.contentEditable = 'false';
-        span.setAttribute('data-slug', slug);
-        span.style.cssText = window.Lab.types.pillStyle(objType) + 'display:inline;cursor:default;';
-        span.textContent = window.Lab.types.pillContent(objType, label);
-        // Store raw text so getMarkdown() still returns [[slug]]
-        span.setAttribute('data-raw', match[0]);
-        frag.appendChild(span);
-        lastIndex = regex.lastIndex;
+    return md.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, function(match, slug, label) {
+      var title = label || slug;
+      if (window.Lab.wikilinks && window.Lab.wikilinks._lookup) {
+        var found = window.Lab.wikilinks._lookup(slug);
+        if (found) title = label || found.title || slug;
       }
-      // Remaining text after last match
-      if (lastIndex < remaining.length) {
-        frag.appendChild(document.createTextNode(remaining.substring(lastIndex)));
-      }
-      node.parentNode.replaceChild(frag, node);
+      return '[' + title + '](obj://' + slug + ')';
     });
   }
 
-  // Build a reverse map of pill display text → raw wikilink syntax
-  // Toast UI v3 uses ProseMirror, so getMarkdown() reads from an internal model,
-  // NOT the live DOM. DOM manipulation before getMarkdown() has no effect.
-  // Instead, we post-process the markdown string to restore wikilinks.
-  function getMarkdownClean(editor, containerEl) {
-    // Collect pill mappings: display text → raw [[slug]] syntax
-    var replacements = [];
-    var pills = containerEl.querySelectorAll('.wk-pill[data-raw]');
-    pills.forEach(function(span) {
-      var raw = span.getAttribute('data-raw');
-      var display = span.textContent;
-      if (raw && display) {
-        replacements.push({ display: display, raw: raw });
-      }
+  // Post-process: [title](obj://slug) → [[slug]] after getMarkdown()
+  function linksToWikilinks(md) {
+    return md.replace(/\[([^\]]*)\]\(obj:\/\/([^)]+)\)/g, function(match, title, slug) {
+      return '[[' + slug + ']]';
     });
+  }
 
+  function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
-
-    // Replace flattened pill text with original [[slug]] syntax
-    // Sort by display text length (longest first) to avoid partial matches
-    replacements.sort(function(a, b) { return b.display.length - a.display.length; });
-    replacements.forEach(function(r) {
-      // Escape special regex chars in the display text
-      var escaped = r.display.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      md = md.replace(new RegExp(escaped, 'g'), r.raw);
-    });
-
-    return md;
+    return linksToWikilinks(md);
   }
 
   async function initFullpageEditor(containerEl, content, filePath, sha) {
@@ -857,13 +793,17 @@
     var rect = containerEl.getBoundingClientRect();
     var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
 
+    // Convert [[wikilinks]] to standard markdown links before feeding to Toast UI
+    var prepared = migrateAdmonitions(content);
+    prepared = await wikilinksToLinks(prepared);
+
     var editor = new toastui.Editor({
       el: containerEl,
       initialEditType: 'wysiwyg',
       hideModeSwitch: true,
       previewStyle: 'vertical',
       height: availableHeight + 'px',
-      initialValue: migrateAdmonitions(content),
+      initialValue: prepared,
       usageStatistics: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
@@ -874,26 +814,20 @@
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
-          // Re-style wikilinks on content change (debounced)
-          clearTimeout(containerEl._wikiTimer);
-          containerEl._wikiTimer = setTimeout(function() { styleWikilinksInEditor(containerEl); }, 300);
         }
       }
     });
-
-    // Style wikilinks and admonitions in the WYSIWYG contenteditable area
-    setTimeout(function() { styleWikilinksInEditor(containerEl); }, 200);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
-      getMarkdown: function() { return getMarkdownClean(editor, containerEl); },
+      getMarkdown: function() { return getMarkdownClean(editor); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = getMarkdownClean(editor, containerEl);
+        var md = getMarkdownClean(editor);
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
