@@ -1100,46 +1100,26 @@
 
   function applyEditorImageSizes(containerEl) {
     if (!Object.keys(_imgSizes).length) return;
-    var imgs = containerEl.querySelectorAll('img');
-    imgs.forEach(function(img) {
-      var src = img.getAttribute('src') || '';
-      var w = getImageSize(src);
-      if (w) {
-        img.style.maxWidth = w;
-        // Also re-apply when image loads (src may change after initial render)
-        if (!img._sizeListenerAdded) {
-          img._sizeListenerAdded = true;
-          img.addEventListener('load', function() {
-            var s = img.getAttribute('src') || '';
-            var sz = getImageSize(s);
-            if (sz) img.style.maxWidth = sz;
-          });
-        }
-      }
-    });
-
-    // Watch for new images added to the editor (e.g. Toast UI lazy rendering)
-    if (!containerEl._imgObserver) {
-      containerEl._imgObserver = new MutationObserver(function() {
-        if (!Object.keys(_imgSizes).length) return;
-        containerEl.querySelectorAll('img').forEach(function(img) {
-          var s = img.getAttribute('src') || '';
-          var sz = getImageSize(s);
-          if (sz && img.style.maxWidth !== sz) img.style.maxWidth = sz;
-        });
+    function applyAll() {
+      containerEl.querySelectorAll('img').forEach(function(img) {
+        var src = img.getAttribute('src') || img.src || '';
+        var w = getImageSize(src);
+        if (w) img.style.maxWidth = w;
       });
-      containerEl._imgObserver.observe(containerEl, { childList: true, subtree: true });
+    }
+    applyAll();
+    // MutationObserver for Toast UI lazy rendering
+    if (!containerEl._imgObserver) {
+      containerEl._imgObserver = new MutationObserver(applyAll);
+      containerEl._imgObserver.observe(containerEl, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
     }
   }
 
-  // Look up size for an image src (handles both resolved and unresolved paths)
+  // Look up size for an image src (match by filename since paths vary)
   function getImageSize(src) {
-    if (_imgSizes[src]) return _imgSizes[src];
-    // Try stripping MEDIA_BASE
-    var rel = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
-    if (_imgSizes[rel]) return _imgSizes[rel];
-    // Try matching by filename
-    var fname = src.split('/').pop();
+    if (!src) return null;
+    // Build a filename lookup on first call / when sizes change
+    var fname = src.split('/').pop().split('?')[0];
     for (var key in _imgSizes) {
       if (key.split('/').pop() === fname) return _imgSizes[key];
     }
