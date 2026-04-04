@@ -413,7 +413,8 @@
       ],
     });
 
-    // Fix table header cells so they're editable, apply image sizes
+    // Fix table header cells so they're editable, apply image sizes, set up image fallback
+    setupEditorImageFallback(editorEl);
     setTimeout(function() {
       fixTableHeaders(editorEl);
       addTableContextMenu(editorEl, currentEditor);
@@ -1135,6 +1136,36 @@
     }
   }
 
+  // Fallback for images that fail to load in the editor (not deployed to Pages yet).
+  // Fetches via authenticated GitHub API and displays as data URL.
+  function setupEditorImageFallback(containerEl) {
+    if (containerEl._imgFallbackSetup) return;
+    containerEl._imgFallbackSetup = true;
+    containerEl.addEventListener('error', function(e) {
+      var img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.apiFallback) return;
+      img.dataset.apiFallback = '1';
+      var src = img.getAttribute('src') || '';
+      // Extract relative path from the resolved URL
+      var relPath = '';
+      if (src.includes('/images/')) {
+        relPath = 'images/' + src.split('/images/').pop();
+      }
+      if (relPath && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
+        fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
+          headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
+        }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
+          if (data && data.content) {
+            var ext = relPath.split('.').pop().toLowerCase();
+            var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+            img.dataset.realSrc = src;
+            img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
+          }
+        }).catch(function() {});
+      }
+    }, true); // useCapture to catch errors on img elements
+  }
+
   // Resolve a src to a real path (handles data URLs via mapping)
   function resolveRealSrc(src) {
     if (!src) return src;
@@ -1458,6 +1489,7 @@
     });
 
     // Fix table header cells so they're editable + add context menu + apply image sizes
+    setupEditorImageFallback(containerEl);
     setTimeout(function() {
       fixTableHeaders(containerEl);
       addTableContextMenu(containerEl, editor);
