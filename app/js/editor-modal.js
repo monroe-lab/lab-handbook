@@ -959,6 +959,12 @@
           if (!img) return;
           e.preventDefault();
           window.Lab.annotate.open(img, function(annotatedPath, dataUrl) {
+            // Save scroll position before mode switches reset it
+            var scrollEl = ww.closest('.toastui-editor-ww-container') || ww.closest('.ProseMirror') || ww;
+            var scrollTop = scrollEl.scrollTop;
+            var mainScroll = document.getElementById('protoMain');
+            var mainScrollTop = mainScroll ? mainScroll.scrollTop : 0;
+
             // Replace the image src in the editor with the annotated version
             editor.changeMode('markdown');
             var md = editor.getMarkdown();
@@ -987,6 +993,9 @@
               });
               // Re-apply sizes after annotation swap
               applyEditorImageSizes(containerEl);
+              // Restore scroll position
+              scrollEl.scrollTop = scrollTop;
+              if (mainScroll) mainScroll.scrollTop = mainScrollTop;
             }, 300);
           });
         });
