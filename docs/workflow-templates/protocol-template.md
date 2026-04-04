@@ -153,45 +153,31 @@ Lane:    M    1    2    3    4    5
 
 ## Media & animations
 
-You can embed images, GIFs, and videos directly in protocols.
+Use the **Media** buttons in the editor toolbar to insert images, GIFs, and videos. Everything uploads and embeds automatically.
 
-### Static image
+### Static image & animated GIF
 
-Store images in `docs/images/` and reference them with standard markdown:
-
-```
-![Description](images/your-image.jpg)
-```
-
-### Animated GIF
-
-GIFs play automatically and are great for showing short technique demos:
+Click **Image / GIF** in the Media bar, pick a file from your computer. It uploads to the repo and appears inline. GIFs animate automatically.
 
 ![Pipetting technique demo](images/pcr-cycle-animation.gif)
 
-*Animated GIFs loop automatically. Good for showing hand positions, mixing techniques, or short equipment operation demos.*
+*Animated GIFs are great for showing hand positions, mixing techniques, or short equipment operation demos.*
 
-### Embedded video (YouTube/Vimeo)
+### YouTube video
 
-For longer instructional videos, embed from YouTube. Paste the embed HTML directly:
+Click **YouTube** in the Media bar, paste any YouTube URL. A thumbnail preview appears in the editor; the full embedded player shows in the rendered view.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iQsu3Kz9NYo" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
-<br>
-<br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/c1WOBy5vSg8" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
-
-*YouTube/Vimeo embeds stream from the platform. No storage cost, and viewers can fullscreen or adjust playback speed.*
 
 ### Local video file
 
-You can also host short video clips directly in the repo (`docs/images/`):
+Click **Video file** in the Media bar, pick an mp4 or webm (max 25 MB). For longer videos, use YouTube instead.
 
 <video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/test-video.mp4" type="video/mp4">Your browser does not support video.</video>
 
-*Local videos are best for short clips (<30 seconds). For longer content, use YouTube embeds to avoid bloating the repository.*
-
-***
+---
 
 ## Troubleshooting
 
