@@ -815,6 +815,21 @@ async function saveDoc() {
   try {
     // Re-assemble frontmatter + edited body
     var body = editorInstance.getMarkdown();
+
+    // Capture loaded images from editor before destroying it (for instant view rendering)
+    var editorImages = {};
+    var editorSurface = document.getElementById('editorSurface');
+    if (editorSurface) {
+      editorSurface.querySelectorAll('img').forEach(function(img) {
+        if (img.src && img.complete && img.naturalWidth > 0) {
+          // Map the filename to the loaded src (may be data URL from API fallback)
+          var origSrc = img.dataset.realSrc || img.getAttribute('src') || '';
+          var fname = origSrc.split('/').pop().split('?')[0];
+          if (fname) editorImages[fname] = img.src;
+        }
+      });
+    }
+
     var fullContent = Lab.buildFrontmatter(editFrontmatter, body);
     var filePath = 'docs/' + currentDoc + '.md';
     var result = await Lab.gh.saveFile(filePath, fullContent, currentSha, 'Update ' + currentDoc);
@@ -845,6 +860,18 @@ async function saveDoc() {
       await Lab.wikilinks.processRendered(renderedEl2);
     }
     postProcessRendered(renderedEl2);
+
+    // Inject images captured from the editor so they show instantly (no waiting for Pages deploy)
+    if (Object.keys(editorImages).length) {
+      renderedEl2.querySelectorAll('img').forEach(function(img) {
+        var src = img.getAttribute('src') || '';
+        var fname = src.split('/').pop().split('?')[0];
+        if (fname && editorImages[fname]) {
+          img.src = editorImages[fname];
+        }
+      });
+    }
+
     document.getElementById('protoMain').scrollTop = 0;
   } catch(e) {
     var msg = e.message || 'Unknown error';
