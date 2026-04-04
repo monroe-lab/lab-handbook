@@ -1,0 +1,178 @@
+---
+type: protocol
+title: "Protocol Template"
+---
+
+# Protocol Template
+
+*Use the **Duplicate** button (top right) to create a copy, then rename and edit it for your own protocol.*
+
+**Purpose:** Brief statement of what this protocol achieves and when you would use it.
+
+**Author:** [[grey-monroe]]
+
+**Last verified:** 2026-04-04
+
+---
+
+## Background
+
+Provide context so someone unfamiliar with the technique understands *why* each step matters, not just *what* to do. A good background section answers: What is the biological or chemical principle? Why this method over alternatives? What can go wrong if steps are skipped?
+
+For example, if your protocol involves DNA extraction, explain why you lyse cells before adding binding buffer, or why you use a specific pH. This turns the protocol from a recipe into a teaching tool.
+
+---
+
+## Safety
+
+> ⚠️ **PPE Required**
+> Always wear nitrile gloves and safety glasses for this procedure. If working with volatile reagents, use the [[fume-hood]]. Check the SDS for any unfamiliar chemical before handling. Click any reagent pill below to see its location and SDS link.
+
+---
+
+## Materials
+
+### Reagents
+
+| Reagent | Amount per sample | Notes |
+|---------|-------------------|-------|
+| [[ethanol-70]] | 1 mL | For surface sterilization |
+| [[triton-x-100]] | 50 uL of 20% stock | Surfactant, improves wetting |
+| [[agarose]] | 0.5 g per 50 mL | For gel electrophoresis QC |
+
+### Equipment
+
+| Equipment | Purpose |
+|-----------|---------|
+| [[clean-bench]] | Sterile work surface |
+| [[tube-rotator]] | Gentle mixing during incubation |
+
+### Stocks
+
+You can link biological stocks too:
+
+- [[col-0-wild-type]] (control genotype)
+- [[bl21-de3-competent-cells]] (if doing a transformation step)
+
+---
+
+## Procedure
+
+### Step 1: Prepare workspace
+
+1. Turn on the [[clean-bench]] and let it run for **10 minutes** before starting
+2. Wipe down the surface with 70% ethanol
+3. Gather all reagents and label your tubes
+
+> 💡 **Tip**
+> Label tubes *before* you start the protocol. Once your gloves are wet with reagents, markers won't write on tubes. Use a fine-point permanent marker and include: your initials, date, sample ID, and step number.
+
+### Step 2: Sample preparation
+
+1. Transfer tissue to a labeled 1.5 mL tube
+2. Add **400 uL** extraction buffer
+3. Grind with a micropestle for **30 seconds** until homogenized
+4. Incubate at **65 C** for **10 minutes**
+
+> ⚠️ **Warning**
+> Do not exceed 15 minutes at 65 C. Extended heat exposure degrades DNA and will reduce your yield significantly. Set a timer.
+
+> ℹ️ **Note**
+> If your tissue is particularly tough (woody stems, mature leaves), freeze in liquid nitrogen first and grind to a fine powder before adding buffer. This dramatically improves lysis efficiency.
+
+### Step 3: Purification
+
+1. Add **400 uL** chloroform:isoamyl alcohol (24:1)
+2. Vortex for **10 seconds**
+3. Centrifuge at **13,000 rpm** for **5 minutes**
+4. Transfer the upper aqueous phase (~300 uL) to a new tube
+
+??? variant "Column-based alternative"
+    If you prefer a spin-column kit over organic extraction:
+
+    1. Add **200 uL** binding buffer (from kit) to your lysate
+    2. Load onto the spin column
+    3. Centrifuge **30 seconds** at 10,000 rpm
+    4. Wash 2x with **500 uL** wash buffer
+    5. Elute in **50 uL** warm EB buffer
+
+    *Trade-off:* Columns are faster and avoid toxic solvents, but yield is typically 30-50% lower than organic extraction. Use columns for genotyping PCR; use organic extraction when you need high-molecular-weight DNA (e.g., long-read sequencing).
+
+??? variant "High-throughput (96-well plate format)"
+    For processing many samples simultaneously:
+
+    1. Use a 96-well deep-well plate instead of individual tubes
+    2. Scale all volumes to **200 uL** (half the single-tube protocol)
+    3. Use a multichannel pipette for all liquid handling
+    4. Centrifuge plates at **3,000 rpm** (lower speed to avoid cracking wells)
+
+    *Note:* Plate format is essential for projects like [[mutation-accumulation]] where you may process hundreds of lines at once.
+
+### Step 4: Quality check
+
+Run your samples on a gel to verify extraction worked:
+
+1. Pour a **1% agarose** gel with 1x TAE buffer
+2. Load **5 uL** sample + **1 uL** loading dye
+3. Run at **100V** for **30 minutes**
+4. Image on a UV transilluminator
+
+You should see a high-molecular-weight band (>10 kb). Smearing below the main band indicates degradation.
+
+```
+Expected gel pattern:
+
+Lane:    M    1    2    3    4    5
+         |    |    |    |    |    |
+>10 kb   =    -    -    -    -    -    <-- intact genomic DNA
+         |
+ 3 kb    =
+         |
+ 1 kb    =
+         |
+500 bp   =
+```
+
+---
+
+## Troubleshooting
+
+| Problem | Likely cause | Solution |
+|---------|-------------|----------|
+| No DNA band on gel | Incomplete lysis | Grind more thoroughly; freeze tissue first |
+| Smeared DNA | Degradation from nucleases | Work faster; keep samples on ice |
+| Low A260/A280 ratio (<1.8) | Protein contamination | Add a second chloroform extraction |
+| Brown pellet | Polyphenol co-precipitation | Add PVP to extraction buffer |
+
+---
+
+## Expected results
+
+- **Yield:** 5-20 ug DNA per 100 mg fresh tissue
+- **Purity:** A260/A280 of 1.8-2.0
+- **Integrity:** Sharp high-MW band on gel, minimal smearing
+
+---
+
+## Related protocols
+
+- [[wet-lab/seed-sterilization]] (if growing plants for tissue)
+- [[wet-lab/gel-electrophoresis]] (detailed gel protocol)
+- [[wet-lab/pcr-genotyping]] (downstream application)
+
+## Related projects
+
+- [[mutation-accumulation]]
+- [[alfalfa-pangenome]]
+
+---
+
+## Revision history
+
+| Date | Author | Change |
+|------|--------|--------|
+| 2026-04-04 | [[grey-monroe]] | Initial template created |
+
+---
+
+*This template demonstrates the available formatting features. All the special blocks (variants, warnings, tips, notes) are **collapsible** in the rendered view and when printing, so you can expand only the ones relevant to your situation. Use the **Duplicate** button to make a copy and start writing your own protocol.*

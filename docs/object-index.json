@@ -1715,6 +1715,11 @@
     "title": "Planting Arabidopsis Seeds on MS Plates"
   },
   {
+    "path": "wet-lab/planting-in-soil-copy.md",
+    "type": "protocol",
+    "title": "Planting Arabidopsis in Soil (Copy)"
+  },
+  {
     "path": "wet-lab/planting-in-soil.md",
     "type": "protocol",
     "title": "Planting Arabidopsis in Soil"
@@ -1758,6 +1763,11 @@
     "path": "wet-lab/extraction/sorbitol-ctab-hifi-extraction.md",
     "type": "protocol",
     "title": "Sorbitol/CTAB HiFi Extraction"
+  },
+  {
+    "path": "wet-lab/extraction/test-new.md",
+    "type": "protocol",
+    "title": "test new"
   },
   {
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
@@ -1988,6 +1998,11 @@
     "path": "workflow-templates/hifi-pipeline.md",
     "type": "protocol",
     "title": "HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)"
+  },
+  {
+    "path": "workflow-templates/protocol-template.md",
+    "type": "protocol",
+    "title": "Protocol Template"
   },
   {
     "path": "workflow-templates/strelka2.md",
