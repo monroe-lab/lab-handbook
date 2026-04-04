@@ -257,19 +257,22 @@
       ctx.font = 'bold ' + fontSize + 'px Inter, -apple-system, sans-serif';
       ctx.textBaseline = 'middle';
 
+      var displayText = a.text || (i === selectedIdx ? '|' : '');
+      if (!displayText) { ctx.restore(); return; }
+
       // Text outline for readability
       ctx.strokeStyle = a.color === '#000000' ? '#ffffff' : '#000000';
       ctx.lineWidth = Math.max(3, fontSize / 5);
       ctx.lineJoin = 'round';
-      ctx.strokeText(a.text, 0, 0);
+      ctx.strokeText(displayText, 0, 0);
 
       // Fill
       ctx.fillStyle = a.color || '#ffffff';
-      ctx.fillText(a.text, 0, 0);
+      ctx.fillText(displayText, 0, 0);
 
       // Selection indicator
       if (i === selectedIdx) {
-        var metrics = ctx.measureText(a.text);
+        var metrics = ctx.measureText(displayText);
         var pad = fontSize * 0.15;
         ctx.strokeStyle = '#00e5ff';
         ctx.lineWidth = Math.max(2, fontSize / 10);
@@ -308,7 +311,10 @@
     if (idx >= 0) {
       var a = annotations[idx];
       document.getElementById('annot-text').value = a.text;
-      // Update toolbar to reflect selected annotation's color and size
+      // Inherit settings for next new annotation
+      currentTool.color = a.color || currentTool.color;
+      currentTool.size = a.size || currentTool.size;
+      currentTool.rotation = a.rotation || 0;
     }
     draw();
   }
@@ -325,10 +331,9 @@
       dragOffY = p.y - annotations[hit].y;
       canvas.style.cursor = 'grabbing';
     } else {
-      // Clicked empty space → add new annotation
-      var text = document.getElementById('annot-text').value || 'Label';
+      // Clicked empty space → add new annotation (blank, inherits last settings)
       annotations.push({
-        text: text,
+        text: '',
         x: p.x,
         y: p.y,
         color: currentTool.color,
@@ -336,6 +341,9 @@
         rotation: currentTool.rotation
       });
       selectedIdx = annotations.length - 1;
+      var ti = document.getElementById('annot-text');
+      ti.value = '';
+      ti.focus();
       draw();
     }
   }
