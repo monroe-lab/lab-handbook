@@ -62,6 +62,7 @@
       '.em-surface td,.em-surface th,.em-surface .toastui-editor-contents td,.em-surface .toastui-editor-contents th,.toastui-editor td,.toastui-editor th{border:1px solid var(--grey-300)!important;padding:8px 12px!important;word-wrap:break-word!important;overflow-wrap:break-word!important;word-break:break-all!important;max-width:0!important}',
       '.em-surface .toastui-editor-contents thead th{background:var(--grey-50)!important;min-height:32px!important;min-width:60px!important;height:32px!important;cursor:text!important;color:var(--grey-900)!important}',
       '.em-surface .toastui-editor-contents thead th p{color:var(--grey-900)!important}',
+      '.em-surface .toastui-editor-context-menu{display:none!important}',
       '.em-surface .toastui-editor-contents code{background:var(--grey-100)!important;padding:2px 6px!important;border-radius:4px!important;font-size:13px!important}',
       '.em-surface .toastui-editor-contents pre{background:var(--grey-900)!important;color:#e0e0e0!important;padding:16px!important;border-radius:8px!important;overflow-x:auto!important}',
       '.em-surface .toastui-editor-contents pre code{background:transparent!important;padding:0!important;color:inherit!important}',
