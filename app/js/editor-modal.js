@@ -648,9 +648,11 @@
       ta.dispatchEvent(new Event('input', { bubbles: true }));
       linkModalTextarea = null;
     } else if (linkModalEditor) {
-      // Insert as standard markdown link (Toast UI mangles [[wikilinks]])
-      // getMarkdownClean() converts https://obj.link/ links back to [[slug]] on save
-      linkModalEditor.insertText('[' + title + '](' + OBJ_LINK_PREFIX + slug + ')');
+      // Switch to markdown mode to insert, then back to WYSIWYG so Toast UI
+      // parses the link into a real <a> node (insertText just inserts raw text)
+      linkModalEditor.changeMode('markdown');
+      linkModalEditor.replaceSelection('[' + title + '](' + OBJ_LINK_PREFIX + slug + ')');
+      linkModalEditor.changeMode('wysiwyg');
     }
 
     linkModalEl.classList.remove('open');
