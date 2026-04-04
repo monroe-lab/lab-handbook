@@ -13,8 +13,7 @@ new stuff testing new again
 > ⚠️ **Warning**
 > \[BL21\(DE3\) Competent Cells\]\(https://obj\.link/bl21\-de3\-competent\-cells\)
 
-
-<br>
+\[1\-Octanol\]\(https://obj\.link/1\-octanol\)
 [[clean-bench-laminar-flow]]
 [[1-octanol]]
 edit test
