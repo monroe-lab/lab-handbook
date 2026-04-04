@@ -13,10 +13,12 @@ new stuff testing new again
 lets test this
 edit test
 check 1
+check 2
 
 > block quote material with [[col-0-wild-type]] newline test
 > heres a second line
 > and a third
+> and a fourth
 
 > ⚠️ **Warning title**
 > test second line here too
