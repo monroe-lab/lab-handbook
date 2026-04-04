@@ -200,6 +200,10 @@
         (a.bodyMd.trim() ? '<div class="admonition-body">' + bodyHtml + '</div>' : '') + '</details>';
       html = html.replace('<!--admonition-' + i + '-->', adHtml);
     });
+
+    // Open external links in new tab
+    html = html.replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"');
+
     return html;
   }
 
