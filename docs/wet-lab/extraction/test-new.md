@@ -10,6 +10,7 @@ new stuff testing new again
 
 [[clean-bench]]
 
+\[Clean Bench\]\(obj://clean\-bench\-laminar\-flow\)
 \[1\-Octanol\]\(obj://1\-octanol\)
 edit test
 check 1
