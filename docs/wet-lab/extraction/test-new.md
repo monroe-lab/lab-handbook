@@ -16,8 +16,8 @@ check 1
 check 2
 
 <br>
-| header |  |  |  |
-| ------ | --- | --- | --- |
+| header | column 2<br> |  |  |
+| ------ | -------- | --- | --- |
 |  | asdfnalsdfahsldf |  |  |
 |  |  |  |  |
 |  |  |  |  |
