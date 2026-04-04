@@ -390,8 +390,9 @@
     contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
     var editorEl = contentEl.querySelector('.em-surface');
 
-    // Convert [[wikilinks]] to standard links and resolve image paths before feeding to Toast UI
+    // Convert [[wikilinks]] to standard links, resolve paths, and placeholder media before feeding to Toast UI
     var prepared = migrateAdmonitions(currentState.body);
+    prepared = mediaToPlaceholders(prepared);
     prepared = await wikilinksToLinks(prepared);
     prepared = resolveImagePaths(prepared);
 
@@ -885,7 +886,7 @@
       if (!match) { window.Lab.showToast('Could not parse YouTube URL', 'error'); return; }
       var videoId = match[1];
       editor.changeMode('markdown');
-      editor.replaceSelection('\n\n<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>\n\n');
+      editor.replaceSelection('\n\n[![▶ YouTube video](https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg)](https://www.youtube.com/watch?v=' + videoId + ')\n\n');
       editor.changeMode('wysiwyg');
       window.Lab.showToast('YouTube video inserted', 'success');
     };
@@ -909,7 +910,7 @@
       }
       uploadMedia(file, function(slug) {
         editor.changeMode('markdown');
-        editor.replaceSelection('\n\n<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/' + slug + '" type="' + file.type + '">Your browser does not support video.</video>\n\n');
+        editor.replaceSelection('\n\n[🎬 Video: ' + slug + '](videofile://images/' + slug + ')\n\n');
         editor.changeMode('wysiwyg');
       });
       vidInput.value = '';
@@ -997,12 +998,53 @@
     return md;
   }
 
+  // ── Media embed round-tripping ──
+  // Toast UI strips <iframe> and <video> in WYSIWYG. Convert to placeholder links
+  // before editor, convert back on save.
+
+  function mediaToPlaceholders(md) {
+    // YouTube iframes → placeholder link with thumbnail
+    md = md.replace(/<iframe[^>]*src=["']https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)["'][^>]*><\/iframe>/g, function(m, id) {
+      return '[![▶ YouTube video](https://img.youtube.com/vi/' + id + '/mqdefault.jpg)](https://www.youtube.com/watch?v=' + id + ')';
+    });
+    // Local video tags → placeholder link
+    md = md.replace(/<video[^>]*>[\s\S]*?<source\s+src=["']([^"']+)["'][^>]*>[\s\S]*?<\/video>/g, function(m, src) {
+      var name = src.split('/').pop();
+      return '[🎬 Video: ' + name + '](videofile://' + src + ')';
+    });
+    return md;
+  }
+
+  function placeholdersToMedia(md) {
+    // YouTube thumbnail links → iframe
+    md = md.replace(/\[!\[▶[^\]]*\]\(https:\/\/img\.youtube\.com\/vi\/([a-zA-Z0-9_-]+)\/[^)]+\)\]\(https:\/\/www\.youtube\.com\/watch\?v=\1\)/g, function(m, id) {
+      return '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>';
+    });
+    // Also catch escaped versions from Toast UI
+    md = md.replace(/\[!\[▶[^\]]*\]\(https:\/\/img\.youtube\.com\/vi\/([a-zA-Z0-9_-]+)\/[^)]+\)\]\\?\(https:\/\/www\.youtube\.com\/watch\?v=\1\\?\)/g, function(m, id) {
+      return '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>';
+    });
+    // videofile:// placeholder links → video tag
+    md = md.replace(/\[🎬 Video: [^\]]+\]\(videofile:\/\/([^)]+)\)/g, function(m, src) {
+      var type = src.match(/\.webm$/i) ? 'video/webm' : 'video/mp4';
+      return '<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="' + src + '" type="' + type + '">Your browser does not support video.</video>';
+    });
+    // Also catch escaped videofile:// from Toast UI
+    md = md.replace(/\\?\[🎬 Video: [^\]]*\]\\?\(videofile:\/\/([^)]*(?:\\.[^)]*)*)\)/g, function(m, src) {
+      src = src.replace(/\\/g, '');
+      var type = src.match(/\.webm$/i) ? 'video/webm' : 'video/mp4';
+      return '<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="' + src + '" type="' + type + '">Your browser does not support video.</video>';
+    });
+    return md;
+  }
+
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
     md = linksToWikilinks(md);
     md = unresolveImagePaths(md);
+    md = placeholdersToMedia(md);
     return md;
   }
 
@@ -1110,8 +1152,9 @@
     var rect = containerEl.getBoundingClientRect();
     var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
 
-    // Convert [[wikilinks]] to standard markdown links and resolve image paths
+    // Convert [[wikilinks]] to standard markdown links, resolve paths, placeholder media
     var prepared = migrateAdmonitions(content);
+    prepared = mediaToPlaceholders(prepared);
     prepared = await wikilinksToLinks(prepared);
     prepared = resolveImagePaths(prepared);
 
