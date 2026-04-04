@@ -1,0 +1,37 @@
+{
+  "_originalSrc": "images/1000009774.jpg",
+  "annotations": [
+    {
+      "text": "label",
+      "x": 1266.1516302212913,
+      "y": 1426.423988477151,
+      "color": "#ffffff",
+      "size": 3,
+      "rotation": -45
+    },
+    {
+      "text": "lavel 2",
+      "x": 1923.2682990703158,
+      "y": 918.894854000262,
+      "color": "#ffffff",
+      "size": 3,
+      "rotation": -45
+    },
+    {
+      "text": "lael 3",
+      "x": 1164.6458033259134,
+      "y": 566.2956658373707,
+      "color": "#ff1744",
+      "size": 3,
+      "rotation": -90
+    },
+    {
+      "text": "sdfasdfh",
+      "x": 502.1867225350269,
+      "y": 539.5836061280608,
+      "color": "#ff1744",
+      "size": 3,
+      "rotation": -90
+    }
+  ]
+}
