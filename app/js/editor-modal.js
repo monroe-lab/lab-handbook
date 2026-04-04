@@ -959,24 +959,33 @@
           e.preventDefault();
           window.Lab.annotate.open(img, function(annotatedPath, dataUrl) {
             // Replace the image src in the editor with the annotated version
-            // Update markdown: swap old image path with annotated path
             editor.changeMode('markdown');
             var md = editor.getMarkdown();
             var oldSrc = img.dataset.realSrc || img.getAttribute('src') || '';
             var base = MEDIA_BASE;
             var relativeSrc = oldSrc.startsWith(base) ? oldSrc.slice(base.length) : oldSrc;
+            // Carry over image size from old path to new annotated path
+            var oldSize = getImageSize(relativeSrc);
+            if (oldSize) {
+              delete _imgSizes[relativeSrc];
+              _imgSizes[annotatedPath] = oldSize;
+            }
             // Replace the old image path with the annotated one
             md = md.replace(relativeSrc, annotatedPath);
             editor.setMarkdown(md);
             editor.changeMode('wysiwyg');
-            // Swap the img src for immediate preview
+            // Track data URL → real path and show preview without corrupting ProseMirror
+            _dataUrlToPath[dataUrl] = annotatedPath;
             setTimeout(function() {
               var imgs = ww.querySelectorAll('img');
               imgs.forEach(function(i) {
                 if ((i.getAttribute('src') || '').includes(annotatedPath.split('/').pop())) {
+                  i.dataset.realSrc = i.getAttribute('src');
                   i.src = dataUrl;
                 }
               });
+              // Re-apply sizes after annotation swap
+              applyEditorImageSizes(containerEl);
             }, 300);
           });
         });
