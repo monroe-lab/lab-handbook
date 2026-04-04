@@ -201,6 +201,10 @@
       html = html.replace('<!--admonition-' + i + '-->', adHtml);
     });
 
+    // Fix obj:// and inventory:// links that marked didn't parse (e.g. inside table cells)
+    html = html.replace(/\[([^\]]+)\]\(obj:\/\/([^)]+)\)/g, '<a href="obj://$2">$1</a>');
+    html = html.replace(/\[([^\]]+)\]\(inventory:\/\/([^)]+)\)/g, '<a href="inventory://$2">$1</a>');
+
     // Open external links in new tab
     html = html.replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"');
 
