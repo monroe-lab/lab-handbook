@@ -1,0 +1,21 @@
+{
+  "_originalSrc": "images/screenshot-2026-03-24-at-6.56.08-pm.png",
+  "annotations": [
+    {
+      "text": "test",
+      "x": 595.4039544323688,
+      "y": 445.2586094015975,
+      "color": "#2979ff",
+      "size": 3,
+      "rotation": -420
+    },
+    {
+      "text": "test 2",
+      "x": 472.8715464187508,
+      "y": 631.6459342673825,
+      "color": "#2979ff",
+      "size": 3,
+      "rotation": -420
+    }
+  ]
+}
