@@ -829,7 +829,8 @@
       var path = 'docs/images/' + slug;
       var reader = new FileReader();
       reader.onload = async function() {
-        var base64 = reader.result.split(',')[1]; // strip data:...;base64, prefix
+        var dataUrl = reader.result; // full data:image/...;base64,...
+        var base64 = dataUrl.split(',')[1];
         try {
           window.Lab.showToast('Uploading ' + file.name + '...', 'info');
           var token = window.Lab.gh.getToken();
@@ -843,7 +844,7 @@
             throw new Error(err.message || 'Upload failed');
           }
           window.Lab.showToast('Uploaded: ' + slug, 'success');
-          callback(slug);
+          callback(slug, dataUrl);
         } catch(e) {
           window.Lab.showToast('Upload failed: ' + e.message, 'error');
         }
@@ -861,10 +862,22 @@
     imgBtn.onclick = function(e) { e.preventDefault(); imgInput.click(); };
     imgInput.onchange = function() {
       if (!imgInput.files[0]) return;
-      uploadMedia(imgInput.files[0], function(slug) {
+      uploadMedia(imgInput.files[0], function(slug, dataUrl) {
+        // Insert with the real path (for save), then swap src to data URL for instant preview
         editor.changeMode('markdown');
         editor.replaceSelection('\n\n![' + slug.replace(/\.[^.]+$/, '') + '](images/' + slug + ')\n\n');
         editor.changeMode('wysiwyg');
+        // Find the just-inserted broken image and show it immediately via data URL
+        setTimeout(function() {
+          var ww = containerEl.querySelector('.toastui-editor-ww-container') || containerEl;
+          ww.querySelectorAll('img').forEach(function(img) {
+            var src = img.getAttribute('src') || '';
+            if (src.includes(slug) && (!img.complete || img.naturalWidth === 0)) {
+              img.src = dataUrl;
+              img.dataset.realSrc = src; // preserve for reference
+            }
+          });
+        }, 300);
       });
       imgInput.value = '';
     };
