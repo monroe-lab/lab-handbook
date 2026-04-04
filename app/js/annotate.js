@@ -1,6 +1,6 @@
 /* Monroe Lab – Image Annotation Editor
    Click an image in the editor to add text annotations (gel labels, etc.)
-   Saves flattened PNG + JSON sidecar for re-editing. */
+   Saves flattened PNG as -annotated.png alongside the original. */
 (function() {
   'use strict';
 
@@ -28,49 +28,22 @@
     var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
     if (origSrc.startsWith(base)) origSrc = origSrc.slice(base.length);
 
-    // Check for existing annotations JSON (strip -annotated suffix if present)
-    var annotBase = origSrc.replace(/-annotated\.[^.]+$/, '').replace(/\.[^.]+$/, '');
-    var annotPath = annotBase + '.annotations.json';
-
     createOverlay();
     overlay.style.display = 'flex';
     annotations = [];
     selectedIdx = -1;
 
-    // Load image
+    // Load image fresh — no previous annotations loaded
     baseImage = new Image();
     baseImage.crossOrigin = 'anonymous';
-    baseImage.onload = async function() {
+    baseImage.onload = function() {
       fitCanvas();
-      // Try loading existing annotations
-      try {
-        var gh = window.Lab && window.Lab.gh;
-        if (gh) {
-          var result = await gh.fetchFile('docs/' + annotPath);
-          var data = JSON.parse(result.content);
-          if (data.annotations && Array.isArray(data.annotations)) {
-            annotations = data.annotations;
-          } else if (Array.isArray(data)) {
-            annotations = data;
-          }
-          // Load the ORIGINAL (un-annotated) image for clean re-editing
-          if (data._originalSrc) {
-            origSrc = data._originalSrc;
-            var origImg = new Image();
-            origImg.crossOrigin = 'anonymous';
-            origImg.onload = function() { baseImage = origImg; fitCanvas(); draw(); };
-            origImg.onerror = function() { draw(); }; // fall back to current image
-            origImg.src = base + data._originalSrc;
-          }
-        }
-      } catch(e) { /* no annotations yet, that's fine */ }
       draw();
     };
     baseImage.onerror = function() {
       window.Lab.showToast('Could not load image', 'error');
       close();
     };
-    // Use the full URL for loading
     var loadSrc = imgEl.src || (base + origSrc);
     baseImage.src = loadSrc;
   }
@@ -563,13 +536,12 @@
       var blob = await new Promise(function(resolve) { canvas.toBlob(resolve, 'image/png'); });
       var base64 = await blobToBase64(blob);
 
-      // 2. Determine file paths
+      // 2. Determine file paths — annotated version saved alongside original
       var origRelative = origSrc; // e.g. "images/gel-photo.jpg"
       var cleanBase = origRelative.replace(/-annotated\.[^.]+$/, '').replace(/\.[^.]+$/, '');
       var annotatedPath = cleanBase + '-annotated.png';
-      var jsonPath = cleanBase + '.annotations.json';
 
-      // 3. Upload flattened PNG
+      // 3. Upload flattened PNG (original image stays untouched)
       var token = window.Lab.gh.getToken();
       var existingSha = null;
       try {
@@ -588,30 +560,7 @@
       });
       if (!resp.ok) throw new Error('Failed to upload annotated image');
 
-      // 4. Save annotation JSON (for re-editing)
-      var jsonData = annotations.slice();
-      // _originalSrc always points to the un-annotated original
-      var originalSrc = origRelative.includes('-annotated') ? origRelative : origRelative;
-      var jsonContent = JSON.stringify({ _originalSrc: originalSrc, annotations: jsonData }, null, 2);
-      var jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
-
-      var jsonSha = null;
-      try {
-        var existingJson = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + jsonPath + '?ref=' + window.Lab.gh.BRANCH, {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (existingJson.ok) { jsonSha = (await existingJson.json()).sha; }
-      } catch(e) {}
-
-      var jsonPut = { message: 'Annotation data for ' + cleanBase, content: jsonBase64, branch: window.Lab.gh.BRANCH };
-      if (jsonSha) jsonPut.sha = jsonSha;
-      await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + jsonPath, {
-        method: 'PUT',
-        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify(jsonPut)
-      });
-
-      // 5. Callback with the annotated image path and data URL for immediate preview
+      // 4. Callback with the annotated image path and data URL for immediate preview
       var dataUrl = canvas.toDataURL('image/png');
       if (onSaveCallback) onSaveCallback(annotatedPath, dataUrl);
 
