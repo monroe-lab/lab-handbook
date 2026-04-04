@@ -658,6 +658,26 @@ function postProcessRendered(el) {
       if (v.parentElement && v.parentElement.tagName === 'VIDEO') v.parentElement.load();
     }
   });
+
+  // Show friendly message for images/videos that haven't deployed yet
+  el.querySelectorAll('img').forEach(function(img) {
+    img.addEventListener('error', function() {
+      if (img.dataset.retried) return;
+      img.dataset.retried = '1';
+      img.style.cssText = 'display:block;padding:24px;background:var(--grey-100);border-radius:8px;color:var(--grey-500);font-size:13px;font-style:italic;min-height:60px;';
+      img.alt = 'Image deploying... refresh in a moment';
+    });
+  });
+  el.querySelectorAll('video').forEach(function(vid) {
+    vid.addEventListener('error', function() {
+      if (vid.dataset.retried) return;
+      vid.dataset.retried = '1';
+      var msg = document.createElement('div');
+      msg.style.cssText = 'padding:24px;background:var(--grey-100);border-radius:8px;color:var(--grey-500);font-size:13px;font-style:italic;text-align:center;';
+      msg.innerHTML = '<span class="material-icons-outlined" style="font-size:32px;display:block;margin-bottom:8px">hourglass_top</span>Video deploying... refresh in a moment';
+      vid.parentNode.replaceChild(msg, vid);
+    });
+  });
 }
 
 async function loadDoc(docPath) {
