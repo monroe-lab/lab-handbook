@@ -1304,16 +1304,9 @@
 
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
-    // Debug: check if data URLs leaked into the markdown
-    if (md.indexOf('data:image') !== -1) {
-      console.warn('[editor] DATA URL found in raw markdown! Length:', md.length, 'First 200 chars around data:', md.substring(md.indexOf('data:image') - 20, md.indexOf('data:image') + 80));
-    }
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
     md = restoreDataUrls(md);
-    if (md.indexOf('data:image') !== -1) {
-      console.error('[editor] DATA URL STILL in markdown after restoreDataUrls!');
-    }
     md = linksToWikilinks(md);
     md = unresolveImagePaths(md);
     md = placeholdersToMedia(md);
@@ -1455,10 +1448,12 @@
       }
     });
 
-    // Fix table header cells so they're editable + add context menu
+    // Fix table header cells so they're editable + add context menu + apply image sizes
     setTimeout(function() {
       fixTableHeaders(containerEl);
       addTableContextMenu(containerEl, editor);
+      applyEditorImageSizes(containerEl);
+      setTimeout(function() { applyEditorImageSizes(containerEl); }, 700);
     }, 300);
 
     // Add category insert pills
