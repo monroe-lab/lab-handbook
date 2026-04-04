@@ -965,12 +965,58 @@
             }, 300);
           });
         });
+        // Image click: show resize/annotate toolbar
+        var imgToolbar = null;
+        ww.addEventListener('click', function(e) {
+          var img = e.target.closest('img');
+          // Remove existing toolbar
+          if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+          if (!img) return;
+
+          imgToolbar = document.createElement('div');
+          imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;';
+
+          // Size options
+          [{ label: '25%', val: '25%' }, { label: '50%', val: '50%' }, { label: '75%', val: '75%' }, { label: '100%', val: '100%' }].forEach(function(s) {
+            var b = document.createElement('button');
+            b.textContent = s.label;
+            b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (img.style.maxWidth === s.val ? 'var(--teal)' : '#fff') + ';color:' + (img.style.maxWidth === s.val ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
+            b.onclick = function(ev) {
+              ev.stopPropagation();
+              img.style.maxWidth = s.val;
+              // Update markdown: add width style
+              // We'll handle this on save by scanning img styles
+              if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+            };
+            imgToolbar.appendChild(b);
+          });
+
+          // Annotate button
+          var annBtn = document.createElement('button');
+          annBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:14px">edit</span> Annotate';
+          annBtn.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--teal);background:var(--teal-50);color:var(--teal-dark);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px;margin-left:4px;';
+          annBtn.onclick = function(ev) {
+            ev.stopPropagation();
+            if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+            img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+          };
+          imgToolbar.appendChild(annBtn);
+
+          // Position below image
+          var imgRect = img.getBoundingClientRect();
+          var wwRect = ww.getBoundingClientRect();
+          imgToolbar.style.left = (imgRect.left - wwRect.left) + 'px';
+          imgToolbar.style.top = (imgRect.bottom - wwRect.top + 4) + 'px';
+          ww.style.position = 'relative';
+          ww.appendChild(imgToolbar);
+        });
+
         // Add visual hint on hover
         ww.addEventListener('mouseover', function(e) {
           if (e.target.tagName === 'IMG') {
             e.target.style.outline = '3px dashed rgba(0,137,123,.5)';
             e.target.style.cursor = 'pointer';
-            e.target.title = 'Double-click to annotate';
+            e.target.title = 'Click: resize. Double-click: annotate';
           }
         });
         ww.addEventListener('mouseout', function(e) {
