@@ -10,21 +10,21 @@ new stuff testing new again
 
 [[clean-bench]]
 
-\[Clean Bench\]\(obj://clean\-bench\-laminar\-flow\)
-\[1\-Octanol\]\(obj://1\-octanol\)
+[[clean-bench-laminar-flow]]
+[[1-octanol]]
 edit test
 check 1
 check 2
 
-1. \[1\-Octanol\]\(obj://1\-octanol\)
+1. [[1-octanol]]
 2. test
 3. check0
 
-* \[1\-Octanol\]\(obj://1\-octanol\)
+* [[1-octanol]]
 * bubub
 * buasfogaspodf
 
-1. [ ] \[1\-Octanol\]\(obj://1\-octanol\)
+1. [ ] [[1-octanol]]
 2. [ ] chespkcjc
 3. [ ] chiesapcj
 

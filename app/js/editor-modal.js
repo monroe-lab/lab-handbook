@@ -778,11 +778,10 @@
       var cbBtn = document.createElement('button');
       cbBtn.type = 'button';
       cbBtn.title = 'Insert code block';
-      cbBtn.className = 'toastui-editor-toolbar-icons';
-      cbBtn.style.cssText = 'display:inline-flex!important;align-items:center!important;justify-content:center!important;width:32px!important;height:32px!important;border-radius:4px!important;border:none!important;background:transparent!important;font-size:11px!important;cursor:pointer!important;font-family:monospace!important;font-weight:700!important;color:var(--grey-600)!important;background-image:none!important;';
-      cbBtn.textContent = '{ }';
-      cbBtn.onmouseenter = function() { cbBtn.style.setProperty('background', 'var(--grey-200)', 'important'); };
-      cbBtn.onmouseleave = function() { cbBtn.style.setProperty('background', 'transparent', 'important'); };
+      cbBtn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;border:none;background:transparent;cursor:pointer;transition:background .15s;';
+      cbBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:18px;color:var(--grey-600)">data_object</span>';
+      cbBtn.onmouseenter = function() { cbBtn.style.background = 'var(--grey-200)'; };
+      cbBtn.onmouseleave = function() { cbBtn.style.background = 'transparent'; };
       cbBtn.onclick = function(e) {
         e.preventDefault();
         editor.changeMode('markdown');
@@ -808,7 +807,9 @@
       await window.Lab.wikilinks.ensureLookup();
     }
     // Repair previously mangled obj:// links (escaped by Toast UI): \[text\]\(obj://slug\)
-    md = md.replace(/\\\[([^\\\]]*)\\\]\(obj:\/\/([^)]+)\)/g, function(m, t, s) {
+    // Content inside brackets may also have escaped chars like \- so use .+? (lazy dot)
+    // Both ( and ) may be escaped as \( and \)
+    md = md.replace(/\\\[(.+?)\\\]\\?\(obj:\/\/(.+?)\\?\)/g, function(m, t, s) {
       var slug = s.replace(/\\/g, '');
       return '[[' + slug + ']]';
     });
