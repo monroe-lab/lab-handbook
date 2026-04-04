@@ -16,9 +16,9 @@ check 1
 check 2
 
 <br>
-| header | column 2<br> |  |  |
+| header | column 2 |  |  |
 | ------ | -------- | --- | --- |
-|  | asdfnalsdfahsldf |  |  |
+|  | asdfnalsdfahsldf<br>asdfahs test<br>row 3<br> |  |  |
 |  |  |  |  |
 |  |  |  |  |
 |  |  |  |  |
