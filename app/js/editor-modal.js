@@ -534,6 +534,7 @@
     linkModalEl = document.createElement('div');
     linkModalEl.className = 'em-overlay';
     linkModalEl.id = 'em-link-modal';
+    linkModalEl.style.zIndex = '10001';
     linkModalEl.innerHTML =
       '<div class="em-modal" style="max-width:560px">' +
         '<div class="em-modal-header">' +
