@@ -834,9 +834,22 @@ async function saveDoc() {
     postProcessRendered(renderedEl2);
     document.getElementById('protoMain').scrollTop = 0;
   } catch(e) {
-    Lab.showToast('Save failed: ' + e.message, 'error');
-    btn.disabled = false;
-    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+    var msg = e.message || 'Unknown error';
+    if (msg.includes('does not match')) {
+      Lab.showToast('Someone else edited this file. Click "Reload & retry" to get the latest version, then re-apply your changes.', 'error', 10000);
+      // Add a reload button to the save bar
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-icons-outlined">refresh</span> Reload & retry';
+      btn.onclick = function() {
+        // Reload the doc (discards current edits, loads latest from GitHub)
+        loadDoc(currentDoc);
+        Lab.showToast('Reloaded latest version. Your previous edits were not saved — re-apply them and save again.', 'info', 8000);
+      };
+    } else {
+      Lab.showToast('Save failed: ' + msg, 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+    }
   }
 }
 

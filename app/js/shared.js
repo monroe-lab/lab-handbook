@@ -64,14 +64,14 @@
     return c;
   }
 
-  function showToast(msg, type) {
+  function showToast(msg, type, duration) {
     var container = ensureToastContainer();
     var el = document.createElement('div');
     el.className = 'toast' + (type ? ' ' + type : '');
     var icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
     el.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">' + icon + '</span> ' + escHtml(msg);
     container.appendChild(el);
-    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, 4000);
+    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, duration || 4000);
   }
 
   // ── Utility Functions ──
