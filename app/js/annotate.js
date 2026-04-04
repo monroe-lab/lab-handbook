@@ -25,8 +25,9 @@
     var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
     if (origSrc.startsWith(base)) origSrc = origSrc.slice(base.length);
 
-    // Check for existing annotations JSON
-    var annotPath = origSrc.replace(/\.[^.]+$/, '.annotations.json');
+    // Check for existing annotations JSON (strip -annotated suffix if present)
+    var annotBase = origSrc.replace(/-annotated\.[^.]+$/, '').replace(/\.[^.]+$/, '');
+    var annotPath = annotBase + '.annotations.json';
 
     createOverlay();
     overlay.style.display = 'flex';
@@ -44,12 +45,18 @@
         if (gh) {
           var result = await gh.fetchFile('docs/' + annotPath);
           var data = JSON.parse(result.content);
-          if (Array.isArray(data)) annotations = data;
-          // If annotated image exists, load the ORIGINAL for editing
+          if (data.annotations && Array.isArray(data.annotations)) {
+            annotations = data.annotations;
+          } else if (Array.isArray(data)) {
+            annotations = data;
+          }
+          // Load the ORIGINAL (un-annotated) image for clean re-editing
           if (data._originalSrc) {
+            origSrc = data._originalSrc;
             var origImg = new Image();
             origImg.crossOrigin = 'anonymous';
             origImg.onload = function() { baseImage = origImg; fitCanvas(); draw(); };
+            origImg.onerror = function() { draw(); }; // fall back to current image
             origImg.src = base + data._originalSrc;
           }
         }
@@ -343,8 +350,9 @@
       selectedIdx = annotations.length - 1;
       var ti = document.getElementById('annot-text');
       ti.value = '';
-      ti.focus();
       draw();
+      // setTimeout so focus works after canvas mousedown
+      setTimeout(function() { ti.focus(); }, 50);
     }
   }
 
@@ -377,16 +385,20 @@
     window.Lab.showToast('Saving annotations...', 'info');
 
     try {
+      // Remove empty annotations and deselect before flattening
+      annotations = annotations.filter(function(a) { return a.text && a.text.trim(); });
+      selectedIdx = -1;
+      draw();
+
       // 1. Flatten canvas to PNG blob
       var blob = await new Promise(function(resolve) { canvas.toBlob(resolve, 'image/png'); });
       var base64 = await blobToBase64(blob);
 
       // 2. Determine file paths
       var origRelative = origSrc; // e.g. "images/gel-photo.jpg"
-      var baseName = origRelative.replace(/\.[^.]+$/, '');
-      // If already annotated, keep the same annotated path
-      var annotatedPath = baseName.includes('-annotated') ? origRelative.replace(/\.[^.]+$/, '.png') : baseName + '-annotated.png';
-      var jsonPath = baseName.replace(/-annotated$/, '') + '.annotations.json';
+      var cleanBase = origRelative.replace(/-annotated\.[^.]+$/, '').replace(/\.[^.]+$/, '');
+      var annotatedPath = cleanBase + '-annotated.png';
+      var jsonPath = cleanBase + '.annotations.json';
 
       // 3. Upload flattened PNG
       var token = window.Lab.gh.getToken();
@@ -409,10 +421,9 @@
 
       // 4. Save annotation JSON (for re-editing)
       var jsonData = annotations.slice();
-      // Store reference to original image
-      var originalRef = origRelative.replace(/-annotated\.[^.]+$/, '');
-      if (!originalRef.match(/\.[^.]+$/)) originalRef = origSrc; // keep extension
-      var jsonContent = JSON.stringify({ _originalSrc: origSrc, annotations: jsonData }, null, 2);
+      // _originalSrc always points to the un-annotated original
+      var originalSrc = origRelative.includes('-annotated') ? origRelative : origRelative;
+      var jsonContent = JSON.stringify({ _originalSrc: originalSrc, annotations: jsonData }, null, 2);
       var jsonBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
 
       var jsonSha = null;
