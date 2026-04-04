@@ -407,7 +407,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code'],
+        ['table', 'link', 'code'],
       ],
     });
 
@@ -796,6 +796,128 @@
         codeBlockAnchor.parentNode.appendChild(cbBtn);
       }
     }
+
+    // ── Media insert buttons (image/GIF, YouTube, video upload) ──
+    var mediaBar = document.createElement('div');
+    mediaBar.style.cssText = 'display:flex;align-items:center;padding:4px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);gap:6px;flex-wrap:wrap;';
+
+    var mediaLabel = document.createElement('span');
+    mediaLabel.style.cssText = 'font-size:12px;color:var(--grey-500);margin-right:4px;white-space:nowrap;';
+    mediaLabel.textContent = 'Media:';
+    mediaBar.appendChild(mediaLabel);
+
+    var mediaBtnStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:14px;border:1.5px solid var(--grey-300);background:#fff;color:var(--grey-700);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;';
+
+    // Hidden file inputs
+    var imgInput = document.createElement('input');
+    imgInput.type = 'file';
+    imgInput.accept = 'image/*';
+    imgInput.style.display = 'none';
+    mediaBar.appendChild(imgInput);
+
+    var vidInput = document.createElement('input');
+    vidInput.type = 'file';
+    vidInput.accept = 'video/mp4,video/webm,video/quicktime';
+    vidInput.style.display = 'none';
+    mediaBar.appendChild(vidInput);
+
+    // Upload helper: reads file as base64, uploads to docs/images/ via GitHub API
+    function uploadMedia(file, callback) {
+      if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to upload', 'error'); return; }
+      var slug = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-').replace(/-+/g, '-');
+      var path = 'docs/images/' + slug;
+      var reader = new FileReader();
+      reader.onload = async function() {
+        var base64 = reader.result.split(',')[1]; // strip data:...;base64, prefix
+        try {
+          window.Lab.showToast('Uploading ' + file.name + '...', 'info');
+          var token = window.Lab.gh.getToken();
+          var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH })
+          });
+          if (!resp.ok) {
+            var err = await resp.json().catch(function() { return {}; });
+            throw new Error(err.message || 'Upload failed');
+          }
+          window.Lab.showToast('Uploaded: ' + slug, 'success');
+          callback(slug);
+        } catch(e) {
+          window.Lab.showToast('Upload failed: ' + e.message, 'error');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Image/GIF button
+    var imgBtn = document.createElement('button');
+    imgBtn.type = 'button';
+    imgBtn.style.cssText = mediaBtnStyle;
+    imgBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">image</span> Image / GIF';
+    imgBtn.onmouseenter = function() { imgBtn.style.background = 'var(--grey-100)'; };
+    imgBtn.onmouseleave = function() { imgBtn.style.background = '#fff'; };
+    imgBtn.onclick = function(e) { e.preventDefault(); imgInput.click(); };
+    imgInput.onchange = function() {
+      if (!imgInput.files[0]) return;
+      uploadMedia(imgInput.files[0], function(slug) {
+        editor.changeMode('markdown');
+        editor.replaceSelection('\n\n![' + slug.replace(/\.[^.]+$/, '') + '](images/' + slug + ')\n\n');
+        editor.changeMode('wysiwyg');
+      });
+      imgInput.value = '';
+    };
+    mediaBar.appendChild(imgBtn);
+
+    // YouTube button
+    var ytBtn = document.createElement('button');
+    ytBtn.type = 'button';
+    ytBtn.style.cssText = mediaBtnStyle;
+    ytBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">smart_display</span> YouTube';
+    ytBtn.onmouseenter = function() { ytBtn.style.background = 'var(--grey-100)'; };
+    ytBtn.onmouseleave = function() { ytBtn.style.background = '#fff'; };
+    ytBtn.onclick = function(e) {
+      e.preventDefault();
+      var url = prompt('Paste YouTube URL:');
+      if (!url) return;
+      // Extract video ID from various YouTube URL formats
+      var match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      if (!match) { window.Lab.showToast('Could not parse YouTube URL', 'error'); return; }
+      var videoId = match[1];
+      editor.changeMode('markdown');
+      editor.replaceSelection('\n\n<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>\n\n');
+      editor.changeMode('wysiwyg');
+      window.Lab.showToast('YouTube video inserted', 'success');
+    };
+    mediaBar.appendChild(ytBtn);
+
+    // Video upload button
+    var vidBtn = document.createElement('button');
+    vidBtn.type = 'button';
+    vidBtn.style.cssText = mediaBtnStyle;
+    vidBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">videocam</span> Video file';
+    vidBtn.onmouseenter = function() { vidBtn.style.background = 'var(--grey-100)'; };
+    vidBtn.onmouseleave = function() { vidBtn.style.background = '#fff'; };
+    vidBtn.onclick = function(e) { e.preventDefault(); vidInput.click(); };
+    vidInput.onchange = function() {
+      if (!vidInput.files[0]) return;
+      var file = vidInput.files[0];
+      if (file.size > 25 * 1024 * 1024) {
+        window.Lab.showToast('Video too large (max 25 MB). Use YouTube for longer clips.', 'error');
+        vidInput.value = '';
+        return;
+      }
+      uploadMedia(file, function(slug) {
+        editor.changeMode('markdown');
+        editor.replaceSelection('\n\n<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/' + slug + '" type="' + file.type + '">Your browser does not support video.</video>\n\n');
+        editor.changeMode('wysiwyg');
+      });
+      vidInput.value = '';
+    };
+    mediaBar.appendChild(vidBtn);
+
+    // Insert media bar after the category pills bar
+    insertBar.parentNode.insertBefore(mediaBar, insertBar.nextSibling);
   }
 
   // ── Wikilink round-tripping for Toast UI ──
@@ -1005,7 +1127,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code'],
+        ['table', 'link', 'code'],
       ],
       events: {
         change: function() {
