@@ -58,8 +58,8 @@
       '.em-surface .toastui-editor-contents h1{font-size:26px!important;font-weight:700!important;margin-top:24px!important;margin-bottom:10px!important;border-bottom:2px solid var(--grey-200)!important;padding-bottom:8px!important}',
       '.em-surface .toastui-editor-contents h2{font-size:21px!important;font-weight:600!important;margin-top:20px!important;margin-bottom:8px!important}',
       '.em-surface .toastui-editor-contents h3{font-size:17px!important;font-weight:600!important;margin-top:16px!important}',
-      '.em-surface .toastui-editor-contents table{border-collapse:collapse!important}',
-      '.em-surface .toastui-editor-contents td,.em-surface .toastui-editor-contents th{border:1px solid var(--grey-300)!important;padding:8px 12px!important}',
+      '.em-surface .toastui-editor-contents table{border-collapse:collapse!important;width:100%!important;table-layout:fixed!important}',
+      '.em-surface .toastui-editor-contents td,.em-surface .toastui-editor-contents th{border:1px solid var(--grey-300)!important;padding:8px 12px!important;word-wrap:break-word!important;overflow-wrap:break-word!important}',
       '.em-surface .toastui-editor-contents thead th{background:var(--grey-50)!important;min-height:32px!important;min-width:60px!important;height:32px!important;cursor:text!important;color:var(--grey-900)!important}',
       '.em-surface .toastui-editor-contents thead th p{color:var(--grey-900)!important}',
       '.em-surface .toastui-editor-contents code{background:var(--grey-100)!important;padding:2px 6px!important;border-radius:4px!important;font-size:13px!important}',
@@ -82,8 +82,8 @@
       '.em-rendered h1{font-size:26px;font-weight:700;margin:20px 0 10px;border-bottom:2px solid var(--grey-200);padding-bottom:8px}',
       '.em-rendered h2{font-size:21px;font-weight:600;margin:18px 0 8px}',
       '.em-rendered h3{font-size:17px;font-weight:600;margin:14px 0 6px}',
-      '.em-rendered table{border-collapse:collapse;width:100%}',
-      '.em-rendered td,.em-rendered th{border:1px solid var(--grey-300);padding:8px 12px}',
+      '.em-rendered table{border-collapse:collapse;width:100%;table-layout:fixed}',
+      '.em-rendered td,.em-rendered th{border:1px solid var(--grey-300);padding:8px 12px;word-wrap:break-word;overflow-wrap:break-word}',
       '.em-rendered thead th{background:var(--grey-50)}',
       '.em-rendered code{background:var(--grey-100);padding:2px 6px;border-radius:4px;font-size:13px}',
       '.em-rendered pre{background:var(--grey-900);color:#e0e0e0;padding:16px;border-radius:8px;overflow-x:auto}',
@@ -402,7 +402,10 @@
     });
 
     // Fix table header cells so they're editable
-    setTimeout(function() { fixTableHeaders(editorEl); }, 300);
+    setTimeout(function() {
+      fixTableHeaders(editorEl);
+      addTableContextMenu(editorEl, currentEditor);
+    }, 300);
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
@@ -833,6 +836,63 @@
     }, true); // capture phase — run before ProseMirror's handler
   }
 
+  // Right-click context menu for table cells: add/remove rows and columns
+  var _tableMenu = null;
+  function addTableContextMenu(containerEl, editor) {
+    var ww = containerEl.querySelector('.toastui-editor-ww-container');
+    if (!ww || ww._tableMenuApplied) return;
+    ww._tableMenuApplied = true;
+
+    ww.addEventListener('contextmenu', function(e) {
+      var cell = e.target.closest('td, th');
+      if (!cell) return;
+      e.preventDefault();
+
+      // Remove old menu
+      if (_tableMenu) _tableMenu.remove();
+
+      var menu = document.createElement('div');
+      _tableMenu = menu;
+      menu.style.cssText = 'position:fixed;z-index:99999;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:4px 0;min-width:180px;font-family:Inter,sans-serif;font-size:14px;';
+      menu.innerHTML = [
+        '<div class="tm-item" data-cmd="addRowToUp">Insert row above</div>',
+        '<div class="tm-item" data-cmd="addRowToDown">Insert row below</div>',
+        '<div class="tm-item" data-cmd="addColumnToLeft">Insert column left</div>',
+        '<div class="tm-item" data-cmd="addColumnToRight">Insert column right</div>',
+        '<div style="height:1px;background:#e0e0e0;margin:4px 0"></div>',
+        '<div class="tm-item tm-danger" data-cmd="removeRow">Delete row</div>',
+        '<div class="tm-item tm-danger" data-cmd="removeColumn">Delete column</div>',
+        '<div class="tm-item tm-danger" data-cmd="removeTable">Delete table</div>',
+      ].join('');
+
+      // Style items
+      menu.querySelectorAll('.tm-item').forEach(function(item) {
+        item.style.cssText = 'padding:8px 16px;cursor:pointer;transition:background .1s;';
+        if (item.classList.contains('tm-danger')) item.style.color = '#e53935';
+        item.addEventListener('mouseenter', function() { item.style.background = '#f5f5f5'; });
+        item.addEventListener('mouseleave', function() { item.style.background = ''; });
+        item.addEventListener('click', function() {
+          var cmd = item.dataset.cmd;
+          editor.exec(cmd);
+          menu.remove();
+          _tableMenu = null;
+        });
+      });
+
+      menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px';
+      menu.style.top = Math.min(e.clientY, window.innerHeight - 300) + 'px';
+      document.body.appendChild(menu);
+
+      // Close on click outside
+      setTimeout(function() {
+        document.addEventListener('click', function closeMenu() {
+          if (_tableMenu) { _tableMenu.remove(); _tableMenu = null; }
+          document.removeEventListener('click', closeMenu);
+        });
+      }, 0);
+    });
+  }
+
   async function initFullpageEditor(containerEl, content, filePath, sha) {
     injectEditorCSS();
     await loadToast();
@@ -868,8 +928,11 @@
       }
     });
 
-    // Fix table header cells so they're editable
-    setTimeout(function() { fixTableHeaders(containerEl); }, 300);
+    // Fix table header cells so they're editable + add context menu
+    setTimeout(function() {
+      fixTableHeaders(containerEl);
+      addTableContextMenu(containerEl, editor);
+    }, 300);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
