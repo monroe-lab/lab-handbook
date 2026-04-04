@@ -6,6 +6,12 @@ title: "Protocol Template"
 
 *Use the **Duplicate** button (top right) to create a copy, then rename and edit it for your own protocol.*
 
+<br>
+<br>
+![screenshot-2026-04-04-at-3.07.27-pm](images/screenshot-2026-04-04-at-3.07.27-pm.png)
+
+<br>
+<br>
 <img src="images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png" alt="screenshot-2026-04-04-at-2.04.32-pm" style="max-width:25%">
 
 <br>
