@@ -79,44 +79,22 @@
     overlay = document.createElement('div');
     overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.85);flex-direction:column;align-items:center;justify-content:center;font-family:Inter,-apple-system,sans-serif;';
 
-    // Toolbar
-    var toolbar = document.createElement('div');
-    toolbar.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(255,255,255,.1);border-radius:10px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;';
+    // Toolbar wrapper
+    var toolbarWrap = document.createElement('div');
+    toolbarWrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin-bottom:12px;align-items:center;';
 
-    // Text input
+    // Row 1: text input + mode toggle
+    var row1 = document.createElement('div');
+    row1.style.cssText = 'display:flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,.1);border-radius:10px;width:fit-content;';
+
     var textInput = document.createElement('input');
     textInput.type = 'text';
     textInput.id = 'annot-text';
     textInput.placeholder = 'Label text...';
-    textInput.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:13px;width:140px;font-family:inherit;';
-    toolbar.appendChild(textInput);
+    textInput.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:14px;min-width:200px;flex:1;font-family:inherit;';
+    row1.appendChild(textInput);
 
-    // Colors
-    var colors = [
-      { hex: '#ffffff', label: 'White' },
-      { hex: '#000000', label: 'Black' },
-      { hex: '#ff1744', label: 'Red' },
-      { hex: '#ffea00', label: 'Yellow' },
-      { hex: '#00e676', label: 'Green' },
-      { hex: '#2979ff', label: 'Blue' },
-    ];
-    colors.forEach(function(c) {
-      var cb = document.createElement('button');
-      cb.type = 'button';
-      cb.title = c.label;
-      cb.dataset.color = c.hex;
-      cb.style.cssText = 'width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.5);cursor:pointer;background:' + c.hex + ';padding:0;';
-      cb.onclick = function() {
-        currentTool.color = c.hex;
-        toolbar.querySelectorAll('[data-color]').forEach(function(b) { b.style.borderColor = 'rgba(255,255,255,.3)'; });
-        cb.style.borderColor = '#fff';
-        if (selectedIdx >= 0) { annotations[selectedIdx].color = c.hex; draw(); }
-      };
-      if (c.hex === currentTool.color) cb.style.borderColor = '#fff';
-      toolbar.appendChild(cb);
-    });
-
-    // Mode toggle (segmented control)
+    // Mode toggle (segmented control) — in row 1
     var modeGroup = document.createElement('div');
     modeGroup.style.cssText = 'display:flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.4);';
     var modeActive = 'background:rgba(255,255,255,.25);color:#fff;';
@@ -144,7 +122,37 @@
 
     modeGroup.appendChild(addBtn);
     modeGroup.appendChild(selBtn);
-    toolbar.appendChild(modeGroup);
+    row1.appendChild(modeGroup);
+
+    toolbarWrap.appendChild(row1);
+
+    // Row 2: colors, sizes, rotate, delete
+    var toolbar = document.createElement('div');
+    toolbar.style.cssText = 'display:flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,.1);border-radius:10px;flex-wrap:wrap;justify-content:center;';
+
+    var colors = [
+      { hex: '#ffffff', label: 'White' },
+      { hex: '#000000', label: 'Black' },
+      { hex: '#ff1744', label: 'Red' },
+      { hex: '#ffea00', label: 'Yellow' },
+      { hex: '#00e676', label: 'Green' },
+      { hex: '#2979ff', label: 'Blue' },
+    ];
+    colors.forEach(function(c) {
+      var cb = document.createElement('button');
+      cb.type = 'button';
+      cb.title = c.label;
+      cb.dataset.color = c.hex;
+      cb.style.cssText = 'width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.5);cursor:pointer;background:' + c.hex + ';padding:0;';
+      cb.onclick = function() {
+        currentTool.color = c.hex;
+        toolbar.querySelectorAll('[data-color]').forEach(function(b) { b.style.borderColor = 'rgba(255,255,255,.3)'; });
+        cb.style.borderColor = '#fff';
+        if (selectedIdx >= 0) { annotations[selectedIdx].color = c.hex; draw(); }
+      };
+      if (c.hex === currentTool.color) cb.style.borderColor = '#fff';
+      toolbar.appendChild(cb);
+    });
 
     // Size buttons (% of image width)
     var sizes = [{ label: 'S', val: 1.5 }, { label: 'M', val: 3 }, { label: 'L', val: 5 }, { label: 'XL', val: 8 }];
@@ -196,7 +204,8 @@
     };
     toolbar.appendChild(delBtn);
 
-    overlay.appendChild(toolbar);
+    toolbarWrap.appendChild(toolbar);
+    overlay.appendChild(toolbarWrap);
 
     // Canvas container
     var canvasWrap = document.createElement('div');
