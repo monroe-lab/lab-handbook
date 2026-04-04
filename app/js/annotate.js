@@ -13,7 +13,6 @@
   var dragging = false;
   var dragOffX = 0, dragOffY = 0;
   var currentTool = { color: '#ffffff', size: 3, rotation: 0 }; // size is % of image width
-  var mode = 'add'; // 'add' or 'select'
   var origSrc = '';           // relative path of the original image
   var onSaveCallback = null;
   var scale = 1;              // canvas display scale
@@ -93,36 +92,6 @@
     textInput.placeholder = 'Label text...';
     textInput.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:14px;min-width:200px;flex:1;font-family:inherit;';
     row1.appendChild(textInput);
-
-    // Mode toggle (segmented control) — in row 1
-    var modeGroup = document.createElement('div');
-    modeGroup.style.cssText = 'display:flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.4);';
-    var modeActive = 'background:rgba(255,255,255,.25);color:#fff;';
-    var modeInactive = 'background:transparent;color:rgba(255,255,255,.5);';
-    var segStyle = 'padding:5px 12px;border:none;font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;transition:all .15s;';
-
-    var addBtn = document.createElement('button');
-    addBtn.type = 'button';
-    addBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">add</span> Add';
-    addBtn.style.cssText = segStyle + modeActive;
-
-    var selBtn = document.createElement('button');
-    selBtn.type = 'button';
-    selBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">open_with</span> Move';
-    selBtn.style.cssText = segStyle + modeInactive;
-
-    function setMode(m) {
-      mode = m;
-      canvas.style.cursor = m === 'add' ? 'crosshair' : 'default';
-      addBtn.style.cssText = segStyle + (m === 'add' ? modeActive : modeInactive);
-      selBtn.style.cssText = segStyle + (m === 'select' ? modeActive : modeInactive);
-    }
-    addBtn.onclick = function() { setMode('add'); };
-    selBtn.onclick = function() { setMode('select'); };
-
-    modeGroup.appendChild(addBtn);
-    modeGroup.appendChild(selBtn);
-    row1.appendChild(modeGroup);
 
     toolbarWrap.appendChild(row1);
 
@@ -348,19 +317,15 @@
     var p = canvasXY(e);
     var hit = hitTest(p.x, p.y);
 
-    if (mode === 'select') {
-      // Select mode: click to select, drag to move
-      if (hit >= 0) {
-        selectAnnotation(hit);
-        dragging = true;
-        dragOffX = p.x - annotations[hit].x;
-        dragOffY = p.y - annotations[hit].y;
-        canvas.style.cursor = 'grabbing';
-      } else {
-        selectAnnotation(-1);
-      }
+    if (hit >= 0) {
+      // Clicked on existing annotation → select and drag
+      selectAnnotation(hit);
+      dragging = true;
+      dragOffX = p.x - annotations[hit].x;
+      dragOffY = p.y - annotations[hit].y;
+      canvas.style.cursor = 'grabbing';
     } else {
-      // Add mode: always add new annotation at click position
+      // Clicked empty space → add new annotation
       var text = document.getElementById('annot-text').value || 'Label';
       annotations.push({
         text: text,
@@ -385,7 +350,7 @@
 
   function onPointerUp() {
     dragging = false;
-    canvas.style.cursor = mode === 'add' ? 'crosshair' : 'default';
+    canvas.style.cursor = 'crosshair';
   }
 
   // ── Update text of selected annotation when input changes ──
