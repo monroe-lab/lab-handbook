@@ -16,8 +16,8 @@ check 1
 check 2
 
 <br>
-| header | column 2 | long oaskdfaksdnflkasndflk;asndflkasndfa | sdfhukadshfkjladjflasd |  |
-| ------ | -------- | ---------------------------------------- | ---------------------- | --- |
+| header | column 2 | long oaskdfaksdnflkasndflk;asndflkasndfa | sdfhukadshfkjladjflasd | asdfhasjdlfhaklsdf<br> |
+| ------ | -------- | ---------------------------------------- | ---------------------- | ------------------ |
 |  |  |  | asdf |  |
 |  | asdfnalsdfahsldf<br>asdfahs test<br>row 3 |  |  |  |
 |  |  |  |  |  |
