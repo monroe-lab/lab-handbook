@@ -643,17 +643,18 @@ function postProcessRendered(el) {
   });
 
   // ── Resolve relative image/video paths ──
-  var rawBase = 'https://raw.githubusercontent.com/' + Lab.gh.REPO + '/' + Lab.gh.BRANCH + '/docs/';
+  // Use GitHub Pages base URL (docs/ maps to site root)
+  var mediaBase = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
   el.querySelectorAll('img').forEach(function(img) {
     var src = img.getAttribute('src') || '';
-    if (src && !src.startsWith('http') && !src.startsWith('data:')) {
-      img.src = rawBase + src;
+    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+      img.src = mediaBase + src;
     }
   });
   el.querySelectorAll('video source, video').forEach(function(v) {
     var src = v.getAttribute('src') || '';
-    if (src && !src.startsWith('http') && !src.startsWith('data:')) {
-      v.src = rawBase + src;
+    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+      v.src = mediaBase + src;
       if (v.parentElement && v.parentElement.tagName === 'VIDEO') v.parentElement.load();
     }
   });
