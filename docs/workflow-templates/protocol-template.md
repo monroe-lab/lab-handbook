@@ -8,7 +8,7 @@ title: "Protocol Template"
 
 <br>
 <br>
-![1000009773](images/1000009773.jpg)
+![1000009773](images/1000009773-annotated.png)
 
 <br>
 <br>
