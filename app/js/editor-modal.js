@@ -390,10 +390,10 @@
     contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
     var editorEl = contentEl.querySelector('.em-surface');
 
-    // Convert [[wikilinks]] to standard links before feeding to Toast UI
+    // Convert [[wikilinks]] to standard links and resolve image paths before feeding to Toast UI
     var prepared = migrateAdmonitions(currentState.body);
     prepared = await wikilinksToLinks(prepared);
-
+    prepared = resolveImagePaths(prepared);
 
     currentEditor = new toastui.Editor({
       el: editorEl,
@@ -848,11 +848,40 @@
     return md;
   }
 
+  // ── Image path round-tripping ──
+  // Resolve relative image paths to full URLs before editor, convert back on save
+  var MEDIA_BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+
+  function resolveImagePaths(md) {
+    // ![alt](images/foo.jpg) → ![alt](/lab-handbook/images/foo.jpg)
+    md = md.replace(/(!\[[^\]]*\]\()(?!http|data:|\/)([^)]+\))/g, function(m, prefix, rest) {
+      return prefix + MEDIA_BASE + rest;
+    });
+    // Also resolve src="images/..." in HTML tags (video, source, img)
+    md = md.replace(/(src=["'])(?!http|data:|\/)([^"']+["'])/g, function(m, prefix, rest) {
+      return prefix + MEDIA_BASE + rest;
+    });
+    return md;
+  }
+
+  function unresolveImagePaths(md) {
+    // ![alt](/lab-handbook/images/foo.jpg) → ![alt](images/foo.jpg)
+    var escaped = MEDIA_BASE.replace(/[/.]/g, '\\$&');
+    var re = new RegExp('(!\\[[^\\]]*\\]\\()' + escaped + '([^)]+\\))', 'g');
+    md = md.replace(re, '$1$2');
+    // Also unresolve src="/lab-handbook/..." in HTML tags
+    var srcRe = new RegExp('(src=["\'])' + escaped + '([^"\']+["\'])', 'g');
+    md = md.replace(srcRe, '$1$2');
+    return md;
+  }
+
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
-    return linksToWikilinks(md);
+    md = linksToWikilinks(md);
+    md = unresolveImagePaths(md);
+    return md;
   }
 
   // Toast UI's ProseMirror table plugin intercepts clicks on <th> cells
@@ -959,9 +988,10 @@
     var rect = containerEl.getBoundingClientRect();
     var availableHeight = Math.max(500, window.innerHeight - rect.top - 40);
 
-    // Convert [[wikilinks]] to standard markdown links before feeding to Toast UI
+    // Convert [[wikilinks]] to standard markdown links and resolve image paths
     var prepared = migrateAdmonitions(content);
     prepared = await wikilinksToLinks(prepared);
+    prepared = resolveImagePaths(prepared);
 
     var editor = new toastui.Editor({
       el: containerEl,
