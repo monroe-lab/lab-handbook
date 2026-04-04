@@ -406,7 +406,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code'],
+        ['table', 'link', 'image', 'code', 'codeblock'],
       ],
     });
 
@@ -939,7 +939,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code'],
+        ['table', 'link', 'image', 'code', 'codeblock'],
       ],
       events: {
         change: function() {
