@@ -6,7 +6,7 @@ title: "Protocol Template"
 
 *Use the **Duplicate** button (top right) to create a copy, then rename and edit it for your own protocol.*
 
-<img src="images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png" alt="screenshot-2026-04-04-at-2.04.32-pm" style="max-width:25%">
+<img src="images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png" alt="screenshot-2026-04-04-at-2.04.32-pm" style="max-width:50%">
 
 <br>
 <br>
