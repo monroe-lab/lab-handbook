@@ -162,6 +162,7 @@
       rb.onclick = function() {
         if (selectedIdx >= 0) {
           annotations[selectedIdx].rotation = (annotations[selectedIdx].rotation || 0) + r.deg;
+          currentTool.rotation = annotations[selectedIdx].rotation;
           draw();
         }
       };
@@ -434,7 +435,7 @@
         if (existingJson.ok) { jsonSha = (await existingJson.json()).sha; }
       } catch(e) {}
 
-      var jsonPut = { message: 'Annotation data for ' + baseName, content: jsonBase64, branch: window.Lab.gh.BRANCH };
+      var jsonPut = { message: 'Annotation data for ' + cleanBase, content: jsonBase64, branch: window.Lab.gh.BRANCH };
       if (jsonSha) jsonPut.sha = jsonSha;
       await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + jsonPath, {
         method: 'PUT',

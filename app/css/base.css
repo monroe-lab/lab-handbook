@@ -267,7 +267,7 @@ tr:hover { background: var(--teal-50); }
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 2000;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
   gap: 8px;
