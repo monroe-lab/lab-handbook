@@ -418,6 +418,8 @@
       fixTableHeaders(editorEl);
       addTableContextMenu(editorEl, currentEditor);
       applyEditorImageSizes(editorEl);
+      // Re-apply after images load (they may not exist in DOM yet at 300ms)
+      setTimeout(function() { applyEditorImageSizes(editorEl); }, 700);
     }, 300);
 
     // Add category insert pills
@@ -1102,8 +1104,32 @@
     imgs.forEach(function(img) {
       var src = img.getAttribute('src') || '';
       var w = getImageSize(src);
-      if (w) img.style.maxWidth = w;
+      if (w) {
+        img.style.maxWidth = w;
+        // Also re-apply when image loads (src may change after initial render)
+        if (!img._sizeListenerAdded) {
+          img._sizeListenerAdded = true;
+          img.addEventListener('load', function() {
+            var s = img.getAttribute('src') || '';
+            var sz = getImageSize(s);
+            if (sz) img.style.maxWidth = sz;
+          });
+        }
+      }
     });
+
+    // Watch for new images added to the editor (e.g. Toast UI lazy rendering)
+    if (!containerEl._imgObserver) {
+      containerEl._imgObserver = new MutationObserver(function() {
+        if (!Object.keys(_imgSizes).length) return;
+        containerEl.querySelectorAll('img').forEach(function(img) {
+          var s = img.getAttribute('src') || '';
+          var sz = getImageSize(s);
+          if (sz && img.style.maxWidth !== sz) img.style.maxWidth = sz;
+        });
+      });
+      containerEl._imgObserver.observe(containerEl, { childList: true, subtree: true });
+    }
   }
 
   // Look up size for an image src (handles both resolved and unresolved paths)
