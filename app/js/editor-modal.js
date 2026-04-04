@@ -398,7 +398,15 @@
         ['ul', 'ol', 'task'],
         ['table', 'link', 'image', 'code'],
       ],
+      events: {
+        change: function() {
+          clearTimeout(editorEl._thTimer);
+          editorEl._thTimer = setTimeout(function() { fixEmptyTableHeaders(editorEl); }, 200);
+        }
+      }
     });
+
+    setTimeout(function() { fixEmptyTableHeaders(editorEl); }, 300);
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
@@ -785,7 +793,28 @@
 
   function getMarkdownClean(editor) {
     var md = editor.getMarkdown();
+    // Clean up zero-width spaces we injected into empty table header cells
+    md = md.replace(/\u200B/g, '');
     return linksToWikilinks(md);
+  }
+
+  // Toast UI's ProseMirror blocks cursor in empty <th> cells.
+  // Inject a zero-width space so they're "non-empty" and clickable.
+  function fixEmptyTableHeaders(containerEl) {
+    var ww = containerEl.querySelector('.toastui-editor-ww-container');
+    if (!ww) return;
+    ww.querySelectorAll('th').forEach(function(th) {
+      // Check if cell is effectively empty (no text content or only whitespace)
+      if (!th.textContent.trim() && !th.querySelector('img')) {
+        // Find the paragraph/text node inside and add zero-width space
+        var p = th.querySelector('p');
+        if (p && !p.textContent.trim()) {
+          p.textContent = '\u200B';
+        } else if (!th.childNodes.length) {
+          th.textContent = '\u200B';
+        }
+      }
+    });
   }
 
   async function initFullpageEditor(containerEl, content, filePath, sha) {
@@ -817,9 +846,15 @@
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
+          // Fix empty table headers on content change (e.g. after inserting a table)
+          clearTimeout(containerEl._thTimer);
+          containerEl._thTimer = setTimeout(function() { fixEmptyTableHeaders(containerEl); }, 200);
         }
       }
     });
+
+    // Fix empty table headers so they're clickable
+    setTimeout(function() { fixEmptyTableHeaders(containerEl); }, 300);
 
     // Add category insert pills
     injectCategoryPills(containerEl, editor);
