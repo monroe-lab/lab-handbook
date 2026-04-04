@@ -777,6 +777,9 @@
   // (Toast UI handles standard markdown links perfectly), then convert back on save.
 
   // Pre-process: [[slug]] → [title](obj://slug) before editor init
+  // Placeholder domain for obj:// links so Toast UI treats them as real links
+  var OBJ_LINK_PREFIX = 'https://obj.link/';
+
   async function wikilinksToLinks(md) {
     // Ensure object index is loaded for title lookups
     if (window.Lab.wikilinks && window.Lab.wikilinks.ensureLookup) {
@@ -788,13 +791,14 @@
         var found = window.Lab.wikilinks._lookup(slug);
         if (found) title = label || found.title || slug;
       }
-      return '[' + title + '](obj://' + slug + ')';
+      return '[' + title + '](' + OBJ_LINK_PREFIX + slug + ')';
     });
   }
 
-  // Post-process: [title](obj://slug) → [[slug]] after getMarkdown()
+  // Post-process: [title](https://obj.link/slug) → [[slug]] after getMarkdown()
   function linksToWikilinks(md) {
-    return md.replace(/\[([^\]]*)\]\(obj:\/\/([^)]+)\)/g, function(match, title, slug) {
+    var re = new RegExp('\\[([^\\]]*)\\]\\(' + OBJ_LINK_PREFIX.replace(/[/.]/g, '\\$&') + '([^)]+)\\)', 'g');
+    return md.replace(re, function(match, title, slug) {
       return '[[' + slug + ']]';
     });
   }
