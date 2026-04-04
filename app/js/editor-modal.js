@@ -771,10 +771,9 @@
       });
     }
 
-    // Inject code block button at the end of the last toolbar group
-    var tbGroups = editorUI.querySelectorAll('.toastui-editor-toolbar-group');
-    var lastGroup = tbGroups.length ? tbGroups[tbGroups.length - 1] : null;
-    if (lastGroup) {
+    // Inject code block button after the last callout button (or after quote button)
+    var codeBlockAnchor = quoteBtn || calloutAnchor;
+    if (codeBlockAnchor) {
       var cbBtn = document.createElement('button');
       cbBtn.type = 'button';
       cbBtn.title = 'Insert code block';
@@ -788,7 +787,11 @@
         editor.replaceSelection('\n\n```\n\n```\n\n');
         editor.changeMode('wysiwyg');
       };
-      lastGroup.appendChild(cbBtn);
+      if (codeBlockAnchor.nextSibling) {
+        codeBlockAnchor.parentNode.insertBefore(cbBtn, codeBlockAnchor.nextSibling);
+      } else {
+        codeBlockAnchor.parentNode.appendChild(cbBtn);
+      }
     }
   }
 
@@ -829,10 +832,17 @@
 
   // Post-process: [title](https://obj.link/slug) → [[slug]] after getMarkdown()
   function linksToWikilinks(md) {
+    // Match clean URLs
     var re = new RegExp('\\[([^\\]]*)\\]\\(' + OBJ_LINK_PREFIX.replace(/[/.]/g, '\\$&') + '([^)]+)\\)', 'g');
-    return md.replace(re, function(match, title, slug) {
+    md = md.replace(re, function(match, title, slug) {
       return '[[' + slug + ']]';
     });
+    // Match escaped URLs from Toast UI (backslashes before dots, hyphens, parens)
+    // e.g. \[BL21(DE3)\]\(https://obj\.link/bl21\-de3\-competent\-cells\)
+    md = md.replace(/\\?\[([^\]]*)\]\\?\(https:\/\/obj\\?\.link\/((?:[^)\\]|\\.)+)\\?\)/g, function(m, title, slug) {
+      return '[[' + slug.replace(/\\/g, '') + ']]';
+    });
+    return md;
   }
 
   function getMarkdownClean(editor) {
