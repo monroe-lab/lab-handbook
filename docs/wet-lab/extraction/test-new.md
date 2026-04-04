@@ -11,9 +11,9 @@ new stuff testing new again
 [[clean-bench]]
 
 > ⚠️ **Warning**
-> [[bl21-de3-competent-cells)
+> [[kehan-zhao]]
 
-[1-Octanol](https://obj.link/1-octanol)
+[[1-octanol]]
 [[clean-bench-laminar-flow]]
 [[1-octanol]]
 edit test
