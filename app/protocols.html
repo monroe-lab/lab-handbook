@@ -660,24 +660,25 @@ function postProcessRendered(el) {
     }
   });
 
-  // If image fails to load from Pages (not deployed yet), try GitHub raw API
+  // If image fails to load from Pages (not deployed yet), fetch via GitHub API (works for private repos)
   el.querySelectorAll('img').forEach(function(img) {
     img.addEventListener('error', function() {
       if (img.dataset.retried) return;
       img.dataset.retried = '1';
-      // Try raw GitHub content URL (available immediately after upload)
       var src = img.getAttribute('src') || '';
       var relPath = src.replace(mediaBase, '');
-      if (relPath.startsWith('images/') && window.Lab && window.Lab.gh) {
-        img.src = 'https://raw.githubusercontent.com/' + window.Lab.gh.REPO + '/' + window.Lab.gh.BRANCH + '/docs/' + relPath;
+      if (relPath.startsWith('images/') && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
+        // Fetch image content via authenticated GitHub API
+        fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
+          headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
+        }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
+          if (data && data.content) {
+            var ext = relPath.split('.').pop().toLowerCase();
+            var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+            img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
+          }
+        }).catch(function() {});
       }
-    });
-    // If raw also fails, show placeholder
-    img.addEventListener('error', function() {
-      if (img.dataset.retriedRaw) return;
-      img.dataset.retriedRaw = '1';
-      img.style.cssText = 'display:block;padding:24px;background:var(--grey-100);border-radius:8px;color:var(--grey-500);font-size:13px;font-style:italic;min-height:60px;';
-      img.alt = 'Image deploying... refresh in a moment';
     });
   });
   el.querySelectorAll('video').forEach(function(vid) {
