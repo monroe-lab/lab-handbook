@@ -182,6 +182,11 @@
       return placeholder + '\n\n';
     });
 
+    // Preserve line breaks in blockquotes — add trailing spaces for <br>
+    processed = processed.replace(/^(>.+)$/gm, function(line) {
+      return line.replace(/\s*$/, '  ');
+    });
+
     // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
     var html = marked.parse(processed);

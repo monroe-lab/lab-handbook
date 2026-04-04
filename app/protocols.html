@@ -593,6 +593,7 @@ async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
   editorInstance = null;
+  cachedBody = null; // clear cache when loading a different doc
 
   renderSidebar(document.getElementById('protoSearch').value);
   history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
@@ -641,6 +642,7 @@ async function loadDoc(docPath) {
 
 // ── Edit Mode ──
 var editFrontmatter = ''; // preserved frontmatter for re-assembly on save
+var cachedBody = null; // body from most recent save (avoids stale GitHub API reads)
 
 async function startEdit() {
   console.log('[protocols] startEdit called, currentDoc:', currentDoc, 'isEditing:', isEditing);
@@ -651,16 +653,23 @@ async function startEdit() {
   var filePath = 'docs/' + currentDoc + '.md';
 
   try {
-    console.log('[protocols] fetching file:', filePath);
-    var result = await Lab.gh.fetchFile(filePath);
-    currentSha = result.sha;
-    console.log('[protocols] file fetched, content length:', result.content.length);
+    var bodyOnly;
+    if (cachedBody !== null) {
+      // Use locally cached body from most recent save (avoids GitHub API propagation delay)
+      bodyOnly = cachedBody;
+      console.log('[protocols] using cached body, length:', bodyOnly.length);
+    } else {
+      console.log('[protocols] fetching file:', filePath);
+      var result = await Lab.gh.fetchFile(filePath);
+      currentSha = result.sha;
+      console.log('[protocols] file fetched, content length:', result.content.length);
 
-    // Strip frontmatter — Toast UI can't handle YAML blocks in WYSIWYG mode
-    var parsed = Lab.parseFrontmatter(result.content);
-    editFrontmatter = parsed.meta;
-    var bodyOnly = parsed.body;
-    console.log('[protocols] parsed body length:', bodyOnly.length, 'preview:', bodyOnly.substring(0, 100));
+      // Strip frontmatter — Toast UI can't handle YAML blocks in WYSIWYG mode
+      var parsed = Lab.parseFrontmatter(result.content);
+      editFrontmatter = parsed.meta;
+      bodyOnly = parsed.body;
+    }
+    console.log('[protocols] body length:', bodyOnly.length, 'preview:', bodyOnly.substring(0, 100));
 
     contentEl.innerHTML =
       '<div class="proto-content">' +
@@ -704,6 +713,7 @@ async function saveDoc() {
     var filePath = 'docs/' + currentDoc + '.md';
     var result = await Lab.gh.saveFile(filePath, fullContent, currentSha, 'Update ' + currentDoc);
     currentSha = result.sha;
+    cachedBody = body; // cache for immediate re-editing without API delay
     Lab.gh.clearObjectIndexCache();
     Lab.showToast('Saved', 'success');
 
