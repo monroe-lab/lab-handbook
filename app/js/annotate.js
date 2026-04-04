@@ -12,7 +12,8 @@
   var selectedIdx = -1;
   var dragging = false;
   var dragOffX = 0, dragOffY = 0;
-  var currentTool = { color: '#ffffff', size: 16, rotation: 0 };
+  var currentTool = { color: '#ffffff', size: 3, rotation: 0 }; // size is % of image width
+  var mode = 'add'; // 'add' or 'select'
   var origSrc = '';           // relative path of the original image
   var onSaveCallback = null;
   var scale = 1;              // canvas display scale
@@ -115,8 +116,24 @@
       toolbar.appendChild(cb);
     });
 
-    // Size buttons
-    var sizes = [{ label: 'S', val: 12 }, { label: 'M', val: 18 }, { label: 'L', val: 28 }, { label: 'XL', val: 40 }];
+    // Mode toggle (Select / Add)
+    var modeBtn = document.createElement('button');
+    modeBtn.type = 'button';
+    modeBtn.id = 'annot-mode';
+    modeBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">add_circle</span> Add';
+    modeBtn.style.cssText = 'padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.2);color:#fff;font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;';
+    modeBtn.onclick = function() {
+      mode = mode === 'add' ? 'select' : 'add';
+      modeBtn.innerHTML = mode === 'add'
+        ? '<span class="material-icons-outlined" style="font-size:16px">add_circle</span> Add'
+        : '<span class="material-icons-outlined" style="font-size:16px">open_with</span> Select';
+      canvas.style.cursor = mode === 'add' ? 'crosshair' : 'default';
+      modeBtn.style.background = mode === 'select' ? 'rgba(0,229,255,.3)' : 'rgba(255,255,255,.2)';
+    };
+    toolbar.appendChild(modeBtn);
+
+    // Size buttons (% of image width)
+    var sizes = [{ label: 'S', val: 1.5 }, { label: 'M', val: 3 }, { label: 'L', val: 5 }, { label: 'XL', val: 8 }];
     var sizeGroup = document.createElement('div');
     sizeGroup.style.cssText = 'display:flex;gap:2px;margin-left:4px;';
     sizes.forEach(function(s) {
@@ -242,7 +259,9 @@
       ctx.translate(a.x, a.y);
       if (a.rotation) ctx.rotate(a.rotation * Math.PI / 180);
 
-      var fontSize = a.size || 16;
+      // Size is stored as % of image width
+      var pct = a.size || 3;
+      var fontSize = Math.round(canvas.width * pct / 100);
       ctx.font = 'bold ' + fontSize + 'px Inter, -apple-system, sans-serif';
       ctx.textBaseline = 'middle';
 
@@ -259,10 +278,10 @@
       // Selection indicator
       if (i === selectedIdx) {
         var metrics = ctx.measureText(a.text);
-        var pad = 4;
+        var pad = fontSize * 0.15;
         ctx.strokeStyle = '#00e5ff';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 3]);
+        ctx.lineWidth = Math.max(2, fontSize / 10);
+        ctx.setLineDash([fontSize / 4, fontSize / 6]);
         ctx.strokeRect(-pad, -fontSize / 2 - pad, metrics.width + pad * 2, fontSize + pad * 2);
         ctx.setLineDash([]);
       }
@@ -279,33 +298,46 @@
   function hitTest(px, py) {
     for (var i = annotations.length - 1; i >= 0; i--) {
       var a = annotations[i];
+      var fontSize = Math.round(canvas.width * (a.size || 3) / 100);
       ctx.save();
-      ctx.font = 'bold ' + (a.size || 16) + 'px Inter, -apple-system, sans-serif';
+      ctx.font = 'bold ' + fontSize + 'px Inter, -apple-system, sans-serif';
       var w = ctx.measureText(a.text).width;
-      var h = a.size || 16;
       ctx.restore();
-      // Simple bounding box (ignores rotation for simplicity)
-      if (px >= a.x - 4 && px <= a.x + w + 4 && py >= a.y - h / 2 - 4 && py <= a.y + h / 2 + 4) {
+      var pad = fontSize * 0.3;
+      if (px >= a.x - pad && px <= a.x + w + pad && py >= a.y - fontSize / 2 - pad && py <= a.y + fontSize / 2 + pad) {
         return i;
       }
     }
     return -1;
   }
 
+  function selectAnnotation(idx) {
+    selectedIdx = idx;
+    if (idx >= 0) {
+      var a = annotations[idx];
+      document.getElementById('annot-text').value = a.text;
+      // Update toolbar to reflect selected annotation's color and size
+    }
+    draw();
+  }
+
   function onPointerDown(e) {
     var p = canvasXY(e);
     var hit = hitTest(p.x, p.y);
-    if (hit >= 0) {
-      selectedIdx = hit;
-      dragging = true;
-      dragOffX = p.x - annotations[hit].x;
-      dragOffY = p.y - annotations[hit].y;
-      canvas.style.cursor = 'grabbing';
-      // Populate toolbar with selected annotation's properties
-      document.getElementById('annot-text').value = annotations[hit].text;
-      draw();
+
+    if (mode === 'select') {
+      // Select mode: click to select, drag to move
+      if (hit >= 0) {
+        selectAnnotation(hit);
+        dragging = true;
+        dragOffX = p.x - annotations[hit].x;
+        dragOffY = p.y - annotations[hit].y;
+        canvas.style.cursor = 'grabbing';
+      } else {
+        selectAnnotation(-1);
+      }
     } else {
-      // Add new annotation at click position
+      // Add mode: always add new annotation at click position
       var text = document.getElementById('annot-text').value || 'Label';
       annotations.push({
         text: text,
@@ -330,7 +362,7 @@
 
   function onPointerUp() {
     dragging = false;
-    canvas.style.cursor = 'crosshair';
+    canvas.style.cursor = mode === 'add' ? 'crosshair' : 'default';
   }
 
   // ── Update text of selected annotation when input changes ──
