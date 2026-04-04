@@ -1001,7 +1001,7 @@
             b.onclick = function(ev) {
               ev.stopPropagation();
               // Visual resize in editor (DOM only — persisted on save via getMarkdownClean)
-              img.style.maxWidth = s.val;
+              img.style.setProperty('max-width', s.val, 'important');
               // Track resize for save
               var src = img.getAttribute('src') || '';
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
@@ -1114,7 +1114,7 @@
       containerEl.querySelectorAll('img').forEach(function(img) {
         var src = img.getAttribute('src') || img.src || '';
         var w = getImageSize(src);
-        if (w) img.style.maxWidth = w;
+        if (w) img.style.setProperty('max-width', w, 'important');
       });
     }
     applyAll();
