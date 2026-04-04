@@ -1,8 +1,7 @@
 ---
-type: protocol
+type: "protocol"
 title: "Protocol Template"
 ---
-
 # Protocol Template
 
 *Use the **Duplicate** button (top right) to create a copy, then rename and edit it for your own protocol.*
@@ -13,19 +12,19 @@ title: "Protocol Template"
 
 **Last verified:** 2026-04-04
 
----
+***
 
 ## Overview
 
 | Step | Description | Hands-on | Wait time | Total |
-|------|-------------|----------|-----------|-------|
+| ---- | ----------- | -------- | --------- | ----- |
 | 1 | Prepare workspace | 10 min | — | 10 min |
 | 2 | Sample preparation | 5 min | 10 min (incubation) | 15 min |
 | 3 | Purification | 15 min | 5 min (centrifuge) | 20 min |
 | 4 | Quality check | 10 min | 30 min (gel run) | 40 min |
-| | **Total** | **~40 min** | **~45 min** | **~1.5 hr** |
+|  | **Total** | **\~40 min** | **\~45 min** | **\~1.5 hr** |
 
----
+***
 
 ## Background
 
@@ -33,21 +32,21 @@ Provide context so someone unfamiliar with the technique understands *why* each 
 
 For example, if your protocol involves DNA extraction, explain why you lyse cells before adding binding buffer, or why you use a specific pH. This turns the protocol from a recipe into a teaching tool.
 
----
+***
 
 ## Safety
 
 > ⚠️ **PPE Required**
 > Always wear nitrile gloves and safety glasses for this procedure. If working with volatile reagents, use the [[fume-hood]]. Check the SDS for any unfamiliar chemical before handling. Click any reagent pill below to see its location and SDS link.
 
----
+***
 
 ## Materials
 
 ### Reagents
 
 | Reagent | Amount per sample | Notes |
-|---------|-------------------|-------|
+| ------- | ----------------- | ----- |
 | [[ethanol-70]] | 1 mL | For surface sterilization |
 | [[triton-x-100]] | 50 uL of 20% stock | Surfactant, improves wetting |
 | [[agarose]] | 0.5 g per 50 mL | For gel electrophoresis QC |
@@ -61,7 +60,7 @@ Your workspace should look something like this:
 *A laminar flow hood provides a sterile work surface with HEPA-filtered airflow. Always work with the sash at the appropriate height.*
 
 | Equipment | Purpose |
-|-----------|---------|
+| --------- | ------- |
 | [[clean-bench]] | Sterile work surface |
 | [[tube-rotator]] | Gentle mixing during incubation |
 
@@ -69,10 +68,10 @@ Your workspace should look something like this:
 
 You can link biological stocks too:
 
-- [[col-0-wild-type]] (control genotype)
-- [[bl21-de3-competent-cells]] (if doing a transformation step)
+* [[col-0-wild-type]] (control genotype)
+* [[bl21-de3-competent-cells]] (if doing a transformation step)
 
----
+***
 
 ## Procedure
 
@@ -103,28 +102,27 @@ You can link biological stocks too:
 1. Add **400 uL** chloroform:isoamyl alcohol (24:1)
 2. Vortex for **10 seconds**
 3. Centrifuge at **13,000 rpm** for **5 minutes**
-4. Transfer the upper aqueous phase (~300 uL) to a new tube
+4. Transfer the upper aqueous phase (\~300 uL) to a new tube
 
-??? variant "Column-based alternative"
-    If you prefer a spin-column kit over organic extraction:
-
-    1. Add **200 uL** binding buffer (from kit) to your lysate
-    2. Load onto the spin column
-    3. Centrifuge **30 seconds** at 10,000 rpm
-    4. Wash 2x with **500 uL** wash buffer
-    5. Elute in **50 uL** warm EB buffer
-
-    *Trade-off:* Columns are faster and avoid toxic solvents, but yield is typically 30-50% lower than organic extraction. Use columns for genotyping PCR; use organic extraction when you need high-molecular-weight DNA (e.g., long-read sequencing).
-
-??? variant "High-throughput (96-well plate format)"
-    For processing many samples simultaneously:
-
-    1. Use a 96-well deep-well plate instead of individual tubes
-    2. Scale all volumes to **200 uL** (half the single-tube protocol)
-    3. Use a multichannel pipette for all liquid handling
-    4. Centrifuge plates at **3,000 rpm** (lower speed to avoid cracking wells)
-
-    *Note:* Plate format is essential for projects like [[mutation-accumulation]] where you may process hundreds of lines at once.
+> 🔀 **Column-based alternative**
+> If you prefer a spin-column kit over organic extraction:
+>
+> 1. Add **200 uL** binding buffer (from kit) to your lysate
+> 2. Load onto the spin column
+> 3. Centrifuge **30 seconds** at 10,000 rpm
+> 4. Wash 2x with **500 uL** wash buffer
+> 5. Elute in **50 uL** warm EB buffer
+>
+> *Trade-off:* Columns are faster and avoid toxic solvents, but yield is typically 30-50% lower than organic extraction. Use columns for genotyping PCR; use organic extraction when you need high-molecular-weight DNA (e.g., long-read sequencing).
+> 🔀 **High-throughput (96-well plate format)**
+> For processing many samples simultaneously:
+>
+> 1. Use a 96-well deep-well plate instead of individual tubes
+> 2. Scale all volumes to **200 uL** (half the single-tube protocol)
+> 3. Use a multichannel pipette for all liquid handling
+> 4. Centrifuge plates at **3,000 rpm** (lower speed to avoid cracking wells)
+>
+> *Note:* Plate format is essential for projects like [[mutation-accumulation]] where you may process hundreds of lines at once.
 
 ### Step 4: Quality check
 
@@ -151,7 +149,7 @@ Lane:    M    1    2    3    4    5
 500 bp   =
 ```
 
----
+***
 
 ## Media & animations
 
@@ -179,60 +177,61 @@ For longer instructional videos, embed from YouTube. Paste the embed HTML direct
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iQsu3Kz9NYo" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
+<br>
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/c1WOBy5vSg8" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
+
 *YouTube/Vimeo embeds stream from the platform. No storage cost, and viewers can fullscreen or adjust playback speed.*
 
 ### Local video file
 
 You can also host short video clips directly in the repo (`docs/images/`):
 
-<video controls style="max-width:100%;border-radius:8px;margin:12px 0">
-  <source src="images/test-video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/test-video.mp4" type="video/mp4">Your browser does not support video.</video>
 
 *Local videos are best for short clips (<30 seconds). For longer content, use YouTube embeds to avoid bloating the repository.*
 
----
+***
 
 ## Troubleshooting
 
 | Problem | Likely cause | Solution |
-|---------|-------------|----------|
+| ------- | ------------ | -------- |
 | No DNA band on gel | Incomplete lysis | Grind more thoroughly; freeze tissue first |
 | Smeared DNA | Degradation from nucleases | Work faster; keep samples on ice |
 | Low A260/A280 ratio (<1.8) | Protein contamination | Add a second chloroform extraction |
 | Brown pellet | Polyphenol co-precipitation | Add PVP to extraction buffer |
 
----
+***
 
 ## Expected results
 
-- **Yield:** 5-20 ug DNA per 100 mg fresh tissue
-- **Purity:** A260/A280 of 1.8-2.0
-- **Integrity:** Sharp high-MW band on gel, minimal smearing
+* **Yield:** 5-20 ug DNA per 100 mg fresh tissue
+* **Purity:** A260/A280 of 1.8-2.0
+* **Integrity:** Sharp high-MW band on gel, minimal smearing
 
----
+***
 
 ## Related protocols
 
-- [[wet-lab/seed-sterilization]] (if growing plants for tissue)
-- [[wet-lab/gel-electrophoresis]] (detailed gel protocol)
-- [[wet-lab/pcr-genotyping]] (downstream application)
+* [[wet-lab/seed-sterilization]] (if growing plants for tissue)
+* [[wet-lab/gel-electrophoresis]] (detailed gel protocol)
+* [[wet-lab/pcr-genotyping]] (downstream application)
 
 ## Related projects
 
-- [[mutation-accumulation]]
-- [[alfalfa-pangenome]]
+* [[mutation-accumulation]]
+* [[alfalfa-pangenome]]
 
----
+***
 
 ## Revision history
 
 | Date | Author | Change |
-|------|--------|--------|
+| ---- | ------ | ------ |
 | 2026-04-04 | [[grey-monroe]] | Initial template created |
 
----
+***
 
 ## About this template
 
