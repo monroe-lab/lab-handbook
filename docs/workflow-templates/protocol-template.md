@@ -6,6 +6,10 @@ title: "Protocol Template"
 
 *Use the **Duplicate** button (top right) to create a copy, then rename and edit it for your own protocol.*
 
+![1000009774](images/1000009774.jpg)
+
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009338.mp4" type="video/mp4">Your browser does not support video.</video>
+
 **Purpose:** Brief statement of what this protocol achieves and when you would use it.
 
 **Author:** [[grey-monroe]]
@@ -177,7 +181,7 @@ Click **Video file** in the Media bar, pick an mp4 or webm (max 25 MB). For long
 
 <video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/test-video.mp4" type="video/mp4">Your browser does not support video.</video>
 
----
+***
 
 ## Troubleshooting
 
