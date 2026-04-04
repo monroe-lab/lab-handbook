@@ -983,9 +983,25 @@
             b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (img.style.maxWidth === s.val ? 'var(--teal)' : '#fff') + ';color:' + (img.style.maxWidth === s.val ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
             b.onclick = function(ev) {
               ev.stopPropagation();
-              img.style.maxWidth = s.val;
-              // Update markdown: add width style
-              // We'll handle this on save by scanning img styles
+              // Get the image src (relative path)
+              var src = img.getAttribute('src') || '';
+              var alt = img.getAttribute('alt') || '';
+              var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
+              // Update markdown: replace ![alt](src) or existing <img> with sized <img> tag
+              editor.changeMode('markdown');
+              var md = editor.getMarkdown();
+              // Match markdown image syntax
+              var mdImgRe = new RegExp('!\\[' + alt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\]\\([^)]*' + relSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\//g, '[/\\\\]') + '[^)]*\\)');
+              // Match existing HTML img tag
+              var htmlImgRe = new RegExp('<img[^>]*src=["\'][^"\']*' + relSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\//g, '[/\\\\]') + '["\'][^>]*>');
+              var newTag = '<img src="' + relSrc + '" alt="' + alt + '"' + (s.val !== '100%' ? ' style="max-width:' + s.val + '"' : '') + '>';
+              if (md.match(htmlImgRe)) {
+                md = md.replace(htmlImgRe, newTag);
+              } else if (md.match(mdImgRe)) {
+                md = md.replace(mdImgRe, newTag);
+              }
+              editor.setMarkdown(md);
+              editor.changeMode('wysiwyg');
               if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             };
             imgToolbar.appendChild(b);
