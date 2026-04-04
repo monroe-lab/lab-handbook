@@ -50,7 +50,8 @@
     style.textContent = [
       '.em-surface .toastui-editor-defaultUI{border:none!important}',
       '.em-surface .toastui-editor-defaultUI-toolbar{border-bottom:1px solid var(--grey-200)!important;background:var(--grey-50)!important;padding:4px 8px!important;overflow:visible!important}',
-      '.em-surface .toastui-editor-toolbar{flex-wrap:wrap!important;overflow:visible!important}',
+      '.em-surface .toastui-editor-toolbar{flex-wrap:wrap!important;overflow:visible!important;gap:2px 0!important}',
+      '.em-surface .toastui-editor-toolbar-group{flex-wrap:wrap!important}',
       '.em-surface .toastui-editor-toolbar-icons{border:none!important;border-radius:4px!important;width:32px!important;height:32px!important;background-color:transparent!important}',
       '.em-surface .toastui-editor-toolbar-icons:hover{background-color:var(--grey-200)!important}',
       '.em-surface .toastui-editor-ww-container{background:#fff!important}',
