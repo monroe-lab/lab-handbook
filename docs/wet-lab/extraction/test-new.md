@@ -16,14 +16,14 @@ check 1
 check 2
 
 <br>
-| header | column 2 | long oaskdfaksdnflkasndflk;asndflkasndfa | sdfhukadshfkjladjflasd | asdfhasjdlfhaklsdf<br> |
-| ------ | -------- | ---------------------------------------- | ---------------------- | ------------------ |
-|  |  |  | asdf |  |
-|  | asdfnalsdfahsldf<br>asdfahs test<br>row 3 |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+| header | coliumn agian | columsdnf 1 | column 2 | long oaskdfaksdnflkasndflk;asndflkasndfa | sdfhukadshfkjladjflasd | asdfhasjdlfhaklsdf |
+| ------ | ------------- | ----------- | -------- | ---------------------------------------- | ---------------------- | ------------------ |
+|  |  |  |  |  | asdf |  |
+|  |  |  | asdfnalsdfahsldf<br>asdfahs test<br>row 3 |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
 
 > block quote material with [[col-0-wild-type]] newline test
 > heres a second line
