@@ -932,6 +932,56 @@
 
     // Insert media bar after the category pills bar
     insertBar.parentNode.insertBefore(mediaBar, insertBar.nextSibling);
+
+    // ── Image annotation: double-click an image in editor to annotate ──
+    if (window.Lab && window.Lab.annotate) {
+      setTimeout(function() {
+        var ww = containerEl.querySelector('.toastui-editor-ww-container');
+        if (!ww) return;
+        ww.addEventListener('dblclick', function(e) {
+          var img = e.target.closest('img');
+          if (!img) return;
+          e.preventDefault();
+          window.Lab.annotate.open(img, function(annotatedPath, dataUrl) {
+            // Replace the image src in the editor with the annotated version
+            // Update markdown: swap old image path with annotated path
+            editor.changeMode('markdown');
+            var md = editor.getMarkdown();
+            var oldSrc = img.dataset.realSrc || img.getAttribute('src') || '';
+            var base = MEDIA_BASE;
+            var relativeSrc = oldSrc.startsWith(base) ? oldSrc.slice(base.length) : oldSrc;
+            // Replace the old image path with the annotated one
+            md = md.replace(relativeSrc, annotatedPath);
+            editor.setMarkdown(md);
+            editor.changeMode('wysiwyg');
+            // Swap the img src for immediate preview
+            setTimeout(function() {
+              var imgs = ww.querySelectorAll('img');
+              imgs.forEach(function(i) {
+                if ((i.getAttribute('src') || '').includes(annotatedPath.split('/').pop())) {
+                  i.src = dataUrl;
+                }
+              });
+            }, 300);
+          });
+        });
+        // Add visual hint on hover
+        ww.addEventListener('mouseover', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.target.style.outline = '3px dashed rgba(0,137,123,.5)';
+            e.target.style.cursor = 'pointer';
+            e.target.title = 'Double-click to annotate';
+          }
+        });
+        ww.addEventListener('mouseout', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.target.style.outline = '';
+            e.target.style.cursor = '';
+            e.target.title = '';
+          }
+        });
+      }, 500);
+    }
   }
 
   // ── Wikilink round-tripping for Toast UI ──
