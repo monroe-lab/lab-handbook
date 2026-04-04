@@ -15,6 +15,18 @@ title: "Protocol Template"
 
 ---
 
+## Overview
+
+| Step | Description | Hands-on | Wait time | Total |
+|------|-------------|----------|-----------|-------|
+| 1 | Prepare workspace | 10 min | — | 10 min |
+| 2 | Sample preparation | 5 min | 10 min (incubation) | 15 min |
+| 3 | Purification | 15 min | 5 min (centrifuge) | 20 min |
+| 4 | Quality check | 10 min | 30 min (gel run) | 40 min |
+| | **Total** | **~40 min** | **~45 min** | **~1.5 hr** |
+
+---
+
 ## Background
 
 Provide context so someone unfamiliar with the technique understands *why* each step matters, not just *what* to do. A good background section answers: What is the biological or chemical principle? Why this method over alternatives? What can go wrong if steps are skipped?
@@ -41,6 +53,12 @@ For example, if your protocol involves DNA extraction, explain why you lyse cell
 | [[agarose]] | 0.5 g per 50 mL | For gel electrophoresis QC |
 
 ### Equipment
+
+Your workspace should look something like this:
+
+![Laminar flow hood setup](images/laminar-flow-hood-example.jpg)
+
+*A laminar flow hood provides a sterile work surface with HEPA-filtered airflow. Always work with the sash at the appropriate height.*
 
 | Equipment | Purpose |
 |-----------|---------|
@@ -135,6 +153,47 @@ Lane:    M    1    2    3    4    5
 
 ---
 
+## Media & animations
+
+You can embed images, GIFs, and videos directly in protocols.
+
+### Static image
+
+Store images in `docs/images/` and reference them with standard markdown:
+
+```
+![Description](images/your-image.jpg)
+```
+
+### Animated GIF
+
+GIFs play automatically and are great for showing short technique demos:
+
+![Pipetting technique demo](images/pcr-cycle-animation.gif)
+
+*Animated GIFs loop automatically. Good for showing hand positions, mixing techniques, or short equipment operation demos.*
+
+### Embedded video (YouTube/Vimeo)
+
+For longer instructional videos, embed from YouTube. Paste the embed HTML directly:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iQsu3Kz9NYo" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
+
+*YouTube/Vimeo embeds stream from the platform. No storage cost, and viewers can fullscreen or adjust playback speed.*
+
+### Local video file
+
+You can also host short video clips directly in the repo (`docs/images/`):
+
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0">
+  <source src="images/test-video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+*Local videos are best for short clips (<30 seconds). For longer content, use YouTube embeds to avoid bloating the repository.*
+
+---
+
 ## Troubleshooting
 
 | Problem | Likely cause | Solution |
@@ -175,4 +234,10 @@ Lane:    M    1    2    3    4    5
 
 ---
 
-*This template demonstrates the available formatting features. All the special blocks (variants, warnings, tips, notes) are **collapsible** in the rendered view and when printing, so you can expand only the ones relevant to your situation. Use the **Duplicate** button to make a copy and start writing your own protocol.*
+## About this template
+
+*Every **h2 section** on this page is **collapsible**. Click any section header to collapse or expand it. This also applies when printing: collapse sections you don't need before hitting Print.*
+
+*The special blocks (variants, warnings, tips, notes) are also collapsible. Use these to add context without cluttering the main procedure.*
+
+*Use the **Duplicate** button (top right) to make a copy and start writing your own protocol.*

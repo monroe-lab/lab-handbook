@@ -1765,6 +1765,11 @@
     "title": "Sorbitol/CTAB HiFi Extraction"
   },
   {
+    "path": "wet-lab/extraction/test-2.md",
+    "type": "protocol",
+    "title": "test 2"
+  },
+  {
     "path": "wet-lab/extraction/test-new.md",
     "type": "protocol",
     "title": "test new"

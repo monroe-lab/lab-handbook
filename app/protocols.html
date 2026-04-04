@@ -592,6 +592,73 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
 }
 
 // ── Load Document ──
+// ── Post-process rendered HTML ──
+// 1. Wrap h2 sections in collapsible <details> elements
+// 2. Resolve relative image/video paths to raw GitHub URLs
+function postProcessRendered(el) {
+  if (!el) return;
+
+  // ── Collapsible h2 sections ──
+  var h2s = el.querySelectorAll('h2');
+  h2s.forEach(function(h2) {
+    // Collect all siblings between this h2 and the next h2 (or end)
+    var content = [];
+    var next = h2.nextElementSibling;
+    while (next && next.tagName !== 'H2') {
+      content.push(next);
+      next = next.nextElementSibling;
+    }
+    if (!content.length) return;
+
+    var details = document.createElement('details');
+    details.open = true;
+    details.style.cssText = 'margin:0 0 8px;';
+
+    var summary = document.createElement('summary');
+    summary.style.cssText = 'cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;user-select:none;';
+    summary.innerHTML = '<span class="material-icons-outlined" style="font-size:18px;color:var(--grey-400);transition:transform .2s">expand_more</span>';
+
+    // Move h2 content into summary
+    var h2Clone = h2.cloneNode(true);
+    h2Clone.style.display = 'inline';
+    h2Clone.style.margin = '0';
+    summary.appendChild(h2Clone);
+
+    details.appendChild(summary);
+
+    // Wrap content in a div
+    var body = document.createElement('div');
+    body.style.cssText = 'padding-left:2px;';
+    content.forEach(function(node) { body.appendChild(node); });
+    details.appendChild(body);
+
+    // Replace original h2 with details
+    h2.parentNode.replaceChild(details, h2);
+
+    // Rotate chevron on toggle
+    details.addEventListener('toggle', function() {
+      var chevron = summary.querySelector('.material-icons-outlined');
+      if (chevron) chevron.style.transform = details.open ? '' : 'rotate(-90deg)';
+    });
+  });
+
+  // ── Resolve relative image/video paths ──
+  var rawBase = 'https://raw.githubusercontent.com/' + Lab.gh.REPO + '/' + Lab.gh.BRANCH + '/docs/';
+  el.querySelectorAll('img').forEach(function(img) {
+    var src = img.getAttribute('src') || '';
+    if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+      img.src = rawBase + src;
+    }
+  });
+  el.querySelectorAll('video source, video').forEach(function(v) {
+    var src = v.getAttribute('src') || '';
+    if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+      v.src = rawBase + src;
+      if (v.parentElement && v.parentElement.tagName === 'VIDEO') v.parentElement.load();
+    }
+  });
+}
+
 async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
@@ -632,9 +699,11 @@ async function loadDoc(docPath) {
       '</div>';
 
     // Process wikilinks
+    var renderedEl = document.getElementById('renderedDoc');
     if (Lab.wikilinks) {
-      await Lab.wikilinks.processRendered(document.getElementById('renderedDoc'));
+      await Lab.wikilinks.processRendered(renderedEl);
     }
+    postProcessRendered(renderedEl);
 
     // Scroll to top
     document.getElementById('protoMain').scrollTop = 0;
@@ -737,9 +806,11 @@ async function saveDoc() {
         '</div>' +
         '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
       '</div>';
+    var renderedEl2 = document.getElementById('renderedDoc');
     if (Lab.wikilinks) {
-      await Lab.wikilinks.processRendered(document.getElementById('renderedDoc'));
+      await Lab.wikilinks.processRendered(renderedEl2);
     }
+    postProcessRendered(renderedEl2);
     document.getElementById('protoMain').scrollTop = 0;
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
