@@ -407,7 +407,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code', 'codeblock'],
+        ['table', 'link', 'image', 'code'],
       ],
     });
 
@@ -770,6 +770,26 @@
         }
       });
     }
+
+    // Inject code block button next to inline code button
+    var codeBtn = editorUI.querySelector('.toastui-editor-toolbar-icons[aria-label="Code"]') ||
+                  editorUI.querySelector('button[data-tooltip="Code"]');
+    if (codeBtn && codeBtn.parentNode) {
+      var cbBtn = document.createElement('button');
+      cbBtn.type = 'button';
+      cbBtn.title = 'Insert code block';
+      cbBtn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;border:none;background:transparent;font-size:15px;cursor:pointer;transition:background .15s;font-family:monospace;font-weight:700;color:var(--grey-600);';
+      cbBtn.textContent = '{;}';
+      cbBtn.onmouseenter = function() { cbBtn.style.background = 'var(--grey-200)'; };
+      cbBtn.onmouseleave = function() { cbBtn.style.background = 'transparent'; };
+      cbBtn.onclick = function(e) {
+        e.preventDefault();
+        editor.changeMode('markdown');
+        editor.replaceSelection('\n\n```\n\n```\n\n');
+        editor.changeMode('wysiwyg');
+      };
+      codeBtn.parentNode.insertBefore(cbBtn, codeBtn.nextSibling);
+    }
   }
 
   // ── Wikilink round-tripping for Toast UI ──
@@ -940,7 +960,7 @@
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task'],
-        ['table', 'link', 'image', 'code', 'codeblock'],
+        ['table', 'link', 'image', 'code'],
       ],
       events: {
         change: function() {
