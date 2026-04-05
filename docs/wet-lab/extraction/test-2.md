@@ -7,17 +7,19 @@ type: "protocol"
 *Created by Grey Monroe on 2026-04-04*
 
 <br>
+[[dneasy-plant-mini]]
+
 [[rnase-aliquot]]
 
 [[ethanol-70]]
 
-<img src="images/screenshot-2026-04-03-at-2-annotated.png" alt="screenshot-2026-04-03-at-2.45.23-am" style="max-width:25%">
+![screenshot-2026-04-03-at-2.45.23-am](images/screenshot-2026-04-03-at-2-annotated.png)
 
 <br>
 ![screenshot-2026-04-04-at-3.06.23-pm](images/screenshot-2026-04-04-at-3-annotated.png)
 
 <br>
-<img src="images/screenshot-2026-04-03-at-1.50.16-pm-annotated.png" alt="screenshot-2026-04-03-at-1.50.16-pm" style="max-width:25%">
+![screenshot-2026-04-03-at-1.50.16-pm](images/screenshot-2026-04-03-at-1.50.16-pm-annotated.png)
 
 <br>
 <br>
