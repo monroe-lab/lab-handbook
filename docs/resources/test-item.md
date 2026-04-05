@@ -6,5 +6,4 @@ quantity: 0
 unit: "each"
 low_stock_threshold: 0
 ---
-
 # test item
