@@ -725,6 +725,8 @@
       window.Lab.gh.patchObjectIndex(path, { type: cfg.defaultType, title: name });
       insertLink(slug, name);
       window.Lab.showToast('Created: ' + name, 'success');
+      // Open the new item's editor so user can fill in details
+      setTimeout(function() { openPopup(path); }, 300);
     } catch(e) {
       window.Lab.showToast('Failed: ' + e.message, 'error');
     }
