@@ -10,16 +10,16 @@ new stuff testing new again
 
 <br>
 <br>
-![17754092775328178953306825547110.jpg](images/17754092775328178953306825547110.jpg)
+<img src="images/17754092775328178953306825547110.jpg" alt="17754092775328178953306825547110.jpg" style="max-width:75%">
 
-![1000009784](images/1000009784-annotated.png)
-
-<br>
-<br>
-![1000009796](images/1000009796.jpg)
+<img src="images/1000009784-annotated.png" alt="1000009784" style="max-width:50%">
 
 <br>
-![1000009831](images/1000009831-annotated.png)
+<br>
+<img src="images/1000009796.jpg" alt="1000009796" style="max-width:25%">
+
+<br>
+<img src="images/1000009831-annotated.png" alt="1000009831" style="max-width:75%">
 
 <br>
 [[clean-bench]]
