@@ -1331,26 +1331,44 @@
         var imgToolbarImg = null;
         ww.style.position = 'relative';
 
-        // Save/restore scroll to prevent ProseMirror jumping to top
-        var _scrollParent = null;
-        function saveScroll() {
-          _scrollParent = ww.querySelector('.ProseMirror') || ww;
+        // Lock scroll to prevent ProseMirror from jumping to top
+        // Instead of racing with setTimeout, we intercept scroll events
+        var _scrollLock = false;
+        var _lockTargets = [];
+        var _lockPositions = {};
+
+        function lockScroll() {
+          var pm = ww.querySelector('.ProseMirror') || ww;
           var mainEl = document.getElementById('protoMain') || document.getElementById('nbMain');
-          return { pm: _scrollParent.scrollTop, ww: ww.scrollTop, main: mainEl ? mainEl.scrollTop : 0, mainEl: mainEl };
+          _lockTargets = [pm, ww];
+          if (mainEl) _lockTargets.push(mainEl);
+          _lockPositions = {};
+          _lockTargets.forEach(function(el, i) { _lockPositions[i] = el.scrollTop; });
+          _scrollLock = true;
+          // Auto-unlock after 200ms
+          setTimeout(function() { unlockScroll(); }, 200);
         }
-        function restoreScroll(s) {
-          setTimeout(function() {
-            _scrollParent.scrollTop = s.pm;
-            ww.scrollTop = s.ww;
-            if (s.mainEl) s.mainEl.scrollTop = s.main;
-          }, 0);
-          // Double restore in case ProseMirror has a delayed scroll
-          setTimeout(function() {
-            _scrollParent.scrollTop = s.pm;
-            ww.scrollTop = s.ww;
-            if (s.mainEl) s.mainEl.scrollTop = s.main;
-          }, 50);
+
+        function unlockScroll() {
+          _scrollLock = false;
         }
+
+        function onScrollLock(e) {
+          if (!_scrollLock) return;
+          var idx = _lockTargets.indexOf(e.target);
+          if (idx >= 0 && _lockPositions[idx] !== undefined) {
+            e.target.scrollTop = _lockPositions[idx];
+          }
+        }
+
+        // Attach scroll listeners to catch and revert ProseMirror's scroll
+        setTimeout(function() {
+          var pm = ww.querySelector('.ProseMirror') || ww;
+          var mainEl = document.getElementById('protoMain') || document.getElementById('nbMain');
+          [pm, ww].concat(mainEl ? [mainEl] : []).forEach(function(el) {
+            el.addEventListener('scroll', onScrollLock, { passive: false });
+          });
+        }, 100);
 
         function clearImgToolbar() {
           if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
@@ -1363,8 +1381,8 @@
           // Clicking toolbar buttons — don't dismiss
           if (e.target.closest('[data-img-toolbar]')) return;
 
-          // Save scroll before anything changes
-          var scrollState = saveScroll();
+          // Lock scroll to prevent ProseMirror jump
+          lockScroll();
 
           // Clear previous
           clearImgToolbar();
@@ -1390,13 +1408,12 @@
             b.onclick = function(ev) {
               ev.stopPropagation();
               ev.preventDefault();
-              var sc = saveScroll();
+              lockScroll();
               img.style.setProperty('max-width', s.val, 'important');
               var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
               if (s.val === '100%') { delete _imgSizes[relSrc]; } else { _imgSizes[relSrc] = s.val; }
               clearImgToolbar();
-              restoreScroll(sc);
             };
             imgToolbar.appendChild(b);
           });
@@ -1423,8 +1440,6 @@
           imgToolbar.style.top = Math.max(0, topPos) + 'px';
           ww.appendChild(imgToolbar);
 
-          // Prevent ProseMirror's node selection from scrolling to top
-          restoreScroll(scrollState);
         });
 
         // Hover hints (desktop only — on mobile the click outline is enough)
