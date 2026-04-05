@@ -90,9 +90,20 @@
   .nb-sidebar.open { left: 0; }
   .nb-backdrop.open { display: block; }
   .nb-hamburger { display: flex; }
-  .nb-content { padding: 20px 16px; }
+  .nb-content { padding: 12px 8px; }
   .nb-welcome { padding: 20px 16px; }
   .nb-meta-row { flex-direction: column; gap: 0; }
+  /* View mode: icon-only buttons, hide breadcrumb */
+  .nb-edit-bar .breadcrumb { display: none; }
+  .nb-edit-bar .btn { padding: 6px 8px; font-size: 0; }
+  .nb-edit-bar .btn span.material-icons-outlined { font-size: 18px; }
+  .btn-label { display: none; }
+  /* Edit mode: hide nav + sidebar, maximize editor */
+  body.editing-mode #lab-nav { display: none; }
+  body.editing-mode .nb-sidebar { display: none; }
+  body.editing-mode .nb-hamburger { display: none; }
+  body.editing-mode .nb-layout { height: 100vh; }
+  body.editing-mode .nb-edit-bar { padding: 4px 0; margin-bottom: 2px; }
 }
 </style>
 </head>
@@ -197,6 +208,7 @@ function togglePerson(el) {
 async function loadEntry(path, personSlug) {
   currentEntry = path;
   isEditing = false;
+  document.body.classList.remove('editing-mode');
   editorInstance = null;
   renderSidebar();
 
@@ -240,6 +252,7 @@ async function loadEntry(path, personSlug) {
 async function startEdit() {
   if (!currentEntry || isEditing) return;
   isEditing = true;
+  document.body.classList.add('editing-mode');
 
   var contentEl = document.getElementById('nbContent');
   try {
@@ -254,9 +267,9 @@ async function startEdit() {
       '<div class="nb-content">' +
         '<div class="nb-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(personName) + ' / ' + Lab.escHtml(date) + ' (editing)</div>' +
-          '<div style="display:flex;gap:8px">' +
-            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span> Cancel</button>' +
-            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveEntry()"><span class="material-icons-outlined">save</span> Save</button>' +
+          '<div style="display:flex;gap:6px;align-items:center">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()" title="Cancel"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveEntry()" title="Save"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
           '</div>' +
         '</div>' +
         '<div class="nb-editor-surface em-surface" id="editorSurface"></div>' +
@@ -301,6 +314,7 @@ async function saveEntry() {
 
     // Render saved content directly (avoid GitHub API propagation delay)
     isEditing = false;
+    document.body.classList.remove('editing-mode');
     editorInstance = null;
     var personSlug = currentEntry.replace('docs/notebooks/', '').split('/')[0];
     var date = currentEntry.split('/').pop().replace('.md', '');

@@ -1029,15 +1029,17 @@
 
     editorUI.insertBefore(insertBar, editorUI.firstChild);
 
-    // Inject callout icons into toolbar next to the blockquote (66) button
-    var quoteBtn = editorUI.querySelector('.toastui-editor-toolbar-icons[aria-label="Blockquote"]') ||
+    // Inject callout icons into toolbar next to the blockquote (66) button (desktop only)
+    var quoteBtn = null;
+    if (!isMobile()) {
+    quoteBtn = editorUI.querySelector('.toastui-editor-toolbar-icons[aria-label="Blockquote"]') ||
                    editorUI.querySelector('button[data-tooltip="Blockquote"]');
-    // Fallback: find the second toolbar group (hr, quote)
     if (!quoteBtn) {
       var groups = editorUI.querySelectorAll('.toastui-editor-toolbar-group');
       if (groups.length > 1) quoteBtn = groups[1].lastElementChild;
     }
-    var calloutAnchor = quoteBtn ? quoteBtn.parentNode : editorUI.querySelector('.toastui-editor-toolbar');
+    }
+    var calloutAnchor = quoteBtn ? quoteBtn.parentNode : (!isMobile() ? editorUI.querySelector('.toastui-editor-toolbar') : null);
     if (calloutAnchor) {
       var callouts = [
         { type: 'variant', label: 'Variant', icon: '\uD83D\uDD00' },

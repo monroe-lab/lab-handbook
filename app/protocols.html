@@ -238,8 +238,20 @@
   .proto-sidebar.open { left: 0; }
   .sidebar-backdrop.open { display: block; }
   .proto-hamburger { display: flex; }
-  .proto-content { padding: 20px 16px; }
+  .proto-content { padding: 12px 8px; }
   .proto-welcome { padding: 20px 16px; }
+  /* View mode: icon-only buttons, hide breadcrumb */
+  .proto-edit-bar .breadcrumb { display: none; }
+  .proto-edit-bar .btn span.material-icons-outlined { margin: 0; }
+  .proto-edit-bar .btn { padding: 6px 8px; font-size: 0; }
+  .proto-edit-bar .btn span.material-icons-outlined { font-size: 18px; }
+  .btn-label { display: none; }
+  /* Edit mode: hide nav, compact bar */
+  body.editing-mode #lab-nav { display: none; }
+  body.editing-mode .proto-sidebar { display: none; }
+  body.editing-mode .proto-hamburger { display: none; }
+  body.editing-mode .protocols-layout { height: 100vh; }
+  body.editing-mode .proto-edit-bar { padding: 4px 0; margin-bottom: 2px; }
 }
 </style>
 </head>
@@ -654,6 +666,7 @@ function postProcessRendered(el) {
 async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
+  document.body.classList.remove('editing-mode');
   editorInstance = null;
   cachedBody = null; // clear cache when loading a different doc
 
@@ -714,6 +727,7 @@ async function startEdit() {
   console.log('[protocols] startEdit called, currentDoc:', currentDoc, 'isEditing:', isEditing);
   if (!currentDoc || isEditing) return;
   isEditing = true;
+  document.body.classList.add('editing-mode');
 
   var contentEl = document.getElementById('protoContent');
   var filePath = 'docs/' + currentDoc + '.md';
@@ -741,9 +755,9 @@ async function startEdit() {
       '<div class="proto-content">' +
         '<div class="proto-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + ' (editing)</div>' +
-          '<div style="display:flex;gap:8px">' +
-            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span> Cancel</button>' +
-            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()"><span class="material-icons-outlined">save</span> Save</button>' +
+          '<div style="display:flex;gap:6px;align-items:center">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()" title="Cancel"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()" title="Save"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
           '</div>' +
         '</div>' +
         '<div class="proto-editor-surface em-surface" id="editorSurface"></div>' +
