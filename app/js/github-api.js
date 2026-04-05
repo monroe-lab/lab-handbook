@@ -168,31 +168,66 @@
   var _objectIndex = null;
   var _objectIndexPromise = null;
 
+  // ── localStorage patch layer ──
+  // Saves edits locally so they survive refresh without waiting for deploy
+  var PATCH_KEY = 'lab_index_patches';
+  var INDEX_KEYS = [
+    'type', 'title', 'location', 'quantity', 'unit', 'low_stock_threshold',
+    'category', 'cas', 'notes', 'role', 'email', 'organism', 'stock_type',
+    'source', 'genotype', 'status', 'pi', 'funding', 'date', 'author',
+    'legacy_inventory_id'
+  ];
+
+  function getLocalPatches() {
+    try { return JSON.parse(localStorage.getItem(PATCH_KEY)) || {}; } catch(e) { return {}; }
+  }
+
+  function applyLocalPatches(index) {
+    var patches = getLocalPatches();
+    var paths = Object.keys(patches);
+    if (!paths.length) return index;
+
+    var result = index.slice();
+    paths.forEach(function(relPath) {
+      var patch = patches[relPath];
+      if (patch._deleted) {
+        result = result.filter(function(e) { return e.path !== relPath; });
+        return;
+      }
+      var idx = result.findIndex(function(e) { return e.path === relPath; });
+      if (idx >= 0) {
+        result[idx] = Object.assign({}, result[idx], patch);
+      } else {
+        result.push(patch);
+      }
+    });
+    return result;
+  }
+
   async function fetchObjectIndex() {
     if (_objectIndex) return _objectIndex;
     if (_objectIndexPromise) return _objectIndexPromise;
 
     _objectIndexPromise = (async function() {
+      var raw = [];
       try {
-        // Try direct fetch first (faster, no auth needed for public deploys)
         var base = window.Lab ? window.Lab.BASE : '/lab-handbook/';
         var resp = await fetch(base + 'object-index.json?_=' + Date.now());
-        if (resp.ok) {
-          _objectIndex = await resp.json();
-          return _objectIndex;
-        }
+        if (resp.ok) { raw = await resp.json(); }
       } catch(e) { /* fall through */ }
 
-      // Fallback to GitHub API
-      try {
-        var result = await fetchFile('docs/object-index.json');
-        _objectIndex = JSON.parse(result.content);
-        return _objectIndex;
-      } catch(e) {
-        console.warn('Failed to load object index:', e);
-        _objectIndex = [];
-        return _objectIndex;
+      if (!raw.length) {
+        try {
+          var result = await fetchFile('docs/object-index.json');
+          raw = JSON.parse(result.content);
+        } catch(e) {
+          console.warn('Failed to load object index:', e);
+        }
       }
+
+      // Overlay any localStorage patches on top
+      _objectIndex = applyLocalPatches(raw);
+      return _objectIndex;
     })();
 
     return _objectIndexPromise;
@@ -201,6 +236,33 @@
   function clearObjectIndexCache() {
     _objectIndex = null;
     _objectIndexPromise = null;
+  }
+
+  function patchObjectIndex(filePath, meta) {
+    var relPath = filePath.replace(/^docs\//, '');
+    var entry = { path: relPath };
+    INDEX_KEYS.forEach(function(k) { if (meta[k] != null) entry[k] = meta[k]; });
+
+    // Update in-memory cache immediately
+    if (_objectIndex) {
+      var idx = _objectIndex.findIndex(function(e) { return e.path === relPath; });
+      if (idx >= 0) _objectIndex[idx] = entry; else _objectIndex.push(entry);
+    }
+
+    // Persist to localStorage so it survives refresh
+    var patches = getLocalPatches();
+    patches[relPath] = entry;
+    try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+  }
+
+  function removeFromObjectIndex(filePath) {
+    var relPath = filePath.replace(/^docs\//, '');
+    if (_objectIndex) {
+      _objectIndex = _objectIndex.filter(function(e) { return e.path !== relPath; });
+    }
+    var patches = getLocalPatches();
+    patches[relPath] = { _deleted: true };
+    try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
   }
 
   // Recent commits
@@ -231,6 +293,8 @@
     fetchTree: fetchTree,
     fetchObjectIndex: fetchObjectIndex,
     clearObjectIndexCache: clearObjectIndexCache,
+    patchObjectIndex: patchObjectIndex,
+    removeFromObjectIndex: removeFromObjectIndex,
     fetchRecentCommits: fetchRecentCommits,
     REPO: REPO,
     BRANCH: BRANCH

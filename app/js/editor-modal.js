@@ -497,7 +497,9 @@
         'Update ' + currentState.path.replace(/^docs\//, ''));
       currentState.sha = result.sha;
       window.Lab.showToast('Saved', 'success');
-      gh.clearObjectIndexCache();
+
+      // Update object index in-memory + localStorage (survives refresh without waiting for deploy)
+      gh.patchObjectIndex(currentState.path, currentState.meta);
 
       // Fire custom event so parent app can refresh
       window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: currentState.path, meta: currentState.meta } }));

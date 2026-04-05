@@ -342,7 +342,7 @@ function addItem() {
 
   Lab.gh.saveFile(path, content, null, 'Add reagent: ' + name).then(function() {
     Lab.showToast('Created: ' + name, 'success');
-    Lab.gh.clearObjectIndexCache();
+    Lab.gh.patchObjectIndex(path, { type: 'reagent', title: name, location: 'Chemical Cabinet', quantity: 0, unit: 'each', low_stock_threshold: 0 });
     // Open the new item in editor modal
     Lab.editorModal.open(path);
     // Refresh list
@@ -368,7 +368,7 @@ async function confirmDelete() {
     await Lab.gh.deleteFile('docs/' + deletingItem.path, null, 'Remove resource: ' + deletingItem.name);
     inventory = inventory.filter(function(i) { return i.slug !== deletingItem.slug; });
     Lab.showToast('Deleted: ' + deletingItem.name, 'success');
-    Lab.gh.clearObjectIndexCache();
+    Lab.gh.removeFromObjectIndex('docs/' + deletingItem.path);
   } catch(e) {
     Lab.showToast('Delete failed: ' + e.message, 'error');
   }
@@ -388,8 +388,32 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
 });
 
-// Refresh table when editor modal saves
-window.addEventListener('lab-file-saved', function() { loadInventory(); });
+// Refresh table when editor modal saves — update locally instead of re-fetching stale index
+window.addEventListener('lab-file-saved', function(e) {
+  if (!e.detail || !e.detail.path || !e.detail.meta) { loadInventory(); return; }
+  var meta = e.detail.meta;
+  if (!isInventoryType(meta.type)) { loadInventory(); return; }
+  var slug = e.detail.path.replace(/^docs\//, '').replace(/\.md$/, '').split('/').pop();
+  var existing = inventory.find(function(i) { return i.slug === slug; });
+  var updated = {
+    slug: slug,
+    path: e.detail.path.replace(/^docs\//, ''),
+    name: meta.title || slug,
+    type: meta.type,
+    typeLabel: typeLabel(meta.type),
+    quantity: meta.quantity || 0,
+    unit: meta.unit || '',
+    location: meta.location || '',
+    notes: meta.notes || '',
+    lowStockThreshold: meta.low_stock_threshold || 0,
+  };
+  if (existing) {
+    Object.assign(existing, updated);
+  } else {
+    inventory.push(updated);
+  }
+  renderTable();
+});
 
 // ── Init ──
 loadInventory();
