@@ -741,24 +741,23 @@
 
       var toolbar = containerEl.querySelector('.toastui-editor-toolbar');
 
-      // Build toggle bar
-      var toggleBar = document.createElement('div');
-      toggleBar.style.cssText = 'display:flex;gap:6px;padding:6px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);';
+      // Build floating toggle buttons (bottom-right, always visible)
+      var floatContainer = document.createElement('div');
+      floatContainer.style.cssText = 'position:fixed;bottom:20px;right:16px;z-index:9999;display:flex;gap:8px;';
 
-      function makeToggle(icon, label, targetFn) {
+      function makeToggle(icon, targetFn) {
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">' + icon + '</span> ' + label;
-        btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:14px;border:1px solid var(--grey-300);background:#fff;color:var(--grey-600);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;';
+        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">' + icon + '</span>';
+        btn.style.cssText = 'width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--grey-600);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.2);';
         btn.onclick = function(e) {
           e.preventDefault();
           var target = targetFn();
           if (!target) return;
           var visible = target.style.display !== 'none';
           target.style.display = visible ? 'none' : '';
-          btn.style.background = visible ? '#fff' : 'var(--teal-light)';
-          btn.style.color = visible ? 'var(--grey-600)' : 'var(--teal-dark)';
-          btn.style.borderColor = visible ? 'var(--grey-300)' : 'var(--teal)';
+          btn.style.background = visible ? '#fff' : 'var(--teal)';
+          btn.style.color = visible ? 'var(--grey-600)' : '#fff';
         };
         return btn;
       }
@@ -766,15 +765,13 @@
       // Formatting toggle
       if (toolbar) {
         toolbar.style.display = 'none';
-        toggleBar.appendChild(makeToggle('text_format', 'Format', function() { return toolbar; }));
+        floatContainer.appendChild(makeToggle('text_format', function() { return toolbar; }));
       }
 
-      // Insert + Media toggle (bars are injected by injectCategoryPills later, so find them lazily)
-      toggleBar.appendChild(makeToggle('add_circle_outline', 'Insert', function() {
-        // Find the insert + media bars wrapper
+      // Insert + Media toggle (bars injected by injectCategoryPills later, find lazily)
+      floatContainer.appendChild(makeToggle('add_circle_outline', function() {
         var wrapper = editorUI.querySelector('.mobile-insert-wrapper');
         if (!wrapper) {
-          // Wrap the insert bar and media bar together
           var insertBar = editorUI.firstChild;
           var mediaBar = insertBar ? insertBar.nextElementSibling : null;
           if (insertBar && mediaBar) {
@@ -789,7 +786,16 @@
         return wrapper;
       }));
 
-      editorUI.insertBefore(toggleBar, editorUI.firstChild);
+      document.body.appendChild(floatContainer);
+
+      // Clean up when editor is destroyed
+      var observer = new MutationObserver(function() {
+        if (!document.body.contains(containerEl)) {
+          floatContainer.remove();
+          observer.disconnect();
+        }
+      });
+      observer.observe(containerEl.parentNode || document.body, { childList: true });
     }, 400);
   }
 
