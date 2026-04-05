@@ -282,9 +282,24 @@
     overlayEl.classList.add('open');
 
     try {
+      // Check localStorage cache first (written on save to avoid GitHub API delay)
+      var cached = null;
+      try {
+        var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+        if (fileCache[filePath]) cached = fileCache[filePath];
+      } catch(e) {}
+
       var result = await gh.fetchFile(filePath);
       currentState.sha = result.sha;
-      var parsed = window.Lab.parseFrontmatter(result.content);
+
+      // Use cached content if it's newer (GitHub API can lag after a commit)
+      var content = result.content;
+      if (cached && cached.savedAt && cached.content) {
+        var age = Date.now() - cached.savedAt;
+        if (age < 120000) content = cached.content; // use cache for up to 2 min
+      }
+
+      var parsed = window.Lab.parseFrontmatter(content);
       currentState.meta = parsed.meta;
       currentState.body = parsed.body;
 
@@ -497,6 +512,13 @@
         'Update ' + currentState.path.replace(/^docs\//, ''));
       currentState.sha = result.sha;
       window.Lab.showToast('Saved', 'success');
+
+      // Cache the saved content locally so re-opening the item shows new values immediately
+      try {
+        var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+        fileCache[currentState.path] = { content: content, savedAt: Date.now() };
+        localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+      } catch(e) {}
 
       // Update object index in-memory + localStorage (survives refresh without waiting for deploy)
       gh.patchObjectIndex(currentState.path, currentState.meta);
