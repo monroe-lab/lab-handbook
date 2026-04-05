@@ -278,11 +278,57 @@ async function saveEntry() {
   btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
   try {
     var md = editorInstance.getMarkdown();
+
+    // Capture loaded images from editor before destroying it (for instant view rendering)
+    var editorImages = {};
+    var editorSurface = document.getElementById('editorSurface');
+    if (editorSurface) {
+      editorSurface.querySelectorAll('img').forEach(function(img) {
+        if (img.src && img.complete && img.naturalWidth > 0) {
+          var origSrc = img.dataset.realSrc || img.getAttribute('src') || '';
+          var fname = origSrc.split('/').pop().split('?')[0];
+          if (fname) editorImages[fname] = img.src;
+        }
+      });
+    }
+
     var result = await Lab.gh.saveFile(currentEntry, md, currentSha, 'Notebook: ' + currentEntry.replace('docs/', ''));
     currentSha = result.sha;
     Lab.showToast('Saved', 'success');
+
+    // Render saved content directly (avoid GitHub API propagation delay)
+    isEditing = false;
+    editorInstance = null;
     var personSlug = currentEntry.replace('docs/notebooks/', '').split('/')[0];
-    loadEntry(currentEntry, personSlug);
+    var date = currentEntry.split('/').pop().replace('.md', '');
+    var personName = personSlug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    var html = await Lab.editorModal.renderMarkdown(md);
+    var contentEl = document.getElementById('nbContent');
+    contentEl.innerHTML =
+      '<div class="nb-content">' +
+        '<div class="nb-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(personName) + ' / ' + Lab.escHtml(date) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span> Print</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="nb-rendered" id="renderedEntry">' + html + '</div>' +
+      '</div>';
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(document.getElementById('renderedEntry'));
+
+    // Inject images captured from the editor so they show instantly
+    if (Object.keys(editorImages).length) {
+      document.getElementById('renderedEntry').querySelectorAll('img').forEach(function(img) {
+        var src = img.getAttribute('src') || '';
+        var fname = src.split('/').pop().split('?')[0];
+        if (fname && editorImages[fname]) {
+          img.src = editorImages[fname];
+        }
+      });
+    }
+
+    document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
     btn.disabled = false;
