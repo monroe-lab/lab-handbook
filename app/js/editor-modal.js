@@ -11,6 +11,60 @@
 
   function isMobile() { return window.innerWidth <= 768; }
 
+  // Resize large images before upload (prevents mobile OOM crashes)
+  // Returns a Promise<{dataUrl, base64}> with the resized JPEG
+  var MAX_IMG_DIM = 1600;
+  var IMG_QUALITY = 0.85;
+  function resizeImage(file) {
+    return new Promise(function(resolve) {
+      // Skip non-images or small files (< 500KB)
+      if (!file.type.startsWith('image/') || file.size < 500000) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          resolve({ dataUrl: reader.result, base64: reader.result.split(',')[1] });
+        };
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function() {
+        URL.revokeObjectURL(url);
+        var w = img.width, h = img.height;
+        if (w <= MAX_IMG_DIM && h <= MAX_IMG_DIM && file.size < 2000000) {
+          // Already small enough, use original
+          var reader = new FileReader();
+          reader.onload = function() {
+            resolve({ dataUrl: reader.result, base64: reader.result.split(',')[1] });
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+        // Scale down
+        var scale = Math.min(MAX_IMG_DIM / w, MAX_IMG_DIM / h, 1);
+        var nw = Math.round(w * scale);
+        var nh = Math.round(h * scale);
+        var canvas = document.createElement('canvas');
+        canvas.width = nw;
+        canvas.height = nh;
+        canvas.getContext('2d').drawImage(img, 0, 0, nw, nh);
+        var dataUrl = canvas.toDataURL('image/jpeg', IMG_QUALITY);
+        resolve({ dataUrl: dataUrl, base64: dataUrl.split(',')[1] });
+      };
+      img.onerror = function() {
+        URL.revokeObjectURL(url);
+        // Fallback: read as-is
+        var reader = new FileReader();
+        reader.onload = function() {
+          resolve({ dataUrl: reader.result, base64: reader.result.split(',')[1] });
+        };
+        reader.readAsDataURL(file);
+      };
+      img.src = url;
+    });
+  }
+
   var TOAST_CSS = 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
   var TOAST_JS = 'https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js';
   var toastLoaded = false;
@@ -888,14 +942,17 @@
     document.body.appendChild(wrapper);
   }
 
-  function triggerMobileUpload(file, editor, containerEl) {
+  async function triggerMobileUpload(file, editor, containerEl) {
     if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to upload', 'error'); return; }
     var slug = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-').replace(/-+/g, '-');
+    // Force .jpg extension for camera photos (may come as .heic or no extension)
+    if (slug.match(/\.(heic|heif)$/) || !slug.includes('.')) slug = slug.replace(/\.[^.]*$/, '') + '.jpg';
     var path = 'docs/images/' + slug;
-    var reader = new FileReader();
-    reader.onload = async function() {
-      var dataUrl = reader.result;
-      var base64 = dataUrl.split(',')[1];
+    try {
+      window.Lab.showToast('Processing...', 'info');
+      var resized = await resizeImage(file);
+      var dataUrl = resized.dataUrl;
+      var base64 = resized.base64;
       try {
         window.Lab.showToast('Uploading...', 'info');
         var token = window.Lab.gh.getToken();
@@ -934,8 +991,9 @@
       } catch(e) {
         window.Lab.showToast('Upload failed: ' + e.message, 'error');
       }
-    };
-    reader.readAsDataURL(file);
+    } catch(e) {
+      window.Lab.showToast('Failed: ' + e.message, 'error');
+    }
   }
 
   // ── Inject category insert pills above any Toast UI editor ──
@@ -1059,44 +1117,40 @@
     vidInput.style.display = 'none';
     mediaBar.appendChild(vidInput);
 
-    // Upload helper: reads file as base64, uploads to docs/images/ via GitHub API
-    function uploadMedia(file, callback) {
+    // Upload helper: resizes image, uploads to docs/images/ via GitHub API
+    async function uploadMedia(file, callback) {
       if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to upload', 'error'); return; }
       var slug = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-').replace(/-+/g, '-');
       var path = 'docs/images/' + slug;
-      var reader = new FileReader();
-      reader.onload = async function() {
-        var dataUrl = reader.result; // full data:image/...;base64,...
-        var base64 = dataUrl.split(',')[1];
+      try {
+        var resized = await resizeImage(file);
+        var dataUrl = resized.dataUrl;
+        var base64 = resized.base64;
+        window.Lab.showToast('Uploading ' + file.name + '...', 'info');
+        var token = window.Lab.gh.getToken();
+        var existingSha = null;
         try {
-          window.Lab.showToast('Uploading ' + file.name + '...', 'info');
-          var token = window.Lab.gh.getToken();
-          // Check if file exists (need SHA to update)
-          var existingSha = null;
-          try {
-            var check = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path + '?ref=' + window.Lab.gh.BRANCH, {
-              headers: { 'Authorization': 'Bearer ' + token }
-            });
-            if (check.ok) existingSha = (await check.json()).sha;
-          } catch(e) {}
-          var putBody = { message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH };
-          if (existingSha) putBody.sha = existingSha;
-          var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path, {
-            method: 'PUT',
-            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-            body: JSON.stringify(putBody)
+          var check = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path + '?ref=' + window.Lab.gh.BRANCH, {
+            headers: { 'Authorization': 'Bearer ' + token }
           });
-          if (!resp.ok) {
-            var err = await resp.json().catch(function() { return {}; });
-            throw new Error(err.message || 'Upload failed');
-          }
-          window.Lab.showToast('Uploaded: ' + slug, 'success');
-          callback(slug, dataUrl);
-        } catch(e) {
-          window.Lab.showToast('Upload failed: ' + e.message, 'error');
+          if (check.ok) existingSha = (await check.json()).sha;
+        } catch(e) {}
+        var putBody = { message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH };
+        if (existingSha) putBody.sha = existingSha;
+        var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify(putBody)
+        });
+        if (!resp.ok) {
+          var err = await resp.json().catch(function() { return {}; });
+          throw new Error(err.message || 'Upload failed');
         }
-      };
-      reader.readAsDataURL(file);
+        window.Lab.showToast('Uploaded: ' + slug, 'success');
+        callback(slug, dataUrl);
+      } catch(e) {
+        window.Lab.showToast('Upload failed: ' + e.message, 'error');
+      }
     }
 
     // Image/GIF button
