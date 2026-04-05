@@ -733,33 +733,64 @@
     }
   }
 
-  // ── Mobile: hide native toolbar, add a compact toggle ──
+  // ── Mobile: collapse toolbar + insert/media behind toggle buttons ──
   function setupMobileToolbarToggle(containerEl) {
     setTimeout(function() {
-      var toolbar = containerEl.querySelector('.toastui-editor-toolbar');
-      if (!toolbar) return;
-      toolbar.style.display = 'none';
-
-      var toggle = document.createElement('button');
-      toggle.type = 'button';
-      toggle.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">text_format</span>';
-      toggle.style.cssText = 'position:absolute;top:6px;right:6px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid var(--grey-300);background:#fff;color:var(--grey-600);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.1);';
-      toggle.title = 'Text formatting';
-
       var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
-      if (editorUI) {
-        editorUI.style.position = 'relative';
-        editorUI.appendChild(toggle);
+      if (!editorUI) return;
+
+      var toolbar = containerEl.querySelector('.toastui-editor-toolbar');
+
+      // Build toggle bar
+      var toggleBar = document.createElement('div');
+      toggleBar.style.cssText = 'display:flex;gap:6px;padding:6px 12px;border-bottom:1px solid var(--grey-200);background:var(--grey-50);';
+
+      function makeToggle(icon, label, targetFn) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">' + icon + '</span> ' + label;
+        btn.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:14px;border:1px solid var(--grey-300);background:#fff;color:var(--grey-600);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;';
+        btn.onclick = function(e) {
+          e.preventDefault();
+          var target = targetFn();
+          if (!target) return;
+          var visible = target.style.display !== 'none';
+          target.style.display = visible ? 'none' : '';
+          btn.style.background = visible ? '#fff' : 'var(--teal-light)';
+          btn.style.color = visible ? 'var(--grey-600)' : 'var(--teal-dark)';
+          btn.style.borderColor = visible ? 'var(--grey-300)' : 'var(--teal)';
+        };
+        return btn;
       }
 
-      toggle.onclick = function(e) {
-        e.preventDefault();
-        var visible = toolbar.style.display !== 'none';
-        toolbar.style.display = visible ? 'none' : '';
-        toggle.style.background = visible ? '#fff' : 'var(--teal-light)';
-        toggle.style.color = visible ? 'var(--grey-600)' : 'var(--teal-dark)';
-      };
-    }, 300);
+      // Formatting toggle
+      if (toolbar) {
+        toolbar.style.display = 'none';
+        toggleBar.appendChild(makeToggle('text_format', 'Format', function() { return toolbar; }));
+      }
+
+      // Insert + Media toggle (bars are injected by injectCategoryPills later, so find them lazily)
+      toggleBar.appendChild(makeToggle('add_circle_outline', 'Insert', function() {
+        // Find the insert + media bars wrapper
+        var wrapper = editorUI.querySelector('.mobile-insert-wrapper');
+        if (!wrapper) {
+          // Wrap the insert bar and media bar together
+          var insertBar = editorUI.firstChild;
+          var mediaBar = insertBar ? insertBar.nextElementSibling : null;
+          if (insertBar && mediaBar) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'mobile-insert-wrapper';
+            wrapper.style.display = 'none';
+            insertBar.parentNode.insertBefore(wrapper, insertBar);
+            wrapper.appendChild(insertBar);
+            wrapper.appendChild(mediaBar);
+          }
+        }
+        return wrapper;
+      }));
+
+      editorUI.insertBefore(toggleBar, editorUI.firstChild);
+    }, 400);
   }
 
   // ── Inject category insert pills above any Toast UI editor ──
