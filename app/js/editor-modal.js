@@ -1396,6 +1396,18 @@
           imgToolbar.style.left = Math.max(0, leftPos) + 'px';
           imgToolbar.style.top = Math.max(0, topPos) + 'px';
           ww.appendChild(imgToolbar);
+
+          // Prevent ProseMirror's node selection from scrolling to top
+          var scrollParent = ww.querySelector('.ProseMirror') || ww;
+          var savedScroll = scrollParent.scrollTop;
+          var savedWwScroll = ww.scrollTop;
+          var mainEl = document.getElementById('protoMain') || document.getElementById('nbMain');
+          var savedMainScroll = mainEl ? mainEl.scrollTop : 0;
+          setTimeout(function() {
+            scrollParent.scrollTop = savedScroll;
+            ww.scrollTop = savedWwScroll;
+            if (mainEl) mainEl.scrollTop = savedMainScroll;
+          }, 0);
         });
 
         // Hover hints (desktop only — on mobile the click outline is enough)
