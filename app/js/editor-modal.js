@@ -9,6 +9,8 @@
 (function() {
   'use strict';
 
+  function isMobile() { return window.innerWidth <= 768; }
+
   var TOAST_CSS = 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
   var TOAST_JS = 'https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js';
   var toastLoaded = false;
@@ -420,12 +422,9 @@
       height: '300px',
       initialValue: prepared,
       usageStatistics: false,
-      toolbarItems: [
-        ['heading', 'bold', 'italic', 'strike'],
-        ['hr', 'quote'],
-        ['ul', 'ol', 'task'],
-        ['table', 'link', 'code'],
-      ],
+      toolbarItems: isMobile() ?
+        [['heading', 'bold', 'italic'], ['ul', 'task'], ['link']] :
+        [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
 
     // Fix table header cells so they're editable, apply image sizes, set up image fallback
@@ -1508,12 +1507,9 @@
       height: availableHeight + 'px',
       initialValue: prepared,
       usageStatistics: false,
-      toolbarItems: [
-        ['heading', 'bold', 'italic', 'strike'],
-        ['hr', 'quote'],
-        ['ul', 'ol', 'task'],
-        ['table', 'link', 'code'],
-      ],
+      toolbarItems: isMobile() ?
+        [['heading', 'bold', 'italic'], ['ul', 'task'], ['link']] :
+        [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
       events: {
         change: function() {
           if (typeof containerEl._onchange === 'function') containerEl._onchange();
@@ -1532,8 +1528,8 @@
       setTimeout(function() { applyEditorImageSizes(containerEl); }, 700);
     }, 300);
 
-    // Add category insert pills
-    injectCategoryPills(containerEl, editor);
+    // Add category insert pills (skip on mobile to save space)
+    if (!isMobile()) injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
