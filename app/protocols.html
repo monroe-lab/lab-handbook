@@ -637,44 +637,8 @@ function postProcessRendered(el) {
     });
   });
 
-  // ── Resolve relative image/video paths ──
-  // Use GitHub Pages base URL (docs/ maps to site root)
-  var mediaBase = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
-  el.querySelectorAll('img').forEach(function(img) {
-    var src = img.getAttribute('src') || '';
-    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
-      img.src = mediaBase + src;
-    }
-  });
-  el.querySelectorAll('video source, video').forEach(function(v) {
-    var src = v.getAttribute('src') || '';
-    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
-      v.src = mediaBase + src;
-      if (v.parentElement && v.parentElement.tagName === 'VIDEO') v.parentElement.load();
-    }
-  });
-
-  // If image fails to load from Pages (not deployed yet), fetch via GitHub API (works for private repos)
-  el.querySelectorAll('img').forEach(function(img) {
-    img.addEventListener('error', function() {
-      if (img.dataset.retried) return;
-      img.dataset.retried = '1';
-      var src = img.getAttribute('src') || '';
-      var relPath = src.replace(mediaBase, '');
-      if (relPath.startsWith('images/') && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
-        // Fetch image content via authenticated GitHub API
-        fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
-          headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
-        }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
-          if (data && data.content) {
-            var ext = relPath.split('.').pop().toLowerCase();
-            var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
-            img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
-          }
-        }).catch(function() {});
-      }
-    });
-  });
+  // Resolve image/video paths and add GitHub API fallback
+  Lab.postProcessImages(el);
   el.querySelectorAll('video').forEach(function(vid) {
     vid.addEventListener('error', function() {
       if (vid.dataset.retried) return;

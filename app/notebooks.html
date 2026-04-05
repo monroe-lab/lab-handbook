@@ -226,7 +226,9 @@ async function loadEntry(path, personSlug) {
         '<div class="nb-rendered" id="renderedEntry">' + html + '</div>' +
       '</div>';
 
-    if (Lab.wikilinks) await Lab.wikilinks.processRendered(document.getElementById('renderedEntry'));
+    var renderedEl = document.getElementById('renderedEntry');
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
+    Lab.postProcessImages(renderedEl);
     document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
     contentEl.innerHTML = '<div class="nb-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(e.message) + '</p></div></div>';
@@ -315,7 +317,9 @@ async function saveEntry() {
         '</div>' +
         '<div class="nb-rendered" id="renderedEntry">' + html + '</div>' +
       '</div>';
-    if (Lab.wikilinks) await Lab.wikilinks.processRendered(document.getElementById('renderedEntry'));
+    var renderedEl2 = document.getElementById('renderedEntry');
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl2);
+    Lab.postProcessImages(renderedEl2);
 
     // Inject images captured from the editor so they show instantly
     if (Object.keys(editorImages).length) {

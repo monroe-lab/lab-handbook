@@ -157,6 +157,51 @@
     init();
   }
 
+  // ── Image post-processing for rendered markdown ──
+  // Resolves relative image/video paths and adds GitHub API fallback for private repos
+  function postProcessImages(el) {
+    if (!el) return;
+    var mediaBase = BASE;
+
+    // Resolve relative image paths to GitHub Pages URLs
+    el.querySelectorAll('img').forEach(function(img) {
+      var src = img.getAttribute('src') || '';
+      if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+        img.src = mediaBase + src;
+      }
+    });
+
+    // Resolve relative video paths
+    el.querySelectorAll('video source, video').forEach(function(v) {
+      var src = v.getAttribute('src') || '';
+      if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+        v.src = mediaBase + src;
+        if (v.parentElement && v.parentElement.tagName === 'VIDEO') v.parentElement.load();
+      }
+    });
+
+    // If image fails from Pages (not deployed yet), fetch via GitHub API
+    el.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('error', function() {
+        if (img.dataset.retried) return;
+        img.dataset.retried = '1';
+        var src = img.getAttribute('src') || '';
+        var relPath = src.replace(mediaBase, '');
+        if (relPath.startsWith('images/') && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
+          fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
+            headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
+          }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
+            if (data && data.content) {
+              var ext = relPath.split('.').pop().toLowerCase();
+              var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+              img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
+            }
+          }).catch(function() {});
+        }
+      });
+    });
+  }
+
   // ── Exports ──
   window.Lab = window.Lab || {};
   window.Lab.BASE = BASE;
@@ -168,4 +213,5 @@
   window.Lab.encodeGitHub = encodeGitHub;
   window.Lab.parseFrontmatter = parseFrontmatter;
   window.Lab.buildFrontmatter = buildFrontmatter;
+  window.Lab.postProcessImages = postProcessImages;
 })();
