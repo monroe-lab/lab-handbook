@@ -427,7 +427,7 @@
     });
 
     // On mobile: hide native toolbar, add a toggle button to show it on demand
-    if (isMobile()) setupMobileToolbarToggle(editorEl);
+    if (isMobile()) setupMobileToolbarToggle(editorEl, editor);
 
     // Fix table header cells so they're editable, apply image sizes, set up image fallback
     setupEditorImageFallback(editorEl);
@@ -733,70 +733,207 @@
     }
   }
 
-  // ── Mobile: collapse toolbar + insert/media behind toggle buttons ──
-  function setupMobileToolbarToggle(containerEl) {
+  // ── Mobile: strip all chrome, single floating + button with bottom sheet ──
+  var _mobileSheet = null;
+  var _mobileFab = null;
+  var _mobileEditor = null;
+
+  function setupMobileToolbarToggle(containerEl, editor) {
+    _mobileEditor = editor;
     setTimeout(function() {
       var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
       if (!editorUI) return;
 
+      // Hide ALL bars: toolbar, insert pills, media bar
       var toolbar = containerEl.querySelector('.toastui-editor-toolbar');
+      if (toolbar) toolbar.style.display = 'none';
 
-      // Build floating toggle buttons (bottom-right, always visible)
-      var floatContainer = document.createElement('div');
-      floatContainer.style.cssText = 'position:fixed;bottom:20px;right:16px;z-index:9999;display:flex;gap:8px;';
-
-      function makeToggle(icon, targetFn) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">' + icon + '</span>';
-        btn.style.cssText = 'width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--grey-600);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.2);';
-        btn.onclick = function(e) {
-          e.preventDefault();
-          var target = targetFn();
-          if (!target) return;
-          var visible = target.style.display !== 'none';
-          target.style.display = visible ? 'none' : '';
-          btn.style.background = visible ? '#fff' : 'var(--teal)';
-          btn.style.color = visible ? 'var(--grey-600)' : '#fff';
-        };
-        return btn;
-      }
-
-      // Formatting toggle
-      if (toolbar) {
-        toolbar.style.display = 'none';
-        floatContainer.appendChild(makeToggle('text_format', function() { return toolbar; }));
-      }
-
-      // Insert + Media toggle (bars injected by injectCategoryPills later, find lazily)
-      floatContainer.appendChild(makeToggle('add_circle_outline', function() {
-        var wrapper = editorUI.querySelector('.mobile-insert-wrapper');
-        if (!wrapper) {
-          var insertBar = editorUI.firstChild;
-          var mediaBar = insertBar ? insertBar.nextElementSibling : null;
-          if (insertBar && mediaBar) {
-            wrapper = document.createElement('div');
-            wrapper.className = 'mobile-insert-wrapper';
-            wrapper.style.display = 'none';
-            insertBar.parentNode.insertBefore(wrapper, insertBar);
-            wrapper.appendChild(insertBar);
-            wrapper.appendChild(mediaBar);
+      // Hide insert + media bars when they get injected
+      var hideInjected = new MutationObserver(function() {
+        editorUI.querySelectorAll('div').forEach(function(d) {
+          if (d.textContent.includes('Insert:') || d.textContent.includes('Media:')) {
+            if (d.style.display !== 'none' && d !== toolbar && !d.closest('.mobile-sheet')) {
+              d.style.display = 'none';
+            }
           }
-        }
-        return wrapper;
-      }));
+        });
+      });
+      hideInjected.observe(editorUI, { childList: true });
+      // Also hide any already-injected bars
+      setTimeout(function() {
+        editorUI.querySelectorAll('div').forEach(function(d) {
+          var text = d.textContent || '';
+          if ((text.startsWith('Insert:') || text.startsWith('Media:')) && d !== toolbar && !d.closest('.mobile-sheet')) {
+            d.style.display = 'none';
+          }
+        });
+      }, 100);
 
-      document.body.appendChild(floatContainer);
+      // Floating + button
+      _mobileFab = document.createElement('button');
+      _mobileFab.type = 'button';
+      _mobileFab.innerHTML = '<span class="material-icons-outlined" style="font-size:24px">add</span>';
+      _mobileFab.style.cssText = 'position:fixed;bottom:20px;right:16px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 14px rgba(0,0,0,.25);';
+      _mobileFab.onclick = function(e) {
+        e.preventDefault();
+        toggleMobileSheet(containerEl, editor);
+      };
+      document.body.appendChild(_mobileFab);
 
       // Clean up when editor is destroyed
       var observer = new MutationObserver(function() {
         if (!document.body.contains(containerEl)) {
-          floatContainer.remove();
+          cleanupMobileSheet();
           observer.disconnect();
+          hideInjected.disconnect();
         }
       });
       observer.observe(containerEl.parentNode || document.body, { childList: true });
     }, 400);
+  }
+
+  function cleanupMobileSheet() {
+    if (_mobileFab) { _mobileFab.remove(); _mobileFab = null; }
+    if (_mobileSheet) { _mobileSheet.remove(); _mobileSheet = null; }
+    _mobileEditor = null;
+  }
+
+  function toggleMobileSheet(containerEl, editor) {
+    if (_mobileSheet) {
+      _mobileSheet.remove();
+      _mobileSheet = null;
+      return;
+    }
+
+    var sheet = document.createElement('div');
+    sheet.className = 'mobile-sheet';
+    sheet.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9998;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.15);padding:16px 16px 24px;max-height:60vh;overflow-y:auto;';
+
+    // Header
+    var header = document.createElement('div');
+    header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;';
+    header.innerHTML = '<span style="font-weight:600;font-size:15px">Insert</span>';
+    var closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '<span class="material-icons-outlined">close</span>';
+    closeBtn.style.cssText = 'background:none;border:none;color:var(--grey-500);cursor:pointer;padding:4px;';
+    closeBtn.onclick = function() { _mobileSheet.remove(); _mobileSheet = null; };
+    header.appendChild(closeBtn);
+    sheet.appendChild(header);
+
+    // Grid of action buttons
+    var grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;';
+
+    function addAction(icon, label, color, onclick) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.innerHTML = '<span class="material-icons-outlined" style="font-size:22px">' + icon + '</span><span>' + label + '</span>';
+      btn.style.cssText = 'display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:12px;border:1px solid var(--grey-200);background:#fff;color:' + (color || 'var(--grey-700)') + ';font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-align:left;';
+      btn.onclick = function(e) {
+        e.preventDefault();
+        _mobileSheet.remove();
+        _mobileSheet = null;
+        onclick();
+      };
+      grid.appendChild(btn);
+    }
+
+    // Camera / Photo
+    var camInput = document.createElement('input');
+    camInput.type = 'file';
+    camInput.accept = 'image/*';
+    camInput.capture = 'environment';
+    camInput.style.display = 'none';
+    sheet.appendChild(camInput);
+    camInput.onchange = function() {
+      if (camInput.files[0]) triggerMobileUpload(camInput.files[0], editor, containerEl);
+    };
+    addAction('photo_camera', 'Take Photo', 'var(--teal-dark)', function() { camInput.click(); });
+
+    // Image from library
+    var imgInput = document.createElement('input');
+    imgInput.type = 'file';
+    imgInput.accept = 'image/*';
+    imgInput.style.display = 'none';
+    sheet.appendChild(imgInput);
+    imgInput.onchange = function() {
+      if (imgInput.files[0]) triggerMobileUpload(imgInput.files[0], editor, containerEl);
+    };
+    addAction('image', 'Image / GIF', 'var(--grey-700)', function() { imgInput.click(); });
+
+    // Insert object types
+    var groups = getObjectTypes();
+    Object.keys(groups).forEach(function(key) {
+      var g = groups[key];
+      addAction(g.icon, g.label, g.color, function() {
+        linkModalCategory = key;
+        openLinkModal(editor);
+        setTimeout(function() { selectLinkCategory(key); }, 50);
+      });
+    });
+
+    sheet.appendChild(grid);
+
+    // Backdrop
+    var backdrop = document.createElement('div');
+    backdrop.style.cssText = 'position:fixed;inset:0;z-index:9997;background:rgba(0,0,0,.3);';
+    backdrop.onclick = function() { _mobileSheet.remove(); _mobileSheet = null; };
+
+    var wrapper = document.createElement('div');
+    wrapper.appendChild(backdrop);
+    wrapper.appendChild(sheet);
+    _mobileSheet = wrapper;
+    document.body.appendChild(wrapper);
+  }
+
+  function triggerMobileUpload(file, editor, containerEl) {
+    if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to upload', 'error'); return; }
+    var slug = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-').replace(/-+/g, '-');
+    var path = 'docs/images/' + slug;
+    var reader = new FileReader();
+    reader.onload = async function() {
+      var dataUrl = reader.result;
+      var base64 = dataUrl.split(',')[1];
+      try {
+        window.Lab.showToast('Uploading...', 'info');
+        var token = window.Lab.gh.getToken();
+        var existingSha = null;
+        try {
+          var check = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path + '?ref=' + window.Lab.gh.BRANCH, {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          if (check.ok) existingSha = (await check.json()).sha;
+        } catch(e) {}
+        var putBody = { message: 'Upload ' + slug, content: base64, branch: window.Lab.gh.BRANCH };
+        if (existingSha) putBody.sha = existingSha;
+        var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + path, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify(putBody)
+        });
+        if (!resp.ok) throw new Error('Upload failed');
+        window.Lab.showToast('Uploaded', 'success');
+        // Insert into editor
+        editor.changeMode('markdown');
+        editor.replaceSelection('\n![' + slug + '](images/' + slug + ')\n');
+        editor.changeMode('wysiwyg');
+        // Show preview immediately
+        setTimeout(function() {
+          var ww = containerEl.querySelector('.toastui-editor-ww-container');
+          if (ww) {
+            ww.querySelectorAll('img').forEach(function(img) {
+              if ((img.getAttribute('src') || '').includes(slug)) {
+                img.dataset.realSrc = img.getAttribute('src');
+                img.src = dataUrl;
+              }
+            });
+          }
+        }, 300);
+      } catch(e) {
+        window.Lab.showToast('Upload failed: ' + e.message, 'error');
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   // ── Inject category insert pills above any Toast UI editor ──
@@ -1595,8 +1732,11 @@
       setTimeout(function() { applyEditorImageSizes(containerEl); }, 700);
     }, 300);
 
-    // On mobile: hide native toolbar, add toggle; always show insert pills
-    if (isMobile()) setupMobileToolbarToggle(containerEl);
+    // On mobile: strip all chrome, single floating + button
+    // On desktop: show insert pills + media bar as usual
+    if (isMobile()) {
+      setupMobileToolbarToggle(containerEl, editor);
+    }
     injectCategoryPills(containerEl, editor);
 
     return {
