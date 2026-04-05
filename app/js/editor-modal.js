@@ -773,12 +773,14 @@
       _mobileFab = document.createElement('button');
       _mobileFab.type = 'button';
       _mobileFab.innerHTML = '<span class="material-icons-outlined" style="font-size:24px">add</span>';
-      _mobileFab.style.cssText = 'position:fixed;bottom:20px;right:16px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 14px rgba(0,0,0,.25);';
+      _mobileFab.style.cssText = 'position:absolute;top:4px;right:4px;z-index:100;width:36px;height:36px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);';
       _mobileFab.onclick = function(e) {
         e.preventDefault();
         toggleMobileSheet(containerEl, editor);
       };
-      document.body.appendChild(_mobileFab);
+      // Place inside the editor UI so it scrolls with content and avoids keyboard
+      editorUI.style.position = 'relative';
+      editorUI.appendChild(_mobileFab);
 
       // Clean up when editor is destroyed
       var observer = new MutationObserver(function() {
