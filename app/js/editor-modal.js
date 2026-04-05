@@ -1324,16 +1324,33 @@
             }, 300);
           });
         });
-        // Image click: show resize/annotate toolbar anchored above the image
+        // Image click: show resize/annotate toolbar
+        // Toolbar is appended to ww (outside ProseMirror content) with position:absolute
+        // using offsetTop/offsetLeft relative to the scrollable ww container
         var imgToolbar = null;
-        var imgToolbarTarget = null;
+        ww.style.position = 'relative';
 
-        function showImgToolbar(img) {
+        function getOffsetRelativeTo(el, ancestor) {
+          var top = 0, left = 0;
+          while (el && el !== ancestor) {
+            top += el.offsetTop;
+            left += el.offsetLeft;
+            el = el.offsetParent;
+          }
+          return { top: top, left: left };
+        }
+
+        ww.addEventListener('click', function(e) {
+          var img = e.target.closest('img');
+          // Remove existing toolbar
           if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
-          imgToolbarTarget = img;
+          if (!img) return;
+
+          // Highlight the image
+          img.style.outline = '3px dashed rgba(0,137,123,.5)';
 
           imgToolbar = document.createElement('div');
-          imgToolbar.style.cssText = 'display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;margin-bottom:4px;flex-wrap:wrap;';
+          imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;flex-wrap:wrap;';
 
           // Size options
           var imgSrc = img.dataset.realSrc || img.getAttribute('src') || '';
@@ -1350,6 +1367,7 @@
               var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
               if (s.val === '100%') { delete _imgSizes[relSrc]; } else { _imgSizes[relSrc] = s.val; }
+              img.style.outline = '';
               if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             };
             imgToolbar.appendChild(b);
@@ -1362,26 +1380,21 @@
           annBtn.onclick = function(ev) {
             ev.stopPropagation();
             ev.preventDefault();
+            img.style.outline = '';
             if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
           };
           imgToolbar.appendChild(annBtn);
 
-          // Insert directly above the image in the DOM (moves with content, not viewport)
-          img.parentNode.insertBefore(imgToolbar, img);
-        }
-
-        ww.addEventListener('click', function(e) {
-          var img = e.target.closest('img');
-          if (imgToolbar && (!img || img !== imgToolbarTarget)) {
-            imgToolbar.remove(); imgToolbar = null; imgToolbarTarget = null;
-          }
-          if (!img) return;
-          if (imgToolbarTarget === img && imgToolbar) return; // already showing
-          showImgToolbar(img);
+          // Position above image using offset (scroll-independent)
+          var pos = getOffsetRelativeTo(img, ww);
+          var toolbarHeight = 36; // approximate
+          imgToolbar.style.left = pos.left + 'px';
+          imgToolbar.style.top = Math.max(0, pos.top - toolbarHeight - 4) + 'px';
+          ww.appendChild(imgToolbar);
         });
 
-        // Add visual hint on hover (desktop only)
+        // Hover hints (desktop only — on mobile the click outline is enough)
         if (!isMobile()) {
           ww.addEventListener('mouseover', function(e) {
             if (e.target.tagName === 'IMG') {
@@ -1392,7 +1405,7 @@
           });
           ww.addEventListener('mouseout', function(e) {
             if (e.target.tagName === 'IMG') {
-              e.target.style.outline = '';
+              if (!imgToolbar) e.target.style.outline = '';
               e.target.style.cursor = '';
               e.target.title = '';
             }
