@@ -1331,6 +1331,27 @@
         var imgToolbarImg = null;
         ww.style.position = 'relative';
 
+        // Save/restore scroll to prevent ProseMirror jumping to top
+        var _scrollParent = null;
+        function saveScroll() {
+          _scrollParent = ww.querySelector('.ProseMirror') || ww;
+          var mainEl = document.getElementById('protoMain') || document.getElementById('nbMain');
+          return { pm: _scrollParent.scrollTop, ww: ww.scrollTop, main: mainEl ? mainEl.scrollTop : 0, mainEl: mainEl };
+        }
+        function restoreScroll(s) {
+          setTimeout(function() {
+            _scrollParent.scrollTop = s.pm;
+            ww.scrollTop = s.ww;
+            if (s.mainEl) s.mainEl.scrollTop = s.main;
+          }, 0);
+          // Double restore in case ProseMirror has a delayed scroll
+          setTimeout(function() {
+            _scrollParent.scrollTop = s.pm;
+            ww.scrollTop = s.ww;
+            if (s.mainEl) s.mainEl.scrollTop = s.main;
+          }, 50);
+        }
+
         function clearImgToolbar() {
           if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
           if (imgToolbarImg) { imgToolbarImg.style.outline = ''; imgToolbarImg = null; }
@@ -1341,6 +1362,9 @@
 
           // Clicking toolbar buttons — don't dismiss
           if (e.target.closest('[data-img-toolbar]')) return;
+
+          // Save scroll before anything changes
+          var scrollState = saveScroll();
 
           // Clear previous
           clearImgToolbar();
@@ -1366,11 +1390,13 @@
             b.onclick = function(ev) {
               ev.stopPropagation();
               ev.preventDefault();
+              var sc = saveScroll();
               img.style.setProperty('max-width', s.val, 'important');
               var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
               if (s.val === '100%') { delete _imgSizes[relSrc]; } else { _imgSizes[relSrc] = s.val; }
               clearImgToolbar();
+              restoreScroll(sc);
             };
             imgToolbar.appendChild(b);
           });
@@ -1398,16 +1424,7 @@
           ww.appendChild(imgToolbar);
 
           // Prevent ProseMirror's node selection from scrolling to top
-          var scrollParent = ww.querySelector('.ProseMirror') || ww;
-          var savedScroll = scrollParent.scrollTop;
-          var savedWwScroll = ww.scrollTop;
-          var mainEl = document.getElementById('protoMain') || document.getElementById('nbMain');
-          var savedMainScroll = mainEl ? mainEl.scrollTop : 0;
-          setTimeout(function() {
-            scrollParent.scrollTop = savedScroll;
-            ww.scrollTop = savedWwScroll;
-            if (mainEl) mainEl.scrollTop = savedMainScroll;
-          }, 0);
+          restoreScroll(scrollState);
         });
 
         // Hover hints (desktop only — on mobile the click outline is enough)
