@@ -7,6 +7,8 @@ type: "protocol"
 *Created by Grey Monroe on 2026-04-04*
 
 <br>
+[[rnase-aliquot]]
+
 [[ethanol-70]]
 
 <img src="images/screenshot-2026-04-03-at-2-annotated.png" alt="screenshot-2026-04-03-at-2.45.23-am" style="max-width:25%">
