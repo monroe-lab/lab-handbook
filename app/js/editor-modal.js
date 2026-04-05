@@ -823,18 +823,51 @@
         });
       }, 100);
 
-      // Floating + button
+      // Floating button bar (top-right of editor)
+      var fabBar = document.createElement('div');
+      fabBar.className = 'mobile-fab-bar';
+      fabBar.style.cssText = 'position:absolute;top:4px;right:4px;z-index:100;display:flex;gap:6px;';
+
+      // Cancel button
+      var cancelFab = document.createElement('button');
+      cancelFab.type = 'button';
+      cancelFab.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">close</span>';
+      cancelFab.style.cssText = 'width:34px;height:34px;border-radius:50%;border:none;background:#fff;color:var(--grey-600);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);';
+      cancelFab.title = 'Cancel';
+      cancelFab.onclick = function(e) {
+        e.preventDefault();
+        // Find and click the real cancel button
+        var realBtn = document.querySelector('[onclick*="cancelEdit"]');
+        if (realBtn) realBtn.click();
+      };
+      fabBar.appendChild(cancelFab);
+
+      // Save button
+      var saveFab = document.createElement('button');
+      saveFab.type = 'button';
+      saveFab.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">save</span>';
+      saveFab.style.cssText = 'width:34px;height:34px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+      saveFab.title = 'Save';
+      saveFab.onclick = function(e) {
+        e.preventDefault();
+        var realBtn = document.getElementById('saveBtn') || document.getElementById('saveNewBtn');
+        if (realBtn) realBtn.click();
+      };
+      fabBar.appendChild(saveFab);
+
+      // + Insert button
       _mobileFab = document.createElement('button');
       _mobileFab.type = 'button';
-      _mobileFab.innerHTML = '<span class="material-icons-outlined" style="font-size:24px">add</span>';
-      _mobileFab.style.cssText = 'position:absolute;top:4px;right:4px;z-index:100;width:36px;height:36px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);';
+      _mobileFab.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">add</span>';
+      _mobileFab.style.cssText = 'width:34px;height:34px;border-radius:50%;border:none;background:var(--teal);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);';
       _mobileFab.onclick = function(e) {
         e.preventDefault();
         toggleMobileSheet(containerEl, editor);
       };
-      // Place inside the editor UI so it scrolls with content and avoids keyboard
+      fabBar.appendChild(_mobileFab);
+
       editorUI.style.position = 'relative';
-      editorUI.appendChild(_mobileFab);
+      editorUI.appendChild(fabBar);
 
       // Clean up when editor is destroyed
       var observer = new MutationObserver(function() {
@@ -849,7 +882,11 @@
   }
 
   function cleanupMobileSheet() {
-    if (_mobileFab) { _mobileFab.remove(); _mobileFab = null; }
+    if (_mobileFab) {
+      var bar = _mobileFab.closest('.mobile-fab-bar');
+      if (bar) bar.remove();
+      _mobileFab = null;
+    }
     if (_mobileSheet) { _mobileSheet.remove(); _mobileSheet = null; }
     _mobileEditor = null;
   }
