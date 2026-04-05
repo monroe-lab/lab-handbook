@@ -725,7 +725,9 @@ async function loadDoc(docPath) {
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             (Lab.gh.isLoggedIn() ?
+              '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
               '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
+              '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span> Delete</button>' +
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
           '</div>' +
         '</div>' +
@@ -849,7 +851,9 @@ async function saveDoc() {
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
             '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
+            '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span> Delete</button>' +
             '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
           '</div>' +
         '</div>' +
@@ -1008,6 +1012,119 @@ async function duplicateDoc() {
     loadDoc(dir + '/' + newSlug);
   } catch(e) {
     Lab.showToast('Duplicate failed: ' + e.message, 'error');
+  }
+}
+
+async function deleteDoc() {
+  if (!currentDoc) return;
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  var title = currentDoc.split('/').pop();
+  // Find display title from NAV
+  NAV.forEach(function(cat) {
+    cat.items.forEach(function(i) { if (i.path === currentDoc) title = i.title; });
+  });
+
+  if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+
+  try {
+    var filePath = 'docs/' + currentDoc + '.md';
+    await gh.deleteFile(filePath, null, 'Delete protocol: ' + title);
+    gh.removeFromObjectIndex(filePath);
+
+    // Remove from local NAV
+    NAV.forEach(function(cat) {
+      cat.items = cat.items.filter(function(i) { return i.path !== currentDoc; });
+    });
+    NAV = NAV.filter(function(cat) { return cat.items.length > 0 || CATEGORY_CONFIG.order.indexOf(getNavCategoryDir(cat)) >= 0; });
+
+    currentDoc = null;
+    currentSha = null;
+    cachedBody = null;
+    renderSidebar(document.getElementById('protoSearch').value);
+    showWelcome();
+    Lab.showToast('Deleted: ' + title, 'success');
+  } catch(e) {
+    Lab.showToast('Delete failed: ' + e.message, 'error');
+  }
+}
+
+async function renameDoc() {
+  if (!currentDoc) return;
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Get current title
+  var oldTitle = currentDoc.split('/').pop();
+  NAV.forEach(function(cat) {
+    cat.items.forEach(function(i) { if (i.path === currentDoc) oldTitle = i.title; });
+  });
+
+  var newTitle = prompt('New title:', oldTitle);
+  if (!newTitle || newTitle === oldTitle) return;
+
+  try {
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await gh.fetchFile(filePath);
+    var parsed = Lab.parseFrontmatter(result.content);
+
+    // Update title in frontmatter
+    parsed.meta.title = newTitle;
+
+    // Update H1 heading in body if it matches old title
+    var newBody = parsed.body.replace(
+      new RegExp('^(# )' + oldTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*$', 'm'),
+      '$1' + newTitle
+    );
+
+    var newContent = Lab.buildFrontmatter(parsed.meta, newBody);
+
+    // Check if slug should change too
+    var dir = currentDoc.substring(0, currentDoc.lastIndexOf('/'));
+    var oldSlug = currentDoc.split('/').pop();
+    var newSlug = Lab.slugify(newTitle);
+
+    if (newSlug !== oldSlug) {
+      // Slug changed — create new file, delete old
+      var newPath = 'docs/' + dir + '/' + newSlug + '.md';
+      await gh.saveFile(newPath, newContent, null, 'Rename: ' + oldTitle + ' → ' + newTitle);
+      await gh.deleteFile(filePath, result.sha, 'Renamed ' + oldSlug + ' to ' + newSlug);
+
+      var newDocPath = dir + '/' + newSlug;
+
+      // Update NAV
+      NAV.forEach(function(cat) {
+        cat.items.forEach(function(i) {
+          if (i.path === currentDoc) { i.path = newDocPath; i.title = newTitle; }
+        });
+      });
+
+      gh.clearObjectIndexCache();
+      gh.patchObjectIndex(newPath, parsed.meta);
+      gh.removeFromObjectIndex(filePath);
+      renderSidebar(document.getElementById('protoSearch').value);
+      loadDoc(newDocPath);
+    } else {
+      // Same slug, just update title in file
+      var saveResult = await gh.saveFile(filePath, newContent, result.sha, 'Rename: ' + oldTitle + ' → ' + newTitle);
+      currentSha = saveResult.sha;
+
+      // Update NAV
+      NAV.forEach(function(cat) {
+        cat.items.forEach(function(i) {
+          if (i.path === currentDoc) i.title = newTitle;
+        });
+      });
+
+      gh.patchObjectIndex(filePath, parsed.meta);
+      renderSidebar(document.getElementById('protoSearch').value);
+      loadDoc(currentDoc);
+    }
+
+    Lab.showToast('Renamed to: ' + newTitle, 'success');
+  } catch(e) {
+    Lab.showToast('Rename failed: ' + e.message, 'error');
   }
 }
 
