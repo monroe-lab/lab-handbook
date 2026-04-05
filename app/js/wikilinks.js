@@ -198,6 +198,7 @@
     preprocess: preprocessWikilinks,
     processRendered: processRenderedLinks,
     ensureLookup: ensureLookup,
+    clearLookup: function() { objectLookup = null; },
     _lookup: function(slug) { return objectLookup ? (objectLookup[slug] || null) : null; },
   };
 })();

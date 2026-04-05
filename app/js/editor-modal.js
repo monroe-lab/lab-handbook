@@ -722,7 +722,7 @@
 
     try {
       await window.Lab.gh.saveFile(path, content, null, 'Add ' + cfg.defaultType + ': ' + name);
-      window.Lab.gh.clearObjectIndexCache();
+      window.Lab.gh.patchObjectIndex(path, { type: cfg.defaultType, title: name });
       insertLink(slug, name);
       window.Lab.showToast('Created: ' + name, 'success');
     } catch(e) {

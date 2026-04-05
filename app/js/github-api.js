@@ -253,6 +253,11 @@
     var patches = getLocalPatches();
     patches[relPath] = entry;
     try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+
+    // Clear wikilink lookup so it rebuilds with the new entry
+    if (window.Lab && window.Lab.wikilinks && window.Lab.wikilinks.clearLookup) {
+      window.Lab.wikilinks.clearLookup();
+    }
   }
 
   function removeFromObjectIndex(filePath) {
