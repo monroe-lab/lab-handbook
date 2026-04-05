@@ -2,7 +2,7 @@
 type: "reagent"
 title: "Acrylamide"
 location: "Chemical Cabinet"
-quantity: 40
+quantity: 45
 unit: "g"
 low_stock_threshold: 1
 legacy_inventory_id: 21
