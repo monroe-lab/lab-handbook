@@ -1324,16 +1324,16 @@
             }, 300);
           });
         });
-        // Image click: show resize/annotate toolbar
+        // Image click: show resize/annotate toolbar anchored above the image
         var imgToolbar = null;
-        ww.addEventListener('click', function(e) {
-          var img = e.target.closest('img');
-          // Remove existing toolbar
+        var imgToolbarTarget = null;
+
+        function showImgToolbar(img) {
           if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
-          if (!img) return;
+          imgToolbarTarget = img;
 
           imgToolbar = document.createElement('div');
-          imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;';
+          imgToolbar.style.cssText = 'display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;margin-bottom:4px;flex-wrap:wrap;';
 
           // Size options
           var imgSrc = img.dataset.realSrc || img.getAttribute('src') || '';
@@ -1345,16 +1345,11 @@
             b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (isActive ? 'var(--teal)' : '#fff') + ';color:' + (isActive ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
             b.onclick = function(ev) {
               ev.stopPropagation();
-              // Visual resize in editor (DOM only — persisted on save via getMarkdownClean)
+              ev.preventDefault();
               img.style.setProperty('max-width', s.val, 'important');
-              // Track resize for save — resolve data URLs to real paths
               var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
-              if (s.val === '100%') {
-                delete _imgSizes[relSrc];
-              } else {
-                _imgSizes[relSrc] = s.val;
-              }
+              if (s.val === '100%') { delete _imgSizes[relSrc]; } else { _imgSizes[relSrc] = s.val; }
               if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             };
             imgToolbar.appendChild(b);
@@ -1366,35 +1361,43 @@
           annBtn.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--teal);background:var(--teal-50);color:var(--teal-dark);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px;margin-left:4px;';
           annBtn.onclick = function(ev) {
             ev.stopPropagation();
+            ev.preventDefault();
             if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
             img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
           };
           imgToolbar.appendChild(annBtn);
 
-          // Position below image
-          var imgRect = img.getBoundingClientRect();
-          var wwRect = ww.getBoundingClientRect();
-          imgToolbar.style.left = (imgRect.left - wwRect.left) + 'px';
-          imgToolbar.style.top = (imgRect.bottom - wwRect.top + 4) + 'px';
-          ww.style.position = 'relative';
-          ww.appendChild(imgToolbar);
+          // Insert directly above the image in the DOM (moves with content, not viewport)
+          img.parentNode.insertBefore(imgToolbar, img);
+        }
+
+        ww.addEventListener('click', function(e) {
+          var img = e.target.closest('img');
+          if (imgToolbar && (!img || img !== imgToolbarTarget)) {
+            imgToolbar.remove(); imgToolbar = null; imgToolbarTarget = null;
+          }
+          if (!img) return;
+          if (imgToolbarTarget === img && imgToolbar) return; // already showing
+          showImgToolbar(img);
         });
 
-        // Add visual hint on hover
-        ww.addEventListener('mouseover', function(e) {
-          if (e.target.tagName === 'IMG') {
-            e.target.style.outline = '3px dashed rgba(0,137,123,.5)';
-            e.target.style.cursor = 'pointer';
-            e.target.title = 'Click: resize. Double-click: annotate';
-          }
-        });
-        ww.addEventListener('mouseout', function(e) {
-          if (e.target.tagName === 'IMG') {
-            e.target.style.outline = '';
-            e.target.style.cursor = '';
-            e.target.title = '';
-          }
-        });
+        // Add visual hint on hover (desktop only)
+        if (!isMobile()) {
+          ww.addEventListener('mouseover', function(e) {
+            if (e.target.tagName === 'IMG') {
+              e.target.style.outline = '3px dashed rgba(0,137,123,.5)';
+              e.target.style.cursor = 'pointer';
+              e.target.title = 'Click: resize. Double-click: annotate';
+            }
+          });
+          ww.addEventListener('mouseout', function(e) {
+            if (e.target.tagName === 'IMG') {
+              e.target.style.outline = '';
+              e.target.style.cursor = '';
+              e.target.title = '';
+            }
+          });
+        }
       }, 500);
     }
   }
