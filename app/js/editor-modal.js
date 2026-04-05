@@ -1325,31 +1325,33 @@
           });
         });
         // Image click: show resize/annotate toolbar
-        // Toolbar is appended to ww (outside ProseMirror content) with position:absolute
-        // using offsetTop/offsetLeft relative to the scrollable ww container
+        // Toolbar appended to ww (outside ProseMirror editable content)
+        // Positioned using getBoundingClientRect + scroll offset for reliability
         var imgToolbar = null;
+        var imgToolbarImg = null;
         ww.style.position = 'relative';
 
-        function getOffsetRelativeTo(el, ancestor) {
-          var top = 0, left = 0;
-          while (el && el !== ancestor) {
-            top += el.offsetTop;
-            left += el.offsetLeft;
-            el = el.offsetParent;
-          }
-          return { top: top, left: left };
+        function clearImgToolbar() {
+          if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+          if (imgToolbarImg) { imgToolbarImg.style.outline = ''; imgToolbarImg = null; }
         }
 
         ww.addEventListener('click', function(e) {
           var img = e.target.closest('img');
-          // Remove existing toolbar
-          if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+
+          // Clicking toolbar buttons — don't dismiss
+          if (e.target.closest('[data-img-toolbar]')) return;
+
+          // Clear previous
+          clearImgToolbar();
           if (!img) return;
 
           // Highlight the image
+          imgToolbarImg = img;
           img.style.outline = '3px dashed rgba(0,137,123,.5)';
 
           imgToolbar = document.createElement('div');
+          imgToolbar.setAttribute('data-img-toolbar', '1');
           imgToolbar.style.cssText = 'position:absolute;display:flex;gap:4px;padding:4px 8px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.15);z-index:100;align-items:center;font-family:Inter,sans-serif;flex-wrap:wrap;';
 
           // Size options
@@ -1359,6 +1361,7 @@
             var isActive = currentSize === s.val || (!getImageSize(imgSrc) && s.val === '100%');
             var b = document.createElement('button');
             b.textContent = s.label;
+            b.setAttribute('data-img-toolbar', '1');
             b.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--grey-300);background:' + (isActive ? 'var(--teal)' : '#fff') + ';color:' + (isActive ? '#fff' : 'var(--grey-700)') + ';font-size:11px;cursor:pointer;font-family:inherit;';
             b.onclick = function(ev) {
               ev.stopPropagation();
@@ -1367,8 +1370,7 @@
               var src = resolveRealSrc(img.dataset.realSrc || img.getAttribute('src') || '');
               var relSrc = src.startsWith(MEDIA_BASE) ? src.slice(MEDIA_BASE.length) : src;
               if (s.val === '100%') { delete _imgSizes[relSrc]; } else { _imgSizes[relSrc] = s.val; }
-              img.style.outline = '';
-              if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+              clearImgToolbar();
             };
             imgToolbar.appendChild(b);
           });
@@ -1376,21 +1378,23 @@
           // Annotate button
           var annBtn = document.createElement('button');
           annBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:14px">edit</span> Annotate';
+          annBtn.setAttribute('data-img-toolbar', '1');
           annBtn.style.cssText = 'padding:3px 8px;border-radius:4px;border:1px solid var(--teal);background:var(--teal-50);color:var(--teal-dark);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px;margin-left:4px;';
           annBtn.onclick = function(ev) {
             ev.stopPropagation();
             ev.preventDefault();
-            img.style.outline = '';
-            if (imgToolbar) { imgToolbar.remove(); imgToolbar = null; }
+            clearImgToolbar();
             img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
           };
           imgToolbar.appendChild(annBtn);
 
-          // Position above image using offset (scroll-independent)
-          var pos = getOffsetRelativeTo(img, ww);
-          var toolbarHeight = 36; // approximate
-          imgToolbar.style.left = pos.left + 'px';
-          imgToolbar.style.top = Math.max(0, pos.top - toolbarHeight - 4) + 'px';
+          // Position above image using getBoundingClientRect + ww scroll
+          var imgRect = img.getBoundingClientRect();
+          var wwRect = ww.getBoundingClientRect();
+          var topPos = imgRect.top - wwRect.top + ww.scrollTop - 40;
+          var leftPos = imgRect.left - wwRect.left + ww.scrollLeft;
+          imgToolbar.style.left = Math.max(0, leftPos) + 'px';
+          imgToolbar.style.top = Math.max(0, topPos) + 'px';
           ww.appendChild(imgToolbar);
         });
 
