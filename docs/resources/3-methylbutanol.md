@@ -2,7 +2,7 @@
 type: "reagent"
 title: "3-Methylbutanol"
 location: "Flammable Cabinet"
-quantity: 499
+quantity: 500
 unit: "mL"
 low_stock_threshold: 1
 legacy_inventory_id: 17
