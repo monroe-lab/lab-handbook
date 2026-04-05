@@ -422,10 +422,12 @@
       height: '300px',
       initialValue: prepared,
       usageStatistics: false,
-      toolbarItems: isMobile() ?
-        [['heading', 'bold', 'italic'], ['ul', 'task'], ['link']] :
+      toolbarItems: isMobile() ? [] :
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
+
+    // On mobile: hide native toolbar, add a toggle button to show it on demand
+    if (isMobile()) setupMobileToolbarToggle(editorEl);
 
     // Fix table header cells so they're editable, apply image sizes, set up image fallback
     setupEditorImageFallback(editorEl);
@@ -729,6 +731,35 @@
     } catch(e) {
       window.Lab.showToast('Failed: ' + e.message, 'error');
     }
+  }
+
+  // ── Mobile: hide native toolbar, add a compact toggle ──
+  function setupMobileToolbarToggle(containerEl) {
+    setTimeout(function() {
+      var toolbar = containerEl.querySelector('.toastui-editor-toolbar');
+      if (!toolbar) return;
+      toolbar.style.display = 'none';
+
+      var toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">text_format</span>';
+      toggle.style.cssText = 'position:absolute;top:6px;right:6px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid var(--grey-300);background:#fff;color:var(--grey-600);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.1);';
+      toggle.title = 'Text formatting';
+
+      var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
+      if (editorUI) {
+        editorUI.style.position = 'relative';
+        editorUI.appendChild(toggle);
+      }
+
+      toggle.onclick = function(e) {
+        e.preventDefault();
+        var visible = toolbar.style.display !== 'none';
+        toolbar.style.display = visible ? 'none' : '';
+        toggle.style.background = visible ? '#fff' : 'var(--teal-light)';
+        toggle.style.color = visible ? 'var(--grey-600)' : 'var(--teal-dark)';
+      };
+    }, 300);
   }
 
   // ── Inject category insert pills above any Toast UI editor ──
@@ -1507,8 +1538,7 @@
       height: availableHeight + 'px',
       initialValue: prepared,
       usageStatistics: false,
-      toolbarItems: isMobile() ?
-        [['heading', 'bold', 'italic'], ['ul', 'task'], ['link']] :
+      toolbarItems: isMobile() ? [] :
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
       events: {
         change: function() {
@@ -1528,8 +1558,9 @@
       setTimeout(function() { applyEditorImageSizes(containerEl); }, 700);
     }, 300);
 
-    // Add category insert pills (skip on mobile to save space)
-    if (!isMobile()) injectCategoryPills(containerEl, editor);
+    // On mobile: hide native toolbar, add toggle; always show insert pills
+    if (isMobile()) setupMobileToolbarToggle(containerEl);
+    injectCategoryPills(containerEl, editor);
 
     return {
       editor: editor,
