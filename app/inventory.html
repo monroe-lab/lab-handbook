@@ -116,7 +116,7 @@ tr.low-stock td:first-child::before {
       <option>Bench</option>
     </select>
     <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--grey-600);white-space:nowrap;cursor:pointer">
-      <input type="checkbox" id="lowStockOnly"> Low stock only
+      <input type="checkbox" id="needMoreOnly"> Need More only
     </label>
     <button class="btn btn-primary" id="addBtn" style="display:none" onclick="addItem()">
       <span class="material-icons-outlined">add</span> Add Item
@@ -135,7 +135,7 @@ tr.low-stock td:first-child::before {
     </div>
     <div class="stat-card warning">
       <span class="material-icons-outlined">warning_amber</span>
-      <div><div class="stat-value" id="statLow">-</div><div class="stat-label">Low Stock</div></div>
+      <div><div class="stat-value" id="statLow">-</div><div class="stat-label">Need More</div></div>
     </div>
   </div>
 
@@ -212,6 +212,7 @@ async function loadInventory() {
           location: obj.location || '',
           notes: obj.notes || '',
           lowStockThreshold: obj.low_stock_threshold || 0,
+          needMore: !!obj.need_more,
         };
       });
   } catch(e) {
@@ -230,12 +231,12 @@ function getFiltered() {
   var search = document.getElementById('searchInput').value.toLowerCase();
   var typeFilter = document.getElementById('filterType').value;
   var locFilter = document.getElementById('filterLocation').value;
-  var lowOnly = document.getElementById('lowStockOnly').checked;
+  var needMoreOnly = document.getElementById('needMoreOnly').checked;
 
   var items = inventory.filter(function(item) {
     if (typeFilter && item.type !== typeFilter) return false;
     if (locFilter && item.location !== locFilter) return false;
-    if (lowOnly && !(item.lowStockThreshold && item.quantity <= item.lowStockThreshold)) return false;
+    if (needMoreOnly && !item.needMore) return false;
     if (search) {
       var hay = [item.name, item.typeLabel, item.location, item.notes].join(' ').toLowerCase();
       if (!hay.includes(search)) return false;
@@ -258,7 +259,7 @@ function renderTable() {
   var items = getFiltered();
 
   // Stats
-  var lowCount = inventory.filter(function(i) { return i.lowStockThreshold && i.quantity <= i.lowStockThreshold; }).length;
+  var lowCount = inventory.filter(function(i) { return i.needMore; }).length;
   var types = {};
   inventory.forEach(function(i) { types[i.type] = true; });
   document.getElementById('statTotal').textContent = inventory.length;
@@ -283,9 +284,9 @@ function renderTable() {
   document.getElementById('invTable').style.display = '';
 
   tbody.innerHTML = items.map(function(item) {
-    var isLow = item.lowStockThreshold && item.quantity <= item.lowStockThreshold;
-    return '<tr class="' + (isLow ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
-      '<td><strong>' + Lab.escHtml(item.name) + '</strong>' + (isLow ? ' <span class="badge badge-amber">Low</span>' : '') + '</td>' +
+    var needMore = item.needMore;
+    return '<tr class="' + (needMore ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<td><strong>' + Lab.escHtml(item.name) + '</strong>' + (needMore ? ' <span class="badge badge-amber">Need More</span>' : '') + '</td>' +
       '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
       '<td>' + Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') + '</td>' +
       '<td><span class="badge badge-grey">' + Lab.escHtml(item.location) + '</span></td>' +
@@ -299,9 +300,9 @@ function renderTable() {
   // Mobile cards
   var cardView = document.getElementById('cardView');
   cardView.innerHTML = items.map(function(item) {
-    var isLow = item.lowStockThreshold && item.quantity <= item.lowStockThreshold;
-    return '<div class="inv-card' + (isLow ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
-      '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + (isLow ? ' <span class="badge badge-amber" style="font-size:10px">Low</span>' : '') + '</span>' +
+    var needMore = item.needMore;
+    return '<div class="inv-card' + (needMore ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + (needMore ? ' <span class="badge badge-amber" style="font-size:10px">Need More</span>' : '') + '</span>' +
       '<span class="inv-card-qty">' + item.quantity + (item.unit ? ' ' + item.unit : '') + '</span></div>' +
       '<div class="inv-card-meta"><span>' + Lab.escHtml(item.typeLabel) + '</span><span>' + Lab.escHtml(item.location) + '</span></div></div>';
   }).join('');
@@ -332,12 +333,13 @@ function addItem() {
     location: 'Chemical Cabinet',
     quantity: 0,
     unit: 'each',
-    low_stock_threshold: 0
+    low_stock_threshold: 0,
+    need_more: false
   }, '\n# ' + name + '\n');
 
   Lab.gh.saveFile(path, content, null, 'Add reagent: ' + name).then(function() {
     Lab.showToast('Created: ' + name, 'success');
-    Lab.gh.patchObjectIndex(path, { type: 'reagent', title: name, location: 'Chemical Cabinet', quantity: 0, unit: 'each', low_stock_threshold: 0 });
+    Lab.gh.patchObjectIndex(path, { type: 'reagent', title: name, location: 'Chemical Cabinet', quantity: 0, unit: 'each', low_stock_threshold: 0, need_more: false });
     // Open the new item in editor modal
     Lab.editorModal.open(path);
     // Refresh list
@@ -375,7 +377,7 @@ async function confirmDelete() {
 document.getElementById('searchInput').addEventListener('input', renderTable);
 document.getElementById('filterType').addEventListener('change', renderTable);
 document.getElementById('filterLocation').addEventListener('change', renderTable);
-document.getElementById('lowStockOnly').addEventListener('change', renderTable);
+document.getElementById('needMoreOnly').addEventListener('change', renderTable);
 document.querySelectorAll('.modal-overlay').forEach(function(o) {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });
@@ -401,6 +403,7 @@ window.addEventListener('lab-file-saved', function(e) {
     location: meta.location || '',
     notes: meta.notes || '',
     lowStockThreshold: meta.low_stock_threshold || 0,
+    needMore: !!meta.need_more,
   };
   if (existing) {
     Object.assign(existing, updated);

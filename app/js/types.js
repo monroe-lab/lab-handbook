@@ -25,6 +25,7 @@
         { key: 'quantity',            label: 'Quantity',            type: 'number',  row: 'qty' },
         { key: 'unit',                label: 'Unit',                type: 'select',  options: ['g','mL','L','kg','each','box','pack'], row: 'qty' },
         { key: 'low_stock_threshold', label: 'Low Stock Threshold', type: 'number',  row: 'qty' },
+        { key: 'need_more',          label: 'Need More',            type: 'checkbox' },
       ],
       // Which fields to show in popup card (read-only view)
       displayFields: ['quantity', 'unit', 'location', 'cas', 'notes'],

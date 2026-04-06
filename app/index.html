@@ -111,29 +111,10 @@
 .bulletin-content ul, .bulletin-content ol { padding-left: 24px; }
 .bulletin-content a { color: var(--teal-dark); }
 
-/* Quick links */
-.quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.quick-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: var(--radius);
-  background: var(--grey-50);
-  text-decoration: none;
-  color: var(--grey-800);
-  font-size: 14px;
-  font-weight: 500;
-  transition: background .15s;
-}
-.quick-link:hover { background: var(--teal-light); color: var(--teal-dark); }
-.quick-link .material-icons-outlined { font-size: 20px; color: var(--teal); }
-
 @media (max-width: 768px) {
   .dash { padding: 16px; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-stats { flex-direction: column; }
-  .quick-links { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -150,7 +131,7 @@
     <!-- Low stock alerts -->
     <div class="dash-panel">
       <div class="dash-panel-header">
-        <h2><span class="material-icons-outlined">warning_amber</span> Low Stock Alerts</h2>
+        <h2><span class="material-icons-outlined">warning_amber</span> Need to Order</h2>
       </div>
       <div class="dash-panel-body" id="alertsPanel">
         <div class="loading-state" style="padding:20px"><div class="spinner"></div></div>
@@ -200,15 +181,6 @@
       </div>
     </div>
 
-    <!-- Quick links -->
-    <div class="dash-panel">
-      <div class="dash-panel-header">
-        <h2><span class="material-icons-outlined">launch</span> Quick Links</h2>
-      </div>
-      <div class="dash-panel-body">
-        <div class="quick-links" id="quickLinks"></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -238,7 +210,7 @@ async function loadStats() {
     { label: 'Stocks', count: counts.stock, icon: 'eco', color: '#4caf50', href: BASE + 'app/inventory.html?type=stock' },
     { label: 'People', count: counts.people, icon: 'person', color: '#1565c0', href: '#peoplePanel' },
     { label: 'Projects', count: counts.project, icon: 'folder_special', color: '#e65100', href: '#projectsPanel' },
-    { label: 'Notebooks', count: counts.notebook, icon: 'auto_stories', color: '#795548', href: BASE + 'notebook-app/' },
+    { label: 'Notebooks', count: counts.notebook, icon: 'auto_stories', color: '#795548', href: BASE + 'app/notebooks.html' },
   ];
 
   document.getElementById('dashStats').innerHTML = stats.map(function(s) {
@@ -254,23 +226,23 @@ async function loadStats() {
 // ── Alerts ──
 function loadAlerts(index) {
   var el = document.getElementById('alertsPanel');
-  var lowStock = index.filter(function(obj) {
-    return obj.low_stock_threshold && obj.quantity != null && obj.quantity <= obj.low_stock_threshold;
+  var needMore = index.filter(function(obj) {
+    return obj.need_more;
   });
 
-  if (!lowStock.length) {
+  if (!needMore.length) {
     el.innerHTML = '<div style="color:var(--green);display:flex;align-items:center;gap:6px"><span class="material-icons-outlined" style="font-size:18px">check_circle</span> All stock levels OK</div>';
     return;
   }
 
-  el.innerHTML = lowStock.slice(0, 10).map(function(obj) {
+  el.innerHTML = needMore.slice(0, 10).map(function(obj) {
     var slug = obj.path.replace(/\.md$/, '').split('/').pop();
     return '<div class="alert-item" onclick="Lab.editorModal.open(\'docs/' + obj.path + '\')">' +
       '<span class="alert-dot"></span>' +
       '<span>' + Lab.escHtml(obj.title || slug) + '</span>' +
       '<span class="qty">' + (obj.quantity || 0) + (obj.unit ? ' ' + obj.unit : '') + '</span></div>';
   }).join('') +
-  (lowStock.length > 10 ? '<div style="text-align:center;padding:8px;font-size:13px;color:var(--grey-500)">+' + (lowStock.length - 10) + ' more</div>' : '');
+  (needMore.length > 10 ? '<div style="text-align:center;padding:8px;font-size:13px;color:var(--grey-500)">+' + (needMore.length - 10) + ' more</div>' : '');
 }
 
 // ── Activity ──
@@ -366,24 +338,8 @@ function loadProjects(index) {
   }).join('');
 }
 
-// ── Quick Links ──
-function renderQuickLinks() {
-  var links = [
-    { label: 'Protocols', icon: 'menu_book', href: BASE + 'app/protocols.html' },
-    { label: 'Inventory', icon: 'science', href: BASE + 'app/inventory.html' },
-    { label: 'Sample Tracker', icon: 'biotech', href: BASE + 'sample-tracker/' },
-    { label: 'Lab Notebooks', icon: 'edit_note', href: BASE + 'notebook-app/' },
-    { label: 'Calendar', icon: 'calendar_month', href: BASE + 'calendar/' },
-    { label: 'Chemical Inventory (EHS)', icon: 'health_and_safety', href: BASE + 'app/protocols.html?doc=lab-safety/chemical-inventory' },
-  ];
-  document.getElementById('quickLinks').innerHTML = links.map(function(l) {
-    return '<a href="' + l.href + '" class="quick-link"><span class="material-icons-outlined">' + l.icon + '</span>' + l.label + '</a>';
-  }).join('');
-}
-
 // ── Init ──
 async function init() {
-  renderQuickLinks();
   var index = await loadStats();
   loadAlerts(index);
   loadPeople(index);

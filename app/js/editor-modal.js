@@ -414,10 +414,19 @@
             input += '<option value="' + opt + '"' + (String(val) === opt ? ' selected' : '') + '>' + opt + '</option>';
           });
           input += '</select>';
+        } else if (field.type === 'checkbox') {
+          input = '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0">' +
+            '<input type="checkbox" id="' + id + '" class="em-field-input" data-key="' + field.key + '"' + (val ? ' checked' : '') + ' style="width:18px;height:18px;cursor:pointer">' +
+            '<span style="font-size:14px;font-weight:500;color:var(--grey-700)">' + field.label + '</span></label>';
         } else if (field.type === 'number') {
           input = '<input type="number" id="' + id + '" class="em-field-input" data-key="' + field.key + '" value="' + val + '" step="any" min="0">';
         } else {
           input = '<input type="text" id="' + id + '" class="em-field-input" data-key="' + field.key + '" value="' + window.Lab.escHtml(String(val)) + '"' + (field.required ? ' required' : '') + '>';
+        }
+        if (field.type === 'checkbox') {
+          if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
+          html += input;
+          return;
         }
         var isSmall = field.type === 'number' || field.key === 'unit';
         if (isSmall) {
@@ -432,6 +441,13 @@
         }
       } else {
         // Read-only display
+        if (field.type === 'checkbox') {
+          if (!val) return;
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
+            '<span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:#c62828;background:#ffebee;">' + field.label + '</span>' +
+            '</div>';
+          return;
+        }
         if (val === '' || val === undefined) return;
         html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
           '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
@@ -507,7 +523,8 @@
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
         var val = input.value;
-        if (input.type === 'number' && val !== '') val = parseFloat(val);
+        if (input.type === 'checkbox') { val = input.checked; }
+        else if (input.type === 'number' && val !== '') val = parseFloat(val);
         currentState.meta[key] = val;
       });
     }
@@ -538,7 +555,8 @@
     document.querySelectorAll('.em-field-input').forEach(function(input) {
       var key = input.dataset.key;
       var val = input.value;
-      if (input.type === 'number' && val !== '') val = parseFloat(val);
+      if (input.type === 'checkbox') { val = input.checked; }
+      else if (input.type === 'number' && val !== '') val = parseFloat(val);
       currentState.meta[key] = val;
     });
 

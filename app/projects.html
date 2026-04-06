@@ -341,7 +341,7 @@ function populateNotebooks(linkedSlugs) {
   el.innerHTML = personSlugs.map(function(slug) {
     var person = objectIndex.find(function(o) { return o.type === 'person' && o.path.includes(slug); });
     var name = person ? person.title : slug;
-    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'notebook-app/\'">' +
+    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'app/notebooks.html\'">' +
       '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-500)">edit_note</span>' +
       '<span>' + Lab.escHtml(name) + '\'s Notebook</span></div>';
   }).join('');

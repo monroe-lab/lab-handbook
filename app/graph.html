@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Graph - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.graph-page {
+  height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  background: #1a1a2e;
+  overflow: hidden;
+}
+.graph-container {
+  flex: 1;
+  position: relative;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.graph-legend {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(0,0,0,.7);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: #ccc;
+}
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.graph-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.graph-title {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  color: rgba(255,255,255,.7);
+  font-size: 14px;
+  font-weight: 600;
+}
+.graph-count {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: rgba(255,255,255,.4);
+  font-size: 13px;
+}
+@media (max-width: 768px) {
+  .graph-page { height: calc(100vh - var(--nav-height) - var(--bottom-nav-height)); }
+  .graph-legend { bottom: 8px; left: 8px; right: 8px; justify-content: center; }
+}
+</style>
+</head>
+<body>
+<div class="graph-page">
+  <div class="graph-container">
+    <canvas id="graphCanvas"></canvas>
+    <div class="graph-title">Monroe Lab Knowledge Graph</div>
+    <div class="graph-count" id="graphCount"></div>
+    <div class="graph-legend" id="legend"></div>
+  </div>
+</div>
+
+<script src="js/lab.js"></script>
+<script>
+// Simple force-directed graph using canvas (no d3 dependency)
+var canvas = document.getElementById('graphCanvas');
+var ctx = canvas.getContext('2d');
+var nodes = [];
+var edges = [];
+var dpr = window.devicePixelRatio || 1;
+var W, H;
+var dragging = null;
+var offsetX = 0, offsetY = 0;
+var mouseX = 0, mouseY = 0;
+
+function resize() {
+  var rect = canvas.parentElement.getBoundingClientRect();
+  W = rect.width;
+  H = rect.height;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resize();
+window.addEventListener('resize', resize);
+
+async function loadGraph() {
+  var index = await Lab.gh.fetchObjectIndex();
+  if (!index || !index.length) return;
+
+  // Build nodes from object index
+  var typeConfig = Lab.types.getTypeConfig();
+  var nodeMap = {};
+
+  index.forEach(function(obj) {
+    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+    var tc = typeConfig[obj.type] || { color: '#616161', icon: '', label: 'Other' };
+    nodeMap[slug] = {
+      slug: slug,
+      title: obj.title || slug,
+      type: obj.type,
+      color: tc.color,
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: 0,
+      vy: 0,
+      radius: 4,
+      links: 0,
+    };
+  });
+
+  nodes = Object.values(nodeMap);
+
+  // Try to load link index for edges
+  try {
+    var base = Lab.BASE || '/lab-handbook/';
+    var resp = await fetch(base + 'link-index.json?_=' + Date.now());
+    if (resp.ok) {
+      var links = await resp.json();
+      links.forEach(function(l) {
+        var sourceSlug = l.source.split('/').pop();
+        var targetSlug = l.target.split('/').pop();
+        if (nodeMap[sourceSlug] && nodeMap[targetSlug] && sourceSlug !== targetSlug) {
+          edges.push({ source: nodeMap[sourceSlug], target: nodeMap[targetSlug] });
+          nodeMap[sourceSlug].links++;
+          nodeMap[targetSlug].links++;
+        }
+      });
+    }
+  } catch(e) {
+    // No link index yet — just show nodes without edges
+  }
+
+  // Scale node radius by link count
+  nodes.forEach(function(n) {
+    n.radius = Math.min(3 + n.links * 1.5, 14);
+  });
+
+  // Stats
+  document.getElementById('graphCount').textContent = nodes.length + ' objects, ' + edges.length + ' connections';
+
+  // Legend
+  var seen = {};
+  var legendHtml = '';
+  nodes.forEach(function(n) {
+    if (seen[n.type]) return;
+    seen[n.type] = true;
+    var tc = typeConfig[n.type] || { color: '#616161', label: n.type };
+    legendHtml += '<div class="graph-legend-item"><div class="graph-legend-dot" style="background:' + tc.color + '"></div>' + tc.label + '</div>';
+  });
+  document.getElementById('legend').innerHTML = legendHtml;
+
+  // Start simulation
+  simulate();
+}
+
+function simulate() {
+  var alpha = 1;
+  var decay = 0.995;
+  var repulsion = 800;
+  var attraction = 0.005;
+  var centerGravity = 0.02;
+
+  function tick() {
+    alpha *= decay;
+    if (alpha < 0.001 && !dragging) { draw(); return; }
+
+    // Center gravity
+    nodes.forEach(function(n) {
+      n.vx += (W / 2 - n.x) * centerGravity;
+      n.vy += (H / 2 - n.y) * centerGravity;
+    });
+
+    // Repulsion (Barnes-Hut approximation: only nearby nodes for performance)
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[j].x - nodes[i].x;
+        var dy = nodes[j].y - nodes[i].y;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (dist > 200) continue;
+        var force = repulsion / (dist * dist);
+        var fx = dx / dist * force;
+        var fy = dy / dist * force;
+        nodes[i].vx -= fx;
+        nodes[i].vy -= fy;
+        nodes[j].vx += fx;
+        nodes[j].vy += fy;
+      }
+    }
+
+    // Edge attraction
+    edges.forEach(function(e) {
+      var dx = e.target.x - e.source.x;
+      var dy = e.target.y - e.source.y;
+      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      var force = dist * attraction;
+      var fx = dx / dist * force;
+      var fy = dy / dist * force;
+      e.source.vx += fx;
+      e.source.vy += fy;
+      e.target.vx -= fx;
+      e.target.vy -= fy;
+    });
+
+    // Apply velocities with damping
+    nodes.forEach(function(n) {
+      if (n === dragging) return;
+      n.vx *= 0.6;
+      n.vy *= 0.6;
+      n.x += n.vx * alpha;
+      n.y += n.vy * alpha;
+      // Keep in bounds
+      n.x = Math.max(n.radius, Math.min(W - n.radius, n.x));
+      n.y = Math.max(n.radius, Math.min(H - n.radius, n.y));
+    });
+
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  tick();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Edges
+  ctx.lineWidth = 0.5;
+  ctx.strokeStyle = 'rgba(255,255,255,.08)';
+  edges.forEach(function(e) {
+    ctx.beginPath();
+    ctx.moveTo(e.source.x, e.source.y);
+    ctx.lineTo(e.target.x, e.target.y);
+    ctx.stroke();
+  });
+
+  // Nodes
+  nodes.forEach(function(n) {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+    ctx.fillStyle = n.color + 'cc';
+    ctx.fill();
+  });
+
+  // Hover label
+  if (hoverNode) {
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.fillText(hoverNode.title, hoverNode.x, hoverNode.y - hoverNode.radius - 6);
+  }
+}
+
+var hoverNode = null;
+
+function findNode(x, y) {
+  for (var i = nodes.length - 1; i >= 0; i--) {
+    var n = nodes[i];
+    var dx = x - n.x, dy = y - n.y;
+    if (dx * dx + dy * dy <= (n.radius + 4) * (n.radius + 4)) return n;
+  }
+  return null;
+}
+
+canvas.addEventListener('mousemove', function(e) {
+  var rect = canvas.getBoundingClientRect();
+  mouseX = e.clientX - rect.left;
+  mouseY = e.clientY - rect.top;
+  hoverNode = findNode(mouseX, mouseY);
+  canvas.style.cursor = hoverNode ? 'pointer' : 'default';
+  if (dragging) {
+    dragging.x = mouseX;
+    dragging.y = mouseY;
+  }
+  draw();
+});
+
+canvas.addEventListener('mousedown', function(e) {
+  var rect = canvas.getBoundingClientRect();
+  var n = findNode(e.clientX - rect.left, e.clientY - rect.top);
+  if (n) dragging = n;
+});
+
+canvas.addEventListener('mouseup', function() {
+  if (dragging) {
+    dragging.vx = 0;
+    dragging.vy = 0;
+    dragging = null;
+    simulate(); // restart simulation briefly
+  }
+});
+
+canvas.addEventListener('click', function(e) {
+  var rect = canvas.getBoundingClientRect();
+  var n = findNode(e.clientX - rect.left, e.clientY - rect.top);
+  if (n && Lab.editorModal) {
+    // Find the full path from the index
+    Lab.gh.fetchObjectIndex().then(function(index) {
+      var obj = index.find(function(o) {
+        return o.path.replace(/\.md$/, '').split('/').pop() === n.slug;
+      });
+      if (obj) Lab.editorModal.open('docs/' + obj.path);
+    });
+  }
+});
+
+// Touch support
+canvas.addEventListener('touchstart', function(e) {
+  if (e.touches.length === 1) {
+    var rect = canvas.getBoundingClientRect();
+    var t = e.touches[0];
+    var n = findNode(t.clientX - rect.left, t.clientY - rect.top);
+    if (n) { dragging = n; e.preventDefault(); }
+  }
+}, { passive: false });
+canvas.addEventListener('touchmove', function(e) {
+  if (dragging && e.touches.length === 1) {
+    var rect = canvas.getBoundingClientRect();
+    dragging.x = e.touches[0].clientX - rect.left;
+    dragging.y = e.touches[0].clientY - rect.top;
+    draw();
+    e.preventDefault();
+  }
+}, { passive: false });
+canvas.addEventListener('touchend', function() {
+  if (dragging) { dragging.vx = 0; dragging.vy = 0; dragging = null; simulate(); }
+});
+
+loadGraph();
+</script>
+</body>
+</html>
