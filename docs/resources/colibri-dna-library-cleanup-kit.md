@@ -5,9 +5,9 @@ location: "Refrigerator"
 quantity: 96
 unit: "each"
 low_stock_threshold: 0
-need_more: true
+need_more: false
 created_at: "2026-04-07T16:42:53.765Z"
-updated_at: "2026-04-07T16:45:05.799Z"
+updated_at: "2026-04-07T16:54:36.876Z"
 created_by: "greymonroe"
 ---
 # Colibri DNA Library Cleanup Kit
