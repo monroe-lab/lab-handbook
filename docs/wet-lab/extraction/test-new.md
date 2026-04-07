@@ -10,14 +10,14 @@ new stuff testing new again
 
 <br>
 <br>
-<img src="images/17754092775328178953306825547110.jpg" alt="17754092775328178953306825547110.jpg" style="max-width:75%">
-
+<br>
+<br>
 <img src="images/1000009784-annotated.png" alt="1000009784" style="max-width:50%">
 
 <br>
 <br>
-<img src="images/1000009796.jpg" alt="1000009796" style="max-width:25%">
-
+<br>
+<br>
 <br>
 <img src="images/1000009831-annotated.png" alt="1000009831" style="max-width:75%">
 
@@ -25,7 +25,7 @@ new stuff testing new again
 [[clean-bench]]
 
 > ⚠️ **Warning**
-> [[kehan-zhao]]
+> 
 > [[1-8-naphthalic-anhydride]]
 
 [[1-8-naphthalic-anhydride]]
