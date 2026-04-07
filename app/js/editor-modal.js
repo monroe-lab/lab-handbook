@@ -386,6 +386,61 @@
     }
   }
 
+  // ── Container row rendering / collection ──
+  var CONTAINER_LOCATIONS = ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'];
+  var CONTAINER_UNITS = ['g','mL','L','kg','each','box','pack'];
+
+  function renderContainerRow(fieldKey, c, idx) {
+    c = c || {};
+    var esc = window.Lab.escHtml;
+    function selectHtml(name, opts, val) {
+      return '<select data-cfield="' + name + '" style="padding:4px 6px;font-size:13px">' +
+        '<option value=""></option>' +
+        opts.map(function(o) { return '<option value="' + o + '"' + (val === o ? ' selected' : '') + '>' + o + '</option>'; }).join('') +
+        '</select>';
+    }
+    return '<div class="em-container-row" data-idx="' + idx + '" style="display:grid;grid-template-columns:1.5fr 0.7fr 0.7fr 1fr 1fr auto;gap:6px;align-items:center;margin-bottom:4px">' +
+      selectHtml('location', CONTAINER_LOCATIONS, c.location || '') +
+      '<input type="number" data-cfield="quantity" value="' + esc(String(c.quantity == null ? '' : c.quantity)) + '" placeholder="Qty" step="any" min="0" style="padding:4px 6px;font-size:13px">' +
+      selectHtml('unit', CONTAINER_UNITS, c.unit || '') +
+      '<input type="text" data-cfield="lot" value="' + esc(c.lot || '') + '" placeholder="Lot #" style="padding:4px 6px;font-size:13px">' +
+      '<input type="date" data-cfield="expiration" value="' + esc(c.expiration || '') + '" style="padding:4px 6px;font-size:13px">' +
+      '<button type="button" onclick="Lab.editorModal._removeContainer(this)" title="Remove" style="background:none;border:none;color:var(--grey-500);cursor:pointer;padding:2px"><span class="material-icons-outlined" style="font-size:18px">close</span></button>' +
+      '</div>';
+  }
+
+  function addContainerRow(fieldKey) {
+    var wrap = document.getElementById('em-containers-' + fieldKey);
+    if (!wrap) return;
+    var idx = wrap.querySelectorAll('.em-container-row').length;
+    wrap.insertAdjacentHTML('beforeend', renderContainerRow(fieldKey, {}, idx));
+  }
+
+  function removeContainerRow(btn) {
+    var row = btn.closest('.em-container-row');
+    if (row) row.remove();
+  }
+
+  function collectContainers(meta) {
+    document.querySelectorAll('[data-container-list]').forEach(function(wrap) {
+      var key = wrap.getAttribute('data-container-list');
+      var rows = wrap.querySelectorAll('.em-container-row');
+      var arr = [];
+      rows.forEach(function(r) {
+        var c = {};
+        r.querySelectorAll('[data-cfield]').forEach(function(input) {
+          var k = input.getAttribute('data-cfield');
+          var v = input.value;
+          if (v === '') return;
+          if (input.type === 'number') v = parseFloat(v);
+          c[k] = v;
+        });
+        if (Object.keys(c).length) arr.push(c);
+      });
+      meta[key] = arr;
+    });
+  }
+
   function renderFields(meta, editable) {
     var type = meta.type || 'reagent';
     var schema = getSchema(type);
@@ -405,6 +460,50 @@
 
       var val = meta[field.key] !== undefined ? meta[field.key] : '';
       var id = 'em-f-' + field.key;
+
+      // Read-only audit metadata: shown in view mode and edit mode, never edited
+      if (field.type === 'meta_readonly') {
+        if (val === '' || val === undefined || val === null) return;
+        if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
+        var displayVal = String(val);
+        if (field.key === 'created_at' || field.key === 'updated_at') {
+          var d = new Date(val);
+          if (!isNaN(d.getTime())) displayVal = d.toLocaleString();
+        }
+        html += '<div style="display:flex;gap:8px;margin-bottom:4px;font-size:12px;color:var(--grey-500)">' +
+          '<span style="min-width:80px">' + field.label + '</span>' +
+          '<span>' + window.Lab.escHtml(displayVal) + '</span></div>';
+        return;
+      }
+
+      // Container list: repeating rows of {location, quantity, unit, lot, expiration}
+      if (field.type === 'container_list') {
+        if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
+        var containers = Array.isArray(val) ? val : [];
+        if (editable) {
+          html += '<div class="form-group" data-container-list="' + field.key + '">' +
+            '<label>' + field.label + ' <span style="font-weight:400;color:var(--grey-500);font-size:12px">(individual bottles/boxes/kits)</span></label>' +
+            '<div class="em-containers" id="em-containers-' + field.key + '">' +
+              containers.map(function(c, idx) { return renderContainerRow(field.key, c, idx); }).join('') +
+            '</div>' +
+            '<button type="button" class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:4px 10px" onclick="Lab.editorModal._addContainer(\'' + field.key + '\')">' +
+              '<span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">add</span> Add container</button>' +
+            '</div>';
+        } else if (containers.length) {
+          html += '<div style="margin-bottom:8px"><div style="font-size:12px;color:var(--grey-500);margin-bottom:4px">' + field.label + '</div>' +
+            '<table style="width:100%;font-size:13px;border-collapse:collapse">' +
+            '<thead><tr style="color:var(--grey-500);text-align:left"><th style="padding:2px 4px">Location</th><th style="padding:2px 4px">Qty</th><th style="padding:2px 4px">Lot</th><th style="padding:2px 4px">Expiration</th></tr></thead>' +
+            '<tbody>' +
+            containers.map(function(c) {
+              return '<tr><td style="padding:2px 4px">' + window.Lab.escHtml(c.location || '') + '</td>' +
+                '<td style="padding:2px 4px">' + window.Lab.escHtml(String(c.quantity || '')) + (c.unit ? ' ' + window.Lab.escHtml(c.unit) : '') + '</td>' +
+                '<td style="padding:2px 4px">' + window.Lab.escHtml(c.lot || '') + '</td>' +
+                '<td style="padding:2px 4px">' + window.Lab.escHtml(c.expiration || '') + '</td></tr>';
+            }).join('') +
+            '</tbody></table></div>';
+        }
+        return;
+      }
 
       if (editable) {
         var input = '';
@@ -527,6 +626,7 @@
         else if (input.type === 'number' && val !== '') val = parseFloat(val);
         currentState.meta[key] = val;
       });
+      collectContainers(currentState.meta);
     }
 
     currentState.editing = false;
@@ -559,6 +659,7 @@
       else if (input.type === 'number' && val !== '') val = parseFloat(val);
       currentState.meta[key] = val;
     });
+    collectContainers(currentState.meta);
 
     // Get markdown from editor (restore wikilink pills to [[slug]] syntax)
     if (currentEditor) {
@@ -572,6 +673,15 @@
         currentState.meta[f.key] = f.value;
       }
     });
+
+    // Audit stamps: always update updated_at; backfill created_at/created_by for legacy items
+    var nowIso = new Date().toISOString();
+    currentState.meta.updated_at = nowIso;
+    if (!currentState.meta.created_at) currentState.meta.created_at = nowIso;
+    if (!currentState.meta.created_by) {
+      var u = window.Lab.gh && window.Lab.gh.getUser && window.Lab.gh.getUser();
+      if (u && u.login) currentState.meta.created_by = u.login;
+    }
 
     // Build full content
     var content = window.Lab.buildFrontmatter(currentState.meta, currentState.body);
@@ -1945,5 +2055,7 @@
     _insertLink: insertLink,
     _createAndInsert: createAndInsertLink,
     _openLinkForTextarea: openLinkForTextarea,
+    _addContainer: addContainerRow,
+    _removeContainer: removeContainerRow,
   };
 })();

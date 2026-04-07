@@ -21,16 +21,20 @@
       fields: [
         { key: 'title',               label: 'Name',                type: 'text',   required: true },
         { key: 'type',                label: 'Type',                type: 'select',  options: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'] },
-        { key: 'location',            label: 'Location',            type: 'select',  options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
+        { key: 'location',            label: 'Default Location',    type: 'select',  options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
         { key: 'quantity',            label: 'Quantity',            type: 'number',  row: 'qty' },
         { key: 'unit',                label: 'Unit',                type: 'select',  options: ['g','mL','L','kg','each','box','pack'], row: 'qty' },
         { key: 'low_stock_threshold', label: 'Low Stock Threshold', type: 'number',  row: 'qty' },
-        { key: 'need_more',          label: 'Need More',            type: 'checkbox' },
+        { key: 'containers',          label: 'Containers',          type: 'container_list' },
+        { key: 'need_more',           label: 'Need More',           type: 'checkbox' },
+        { key: 'created_at',          label: 'Created',             type: 'meta_readonly' },
+        { key: 'created_by',          label: 'Created by',          type: 'meta_readonly' },
+        { key: 'updated_at',          label: 'Updated',             type: 'meta_readonly' },
       ],
       // Which fields to show in popup card (read-only view)
-      displayFields: ['quantity', 'unit', 'location', 'cas', 'notes'],
+      displayFields: ['quantity', 'unit', 'location', 'containers', 'cas', 'notes', 'updated_at'],
       // Which fields to show as table columns
-      tableColumns: ['name', 'type', 'quantity', 'location', 'notes'],
+      tableColumns: ['name', 'type', 'quantity', 'location', 'notes', 'updated_at'],
     },
     buffer: {
       color: '#e65100',

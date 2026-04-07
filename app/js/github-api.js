@@ -175,7 +175,8 @@
     'type', 'title', 'location', 'quantity', 'unit', 'low_stock_threshold',
     'category', 'cas', 'notes', 'role', 'email', 'organism', 'stock_type',
     'source', 'genotype', 'status', 'pi', 'funding', 'date', 'author',
-    'legacy_inventory_id'
+    'legacy_inventory_id', 'containers',
+    'created_at', 'created_by', 'updated_at', 'need_more'
   ];
 
   function getLocalPatches() {

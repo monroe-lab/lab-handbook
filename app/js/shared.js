@@ -108,34 +108,90 @@
     return btoa(unescape(encodeURIComponent(content)));
   }
 
-  // Parse YAML frontmatter from markdown content
+  // Coerce a raw YAML scalar string to JS value
+  function coerceScalar(val) {
+    val = val.trim();
+    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      return val.slice(1, -1);
+    }
+    if (val === 'true') return true;
+    if (val === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(val)) return parseFloat(val);
+    return val;
+  }
+
+  // Parse YAML frontmatter from markdown content.
+  // Supports scalars and one nested shape: a key whose value is a list of mappings, e.g.
+  //   containers:
+  //     - location: Bench
+  //       quantity: 2
+  //     - location: Freezer -20C
+  //       quantity: 5
   function parseFrontmatter(content) {
     var match = content.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
     if (!match) return { meta: {}, body: content };
     var meta = {};
-    match[1].split('\n').forEach(function(line) {
-      var m = line.match(/^(\w[\w_]*)\s*:\s*(.*)$/);
-      if (m) {
-        var val = m[2].trim();
-        // Strip quotes
-        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-          val = val.slice(1, -1);
+    var lines = match[1].split('\n');
+    var i = 0;
+    while (i < lines.length) {
+      var line = lines[i];
+      // List-of-mappings header: "key:" with no value, followed by indented "- key: val" lines
+      var header = line.match(/^(\w[\w_]*)\s*:\s*$/);
+      if (header && i + 1 < lines.length && /^\s+-\s/.test(lines[i + 1])) {
+        var listKey = header[1];
+        var arr = [];
+        i++;
+        var current = null;
+        while (i < lines.length && /^\s+(-\s|\s)/.test(lines[i])) {
+          var itemStart = lines[i].match(/^\s+-\s+(\w[\w_]*)\s*:\s*(.*)$/);
+          var itemCont  = lines[i].match(/^\s+(\w[\w_]*)\s*:\s*(.*)$/);
+          if (itemStart) {
+            if (current) arr.push(current);
+            current = {};
+            current[itemStart[1]] = coerceScalar(itemStart[2]);
+          } else if (itemCont && current) {
+            current[itemCont[1]] = coerceScalar(itemCont[2]);
+          }
+          i++;
         }
-        // Parse numbers
-        if (/^\d+(\.\d+)?$/.test(val)) val = parseFloat(val);
-        meta[m[1]] = val;
+        if (current) arr.push(current);
+        meta[listKey] = arr;
+        continue;
       }
-    });
+      var m = line.match(/^(\w[\w_]*)\s*:\s*(.*)$/);
+      if (m) meta[m[1]] = coerceScalar(m[2]);
+      i++;
+    }
     return { meta: meta, body: match[2] };
   }
 
-  // Serialize metadata back to YAML frontmatter + body
+  // Serialize metadata back to YAML frontmatter + body. Supports scalars and
+  // arrays of plain objects (rendered as a YAML list of mappings).
   function buildFrontmatter(meta, body) {
     var lines = ['---'];
     Object.keys(meta).forEach(function(key) {
       var val = meta[key];
       if (val === undefined || val === null || val === '') return;
-      if (typeof val === 'number') {
+      if (Array.isArray(val)) {
+        if (val.length === 0) return;
+        lines.push(key + ':');
+        val.forEach(function(item) {
+          if (item && typeof item === 'object') {
+            var first = true;
+            Object.keys(item).forEach(function(k) {
+              var v = item[k];
+              if (v === undefined || v === null || v === '') return;
+              var serialized = (typeof v === 'number' || typeof v === 'boolean')
+                ? String(v)
+                : '"' + String(v).replace(/"/g, '\\"') + '"';
+              lines.push((first ? '  - ' : '    ') + k + ': ' + serialized);
+              first = false;
+            });
+          }
+        });
+        return;
+      }
+      if (typeof val === 'number' || typeof val === 'boolean') {
         lines.push(key + ': ' + val);
       } else {
         lines.push(key + ': "' + String(val).replace(/"/g, '\\"') + '"');

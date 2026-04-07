@@ -151,6 +151,7 @@ tr.low-stock td:first-child::before {
             <th onclick="setSort('quantity')">Qty <span class="sort-arrow" id="sort-quantity"></span></th>
             <th onclick="setSort('location')">Location <span class="sort-arrow" id="sort-location"></span></th>
             <th class="hide-mobile">Notes</th>
+            <th class="hide-mobile" onclick="setSort('updatedAt')">Updated <span class="sort-arrow" id="sort-updatedAt"></span></th>
             <th style="width:80px">Actions</th>
           </tr>
         </thead>
@@ -165,6 +166,73 @@ tr.low-stock td:first-child::before {
   <!-- Mobile cards -->
   <div class="inv-cards" id="cardView"></div>
 
+</div>
+
+<!-- Add item modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <h2>New Inventory Item</h2>
+      <button class="modal-close" onclick="closeAddModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="addName" placeholder="e.g. Qiagen DNeasy Plant Kit">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Type</label>
+          <select id="addType">
+            <option value="reagent">Reagent</option>
+            <option value="buffer">Buffer/Solution</option>
+            <option value="consumable">Consumable</option>
+            <option value="kit">Kit</option>
+            <option value="enzyme">Enzyme</option>
+            <option value="chemical">Chemical</option>
+            <option value="equipment">Equipment</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <select id="addLocation">
+            <option>Chemical Cabinet</option>
+            <option>Corrosive Cabinet</option>
+            <option>Flammable Cabinet</option>
+            <option>Hazardous Cabinet</option>
+            <option>Refrigerator</option>
+            <option>Freezer -20C</option>
+            <option>Freezer -80C</option>
+            <option>Bench</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" id="addQuantity" value="1" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label>Unit</label>
+          <select id="addUnit">
+            <option value="each">each</option>
+            <option value="g">g</option>
+            <option value="mL">mL</option>
+            <option value="L">L</option>
+            <option value="kg">kg</option>
+            <option value="box">box</option>
+            <option value="pack">pack</option>
+          </select>
+        </div>
+      </div>
+      <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0">
+        After creating, you can open the item to add multiple containers (different bottles, lots, expirations).
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmAdd()">Create</button>
+    </div>
+  </div>
 </div>
 
 <!-- Delete confirmation modal -->
@@ -193,28 +261,64 @@ var sortCol = 'name';
 var sortDir = 1;
 var deletingItem = null;
 
+// Map an object-index entry to a row used by the table.
+// Rolls up containers[] for quantity and location display when present.
+function toInventoryRow(obj) {
+  var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+  var containers = Array.isArray(obj.containers) ? obj.containers : [];
+  var quantity, unit, location;
+  if (containers.length) {
+    var totals = {};
+    containers.forEach(function(c) {
+      var u = c.unit || obj.unit || '';
+      var q = parseFloat(c.quantity) || 0;
+      totals[u] = (totals[u] || 0) + q;
+    });
+    var units = Object.keys(totals);
+    if (units.length === 1) { quantity = totals[units[0]]; unit = units[0]; }
+    else { quantity = containers.length; unit = 'containers'; }
+    var locs = {};
+    containers.forEach(function(c) { if (c.location) locs[c.location] = true; });
+    var locKeys = Object.keys(locs);
+    location = locKeys.length === 1 ? locKeys[0] : locKeys.length > 1 ? (locKeys.length + ' locations') : (obj.location || '');
+  } else {
+    quantity = obj.quantity || 0;
+    unit = obj.unit || '';
+    location = obj.location || '';
+  }
+  return {
+    slug: slug,
+    path: obj.path,
+    name: obj.title || slug,
+    type: obj.type,
+    typeLabel: typeLabel(obj.type),
+    quantity: quantity,
+    unit: unit,
+    location: location,
+    containerCount: containers.length,
+    notes: obj.notes || '',
+    lowStockThreshold: obj.low_stock_threshold || 0,
+    needMore: !!obj.need_more,
+    updatedAt: obj.updated_at || '',
+    createdAt: obj.created_at || '',
+    createdBy: obj.created_by || '',
+  };
+}
+
+function formatDateShort(iso) {
+  if (!iso) return '';
+  var d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleDateString();
+}
+
 // ── Load ──
 async function loadInventory() {
   try {
     var index = await Lab.gh.fetchObjectIndex();
     inventory = index
       .filter(function(obj) { return isInventoryType(obj.type); })
-      .map(function(obj) {
-        var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-        return {
-          slug: slug,
-          path: obj.path,
-          name: obj.title || slug,
-          type: obj.type,
-          typeLabel: typeLabel(obj.type),
-          quantity: obj.quantity || 0,
-          unit: obj.unit || '',
-          location: obj.location || '',
-          notes: obj.notes || '',
-          lowStockThreshold: obj.low_stock_threshold || 0,
-          needMore: !!obj.need_more,
-        };
-      });
+      .map(toInventoryRow);
   } catch(e) {
     Lab.showToast('Failed to load inventory: ' + e.message, 'error');
     inventory = [];
@@ -285,12 +389,15 @@ function renderTable() {
 
   tbody.innerHTML = items.map(function(item) {
     var needMore = item.needMore;
+    var qtyHtml = Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') +
+      (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' containers)</span>' : '');
     return '<tr class="' + (needMore ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
       '<td><strong>' + Lab.escHtml(item.name) + '</strong>' + (needMore ? ' <span class="badge badge-amber">Need More</span>' : '') + '</td>' +
       '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
-      '<td>' + Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') + '</td>' +
+      '<td>' + qtyHtml + '</td>' +
       '<td><span class="badge badge-grey">' + Lab.escHtml(item.location) + '</span></td>' +
       '<td class="hide-mobile" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.notes) + '</td>' +
+      '<td class="hide-mobile" style="font-size:12px;color:var(--grey-500);white-space:nowrap">' + Lab.escHtml(formatDateShort(item.updatedAt)) + '</td>' +
       '<td><div class="row-actions">' +
         '<button onclick="event.stopPropagation();openItem(\'' + Lab.escHtml(item.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button>' +
         '<button class="del" onclick="event.stopPropagation();openDeleteModal(\'' + Lab.escHtml(item.slug) + '\')" title="Delete"><span class="material-icons-outlined">delete</span></button>' +
@@ -323,26 +430,48 @@ function openItem(slug) {
 
 // ── Add new item ──
 function addItem() {
-  var name = prompt('New item name:');
-  if (!name) return;
+  document.getElementById('addName').value = '';
+  document.getElementById('addType').value = 'reagent';
+  document.getElementById('addLocation').value = 'Chemical Cabinet';
+  document.getElementById('addQuantity').value = '1';
+  document.getElementById('addUnit').value = 'each';
+  document.getElementById('addModal').classList.add('open');
+  setTimeout(function() { document.getElementById('addName').focus(); }, 50);
+}
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+function confirmAdd() {
+  var name = document.getElementById('addName').value.trim();
+  if (!name) { Lab.showToast('Name is required', 'error'); return; }
+  var type = document.getElementById('addType').value;
+  var location = document.getElementById('addLocation').value;
+  var quantity = parseFloat(document.getElementById('addQuantity').value) || 0;
+  var unit = document.getElementById('addUnit').value;
+
   var slug = Lab.slugify(name);
   var path = 'docs/resources/' + slug + '.md';
-  var content = Lab.buildFrontmatter({
-    type: 'reagent',
+  var nowIso = new Date().toISOString();
+  var user = Lab.gh.getUser && Lab.gh.getUser();
+  var meta = {
+    type: type,
     title: name,
-    location: 'Chemical Cabinet',
-    quantity: 0,
-    unit: 'each',
+    location: location,
+    quantity: quantity,
+    unit: unit,
     low_stock_threshold: 0,
-    need_more: false
-  }, '\n# ' + name + '\n');
+    need_more: false,
+    created_at: nowIso,
+    updated_at: nowIso,
+    created_by: user && user.login ? user.login : '',
+  };
+  var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
 
-  Lab.gh.saveFile(path, content, null, 'Add reagent: ' + name).then(function() {
+  Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name).then(function() {
     Lab.showToast('Created: ' + name, 'success');
-    Lab.gh.patchObjectIndex(path, { type: 'reagent', title: name, location: 'Chemical Cabinet', quantity: 0, unit: 'each', low_stock_threshold: 0, need_more: false });
-    // Open the new item in editor modal
+    Lab.gh.patchObjectIndex(path, meta);
+    closeAddModal();
     Lab.editorModal.open(path);
-    // Refresh list
     loadInventory();
   }).catch(function(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
@@ -390,21 +519,11 @@ window.addEventListener('lab-file-saved', function(e) {
   if (!e.detail || !e.detail.path || !e.detail.meta) { loadInventory(); return; }
   var meta = e.detail.meta;
   if (!isInventoryType(meta.type)) { loadInventory(); return; }
-  var slug = e.detail.path.replace(/^docs\//, '').replace(/\.md$/, '').split('/').pop();
+  var relPath = e.detail.path.replace(/^docs\//, '');
+  var slug = relPath.replace(/\.md$/, '').split('/').pop();
+  var indexEntry = Object.assign({ path: relPath }, meta);
+  var updated = toInventoryRow(indexEntry);
   var existing = inventory.find(function(i) { return i.slug === slug; });
-  var updated = {
-    slug: slug,
-    path: e.detail.path.replace(/^docs\//, ''),
-    name: meta.title || slug,
-    type: meta.type,
-    typeLabel: typeLabel(meta.type),
-    quantity: meta.quantity || 0,
-    unit: meta.unit || '',
-    location: meta.location || '',
-    notes: meta.notes || '',
-    lowStockThreshold: meta.low_stock_threshold || 0,
-    needMore: !!meta.need_more,
-  };
   if (existing) {
     Object.assign(existing, updated);
   } else {
