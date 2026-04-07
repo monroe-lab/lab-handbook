@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Urea"
-location: "Chemical Cabinet"
-quantity: 800
-unit: "g"
-low_stock_threshold: 1
+title: Urea
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 800
+    unit: g
 legacy_inventory_id: 143
 ---
 

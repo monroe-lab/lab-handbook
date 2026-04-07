@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Agarose"
-location: "Chemical Cabinet"
-quantity: 300
-unit: "g"
-low_stock_threshold: 50
+title: Agarose
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 300
+    unit: g
 legacy_inventory_id: 10
 ---
 

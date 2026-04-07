@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Tube Rotator"
-location: "Bench 3"
+title: Tube Rotator
+location: Bench 3
 ---
 
 # Tube Rotator

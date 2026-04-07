@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Cefotaxime sodium salt"
-location: "Refrigerator"
-quantity: 50
-unit: "g"
-low_stock_threshold: 1
+title: Cefotaxime sodium salt
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 50
+    unit: g
 legacy_inventory_id: 39
 ---
 

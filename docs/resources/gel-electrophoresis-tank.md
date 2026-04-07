@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Gel Electrophoresis Tank"
-location: "Bench 1"
+title: Gel Electrophoresis Tank
+location: Bench 1
 ---
 
 # Gel Electrophoresis Tank

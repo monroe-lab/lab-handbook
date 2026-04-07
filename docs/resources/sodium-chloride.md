@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Sodium chloride"
-location: "Chemical Cabinet"
-quantity: 5450
-unit: "g"
-low_stock_threshold: 1
+title: Sodium chloride
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 5450
+    unit: g
 legacy_inventory_id: 119
 ---
 

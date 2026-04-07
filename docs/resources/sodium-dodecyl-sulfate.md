@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Sodium dodecyl sulfate"
-location: "Chemical Cabinet"
-quantity: 160
-unit: "g"
-low_stock_threshold: 1
+title: Sodium dodecyl sulfate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 160
+    unit: g
 legacy_inventory_id: 121
 ---
 

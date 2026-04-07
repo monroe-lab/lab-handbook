@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Methanol"
-location: "Flammable Cabinet"
-quantity: 8
-unit: "L"
-low_stock_threshold: 1
+title: Methanol
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 8
+    unit: L
 legacy_inventory_id: 94
 ---
 

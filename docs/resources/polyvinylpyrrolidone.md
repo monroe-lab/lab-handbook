@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Polyvinylpyrrolidone"
-location: "Chemical Cabinet"
-quantity: 1200
-unit: "g"
-low_stock_threshold: 1
+title: Polyvinylpyrrolidone
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1200
+    unit: g
 legacy_inventory_id: 103
 ---
 

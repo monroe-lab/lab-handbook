@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Boric acid"
-location: "Chemical Cabinet"
-quantity: 3000
-unit: "g"
-low_stock_threshold: 1
+title: Boric acid
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 3000
+    unit: g
 legacy_inventory_id: 31
 ---
 

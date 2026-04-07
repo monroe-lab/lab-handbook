@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Ammonium chloride"
-location: "Chemical Cabinet"
-quantity: 200
-unit: "g"
-low_stock_threshold: 1
+title: Ammonium chloride
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 200
+    unit: g
 legacy_inventory_id: 25
 ---
 

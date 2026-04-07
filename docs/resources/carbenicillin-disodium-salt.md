@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Carbenicillin disodium salt"
-location: "Refrigerator"
-quantity: 5
-unit: "g"
-low_stock_threshold: 1
+title: Carbenicillin disodium salt
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 5
+    unit: g
 legacy_inventory_id: 36
 ---
 

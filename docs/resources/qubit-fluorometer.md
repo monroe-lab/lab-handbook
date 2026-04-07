@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Qubit Fluorometer"
-location: "Bench 2"
+title: Qubit Fluorometer
+location: Bench 2
 ---
 
 # Qubit Fluorometer

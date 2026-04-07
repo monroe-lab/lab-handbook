@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Centrifuge"
-location: "Bench 3"
+title: Centrifuge
+location: Bench 3
 ---
 
 # Centrifuge

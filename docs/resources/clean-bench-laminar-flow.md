@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Clean Bench"
-location: "Room 170"
+title: Clean Bench
+location: Room 170
 ---
 
 # Clean Bench

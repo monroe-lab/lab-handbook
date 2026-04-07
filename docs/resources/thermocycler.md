@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Thermocycler"
-location: "Bench 2"
+title: Thermocycler
+location: Bench 2
 ---
 
 # Thermocycler

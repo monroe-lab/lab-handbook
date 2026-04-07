@@ -1,10 +1,11 @@
 ---
 type: buffer
-title: "Glycerol, 50% aqueous solution"
-location: "Chemical Cabinet"
-quantity: 350
-unit: "mL"
-low_stock_threshold: 1
+title: Glycerol, 50% aqueous solution
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 350
+    unit: mL
 legacy_inventory_id: 69
 ---
 

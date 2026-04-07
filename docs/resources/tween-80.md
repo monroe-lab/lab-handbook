@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "TWEEN 80"
-location: "Chemical Cabinet"
-quantity: 100
-unit: "mL"
-low_stock_threshold: 1
+title: TWEEN 80
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 100
+    unit: mL
 legacy_inventory_id: 135
 ---
 

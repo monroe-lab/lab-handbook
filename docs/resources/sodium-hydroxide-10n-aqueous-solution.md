@@ -1,10 +1,11 @@
 ---
 type: buffer
-title: "Sodium hydroxide 10N aqueous solution"
-location: "Corrosive Cabinet"
-quantity: 1
-unit: "L"
-low_stock_threshold: 1
+title: Sodium hydroxide 10N aqueous solution
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 1
+    unit: L
 legacy_inventory_id: 124
 ---
 

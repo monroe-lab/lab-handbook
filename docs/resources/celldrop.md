@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "CellDrop"
-location: "Bench 2"
+title: CellDrop
+location: Bench 2
 ---
 
 # CellDrop

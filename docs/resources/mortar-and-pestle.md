@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Mortar and Pestle"
-location: "Bench 3"
+title: Mortar and Pestle
+location: Bench 3
 ---
 
 # Mortar and Pestle

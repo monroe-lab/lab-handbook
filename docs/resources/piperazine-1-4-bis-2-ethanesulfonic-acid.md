@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Piperazine-1,4-bis(2-ethanesulfonic acid)"
-location: "Chemical Cabinet"
-quantity: 50
-unit: "g"
-low_stock_threshold: 1
+title: Piperazine-1,4-bis(2-ethanesulfonic acid)
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 50
+    unit: g
 legacy_inventory_id: 101
 ---
 

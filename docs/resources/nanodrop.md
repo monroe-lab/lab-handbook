@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "NanoDrop"
-location: "Bench 2"
+title: NanoDrop
+location: Bench 2
 ---
 
 # NanoDrop

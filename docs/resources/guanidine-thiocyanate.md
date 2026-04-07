@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Guanidine thiocyanate"
-location: "Chemical Cabinet"
-quantity: 60
-unit: "g"
-low_stock_threshold: 1
+title: Guanidine thiocyanate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 60
+    unit: g
 legacy_inventory_id: 71
 ---
 

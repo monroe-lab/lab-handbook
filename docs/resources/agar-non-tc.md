@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Agar (non-TC)"
-location: "Chemical Cabinet"
-quantity: 450
-unit: "g"
-low_stock_threshold: 50
+title: Agar (non-TC)
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 450
+    unit: g
 legacy_inventory_id: 150
 ---
 

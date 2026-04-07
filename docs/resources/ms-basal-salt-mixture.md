@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "MS Basal Salt Mixture"
-location: "Chemical Cabinet"
-quantity: 2
-unit: "each"
-low_stock_threshold: 1
+title: MS Basal Salt Mixture
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 2
+    unit: each
 legacy_inventory_id: 1
 ---
 

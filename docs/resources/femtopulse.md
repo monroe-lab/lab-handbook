@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "FemtoPulse"
-location: "Genome Center"
+title: FemtoPulse
+location: Genome Center
 ---
 
 # FemtoPulse

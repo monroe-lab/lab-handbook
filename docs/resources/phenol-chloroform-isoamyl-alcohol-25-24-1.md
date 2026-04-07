@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Phenol-Chloroform-Isoamyl alcohol 25:24:1"
-location: "Refrigerator"
-quantity: 500
-unit: "mL"
-low_stock_threshold: 1
+title: Phenol-Chloroform-Isoamyl alcohol 25:24:1
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 500
+    unit: mL
 legacy_inventory_id: 149
 ---
 

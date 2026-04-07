@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Isopropyl alcohol, 70% in water"
-location: "Flammable Cabinet"
-quantity: 414.0
-unit: "mL"
-low_stock_threshold: 1
+title: Isopropyl alcohol, 70% in water
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 414.0
+    unit: mL
 legacy_inventory_id: 84
 ---
 

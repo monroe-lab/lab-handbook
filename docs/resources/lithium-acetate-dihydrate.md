@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Lithium acetate dihydrate"
-location: "Corrosive Cabinet"
-quantity: 250
-unit: "g"
-low_stock_threshold: 1
+title: Lithium acetate dihydrate
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 250
+    unit: g
 legacy_inventory_id: 87
 ---
 

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "cis-Diamineplatinum(II) dichloride"
-location: "Refrigerator"
-quantity: 0.1
-unit: "g"
-low_stock_threshold: 1
+title: cis-Diamineplatinum(II) dichloride
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 0.1
+    unit: g
 legacy_inventory_id: 147
 ---
 

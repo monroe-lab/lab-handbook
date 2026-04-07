@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Diethyl pyrocarbonate"
-location: "Refrigerator"
-quantity: 25
-unit: "mL"
-low_stock_threshold: 1
+title: Diethyl pyrocarbonate
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 25
+    unit: mL
 legacy_inventory_id: 49
 ---
 

@@ -9,6 +9,7 @@ import json
 import re
 import sys
 from pathlib import Path
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = ROOT / "docs"
@@ -37,41 +38,25 @@ EXTRACT_KEYS = [
     "type", "title", "location", "quantity", "unit", "low_stock_threshold",
     "category", "cas", "notes", "role", "email", "organism", "stock_type",
     "source", "genotype", "status", "pi", "funding", "date", "author",
-    "legacy_inventory_id",
+    "legacy_inventory_id", "containers", "need_more",
+    "created_at", "created_by", "updated_at",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)
 
 
 def parse_frontmatter(text: str) -> dict | None:
-    """Parse YAML frontmatter from markdown text. Simple key: value parser."""
+    """Parse YAML frontmatter from markdown text using PyYAML so nested
+    structures (e.g. containers:) are preserved."""
     m = FRONTMATTER_RE.match(text)
     if not m:
         return None
-
-    data = {}
-    for line in m.group(1).splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if ":" not in line:
-            continue
-        key, _, value = line.partition(":")
-        key = key.strip()
-        value = value.strip()
-        # Strip quotes
-        if value and value[0] in ('"', "'") and value[-1] == value[0]:
-            value = value[1:-1]
-        # Try numeric conversion
-        if value.isdigit():
-            value = int(value)
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
-        data[key] = value
-
+    try:
+        data = yaml.safe_load(m.group(1))
+    except yaml.YAMLError:
+        return None
+    if not isinstance(data, dict):
+        return None
     if not data.get("type") or data.get("type") == "index":
         return None
     return data

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Hydrogen Peroxide 30%"
-location: "Corrosive Cabinet"
-quantity: 1
-unit: "L"
-low_stock_threshold: 1
+title: Hydrogen Peroxide 30%
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 1
+    unit: L
 legacy_inventory_id: 7
 ---
 

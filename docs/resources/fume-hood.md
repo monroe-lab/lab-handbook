@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Fume Hood"
-location: "Room 170"
+title: Fume Hood
+location: Room 170
 ---
 
 # Fume Hood

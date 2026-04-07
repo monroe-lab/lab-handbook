@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Disodium Ethylenediamine Tetraacetate"
-location: "Chemical Cabinet"
-quantity: 1000
-unit: "g"
-low_stock_threshold: 1
+title: Disodium Ethylenediamine Tetraacetate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1000
+    unit: g
 legacy_inventory_id: 51
 ---
 

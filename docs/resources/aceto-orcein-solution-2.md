@@ -1,10 +1,11 @@
 ---
-type: "buffer"
-title: "Aceto-Orcein Solution, 2%"
-location: "Flammable Cabinet"
-quantity: 50
-unit: "mL"
-low_stock_threshold: 1
+type: buffer
+title: Aceto-Orcein Solution, 2%
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 50
+    unit: mL
 legacy_inventory_id: 19
 ---
 # Aceto-Orcein Solution, 2%

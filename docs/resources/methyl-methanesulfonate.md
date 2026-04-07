@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Methyl methanesulfonate"
-location: "Chemical Cabinet"
-quantity: 5
-unit: "g"
-low_stock_threshold: 1
+title: Methyl methanesulfonate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 5
+    unit: g
 legacy_inventory_id: 95
 ---
 

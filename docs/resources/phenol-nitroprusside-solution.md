@@ -1,10 +1,11 @@
 ---
 type: buffer
-title: "Phenol nitroprusside solution"
-location: "Refrigerator"
-quantity: 120
-unit: "mL"
-low_stock_threshold: 1
+title: Phenol nitroprusside solution
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 120
+    unit: mL
 legacy_inventory_id: 99
 ---
 

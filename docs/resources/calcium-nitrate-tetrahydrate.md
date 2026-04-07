@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Calcium nitrate tetrahydrate"
-location: "Chemical Cabinet"
-quantity: 1250
-unit: "g"
-low_stock_threshold: 1
+title: Calcium nitrate tetrahydrate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1250
+    unit: g
 legacy_inventory_id: 35
 ---
 

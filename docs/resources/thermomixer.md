@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Thermomixer"
-location: "Bench 3"
+title: Thermomixer
+location: Bench 3
 ---
 
 # Thermomixer

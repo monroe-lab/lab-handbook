@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Hexadecyltrimethyl-ammonium bromide"
-location: "Chemical Cabinet"
-quantity: 1100
-unit: "g"
-low_stock_threshold: 1
+title: Hexadecyltrimethyl-ammonium bromide
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1100
+    unit: g
 legacy_inventory_id: 74
 ---
 

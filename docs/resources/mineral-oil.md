@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Mineral oil"
-location: "Chemical Cabinet"
-quantity: 500
-unit: "mL"
-low_stock_threshold: 1
+title: Mineral oil
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 500
+    unit: mL
 legacy_inventory_id: 96
 ---
 

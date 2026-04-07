@@ -1,10 +1,11 @@
 ---
 type: buffer
-title: "Tricine"
-location: "Chemical Cabinet"
-quantity: 12
-unit: "g"
-low_stock_threshold: 1
+title: Tricine
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 12
+    unit: g
 legacy_inventory_id: 139
 ---
 

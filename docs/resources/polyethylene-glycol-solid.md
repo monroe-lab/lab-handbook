@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Polyethylene glycol (solid)"
-location: "Chemical Cabinet"
-quantity: 600
-unit: "g"
-low_stock_threshold: 1
+title: Polyethylene glycol (solid)
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 600
+    unit: g
 legacy_inventory_id: 102
 ---
 

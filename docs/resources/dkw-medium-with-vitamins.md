@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "DKW Medium with Vitamins"
-location: "Chemical Cabinet"
-quantity: 50
-unit: "L"
-low_stock_threshold: 1
+title: DKW Medium with Vitamins
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 50
+    unit: L
 legacy_inventory_id: 47
 ---
 

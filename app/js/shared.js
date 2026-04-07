@@ -135,15 +135,16 @@
     var i = 0;
     while (i < lines.length) {
       var line = lines[i];
-      // List-of-mappings header: "key:" with no value, followed by indented "- key: val" lines
+      // List-of-mappings header: "key:" with no value, followed by "- key: val" lines
+      // (either at column 0 or indented — both YAML styles are accepted).
       var header = line.match(/^(\w[\w_]*)\s*:\s*$/);
-      if (header && i + 1 < lines.length && /^\s+-\s/.test(lines[i + 1])) {
+      if (header && i + 1 < lines.length && /^\s*-\s/.test(lines[i + 1])) {
         var listKey = header[1];
         var arr = [];
         i++;
         var current = null;
-        while (i < lines.length && /^\s+(-\s|\s)/.test(lines[i])) {
-          var itemStart = lines[i].match(/^\s+-\s+(\w[\w_]*)\s*:\s*(.*)$/);
+        while (i < lines.length && /^\s*(-\s|\s)/.test(lines[i]) && lines[i].trim() !== '') {
+          var itemStart = lines[i].match(/^\s*-\s+(\w[\w_]*)\s*:\s*(.*)$/);
           var itemCont  = lines[i].match(/^\s+(\w[\w_]*)\s*:\s*(.*)$/);
           if (itemStart) {
             if (current) arr.push(current);

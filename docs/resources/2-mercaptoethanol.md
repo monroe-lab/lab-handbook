@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "2-Mercaptoethanol"
-location: "Corrosive Cabinet"
-quantity: 50
-unit: "g"
-low_stock_threshold: 1
+title: 2-Mercaptoethanol
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 50
+    unit: g
 legacy_inventory_id: 16
 ---
 

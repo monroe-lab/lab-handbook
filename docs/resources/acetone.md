@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Acetone"
-location: "Flammable Cabinet"
-quantity: 500
-unit: "mL"
-low_stock_threshold: 1
+title: Acetone
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 500
+    unit: mL
 legacy_inventory_id: 20
 ---
 

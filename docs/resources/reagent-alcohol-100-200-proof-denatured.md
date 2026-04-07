@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Reagent Alcohol 100% (200 proof, Denatured)"
-location: "Flammable Cabinet"
-quantity: 4
-unit: "L"
-low_stock_threshold: 1
+title: Reagent Alcohol 100% (200 proof, Denatured)
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 4
+    unit: L
 legacy_inventory_id: 112
 ---
 

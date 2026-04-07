@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Glycerin"
-location: "Chemical Cabinet"
-quantity: 1050
-unit: "mL"
-low_stock_threshold: 1
+title: Glycerin
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1050
+    unit: mL
 legacy_inventory_id: 68
 ---
 

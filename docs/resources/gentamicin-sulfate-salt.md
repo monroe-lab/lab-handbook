@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Gentamicin sulfate salt"
-location: "Chemical Cabinet"
-quantity: 1
-unit: "g"
-low_stock_threshold: 1
+title: Gentamicin sulfate salt
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1
+    unit: g
 legacy_inventory_id: 64
 ---
 

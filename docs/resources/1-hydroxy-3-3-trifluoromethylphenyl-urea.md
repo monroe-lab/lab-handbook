@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA"
-location: "Chemical Cabinet"
-quantity: 5
-unit: "g"
-low_stock_threshold: 1
+title: 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 5
+    unit: g
 legacy_inventory_id: 13
 ---
 

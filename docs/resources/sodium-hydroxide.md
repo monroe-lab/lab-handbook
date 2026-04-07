@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Sodium hydroxide"
-location: "Chemical Cabinet"
-quantity: 2120
-unit: "g"
-low_stock_threshold: 1
+title: Sodium hydroxide
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 2120
+    unit: g
 legacy_inventory_id: 122
 ---
 

@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Automill"
-location: "Bench 3"
+title: Automill
+location: Bench 3
 ---
 
 # Automill

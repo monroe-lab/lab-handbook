@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Iron(III) chloride"
-location: "Chemical Cabinet"
-quantity: 100
-unit: "g"
-low_stock_threshold: 1
+title: Iron(III) chloride
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 100
+    unit: g
 legacy_inventory_id: 80
 ---
 

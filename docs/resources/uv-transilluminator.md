@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "UV Transilluminator"
-location: "Bench 1"
+title: UV Transilluminator
+location: Bench 1
 ---
 
 # UV Transilluminator

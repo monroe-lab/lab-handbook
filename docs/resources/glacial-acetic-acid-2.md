@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Glacial Acetic Acid"
-location: "Flammable Cabinet"
-quantity: 500
-unit: "mL"
-low_stock_threshold: 1
+title: Glacial Acetic Acid
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 500
+    unit: mL
 legacy_inventory_id: 66
 ---
 

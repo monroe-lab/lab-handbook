@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Magnesium acetate tetrahydrate"
-location: "Chemical Cabinet"
-quantity: 250
-unit: "g"
-low_stock_threshold: 1
+title: Magnesium acetate tetrahydrate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 250
+    unit: g
 legacy_inventory_id: 90
 ---
 

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Peptones, casein (Tryptone)"
-location: "Chemical Cabinet"
-quantity: 1053.6
-unit: "g"
-low_stock_threshold: 1
+title: Peptones, casein (Tryptone)
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1053.6
+    unit: g
 legacy_inventory_id: 98
 ---
 

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "TC Agar A175"
-location: "Chemical Cabinet"
-quantity: 25
-unit: "g"
-low_stock_threshold: 5
+title: TC Agar A175
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 25
+    unit: g
 legacy_inventory_id: 3
 ---
 

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Silwet L-77"
-location: "Chemical Cabinet"
-quantity: 10
-unit: "mL"
-low_stock_threshold: 1
+title: Silwet L-77
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 10
+    unit: mL
 legacy_inventory_id: 113
 ---
 

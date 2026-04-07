@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "L-Glutamine"
-location: "Chemical Cabinet"
-quantity: 100
-unit: "g"
-low_stock_threshold: 1
+title: L-Glutamine
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 100
+    unit: g
 legacy_inventory_id: 85
 ---
 

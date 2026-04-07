@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Ethyl methanesulfonate"
-location: "Chemical Cabinet"
-quantity: 1
-unit: "mL"
-low_stock_threshold: 1
+title: Ethyl methanesulfonate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 1
+    unit: mL
 legacy_inventory_id: 56
 ---
 

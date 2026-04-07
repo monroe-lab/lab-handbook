@@ -1,10 +1,11 @@
 ---
 type: buffer
-title: "Tris base"
-location: "Chemical Cabinet"
-quantity: 2000
-unit: "g"
-low_stock_threshold: 1
+title: Tris base
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 2000
+    unit: g
 legacy_inventory_id: 140
 ---
 

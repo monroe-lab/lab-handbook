@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "IGEPAL CA-630"
-location: "Corrosive Cabinet"
-quantity: 100
-unit: "mL"
-low_stock_threshold: 1
+title: IGEPAL CA-630
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 100
+    unit: mL
 legacy_inventory_id: 77
 ---
 

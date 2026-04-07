@@ -1,6 +1,6 @@
 ---
 type: reagent
-title: "DNAse"
+title: DNAse
 ---
 
 # DNAse

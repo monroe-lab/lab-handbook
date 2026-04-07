@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Bioruptor"
-location: "Bench 3"
+title: Bioruptor
+location: Bench 3
 ---
 
 # Bioruptor

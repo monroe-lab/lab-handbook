@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Mitomycin C"
-location: "Refrigerator"
-quantity: 10
-unit: "each"
-low_stock_threshold: 2
+title: Mitomycin C
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 10
+    unit: each
 legacy_inventory_id: 8
 ---
 

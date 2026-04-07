@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Manganese(II) chloride"
-location: "Chemical Cabinet"
-quantity: 10
-unit: "g"
-low_stock_threshold: 1
+title: Manganese(II) chloride
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 10
+    unit: g
 legacy_inventory_id: 93
 ---
 

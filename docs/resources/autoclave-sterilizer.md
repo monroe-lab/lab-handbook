@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Autoclave"
-location: "Robbins Hall"
+title: Autoclave
+location: Robbins Hall
 ---
 
 # Autoclave

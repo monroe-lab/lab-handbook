@@ -1,10 +1,12 @@
 ---
 type: reagent
-title: "Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt"
-location: "Chemical Cabinet"
-quantity: 10
-unit: "g"
-low_stock_threshold: 1
+title: Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium
+  salt
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 10
+    unit: g
 legacy_inventory_id: 57
 ---
 

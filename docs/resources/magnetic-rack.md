@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Magnetic Rack"
-location: "Bench 2"
+title: Magnetic Rack
+location: Bench 2
 ---
 
 # Magnetic Rack

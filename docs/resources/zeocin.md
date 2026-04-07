@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Zeocin"
-location: "Refrigerator"
-quantity: 0.1
-unit: "g"
-low_stock_threshold: 1
+title: Zeocin
+location: Refrigerator
+containers:
+  - location: Refrigerator
+    quantity: 0.1
+    unit: g
 legacy_inventory_id: 145
 ---
 

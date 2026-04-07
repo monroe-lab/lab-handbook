@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Gaseous hydrochloric acid"
-location: "Corrosive Cabinet"
-quantity: 500
-unit: "mL"
-low_stock_threshold: 1
+title: Gaseous hydrochloric acid
+location: Corrosive Cabinet
+containers:
+  - location: Corrosive Cabinet
+    quantity: 500
+    unit: mL
 legacy_inventory_id: 63
 ---
 

@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Isopropyl alcohol"
-location: "Flammable Cabinet"
-quantity: 6
-unit: "L"
-low_stock_threshold: 1
+title: Isopropyl alcohol
+location: Flammable Cabinet
+containers:
+  - location: Flammable Cabinet
+    quantity: 6
+    unit: L
 legacy_inventory_id: 81
 ---
 

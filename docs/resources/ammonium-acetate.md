@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Ammonium acetate"
-location: "Chemical Cabinet"
-quantity: 550
-unit: "g"
-low_stock_threshold: 1
+title: Ammonium acetate
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 550
+    unit: g
 legacy_inventory_id: 24
 ---
 

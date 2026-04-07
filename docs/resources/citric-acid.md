@@ -1,10 +1,11 @@
 ---
 type: reagent
-title: "Citric acid"
-location: "Chemical Cabinet"
-quantity: 6000
-unit: "g"
-low_stock_threshold: 1
+title: Citric acid
+location: Chemical Cabinet
+containers:
+  - location: Chemical Cabinet
+    quantity: 6000
+    unit: g
 legacy_inventory_id: 43
 ---
 

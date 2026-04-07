@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "pH Meter"
-location: "Bench 1"
+title: pH Meter
+location: Bench 1
 ---
 
 # pH Meter

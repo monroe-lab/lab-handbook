@@ -1,7 +1,7 @@
 ---
 type: equipment
-title: "Growth Chamber"
-location: "Controlled Environment Facility"
+title: Growth Chamber
+location: Controlled Environment Facility
 ---
 
 # Growth Chamber
