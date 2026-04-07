@@ -393,7 +393,19 @@
 
   // ── Container row rendering / collection ──
   var CONTAINER_LOCATIONS = ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'];
-  var CONTAINER_UNITS = ['g','mL','L','kg','each','box','pack'];
+  var CONTAINER_GRID = 'display:grid;grid-template-columns:1.5fr 0.7fr 0.7fr 1fr 1.2fr auto;gap:6px;align-items:center;';
+
+  function renderContainerHeader() {
+    var lbl = 'font-size:11px;color:var(--grey-500);text-transform:uppercase;letter-spacing:0.4px;padding:0 4px';
+    return '<div style="' + CONTAINER_GRID + 'margin-bottom:2px">' +
+      '<div style="' + lbl + '">Location</div>' +
+      '<div style="' + lbl + '">Qty</div>' +
+      '<div style="' + lbl + '">Unit</div>' +
+      '<div style="' + lbl + '">Lot</div>' +
+      '<div style="' + lbl + '">Expires</div>' +
+      '<div></div>' +
+      '</div>';
+  }
 
   function renderContainerRow(fieldKey, c, idx) {
     c = c || {};
@@ -404,12 +416,12 @@
         opts.map(function(o) { return '<option value="' + o + '"' + (val === o ? ' selected' : '') + '>' + o + '</option>'; }).join('') +
         '</select>';
     }
-    return '<div class="em-container-row" data-idx="' + idx + '" style="display:grid;grid-template-columns:1.5fr 0.7fr 0.7fr 1fr 1fr auto;gap:6px;align-items:center;margin-bottom:4px">' +
+    return '<div class="em-container-row" data-idx="' + idx + '" style="' + CONTAINER_GRID + 'margin-bottom:4px">' +
       selectHtml('location', CONTAINER_LOCATIONS, c.location || '') +
       '<input type="number" data-cfield="quantity" value="' + esc(String(c.quantity == null ? '' : c.quantity)) + '" placeholder="Qty" step="any" min="0" style="padding:4px 6px;font-size:13px">' +
-      selectHtml('unit', CONTAINER_UNITS, c.unit || '') +
+      '<input type="text" data-cfield="unit" value="' + esc(c.unit || '') + '" placeholder="units" style="padding:4px 6px;font-size:13px">' +
       '<input type="text" data-cfield="lot" value="' + esc(c.lot || '') + '" placeholder="Lot #" style="padding:4px 6px;font-size:13px">' +
-      '<input type="date" data-cfield="expiration" value="' + esc(c.expiration || '') + '" style="padding:4px 6px;font-size:13px">' +
+      '<input type="date" data-cfield="expiration" value="' + esc(c.expiration || '') + '" title="Expiration date" style="padding:4px 6px;font-size:13px">' +
       '<button type="button" onclick="Lab.editorModal._removeContainer(this)" title="Remove" style="background:none;border:none;color:var(--grey-500);cursor:pointer;padding:2px"><span class="material-icons-outlined" style="font-size:18px">close</span></button>' +
       '</div>';
   }
@@ -418,6 +430,7 @@
     var wrap = document.getElementById('em-containers-' + fieldKey);
     if (!wrap) return;
     var idx = wrap.querySelectorAll('.em-container-row').length;
+    // Insert before the (non-existent) end; header is the wrap's first child if present
     wrap.insertAdjacentHTML('beforeend', renderContainerRow(fieldKey, {}, idx));
   }
 
@@ -488,6 +501,7 @@
         if (editable) {
           html += '<div class="form-group" data-container-list="' + field.key + '">' +
             '<label>' + field.label + ' <span style="font-weight:400;color:var(--grey-500);font-size:12px">(individual bottles/boxes/kits)</span></label>' +
+            (containers.length ? renderContainerHeader() : '') +
             '<div class="em-containers" id="em-containers-' + field.key + '">' +
               containers.map(function(c, idx) { return renderContainerRow(field.key, c, idx); }).join('') +
             '</div>' +

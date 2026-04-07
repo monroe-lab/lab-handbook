@@ -207,25 +207,9 @@ tr.low-stock td:first-child::before {
             <option>Other</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Quantity</label>
-          <input type="number" id="addQuantity" value="1" min="0" step="any">
-        </div>
-        <div class="form-group">
-          <label>Unit</label>
-          <select id="addUnit">
-            <option value="each">each</option>
-            <option value="g">g</option>
-            <option value="mL">mL</option>
-            <option value="L">L</option>
-            <option value="kg">kg</option>
-            <option value="box">box</option>
-            <option value="pack">pack</option>
-          </select>
-        </div>
       </div>
       <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0">
-        After creating, you can open the item to add multiple containers (different bottles, lots, expirations).
+        After creating, open the item to add containers (individual bottles/boxes with their own location, lot, and expiration).
       </p>
     </div>
     <div class="modal-footer">
@@ -433,8 +417,6 @@ function addItem() {
   document.getElementById('addName').value = '';
   document.getElementById('addType').value = 'reagent';
   document.getElementById('addLocation').value = 'Chemical Cabinet';
-  document.getElementById('addQuantity').value = '1';
-  document.getElementById('addUnit').value = 'each';
   document.getElementById('addModal').classList.add('open');
   setTimeout(function() { document.getElementById('addName').focus(); }, 50);
 }
@@ -446,8 +428,6 @@ function confirmAdd() {
   if (!name) { Lab.showToast('Name is required', 'error'); return; }
   var type = document.getElementById('addType').value;
   var location = document.getElementById('addLocation').value;
-  var quantity = parseFloat(document.getElementById('addQuantity').value) || 0;
-  var unit = document.getElementById('addUnit').value;
 
   var slug = Lab.slugify(name);
   var path = 'docs/resources/' + slug + '.md';
@@ -457,9 +437,6 @@ function confirmAdd() {
     type: type,
     title: name,
     location: location,
-    quantity: quantity,
-    unit: unit,
-    low_stock_threshold: 0,
     need_more: false,
     created_at: nowIso,
     updated_at: nowIso,
