@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install build deps
+        run: pip install pyyaml
+
       - name: Build object index
         run: python scripts/build-object-index.py
 
