@@ -278,7 +278,8 @@ async function loadBulletin() {
     var result = await Lab.gh.fetchFile('docs/bulletin.md');
     bulletinSha = result.sha;
     await Lab.editorModal.loadMarked();
-    var html = marked.parse(result.content);
+    var body = result.content.replace(/^---\n[\s\S]*?\n---\n?/, '');
+    var html = marked.parse(body);
     el.innerHTML = '<div class="bulletin-content">' + html + '</div>';
     if (Lab.gh.isLoggedIn()) document.getElementById('editBulletinBtn').style.display = '';
   } catch(e) {

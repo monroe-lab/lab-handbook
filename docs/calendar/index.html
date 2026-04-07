@@ -684,11 +684,12 @@ if (window.self !== window.top) {
       </div>
       <div class="form-group">
         <label>Notes</label>
-        <textarea id="fNotes" placeholder="Optional notes..."></textarea>
+        <textarea id="fNotes" rows="5" placeholder="Optional notes — type [[ to link protocols, reagents, etc." style="resize:vertical;min-height:100px"></textarea>
       </div>
-      <div class="form-check">
+      <div class="form-check" id="recurringRow">
         <input type="checkbox" id="fRecurring" checked>
-        <label for="fRecurring">Recurring (every week)</label>
+        <label for="fRecurring">Create a weekly copy through:</label>
+        <input type="date" id="fRecurringUntil" style="margin-left:8px">
       </div>
     </div>
     <div class="modal-footer">
@@ -844,6 +845,23 @@ function populateTimeSelects() {
 }
 
 // --- Data loading ---
+async function migrateRecurringBlocks() {
+  var legacy = schedule.filter(function(b) { return b.recurring; });
+  if (legacy.length === 0) return;
+  var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
+  legacy.forEach(function(b) {
+    var idx = schedule.indexOf(b);
+    if (idx >= 0) schedule.splice(idx, 1);
+    for (var i = 0; i < 5; i++) {
+      var d = new Date(currentMonday); d.setDate(d.getDate() + 7 * i);
+      maxId += 1;
+      schedule.push({ id: maxId, member: b.member, role: b.role, mentor: b.mentor, day: b.day, startTime: b.startTime, endTime: b.endTime, weekOf: isoMonday(d), activity: b.activity, status: b.status, notes: b.notes });
+    }
+  });
+  var ok = await commitSchedule('Migrate ' + legacy.length + ' recurring blocks to per-week instances');
+  if (!ok) console.warn('Failed to commit recurring migration');
+}
+
 async function loadSchedule() {
   try {
     var headers = {};
@@ -870,6 +888,8 @@ async function loadSchedule() {
       schedule = [];
     }
   }
+
+  await migrateRecurringBlocks();
 
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('calendarGrid').style.display = '';
@@ -976,9 +996,7 @@ function getVisibleBlocks() {
 
   return schedule.filter(function(b) {
     if (memberFilter && b.member !== memberFilter) return false;
-    if (b.recurring) return true;
-    if (b.weekOf === mondayStr) return true;
-    return false;
+    return b.weekOf === mondayStr;
   });
 }
 
@@ -1146,7 +1164,10 @@ function openAddModal() {
   document.getElementById('fActivity').value = '';
   document.getElementById('fStatus').value = 'scheduled';
   document.getElementById('fNotes').value = '';
-  document.getElementById('fRecurring').checked = true;
+  document.getElementById('fRecurring').checked = false;
+  var defaultEnd = new Date(currentMonday); defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
+  document.getElementById('fRecurringUntil').value = isoMonday(defaultEnd);
+  document.getElementById('recurringRow').style.display = '';
   document.getElementById('btnDeleteBlock').style.display = 'none';
   document.getElementById('blockModal').classList.add('open');
   document.getElementById('fMember').focus();
@@ -1166,7 +1187,8 @@ function openEditModal(id) {
   document.getElementById('fActivity').value = item.activity || '';
   document.getElementById('fStatus').value = item.status || 'scheduled';
   document.getElementById('fNotes').value = item.notes || '';
-  document.getElementById('fRecurring').checked = !!item.recurring;
+  document.getElementById('fRecurring').checked = false;
+  document.getElementById('recurringRow').style.display = 'none';
   document.getElementById('btnDeleteBlock').style.display = '';
   document.getElementById('blockModal').classList.add('open');
   document.getElementById('fActivity').focus();
@@ -1198,12 +1220,10 @@ async function saveBlock() {
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
-  var weekOf = recurring ? '' : isoMonday(currentMonday);
-
   if (editingId !== null) {
     var item = schedule.find(function(b) { return b.id === editingId; });
     if (item) {
-      Object.assign(item, { member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, activity: activity, status: status, notes: notes, recurring: recurring, weekOf: weekOf });
+      Object.assign(item, { member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, activity: activity, status: status, notes: notes });
     }
     var ok = await commitSchedule('Update schedule: ' + member + ' ' + day);
     if (ok) {
@@ -1212,14 +1232,34 @@ async function saveBlock() {
     }
   } else {
     var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
-    var newBlock = { id: maxId + 1, member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, recurring: recurring, weekOf: weekOf, activity: activity, status: status, notes: notes };
-    schedule.push(newBlock);
-    var ok2 = await commitSchedule('Add schedule block: ' + member + ' ' + day);
+    var weeks = [isoMonday(currentMonday)];
+    if (recurring) {
+      var untilStr = document.getElementById('fRecurringUntil').value;
+      if (!untilStr) { toast('Pick an end date for the recurrence', 'error'); btn.disabled = false; btn.textContent = 'Save Block'; return; }
+      var until = new Date(untilStr + 'T00:00:00');
+      var cursor = new Date(currentMonday); cursor.setDate(cursor.getDate() + 7);
+      while (cursor <= until) {
+        weeks.push(isoMonday(cursor));
+        cursor.setDate(cursor.getDate() + 7);
+      }
+    }
+    var added = [];
+    weeks.forEach(function(w) {
+      maxId += 1;
+      var nb = { id: maxId, member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, weekOf: w, activity: activity, status: status, notes: notes };
+      schedule.push(nb);
+      added.push(nb);
+    });
+    var msg = recurring ? ('Add ' + added.length + ' schedule blocks: ' + member + ' ' + day) : ('Add schedule block: ' + member + ' ' + day);
+    var ok2 = await commitSchedule(msg);
     if (ok2) {
-      toast('Block added', 'success');
+      toast(recurring ? ('Added ' + added.length + ' weekly blocks') : 'Block added', 'success');
       closeModal();
     } else {
-      schedule.pop();
+      added.forEach(function(b) {
+        var i = schedule.indexOf(b);
+        if (i >= 0) schedule.splice(i, 1);
+      });
     }
   }
 
