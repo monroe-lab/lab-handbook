@@ -8,30 +8,28 @@ title: "Protocol Template"
 
 <br>
 <br>
-![screenshot-2026-04-03-at-2.45.23-am](images/screenshot-2026-04-03-at-2.45.23-am-annotated.png)
-
 <br>
 <br>
-<img src="images/screenshot-2026-03-24-at-6.56.08-pm-annotated.png" alt="screenshot-2026-03-24-at-6.56.08-pm" style="max-width:25%">
-
 <br>
-<img src="images/screenshot-2026-04-04-at-3.07.27-pm-annotated.png" alt="screenshot-2026-04-04-at-3.07.27-pm" style="max-width:50%">
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <img src="images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png" alt="screenshot-2026-04-04-at-2.04.32-pm" style="max-width:25%">
 
 <br>
 <br>
-![1000009773](images/1000009773-annotated.png)
-
+<br>
+<br>
 <br>
 <br>
 <video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009059.mp4" type="video/mp4">Your browser does not support video.</video>
 
 <br>
-<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009077.mp4" type="video/mp4">Your browser does not support video.</video>
-
 <br>
 ![1000009772](images/1000009772-annotated.png)
 
