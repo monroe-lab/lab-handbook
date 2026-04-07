@@ -348,11 +348,16 @@
       var result = await gh.fetchFile(filePath);
       currentState.sha = result.sha;
 
-      // Use cached content if it's newer (GitHub API can lag after a commit)
+      // Use cached content if it's newer (GitHub API can lag after a commit).
+      // Critically: also use the cached sha — the API may return the stale blob
+      // sha, which would cause the next save to 409.
       var content = result.content;
       if (cached && cached.savedAt && cached.content) {
         var age = Date.now() - cached.savedAt;
-        if (age < 120000) content = cached.content; // use cache for up to 2 min
+        if (age < 120000) {
+          content = cached.content;
+          if (cached.sha) currentState.sha = cached.sha;
+        }
       }
 
       var parsed = window.Lab.parseFrontmatter(content);
@@ -696,10 +701,11 @@
       currentState.sha = result.sha;
       window.Lab.showToast('Saved', 'success');
 
-      // Cache the saved content locally so re-opening the item shows new values immediately
+      // Cache the saved content + sha locally so re-opening the item shows new values
+      // immediately and avoids a stale-sha conflict if the GitHub API hasn't caught up.
       try {
         var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
-        fileCache[currentState.path] = { content: content, savedAt: Date.now() };
+        fileCache[currentState.path] = { content: content, sha: result.sha, savedAt: Date.now() };
         localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
       } catch(e) {}
 
