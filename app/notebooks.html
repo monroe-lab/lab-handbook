@@ -244,6 +244,8 @@ function showModal(opts) {
     document.getElementById('nbmCancel').onclick = function() { close(null); };
     document.getElementById('nbmOk').onclick = submit;
     backdrop.onclick = function(e) { if (e.target === backdrop) close(null); };
+
+    if (opts.onMount) opts.onMount(modal);
   });
 }
 
@@ -433,11 +435,18 @@ async function createNewFolder() {
 }
 
 // ── New entry ──
-function getTemplate(personLabel, dateStr) {
+function getDailyTemplate(personLabel, dateStr) {
   return '# ' + dateStr + ' — ' + personLabel + '\n\n' +
     '**Person:** ' + personLabel + '  \n' +
     '**Date:** ' + dateStr + '\n\n' +
-    '## Notes\n\n';
+    '## Plan for today\n\n' +
+    '## What I did\n\n' +
+    '## Results & observations\n\n' +
+    '## Next steps\n\n';
+}
+
+function getBlankTemplate(title) {
+  return '# ' + title + '\n\n';
 }
 
 async function createNewEntry() {
@@ -462,16 +471,47 @@ async function createNewEntry() {
     icon: 'add',
     submitLabel: 'Create entry',
     fields: [
+      { key: 'type',   label: 'Entry type', type: 'select', value: 'daily', options: [
+        { value: 'daily', label: 'Daily entry (dated, with template)' },
+        { value: 'blank', label: 'Blank document (custom title)' }
+      ]},
       { key: 'folder', label: 'Folder', type: 'select', value: defaultDir, options: allDirs.map(function(d) { return { value: d, label: d }; }) },
-      { key: 'name',   label: 'Filename', type: 'text', value: today, placeholder: today }
-    ]
+      { key: 'name',   label: 'Filename / title', type: 'text', value: today, placeholder: today }
+    ],
+    onMount: function(modal) {
+      var typeSel = modal.querySelector('#nbm_type');
+      var nameInput = modal.querySelector('#nbm_name');
+      var nameLabel = nameInput.previousElementSibling; // not the <label> in DOM order; field wraps it
+      // Actual label is the .field's first child
+      var labelEl = nameInput.parentNode.querySelector('label');
+      typeSel.addEventListener('change', function() {
+        if (typeSel.value === 'daily') {
+          labelEl.textContent = 'Filename';
+          nameInput.value = today;
+          nameInput.placeholder = today;
+        } else {
+          labelEl.textContent = 'Title';
+          nameInput.value = '';
+          nameInput.placeholder = 'e.g. Cloning notes';
+        }
+        nameInput.focus();
+        nameInput.select && nameInput.select();
+      });
+    }
   });
   if (!values || !values.name.trim()) return;
   var dir = values.folder;
-  var slug = values.name.trim().replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-');
+  var rawName = values.name.trim();
+  var slug = rawName.replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-|-$/g, '');
+  if (!slug) return;
 
   var personLabel = prettify(dir.split('/').pop());
-  var content = getTemplate(personLabel, today);
+  var content;
+  if (values.type === 'daily') {
+    content = getDailyTemplate(personLabel, today);
+  } else {
+    content = getBlankTemplate(rawName);
+  }
 
   var filePath = ROOT + '/' + dir + '/' + slug + '.md';
   var docPath = 'notebooks/' + dir + '/' + slug;
