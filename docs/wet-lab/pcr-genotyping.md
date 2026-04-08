@@ -21,7 +21,7 @@ title: "PCR Genotyping"
 |████| Transfer to gel                            5 min
 ```
 
-Then continue to [[wet-lab/gel-electrophoresis]] (~40-60 min, mostly waiting).
+Then continue to [[gel-electrophoresis]] (~40-60 min, mostly waiting).
 
 **Full genotyping pipeline (extraction → PCR → gel):**
 ```
@@ -59,7 +59,7 @@ Then continue to [[wet-lab/gel-electrophoresis]] (~40-60 min, mostly waiting).
   - Thaw on ice, mix by inversion (never vortex)
 - **Primer mix** (20 uM total): see preparation below
 - **PCR-grade water** (Ultra Pure — not tap or DI)
-- **DNA template:** 1 uL from [[wet-lab/quick-dna-extraction|Buffer A extraction]]
+- **DNA template:** 1 uL from [[quick-dna-extraction|Buffer A extraction]]
 - 8-strip PCR tubes or 96-well plate
 - Ice bucket
 - Thermocycler
@@ -109,7 +109,7 @@ Final concentration: ~6.7 uM each primer (20 uM total).
 
 Program location: Invitrogen PCR machine / soya / Emerald genotyping
 
-7. After PCR, proceed directly to [[wet-lab/gel-electrophoresis]]
+7. After PCR, proceed directly to [[gel-electrophoresis]]
 
 > *Too many non-specific bands:* Reduce elongation time (try 30 s) or increase annealing temp (try 60 C).
 
@@ -136,9 +136,9 @@ Program location: Invitrogen PCR machine / soya / Emerald genotyping
 ---
 
 ## See also
-- [[wet-lab/quick-dna-extraction]]
-- [[wet-lab/gel-electrophoresis]]
+- [[quick-dna-extraction]]
+- [[gel-electrophoresis]]
 - [Primers_for_genotyping spreadsheet](https://docs.google.com/spreadsheets/d/1Y5vQwY257NeIk1zzeG6tguvpQG51n5AgEA1yNIQT8I0)
 - [T-DNA primer design tool](http://signal.salk.edu/tdnaprimers.2.html)
 - [Ordering/establishing T-DNA lines](https://docs.google.com/document/d/1kJAXfBDfsHfSId-Rf-AxohcZjKdL3aStNkeIJpJ0WPU)
-- [[lab-safety/Chemical Inventory]]
+- [[Chemical Inventory]]

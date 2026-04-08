@@ -51,6 +51,6 @@ A laminar flow clean bench blows HEPA-filtered air in a uniform (laminar) flow a
 - [[Lily Tan]] uses one for her seed plating — ask her
 
 ## See also
-- [[wet-lab/seed-sterilization]]
-- [[wet-lab/planting-arabidopsis-on-ms-plates]]
-- [[wet-lab/ms-media-recipe]]
+- [[seed-sterilization]]
+- [[planting-arabidopsis-on-ms-plates]]
+- [[ms-media-recipe]]

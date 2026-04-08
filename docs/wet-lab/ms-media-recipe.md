@@ -1,7 +1,8 @@
 ---
-type: "protocol"
+type: protocol
 title: "MS Media Recipe"
 ---
+
 # MS Media Recipe
 
 **Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth.
@@ -22,15 +23,12 @@ title: "MS Media Recipe"
 
 | Component | Role |
 | --------- | ---- |
-| MS basal salt | Complete mineral nutrition. The 4.4 g/L formulation includes vitamins (sometimes sold separately — check the label). |
+| **MS basal salt** | Complete mineral nutrition. The 4.4 g/L formulation includes vitamins (sometimes sold separately — check the label). |
 | **[[mes-buffer]]** | Maintains pH during autoclaving and plant growth. Plant roots acidify the medium as they take up NH4+, so buffering matters. pH 5.8 is optimal for nutrient uptake in most plants. |
-| **[[sucrose]]** | Carbon/energy source. Plants on plates are often in low light or have small cotyledons, so they're partially heterotrophic early on. Higher sucrose (10 g/L) supports faster growth but also feeds contaminants. |
-| **[[agar-plant-tc]]** (TC: tissue culture) | Gelling agent. Tissue culture grade agar (A175) is purified to remove inhibitory compounds present in cheaper agars. Regular bacteriological agar can work for simple seed germination but may affect sensitive assays. |
-| **[[potassium-hydroxide]]** (KOH) | pH adjustment. MS salts dissolve to \~pH 4-5. KOH brings it to 5.8 without adding unwanted ions (Na from NaOH can inhibit some plants at high concentrations). |
+| **Sucrose** | Carbon/energy source. Plants on plates are often in low light or have small cotyledons, so they're partially heterotrophic early on. Higher sucrose (10 g/L) supports faster growth but also feeds contaminants. |
+| **TC Agar** | Gelling agent. Tissue culture grade agar (A175) is purified to remove inhibitory compounds present in cheaper agars. Regular bacteriological agar can work for simple seed germination but may affect sensitive assays. |
+| **KOH** | pH adjustment. MS salts dissolve to \~pH 4-5. KOH brings it to 5.8 without adding unwanted ions (Na from NaOH can inhibit some plants at high concentrations). |
 
-
-<br>
-<br>
 **Why pH 5.8?** Plant cell membranes have H+-ATPases that pump protons out, and nutrient transporters are optimized around mildly acidic conditions. Too low (<5) and aluminum/manganese become toxic; too high (>6.5) and iron/zinc precipitate out of solution.
 
 ### Variants
@@ -115,14 +113,14 @@ title: "MS Media Recipe"
 
 ## Reagent locations
 
-* MS salt: check [[lab-safety/Chemical Inventory) — **currently not listed, may need to order**
-* MES: check [lab-safety/Chemical Inventory](https://obj.link/lab-safety/Chemical Inventory) — 50 g in Chemical Cabinet
-* TC Agar (A175): check [lab-safety/Chemical Inventory](https://obj.link/lab-safety/Chemical Inventory) — only 25 g TC grade; 450 g regular agar also available
-* KOH stocks: check [lab-safety/Chemical Inventory](https://obj.link/lab-safety/Chemical Inventory) — only 400 mg solid listed, need pre-made solutions
+* MS salt: check [[Chemical Inventory]] — **currently not listed, may need to order**
+* MES: check [[Chemical Inventory]] — 50 g in Chemical Cabinet
+* TC Agar (A175): check [[Chemical Inventory]] — only 25 g TC grade; 450 g regular agar also available
+* KOH stocks: check [[Chemical Inventory]] — only 400 mg solid listed, need pre-made solutions
 
 ## See also
 
-* [[wet-lab/planting-arabidopsis-on-ms-plates]]
-* [[wet-lab/autoclave]]
-* [[wet-lab/clean-bench]]
-* [lab-safety/Chemical Inventory](https://obj.link/lab-safety/Chemical Inventory]]
+* [[planting-arabidopsis-on-ms-plates]]
+* [[autoclave]]
+* [[clean-bench]]
+* [[Chemical Inventory]]

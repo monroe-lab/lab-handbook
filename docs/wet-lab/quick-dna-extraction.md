@@ -36,7 +36,7 @@ You don't purify the DNA at all — you just dilute the lysate in TE and use 1 u
 
 - **Buffer A:** 100 mM Tris-HCl pH 9.5, 1 M KCl, 10 mM EDTA
   - Location: [[Satoyo Oya]]'s shelf in lab
-  - Check [[lab-safety/Chemical Inventory]] for components if making fresh
+  - Check [[Chemical Inventory]] for components if making fresh
 - **TE buffer:** dilute 50x stock (on chemical shelf) to 1x with DI water
 - 8-strip PCR tubes or 96-well plate
 - Fine scissors and forceps
@@ -60,5 +60,5 @@ You don't purify the DNA at all — you just dilute the lysate in TE and use 1 u
 ---
 
 ## See also
-- [[wet-lab/pcr-genotyping]]
-- [[wet-lab/gel-electrophoresis]]
+- [[pcr-genotyping]]
+- [[gel-electrophoresis]]

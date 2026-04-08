@@ -236,9 +236,9 @@ Click **Video file** in the Media bar, pick an mp4 or webm (max 25 MB). For long
 
 ## Related protocols
 
-* [[wet-lab/seed-sterilization]] (if growing plants for tissue)
-* [[wet-lab/gel-electrophoresis]] (detailed gel protocol)
-* [[wet-lab/pcr-genotyping]] (downstream application)
+* [[seed-sterilization]] (if growing plants for tissue)
+* [[gel-electrophoresis]] (detailed gel protocol)
+* [[pcr-genotyping]] (downstream application)
 
 ## Related projects
 

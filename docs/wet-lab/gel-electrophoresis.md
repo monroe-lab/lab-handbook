@@ -103,6 +103,6 @@ Always include parental controls on every gel so you know exactly where the band
 ---
 
 ## See also
-- [[wet-lab/pcr-genotyping]]
-- [[wet-lab/quick-dna-extraction]]
-- [[lab-safety/Chemical Inventory]]
+- [[pcr-genotyping]]
+- [[quick-dna-extraction]]
+- [[Chemical Inventory]]

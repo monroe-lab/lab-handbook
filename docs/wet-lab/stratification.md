@@ -25,7 +25,7 @@ Arabidopsis seeds have a dormancy mechanism that prevents germination immediatel
 
 ## Procedure
 
-1. After [[wet-lab/seed-sterilization|sterilizing seeds]], resuspend in sterile water (or leave in sterilization rinse water)
+1. After [[seed-sterilization|sterilizing seeds]], resuspend in sterile water (or leave in sterilization rinse water)
 2. Wrap tubes in **aluminum foil** (dark + cold mimics winter)
 3. Place at **4 C** (lab fridge) for **2 days** (48 hours)
 4. After stratification, seeds are primed and will germinate uniformly when moved to light/warmth
@@ -37,5 +37,5 @@ Arabidopsis seeds have a dormancy mechanism that prevents germination immediatel
 ---
 
 ## See also
-- [[wet-lab/seed-sterilization]]
-- [[wet-lab/planting-arabidopsis-on-ms-plates]]
+- [[seed-sterilization]]
+- [[planting-arabidopsis-on-ms-plates]]

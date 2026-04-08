@@ -1,31 +1,32 @@
 ---
-type: "protocol"
+type: protocol
 title: "Autoclave"
 ---
+
 # Autoclave
 
 **Purpose:** Sterilize media, water, and equipment using high-pressure saturated steam.
 
-***
+---
 
 ## Background
 
-An autoclave is essentially a pressure cooker. By pressurizing the chamber to \~15 psi above atmospheric, the boiling point of water rises to 121 C. At this temperature, saturated steam denatures proteins and destroys nucleic acids in all known microorganisms, including bacterial endospores (the most heat-resistant biological structures). The standard 121 C / 30 min cycle achieves a sterility assurance level (SAL) of 10^-6 — meaning less than one in a million chance of a surviving organism.
+An autoclave is essentially a pressure cooker. By pressurizing the chamber to ~15 psi above atmospheric, the boiling point of water rises to 121 C. At this temperature, saturated steam denatures proteins and destroys nucleic acids in all known microorganisms, including bacterial endospores (the most heat-resistant biological structures). The standard 121 C / 30 min cycle achieves a sterility assurance level (SAL) of 10^-6 — meaning less than one in a million chance of a surviving organism.
 
 **Why 121 C and not just boiling (100 C)?** Bacterial endospores (e.g., *Bacillus*, *Clostridium*) can survive hours of boiling. The extra 21 degrees from pressurization is what kills them. This is why autoclaving works and simply boiling media does not reliably sterilize it.
 
-**Why saturated steam matters:** Dry heat at 121 C is much less effective — steam transfers heat \~10x faster than dry air because of the latent heat released during condensation. The steam must contact all surfaces, which is why containers must be loosely covered (not sealed).
+**Why saturated steam matters:** Dry heat at 121 C is much less effective — steam transfers heat ~10x faster than dry air because of the latent heat released during condensation. The steam must contact all surfaces, which is why containers must be loosely covered (not sealed).
 
 **Liquid vs. dry cycle:** Liquid cycle includes a slow exhaust phase to prevent superheated liquids from boiling over when pressure drops. Dry cycle (for glassware, instruments) uses fast exhaust. Always use **liquid cycle** for media.
 
-***
+---
 
 ## Standard cycle for MS media
 
-* **Temperature:** 121 C
-* **Pressure:** \~15 psi (builds automatically)
-* **Time:** 30 min (at temperature, not including ramp-up/cool-down)
-* **Total time:** \~60-90 min including heating and depressurization
+- **Temperature:** 121 C
+- **Pressure:** ~15 psi (builds automatically)
+- **Time:** 30 min (at temperature, not including ramp-up/cool-down)
+- **Total time:** ~60-90 min including heating and depressurization
 
 ## Procedure
 
@@ -49,25 +50,23 @@ An autoclave is essentially a pressure cooker. By pressurizing the chamber to \~
 
 ## What to autoclave for this project
 
-* MS media (1 L flask) — see [[wet-lab/ms-media-recipe]]
-* Sterile water (in bottles with loosened caps)
-* 0.1% agar solution (for seed resuspension)
-* Pipette tip boxes (if reusing)
+- MS media (1 L flask) — see [[ms-media-recipe]]
+- Sterile water (in bottles with loosened caps)
+- 0.1% agar solution (for seed resuspension)
+- Pipette tip boxes (if reusing)
 
 ## Safety
 
-* Never open under pressure
-* Use heat-resistant gloves when removing hot items
-* Liquid contents will be superheated — handle gently, don't shake
-* If a bottle cap was sealed tight, it can shatter on depressurization
+- Never open under pressure
+- Use heat-resistant gloves when removing hot items
+- Liquid contents will be superheated — handle gently, don't shake
+- If a bottle cap was sealed tight, it can shatter on depressurization
 
 ## Location
 
-* Grey needs to identify which autoclave in the building to use
-* Ask [[Vianney Ahn), [Lily Tan](https://obj.link/Lily Tan]]\, or lab neighbors for access/training if unfamiliar with the specific unit
+- Grey needs to identify which autoclave in the building to use
+- Ask [[Vianney Ahn]], [[Lily Tan]], or lab neighbors for access/training if unfamiliar with the specific unit
 
 ## See also
-
-* [[wet-lab/ms-media-recipe]]
-* [[wet-lab/clean-bench]]
-* Hello
+- [[ms-media-recipe]]
+- [[clean-bench]]

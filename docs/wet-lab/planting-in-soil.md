@@ -51,8 +51,8 @@ title: "Planting Arabidopsis in Soil"
 - CEF pesticide schedule: Wednesdays 3-5 PM, doors lock at 2:30 PM
 
 ## See also
-- [[wet-lab/stratification]]
-- [[wet-lab/planting-arabidopsis-on-ms-plates]]
+- [[stratification]]
+- [[planting-arabidopsis-on-ms-plates]]
 - [[Controlled Environment Facility]]
-- [[wet-lab/crossing-arabidopsis]] (future protocol)
-- [[lab-safety/Chemical Inventory]]
+- [[crossing-arabidopsis]] (future protocol)
+- [[Chemical Inventory]]

@@ -181,7 +181,7 @@ var editMeta = {};
 // ── Load file tree ──
 async function loadTree() {
   var files = await Lab.gh.fetchTree('docs/notebooks');
-  allFiles = files.filter(function(f) { return f.endsWith('.md'); });
+  allFiles = files.filter(function(f) { return f.endsWith('.md') || f.endsWith('.gitkeep'); });
   discoverPeople();
   renderSidebar();
 }
@@ -204,6 +204,21 @@ function discoverPeople() {
       };
     }
     var person = map[personSlug];
+
+    // Skip .gitkeep files as entries, but register their parent folder
+    if (parts[parts.length - 1] === '.gitkeep') {
+      if (parts.length >= 3) {
+        var folderSlug = parts.slice(1, -1).join('/');
+        if (!person.folders[folderSlug]) {
+          person.folders[folderSlug] = {
+            slug: folderSlug,
+            name: prettifySlug(parts[1]),
+            entries: []
+          };
+        }
+      }
+      return;
+    }
 
     if (parts.length === 2) {
       // Direct entry: person/date.md
@@ -320,7 +335,7 @@ async function createFolder(personSlug) {
 
   try {
     await Lab.gh.saveFile(path, '', null, 'New notebook folder: ' + personSlug + '/' + slug);
-    // Add to allFiles and re-discover (the .gitkeep won't show since it's not .md but the folder exists)
+    // Reload tree to pick up the new folder
     Lab.showToast('Folder created: ' + slug, 'success');
     // Reload tree to pick up new structure
     await loadTree();

@@ -11,7 +11,7 @@
 
 ## Issues
 
-Items needed for [[wet-lab/planting-arabidopsis-on-ms-plates|planting protocols]] and [[_active/arabidopsis-f1-hybrid-dsb-curriculum|DSB curriculum modules]] that are missing, low, or in wrong format:
+Items needed for [[planting-arabidopsis-on-ms-plates|planting protocols]] and [[_active/arabidopsis-f1-hybrid-dsb-curriculum|DSB curriculum modules]] that are missing, low, or in wrong format:
 
 | Chemical | Problem | Action Needed |
 |----------|---------|---------------|
@@ -248,13 +248,13 @@ See [[_active/chemical-inventory-gaps]] for the action card tracking resolution 
 
 | Reagent | Needed For | In Inventory? | Notes |
 |---------|-----------|---------------|-------|
-| MS basal salt (Murashige & Skoog) | [[wet-lab/ms-media-recipe]] | **NO** | Must order |
-| MES buffer | [[wet-lab/ms-media-recipe]] | YES | 4-Morpholineethanesulfonic acid, 50 g, Chemical Cabinet |
-| TC Agar (A175) | [[wet-lab/ms-media-recipe]] | LOW | Agar Plant TC only 25 g (need 8-9 g/L). Regular agar 450 g also available |
-| Sucrose | [[wet-lab/ms-media-recipe]] | **NO** | Not in EHS inventory. May be in lab unlisted (common reagent). Check physically. |
-| KOH | [[wet-lab/ms-media-recipe]] | LOW | Only 400 mg listed. Need 5N stock for pH adjustment. Check if stocks exist unlisted. |
-| Triton X-100 | [[wet-lab/seed-sterilization]] | YES | 100 mL + 500 mL, Corrosive Cabinet |
-| Ethanol | [[wet-lab/seed-sterilization]] | YES | Absolute + 70% IPA, Flammable Cabinet |
+| MS basal salt (Murashige & Skoog) | [[ms-media-recipe]] | **NO** | Must order |
+| MES buffer | [[ms-media-recipe]] | YES | 4-Morpholineethanesulfonic acid, 50 g, Chemical Cabinet |
+| TC Agar (A175) | [[ms-media-recipe]] | LOW | Agar Plant TC only 25 g (need 8-9 g/L). Regular agar 450 g also available |
+| Sucrose | [[ms-media-recipe]] | **NO** | Not in EHS inventory. May be in lab unlisted (common reagent). Check physically. |
+| KOH | [[ms-media-recipe]] | LOW | Only 400 mg listed. Need 5N stock for pH adjustment. Check if stocks exist unlisted. |
+| Triton X-100 | [[seed-sterilization]] | YES | 100 mL + 500 mL, Corrosive Cabinet |
+| Ethanol | [[seed-sterilization]] | YES | Absolute + 70% IPA, Flammable Cabinet |
 | Hydrogen peroxide (20-35%) | Module 6 (H2O2 treatment) | YES | 1 L, Corrosive Cabinet |
 | MMS (methyl methanesulfonate) | Module 5 (DSB treatment) | YES | 5 g, Chemical Cabinet |
 | Bleomycin | Module 5 (DSB treatment) | **NO** | Must order |
@@ -263,7 +263,7 @@ See [[_active/chemical-inventory-gaps]] for the action card tracking resolution 
 | EMS (ethyl methanesulfonate) | Possible mutagen | YES | Chemical Cabinet |
 
 ## See also
-- [[wet-lab/ms-media-recipe]]
-- [[wet-lab/seed-sterilization]]
-- [[wet-lab/planting-arabidopsis-on-ms-plates]]
+- [[ms-media-recipe]]
+- [[seed-sterilization]]
+- [[planting-arabidopsis-on-ms-plates]]
 - [[_active/arabidopsis-f1-hybrid-dsb-curriculum]]

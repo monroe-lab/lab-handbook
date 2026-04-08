@@ -191,6 +191,17 @@
 .proto-item.dragging { opacity: .4; }
 .proto-items.drag-over { background: var(--teal-50); outline: 2px dashed var(--teal); outline-offset: -2px; border-radius: 4px; }
 .proto-category.drag-over-cat { background: var(--teal-50); color: var(--teal); }
+.proto-cat-rename {
+  margin-left: auto;
+  opacity: 0;
+  color: var(--grey-400);
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: opacity .15s, color .15s;
+}
+.proto-category:hover .proto-cat-rename { opacity: 1; }
+.proto-cat-rename:hover { color: var(--teal); }
+
 .new-folder-btn {
   display: flex;
   align-items: center;
@@ -267,6 +278,9 @@
         <span class="material-icons-outlined search-icon">search</span>
         <input type="text" id="protoSearch" placeholder="Search protocols...">
       </div>
+      <button id="newFolderBtn" class="btn btn-sm" style="display:none;padding:6px 10px;white-space:nowrap;background:none;border:1px solid var(--grey-300);color:var(--grey-600)" onclick="createNewFolder()" title="New folder">
+        <span class="material-icons-outlined" style="font-size:18px">create_new_folder</span>
+      </button>
       <button id="newProtoBtn" class="btn btn-primary btn-sm" style="display:none;padding:6px 10px;white-space:nowrap" onclick="createNewProtocol()">
         <span class="material-icons-outlined" style="font-size:18px">add</span>
       </button>
@@ -355,7 +369,7 @@ async function buildNav() {
 
   CATEGORY_CONFIG.order.forEach(function(dir) {
     if (groups[dir]) {
-      NAV.push({ label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
+      NAV.push({ dir: dir, label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
       usedDirs[dir] = true;
     }
   });
@@ -363,7 +377,7 @@ async function buildNav() {
   // Append any directories not in the config (auto-discovered)
   Object.keys(groups).sort().forEach(function(dir) {
     if (!usedDirs[dir]) {
-      NAV.push({ label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
+      NAV.push({ dir: dir, label: CATEGORY_CONFIG.labels[dir] || prettifyDir(dir), items: groups[dir] });
     }
   });
 
@@ -408,6 +422,7 @@ function renderSidebar(filter) {
       '<span class="material-icons-outlined">expand_more</span>' +
       '<span class="material-cat-label">' + Lab.escHtml(cat.label) + '</span>' +
       '<span class="proto-cat-count">' + items.length + '</span>' +
+      (loggedIn ? '<span class="proto-cat-rename" onclick="event.stopPropagation();renameFolder(' + ci + ')" title="Rename folder"><span class="material-icons-outlined" style="font-size:14px">edit</span></span>' : '') +
       '</div><div class="proto-items' + hidden + '" data-cat-idx="' + ci + '">';
 
     items.forEach(function(item) {
@@ -417,12 +432,6 @@ function renderSidebar(filter) {
     });
     html += '</div>';
   });
-
-  if (loggedIn && !q) {
-    html += '<button class="new-folder-btn" onclick="createNewFolder()">' +
-      '<span class="material-icons-outlined" style="font-size:16px">create_new_folder</span> New folder' +
-      '</button>';
-  }
 
   tree.innerHTML = html || '<div class="empty-state"><p>No protocols match</p></div>';
 
@@ -460,13 +469,41 @@ async function createNewFolder() {
     // Add to CATEGORY_CONFIG and NAV
     CATEGORY_CONFIG.labels[dir] = label.trim();
     CATEGORY_CONFIG.order.push(dir);
-    NAV.push({ label: label.trim(), items: [] });
+    NAV.push({ dir: dir, label: label.trim(), items: [] });
 
     renderSidebar(document.getElementById('protoSearch').value);
     Lab.showToast('Created folder: ' + label.trim(), 'success');
   } catch(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
   }
+}
+
+// ── Rename Folder ──
+async function renameFolder(catIdx) {
+  var cat = NAV[catIdx];
+  if (!cat) return;
+  var newLabel = prompt('Rename folder:', cat.label);
+  if (!newLabel || !newLabel.trim() || newLabel.trim() === cat.label) return;
+
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Update the index.md in the directory if it exists
+  var indexPath = 'docs/' + cat.dir + '/index.md';
+  try {
+    var result = await gh.fetchFile(indexPath);
+    var newContent = result.content.replace(/^# .+$/m, '# ' + newLabel.trim());
+    await gh.saveFile(indexPath, newContent, result.sha, 'Rename folder: ' + cat.label + ' → ' + newLabel.trim());
+  } catch(e) {
+    // No index.md — that's fine, just update the label locally
+  }
+
+  // Update in-memory config and NAV
+  CATEGORY_CONFIG.labels[cat.dir] = newLabel.trim();
+  cat.label = newLabel.trim();
+
+  renderSidebar(document.getElementById('protoSearch').value);
+  Lab.showToast('Renamed to: ' + newLabel.trim(), 'success');
 }
 
 // ── Drag and Drop ──
@@ -579,6 +616,9 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
 
     gh.clearObjectIndexCache();
 
+    // Update wikilinks in other files that reference the old path
+    await updateWikilinksAfterMove(srcDocPath, targetDir + '/' + slug);
+
     // Update local NAV
     var newDocPath = targetDir + '/' + slug;
     NAV.forEach(function(cat) {
@@ -597,6 +637,44 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
     }
   } catch(e) {
     Lab.showToast('Move failed: ' + e.message, 'error');
+  }
+}
+
+// After moving a file, find and update any path-qualified wikilinks pointing to the old path
+async function updateWikilinksAfterMove(oldDocPath, newDocPath) {
+  var gh = Lab.gh;
+  // Build regex to match [[old/path]] or [[old/path|label]]
+  var escaped = oldDocPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var pattern = new RegExp('\\[\\[' + escaped + '(\\|[^\\]]*)?\\]\\]', 'g');
+
+  // Fetch all .md files from the tree
+  var allFiles = await gh.fetchTree('docs');
+  var mdFiles = allFiles.filter(function(f) { return f.endsWith('.md'); });
+
+  var updated = 0;
+  for (var i = 0; i < mdFiles.length; i++) {
+    var filePath = mdFiles[i];
+    // Skip the file we just moved (it's already at the new location)
+    if (filePath === 'docs/' + oldDocPath + '.md' || filePath === 'docs/' + newDocPath + '.md') continue;
+
+    try {
+      var file = await gh.fetchFile(filePath);
+      if (!pattern.test(file.content)) continue;
+
+      // Replace path-qualified links with filename-only links
+      var slug = oldDocPath.split('/').pop();
+      var newContent = file.content.replace(pattern, function(match, label) {
+        return '[[' + slug + (label || '') + ']]';
+      });
+
+      await gh.saveFile(filePath, newContent, file.sha, 'Update wikilinks: ' + oldDocPath + ' → ' + slug);
+      updated++;
+    } catch(e) {
+      // Skip files we can't read/write
+    }
+  }
+  if (updated > 0) {
+    Lab.showToast('Updated links in ' + updated + ' file' + (updated > 1 ? 's' : ''), 'success');
   }
 }
 
@@ -1156,6 +1234,7 @@ window.addEventListener('popstate', function() {
   loggedIn = Lab.gh.isLoggedIn();
   if (loggedIn) {
     document.getElementById('newProtoBtn').style.display = '';
+    document.getElementById('newFolderBtn').style.display = '';
   }
 
   var params = new URLSearchParams(location.search);

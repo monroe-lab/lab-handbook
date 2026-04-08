@@ -44,7 +44,7 @@ Arabidopsis seeds carry fungal spores and bacteria on their seed coat from the e
 3. Place on [[tube-rotator]] for **10-15 min**
 4. Remove ethanol
 5. Allow seeds to dry in [[clean-bench]] (EtOH evaporates quickly)
-6. Proceed to [[wet-lab/stratification]] or plating
+6. Proceed to [[stratification]] or plating
 
 > 🔀 **Old or contamination-prone seed stocks**
 > **Step 2:** Use **95% ethanol** instead of 70%
@@ -80,7 +80,7 @@ Final concentration is \~0.5-0.8% NaOCl — enough to kill microbes but mild eno
 6. Remove solution
 7. **Rinse 3x** with sterile water (in [[clean-bench]]) — this is critical, residual bleach inhibits germination
 8. Resuspend in 1 mL sterile water
-9. Proceed to [[wet-lab/stratification]] (wrap in foil, 4 C, 2 days)
+9. Proceed to [[stratification]] (wrap in foil, 4 C, 2 days)
 
 > 🔀 **Sensitive genotypes (e.g., Ler, Cvi)**
 > Some accessions have thinner seed coats and are more susceptible to bleach damage.
@@ -128,7 +128,7 @@ For sterilizing many tubes simultaneously without opening them. The gas penetrat
 
 ## See also
 
-* [[wet-lab/planting-arabidopsis-on-ms-plates]]
-* [[wet-lab/stratification]]
-* [[wet-lab/clean-bench]]
-* [[lab-safety/Chemical Inventory]]
+* [[planting-arabidopsis-on-ms-plates]]
+* [[stratification]]
+* [[clean-bench]]
+* [[Chemical Inventory]]
