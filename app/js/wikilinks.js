@@ -21,8 +21,12 @@
     var index = await gh.fetchObjectIndex();
     objectLookup = {};
     index.forEach(function(obj) {
-      var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-      objectLookup[slug] = obj;
+      var parts = obj.path.replace(/\.md$/, '').split('/');
+      var last = parts[parts.length - 1];
+      // For folder-style pages (e.g. projects/alfalfa-pangenome/index.md), the
+      // canonical slug is the parent folder name, not "index".
+      var slug = (last === 'index' && parts.length > 1) ? parts[parts.length - 2] : last;
+      if (!objectLookup[slug]) objectLookup[slug] = obj;
       // Also index by full relative path (e.g., "wet-lab/pcr-genotyping")
       var relPath = obj.path.replace(/\.md$/, '');
       objectLookup[relPath] = obj;

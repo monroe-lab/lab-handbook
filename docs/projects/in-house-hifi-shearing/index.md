@@ -30,9 +30,14 @@ For size QC, instead of buying a [[femtopulse]] (~$100k+) or [TapeStation](https
 
 ## Status
 
-Planning and procurement. Workflow is documented but **not yet validated** — see Validation phase below. Until calibration is logged, treat all in-house results as provisional and continue parallel FemtoPulse on critical batches.
+Planning and procurement. Workflow is documented but **not yet validated** — see [[validation-plan]]. Until calibration is logged, treat all in-house results as provisional and continue parallel FemtoPulse on critical batches.
 
-## Key Documents
+## Sub-pages
+
+- [[bill-of-materials]] — equipment, kits, consumables
+- [[validation-plan]] — calibration against FemtoPulse
+
+## Key Protocols
 
 - [[in-house-hifi-shearing-pipeline]] — master pipeline page with mermaid diagram and decision rules
 - [[operating-the-ot2]] — general OT-2 operations (foundational)
@@ -41,53 +46,6 @@ Planning and procurement. Workflow is documented but **not yet validated** — s
 - [[flongle-sequencing-and-analysis]] — MinION/Flongle run, Dorado demux, NanoPlot, go/no-go
 - [[in-house-vs-genome-center-decision]] — when to use which path
 - [[pacbio-hifi-sequencing]] — downstream SMRTbell library prep
-
-## Validation Phase (prerequisite to production use)
-
-Before this workflow goes into production we run **one calibration batch** against the FemtoPulse to characterize bias from the AMPure cleanup + Flongle path:
-
-1. Take one batch of 8-12 HMW DNA samples.
-2. Shear all on the OT-2 using [[ot2-hmw-shearing]].
-3. Split each sample into two aliquots:
-   - **Aliquot A**: Genome Center FemtoPulse (~$27/sample). Requires Noravit back from leave (~early May 2026).
-   - **Aliquot B**: in-house Flongle path ([[flongle-rapid-barcoding-rbk114]] then [[flongle-sequencing-and-analysis]]).
-4. Compare per-sample read-length distributions.
-5. Log the offset (e.g., "Flongle reads X% shorter mean and Y% narrower than FemtoPulse on the same input") in the master pipeline page as a constant correction factor.
-6. The validation must use the **same AMPure beads, ratio, and protocol** that production will use. Any change invalidates the calibration.
-
-Once logged, the in-house workflow is cleared for production.
-
-## Bill of Materials
-
-### Already owned (verify)
-
-- [[opentrons-ot2]] (delivered 2020-09)
-- [[ot2-temperature-module]] (GEN2)
-- [[ot2-magnetic-module]] (GEN2)
-- [[ot2-thermocycler-module]]
-- [[qubit-fluorometer]]
-- [[qubit-dsdna-hs-assay-kit]]
-- [[qubit-assay-tubes]]
-- [[ampure-xp-beads]]
-- [[dna-lobind-tubes]]
-- [[magnetic-rack]]
-
-### To order — one-time hardware
-
-- [[minion-mk1b]] (~$1,000)
-- [[flongle-starter-pack]] (~$1,860, includes adapter + 12 flow cells)
-- [[sqk-rbk114-24]] (~$700, 6 preps × 24 barcodes — **not** SQK-RAD114 or .96)
-- [[flow-cell-wash-kit-exp-wsh004]] (~$300, optional)
-
-### To order — consumables
-
-- [[wide-bore-filter-tips-p200]] — **critical**, standard tips re-shear HMW DNA
-- [[wide-bore-filter-tips-p1000]]
-- [[kingfisher-deepwell-96-plate]]
-- [[pcr-strip-tubes-0-2ml]]
-- [[nuclease-free-water]]
-- [[bovine-serum-albumin-50mg-ml]]
-- [[flongle-flow-cells-flo-flg114]] (recurring, perishable ~8 wk)
 
 ## Related
 

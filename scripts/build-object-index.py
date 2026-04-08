@@ -80,7 +80,10 @@ def build_index():
         if not dir_path.is_dir():
             continue
 
-        for md_file in sorted(dir_path.glob("*.md")):
+        # Projects recurse into subfolders (folder-tree structure like protocols);
+        # other object dirs stay flat.
+        glob_pattern = "**/*.md" if dir_rel == "projects" else "*.md"
+        for md_file in sorted(dir_path.glob(glob_pattern)):
             # Skip index/template files
             if md_file.name.startswith("_"):
                 continue

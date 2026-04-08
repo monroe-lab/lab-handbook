@@ -6,373 +6,587 @@
 <title>Projects - Monroe Lab</title>
 <link rel="stylesheet" href="css/base.css">
 <style>
-.proj-page { max-width: 1100px; margin: 0 auto; padding: 24px; }
-
-/* Project cards grid */
-.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 32px; }
-.proj-card {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: box-shadow .15s, transform .15s;
-  border-left: 4px solid var(--grey-300);
+.protocols-layout {
+  display: flex;
+  height: calc(100vh - var(--nav-height));
 }
-.proj-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.proj-card.active { border-left-color: var(--green); }
-.proj-card.paused { border-left-color: var(--amber); }
-.proj-card.completed { border-left-color: var(--grey-400); }
-.proj-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
-.proj-card-meta { font-size: 13px; color: var(--grey-500); display: flex; gap: 12px; align-items: center; }
-.proj-card-status { font-weight: 600; text-transform: capitalize; }
-.proj-card-status.active { color: var(--green); }
-.proj-card-status.paused { color: var(--amber); }
-.proj-card-status.completed { color: var(--grey-500); }
 
-/* Project detail view */
-.proj-detail { display: none; }
-.proj-detail.visible { display: block; }
-.proj-back {
-  display: inline-flex;
+/* Sidebar */
+.proto-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: #fff;
+  border-right: 1px solid var(--grey-200);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.proto-sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--grey-200);
+}
+.proto-sidebar-header input {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.proto-sidebar-header input:focus { border-color: var(--teal); }
+.proto-sidebar-header .search-icon {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--grey-500);
+  pointer-events: none;
+}
+.proto-tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.proto-tree::-webkit-scrollbar { width: 5px; }
+.proto-tree::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
+.proto-category {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-600);
+  cursor: pointer;
+  display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
-  color: var(--grey-500);
-  cursor: pointer;
-  margin-bottom: 16px;
-  padding: 4px 0;
+  user-select: none;
+  background: var(--grey-50);
+  border-bottom: 1px solid var(--grey-200);
 }
-.proj-back:hover { color: var(--teal); }
-.proj-header {
+.proto-category:hover { color: var(--teal); background: var(--teal-50); }
+.proto-category.active-folder { color: var(--teal-dark); background: var(--teal-light); }
+.proto-category .material-icons-outlined { font-size: 18px; transition: transform .15s; color: var(--grey-400); }
+.proto-category.collapsed .material-icons-outlined.chev { transform: rotate(-90deg); }
+.proto-cat-count {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--grey-400);
+  background: var(--grey-200);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+.proto-items { padding-left: 8px; }
+.proto-items.hidden { display: none; }
+.proto-item {
+  display: block;
+  padding: 6px 16px 6px 24px;
+  font-size: 13px;
+  color: var(--grey-700);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  transition: background .1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.proto-item:hover { background: var(--grey-100); color: var(--grey-900); }
+.proto-item.active { background: var(--teal-light); color: var(--teal-dark); font-weight: 500; }
+
+/* Main content */
+.proto-main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--grey-100);
+}
+.proto-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+/* Rendered markdown */
+.proto-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.proto-rendered h1 { font-size: 28px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
+.proto-rendered h2 { font-size: 22px; font-weight: 600; margin: 28px 0 10px; color: var(--grey-800); }
+.proto-rendered h3 { font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.proto-rendered h4 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
+.proto-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.proto-rendered td, .proto-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
+.proto-rendered thead th { background: var(--grey-50); font-weight: 600; }
+.proto-rendered code { background: var(--grey-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.proto-rendered pre { background: var(--grey-900); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
+.proto-rendered pre code { background: transparent; padding: 0; color: inherit; }
+.proto-rendered ul, .proto-rendered ol { padding-left: 24px; margin: 8px 0; }
+.proto-rendered li { margin: 4px 0; }
+.proto-rendered blockquote { border-left: 4px solid var(--teal); padding: 8px 16px; margin: 12px 0; background: var(--teal-50); border-radius: 0 8px 8px 0; }
+.proto-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+.proto-rendered a:not(.object-pill) { color: var(--teal-dark); }
+.proto-rendered hr { border: none; border-top: 1px solid var(--grey-300); margin: 24px 0; }
+
+.proto-edit-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.proj-header h1 { font-size: 24px; font-weight: 700; }
-.proj-header-actions { display: flex; gap: 8px; }
-
-/* Sections */
-.proj-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
-.proj-section {
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.proj-section-header {
-  padding: 12px 16px;
+  padding: 12px 0;
+  margin-bottom: 16px;
   border-bottom: 1px solid var(--grey-200);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--grey-600);
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
-.proj-section-header .material-icons-outlined { font-size: 18px; }
-.proj-section-body { padding: 12px 16px; }
-.proj-section-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 0;
-  font-size: 14px;
-  border-bottom: 1px solid var(--grey-100);
+.proto-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); }
+
+.proto-editor-surface { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; min-height: 500px; }
+
+.proto-hamburger {
+  display: none;
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + 16px);
+  left: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  box-shadow: var(--shadow-lg);
   cursor: pointer;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
 }
-.proj-section-item:last-child { border-bottom: none; }
-.proj-section-item:hover { color: var(--teal); }
-.proj-section-empty { color: var(--grey-400); font-size: 13px; padding: 8px 0; }
-
-/* Project body (rendered markdown) */
-.proj-body-panel {
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px 32px;
-  margin-bottom: 20px;
+.proto-hamburger .material-icons-outlined { font-size: 24px; }
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.3);
+  z-index: 200;
 }
-.proj-body { font-size: 15px; line-height: 1.7; }
-.proj-body h1 { display: none; } /* hide title dupe */
-.proj-body h2 { font-size: 20px; font-weight: 600; margin: 20px 0 8px; }
-.proj-body h3 { font-size: 16px; font-weight: 600; margin: 16px 0 6px; }
-.proj-body ul, .proj-body ol { padding-left: 24px; margin: 8px 0; }
-.proj-body li { margin: 4px 0; }
-.proj-body a:not(.object-pill) { color: var(--teal-dark); }
-.proj-body table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-.proj-body td, .proj-body th { border: 1px solid var(--grey-300); padding: 8px 12px; }
 
-/* Sample mini-table */
-.sample-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--grey-100); }
-.sample-row:last-child { border-bottom: none; }
-.sample-id { font-weight: 600; min-width: 80px; }
-.sample-status { font-size: 12px; }
+@media print {
+  #lab-nav, #lab-bottom-nav, .proto-sidebar, .sidebar-backdrop, .proto-hamburger,
+  .proto-edit-bar, #password-gate { display: none !important; }
+  .protocols-layout { display: block !important; }
+  .proto-main { overflow: visible !important; }
+  .proto-content { max-width: 100% !important; padding: 0 !important; }
+  body { background: #fff; }
+}
 
 @media (max-width: 768px) {
-  .proj-page { padding: 16px; }
-  .proj-sections { grid-template-columns: 1fr; }
-  .proj-grid { grid-template-columns: 1fr; }
+  .proto-sidebar {
+    position: fixed;
+    left: -300px;
+    top: var(--nav-height);
+    bottom: var(--bottom-nav-height);
+    z-index: 300;
+    transition: left .25s ease;
+    box-shadow: 4px 0 16px rgba(0,0,0,.1);
+  }
+  .proto-sidebar.open { left: 0; }
+  .sidebar-backdrop.open { display: block; }
+  .proto-hamburger { display: flex; }
+  .proto-content { padding: 12px 8px; }
+  .protocols-layout { height: calc(100vh - var(--nav-height) - var(--bottom-nav-height)); }
+  .proto-edit-bar .breadcrumb { display: none; }
+  .proto-edit-bar .btn span.material-icons-outlined { margin: 0; }
+  .proto-edit-bar .btn { padding: 6px 8px; font-size: 0; }
+  .proto-edit-bar .btn span.material-icons-outlined { font-size: 18px; }
+  .btn-label { display: none; }
+  body.editing-mode #lab-nav { display: none; }
+  body.editing-mode #lab-bottom-nav { display: none; }
+  body.editing-mode .proto-sidebar { display: none; }
+  body.editing-mode .proto-hamburger { display: none; }
+  body.editing-mode .protocols-layout { height: 100vh; }
+  body.editing-mode .proto-edit-bar { display: none; }
 }
 </style>
 </head>
 <body>
 
-<div class="proj-page">
-  <!-- Project list -->
-  <div id="projList">
-    <h1 style="font-size:22px;font-weight:600;margin-bottom:16px">Projects</h1>
-    <div class="proj-grid" id="projGrid">
+<div class="protocols-layout">
+  <div class="proto-sidebar" id="sidebar">
+    <div class="proto-sidebar-header" style="position:relative;display:flex;gap:6px;align-items:center">
+      <div style="position:relative;flex:1">
+        <span class="material-icons-outlined search-icon">search</span>
+        <input type="text" id="protoSearch" placeholder="Search projects...">
+      </div>
+      <button id="newProjBtn" class="btn btn-primary btn-sm" style="display:none;padding:6px 10px;white-space:nowrap" onclick="createNewProject()">
+        <span class="material-icons-outlined" style="font-size:18px">add</span>
+      </button>
+    </div>
+    <div class="proto-tree" id="protoTree">
       <div class="loading-state"><div class="spinner"></div></div>
     </div>
   </div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-  <!-- Project detail -->
-  <div class="proj-detail" id="projDetail">
-    <div class="proj-back" onclick="showList()">
-      <span class="material-icons-outlined" style="font-size:18px">arrow_back</span> All Projects
-    </div>
-    <div class="proj-header">
-      <h1 id="projTitle"></h1>
-      <div class="proj-header-actions">
-        <button class="btn btn-outline btn-sm" id="projEditBtn" style="display:none" onclick="editProject()">
-          <span class="material-icons-outlined">edit</span> Edit
-        </button>
-      </div>
-    </div>
-
-    <!-- Project body -->
-    <div class="proj-body-panel">
-      <div class="proj-body" id="projBody">
-        <div class="loading-state"><div class="spinner"></div></div>
-      </div>
-    </div>
-
-    <!-- Connected objects -->
-    <div class="proj-sections">
-      <div class="proj-section">
-        <div class="proj-section-header"><span class="material-icons-outlined">person</span> Team</div>
-        <div class="proj-section-body" id="projPeople"></div>
-      </div>
-      <div class="proj-section">
-        <div class="proj-section-header"><span class="material-icons-outlined">menu_book</span> Protocols</div>
-        <div class="proj-section-body" id="projProtocols"></div>
-      </div>
-      <div class="proj-section">
-        <div class="proj-section-header"><span class="material-icons-outlined">biotech</span> Samples</div>
-        <div class="proj-section-body" id="projSamples"></div>
-      </div>
-      <div class="proj-section">
-        <div class="proj-section-header"><span class="material-icons-outlined">edit_note</span> Recent Notebooks</div>
-        <div class="proj-section-body" id="projNotebooks"></div>
-      </div>
+  <div class="proto-main" id="protoMain">
+    <div id="protoContent">
+      <div class="loading-state" style="padding-top:80px"><div class="spinner"></div><p>Loading projects...</p></div>
     </div>
   </div>
 </div>
 
+<button class="proto-hamburger" id="hamburger">
+  <span class="material-icons-outlined">menu</span>
+</button>
+
 <script src="js/lab.js"></script>
 <script>
-var BASE = Lab.BASE;
-var projects = [];
-var objectIndex = [];
-var currentProject = null;
+// Projects browser — tree sidebar + shared editor modal, mirroring protocols.html.
+// Each top-level project is a folder under docs/projects/. Its index.md is the
+// folder landing page; additional .md files in the folder (or nested folders)
+// appear as children in the tree.
+
+var NAV = [];          // [{ dir, label, indexPath (docPath|null), items: [{title, path}] }]
+var currentDoc = null; // docPath without .md, e.g. "projects/alfalfa-pangenome/index"
 var currentSha = null;
+var isEditing = false;
+var editorInstance = null;
+var loggedIn = false;
 
-// ── Load ──
-async function init() {
-  objectIndex = await Lab.gh.fetchObjectIndex();
-  projects = objectIndex.filter(function(obj) { return obj.type === 'project'; });
-  renderGrid();
-
-  // Check URL for direct project link
-  var params = new URLSearchParams(location.search);
-  var proj = params.get('project');
-  if (proj) loadProject(proj);
+function prettify(slug) {
+  return slug.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
 }
 
-// ── Grid ──
-function renderGrid() {
-  var grid = document.getElementById('projGrid');
-  if (!projects.length) {
-    grid.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">folder_off</span><p>No projects yet</p></div>';
+// Build NAV from object-index.json entries of type: project.
+async function buildNav() {
+  var index = await Lab.gh.fetchObjectIndex();
+  var projects = index.filter(function(o) { return o.type === 'project'; });
+
+  // Group by top-level project folder under projects/
+  // path: "projects/<slug>/index.md" or "projects/<slug>/<sub>.md"
+  var folders = {}; // slug -> { label, indexPath, items: [] }
+  projects.forEach(function(p) {
+    var rel = p.path; // e.g. "projects/alfalfa-pangenome/index.md"
+    var parts = rel.replace(/\.md$/, '').split('/');
+    if (parts[0] !== 'projects' || parts.length < 2) return;
+    var folderSlug = parts[1];
+    var rest = parts.slice(2); // [] for index at folder root, or ["sub"] etc.
+    var docPath = parts.join('/'); // e.g. "projects/alfalfa-pangenome/index"
+
+    if (!folders[folderSlug]) {
+      folders[folderSlug] = { dir: 'projects/' + folderSlug, label: prettify(folderSlug), indexPath: null, items: [] };
+    }
+    var folder = folders[folderSlug];
+
+    var isIndex = rest.length === 0 || (rest.length === 1 && rest[0] === 'index');
+    if (isIndex) {
+      folder.indexPath = docPath;
+      // Prefer the real title from the index's frontmatter
+      if (p.title) folder.label = p.title;
+    } else {
+      folder.items.push({ title: p.title || rest.join('/'), path: docPath });
+    }
+  });
+
+  NAV = Object.keys(folders).sort(function(a, b) {
+    return folders[a].label.localeCompare(folders[b].label);
+  }).map(function(slug) {
+    var f = folders[slug];
+    f.items.sort(function(a, b) { return a.title.localeCompare(b.title); });
+    return f;
+  });
+}
+
+// ── Sidebar ──
+function renderSidebar(filter) {
+  var tree = document.getElementById('protoTree');
+  var q = (filter || '').toLowerCase();
+  var html = '';
+
+  NAV.forEach(function(cat, ci) {
+    var items = cat.items;
+    var labelMatch = !q || cat.label.toLowerCase().includes(q);
+    if (q) {
+      items = items.filter(function(i) { return i.title.toLowerCase().includes(q); });
+      if (!items.length && !labelMatch) return;
+    }
+
+    var folderActive = currentDoc && (currentDoc === cat.indexPath || (currentDoc.indexOf(cat.dir + '/') === 0));
+    var hasActiveChild = items.some(function(i) { return i.path === currentDoc; });
+    var collapsed = !q && !folderActive && !hasActiveChild ? ' collapsed' : '';
+    var hidden = collapsed ? ' hidden' : '';
+    var activeCls = (currentDoc && currentDoc === cat.indexPath) ? ' active-folder' : '';
+
+    var clickFolder = cat.indexPath
+      ? 'onclick="handleFolderClick(event, ' + ci + ')"'
+      : 'onclick="toggleCategory(this.closest(\'.proto-category\'))"';
+
+    html += '<div class="proto-category' + collapsed + activeCls + '" data-cat-idx="' + ci + '" ' + clickFolder + '>' +
+      '<span class="material-icons-outlined chev">expand_more</span>' +
+      '<span>' + Lab.escHtml(cat.label) + '</span>' +
+      (items.length ? '<span class="proto-cat-count">' + items.length + '</span>' : '') +
+      '</div><div class="proto-items' + hidden + '" data-cat-idx="' + ci + '">';
+
+    items.forEach(function(item) {
+      var active = currentDoc === item.path ? ' active' : '';
+      html += '<div class="proto-item' + active + '" data-path="' + item.path + '" onclick="event.stopPropagation();loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+    });
+    html += '</div>';
+  });
+
+  tree.innerHTML = html || '<div class="empty-state"><p>No projects match</p></div>';
+}
+
+function toggleCategory(el) {
+  if (!el) return;
+  el.classList.toggle('collapsed');
+  var items = el.nextElementSibling;
+  if (items) items.classList.toggle('hidden');
+}
+
+// Folder click: toggle if clicking the chevron, otherwise load the index page.
+function handleFolderClick(e, catIdx) {
+  var cat = NAV[catIdx];
+  if (!cat) return;
+  // If user clicked the chevron, just toggle. Otherwise load the index.
+  if (e.target && e.target.classList && e.target.classList.contains('chev')) {
+    toggleCategory(e.currentTarget);
     return;
   }
-  grid.innerHTML = projects.map(function(p) {
-    var slug = p.path.replace(/\.md$/, '').split('/').pop();
-    var status = p.status || 'active';
-    return '<div class="proj-card ' + status + '" onclick="loadProject(\'' + Lab.escHtml(slug) + '\')">' +
-      '<h3>' + Lab.escHtml(p.title || slug) + '</h3>' +
-      '<div class="proj-card-meta">' +
-        '<span class="proj-card-status ' + status + '">' + status + '</span>' +
-        (p.pi ? '<span>PI: ' + Lab.escHtml(p.pi) + '</span>' : '') +
-      '</div></div>';
-  }).join('');
+  if (cat.indexPath) loadDoc(cat.indexPath);
+  else toggleCategory(e.currentTarget);
 }
 
-// ── Load Project ──
-async function loadProject(slug) {
-  currentProject = slug;
-  document.getElementById('projList').style.display = 'none';
-  document.getElementById('projDetail').classList.add('visible');
-  history.pushState(null, '', location.pathname + '?project=' + encodeURIComponent(slug));
+// ── Post-process rendered HTML (collapsible h2s + image fallback) ──
+function postProcessRendered(el) {
+  if (!el) return;
+  var h2s = el.querySelectorAll('h2');
+  h2s.forEach(function(h2) {
+    var content = [];
+    var next = h2.nextElementSibling;
+    while (next && next.tagName !== 'H2') {
+      content.push(next);
+      next = next.nextElementSibling;
+    }
+    if (!content.length) return;
+    var details = document.createElement('details');
+    details.open = true;
+    details.style.cssText = 'margin:0 0 8px;';
+    var summary = document.createElement('summary');
+    summary.style.cssText = 'cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;user-select:none;';
+    summary.innerHTML = '<span class="material-icons-outlined" style="font-size:18px;color:var(--grey-400);transition:transform .2s">expand_more</span>';
+    var h2Clone = h2.cloneNode(true);
+    h2Clone.style.display = 'inline';
+    h2Clone.style.margin = '0';
+    summary.appendChild(h2Clone);
+    details.appendChild(summary);
+    var body = document.createElement('div');
+    body.style.cssText = 'padding-left:2px;';
+    content.forEach(function(node) { body.appendChild(node); });
+    details.appendChild(body);
+    h2.parentNode.replaceChild(details, h2);
+    details.addEventListener('toggle', function() {
+      var chevron = summary.querySelector('.material-icons-outlined');
+      if (chevron) chevron.style.transform = details.open ? '' : 'rotate(-90deg)';
+    });
+  });
+  if (Lab.postProcessImages) Lab.postProcessImages(el);
+}
 
-  var filePath = 'docs/projects/' + slug + '.md';
-  document.getElementById('projBody').innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+// ── Load Document ──
+async function loadDoc(docPath) {
+  currentDoc = docPath;
+  isEditing = false;
+  document.body.classList.remove('editing-mode');
+  editorInstance = null;
+  cachedBody = null;
+
+  renderSidebar(document.getElementById('protoSearch').value);
+  history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
+
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarBackdrop').classList.remove('open');
+
+  var contentEl = document.getElementById('protoContent');
+  contentEl.innerHTML = '<div class="loading-state" style="padding-top:80px"><div class="spinner"></div></div>';
 
   try {
+    var filePath = 'docs/' + docPath + '.md';
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
     var parsed = Lab.parseFrontmatter(result.content);
-    var title = parsed.meta.title || slug;
-
-    document.getElementById('projTitle').textContent = title;
-    if (Lab.gh.isLoggedIn()) document.getElementById('projEditBtn').style.display = '';
-
-    // Render body
     var html = await Lab.editorModal.renderMarkdown(parsed.body);
-    var bodyEl = document.getElementById('projBody');
-    bodyEl.innerHTML = '<div class="proj-body-content">' + html + '</div>';
-    if (Lab.wikilinks) await Lab.wikilinks.processRendered(bodyEl);
 
-    // Extract wikilinks from the raw markdown to find connected objects
-    var linkedSlugs = [];
-    var linkRegex = /\[\[([^\]|]+?)(?:\|[^\]]+?)?\]\]/g;
-    var m;
-    while ((m = linkRegex.exec(parsed.body)) !== null) {
-      linkedSlugs.push(m[1]);
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(docPath) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span> Print</button>' +
+            (Lab.gh.isLoggedIn() ?
+              '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+
+    var renderedEl = document.getElementById('renderedDoc');
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
+    postProcessRendered(renderedEl);
+
+    document.getElementById('protoMain').scrollTop = 0;
+  } catch(e) {
+    contentEl.innerHTML = '<div class="proto-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+  }
+}
+
+// ── Edit Mode (mirrors protocols.html) ──
+var editFrontmatter = '';
+var cachedBody = null;
+
+async function startEdit() {
+  if (!currentDoc || isEditing) return;
+  isEditing = true;
+  document.body.classList.add('editing-mode');
+
+  var contentEl = document.getElementById('protoContent');
+  var filePath = 'docs/' + currentDoc + '.md';
+
+  try {
+    var bodyOnly;
+    if (cachedBody !== null) {
+      bodyOnly = cachedBody;
+    } else {
+      var result = await Lab.gh.fetchFile(filePath);
+      currentSha = result.sha;
+      var parsed = Lab.parseFrontmatter(result.content);
+      editFrontmatter = parsed.meta;
+      bodyOnly = parsed.body;
     }
 
-    // Populate connected sections
-    populatePeople(linkedSlugs);
-    populateProtocols(linkedSlugs);
-    populateSamples(title, slug);
-    populateNotebooks(linkedSlugs);
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + ' (editing)</div>' +
+          '<div style="display:flex;gap:6px;align-items:center">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="proto-editor-surface em-surface" id="editorSurface"></div>' +
+      '</div>';
 
+    var surface = document.getElementById('editorSurface');
+    editorInstance = await Lab.editorModal.initFullpage(surface, bodyOnly, filePath, currentSha);
   } catch(e) {
-    document.getElementById('projBody').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(e.message) + '</p></div>';
+    Lab.showToast('Failed to load for editing: ' + e.message, 'error');
+    isEditing = false;
   }
 }
 
-// ── Connected: People ──
-function populatePeople(linkedSlugs) {
-  var el = document.getElementById('projPeople');
-  var people = objectIndex.filter(function(obj) {
-    if (obj.type !== 'person') return false;
-    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-    return linkedSlugs.indexOf(slug) !== -1;
-  });
-  if (!people.length) { el.innerHTML = '<div class="proj-section-empty">No team members linked</div>'; return; }
-  el.innerHTML = people.map(function(p) {
-    var conf = Lab.types.get(p.type);
-    return '<div class="proj-section-item" onclick="Lab.editorModal.open(\'docs/' + p.path + '\')">' +
-      '<span style="font-size:16px">' + conf.icon + '</span>' +
-      '<div><div style="font-weight:500">' + Lab.escHtml(p.title) + '</div>' +
-      (p.role ? '<div style="font-size:12px;color:var(--grey-500)">' + Lab.escHtml(p.role) + '</div>' : '') +
-      '</div></div>';
-  }).join('');
-}
-
-// ── Connected: Protocols ──
-function populateProtocols(linkedSlugs) {
-  var el = document.getElementById('projProtocols');
-  var protocols = objectIndex.filter(function(obj) {
-    if (obj.type !== 'protocol') return false;
-    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-    return linkedSlugs.indexOf(slug) !== -1;
-  });
-  if (!protocols.length) { el.innerHTML = '<div class="proj-section-empty">No protocols linked</div>'; return; }
-  el.innerHTML = protocols.map(function(p) {
-    var docPath = p.path.replace(/\.md$/, '');
-    var conf = Lab.types.get(p.type);
-    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'app/protocols.html?doc=' + encodeURIComponent(docPath) + '\'">' +
-      '<span style="font-size:16px">' + conf.icon + '</span>' +
-      '<span>' + Lab.escHtml(p.title) + '</span></div>';
-  }).join('');
-}
-
-// ── Connected: Samples ──
-async function populateSamples(projectTitle, projectSlug) {
-  var el = document.getElementById('projSamples');
+async function saveDoc() {
+  if (!editorInstance) return;
+  var btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
   try {
-    var resp = await fetch(BASE + 'sample-tracker/samples.json?_=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    var samples = await resp.json();
-    // Match by project field (fuzzy: check if project name appears)
-    var titleLower = projectTitle.toLowerCase();
-    var slugLower = projectSlug.toLowerCase();
-    var matched = samples.filter(function(s) {
-      var proj = (s.project || '').toLowerCase();
-      return proj.includes(slugLower) || proj.includes(titleLower) || titleLower.includes(proj);
-    });
-    if (!matched.length) { el.innerHTML = '<div class="proj-section-empty">No samples found for this project</div>'; return; }
-    el.innerHTML = matched.slice(0, 10).map(function(s) {
-      var statusColor = s.status === 'Complete' ? 'var(--green)' : s.status === 'Failed' ? 'var(--red)' : 'var(--amber)';
-      return '<div class="sample-row">' +
-        '<span class="sample-id">' + Lab.escHtml(s.sampleId) + '</span>' +
-        '<span style="flex:1;color:var(--grey-600)">' + Lab.escHtml(s.species || '') + '</span>' +
-        '<span class="sample-status badge" style="background:' + statusColor + '15;color:' + statusColor + ';padding:2px 8px;border-radius:10px">' + Lab.escHtml(s.status) + '</span>' +
-        '</div>';
-    }).join('') +
-    (matched.length > 10 ? '<div style="text-align:center;font-size:12px;color:var(--grey-400);padding:6px">+' + (matched.length - 10) + ' more</div>' : '');
+    var body = editorInstance.getMarkdown();
+    var fullContent = Lab.buildFrontmatter(editFrontmatter, body);
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await Lab.gh.saveFile(filePath, fullContent, currentSha, 'Update ' + currentDoc);
+    currentSha = result.sha;
+    cachedBody = body;
+    Lab.gh.clearObjectIndexCache();
+    Lab.showToast('Saved', 'success');
+    isEditing = false;
+    editorInstance = null;
+    loadDoc(currentDoc);
   } catch(e) {
-    el.innerHTML = '<div class="proj-section-empty">Could not load samples</div>';
+    Lab.showToast('Save failed: ' + (e.message || 'Unknown error'), 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
   }
 }
 
-// ── Connected: Notebooks ──
-function populateNotebooks(linkedSlugs) {
-  var el = document.getElementById('projNotebooks');
-  // Find people linked to this project, then show their notebook entries exist
-  var personSlugs = objectIndex.filter(function(obj) {
-    if (obj.type !== 'person') return false;
-    var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-    return linkedSlugs.indexOf(slug) !== -1;
-  }).map(function(obj) { return obj.path.replace(/\.md$/, '').split('/').pop(); });
+function cancelEdit() {
+  if (currentDoc) loadDoc(currentDoc);
+}
 
-  if (!personSlugs.length) {
-    el.innerHTML = '<div class="proj-section-empty">No team members to show notebooks for</div>';
-    return;
+async function createNewProject() {
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+  var title = prompt('Project title:');
+  if (!title || !title.trim()) return;
+  title = title.trim();
+  var slug = Lab.slugify ? Lab.slugify(title) : title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  var user = gh.getUser();
+  var userName = user ? user.name || user.login : 'unknown';
+  var today = new Date().toISOString().slice(0, 10);
+  var content = Lab.buildFrontmatter(
+    { title: title, type: 'project', status: 'active', pi: 'Grey Monroe' },
+    '\n# ' + title + '\n\n*Created by ' + userName + ' on ' + today + '*\n\n## Summary\n\n## Team\n\n## Related\n'
+  );
+  var filePath = 'docs/projects/' + slug + '/index.md';
+  try {
+    await gh.saveFile(filePath, content, null, 'New project: ' + title);
+    gh.clearObjectIndexCache();
+    await buildNav();
+    renderSidebar(document.getElementById('protoSearch').value);
+    loadDoc('projects/' + slug + '/index');
+    Lab.showToast('Created: ' + title, 'success');
+  } catch(e) {
+    Lab.showToast('Create failed: ' + e.message, 'error');
   }
-  el.innerHTML = personSlugs.map(function(slug) {
-    var person = objectIndex.find(function(o) { return o.type === 'person' && o.path.includes(slug); });
-    var name = person ? person.title : slug;
-    return '<div class="proj-section-item" onclick="location.href=\'' + BASE + 'app/notebooks.html\'">' +
-      '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-500)">edit_note</span>' +
-      '<span>' + Lab.escHtml(name) + '\'s Notebook</span></div>';
-  }).join('');
 }
 
-// ── Edit ──
-function editProject() {
-  if (!currentProject) return;
-  Lab.editorModal.open('docs/projects/' + currentProject + '.md');
+function showWelcome() {
+  var contentEl = document.getElementById('protoContent');
+  contentEl.innerHTML =
+    '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--grey-400);gap:12px;padding:60px">' +
+      '<span class="material-icons-outlined" style="font-size:56px;color:var(--grey-300)">folder_special</span>' +
+      '<p style="font-size:15px">Select a project from the sidebar</p>' +
+    '</div>';
 }
-window.addEventListener('lab-file-saved', function(e) {
-  if (e.detail && e.detail.path && e.detail.path.includes('projects/') && currentProject) {
-    loadProject(currentProject);
+
+document.getElementById('protoSearch').addEventListener('input', function() {
+  renderSidebar(this.value);
+});
+document.getElementById('hamburger').onclick = function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarBackdrop').classList.toggle('open');
+};
+document.getElementById('sidebarBackdrop').onclick = function() {
+  document.getElementById('sidebar').classList.remove('open');
+  this.classList.remove('open');
+};
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's' && isEditing) {
+    e.preventDefault();
+    saveDoc();
   }
 });
-
-// ── Navigation ──
-function showList() {
-  document.getElementById('projDetail').classList.remove('visible');
-  document.getElementById('projList').style.display = '';
-  currentProject = null;
-  history.pushState(null, '', location.pathname);
-}
 window.addEventListener('popstate', function() {
   var params = new URLSearchParams(location.search);
-  var proj = params.get('project');
-  if (proj) loadProject(proj);
-  else showList();
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else showWelcome();
+});
+window.addEventListener('lab-file-saved', function(e) {
+  if (e.detail && e.detail.path && e.detail.path.indexOf('docs/projects/') === 0 && currentDoc) {
+    Lab.gh.clearObjectIndexCache();
+    loadDoc(currentDoc);
+  }
 });
 
-init();
+(async function init() {
+  await buildNav();
+  renderSidebar();
+  loggedIn = Lab.gh.isLoggedIn();
+  if (loggedIn) document.getElementById('newProjBtn').style.display = '';
+
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  // Back-compat: old ?project=<slug> links
+  var proj = params.get('project');
+  if (doc) loadDoc(doc);
+  else if (proj) loadDoc('projects/' + proj + '/index');
+  else showWelcome();
+})();
 </script>
 </body>
 </html>

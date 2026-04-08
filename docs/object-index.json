@@ -266,6 +266,12 @@
     ]
   },
   {
+    "path": "resources/ampure-xp-beads.md",
+    "type": "reagent",
+    "title": "AMPure XP Beads",
+    "status": "owned"
+  },
+  {
     "path": "resources/aristolochic-acid-i.md",
     "type": "reagent",
     "title": "Aristolochic acid I",
@@ -338,6 +344,12 @@
         "unit": "g"
       }
     ]
+  },
+  {
+    "path": "resources/bovine-serum-albumin-50mg-ml.md",
+    "type": "reagent",
+    "title": "Bovine Serum Albumin (50 mg/mL)",
+    "status": "needed"
   },
   {
     "path": "resources/bromophenol-blue.md",
@@ -697,6 +709,12 @@
     ]
   },
   {
+    "path": "resources/dna-lobind-tubes.md",
+    "type": "consumable",
+    "title": "DNA LoBind Tubes (1.5 mL)",
+    "status": "owned"
+  },
+  {
     "path": "resources/dnase.md",
     "type": "reagent",
     "title": "DNAse"
@@ -867,6 +885,24 @@
         "unit": "g"
       }
     ]
+  },
+  {
+    "path": "resources/flongle-flow-cells-flo-flg114.md",
+    "type": "consumable",
+    "title": "Flongle Flow Cells (FLO-FLG114)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/flongle-starter-pack.md",
+    "type": "kit",
+    "title": "Flongle Starter Pack",
+    "status": "needed"
+  },
+  {
+    "path": "resources/flow-cell-wash-kit-exp-wsh004.md",
+    "type": "kit",
+    "title": "Flow Cell Wash Kit (EXP-WSH004)",
+    "status": "needed"
   },
   {
     "path": "resources/formaldehyde-16-methanol-free-pfa.md",
@@ -1271,6 +1307,12 @@
     ]
   },
   {
+    "path": "resources/kingfisher-deepwell-96-plate.md",
+    "type": "consumable",
+    "title": "KingFisher 96 Deep-Well Plate (2 mL)",
+    "status": "needed"
+  },
+  {
     "path": "resources/l-glutamine.md",
     "type": "reagent",
     "title": "L-Glutamine",
@@ -1473,6 +1515,12 @@
     ]
   },
   {
+    "path": "resources/minion-mk1b.md",
+    "type": "equipment",
+    "title": "MinION Mk1B",
+    "status": "needed"
+  },
+  {
     "path": "resources/mitomycin-c.md",
     "type": "reagent",
     "title": "Mitomycin C",
@@ -1511,6 +1559,46 @@
     "type": "equipment",
     "title": "NanoDrop",
     "location": "Bench 2"
+  },
+  {
+    "path": "resources/nuclease-free-water.md",
+    "type": "reagent",
+    "title": "Nuclease-Free Water",
+    "status": "needed"
+  },
+  {
+    "path": "resources/opentrons-ot2.md",
+    "type": "equipment",
+    "title": "Opentrons OT-2",
+    "location": "Lab bench",
+    "status": "owned"
+  },
+  {
+    "path": "resources/ot2-magnetic-module.md",
+    "type": "equipment",
+    "title": "OT-2 Magnetic Module (GEN2)",
+    "location": "Lab bench (on OT-2 deck)",
+    "status": "owned"
+  },
+  {
+    "path": "resources/ot2-temperature-module.md",
+    "type": "equipment",
+    "title": "OT-2 Temperature Module (GEN2)",
+    "location": "Lab bench (on OT-2 deck)",
+    "status": "owned"
+  },
+  {
+    "path": "resources/ot2-thermocycler-module.md",
+    "type": "equipment",
+    "title": "OT-2 Thermocycler Module",
+    "location": "Lab bench (on OT-2 deck)",
+    "status": "owned"
+  },
+  {
+    "path": "resources/pcr-strip-tubes-0-2ml.md",
+    "type": "consumable",
+    "title": "PCR Strip Tubes (0.2 mL)",
+    "status": "needed"
   },
   {
     "path": "resources/peptones-casein-tryptone.md",
@@ -1741,6 +1829,18 @@
         "unit": "g"
       }
     ]
+  },
+  {
+    "path": "resources/qubit-assay-tubes.md",
+    "type": "consumable",
+    "title": "Qubit Assay Tubes",
+    "status": "owned"
+  },
+  {
+    "path": "resources/qubit-dsdna-hs-assay-kit.md",
+    "type": "kit",
+    "title": "Qubit dsDNA HS Assay Kit",
+    "status": "owned"
   },
   {
     "path": "resources/qubit-fluorometer.md",
@@ -2048,6 +2148,12 @@
     ]
   },
   {
+    "path": "resources/sqk-rbk114-24.md",
+    "type": "kit",
+    "title": "Rapid Barcoding Kit 24 V14 (SQK-RBK114.24)",
+    "status": "needed"
+  },
+  {
     "path": "resources/sucrose.md",
     "type": "chemical",
     "title": "Sucrose",
@@ -2290,6 +2396,18 @@
     "location": "Bench 1"
   },
   {
+    "path": "resources/wide-bore-filter-tips-p1000.md",
+    "type": "consumable",
+    "title": "Wide-Bore Filter Tips, P1000",
+    "status": "needed"
+  },
+  {
+    "path": "resources/wide-bore-filter-tips-p200.md",
+    "type": "consumable",
+    "title": "Wide-Bore Filter Tips, P200",
+    "status": "needed"
+  },
+  {
     "path": "resources/yeast-extract.md",
     "type": "reagent",
     "title": "Yeast extract",
@@ -2357,21 +2475,38 @@
     "email": "soya@ucdavis.edu"
   },
   {
-    "path": "projects/alfalfa-pangenome.md",
+    "path": "projects/alfalfa-pangenome/index.md",
     "type": "project",
     "title": "Alfalfa Pangenome",
     "status": "active",
     "pi": "Grey Monroe"
   },
   {
-    "path": "projects/mutation-accumulation.md",
+    "path": "projects/in-house-hifi-shearing/bill-of-materials.md",
+    "type": "project",
+    "title": "Bill of Materials"
+  },
+  {
+    "path": "projects/in-house-hifi-shearing/index.md",
+    "type": "project",
+    "title": "In-House HiFi Shearing and QC",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
+    "path": "projects/in-house-hifi-shearing/validation-plan.md",
+    "type": "project",
+    "title": "Validation Plan"
+  },
+  {
+    "path": "projects/mutation-accumulation/index.md",
     "type": "project",
     "title": "Mutation Accumulation",
     "status": "active",
     "pi": "Grey Monroe"
   },
   {
-    "path": "projects/pistachio-pangenome.md",
+    "path": "projects/pistachio-pangenome/index.md",
     "type": "project",
     "title": "Pistachio Pangenome",
     "status": "active",
@@ -2471,6 +2606,36 @@
     "path": "wet-lab/extraction/test-new.md",
     "type": "protocol",
     "title": "test new"
+  },
+  {
+    "path": "wet-lab/library-prep/flongle-rapid-barcoding-rbk114.md",
+    "type": "protocol",
+    "title": "Multiplexed Flongle Library Prep (SQK-RBK114.24)"
+  },
+  {
+    "path": "wet-lab/library-prep/flongle-sequencing-and-analysis.md",
+    "type": "protocol",
+    "title": "Flongle Sequencing and Read-Length Analysis"
+  },
+  {
+    "path": "wet-lab/library-prep/in-house-hifi-shearing-pipeline.md",
+    "type": "protocol",
+    "title": "In-House HiFi Shearing and QC Pipeline"
+  },
+  {
+    "path": "wet-lab/library-prep/in-house-vs-genome-center-decision.md",
+    "type": "protocol",
+    "title": "In-House vs Genome Center: HiFi Shearing and QC Decision"
+  },
+  {
+    "path": "wet-lab/library-prep/operating-the-ot2.md",
+    "type": "protocol",
+    "title": "Operating the Opentrons OT-2"
+  },
+  {
+    "path": "wet-lab/library-prep/ot2-hmw-shearing.md",
+    "type": "protocol",
+    "title": "OT-2 HMW DNA Pipette Shearing for PacBio HiFi"
   },
   {
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
