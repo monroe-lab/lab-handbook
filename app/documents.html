@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documents - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.doc-layout { display: flex; height: calc(100vh - var(--nav-height)); }
+
+/* Sidebar */
+.doc-sidebar {
+  width: 320px; min-width: 320px; background: #fff;
+  border-right: 1px solid var(--grey-200); display: flex; flex-direction: column; overflow: hidden;
+}
+.doc-sidebar-header { padding: 16px; border-bottom: 1px solid var(--grey-200); }
+.doc-search-wrap { position: relative; }
+.doc-search-wrap input {
+  width: 100%; padding: 9px 12px 9px 36px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius); font-family: inherit; font-size: 14px; outline: none; box-sizing: border-box;
+}
+.doc-search-wrap input:focus { border-color: #3f51b5; }
+.doc-search-wrap .search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  font-size: 20px; color: var(--grey-500); pointer-events: none;
+}
+.doc-meta-row { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--grey-500); }
+.doc-meta-row .count { font-weight: 600; }
+.doc-meta-row .clear-link { background: none; border: none; color: #3f51b5; cursor: pointer; font-size: 11px; padding: 0; font-family: inherit; }
+.doc-meta-row .clear-link:hover { text-decoration: underline; }
+
+.doc-type-filter { padding: 10px 12px 4px; border-bottom: 1px solid var(--grey-200); display: flex; flex-wrap: wrap; gap: 4px; max-height: 110px; overflow-y: auto; }
+.doc-type-chip {
+  display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px;
+  border-radius: 12px; font-size: 11px; font-weight: 500; cursor: pointer; user-select: none;
+  background: var(--grey-100); color: var(--grey-700); border: 1px solid var(--grey-200);
+}
+.doc-type-chip:hover { background: var(--grey-200); }
+.doc-type-chip.active { background: #3f51b5; color: #fff; border-color: #3f51b5; }
+.doc-type-chip .chip-count { opacity: .7; font-size: 10px; }
+
+.doc-tree { flex: 1; overflow-y: auto; padding: 6px 0; }
+.doc-tree::-webkit-scrollbar { width: 5px; }
+.doc-tree::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
+
+.doc-folder {
+  padding: 7px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--grey-600); cursor: pointer;
+  display: flex; align-items: center; gap: 4px; user-select: none;
+  background: var(--grey-50); border-bottom: 1px solid var(--grey-200);
+}
+.doc-folder:hover { color: #3f51b5; background: #e8eaf6; }
+.doc-folder .material-icons-outlined { font-size: 18px; transition: transform .15s; color: var(--grey-400); }
+.doc-folder.collapsed .material-icons-outlined:first-child { transform: rotate(-90deg); }
+.doc-folder-count {
+  margin-left: auto; font-size: 10px; font-weight: 500; color: var(--grey-400);
+  background: var(--grey-200); padding: 1px 6px; border-radius: 8px;
+}
+
+.doc-items { padding-left: 0; }
+.doc-items.hidden { display: none; }
+.doc-item {
+  display: flex; align-items: center; gap: 6px; padding: 6px 14px 6px 22px; font-size: 13px; color: var(--grey-700);
+  cursor: pointer; transition: background .1s;
+  white-space: nowrap; overflow: hidden;
+}
+.doc-item:hover { background: var(--grey-100); color: var(--grey-900); }
+.doc-item.active { background: #e8eaf6; color: #3f51b5; font-weight: 500; border-left: 3px solid #3f51b5; padding-left: 19px; }
+.doc-item-title { overflow: hidden; text-overflow: ellipsis; flex: 1; }
+.doc-item-pill { font-size: 10px; padding: 1px 6px; border-radius: 8px; flex-shrink: 0; font-weight: 600; }
+.doc-item-path { font-size: 10px; color: var(--grey-400); margin-left: 4px; }
+
+/* Main */
+.doc-main { flex: 1; overflow-y: auto; background: var(--grey-100); }
+.doc-content { max-width: 900px; margin: 0 auto; padding: 32px 40px; }
+
+.doc-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.doc-rendered h1 { font-size: 26px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
+.doc-rendered h2 { font-size: 20px; font-weight: 600; margin: 24px 0 8px; }
+.doc-rendered h3 { font-size: 17px; font-weight: 600; margin: 18px 0 6px; }
+.doc-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.doc-rendered td, .doc-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
+.doc-rendered thead th { background: var(--grey-50); }
+.doc-rendered code { background: var(--grey-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.doc-rendered pre { background: var(--grey-900); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; }
+.doc-rendered pre code { background: transparent; padding: 0; color: inherit; }
+.doc-rendered ul, .doc-rendered ol { padding-left: 24px; margin: 8px 0; }
+.doc-rendered li { margin: 4px 0; }
+.doc-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+.doc-rendered blockquote { border-left: 4px solid #3f51b5; padding: 8px 16px; margin: 12px 0; background: #e8eaf6; border-radius: 0 8px 8px 0; }
+.doc-rendered a:not(.object-pill) { color: #3f51b5; }
+
+.doc-edit-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; margin-bottom: 16px; border-bottom: 1px solid var(--grey-200);
+}
+.doc-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); overflow: hidden; text-overflow: ellipsis; }
+.doc-editor-surface { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; min-height: 500px; }
+
+.doc-hamburger {
+  display: none; position: fixed; bottom: calc(var(--bottom-nav-height) + 16px); left: 16px;
+  width: 48px; height: 48px; border-radius: 50%; background: #3f51b5; color: #fff; border: none;
+  box-shadow: var(--shadow-lg); cursor: pointer; z-index: 100; align-items: center; justify-content: center;
+}
+.doc-hamburger .material-icons-outlined { font-size: 24px; }
+.doc-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 200; }
+@media (max-width: 768px) {
+  .doc-sidebar { position: fixed; left: -340px; top: var(--nav-height); bottom: var(--bottom-nav-height); z-index: 300; transition: left .25s; box-shadow: 4px 0 16px rgba(0,0,0,.1); }
+  .doc-sidebar.open { left: 0; }
+  .doc-backdrop.open { display: block; }
+  .doc-hamburger { display: flex; }
+  .doc-content { padding: 12px 8px; }
+  .doc-layout { height: calc(100vh - var(--nav-height) - var(--bottom-nav-height)); }
+  .doc-edit-bar .breadcrumb { font-size: 11px; }
+  .btn-label { display: none; }
+  body.editing-mode #lab-nav { display: none; }
+  body.editing-mode #lab-bottom-nav { display: none; }
+  body.editing-mode .doc-sidebar { display: none; }
+  body.editing-mode .doc-hamburger { display: none; }
+  body.editing-mode .doc-layout { height: 100vh; }
+  body.editing-mode .doc-edit-bar { display: none; }
+}
+
+@media print {
+  #lab-nav, #lab-bottom-nav, .doc-sidebar, .doc-backdrop, .doc-hamburger,
+  .doc-edit-bar, #password-gate { display: none !important; }
+  .doc-layout { display: block !important; }
+  .doc-main { overflow: visible !important; }
+  .doc-content { max-width: 100% !important; padding: 0 !important; }
+  .doc-rendered { font-size: 12pt; line-height: 1.5; }
+}
+</style>
+</head>
+<body>
+
+<div class="doc-layout">
+  <div class="doc-sidebar" id="sidebar">
+    <div class="doc-sidebar-header">
+      <div class="doc-search-wrap">
+        <span class="material-icons-outlined search-icon">search</span>
+        <input type="text" id="docSearch" placeholder="Search all documents…">
+      </div>
+      <div class="doc-meta-row">
+        <span class="count" id="docCount">…</span>
+        <button class="clear-link" id="clearFiltersBtn" style="display:none" onclick="clearFilters()">Clear filters</button>
+      </div>
+    </div>
+    <div class="doc-type-filter" id="typeFilter"></div>
+    <div class="doc-tree" id="docTree">
+      <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+  </div>
+  <div class="doc-backdrop" id="backdrop"></div>
+
+  <div class="doc-main" id="docMain">
+    <div id="docContentWrap">
+      <div class="loading-state" style="padding-top:80px"><div class="spinner"></div><p>Loading documents…</p></div>
+    </div>
+  </div>
+</div>
+
+<button class="doc-hamburger" id="hamburger"><span class="material-icons-outlined">menu</span></button>
+
+<script src="js/lab.js"></script>
+<script>
+// ── State ──
+var ALL_DOCS = [];        // [{path, dir, slug, title, type}]
+var INDEX_MAP = {};       // path (relative to docs/) → index entry
+var TREE = null;          // grouped by top-level dir
+var activeTypes = new Set(); // empty = all
+var currentDoc = null;    // path relative to docs/, no .md
+var currentSha = null;
+var isEditing = false;
+var editorInstance = null;
+var loggedIn = false;
+
+var GENERIC_PILL = { color: '#607d8b', label: 'Document' };
+
+function prettify(slug) {
+  if (!slug) return '';
+  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+}
+
+function deriveTitleFromPath(p) {
+  var parts = p.split('/');
+  return prettify(parts[parts.length - 1].replace(/\.md$/, ''));
+}
+
+function topDir(relPath) {
+  var i = relPath.indexOf('/');
+  return i < 0 ? '(root)' : relPath.slice(0, i);
+}
+
+// ── Load everything ──
+async function loadAll() {
+  // Tree of every .md under docs/
+  var files;
+  try {
+    files = await Lab.gh.fetchTree('docs');
+  } catch(e) {
+    document.getElementById('docTree').innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">Failed to load file tree.<br>' + Lab.escHtml(e.message) + '</div>';
+    return;
+  }
+  files = files.filter(function(f) {
+    if (!f.endsWith('.md')) return false;
+    if (f === 'docs/object-index.json') return false;
+    var name = f.split('/').pop();
+    if (name.toLowerCase() === 'readme.md') return false;
+    return true;
+  });
+
+  // Object index for metadata
+  try {
+    var index = await Lab.gh.fetchObjectIndex();
+    if (index && index.length) {
+      index.forEach(function(e) { if (e && e.path) INDEX_MAP[e.path] = e; });
+    }
+  } catch(e) { /* fall through — typeless display still works */ }
+
+  ALL_DOCS = files.map(function(f) {
+    var rel = f.replace(/^docs\//, '');
+    var slug = rel.replace(/\.md$/, '');
+    var meta = INDEX_MAP[rel] || {};
+    return {
+      path: slug,                              // e.g. "protocols/pcr"
+      relPath: rel,                            // e.g. "protocols/pcr.md"
+      dir: topDir(rel),
+      title: meta.title || deriveTitleFromPath(rel),
+      type: meta.type || null,
+      meta: meta,
+    };
+  });
+
+  // Sort by title within
+  ALL_DOCS.sort(function(a, b) { return a.title.localeCompare(b.title); });
+
+  buildTypeFilter();
+  buildTree();
+  renderSidebar();
+  document.getElementById('docCount').textContent = ALL_DOCS.length + ' documents';
+}
+
+// ── Type filter chips ──
+function buildTypeFilter() {
+  var counts = {};
+  ALL_DOCS.forEach(function(d) {
+    var k = d.type || '_untyped';
+    counts[k] = (counts[k] || 0) + 1;
+  });
+  var keys = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; });
+  var html = '';
+  keys.forEach(function(k) {
+    var label, color;
+    if (k === '_untyped') {
+      label = 'Untyped';
+      color = '#9e9e9e';
+    } else {
+      var t = Lab.types && Lab.types.get ? Lab.types.get(k) : null;
+      label = (t && t.label) || prettify(k);
+      color = (t && t.color) || '#607d8b';
+    }
+    html += '<span class="doc-type-chip" data-type="' + Lab.escHtml(k) + '" data-color="' + color + '" onclick="toggleType(\'' + Lab.escHtml(k) + '\')">' +
+      Lab.escHtml(label) + ' <span class="chip-count">' + counts[k] + '</span></span>';
+  });
+  document.getElementById('typeFilter').innerHTML = html;
+}
+
+function toggleType(key) {
+  if (activeTypes.has(key)) activeTypes.delete(key);
+  else activeTypes.add(key);
+  document.getElementById('typeFilter').querySelectorAll('.doc-type-chip').forEach(function(el) {
+    var k = el.getAttribute('data-type');
+    if (activeTypes.has(k)) {
+      el.classList.add('active');
+      el.style.background = el.getAttribute('data-color');
+      el.style.borderColor = el.getAttribute('data-color');
+      el.style.color = '#fff';
+    } else {
+      el.classList.remove('active');
+      el.style.background = '';
+      el.style.borderColor = '';
+      el.style.color = '';
+    }
+  });
+  document.getElementById('clearFiltersBtn').style.display = (activeTypes.size || document.getElementById('docSearch').value) ? '' : 'none';
+  renderSidebar();
+}
+
+function clearFilters() {
+  activeTypes.clear();
+  document.getElementById('docSearch').value = '';
+  document.getElementById('typeFilter').querySelectorAll('.doc-type-chip').forEach(function(el) {
+    el.classList.remove('active');
+    el.style.background = ''; el.style.borderColor = ''; el.style.color = '';
+  });
+  document.getElementById('clearFiltersBtn').style.display = 'none';
+  renderSidebar();
+}
+
+// ── Tree (grouped by top-level dir) ──
+function buildTree() {
+  var groups = {};
+  ALL_DOCS.forEach(function(d) {
+    if (!groups[d.dir]) groups[d.dir] = [];
+    groups[d.dir].push(d);
+  });
+  TREE = Object.keys(groups).sort().map(function(dir) {
+    return { dir: dir, label: prettify(dir), items: groups[dir] };
+  });
+}
+
+function filterDocs() {
+  var q = (document.getElementById('docSearch').value || '').toLowerCase().trim();
+  return ALL_DOCS.filter(function(d) {
+    if (activeTypes.size) {
+      var k = d.type || '_untyped';
+      if (!activeTypes.has(k)) return false;
+    }
+    if (q) {
+      var hay = (d.title + ' ' + d.relPath + ' ' + (d.type || '')).toLowerCase();
+      if (hay.indexOf(q) < 0) return false;
+    }
+    return true;
+  });
+}
+
+function renderSidebar() {
+  var treeEl = document.getElementById('docTree');
+  var filtered = filterDocs();
+
+  if (!filtered.length) {
+    treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No documents match.</div>';
+    return;
+  }
+
+  // Regroup filtered set by top dir, preserving TREE order
+  var byDir = {};
+  filtered.forEach(function(d) { (byDir[d.dir] = byDir[d.dir] || []).push(d); });
+
+  var html = '';
+  TREE.forEach(function(group) {
+    var items = byDir[group.dir];
+    if (!items || !items.length) return;
+    var containsActive = currentDoc && items.some(function(i) { return i.path === currentDoc; });
+    var collapsed = !containsActive ? ' collapsed' : '';
+    var hidden = collapsed ? ' hidden' : '';
+    html += '<div class="doc-folder' + collapsed + '" onclick="toggleFolder(this)">' +
+      '<span class="material-icons-outlined">expand_more</span>' +
+      '<span>' + Lab.escHtml(group.label) + '</span>' +
+      '<span class="doc-folder-count">' + items.length + '</span>' +
+      '</div><div class="doc-items' + hidden + '">';
+    items.forEach(function(d) {
+      var active = currentDoc === d.path ? ' active' : '';
+      var pillHtml = '';
+      if (d.type) {
+        var t = Lab.types && Lab.types.get ? Lab.types.get(d.type) : null;
+        var color = (t && t.color) || GENERIC_PILL.color;
+        pillHtml = '<span class="doc-item-pill" style="background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50">' +
+          Lab.escHtml((t && t.label) || d.type) + '</span>';
+      }
+      var subPath = d.relPath.replace(/\.md$/, '').slice(group.dir.length + 1);
+      html += '<div class="doc-item' + active + '" data-path="' + Lab.escHtml(d.path) + '" onclick="loadDoc(\'' + Lab.escHtml(d.path) + '\')" title="' + Lab.escHtml(d.relPath) + '">' +
+        '<span class="doc-item-title">' + Lab.escHtml(d.title) + (subPath ? '<span class="doc-item-path">  ' + Lab.escHtml(subPath) + '</span>' : '') + '</span>' +
+        pillHtml +
+        '</div>';
+    });
+    html += '</div>';
+  });
+  treeEl.innerHTML = html;
+}
+
+function toggleFolder(el) {
+  el.classList.toggle('collapsed');
+  var items = el.nextElementSibling;
+  if (items) items.classList.toggle('hidden');
+}
+
+// ── Load doc ──
+async function loadDoc(docPath) {
+  currentDoc = docPath;
+  isEditing = false;
+  document.body.classList.remove('editing-mode');
+  editorInstance = null;
+  history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
+
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+
+  // Update active highlight without rebuild
+  document.querySelectorAll('.doc-item').forEach(function(el) {
+    if (el.getAttribute('data-path') === docPath) el.classList.add('active');
+    else el.classList.remove('active');
+  });
+
+  var contentEl = document.getElementById('docContentWrap');
+  contentEl.innerHTML = '<div class="loading-state" style="padding-top:80px"><div class="spinner"></div></div>';
+
+  try {
+    var filePath = 'docs/' + docPath + '.md';
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
+    var html = await Lab.editorModal.renderMarkdown(result.content);
+
+    var meta = INDEX_MAP[docPath + '.md'] || {};
+    var typeBadge = '';
+    if (meta.type) {
+      var t = Lab.types && Lab.types.get ? Lab.types.get(meta.type) : null;
+      var color = (t && t.color) || GENERIC_PILL.color;
+      typeBadge = '<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50;margin-right:8px">' + Lab.escHtml((t && t.label) || meta.type) + '</span>';
+    }
+
+    contentEl.innerHTML =
+      '<div class="doc-content">' +
+        '<div class="doc-edit-bar">' +
+          '<div class="breadcrumb">' + typeBadge + Lab.escHtml(docPath) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
+            (loggedIn ?
+              '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="doc-rendered" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+
+    var renderedEl = document.getElementById('renderedDoc');
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
+    if (Lab.postProcessImages) Lab.postProcessImages(renderedEl);
+    document.getElementById('docMain').scrollTop = 0;
+  } catch(e) {
+    contentEl.innerHTML = '<div class="doc-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+  }
+}
+
+// ── Edit ──
+async function startEdit() {
+  if (!currentDoc || isEditing) return;
+  isEditing = true;
+  document.body.classList.add('editing-mode');
+
+  var contentEl = document.getElementById('docContentWrap');
+  var filePath = 'docs/' + currentDoc + '.md';
+
+  try {
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
+
+    contentEl.innerHTML =
+      '<div class="doc-content">' +
+        '<div class="doc-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + ' (editing)</div>' +
+          '<div style="display:flex;gap:6px">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()" style="background:#3f51b5"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="doc-editor-surface em-surface" id="editorSurface"></div>' +
+      '</div>';
+
+    editorInstance = await Lab.editorModal.initFullpage(
+      document.getElementById('editorSurface'),
+      result.content,
+      filePath,
+      currentSha
+    );
+  } catch(e) {
+    Lab.showToast('Failed to load for editing: ' + e.message, 'error');
+    isEditing = false;
+    document.body.classList.remove('editing-mode');
+  }
+}
+
+async function saveDoc() {
+  if (!editorInstance) return;
+  var btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving…';
+
+  try {
+    var md = editorInstance.getMarkdown();
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update document ' + currentDoc);
+    currentSha = result.sha;
+    Lab.showToast('Saved', 'success');
+
+    isEditing = false;
+    document.body.classList.remove('editing-mode');
+    editorInstance = null;
+    loadDoc(currentDoc);
+  } catch(e) {
+    Lab.showToast('Save failed: ' + e.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+  }
+}
+
+function cancelEdit() {
+  if (currentDoc) loadDoc(currentDoc);
+}
+
+// ── Welcome ──
+function showWelcome() {
+  var contentEl = document.getElementById('docContentWrap');
+  var byType = {};
+  ALL_DOCS.forEach(function(d) {
+    var k = d.type || '_untyped';
+    byType[k] = (byType[k] || 0) + 1;
+  });
+
+  var topDirs = TREE.map(function(g) {
+    return '<div onclick="jumpToDir(\'' + Lab.escHtml(g.dir) + '\')" style="background:#fff;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">' +
+      '<div><div style="font-weight:600">' + Lab.escHtml(g.label) + '</div><div style="font-size:13px;color:var(--grey-500)">' + g.items.length + ' document' + (g.items.length === 1 ? '' : 's') + '</div></div>' +
+      '<span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span></div>';
+  }).join('');
+
+  contentEl.innerHTML =
+    '<div style="padding:32px 40px;max-width:900px;margin:0 auto">' +
+      '<h1 style="font-size:22px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:10px">' +
+        '<span class="material-icons-outlined" style="font-size:28px;color:#3f51b5">library_books</span> Documents</h1>' +
+      '<p style="color:var(--grey-500);margin-bottom:20px">Universal navigator for every markdown document in the lab handbook — protocols, notebooks, inventory items, lab policies, procedures, anything. Use the sidebar to filter by type or search across all ' + ALL_DOCS.length + ' documents.</p>' +
+      '<h3 style="font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--grey-600);margin:24px 0 12px">Browse by section</h3>' +
+      topDirs +
+    '</div>';
+}
+
+function jumpToDir(dir) {
+  // Expand the matching folder in the sidebar and scroll it into view
+  var folders = document.querySelectorAll('.doc-folder');
+  folders.forEach(function(el) {
+    var label = el.querySelector('span:nth-child(2)');
+    if (label && label.textContent === prettify(dir)) {
+      el.classList.remove('collapsed');
+      var items = el.nextElementSibling;
+      if (items) items.classList.remove('hidden');
+      el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  });
+}
+
+// ── Search ──
+document.getElementById('docSearch').addEventListener('input', function() {
+  document.getElementById('clearFiltersBtn').style.display = (activeTypes.size || this.value) ? '' : 'none';
+  renderSidebar();
+});
+
+// ── Mobile sidebar ──
+document.getElementById('hamburger').onclick = function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('backdrop').classList.toggle('open');
+};
+document.getElementById('backdrop').onclick = function() {
+  document.getElementById('sidebar').classList.remove('open');
+  this.classList.remove('open');
+};
+
+// ── Keyboard ──
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's' && isEditing) { e.preventDefault(); saveDoc(); }
+});
+
+// ── Back/forward ──
+window.addEventListener('popstate', function() {
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else { currentDoc = null; renderSidebar(); showWelcome(); }
+});
+
+// ── Init ──
+(async function init() {
+  loggedIn = Lab.gh.isLoggedIn();
+  await loadAll();
+
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else showWelcome();
+})();
+</script>
+</body>
+</html>
