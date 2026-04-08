@@ -327,10 +327,19 @@ async function createNewFolder(parentDir) {
   var dir = parentDir ? parentDir + '/' + slug : slug;
   var path = ROOT + '/' + dir + '/.gitkeep';
   try {
-    await gh.saveFile(path, '', null, 'New notebook folder: ' + dir);
+    // Probe — if .gitkeep already exists, the folder is already there.
+    var sha = null;
+    try {
+      var existing = await gh.fetchFile(path);
+      sha = existing.sha;
+    } catch(e) { /* doesn't exist, will create */ }
+
+    if (!sha) {
+      await gh.saveFile(path, '', null, 'New notebook folder: ' + dir);
+    }
     ensureNode(TREE, dir.split('/'));
     renderSidebar(document.getElementById('nbSearch').value);
-    Lab.showToast('Created folder: ' + dir, 'success');
+    Lab.showToast(sha ? 'Folder already exists, added to sidebar' : 'Created folder: ' + dir, 'success');
   } catch(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
   }
