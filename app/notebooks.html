@@ -10,67 +10,65 @@
 
 /* Sidebar */
 .nb-sidebar {
-  width: 260px; min-width: 260px; background: #fff;
+  width: 280px; min-width: 280px; background: #fff;
   border-right: 1px solid var(--grey-200); display: flex; flex-direction: column; overflow: hidden;
 }
-.nb-sidebar-header {
-  padding: 12px 16px; border-bottom: 1px solid var(--grey-200);
-  display: flex; align-items: center; gap: 8px;
+.nb-sidebar-header { padding: 16px; border-bottom: 1px solid var(--grey-200); display: flex; gap: 6px; align-items: center; }
+.nb-sidebar-header .search-wrap { position: relative; flex: 1; }
+.nb-sidebar-header input {
+  width: 100%; padding: 9px 12px 9px 36px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius); font-family: inherit; font-size: 14px; outline: none;
 }
-.nb-sidebar-header h2 { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex: 1; margin: 0; }
-.nb-sidebar-header .material-icons-outlined { font-size: 20px; color: #795548; }
+.nb-sidebar-header input:focus { border-color: #795548; }
+.nb-sidebar-header .search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  font-size: 20px; color: var(--grey-500); pointer-events: none;
+}
+
 .nb-tree { flex: 1; overflow-y: auto; padding: 8px 0; }
+.nb-tree::-webkit-scrollbar { width: 5px; }
+.nb-tree::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
 
-/* Person (top-level) */
-.nb-person {
-  padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--grey-500); cursor: pointer; display: flex; align-items: center; gap: 4px; user-select: none;
-}
-.nb-person:hover { color: #795548; }
-.nb-person .material-icons-outlined { font-size: 18px; transition: transform .15s; }
-.nb-person.collapsed .material-icons-outlined:first-child { transform: rotate(-90deg); }
-
-/* Folder (subfolder within a person) */
 .nb-folder {
-  padding: 6px 16px 6px 28px; font-size: 13px; font-weight: 600; color: var(--grey-600);
-  cursor: pointer; display: flex; align-items: center; gap: 4px; user-select: none;
+  padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--grey-600); cursor: pointer;
+  display: flex; align-items: center; gap: 4px; user-select: none;
+  background: var(--grey-50); border-bottom: 1px solid var(--grey-200);
 }
-.nb-folder:hover { color: #795548; }
-.nb-folder .material-icons-outlined { font-size: 16px; transition: transform .15s; }
+.nb-folder:hover { color: #795548; background: #efebe9; }
+.nb-folder .material-icons-outlined { font-size: 18px; transition: transform .15s; color: var(--grey-400); }
 .nb-folder.collapsed .material-icons-outlined:first-child { transform: rotate(-90deg); }
-.nb-folder-entries { padding-left: 8px; }
-
-/* Entry items */
-.nb-entries { padding-left: 8px; }
-.nb-entries.hidden, .nb-folder-entries.hidden { display: none; }
-.nb-entry {
-  display: block; padding: 6px 16px 6px 32px; font-size: 13px; color: var(--grey-700);
-  cursor: pointer; border-radius: 0 4px 4px 0; transition: background .1s;
+.nb-folder-count {
+  margin-left: auto; font-size: 10px; font-weight: 500; color: var(--grey-400);
+  background: var(--grey-200); padding: 1px 6px; border-radius: 8px;
 }
-.nb-folder-entries .nb-entry { padding-left: 44px; }
-.nb-entry:hover { background: var(--grey-100); }
-.nb-entry.active { background: #efebe9; color: #795548; font-weight: 500; }
-
-/* Person action buttons */
-.nb-person-actions {
-  margin-left: auto; display: flex; gap: 2px;
-}
-.nb-person-actions button {
+.nb-folder-actions { display: flex; gap: 2px; margin-left: 4px; }
+.nb-folder-actions button {
   background: none; border: none; cursor: pointer; padding: 2px; color: var(--grey-400);
   border-radius: 4px; display: flex; align-items: center;
 }
-.nb-person-actions button:hover { color: #795548; background: #efebe9; }
-.nb-person-actions .material-icons-outlined { font-size: 16px; }
+.nb-folder-actions button:hover { color: #795548; background: #efebe9; }
+.nb-folder-actions .material-icons-outlined { font-size: 15px; }
+
+.nb-items { padding-left: 8px; }
+.nb-items.hidden { display: none; }
+.nb-item {
+  display: block; padding: 6px 16px 6px 24px; font-size: 13px; color: var(--grey-700);
+  cursor: pointer; border-radius: 0 4px 4px 0; transition: background .1s;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nb-item:hover { background: var(--grey-100); color: var(--grey-900); }
+.nb-item.active { background: #efebe9; color: #795548; font-weight: 500; }
 
 /* Main */
 .nb-main { flex: 1; overflow-y: auto; background: var(--grey-100); }
 .nb-content { max-width: 900px; margin: 0 auto; padding: 32px 40px; }
 
-/* Rendered entry */
-.nb-rendered { font-size: 15px; line-height: 1.75; }
-.nb-rendered h1 { font-size: 24px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 8px; }
+/* Rendered */
+.nb-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.nb-rendered h1 { font-size: 26px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
 .nb-rendered h2 { font-size: 20px; font-weight: 600; margin: 24px 0 8px; }
-.nb-rendered h3 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
+.nb-rendered h3 { font-size: 17px; font-weight: 600; margin: 18px 0 6px; }
 .nb-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
 .nb-rendered td, .nb-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
 .nb-rendered thead th { background: var(--grey-50); }
@@ -82,37 +80,13 @@
 .nb-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
 .nb-rendered blockquote { border-left: 4px solid #795548; padding: 8px 16px; margin: 12px 0; background: #efebe9; border-radius: 0 8px 8px 0; }
 .nb-rendered a:not(.object-pill) { color: #795548; }
-.nb-rendered input[type=checkbox] { margin-right: 6px; }
 
-/* Edit bar */
-.nb-edit-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; margin-bottom: 16px; border-bottom: 1px solid var(--grey-200); }
-.nb-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nb-edit-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; margin-bottom: 16px; border-bottom: 1px solid var(--grey-200);
+}
+.nb-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); }
 .nb-editor-surface { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; min-height: 500px; }
-
-/* New entry form fields */
-.nb-meta-fields { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 16px; }
-.nb-meta-fields h3 { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
-.nb-meta-row { display: flex; gap: 12px; margin-bottom: 12px; }
-.nb-meta-row .form-group { flex: 1; margin-bottom: 0; }
-
-/* Welcome */
-.nb-welcome { padding: 32px 40px; max-width: 900px; margin: 0 auto; }
-.nb-welcome h1 { font-size: 22px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.nb-welcome h1 .material-icons-outlined { font-size: 28px; color: #795548; }
-.nb-recent { margin-top: 20px; }
-.nb-recent-card {
-  background: #fff; border-radius: var(--radius); padding: 14px 20px; box-shadow: var(--shadow);
-  margin-bottom: 10px; cursor: pointer; transition: box-shadow .15s; display: flex; justify-content: space-between; align-items: center;
-}
-.nb-recent-card:hover { box-shadow: var(--shadow-md); }
-
-/* Mobile edit FAB */
-.nb-edit-fab {
-  display: none; position: fixed; bottom: calc(var(--bottom-nav-height) + 16px); right: 16px;
-  width: 48px; height: 48px; border-radius: 50%; background: #795548; color: #fff; border: none;
-  box-shadow: var(--shadow-lg); cursor: pointer; z-index: 100; align-items: center; justify-content: center;
-}
-.nb-edit-fab .material-icons-outlined { font-size: 24px; }
 
 /* Mobile */
 .nb-hamburger {
@@ -123,24 +97,30 @@
 .nb-hamburger .material-icons-outlined { font-size: 24px; }
 .nb-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 200; }
 @media (max-width: 768px) {
-  .nb-sidebar { position: fixed; left: -280px; top: var(--nav-height); bottom: var(--bottom-nav-height); z-index: 300; transition: left .25s; box-shadow: 4px 0 16px rgba(0,0,0,.1); }
+  .nb-sidebar { position: fixed; left: -300px; top: var(--nav-height); bottom: var(--bottom-nav-height); z-index: 300; transition: left .25s; box-shadow: 4px 0 16px rgba(0,0,0,.1); }
   .nb-sidebar.open { left: 0; }
   .nb-backdrop.open { display: block; }
   .nb-hamburger { display: flex; }
   .nb-content { padding: 12px 8px; }
-  .nb-welcome { padding: 20px 16px; }
-  .nb-meta-row { flex-direction: column; gap: 0; }
   .nb-layout { height: calc(100vh - var(--nav-height) - var(--bottom-nav-height)); }
-  /* Show edit FAB when viewing (not editing) and logged in */
-  body.nb-viewing-mode .nb-edit-fab { display: flex; }
-  /* Edit mode: hide nav + edit bar, floating save/cancel */
+  .nb-edit-bar .breadcrumb { display: none; }
+  .nb-edit-bar .btn { padding: 6px 8px; }
+  .btn-label { display: none; }
   body.editing-mode #lab-nav { display: none; }
   body.editing-mode #lab-bottom-nav { display: none; }
   body.editing-mode .nb-sidebar { display: none; }
   body.editing-mode .nb-hamburger { display: none; }
-  body.editing-mode .nb-edit-fab { display: none; }
   body.editing-mode .nb-layout { height: 100vh; }
   body.editing-mode .nb-edit-bar { display: none; }
+}
+
+@media print {
+  #lab-nav, #lab-bottom-nav, .nb-sidebar, .nb-backdrop, .nb-hamburger,
+  .nb-edit-bar, #password-gate { display: none !important; }
+  .nb-layout { display: block !important; }
+  .nb-main { overflow: visible !important; }
+  .nb-content { max-width: 100% !important; padding: 0 !important; }
+  .nb-rendered { font-size: 12pt; line-height: 1.5; }
 }
 </style>
 </head>
@@ -149,7 +129,16 @@
 <div class="nb-layout">
   <div class="nb-sidebar" id="sidebar">
     <div class="nb-sidebar-header">
-      <h2><span class="material-icons-outlined">edit_note</span> Lab Notebooks</h2>
+      <div class="search-wrap">
+        <span class="material-icons-outlined search-icon">search</span>
+        <input type="text" id="nbSearch" placeholder="Search notebooks...">
+      </div>
+      <button id="newFolderBtn" class="btn btn-sm" style="display:none;padding:6px 10px;background:none;border:1px solid var(--grey-300);color:var(--grey-600)" onclick="createNewFolder()" title="New folder">
+        <span class="material-icons-outlined" style="font-size:18px">create_new_folder</span>
+      </button>
+      <button id="newEntryBtn" class="btn btn-sm" style="display:none;padding:6px 10px;background:#795548;color:#fff;border:none" onclick="createNewEntry()" title="New entry">
+        <span class="material-icons-outlined" style="font-size:18px">add</span>
+      </button>
     </div>
     <div class="nb-tree" id="nbTree">
       <div class="loading-state"><div class="spinner"></div></div>
@@ -165,260 +154,277 @@
 </div>
 
 <button class="nb-hamburger" id="hamburger"><span class="material-icons-outlined">menu</span></button>
-<button class="nb-edit-fab" id="editFab" onclick="startEdit()"><span class="material-icons-outlined">edit</span></button>
 
 <script src="js/lab.js"></script>
 <script>
-var BASE = Lab.BASE;
+var ROOT = 'docs/notebooks';
+var NAV = [];           // [{ dir, label, items: [{title, path}] }]
 var allFiles = [];
-var people = []; // { slug, name, entries: [{date, path}], folders: [{slug, name, entries: [{date, path}]}] }
-var currentEntry = null;
+var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/alex-chen/2026-04-01)
 var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
-var editMeta = {};
+var loggedIn = false;
 
-// ── Load file tree ──
-async function loadTree() {
-  var files = await Lab.gh.fetchTree('docs/notebooks');
-  allFiles = files.filter(function(f) { return f.endsWith('.md') || f.endsWith('.gitkeep'); });
-  discoverPeople();
-  renderSidebar();
-}
-
-function discoverPeople() {
-  var map = {};
-  allFiles.forEach(function(f) {
-    var rel = f.replace('docs/notebooks/', '');
-    var parts = rel.split('/');
-    if (parts.length < 2) return; // skip root files like template.md, index.md
-    var personSlug = parts[0];
-    if (personSlug === 'template') return;
-
-    if (!map[personSlug]) {
-      map[personSlug] = {
-        slug: personSlug,
-        name: prettifySlug(personSlug),
-        entries: [],
-        folders: {}
-      };
-    }
-    var person = map[personSlug];
-
-    // Skip .gitkeep files as entries, but register their parent folder
-    if (parts[parts.length - 1] === '.gitkeep') {
-      if (parts.length >= 3) {
-        var folderSlug = parts.slice(1, -1).join('/');
-        if (!person.folders[folderSlug]) {
-          person.folders[folderSlug] = {
-            slug: folderSlug,
-            name: prettifySlug(parts[1]),
-            entries: []
-          };
-        }
-      }
-      return;
-    }
-
-    if (parts.length === 2) {
-      // Direct entry: person/date.md
-      var fileName = parts[1].replace('.md', '');
-      person.entries.push({ date: fileName, path: f });
-    } else {
-      // Subfolder entry: person/subfolder/.../date.md
-      var folderSlug = parts.slice(1, -1).join('/');
-      var entryName = parts[parts.length - 1].replace('.md', '');
-      if (!person.folders[folderSlug]) {
-        person.folders[folderSlug] = {
-          slug: folderSlug,
-          name: prettifySlug(parts[1]), // use first subfolder level for display name
-          entries: []
-        };
-      }
-      person.folders[folderSlug].entries.push({ date: entryName, path: f });
-    }
-  });
-
-  // Convert folders map to sorted array, sort entries newest first
-  people = Object.values(map);
-  people.forEach(function(p) {
-    p.entries.sort(function(a, b) { return b.date.localeCompare(a.date); });
-    var folderArr = Object.values(p.folders);
-    folderArr.forEach(function(fo) {
-      fo.entries.sort(function(a, b) { return b.date.localeCompare(a.date); });
-    });
-    folderArr.sort(function(a, b) { return a.name.localeCompare(b.name); });
-    p.folders = folderArr;
-  });
-  people.sort(function(a, b) { return a.name.localeCompare(b.name); });
-}
-
-function prettifySlug(slug) {
+function prettify(slug) {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
 }
 
+// ── Load tree ──
+async function loadTree() {
+  var files = await Lab.gh.fetchTree(ROOT);
+  allFiles = files.filter(function(f) { return f.endsWith('.md'); });
+  buildNav();
+}
+
+function buildNav() {
+  // Group by directory under docs/notebooks/
+  var groups = {}; // dir(rel under notebooks) → [{title,path}]
+  var folderSet = {};
+
+  allFiles.forEach(function(f) {
+    var rel = f.replace(ROOT + '/', '').replace(/\.md$/, '');
+    var parts = rel.split('/');
+    if (parts.length < 2) return; // skip root-level files (template.md, index.md)
+    var slug = parts.pop();
+    if (slug === 'index' || slug === '.gitkeep') return;
+    var dir = parts.join('/');
+    folderSet[dir] = true;
+    if (!groups[dir]) groups[dir] = [];
+    var docPath = 'notebooks/' + dir + '/' + slug;
+    groups[dir].push({ title: slug, path: docPath });
+  });
+
+  // Also discover empty folders via .gitkeep traversal — fetchTree only returns files
+  // so empty folders show up via .gitkeep entries from allFiles original list
+  // (we filtered to .md only above; re-scan for any folders we may have missed)
+
+  // Sort entries within each folder, newest first (works for date filenames; falls back to alpha)
+  Object.keys(groups).forEach(function(dir) {
+    groups[dir].sort(function(a, b) { return b.title.localeCompare(a.title); });
+  });
+
+  NAV = Object.keys(groups).sort().map(function(dir) {
+    return { dir: dir, label: prettify(dir.split('/').pop()), items: groups[dir] };
+  });
+}
+
 // ── Sidebar ──
-function renderSidebar() {
+function renderSidebar(filter) {
   var tree = document.getElementById('nbTree');
-  var loggedIn = Lab.gh.isLoggedIn();
-  if (!people.length) {
-    tree.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No notebooks found</div>';
-    return;
-  }
-
+  var q = (filter || '').toLowerCase();
   var html = '';
-  people.forEach(function(p) {
-    html += '<div class="nb-person" onclick="toggleCollapse(this)">' +
-      '<span class="material-icons-outlined">expand_more</span>' +
-      '<span class="material-icons-outlined" style="font-size:16px;color:#795548">person</span> ' +
-      Lab.escHtml(p.name) +
-      ' <span style="font-size:10px;font-weight:400;color:var(--grey-400)">(' + countEntries(p) + ')</span>' +
-      (loggedIn ? '<span class="nb-person-actions" onclick="event.stopPropagation()">' +
-        '<button onclick="createFolder(\'' + Lab.escHtml(p.slug) + '\')" title="New folder"><span class="material-icons-outlined">create_new_folder</span></button>' +
-      '</span>' : '') +
-      '</div>';
 
-    html += '<div class="nb-entries">';
-
-    // Root-level entries
-    p.entries.forEach(function(e) {
-      var active = currentEntry === e.path ? ' active' : '';
-      html += '<div class="nb-entry' + active + '" onclick="loadEntry(\'' + Lab.escHtml(e.path) + '\',\'' + Lab.escHtml(p.slug) + '\')">' + e.date + '</div>';
-    });
-
-    // Subfolders
-    p.folders.forEach(function(fo) {
-      html += '<div class="nb-folder" onclick="toggleCollapse(this)">' +
-        '<span class="material-icons-outlined">expand_more</span>' +
-        '<span class="material-icons-outlined" style="font-size:15px;color:var(--grey-500)">folder</span> ' +
-        Lab.escHtml(fo.name) +
-        ' <span style="font-size:10px;font-weight:400;color:var(--grey-400)">(' + fo.entries.length + ')</span>' +
-        '</div>';
-      html += '<div class="nb-folder-entries">';
-      fo.entries.forEach(function(e) {
-        var active = currentEntry === e.path ? ' active' : '';
-        html += '<div class="nb-entry' + active + '" onclick="loadEntry(\'' + Lab.escHtml(e.path) + '\',\'' + Lab.escHtml(p.slug) + '\')">' + e.date + '</div>';
+  NAV.forEach(function(cat, ci) {
+    var items = cat.items;
+    if (q) {
+      items = items.filter(function(i) {
+        return i.title.toLowerCase().includes(q) || cat.label.toLowerCase().includes(q);
       });
-      html += '</div>';
-    });
+      if (!items.length) return;
+    }
 
+    var hasActive = items.some(function(i) { return i.path === currentDoc; });
+    var collapsed = !q && !hasActive ? ' collapsed' : '';
+    var hidden = collapsed ? ' hidden' : '';
+
+    html += '<div class="nb-folder' + collapsed + '" data-cat-idx="' + ci + '" onclick="toggleFolder(this)">' +
+      '<span class="material-icons-outlined">expand_more</span>' +
+      '<span>' + Lab.escHtml(cat.label) + '</span>' +
+      '<span class="nb-folder-count">' + items.length + '</span>';
+    if (loggedIn) {
+      html += '<span class="nb-folder-actions" onclick="event.stopPropagation()">' +
+        '<button onclick="createNewEntry(\'' + Lab.escHtml(cat.dir) + '\')" title="New entry in this folder"><span class="material-icons-outlined">add</span></button>' +
+        '<button onclick="renameFolder(' + ci + ')" title="Rename folder"><span class="material-icons-outlined">edit</span></button>' +
+        '</span>';
+    }
+    html += '</div><div class="nb-items' + hidden + '" data-cat-idx="' + ci + '">';
+
+    items.forEach(function(item) {
+      var active = currentDoc === item.path ? ' active' : '';
+      html += '<div class="nb-item' + active + '" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+    });
     html += '</div>';
   });
 
-  // New entry button at bottom
-  if (loggedIn) {
-    html += '<div style="padding:12px 16px;border-top:1px solid var(--grey-200);margin-top:8px">' +
-      '<button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:#795548" onclick="showNewEntry()">' +
-      '<span class="material-icons-outlined">add</span> New Entry</button></div>';
+  if (!NAV.length) {
+    html = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No notebooks yet' + (loggedIn ? '.<br>Click <strong>+</strong> above to create one.' : '') + '</div>';
   }
   tree.innerHTML = html;
 }
 
-function countEntries(person) {
-  var c = person.entries.length;
-  person.folders.forEach(function(fo) { c += fo.entries.length; });
-  return c;
-}
-
-function toggleCollapse(el) {
+function toggleFolder(el) {
   el.classList.toggle('collapsed');
-  var next = el.nextElementSibling;
-  if (next) next.classList.toggle('hidden');
+  var items = el.nextElementSibling;
+  if (items) items.classList.toggle('hidden');
 }
 
-// ── Create Folder ──
-async function createFolder(personSlug) {
-  var name = prompt('Folder name (e.g. "dna-extraction"):');
+// ── New folder ──
+async function createNewFolder() {
+  var name = prompt('Folder name (typically a person, e.g. "alex-chen"):');
   if (!name || !name.trim()) return;
   var slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  var path = 'docs/notebooks/' + personSlug + '/' + slug + '/.gitkeep';
+  if (!slug) return;
 
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Create a placeholder gitkeep so the folder exists
+  var path = ROOT + '/' + slug + '/.gitkeep';
   try {
-    await Lab.gh.saveFile(path, '', null, 'New notebook folder: ' + personSlug + '/' + slug);
-    // Reload tree to pick up the new folder
-    Lab.showToast('Folder created: ' + slug, 'success');
-    // Reload tree to pick up new structure
-    await loadTree();
-    showWelcome();
+    await gh.saveFile(path, '', null, 'New notebook folder: ' + slug);
+    NAV.push({ dir: slug, label: prettify(slug), items: [] });
+    NAV.sort(function(a, b) { return a.dir.localeCompare(b.dir); });
+    renderSidebar(document.getElementById('nbSearch').value);
+    Lab.showToast('Created folder: ' + slug, 'success');
   } catch(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
   }
 }
 
-// ── Load Entry ──
-async function loadEntry(path, personSlug) {
-  currentEntry = path;
+async function renameFolder(catIdx) {
+  var cat = NAV[catIdx];
+  if (!cat) return;
+  var newLabel = prompt('Rename folder display label (does not move files):', cat.label);
+  if (!newLabel || !newLabel.trim() || newLabel.trim() === cat.label) return;
+  cat.label = newLabel.trim();
+  renderSidebar(document.getElementById('nbSearch').value);
+}
+
+// ── New entry ──
+function getTemplate(personLabel, dateStr) {
+  return '# ' + dateStr + ' — ' + personLabel + '\n\n' +
+    '**Person:** ' + personLabel + '  \n' +
+    '**Date:** ' + dateStr + '\n\n' +
+    '## Notes\n\n';
+}
+
+async function createNewEntry(presetDir) {
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Pick folder
+  var dir = presetDir;
+  if (!dir) {
+    if (!NAV.length) { Lab.showToast('Create a folder first', 'error'); return; }
+    // Default: current doc's folder, or first
+    if (currentDoc) {
+      var p = currentDoc.replace(/^notebooks\//, '').split('/');
+      p.pop();
+      dir = p.join('/');
+    }
+    if (!dir) dir = NAV[0].dir;
+    var promptDirs = NAV.map(function(c) { return c.dir; }).join('\n');
+    var entered = prompt('Folder for new entry:\n\n' + promptDirs, dir);
+    if (!entered || !entered.trim()) return;
+    dir = entered.trim();
+  }
+
+  var today = new Date().toISOString().slice(0, 10);
+  var name = prompt('Entry filename (no .md):', today);
+  if (!name || !name.trim()) return;
+  var slug = name.trim().replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-');
+
+  var personLabel = prettify(dir.split('/').pop());
+  var content = getTemplate(personLabel, today);
+
+  var filePath = ROOT + '/' + dir + '/' + slug + '.md';
+  var docPath = 'notebooks/' + dir + '/' + slug;
+
+  try {
+    // Check existence
+    var sha = null;
+    try {
+      var existing = await gh.fetchFile(filePath);
+      if (!confirm('An entry "' + slug + '" already exists in ' + dir + '. Open it instead?')) return;
+      loadDoc(docPath);
+      return;
+    } catch(e) {}
+
+    await gh.saveFile(filePath, content, null, 'New notebook entry: ' + dir + '/' + slug);
+
+    // Inject into NAV
+    var cat = NAV.find(function(c) { return c.dir === dir; });
+    if (!cat) {
+      cat = { dir: dir, label: prettify(dir.split('/').pop()), items: [] };
+      NAV.push(cat);
+      NAV.sort(function(a, b) { return a.dir.localeCompare(b.dir); });
+    }
+    cat.items.unshift({ title: slug, path: docPath });
+    cat.items.sort(function(a, b) { return b.title.localeCompare(a.title); });
+
+    renderSidebar(document.getElementById('nbSearch').value);
+    Lab.showToast('Entry created', 'success');
+    loadDoc(docPath);
+  } catch(e) {
+    Lab.showToast('Create failed: ' + e.message, 'error');
+  }
+}
+
+// ── Load entry ──
+async function loadDoc(docPath) {
+  currentDoc = docPath;
   isEditing = false;
   document.body.classList.remove('editing-mode');
-  document.body.classList.add('nb-viewing-mode');
   editorInstance = null;
-  renderSidebar();
+  renderSidebar(document.getElementById('nbSearch').value);
+  history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
 
-  // Close mobile sidebar
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('backdrop').classList.remove('open');
-
-  // Show edit FAB only if logged in
-  document.getElementById('editFab').style.display = Lab.gh.isLoggedIn() ? '' : 'none';
 
   var contentEl = document.getElementById('nbContent');
   contentEl.innerHTML = '<div class="loading-state" style="padding-top:80px"><div class="spinner"></div></div>';
 
   try {
-    var result = await Lab.gh.fetchFile(path);
+    var filePath = 'docs/' + docPath + '.md';
+    var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
-
     var html = await Lab.editorModal.renderMarkdown(result.content);
-    var breadcrumb = buildBreadcrumb(path);
 
     contentEl.innerHTML =
       '<div class="nb-content">' +
         '<div class="nb-edit-bar">' +
-          '<div class="breadcrumb">' + breadcrumb + '</div>' +
+          '<div class="breadcrumb">' + Lab.escHtml(docPath.replace(/^notebooks\//, '')) + '</div>' +
           '<div style="display:flex;gap:8px">' +
-            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span> <span class="btn-label">Print</span></button>' +
-            (Lab.gh.isLoggedIn() ? '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> <span class="btn-label">Edit</span></button>' : '') +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
+            (loggedIn ?
+              '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span><span class="btn-label"> Delete</span></button>' +
+              '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' : '') +
           '</div>' +
         '</div>' +
-        '<div class="nb-rendered" id="renderedEntry">' + html + '</div>' +
+        '<div class="nb-rendered" id="renderedDoc">' + html + '</div>' +
       '</div>';
 
-    var renderedEl = document.getElementById('renderedEntry');
+    var renderedEl = document.getElementById('renderedDoc');
     if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
     Lab.postProcessImages(renderedEl);
     document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
-    contentEl.innerHTML = '<div class="nb-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(e.message) + '</p></div></div>';
+    contentEl.innerHTML = '<div class="nb-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
   }
 }
 
-function buildBreadcrumb(path) {
-  // docs/notebooks/person/subfolder/date.md → "Person / Subfolder / date"
-  var parts = path.replace('docs/notebooks/', '').replace('.md', '').split('/');
-  return parts.map(function(p) { return Lab.escHtml(prettifySlug(p)); }).join(' / ');
-}
-
-// ── Edit Entry ──
+// ── Edit ──
 async function startEdit() {
-  if (!currentEntry || isEditing) return;
+  if (!currentDoc || isEditing) return;
   isEditing = true;
   document.body.classList.add('editing-mode');
-  document.body.classList.remove('nb-viewing-mode');
 
   var contentEl = document.getElementById('nbContent');
-  try {
-    var result = await Lab.gh.fetchFile(currentEntry);
-    currentSha = result.sha;
+  var filePath = 'docs/' + currentDoc + '.md';
 
-    var breadcrumb = buildBreadcrumb(currentEntry);
+  try {
+    var result = await Lab.gh.fetchFile(filePath);
+    currentSha = result.sha;
 
     contentEl.innerHTML =
       '<div class="nb-content">' +
         '<div class="nb-edit-bar">' +
-          '<div class="breadcrumb">' + breadcrumb + ' (editing)</div>' +
-          '<div style="display:flex;gap:6px;align-items:center">' +
-            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()" title="Cancel"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
-            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveEntry()" title="Save"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc.replace(/^notebooks\//, '')) + ' (editing)</div>' +
+          '<div style="display:flex;gap:6px">' +
+            '<button class="btn btn-outline btn-sm" onclick="cancelEdit()"><span class="material-icons-outlined">close</span><span class="btn-label"> Cancel</span></button>' +
+            '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()" style="background:#795548"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
           '</div>' +
         '</div>' +
         '<div class="nb-editor-surface em-surface" id="editorSurface"></div>' +
@@ -427,24 +433,24 @@ async function startEdit() {
     editorInstance = await Lab.editorModal.initFullpage(
       document.getElementById('editorSurface'),
       result.content,
-      currentEntry,
+      filePath,
       currentSha
     );
   } catch(e) {
-    Lab.showToast('Failed: ' + e.message, 'error');
+    Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
   }
 }
 
-async function saveEntry() {
+async function saveDoc() {
   if (!editorInstance) return;
   var btn = document.getElementById('saveBtn');
   btn.disabled = true;
   btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
+
   try {
     var md = editorInstance.getMarkdown();
 
-    // Capture loaded images from editor before destroying it
     var editorImages = {};
     var editorSurface = document.getElementById('editorSurface');
     if (editorSurface) {
@@ -457,42 +463,38 @@ async function saveEntry() {
       });
     }
 
-    var result = await Lab.gh.saveFile(currentEntry, md, currentSha, 'Notebook: ' + currentEntry.replace('docs/', ''));
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update notebook ' + currentDoc);
     currentSha = result.sha;
     Lab.showToast('Saved', 'success');
 
-    // Render saved content directly (avoid GitHub API propagation delay)
     isEditing = false;
     document.body.classList.remove('editing-mode');
-    document.body.classList.add('nb-viewing-mode');
     editorInstance = null;
-    var breadcrumb = buildBreadcrumb(currentEntry);
     var html = await Lab.editorModal.renderMarkdown(md);
     var contentEl = document.getElementById('nbContent');
     contentEl.innerHTML =
       '<div class="nb-content">' +
         '<div class="nb-edit-bar">' +
-          '<div class="breadcrumb">' + breadcrumb + '</div>' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc.replace(/^notebooks\//, '')) + '</div>' +
           '<div style="display:flex;gap:8px">' +
-            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span> <span class="btn-label">Print</span></button>' +
-            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> <span class="btn-label">Edit</span></button>' +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
+            '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span><span class="btn-label"> Delete</span></button>' +
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' +
           '</div>' +
         '</div>' +
-        '<div class="nb-rendered" id="renderedEntry">' + html + '</div>' +
+        '<div class="nb-rendered" id="renderedDoc">' + html + '</div>' +
       '</div>';
-    var renderedEl2 = document.getElementById('renderedEntry');
+    var renderedEl2 = document.getElementById('renderedDoc');
     if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl2);
     Lab.postProcessImages(renderedEl2);
-
-    // Inject images captured from the editor
     if (Object.keys(editorImages).length) {
-      document.getElementById('renderedEntry').querySelectorAll('img').forEach(function(img) {
+      renderedEl2.querySelectorAll('img').forEach(function(img) {
         var src = img.getAttribute('src') || '';
         var fname = src.split('/').pop().split('?')[0];
         if (fname && editorImages[fname]) img.src = editorImages[fname];
       });
     }
-
     document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
@@ -502,200 +504,67 @@ async function saveEntry() {
 }
 
 function cancelEdit() {
-  if (currentEntry) {
-    var ps = currentEntry.replace('docs/notebooks/', '').split('/')[0];
-    loadEntry(currentEntry, ps);
-  }
+  if (currentDoc) loadDoc(currentDoc);
 }
 
-// ── New Entry ──
-function showNewEntry() {
-  currentEntry = null;
-  isEditing = true;
-  document.body.classList.remove('nb-viewing-mode');
-  renderSidebar();
-
-  // Close mobile sidebar
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('backdrop').classList.remove('open');
-
-  var contentEl = document.getElementById('nbContent');
-  var today = new Date().toISOString().slice(0, 10);
-
-  // Build person select options
-  var personOpts = people.map(function(p) { return '<option value="' + Lab.escHtml(p.slug) + '">' + Lab.escHtml(p.name) + '</option>'; }).join('');
-
-  // Build initial subfolder options for the first person
-  var folderOpts = buildFolderOptions(people.length ? people[0].slug : '');
-
-  contentEl.innerHTML =
-    '<div class="nb-content">' +
-      '<div class="nb-meta-fields">' +
-        '<h3>New Notebook Entry</h3>' +
-        '<div class="nb-meta-row">' +
-          '<div class="form-group"><label>Person *</label><select id="newPerson" onchange="updateFolderOptions()">' + personOpts + '</select></div>' +
-          '<div class="form-group"><label>Folder</label><select id="newFolder">' + folderOpts + '</select></div>' +
-        '</div>' +
-        '<div class="nb-meta-row">' +
-          '<div class="form-group"><label>Date *</label><input type="date" id="newDate" value="' + today + '"></div>' +
-          '<div class="form-group"><label>Time In</label><input type="time" id="newTimeIn"></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="nb-edit-bar">' +
-        '<div class="breadcrumb">New entry</div>' +
-        '<div style="display:flex;gap:8px">' +
-          '<button class="btn btn-outline btn-sm" onclick="showWelcome()"><span class="material-icons-outlined">close</span> Cancel</button>' +
-          '<button class="btn btn-primary btn-sm" id="saveNewBtn" onclick="saveNewEntry()" style="background:#795548"><span class="material-icons-outlined">save</span> Save Entry</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="nb-editor-surface em-surface" id="newEditorSurface"></div>' +
-    '</div>';
-
-  // Init WYSIWYG with template
-  var template = getTemplate();
-  Lab.editorModal.initFullpage(
-    document.getElementById('newEditorSurface'),
-    template,
-    '', null
-  ).then(function(inst) { editorInstance = inst; });
-}
-
-function buildFolderOptions(personSlug) {
-  var opts = '<option value="">(root)</option>';
-  var person = people.find(function(p) { return p.slug === personSlug; });
-  if (person) {
-    person.folders.forEach(function(fo) {
-      opts += '<option value="' + Lab.escHtml(fo.slug) + '">' + Lab.escHtml(fo.name) + '</option>';
-    });
-  }
-  opts += '<option value="__new__">+ New folder...</option>';
-  return opts;
-}
-
-function updateFolderOptions() {
-  var personSlug = document.getElementById('newPerson').value;
-  document.getElementById('newFolder').innerHTML = buildFolderOptions(personSlug);
-}
-
-function getTemplate() {
-  return '### Before Start Checklist\n\n' +
-    '- [ ] Have a general plan for the day\'s work\n' +
-    '- [ ] Lab safety: closed-toe shoes, long pants, aware of hazards, familiar with PPE needed today\n\n' +
-    '### Summary of Activities\n\n' +
-    '_A few sentences overview of the main tasks performed today._\n\n' +
-    '### Detailed Experimental Notes\n\n' +
-    '**Kits/Reagents Used:**\n\n' +
-    '**Solutions Made or Used:**\n\n' +
-    '**Biological Samples:**\n\n' +
-    '**Procedure & Deviations:**\n\n' +
-    '### Results\n\n' +
-    '| Label | Sample Type | Location | QC Result | Notes |\n' +
-    '|-------|-------------|----------|-----------|-------|\n' +
-    '|       |             |          |           |       |\n\n' +
-    '### Concluding Checklist\n\n' +
-    '- [ ] All tubes, plates, and reagents labeled\n' +
-    '- [ ] Reagents, samples, and equipment returned to designated locations\n' +
-    '- [ ] Bench/workspace cleaned before leaving\n' +
-    '- [ ] Sent message to Grey + mentor on Slack with link to this entry and any questions\n\n' +
-    '### Reflections and Questions\n\n' +
-    '### Next Time\n';
-}
-
-async function saveNewEntry() {
-  if (!editorInstance) return;
-  var person = document.getElementById('newPerson').value;
-  var folder = document.getElementById('newFolder').value;
-  var date = document.getElementById('newDate').value;
-  var timeIn = document.getElementById('newTimeIn').value;
-
-  if (!person || !date) { Lab.showToast('Person and date are required', 'error'); return; }
-
-  // Handle "new folder" option
-  if (folder === '__new__') {
-    var folderName = prompt('Folder name (e.g. "dna-extraction"):');
-    if (!folderName || !folderName.trim()) return;
-    folder = folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  }
-
-  var btn = document.getElementById('saveNewBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
-
-  var md = '# ' + date + '\n\n';
-  if (timeIn) md += '**Time In:** ' + timeIn + '\n';
-  md += '**Time Out:**\n\n';
-  md += editorInstance.getMarkdown() + '\n';
-
-  var path = 'docs/notebooks/' + person + '/' + (folder ? folder + '/' : '') + date + '.md';
+async function deleteDoc() {
+  if (!currentDoc) return;
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) return;
+  var name = currentDoc.split('/').pop();
+  if (!confirm('Delete entry "' + name + '"? This cannot be undone.')) return;
 
   try {
-    // Check if exists
-    var sha = null;
-    try {
-      var existing = await Lab.gh.fetchFile(path);
-      sha = existing.sha;
-    } catch(e) {}
-
-    await Lab.gh.saveFile(path, md, sha, 'Notebook entry: ' + path.replace('docs/', ''));
-
-    // Add to tree if new
-    if (allFiles.indexOf(path) === -1) allFiles.push(path);
-    discoverPeople();
-    renderSidebar();
-    Lab.showToast('Entry saved', 'success');
-    loadEntry(path, person);
+    var filePath = 'docs/' + currentDoc + '.md';
+    await gh.deleteFile(filePath, null, 'Delete notebook entry: ' + name);
+    NAV.forEach(function(cat) {
+      cat.items = cat.items.filter(function(i) { return i.path !== currentDoc; });
+    });
+    currentDoc = null;
+    currentSha = null;
+    renderSidebar(document.getElementById('nbSearch').value);
+    showWelcome();
+    Lab.showToast('Deleted', 'success');
   } catch(e) {
-    Lab.showToast('Failed: ' + e.message, 'error');
-    btn.disabled = false;
-    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save Entry';
+    Lab.showToast('Delete failed: ' + e.message, 'error');
   }
 }
 
 // ── Welcome ──
 function showWelcome() {
-  currentEntry = null;
-  isEditing = false;
-  document.body.classList.remove('nb-viewing-mode');
-  document.body.classList.remove('editing-mode');
-  document.getElementById('editFab').style.display = 'none';
-  renderSidebar();
-
   var contentEl = document.getElementById('nbContent');
-  var allEntries = [];
-  people.forEach(function(p) {
-    p.entries.slice(0, 3).forEach(function(e) {
-      allEntries.push({ person: p.name, personSlug: p.slug, date: e.date, path: e.path });
-    });
-    p.folders.forEach(function(fo) {
-      fo.entries.slice(0, 2).forEach(function(e) {
-        allEntries.push({ person: p.name + ' / ' + fo.name, personSlug: p.slug, date: e.date, path: e.path });
-      });
+  // Build flat recent list
+  var recent = [];
+  NAV.forEach(function(cat) {
+    cat.items.slice(0, 3).forEach(function(it) {
+      recent.push({ folder: cat.label, dir: cat.dir, title: it.title, path: it.path });
     });
   });
-  allEntries.sort(function(a, b) { return b.date.localeCompare(a.date); });
+  recent.sort(function(a, b) { return b.title.localeCompare(a.title); });
 
   var recentHtml = '';
-  if (allEntries.length) {
-    recentHtml = '<div class="nb-recent"><h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Recent Entries</h3>' +
-      allEntries.slice(0, 8).map(function(e) {
-        return '<div class="nb-recent-card" onclick="loadEntry(\'' + Lab.escHtml(e.path) + '\',\'' + Lab.escHtml(e.personSlug) + '\')">' +
-          '<div><div style="font-weight:500">' + Lab.escHtml(e.person) + '</div><div style="font-size:13px;color:var(--grey-500)">' + e.date + '</div></div>' +
+  if (recent.length) {
+    recentHtml = '<h3 style="font-size:15px;font-weight:600;margin:24px 0 12px">Recent Entries</h3>' +
+      recent.slice(0, 10).map(function(e) {
+        return '<div onclick="loadDoc(\'' + Lab.escHtml(e.path) + '\')" style="background:#fff;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">' +
+          '<div><div style="font-weight:500">' + Lab.escHtml(e.folder) + '</div><div style="font-size:13px;color:var(--grey-500)">' + Lab.escHtml(e.title) + '</div></div>' +
           '<span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span></div>';
-      }).join('') + '</div>';
+      }).join('');
   }
 
   contentEl.innerHTML =
-    '<div class="nb-welcome">' +
-      '<h1><span class="material-icons-outlined">edit_note</span> Lab Notebooks</h1>' +
-      '<p style="color:var(--grey-500);margin-bottom:20px">Select a person from the sidebar or start a new entry.</p>' +
-      (Lab.gh.isLoggedIn() ? '<button class="btn btn-primary" style="background:#795548" onclick="showNewEntry()"><span class="material-icons-outlined">add</span> New Entry</button>' : '') +
+    '<div style="padding:32px 40px;max-width:900px;margin:0 auto">' +
+      '<h1 style="font-size:22px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px">' +
+        '<span class="material-icons-outlined" style="font-size:28px;color:#795548">edit_note</span> Lab Notebooks</h1>' +
+      '<p style="color:var(--grey-500);margin-bottom:16px">Folders are people. Files are entries. Pick one from the sidebar or create a new one.</p>' +
+      (loggedIn ? '<button class="btn btn-primary" style="background:#795548" onclick="createNewEntry()"><span class="material-icons-outlined">add</span> New Entry</button>' : '') +
       recentHtml +
     '</div>';
 }
 
-// ── Keyboard ──
-document.addEventListener('keydown', function(e) {
-  if ((e.metaKey || e.ctrlKey) && e.key === 's' && isEditing) { e.preventDefault(); if (currentEntry) saveEntry(); else saveNewEntry(); }
+// ── Search ──
+document.getElementById('nbSearch').addEventListener('input', function() {
+  renderSidebar(this.value);
 });
 
 // ── Mobile sidebar ──
@@ -708,13 +577,34 @@ document.getElementById('backdrop').onclick = function() {
   this.classList.remove('open');
 };
 
-// ── Print ──
-var printStyle = document.createElement('style');
-printStyle.textContent = '@media print { #lab-nav,#lab-bottom-nav,.nb-sidebar,.nb-backdrop,.nb-hamburger,.nb-edit-fab,.nb-edit-bar,#password-gate{display:none!important} .nb-layout{display:block!important} .nb-main{overflow:visible!important} .nb-content{max-width:100%!important;padding:0!important} .nb-rendered{font-size:12pt} }';
-document.head.appendChild(printStyle);
+// ── Keyboard ──
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's' && isEditing) { e.preventDefault(); saveDoc(); }
+});
+
+// ── Back/forward ──
+window.addEventListener('popstate', function() {
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else showWelcome();
+});
 
 // ── Init ──
-loadTree().then(showWelcome);
+(async function init() {
+  loggedIn = Lab.gh.isLoggedIn();
+  if (loggedIn) {
+    document.getElementById('newFolderBtn').style.display = '';
+    document.getElementById('newEntryBtn').style.display = '';
+  }
+  await loadTree();
+  renderSidebar();
+
+  var params = new URLSearchParams(location.search);
+  var doc = params.get('doc');
+  if (doc) loadDoc(doc);
+  else showWelcome();
+})();
 </script>
 </body>
 </html>
