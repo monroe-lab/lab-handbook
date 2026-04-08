@@ -437,7 +437,7 @@ async function createNewFolder() {
 // ── New entry ──
 function getDailyTemplate(personLabel, dateStr) {
   return '# ' + dateStr + ' — ' + personLabel + '\n\n' +
-    '**Person:** ' + personLabel + '  \n' +
+    '**Person:** ' + personLabel + '\n\n' +
     '**Date:** ' + dateStr + '\n\n' +
     '## Plan for today\n\n' +
     '## What I did\n\n' +
@@ -447,7 +447,7 @@ function getDailyTemplate(personLabel, dateStr) {
 
 function getBlankTemplate(title, personLabel, dateStr) {
   return '# ' + title + '\n\n' +
-    '**Person:** ' + personLabel + '  \n' +
+    '**Person:** ' + personLabel + '\n\n' +
     '**Date:** ' + dateStr + '\n\n';
 }
 
