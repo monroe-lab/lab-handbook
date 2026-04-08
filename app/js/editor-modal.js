@@ -246,7 +246,10 @@
 
     // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
-    var html = marked.parse(processed, { breaks: true });
+    // breaks:false matches Toast UI's CommonMark behavior — single newlines stay
+    // in the same paragraph; blank lines separate paragraphs. Explicit hard breaks
+    // ("  \n") still render as <br> in both viewer and editor. See EDITOR_ARCHITECTURE.md.
+    var html = marked.parse(processed, { breaks: false });
 
     // Replace placeholders with rendered callouts
     admonitions.forEach(function(a, i) {
