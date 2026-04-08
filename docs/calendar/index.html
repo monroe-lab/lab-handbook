@@ -596,12 +596,12 @@ if (window.self !== window.top) {
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label>Title *</label>
-        <input type="text" id="fTitle" placeholder="e.g. DNA extraction, Lab meeting">
+        <label>User(s) *</label>
+        <input type="text" id="fMember" placeholder="[[Alex Chen]] or [[Alex]], [[Sam]] or &quot;all&quot; — type [[ to autocomplete">
       </div>
       <div class="form-group">
-        <label>Lab Member</label>
-        <input type="text" id="fMember" placeholder="Optional — leave blank for shared lab events">
+        <label>Title</label>
+        <input type="text" id="fTitle" placeholder="Optional — e.g. DNA extraction, Lab meeting">
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -926,10 +926,24 @@ async function commitSchedule(message) {
 }
 
 // --- Member colors ---
+function extractMembers(s) {
+  if (!s) return [];
+  var out = [];
+  var re = /\[\[([^\]]+)\]\]/g;
+  var m;
+  while ((m = re.exec(s)) !== null) {
+    var name = m[1].split('|')[0].trim();
+    if (name && out.indexOf(name) === -1) out.push(name);
+  }
+  return out;
+}
+
 function buildMemberColors() {
   var members = [];
   schedule.forEach(function(b) {
-    if (b.member && members.indexOf(b.member) === -1) members.push(b.member);
+    extractMembers(b.member).forEach(function(u) {
+      if (members.indexOf(u) === -1) members.push(u);
+    });
   });
   members.sort();
   memberColorMap = {};
@@ -969,7 +983,7 @@ function getVisibleBlocks() {
   var memberFilter = document.getElementById('filterMember').value;
 
   return schedule.filter(function(b) {
-    if (memberFilter && (b.member || '') !== memberFilter) return false;
+    if (memberFilter && extractMembers(b.member).indexOf(memberFilter) === -1) return false;
     if (!b.date) return false;
     var d = new Date(b.date + 'T00:00:00');
     var dow = d.getDay();
@@ -1028,7 +1042,8 @@ function renderCalendar() {
       var topOffset = (startMin - cellTopMin) / 60 * 60;
       var height = (endMin - startMin) / 60 * 60;
 
-      var color = b.member ? (memberColorMap[b.member] || MEMBER_COLORS[0]) : SHARED_COLOR;
+      var users = extractMembers(b.member);
+      var color = users.length ? (memberColorMap[users[0]] || MEMBER_COLORS[0]) : SHARED_COLOR;
 
       var widthPct = 100 / item.totalCols;
       var leftPct = widthPct * item.col;
@@ -1039,10 +1054,12 @@ function renderCalendar() {
       card.onclick = (function(block) { return function() { openEditModal(block.id); }; })(b);
       card.title = (b.title || '') + (b.member ? ' • ' + b.member : '') + (b.notes ? '\n\n' + b.notes : '');
 
-      var innerHtml = '<div class="block-member">' + esc(b.title || 'Untitled') + '</div>';
+      var innerHtml = '';
+      if (b.title) innerHtml += '<div class="block-member">' + esc(b.title) + '</div>';
       innerHtml += '<div class="block-time">' + formatTime12(b.startTime) + ' \u2013 ' + formatTime12(b.endTime) + '</div>';
       if (b.member) {
-        innerHtml += '<div class="block-activity">' + esc(b.member) + '</div>';
+        var rendered = (window.Lab && window.Lab.richInput) ? window.Lab.richInput.renderText(b.member) : esc(b.member);
+        innerHtml += '<div class="block-activity">' + rendered + '</div>';
       }
       card.innerHTML = innerHtml;
 
@@ -1127,7 +1144,7 @@ function openAddModal() {
   document.getElementById('repeatRow').style.display = '';
   document.getElementById('btnDeleteBlock').style.display = 'none';
   document.getElementById('blockModal').classList.add('open');
-  document.getElementById('fTitle').focus();
+  document.getElementById('fMember').focus();
 }
 
 function openEditModal(id) {
@@ -1160,7 +1177,7 @@ async function saveBlock() {
   var notes = document.getElementById('fNotes').value.trim();
   var repeat = document.getElementById('fRepeat').value;
 
-  if (!title) { toast('Title is required', 'error'); return; }
+  if (!title && !member) { toast('Add a title or at least one user', 'error'); return; }
   if (!date) { toast('Date is required', 'error'); return; }
   if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
     toast('End time must be after start time', 'error');
@@ -1347,8 +1364,9 @@ populateTimeSelects();
 updateConnStatus();
 loadSchedule();
 
-// Enhance notes field with [[ autocomplete
+// Enhance member and notes fields with [[ autocomplete
 if (window.Lab && window.Lab.richInput) {
+  Lab.richInput.enhance(document.getElementById('fMember'));
   Lab.richInput.enhance(document.getElementById('fNotes'));
 }
 </script>
