@@ -1,14 +1,18 @@
 ---
-type: kit
-title: Native Barcoding Kit 24 V14 (SQK-NBD114.24)
-status: needed
-vendor: Oxford Nanopore
-catalog_number: SQK-NBD114.24
+type: "kit"
+title: "Native Barcoding Kit 24 V14 (SQK-NBD114.24)"
+status: "needed"
+vendor: "Oxford Nanopore"
+catalog_number: "SQK-NBD114.24"
+location: "Chemical Cabinet"
+need_more: true
+updated_at: "2026-04-08T21:44:54.344Z"
+created_at: "2026-04-08T21:44:54.344Z"
+created_by: "greymonroe"
 ---
-
 # Native Barcoding Kit 24 V14 (SQK-NBD114.24)
 
-Ligation-based multiplexed nanopore library prep kit (~$700, 6 preps per kit, 24 barcodes per prep). This is the correct kit for any application where the **output read length must faithfully reflect the input molecule length**, including PacBio HiFi shearing QC, native HMW gDNA QC, plasmid verification, amplicon ID, methylation screening, and short-read library QC on a Flongle.
+Ligation-based multiplexed nanopore library prep kit (\~$700, 6 preps per kit, 24 barcodes per prep). This is the correct kit for any application where the **output read length must faithfully reflect the input molecule length**, including PacBio HiFi shearing QC, native HMW gDNA QC, plasmid verification, amplicon ID, methylation screening, and short-read library QC on a Flongle.
 
 The chemistry is end-repair → dA-tail → per-sample native barcode ligation → pool → AMPure cleanup → sequencing adapter ligation → final AMPure cleanup. Every step preserves the ends of the DNA molecule — **no cutting**. Read length equals molecule length.
 
