@@ -573,37 +573,6 @@ if (window.self !== window.top) {
   <button class="day-tab" data-day="Friday" onclick="selectDayTab('Friday')">Fri</button>
 </div>
 
-<!-- Stats -->
-<div class="stats">
-  <div class="stat-card">
-    <span class="material-icons-outlined">schedule</span>
-    <div>
-      <div class="stat-value" id="statHours">-</div>
-      <div class="stat-label">Total Hours</div>
-    </div>
-  </div>
-  <div class="stat-card">
-    <span class="material-icons-outlined">group</span>
-    <div>
-      <div class="stat-value" id="statMembers">-</div>
-      <div class="stat-label">Members Scheduled</div>
-    </div>
-  </div>
-  <div class="stat-card">
-    <span class="material-icons-outlined">task_alt</span>
-    <div>
-      <div class="stat-value" id="statAssigned">-</div>
-      <div class="stat-label">Assigned Blocks</div>
-    </div>
-  </div>
-  <div class="stat-card warning">
-    <span class="material-icons-outlined">help_outline</span>
-    <div>
-      <div class="stat-value" id="statUnassigned">-</div>
-      <div class="stat-label">Unassigned Blocks</div>
-    </div>
-  </div>
-</div>
 
 <!-- Calendar -->
 <div class="calendar-wrap">
@@ -627,36 +596,17 @@ if (window.self !== window.top) {
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label>Member Name *</label>
-        <input type="text" id="fMember" placeholder="e.g. Alex Chen">
+        <label>Title *</label>
+        <input type="text" id="fTitle" placeholder="e.g. DNA extraction, Lab meeting">
+      </div>
+      <div class="form-group">
+        <label>Lab Member</label>
+        <input type="text" id="fMember" placeholder="Optional — leave blank for shared lab events">
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Role</label>
-          <select id="fRole">
-            <option>Undergraduate</option>
-            <option>Graduate Student</option>
-            <option>Postdoc</option>
-            <option>Staff</option>
-            <option>PI</option>
-            <option>Volunteer</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Mentor</label>
-          <input type="text" id="fMentor" placeholder="e.g. Kehan Zhao">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Day *</label>
-          <select id="fDay">
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-          </select>
+          <label>Date *</label>
+          <input type="date" id="fDate">
         </div>
       </div>
       <div class="form-row">
@@ -670,26 +620,22 @@ if (window.self !== window.top) {
         </div>
       </div>
       <div class="form-group">
-        <label>Activity</label>
-        <textarea id="fActivity" rows="2" placeholder="e.g. DNA extraction from leaf tissue — type [[ to link protocols, reagents, etc."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Status</label>
-        <select id="fStatus">
-          <option value="scheduled">Scheduled</option>
-          <option value="in-progress">In Progress</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
-      <div class="form-group">
         <label>Notes</label>
-        <textarea id="fNotes" rows="5" placeholder="Optional notes — type [[ to link protocols, reagents, etc." style="resize:vertical;min-height:100px"></textarea>
+        <textarea id="fNotes" rows="4" placeholder="Optional — type [[ to link protocols, reagents, etc." style="resize:vertical;min-height:80px"></textarea>
       </div>
-      <div class="form-check" id="recurringRow">
-        <input type="checkbox" id="fRecurring" checked>
-        <label for="fRecurring">Create a weekly copy through:</label>
-        <input type="date" id="fRecurringUntil" style="margin-left:8px">
+      <div class="form-row" id="repeatRow">
+        <div class="form-group">
+          <label>Repeat</label>
+          <select id="fRepeat" onchange="document.getElementById('repeatUntilWrap').style.display = this.value === 'none' ? 'none' : '';">
+            <option value="none">Does not repeat</option>
+            <option value="daily">Daily (Mon–Fri)</option>
+            <option value="weekly">Weekly</option>
+          </select>
+        </div>
+        <div class="form-group" id="repeatUntilWrap" style="display:none">
+          <label>Until</label>
+          <input type="date" id="fRepeatUntil">
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -845,21 +791,49 @@ function populateTimeSelects() {
 }
 
 // --- Data loading ---
-async function migrateRecurringBlocks() {
-  var legacy = schedule.filter(function(b) { return b.recurring; });
-  if (legacy.length === 0) return;
+async function migrateBlocks() {
+  var DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+  var changed = false;
   var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
-  legacy.forEach(function(b) {
-    var idx = schedule.indexOf(b);
-    if (idx >= 0) schedule.splice(idx, 1);
-    for (var i = 0; i < 5; i++) {
-      var d = new Date(currentMonday); d.setDate(d.getDate() + 7 * i);
-      maxId += 1;
-      schedule.push({ id: maxId, member: b.member, role: b.role, mentor: b.mentor, day: b.day, startTime: b.startTime, endTime: b.endTime, weekOf: isoMonday(d), activity: b.activity, status: b.status, notes: b.notes });
+  var newSchedule = [];
+  schedule.forEach(function(b) {
+    if (b.date && typeof b.title !== 'undefined') {
+      newSchedule.push(b);
+      return;
     }
+    changed = true;
+    var occurrences = [];
+    if (b.recurring) {
+      for (var i = 0; i < 5; i++) {
+        var w = new Date(currentMonday); w.setDate(w.getDate() + 7 * i);
+        occurrences.push(w);
+      }
+    } else if (b.weekOf) {
+      occurrences.push(new Date(b.weekOf + 'T00:00:00'));
+    } else {
+      return;
+    }
+    var dayIdx = DAY_NAMES.indexOf(b.day);
+    if (dayIdx < 0) dayIdx = 0;
+    occurrences.forEach(function(monday) {
+      var d = new Date(monday); d.setDate(d.getDate() + dayIdx);
+      maxId += 1;
+      newSchedule.push({
+        id: maxId,
+        title: (b.activity && b.activity.trim()) || (b.member ? b.member + ' block' : 'Untitled block'),
+        member: b.member || '',
+        date: isoMonday(d),
+        startTime: b.startTime,
+        endTime: b.endTime,
+        notes: b.notes || ''
+      });
+    });
   });
-  var ok = await commitSchedule('Migrate ' + legacy.length + ' recurring blocks to per-week instances');
-  if (!ok) console.warn('Failed to commit recurring migration');
+  if (changed) {
+    schedule = newSchedule;
+    var ok = await commitSchedule('Migrate calendar to simplified schema');
+    if (!ok) console.warn('Migration commit failed');
+  }
 }
 
 async function loadSchedule() {
@@ -889,7 +863,7 @@ async function loadSchedule() {
     }
   }
 
-  await migrateRecurringBlocks();
+  await migrateBlocks();
 
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('calendarGrid').style.display = '';
@@ -955,7 +929,7 @@ async function commitSchedule(message) {
 function buildMemberColors() {
   var members = [];
   schedule.forEach(function(b) {
-    if (members.indexOf(b.member) === -1) members.push(b.member);
+    if (b.member && members.indexOf(b.member) === -1) members.push(b.member);
   });
   members.sort();
   memberColorMap = {};
@@ -995,9 +969,18 @@ function getVisibleBlocks() {
   var memberFilter = document.getElementById('filterMember').value;
 
   return schedule.filter(function(b) {
-    if (memberFilter && b.member !== memberFilter) return false;
-    return b.weekOf === mondayStr;
+    if (memberFilter && (b.member || '') !== memberFilter) return false;
+    if (!b.date) return false;
+    var d = new Date(b.date + 'T00:00:00');
+    var dow = d.getDay();
+    if (dow < 1 || dow > 5) return false;
+    return isoMonday(getMonday(d)) === mondayStr;
   });
+}
+
+function dateToDayIndex(dateStr) {
+  var d = new Date(dateStr + 'T00:00:00');
+  return (d.getDay() + 6) % 7; // Mon=0..Sun=6
 }
 
 // --- Rendering ---
@@ -1005,23 +988,6 @@ function renderCalendar() {
   updateWeekLabel();
   var grid = document.getElementById('calendarGrid');
   var blocks = getVisibleBlocks();
-
-  // Stats
-  var totalHours = 0;
-  var membersSet = {};
-  var assigned = 0;
-  var unassigned = 0;
-  blocks.forEach(function(b) {
-    var mins = timeToMinutes(b.endTime) - timeToMinutes(b.startTime);
-    totalHours += mins / 60;
-    membersSet[b.member] = true;
-    if (b.activity && b.activity.trim()) assigned++;
-    else unassigned++;
-  });
-  document.getElementById('statHours').textContent = Math.round(totalHours * 10) / 10;
-  document.getElementById('statMembers').textContent = Object.keys(membersSet).length;
-  document.getElementById('statAssigned').textContent = assigned;
-  document.getElementById('statUnassigned').textContent = unassigned;
 
   // Build grid HTML
   var html = '';
@@ -1046,8 +1012,9 @@ function renderCalendar() {
   grid.innerHTML = html;
 
   // Place blocks into day columns
-  DAYS.forEach(function(day) {
-    var dayBlocks = blocks.filter(function(b) { return b.day === day; });
+  var SHARED_COLOR = { bg: '#f5f5f5', border: '#9e9e9e', text: '#424242' };
+  DAYS.forEach(function(day, dayIdx) {
+    var dayBlocks = blocks.filter(function(b) { return dateToDayIndex(b.date) === dayIdx; });
     var placed = layoutBlocks(dayBlocks);
 
     placed.forEach(function(item) {
@@ -1055,38 +1022,27 @@ function renderCalendar() {
       var startMin = timeToMinutes(b.startTime);
       var endMin = timeToMinutes(b.endTime);
 
-      // Calculate position relative to the first cell this block starts in
       var startHour = Math.floor(startMin / 60);
       if (startHour < HOUR_START) startHour = HOUR_START;
       var cellTopMin = startHour * 60;
       var topOffset = (startMin - cellTopMin) / 60 * 60;
       var height = (endMin - startMin) / 60 * 60;
 
-      var color = memberColorMap[b.member] || MEMBER_COLORS[0];
-      var isUnassigned = !b.activity || !b.activity.trim();
+      var color = b.member ? (memberColorMap[b.member] || MEMBER_COLORS[0]) : SHARED_COLOR;
 
       var widthPct = 100 / item.totalCols;
       var leftPct = widthPct * item.col;
 
-      var cardBg = isUnassigned ? color.bgLight : color.bg;
-      var cardBorder = isUnassigned ? color.borderLight : color.border;
-      var cardText = color.text;
-
-      var statusClass = (b.status || 'scheduled').replace(' ', '-');
-
       var card = document.createElement('div');
-      card.className = 'block-card' + (isUnassigned ? ' unassigned' : '');
-      card.style.cssText = 'top:' + topOffset + 'px;height:' + height + 'px;left:' + leftPct + '%;width:calc(' + widthPct + '% - 4px);background:' + cardBg + ';border-left-color:' + cardBorder + ';color:' + cardText + ';';
+      card.className = 'block-card';
+      card.style.cssText = 'top:' + topOffset + 'px;height:' + height + 'px;left:' + leftPct + '%;width:calc(' + widthPct + '% - 4px);background:' + color.bg + ';border-left-color:' + color.border + ';color:' + color.text + ';';
       card.onclick = (function(block) { return function() { openEditModal(block.id); }; })(b);
+      card.title = (b.title || '') + (b.member ? ' • ' + b.member : '') + (b.notes ? '\n\n' + b.notes : '');
 
-      var innerHtml = '<div class="block-member">' + esc(b.member);
-      if (!isUnassigned) {
-        innerHtml += '<span class="status-dot ' + statusClass + '"></span>';
-      }
-      innerHtml += '</div>';
+      var innerHtml = '<div class="block-member">' + esc(b.title || 'Untitled') + '</div>';
       innerHtml += '<div class="block-time">' + formatTime12(b.startTime) + ' \u2013 ' + formatTime12(b.endTime) + '</div>';
-      if (!isUnassigned) {
-        innerHtml += '<div class="block-activity">' + (window.Lab && window.Lab.richInput ? window.Lab.richInput.renderText(b.activity) : esc(b.activity)) + '</div>';
+      if (b.member) {
+        innerHtml += '<div class="block-activity">' + esc(b.member) + '</div>';
       }
       card.innerHTML = innerHtml;
 
@@ -1155,22 +1111,23 @@ function layoutBlocks(dayBlocks) {
 function openAddModal() {
   editingId = null;
   document.getElementById('modalTitle').textContent = 'Add Block';
+  document.getElementById('fTitle').value = '';
   document.getElementById('fMember').value = '';
-  document.getElementById('fRole').value = 'Undergraduate';
-  document.getElementById('fMentor').value = '';
-  document.getElementById('fDay').value = 'Monday';
+  var today = new Date();
+  if (today.getDay() === 0) today.setDate(today.getDate() + 1);
+  if (today.getDay() === 6) today.setDate(today.getDate() + 2);
+  document.getElementById('fDate').value = isoMonday(today);
   document.getElementById('fStartTime').value = '09:00';
-  document.getElementById('fEndTime').value = '12:00';
-  document.getElementById('fActivity').value = '';
-  document.getElementById('fStatus').value = 'scheduled';
+  document.getElementById('fEndTime').value = '10:00';
   document.getElementById('fNotes').value = '';
-  document.getElementById('fRecurring').checked = false;
-  var defaultEnd = new Date(currentMonday); defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
-  document.getElementById('fRecurringUntil').value = isoMonday(defaultEnd);
-  document.getElementById('recurringRow').style.display = '';
+  document.getElementById('fRepeat').value = 'none';
+  var defaultEnd = new Date(today); defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
+  document.getElementById('fRepeatUntil').value = isoMonday(defaultEnd);
+  document.getElementById('repeatUntilWrap').style.display = 'none';
+  document.getElementById('repeatRow').style.display = '';
   document.getElementById('btnDeleteBlock').style.display = 'none';
   document.getElementById('blockModal').classList.add('open');
-  document.getElementById('fMember').focus();
+  document.getElementById('fTitle').focus();
 }
 
 function openEditModal(id) {
@@ -1178,20 +1135,16 @@ function openEditModal(id) {
   if (!item) return;
   editingId = id;
   document.getElementById('modalTitle').textContent = 'Edit Block';
-  document.getElementById('fMember').value = item.member;
-  document.getElementById('fRole').value = item.role || 'Undergraduate';
-  document.getElementById('fMentor').value = item.mentor || '';
-  document.getElementById('fDay').value = item.day;
+  document.getElementById('fTitle').value = item.title || '';
+  document.getElementById('fMember').value = item.member || '';
+  document.getElementById('fDate').value = item.date;
   document.getElementById('fStartTime').value = item.startTime;
   document.getElementById('fEndTime').value = item.endTime;
-  document.getElementById('fActivity').value = item.activity || '';
-  document.getElementById('fStatus').value = item.status || 'scheduled';
   document.getElementById('fNotes').value = item.notes || '';
-  document.getElementById('fRecurring').checked = false;
-  document.getElementById('recurringRow').style.display = 'none';
+  document.getElementById('repeatRow').style.display = 'none';
   document.getElementById('btnDeleteBlock').style.display = '';
   document.getElementById('blockModal').classList.add('open');
-  document.getElementById('fActivity').focus();
+  document.getElementById('fTitle').focus();
 }
 
 function closeModal() {
@@ -1199,18 +1152,16 @@ function closeModal() {
 }
 
 async function saveBlock() {
+  var title = document.getElementById('fTitle').value.trim();
   var member = document.getElementById('fMember').value.trim();
-  var role = document.getElementById('fRole').value;
-  var mentor = document.getElementById('fMentor').value.trim();
-  var day = document.getElementById('fDay').value;
+  var date = document.getElementById('fDate').value;
   var startTime = document.getElementById('fStartTime').value;
   var endTime = document.getElementById('fEndTime').value;
-  var activity = document.getElementById('fActivity').value.trim();
-  var status = document.getElementById('fStatus').value;
   var notes = document.getElementById('fNotes').value.trim();
-  var recurring = document.getElementById('fRecurring').checked;
+  var repeat = document.getElementById('fRepeat').value;
 
-  if (!member) { toast('Member name is required', 'error'); return; }
+  if (!title) { toast('Title is required', 'error'); return; }
+  if (!date) { toast('Date is required', 'error'); return; }
   if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
     toast('End time must be after start time', 'error');
     return;
@@ -1223,37 +1174,40 @@ async function saveBlock() {
   if (editingId !== null) {
     var item = schedule.find(function(b) { return b.id === editingId; });
     if (item) {
-      Object.assign(item, { member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, activity: activity, status: status, notes: notes });
+      Object.assign(item, { title: title, member: member, date: date, startTime: startTime, endTime: endTime, notes: notes });
     }
-    var ok = await commitSchedule('Update schedule: ' + member + ' ' + day);
-    if (ok) {
-      toast('Block updated', 'success');
-      closeModal();
-    }
+    var ok = await commitSchedule('Update block: ' + title);
+    if (ok) { toast('Block updated', 'success'); closeModal(); }
   } else {
     var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
-    var weeks = [isoMonday(currentMonday)];
-    if (recurring) {
-      var untilStr = document.getElementById('fRecurringUntil').value;
-      if (!untilStr) { toast('Pick an end date for the recurrence', 'error'); btn.disabled = false; btn.textContent = 'Save Block'; return; }
+    var dates = [date];
+    if (repeat !== 'none') {
+      var untilStr = document.getElementById('fRepeatUntil').value;
+      if (!untilStr) { toast('Pick an end date for the repeat', 'error'); btn.disabled = false; btn.textContent = 'Save Block'; return; }
       var until = new Date(untilStr + 'T00:00:00');
-      var cursor = new Date(currentMonday); cursor.setDate(cursor.getDate() + 7);
+      var step = repeat === 'daily' ? 1 : 7;
+      var cursor = new Date(date + 'T00:00:00'); cursor.setDate(cursor.getDate() + step);
       while (cursor <= until) {
-        weeks.push(isoMonday(cursor));
-        cursor.setDate(cursor.getDate() + 7);
+        if (repeat === 'daily') {
+          var dow = cursor.getDay();
+          if (dow >= 1 && dow <= 5) dates.push(isoMonday(cursor));
+        } else {
+          dates.push(isoMonday(cursor));
+        }
+        cursor.setDate(cursor.getDate() + step);
       }
     }
     var added = [];
-    weeks.forEach(function(w) {
+    dates.forEach(function(dt) {
       maxId += 1;
-      var nb = { id: maxId, member: member, role: role, mentor: mentor, day: day, startTime: startTime, endTime: endTime, weekOf: w, activity: activity, status: status, notes: notes };
+      var nb = { id: maxId, title: title, member: member, date: dt, startTime: startTime, endTime: endTime, notes: notes };
       schedule.push(nb);
       added.push(nb);
     });
-    var msg = recurring ? ('Add ' + added.length + ' schedule blocks: ' + member + ' ' + day) : ('Add schedule block: ' + member + ' ' + day);
+    var msg = repeat !== 'none' ? ('Add ' + added.length + ' blocks: ' + title) : ('Add block: ' + title);
     var ok2 = await commitSchedule(msg);
     if (ok2) {
-      toast(recurring ? ('Added ' + added.length + ' weekly blocks') : 'Block added', 'success');
+      toast(repeat !== 'none' ? ('Added ' + added.length + ' blocks') : 'Block added', 'success');
       closeModal();
     } else {
       added.forEach(function(b) {
@@ -1274,19 +1228,12 @@ async function deleteBlock() {
   if (editingId === null) return;
   var item = schedule.find(function(b) { return b.id === editingId; });
   if (!item) return;
-
-  if (!confirm('Delete this block for ' + item.member + ' on ' + item.day + '?')) return;
-
+  if (!confirm('Delete "' + (item.title || 'this block') + '"?')) return;
   var idx = schedule.indexOf(item);
   schedule.splice(idx, 1);
-
-  var ok = await commitSchedule('Remove schedule block: ' + item.member + ' ' + item.day);
-  if (ok) {
-    toast('Block deleted', 'success');
-  } else {
-    schedule.splice(idx, 0, item);
-  }
-
+  var ok = await commitSchedule('Remove block: ' + (item.title || ''));
+  if (ok) toast('Block deleted', 'success');
+  else schedule.splice(idx, 0, item);
   closeModal();
   buildMemberColors();
   populateMemberFilter();
@@ -1400,9 +1347,8 @@ populateTimeSelects();
 updateConnStatus();
 loadSchedule();
 
-// Enhance activity and notes fields with [[ autocomplete
+// Enhance notes field with [[ autocomplete
 if (window.Lab && window.Lab.richInput) {
-  Lab.richInput.enhance(document.getElementById('fActivity'));
   Lab.richInput.enhance(document.getElementById('fNotes'));
 }
 </script>
