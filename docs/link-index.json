@@ -1,0 +1,2170 @@
+[
+  {
+    "source": "bioinformatics/claude-code-skills",
+    "target": "bioinformatics/slurm_basics"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-management/acutely-toxic-solids-liquids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/acrylamide"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/sodium-arsenate-dibasic-heptahydrate"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/basic-fuchsin"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/methyl-methanesulfonate"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/formamide"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/hydroxylamine-hydrochloride"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "lab-management/carcinogens-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/hydroxylamine-hydrochloride"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/iron-iii-chloride"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/potassium-hydroxide"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/phenylmethanesulfonyl-fluoride"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/potassium-permanganate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/trichloroacetic-acid"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/guanidine-thiocyanate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/phenol-nitroprusside-solution"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/calcium-nitrate-tetrahydrate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/cetrimonium-bromide"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/edta-tetrasodium-salt-dihydrate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/igepal-ca-630"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/manganese-ii-chloride"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/lithium-hydroxide-monohydrate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/sodium-bisulfite"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "lab-management/corrosives-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/cryogens-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/cryogens-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/cryogens-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/ethyl-alcohol-absolute"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/3-methylbutanol"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/diethyl-pyrocarbonate"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/dimethyl-sulfoxide"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/formaldehyde-16-methanol-free-pfa"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/flammable-liquids-sop",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "lab-management/flammable-solids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/flammable-solids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/flammable-solids-sop",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "lab-management/flammable-solids-sop",
+    "target": "resources/activated-charcoal"
+  },
+  {
+    "source": "lab-management/flammable-solids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/hazardous-drug-sop",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "resources/phenylmethanesulfonyl-fluoride"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "resources/calcium-carbonate"
+  },
+  {
+    "source": "lab-management/hydrofluoric-acid-producing-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-management/lab-expectations",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "lab-management/lab-expectations",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-management/lab-safety-requirements",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/new-member-checklist",
+    "target": "resources/growth-chamber"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/acrylamide"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/methyl-methanesulfonate"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/zeocin"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/phenol-nitroprusside-solution"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/boric-acid"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/formamide"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/kanamycin-sulfate"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/glufosinate-ammonium"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/sodium-tetraborate"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/cesium-chloride"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/potassium-permanganate"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/tetracycline-hydrochloride"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "lab-management/reproductive-toxins-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-management/undergrad-onboarding",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "lab-management/undergrad-onboarding",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/undergrad-onboarding",
+    "target": "lab-management/lab-guidelines"
+  },
+  {
+    "source": "lab-management/working-alone-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-management/working-alone-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/chemical-inventory",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "lab-safety/chemical-inventory",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "lab-safety/chemical-inventory",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "notebooks/grey-monroe/ma-experiment/2026-04-08",
+    "target": "stocks/col-0-wild-type"
+  },
+  {
+    "source": "people/grey-monroe",
+    "target": "wet-lab/mutagenesis/dsb-repair-master-protocol"
+  },
+  {
+    "source": "people/grey-monroe",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "people/grey-monroe",
+    "target": "wet-lab/epigenomics/cut-and-tag"
+  },
+  {
+    "source": "people/kehan-zhao",
+    "target": "lab-management/lab-safety-requirements"
+  },
+  {
+    "source": "people/kehan-zhao",
+    "target": "lab-management/hazardous-drug-sop"
+  },
+  {
+    "source": "people/kehan-zhao",
+    "target": "lab-management/new-member-checklist"
+  },
+  {
+    "source": "people/kehan-zhao",
+    "target": "lab-safety/chemical-inventory"
+  },
+  {
+    "source": "people/satoyo-oya",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "people/satoyo-oya",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "people/satoyo-oya",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "people/satoyo-oya",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "people/satoyo-oya",
+    "target": "wet-lab/epigenomics/cut-and-tag"
+  },
+  {
+    "source": "projects/alfalfa-pangenome/index",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "projects/alfalfa-pangenome/index",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/alfalfa-pangenome/index",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/alfalfa-pangenome/index",
+    "target": "wet-lab/extraction/sorbitol-ctab-hifi-extraction"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/ot2-magnetic-module"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/ot2-thermocycler-module"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/ampure-xp-beads"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/flongle-starter-pack"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/flow-cell-wash-kit-exp-wsh004"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/nebnext-ultra-ii-end-prep"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/nebnext-quick-ligation-module"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/neb-blunt-ta-ligase-master-mix"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/kingfisher-deepwell-96-plate"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/bovine-serum-albumin-50mg-ml"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/bill-of-materials",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "projects/in-house-hifi-shearing/validation-plan"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "projects/in-house-hifi-shearing/bill-of-materials"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/index",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "projects/in-house-hifi-shearing/validation-plan",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "wet-lab/mutagenesis/dsb-repair-master-protocol"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "wet-lab/mutagenesis/fast-neutron-treatment"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "wet-lab/mutagenesis/m2-forward-genetic-screening"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "projects/mutation-accumulation/index",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "projects/pistachio-pangenome/index",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "projects/pistachio-pangenome/index",
+    "target": "wet-lab/extraction/pistachio-dna-extraction"
+  },
+  {
+    "source": "projects/pistachio-pangenome/index",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/pistachio-pangenome/index",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "resources/ampure-xp-beads",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/ampure-xp-beads",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/ampure-xp-beads",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "resources/bovine-serum-albumin-50mg-ml",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "resources/dna-lobind-tubes",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/flongle-flow-cells-flo-flg114",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "resources/flongle-starter-pack",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "resources/flongle-starter-pack",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "resources/flongle-starter-pack",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "resources/flow-cell-wash-kit-exp-wsh004",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "resources/flow-cell-wash-kit-exp-wsh004",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "resources/flow-cell-wash-kit-exp-wsh004",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/kingfisher-deepwell-96-plate",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "resources/minion-mk1b",
+    "target": "resources/flongle-starter-pack"
+  },
+  {
+    "source": "resources/minion-mk1b",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "resources/minion-mk1b",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/neb-blunt-ta-ligase-master-mix",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/neb-blunt-ta-ligase-master-mix",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/neb-blunt-ta-ligase-master-mix",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "resources/nebnext-ultra-ii-end-prep"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "resources/nebnext-quick-ligation-module"
+  },
+  {
+    "source": "resources/nebnext-companion-module-ont",
+    "target": "resources/neb-blunt-ta-ligase-master-mix"
+  },
+  {
+    "source": "resources/nebnext-quick-ligation-module",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/nebnext-quick-ligation-module",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/nebnext-quick-ligation-module",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "resources/nebnext-ultra-ii-end-prep",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "resources/nebnext-ultra-ii-end-prep",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/nebnext-ultra-ii-end-prep",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/nebnext-ultra-ii-end-prep",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "resources/nuclease-free-water",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/opentrons-ot2",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/opentrons-ot2",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "resources/ot2-magnetic-module",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "resources/ot2-magnetic-module",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/ot2-magnetic-module",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/ot2-temperature-module",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "resources/ot2-temperature-module",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/ot2-temperature-module",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/ot2-temperature-module",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "resources/ot2-thermocycler-module",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "resources/ot2-thermocycler-module",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/pcr-strip-tubes-0-2ml",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/pcr-strip-tubes-0-2ml",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/qubit-assay-tubes",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "resources/qubit-assay-tubes",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "resources/qubit-dsdna-hs-assay-kit",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "resources/qubit-dsdna-hs-assay-kit",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "resources/qubit-dsdna-hs-assay-kit",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/qubit-dsdna-hs-assay-kit",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/sqk-nbd114-24",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/sqk-nbd114-24",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/sqk-nbd114-24",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p1000",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p1000",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p1000",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p200",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p200",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p200",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "resources/wide-bore-filter-tips-p200",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "stocks/bl21-de3-competent-cells",
+    "target": "wet-lab/mutagenesis/protein-induction-bl21"
+  },
+  {
+    "source": "stocks/bl21-de3-competent-cells",
+    "target": "resources/kanamycin-sulfate"
+  },
+  {
+    "source": "stocks/bl21-de3-competent-cells",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "stocks/col-0-wild-type",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/autoclave",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "wet-lab/autoclave",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/clean-bench",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "wet-lab/clean-bench",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/clean-bench",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "wet-lab/epigenomics/chip-seq"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/glycine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/bioruptor"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/hepes"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/glycine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/bioruptor"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/hepes"
+  },
+  {
+    "source": "wet-lab/epigenomics/chip-seq",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/hepes"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/egta"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/celldrop"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/thermomixer"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/epigenomics/cut-and-tag",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/egta"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/celldrop"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/1-8-naphthalic-anhydride"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/potassium-acetate"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/thermomixer"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/automill"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/femtopulse"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/mortar-and-pestle"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/hula-mixer"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/ammonium-acetate"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/automill"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/thermomixer"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/polyvinylpyrrolidone"
+  },
+  {
+    "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
+    "target": "resources/potassium-acetate"
+  },
+  {
+    "source": "wet-lab/extraction/kalanchoe-ctab-extraction",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "wet-lab/extraction/kalanchoe-ctab-extraction",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "wet-lab/extraction/kalanchoe-ctab-extraction",
+    "target": "resources/mortar-and-pestle"
+  },
+  {
+    "source": "wet-lab/extraction/kalanchoe-ctab-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/kalanchoe-ctab-extraction",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/extraction/pistachio-dna-extraction",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/extraction/pistachio-dna-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/pistachio-dna-extraction",
+    "target": "resources/polyvinylpyrrolidone"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/automill"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/thermomixer"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/hula-mixer"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "resources/1-8-naphthalic-anhydride"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "resources/clean-bench-laminar-flow"
+  },
+  {
+    "source": "wet-lab/extraction/test-new",
+    "target": "stocks/col-0-wild-type"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis-copy",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis-copy",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis-copy",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis-copy",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis-copy",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/flongle-starter-pack"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/bovine-serum-albumin-50mg-ml"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
+  },
+  {
+    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
+    "target": "resources/flow-cell-wash-kit-exp-wsh004"
+  },
+  {
+    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/ot2-magnetic-module"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
+    "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/nebnext-ultra-ii-end-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/nebnext-quick-ligation-module"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/neb-blunt-ta-ligase-master-mix"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/ampure-xp-beads"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/ot2-magnetic-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/ot2-thermocycler-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/sqk-nbd114-24"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/ot2-magnetic-module"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/kingfisher-deepwell-96-plate"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/nebnext-ultra-ii-end-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/nebnext-quick-ligation-module"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/neb-blunt-ta-ligase-master-mix"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/ampure-xp-beads"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/kingfisher-deepwell-96-plate"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
+  },
+  {
+    "source": "wet-lab/library-prep/ot2-hmw-shearing",
+    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
+  },
+  {
+    "source": "wet-lab/library-prep/pacbio-hifi-sequencing",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/library-prep/spri-beads-preparation",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/library-prep/tn5-loading-library-prep",
+    "target": "resources/hula-mixer"
+  },
+  {
+    "source": "wet-lab/library-prep/tn5-loading-library-prep",
+    "target": "resources/taps"
+  },
+  {
+    "source": "wet-lab/library-prep/tn5-loading-library-prep",
+    "target": "resources/thermomixer"
+  },
+  {
+    "source": "wet-lab/library-prep/tn5-loading-library-prep",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/library-prep/tn5-loading-library-prep",
+    "target": "wet-lab/epigenomics/cut-and-tag"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "resources/ms-basal-salt-mixture"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "resources/mes-buffer"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/mutagenesis/m2-forward-genetic-screening",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "wet-lab/mutagenesis/m2-forward-genetic-screening",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/mutagenesis/m2-forward-genetic-screening",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/mutagenesis/m2-forward-genetic-screening",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/planting-in-soil",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "wet-lab/planting-in-soil",
+    "target": "resources/growth-chamber"
+  },
+  {
+    "source": "wet-lab/planting-in-soil",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "resources/sodium-bicarbonate"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "resources/tube-rotator"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "wet-lab/seed-sterilization",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/stratification",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "wet-lab/stratification",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "workflow-templates/protocol-template"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "resources/tube-rotator"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "stocks/col-0-wild-type"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "stocks/bl21-de3-competent-cells"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/tube-rotator"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "stocks/col-0-wild-type"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "stocks/bl21-de3-competent-cells"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/pcr-genotyping"
+  }
+]

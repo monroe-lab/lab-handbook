@@ -14,6 +14,9 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = ROOT / "docs"
 OUTPUT = DOCS_DIR / "object-index.json"
+LINK_OUTPUT = DOCS_DIR / "link-index.json"
+
+WIKILINK_RE = re.compile(r"\[\[([^\[\]\|#]+?)(?:\|[^\[\]]*)?(?:#[^\[\]]*)?\]\]")
 
 # Directories to scan for objects (relative to docs/)
 OBJECT_DIRS = [
@@ -132,5 +135,76 @@ def build_index():
         print(f"  {t}: {count}")
 
 
+def build_link_index():
+    """Walk every .md file under docs/, parse [[wikilinks]], emit edges.
+
+    Resolves a wikilink by:
+      1. Exact match on path-without-extension (e.g. [[wet-lab/pcr]])
+      2. Basename match against any .md (e.g. [[pcr]] -> wet-lab/pcr.md)
+    Drops links that don't resolve, self-links, and duplicates.
+    """
+    # Build basename -> [relpath] map and exact-path set
+    by_basename: dict[str, list[str]] = {}
+    all_paths: set[str] = set()
+    for md_file in DOCS_DIR.rglob("*.md"):
+        rel = str(md_file.relative_to(DOCS_DIR))
+        slug = rel[:-3]  # strip .md
+        all_paths.add(slug)
+        base = md_file.stem
+        by_basename.setdefault(base.lower(), []).append(slug)
+
+    edges = []
+    seen_pairs: set[tuple[str, str]] = set()
+
+    for md_file in sorted(DOCS_DIR.rglob("*.md")):
+        rel = str(md_file.relative_to(DOCS_DIR))
+        source_slug = rel[:-3]
+        try:
+            text = md_file.read_text(errors="replace")
+        except OSError:
+            continue
+        # Strip frontmatter so we don't pick up wikilinks in YAML (unlikely but safe)
+        text = FRONTMATTER_RE.sub("", text, count=1)
+
+        for match in WIKILINK_RE.finditer(text):
+            target_raw = match.group(1).strip()
+            if not target_raw:
+                continue
+            # Strip any leading ./ or trailing .md
+            target = target_raw.lstrip("./").rstrip("/")
+            if target.endswith(".md"):
+                target = target[:-3]
+
+            target_slug = None
+            # 1. Exact path match
+            if target in all_paths:
+                target_slug = target
+            else:
+                # 2. Basename match (case-insensitive)
+                base = target.split("/")[-1].lower()
+                candidates = by_basename.get(base)
+                if candidates:
+                    # Prefer one whose path contains the parent hint, if given
+                    if "/" in target:
+                        for c in candidates:
+                            if c.endswith(target):
+                                target_slug = c
+                                break
+                    target_slug = target_slug or candidates[0]
+
+            if not target_slug or target_slug == source_slug:
+                continue
+            pair = (source_slug, target_slug)
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            edges.append({"source": source_slug, "target": target_slug})
+
+    with open(LINK_OUTPUT, "w") as f:
+        json.dump(edges, f, indent=2)
+    print(f"Built link index: {len(edges)} edges -> {LINK_OUTPUT.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
     build_index()
+    build_link_index()

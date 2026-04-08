@@ -2175,7 +2175,12 @@
     "path": "resources/sqk-nbd114-24.md",
     "type": "kit",
     "title": "Native Barcoding Kit 24 V14 (SQK-NBD114.24)",
-    "status": "needed"
+    "location": "Chemical Cabinet",
+    "status": "needed",
+    "need_more": true,
+    "created_at": "2026-04-08T21:44:54.344Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-08T21:44:54.344Z"
   },
   {
     "path": "resources/sucrose.md",

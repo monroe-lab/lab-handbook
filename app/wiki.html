@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Documents - Monroe Lab</title>
+<title>Wiki - Monroe Lab</title>
 <link rel="stylesheet" href="css/base.css">
 <style>
 .doc-layout { display: flex; height: calc(100vh - var(--nav-height)); }
@@ -121,6 +121,64 @@
   body.editing-mode .doc-edit-bar { display: none; }
 }
 
+/* ── Network graph ── */
+.wiki-graph-welcome { position: relative; height: calc(100vh - var(--nav-height)); background: #0f1424; overflow: hidden; }
+.wiki-graph-welcome canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.wiki-graph-welcome canvas.grabbing { cursor: grabbing; }
+.wiki-graph-overlay {
+  position: absolute; top: 20px; left: 24px; color: #fff;
+  font-family: Inter, -apple-system, sans-serif; pointer-events: none; max-width: 60%;
+}
+.wiki-graph-overlay h1 { font-size: 22px; font-weight: 600; margin: 0 0 6px; display: flex; align-items: center; gap: 10px; }
+.wiki-graph-overlay h1 .material-icons-outlined { font-size: 26px; color: #7986cb; }
+.wiki-graph-overlay p { margin: 0; font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.5; }
+.wiki-graph-stats { position: absolute; top: 20px; right: 24px; color: rgba(255,255,255,.5); font-size: 12px; font-family: Inter, sans-serif; pointer-events: none; }
+.wiki-graph-tooltip {
+  position: absolute; background: rgba(0,0,0,.85); color: #fff; padding: 6px 12px;
+  border-radius: 6px; font-size: 12px; font-family: Inter, sans-serif; pointer-events: none;
+  white-space: nowrap; transform: translate(-50%, -130%); display: none; z-index: 10;
+  border: 1px solid rgba(255,255,255,.15);
+}
+.wiki-graph-tooltip.show { display: block; }
+.wiki-graph-tooltip .tt-type { color: #9fa8da; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+.wiki-graph-legend {
+  position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,.6);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 10px 14px;
+  display: flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: #ccc;
+  font-family: Inter, sans-serif; max-width: calc(100% - 32px);
+}
+.wiki-graph-legend .li { display: flex; align-items: center; gap: 5px; }
+.wiki-graph-legend .dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* Mini graph for selected doc */
+.wiki-mini-graph {
+  position: fixed; bottom: 18px; right: 18px; width: 280px; height: 220px;
+  background: #0f1424; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.25);
+  border: 1px solid rgba(63,81,181,.4); overflow: hidden; z-index: 50;
+}
+.wiki-mini-graph canvas { display: block; width: 100%; height: 100%; cursor: pointer; }
+.wiki-mini-graph .mini-header {
+  position: absolute; top: 0; left: 0; right: 0; padding: 6px 10px;
+  background: linear-gradient(rgba(0,0,0,.6), transparent);
+  color: #fff; font-size: 11px; font-family: Inter, sans-serif; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .5px; pointer-events: none;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.wiki-mini-graph .mini-header .material-icons-outlined { font-size: 14px; color: #7986cb; }
+.wiki-mini-graph .mini-empty {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.4); font-size: 11px; font-family: Inter, sans-serif; padding: 20px; text-align: center;
+}
+.wiki-mini-graph .mini-close {
+  position: absolute; top: 4px; right: 4px; width: 22px; height: 22px;
+  background: rgba(255,255,255,.1); border: none; border-radius: 50%;
+  color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.wiki-mini-graph .mini-close .material-icons-outlined { font-size: 14px; }
+@media (max-width: 768px) {
+  .wiki-mini-graph { width: 180px; height: 140px; bottom: calc(var(--bottom-nav-height) + 12px); right: 8px; }
+}
+
 @media print {
   #lab-nav, #lab-bottom-nav, .doc-sidebar, .doc-backdrop, .doc-hamburger,
   .doc-edit-bar, #password-gate { display: none !important; }
@@ -166,6 +224,9 @@
 // ── State ──
 var ALL_DOCS = [];        // [{path, dir, slug, title, type}]
 var INDEX_MAP = {};       // path (relative to docs/) → index entry
+var DOC_BY_PATH = {};     // path (no .md) → doc record
+var EDGES = [];           // [{source, target}] (paths without .md)
+var ADJ = {};             // path → [paths] (undirected adjacency)
 var TREE = null;          // grouped by top-level dir
 var activeTypes = new Set(); // empty = all
 var currentDoc = null;    // path relative to docs/, no .md
@@ -233,11 +294,31 @@ async function loadAll() {
 
   // Sort by title within
   ALL_DOCS.sort(function(a, b) { return a.title.localeCompare(b.title); });
+  DOC_BY_PATH = {};
+  ALL_DOCS.forEach(function(d) { DOC_BY_PATH[d.path] = d; });
+
+  // Load wikilink edges from link-index.json
+  EDGES = [];
+  ADJ = {};
+  try {
+    var base = Lab.BASE || '/lab-handbook/';
+    var resp = await fetch(base + 'link-index.json?_=' + Date.now());
+    if (resp.ok) {
+      var raw = await resp.json();
+      raw.forEach(function(e) {
+        if (DOC_BY_PATH[e.source] && DOC_BY_PATH[e.target] && e.source !== e.target) {
+          EDGES.push({ source: e.source, target: e.target });
+          (ADJ[e.source] = ADJ[e.source] || []).push(e.target);
+          (ADJ[e.target] = ADJ[e.target] || []).push(e.source);
+        }
+      });
+    }
+  } catch(e) { /* graph just shows nodes */ }
 
   buildTypeFilter();
   buildTree();
   renderSidebar();
-  document.getElementById('docCount').textContent = ALL_DOCS.length + ' documents';
+  document.getElementById('docCount').textContent = ALL_DOCS.length + ' documents · ' + EDGES.length + ' links';
 }
 
 // ── Type filter chips ──
@@ -381,6 +462,7 @@ async function loadDoc(docPath) {
   isEditing = false;
   document.body.classList.remove('editing-mode');
   editorInstance = null;
+  if (welcomeGraph) { welcomeGraph.stop(); welcomeGraph = null; }
   history.pushState(null, '', location.pathname + '?doc=' + encodeURIComponent(docPath));
 
   document.getElementById('sidebar').classList.remove('open');
@@ -426,6 +508,7 @@ async function loadDoc(docPath) {
     if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
     if (Lab.postProcessImages) Lab.postProcessImages(renderedEl);
     document.getElementById('docMain').scrollTop = 0;
+    showMiniGraph(docPath);
   } catch(e) {
     contentEl.innerHTML = '<div class="doc-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
   }
@@ -436,6 +519,7 @@ async function startEdit() {
   if (!currentDoc || isEditing) return;
   isEditing = true;
   document.body.classList.add('editing-mode');
+  closeMiniGraph();
 
   var contentEl = document.getElementById('docContentWrap');
   var filePath = 'docs/' + currentDoc + '.md';
@@ -497,43 +581,377 @@ function cancelEdit() {
   if (currentDoc) loadDoc(currentDoc);
 }
 
-// ── Welcome ──
+// ── Welcome (full network graph) ──
+var welcomeGraph = null;
+
 function showWelcome() {
   var contentEl = document.getElementById('docContentWrap');
-  var byType = {};
+  contentEl.innerHTML =
+    '<div class="wiki-graph-welcome">' +
+      '<canvas id="welcomeGraphCanvas"></canvas>' +
+      '<div class="wiki-graph-overlay">' +
+        '<h1><span class="material-icons-outlined">hub</span> Monroe Lab Wiki</h1>' +
+        '<p>Every markdown document in the lab, connected by wikilinks. Hover a node to see its title, click to open it. Drag to reposition. Use the sidebar to search or filter.</p>' +
+      '</div>' +
+      '<div class="wiki-graph-stats">' + ALL_DOCS.length + ' documents · ' + EDGES.length + ' links</div>' +
+      '<div class="wiki-graph-tooltip" id="graphTooltip"></div>' +
+      '<div class="wiki-graph-legend" id="graphLegend"></div>' +
+    '</div>';
+  // Build legend
+  var seen = {};
+  var legendHtml = '';
   ALL_DOCS.forEach(function(d) {
     var k = d.type || '_untyped';
-    byType[k] = (byType[k] || 0) + 1;
+    if (seen[k]) return;
+    seen[k] = true;
+    var color, label;
+    if (k === '_untyped') { color = '#9e9e9e'; label = 'Untyped'; }
+    else {
+      var t = Lab.types && Lab.types.get ? Lab.types.get(d.type) : null;
+      color = (t && t.color) || '#607d8b';
+      label = (t && t.label) || prettify(d.type);
+    }
+    legendHtml += '<div class="li"><div class="dot" style="background:' + color + '"></div>' + Lab.escHtml(label) + '</div>';
   });
+  document.getElementById('graphLegend').innerHTML = legendHtml;
 
-  var topDirs = TREE.map(function(g) {
-    return '<div onclick="jumpToDir(\'' + Lab.escHtml(g.dir) + '\')" style="background:#fff;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">' +
-      '<div><div style="font-weight:600">' + Lab.escHtml(g.label) + '</div><div style="font-size:13px;color:var(--grey-500)">' + g.items.length + ' document' + (g.items.length === 1 ? '' : 's') + '</div></div>' +
-      '<span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span></div>';
-  }).join('');
-
-  contentEl.innerHTML =
-    '<div style="padding:32px 40px;max-width:900px;margin:0 auto">' +
-      '<h1 style="font-size:22px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:10px">' +
-        '<span class="material-icons-outlined" style="font-size:28px;color:#3f51b5">library_books</span> Documents</h1>' +
-      '<p style="color:var(--grey-500);margin-bottom:20px">Universal navigator for every markdown document in the lab handbook — protocols, notebooks, inventory items, lab policies, procedures, anything. Use the sidebar to filter by type or search across all ' + ALL_DOCS.length + ' documents.</p>' +
-      '<h3 style="font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--grey-600);margin:24px 0 12px">Browse by section</h3>' +
-      topDirs +
-    '</div>';
+  if (welcomeGraph) welcomeGraph.stop();
+  welcomeGraph = createForceGraph({
+    canvas: document.getElementById('welcomeGraphCanvas'),
+    tooltipEl: document.getElementById('graphTooltip'),
+    docs: ALL_DOCS,
+    edges: EDGES,
+    onClick: function(slug) { loadDoc(slug); },
+    interactive: true,
+    showLabels: 'large', // labels for highly-connected nodes
+  });
 }
 
-function jumpToDir(dir) {
-  // Expand the matching folder in the sidebar and scroll it into view
-  var folders = document.querySelectorAll('.doc-folder');
-  folders.forEach(function(el) {
-    var label = el.querySelector('span:nth-child(2)');
-    if (label && label.textContent === prettify(dir)) {
-      el.classList.remove('collapsed');
-      var items = el.nextElementSibling;
-      if (items) items.classList.remove('hidden');
-      el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+// ── Force-directed graph component ──
+// opts: { canvas, tooltipEl, docs:[], edges:[], onClick, interactive, focusSlug, showLabels }
+function createForceGraph(opts) {
+  var canvas = opts.canvas;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var W = 0, H = 0;
+  var stopped = false;
+
+  // Build node objects
+  var nodeMap = {};
+  var nodes = opts.docs.map(function(d) {
+    var t = d.type && Lab.types && Lab.types.get ? Lab.types.get(d.type) : null;
+    var color = (t && t.color) || (d.type ? '#607d8b' : '#9e9e9e');
+    var n = {
+      slug: d.path, title: d.title, type: d.type, color: color,
+      x: Math.random() * 600 + 100, y: Math.random() * 400 + 100,
+      vx: 0, vy: 0, links: 0, radius: 4,
+    };
+    nodeMap[d.path] = n;
+    return n;
+  });
+
+  var edges = [];
+  opts.edges.forEach(function(e) {
+    if (nodeMap[e.source] && nodeMap[e.target]) {
+      edges.push({ source: nodeMap[e.source], target: nodeMap[e.target] });
+      nodeMap[e.source].links++;
+      nodeMap[e.target].links++;
     }
   });
+
+  // Drop orphans for a denser graph (only when not focused)
+  if (!opts.focusSlug && opts.dropOrphans !== false) {
+    nodes = nodes.filter(function(n) { return n.links > 0; });
+  }
+
+  nodes.forEach(function(n) {
+    n.radius = Math.min(3 + Math.sqrt(n.links) * 1.6, 12);
+  });
+
+  // Highlight focus node
+  var focusNode = opts.focusSlug ? nodeMap[opts.focusSlug] : null;
+  if (focusNode) {
+    focusNode.radius = 9;
+    focusNode.isFocus = true;
+  }
+
+  function resize() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  var onResize = function() { resize(); alpha = Math.max(alpha, 0.3); };
+  window.addEventListener('resize', onResize);
+
+  // Pan/zoom
+  var scale = 1, panX = 0, panY = 0;
+  var isPanning = false, lastPanX = 0, lastPanY = 0;
+  var dragging = null;
+  var hoverNode = null;
+  var alpha = 1;
+  var decay = 0.992;
+  var repulsion = opts.focusSlug ? 400 : 700;
+  var attraction = opts.focusSlug ? 0.025 : 0.012;
+  var centerGravity = 0.015;
+
+  function screenToWorld(sx, sy) {
+    return { x: (sx - panX) / scale, y: (sy - panY) / scale };
+  }
+
+  function findNode(sx, sy) {
+    var w = screenToWorld(sx, sy);
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var n = nodes[i];
+      var dx = w.x - n.x, dy = w.y - n.y;
+      var hit = n.radius + 5;
+      if (dx * dx + dy * dy <= hit * hit) return n;
+    }
+    return null;
+  }
+
+  function tick() {
+    if (stopped) return;
+    alpha *= decay;
+    if (alpha < 0.005 && !dragging) { draw(); return; }
+
+    var cx = W / 2, cy = H / 2;
+    nodes.forEach(function(n) {
+      n.vx += (cx - n.x) * centerGravity;
+      n.vy += (cy - n.y) * centerGravity;
+    });
+
+    // Repulsion (O(n^2), capped distance)
+    var cap = opts.focusSlug ? 300 : 220;
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[j].x - nodes[i].x;
+        var dy = nodes[j].y - nodes[i].y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 > cap * cap || d2 < 0.01) continue;
+        var dist = Math.sqrt(d2);
+        var force = repulsion / d2;
+        var fx = dx / dist * force;
+        var fy = dy / dist * force;
+        nodes[i].vx -= fx; nodes[i].vy -= fy;
+        nodes[j].vx += fx; nodes[j].vy += fy;
+      }
+    }
+
+    // Edge attraction
+    edges.forEach(function(e) {
+      var dx = e.target.x - e.source.x;
+      var dy = e.target.y - e.source.y;
+      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      var force = (dist - 30) * attraction;
+      var fx = dx / dist * force, fy = dy / dist * force;
+      e.source.vx += fx; e.source.vy += fy;
+      e.target.vx -= fx; e.target.vy -= fy;
+    });
+
+    nodes.forEach(function(n) {
+      if (n === dragging) return;
+      n.vx *= 0.6; n.vy *= 0.6;
+      n.x += n.vx * alpha;
+      n.y += n.vy * alpha;
+    });
+
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  function draw() {
+    ctx.save();
+    ctx.clearRect(0, 0, W, H);
+    ctx.translate(panX, panY);
+    ctx.scale(scale, scale);
+
+    // Edges
+    ctx.lineWidth = 0.6 / scale;
+    edges.forEach(function(e) {
+      var highlight = focusNode && (e.source === focusNode || e.target === focusNode);
+      var hov = hoverNode && (e.source === hoverNode || e.target === hoverNode);
+      ctx.strokeStyle = highlight ? 'rgba(121,134,203,.7)' : (hov ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.09)');
+      ctx.beginPath();
+      ctx.moveTo(e.source.x, e.source.y);
+      ctx.lineTo(e.target.x, e.target.y);
+      ctx.stroke();
+    });
+
+    // Nodes
+    nodes.forEach(function(n) {
+      var dim = focusNode && n !== focusNode && (ADJ[focusNode.slug] || []).indexOf(n.slug) < 0;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      if (n === focusNode) {
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.lineWidth = 3 / scale;
+        ctx.strokeStyle = n.color;
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = n.color + (dim ? '40' : 'dd');
+        ctx.fill();
+        if (n === hoverNode) {
+          ctx.lineWidth = 2 / scale;
+          ctx.strokeStyle = '#fff';
+          ctx.stroke();
+        }
+      }
+    });
+
+    // Labels for important nodes
+    if (opts.showLabels) {
+      ctx.font = (11 / scale) + 'px Inter, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,.7)';
+      ctx.textAlign = 'center';
+      var threshold = opts.showLabels === 'all' ? 0 : 6;
+      nodes.forEach(function(n) {
+        if (n === focusNode || n === hoverNode || n.links >= threshold) {
+          var lbl = n.title.length > 24 ? n.title.slice(0, 22) + '…' : n.title;
+          ctx.fillText(lbl, n.x, n.y - n.radius - 4 / scale);
+        }
+      });
+    } else if (hoverNode) {
+      ctx.font = (12 / scale) + 'px Inter, sans-serif';
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'center';
+      ctx.fillText(hoverNode.title, hoverNode.x, hoverNode.y - hoverNode.radius - 6 / scale);
+    }
+
+    ctx.restore();
+  }
+
+  if (opts.interactive) {
+    canvas.addEventListener('mousemove', function(e) {
+      var rect = canvas.getBoundingClientRect();
+      var sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+      if (isPanning) {
+        panX += sx - lastPanX; panY += sy - lastPanY;
+        lastPanX = sx; lastPanY = sy;
+        draw();
+        return;
+      }
+      if (dragging) {
+        var w = screenToWorld(sx, sy);
+        dragging.x = w.x; dragging.y = w.y;
+        return;
+      }
+      var n = findNode(sx, sy);
+      if (n !== hoverNode) {
+        hoverNode = n;
+        if (opts.tooltipEl) {
+          if (n) {
+            opts.tooltipEl.innerHTML = Lab.escHtml(n.title) + (n.type ? '<div class="tt-type">' + Lab.escHtml(n.type) + '</div>' : '');
+            opts.tooltipEl.style.left = sx + 'px';
+            opts.tooltipEl.style.top = sy + 'px';
+            opts.tooltipEl.classList.add('show');
+          } else {
+            opts.tooltipEl.classList.remove('show');
+          }
+        }
+        canvas.style.cursor = n ? 'pointer' : 'grab';
+        draw();
+      } else if (opts.tooltipEl && n) {
+        opts.tooltipEl.style.left = sx + 'px';
+        opts.tooltipEl.style.top = sy + 'px';
+      }
+    });
+
+    canvas.addEventListener('mousedown', function(e) {
+      var rect = canvas.getBoundingClientRect();
+      var sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+      var n = findNode(sx, sy);
+      if (n) { dragging = n; alpha = Math.max(alpha, 0.4); }
+      else { isPanning = true; lastPanX = sx; lastPanY = sy; canvas.classList.add('grabbing'); }
+    });
+
+    window.addEventListener('mouseup', function() {
+      if (dragging) { dragging.vx = 0; dragging.vy = 0; dragging = null; alpha = Math.max(alpha, 0.2); }
+      isPanning = false;
+      canvas.classList.remove('grabbing');
+    });
+
+    canvas.addEventListener('click', function(e) {
+      var rect = canvas.getBoundingClientRect();
+      var n = findNode(e.clientX - rect.left, e.clientY - rect.top);
+      if (n && opts.onClick) opts.onClick(n.slug);
+    });
+
+    canvas.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect = canvas.getBoundingClientRect();
+      var sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+      var factor = e.deltaY < 0 ? 1.12 : 0.89;
+      var newScale = Math.max(0.2, Math.min(4, scale * factor));
+      // Zoom around cursor
+      panX = sx - (sx - panX) * (newScale / scale);
+      panY = sy - (sy - panY) * (newScale / scale);
+      scale = newScale;
+      draw();
+    }, { passive: false });
+  }
+
+  tick();
+  return {
+    stop: function() { stopped = true; window.removeEventListener('resize', onResize); },
+    redraw: function() { alpha = Math.max(alpha, 0.4); if (stopped) { stopped = false; tick(); } },
+  };
+}
+
+// ── Mini graph for selected doc ──
+var miniGraph = null;
+
+function showMiniGraph(slug) {
+  if (miniGraph) { miniGraph.stop(); miniGraph = null; }
+  var existing = document.getElementById('miniGraph');
+  if (existing) existing.remove();
+
+  var neighbors = ADJ[slug] || [];
+  var container = document.createElement('div');
+  container.className = 'wiki-mini-graph';
+  container.id = 'miniGraph';
+
+  if (!neighbors.length) {
+    container.innerHTML =
+      '<div class="mini-header"><span><span class="material-icons-outlined">hub</span> Connections</span></div>' +
+      '<button class="mini-close" onclick="closeMiniGraph()"><span class="material-icons-outlined">close</span></button>' +
+      '<div class="mini-empty">No wikilinks to or from this document yet.</div>';
+    document.body.appendChild(container);
+    return;
+  }
+
+  container.innerHTML =
+    '<canvas id="miniGraphCanvas"></canvas>' +
+    '<div class="mini-header"><span><span class="material-icons-outlined">hub</span> ' + neighbors.length + ' connection' + (neighbors.length === 1 ? '' : 's') + '</span></div>' +
+    '<button class="mini-close" onclick="closeMiniGraph()"><span class="material-icons-outlined">close</span></button>';
+  document.body.appendChild(container);
+
+  // Build subgraph: focus + neighbors
+  var includedSlugs = {};
+  includedSlugs[slug] = true;
+  neighbors.forEach(function(s) { includedSlugs[s] = true; });
+  var subDocs = ALL_DOCS.filter(function(d) { return includedSlugs[d.path]; });
+  var subEdges = EDGES.filter(function(e) { return includedSlugs[e.source] && includedSlugs[e.target]; });
+
+  miniGraph = createForceGraph({
+    canvas: document.getElementById('miniGraphCanvas'),
+    docs: subDocs,
+    edges: subEdges,
+    onClick: function(s) { loadDoc(s); },
+    interactive: true,
+    focusSlug: slug,
+    showLabels: 'all',
+    dropOrphans: false,
+  });
+}
+
+function closeMiniGraph() {
+  if (miniGraph) { miniGraph.stop(); miniGraph = null; }
+  var el = document.getElementById('miniGraph');
+  if (el) el.remove();
 }
 
 // ── Search ──
@@ -562,7 +980,7 @@ window.addEventListener('popstate', function() {
   var params = new URLSearchParams(location.search);
   var doc = params.get('doc');
   if (doc) loadDoc(doc);
-  else { currentDoc = null; renderSidebar(); showWelcome(); }
+  else { currentDoc = null; closeMiniGraph(); renderSidebar(); showWelcome(); }
 });
 
 // ── Init ──

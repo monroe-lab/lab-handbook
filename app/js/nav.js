@@ -8,18 +8,17 @@
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
   var TABS = [
-    { label: 'Home',      href: BASE + 'app/',                icon: 'home' },
+    { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
     { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
     { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
-    { label: 'Documents', href: BASE + 'app/documents.html',   icon: 'library_books' },
     { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
-  var BOTTOM_TABS = ['Home', 'Protocols', 'Notebooks', 'Inventory'];
+  var BOTTOM_TABS = ['Wiki', 'Protocols', 'Notebooks', 'Inventory'];
 
   function getActiveTab() {
     var path = location.pathname;
@@ -28,10 +27,10 @@
     if (path.includes('/notebook'))       return 'Notebooks';
     if (path.includes('/calendar'))       return 'Calendar';
     if (path.includes('/protocols'))      return 'Protocols';
-    if (path.includes('/documents'))      return 'Documents';
+    if (path.includes('/wiki'))           return 'Wiki';
     if (path.includes('/inventory'))      return 'Inventory';
     if (path.includes('/graph'))          return '';
-    if (path.match(/\/app\/(index\.html)?$/)) return 'Home';
+    if (path.match(/\/app\/(index\.html)?$/)) return 'Wiki';
     return '';
   }
 
