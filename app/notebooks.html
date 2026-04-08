@@ -158,7 +158,7 @@
 <script src="js/lab.js"></script>
 <script>
 var ROOT = 'docs/notebooks';
-var NAV = [];           // [{ dir, label, items: [{title, path}] }]
+var TREE = null;        // { dir, label, children: [Tree], items: [{title,path}] }
 var allFiles = [];
 var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/alex-chen/2026-04-01)
 var currentSha = null;
@@ -173,84 +173,138 @@ function prettify(slug) {
 // ── Load tree ──
 async function loadTree() {
   var files = await Lab.gh.fetchTree(ROOT);
-  allFiles = files.filter(function(f) { return f.endsWith('.md'); });
+  allFiles = files; // keep .gitkeep so empty folders are visible
   buildNav();
 }
 
+function newNode(dir, label) {
+  return { dir: dir, label: label, children: [], items: [] };
+}
+
+function ensureNode(root, dirParts) {
+  // dirParts: array of folder slugs relative to ROOT (e.g., ['alex-chen','dna-extraction'])
+  var node = root;
+  var acc = [];
+  for (var i = 0; i < dirParts.length; i++) {
+    acc.push(dirParts[i]);
+    var dirKey = acc.join('/');
+    var child = node.children.find(function(c) { return c.dir === dirKey; });
+    if (!child) {
+      child = newNode(dirKey, prettify(dirParts[i]));
+      node.children.push(child);
+      node.children.sort(function(a, b) { return a.label.localeCompare(b.label); });
+    }
+    node = child;
+  }
+  return node;
+}
+
 function buildNav() {
-  // Group by directory under docs/notebooks/
-  var groups = {}; // dir(rel under notebooks) → [{title,path}]
-  var folderSet = {};
+  TREE = newNode('', 'root');
 
   allFiles.forEach(function(f) {
-    var rel = f.replace(ROOT + '/', '').replace(/\.md$/, '');
+    var rel = f.replace(ROOT + '/', '');
     var parts = rel.split('/');
-    if (parts.length < 2) return; // skip root-level files (template.md, index.md)
-    var slug = parts.pop();
-    if (slug === 'index' || slug === '.gitkeep') return;
-    var dir = parts.join('/');
-    folderSet[dir] = true;
-    if (!groups[dir]) groups[dir] = [];
-    var docPath = 'notebooks/' + dir + '/' + slug;
-    groups[dir].push({ title: slug, path: docPath });
+    var fileName = parts.pop();
+    if (parts.length < 1) return; // skip root-level files (template.md, index.md)
+
+    if (fileName === '.gitkeep') {
+      // register the folder as existing
+      ensureNode(TREE, parts);
+      return;
+    }
+    if (!fileName.endsWith('.md')) return;
+    var slug = fileName.replace(/\.md$/, '');
+    if (slug === 'index') return;
+
+    var node = ensureNode(TREE, parts);
+    var docPath = 'notebooks/' + parts.join('/') + '/' + slug;
+    node.items.push({ title: slug, path: docPath });
   });
 
-  // Also discover empty folders via .gitkeep traversal — fetchTree only returns files
-  // so empty folders show up via .gitkeep entries from allFiles original list
-  // (we filtered to .md only above; re-scan for any folders we may have missed)
+  // Sort items newest first within each node (recursive)
+  (function sortAll(node) {
+    node.items.sort(function(a, b) { return b.title.localeCompare(a.title); });
+    node.children.forEach(sortAll);
+  })(TREE);
+}
 
-  // Sort entries within each folder, newest first (works for date filenames; falls back to alpha)
-  Object.keys(groups).forEach(function(dir) {
-    groups[dir].sort(function(a, b) { return b.title.localeCompare(a.title); });
-  });
+function countDeep(node) {
+  var c = node.items.length;
+  node.children.forEach(function(ch) { c += countDeep(ch); });
+  return c;
+}
 
-  NAV = Object.keys(groups).sort().map(function(dir) {
-    return { dir: dir, label: prettify(dir.split('/').pop()), items: groups[dir] };
-  });
+function filterTree(node, q) {
+  // Returns a shallow copy that includes only branches matching q (in items or labels)
+  var matchedItems = node.items.filter(function(i) { return i.title.toLowerCase().includes(q); });
+  var matchedChildren = node.children
+    .map(function(ch) { return filterTree(ch, q); })
+    .filter(function(ch) { return ch !== null; });
+  var labelMatch = node.label.toLowerCase().includes(q);
+  if (labelMatch) {
+    // include all descendants
+    return { dir: node.dir, label: node.label, items: node.items, children: node.children };
+  }
+  if (!matchedItems.length && !matchedChildren.length) return null;
+  return { dir: node.dir, label: node.label, items: matchedItems, children: matchedChildren };
 }
 
 // ── Sidebar ──
-function renderSidebar(filter) {
-  var tree = document.getElementById('nbTree');
-  var q = (filter || '').toLowerCase();
-  var html = '';
+function nodeContainsActive(node) {
+  if (node.items.some(function(i) { return i.path === currentDoc; })) return true;
+  return node.children.some(nodeContainsActive);
+}
 
-  NAV.forEach(function(cat, ci) {
-    var items = cat.items;
-    if (q) {
-      items = items.filter(function(i) {
-        return i.title.toLowerCase().includes(q) || cat.label.toLowerCase().includes(q);
-      });
-      if (!items.length) return;
-    }
+function renderNode(node, depth, q) {
+  // depth: nesting level (0 = top-level under TREE root)
+  var collapsed = !q && !nodeContainsActive(node) ? ' collapsed' : '';
+  var hidden = collapsed ? ' hidden' : '';
+  var pad = 16 + depth * 14;
+  var headerStyle = 'padding-left:' + pad + 'px';
+  var dirAttr = Lab.escHtml(node.dir);
+  var html = '<div class="nb-folder' + collapsed + '" style="' + headerStyle + '" onclick="toggleFolder(this)">' +
+    '<span class="material-icons-outlined">expand_more</span>' +
+    '<span>' + Lab.escHtml(node.label) + '</span>' +
+    '<span class="nb-folder-count">' + countDeep(node) + '</span>';
+  if (loggedIn) {
+    html += '<span class="nb-folder-actions" onclick="event.stopPropagation()">' +
+      '<button onclick="createNewEntry(\'' + dirAttr + '\')" title="New entry"><span class="material-icons-outlined">add</span></button>' +
+      '<button onclick="createNewFolder(\'' + dirAttr + '\')" title="New subfolder"><span class="material-icons-outlined">create_new_folder</span></button>' +
+      '</span>';
+  }
+  html += '</div><div class="nb-items' + hidden + '">';
 
-    var hasActive = items.some(function(i) { return i.path === currentDoc; });
-    var collapsed = !q && !hasActive ? ' collapsed' : '';
-    var hidden = collapsed ? ' hidden' : '';
+  // Subfolders first
+  node.children.forEach(function(ch) { html += renderNode(ch, depth + 1, q); });
 
-    html += '<div class="nb-folder' + collapsed + '" data-cat-idx="' + ci + '" onclick="toggleFolder(this)">' +
-      '<span class="material-icons-outlined">expand_more</span>' +
-      '<span>' + Lab.escHtml(cat.label) + '</span>' +
-      '<span class="nb-folder-count">' + items.length + '</span>';
-    if (loggedIn) {
-      html += '<span class="nb-folder-actions" onclick="event.stopPropagation()">' +
-        '<button onclick="createNewEntry(\'' + Lab.escHtml(cat.dir) + '\')" title="New entry in this folder"><span class="material-icons-outlined">add</span></button>' +
-        '<button onclick="renameFolder(' + ci + ')" title="Rename folder"><span class="material-icons-outlined">edit</span></button>' +
-        '</span>';
-    }
-    html += '</div><div class="nb-items' + hidden + '" data-cat-idx="' + ci + '">';
-
-    items.forEach(function(item) {
-      var active = currentDoc === item.path ? ' active' : '';
-      html += '<div class="nb-item' + active + '" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
-    });
-    html += '</div>';
+  // Then files
+  node.items.forEach(function(item) {
+    var active = currentDoc === item.path ? ' active' : '';
+    var itemPad = 24 + depth * 14;
+    html += '<div class="nb-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
   });
 
-  if (!NAV.length) {
-    html = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No notebooks yet' + (loggedIn ? '.<br>Click <strong>+</strong> above to create one.' : '') + '</div>';
+  html += '</div>';
+  return html;
+}
+
+function renderSidebar(filter) {
+  var treeEl = document.getElementById('nbTree');
+  var q = (filter || '').toLowerCase();
+  var view = TREE;
+  if (q) {
+    view = { dir: '', label: 'root', items: [], children: TREE.children.map(function(c) { return filterTree(c, q); }).filter(function(c) { return c !== null; }) };
   }
-  tree.innerHTML = html;
+
+  if (!view.children.length) {
+    treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No notebooks' + (q ? ' match' : ' yet') + (loggedIn && !q ? '.<br>Click <strong>+</strong> above to create one.' : '') + '</div>';
+    return;
+  }
+
+  var html = '';
+  view.children.forEach(function(ch) { html += renderNode(ch, 0, q); });
+  treeEl.innerHTML = html;
 }
 
 function toggleFolder(el) {
@@ -260,8 +314,9 @@ function toggleFolder(el) {
 }
 
 // ── New folder ──
-async function createNewFolder() {
-  var name = prompt('Folder name (typically a person, e.g. "alex-chen"):');
+async function createNewFolder(parentDir) {
+  var label = parentDir ? 'Subfolder name (under ' + parentDir + '):' : 'Folder name (e.g. "alex-chen"):';
+  var name = prompt(label);
   if (!name || !name.trim()) return;
   var slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   if (!slug) return;
@@ -269,26 +324,16 @@ async function createNewFolder() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
-  // Create a placeholder gitkeep so the folder exists
-  var path = ROOT + '/' + slug + '/.gitkeep';
+  var dir = parentDir ? parentDir + '/' + slug : slug;
+  var path = ROOT + '/' + dir + '/.gitkeep';
   try {
-    await gh.saveFile(path, '', null, 'New notebook folder: ' + slug);
-    NAV.push({ dir: slug, label: prettify(slug), items: [] });
-    NAV.sort(function(a, b) { return a.dir.localeCompare(b.dir); });
+    await gh.saveFile(path, '', null, 'New notebook folder: ' + dir);
+    ensureNode(TREE, dir.split('/'));
     renderSidebar(document.getElementById('nbSearch').value);
-    Lab.showToast('Created folder: ' + slug, 'success');
+    Lab.showToast('Created folder: ' + dir, 'success');
   } catch(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
   }
-}
-
-async function renameFolder(catIdx) {
-  var cat = NAV[catIdx];
-  if (!cat) return;
-  var newLabel = prompt('Rename folder display label (does not move files):', cat.label);
-  if (!newLabel || !newLabel.trim() || newLabel.trim() === cat.label) return;
-  cat.label = newLabel.trim();
-  renderSidebar(document.getElementById('nbSearch').value);
 }
 
 // ── New entry ──
@@ -303,19 +348,24 @@ async function createNewEntry(presetDir) {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
+  // Collect every folder dir in the tree
+  function collectDirs(node, out) {
+    node.children.forEach(function(ch) { out.push(ch.dir); collectDirs(ch, out); });
+  }
+  var allDirs = [];
+  collectDirs(TREE, allDirs);
+
   // Pick folder
   var dir = presetDir;
   if (!dir) {
-    if (!NAV.length) { Lab.showToast('Create a folder first', 'error'); return; }
-    // Default: current doc's folder, or first
+    if (!allDirs.length) { Lab.showToast('Create a folder first', 'error'); return; }
     if (currentDoc) {
       var p = currentDoc.replace(/^notebooks\//, '').split('/');
       p.pop();
       dir = p.join('/');
     }
-    if (!dir) dir = NAV[0].dir;
-    var promptDirs = NAV.map(function(c) { return c.dir; }).join('\n');
-    var entered = prompt('Folder for new entry:\n\n' + promptDirs, dir);
+    if (!dir) dir = allDirs[0];
+    var entered = prompt('Folder for new entry:\n\n' + allDirs.join('\n'), dir);
     if (!entered || !entered.trim()) return;
     dir = entered.trim();
   }
@@ -343,15 +393,10 @@ async function createNewEntry(presetDir) {
 
     await gh.saveFile(filePath, content, null, 'New notebook entry: ' + dir + '/' + slug);
 
-    // Inject into NAV
-    var cat = NAV.find(function(c) { return c.dir === dir; });
-    if (!cat) {
-      cat = { dir: dir, label: prettify(dir.split('/').pop()), items: [] };
-      NAV.push(cat);
-      NAV.sort(function(a, b) { return a.dir.localeCompare(b.dir); });
-    }
-    cat.items.unshift({ title: slug, path: docPath });
-    cat.items.sort(function(a, b) { return b.title.localeCompare(a.title); });
+    // Inject into TREE
+    var node = ensureNode(TREE, dir.split('/'));
+    node.items.unshift({ title: slug, path: docPath });
+    node.items.sort(function(a, b) { return b.title.localeCompare(a.title); });
 
     renderSidebar(document.getElementById('nbSearch').value);
     Lab.showToast('Entry created', 'success');
@@ -517,9 +562,10 @@ async function deleteDoc() {
   try {
     var filePath = 'docs/' + currentDoc + '.md';
     await gh.deleteFile(filePath, null, 'Delete notebook entry: ' + name);
-    NAV.forEach(function(cat) {
-      cat.items = cat.items.filter(function(i) { return i.path !== currentDoc; });
-    });
+    (function strip(node) {
+      node.items = node.items.filter(function(i) { return i.path !== currentDoc; });
+      node.children.forEach(strip);
+    })(TREE);
     currentDoc = null;
     currentSha = null;
     renderSidebar(document.getElementById('nbSearch').value);
@@ -533,13 +579,17 @@ async function deleteDoc() {
 // ── Welcome ──
 function showWelcome() {
   var contentEl = document.getElementById('nbContent');
-  // Build flat recent list
+  // Build flat recent list (walk tree)
   var recent = [];
-  NAV.forEach(function(cat) {
-    cat.items.slice(0, 3).forEach(function(it) {
-      recent.push({ folder: cat.label, dir: cat.dir, title: it.title, path: it.path });
-    });
-  });
+  (function walk(node, labelChain) {
+    var label = labelChain ? labelChain + ' / ' + node.label : node.label;
+    if (node.dir) {
+      node.items.slice(0, 3).forEach(function(it) {
+        recent.push({ folder: label, title: it.title, path: it.path });
+      });
+    }
+    node.children.forEach(function(ch) { walk(ch, node.dir ? label : ''); });
+  })(TREE, '');
   recent.sort(function(a, b) { return b.title.localeCompare(a.title); });
 
   var recentHtml = '';
