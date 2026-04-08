@@ -445,8 +445,10 @@ function getDailyTemplate(personLabel, dateStr) {
     '## Next steps\n\n';
 }
 
-function getBlankTemplate(title) {
-  return '# ' + title + '\n\n';
+function getBlankTemplate(title, personLabel, dateStr) {
+  return '# ' + title + '\n\n' +
+    '**Person:** ' + personLabel + '  \n' +
+    '**Date:** ' + dateStr + '\n\n';
 }
 
 async function createNewEntry() {
@@ -510,7 +512,7 @@ async function createNewEntry() {
   if (values.type === 'daily') {
     content = getDailyTemplate(personLabel, today);
   } else {
-    content = getBlankTemplate(rawName);
+    content = getBlankTemplate(rawName, personLabel, today);
   }
 
   var filePath = ROOT + '/' + dir + '/' + slug + '.md';
