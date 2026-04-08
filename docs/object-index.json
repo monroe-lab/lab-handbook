@@ -1561,6 +1561,30 @@
     "location": "Bench 2"
   },
   {
+    "path": "resources/neb-blunt-ta-ligase-master-mix.md",
+    "type": "kit",
+    "title": "NEB Blunt/TA Ligase Master Mix (M0367S)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/nebnext-companion-module-ont.md",
+    "type": "kit",
+    "title": "NEBNext Companion Module for Oxford Nanopore Ligation Sequencing (E7180S)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/nebnext-quick-ligation-module.md",
+    "type": "kit",
+    "title": "NEBNext Quick Ligation Module (E6056S)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/nebnext-ultra-ii-end-prep.md",
+    "type": "kit",
+    "title": "NEBNext Ultra II End Repair / dA-Tailing Module (E7546S)",
+    "status": "needed"
+  },
+  {
     "path": "resources/nuclease-free-water.md",
     "type": "reagent",
     "title": "Nuclease-Free Water",
@@ -2148,9 +2172,9 @@
     ]
   },
   {
-    "path": "resources/sqk-rbk114-24.md",
+    "path": "resources/sqk-nbd114-24.md",
     "type": "kit",
-    "title": "Rapid Barcoding Kit 24 V14 (SQK-RBK114.24)",
+    "title": "Native Barcoding Kit 24 V14 (SQK-NBD114.24)",
     "status": "needed"
   },
   {
@@ -2489,7 +2513,7 @@
   {
     "path": "projects/in-house-hifi-shearing/index.md",
     "type": "project",
-    "title": "In-House HiFi Shearing and QC",
+    "title": "In-House Flongle Diagnostic Pipeline",
     "status": "active",
     "pi": "Grey Monroe"
   },
@@ -2608,19 +2632,19 @@
     "title": "test new"
   },
   {
-    "path": "wet-lab/library-prep/flongle-rapid-barcoding-rbk114.md",
-    "type": "protocol",
-    "title": "Multiplexed Flongle Library Prep (SQK-RBK114.24)"
-  },
-  {
     "path": "wet-lab/library-prep/flongle-sequencing-and-analysis.md",
     "type": "protocol",
     "title": "Flongle Sequencing and Read-Length Analysis"
   },
   {
+    "path": "wet-lab/library-prep/illumina-library-qc-on-flongle.md",
+    "type": "protocol",
+    "title": "Illumina Library QC on a Flongle (Stretch Use Case)"
+  },
+  {
     "path": "wet-lab/library-prep/in-house-hifi-shearing-pipeline.md",
     "type": "protocol",
-    "title": "In-House HiFi Shearing and QC Pipeline"
+    "title": "In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)"
   },
   {
     "path": "wet-lab/library-prep/in-house-vs-genome-center-decision.md",
@@ -2628,9 +2652,19 @@
     "title": "In-House vs Genome Center: HiFi Shearing and QC Decision"
   },
   {
+    "path": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep.md",
+    "type": "protocol",
+    "title": "Multiplexed Flongle Library Prep \u2014 Manual NBD114.24 (Fallback)"
+  },
+  {
     "path": "wet-lab/library-prep/operating-the-ot2.md",
     "type": "protocol",
     "title": "Operating the Opentrons OT-2"
+  },
+  {
+    "path": "wet-lab/library-prep/ot2-automated-nbd114-prep.md",
+    "type": "protocol",
+    "title": "OT-2 Automated NBD114.24 Library Prep (Default)"
   },
   {
     "path": "wet-lab/library-prep/ot2-hmw-shearing.md",

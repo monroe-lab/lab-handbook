@@ -5,7 +5,7 @@ title: "Bill of Materials"
 
 # Bill of Materials
 
-Equipment, kits, and consumables required to run the in-house HiFi shearing and QC workflow. See [[in-house-hifi-shearing]] for context.
+Equipment, kits, and consumables required to run the in-house Flongle diagnostic pipeline. See [[in-house-hifi-shearing]] for context.
 
 ## Already owned (verify)
 
@@ -24,8 +24,24 @@ Equipment, kits, and consumables required to run the in-house HiFi shearing and 
 
 - [[minion-mk1b]] (~$1,000)
 - [[flongle-starter-pack]] (~$1,860, includes adapter + 12 flow cells)
-- [[sqk-rbk114-24]] (~$700, 6 preps × 24 barcodes — **not** SQK-RAD114 or .96)
+- [[sqk-nbd114-24]] (~$700, 6 preps × 24 barcodes — **ligation-based**, native barcoding, NOT SQK-RBK114.24)
 - [[flow-cell-wash-kit-exp-wsh004]] (~$300, optional)
+
+## NEB enzymes for NBD114.24 ligation workflow
+
+The [[sqk-nbd114-24]] kit does **not** ship with the end-prep and ligase enzymes needed for the ligation-based prep. Order the bundled companion module, OR the standalone NEB modules if the lab prefers (check freezer inventory first — if the standalone modules are already on hand, skip the bundle).
+
+**Bundle (preferred if nothing is already on hand):**
+
+- [[nebnext-companion-module-ont]] (NEB E7180S, ~$650, 24 reactions) — contains Ultra II End Prep and Blunt/TA Ligase modules
+
+**Standalone alternatives:**
+
+- [[nebnext-ultra-ii-end-prep]] (NEB E7546S, ~$300)
+- [[nebnext-quick-ligation-module]] (NEB E6056S, ~$200) — provides Quick T4 Ligase
+- [[neb-blunt-ta-ligase-master-mix]] (NEB M0367S, ~$100)
+
+Verify lab freezer inventory before ordering any of these.
 
 ## To order — consumables
 

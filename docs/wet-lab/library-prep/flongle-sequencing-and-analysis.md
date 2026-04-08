@@ -5,13 +5,15 @@ title: "Flongle Sequencing and Read-Length Analysis"
 
 # Flongle Sequencing and Read-Length Analysis
 
-**Purpose:** Run a multiplexed library on a [[flongle-flow-cells-flo-flg114]] in the [[minion-mk1b]], demultiplex with Dorado, and produce per-sample read-length histograms for go/no-go decisions on PacBio HiFi shearing QC. Final step of the [[in-house-hifi-shearing-pipeline]].
+**Purpose:** Run a multiplexed library on a [[flongle-flow-cells-flo-flg114]] in the [[minion-mk1b]], demultiplex with Dorado, and produce per-sample read-length histograms for go/no-go decisions. Final step of the [[in-house-hifi-shearing-pipeline]]. Input can come from any NBD114.24 library prep variant: [[ot2-automated-nbd114-prep]] (default production), [[nbd114-multiplexed-flongle-prep]] (manual fallback), or [[illumina-library-qc-on-flongle]] (stretch use case at 1.8× AMPure).
 
 **Source:** Oxford Nanopore [Flongle quick start](https://store.nanoporetech.com/us/flongle-starter-pack-2.html), MinKNOW documentation (Nanopore community portal), and the [Dorado](https://github.com/nanoporetech/dorado) and [NanoPlot](https://github.com/wdecoster/NanoPlot) docs.
 
 ## Background
 
-A nanopore read length equals the actual physical length of the molecule that translocated through the pore. There is no inference, no electrophoretic mobility curve, no calibration ladder. Dump a barcoded pool from [[flongle-rapid-barcoding-rbk114]] onto a Flongle, run for an hour, demultiplex by barcode, and the resulting per-sample read-length histogram **is** the size distribution of the input library. This is more honest than a FemtoPulse trace, and same-day.
+A nanopore read length equals the actual physical length of the molecule that translocated through the pore. There is no inference, no electrophoretic mobility curve, no calibration ladder. Dump a barcoded ligation-prep pool from [[ot2-automated-nbd114-prep]] (or [[nbd114-multiplexed-flongle-prep]]) onto a Flongle, run for an hour, demultiplex by barcode, and the resulting per-sample read-length histogram **is** the size distribution of the input library. This is more honest than a FemtoPulse trace, and same-day.
+
+> **Ligation chemistry only.** This workflow uses [[sqk-nbd114-24]] (native barcoding, ligation-based). The rapid/tagmentation kit (SQK-RBK114.24) is **wrong** for size-faithful sequencing because transposase cuts the DNA. See [[in-house-hifi-shearing-pipeline]] § What this pipeline is.
 
 ## One-time setup
 
@@ -30,14 +32,14 @@ Skip this section after the first run.
 
 ## Required input
 
-- One adapter-loaded pooled library from [[flongle-rapid-barcoding-rbk114]] § 5 (15 µL, fresh, on ice)
+- One adapter-loaded pooled library from [[ot2-automated-nbd114-prep]] or [[nbd114-multiplexed-flongle-prep]] step 8 (fresh, on ice)
 - One [[flongle-flow-cells-flo-flg114]] (check the expiration date — they are perishable, ~8 weeks refrigerated)
 
 ## Required materials
 
 - [[minion-mk1b]] with the Flongle adapter installed
 - [[flongle-flow-cells-flo-flg114]]
-- Flongle priming buffer and library buffer from [[sqk-rbk114-24]]
+- Flongle priming buffer, sequencing buffer, and library beads from [[sqk-nbd114-24]]
 - [[bovine-serum-albumin-50mg-ml]] (optional loading additive recommended by Oxford)
 - [[nuclease-free-water]]
 - 200 µL standard filter tips for the Flongle loading port (the bore size doesn't matter here — the library is already sheared)
@@ -57,7 +59,7 @@ Skip this section after the first run.
 
 ### 2. Prime the Flongle
 
-Follow the SQK-RBK114 protocol section for Flongle loading exactly:
+Follow the SQK-NBD114.24 protocol section for Flongle loading exactly:
 
 1. Open the Flongle's sample port cover.
 2. Pipette **120 µL** of priming mix (Flush Buffer + Flush Tether per the kit instructions, optionally add 0.5 µL [[bovine-serum-albumin-50mg-ml]]) **slowly** into the priming port.
@@ -65,18 +67,18 @@ Follow the SQK-RBK114 protocol section for Flongle loading exactly:
 
 ### 3. Load the library
 
-1. Mix the adapter-loaded pool (15 µL) with the Sequencing Buffer and Library Beads from [[sqk-rbk114-24]] per the kit instructions. Final volume ~30 µL.
+1. Mix the adapter-loaded pool with the Sequencing Buffer and Library Beads from [[sqk-nbd114-24]] per the kit instructions. Final volume ~30 µL.
 2. **Slowly** pipette ~30 µL of the library mix into the **sample port** of the Flongle. Use a single steady motion. No bubbles.
 3. Close the sample port cover.
 
 ### 4. Start the run
 
 1. In MinKNOW, set up a new experiment:
-   - Kit: **SQK-RBK114.24**
+   - Kit: **SQK-NBD114.24**
    - Flow cell: **FLO-FLG114**
-   - Run length: **2 hours** (1 hour is often enough for QC; 4 hours if pores are weak)
+   - Run length: **2 hours** for HMW QC (1 hour for Illumina library QC — pores cycle faster on short molecules; up to 4 hours if pores are weak)
    - Basecalling: **on**, with the live basecaller
-   - Barcoding: **on**, with the SQK-RBK114.24 barcode set
+   - Barcoding: **on**, with the SQK-NBD114-24 barcode set
 2. Start. Monitor the live read-length histogram in MinKNOW for the first 5-10 min — you should see reads accumulating with a peak in the 10-25 kb range. If the peak is much smaller (<5 kb) something went wrong upstream.
 
 ### 5. Demultiplex with Dorado
@@ -87,9 +89,9 @@ After the run finishes, MinKNOW writes basecalled FASTQ to its output directory.
 # basecall (skip if MinKNOW already did this)
 dorado basecaller hac /path/to/pod5/ > basecalled.bam
 
-# demultiplex with the SQK-RBK114.24 kit
+# demultiplex with the SQK-NBD114.24 kit
 dorado demux \
-  --kit-name SQK-RBK114-24 \
+  --kit-name SQK-NBD114-24 \
   --output-dir demux_out/ \
   basecalled.bam
 ```
@@ -159,8 +161,8 @@ If the post-run pore count is still healthy and you want to reuse the flow cell:
 | --- | --- | --- |
 | Pore count below 50 at start | Flow cell expired or damaged in transit | Email Oxford for replacement; do not load library |
 | Pore count crashes during run | Bubbles, contamination, or library too concentrated | Restart with cleaner prep |
-| All reads in one barcode | Wrong demux kit specified | Re-run `dorado demux` with `SQK-RBK114-24` |
-| All reads <2 kb | Over-shearing upstream or tagging extended | Check [[ot2-hmw-shearing]] and [[flongle-rapid-barcoding-rbk114]] for protocol violations |
+| All reads in one barcode | Wrong demux kit specified | Re-run `dorado demux` with `SQK-NBD114-24` |
+| All reads <2 kb | Over-shearing upstream, wrong AMPure ratio, or wrong kit (RBK instead of NBD) | Check [[ot2-hmw-shearing]], confirm 0.6× AMPure in [[nbd114-multiplexed-flongle-prep]] for HMW, confirm [[sqk-nbd114-24]] not RBK |
 | Big "unclassified" bin | Adapter ligation failed or input too low | Increase input to 75 ng/sample next time |
 | Fewer reads than expected | Low input, dead pores, or aspirated air during loading | Live with it for QC; histogram is still readable down to ~1000 reads/sample |
 
@@ -170,7 +172,9 @@ Standard BSL1. Nothing in the Flongle workflow is hazardous.
 
 ## See also
 
-- [[flongle-rapid-barcoding-rbk114]]
+- [[ot2-automated-nbd114-prep]]
+- [[nbd114-multiplexed-flongle-prep]]
+- [[illumina-library-qc-on-flongle]]
 - [[ot2-hmw-shearing]]
 - [[in-house-hifi-shearing-pipeline]]
 - [[in-house-vs-genome-center-decision]]

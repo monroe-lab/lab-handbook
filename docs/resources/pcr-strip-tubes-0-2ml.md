@@ -7,4 +7,4 @@ vendor: Generic
 
 # PCR Strip Tubes (0.2 mL)
 
-Thin-wall 0.2 mL PCR strip tubes for per-sample barcoding reactions in [[flongle-rapid-barcoding-rbk114]].
+Thin-wall 0.2 mL PCR strip tubes for per-sample end-prep and barcoding reactions in [[nbd114-multiplexed-flongle-prep]] and [[ot2-automated-nbd114-prep]].

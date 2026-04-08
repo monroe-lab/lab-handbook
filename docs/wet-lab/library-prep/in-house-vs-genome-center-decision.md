@@ -5,7 +5,9 @@ title: "In-House vs Genome Center: HiFi Shearing and QC Decision"
 
 # In-House vs Genome Center: HiFi Shearing and QC Decision
 
-**Purpose:** Quick reference for choosing between the [[in-house-hifi-shearing-pipeline]] and the [[uc-davis-dna-technologies-core]] for PacBio HiFi shearing and size QC.
+**Purpose:** Quick reference for how the [[in-house-hifi-shearing-pipeline]] and the [[uc-davis-dna-technologies-core]] **complement each other** for PacBio HiFi shearing and size QC.
+
+**Framing:** the in-house Flongle pipeline is a **pre-Genome-Center diagnostic**, not a replacement for it. Use the Flongle to catch problems early and same-day; use the Genome Center for production sequencing and any trace that needs to go in a publication. Both have a permanent role. The layered model is: in-house for fast cheap screening across many use cases ([[in-house-hifi-shearing-pipeline]] § Use cases in priority order), Genome Center for production depth and publication-grade QC traces.
 
 ## Decision rules
 
@@ -35,7 +37,7 @@ Per-sample cost as a function of batch size:
 | 12 | ~$220 | $18 | $394 | $33 | **In-house** |
 | 24 | ~$220 | $9 | $718 | $30 | **In-house** |
 
-In-house cost: ~$90 [[flongle-flow-cells-flo-flg114]] + ~$117 [[sqk-rbk114-24]] (1/6 of $700 kit) + ~$10 plastics = ~$220 fixed per Flongle run, regardless of how many barcodes you load (up to 24).
+In-house cost: ~$90 [[flongle-flow-cells-flo-flg114]] + ~$117 [[sqk-nbd114-24]] (1/6 of $700 kit) + ~$10 plastics + NEB enzyme amortization from [[nebnext-companion-module-ont]] ≈ ~$220 fixed per Flongle run, regardless of how many barcodes you load (up to 24).
 
 ## Turnaround comparison
 
