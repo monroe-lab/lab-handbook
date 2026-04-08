@@ -114,6 +114,27 @@
   body.editing-mode .nb-edit-bar { display: none; }
 }
 
+/* Modal */
+.nb-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 400;
+  display: none; align-items: center; justify-content: center;
+}
+.nb-modal-backdrop.open { display: flex; }
+.nb-modal {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  width: 90%; max-width: 420px; padding: 20px 24px;
+}
+.nb-modal h3 { font-size: 16px; font-weight: 600; margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }
+.nb-modal h3 .material-icons-outlined { font-size: 20px; color: #795548; }
+.nb-modal label { display: block; font-size: 12px; font-weight: 600; color: var(--grey-600); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
+.nb-modal input, .nb-modal select {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius); font-family: inherit; font-size: 14px; outline: none; box-sizing: border-box;
+}
+.nb-modal input:focus, .nb-modal select:focus { border-color: #795548; }
+.nb-modal .field { margin-bottom: 14px; }
+.nb-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+
 @media print {
   #lab-nav, #lab-bottom-nav, .nb-sidebar, .nb-backdrop, .nb-hamburger,
   .nb-edit-bar, #password-gate { display: none !important; }
@@ -155,6 +176,10 @@
 
 <button class="nb-hamburger" id="hamburger"><span class="material-icons-outlined">menu</span></button>
 
+<div class="nb-modal-backdrop" id="nbModalBackdrop">
+  <div class="nb-modal" id="nbModal"></div>
+</div>
+
 <script src="js/lab.js"></script>
 <script>
 var ROOT = 'docs/notebooks';
@@ -168,6 +193,66 @@ var loggedIn = false;
 
 function prettify(slug) {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+}
+
+// ── Modal ──
+function showModal(opts) {
+  // opts: { title, icon, fields: [{key, label, type:'text'|'select', value, options:[{value,label}]}], submitLabel }
+  return new Promise(function(resolve) {
+    var backdrop = document.getElementById('nbModalBackdrop');
+    var modal = document.getElementById('nbModal');
+    var html = '<h3><span class="material-icons-outlined">' + (opts.icon || 'add') + '</span> ' + Lab.escHtml(opts.title) + '</h3>';
+    opts.fields.forEach(function(f) {
+      html += '<div class="field"><label>' + Lab.escHtml(f.label) + '</label>';
+      if (f.type === 'select') {
+        html += '<select id="nbm_' + f.key + '">';
+        f.options.forEach(function(o) {
+          var sel = o.value === f.value ? ' selected' : '';
+          html += '<option value="' + Lab.escHtml(o.value) + '"' + sel + '>' + Lab.escHtml(o.label) + '</option>';
+        });
+        html += '</select>';
+      } else {
+        html += '<input type="text" id="nbm_' + f.key + '" value="' + Lab.escHtml(f.value || '') + '" placeholder="' + Lab.escHtml(f.placeholder || '') + '">';
+      }
+      html += '</div>';
+    });
+    html += '<div class="nb-modal-actions">' +
+      '<button class="btn btn-outline btn-sm" id="nbmCancel">Cancel</button>' +
+      '<button class="btn btn-primary btn-sm" id="nbmOk" style="background:#795548">' + Lab.escHtml(opts.submitLabel || 'Create') + '</button>' +
+      '</div>';
+    modal.innerHTML = html;
+    backdrop.classList.add('open');
+
+    var firstInput = modal.querySelector('input,select');
+    if (firstInput) { firstInput.focus(); if (firstInput.select) firstInput.select(); }
+
+    function close(result) {
+      backdrop.classList.remove('open');
+      document.removeEventListener('keydown', onKey);
+      resolve(result);
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') close(null);
+      if (e.key === 'Enter' && e.target.tagName !== 'SELECT') { e.preventDefault(); submit(); }
+    }
+    function submit() {
+      var values = {};
+      opts.fields.forEach(function(f) { values[f.key] = document.getElementById('nbm_' + f.key).value; });
+      close(values);
+    }
+    document.addEventListener('keydown', onKey);
+    document.getElementById('nbmCancel').onclick = function() { close(null); };
+    document.getElementById('nbmOk').onclick = submit;
+    backdrop.onclick = function(e) { if (e.target === backdrop) close(null); };
+  });
+}
+
+function getAllDirs() {
+  var out = [];
+  (function walk(node) {
+    node.children.forEach(function(ch) { out.push(ch.dir); walk(ch); });
+  })(TREE);
+  return out;
 }
 
 // ── Load tree ──
@@ -267,12 +352,6 @@ function renderNode(node, depth, q) {
     '<span class="material-icons-outlined">expand_more</span>' +
     '<span>' + Lab.escHtml(node.label) + '</span>' +
     '<span class="nb-folder-count">' + countDeep(node) + '</span>';
-  if (loggedIn) {
-    html += '<span class="nb-folder-actions" onclick="event.stopPropagation()">' +
-      '<button onclick="createNewEntry(\'' + dirAttr + '\')" title="New entry"><span class="material-icons-outlined">add</span></button>' +
-      '<button onclick="createNewFolder(\'' + dirAttr + '\')" title="New subfolder"><span class="material-icons-outlined">create_new_folder</span></button>' +
-      '</span>';
-  }
   html += '</div><div class="nb-items' + hidden + '">';
 
   // Subfolders first
@@ -314,17 +393,25 @@ function toggleFolder(el) {
 }
 
 // ── New folder ──
-async function createNewFolder(parentDir) {
-  var label = parentDir ? 'Subfolder name (under ' + parentDir + '):' : 'Folder name (e.g. "alex-chen"):';
-  var name = prompt(label);
-  if (!name || !name.trim()) return;
-  var slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  if (!slug) return;
-
+async function createNewFolder() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
-  var dir = parentDir ? parentDir + '/' + slug : slug;
+  var parentOpts = [{ value: '', label: '(root)' }].concat(getAllDirs().map(function(d) { return { value: d, label: d }; }));
+  var values = await showModal({
+    title: 'New Folder',
+    icon: 'create_new_folder',
+    submitLabel: 'Create folder',
+    fields: [
+      { key: 'parent', label: 'Parent folder', type: 'select', value: '', options: parentOpts },
+      { key: 'name',   label: 'Folder name',   type: 'text',   value: '', placeholder: 'e.g. alex-chen' }
+    ]
+  });
+  if (!values || !values.name.trim()) return;
+
+  var slug = values.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (!slug) return;
+  var dir = values.parent ? values.parent + '/' + slug : slug;
   var path = ROOT + '/' + dir + '/.gitkeep';
   try {
     // Probe — if .gitkeep already exists, the folder is already there.
@@ -353,36 +440,35 @@ function getTemplate(personLabel, dateStr) {
     '## Notes\n\n';
 }
 
-async function createNewEntry(presetDir) {
+async function createNewEntry() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
-  // Collect every folder dir in the tree
-  function collectDirs(node, out) {
-    node.children.forEach(function(ch) { out.push(ch.dir); collectDirs(ch, out); });
-  }
-  var allDirs = [];
-  collectDirs(TREE, allDirs);
+  var allDirs = getAllDirs();
+  if (!allDirs.length) { Lab.showToast('Create a folder first', 'error'); return; }
 
-  // Pick folder
-  var dir = presetDir;
-  if (!dir) {
-    if (!allDirs.length) { Lab.showToast('Create a folder first', 'error'); return; }
-    if (currentDoc) {
-      var p = currentDoc.replace(/^notebooks\//, '').split('/');
-      p.pop();
-      dir = p.join('/');
-    }
-    if (!dir) dir = allDirs[0];
-    var entered = prompt('Folder for new entry:\n\n' + allDirs.join('\n'), dir);
-    if (!entered || !entered.trim()) return;
-    dir = entered.trim();
+  // Default folder: current doc's, else first
+  var defaultDir = allDirs[0];
+  if (currentDoc) {
+    var p = currentDoc.replace(/^notebooks\//, '').split('/');
+    p.pop();
+    var d = p.join('/');
+    if (allDirs.indexOf(d) >= 0) defaultDir = d;
   }
 
   var today = new Date().toISOString().slice(0, 10);
-  var name = prompt('Entry filename (no .md):', today);
-  if (!name || !name.trim()) return;
-  var slug = name.trim().replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-');
+  var values = await showModal({
+    title: 'New Entry',
+    icon: 'add',
+    submitLabel: 'Create entry',
+    fields: [
+      { key: 'folder', label: 'Folder', type: 'select', value: defaultDir, options: allDirs.map(function(d) { return { value: d, label: d }; }) },
+      { key: 'name',   label: 'Filename', type: 'text', value: today, placeholder: today }
+    ]
+  });
+  if (!values || !values.name.trim()) return;
+  var dir = values.folder;
+  var slug = values.name.trim().replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-');
 
   var personLabel = prettify(dir.split('/').pop());
   var content = getTemplate(personLabel, today);
