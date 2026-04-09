@@ -8,7 +8,6 @@
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
   var TABS = [
-    { label: 'Home',      href: BASE + 'app/dashboard.html',   icon: 'home' },
     { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
@@ -21,7 +20,7 @@
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
-  var BOTTOM_TABS = ['Home', 'Wiki', 'Protocols', 'Inventory'];
+  var BOTTOM_TABS = ['Wiki', 'Protocols', 'Notebooks', 'Inventory'];
 
   function getActiveTab() {
     var path = location.pathname;
@@ -52,7 +51,7 @@
 
     // Logo
     var logo = document.createElement('a');
-    logo.href = BASE + 'app/graph.html';
+    logo.href = BASE + 'app/dashboard.html';
     logo.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 16px;color:#fff;text-decoration:none;font-weight:700;font-size:15px;white-space:nowrap;flex-shrink:0;';
     logo.innerHTML = '<span class="material-icons-outlined" style="font-size:22px">science</span><span>Monroe Lab</span>';
     nav.appendChild(logo);
