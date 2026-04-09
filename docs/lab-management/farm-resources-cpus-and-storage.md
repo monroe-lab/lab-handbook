@@ -9,7 +9,7 @@ This is the Monroe Lab's guide to **what we have on the UC Davis [Farm cluster](
 
 If you're brand new to Farm, start here, then read [[cluster-access]], [[slurm_basics]], and [[storage-and-backup]] for the technical onboarding.
 
-> **Why this doc exists.** Farm has been changing how it manages storage and CPUs over the past year, and that has caused some confusion in the lab about what's safe, what's at risk, and how the slurm partitions. This page is the lab's info and policies so you don't have to guess. Please feel free to edit or add comments ⚠️
+> **Updates.** Farm has been changing how it manages storage and CPUs over the past year, and that has caused some confusion in the lab about what's safe, what's at risk, and how the slurm partitions. This page is the lab's info and policies so you don't have to guess. Please feel free to edit or add comments ⚠️
 
 ***
 
