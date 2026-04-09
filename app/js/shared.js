@@ -16,10 +16,24 @@
   var PW_HASH = 'ba04be8e1a9800209d8b590583bea00720aa0b12c829b6df815a15a14a0d3532';
 
   function checkPasswordGate() {
-    if (sessionStorage.getItem('monroe-lab-auth') === 'true') return;
+    var pwDone = sessionStorage.getItem('monroe-lab-auth') === 'true';
+    var ghDone = !!localStorage.getItem('gh_lab_token');
+
+    // Both steps complete — no gate
+    if (pwDone && ghDone) return;
 
     var gate = document.createElement('div');
     gate.id = 'password-gate';
+    document.body.prepend(gate);
+
+    if (!pwDone) {
+      showPasswordStep(gate);
+    } else {
+      showGitHubStep(gate);
+    }
+  }
+
+  function showPasswordStep(gate) {
     gate.innerHTML =
       '<div class="pw-box">' +
       '<h2>Monroe Lab</h2>' +
@@ -30,7 +44,6 @@
       '</form>' +
       '<p class="pw-err" id="pw-err">Incorrect password. Try again.</p>' +
       '</div>';
-    document.body.prepend(gate);
 
     document.getElementById('pw-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -42,13 +55,35 @@
         }).join('');
         if (hash === PW_HASH) {
           sessionStorage.setItem('monroe-lab-auth', 'true');
-          gate.remove();
+          if (localStorage.getItem('gh_lab_token')) {
+            gate.remove();
+          } else {
+            showGitHubStep(gate);
+          }
         } else {
           document.getElementById('pw-err').style.display = 'block';
           input.value = '';
           input.focus();
         }
       });
+    });
+  }
+
+  function showGitHubStep(gate) {
+    gate.innerHTML =
+      '<div class="pw-box" style="max-width:420px">' +
+      '<span class="material-icons-outlined" style="font-size:48px;color:var(--teal);margin-bottom:12px;display:block">lock_open</span>' +
+      '<h2>Sign in with GitHub</h2>' +
+      '<p style="color:#666;font-size:0.95rem;line-height:1.5;margin-bottom:1.4rem">The lab handbook requires a GitHub account to load content and enable editing. If you just received an invitation from <strong>monroe-lab</strong>, accept it first, then sign in below.</p>' +
+      '<button id="gh-gate-btn" style="width:100%;padding:0.75rem;background:#24292f;color:#fff;border:none;border-radius:6px;font-size:1rem;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px">' +
+      '<svg height="20" width="20" viewBox="0 0 16 16" fill="#fff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>' +
+      'Sign in with GitHub</button>' +
+      '</div>';
+
+    document.getElementById('gh-gate-btn').addEventListener('click', function() {
+      if (window.Lab && window.Lab.gh && window.Lab.gh.login) {
+        window.Lab.gh.login();
+      }
     });
   }
 
