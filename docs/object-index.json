@@ -2562,11 +2562,6 @@
     "title": "Gel Electrophoresis"
   },
   {
-    "path": "wet-lab/index.md",
-    "type": "protocol",
-    "title": "Index"
-  },
-  {
     "path": "wet-lab/ms-media-recipe.md",
     "type": "protocol",
     "title": "MS Media Recipe"
@@ -2772,11 +2767,6 @@
     "title": "Farm code lesson 4: Software, modules, and environments"
   },
   {
-    "path": "bioinformatics/index.md",
-    "type": "guide",
-    "title": "Index"
-  },
-  {
     "path": "bioinformatics/interacting-with-farm.md",
     "type": "guide",
     "title": "Interacting with Farm from your personal computer"
@@ -2784,7 +2774,7 @@
   {
     "path": "bioinformatics/linux-basics-part1.md",
     "type": "guide",
-    "title": "Linux basics for working on Farm (Part 1: Essentials)"
+    "title": "Linux Basics Part1"
   },
   {
     "path": "bioinformatics/llm-philosophy-blog.md",
@@ -2815,11 +2805,6 @@
     "path": "lab-management/farm-resources-cpus-and-storage.md",
     "type": "guide",
     "title": "Farm resources, CPUs, and storage"
-  },
-  {
-    "path": "lab-management/index.md",
-    "type": "guide",
-    "title": "Index"
   },
   {
     "path": "lab-management/lab-expectations.md",
@@ -2930,11 +2915,6 @@
     "path": "workflow-templates/strelka2.md",
     "type": "guide",
     "title": "Strelka2"
-  },
-  {
-    "path": "notebooks/index.md",
-    "type": "notebook",
-    "title": "Lab Notebooks"
   },
   {
     "path": "notebooks/template.md",
