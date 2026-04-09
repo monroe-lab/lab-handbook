@@ -95,6 +95,34 @@ Even when you're under the 50% threshold, try to keep `bmh` healthy for everyone
   - Taking the very last slots → keep it under **1 hour**, and only if it's something that genuinely can't wait.
 - **Don't grab the last node.** If `bmh` is nearly full, route long work to `bml` or `low` instead.
 
+### Check what's available before you submit
+
+Before you fire off a big job, **look at what's currently free**. A handful of one-line aliases will tell you everything you need to know in two seconds. Drop these in your `~/.bashrc` (see [[bashrc-customization]] for the file itself):
+
+```bash
+# Snapshot of all our key partitions: nodes, allocated/idle/other/total CPUs, memory
+alias farm-status='sinfo -p bmh,bml,low,gpu-a100-h -o "%.12P %.6a %.6D %.15C %.10m"'
+
+# Just the idle nodes — handy when bmh feels tight
+alias farm-idle='sinfo -p bmh,bml,low,gpu-a100-h -t idle -o "%.12P %.10n %.6c %.10m"'
+
+# My running and queued jobs
+alias myjobs='squeue -u $USER -o "%.10i %.9P %.20j %.8T %.10M %.6D %R"'
+
+# All Monroe lab jobs across the lab account — see what your labmates are doing
+alias labjobs='squeue -A gmonroegrp -o "%.10i %.9u %.9P %.20j %.8T %.10M %R"'
+
+# Efficiency report for one finished job: did it actually use what it asked for?
+seff_id() { seff "$1"; }   # usage: seff_id 12345678
+
+# Quick recap of today's jobs (CPUs, memory, exit code, runtime)
+alias today='sacct -u $USER --starttime today --format=JobID%14,JobName%20,Partition,AllocCPUS,State,ExitCode,Elapsed,MaxRSS'
+```
+
+`farm-status` is the one to run **before submitting anything large**. If `bmh` is showing very few idle CPUs and you were about to launch a multi-day job there, that's your cue to either route it to `bml`/`low` or post the heads-up in `#farming`.
+
+> Chaehee Lee has his own set of aliased commands for checking partition status that he's used in practice — ask him directly if you want a battle-tested version of the above. We should probably consolidate them into [[bashrc-customization]] at some point.
+
 ### Test small before you scale
 
 Before launching a full pipeline, **run one instance** — one sample, one chromosome, one whatever — and check the Slurm log:
@@ -151,11 +179,13 @@ If it matters, it goes in `gmonroegrp2` or `gmonroegrp3`. If it doesn't matter, 
 
 ### A note on legacy 100+ TB allocations
 
-A handful of us — currently **Matt Davis, Kehan Zhao, Daniela Quiroz, Pat Carbonetto, Grey, and a few others** — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, ~89% full, and slated for retirement.** New lab members get a standard Farm home directory (~20 GB) and are not affected.
+A few of us — **Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey** — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, ~89% full, and slated for retirement.**
 
-If you're one of the legacy users:
+> **If you joined the lab recently, this section doesn't affect you.** New lab members never had access to the old NAS — you got a standard Farm home directory from day one. You can ignore everything below.
 
-- **Treat that space as scratch.** Anything you want to keep needs to move to `gmonroegrp2` or `gmonroegrp3` (or to the backup option below) before the old NAS goes away.
+If you *are* one of the legacy users:
+
+- **Treat that space as scratch from now on.** Anything you want to keep needs to move to `gmonroegrp2` or `gmonroegrp3` (or to the backup option below) before the old NAS goes away.
 - **It's on you to clean up your own directory.** Nobody else can audit what's important to you.
 - **If you're not sure what's worth keeping**, the storage scan utilities under `/group/gmonroegrp2/chaehee/` (e.g. `job_storage_scan-DEPTH.sh`) are a starting point for figuring out where your space is going.
 
@@ -171,16 +201,12 @@ If you have data that's truly irreplaceable and you want a second copy somewhere
 
 ## Things we'd like to build
 
-A few tools that don't exist yet but would make the lab's life easier. If you have time and interest, please build one of these and add it to the handbook:
+A few tools that don't exist yet but would make the lab's life easier. If you have time and interest, please build one and add it to the handbook:
 
-- **A live "Farm CPU availability" dashboard** showing free CPUs in `bmh`, `bml`, `low`, and `gpu-a100-h` at a glance. Even a one-line shell function that prints partition state from `sinfo` would help. The current state is queryable with:
-
-  ```bash
-  sinfo -p bmh,bml,low,gpu-a100-h -o "%P %a %D %C %m"
-  ```
-
+- **A live "Farm CPU availability" dashboard** — a tiny web page or terminal TUI that shows free CPUs in `bmh`, `bml`, `low`, and `gpu-a100-h` at a glance, refreshing every few seconds. The aliases above are good enough to check on demand, but a persistent view in a tmux pane would be even better.
 - **A Claude Code skill or shell script** that audits a directory of Slurm log files for CPU/memory waste and prints a summary.
-- **A storage cleanup helper** that walks one of the group directories and surfaces large/stale files that might be candidates for deletion.
+- **A storage cleanup helper** that walks `gmonroegrp2` or `gmonroegrp3` and surfaces large/stale files that might be candidates for deletion.
+- **Consolidate Chaehee's aliased commands** into [[bashrc-customization]] so everyone's using the same set.
 
 If you build one, add it to [[bashrc-customization]] or drop it in the handbook under `bioinformatics/`.
 
