@@ -372,52 +372,48 @@
     }
   }
 
-  // ── Grid location (freezer) — show tube grid directly ──
+  // ── Grid location (freezer) — show shelves as a visual stack ──
   function showGridLocation(loc, items) {
     var canvas = document.getElementById('mapCanvas');
-    var gridSize = 9;
-    var html = '<div class="box-view">';
+    var shelves = buildShelves(loc, items);
+    var html = '<div class="container-view">';
     html += containerHeader(loc, items.length + ' item' + (items.length !== 1 ? 's' : '') + ' stored here');
 
-    html += '<div class="box-grid-wrap">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-    html += '<span style="font-size:14px;font-weight:600;color:var(--grey-700)">' + esc(loc.label) + ' (' + gridSize + ' \u00D7 ' + gridSize + ')</span>';
-    html += '<span style="font-size:12px;color:var(--grey-400)">Click to inspect \u00B7 Drag to rearrange</span>';
-    html += '</div>';
-    html += '<div class="box-grid" id="tubeGrid" style="grid-template-columns:30px repeat(' + gridSize + ',1fr)">';
+    // Freezer visualization — stacked shelves like drawers
+    html += '<div style="max-width:600px;margin:0 auto">';
+    shelves.forEach(function(shelf, si) {
+      var n = shelf.items.length;
+      var boxesPerShelf = 4; // 4 boxes per shelf
+      var boxes = [];
+      for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
+      shelf.items.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
 
-    // Column headers
-    html += '<div class="grid-header"></div>';
-    for (var c = 1; c <= gridSize; c++) html += '<div class="grid-header">' + c + '</div>';
-
-    // Rows — place items sequentially into the grid
-    items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
-    var itemIdx = 0;
-    for (var r = 0; r < gridSize; r++) {
-      var rowLabel = String.fromCharCode(65 + r);
-      html += '<div class="grid-header" style="display:flex;align-items:center;justify-content:center">' + rowLabel + '</div>';
-      for (var c = 0; c < gridSize; c++) {
-        var cellId = rowLabel + (c + 1);
-        var item = items[itemIdx] || null;
-        var idx = r * gridSize + c;
-        if (item) {
-          var tc = getType(item.type || 'reagent');
-          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemIdx + '" title="' + esc(item.title || '') + '" style="font-size:8px;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + '">';
-          html += (item.title || '').substring(0, 3);
-          html += '</div>';
-          itemIdx++;
-        } else {
-          html += '<div class="tube-cell empty" data-idx="' + idx + '">' + cellId + '</div>';
+      html += '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden">';
+      // Shelf header bar
+      html += '<div style="background:' + loc.color + ';color:#fff;padding:8px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:space-between">';
+      html += '<span>' + esc(shelf.label) + '</span>';
+      html += '<span style="opacity:.8;font-weight:400">' + n + ' item' + (n !== 1 ? 's' : '') + '</span>';
+      html += '</div>';
+      // Boxes in this shelf — row of clickable box cards
+      html += '<div style="display:grid;grid-template-columns:repeat(' + boxesPerShelf + ',1fr);gap:8px;padding:12px">';
+      boxes.forEach(function(boxItems, bi) {
+        var boxLabel = 'Box ' + String.fromCharCode(65 + bi);
+        var filled = boxItems.length;
+        html += '<div class="shelf-card" onclick="labMap.box(\'' + loc.id + '\',' + si + ',' + bi + ')" style="margin:0;padding:10px;border:2px solid ' + (filled ? loc.color + '40' : 'var(--grey-200)') + '">';
+        html += '<div style="font-size:12px;font-weight:600;color:' + (filled ? loc.color : 'var(--grey-400)') + '">' + boxLabel + '</div>';
+        html += '<div style="font-size:11px;color:var(--grey-500);margin-top:2px">' + filled + ' tube' + (filled !== 1 ? 's' : '') + '</div>';
+        // Mini 3x3 preview
+        html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:6px">';
+        for (var t = 0; t < 9; t++) {
+          var hasItem = t < filled;
+          html += '<div style="aspect-ratio:1;border-radius:50%;background:' + (hasItem ? loc.color + '25' : 'var(--grey-100)') + ';border:1px solid ' + (hasItem ? loc.color + '60' : 'var(--grey-200)') + '"></div>';
         }
-      }
-    }
+        html += '</div></div>';
+      });
+      html += '</div></div>';
+    });
     html += '</div></div>';
-    html += '<div id="tubeDetail"></div>';
-    html += '</div>';
     canvas.innerHTML = html;
-
-    // Attach drag and click handlers
-    initTubeInteractions(loc.id, 0, items, gridSize);
   }
 
   function buildShelves(loc, items) {
@@ -427,8 +423,8 @@
     return shelves;
   }
 
-  // ── Shelf / Box grid view with drag-and-drop ──
-  function openShelf(locId, shelfIdx) {
+  // ── Box view — 9x9 tube grid with drag-and-drop ──
+  function openBox(locId, shelfIdx, boxIdx) {
     var loc = LOCATIONS.find(function(l) { return l.id === locId; });
     if (!loc) return;
     var items = getItemsForLocation(loc);
@@ -436,38 +432,44 @@
     var shelf = shelves[shelfIdx];
     if (!shelf) return;
 
+    // Split shelf items into boxes (4 per shelf)
+    var boxesPerShelf = 4;
+    var boxes = [];
+    for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
+    shelf.items.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
+    var boxItems = boxes[boxIdx] || [];
+    var boxLabel = shelf.label + ' \u2192 Box ' + String.fromCharCode(65 + boxIdx);
+
     navStack = [
       { label: loc.label, view: 'location', params: { locId: locId } },
-      { label: shelf.label, view: 'shelf', params: { locId: locId, shelfIdx: shelfIdx } },
+      { label: boxLabel, view: 'box', params: { locId: locId, shelfIdx: shelfIdx, boxIdx: boxIdx } },
     ];
     updateBreadcrumb();
 
     var gridSize = 9;
     var canvas = document.getElementById('mapCanvas');
     var html = '<div class="box-view">';
-    html += containerHeader(loc, esc(loc.label) + ' &middot; ' + shelf.items.length + ' item' + (shelf.items.length !== 1 ? 's' : ''));
-    // Override title
-    html = html.replace(/<h2>.*?<\/h2>/, '<h2>' + esc(shelf.label) + '</h2>');
+    html += '<div class="container-header"><div class="ch-icon" style="background:' + loc.color + '15">' + loc.icon + '</div>';
+    html += '<div><h2>' + esc(boxLabel) + '</h2>';
+    html += '<div class="ch-subtitle">' + esc(loc.label) + ' &middot; ' + boxItems.length + ' tube' + (boxItems.length !== 1 ? 's' : '') + '</div></div></div>';
 
     html += '<div class="box-grid-wrap">';
     html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-    html += '<span style="font-size:14px;font-weight:600;color:var(--grey-700)">Box Layout (' + gridSize + ' \u00D7 ' + gridSize + ')</span>';
-    html += '<span style="font-size:12px;color:var(--grey-400)">Drag tubes to rearrange</span>';
+    html += '<span style="font-size:14px;font-weight:600;color:var(--grey-700)">' + gridSize + ' \u00D7 ' + gridSize + ' Grid</span>';
+    html += '<span style="font-size:12px;color:var(--grey-400)">Click to inspect \u00B7 Drag to rearrange</span>';
     html += '</div>';
     html += '<div class="box-grid" id="tubeGrid" style="grid-template-columns:30px repeat(' + gridSize + ',1fr)">';
 
-    // Column headers
     html += '<div class="grid-header"></div>';
     for (var c = 1; c <= gridSize; c++) html += '<div class="grid-header">' + c + '</div>';
 
-    // Rows
     var itemIdx = 0;
     for (var r = 0; r < gridSize; r++) {
       var rowLabel = String.fromCharCode(65 + r);
       html += '<div class="grid-header" style="display:flex;align-items:center;justify-content:center">' + rowLabel + '</div>';
       for (var c = 0; c < gridSize; c++) {
         var cellId = rowLabel + (c + 1);
-        var item = shelf.items[itemIdx] || null;
+        var item = boxItems[itemIdx] || null;
         var idx = r * gridSize + c;
         if (item) {
           var tc = getType(item.type || 'reagent');
@@ -485,8 +487,7 @@
     html += '</div>';
     canvas.innerHTML = html;
 
-    // Attach drag and click handlers to tube grid
-    initTubeInteractions(locId, shelfIdx, shelf.items, gridSize);
+    initTubeInteractions(locId, shelfIdx, boxItems, gridSize);
   }
 
   // ── Tube grid interactions ──
@@ -687,7 +688,7 @@
     var t = navStack[depth - 1];
     if (!t) return;
     if (t.view === 'location') openLocation(t.params.locId);
-    else if (t.view === 'shelf') openShelf(t.params.locId, t.params.shelfIdx);
+    else if (t.view === 'box') openBox(t.params.locId, t.params.shelfIdx, t.params.boxIdx);
   }
 
   function viewItem(path) {
@@ -698,7 +699,7 @@
   // ── Public API ──
   window.labMap = {
     open: openLocation,
-    shelf: openShelf,
+    box: openBox,
     nav: navigateTo,
     viewItem: viewItem,
     closeCtx: closeContextMenu,
