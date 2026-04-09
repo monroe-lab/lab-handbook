@@ -221,6 +221,10 @@
     await loadMarked();
     var admonitions = [];
 
+    // Strip YAML frontmatter (--- ... --- at the top of the doc) so it doesn't
+    // render as an HR + paragraph + HR.
+    md = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
+
     // Extract legacy ??? blocks
     var processed = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var bodyMd = body.replace(/^    /gm, '');
