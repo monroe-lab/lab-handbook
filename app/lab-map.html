@@ -358,31 +358,12 @@
 
   async function loadData() {
     try {
-      // Load object-index.json
-      var indexUrl = BASE + 'docs/object-index.json';
-      // Try fetching from local path first, then GitHub
-      var resp;
-      try {
-        resp = await fetch(indexUrl);
-        if (!resp.ok) throw new Error('not found');
-      } catch(e) {
-        // Try GitHub API
-        var fileData = await Lab.fetchFile('docs/object-index.json');
-        if (fileData && fileData.content) {
-          allObjects = JSON.parse(Lab.decodeGitHub(fileData.content));
-        } else {
-          allObjects = [];
-        }
-        showRoomView();
-        return;
-      }
-      allObjects = await resp.json();
-      showRoomView();
+      allObjects = await Lab.fetchObjectIndex();
     } catch(e) {
       console.error('Failed to load data:', e);
       allObjects = [];
-      showRoomView();
     }
+    showRoomView();
   }
 
   // ── Assign items to locations ──
