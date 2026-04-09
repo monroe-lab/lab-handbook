@@ -16,6 +16,7 @@
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
+    { label: 'Lab Map',  href: BASE + 'app/lab-map.html',    icon: 'map' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
@@ -31,6 +32,7 @@
     if (path.includes('/wiki'))           return 'Wiki';
     if (path.includes('/inventory'))      return 'Inventory';
     if (path.includes('/waste'))          return 'Waste';
+    if (path.includes('/lab-map'))        return 'Lab Map';
     if (path.includes('/graph'))          return '';
     if (path.match(/\/app\/(index\.html)?$/)) return 'Wiki';
     return '';
