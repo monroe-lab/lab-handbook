@@ -4,354 +4,6 @@
     "target": "bioinformatics/slurm_basics"
   },
   {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "resources/mitomycin-c"
-  },
-  {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "resources/cis-diamineplatinum-ii-dichloride"
-  },
-  {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "lab-management/acutely-toxic-solids-liquids-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/acrylamide"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/sodium-arsenate-dibasic-heptahydrate"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/basic-fuchsin"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/chloramphenicol"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/cis-diamineplatinum-ii-dichloride"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/methyl-methanesulfonate"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/methanol"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/chloroform"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/mitomycin-c"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/ethyl-methanesulfonate"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/formamide"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/hydroxylamine-hydrochloride"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/chloroform-isoamyl-alcohol-24-1"
-  },
-  {
-    "source": "lab-management/carcinogens-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/sodium-hydroxide"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/hydroxylamine-hydrochloride"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/iron-iii-chloride"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/potassium-hydroxide"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/phenylmethanesulfonyl-fluoride"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/potassium-permanganate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/spermidine"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/spermine"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/trichloroacetic-acid"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/glacial-acetic-acid"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/guanidine-thiocyanate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/chloroform"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/phenol-nitroprusside-solution"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/calcium-nitrate-tetrahydrate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/cetrimonium-bromide"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/edta-tetrasodium-salt-dihydrate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/igepal-ca-630"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/manganese-ii-chloride"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/lithium-hydroxide-monohydrate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/sodium-bisulfite"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/sodium-dodecyl-sulfate"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/sodium-metabisulfite"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "lab-management/corrosives-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/cryogens-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/cryogens-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/cryogens-sop",
-    "target": "resources/acetone"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/acetone"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/isopropyl-alcohol"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/methanol"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/ethyl-alcohol-absolute"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/glacial-acetic-acid"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/3-methylbutanol"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/1-octanol"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/diethyl-pyrocarbonate"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/dimethyl-sulfoxide"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/chloroform"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/chloroform-isoamyl-alcohol-24-1"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/formaldehyde-16-methanol-free-pfa"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/flammable-liquids-sop",
-    "target": "wet-lab/clean-bench"
-  },
-  {
-    "source": "lab-management/flammable-solids-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/flammable-solids-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/flammable-solids-sop",
-    "target": "resources/sodium-dodecyl-sulfate"
-  },
-  {
-    "source": "lab-management/flammable-solids-sop",
-    "target": "resources/activated-charcoal"
-  },
-  {
-    "source": "lab-management/flammable-solids-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "resources/chloramphenicol"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "resources/mitomycin-c"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "resources/cis-diamineplatinum-ii-dichloride"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/hazardous-drug-sop",
-    "target": "resources/isopropyl-alcohol"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "resources/phenylmethanesulfonyl-fluoride"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "resources/calcium-carbonate"
-  },
-  {
-    "source": "lab-management/hydrofluoric-acid-producing-sop",
-    "target": "resources/acetone"
-  },
-  {
     "source": "lab-management/lab-expectations",
     "target": "wet-lab/autoclave"
   },
@@ -360,88 +12,8 @@
     "target": "resources/chloroform"
   },
   {
-    "source": "lab-management/lab-safety-requirements",
-    "target": "people/kehan-zhao"
-  },
-  {
     "source": "lab-management/new-member-checklist",
     "target": "resources/growth-chamber"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/chloroform"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/acrylamide"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/ethyl-methanesulfonate"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/methyl-methanesulfonate"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/zeocin"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/phenol-nitroprusside-solution"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/boric-acid"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/formamide"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/kanamycin-sulfate"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/glufosinate-ammonium"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/sodium-tetraborate"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/cesium-chloride"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/potassium-permanganate"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/tetracycline-hydrochloride"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/1-octanol"
-  },
-  {
-    "source": "lab-management/reproductive-toxins-sop",
-    "target": "resources/fume-hood"
   },
   {
     "source": "lab-management/undergrad-onboarding",
@@ -456,12 +28,92 @@
     "target": "lab-management/lab-guidelines"
   },
   {
-    "source": "lab-management/working-alone-sop",
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
     "target": "people/grey-monroe"
   },
   {
-    "source": "lab-management/working-alone-sop",
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
     "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-safety/acutely-toxic-solids-liquids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/acrylamide"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/sodium-arsenate-dibasic-heptahydrate"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/basic-fuchsin"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/methyl-methanesulfonate"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/formamide"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/hydroxylamine-hydrochloride"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "lab-safety/carcinogens-sop",
+    "target": "resources/fume-hood"
   },
   {
     "source": "lab-safety/chemical-inventory",
@@ -474,6 +126,354 @@
   {
     "source": "lab-safety/chemical-inventory",
     "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/hydroxylamine-hydrochloride"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/iron-iii-chloride"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/potassium-hydroxide"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/phenylmethanesulfonyl-fluoride"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/potassium-permanganate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/trichloroacetic-acid"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/guanidine-thiocyanate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/phenol-nitroprusside-solution"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/calcium-nitrate-tetrahydrate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/cetrimonium-bromide"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/edta-tetrasodium-salt-dihydrate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/igepal-ca-630"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/manganese-ii-chloride"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/lithium-hydroxide-monohydrate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/sodium-bisulfite"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/cryogens-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/cryogens-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/cryogens-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/ethyl-alcohol-absolute"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/3-methylbutanol"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/diethyl-pyrocarbonate"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/dimethyl-sulfoxide"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/formaldehyde-16-methanol-free-pfa"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "lab-safety/flammable-solids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/flammable-solids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/flammable-solids-sop",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "lab-safety/flammable-solids-sop",
+    "target": "resources/activated-charcoal"
+  },
+  {
+    "source": "lab-safety/flammable-solids-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/hazardous-drug-sop",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "resources/phenylmethanesulfonyl-fluoride"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "resources/calcium-carbonate"
+  },
+  {
+    "source": "lab-safety/hydrofluoric-acid-producing-sop",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "lab-safety/lab-safety-requirements",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/acrylamide"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/methyl-methanesulfonate"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/zeocin"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/phenol-nitroprusside-solution"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/boric-acid"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/formamide"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/kanamycin-sulfate"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/glufosinate-ammonium"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/sodium-tetraborate"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/cesium-chloride"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/potassium-permanganate"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/tetracycline-hydrochloride"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "lab-safety/reproductive-toxins-sop",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/working-alone-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/working-alone-sop",
+    "target": "people/kehan-zhao"
   },
   {
     "source": "notebooks/grey-monroe/ma-experiment/2026-04-08",
@@ -493,11 +493,11 @@
   },
   {
     "source": "people/kehan-zhao",
-    "target": "lab-management/lab-safety-requirements"
+    "target": "lab-safety/lab-safety-requirements"
   },
   {
     "source": "people/kehan-zhao",
-    "target": "lab-management/hazardous-drug-sop"
+    "target": "lab-safety/hazardous-drug-sop"
   },
   {
     "source": "people/kehan-zhao",
