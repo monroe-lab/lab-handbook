@@ -2385,6 +2385,15 @@
     ]
   },
   {
+    "path": "resources/tube-item.md",
+    "type": "reagent",
+    "title": "tube item",
+    "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A2",
+    "created_at": "2026-04-09T07:58:18.233Z",
+    "created_by": "greymonroe"
+  },
+  {
     "path": "resources/tube-rotator.md",
     "type": "equipment",
     "title": "Tube Rotator",
@@ -2481,6 +2490,15 @@
     "organism": "Arabidopsis thaliana",
     "stock_type": "seed",
     "source": "ABRC"
+  },
+  {
+    "path": "stocks/test-seed-entry.md",
+    "type": "seed",
+    "title": "test seed entry",
+    "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A2",
+    "created_at": "2026-04-09T08:13:28.226Z",
+    "created_by": "greymonroe"
   },
   {
     "path": "people/grey-monroe.md",
