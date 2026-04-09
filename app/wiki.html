@@ -56,6 +56,15 @@
   margin-left: auto; font-size: 10px; font-weight: 500; color: var(--grey-400);
   background: var(--grey-200); padding: 1px 6px; border-radius: 8px;
 }
+.doc-folder-actions { display: none; gap: 2px; margin-left: 6px; }
+.doc-folder:hover .doc-folder-actions { display: flex; }
+.doc-folder:hover .doc-folder-count { display: none; }
+.doc-folder-actions button {
+  background: none; border: none; cursor: pointer; padding: 3px; color: var(--grey-500);
+  border-radius: 4px; display: flex; align-items: center;
+}
+.doc-folder-actions button:hover { color: #3f51b5; background: #e8eaf6; }
+.doc-folder-actions .material-icons-outlined { font-size: 16px; }
 
 .doc-items { padding-left: 0; }
 .doc-items.hidden { display: none; }
@@ -455,10 +464,16 @@ function renderSidebar() {
     var containsActive = currentDoc && items.some(function(i) { return i.path === currentDoc; });
     var collapsed = !containsActive ? ' collapsed' : '';
     var hidden = collapsed ? ' hidden' : '';
+    var actionsHtml = loggedIn ?
+      '<div class="doc-folder-actions">' +
+        '<button onclick="event.stopPropagation();createInFolder(\'' + Lab.escHtml(group.dir) + '\')" title="New document in this folder"><span class="material-icons-outlined">note_add</span></button>' +
+        '<button onclick="event.stopPropagation();createSubfolder(\'' + Lab.escHtml(group.dir) + '\')" title="New subfolder"><span class="material-icons-outlined">create_new_folder</span></button>' +
+      '</div>' : '';
     html += '<div class="doc-folder' + collapsed + '" onclick="toggleFolder(this)">' +
       '<span class="material-icons-outlined">expand_more</span>' +
       '<span>' + Lab.escHtml(group.label) + '</span>' +
       '<span class="doc-folder-count">' + items.length + '</span>' +
+      actionsHtml +
       '</div><div class="doc-items' + hidden + '">';
     items.forEach(function(d) {
       var active = currentDoc === d.path ? ' active' : '';
@@ -1065,7 +1080,11 @@ function showWikiModal(opts) {
   });
 }
 
-async function createNewDoc() {
+function createInFolder(dir) { createNewDoc({ presetFolder: dir }); }
+function createSubfolder(parentDir) { createNewDoc({ presetNewFolder: parentDir + '/' }); }
+
+async function createNewDoc(preset) {
+  preset = preset || {};
   if (!loggedIn) { Lab.showToast('Sign in first', 'error'); return; }
 
   // Folder options: every directory we've seen + a "(new folder)" sentinel
@@ -1080,9 +1099,16 @@ async function createNewDoc() {
   dirOpts.unshift({ value: 'handbook', label: 'handbook' });
   dirOpts.push({ value: '__new__', label: '── new folder ──' });
 
-  // Default: current doc's folder, else handbook
+  // Default: preset > current doc's folder > handbook
   var defaultDir = 'handbook';
-  if (currentDoc) {
+  if (preset.presetFolder) {
+    defaultDir = preset.presetFolder;
+    if (!dirOpts.some(function(o) { return o.value === defaultDir; })) {
+      dirOpts.unshift({ value: defaultDir, label: defaultDir });
+    }
+  } else if (preset.presetNewFolder) {
+    defaultDir = '__new__';
+  } else if (currentDoc) {
     var p = currentDoc.split('/'); p.pop();
     if (p.length) defaultDir = p.join('/');
   }
@@ -1103,7 +1129,7 @@ async function createNewDoc() {
     submitLabel: 'Create & edit',
     fields: [
       { key: 'folder', label: 'Folder', type: 'select', value: defaultDir, options: dirOpts },
-      { key: 'newFolder', label: 'New folder path (if selected above)', type: 'text', value: '', placeholder: 'e.g. handbook/policies', hint: 'Only used when "── new folder ──" is selected. Use forward slashes for nesting.' },
+      { key: 'newFolder', label: 'New folder path (if selected above)', type: 'text', value: preset.presetNewFolder || '', placeholder: 'e.g. handbook/policies', hint: 'Only used when "── new folder ──" is selected. Use forward slashes for nesting.' },
       { key: 'title', label: 'Title', type: 'text', value: '', placeholder: 'How to get building keys' },
       { key: 'type', label: 'Type', type: 'select', value: '', options: typeOpts, hint: 'Optional. Adds a colored type badge and includes the doc in type-specific views.' },
     ],
