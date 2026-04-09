@@ -350,21 +350,19 @@
   var currentView = null;
 
   // ── Init ──
-  window.addEventListener('DOMContentLoaded', function() {
-    Lab.checkPasswordGate();
-    Lab.renderNav();
-    loadData();
-  });
-
   async function loadData() {
     try {
-      allObjects = await Lab.fetchObjectIndex();
+      allObjects = await Lab.gh.fetchObjectIndex();
     } catch(e) {
       console.error('Failed to load data:', e);
       allObjects = [];
     }
     showRoomView();
   }
+
+  Lab.checkPasswordGate();
+  Lab.renderNav();
+  loadData();
 
   // ── Assign items to locations ──
   function getItemsForLocation(loc) {
