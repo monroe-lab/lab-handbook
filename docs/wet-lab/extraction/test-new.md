@@ -1,6 +1,8 @@
 ---
 title: "test new"
 type: "protocol"
+location: "Freezer -80C"
+location_detail: "Shelf 1 / Box A / A2"
 ---
 # test new
 
