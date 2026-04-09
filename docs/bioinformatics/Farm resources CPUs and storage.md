@@ -128,10 +128,10 @@ alias today='sacct -u $USER --starttime today --format=JobID%14,JobName%20,Parti
 Before launching a full pipeline, **run one instance** — one sample, one chromosome, one whatever — and check the Slurm log:
 
 - Did it actually use all the CPUs you requested? If you asked for 32 and the job used 4, your code isn't parallelized like you thought it was. Drop the request.
-- Did it use the memory you requested? If you asked for 200 GB and peaked at 12 GB, you're holding resources hostage. Drop the request.
+- Did it use the memory you requested? If you asked for 200 GB and peaked at 12 GB, drop the request — those reserved resources weren't available for anyone else to use.
 - Did it finish in the wall time you asked for? Use that to calibrate the full run.
 
-The Slurm output file at the end of every job has a summary: CPU time, wall time, max memory, exit code. **Read it.** Knowing how to read these manually is part of being functional on Farm.
+The Slurm output file at the end of every job has a summary: CPU time, wall time, max memory, exit code. It's worth reading — that's where you find out whether your job actually behaved the way you expected.
 
 ### Don't undercall memory or time either
 
@@ -186,7 +186,7 @@ A few of us — **Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey** — are gr
 If you *are* one of the legacy users:
 
 - **Treat that space as scratch from now on.** Anything you want to keep needs to move to `gmonroegrp2` or `gmonroegrp3` (or to the backup option below) before the old NAS goes away.
-- **It's on you to clean up your own directory.** Nobody else can audit what's important to you.
+- **You're the only one who knows what's important** in your own directory, so the cleanup is yours to do.
 - **If you're not sure what's worth keeping**, the storage scan utilities under `/group/gmonroegrp2/chaehee/` (e.g. `job_storage_scan-DEPTH.sh`) are a starting point for figuring out where your space is going.
 
 ### Backup option: PSIT 100 TB SFTP server
@@ -211,6 +211,12 @@ A few tools that don't exist yet but would make the lab's life easier. If you ha
 If you build one, add it to [[bashrc-customization]] or drop it in the handbook under `bioinformatics/`.
 
 ---
+
+## Questions or concerns
+
+If anything here is unclear, if you think a rule isn't working in practice, or if you're worried about your storage situation — **talk to Grey**. This document is about lab usage and norms, so concerns about it come to him directly. We can update the page as the situation evolves.
+
+For backup-server access specifically, email **John Hall (jnhall@ucdavis.edu)** at Plant Sciences IT — he issues credentials per user.
 
 ## Related handbook pages
 
