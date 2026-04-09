@@ -1,35 +1,35 @@
 [
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "bioinformatics/claude-code-skills",
+    "target": "bioinformatics/slurm_basics"
+  },
+  {
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/cluster-access"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/slurm_basics"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/storage-and-backup"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/slurm-advanced"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/bashrc-customization"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/project-structure-on-farm"
   },
   {
-    "source": "bioinformatics/Farm resources CPUs and storage",
+    "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/interacting-with-farm"
-  },
-  {
-    "source": "bioinformatics/claude-code-skills",
-    "target": "bioinformatics/slurm_basics"
   },
   {
     "source": "lab-management/lab-expectations",

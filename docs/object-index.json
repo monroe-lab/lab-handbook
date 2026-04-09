@@ -2737,11 +2737,6 @@
     "title": "Protein Induction (BL21)"
   },
   {
-    "path": "bioinformatics/Farm resources CPUs and storage.md",
-    "type": "guide",
-    "title": "Farm resources, CPUs, and storage"
-  },
-  {
     "path": "bioinformatics/bashrc-customization.md",
     "type": "guide",
     "title": "Customizing your Farm shell with `~/.bashrc`"
@@ -2819,7 +2814,7 @@
   {
     "path": "lab-management/farm-resources-cpus-and-storage.md",
     "type": "guide",
-    "title": "Farm resources CPUs and storage"
+    "title": "Farm resources, CPUs, and storage"
   },
   {
     "path": "lab-management/index.md",
