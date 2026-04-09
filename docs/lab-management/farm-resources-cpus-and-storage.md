@@ -147,8 +147,6 @@ alias today='sacct -u $USER --starttime today --format=JobID%14,JobName%20,Parti
 
 `farm-status` is the one to run **before submitting anything large**. If `bmh` is showing very few idle CPUs and you were about to launch a multi-day job there, that's your cue to either route it to `bml`/`low` or post the heads-up in `#farming`.
 
-> Chaehee Lee has his own set of aliased commands for checking partition status that he's used in practice — ask him directly if you want a battle-tested version of the above. We should probably consolidate them into [[bashrc-customization]] at some point.
-
 ### Test small before you scale
 
 Before launching a full pipeline, **run one instance** — one sample, one chromosome, one whatever — and check the Slurm log:
