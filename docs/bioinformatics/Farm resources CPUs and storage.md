@@ -20,8 +20,6 @@ If you're brand new to Farm, start here, then read [[cluster-access]], [[slurm_b
 4. **Test small first.** Especially if running something new: Run one tiny instance of your pipeline before launching the full thing, and check the Slurm log output to see what your job actually used.
 5. **Be careful to avoid under-requesting** memory or time. A job that runs out of either fails, and a failed job wastes CPU time.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IbwUTQJHS8c" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
-
 ***
 
 ## Hardware overview
@@ -95,7 +93,8 @@ Even when you're under the 50% threshold, try to keep `bmh` healthy for everyone
     * Filling most of the available headroom → keep your job under **12 hours**, ideally under **4**.
     * Taking the very last slots → keep it under **1 hour**, and only if it's something that genuinely can't wait.
 * **Don't grab the last node.** If `bmh` is nearly full, route long work to `bml` or `low` instead.
-* 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IbwUTQJHS8c" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
 ### Check what's available before you submit
 
@@ -181,7 +180,7 @@ If it matters, it goes in `gmonroegrp2` or `gmonroegrp3`. If it doesn't matter, 
 
 ### A note on legacy 100+ TB allocations
 
-A few of us — \*\*Matt Davis\, Chaehee Lee\, [[Kehan Zhao), and Grey** — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`]]. That hardware is **5+ years old, \~89% full, and slated for retirement.**
+A few of us — \*\*Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey\*\* — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, \~89% full, and slated for retirement.**
 
 > **If you joined the lab recently, this section doesn't affect you.** New lab members never had access to the old NAS — you got a standard Farm home directory from day one. You can ignore everything below.
 
