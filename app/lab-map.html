@@ -346,39 +346,78 @@
     if (!items.length) {
       html += emptyMsg();
     } else {
-      html += '<div class="item-list">';
+      html += '<div class="item-list" id="itemList">';
       items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
-      items.forEach(function(obj) { html += itemRow(obj); });
+      items.forEach(function(obj, i) { html += itemRow(obj, i); });
       html += '</div>';
+      html += '<div id="tubeDetail"></div>';
     }
     html += '</div>';
     canvas.innerHTML = html;
+
+    // Click shows detail inline instead of navigating away
+    if (items.length) {
+      document.getElementById('itemList').addEventListener('click', function(e) {
+        var row = e.target.closest('.item-row');
+        if (!row) return;
+        var idx = parseInt(row.dataset.itemIdx);
+        if (isNaN(idx)) return;
+        // Highlight selected
+        document.querySelectorAll('.item-row.selected').forEach(function(el) { el.classList.remove('selected'); el.style.borderLeft = ''; });
+        row.classList.add('selected');
+        var tc = getType(items[idx].type || 'reagent');
+        row.style.borderLeft = '4px solid ' + tc.color;
+        showTubeDetail(items[idx]);
+      });
+    }
   }
 
-  // ── Grid location (freezer) ──
+  // ── Grid location (freezer) — show tube grid directly ──
   function showGridLocation(loc, items) {
     var canvas = document.getElementById('mapCanvas');
-    var shelves = buildShelves(loc, items);
-    var html = '<div class="container-view">';
+    var gridSize = 9;
+    var html = '<div class="box-view">';
     html += containerHeader(loc, items.length + ' item' + (items.length !== 1 ? 's' : '') + ' stored here');
-    html += '<div style="margin-bottom:12px;font-size:14px;color:var(--grey-600)">' + shelves.length + ' shelves</div>';
-    html += '<div class="shelf-grid">';
-    shelves.forEach(function(shelf, si) {
-      var n = shelf.items.length;
-      html += '<div class="shelf-card" onclick="labMap.shelf(\'' + loc.id + '\',' + si + ')">';
-      html += '<div class="shelf-label">' + esc(shelf.label) + '</div>';
-      html += '<div class="shelf-count">' + n + ' item' + (n !== 1 ? 's' : '') + '</div>';
-      html += '<div class="shelf-preview">';
-      for (var i = 0; i < 8; i++) html += '<div class="sp-cell' + (i < n ? ' filled' : '') + '"></div>';
-      html += '</div></div>';
-    });
+
+    html += '<div class="box-grid-wrap">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
+    html += '<span style="font-size:14px;font-weight:600;color:var(--grey-700)">' + esc(loc.label) + ' (' + gridSize + ' \u00D7 ' + gridSize + ')</span>';
+    html += '<span style="font-size:12px;color:var(--grey-400)">Click to inspect \u00B7 Drag to rearrange</span>';
     html += '</div>';
-    html += '<div style="margin-top:20px"><h3 style="font-size:15px;color:var(--grey-700);margin-bottom:12px">All Items</h3>';
-    html += '<div class="item-list">';
+    html += '<div class="box-grid" id="tubeGrid" style="grid-template-columns:30px repeat(' + gridSize + ',1fr)">';
+
+    // Column headers
+    html += '<div class="grid-header"></div>';
+    for (var c = 1; c <= gridSize; c++) html += '<div class="grid-header">' + c + '</div>';
+
+    // Rows — place items sequentially into the grid
     items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
-    items.forEach(function(obj) { html += itemRow(obj); });
-    html += '</div></div></div>';
+    var itemIdx = 0;
+    for (var r = 0; r < gridSize; r++) {
+      var rowLabel = String.fromCharCode(65 + r);
+      html += '<div class="grid-header" style="display:flex;align-items:center;justify-content:center">' + rowLabel + '</div>';
+      for (var c = 0; c < gridSize; c++) {
+        var cellId = rowLabel + (c + 1);
+        var item = items[itemIdx] || null;
+        var idx = r * gridSize + c;
+        if (item) {
+          var tc = getType(item.type || 'reagent');
+          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemIdx + '" title="' + esc(item.title || '') + '" style="font-size:8px;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + '">';
+          html += (item.title || '').substring(0, 3);
+          html += '</div>';
+          itemIdx++;
+        } else {
+          html += '<div class="tube-cell empty" data-idx="' + idx + '">' + cellId + '</div>';
+        }
+      }
+    }
+    html += '</div></div>';
+    html += '<div id="tubeDetail"></div>';
+    html += '</div>';
     canvas.innerHTML = html;
+
+    // Attach drag and click handlers
+    initTubeInteractions(loc.id, 0, items, gridSize);
   }
 
   function buildShelves(loc, items) {
@@ -624,13 +663,13 @@
       '<div><h2>' + esc(loc.label) + '</h2><div class="ch-subtitle">' + subtitle + '</div></div></div>';
   }
 
-  function itemRow(obj) {
+  function itemRow(obj, idx) {
     var tc = getType(obj.type || 'reagent');
     var qty = '';
     if (obj.containers && obj.containers.length) {
       qty = obj.containers.map(function(c) { return (c.quantity || '?') + ' ' + (c.unit || ''); }).join(', ');
     }
-    return '<div class="item-row" onclick="labMap.viewItem(\'' + esc(obj.path || '') + '\')">' +
+    return '<div class="item-row" data-item-idx="' + (idx != null ? idx : '') + '">' +
       '<div class="ir-icon">' + tc.icon + '</div>' +
       '<div class="ir-info"><div class="ir-name">' + esc(obj.title || 'Untitled') + '</div>' +
       (qty ? '<div class="ir-meta">' + esc(qty) + '</div>' : '') + '</div>' +
