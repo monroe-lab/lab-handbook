@@ -1,14 +1,15 @@
+***
+
+type: guidetitle: "Farm resources, CPUs, and storage"
 ---
-type: guide
-title: "Farm resources, CPUs, and storage"
----
+
 # Farm resources, CPUs, and storage
 
 This is the Monroe Lab's guide to **what we have on the UC Davis [Farm cluster](https://hpc.ucdavis.edu/farm-cluster)** and **how we share it**. It covers compute partitions, storage tiers, lab norms for being a good citizen, and the safe places to keep your data long-term.
 
 If you're brand new to Farm, start here, then read [[cluster-access]], [[slurm_basics]], and [[storage-and-backup]] for the technical onboarding.
 
-> **Why this doc exists.** Farm has been changing how it manages storage and home directories over the past year, and that has caused some confusion in the lab about what's safe, what's at risk, and what counts as "ours." This page is the lab's source of truth so you don't have to guess. If anything here conflicts with what you've heard elsewhere, this is the version to follow.
+> **Why this doc exists.** Farm has been changing how it manages storage and CPUs over the past year, and that has caused some confusion in the lab about what's safe, what's at risk, and how the slurm partitions. This page is the lab's info and policies so you don't have to guess. Please feel free to edit or add comments ⚠️
 
 ***
 
@@ -225,7 +226,6 @@ If you *are* one of the legacy users:
 
 * **Treat that space as scratch from now on.** Anything you want to keep needs to move to `gmonroegrp2` or `gmonroegrp3` (or to the backup option below) before the old NAS goes away.
 * **You're the only one who knows what's important** in your own directory, so the cleanup is yours to do.
-
 
 > ℹ️ **Backup option: PSIT 100 TB SFTP server**
 > Separate from Farm, the lab has access to a **100 TB SFTP backup server** managed by **John Hall (jnhall@ucdavis.edu)** at UC Davis Plant Sciences IT. This is a different machine, on a different network, intended for backed-up copies of vital data.
