@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Monroe Lab Sample Tracker: How to Use It"
 ---
 

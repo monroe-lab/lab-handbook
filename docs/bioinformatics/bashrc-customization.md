@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Customizing your Farm shell with `~/.bashrc`"
 ---
 

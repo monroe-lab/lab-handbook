@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Slurm job headers and advanced options"
 ---
 

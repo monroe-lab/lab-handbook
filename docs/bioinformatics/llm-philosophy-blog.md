@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "How I Use LLMs as a Research and Coding Partner"
 ---
 

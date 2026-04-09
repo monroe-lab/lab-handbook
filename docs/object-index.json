@@ -2738,112 +2738,117 @@
   },
   {
     "path": "bioinformatics/Farm resources CPUs and storage.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Farm resources, CPUs, and storage"
   },
   {
     "path": "bioinformatics/bashrc-customization.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Customizing your Farm shell with `~/.bashrc`"
   },
   {
     "path": "bioinformatics/claude-code-skills.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Using Claude Code Skills for Lab Bioinformatics Workflows"
   },
   {
     "path": "bioinformatics/cluster-access.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Cluster access"
   },
   {
     "path": "bioinformatics/coding-strategy.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "How I (Grey) like to code: Farm + local workflow"
   },
   {
     "path": "bioinformatics/farm-bioinformatics-part3.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Farm code lesson 3: Bioinformatics tools & file formats (crash course)"
   },
   {
     "path": "bioinformatics/farm-scripting-part2.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Farm code lesson 2: Bash scripting basics"
   },
   {
     "path": "bioinformatics/farm-software-part4.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Farm code lesson 4: Software, modules, and environments"
   },
   {
     "path": "bioinformatics/index.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Index"
   },
   {
     "path": "bioinformatics/interacting-with-farm.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Interacting with Farm from your personal computer"
   },
   {
     "path": "bioinformatics/linux-basics-part1.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Linux basics for working on Farm (Part 1: Essentials)"
   },
   {
     "path": "bioinformatics/llm-philosophy-blog.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "How I Use LLMs as a Research and Coding Partner"
   },
   {
     "path": "bioinformatics/project-structure-on-farm.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Project directory structure on Farm"
   },
   {
     "path": "bioinformatics/slurm-advanced.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Slurm job headers and advanced options"
   },
   {
     "path": "bioinformatics/slurm_basics.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Slurm basics"
   },
   {
     "path": "bioinformatics/storage-and-backup.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Storage and backup"
   },
   {
+    "path": "lab-management/farm-resources-cpus-and-storage.md",
+    "type": "guide",
+    "title": "Farm resources CPUs and storage"
+  },
+  {
     "path": "lab-management/index.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Index"
   },
   {
     "path": "lab-management/lab-expectations.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Lab Expectations & Best Practices"
   },
   {
     "path": "lab-management/lab-guidelines.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Monroe Lab Guidelines"
   },
   {
     "path": "lab-management/new-member-checklist.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Welcome! Checklist for new lab members"
   },
   {
     "path": "lab-management/sample-tracker-guide.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Monroe Lab Sample Tracker: How to Use It"
   },
   {
     "path": "lab-management/undergrad-onboarding.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Undergrad Onboarding Checklist"
   },
   {
@@ -2908,12 +2913,12 @@
   },
   {
     "path": "workflow-templates/blast.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "BLASTN sbatch template"
   },
   {
     "path": "workflow-templates/hifi-pipeline.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)"
   },
   {
@@ -2928,7 +2933,7 @@
   },
   {
     "path": "workflow-templates/strelka2.md",
-    "type": "protocol",
+    "type": "guide",
     "title": "Strelka2"
   },
   {

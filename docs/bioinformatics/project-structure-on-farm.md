@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Project directory structure on Farm"
 ---
 

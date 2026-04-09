@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Farm code lesson 2: Bash scripting basics"
 ---
 

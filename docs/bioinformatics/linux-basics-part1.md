@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Linux basics for working on Farm (Part 1: Essentials)"
 ---
 

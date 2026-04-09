@@ -67,7 +67,12 @@ def parse_frontmatter(text: str) -> dict | None:
 
 def infer_type_from_path(path: str) -> str | None:
     """Infer object type from directory path for files without frontmatter."""
-    if "wet-lab/" in path or "bioinformatics/" in path or "lab-management/" in path or "lab-safety/" in path or "workflow-templates/" in path:
+    # Bioinformatics, workflow templates, and lab-management are guides
+    # (tutorials, blog posts, reference material). Wet-lab and lab-safety
+    # files are real bench protocols / SOPs.
+    if "bioinformatics/" in path or "workflow-templates/" in path or "lab-management/" in path:
+        return "guide"
+    if "wet-lab/" in path or "lab-safety/" in path:
         return "protocol"
     if "notebooks/" in path:
         return "notebook"

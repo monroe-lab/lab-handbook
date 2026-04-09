@@ -208,6 +208,18 @@
       displayFields: [],
       tableColumns: [],
     },
+    guide: {
+      color: '#0277bd',
+      icon: '\uD83D\uDCDA',
+      label: 'Guide',
+      group: 'guides',
+      fields: [
+        { key: 'title', label: 'Title', type: 'text', required: true },
+        { key: 'type',  label: 'Type',  type: 'hidden', value: 'guide' },
+      ],
+      displayFields: [],
+      tableColumns: ['name'],
+    },
   };
 
   var DEFAULT_TYPE = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };

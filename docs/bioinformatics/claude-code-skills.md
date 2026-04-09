@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Using Claude Code Skills for Lab Bioinformatics Workflows"
 ---
 

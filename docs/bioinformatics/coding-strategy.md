@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "How I (Grey) like to code: Farm + local workflow"
 ---
 

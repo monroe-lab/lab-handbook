@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Farm code lesson 3: Bioinformatics tools & file formats (crash course)"
 ---
 

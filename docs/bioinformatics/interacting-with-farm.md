@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Interacting with Farm from your personal computer"
 ---
 

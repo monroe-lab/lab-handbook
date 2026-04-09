@@ -1,5 +1,5 @@
 ---
-type: protocol
+type: guide
 title: "Lab Expectations & Best Practices"
 ---
 
