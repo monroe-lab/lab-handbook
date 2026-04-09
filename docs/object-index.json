@@ -2920,5 +2920,47 @@
     "path": "notebooks/template.md",
     "type": "notebook",
     "title": "Daily Entry Template"
+  },
+  {
+    "path": "waste/index.md",
+    "type": "guide",
+    "title": "Hazardous Waste Guide"
+  },
+  {
+    "path": "waste/nib-buffer-bme-waste.md",
+    "type": "waste_container",
+    "title": "NIB Buffer + BME Waste",
+    "location": "Robbins Hall 0170, bay 170U (fume hood)",
+    "status": "in_accumulation",
+    "contents": "NIB buffer, BME (beta-mercaptoethanol)",
+    "physical_state": "Liquid",
+    "hazard_class": "Toxic, Stench",
+    "started": "2026-03-13",
+    "waste_tag": "11014840"
+  },
+  {
+    "path": "waste/paraquat-solid-waste.md",
+    "type": "waste_container",
+    "title": "Paraquat Solid Waste",
+    "location": "Robbins Hall 0170",
+    "status": "in_accumulation",
+    "contents": "Paraquat-contaminated solids (gloves, tips, tubes)",
+    "physical_state": "Solid",
+    "hazard_class": "Toxic",
+    "started": "2025-09-30",
+    "waste_tag": "10548386"
+  },
+  {
+    "path": "waste/paraquat-wash-waste.md",
+    "type": "waste_container",
+    "title": "Paraquat Wash Waste",
+    "location": "Robbins Hall 0170",
+    "status": "in_accumulation",
+    "contents": "Water (100%), Paraquat dichloride (100 PPM)",
+    "physical_state": "Liquid",
+    "container": "4 gal plastic bottle",
+    "hazard_class": "Toxic, Oxidizer",
+    "started": "2025-09-30",
+    "waste_tag": "10496910"
   }
 ]

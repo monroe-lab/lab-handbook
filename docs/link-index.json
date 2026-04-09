@@ -52,10 +52,6 @@
     "target": "people/kehan-zhao"
   },
   {
-    "source": "lab-management/undergrad-onboarding",
-    "target": "lab-management/lab-guidelines"
-  },
-  {
     "source": "lab-safety/acutely-toxic-solids-liquids-sop",
     "target": "people/grey-monroe"
   },
@@ -1086,6 +1082,38 @@
   {
     "source": "stocks/col-0-wild-type",
     "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "waste/index",
+    "target": "waste/paraquat-wash-waste"
+  },
+  {
+    "source": "waste/index",
+    "target": "waste/paraquat-solid-waste"
+  },
+  {
+    "source": "waste/index",
+    "target": "waste/nib-buffer-bme-waste"
+  },
+  {
+    "source": "waste/nib-buffer-bme-waste",
+    "target": "test-fodler-2/index"
+  },
+  {
+    "source": "waste/paraquat-solid-waste",
+    "target": "waste/paraquat-wash-waste"
+  },
+  {
+    "source": "waste/paraquat-solid-waste",
+    "target": "test-fodler-2/index"
+  },
+  {
+    "source": "waste/paraquat-wash-waste",
+    "target": "waste/paraquat-solid-waste"
+  },
+  {
+    "source": "waste/paraquat-wash-waste",
+    "target": "test-fodler-2/index"
   },
   {
     "source": "wet-lab/autoclave",

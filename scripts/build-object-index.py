@@ -34,6 +34,7 @@ OBJECT_DIRS = [
     "lab-safety",
     "workflow-templates",
     "notebooks",
+    "waste",
 ]
 
 # Frontmatter keys to extract (all optional except type and title)
@@ -42,6 +43,7 @@ EXTRACT_KEYS = [
     "category", "cas", "notes", "role", "email", "organism", "stock_type",
     "source", "genotype", "status", "pi", "funding", "date", "author",
     "legacy_inventory_id", "containers", "need_more",
+    "contents", "physical_state", "container", "hazard_class", "started", "waste_tag",
     "created_at", "created_by", "updated_at",
 ]
 
