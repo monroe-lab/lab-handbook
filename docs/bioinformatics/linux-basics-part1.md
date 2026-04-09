@@ -1,22 +1,22 @@
----
-type: guide
-title: "Linux basics for working on Farm (Part 1: Essentials)"
+***
+
+type: guidetitle: "Part 1: Essentials, Linux basics for working on Farm"
 ---
 
-# Linux basics for working on Farm (Part 1: Essentials)
+# Part 1: Essentials, Linux basics for working on Farm 
 
 This guide covers the **absolute essentials** you need to use the Farm cluster from the command line. If you can do everything in this document, you can:
 
-- Move around the filesystem
-- Create, view, and edit files
-- Organize your projects
-- Run scripts and inspect outputs
+* Move around the filesystem
+* Create, view, and edit files
+* Organize your projects
+* Run scripts and inspect outputs
 
 For now, this is **Part 1: Linux 101 for Farm**.
 
----
+***
 
-## 1. The shell and basic ideas
+## 1\. The shell and basic ideas
 
 When you log in to Farm, you land in a **shell** (usually `bash`). You’ll see a **prompt**, something like:
 
@@ -38,13 +38,13 @@ cd /group/gmonroegrp3/projectX
 head results.txt
 ```
 
-- `ls`, `cd`, `head` are **commands**
-- `-l`, `-h` are **options** (or “flags”)
-- `/group/gmonroegrp2`, `results.txt` are **arguments**
+* `ls`, `cd`, `head` are **commands**
+* `-l`, `-h` are **options** (or “flags”)
+* `/group/gmonroegrp2`, `results.txt` are **arguments**
 
----
+***
 
-## 2. Where am I? (paths and directories)
+## 2\. Where am I? \(paths and directories\)
 
 ### 2.1 Print working directory: `pwd`
 
@@ -60,7 +60,7 @@ Shows your **current directory**, for example:
 
 This is sometimes called your **current working directory**.
 
----
+***
 
 ### 2.2 Home directory and `~`
 
@@ -77,17 +77,16 @@ cd ~          # go to your home directory
 cd            # also goes home (no argument)
 ```
 
----
+***
 
 ### 2.3 Absolute vs relative paths
 
-- **Absolute path**: starts from `/` (the filesystem root), e.g.
-  - `/home/USERNAME`
-  - `/group/gmonroegrp2/PROJECT_NAME`
-
-- **Relative path**: relative to your current directory, e.g.
-  - `scripts/` (if you are in `/home/USERNAME`)
-  - `../data` (one directory up, then `data`)
+* **Absolute path**: starts from `/` (the filesystem root), e.g.
+    * `/home/USERNAME`
+    * `/group/gmonroegrp2/PROJECT_NAME`
+* **Relative path**: relative to your current directory, e.g.
+    * `scripts/` (if you are in `/home/USERNAME`)
+    * `../data` (one directory up, then `data`)
 
 Example:
 
@@ -105,9 +104,9 @@ pwd
 # /group/gmonroegrp2/PROJECT_NAME
 ```
 
----
+***
 
-## 3. Looking around: `ls` and friends
+## 3\. Looking around: `ls` and friends
 
 ### 3.1 Basic listing: `ls`
 
@@ -117,7 +116,7 @@ ls
 
 Lists files and directories in the current directory.
 
----
+***
 
 ### 3.2 Useful `ls` options
 
@@ -138,12 +137,12 @@ ls -lha /group/gmonroegrp3
 ls -lt logs/
 ```
 
----
+***
 
 ### 3.3 Globs (wildcards)
 
-- `*` matches “anything”
-- `?` matches “any single character”
+* `*` matches “anything”
+* `?` matches “any single character”
 
 Examples:
 
@@ -155,9 +154,9 @@ ls *.fastq.gz
 
 Globs are incredibly useful for dealing with many related files (FASTQs, BAMs, etc.).
 
----
+***
 
-## 4. Moving around: `cd`
+## 4\. Moving around: `cd`
 
 `cd` changes your current directory.
 
@@ -178,8 +177,8 @@ cd -       # go back to previous directory
 
 **Tip:** Use **Tab completion**:
 
-- Type part of a path, press `Tab` to auto-complete.
-- Saves time and reduces typos.
+* Type part of a path, press `Tab` to auto-complete.
+* Saves time and reduces typos.
 
 Example:
 
@@ -188,9 +187,9 @@ cd /group/gmonroegrp2/PROJ<Tab>
 # auto-completes to /group/gmonroegrp2/PROJECT_NAME if unique
 ```
 
----
+***
 
-## 5. Creating and managing files and directories
+## 5\. Creating and managing files and directories
 
 ### 5.1 Make directories: `mkdir`
 
@@ -199,10 +198,10 @@ mkdir my_project
 mkdir -p my_project/results/variant_calls
 ```
 
-- `mkdir` creates a directory.
-- `-p` creates parent directories as needed (no error if they already exist).
+* `mkdir` creates a directory.
+* `-p` creates parent directories as needed (no error if they already exist).
 
----
+***
 
 ### 5.2 Create empty files: `touch`
 
@@ -211,10 +210,10 @@ touch notes.txt
 touch samples.txt
 ```
 
-- `touch` creates an empty file if it doesn’t exist.
-- If it **does** exist, `touch` just updates its timestamp (useful sometimes, but you mostly use it to make empty files).
+* `touch` creates an empty file if it doesn’t exist.
+* If it **does** exist, `touch` just updates its timestamp (useful sometimes, but you mostly use it to make empty files).
 
----
+***
 
 ### 5.3 Copy files and directories: `cp`
 
@@ -224,9 +223,9 @@ cp file1.txt backup/           # copy into backup directory
 cp -r scripts/ scripts_backup/ # copy directory recursively
 ```
 
-- `-r` means “recursive” (needed for directories).
+* `-r` means “recursive” (needed for directories).
 
----
+***
 
 ### 5.4 Move / rename files: `mv`
 
@@ -236,12 +235,12 @@ mv file.txt /group/gmonroegrp2/PROJECT # move file
 mv *.sh scripts/                       # move many files into scripts/
 ```
 
-- `mv` is both “move” and “rename.”
-- No `-r` needed; it works on files and directories.
+* `mv` is both “move” and “rename.”
+* No `-r` needed; it works on files and directories.
 
----
+***
 
-## 6. Deleting files **carefully**: `rm`
+## 6\. Deleting files **carefully**: `rm`
 
 > **Danger:** `rm` permanently deletes files. There is no trash or undo by default.
 
@@ -261,24 +260,23 @@ rm -r old_results/   # recursively delete directory and contents
 **Best practices:**
 
 1. **Double-check** before pressing Enter:
-   - Use `ls` to see what you’re about to delete.
+    * Use `ls` to see what you’re about to delete.
 2. Avoid using `rm -rf` casually:
-   - `-f` = “force” (no confirmations)
-   - `-r` = “recursive”
-   - `rm -rf` can destroy large parts of the filesystem if mis-typed.
+    * `-f` = “force” (no confirmations)
+    * `-r` = “recursive”
+    * `rm -rf` can destroy large parts of the filesystem if mis-typed.
 3. For safety, you can use interactive mode:
 
-   ```bash
-   rm -i file.txt          # asks before deleting
-   rm -ri old_results/     # asks for each file
-   ```
-
+    ```bash
+    rm -i file.txt          # asks before deleting
+    rm -ri old_results/     # asks for each file
+    ```
 4. When cleaning up large directories, it’s often safer to:
-   - Move them somewhere like `trash/` first, then delete once you’re very sure.
+    * Move them somewhere like `trash/` first, then delete once you’re very sure.
 
----
+***
 
-## 7. Viewing text files: `cat`, `less`, `head`, `tail`
+## 7\. Viewing text files: `cat`, `less`, `head`, `tail`
 
 ### 7.1 `cat` – print a file
 
@@ -286,10 +284,10 @@ rm -r old_results/   # recursively delete directory and contents
 cat file.txt
 ```
 
-- Prints the entire file to the screen.
-- Good for very small files; not great for huge.
+* Prints the entire file to the screen.
+* Good for very small files; not great for huge.
 
----
+***
 
 ### 7.2 `less` – scroll through a file (recommended)
 
@@ -297,21 +295,22 @@ cat file.txt
 less file.txt
 less -S file.txt
 ```
-- `-S` – wide view
+
+* `-S` – wide view
 
 Controls:
 
-- `Down arrow` / `j` – scroll down
-- `Up arrow` / `k` – scroll up
-- `Space` – next page
-- `b` – previous page
-- `/pattern` – search forward for “pattern”
-- `n` – next match
-- `q` – quit
+* `Down arrow` / `j` – scroll down
+* `Up arrow` / `k` – scroll up
+* `Space` – next page
+* `b` – previous page
+* `/pattern` – search forward for “pattern”
+* `n` – next match
+* `q` – quit
 
 `less` is your friend for inspecting log files, scripts, configs, etc.
 
----
+***
 
 ### 7.3 `head` and `tail`
 
@@ -324,7 +323,7 @@ tail -n 50 file.txt  # last 50 lines
 
 Very useful for quickly checking the start or end of a file (e.g., checking a FASTQ header, looking at the end of a log file).
 
----
+***
 
 ### 7.4 `tail -f` – live log viewing
 
@@ -332,14 +331,14 @@ Very useful for quickly checking the start or end of a file (e.g., checking a FA
 tail -f logs/my_job.out
 ```
 
-- Shows the last lines of `my_job.out` and **updates in real time** as new lines are written.
-- Great for watching long-running jobs.
+* Shows the last lines of `my_job.out` and **updates in real time** as new lines are written.
+* Great for watching long-running jobs.
 
 Press `Ctrl + C` to stop.
 
----
+***
 
-## 8. Editing files with `nano` (simple text editor)
+## 8\. Editing files with `nano` (simple text editor)
 
 `nano` is a simple, beginner-friendly editor that runs in the terminal.
 
@@ -353,12 +352,12 @@ You’ll see the file contents and a menu at the bottom.
 
 Key commands:
 
-- **Ctrl + O** – Write out (save)
-- **Enter** – Confirm filename when saving
-- **Ctrl + X** – Exit
-- **Ctrl + W** – Search within file
-- **Ctrl + K** – Cut current line
-- **Ctrl + U** – Paste
+* **Ctrl + O** – Write out (save)
+* **Enter** – Confirm filename when saving
+* **Ctrl + X** – Exit
+* **Ctrl + W** – Search within file
+* **Ctrl + K** – Cut current line
+* **Ctrl + U** – Paste
 
 Typical workflow:
 
@@ -369,9 +368,9 @@ Typical workflow:
 
 VS Code Remote is much nicer for larger scripts, but `nano` is handy for quick edits.
 
----
+***
 
-## 9. Combining commands with pipes and redirection
+## 9\. Combining commands with pipes and redirection
 
 ### 9.1 Piping with `|`
 
@@ -383,15 +382,15 @@ Examples:
 ls -lh | less
 ```
 
-- List files in long format, then scroll the output with `less`.
+* List files in long format, then scroll the output with `less`.
 
 ```bash
 cat big.log | grep ERROR | head
 ```
 
-- Show the first few lines in `big.log` that contain the word “ERROR”.
+* Show the first few lines in `big.log` that contain the word “ERROR”.
 
----
+***
 
 ### 9.2 Redirecting output to a file: `>` and `>>`
 
@@ -410,15 +409,15 @@ echo "world" >> message.txt   # append to existing file
 
 Use this to capture logs, summaries, listings, etc.
 
----
+***
 
-## 10. Searching within files: `grep` (basic)
+## 10\. Searching within files: `grep` (basic)
 
 ```bash
 grep "pattern" file.txt
 ```
 
-- Prints lines in `file.txt` that contain `pattern`.
+* Prints lines in `file.txt` that contain `pattern`.
 
 Case-insensitive search:
 
@@ -438,7 +437,7 @@ Common pattern:
 grep -n "ERROR" logs/*.out
 ```
 
-- `-n` shows line numbers.
+* `-n` shows line numbers.
 
 For very large files, combine with `less`:
 
@@ -446,9 +445,9 @@ For very large files, combine with `less`:
 grep "ERROR" big.log | less
 ```
 
----
+***
 
-## 11. Checking file sizes and disk usage
+## 11\. Checking file sizes and disk usage
 
 ### 11.1 `du` – disk usage
 
@@ -456,13 +455,13 @@ grep "ERROR" big.log | less
 du -sh .
 ```
 
-- Total size of the current directory.
+* Total size of the current directory.
 
 ```bash
 du -sh *
 ```
 
-- Size of each item in the current directory.
+* Size of each item in the current directory.
 
 Sort by size:
 
@@ -472,7 +471,7 @@ du -sh * | sort -h
 
 This is very helpful for finding **which directories are huge**.
 
----
+***
 
 ### 11.2 `df` – free space
 
@@ -480,11 +479,11 @@ This is very helpful for finding **which directories are huge**.
 df -h
 ```
 
-- Shows how much disk space is used/free on each filesystem (home, group directories, etc.).
+* Shows how much disk space is used/free on each filesystem (home, group directories, etc.).
 
----
+***
 
-## 12. Running scripts
+## 12\. Running scripts
 
 ### 12.1 Making a script executable
 
@@ -522,9 +521,9 @@ bash hello.sh
 
 But learning `chmod +x` is useful.
 
----
+***
 
-## 13. Command history and autocomplete
+## 13\. Command history and autocomplete
 
 ### 13.1 Command history
 
@@ -532,32 +531,32 @@ Use the **up arrow** to scroll through previous commands.
 
 Other useful shortcuts:
 
-- `Ctrl + R` – reverse search history:
-  - Press `Ctrl + R`, start typing part of a previous command.
-  - Press Enter to run it or use arrows to edit.
+* `Ctrl + R` – reverse search history:
+    * Press `Ctrl + R`, start typing part of a previous command.
+    * Press Enter to run it or use arrows to edit.
 
 ### 13.2 Tab completion
 
-- Type part of a command or filename, then press `Tab`.
-- If there’s a unique match, it auto-completes.
-- If multiple matches, pressing `Tab` twice shows them.
+* Type part of a command or filename, then press `Tab`.
+* If there’s a unique match, it auto-completes.
+* If multiple matches, pressing `Tab` twice shows them.
 
 Tab completion saves time and reduces errors.
 
----
+***
 
-## 14. Stopping commands
+## 14\. Stopping commands
 
 Things go wrong sometimes. To stop a running command:
 
-- **Ctrl + C** – stop/interrupt current command.
-- **Ctrl + Z** – suspend (pause) a command and return to the shell (advanced; usually Ctrl + C is enough).
+* **Ctrl + C** – stop/interrupt current command.
+* **Ctrl + Z** – suspend (pause) a command and return to the shell (advanced; usually Ctrl + C is enough).
 
 If you accidentally start something large on the login node, use `Ctrl + C` to stop it.
 
----
+***
 
-## 15. Getting help: `man` and `--help`
+## 15\. Getting help: `man` and `--help`
 
 Most commands have built-in help.
 
@@ -570,7 +569,7 @@ grep --help
 
 Shows a quick summary of options.
 
----
+***
 
 ### 15.2 `man` pages
 
@@ -580,50 +579,48 @@ man grep
 man nano
 ```
 
-- Opens the manual (“man page”) for the command.
-- Navigate like `less`:
-  - Arrow keys / Space to scroll
-  - `/pattern` to search
-  - `q` to quit
+* Opens the manual (“man page”) for the command.
+* Navigate like `less`:
+    * Arrow keys / Space to scroll
+    * `/pattern` to search
+    * `q` to quit
 
 You don’t need to memorize every option; learn to read help quickly.
 
----
+***
 
-## 16. Good habits and gotchas
+## 16\. Good habits and gotchas
 
-- **Linux is case-sensitive**:
-  - `Data.txt` and `data.txt` are different files.
-- Avoid spaces in filenames if possible:
-  - Use `project_name` instead of `Project Name`.
-  - If a file has spaces, you must quote it:
+* **Linux is case-sensitive**:
+    * `Data.txt` and `data.txt` are different files.
+* Avoid spaces in filenames if possible:
+    * Use `project_name` instead of `Project Name`.
+    * If a file has spaces, you must quote it:
 
-    ```bash
-    ls "Project Name"
-    ```
+        ```bash
+        ls "Project Name"
+        ```
+* Keep your directory structure organized:
+    * Example layout:
 
-- Keep your directory structure organized:
-  - Example layout:
+        ```text
+        project/
+          data/
+          scripts/
+          results/
+          logs/
+          tmp/
+        ```
+* Don’t run heavy programs on the **login node**:
+    * Use Slurm (`sbatch`/`srun`) to run jobs on compute nodes (see `slurm-basics.md` and `slurm-job-headers.md`).
 
-    ```text
-    project/
-      data/
-      scripts/
-      results/
-      logs/
-      tmp/
-    ```
+***
 
-- Don’t run heavy programs on the **login node**:
-  - Use Slurm (`sbatch`/`srun`) to run jobs on compute nodes (see `slurm-basics.md` and `slurm-job-headers.md`).
-
----
-
-## 17. What’s next (sneak peek of Parts 2 and 3)
+## 17\. What’s next \(sneak peek of Parts 2 and 3\)
 
 Once you’re comfortable with everything above, you’ll be ready for:
 
-- **Part 2:**  
-  - Scripting 101
+* **Part 2:**
+    * Scripting 101
 
 For now, focus on **Part 1**. If you can move around, inspect files, edit scripts, and keep your directories tidy, you’ll be able to work effectively on Farm and build from there.
