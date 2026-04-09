@@ -8,6 +8,7 @@
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
   var TABS = [
+    { label: 'Home',      href: BASE + 'app/dashboard.html',   icon: 'home' },
     { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
@@ -20,10 +21,11 @@
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
-  var BOTTOM_TABS = ['Wiki', 'Protocols', 'Notebooks', 'Inventory'];
+  var BOTTOM_TABS = ['Home', 'Wiki', 'Protocols', 'Inventory'];
 
   function getActiveTab() {
     var path = location.pathname;
+    if (path.includes('/dashboard'))      return 'Home';
     if (path.includes('/projects'))       return 'Projects';
     if (path.includes('/sample-tracker')) return 'Samples';
     if (path.includes('/notebook'))       return 'Notebooks';
@@ -34,7 +36,7 @@
     if (path.includes('/waste'))          return 'Waste';
     if (path.includes('/lab-map'))        return 'Lab Map';
     if (path.includes('/graph'))          return '';
-    if (path.match(/\/app\/(index\.html)?$/)) return 'Wiki';
+    if (path.match(/\/app\/(index\.html)?$/)) return 'Home';
     return '';
   }
 
