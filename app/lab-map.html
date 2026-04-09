@@ -163,10 +163,7 @@
   </div>
 </div>
 
-<script src="js/shared.js"></script>
-<script src="js/nav.js"></script>
-<script src="js/types.js"></script>
-<script src="js/github-api.js"></script>
+<script src="js/lab.js"></script>
 <script>
 (function() {
   'use strict';
@@ -675,19 +672,99 @@
     if (p) p.remove();
   }
 
-  function assignItem(matchIdx, posLabel, locId, shelfIdx, boxIdx) {
-    var pop = document.getElementById('assignPopover');
-    var item = pop && pop._matches ? pop._matches[matchIdx] : null;
-    if (!item) return;
-    closeAssignPopover();
-    Lab.showToast('Assigned "' + (item.title || 'item') + '" to position ' + posLabel, 'success');
-    // TODO: save position to item's frontmatter and re-render
+  // Build the map_position string for frontmatter
+  function buildPositionStr(locId, shelfIdx, boxIdx, posLabel) {
+    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
+    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
+    var boxLetter = String.fromCharCode(65 + boxIdx);
+    return loc.label + ' / ' + (shelf ? shelf.label : 'Shelf ' + (shelfIdx+1)) + ' / Box ' + boxLetter + ' / ' + posLabel;
   }
 
-  function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
+  // Assign an existing item to a position — updates its frontmatter
+  async function assignItem(matchIdx, posLabel, locId, shelfIdx, boxIdx) {
+    var pop = document.getElementById('assignPopover');
+    var item = pop && pop._matches ? pop._matches[matchIdx] : null;
+    if (!item || !item.path) return;
     closeAssignPopover();
-    Lab.showToast('Create new item at ' + posLabel + ' (coming soon)', 'info');
-    // TODO: open editor modal for new item with position pre-filled
+
+    if (!Lab.gh.isLoggedIn()) {
+      Lab.showToast('Sign in to assign items', 'error');
+      return;
+    }
+
+    var posStr = buildPositionStr(locId, shelfIdx, boxIdx, posLabel);
+
+    try {
+      // Fetch the file, update frontmatter, save
+      var filePath = 'docs/' + item.path;
+      var result = await Lab.gh.fetchFile(filePath);
+      var parsed = Lab.parseFrontmatter(result.content);
+
+      parsed.meta.map_position = posStr;
+      var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
+
+      await Lab.gh.saveFile(filePath, content, result.sha,
+        'Map: place ' + (item.title || item.path) + ' at ' + posStr);
+
+      // Update index
+      parsed.meta.map_position = posStr;
+      Lab.gh.patchObjectIndex(filePath, parsed.meta);
+
+      Lab.showToast('Placed "' + (item.title || 'item') + '" at ' + posLabel, 'success');
+
+      // Re-render box
+      openBox(locId, shelfIdx, boxIdx);
+    } catch(e) {
+      Lab.showToast('Failed: ' + e.message, 'error');
+    }
+  }
+
+  // Create a new item at a position
+  async function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
+    closeAssignPopover();
+
+    if (!Lab.gh.isLoggedIn()) {
+      Lab.showToast('Sign in to create items', 'error');
+      return;
+    }
+
+    var posStr = buildPositionStr(locId, shelfIdx, boxIdx, posLabel);
+    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
+
+    // Prompt for a name
+    var name = prompt('New item name:');
+    if (!name || !name.trim()) return;
+    name = name.trim();
+
+    var slug = Lab.slugify(name);
+    var path = 'docs/resources/' + slug + '.md';
+
+    // Default to reagent type, with location and position pre-filled
+    var meta = {
+      type: 'reagent',
+      title: name,
+      location: loc ? loc.label : '',
+      map_position: posStr,
+      created_at: new Date().toISOString(),
+    };
+    var u = Lab.gh.getUser && Lab.gh.getUser();
+    if (u && u.login) meta.created_by = u.login;
+
+    var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
+
+    try {
+      var result = await Lab.gh.saveFile(path, content, null, 'Add ' + name + ' at ' + posStr);
+      Lab.gh.patchObjectIndex(path, meta);
+      Lab.showToast('Created "' + name + '" at ' + posLabel, 'success');
+
+      // Re-render box, then open editor modal for the new item
+      openBox(locId, shelfIdx, boxIdx);
+      if (Lab.editorModal && Lab.editorModal.open) {
+        setTimeout(function() { Lab.editorModal.open(path); }, 500);
+      }
+    } catch(e) {
+      Lab.showToast('Failed: ' + e.message, 'error');
+    }
   }
 
   // ── Tube detail panel ──
