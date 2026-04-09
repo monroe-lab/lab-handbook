@@ -107,6 +107,28 @@ Before you fire off a big job, **look at what's currently free**. A handful of o
 # The Idle column is the one to look at before submitting.
 alias farm-status='sinfo -p bmh,bml,low,gpu-a100-h -o "%.12P %.6a %.6D %.20C %.10m"'
 
+# What is the Monroe lab using right now? How much room do we have?
+# Reports per-partition CPUs running under our gmonroegrp account, the
+# idle CPUs in each partition, and the guaranteed bmh headroom (we own 352).
+lab-cpus() {
+  echo "── Monroe lab CPUs running right now ──"
+  squeue -A gmonroegrp -t R -h -o "%C %P" | awk '
+    { used[$2]+=$1; tot+=$1 }
+    END {
+      for (p in used) printf "  %-12s %d CPUs\n", p, used[p]
+      printf "  %-12s %d CPUs\n", "TOTAL", tot+0
+    }'
+  echo
+  echo "── Idle CPUs in each partition (anyone can grab) ──"
+  sinfo -p bmh,bml,low,gpu-a100-h -h -o "%P %C" | awk -F'[ /]+' '
+    { printf "  %-12s %5s idle / %s total\n", $1, $3, $5 }'
+  echo
+  local bmh_used=$(squeue -A gmonroegrp -t R -h -p bmh -o "%C" | awk '{s+=$1} END {print s+0}')
+  echo "── Our bmh slice (lab owns 352 CPUs at high priority) ──"
+  echo "  used by lab: $bmh_used of 352"
+  echo "  guaranteed headroom: $((352 - bmh_used))"
+}
+
 # Just the idle nodes — handy when bmh feels tight
 alias farm-idle='sinfo -p bmh,bml,low,gpu-a100-h -t idle -o "%.12P %.10n %.6c %.10m"'
 
