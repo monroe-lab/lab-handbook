@@ -17,8 +17,10 @@ If you're brand new to Farm, start here, then read [[cluster-access]], [[slurm_b
 1. **Long-term storage** lives in `/group/gmonroegrp2` and `/group/gmonroegrp3`. **Anything else is not safe long-term.**
 2. **Use partition `bmh`** for short and medium jobs. **Use partitions `bml` or `low`** for long jobs and bulk work.
 3. **Always leave headroom in `bmh`.** If you're going to use more than \~50% of our `bmh` cores, post to **`#farming`** on Slack with at least **48 hours** of notice. No reply = fair game.
-4. **Test small first.** Run one tiny instance of your pipeline before launching the full thing, and check the Slurm log to see what your job actually used.
-5. **Don't undercall** memory or time. A job that runs out of either fails — and a failed job wastes everyone's CPU time.
+4. **Test small first.** Especially if running something new: Run one tiny instance of your pipeline before launching the full thing, and check the Slurm log output to see what your job actually used.
+5. **Be careful to avoid under-requesting** memory or time. A job that runs out of either fails, and a failed job wastes CPU time.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IbwUTQJHS8c" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
 ***
 
@@ -32,7 +34,7 @@ Farm III has two categories of compute hardware:
 
 ### What the Monroe lab owns
 
-Our lab has bought into the bigmem tier. **We own 352 CPUs and \~2,929 GB of RAM** on the bigmem nodes, accessible at high priority through `bmh`.
+Our lab has bought into the bigmem tier. **We own 352** (96+128+128) **CPUs with \~2,929 GB of RAM** on the bigmem nodes, accessible at high priority through `bmh`.
 
 Our Slurm account is `gmonroegrp` (use `--account=gmonroegrp` in your sbatch headers). See [[slurm-advanced]] for the full header template.
 
@@ -40,37 +42,37 @@ Our Slurm account is `gmonroegrp` (use `--account=gmonroegrp` in your sbatch hea
 
 | Partition | What it is | Best for |
 | --------- | ---------- | -------- |
-| **`bmh`** (bigmem high) | Our owned, guaranteed bigmem allocation. Jobs here get the "one-minute guarantee" and can preempt `bml` jobs. **352 CPUs / \~2.9 TB RAM** of headroom. | Short-to-medium jobs that need big memory. Interactive `srun` sessions. Anything time-sensitive. |
-| **`bml`** (bigmem low) | The rest of the bigmem pool, shared across the whole Farm community. Up to \~3,456 CPUs / \~30 TB RAM theoretical capacity. **Jobs here can be killed and requeued** if a `bmh` job needs the resources — progress is lost unless your code checkpoints. | Long jobs you can checkpoint or restart. Bulk work that doesn't need to finish on a deadline. |
-| **`low`** | A separate pool of regular parallel nodes — **\~14,500 CPUs / \~63 TB RAM across 98 nodes**. Idle time on community hardware. Add `--account=publicgrp --partition=low` to your batch script. | Large batch sweeps, embarrassingly parallel work, anything you'd want to "just dump." Don't be shy here. |
-| **`gpu-a100-h`** | One GPU node, 32 CPUs, 125 GB RAM, A100 GPU. | GPU-accelerated tools. RStudio with GPU support reportedly works here too — worth a try. |
+| **`bmh`** (bigmem high) | Our owned, guaranteed bigmem allocation. Jobs here get the "one-minute guarantee" and can preempt `bml` jobs. **352 CPUs / \~2.9 TB RAM** of headroom. | Short-to-medium jobs that need big memory. Interactive `srun` sessions. Time-sensitive. Computaitons that cannot tolerate being requed. |
+| **`bml`** (bigmem low) | The rest of the bigmem pool, shared across the whole Farm community. Up to \~3,456 CPUs / \~30 TB RAM theoretical capacity. **Jobs here can be killed and requeued** if a `bmh` job needs the resources — progress is lost unless your code checkpoints. | Large numbers of small jobs, and those that are written so that tolerate checkpoint or restart. Exploratory analyses, test runs, long term computation that can run in the background. |
+| **`low`** | A separate pool of regular parallel nodes — **\~14,500 CPUs / \~63 TB RAM across 98 nodes**. Idle time on community hardware. Add `--account=publicgrp --partition=low` to your batch script. | Large batch sweeps, embarrassingly parallel work, anything you'd want to "just dump." Fire away in here. |
+| **`gpu-a100-h`** | One GPU node, 32 CPUs, 125 GB RAM, A100 GPU. This is our lab's. | GPU-accelerated tools. RStudio with GPU support reportedly works here too, worth a try. |
 
-> One quirk: the `low` partition actually includes some bigmem nodes (`bm[4-7,9-11,13-27]`). Submitting to `low` can land you on bigmem hardware if those nodes are idle, but you have no priority and can be bumped at any time.
+> Submitting to `low` and **`bml`** can be bumped, job could be re-queued at any time.
 
 ***
 
 ## CPU and job submission policy
 
-Slurm's fairshare scheduler does a reasonable job of balancing usage automatically, but the things below are the **human norms** we've agreed on as a lab. They mostly come down to one principle:
+Slurm's fairshare scheduler does a reasonable job of balancing usage automatically, but the things below are the norms we've agreed on as a lab. They mostly come down to one principle:
 
-> **Be considerate of what other people are trying to do.** That's it. Everything else is just instances of that rule.
+> **Be considerate of what other people are trying to do.** i.e. treat others the way you would want to be treated. That's it. Everything else is just instances of that rule.
 
 ### The 50% / 48-hour rule
 
-If you are about to submit a workload that will consume **more than \~50% of our `bmh` allocation** (more than \~176 CPUs, or a comparable share of memory):
+If you are about to submit a workload that will consume **more than \~50% of our `bmh` allocation for more than a day** (more than \~176 CPUs, or a comparable share of memory):
 
 1. **Post a heads-up in `#farming` on Slack** describing what you're running, how big it is, and roughly how long it'll take.
 2. **Wait at least 48 hours.** If anyone in the lab has a time-sensitive thing they're trying to get on, this gives them a chance to flag it.
-3. **No replies after 48 hours = fair game.** Submit and run to your heart's content.
+3. **No replies after 48 hours = fair game.** Submit and run to your heart's content (but always leave some headroom - 10% of nodes open for interactive jobs or other quick work needed by others)
 
-This isn't about asking permission. It's about giving people a chance to coordinate when something they're working on can't slip.
+Dont think of it as asking permission. It's about giving people a chance to coordinate when something they're working on can't slip.
 
 ### Use `bml` whenever you can — but write resilient code
 
 `bml` jobs can be **killed and requeued at any time** when a `bmh` job needs the resources. That sounds painful but it isn't, *if* your code is written sensibly:
 
 * **Chunk your work.** Process samples one at a time, or in small groups, with each chunk writing its output before the next one starts.
-* **Make it resumable.** Before doing work, check whether the output already exists and skip it if so. This pattern alone makes most pipelines safely requeueable.
+* **Make it resumable.** Before doing work, the script checks whether the output already exists and skip it if so. This pattern alone makes most pipelines safely requeueable.
 * **Use Slurm job arrays** ([[slurm-advanced]]) so each task is independent — one task getting bumped doesn't lose the whole batch.
 
 If your code is structured this way, `bml` is essentially free compute. You should default to it for long-running work.
@@ -93,6 +95,7 @@ Even when you're under the 50% threshold, try to keep `bmh` healthy for everyone
     * Filling most of the available headroom → keep your job under **12 hours**, ideally under **4**.
     * Taking the very last slots → keep it under **1 hour**, and only if it's something that genuinely can't wait.
 * **Don't grab the last node.** If `bmh` is nearly full, route long work to `bml` or `low` instead.
+* 
 
 ### Check what's available before you submit
 
@@ -178,7 +181,7 @@ If it matters, it goes in `gmonroegrp2` or `gmonroegrp3`. If it doesn't matter, 
 
 ### A note on legacy 100+ TB allocations
 
-A few of us — **Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey\*\* — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, \~89% full, and slated for retirement.**
+A few of us — \*\*Matt Davis\, Chaehee Lee\, [[Kehan Zhao), and Grey** — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`]]. That hardware is **5+ years old, \~89% full, and slated for retirement.**
 
 > **If you joined the lab recently, this section doesn't affect you.** New lab members never had access to the old NAS — you got a standard Farm home directory from day one. You can ignore everything below.
 
