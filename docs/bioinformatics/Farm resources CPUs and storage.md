@@ -15,7 +15,7 @@ If you're brand new to Farm, start here, then read [[cluster-access]], [[slurm_b
 ## TL;DR
 
 1. **Long-term storage** lives in `/group/gmonroegrp2` and `/group/gmonroegrp3`. **Anything else is not safe long-term.**
-2. **Use bmh** for short and medium jobs. **Use bml or low** for long jobs and bulk work.
+2. **Use partition `bmh`** for short and medium jobs. **Use partitions `bml` or `low`** for long jobs and bulk work.
 3. **Always leave headroom in `bmh`.** If you're going to use more than \~50% of our `bmh` cores, post to **`#farming`** on Slack with at least **48 hours** of notice. No reply = fair game.
 4. **Test small first.** Run one tiny instance of your pipeline before launching the full thing, and check the Slurm log to see what your job actually used.
 5. **Don't undercall** memory or time. A job that runs out of either fails — and a failed job wastes everyone's CPU time.
@@ -178,7 +178,7 @@ If it matters, it goes in `gmonroegrp2` or `gmonroegrp3`. If it doesn't matter, 
 
 ### A note on legacy 100+ TB allocations
 
-A few of us — **Matt Davis\, Chaehee Lee\, [[Kehan Zhao), and Grey** — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`]]. That hardware is **5+ years old, \~89% full, and slated for retirement.**
+A few of us — **Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey\*\* — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, \~89% full, and slated for retirement.**
 
 > **If you joined the lab recently, this section doesn't affect you.** New lab members never had access to the old NAS — you got a standard Farm home directory from day one. You can ignore everything below.
 
