@@ -208,6 +208,26 @@
       displayFields: [],
       tableColumns: [],
     },
+    waste_container: {
+      color: '#c62828',
+      icon: '\u2622\uFE0F',
+      label: 'Waste Container',
+      group: 'waste',
+      fields: [
+        { key: 'title',          label: 'Name',           type: 'text', required: true },
+        { key: 'type',           label: 'Type',           type: 'hidden', value: 'waste_container' },
+        { key: 'contents',       label: 'Contents',       type: 'text' },
+        { key: 'physical_state', label: 'Physical State', type: 'select', options: ['Liquid','Solid','Sludge','Gas'] },
+        { key: 'container',      label: 'Container',      type: 'text' },
+        { key: 'location',       label: 'Location',       type: 'text' },
+        { key: 'hazard_class',   label: 'Hazard Class',   type: 'text' },
+        { key: 'status',         label: 'Status',         type: 'select', options: ['in_accumulation','ready_for_pickup','picked_up'] },
+        { key: 'started',        label: 'Started',        type: 'text' },
+        { key: 'waste_tag',      label: 'WASTe Tag #',    type: 'text' },
+      ],
+      displayFields: ['contents', 'physical_state', 'location', 'hazard_class', 'status', 'started', 'waste_tag'],
+      tableColumns: ['name', 'contents', 'location', 'status', 'started'],
+    },
     guide: {
       color: '#0277bd',
       icon: '\uD83D\uDCDA',
@@ -266,6 +286,14 @@
       types: ['project'],
       dir: 'projects',
       defaultType: 'project',
+    },
+    waste: {
+      label: 'Waste',
+      icon: 'delete',
+      color: '#c62828',
+      types: ['waste_container'],
+      dir: 'waste',
+      defaultType: 'waste_container',
     },
   };
 
