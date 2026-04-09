@@ -418,23 +418,51 @@ function clearFilters() {
 }
 
 // ── Tree (grouped by top-level dir) ──
-function buildTree() {
-  var groups = {};
-  ALL_DOCS.forEach(function(d) {
-    if (!groups[d.dir]) groups[d.dir] = [];
-    groups[d.dir].push(d);
-  });
-  TREE = Object.keys(groups).sort().map(function(dir) {
-    return { dir: dir, label: prettify(dir), items: groups[dir] };
-  });
+// Recursive node: { dir, label, children: {name: node}, items: [doc] }
+function newTreeNode(dir, label) {
+  return { dir: dir, label: label, children: {}, items: [] };
 }
 
-function filterDocs() {
-  var q = (document.getElementById('docSearch').value || '').toLowerCase().trim();
-  return ALL_DOCS.filter(function(d) {
-    if (activeTypes.size) {
+function buildTree() {
+  TREE = newTreeNode('', 'root');
+  ALL_DOCS.forEach(function(d) {
+    var parts = d.relPath.split('/');
+    parts.pop(); // drop filename
+    var node = TREE;
+    var acc = '';
+    for (var i = 0; i < parts.length; i++) {
+      acc = acc ? acc + '/' + parts[i] : parts[i];
+      if (!node.children[parts[i]]) {
+        node.children[parts[i]] = newTreeNode(acc, prettify(parts[i]));
+      }
+      node = node.children[parts[i]];
+    }
+    node.items.push(d);
+  });
+  // Sort items at every level
+  (function sortItems(node) {
+    node.items.sort(function(a, b) { return a.title.localeCompare(b.title); });
+    Object.keys(node.children).forEach(function(k) { sortItems(node.children[k]); });
+  })(TREE);
+}
+
+function countNodeDeep(node) {
+  var c = node.items.length;
+  Object.keys(node.children).forEach(function(k) { c += countNodeDeep(node.children[k]); });
+  return c;
+}
+
+function nodeContainsDoc(node, docPath) {
+  if (node.items.some(function(i) { return i.path === docPath; })) return true;
+  return Object.keys(node.children).some(function(k) { return nodeContainsDoc(node.children[k], docPath); });
+}
+
+// Returns a filtered shallow copy of `node` (or null if nothing matches)
+function filterNode(node, q, types) {
+  var matchedItems = node.items.filter(function(d) {
+    if (types && types.size) {
       var k = d.type || '_untyped';
-      if (!activeTypes.has(k)) return false;
+      if (!types.has(k)) return false;
     }
     if (q) {
       var hay = (d.title + ' ' + d.relPath + ' ' + (d.type || '')).toLowerCase();
@@ -442,57 +470,70 @@ function filterDocs() {
     }
     return true;
   });
+  var matchedChildren = {};
+  var anyChild = false;
+  Object.keys(node.children).forEach(function(k) {
+    var fc = filterNode(node.children[k], q, types);
+    if (fc) { matchedChildren[k] = fc; anyChild = true; }
+  });
+  if (!matchedItems.length && !anyChild) return null;
+  return { dir: node.dir, label: node.label, items: matchedItems, children: matchedChildren };
+}
+
+function renderNode(node, depth) {
+  var html = '';
+  // Subfolders first
+  Object.keys(node.children).sort().forEach(function(k) {
+    var ch = node.children[k];
+    var count = countNodeDeep(ch);
+    var containsActive = currentDoc && nodeContainsDoc(ch, currentDoc);
+    // Auto-expand top level (depth 0) when there's an active filter; otherwise collapse unless contains active
+    var collapsed = containsActive ? '' : ' collapsed';
+    var hidden = collapsed ? ' hidden' : '';
+    var pad = 12 + depth * 12;
+    var actionsHtml = loggedIn ?
+      '<div class="doc-folder-actions">' +
+        '<button onclick="event.stopPropagation();createInFolder(\'' + Lab.escHtml(ch.dir) + '\')" title="New document in this folder"><span class="material-icons-outlined">note_add</span></button>' +
+        '<button onclick="event.stopPropagation();createSubfolder(\'' + Lab.escHtml(ch.dir) + '\')" title="New subfolder"><span class="material-icons-outlined">create_new_folder</span></button>' +
+      '</div>' : '';
+    html += '<div class="doc-folder' + collapsed + '" style="padding-left:' + pad + 'px" onclick="toggleFolder(this)">' +
+      '<span class="material-icons-outlined">expand_more</span>' +
+      '<span>' + Lab.escHtml(ch.label) + '</span>' +
+      '<span class="doc-folder-count">' + count + '</span>' +
+      actionsHtml +
+      '</div><div class="doc-items' + hidden + '">';
+    html += renderNode(ch, depth + 1);
+    html += '</div>';
+  });
+  // Then files in this node
+  node.items.forEach(function(d) {
+    var active = currentDoc === d.path ? ' active' : '';
+    var pillHtml = '';
+    if (d.type) {
+      var t = Lab.types && Lab.types.get ? Lab.types.get(d.type) : null;
+      var color = (t && t.color) || GENERIC_PILL.color;
+      pillHtml = '<span class="doc-item-pill" style="background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50">' +
+        Lab.escHtml((t && t.label) || d.type) + '</span>';
+    }
+    var itemPad = 22 + depth * 12;
+    html += '<div class="doc-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + Lab.escHtml(d.path) + '" onclick="loadDoc(\'' + Lab.escHtml(d.path) + '\')" title="' + Lab.escHtml(d.relPath) + '">' +
+      '<span class="doc-item-title">' + Lab.escHtml(d.title) + '</span>' +
+      pillHtml +
+      '</div>';
+  });
+  return html;
 }
 
 function renderSidebar() {
   var treeEl = document.getElementById('docTree');
-  var filtered = filterDocs();
+  var q = (document.getElementById('docSearch').value || '').toLowerCase().trim();
+  var view = (q || activeTypes.size) ? filterNode(TREE, q, activeTypes) : TREE;
 
-  if (!filtered.length) {
+  if (!view || (!Object.keys(view.children).length && !view.items.length)) {
     treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No documents match.</div>';
     return;
   }
-
-  // Regroup filtered set by top dir, preserving TREE order
-  var byDir = {};
-  filtered.forEach(function(d) { (byDir[d.dir] = byDir[d.dir] || []).push(d); });
-
-  var html = '';
-  TREE.forEach(function(group) {
-    var items = byDir[group.dir];
-    if (!items || !items.length) return;
-    var containsActive = currentDoc && items.some(function(i) { return i.path === currentDoc; });
-    var collapsed = !containsActive ? ' collapsed' : '';
-    var hidden = collapsed ? ' hidden' : '';
-    var actionsHtml = loggedIn ?
-      '<div class="doc-folder-actions">' +
-        '<button onclick="event.stopPropagation();createInFolder(\'' + Lab.escHtml(group.dir) + '\')" title="New document in this folder"><span class="material-icons-outlined">note_add</span></button>' +
-        '<button onclick="event.stopPropagation();createSubfolder(\'' + Lab.escHtml(group.dir) + '\')" title="New subfolder"><span class="material-icons-outlined">create_new_folder</span></button>' +
-      '</div>' : '';
-    html += '<div class="doc-folder' + collapsed + '" onclick="toggleFolder(this)">' +
-      '<span class="material-icons-outlined">expand_more</span>' +
-      '<span>' + Lab.escHtml(group.label) + '</span>' +
-      '<span class="doc-folder-count">' + items.length + '</span>' +
-      actionsHtml +
-      '</div><div class="doc-items' + hidden + '">';
-    items.forEach(function(d) {
-      var active = currentDoc === d.path ? ' active' : '';
-      var pillHtml = '';
-      if (d.type) {
-        var t = Lab.types && Lab.types.get ? Lab.types.get(d.type) : null;
-        var color = (t && t.color) || GENERIC_PILL.color;
-        pillHtml = '<span class="doc-item-pill" style="background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50">' +
-          Lab.escHtml((t && t.label) || d.type) + '</span>';
-      }
-      var subPath = d.relPath.replace(/\.md$/, '').slice(group.dir.length + 1);
-      html += '<div class="doc-item' + active + '" data-path="' + Lab.escHtml(d.path) + '" onclick="loadDoc(\'' + Lab.escHtml(d.path) + '\')" title="' + Lab.escHtml(d.relPath) + '">' +
-        '<span class="doc-item-title">' + Lab.escHtml(d.title) + (subPath ? '<span class="doc-item-path">  ' + Lab.escHtml(subPath) + '</span>' : '') + '</span>' +
-        pillHtml +
-        '</div>';
-    });
-    html += '</div>';
-  });
-  treeEl.innerHTML = html;
+  treeEl.innerHTML = renderNode(view, 0);
 }
 
 function toggleFolder(el) {
