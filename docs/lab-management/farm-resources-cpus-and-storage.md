@@ -200,14 +200,6 @@ The flip side of "don't request more than you need":
 * **Time undercall** → job hits the wall and dies right before finishing → eight hours of compute thrown away because you asked for eight instead of ten. Give yourself slack, especially if you can't checkpoint.
 * Wall-time requests are an **upper bound**, not a budget. Slurm doesn't penalize you for finishing early. It does penalize you for finishing late.
 
-### Let Claude help you check
-
-Auditing every Slurm log file by hand is tedious, but it's exactly the kind of thing a [Claude Code](https://claude.com/claude-code) agent can do well. A good use case:
-
-> "Look at the `*.out` and `*.err` files in this directory. For each completed job, tell me how many CPUs I requested vs. how many I actually used, how much memory I requested vs. peak memory, and whether the wall-time request was reasonable. Flag any jobs that wasted significant resources."
-
-Run that in your project directory and you'll get a list of inefficiencies in seconds. Use it before you scale a pipeline up.
-
 ***
 
 ## Storage policy
