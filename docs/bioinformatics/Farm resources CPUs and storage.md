@@ -132,7 +132,42 @@ Before launching a full pipeline, **run one instance** — one sample, one chrom
 * Did it use the memory you requested? If you asked for 200 GB and peaked at 12 GB, drop the request — those reserved resources weren't available for anyone else to use.
 * Did it finish in the wall time you asked for? Use that to calibrate the full run.
 
-The Slurm output file at the end of every job has a summary: CPU time, wall time, max memory, exit code. It's worth reading — that's where you find out whether your job actually behaved the way you expected.
+#### What "check the Slurm log" actually means
+
+When your sbatch script runs, Slurm writes two files into whatever directory you submitted from (or wherever your `--output` and `--error` headers point):
+
+- **`slurm-<JOBID>.out`** — everything your script printed to stdout
+- **`slurm-<JOBID>.err`** — everything it printed to stderr (error messages, progress bars from many tools, warnings)
+
+Read both. Errors and OOM-killer messages almost always land in `.err`.
+
+But the most useful single command for checking efficiency is **`seff <JOBID>`**, which Slurm provides specifically to summarize how a finished job actually used its allocation. Here's a real example of what it prints:
+
+```
+$ seff 12345678
+Job ID: 12345678
+Cluster: farm
+User/Group: gmonroe/gmonroegrp
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 32
+CPU Utilized: 02:14:05
+CPU Efficiency: 8.71% of 1-01:39:12 core-walltime
+Job Wall-clock time: 00:48:06
+Memory Utilized: 14.32 GB
+Memory Efficiency: 7.16% of 200.00 GB
+```
+
+What to look at, line by line:
+
+- **`State: COMPLETED (exit code 0)`** — the job finished cleanly. `FAILED`, `OUT_OF_MEMORY`, or `TIMEOUT` mean something went wrong; check `slurm-<JOBID>.err` for why.
+- **`CPU Efficiency: 8.71%`** — the killer line. You requested 32 cores but the work only kept ~2.8 cores busy on average. **This job should have asked for 4 CPUs, not 32.** The other 28 cores sat idle and were unavailable to the rest of the lab the whole time.
+- **`Memory Efficiency: 7.16% of 200.00 GB`** — same story for RAM. Peak usage was 14 GB; 200 GB was reserved. **Drop the next run to ~20 GB** (give yourself a bit of headroom over peak).
+- **`Job Wall-clock time: 00:48:06`** — the actual elapsed time. Compare against whatever you put in `--time=`. If you asked for 24 hours and it finished in 48 minutes, your wall-time request was wildly over and you can drop it for the next run (still leave a comfortable buffer).
+
+A "good" job — one that's correctly sized — looks more like **CPU Efficiency 80%+** and **Memory Efficiency 60%+**. Anything dramatically below that is wasted allocation that should be tightened up before scaling.
+
+You can also get a multi-job summary with the `today` alias from above (which calls `sacct`), or run `seff` against any historical job ID to retroactively audit older work.
 
 ### Don't undercall memory or time either
 
