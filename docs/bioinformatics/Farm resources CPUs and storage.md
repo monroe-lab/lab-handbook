@@ -132,12 +132,12 @@ Before launching a full pipeline, **run one instance** — one sample, one chrom
 * Did it use the memory you requested? If you asked for 200 GB and peaked at 12 GB, drop the request — those reserved resources weren't available for anyone else to use.
 * Did it finish in the wall time you asked for? Use that to calibrate the full run.
 
-#### What "check the Slurm log" actually means
+### What "check the Slurm log" actually means
 
 When your sbatch script runs, Slurm writes two files into whatever directory you submitted from (or wherever your `--output` and `--error` headers point):
 
-- **`slurm-<JOBID>.out`** — everything your script printed to stdout
-- **`slurm-<JOBID>.err`** — everything it printed to stderr (error messages, progress bars from many tools, warnings)
+* **`slurm-<JOBID>.out`** — everything your script printed to stdout
+* **`slurm-<JOBID>.err`** — everything it printed to stderr (error messages, progress bars from many tools, warnings)
 
 Read both. Errors and OOM-killer messages almost always land in `.err`.
 
@@ -160,10 +160,10 @@ Memory Efficiency: 7.16% of 200.00 GB
 
 What to look at, line by line:
 
-- **`State: COMPLETED (exit code 0)`** — the job finished cleanly. `FAILED`, `OUT_OF_MEMORY`, or `TIMEOUT` mean something went wrong; check `slurm-<JOBID>.err` for why.
-- **`CPU Efficiency: 8.71%`** — the killer line. You requested 32 cores but the work only kept ~2.8 cores busy on average. **This job should have asked for 4 CPUs, not 32.** The other 28 cores sat idle and were unavailable to the rest of the lab the whole time.
-- **`Memory Efficiency: 7.16% of 200.00 GB`** — same story for RAM. Peak usage was 14 GB; 200 GB was reserved. **Drop the next run to ~20 GB** (give yourself a bit of headroom over peak).
-- **`Job Wall-clock time: 00:48:06`** — the actual elapsed time. Compare against whatever you put in `--time=`. If you asked for 24 hours and it finished in 48 minutes, your wall-time request was wildly over and you can drop it for the next run (still leave a comfortable buffer).
+* **`State: COMPLETED (exit code 0)`** — the job finished cleanly. `FAILED`, `OUT_OF_MEMORY`, or `TIMEOUT` mean something went wrong; check `slurm-<JOBID>.err` for why.
+* **`CPU Efficiency: 8.71%`** — the killer line. You requested 32 cores but the work only kept \~2.8 cores busy on average. **This job should have asked for 4 CPUs, not 32.** The other 28 cores sat idle and were unavailable to the rest of the lab the whole time.
+* **`Memory Efficiency: 7.16% of 200.00 GB`** — same story for RAM. Peak usage was 14 GB; 200 GB was reserved. **Drop the next run to \~20 GB** (give yourself a bit of headroom over peak).
+* **`Job Wall-clock time: 00:48:06`** — the actual elapsed time. Compare against whatever you put in `--time=`. If you asked for 24 hours and it finished in 48 minutes, your wall-time request was wildly over and you can drop it for the next run (still leave a comfortable buffer).
 
 A "good" job — one that's correctly sized — looks more like **CPU Efficiency 80%+** and **Memory Efficiency 60%+**. Anything dramatically below that is wasted allocation that should be tightened up before scaling.
 
@@ -193,6 +193,8 @@ Run that in your project directory and you'll get a list of inefficiencies in se
 
 > **Long-term storage = `/group/gmonroegrp2` and `/group/gmonroegrp3`. Everything else is working space, not safe storage.**
 
+<img src="images/memebetter.com-20191208160747.jpg" alt="memebetter.com-20191208160747" style="max-width:50%">
+
 ### The three tiers
 
 | Tier | Path | Purpose | Safe long-term? |
@@ -215,7 +217,7 @@ If it matters, it goes in `gmonroegrp2` or `gmonroegrp3`. If it doesn't matter, 
 
 ### A note on legacy 100+ TB allocations
 
-A few of us — \*\*Matt Davis, Chaehee Lee, [[Kehan Zhao]], and Grey\*\* — are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, \~89% full, and slated for retirement.**
+A few of us are grandfathered into the older Farm storage model and have large allocations on the legacy `/group/gmonroeroot` mount (formerly `/nas-5-3/gmonroegrp`). That hardware is **5+ years old, \~89% full, and slated for retirement. This results in a scary message when you log in to the farm.**
 
 > **If you joined the lab recently, this section doesn't affect you.** New lab members never had access to the old NAS — you got a standard Farm home directory from day one. You can ignore everything below.
 
@@ -223,36 +225,20 @@ If you *are* one of the legacy users:
 
 * **Treat that space as scratch from now on.** Anything you want to keep needs to move to `gmonroegrp2` or `gmonroegrp3` (or to the backup option below) before the old NAS goes away.
 * **You're the only one who knows what's important** in your own directory, so the cleanup is yours to do.
-* **If you're not sure what's worth keeping**, the storage scan utilities under `/group/gmonroegrp2/chaehee/` (e.g. `job_storage_scan-DEPTH.sh`) are a starting point for figuring out where your space is going.
 
-### Backup option: PSIT 100 TB SFTP server
 
-Separate from Farm, the lab has access to a **100 TB SFTP backup server** managed by **John Hall (jnhall@ucdavis.edu)** at UC Davis Plant Sciences IT. This is a different machine, on a different network, intended for backed-up copies of vital data.
+> ℹ️ **Backup option: PSIT 100 TB SFTP server**
+> Separate from Farm, the lab has access to a **100 TB SFTP backup server** managed by **John Hall (jnhall@ucdavis.edu)** at UC Davis Plant Sciences IT. This is a different machine, on a different network, intended for backed-up copies of vital data.
+> 
+> If you have data that's truly irreplaceable and you want a second copy somewhere off Farm, this is an option to consider. The transfer is straightforward — `sftp` or `rsync` from Farm directly to the backup host. Credentials and the hostname are issued per-user; **email John Hall to request access.**
 
-If you have data that's truly irreplaceable and you want a second copy somewhere off Farm, this is an option to consider. The transfer is straightforward — `sftp` or `rsync` from Farm directly to the backup host. Credentials and the hostname are issued per-user; **email John Hall to request access.**
-
-> This is optional, not required. The default expectation is that gmonroegrp2 and gmonroegrp3 are sufficient for long-term lab storage. The PSIT backup is a "belt and suspenders" option for the most vital stuff.
-
-***
-
-## Things we'd like to build
-
-A few tools that don't exist yet but would make the lab's life easier. If you have time and interest, please build one and add it to the handbook:
-
-* **A live "Farm CPU availability" dashboard** — a tiny web page or terminal TUI that shows free CPUs in `bmh`, `bml`, `low`, and `gpu-a100-h` at a glance, refreshing every few seconds. The aliases above are good enough to check on demand, but a persistent view in a tmux pane would be even better.
-* **A Claude Code skill or shell script** that audits a directory of Slurm log files for CPU/memory waste and prints a summary.
-* **A storage cleanup helper** that walks `gmonroegrp2` or `gmonroegrp3` and surfaces large/stale files that might be candidates for deletion.
-* **Consolidate Chaehee's aliased commands** into [[bashrc-customization]] so everyone's using the same set.
-
-If you build one, add it to [[bashrc-customization]] or drop it in the handbook under `bioinformatics/`.
+## 
 
 ***
 
 ## Questions or concerns
 
 If anything here is unclear, if you think a rule isn't working in practice, or if you're worried about your storage situation — **talk to Grey**. This document is about lab usage and norms, so concerns about it come to him directly. We can update the page as the situation evolves.
-
-For backup-server access specifically, email **John Hall (jnhall@ucdavis.edu)** at Plant Sciences IT — he issues credentials per user.
 
 ## Related handbook pages
 
