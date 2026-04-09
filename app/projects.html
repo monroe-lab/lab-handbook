@@ -109,24 +109,7 @@
   padding: 32px 40px;
 }
 
-/* Rendered markdown */
-.proto-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
-.proto-rendered h1 { font-size: 28px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
-.proto-rendered h2 { font-size: 22px; font-weight: 600; margin: 28px 0 10px; color: var(--grey-800); }
-.proto-rendered h3 { font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
-.proto-rendered h4 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
-.proto-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-.proto-rendered td, .proto-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
-.proto-rendered thead th { background: var(--grey-50); font-weight: 600; }
-.proto-rendered code { background: var(--grey-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-.proto-rendered pre { background: var(--grey-900); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
-.proto-rendered pre code { background: transparent; padding: 0; color: inherit; }
-.proto-rendered ul, .proto-rendered ol { padding-left: 24px; margin: 8px 0; }
-.proto-rendered li { margin: 4px 0; }
-.proto-rendered blockquote { border-left: 4px solid var(--teal); padding: 8px 16px; margin: 12px 0; background: var(--teal-50); border-radius: 0 8px 8px 0; }
-.proto-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
-.proto-rendered a:not(.object-pill) { color: var(--teal-dark); }
-.proto-rendered hr { border: none; border-top: 1px solid var(--grey-300); margin: 24px 0; }
+/* Rendered markdown: uses .lab-rendered.theme-teal from base.css */
 
 .proto-edit-bar {
   display: flex;
@@ -422,7 +405,7 @@ async function loadDoc(docPath) {
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
           '</div>' +
         '</div>' +
-        '<div class="proto-rendered" id="renderedDoc">' + html + '</div>' +
+        '<div class="lab-rendered theme-teal" id="renderedDoc">' + html + '</div>' +
       '</div>';
 
     var renderedEl = document.getElementById('renderedDoc');

@@ -382,6 +382,50 @@ tr:hover { background: var(--teal-50); }
 /* Utility */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
+/* ── Rendered markdown (shared across all pages) ── */
+.lab-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.lab-rendered h1 { font-size: 26px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
+.lab-rendered h2 { font-size: 20px; font-weight: 600; margin: 24px 0 8px; }
+.lab-rendered h3 { font-size: 17px; font-weight: 600; margin: 18px 0 6px; }
+.lab-rendered h4 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
+.lab-rendered table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.lab-rendered td, .lab-rendered th { border: 1px solid var(--grey-300); padding: 8px 12px; }
+.lab-rendered thead th { background: var(--grey-50); font-weight: 600; }
+.lab-rendered code { background: var(--grey-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.lab-rendered pre { background: var(--grey-900); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
+.lab-rendered pre code { background: transparent; padding: 0; color: inherit; }
+.lab-rendered ul, .lab-rendered ol { padding-left: 24px; margin: 8px 0; }
+.lab-rendered li { margin: 4px 0; }
+.lab-rendered blockquote { border-left: 4px solid var(--teal); padding: 8px 16px; margin: 12px 0; background: var(--teal-50); border-radius: 0 8px 8px 0; }
+.lab-rendered img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+.lab-rendered a:not(.object-pill) { color: var(--teal-dark); }
+.lab-rendered hr { border: none; border-top: 1px solid var(--grey-300); margin: 24px 0; }
+
+/* Theme: teal (protocols, projects) — larger headings */
+.lab-rendered.theme-teal h1 { font-size: 28px; }
+.lab-rendered.theme-teal h2 { font-size: 22px; margin: 28px 0 10px; color: var(--grey-800); }
+.lab-rendered.theme-teal h3 { font-size: 18px; margin: 22px 0 8px; }
+
+/* Theme: brown (notebooks) */
+.lab-rendered.theme-brown blockquote { border-left-color: #795548; background: #efebe9; }
+.lab-rendered.theme-brown a:not(.object-pill) { color: #795548; }
+
+/* Theme: indigo (wiki) */
+.lab-rendered.theme-indigo blockquote { border-left-color: #3f51b5; background: #e8eaf6; }
+.lab-rendered.theme-indigo a:not(.object-pill) { color: #3f51b5; }
+
+/* Print styles for rendered markdown */
+@media print {
+  .lab-rendered { font-size: 12pt; line-height: 1.5; }
+  .lab-rendered h1 { font-size: 18pt; border-bottom: 1px solid #999; }
+  .lab-rendered h2 { font-size: 15pt; }
+  .lab-rendered h3 { font-size: 13pt; }
+  .lab-rendered pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid #ccc; }
+  .lab-rendered table { page-break-inside: avoid; }
+  .object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; }
+  a { color: #000 !important; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hide-mobile { display: none !important; }
