@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waste - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.waste-page { padding: 0; }
+
+/* Header / guide area */
+.waste-header {
+  background: #fff;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+.waste-header h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #c62828;
+}
+.waste-header h1 .material-icons-outlined { font-size: 26px; }
+.waste-header p {
+  margin: 6px 0;
+  color: var(--grey-700);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 900px;
+}
+.waste-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.waste-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #c6282812;
+  color: #c62828;
+  border: 1.5px solid #c6282840;
+  border-radius: 18px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background .15s;
+}
+.waste-links a:hover { background: #c6282822; }
+.waste-links a .material-icons-outlined { font-size: 16px; }
+
+/* Toolbar */
+.waste-toolbar {
+  background: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+/* Stats */
+.waste-stats {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+
+.waste-table-wrap { padding: 0 24px 24px; }
+
+/* Status badges */
+.status-in_accumulation { background:#fff3e0; color:#e65100; border:1.5px solid #e6510040; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:600; }
+.status-ready_for_pickup { background:#fffde7; color:#f9a825; border:1.5px solid #f9a82540; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:600; }
+.status-picked_up { background:#e8f5e9; color:#2e7d32; border:1.5px solid #2e7d3240; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:600; }
+
+/* Days held warning */
+tr.overdue td:first-child { position: relative; }
+tr.overdue td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: #c62828;
+  border-radius: 0 3px 3px 0;
+}
+
+.row-actions { display: flex; gap: 4px; }
+.row-actions button {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--grey-500);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.row-actions button:hover { color: #c62828; background: #c6282814; }
+
+/* Mobile cards */
+.waste-cards { display: none; padding: 0 16px 16px; }
+.waste-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.waste-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.waste-card-name { font-weight: 600; font-size: 15px; }
+.waste-card-meta { font-size: 13px; color: var(--grey-600); margin-top: 6px; }
+
+@media (max-width: 768px) {
+  .waste-header { padding: 18px 16px 14px; }
+  .waste-toolbar { padding: 12px 16px; }
+  .waste-stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .waste-table-wrap { display: none; }
+  .waste-cards { display: block; }
+}
+</style>
+</head>
+<body>
+<div class="waste-page">
+
+  <!-- Header / guide -->
+  <div class="waste-header">
+    <h1><span class="material-icons-outlined">delete</span> Hazardous Waste</h1>
+    <p>
+      Active waste containers in the Monroe Lab. The official UC Davis system is
+      <strong>WASTe</strong> (Waste Accumulation Storage Tracking electronically), but
+      not everyone has an account, so this page mirrors the essentials.
+    </p>
+    <p>
+      <strong>Read the guide before adding to or starting a new container.</strong>
+      Hazardous waste can accumulate in the lab for a maximum of <strong>9 months</strong>
+      from its start date. Label everything. Never pour hazardous waste down the drain.
+    </p>
+    <div class="waste-links">
+      <a href="wiki.html?doc=waste/index"><span class="material-icons-outlined">menu_book</span> Lab Waste Guide &amp; Policies</a>
+      <a href="../_supplemental/WASTe_Factsheet.pdf" target="_blank"><span class="material-icons-outlined">picture_as_pdf</span> WASTe Factsheet (PDF)</a>
+      <a href="https://ehs.ucop.edu/waste/" target="_blank"><span class="material-icons-outlined">open_in_new</span> UC Davis WASTe System</a>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="waste-toolbar">
+    <div class="search-box">
+      <span class="material-icons-outlined">search</span>
+      <input type="text" id="searchInput" placeholder="Search waste containers...">
+    </div>
+    <select class="filter-select" id="filterStatus">
+      <option value="">All Statuses</option>
+      <option value="in_accumulation">In Accumulation</option>
+      <option value="ready_for_pickup">Ready for Pickup</option>
+      <option value="picked_up">Picked Up</option>
+    </select>
+    <select class="filter-select" id="filterState">
+      <option value="">All States</option>
+      <option>Liquid</option>
+      <option>Solid</option>
+      <option>Sludge</option>
+      <option>Gas</option>
+    </select>
+    <button class="btn btn-primary" id="addBtn" style="display:none" onclick="addContainer()">
+      <span class="material-icons-outlined">add</span> Add Container
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="waste-stats">
+    <div class="stat-card">
+      <span class="material-icons-outlined">delete</span>
+      <div><div class="stat-value" id="statTotal">-</div><div class="stat-label">Active Containers</div></div>
+    </div>
+    <div class="stat-card warning">
+      <span class="material-icons-outlined">schedule</span>
+      <div><div class="stat-value" id="statReady">-</div><div class="stat-label">Ready for Pickup</div></div>
+    </div>
+    <div class="stat-card warning">
+      <span class="material-icons-outlined">warning_amber</span>
+      <div><div class="stat-value" id="statOverdue">-</div><div class="stat-label">Approaching 9mo Limit</div></div>
+    </div>
+  </div>
+
+  <!-- Desktop table -->
+  <div class="waste-table-wrap">
+    <div class="table-container">
+      <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Loading waste containers...</p></div>
+      <table id="wasteTable" style="display:none">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Contents</th>
+            <th>State</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Days Held</th>
+            <th class="hide-mobile">WASTe Tag</th>
+            <th style="width:60px">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none">
+        <span class="material-icons-outlined">search_off</span><p>No waste containers match your filters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="waste-cards" id="cardView"></div>
+
+</div>
+
+<!-- Add modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <h2>New Waste Container</h2>
+      <button class="modal-close" onclick="closeAddModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="addName" placeholder="e.g. Phenol Chloroform Waste">
+      </div>
+      <div class="form-group">
+        <label>Contents</label>
+        <input type="text" id="addContents" placeholder="e.g. Phenol, Chloroform, Isoamyl alcohol">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Physical State</label>
+          <select id="addState">
+            <option>Liquid</option>
+            <option>Solid</option>
+            <option>Sludge</option>
+            <option>Gas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="addLocation" placeholder="e.g. Robbins Hall 0170">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmAdd()">Create</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/lab.js"></script>
+<script>
+var containers = [];
+
+function daysSince(dateStr) {
+  if (!dateStr) return null;
+  var d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  return Math.floor((Date.now() - d.getTime()) / 86400000);
+}
+
+function statusLabel(s) {
+  return ({
+    in_accumulation: 'In Accumulation',
+    ready_for_pickup: 'Ready for Pickup',
+    picked_up: 'Picked Up',
+  })[s] || s || 'Unknown';
+}
+
+async function loadContainers() {
+  try {
+    var index = await Lab.gh.fetchObjectIndex();
+    containers = index
+      .filter(function(o) { return o.type === 'waste_container'; })
+      .map(function(o) {
+        var slug = o.path.replace(/\.md$/, '').split('/').pop();
+        return {
+          slug: slug,
+          path: o.path,
+          name: o.title || slug,
+          contents: o.contents || '',
+          physical_state: o.physical_state || '',
+          location: o.location || '',
+          hazard_class: o.hazard_class || '',
+          status: o.status || 'in_accumulation',
+          started: o.started || '',
+          waste_tag: o.waste_tag || '',
+          days: daysSince(o.started),
+        };
+      });
+  } catch(e) {
+    Lab.showToast('Failed to load: ' + e.message, 'error');
+    containers = [];
+  }
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('wasteTable').style.display = '';
+  if (Lab.gh.isLoggedIn()) document.getElementById('addBtn').style.display = '';
+  render();
+}
+
+function getFiltered() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var sf = document.getElementById('filterStatus').value;
+  var st = document.getElementById('filterState').value;
+  return containers.filter(function(c) {
+    if (sf && c.status !== sf) return false;
+    if (st && c.physical_state !== st) return false;
+    if (search) {
+      var hay = [c.name, c.contents, c.location, c.hazard_class, c.waste_tag].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+function render() {
+  var items = getFiltered();
+
+  document.getElementById('statTotal').textContent = containers.filter(function(c){return c.status!=='picked_up';}).length;
+  document.getElementById('statReady').textContent = containers.filter(function(c){return c.status==='ready_for_pickup';}).length;
+  document.getElementById('statOverdue').textContent = containers.filter(function(c){return c.days != null && c.days >= 240 && c.status !== 'picked_up';}).length;
+
+  var tbody = document.getElementById('tableBody');
+  if (!items.length) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    document.getElementById('wasteTable').style.display = 'none';
+    document.getElementById('cardView').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">search_off</span><p>No containers</p></div>';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('wasteTable').style.display = '';
+
+  tbody.innerHTML = items.map(function(c) {
+    var overdue = c.days != null && c.days >= 240 && c.status !== 'picked_up';
+    var daysHtml = c.days == null ? '—' : (c.days + ' d' + (overdue ? ' <span style="color:#c62828;font-weight:600">⚠</span>' : ''));
+    return '<tr class="' + (overdue ? 'overdue' : '') + '" style="cursor:pointer" onclick="openContainer(\'' + Lab.escHtml(c.slug) + '\')">' +
+      '<td><strong>' + Lab.escHtml(c.name) + '</strong></td>' +
+      '<td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(c.contents) + '</td>' +
+      '<td>' + Lab.escHtml(c.physical_state) + '</td>' +
+      '<td><span class="badge badge-grey">' + Lab.escHtml(c.location) + '</span></td>' +
+      '<td><span class="status-' + Lab.escHtml(c.status) + '">' + Lab.escHtml(statusLabel(c.status)) + '</span></td>' +
+      '<td>' + daysHtml + '</td>' +
+      '<td class="hide-mobile" style="font-size:12px;color:var(--grey-500)">' + Lab.escHtml(c.waste_tag) + '</td>' +
+      '<td><div class="row-actions"><button onclick="event.stopPropagation();openContainer(\'' + Lab.escHtml(c.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button></div></td>' +
+    '</tr>';
+  }).join('');
+
+  var cv = document.getElementById('cardView');
+  cv.innerHTML = items.map(function(c) {
+    var overdue = c.days != null && c.days >= 240 && c.status !== 'picked_up';
+    return '<div class="waste-card" onclick="openContainer(\'' + Lab.escHtml(c.slug) + '\')">' +
+      '<div class="waste-card-top"><span class="waste-card-name">' + Lab.escHtml(c.name) + '</span>' +
+      '<span class="status-' + Lab.escHtml(c.status) + '">' + Lab.escHtml(statusLabel(c.status)) + '</span></div>' +
+      '<div class="waste-card-meta">' + Lab.escHtml(c.contents || '—') + '</div>' +
+      '<div class="waste-card-meta">' + Lab.escHtml(c.location) + ' · ' + (c.days == null ? '—' : c.days + ' days') + (overdue ? ' ⚠' : '') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openContainer(slug) {
+  var c = containers.find(function(x) { return x.slug === slug; });
+  if (!c) return;
+  Lab.editorModal.open('docs/' + c.path);
+}
+
+function addContainer() {
+  document.getElementById('addName').value = '';
+  document.getElementById('addContents').value = '';
+  document.getElementById('addState').value = 'Liquid';
+  document.getElementById('addLocation').value = 'Robbins Hall 0170';
+  document.getElementById('addModal').classList.add('open');
+  setTimeout(function() { document.getElementById('addName').focus(); }, 50);
+}
+function closeAddModal() { document.getElementById('addModal').classList.remove('open'); }
+function confirmAdd() {
+  var name = document.getElementById('addName').value.trim();
+  if (!name) { Lab.showToast('Name is required', 'error'); return; }
+  var slug = Lab.slugify(name);
+  var path = 'docs/waste/' + slug + '.md';
+  var today = new Date().toISOString().slice(0, 10);
+  var meta = {
+    type: 'waste_container',
+    title: name,
+    contents: document.getElementById('addContents').value.trim(),
+    physical_state: document.getElementById('addState').value,
+    location: document.getElementById('addLocation').value.trim(),
+    status: 'in_accumulation',
+    started: today,
+  };
+  var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n\n## Notes\n\n- \n\n## Related\n\n- [[index]]\n');
+  Lab.gh.saveFile(path, content, null, 'Add waste container: ' + name).then(function() {
+    Lab.showToast('Created: ' + name, 'success');
+    Lab.gh.patchObjectIndex(path, meta);
+    closeAddModal();
+    Lab.editorModal.open(path);
+    loadContainers();
+  }).catch(function(e) {
+    Lab.showToast('Failed: ' + e.message, 'error');
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input', render);
+document.getElementById('filterStatus').addEventListener('change', render);
+document.getElementById('filterState').addEventListener('change', render);
+document.querySelectorAll('.modal-overlay').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+});
+
+window.addEventListener('lab-file-saved', function(e) {
+  if (!e.detail || !e.detail.meta || e.detail.meta.type !== 'waste_container') return;
+  loadContainers();
+});
+
+loadContainers();
+</script>
+</body>
+</html>

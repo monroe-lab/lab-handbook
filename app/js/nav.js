@@ -15,7 +15,7 @@
     { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
-    { label: 'Waste',     href: BASE + 'app/wiki.html?doc=waste/index', icon: 'delete' },
+    { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
@@ -30,7 +30,7 @@
     if (path.includes('/protocols'))      return 'Protocols';
     if (path.includes('/wiki'))           return 'Wiki';
     if (path.includes('/inventory'))      return 'Inventory';
-    if (location.search.indexOf('doc=waste') !== -1) return 'Waste';
+    if (path.includes('/waste'))          return 'Waste';
     if (path.includes('/graph'))          return '';
     if (path.match(/\/app\/(index\.html)?$/)) return 'Wiki';
     return '';
