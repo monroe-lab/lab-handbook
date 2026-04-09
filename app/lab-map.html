@@ -487,35 +487,46 @@
     html += '</div>';
     canvas.innerHTML = html;
 
-    initTubeInteractions(locId, shelfIdx, boxItems, gridSize);
+    initTubeInteractions(locId, shelfIdx, boxIdx, boxItems, gridSize);
   }
 
   // ── Tube grid interactions ──
-  function initTubeInteractions(locId, shelfIdx, shelfItems, gridSize) {
+  function initTubeInteractions(locId, shelfIdx, boxIdx, boxItems, gridSize) {
     var grid = document.getElementById('tubeGrid');
-    var selectedIdx = -1;
 
-    // Click to select
+    // Click: occupied = select, empty = assign popover
     grid.addEventListener('click', function(e) {
       var cell = e.target.closest('.tube-cell');
       if (!cell) return;
+      closeAssignPopover();
       var itemI = cell.dataset.item;
-      if (itemI == null) return; // empty cell
-      selectTubeByIndex(parseInt(itemI));
+      if (itemI != null) {
+        // Select occupied tube
+        grid.querySelectorAll('.tube-cell.selected').forEach(function(el) { el.classList.remove('selected'); });
+        cell.classList.add('selected');
+        showTubeDetail(boxItems[parseInt(itemI)]);
+      } else {
+        // Empty cell — show assign popover
+        var cellIdx = parseInt(cell.dataset.idx);
+        var row = Math.floor(cellIdx / gridSize);
+        var col = cellIdx % gridSize;
+        var posLabel = String.fromCharCode(65 + row) + (col + 1);
+        showAssignPopover(cell, posLabel, locId, shelfIdx, boxIdx);
+      }
     });
 
-    // Right-click context menu
+    // Right-click context menu on occupied tubes
     grid.addEventListener('contextmenu', function(e) {
       var cell = e.target.closest('.tube-cell');
       if (!cell) return;
       e.preventDefault();
       var itemI = cell.dataset.item;
       if (itemI != null) {
-        showContextMenu(e.clientX, e.clientY, shelfItems[parseInt(itemI)], cell);
+        showContextMenu(e.clientX, e.clientY, boxItems[parseInt(itemI)], cell);
       }
     });
 
-    // Drag-and-drop via mousedown/mousemove/mouseup
+    // Drag-and-drop
     var dragging = null;
     grid.addEventListener('mousedown', function(e) {
       if (e.button !== 0) return;
@@ -523,85 +534,160 @@
       if (!cell) return;
       e.preventDefault();
       var itemI = parseInt(cell.dataset.item);
-      var idx = parseInt(cell.dataset.idx);
-      var tc = getType(shelfItems[itemI].type || 'reagent');
+      var tc = getType(boxItems[itemI].type || 'reagent');
 
-      // Create ghost
       var ghost = document.createElement('div');
       ghost.className = 'drag-ghost';
       ghost.style.background = tc.color;
       ghost.style.color = '#fff';
-      ghost.textContent = (shelfItems[itemI].title || '').substring(0, 3);
+      ghost.textContent = (boxItems[itemI].title || '').substring(0, 3);
       ghost.style.left = e.clientX + 'px';
       ghost.style.top = e.clientY + 'px';
       document.body.appendChild(ghost);
 
       cell.classList.add('dragging');
-      dragging = { itemIdx: itemI, sourceIdx: idx, sourceCell: cell, ghost: ghost, started: false, startX: e.clientX, startY: e.clientY };
+      dragging = { itemIdx: itemI, sourceCell: cell, ghost: ghost, started: false, startX: e.clientX, startY: e.clientY };
     });
 
     document.addEventListener('mousemove', function(e) {
       if (!dragging) return;
-      // Only start drag after 4px movement
       if (!dragging.started) {
-        var dx = e.clientX - dragging.startX;
-        var dy = e.clientY - dragging.startY;
+        var dx = e.clientX - dragging.startX, dy = e.clientY - dragging.startY;
         if (dx*dx + dy*dy < 16) return;
         dragging.started = true;
       }
       dragging.ghost.style.left = e.clientX + 'px';
       dragging.ghost.style.top = e.clientY + 'px';
-
-      // Highlight drop target
       grid.querySelectorAll('.tube-cell.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
-      var target = document.elementFromPoint(e.clientX, e.clientY);
-      if (target) {
-        var tc = target.closest('.tube-cell');
-        if (tc && tc !== dragging.sourceCell) tc.classList.add('drag-over');
-      }
+      var t = document.elementFromPoint(e.clientX, e.clientY);
+      if (t) { var tc = t.closest('.tube-cell'); if (tc && tc !== dragging.sourceCell) tc.classList.add('drag-over'); }
     });
 
     document.addEventListener('mouseup', function(e) {
       if (!dragging) return;
       var d = dragging;
       dragging = null;
-
       d.ghost.remove();
       d.sourceCell.classList.remove('dragging');
       grid.querySelectorAll('.tube-cell.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+      if (!d.started) return;
 
-      if (!d.started) return; // was a click, not drag
-
-      var target = document.elementFromPoint(e.clientX, e.clientY);
-      if (!target) return;
-      var targetCell = target.closest('.tube-cell');
+      var t = document.elementFromPoint(e.clientX, e.clientY);
+      if (!t) return;
+      var targetCell = t.closest('.tube-cell');
       if (!targetCell || targetCell === d.sourceCell) return;
 
-      var targetIdx = parseInt(targetCell.dataset.idx);
       var targetItemI = targetCell.dataset.item;
-
-      // Swap: move the dragged item to the target position
-      // For now this is visual only (in-memory swap, re-render)
-      // Full version would save position to frontmatter
       if (targetItemI != null) {
-        // Swap two items
         var ti = parseInt(targetItemI);
-        var temp = shelfItems[d.itemIdx];
-        shelfItems[d.itemIdx] = shelfItems[ti];
-        shelfItems[ti] = temp;
+        var temp = boxItems[d.itemIdx];
+        boxItems[d.itemIdx] = boxItems[ti];
+        boxItems[ti] = temp;
       }
-      // Re-render the shelf view
-      Lab.showToast('Moved ' + (shelfItems[targetItemI != null ? parseInt(targetItemI) : d.itemIdx].title || 'item'), 'success');
-      openShelf(locId, shelfIdx);
+      Lab.showToast('Moved ' + (boxItems[d.itemIdx].title || 'item'), 'success');
+      openBox(locId, shelfIdx, boxIdx);
+    });
+  }
+
+  // ── Assign popover for empty wells ──
+  function showAssignPopover(cell, posLabel, locId, shelfIdx, boxIdx) {
+    closeAssignPopover();
+
+    var rect = cell.getBoundingClientRect();
+    var pop = document.createElement('div');
+    pop.id = 'assignPopover';
+    pop.style.cssText = 'position:fixed;z-index:1000;background:#fff;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.18);padding:16px;width:300px;';
+    // Position below the cell
+    pop.style.left = Math.min(rect.left, window.innerWidth - 320) + 'px';
+    pop.style.top = (rect.bottom + 8) + 'px';
+
+    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
+    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
+    var boxLabel = (shelf ? shelf.label : '') + ' \u2192 Box ' + String.fromCharCode(65 + boxIdx);
+
+    pop.innerHTML =
+      '<div style="font-size:14px;font-weight:600;margin-bottom:4px">Position ' + esc(posLabel) + '</div>' +
+      '<div style="font-size:12px;color:var(--grey-500);margin-bottom:12px">' + esc(boxLabel) + '</div>' +
+      '<div style="position:relative;margin-bottom:12px">' +
+        '<span class="material-icons-outlined" style="position:absolute;left:10px;top:9px;font-size:16px;color:var(--grey-400)">search</span>' +
+        '<input type="text" id="assignSearch" placeholder="Search existing items..." ' +
+        'style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--grey-300);border-radius:6px;font-size:13px;font-family:inherit">' +
+      '</div>' +
+      '<div id="assignResults" style="max-height:200px;overflow-y:auto;margin-bottom:12px"></div>' +
+      '<div style="border-top:1px solid var(--grey-200);padding-top:12px">' +
+        '<button class="btn btn-primary" style="width:100%;justify-content:center" onclick="labMap.createAtPosition(\'' + posLabel + '\',\'' + locId + '\',' + shelfIdx + ',' + boxIdx + ')">' +
+        '<span class="material-icons-outlined" style="font-size:16px">add</span> Create New Item Here</button>' +
+      '</div>';
+
+    document.body.appendChild(pop);
+
+    // Adjust if below viewport
+    var popRect = pop.getBoundingClientRect();
+    if (popRect.bottom > window.innerHeight) {
+      pop.style.top = (rect.top - popRect.height - 8) + 'px';
+    }
+
+    var searchInput = document.getElementById('assignSearch');
+    searchInput.focus();
+
+    // Search handler
+    searchInput.addEventListener('input', function() {
+      var q = searchInput.value.toLowerCase().trim();
+      var results = document.getElementById('assignResults');
+      if (!q) { results.innerHTML = ''; return; }
+
+      var matches = allObjects.filter(function(obj) {
+        return (obj.title || '').toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 10);
+
+      if (!matches.length) {
+        results.innerHTML = '<div style="padding:8px;font-size:13px;color:var(--grey-500)">No matches</div>';
+        return;
+      }
+
+      results.innerHTML = matches.map(function(obj, i) {
+        var tc = getType(obj.type || 'reagent');
+        return '<div class="assign-result" style="display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;border-radius:6px;transition:background .1s" ' +
+          'onmouseenter="this.style.background=\'var(--grey-100)\'" onmouseleave="this.style.background=\'\'" ' +
+          'onclick="labMap.assignItem(' + i + ',\'' + posLabel + '\',\'' + locId + '\',' + shelfIdx + ',' + boxIdx + ')">' +
+          '<span style="font-size:16px">' + tc.icon + '</span>' +
+          '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(obj.title || 'Untitled') + '</div>' +
+          '<div style="font-size:11px;color:var(--grey-500)">' + esc(tc.label) + (obj.location ? ' \u00B7 ' + esc(obj.location) : '') + '</div></div></div>';
+      }).join('');
+
+      // Store matches for onclick reference
+      pop._matches = matches;
     });
 
-    function selectTubeByIndex(itemI) {
-      grid.querySelectorAll('.tube-cell.selected').forEach(function(el) { el.classList.remove('selected'); });
-      var cell = grid.querySelector('[data-item="' + itemI + '"]');
-      if (cell) cell.classList.add('selected');
-      selectedIdx = itemI;
-      showTubeDetail(shelfItems[itemI]);
-    }
+    // Close on outside click (delayed to avoid immediate close)
+    setTimeout(function() {
+      document.addEventListener('click', function handler(e) {
+        if (!pop.contains(e.target) && e.target !== cell) {
+          closeAssignPopover();
+          document.removeEventListener('click', handler);
+        }
+      });
+    }, 0);
+  }
+
+  function closeAssignPopover() {
+    var p = document.getElementById('assignPopover');
+    if (p) p.remove();
+  }
+
+  function assignItem(matchIdx, posLabel, locId, shelfIdx, boxIdx) {
+    var pop = document.getElementById('assignPopover');
+    var item = pop && pop._matches ? pop._matches[matchIdx] : null;
+    if (!item) return;
+    closeAssignPopover();
+    Lab.showToast('Assigned "' + (item.title || 'item') + '" to position ' + posLabel, 'success');
+    // TODO: save position to item's frontmatter and re-render
+  }
+
+  function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
+    closeAssignPopover();
+    Lab.showToast('Create new item at ' + posLabel + ' (coming soon)', 'info');
+    // TODO: open editor modal for new item with position pre-filled
   }
 
   // ── Tube detail panel ──
@@ -703,6 +789,8 @@
     nav: navigateTo,
     viewItem: viewItem,
     closeCtx: closeContextMenu,
+    assignItem: assignItem,
+    createAtPosition: createAtPosition,
   };
 
 })();
