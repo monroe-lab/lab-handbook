@@ -22,6 +22,7 @@
         { key: 'title',               label: 'Name',                type: 'text',   required: true },
         { key: 'type',                label: 'Type',                type: 'select',  options: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'] },
         { key: 'location',            label: 'Default Location',    type: 'select',  options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
+        { key: 'location_detail',     label: 'Location Detail',     type: 'text' },
         { key: 'containers',          label: 'Containers',          type: 'container_list' },
         { key: 'need_more',           label: 'Need More',           type: 'checkbox' },
         { key: 'created_at',          label: 'Created',             type: 'meta_readonly' },

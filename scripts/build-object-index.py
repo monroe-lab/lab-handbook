@@ -39,7 +39,7 @@ OBJECT_DIRS = [
 
 # Frontmatter keys to extract (all optional except type and title)
 EXTRACT_KEYS = [
-    "type", "title", "location", "quantity", "unit", "low_stock_threshold",
+    "type", "title", "location", "location_detail", "quantity", "unit", "low_stock_threshold",
     "category", "cas", "notes", "role", "email", "organism", "stock_type",
     "source", "genotype", "status", "pi", "funding", "date", "author",
     "legacy_inventory_id", "containers", "need_more",

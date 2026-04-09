@@ -173,17 +173,17 @@
   var getType = Lab.types.get.bind(Lab.types);
 
   var LOCATIONS = [
-    { id: 'freezer-80c',      label: 'Freezer -80\u00B0C',       icon: '\u2744\uFE0F',       color: '#1565c0', mode: 'grid',  matchKeys: ['Freezer -80C', '-80C Freezer', '-80C Freezer, rack'] },
-    { id: 'freezer-20c',      label: 'Freezer -20\u00B0C',       icon: '\uD83E\uDDCA',       color: '#1976d2', mode: 'grid',  matchKeys: ['Freezer -20C'] },
-    { id: 'refrigerator',     label: 'Refrigerator',              icon: '\uD83C\uDF21\uFE0F', color: '#0288d1', mode: 'list',  matchKeys: ['Refrigerator'] },
-    { id: 'chemical-cabinet',  label: 'Chemical Cabinet',          icon: '\uD83E\uDDEA',       color: '#00796b', mode: 'list',  matchKeys: ['Chemical Cabinet'] },
-    { id: 'flammable-cabinet', label: 'Flammable Cabinet',         icon: '\uD83D\uDD25',       color: '#e65100', mode: 'list',  matchKeys: ['Flammable Cabinet'] },
-    { id: 'corrosive-cabinet', label: 'Corrosive Cabinet',         icon: '\u26A0\uFE0F',       color: '#f57f17', mode: 'list',  matchKeys: ['Corrosive Cabinet'] },
-    { id: 'bench-1',          label: 'Bench 1',                   icon: '\uD83E\uDD4C',       color: '#455a64', mode: 'list',  matchKeys: ['Bench', 'Bench 1', 'Lab bench'] },
-    { id: 'bench-2',          label: 'Bench 2',                   icon: '\uD83E\uDD4C',       color: '#546e7a', mode: 'list',  matchKeys: ['Bench 2'] },
-    { id: 'bench-3',          label: 'Bench 3',                   icon: '\uD83E\uDD4C',       color: '#607d8b', mode: 'list',  matchKeys: ['Bench 3'] },
-    { id: 'seed-cabinet',     label: 'Seed Cabinet',              icon: '\uD83C\uDF31',       color: '#558b2f', mode: 'grid',  matchKeys: ['Seed cabinet'] },
-    { id: 'other',            label: 'Other Locations',           icon: '\uD83D\uDCCD',       color: '#757575', mode: 'list',  matchKeys: [] },
+    { id: 'freezer-80c',      label: 'Freezer -80\u00B0C',       locKey: 'Freezer -80C',    icon: '\u2744\uFE0F',       color: '#1565c0', mode: 'grid',  matchKeys: ['Freezer -80C', '-80C Freezer', '-80C Freezer, rack'] },
+    { id: 'freezer-20c',      label: 'Freezer -20\u00B0C',       locKey: 'Freezer -20C',    icon: '\uD83E\uDDCA',       color: '#1976d2', mode: 'grid',  matchKeys: ['Freezer -20C'] },
+    { id: 'refrigerator',     label: 'Refrigerator',              locKey: 'Refrigerator',    icon: '\uD83C\uDF21\uFE0F', color: '#0288d1', mode: 'list',  matchKeys: ['Refrigerator'] },
+    { id: 'chemical-cabinet',  label: 'Chemical Cabinet',          locKey: 'Chemical Cabinet', icon: '\uD83E\uDDEA',       color: '#00796b', mode: 'list',  matchKeys: ['Chemical Cabinet'] },
+    { id: 'flammable-cabinet', label: 'Flammable Cabinet',         locKey: 'Flammable Cabinet',icon: '\uD83D\uDD25',       color: '#e65100', mode: 'list',  matchKeys: ['Flammable Cabinet'] },
+    { id: 'corrosive-cabinet', label: 'Corrosive Cabinet',         locKey: 'Corrosive Cabinet',icon: '\u26A0\uFE0F',       color: '#f57f17', mode: 'list',  matchKeys: ['Corrosive Cabinet'] },
+    { id: 'bench-1',          label: 'Bench 1',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#455a64', mode: 'list',  matchKeys: ['Bench', 'Bench 1', 'Lab bench'] },
+    { id: 'bench-2',          label: 'Bench 2',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#546e7a', mode: 'list',  matchKeys: ['Bench 2'] },
+    { id: 'bench-3',          label: 'Bench 3',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#607d8b', mode: 'list',  matchKeys: ['Bench 3'] },
+    { id: 'seed-cabinet',     label: 'Seed Cabinet',              locKey: 'Other',           icon: '\uD83C\uDF31',       color: '#558b2f', mode: 'grid',  matchKeys: ['Seed cabinet'] },
+    { id: 'other',            label: 'Other Locations',           locKey: 'Other',           icon: '\uD83D\uDCCD',       color: '#757575', mode: 'list',  matchKeys: [] },
   ];
 
   // ── State ──
@@ -672,12 +672,12 @@
     if (p) p.remove();
   }
 
-  // Build the map_position string for frontmatter
-  function buildPositionStr(locId, shelfIdx, boxIdx, posLabel) {
+  // Build location_detail string
+  function buildLocDetail(locId, shelfIdx, boxIdx, posLabel) {
     var loc = LOCATIONS.find(function(l) { return l.id === locId; });
     var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
     var boxLetter = String.fromCharCode(65 + boxIdx);
-    return loc.label + ' / ' + (shelf ? shelf.label : 'Shelf ' + (shelfIdx+1)) + ' / Box ' + boxLetter + ' / ' + posLabel;
+    return (shelf ? shelf.label : 'Shelf ' + (shelfIdx+1)) + ' / Box ' + boxLetter + ' / ' + posLabel;
   }
 
   // Assign an existing item to a position — updates its frontmatter
@@ -692,35 +692,35 @@
       return;
     }
 
-    var posStr = buildPositionStr(locId, shelfIdx, boxIdx, posLabel);
+    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
+    var locDetail = buildLocDetail(locId, shelfIdx, boxIdx, posLabel);
 
     try {
-      // Fetch the file, update frontmatter, save
       var filePath = 'docs/' + item.path;
       var result = await Lab.gh.fetchFile(filePath);
       var parsed = Lab.parseFrontmatter(result.content);
 
-      parsed.meta.map_position = posStr;
+      // Set location to the parent zone, location_detail to the specific spot
+      parsed.meta.location = loc ? loc.locKey : parsed.meta.location;
+      parsed.meta.location_detail = locDetail;
       var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
 
       await Lab.gh.saveFile(filePath, content, result.sha,
-        'Map: place ' + (item.title || item.path) + ' at ' + posStr);
+        'Map: place ' + (item.title || item.path) + ' at ' + locDetail);
 
-      // Update index
-      parsed.meta.map_position = posStr;
       Lab.gh.patchObjectIndex(filePath, parsed.meta);
-
       Lab.showToast('Placed "' + (item.title || 'item') + '" at ' + posLabel, 'success');
 
-      // Re-render box
+      Lab.gh.clearObjectIndexCache();
+      allObjects = await Lab.gh.fetchObjectIndex();
       openBox(locId, shelfIdx, boxIdx);
     } catch(e) {
       Lab.showToast('Failed: ' + e.message, 'error');
     }
   }
 
-  // Create a new item at a position
-  async function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
+  // Create a new item at a position — shows inline form in the detail panel
+  function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
     closeAssignPopover();
 
     if (!Lab.gh.isLoggedIn()) {
@@ -728,43 +728,105 @@
       return;
     }
 
-    var posStr = buildPositionStr(locId, shelfIdx, boxIdx, posLabel);
     var loc = LOCATIONS.find(function(l) { return l.id === locId; });
+    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
+    var boxLetter = String.fromCharCode(65 + boxIdx);
+    var detailLocStr = (shelf ? shelf.label : '') + ' / Box ' + boxLetter + ' / ' + posLabel;
 
-    // Prompt for a name
-    var name = prompt('New item name:');
-    if (!name || !name.trim()) return;
-    name = name.trim();
+    var detail = document.getElementById('tubeDetail');
+    var types = [
+      { val: 'reagent', label: 'Reagent' },
+      { val: 'buffer', label: 'Buffer/Solution' },
+      { val: 'chemical', label: 'Chemical' },
+      { val: 'enzyme', label: 'Enzyme' },
+      { val: 'solution', label: 'Solution' },
+      { val: 'consumable', label: 'Consumable' },
+      { val: 'kit', label: 'Kit' },
+      { val: 'equipment', label: 'Equipment' },
+      { val: 'dna_prep', label: 'DNA Prep' },
+      { val: 'glycerol_stock', label: 'Glycerol Stock' },
+      { val: 'plasmid', label: 'Plasmid' },
+      { val: 'seed', label: 'Seed Stock' },
+      { val: 'agro_strain', label: 'Agro Strain' },
+    ];
+    var typeOptions = types.map(function(t) {
+      return '<option value="' + t.val + '">' + esc(t.label) + '</option>';
+    }).join('');
 
-    var slug = Lab.slugify(name);
-    var path = 'docs/resources/' + slug + '.md';
+    var html = '<div class="tube-detail">';
+    html += '<h3><span class="material-icons-outlined" style="font-size:20px;color:var(--teal)">add_circle</span> New Item at ' + esc(posLabel) + '</h3>';
 
-    // Default to reagent type, with location and position pre-filled
-    var meta = {
-      type: 'reagent',
-      title: name,
-      location: loc ? loc.label : '',
-      map_position: posStr,
-      created_at: new Date().toISOString(),
-    };
-    var u = Lab.gh.getUser && Lab.gh.getUser();
-    if (u && u.login) meta.created_by = u.login;
+    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Name';
+    html += '<input type="text" id="newItemName" placeholder="e.g., pUC19 glycerol stock" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
 
-    var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
+    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Type';
+    html += '<select id="newItemType" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px">' + typeOptions + '</select></label>';
 
-    try {
-      var result = await Lab.gh.saveFile(path, content, null, 'Add ' + name + ' at ' + posStr);
-      Lab.gh.patchObjectIndex(path, meta);
-      Lab.showToast('Created "' + name + '" at ' + posLabel, 'success');
+    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Location';
+    html += '<input type="text" id="newItemLocation" value="' + esc(loc ? loc.locKey : '') + '" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px;background:var(--grey-50);color:var(--grey-600)" readonly></label>';
 
-      // Re-render box, then open editor modal for the new item
-      openBox(locId, shelfIdx, boxIdx);
-      if (Lab.editorModal && Lab.editorModal.open) {
-        setTimeout(function() { Lab.editorModal.open(path); }, 500);
+    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Location Detail <span style="font-weight:400;color:var(--grey-400)">(specific spot)</span>';
+    html += '<input type="text" id="newItemLocDetail" value="' + esc(detailLocStr) + '" placeholder="e.g., Shelf 2 / Box C / D7" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
+
+    html += '<label style="display:block;margin-bottom:16px;font-size:13px;font-weight:500;color:var(--grey-700)">Notes <span style="font-weight:400;color:var(--grey-400)">(optional)</span>';
+    html += '<input type="text" id="newItemNotes" placeholder="" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
+
+    html += '<div style="display:flex;gap:8px">';
+    html += '<button class="btn btn-primary" id="newItemSave" style="flex:1;justify-content:center"><span class="material-icons-outlined" style="font-size:16px">check</span> Create</button>';
+    html += '<button class="btn btn-ghost" onclick="document.getElementById(\'tubeDetail\').innerHTML=\'\'">Cancel</button>';
+    html += '</div></div>';
+
+    detail.innerHTML = html;
+    document.getElementById('newItemName').focus();
+
+    document.getElementById('newItemSave').addEventListener('click', async function() {
+      var name = document.getElementById('newItemName').value.trim();
+      if (!name) { Lab.showToast('Enter a name', 'error'); return; }
+
+      var type = document.getElementById('newItemType').value;
+      var location = document.getElementById('newItemLocation').value;
+      var locDetail = document.getElementById('newItemLocDetail').value.trim();
+      var notes = document.getElementById('newItemNotes').value.trim();
+
+      // Determine directory based on type group
+      var typeConf = Lab.types.get(type);
+      var dir = 'resources';
+      if (['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep'].indexOf(type) !== -1) dir = 'stocks';
+
+      var slug = Lab.slugify(name);
+      var path = 'docs/' + dir + '/' + slug + '.md';
+
+      var meta = {
+        type: type,
+        title: name,
+        location: location,
+        location_detail: locDetail,
+      };
+      if (notes) meta.notes = notes;
+      meta.created_at = new Date().toISOString();
+      var u = Lab.gh.getUser && Lab.gh.getUser();
+      if (u && u.login) meta.created_by = u.login;
+
+      var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
+
+      var btn = document.getElementById('newItemSave');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">hourglass_empty</span> Creating...';
+
+      try {
+        await Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name);
+        Lab.gh.patchObjectIndex(path, meta);
+        Lab.showToast('Created "' + name + '"', 'success');
+        // Refresh index and re-render
+        Lab.gh.clearObjectIndexCache();
+        allObjects = await Lab.gh.fetchObjectIndex();
+        openBox(locId, shelfIdx, boxIdx);
+      } catch(e) {
+        Lab.showToast('Failed: ' + e.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">check</span> Create';
       }
-    } catch(e) {
-      Lab.showToast('Failed: ' + e.message, 'error');
-    }
+    });
   }
 
   // ── Tube detail panel ──
