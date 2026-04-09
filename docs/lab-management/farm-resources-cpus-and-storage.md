@@ -1,6 +1,6 @@
-***
-
-type: guidetitle: "Farm resources, CPUs, and storage"
+---
+type: guide
+title: "Farm resources, CPUs, and storage"
 ---
 
 # Farm resources, CPUs, and storage

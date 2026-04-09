@@ -270,9 +270,20 @@ var TREE = null;          // grouped by top-level dir
 var activeTypes = new Set(); // empty = all
 var currentDoc = null;    // path relative to docs/, no .md
 var currentSha = null;
+var currentFrontmatter = '';  // raw frontmatter block (with delimiters and trailing newline) — preserved across edit/save so Toast UI doesn't corrupt it
 var isEditing = false;
 var editorInstance = null;
 var loggedIn = false;
+
+// Splits a markdown file into [frontmatter, body]. Frontmatter delimiters can
+// be --- or *** (Toast UI sometimes round-trips one to the other). The
+// frontmatter string includes the delimiters and trailing newline so it can
+// be re-prepended verbatim on save.
+function splitFrontmatter(md) {
+  var m = md.match(/^(---|\*\*\*)\r?\n(?:\r?\n)?((?:[a-zA-Z_][\w-]*:[^\n]*\r?\n)+)(---|\*\*\*)\r?\n?/);
+  if (!m) return { fm: '', body: md };
+  return { fm: '---\n' + m[2].replace(/\r/g, '') + '---\n', body: md.slice(m[0].length) };
+}
 
 var GENERIC_PILL = { color: '#607d8b', label: 'Document' };
 
@@ -614,6 +625,13 @@ async function startEdit() {
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
 
+    // Strip frontmatter before handing the markdown to the editor.
+    // Toast UI's ProseMirror corrupts --- delimiters (rewrites them as ***
+    // on save), which breaks the YAML wrapper. We hold the original
+    // frontmatter string aside and re-prepend it verbatim in saveDoc.
+    var split = splitFrontmatter(result.content);
+    currentFrontmatter = split.fm;
+
     contentEl.innerHTML =
       '<div class="doc-content">' +
         '<div class="doc-edit-bar">' +
@@ -628,7 +646,7 @@ async function startEdit() {
 
     editorInstance = await Lab.editorModal.initFullpage(
       document.getElementById('editorSurface'),
-      result.content,
+      split.body,
       filePath,
       currentSha
     );
@@ -646,7 +664,14 @@ async function saveDoc() {
   btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving…';
 
   try {
-    var md = editorInstance.getMarkdown();
+    var body = editorInstance.getMarkdown();
+    // Re-prepend the original frontmatter (if any). Defensive: if the body
+    // somehow still starts with frontmatter delimiters (e.g. user pasted some
+    // in), don't double up.
+    if (currentFrontmatter && !/^(---|\*\*\*)\r?\n/.test(body)) {
+      body = currentFrontmatter + '\n' + body.replace(/^\n+/, '');
+    }
+    var md = body;
     var filePath = 'docs/' + currentDoc + '.md';
     var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update document ' + currentDoc);
     currentSha = result.sha;

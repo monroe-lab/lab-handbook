@@ -221,9 +221,11 @@
     await loadMarked();
     var admonitions = [];
 
-    // Strip YAML frontmatter (--- ... --- at the top of the doc) so it doesn't
-    // render as an HR + paragraph + HR.
-    md = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
+    // Strip YAML frontmatter at the top of the doc so it doesn't render as
+    // an HR + paragraph + HR. Tolerates --- or *** delimiters (Toast UI's
+    // ProseMirror sometimes round-trips --- as ***, both being valid HRs)
+    // and a possible blank line between the opening delimiter and the YAML.
+    md = md.replace(/^(---|\*\*\*)\r?\n(?:\r?\n)?(?:[a-zA-Z_][\w-]*:[^\n]*\r?\n)+(---|\*\*\*)\r?\n?/, '');
 
     // Extract legacy ??? blocks
     var processed = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
