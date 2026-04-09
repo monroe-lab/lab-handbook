@@ -352,10 +352,26 @@
   // ── Init ──
   async function loadData() {
     try {
-      allObjects = await Lab.gh.fetchObjectIndex();
+      allObjects = await Promise.race([
+        Lab.gh.fetchObjectIndex(),
+        new Promise(function(_, reject) { setTimeout(function() { reject(new Error('timeout')); }, 8000); })
+      ]);
+      if (!Array.isArray(allObjects)) allObjects = [];
     } catch(e) {
-      console.error('Failed to load data:', e);
-      allObjects = [];
+      console.error('Failed to load object index:', e);
+      // Fallback: try direct fetch of the JSON file
+      try {
+        var base = window.Lab ? window.Lab.BASE : '/lab-handbook/';
+        var resp = await fetch(base + 'object-index.json');
+        if (resp.ok) {
+          allObjects = await resp.json();
+        } else {
+          allObjects = [];
+        }
+      } catch(e2) {
+        console.error('Fallback fetch also failed:', e2);
+        allObjects = [];
+      }
     }
     showRoomView();
   }
@@ -562,7 +578,7 @@
       html += '<div class="item-list">';
       items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
       items.forEach(function(obj) {
-        var typeConf = Lab.Types.getType(obj.type || 'reagent');
+        var typeConf = Lab.types.get(obj.type || 'reagent');
         var qty = '';
         if (obj.containers && obj.containers.length) {
           qty = obj.containers.map(function(c) { return (c.quantity || '?') + ' ' + (c.unit || ''); }).join(', ');
@@ -627,7 +643,7 @@
     html += '<div class="item-list">';
     items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
     items.forEach(function(obj) {
-      var typeConf = Lab.Types.getType(obj.type || 'reagent');
+      var typeConf = Lab.types.get(obj.type || 'reagent');
       html += '<div class="item-row" onclick="labMap.openItem(\'' + Lab.escHtml(obj.path || '') + '\')">';
       html += '<div class="ir-icon">' + typeConf.icon + '</div>';
       html += '<div class="ir-info">';
