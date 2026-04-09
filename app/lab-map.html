@@ -383,7 +383,16 @@
       var boxesPerShelf = 4; // 4 boxes per shelf
       var boxes = [];
       for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
-      shelf.items.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
+      var unplacedBox = [];
+      shelf.items.forEach(function(item) {
+        var p = parseLocDetail(item.location_detail);
+        if (p && p.box >= 0 && p.box < boxesPerShelf) {
+          boxes[p.box].push(item);
+        } else {
+          unplacedBox.push(item);
+        }
+      });
+      unplacedBox.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
 
       html += '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden">';
       // Shelf header bar
@@ -413,10 +422,28 @@
     canvas.innerHTML = html;
   }
 
+  // Parse "Shelf 1 / Box A / A2" → { shelf: 0, box: 0, cell: "A2" }
+  function parseLocDetail(detail) {
+    if (!detail) return null;
+    var m = detail.match(/Shelf\s+(\d+)\s*\/\s*Box\s+([A-Z])\s*\/\s*([A-Z]\d+)/i);
+    if (!m) return null;
+    return { shelf: parseInt(m[1], 10) - 1, box: m[2].toUpperCase().charCodeAt(0) - 65, cell: m[3].toUpperCase() };
+  }
+
   function buildShelves(loc, items) {
     var n = 5, shelves = [];
     for (var i = 0; i < n; i++) shelves.push({ label: 'Shelf ' + (i + 1), items: [] });
-    items.forEach(function(item, idx) { shelves[idx % n].items.push(item); });
+    var unplaced = [];
+    items.forEach(function(item) {
+      var p = parseLocDetail(item.location_detail);
+      if (p && p.shelf >= 0 && p.shelf < n) {
+        shelves[p.shelf].items.push(item);
+      } else {
+        unplaced.push(item);
+      }
+    });
+    // Distribute unplaced items round-robin (legacy fallback)
+    unplaced.forEach(function(item, idx) { shelves[idx % n].items.push(item); });
     return shelves;
   }
 
@@ -429,11 +456,20 @@
     var shelf = shelves[shelfIdx];
     if (!shelf) return;
 
-    // Split shelf items into boxes (4 per shelf)
+    // Split shelf items into boxes using location_detail
     var boxesPerShelf = 4;
     var boxes = [];
     for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
-    shelf.items.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
+    var unplacedBox = [];
+    shelf.items.forEach(function(item) {
+      var p = parseLocDetail(item.location_detail);
+      if (p && p.box >= 0 && p.box < boxesPerShelf) {
+        boxes[p.box].push(item);
+      } else {
+        unplacedBox.push(item);
+      }
+    });
+    unplacedBox.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
     var boxItems = boxes[boxIdx] || [];
     var boxLabel = shelf.label + ' \u2192 Box ' + String.fromCharCode(65 + boxIdx);
 
@@ -444,11 +480,28 @@
     updateBreadcrumb();
 
     var gridSize = 9;
+
+    // Build cell→item map from location_detail
+    var cellMap = {}; // e.g. { "A1": item, "A2": item }
+    var unmappedItems = [];
+    boxItems.forEach(function(item) {
+      var p = parseLocDetail(item.location_detail);
+      if (p && p.cell) {
+        cellMap[p.cell] = item;
+      } else {
+        unmappedItems.push(item);
+      }
+    });
+
+    // Build ordered array for initTubeInteractions (indexed by item order in grid)
+    var orderedBoxItems = [];
+
     var canvas = document.getElementById('mapCanvas');
     var html = '<div class="box-view">';
     html += '<div class="container-header"><div class="ch-icon" style="background:' + loc.color + '15">' + loc.icon + '</div>';
     html += '<div><h2>' + esc(boxLabel) + '</h2>';
-    html += '<div class="ch-subtitle">' + esc(loc.label) + ' &middot; ' + boxItems.length + ' tube' + (boxItems.length !== 1 ? 's' : '') + '</div></div></div>';
+    var tubeCount = Object.keys(cellMap).length + unmappedItems.length;
+    html += '<div class="ch-subtitle">' + esc(loc.label) + ' &middot; ' + tubeCount + ' tube' + (tubeCount !== 1 ? 's' : '') + '</div></div></div>';
 
     html += '<div class="box-grid-wrap">';
     html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
@@ -460,25 +513,31 @@
     html += '<div class="grid-header"></div>';
     for (var c = 1; c <= gridSize; c++) html += '<div class="grid-header">' + c + '</div>';
 
-    var itemIdx = 0;
+    var unmappedIdx = 0;
     for (var r = 0; r < gridSize; r++) {
       var rowLabel = String.fromCharCode(65 + r);
       html += '<div class="grid-header" style="display:flex;align-items:center;justify-content:center">' + rowLabel + '</div>';
       for (var c = 0; c < gridSize; c++) {
         var cellId = rowLabel + (c + 1);
-        var item = boxItems[itemIdx] || null;
+        var item = cellMap[cellId] || null;
+        // Fill unmapped items into first available empty cells
+        if (!item && unmappedIdx < unmappedItems.length) {
+          item = unmappedItems[unmappedIdx++];
+        }
         var idx = r * gridSize + c;
+        var itemI = item ? orderedBoxItems.length : -1;
         if (item) {
+          orderedBoxItems.push(item);
           var tc = getType(item.type || 'reagent');
-          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemIdx + '" title="' + esc(item.title || '') + '" style="font-size:8px;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + '">';
+          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemI + '" title="' + esc(item.title || '') + '" style="font-size:8px;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + '">';
           html += (item.title || '').substring(0, 3);
           html += '</div>';
-          itemIdx++;
         } else {
           html += '<div class="tube-cell empty" data-idx="' + idx + '">' + cellId + '</div>';
         }
       }
     }
+    boxItems = orderedBoxItems;
     html += '</div></div>';
     html += '<div id="tubeDetail"></div>';
     html += '</div>';
