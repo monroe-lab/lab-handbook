@@ -121,6 +121,28 @@
   body.editing-mode .doc-edit-bar { display: none; }
 }
 
+/* ── New-doc modal ── */
+.wiki-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 600;
+  display: none; align-items: center; justify-content: center;
+}
+.wiki-modal-backdrop.open { display: flex; }
+.wiki-modal {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  width: 92%; max-width: 460px; padding: 22px 26px;
+}
+.wiki-modal h3 { font-size: 16px; font-weight: 600; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+.wiki-modal h3 .material-icons-outlined { font-size: 20px; color: #3f51b5; }
+.wiki-modal label { display: block; font-size: 11px; font-weight: 600; color: var(--grey-600); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
+.wiki-modal input, .wiki-modal select {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius); font-family: inherit; font-size: 14px; outline: none; box-sizing: border-box;
+}
+.wiki-modal input:focus, .wiki-modal select:focus { border-color: #3f51b5; }
+.wiki-modal .field { margin-bottom: 14px; }
+.wiki-modal .hint { font-size: 11px; color: var(--grey-500); margin-top: 4px; }
+.wiki-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+
 /* ── Network graph ── */
 .wiki-graph-welcome { position: relative; height: calc(100vh - var(--nav-height)); background: #0f1424; overflow: hidden; }
 .wiki-graph-welcome canvas { display: block; width: 100%; height: 100%; cursor: grab; }
@@ -194,14 +216,22 @@
 <div class="doc-layout">
   <div class="doc-sidebar" id="sidebar">
     <div class="doc-sidebar-header">
-      <div class="doc-search-wrap">
-        <span class="material-icons-outlined search-icon">search</span>
-        <input type="text" id="docSearch" placeholder="Search all documents…">
+      <div style="display:flex;gap:6px;align-items:center">
+        <div class="doc-search-wrap" style="flex:1">
+          <span class="material-icons-outlined search-icon">search</span>
+          <input type="text" id="docSearch" placeholder="Search all documents…">
+        </div>
+        <button id="newDocBtn" style="display:none;padding:8px 10px;background:#3f51b5;color:#fff;border:none;border-radius:var(--radius);cursor:pointer" title="New document" onclick="createNewDoc()">
+          <span class="material-icons-outlined" style="font-size:18px;display:block">add</span>
+        </button>
       </div>
       <div class="doc-meta-row">
         <span class="count" id="docCount">…</span>
         <button class="clear-link" id="clearFiltersBtn" style="display:none" onclick="clearFilters()">Clear filters</button>
       </div>
+    </div>
+    <div class="wiki-modal-backdrop" id="wikiModalBackdrop">
+      <div class="wiki-modal" id="wikiModal"></div>
     </div>
     <div class="doc-type-filter" id="typeFilter"></div>
     <div class="doc-tree" id="docTree">
@@ -983,9 +1013,161 @@ window.addEventListener('popstate', function() {
   else { currentDoc = null; closeMiniGraph(); renderSidebar(); showWelcome(); }
 });
 
+// ── New document ──
+function showWikiModal(opts) {
+  return new Promise(function(resolve) {
+    var backdrop = document.getElementById('wikiModalBackdrop');
+    var modal = document.getElementById('wikiModal');
+    var html = '<h3><span class="material-icons-outlined">' + (opts.icon || 'add') + '</span> ' + Lab.escHtml(opts.title) + '</h3>';
+    opts.fields.forEach(function(f) {
+      html += '<div class="field"><label>' + Lab.escHtml(f.label) + '</label>';
+      if (f.type === 'select') {
+        html += '<select id="wm_' + f.key + '">';
+        f.options.forEach(function(o) {
+          var sel = o.value === f.value ? ' selected' : '';
+          html += '<option value="' + Lab.escHtml(o.value) + '"' + sel + '>' + Lab.escHtml(o.label) + '</option>';
+        });
+        html += '</select>';
+      } else {
+        html += '<input type="text" id="wm_' + f.key + '" value="' + Lab.escHtml(f.value || '') + '" placeholder="' + Lab.escHtml(f.placeholder || '') + '">';
+      }
+      if (f.hint) html += '<div class="hint">' + Lab.escHtml(f.hint) + '</div>';
+      html += '</div>';
+    });
+    html += '<div class="wiki-modal-actions">' +
+      '<button class="btn btn-outline btn-sm" id="wmCancel">Cancel</button>' +
+      '<button class="btn btn-primary btn-sm" id="wmOk" style="background:#3f51b5">' + Lab.escHtml(opts.submitLabel || 'Create') + '</button>' +
+      '</div>';
+    modal.innerHTML = html;
+    backdrop.classList.add('open');
+
+    var firstInput = modal.querySelector('input,select');
+    if (firstInput) { firstInput.focus(); if (firstInput.select) firstInput.select(); }
+
+    function close(result) {
+      backdrop.classList.remove('open');
+      document.removeEventListener('keydown', onKey);
+      resolve(result);
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') close(null);
+      if (e.key === 'Enter' && e.target.tagName !== 'SELECT') { e.preventDefault(); submit(); }
+    }
+    function submit() {
+      var values = {};
+      opts.fields.forEach(function(f) { values[f.key] = document.getElementById('wm_' + f.key).value; });
+      close(values);
+    }
+    document.addEventListener('keydown', onKey);
+    document.getElementById('wmCancel').onclick = function() { close(null); };
+    document.getElementById('wmOk').onclick = submit;
+    backdrop.onclick = function(e) { if (e.target === backdrop) close(null); };
+  });
+}
+
+async function createNewDoc() {
+  if (!loggedIn) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Folder options: every directory we've seen + a "(new folder)" sentinel
+  var dirSet = {};
+  ALL_DOCS.forEach(function(d) {
+    var parts = d.relPath.split('/');
+    parts.pop();
+    var acc = '';
+    parts.forEach(function(p) { acc = acc ? acc + '/' + p : p; dirSet[acc] = true; });
+  });
+  var dirOpts = Object.keys(dirSet).sort().map(function(d) { return { value: d, label: d }; });
+  dirOpts.unshift({ value: 'handbook', label: 'handbook' });
+  dirOpts.push({ value: '__new__', label: '── new folder ──' });
+
+  // Default: current doc's folder, else handbook
+  var defaultDir = 'handbook';
+  if (currentDoc) {
+    var p = currentDoc.split('/'); p.pop();
+    if (p.length) defaultDir = p.join('/');
+  }
+  if (!dirOpts.some(function(o) { return o.value === defaultDir; })) defaultDir = 'handbook';
+
+  // Type options from Lab.types
+  var typeOpts = [{ value: '', label: '(none — plain document)' }];
+  if (Lab.types && Lab.types.TYPES) {
+    Object.keys(Lab.types.TYPES).sort().forEach(function(k) {
+      var t = Lab.types.TYPES[k];
+      typeOpts.push({ value: k, label: (t.label || k) });
+    });
+  }
+
+  var values = await showWikiModal({
+    title: 'New Document',
+    icon: 'note_add',
+    submitLabel: 'Create & edit',
+    fields: [
+      { key: 'folder', label: 'Folder', type: 'select', value: defaultDir, options: dirOpts },
+      { key: 'newFolder', label: 'New folder path (if selected above)', type: 'text', value: '', placeholder: 'e.g. handbook/policies', hint: 'Only used when "── new folder ──" is selected. Use forward slashes for nesting.' },
+      { key: 'title', label: 'Title', type: 'text', value: '', placeholder: 'How to get building keys' },
+      { key: 'type', label: 'Type', type: 'select', value: '', options: typeOpts, hint: 'Optional. Adds a colored type badge and includes the doc in type-specific views.' },
+    ],
+  });
+  if (!values || !values.title.trim()) return;
+
+  var folder = values.folder === '__new__' ? values.newFolder.trim().replace(/^\/+|\/+$/g, '') : values.folder;
+  if (!folder) { Lab.showToast('Folder required', 'error'); return; }
+  var title = values.title.trim();
+  var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (!slug) { Lab.showToast('Title produced an empty filename', 'error'); return; }
+
+  var relPath = folder + '/' + slug + '.md';
+  var docPath = folder + '/' + slug;
+  var filePath = 'docs/' + relPath;
+
+  // Build content with optional frontmatter
+  var content;
+  if (values.type) {
+    content = '---\ntype: ' + values.type + '\ntitle: ' + title.replace(/"/g, '\\"') + '\n---\n\n# ' + title + '\n\n';
+  } else {
+    content = '# ' + title + '\n\n';
+  }
+
+  // Check existing
+  try {
+    var existing = await Lab.gh.fetchFile(filePath);
+    if (existing) {
+      if (!confirm('A document already exists at ' + relPath + '. Open it instead?')) return;
+      loadDoc(docPath);
+      return;
+    }
+  } catch(e) { /* doesn't exist, good */ }
+
+  try {
+    await Lab.gh.saveFile(filePath, content, null, 'New document: ' + relPath);
+  } catch(e) {
+    Lab.showToast('Create failed: ' + e.message, 'error');
+    return;
+  }
+
+  // Inject into local state so it shows up immediately
+  var newDoc = {
+    path: docPath, relPath: relPath, dir: topDir(relPath),
+    title: title, type: values.type || null, meta: {},
+  };
+  ALL_DOCS.push(newDoc);
+  ALL_DOCS.sort(function(a, b) { return a.title.localeCompare(b.title); });
+  DOC_BY_PATH[docPath] = newDoc;
+  if (values.type) INDEX_MAP[relPath] = { path: relPath, type: values.type, title: title };
+  buildTypeFilter();
+  buildTree();
+  renderSidebar();
+  document.getElementById('docCount').textContent = ALL_DOCS.length + ' documents · ' + EDGES.length + ' links';
+
+  Lab.showToast('Document created', 'success');
+  loadDoc(docPath);
+  setTimeout(startEdit, 200);
+}
+
 // ── Init ──
 (async function init() {
   loggedIn = Lab.gh.isLoggedIn();
+  if (loggedIn) document.getElementById('newDocBtn').style.display = '';
   await loadAll();
 
   var params = new URLSearchParams(location.search);
