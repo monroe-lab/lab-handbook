@@ -709,10 +709,9 @@
         'Map: place ' + (item.title || item.path) + ' at ' + locDetail);
 
       Lab.gh.patchObjectIndex(filePath, parsed.meta);
-      Lab.showToast('Placed "' + (item.title || 'item') + '" at ' + posLabel, 'success');
-
-      Lab.gh.clearObjectIndexCache();
+      // Use patched in-memory index (don't re-fetch from stale deploy)
       allObjects = await Lab.gh.fetchObjectIndex();
+      Lab.showToast('Placed "' + (item.title || 'item') + '" at ' + posLabel + ' \u2014 saved to GitHub', 'success');
       openBox(locId, shelfIdx, boxIdx);
     } catch(e) {
       Lab.showToast('Failed: ' + e.message, 'error');
@@ -816,10 +815,9 @@
       try {
         await Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name);
         Lab.gh.patchObjectIndex(path, meta);
-        Lab.showToast('Created "' + name + '"', 'success');
-        // Refresh index and re-render
-        Lab.gh.clearObjectIndexCache();
+        // Use the patched in-memory index (don't re-fetch from stale deploy)
         allObjects = await Lab.gh.fetchObjectIndex();
+        Lab.showToast('Created "' + name + '" \u2014 saved to GitHub. Site rebuilds in ~40s.', 'success');
         openBox(locId, shelfIdx, boxIdx);
       } catch(e) {
         Lab.showToast('Failed: ' + e.message, 'error');
