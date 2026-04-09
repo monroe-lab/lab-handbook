@@ -103,7 +103,9 @@ Before you fire off a big job, **look at what's currently free**. A handful of o
 
 ```bash
 # Snapshot of all our key partitions: nodes, allocated/idle/other/total CPUs, memory
-alias farm-status='sinfo -p bmh,bml,low,gpu-a100-h -o "%.12P %.6a %.6D %.15C %.10m"'
+# Reads as: PARTITION  AVAIL  NODES  CPUS(Allocated/Idle/Other/Total)  MEMORY-per-node-MB
+# The Idle column is the one to look at before submitting.
+alias farm-status='sinfo -p bmh,bml,low,gpu-a100-h -o "%.12P %.6a %.6D %.20C %.10m"'
 
 # Just the idle nodes — handy when bmh feels tight
 alias farm-idle='sinfo -p bmh,bml,low,gpu-a100-h -t idle -o "%.12P %.10n %.6c %.10m"'
