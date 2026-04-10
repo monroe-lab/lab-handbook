@@ -1,11 +1,10 @@
 ---
 type: "reagent"
-title: "labbot-reagent-mnsahdna"
+title: "LabBot edit test"
 location: "Chemical Cabinet"
 need_more: false
 created_at: "2026-04-10T02:31:13.613Z"
-updated_at: "2026-04-10T02:31:13.613Z"
+updated_at: "2026-04-10T02:31:25.922Z"
 created_by: "greymonroe"
 ---
-
 # labbot-reagent-mnsahdna
