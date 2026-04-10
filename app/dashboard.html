@@ -49,8 +49,7 @@
 </style>
 </head>
 <body>
-<script src="js/nav.js"></script>
-<script src="js/issue-reporter.js"></script>
+<script src="js/lab.js"></script>
 
 <div class="dash-page">
   <h1 style="font-size:22px;font-weight:700;margin-bottom:4px;">Monroe Lab</h1>
@@ -232,14 +231,18 @@
         if (!data.content) { el.innerHTML = 'No bulletin posted.'; return; }
         var md = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
         md = md.replace(/^---[\s\S]*?---\s*/, '');
+        if (Lab.wikilinks) md = Lab.wikilinks.preprocess(md);
         var html = md
           .replace(/^## (.+)$/gm, '<h4>$1</h4>')
           .replace(/^[-*] \[x\] (.+)$/gm, '<div><span style="color:var(--green);">&#10003;</span> <s style="color:var(--grey-400);">$1</s></div>')
           .replace(/^[-*] \[ \] (.+)$/gm, '<div><span style="color:#e65100;">&#9679;</span> $1</div>')
           .replace(/^[-*] (.+)$/gm, '<div>$1</div>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/_(.+?)_/g, '<em>$1</em>');
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
         el.innerHTML = html;
+        if (Lab.wikilinks) Lab.wikilinks.processRendered(el);
+        if (Lab.postProcessImages) Lab.postProcessImages(el);
       })
       .catch(function() { el.innerHTML = 'Could not load bulletin. Set a GitHub token to see content.'; });
   }
