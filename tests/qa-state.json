@@ -8,26 +8,101 @@
       "name": "Vianney Ahn",
       "role": "grad_student",
       "focus": "DNA extraction, sample prep, pistachio pangenome",
-      "workflow": "notebook-heavy, daily entries, gel images, sample tracking"
+      "workflow": "notebook-heavy, daily entries, gel images, sample tracking",
+      "tasks": [
+        "Create daily notebook entry with today's extraction results",
+        "Upload gel image from today's run, annotate lanes",
+        "Add 3 new samples to sample tracker with NanoDrop values in notes",
+        "Check inventory for DNeasy kits, mark as need more if low",
+        "Search protocols for 'PCR' and follow the genotyping protocol",
+        "Create a new protocol based on a paper she just read",
+        "Store extracted DNA in freezer box, record position",
+        "Edit yesterday's notebook entry to add forgotten results",
+        "Cross-reference a protocol from within a notebook entry using wikilinks",
+        "Search for a reagent she knows exists but can't remember the exact name"
+      ]
     },
     {
       "name": "Alex Chen",
       "role": "postdoc",
       "focus": "library prep, sequencing, epigenomics protocols",
-      "workflow": "protocol creation, inventory management, project pages"
+      "workflow": "protocol creation, inventory management, project pages",
+      "tasks": [
+        "Create a detailed library prep protocol with 15+ steps",
+        "Duplicate an existing protocol and modify buffer volumes",
+        "Rename a protocol to follow the lab naming convention",
+        "Create a new project page for a grant and fill in all sections",
+        "Add 5 inventory items for a new kit that just arrived",
+        "Edit an existing wiki page to add safety information",
+        "Review the dashboard and check what needs ordering",
+        "Create a wiki page for a new piece of equipment with location details",
+        "Use the lab map to assign new reagents to freezer positions",
+        "Edit the bulletin board with this week's announcements"
+      ]
     },
     {
       "name": "Kayla Torres",
       "role": "undergrad",
       "focus": "seed sterilization, planting, growth chamber",
-      "workflow": "follows existing protocols, checks inventory, simple notebook entries"
+      "workflow": "follows existing protocols, checks inventory, simple notebook entries",
+      "tasks": [
+        "Find the seed sterilization protocol and read it",
+        "Check if we have enough MS media in inventory",
+        "Create a simple notebook entry: 'Planted 24 seeds today'",
+        "Search for 'ethanol' across the whole site",
+        "Look at the lab map to find where the growth chamber supplies are",
+        "Navigate from dashboard to protocols to notebooks (full tour)",
+        "Try to edit a protocol she shouldn't modify (read-only check)",
+        "Use mobile viewport to check protocols on her phone",
+        "Create a notebook entry with a photo of her plants",
+        "Add a waste container entry for used bleach solution"
+      ]
     },
     {
       "name": "Dr. Monroe",
       "role": "pi",
       "focus": "oversight, bulletin board, dashboard review, project status",
-      "workflow": "dashboard → check updates → review notebooks → check inventory needs"
+      "workflow": "dashboard → check updates → review notebooks → check inventory needs",
+      "tasks": [
+        "Review dashboard: are stats correct? Recent updates make sense?",
+        "Edit the bulletin board with new lab meeting time",
+        "Check all project pages — do they have content? Are links working?",
+        "Review a student's notebook entry — is it complete?",
+        "Check the knowledge graph — does it show connections?",
+        "Look at inventory needs ordering list — is it accurate?",
+        "Navigate to sample tracker, filter by status, check counts",
+        "Open the calendar and verify events are visible",
+        "Print a protocol (check print button exists and works)",
+        "Search for a specific reagent by name, then by type filter"
+      ]
     }
+  ],
+  "behavior_modifiers": [
+    { "name": "rushed", "description": "Types fast, doesn't wait for saves to complete, clicks away quickly. Tests race conditions and unsaved state." },
+    { "name": "careful", "description": "Reads every page fully, checks rendered output after every save, verifies content via GitHub API. Catches stale render bugs." },
+    { "name": "confused", "description": "Clicks wrong buttons, navigates to wrong pages, uses search with typos, tries to save without filling required fields. Tests error handling." },
+    { "name": "thorough", "description": "Fills every optional field, adds long descriptions, uploads multiple images, creates deeply nested content. Tests limits." },
+    { "name": "mobile", "description": "Uses 375x812 viewport throughout. Tests responsive layout, touch targets, bottom nav." },
+    { "name": "adversarial", "description": "Enters HTML tags, script injections, extremely long strings (500+ chars), emoji-heavy names, Unicode edge cases. Tests input sanitization." },
+    { "name": "impatient", "description": "Double-clicks save buttons, refreshes mid-save, navigates away during upload, back-button after form submit. Tests interruption handling." },
+    { "name": "explorer", "description": "Tries URL manipulation (?doc=nonexistent), opens pages in unexpected order, deep-links to items that were just deleted. Tests error states." }
+  ],
+  "scenario_cards": [
+    "New lab member first day: Create notebook folder, first entry, find a protocol, check inventory",
+    "Ordering day: Review dashboard needs ordering, check each item, update inventory counts",
+    "Experiment day: Follow protocol start to finish, record in notebook with images, track samples",
+    "Lab meeting prep: Review all project pages, check recent notebooks, prepare bulletin",
+    "Equipment move: Update lab map positions for 3 items that moved shelves",
+    "Protocol revision: Duplicate a protocol, modify 5 steps, save, compare with original",
+    "Sample QC review: Filter sample tracker by status, check notes for failed samples",
+    "End of week: Review all notebooks from this week, check waste containers are logged",
+    "Grant report: Compile data from projects, sample tracker counts, protocol list",
+    "Emergency: Reagent spill — find SDS via inventory, check waste disposal protocol",
+    "Bulk data entry: Add 10 samples in rapid succession with varying fields",
+    "Cross-reference deep dive: Start from a protocol, follow every wikilink, check each destination",
+    "Multi-tab chaos: Open 3 pages, edit all simultaneously, save in random order",
+    "Stale data hunt: Save something, immediately reload, check if content matches",
+    "Image-heavy notebook: Upload 5 images in one entry, annotate 3, resize 2, save, verify all render"
   ],
   "routes_discovered": [],
   "routes_tested": [],
@@ -37,5 +112,5 @@
   "improvements_proposed": [],
   "edge_cases_tested": [],
   "screenshots_taken": [],
-  "notes": "Initial state. First cycle should explore all routes and take baseline screenshots."
+  "notes": "Initial state. First cycle should explore all routes and take baseline screenshots. Each cycle: pick a random persona + random modifier + random task or scenario card."
 }
