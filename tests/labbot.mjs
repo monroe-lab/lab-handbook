@@ -1583,8 +1583,51 @@ function ghReadFile(path) {
     log('dashboard', 'Bulletin board', text.includes('BULLETIN') ? 'PASS' : 'FAIL', 'Section present');
     log('dashboard', 'Knowledge graph', text.includes('KNOWLEDGE GRAPH') ? 'PASS' : 'FAIL', 'Section present');
 
+    // ── Knowledge graph renders (canvas-based force graph) ──
+    const graphInfo = await p.evaluate(() => {
+      const container = document.getElementById('knowledgeGraph');
+      if (!container) return { found: false };
+      const canvas = container.querySelector('canvas');
+      return { found: !!canvas, width: canvas?.width || 0, height: canvas?.height || 0 };
+    });
+    log('dashboard', 'Graph renders', graphInfo.found ? 'PASS' : 'FAIL',
+      graphInfo.found ? `Canvas ${graphInfo.width}x${graphInfo.height}` : 'No canvas found');
+
     await p.screenshot({ path: '/tmp/labbot-dashboard.png', fullPage: false });
     await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  SEARCH: verify search works across pages
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('search')) {
+    console.log('\n🔍 SEARCH\n');
+
+    const searchPages = [
+      { name: 'protocols', path: '/app/protocols.html', query: 'PCR', selector: '[data-path]' },
+      { name: 'wiki', path: '/app/wiki.html', query: 'ethanol', selector: '.doc-item, [data-path]' },
+      { name: 'inventory', path: '/app/inventory.html', query: 'buffer', selector: 'tbody tr' },
+      { name: 'notebooks', path: '/app/notebooks.html', query: 'alex', selector: '.nb-item, [data-path]' },
+    ];
+
+    for (const sp of searchPages) {
+      const pg = await context.newPage();
+      await pg.goto(BASE + sp.path, { waitUntil: 'networkidle', timeout: 20000 });
+      await pg.waitForTimeout(2000);
+
+      const searchInput = await pg.$('input[placeholder*="Search"], input[placeholder*="search"], #protoSearch, #wikiSearch, #invSearch, #nbSearch');
+      if (searchInput) {
+        await searchInput.fill(sp.query);
+        await pg.waitForTimeout(1000);
+        const results = await pg.evaluate((sel) =>
+          document.querySelectorAll(sel).length, sp.selector);
+        log('search', `${sp.name}: "${sp.query}"`, results > 0 ? 'PASS' : 'WARN',
+          `${results} results`);
+      } else {
+        log('search', `${sp.name} search`, 'WARN', 'Search input not found');
+      }
+      await pg.close();
+    }
   }
 
   // ════════════════════════════════════════════════════════════

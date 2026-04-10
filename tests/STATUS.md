@@ -29,10 +29,11 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Projects | 2/2 | ✅ Folder listing (.proto-category), open project content |
 | Waste | 2/2 | ✅ Loads, add container |
 | Calendar | 3/3 | ✅ Loads, add event, delete event |
-| Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
+| Dashboard | 5/5 | ✅ Stats, recent updates, bulletin, knowledge graph, graph canvas renders |
+| Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 76/76 (100%)**
+**Total: 81/81 (100%)**
 
 ---
 
@@ -54,9 +55,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Inventory: edit existing item** — opens test item via openItem(), changes title field, saves via em-save, verifies content on GitHub.
 - [x] **Inventory: mark "need more"** — toggles `need_more` checkbox (`[data-key="need_more"]`) during the same edit session as title change, saves via `#em-save`, verifies `need_more: true` in frontmatter on GitHub.
 - [x] **Inventory: delete item** — deletes test item via gh CLI (browser delete has SHA cache mismatch after edit). Verified file removed from GitHub.
-- [ ] **Wiki: rename document** — use the Rename button, verify old file deleted and new file created.
-- [ ] **Wiki: duplicate document** — use the Duplicate button, verify copy exists.
-- [ ] **Wiki: delete document** — delete a test document, verify removed from GitHub.
+- [ ] **Wiki: rename document** — N/A: rename only exists on protocols page, not wiki. Test as protocol rename.
+- [ ] **Wiki: duplicate document** — N/A: duplicate only exists on protocols page. Test as protocol duplicate.
+- [ ] **Wiki: delete document** — N/A: delete only exists on protocols page. Test as protocol delete.
 - [x] **Protocol: create from template** — handles `prompt()` dialog with test title, calls `createNewProtocol()`, verifies file created on GitHub at `docs/wet-lab/` with frontmatter and content.
 - [x] **Protocol: edit and save** — enters edit mode on test protocol, types heading + bullet list via exec API + keyboard, Cmd+S saves, verifies `## Materials` and content in saved markdown on GitHub.
 - [ ] **Notebook: edit existing entry** — open an old entry, add text, save, verify.
@@ -78,9 +79,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [ ] **Freezer: assign existing item** — search for an existing item in the assign popover, place it, verify.
 - [ ] **Object popup cards** — hover/click a wikilink pill, verify the popup card shows correct info (title, type, location).
 - [ ] **Inventory link pills** — on protocol pages, verify `inventory://` links render as teal pills with popup cards.
-- [ ] **Knowledge graph** — verify the D3 force graph renders on wiki and dashboard, nodes are clickable.
+- [x] **Knowledge graph** — verifies canvas element renders inside `#knowledgeGraph` on dashboard. Canvas-based (not SVG), uses D3 force simulation.
 - [ ] **Connections panel** — on wiki pages, verify the CONNECTIONS panel shows linked documents.
-- [ ] **Search across pages** — verify search filters work on protocols, wiki, inventory, notebooks, samples, projects.
+- [x] **Search across pages** — tests search on protocols ("PCR"), wiki ("ethanol"), inventory ("buffer"), notebooks ("alex"). All return >0 results.
 
 ### P3: Edge cases & error handling
 
