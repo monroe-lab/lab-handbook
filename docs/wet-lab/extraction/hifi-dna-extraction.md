@@ -23,7 +23,7 @@ Soya 2025
 <br>
 [[1-8-naphthalic-anhydride]]
 
-\#\# \[Protocol\] HiFi extraction
+## HiFi Extraction Protocol
 
 Based on [(Rabanal et al. 2022)](https://paperpile.com/c/Ov8wZy/6421), which adopted and triplicated the protocol[(Russo et al. 2022)](https://paperpile.com/c/Ov8wZy/JoWJ) modified from [(Mayjonade et al. 2016)](https://paperpile.com/c/Ov8wZy/veB8)’s modified protocol
 
@@ -84,7 +84,8 @@ Works for Arabidopsis (yields 1-4 µg in our lab). Also validated for species fr
 * Move PCI (Phenol/Chloroform/Isoamyl alcohol) to room temperature (RT)
 * Identify the waste container in the chemical hood- waste solutions from the procedures 1 to 10 should be discarded in the appropriate container in the chemical hood.
 
-Procedures
+#### Procedure
+
 
 | ◻︎ | 1. | Grind the plant tissue in [[automill]] to obtain fine powder. | 213 rpm x 60 sec for arabidopsis leaf |
 | --- | --- | --------------------------------------------------------- | ------------------------------------- |
@@ -147,5 +148,3 @@ PacBio HMW (Nanobind PanDNA kit) $324/24 prep
 Didn’t work for pistachio
 
 ***
-
-##### 

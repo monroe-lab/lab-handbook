@@ -211,12 +211,13 @@ Mix PCR reactions by pipetting. Flick/gently vortex tubes for a final mix and a 
 
 4. Follow the [[thermocycler]] protocol for CUT&Tag from the active motif kit. (CUT&Tag protocols recommend a non hot-start PCR)
 
-|  |  | 72C for 5 min |
-| --- | --- | --- |
-|  | Initial Denaturation | 98C for 30 seconds |
-|  | 13-15 cycles | 98C for 10s  63C for 10s |
-|  | Final Extension | 72C for 1 minute |
-|  | Hold | 10C |
+| Step | Conditions |
+| --- | --- |
+| Gap fill-in | 72 °C for 5 min |
+| Initial Denaturation | 98 °C for 30 seconds |
+| 13-15 cycles | 98 °C for 10s, 63 °C for 10s |
+| Final Extension | 72 °C for 1 minute |
+| Hold | 10 °C |
 For each PCR reaction add 50-100 ng of input material (use up all the tagmented DNA in replicates)
 
 ---

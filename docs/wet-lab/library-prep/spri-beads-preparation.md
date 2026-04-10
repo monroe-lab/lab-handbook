@@ -20,14 +20,14 @@ Described below is the short version - please see attachment at the end for a mo
 
 Solutions needed
 
-·           TE - 100ml
+- TE - 100ml
 
 | What | Amount for 100ml |
 | --- | --- |
 | Tris pH8 1M | 1 ml |
 | EDTA 0.5M | 200ul |
-| Fill up with water, then [[autoclave]] | |
-·           NaCl-PEG solution
+| Fill up with water, then [[autoclave]] |  |
+- NaCl-PEG solution
 
 | What | Amount for 250ml | Amount for 50ml |
 | --- | --- | --- |
@@ -35,7 +35,12 @@ Solutions needed
 | NaCl | 36.5g | 7.3g |
 | EDTA 0.5M | 500ul | 100ul |
 | Tris pH8 1M | 2.5ml | 500ul |
-| ·       Fill up with water  ·       Mix carefully and wait until solution is clear (takes an hour or so, just wait)  ·       filter with bottle-top filter | | |
+**After mixing NaCl-PEG solution:**
+
+- Fill up with water
+- Mix carefully and wait until solution is clear (takes an hour or so, just wait)
+- Filter with bottle-top filter
+
 SpeedBeads:
 
 [http://www.gelifesciences.com/webapp/wcs/stores/servlet/ProductDisplay?categoryId=613051&catalogId=10101&productId=121280&storeId=11762&langId=-1](http://www.gelifesciences.com/webapp/wcs/stores/servlet/ProductDisplay?categoryId=613051&catalogId=10101&productId=121280&storeId=11762&langId=-1)
@@ -64,26 +69,26 @@ Testing the beads
 
 → compare to commercial AMPure XP beads
 
-·           Dilute the Mix ladder with water (400ul ready-to-use ladder + 400ul water)
+- Dilute the Mix ladder with water (400ul ready-to-use ladder + 400ul water)
 
-·           Distribute the diluted ladder: 50ul each into 14 tubes
+- Distribute the diluted ladder: 50ul each into 14 tubes
 
-·           Add the following SRI beads/ AMPure bead amounts
+- Add the following SRI beads/ AMPure bead amounts
 
 | Ratio | 1.8:1 | 1:1 | 0.9:1 | 0.8:1 | 0.7:1 | 0.6:1 | 0.5:1 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Amount of beads needed | 90ul | 50ul | 45ul | 40ul | 35ul | 30ul | 25ul |
-·           Mix very well by pipetting
+- Mix very well by pipetting
 
-·           Place tubes on magnet and let bind for 5 minutes
+- Place tubes on magnet and let bind for 5 minutes
 
-·           Perform 2 washes with 80% EtOH (200ul each)
+- Perform 2 washes with 80% EtOH (200ul each)
 
-·           Let beads dry
+- Let beads dry
 
-·           Elute bound DNA with 30ul of water
+- Elute bound DNA with 30ul of water
 
-·           Load 16ul of the eluted DNA with 4ul loading dye on a gel
+- Load 16ul of the eluted DNA with 4ul loading dye on a gel
 
 Gel should like like this:
 
@@ -99,10 +104,10 @@ b=better) ensure all aliquots get a 'top of the bottle' and a 'bottom of the bot
 
 Credit and further reading:
 
-·           [Rohland N, Reich D](https://www.ncbi.nlm.nih.gov/pubmed/22267522). Cost-effective, high-throughput DNA sequencing libraries for multiplexed target capture. Genome Research. 2012. Doi: 10.1101/gr.128124.111
+- [Rohland N, Reich D](https://www.ncbi.nlm.nih.gov/pubmed/22267522). Cost-effective, high-throughput DNA sequencing libraries for multiplexed target capture. Genome Research. 2012. Doi: 10.1101/gr.128124.111
 
-·           [DeAngelis MM, Wang DG, Hawkins TL](https://www.ncbi.nlm.nih.gov/pubmed/8524672): Solid-phase reversible immobilization for the isolation of PCR products. Nucleic Acids Res 1995, 23:4742–4743.
+- [DeAngelis MM, Wang DG, Hawkins TL](https://www.ncbi.nlm.nih.gov/pubmed/8524672): Solid-phase reversible immobilization for the isolation of PCR products. Nucleic Acids Res 1995, 23:4742–4743.
 
-·           [Fisher S, et al.](https://www.ncbi.nlm.nih.gov/pubmed/21205303): A scalable, fully automated process for construction of sequence-ready human exome targeted capture libraries. Genome Biol 2011, 12:R1.
+- [Fisher S, et al.](https://www.ncbi.nlm.nih.gov/pubmed/21205303): A scalable, fully automated process for construction of sequence-ready human exome targeted capture libraries. Genome Biol 2011, 12:R1.
 
-·           [Lundin S, Stranneheim H, Pettersson E, Klevebring D, Lundeberg J](https://www.ncbi.nlm.nih.gov/pubmed/20386591): Increased throughput by parallelization of library preparation for massive sequencing. PLoS One 2010, 5:e10029.
+- [Lundin S, Stranneheim H, Pettersson E, Klevebring D, Lundeberg J](https://www.ncbi.nlm.nih.gov/pubmed/20386591): Increased throughput by parallelization of library preparation for massive sequencing. PLoS One 2010, 5:e10029.

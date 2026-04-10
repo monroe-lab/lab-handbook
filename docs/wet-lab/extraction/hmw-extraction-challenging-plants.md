@@ -85,7 +85,7 @@ Sorbitol Pre-Wash
 | β-mercaptoethanol |  | 1% (v/v) | 200 ul | 500 ul |
 | Na2S2O5  (Sodium Metabisulfite) |  | 1% (w/v) | 0.2 g | 0.5 g |
 | dH2O |  |  | Up to 20 ml | Up to 50 ml |
-The buffer base may be stored at 4 ̊C, for up to six months.
+The buffer base may be stored at 4 °C, for up to six months.
 
 Account for up to 4.5ml per sample (3 washes)
 
@@ -132,14 +132,14 @@ High Salt CTAB Lysis
 | dH2O |  | Up to 10 ml |  |
 ~700 ul per sample
 
-Pre-warm buffer at 65̊C (modification: 45̊C?) to dissolve PVP.
+Pre-warm buffer at 65°C (modification: 45°C?) to dissolve PVP.
 
 1. Add a pre-warmed lysis buffer to sample tubes and resuspend the samples by shaking for five seconds in the bead mill or by vortexing.
 
 - (500 to 700 μl or to approximately ½ the sample tube capacity)
 - Record volume added.
 
-2. Incubate the tubes in a hot block at  65 ̊C   (modification: 45̊C) for a minimum of 30 minutes, up to 60 minutes, with mixing by inversion every ten minutes
+2. Incubate the tubes in a hot block at  65 °C   (modification: 45°C) for a minimum of 30 minutes, up to 60 minutes, with mixing by inversion every ten minutes
 
 - 400 rpm on hot block
 
@@ -169,7 +169,7 @@ Precipitate DNA
 
 Volumes to add:
 
-2. Tubes were mixed by inversion and kept at -20 ̊C for one hour.
+2. Tubes were mixed by inversion and kept at -20 °C for one hour.
 
 3. DNA was pelleted by centrifugation at 13,000 x g  5000 - 7000 xg for 10 minutes at room temperature.
 
@@ -181,7 +181,7 @@ Volumes to add:
 i.e. add ethanol and centrifuge.
 
 6. Supernatants were carefully removed by aspiration to avoid loss of the nucleic acid pel- let and tubes left to dry open at room temperature for approximately one hour or vacuum dried at room temperature for 10 minutes.  ← 1 hr is too long
-7. DNA pellets following isopropanol precipitation were usually small, compact, translucent and only rarely brownish, indicating that the pre-wash effectively removes polysaccharides and polyphenols. Pellets were then suspended in 100 μl TE containing 0.1 mg/ml DNase-free RNase A and incubated at 37 ̊C for 30 minutes. 
+7. DNA pellets following isopropanol precipitation were usually small, compact, translucent and only rarely brownish, indicating that the pre-wash effectively removes polysaccharides and polyphenols. Pellets were then suspended in 100 μl TE containing 0.1 mg/ml DNase-free RNase A and incubated at 37 °C for 30 minutes. 
 
 ----------------------
 
@@ -210,7 +210,7 @@ If you can’t see a pellet, after adding ethanol, then centrifuge at 7000 - 100
 ----------------------
 
 8. Measure concentration on Qubit BR.
-9. Store the extracted DNA at -20 ̊C until required.
+9. Store the extracted DNA at -20 °C until required.
 
 ---
 
@@ -282,7 +282,7 @@ List of other consumables, enzymes, etc.
 Sample Prep
 
 - Measure out ~150mg of fresh tissue per sample and add 2 x 6.3mm beads into tube
-- Place weighed samples into LN / -80 ̊C until use
+- Place weighed samples into LN / -80 °C until use
 - To scale up to 15ml reactions, measure 1 - 1.5 g of tissue and grind in LN with mortar and pestle.
 
 Sorbitol Pre-Wash
@@ -295,7 +295,7 @@ Sorbitol Pre-Wash
 | Sorbitol | 182.17 g/mol | 0.35 M | 3.24 g |
 | Na2S2O5  (Sodium Metabisulfite) |  | 1% (w/v) | 0.5 g |
 | dH2O |  |  | Up to 60 ml  Account for up to 6ml per sample (4 washes) |
-The sorbitol and CTAB buffer bases may be stored at 4 ̊C, for up to six months. Add sodium metabisulfite on the day you are planning to do the extraction.
+The sorbitol and CTAB buffer bases may be stored at 4 °C, for up to six months. Add sodium metabisulfite on the day you are planning to do the extraction.
 
 1. Grind tissue
 
@@ -325,7 +325,7 @@ High Salt CTAB Lysis
 | dH2O |  |  | Up to 10 ml |
 **Notes:**
 
-- - Pre-warm the CTAB buffer at 45
+- Pre-warm the CTAB buffer at 45
 - 55°C to dissolve PVP.
 - Pre-warm the [[thermomixer]] to 45 °C
 - Make sure the CI is at room temperature.
@@ -335,9 +335,9 @@ High Salt CTAB Lysis
 
 - Do not add more than 700ul to account for equal volume of CI to be added later.
 
-2. Incubate the tubes in a hot block at  45 ̊C  for 60 minutes x 400 rpm, with inverting the tubes every 20 minutes.
+2. Incubate the tubes in a hot block at  45 °C  for 60 minutes x 400 rpm, with inverting the tubes every 20 minutes.
 
-3. Add 20ul of RNase (=400ug) and incubate for another 15-20 minutes at 45 ̊C.
+3. Add 20ul of RNase (=400ug) and incubate for another 15-20 minutes at 45 °C.
 
 - PureLinkTM RNase A (ThermoFisher Scientific #12091021 OR 100 mg/ml DNase-free RNase A
 
@@ -378,7 +378,7 @@ To prepare the solution of 0.4% SeraMag Beads:
 
 **Notes:**
 
-- - Prepare fresh 80% Ethanol and keep at RT. (Need 4ml per sample)
+- Prepare fresh 80% Ethanol and keep at RT. (Need 4ml per sample)
 - Pre-warm EB buffer to 50 °C .
 - Make sure the SPRI beads are at RT before use.
 
@@ -389,15 +389,15 @@ To prepare the solution of 0.4% SeraMag Beads:
 - Make sure to work quickly after ethanol is added. Too much time in ethanol will cause beads to clump together making it difficult to elute later on.
 
 4. Repeat step 3 (EtOH wash) again.
-5. Add 50ul of pre-heated (45-50C) EB buffer, and incubate for 15min x 37̊C x 10rpm.
+5. Add 50ul of pre-heated (45-50C) EB buffer, and incubate for 15min x 37°C x 10rpm.
 
-- The hulamixer fits into the 37̊C incubator.
+- The hulamixer fits into the 37°C incubator.
 
 6. Spin tubes down and place on a magnetic rack. Wait for the solution to become clear. Transfer the supernatant into a new 1.5 ml tube using a wide-bore tip.
 
 - Make sure to use a low binding tube.
 
-7. Add 20ul of Collibri beads and mix with a wide-bore tip. Incubate for 15min x 37̊C x 10rpm. Repeat steps 2-6.
+7. Add 20ul of Collibri beads and mix with a wide-bore tip. Incubate for 15min x 37°C x 10rpm. Repeat steps 2-6.
 8. Leave the tube on your bench overnight.
 
 - To allow HMW DNA to homogenize in solution
@@ -428,7 +428,7 @@ Sorbitol Pre-Wash
 
 1% (w/v) [[polyvinylpyrrolidone]] (average molecular weight 40,000; PVP-40))
 
-The buffer base may be stored at 4 ̊C, for up to six months.
+The buffer base may be stored at 4 °C, for up to six months.
 
 \*Addition of 2-mercaptoethanol (1% v/v) just before extraction.
 
@@ -466,7 +466,7 @@ High Salt CTAB Lysis
 
 This stock may be stored at room temperature, for up to six months.
 
-Add \*2-mercaptoethanol (1% v/v) before extraction and pre-warm the buffer to 65 ̊C to aid pipetting.
+Add \*2-mercaptoethanol (1% v/v) before extraction and pre-warm the buffer to 65 °C to aid pipetting.
 
 The pre-warmed lysis buffer was added to the sample tubes (500 to 700 μl or to approximately ½ the sample tube capacity) and the samples resuspended by shaking for five seconds in the bead mill or by vortexing.
 
@@ -474,7 +474,7 @@ The pre-warmed lysis buffer was added to the sample tubes (500 to 700 μl or to 
 
 - (500 to 700 μl or to approximately ½ the sample tube capacity)
 
-2. Incubate the tubes in a hot block at  65 ̊C for a minimum of 30 minutes, up to 60 minutes, with mixing by inversion every ten minutes
+2. Incubate the tubes in a hot block at  65 °C for a minimum of 30 minutes, up to 60 minutes, with mixing by inversion every ten minutes
 
 - 400 rpm on hot block
 
@@ -497,7 +497,7 @@ Precipitate DNA
 
 1. Add 0.1X the volume of supernatant of 3M sodium acetate (pH 5.2) and 0.66X the volume of cold isopropanol (stored at -20C)
 
-2. Tubes were mixed by inversion and kept at -20 ̊C for one hour.
+2. Tubes were mixed by inversion and kept at -20 °C for one hour.
 
 3. DNA was pelleted by centrifugation at 13,000 x g for 10 minutes at room temperature
 
@@ -509,9 +509,9 @@ Precipitate DNA
 
 6. Supernatants were carefully removed by aspiration to avoid loss of the nucleic acid pel- let and tubes left to dry open at room temperature for approximately one hour or vacuum dried at room temperature for 10 minutes.
 
-7. DNA pellets following isopropanol precipitation were usually small, compact, translucent and only rarely brownish, indicating that the pre-wash effectively removes polysaccharides and polyphenols. Pellets were then suspended in 100 μl TE containing 0.1 mg/ml DNase-free RNase A and incubated at 37 ̊C for 30 minutes.
+7. DNA pellets following isopropanol precipitation were usually small, compact, translucent and only rarely brownish, indicating that the pre-wash effectively removes polysaccharides and polyphenols. Pellets were then suspended in 100 μl TE containing 0.1 mg/ml DNase-free RNase A and incubated at 37 °C for 30 minutes.
 
-8. The extracted DNA was stored at -20 ̊C until required.
+8. The extracted DNA was stored at -20 °C until required.
 
 Pistachio - protocol optimization
 

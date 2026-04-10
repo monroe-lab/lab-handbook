@@ -43,7 +43,7 @@ Library Prep for PacBio Sequencing
 - Tips from Noravit at the Genome Center:
 
 - While the maximum input for sequencing is 300ng per sample, for the very first bead-clean up step, expecting 10-30% loss, used ALL the DNA from pipette shearing (350ng)
-- \*\*Increase the time for the Repair step. While the protocol says to run for 30 minutes, increase to 1 hour at 37C. Some people will even incubate at RT for this repair step.
+- **Increase the time for the Repair step. While the protocol says to run for 30 minutes, increase to 1 hour at 37C. Some people will even incubate at RT for this repair step.
 
 - Sample pooling:
 
@@ -141,7 +141,7 @@ I am highly confident that all the indexes for the first pool that I prepared ar
 
 However, one potential source of error from my part during the second library preparation was that I had written down all the adapter wells used on a piece of paper, and lost that piece of paper. I backtracked from the plates
 
-hing to note was that for the second library preparation, I wrote down my record of
+One thing to note was that for the second library preparation, the record of adapter wells used was written down on paper.
 
 The only potential issue that I can think of leading to a mixup with the barcodes during the library prep process was that I used the 96 well adapter index plate that we have been re-using in our lab for some time. There may have been potential cross-contamination between indexes in the plate.
 

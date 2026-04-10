@@ -154,11 +154,8 @@ The DiMeLo-Seq protocol recommends a working protein concentration of 200nM in 2
 
 If Fiber-Seq is similar to an ATAC-Seq → that means that DiMeLo-Seq requires higher input of (\_)-Hia5 than in Fiber-Seq protocol.
 
-###
 
-###
 
-###
 
 ### Validate activity of synthesized Hia5 protein
 
@@ -299,11 +296,9 @@ Library Prep:
 
 - 300ng
 
-###
 
 ---
 
-###
 
 ### Fiber-Seq Test Using Arabidopsis Samples
 

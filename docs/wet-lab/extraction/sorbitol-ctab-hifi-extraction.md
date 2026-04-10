@@ -8,7 +8,7 @@ title: "Sorbitol/CTAB HiFi Extraction"
 
 **Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[hula-mixer]], [[magnetic-rack]], [[nanodrop]], [[thermomixer]]
 
-<br>
+
 **Reagents:** [[cetrimonium-bromide]], [[chloroform]], [[dnase]], [[ethanol-70]], [[hexadecyltrimethyl-ammonium-bromide]], [[isopropyl-alcohol]], [[mes-buffer]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]]
 
 **Related Protocols:** [[hifi-dna-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]]
@@ -38,7 +38,7 @@ Sample Prep
 
 * Measure out \~100-150mg of fresh tissue per sample and add 2 x 6.3mm beads into tube
 * DO NOT exceed 150mg, or else the sorbitol washes will not work effectively and compromise DNA yield and quality.
-* Place weighed samples into LN / -80 ̊C until use
+* Place weighed samples into LN / -80 °C until use
 
 ***
 
@@ -53,7 +53,7 @@ Sorbitol Pre-Wash
 | Na2S2O5 ([[sodium-metabisulfite]]) |  | 1% (w/v) | 0.5 g |
 | dH2O |  |  | Up to 60 ml Account for up to 6ml per sample (4 washes) |
 
-The sorbitol and CTAB buffer bases may be stored at 4 ̊C, for up to six months. Add sodium metabisulfite on the day you are planning to do the extraction.
+The sorbitol and CTAB buffer bases may be stored at 4 °C, for up to six months. Add sodium metabisulfite on the day you are planning to do the extraction.
 
 1. Grind tissue until fine powder
 
@@ -95,8 +95,8 @@ High Salt CTAB Lysis
 
 * Do not add more than 700ul to account for equal volume of CI to be added later.
 
-2. Incubate the tubes in a hot block at  45 ̊C  for 60 minutes x 400 rpm, with inverting the tubes every 20 minutes.
-3. Add 20ul of RNase (=400ug) and incubate for another 15-20 minutes at 45 ̊C.
+2. Incubate the tubes in a hot block at  45 °C  for 60 minutes x 400 rpm, with inverting the tubes every 20 minutes.
+3. Add 20ul of RNase (=400ug) and incubate for another 15-20 minutes at 45 °C.
 
 * PureLinkTM RNase A (ThermoFisher Scientific #12091021 OR 100 mg/ml DNase-free RNase A
 
@@ -153,15 +153,15 @@ To prepare the solution of 0.4% SeraMag Beads:
 * Make sure to work quickly after ethanol is added. Too much time in ethanol will cause beads to clump together making it difficult to elute later on.
 
 4. Repeat step 3 (EtOH wash) again.
-5. Add 50ul of pre-heated (45-50C) EB buffer, and incubate for 15min x 37̊C x 10rpm.
+5. Add 50ul of pre-heated (45-50C) EB buffer, and incubate for 15min x 37°C x 10rpm.
 
-* The hulamixer fits into the 37̊C incubator.
+* The hulamixer fits into the 37°C incubator.
 
 6. Spin tubes down and place on a magnetic rack. Wait for the solution to become clear. Transfer the supernatant into a new 1.5 ml tube using a wide-bore tip.
 
 * Make sure to use a low binding tube.
 
-7. Add 20ul of Collibri beads and mix with a wide-bore tip. Incubate for 15min x 37̊C x 10rpm. Repeat steps 2-6.
+7. Add 20ul of Collibri beads and mix with a wide-bore tip. Incubate for 15min x 37°C x 10rpm. Repeat steps 2-6.
 8. Leave the tube on your bench overnight.
 
 * To allow HMW DNA to homogenize in solution

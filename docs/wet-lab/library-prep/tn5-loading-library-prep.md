@@ -94,23 +94,27 @@ Library Prep:
 
 6. Use 12-15ul of tagmented DNA as input for library prep. Prepare 25ul PCR reactions, run for 15-20 cycles (only for verification of successful library prep on [[agarose]] gel, so higher cycle # ok); 3ul to load gel.
 
-|  | 12-15 ul DNA  5 ul 5X Q5 reaction buffer  4.75 - 1.75 ul nuclease-free water  1.25 ul of each forward/reverse primer (10uM)  0.5 ul dNTPs (10mM)  0.25 ul Q5 polymerase |
+| Component | Amount |
 | --- | --- |
+| DNA | 12-15 ul |
+| 5X Q5 reaction buffer | 5 ul |
+| Nuclease-free water | 4.75 - 1.75 ul |
+| Forward/reverse primer (10uM) | 1.25 ul each |
+| dNTPs (10mM) | 0.5 ul |
+| Q5 polymerase | 0.25 ul |
 PCR Cycle Conditions
 
-|  | 72C for 5 min |
+| Step | Conditions |
 | --- | --- |
-| Initial Denaturation | 98C for 30 seconds |
-| 15-20 cycles | 98C for 10s  63C for 10s |
-| Final Extension | 72C for 1 minute |
-| Hold | 10C |
-For more detailed instructions, refer to the [[[cut-and-tag]]](https://docs.google.com/document/d/1rTRJISdgs6TK0SNbs5arAiXBsZ93d-MYPAy5G7-tHCo/edit?usp=sharing).
+| Gap fill-in | 72 °C for 5 min |
+| Initial Denaturation | 98 °C for 30 seconds |
+| 15-20 cycles | 98 °C for 10s, 63 °C for 10s |
+| Final Extension | 72 °C for 1 minute |
+| Hold | 10 °C |
+
+For more detailed instructions, refer to [[cut-and-tag]] or the [Google Doc](https://docs.google.com/document/d/1rTRJISdgs6TK0SNbs5arAiXBsZ93d-MYPAy5G7-tHCo/edit?usp=sharing).
 
 7. Use 1.3X (32.5 ul) single-sided SPRI beads for library cleanup (retain >75bp fragments; to remove leftover adapters/primers).
 8. Use cold 80% ethanol for all bead-based cleanups; 2x washes.
-
----
-
-Example Results
 
 ---
