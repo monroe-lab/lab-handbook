@@ -110,10 +110,27 @@
     });
   }
 
+  // ── Auth error detection ──
+  function handleAuthError(resp) {
+    if (resp.status === 401 || resp.status === 403) {
+      // Clear the bad token so the user gets the sign-in gate on reload
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      var msg = 'Your GitHub token has expired or is invalid. Please sign in again.';
+      if (window.Lab && window.Lab.showToast) {
+        window.Lab.showToast(msg, 'error', 8000);
+      }
+      throw new Error(msg);
+    }
+  }
+
   // ── File Operations ──
   async function fetchFile(path) {
     var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
-    if (!resp.ok) throw new Error('Failed to load ' + path + ' (HTTP ' + resp.status + ')');
+    if (!resp.ok) {
+      handleAuthError(resp);
+      throw new Error('Failed to load ' + path + ' (HTTP ' + resp.status + ')');
+    }
     var data = await resp.json();
     return {
       content: window.Lab.decodeGitHub(data.content),
@@ -135,6 +152,7 @@
       body: JSON.stringify(body)
     });
     if (!resp.ok) {
+      handleAuthError(resp);
       var err = await resp.json().catch(function() { return {}; });
       throw new Error(err.message || 'Save failed (HTTP ' + resp.status + ')');
     }
@@ -153,6 +171,7 @@
         var data = await resp.json();
         sha = data.sha;
       } else {
+        handleAuthError(resp);
         throw new Error('File not found');
       }
     }
@@ -163,6 +182,7 @@
       body: JSON.stringify({ message: message || 'Delete ' + path, sha: sha, branch: BRANCH })
     });
     if (!delResp.ok) {
+      handleAuthError(delResp);
       var err = await delResp.json().catch(function() { return {}; });
       throw new Error(err.message || 'Delete failed');
     }
@@ -170,7 +190,10 @@
 
   async function fetchTree(path) {
     var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/git/trees/' + BRANCH + '?recursive=1', { headers: authHeaders() });
-    if (!resp.ok) throw new Error('Failed to load tree');
+    if (!resp.ok) {
+      handleAuthError(resp);
+      throw new Error('Failed to load tree');
+    }
     var data = await resp.json();
     var files = data.tree.filter(function(t) { return t.type === 'blob'; }).map(function(t) { return t.path; });
     if (path) {

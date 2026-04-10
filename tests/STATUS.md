@@ -90,7 +90,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Concurrent edits** — Tested with two Playwright browser contexts. Second save gets SHA mismatch (422) as expected. Fix-loop agent (batch 2).
 - [x] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile. Requires creating a large test file; image resize caps at 1600px so OOM is unlikely. Tested: 3000x3000 canvas PNG (~1.5MB) uploaded at desktop and mobile viewports; resize pipeline caps to 1600x1600, no OOM, image appears in editor.
 - [x] **Offline behavior** — Offline-aware error messages added to GitHub API calls in `github-api.js`. Tested with `context.setOffline(true)`. Fix-loop agent (batch 2).
-- [ ] **Token expiration** — what happens when the GitHub token expires mid-session? Would need to inject an expired token.
+- [x] **Token expiration** — Added `handleAuthError()` in `github-api.js` that detects 401/403, shows descriptive toast ("Your GitHub token has expired or is invalid. Please sign in again."), and clears the bad token. Tested save, create, and fetchFile with invalid token via Playwright route interception.
 - [x] **Empty states** — Empty state handling already present across pages. Verified with filtered inventory (0 results), empty notebook folders. Fix-loop agent (batch 2).
 - [x] **Special characters in titles** — creates wiki page with `"`, `&`, `<>`, `—` in title. Verifies file created on GitHub with safe slug, content preserved.
 - [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag. Performance testing is hard in Playwright.
