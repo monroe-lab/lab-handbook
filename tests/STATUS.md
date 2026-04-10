@@ -104,6 +104,16 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [ ] **Dark mode** — if/when added, verify all pages render correctly. Feature doesn't exist yet.
 - [ ] **Print view** — click Print on a protocol, verify the print-friendly layout. Playwright can't verify print CSS easily.
 
+### P5: New features (wishlist)
+
+- [ ] **Floating issue reporter** — A floating button (bottom-left corner) visible on all pages. Clicking opens a small modal where the user describes a problem. Submits a GitHub issue to `monroe-lab/lab-handbook` via the Issues API using the PAT already in `localStorage` (key: `github-token`). Auto-captures metadata: current page path, page title, ISO timestamp, viewport size, user agent. Implementation: one JS file (`docs/javascripts/issue-reporter.js`) with inline styles (no CSS classes, per MkDocs constraint), plus one `extra_javascript` entry in `mkdocs.yml`. ~50 lines of JS. No new auth needed — all lab members already have PATs saved.
+- [ ] **Sample-type objects in markdown** — Extend the typed object system to support `[[sample]]`-tier objects. Samples should be first-class markdown files with frontmatter (like inventory/wiki objects), linkable via wikilinks and obj:// pills, with popup cards. Need to define the schema (species, project, lead, status, etc.) and integrate with the existing sample tracker data.
+- [ ] **Fix safety SOP rendering** — The lab-safety SOPs were imported from Google Docs and render incorrectly. Compare against original Google Docs and fix formatting: tables, headers, lists, spacing. Make them look professional and match the source docs.
+- [ ] **Audit imported lab protocols** — Cross-check protocols imported from Google Docs for correctness. Verify steps, reagent amounts, temperatures, times, etc. haven't been garbled in conversion.
+- [ ] **Remove time estimate charts from protocols** — Old code-chunk-style time estimate charts exist in some protocols. Remove them — they clutter the content and aren't maintained.
+- [ ] **Remove Nanopore/Flongle content** — Delete all Nanopore Flongle-related protocols and inventory items. Dead project, no longer relevant. Clean up any cross-references.
+- [ ] **Organize protocols with wikilinks** — Agent pass through all protocols to: organize/categorize them sensibly, add a materials/resources section near the top of each protocol with wikilinks to inventory items (`inventory://`), related protocols, people, and equipment. Each inventory item should be linked at least once (in the materials section), not on every mention. Add cross-links between related protocols.
+
 ---
 
 ## Workflow E2E findings (2026-04-10)
@@ -157,6 +167,10 @@ These are problems with the test bot itself, not the site:
 9. **Protocol sidebar: copies look identical** — `-copy` suffix truncated away. **Fixed:** "(Copy)" badge appended to sidebar items.
 
 10. **Sample tracker search missed species/status** — only searched sampleId, project, lead. **Fixed:** now indexes all 8 text fields.
+
+11. **GitHub API CDN caching caused stale data** — `fetchFile()` returned stale content after saves because GitHub CDN caches API responses for 60s (`s-maxage=60`). Browser `cache: 'no-store'` only controls browser cache, not CDN. **Fixed:** added `&_t=Date.now()` timestamp cache-buster to `fetchFile()` and `deleteFile()` URLs. (QA cycles 3–4)
+
+12. **Inventory Add Item double-click race** — Create button not disabled after click. Double-clicking sends two `saveFile()` requests for the same path; first succeeds, second gets 422 SHA mismatch. Shows confusing success + error toasts. **Fixed:** disable Create button and show "Creating…" on click in `confirmAdd()`. Re-enable on error. (QA cycle 5)
 
 ---
 

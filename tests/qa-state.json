@@ -1,6 +1,6 @@
 {
-  "phase": "functional",
-  "cycle": 4,
+  "phase": "edge_cases",
+  "cycle": 5,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -245,6 +245,46 @@
         "Dashboard shows updated notebook count (9) and recent commits from QA test",
         "All test artifacts cleaned up from GitHub"
       ]
+    },
+    {
+      "cycle": 5,
+      "persona": "Kayla Torres",
+      "modifier": "impatient",
+      "task": "Inventory search + add item (double-click test), wiki full CRUD (create, edit, save, reload, double Cmd+S), edit-then-navigate-away, dashboard stats, rapid navigation",
+      "bugs": [
+        {
+          "id": "bug-3",
+          "severity": "medium",
+          "description": "Inventory Add Item 'Create' button not disabled after click. Double-clicking sends two saveFile requests for the same path — first succeeds, second gets 422 SHA mismatch. Shows confusing success + error toasts simultaneously.",
+          "screenshot": "/tmp/qa-screenshots/cycle5-05-after-double-create.png",
+          "fixed": true,
+          "fix": "Disable Create button and show 'Creating…' text on click in confirmAdd(). Re-enable on error."
+        },
+        {
+          "id": "bug-5",
+          "severity": "low",
+          "description": "No beforeunload handler when editing wiki pages in fullpage mode. Navigating away discards unsaved changes without any warning.",
+          "screenshot": "/tmp/qa-screenshots/cycle5-22-unsaved-content.png",
+          "fixed": false
+        }
+      ],
+      "observations": [
+        "Inventory search 'MS': 1 result (MS Basal Salt Mixture, 2 each, Chemical Cabinet)",
+        "Inventory stats: 207 total items, 9 types, 1 need more",
+        "Inventory Add Item: slug preview works ('File: qa5-test-reagent.md')",
+        "Inventory Add: double-click Create → first succeeds, second 422 SHA mismatch (fixed)",
+        "Wiki direct URL (?doc=resources/ethanol-absolute): renders correctly with type badge and connections panel",
+        "Wiki edit mode: Toast UI WYSIWYG initializes, content editable, Cancel/Save buttons visible",
+        "Wiki edit → navigate away: NO beforeunload handler — changes silently discarded",
+        "Wiki create flow: + button → modal (folder/title/type) → Create & edit → editor opens → typed content saved",
+        "Wiki save: Cmd+S exits edit mode, content rendered correctly, 'Saved' toast shown",
+        "Wiki save + reload: content persists after immediate reload (CDN cache-buster working for wiki)",
+        "Wiki double Cmd+S: no errors — second save handled safely (debounced or uses updated SHA)",
+        "GitHub verification: wiki file saved correctly (82 bytes, typed content present)",
+        "Dashboard: bulletin board with Orders Needed/Announcements/Notes sections, knowledge graph mini renders",
+        "Rapid navigation (6 pages, 150ms each): all pages load correctly despite impatient timing",
+        "All test artifacts cleaned up from GitHub"
+      ]
     }
   ],
   "bugs_found": [
@@ -263,6 +303,21 @@
       "page": "notebooks (all editor pages affected)",
       "status": "fixed",
       "fix": "Added &_t=Date.now() timestamp cache-buster to fetchFile() and deleteFile() URLs in github-api.js to force CDN cache miss on every request"
+    },
+    {
+      "id": "bug-3",
+      "severity": "medium",
+      "description": "Inventory Add Item Create button not disabled after click — double-clicking sends two saveFile requests for the same path, first succeeds, second gets 422 SHA mismatch.",
+      "page": "inventory",
+      "status": "fixed",
+      "fix": "Disable Create button and show 'Creating…' text on click in confirmAdd(). Re-enable on error."
+    },
+    {
+      "id": "bug-5",
+      "severity": "low",
+      "description": "No beforeunload handler in wiki fullpage edit mode. Navigating away discards unsaved changes silently.",
+      "page": "wiki",
+      "status": "open"
     }
   ],
   "fixes_applied": [
@@ -279,6 +334,13 @@
       "file": "app/js/github-api.js",
       "description": "Added &_t=Date.now() timestamp parameter to fetchFile() and deleteFile() GitHub API URLs. cache:'no-store' only controls browser cache; GitHub CDN uses s-maxage=60 and ignores request cache headers. The timestamp makes each URL unique, forcing a CDN cache miss.",
       "cycle": 4
+    },
+    {
+      "id": "fix-3",
+      "bug": "bug-3",
+      "file": "app/inventory.html",
+      "description": "Disable Create button on click in confirmAdd() to prevent double-click race condition. Shows 'Creating…' text. Re-enables on error.",
+      "cycle": 5
     }
   ],
   "improvements_proposed": [
@@ -304,7 +366,15 @@
     "Double-click save button → button disabled after first click (safe)",
     "Rapid page navigation (protocols → inventory → notebooks) → all pages load correctly",
     "Notebook search by slug → filters sidebar to matching entries",
-    "Notebook search by date partial → filters to date-matching entries"
+    "Notebook search by date partial → filters to date-matching entries",
+    "Inventory search 'MS' → finds MS Basal Salt Mixture (1 result)",
+    "Inventory double-click Create → 422 SHA mismatch on second click (fixed with button disable)",
+    "Wiki direct URL (?doc=resources/ethanol-absolute) → renders with type badge and connections",
+    "Wiki edit → navigate away without saving → changes silently lost (no beforeunload guard)",
+    "Wiki create via modal → file created, editor opens automatically",
+    "Wiki save + immediate reload → content persists (CDN cache-buster working)",
+    "Wiki double Cmd+S → no errors (safe — either debounced or SHA updated)",
+    "Rapid navigation 6 pages at 150ms intervals → all load correctly"
   ],
   "screenshots_taken": [
     "/tmp/qa-screenshots/cycle1-dashboard.png",
@@ -388,7 +458,22 @@
     "/tmp/qa-screenshots/cycle4-16-back-to-notebooks.png",
     "/tmp/qa-screenshots/cycle4-17-search-qa4.png",
     "/tmp/qa-screenshots/cycle4-18-search-date.png",
-    "/tmp/qa-screenshots/cycle4-19-dashboard.png"
+    "/tmp/qa-screenshots/cycle4-19-dashboard.png",
+    "/tmp/qa-screenshots/cycle5-01-inventory-landing.png",
+    "/tmp/qa-screenshots/cycle5-02-inventory-search-ms.png",
+    "/tmp/qa-screenshots/cycle5-03-add-modal-open.png",
+    "/tmp/qa-screenshots/cycle5-04-add-modal-filled.png",
+    "/tmp/qa-screenshots/cycle5-05-after-double-create.png",
+    "/tmp/qa-screenshots/cycle5-20-wiki-ethanol.png",
+    "/tmp/qa-screenshots/cycle5-21-wiki-edit-mode.png",
+    "/tmp/qa-screenshots/cycle5-22-unsaved-content.png",
+    "/tmp/qa-screenshots/cycle5-23-navigated-away.png",
+    "/tmp/qa-screenshots/cycle5-60-modal.png",
+    "/tmp/qa-screenshots/cycle5-61-filled.png",
+    "/tmp/qa-screenshots/cycle5-62-after-create.png",
+    "/tmp/qa-screenshots/cycle5-63-saved.png",
+    "/tmp/qa-screenshots/cycle5-64-reloaded.png",
+    "/tmp/qa-screenshots/cycle5-65-double-save.png"
   ],
-  "notes": "Cycle 4 complete: Vianney Ahn (grad student) + rushed modifier. Full notebook CRUD tested: create daily entry, edit with extraction data, save, stale data hunt. Found bug-2: GitHub CDN caches API responses for 60s (s-maxage=60), causing fetchFile() to return pre-edit content on reload even with cache:'no-store'. Fixed by adding &_t=Date.now() timestamp cache-buster to all fetchFile/deleteFile URLs. Double-click save safe (button disables). Notebook search works. Rapid navigation stable. Phase remains 'functional' — next cycle should test wiki/project CRUD, or move to edge_cases with adversarial/confused modifiers."
+  "notes": "Cycle 5 complete: Kayla Torres (undergrad) + impatient modifier. Tested inventory search + add (double-click race condition found and fixed), wiki full CRUD (create via modal, edit, save, reload, double Cmd+S), no beforeunload guard on edit pages. CDN cache-buster confirmed working for wiki pages. Moving to edge_cases phase — functional coverage of protocols, notebooks, wiki, and inventory is solid."
 }

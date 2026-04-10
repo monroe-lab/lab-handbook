@@ -436,6 +436,8 @@ function closeAddModal() {
 function confirmAdd() {
   var name = document.getElementById('addName').value.trim();
   if (!name) { Lab.showToast('Name is required', 'error'); return; }
+  var btn = document.querySelector('#addModal .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = 'Creating…'; }
   var type = document.getElementById('addType').value;
   var location = document.getElementById('addLocation').value;
 
@@ -458,10 +460,12 @@ function confirmAdd() {
     Lab.showToast('Created: ' + name, 'success');
     Lab.gh.patchObjectIndex(path, meta);
     closeAddModal();
+    if (btn) { btn.disabled = false; btn.textContent = 'Create'; }
     Lab.editorModal.open(path);
     loadInventory();
   }).catch(function(e) {
     Lab.showToast('Failed: ' + e.message, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Create'; }
   });
 }
 
