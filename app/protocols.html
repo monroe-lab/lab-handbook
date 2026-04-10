@@ -1006,6 +1006,8 @@ function showPrintPreview(rendered) {
     content.className = 'content';
     content.innerHTML = rendered.innerHTML;
     content.querySelectorAll('details').forEach(function(d) { d.open = true; });
+    // Strip Material Icons spans (font not loaded in iframe)
+    content.querySelectorAll('.material-icons-outlined, .material-icons').forEach(function(el) { el.remove(); });
     idoc.body.appendChild(content);
 
     // Unwrap containers to get leaf block elements
