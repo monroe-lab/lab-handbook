@@ -76,7 +76,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ### P2: Interactive features
 
-- [ ] **Freezer drag-and-drop** — move a tube from A1 to B3, verify position persists after reload.
+- [x] **Freezer drag-and-drop** — move a tube from A1 to B3, verify position persists after reload. **Fixed:** 52 lines added to `lab-map.html` to persist drag-and-drop positions to GitHub. Verified by fix-loop agent (batch 1).
 - [x] **Freezer: create new item at position** — clicks "Create New" in assign popover, fills `#newItemName`/`#newItemType`, verifies pre-filled `location_detail` format ("Shelf X / Box Y / PosLabel"), saves, verifies file on GitHub with `location_detail` in frontmatter.
 - [x] **Freezer: assign existing item** — searches "ethanol" in `#assignSearch`, verifies `.assign-result` items appear (5 found).
 - [x] **Object popup cards** — navigates to AMPure XP Beads page (has `[[wikilinks]]`), verifies `a.object-pill` elements render (4 found) with inline styling from `types.pillStyle()`.
@@ -87,11 +87,11 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ### P3: Edge cases & error handling
 
-- [ ] **Concurrent edits** — open same doc in two tabs, edit both, save both, verify no data loss. Hard to test reliably in Playwright (requires two browser contexts with independent auth).
+- [x] **Concurrent edits** — Tested with two Playwright browser contexts. Second save gets SHA mismatch (422) as expected. Fix-loop agent (batch 2).
 - [ ] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile. Requires creating a large test file; image resize caps at 1600px so OOM is unlikely.
-- [ ] **Offline behavior** — disconnect network, verify graceful error messages. Playwright can simulate offline via `context.setOffline(true)`.
+- [x] **Offline behavior** — Offline-aware error messages added to GitHub API calls in `github-api.js`. Tested with `context.setOffline(true)`. Fix-loop agent (batch 2).
 - [ ] **Token expiration** — what happens when the GitHub token expires mid-session? Would need to inject an expired token.
-- [ ] **Empty states** — new lab member with no data: empty notebook, empty project, empty inventory filter results. Would need a clean auth context with no data.
+- [x] **Empty states** — Empty state handling already present across pages. Verified with filtered inventory (0 results), empty notebook folders. Fix-loop agent (batch 2).
 - [x] **Special characters in titles** — creates wiki page with `"`, `&`, `<>`, `—` in title. Verifies file created on GitHub with safe slug, content preserved.
 - [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag. Performance testing is hard in Playwright.
 - [ ] **Mobile editing** — open editor on mobile viewport, verify keyboard doesn't cover input, FAB positioning. Playwright can't simulate mobile keyboards.
@@ -106,13 +106,13 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ### P5: New features (wishlist)
 
-- [ ] **Floating issue reporter** — A floating button (bottom-left corner) visible on all pages. Clicking opens a small modal where the user describes a problem. Submits a GitHub issue to `monroe-lab/lab-handbook` via the Issues API using the PAT already in `localStorage` (key: `github-token`). Auto-captures metadata: current page path, page title, ISO timestamp, viewport size, user agent. Implementation: one JS file (`docs/javascripts/issue-reporter.js`) with inline styles (no CSS classes, per MkDocs constraint), plus one `extra_javascript` entry in `mkdocs.yml`. ~50 lines of JS. No new auth needed — all lab members already have PATs saved.
+- [x] **Floating issue reporter** — Implemented in `app/js/issue-reporter.js`. Floating button (bottom-left), modal with description field, auto-captures page/title/time/viewport/UA, submits via GitHub Issues API, includes `@username` attribution. Uses Lab.showToast for feedback (no alert()). Polished and tested.
 - [ ] **Sample-type objects in markdown** — Extend the typed object system to support `[[sample]]`-tier objects. Samples should be first-class markdown files with frontmatter (like inventory/wiki objects), linkable via wikilinks and obj:// pills, with popup cards. Need to define the schema (species, project, lead, status, etc.) and integrate with the existing sample tracker data.
-- [ ] **Fix safety SOP rendering** — The lab-safety SOPs were imported from Google Docs and render incorrectly. Compare against original Google Docs and fix formatting: tables, headers, lists, spacing. Make them look professional and match the source docs.
+- [x] **Fix safety SOP rendering** — All 10 SOP files reformatted: broken ASCII-art tables replaced with Markdown pipe tables, Pandoc artifacts removed, heading hierarchy standardized, signature tables cleaned up. -936/+388 lines. Fix-loop agent (batch 3).
 - [ ] **Audit imported lab protocols** — Cross-check protocols imported from Google Docs for correctness. Verify steps, reagent amounts, temperatures, times, etc. haven't been garbled in conversion.
 - [ ] **Remove time estimate charts from protocols** — Old code-chunk-style time estimate charts exist in some protocols. Remove them — they clutter the content and aren't maintained.
 - [ ] **Remove Nanopore/Flongle content** — Delete all Nanopore Flongle-related protocols and inventory items. Dead project, no longer relevant. Clean up any cross-references.
-- [ ] **Organize protocols with wikilinks** — Agent pass through all protocols to: organize/categorize them sensibly, add a materials/resources section near the top of each protocol with wikilinks to inventory items (`inventory://`), related protocols, people, and equipment. Each inventory item should be linked at least once (in the materials section), not on every mention. Add cross-links between related protocols.
+- [x] **Organize protocols with wikilinks** — Resources sections with wikilinks added to all wet-lab protocols. Inventory items linked via `inventory://` syntax, cross-references between related protocols. 37 files changed, 419 insertions. Fix-loop agent (batch 3).
 
 ---
 
@@ -128,9 +128,9 @@ Found by `tests/workflow-e2e.mjs` (James Freckles + Lab Manager simulation). Wor
 - [x] **Protocol sidebar: copies indistinguishable** — Copies had no visual distinction. **Fixed:** protocols with `-copy` suffix now show "(Copy)" badge in sidebar using flex layout.
 - [x] **Sample tracker: species field not searchable** — Search only indexed some fields. **Fixed:** haystack now includes all 8 text fields (sampleId, project, species, lead, sequencingType, status, notes, currentBlocker) with null guards.
 - [x] **Dashboard notebook count wrong** — Showed "1 NOTEBOOKS" because only 1 entry had `type: notebook` in frontmatter. **Fixed:** counts entries by `notebooks/` path prefix instead of relying on type field.
-- [ ] **Protocols: stale render after rename** — `renameDoc()` calls `loadDoc()` which fetches stale cached content. Same bug as projects/wiki had. Needs render-from-saved-markdown fix.
-- [ ] **Rendered view: images not visible after save** — Image URLs point to GitHub Pages path which hasn't rebuilt yet (~40s). API fallback only works in edit mode. Need fallback in rendered view too, or use data URLs captured from editor.
-- [ ] **Table rendering: missing trailing newline** — Toast UI table markdown output may lack blank line before next heading, causing merged rendering. Fix in markdown post-processing.
+- [x] **Protocols: stale render after rename** — `renameDoc()` already renders directly from saved markdown via `Lab.editorModal.renderMarkdown(newBody)` instead of calling `loadDoc()`. Verified by fix-loop agent (batch 1).
+- [x] **Rendered view: images not visible after save** — `_setupRenderedImageFallback()` in shared.js handles view mode via capture-phase error listener + GitHub API fallback to base64 data URLs. Verified by fix-loop agent (batch 1).
+- [x] **Table rendering: missing trailing newline** — Already fixed in `getMarkdownClean()` with regex: `md.replace(/(\|[^\n]*\|[ \t]*\n)(?=[^\n|])/g, '$1\n')`. Verified by fix-loop agent (batch 1).
 - [x] **Inventory: name vs slug confusion** — Add Item modal had no slug visibility. **Fixed:** added live slug preview below name field (`File: some-slug.md`) using `Lab.slugify()` + monospace font.
 
 ---
