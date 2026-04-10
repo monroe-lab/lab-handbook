@@ -5,6 +5,17 @@ title: "Clean Bench (Laminar Flow Hood)"
 
 # Clean Bench (Laminar Flow Hood)
 
+
+## Resources
+
+**Equipment:** [[clean-bench-laminar-flow]]
+
+**Reagents:** [[acetone]], [[ethanol-70]], [[isopropyl-alcohol-70-in-water]], [[isopropyl-alcohol-70-in-water-2]]
+
+**Related Protocols:** [[autoclave]], [[seed-sterilization]], [[planting-arabidopsis-on-ms-plates]], [[ms-media-recipe]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Provide a sterile work environment for plating seeds, pouring plates, and handling sterile cultures.
 
 ---

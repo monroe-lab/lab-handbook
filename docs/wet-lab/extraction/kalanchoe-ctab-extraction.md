@@ -5,6 +5,19 @@ title: "Kalanchoe CTAB Extraction"
 
 # Kalanchoe CTAB Extraction
 
+
+## Resources
+
+**Equipment:** [[centrifuge]], [[mortar-and-pestle]], [[nanodrop]]
+
+**Kits:** [[dneasy-plant-mini]]
+
+**Reagents:** [[ampure-xp-beads]], [[cetrimonium-bromide]], [[chloroform]], [[chloroform-isoamyl-alcohol-24-1]], [[ethanol-70]], [[hexadecyltrimethyl-ammonium-bromide]], [[isopropyl-alcohol]], [[mes-buffer]], [[nuclease-free-water]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]]
+
+**Related Protocols:** [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[hmw-extraction-challenging-plants]]
+
+**Contacts:** [[grey-monroe]]
+
 CTAB Extraction for Kalanchoe
 
 This modified protocol (PRELIMINARY) is based on [Al Khayri et al. 2022](https://www.mdpi.com/2223-7747/11/13/1722) which cites the protocol from [Scobeyeva et al. 2018](https://link.springer.com/article/10.1134/S1022795418050095) for extraction from fresh tissue, adapted from the original CTAB method described by [Doyle and Doyle 1987](http://14.139.189.27/phytofura/phytoweb/protocols/lDoyle%2520and%2520Doyle%2520ctab%2520method%2520of%2520dna%2520isolation.pdf).

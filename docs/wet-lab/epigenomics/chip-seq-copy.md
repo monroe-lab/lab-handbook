@@ -6,6 +6,17 @@ title: "ChIP-seq Protocol (Copy)"
 
 # ChIP-seq Protocol
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]], [[bioruptor]], [[centrifuge]], [[fume-hood]], [[mortar-and-pestle]], [[tube-rotator]]
+
+**Reagents:** [[2-mercaptoethanol]], [[dimethyl-sulfoxide]], [[ethanol-70]], [[formaldehyde-16-methanol-free-pfa]], [[glycine]], [[hepes]], [[igepal-ca-630]], [[lithium-chloride]], [[mes-buffer]], [[methanol]], [[phenylmethanesulfonyl-fluoride]], [[rnase-aliquot]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[spermidine]], [[spermine]], [[sucrose]], [[tris-edta-te-buffer-solution]], [[triton-x-100]]
+
+**Related Protocols:** [[chip-seq]], [[cut-and-tag]], [[fiber-seq-dimelo-seq]]
+
+**Contacts:** [[grey-monroe]]
+
 ChIP-seq protocol
 
 1. \# Chromatin extraction for epitope\-tagged proteins

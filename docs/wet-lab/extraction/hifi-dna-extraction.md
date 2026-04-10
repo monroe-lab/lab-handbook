@@ -4,6 +4,19 @@ title: "HiFi DNA Extraction (DIY)"
 ---
 # HiFi DNA Extraction (DIY)
 
+
+## Resources
+
+**Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[femtopulse]], [[hula-mixer]], [[magnetic-rack]], [[nanodrop]], [[thermomixer]]
+
+**Kits:** [[colibri-dna-library-cleanup-kit]]
+
+**Reagents:** [[1-8-naphthalic-anhydride]], [[1m-tris-hcl-ph-8-8-5]], [[chloroform]], [[chloroform-isoamyl-alcohol-24-1]], [[dnase]], [[ethanol-70]], [[isopropyl-alcohol]], [[mes-buffer]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[polyethylene-glycol-solid]], [[potassium-acetate]], [[sodium-acetate-anhydrous]], [[sodium-dodecyl-sulfate]], [[tris-base]]
+
+**Related Protocols:** [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]], [[in-house-hifi-shearing-pipeline]]
+
+**Contacts:** [[grey-monroe]], [[kehan-zhao]]
+
 Soya 2025
 
 <br>

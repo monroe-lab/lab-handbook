@@ -5,6 +5,17 @@ title: "M2 Forward Genetic Screening"
 
 # M2 Forward Genetic Screening
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]], [[centrifuge]], [[clean-bench-laminar-flow]], [[tube-rotator]]
+
+**Reagents:** [[ethyl-methanesulfonate]], [[glufosinate-ammonium]], [[silwet-l-77]]
+
+**Related Protocols:** [[fast-neutron-treatment]], [[seed-sterilization]], [[planting-arabidopsis-on-ms-plates]], [[clean-bench]]
+
+**Contacts:** [[grey-monroe]], [[satoyo-oya]]
+
 2024 Oct Soya
 
 [protocol] M2 Fwd genetic screening

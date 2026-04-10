@@ -4,6 +4,17 @@ title: "Seed Sterilization"
 ---
 # Seed Sterilization
 
+
+## Resources
+
+**Equipment:** [[clean-bench-laminar-flow]], [[fume-hood]], [[tube-rotator]]
+
+**Reagents:** [[ethanol-70]], [[gaseous-hydrochloric-acid]], [[hydrogen-peroxide-30]], [[sodium-bicarbonate]], [[triton-x-100]]
+
+**Related Protocols:** [[stratification]], [[planting-arabidopsis-on-ms-plates]], [[clean-bench]], [[autoclave]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Surface-sterilize Arabidopsis seeds before plating on sterile MS media.
 
 **Source:** [[satoyo-oya]]'s protocols

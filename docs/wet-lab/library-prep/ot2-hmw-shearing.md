@@ -5,6 +5,21 @@ title: "OT-2 HMW DNA Pipette Shearing for PacBio HiFi"
 
 # OT-2 HMW DNA Pipette Shearing for PacBio HiFi
 
+
+## Resources
+
+**Equipment:** [[femtopulse]], [[nanodrop]], [[opentrons-ot2]], [[ot2-temperature-module]], [[ph-meter]], [[qubit-fluorometer]]
+
+**Kits:** [[qubit-dsdna-hs-assay-kit]]
+
+**Reagents:** [[nuclease-free-water]]
+
+**Consumables:** [[dna-lobind-tubes]], [[kingfisher-deepwell-96-plate]], [[qubit-assay-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
+
+**Related Protocols:** [[operating-the-ot2]], [[ot2-automated-nbd114-prep]], [[in-house-hifi-shearing-pipeline]], [[pacbio-hifi-sequencing]]
+
+**Contacts:** [[grey-monroe]]
+
 **Purpose:** Shear high-molecular-weight DNA on the [[opentrons-ot2]] to a 15-20 kb mean fragment size suitable for PacBio HiFi SMRTbell library prep. This is the front end of the [[in-house-hifi-shearing-pipeline]] — a pre-Genome-Center diagnostic that lets the lab catch over- and under-shearing in hours instead of weeks before committing samples to an expensive Revio run at the [[uc-davis-dna-technologies-core]]. This pipeline **complements**, does not replace, the Genome Center.
 
 **Source:** Adapted from the Sanger Tree of Life [HMW DNA Fragmentation on Opentrons OT-2 — PacBio LI version (12-22 kb)](https://www.protocols.io/view/sanger-tree-of-life-hmw-dna-fragmentation-opentron-g9cwbz2xf.html). See also the [Opentrons + Psomagen app note](https://insights.opentrons.com/hubfs/App%20Notes/Fragmenting%20High%20Molecular%20Weight%20DNA%20PacBio%20Psomagen_app%20note.pdf) and the [PacBio Hamilton Microlab Prep tech note](https://www.pacb.com/wp-content/uploads/Technical-note-High-throughput-DNA-shearing-using-Hamilton-Microlab-Prep.pdf).

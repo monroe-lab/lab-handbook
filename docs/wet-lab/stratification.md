@@ -5,6 +5,15 @@ title: "Stratification"
 
 # Stratification
 
+
+## Resources
+
+**Reagents:** [[ethanol-70]]
+
+**Related Protocols:** [[seed-sterilization]], [[planting-arabidopsis-on-ms-plates]], [[planting-in-soil]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Cold treatment to break seed dormancy and synchronize germination.
 
 ---

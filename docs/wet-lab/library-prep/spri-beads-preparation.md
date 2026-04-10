@@ -5,6 +5,15 @@ title: "Preparing SPRI Beads"
 
 # Preparing SPRI Beads
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]]
+
+**Reagents:** [[ampure-xp-beads]], [[edta-trisodium-salt]], [[polyethylene-glycol-solid]], [[sodium-chloride]], [[tris-edta-te-buffer-solution]]
+
+**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[tn5-loading-library-prep]], [[hifi-dna-extraction]]
+
 Preparing SPRI beads
 
 Described below is the short version - please see attachment at the end for a more detailed protocol.

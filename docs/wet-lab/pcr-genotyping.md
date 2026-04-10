@@ -5,6 +5,17 @@ title: "PCR Genotyping"
 
 # PCR Genotyping
 
+
+## Resources
+
+**Equipment:** [[thermocycler]]
+
+**Reagents:** [[mes-buffer]], [[mineral-oil]], [[nuclease-free-water]], [[tween-80]]
+
+**Related Protocols:** [[quick-dna-extraction]], [[gel-electrophoresis]], [[sanger-sequencing]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Amplify a specific DNA region to determine genotype — is this plant a homozygote, heterozygote, or wild-type? Used for T-DNA insertion line validation and F1 hybrid confirmation.
 
 **Source:** [[Satoyo Oya]]'s Genotyping protocol ([Google Doc](https://docs.google.com/document/d/1Ntjr3jwrAEfu_PsRdqjOj0F_NCVHU1GqtIcL2dezXzI)), T-DNA ordering/validation ([Google Doc](https://docs.google.com/document/d/1kJAXfBDfsHfSId-Rf-AxohcZjKdL3aStNkeIJpJ0WPU))

@@ -5,6 +5,17 @@ title: "Autoclave"
 
 # Autoclave
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]], [[clean-bench-laminar-flow]], [[magnetic-rack]]
+
+**Reagents:** [[reagent-alcohol-100-200-proof-denatured]], [[tween-80]]
+
+**Related Protocols:** [[ms-media-recipe]], [[clean-bench]], [[seed-sterilization]], [[planting-arabidopsis-on-ms-plates]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Sterilize media, water, and equipment using high-pressure saturated steam.
 
 ---

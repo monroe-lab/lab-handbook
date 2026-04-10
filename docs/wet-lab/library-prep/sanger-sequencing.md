@@ -5,6 +5,15 @@ title: "Sanger on PCR product"
 
 # Sanger on PCR product
 
+
+## Resources
+
+**Reagents:** [[nuclease-free-water]]
+
+**Consumables:** [[dna-lobind-tubes]], [[pcr-strip-tubes-0-2ml]]
+
+**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]], [[quick-dna-extraction]]
+
 ### 1. Remove primers from your DNA sample by enzymatic digestion
 
 Mix the following:

@@ -5,6 +5,17 @@ title: "Operating the Opentrons OT-2"
 
 # Operating the Opentrons OT-2
 
+
+## Resources
+
+**Equipment:** [[magnetic-rack]], [[opentrons-ot2]], [[ot2-magnetic-module]], [[ot2-temperature-module]], [[ot2-thermocycler-module]], [[thermocycler]]
+
+**Reagents:** [[ethanol-70]]
+
+**Consumables:** [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
+
+**Related Protocols:** [[ot2-automated-nbd114-prep]], [[ot2-hmw-shearing]], [[in-house-hifi-shearing-pipeline]]
+
 **Purpose:** General-purpose handbook page for the lab's [[opentrons-ot2]]. The lab has owned the robot since 2020 but had no protocol page for it; this is the prerequisite reference for every OT-2 protocol in the handbook including [[ot2-hmw-shearing]] and [[ot2-automated-nbd114-prep]].
 
 ## Hardware in the lab

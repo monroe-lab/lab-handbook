@@ -5,6 +5,21 @@ title: "OT-2 Automated NBD114.24 Library Prep (Default)"
 
 # OT-2 Automated NBD114.24 Library Prep (Default)
 
+
+## Resources
+
+**Equipment:** [[clean-bench-laminar-flow]], [[magnetic-rack]], [[opentrons-ot2]], [[ot2-magnetic-module]], [[ot2-temperature-module]], [[ph-meter]], [[qubit-fluorometer]]
+
+**Kits:** [[neb-blunt-ta-ligase-master-mix]], [[nebnext-companion-module-ont]], [[nebnext-quick-ligation-module]], [[nebnext-ultra-ii-end-prep]], [[qubit-dsdna-hs-assay-kit]], [[sqk-nbd114-24]]
+
+**Reagents:** [[ampure-xp-beads]], [[ethanol-70]], [[ethanol-absolute]], [[nuclease-free-water]]
+
+**Consumables:** [[dna-lobind-tubes]], [[kingfisher-deepwell-96-plate]], [[pcr-strip-tubes-0-2ml]], [[qubit-assay-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
+
+**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[operating-the-ot2]], [[flongle-sequencing-and-analysis]]
+
+**Contacts:** [[grey-monroe]]
+
 **Purpose:** The **default production** library prep for the in-house Flongle diagnostic pipeline. A single chained Python protocol on the [[opentrons-ot2]] runs steps 2–8 of the [[sqk-nbd114-24]] workflow unattended, using the [[ot2-temperature-module]] and [[ot2-magnetic-module]]. Target: **~30–45 min hands-on, ~5–7 hr wall-clock** from frozen DNA to adapter-loaded library. Part of the [[in-house-hifi-shearing-pipeline]]. Manual fallback: [[nbd114-multiplexed-flongle-prep]].
 
 **Source:** Adapted from the Oxford Nanopore [Ligation Sequencing V14 — NBD24 protocol](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/ligation-sequencing-v14-native-barcoding-kit-24/) and community OT-2 ports of ligation-based nanopore prep. See § Python protocol below for reference implementations to adapt.

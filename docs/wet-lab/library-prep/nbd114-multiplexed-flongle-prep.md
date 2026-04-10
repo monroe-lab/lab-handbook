@@ -5,6 +5,19 @@ title: "Multiplexed Flongle Library Prep — Manual NBD114.24 (Fallback)"
 
 # Multiplexed Flongle Library Prep — Manual NBD114.24 (Fallback)
 
+
+## Resources
+
+**Equipment:** [[magnetic-rack]], [[opentrons-ot2]], [[ot2-thermocycler-module]], [[ph-meter]], [[qubit-fluorometer]], [[thermocycler]]
+
+**Kits:** [[neb-blunt-ta-ligase-master-mix]], [[nebnext-companion-module-ont]], [[nebnext-quick-ligation-module]], [[nebnext-ultra-ii-end-prep]], [[qubit-dsdna-hs-assay-kit]], [[sqk-nbd114-24]]
+
+**Reagents:** [[ampure-xp-beads]], [[ethanol-70]], [[ethanol-absolute]], [[mes-buffer]], [[nuclease-free-water]]
+
+**Consumables:** [[dna-lobind-tubes]], [[pcr-strip-tubes-0-2ml]], [[qubit-assay-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
+
+**Related Protocols:** [[ot2-automated-nbd114-prep]], [[flongle-sequencing-and-analysis]], [[illumina-library-qc-on-flongle]]
+
 **Purpose:** Prepare a multiplexed Oxford Nanopore library from up to 24 samples for Flongle sequencing, using the **ligation-based** [[sqk-nbd114-24]] kit. This is the **manual fallback** for the in-house diagnostic pipeline; the default production path is the automated version at [[ot2-automated-nbd114-prep]]. Part of the [[in-house-hifi-shearing-pipeline]].
 
 **Source:** Oxford Nanopore [Ligation Sequencing V14 — Native Barcoding Kit 24 (SQK-NBD114.24)](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/ligation-sequencing-v14-native-barcoding-kit-24/).

@@ -5,6 +5,19 @@ title: "Pistachio DNA Extraction (Short-Read)"
 
 # Pistachio DNA Extraction (Short-Read)
 
+
+## Resources
+
+**Equipment:** [[centrifuge]]
+
+**Kits:** [[dneasy-plant-mini]]
+
+**Reagents:** [[ethanol-70]], [[mes-buffer]], [[polyvinylpyrrolidone]]
+
+**Consumables:** [[microtube]]
+
+**Related Protocols:** [[quick-dna-extraction]], [[hifi-dna-extraction]]
+
 Pre-treatment:
 
 - Perform all centrifugation steps at room temperature (15–25°C).

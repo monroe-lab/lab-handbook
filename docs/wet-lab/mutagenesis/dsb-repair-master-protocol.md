@@ -5,6 +5,15 @@ title: "DSB DNA Repair - Master Protocol"
 
 # DSB DNA Repair - Master Protocol
 
+
+## Resources
+
+**Reagents:** [[acrylamide]], [[agarose]], [[bis-n-n-methylene-bis-acrylamide]], [[carbenicillin-disodium-salt]], [[chloramphenicol]], [[gentamicin-sulfate-salt]], [[isopropyl-alcohol]], [[kanamycin-sulfate]], [[mes-buffer]], [[nuclease-free-water]], [[peptones-casein-tryptone]], [[sodium-dodecyl-sulfate]], [[tetracycline-hydrochloride]], [[yeast-extract]], [[zeocin]]
+
+**Related Protocols:** [[gel-electrophoresis]], [[pcr-genotyping]], [[protein-induction-bl21]]
+
+**Contacts:** [[grey-monroe]]
+
 Designing Protospacers
 
 Restriction Digestion of pEnChimera
