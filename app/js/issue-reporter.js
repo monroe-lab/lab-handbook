@@ -122,7 +122,13 @@
       marginTop: '8px',
       marginBottom: '16px'
     });
-    meta.textContent = 'Page: ' + location.pathname + ' | ' + new Date().toISOString().slice(0, 16);
+    var pagePath = location.pathname;
+    var params = new URLSearchParams(location.search);
+    var doc = params.get('doc') || params.get('file') || '';
+    if (doc) pagePath += ' > ' + doc;
+    var editing = document.querySelector('.toastui-editor-ww-container') || document.querySelector('[data-editing="true"]');
+    if (editing) pagePath += ' (editing)';
+    meta.textContent = 'Page: ' + pagePath + ' | ' + new Date().toISOString().slice(0, 16);
 
     var btnRow = document.createElement('div');
     Object.assign(btnRow.style, {
@@ -227,9 +233,13 @@
     btn.style.opacity = '0.7';
 
     var user = getUser();
+    var params = new URLSearchParams(location.search);
+    var doc = params.get('doc') || params.get('file') || '';
+    var isEditing = !!(document.querySelector('.toastui-editor-ww-container') || document.querySelector('[data-editing="true"]'));
+    var fullPage = location.pathname + (doc ? ' > ' + doc : '') + (isEditing ? ' (editing)' : '');
     var meta = [
       '**Reported by:** @' + user,
-      '**Page:** `' + location.pathname + '`',
+      '**Page:** `' + fullPage + '`',
       '**Title:** ' + document.title,
       '**Time:** ' + new Date().toISOString(),
       '**Viewport:** ' + window.innerWidth + 'x' + window.innerHeight,
