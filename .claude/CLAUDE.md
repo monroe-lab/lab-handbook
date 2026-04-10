@@ -149,6 +149,32 @@ LabBot is a Playwright bot that simulates a real authenticated lab member. It cr
 
 **Development workflow:** Pick next unchecked item from STATUS.md → implement → add test to `tests/labbot.mjs` → run `--headed` to verify → check box → commit → push.
 
+## Fix Loop — Autonomous Batch Development
+
+`tests/fix-loop.sh` is an autonomous development tool that processes a list of TODO items (fixes, tests, features) by spawning parallel Claude Code agents. Each agent works in its own git worktree, writes Playwright tests, iterates on failures, commits on success, and merges back.
+
+**How it works:**
+1. Items are defined as natural language descriptions in the script (id, category, description)
+2. Items are grouped into batches of 3-4 that touch different file areas
+3. Within each batch, agents run **in parallel** (separate git worktrees)
+4. Each agent: reads source code, implements fix/feature, writes Playwright test, runs it (up to 3 retries), commits, updates STATUS.md
+5. After a batch completes, branches merge back to main and push
+6. Progress tracked in `tests/fix-progress.json` (resumable on interrupt)
+
+**Usage:**
+```bash
+bash tests/fix-loop.sh              # run (foreground)
+nohup bash tests/fix-loop.sh &      # run in background
+tail -f tests/fix-loop.log          # monitor
+touch tests/fix-pause               # pause between batches
+rm tests/fix-pause                  # resume
+cat tests/fix-progress.json         # see progress
+```
+
+**Adding items:** Edit the `ITEMS` arrays and `run_batch` calls in `fix-loop.sh`. Each item is a triple: `"item-id" "category" "Natural language description of what to do"`. Group items that touch different files into the same batch for parallelism. Items that might edit the same files should go in different batches.
+
+**Results (2026-04-10):** 10/10 items completed (4 verified-already-done, 6 new fixes/features), 0 failures. Delivered: freezer drag-and-drop persistence, concurrent edit handling, offline error messages, floating issue reporter, protocol wikilinks, safety SOP reformatting. Total wall-clock time: ~25 minutes for all 10 items (3 parallel batches).
+
 ## Key Design Decisions
 
 - **GitHub PAT over OAuth** — OAuth requires a proxy server. PATs are simpler (one-time paste) and work directly with the GitHub API. The tradeoff is each lab member generates their own token.
