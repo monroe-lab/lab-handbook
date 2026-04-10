@@ -93,7 +93,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Token expiration** — Added `handleAuthError()` in `github-api.js` that detects 401/403, shows descriptive toast ("Your GitHub token has expired or is invalid. Please sign in again."), and clears the bad token. Tested save, create, and fetchFile with invalid token via Playwright route interception.
 - [x] **Empty states** — Empty state handling already present across pages. Verified with filtered inventory (0 results), empty notebook folders. Fix-loop agent (batch 2).
 - [x] **Special characters in titles** — creates wiki page with `"`, `&`, `<>`, `—` in title. Verifies file created on GitHub with safe slug, content preserved.
-- [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag. Performance testing is hard in Playwright.
+- [x] **Long content** — opens longest protocol (fiber-seq-dimelo-seq, ~34KB/30K chars), verifies: page loads <2s, scroll works, edit mode enters <1s, typing responsive <50ms. All steps pass with no performance concerns. Fix-loop agent.
 - [ ] **Mobile editing** — open editor on mobile viewport, verify keyboard doesn't cover input, FAB positioning. Playwright can't simulate mobile keyboards.
 - [ ] **Mobile image upload** — test camera/photo library upload flow on mobile viewport. Playwright can't access camera/photo library.
 - [x] **Cross-page navigation** — navigates to AMPure page (has protocol wikilinks), clicks `obj://` pill, verifies URL changes to `protocols.html?doc=...`.
