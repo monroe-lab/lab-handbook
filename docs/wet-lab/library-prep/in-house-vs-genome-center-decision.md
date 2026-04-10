@@ -10,9 +10,9 @@ title: "In-House vs Genome Center: HiFi Shearing and QC Decision"
 
 **Equipment:** [[femtopulse]]
 
-**Kits:** [[nebnext-companion-module-ont]], [[sqk-nbd114-24]]
+**Kits:** [[nebnext-companion-module-ont]], SQK-NBD114.24 (removed)
 
-**Consumables:** [[flongle-flow-cells-flo-flg114]]
+**Consumables:** Flongle Flow Cells (removed)
 
 **Related Protocols:** [[in-house-hifi-shearing-pipeline]], [[pacbio-hifi-sequencing]]
 
@@ -48,7 +48,7 @@ Per-sample cost as a function of batch size:
 | 12 | ~$220 | $18 | $394 | $33 | **In-house** |
 | 24 | ~$220 | $9 | $718 | $30 | **In-house** |
 
-In-house cost: ~$90 [[flongle-flow-cells-flo-flg114]] + ~$117 [[sqk-nbd114-24]] (1/6 of $700 kit) + ~$10 plastics + NEB enzyme amortization from [[nebnext-companion-module-ont]] ≈ ~$220 fixed per Flongle run, regardless of how many barcodes you load (up to 24).
+In-house cost: ~$90 Flongle Flow Cells (removed) + ~$117 SQK-NBD114.24 (removed) (1/6 of $700 kit) + ~$10 plastics + NEB enzyme amortization from [[nebnext-companion-module-ont]] ≈ ~$220 fixed per Flongle run, regardless of how many barcodes you load (up to 24).
 
 ## Turnaround comparison
 

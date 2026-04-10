@@ -819,7 +819,7 @@
     "containers": [
       {
         "location": "Flammable Cabinet",
-        "quantity": 8544.0,
+        "quantity": 8544,
         "unit": "mL"
       }
     ]
@@ -1259,7 +1259,7 @@
     "containers": [
       {
         "location": "Flammable Cabinet",
-        "quantity": 414.0,
+        "quantity": 414,
         "unit": "mL"
       }
     ]
@@ -2677,16 +2677,6 @@
     "location_detail": "Shelf 1 / Box A / A2"
   },
   {
-    "path": "wet-lab/library-prep/flongle-sequencing-and-analysis.md",
-    "type": "protocol",
-    "title": "Flongle Sequencing and Read-Length Analysis"
-  },
-  {
-    "path": "wet-lab/library-prep/illumina-library-qc-on-flongle.md",
-    "type": "protocol",
-    "title": "Illumina Library QC on a Flongle (Stretch Use Case)"
-  },
-  {
     "path": "wet-lab/library-prep/in-house-hifi-shearing-pipeline.md",
     "type": "protocol",
     "title": "In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)"
@@ -2697,19 +2687,9 @@
     "title": "In-House vs Genome Center: HiFi Shearing and QC Decision"
   },
   {
-    "path": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep.md",
-    "type": "protocol",
-    "title": "Multiplexed Flongle Library Prep \u2014 Manual NBD114.24 (Fallback)"
-  },
-  {
     "path": "wet-lab/library-prep/operating-the-ot2.md",
     "type": "protocol",
     "title": "Operating the Opentrons OT-2"
-  },
-  {
-    "path": "wet-lab/library-prep/ot2-automated-nbd114-prep.md",
-    "type": "protocol",
-    "title": "OT-2 Automated NBD114.24 Library Prep (Default)"
   },
   {
     "path": "wet-lab/library-prep/ot2-hmw-shearing.md",

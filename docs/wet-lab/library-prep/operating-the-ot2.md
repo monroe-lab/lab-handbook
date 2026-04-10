@@ -14,9 +14,9 @@ title: "Operating the Opentrons OT-2"
 
 **Consumables:** [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[ot2-automated-nbd114-prep]], [[ot2-hmw-shearing]], [[in-house-hifi-shearing-pipeline]]
+**Related Protocols:** [[ot2-hmw-shearing]]
 
-**Purpose:** General-purpose handbook page for the lab's [[opentrons-ot2]]. The lab has owned the robot since 2020 but had no protocol page for it; this is the prerequisite reference for every OT-2 protocol in the handbook including [[ot2-hmw-shearing]] and [[ot2-automated-nbd114-prep]].
+**Purpose:** General-purpose handbook page for the lab's [[opentrons-ot2]]. The lab has owned the robot since 2020 but had no protocol page for it; this is the prerequisite reference for every OT-2 protocol in the handbook including [[ot2-hmw-shearing]].
 
 ## Hardware in the lab
 
@@ -109,7 +109,5 @@ Note this in the protocol header before saving and rerun.
 ## See also
 
 - [[ot2-hmw-shearing]]
-- [[ot2-automated-nbd114-prep]]
-- [[in-house-hifi-shearing-pipeline]]
 - [Opentrons API v2 docs](https://docs.opentrons.com/v2/)
 - [Opentrons Labware Library](https://labware.opentrons.com/)

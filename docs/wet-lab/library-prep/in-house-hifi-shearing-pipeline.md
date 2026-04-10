@@ -16,7 +16,7 @@ title: "In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)"
 
 **Consumables:** [[flongle-flow-cells-flo-flg114]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[ot2-hmw-shearing]], [[ot2-automated-nbd114-prep]], [[flongle-sequencing-and-analysis]], [[pacbio-hifi-sequencing]]
+**Related Protocols:** [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]]
 
 **Contacts:** [[grey-monroe]]
 
@@ -42,7 +42,7 @@ All use cases share the same hardware ([[minion-mk1b]] + [[flongle-flow-cells-fl
 6. **Accession / variety / cultivar ID** via low-coverage skim sequencing on a 24-plex Flongle (~40 Mb/sample captures tens of thousands of SNPs).
 7. **Methylation screening** on native genomic DNA. 5mC/5hmC/6mA detection comes free with every nanopore run via Dorado modbase models. No bisulfite, no antibody.
 8. **Pilot / development platform for Fiber-seq** — validate m6A labeling efficiency on a Flongle before committing to a full Revio run. Same MinION can later run full FLO-MIN114 flow cells (~$900, ~30 Gb) for production Fiber-seq.
-9. **Stretch: short-read (Illumina) library QC** — pre-flight sanity check before a NovaSeq/MiSeq run. See [[illumina-library-qc-on-flongle]] for the dedicated protocol. **Requires a different AMPure ratio (1.8× instead of 0.6×)** — do not run this on the HMW-tuned protocol.
+9. **Stretch: short-read (Illumina) library QC** — pre-flight sanity check before a NovaSeq/MiSeq run. See Illumina Library QC on Flongle (removed) for the dedicated protocol. **Requires a different AMPure ratio (1.8× instead of 0.6×)** — do not run this on the HMW-tuned protocol.
 
 ## Overview (HiFi shearing QC, the primary use case)
 
@@ -67,7 +67,7 @@ flowchart TD
   P -->|fail| R[Re-shear from frozen aliquot]
 ```
 
-**Timing target: ~30–45 min hands-on, ~5–7 hr wall-clock** from frozen DNA to verdict, when [[ot2-automated-nbd114-prep]] is running as the default. Manual NBD114.24 prep ([[nbd114-multiplexed-flongle-prep]]) is ~3 hr hands-on and used only as a fallback.
+**Timing target: ~30–45 min hands-on, ~5–7 hr wall-clock** from frozen DNA to verdict, when OT-2 Automated NBD114.24 Library Prep (removed) is running as the default. Manual NBD114.24 prep (Manual NBD114.24 Prep (removed)) is ~3 hr hands-on and used only as a fallback.
 
 ## Sub-protocols
 
@@ -76,17 +76,17 @@ In order:
 1. [[operating-the-ot2]] — prerequisite, general OT-2 operation
 2. [[ot2-hmw-shearing]] — shears normalized HMW DNA to 15–20 kb
 3. **Library prep (pick one):**
-    - [[ot2-automated-nbd114-prep]] — **default production**, chained Python protocol on the OT-2
-    - [[nbd114-multiplexed-flongle-prep]] — manual fallback when the robot is down
-    - [[illumina-library-qc-on-flongle]] — stretch use case, 1.8× AMPure variant
-4. [[flongle-sequencing-and-analysis]] — MinION run, Dorado demux, NanoPlot, go/no-go
+    - OT-2 Automated NBD114.24 Library Prep (removed) — **default production**, chained Python protocol on the OT-2
+    - Manual NBD114.24 Prep (removed) — manual fallback when the robot is down
+    - Illumina Library QC on Flongle (removed) — stretch use case, 1.8× AMPure variant
+4. Flongle Sequencing and Analysis (removed) — MinION run, Dorado demux, NanoPlot, go/no-go
 5. [[in-house-vs-genome-center-decision]] — when to use this path vs. send out
 
 Downstream: [[pacbio-hifi-sequencing]] (SMRTbell library prep on samples that pass QC at the Genome Center).
 
 ## OT-2 automation is the default
 
-Manual NBD114.24 prep is ~3 hr hands-on. At that friction level the lab reverts to the Genome Center and the diagnostic pipeline dies. **The default production path is full OT-2 automation** via [[ot2-automated-nbd114-prep]].
+Manual NBD114.24 prep is ~3 hr hands-on. At that friction level the lab reverts to the Genome Center and the diagnostic pipeline dies. **The default production path is full OT-2 automation** via OT-2 Automated NBD114.24 Library Prep (removed).
 
 ### Step → OT-2 capability mapping (NBD114.24)
 
@@ -103,7 +103,7 @@ Manual NBD114.24 prep is ~3 hr hands-on. At that friction level the lab reverts 
 
 Steps 2–8 chain into a **single Python protocol** that runs unattended (~5–7 hr). Hands-on time breaks down to ~15 min deck load, ~5 min final library retrieval/Qubit, ~15 min Flongle load and launch. **Total ~30–45 min hands-on.**
 
-Do not write this protocol from scratch. Start from published OT-2 community ports (protocols.io, Opentrons Protocol Library) and adapt — see [[ot2-automated-nbd114-prep]] § Python protocol for reference starting points.
+Do not write this protocol from scratch. Start from published OT-2 community ports (protocols.io, Opentrons Protocol Library) and adapt — see OT-2 Automated NBD114.24 Library Prep (removed) § Python protocol for reference starting points.
 
 ## AMPure ratio rules (non-negotiable)
 

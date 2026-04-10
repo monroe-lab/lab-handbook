@@ -685,10 +685,6 @@
   },
   {
     "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
     "target": "projects/in-house-hifi-shearing/validation-plan"
   },
   {
@@ -705,18 +701,6 @@
   },
   {
     "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
     "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
   },
   {
@@ -726,22 +710,6 @@
   {
     "source": "projects/in-house-hifi-shearing/validation-plan",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
   },
   {
     "source": "projects/in-house-hifi-shearing/validation-plan",
@@ -800,28 +768,8 @@
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
-    "source": "resources/ampure-xp-beads",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/ampure-xp-beads",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/ampure-xp-beads",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "resources/bovine-serum-albumin-50mg-ml",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
     "source": "resources/dna-lobind-tubes",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "resources/flongle-flow-cells-flo-flg114",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
   },
   {
     "source": "resources/flongle-starter-pack",
@@ -832,16 +780,8 @@
     "target": "resources/flongle-flow-cells-flo-flg114"
   },
   {
-    "source": "resources/flongle-starter-pack",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
     "source": "resources/flow-cell-wash-kit-exp-wsh004",
     "target": "resources/flongle-flow-cells-flo-flg114"
-  },
-  {
-    "source": "resources/flow-cell-wash-kit-exp-wsh004",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
   },
   {
     "source": "resources/flow-cell-wash-kit-exp-wsh004",
@@ -857,31 +797,11 @@
   },
   {
     "source": "resources/minion-mk1b",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "resources/minion-mk1b",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "resources/neb-blunt-ta-ligase-master-mix",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/neb-blunt-ta-ligase-master-mix",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/neb-blunt-ta-ligase-master-mix",
     "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "resources/nebnext-companion-module-ont",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/nebnext-companion-module-ont",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
   },
   {
     "source": "resources/nebnext-companion-module-ont",
@@ -901,27 +821,11 @@
   },
   {
     "source": "resources/nebnext-quick-ligation-module",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/nebnext-quick-ligation-module",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/nebnext-quick-ligation-module",
     "target": "resources/nebnext-companion-module-ont"
   },
   {
     "source": "resources/nebnext-ultra-ii-end-prep",
     "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "resources/nebnext-ultra-ii-end-prep",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/nebnext-ultra-ii-end-prep",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
   },
   {
     "source": "resources/nebnext-ultra-ii-end-prep",
@@ -944,24 +848,8 @@
     "target": "resources/opentrons-ot2"
   },
   {
-    "source": "resources/ot2-magnetic-module",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/ot2-magnetic-module",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
     "source": "resources/ot2-temperature-module",
     "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "resources/ot2-temperature-module",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/ot2-temperature-module",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
   },
   {
     "source": "resources/ot2-temperature-module",
@@ -974,14 +862,6 @@
   {
     "source": "resources/ot2-thermocycler-module",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "resources/pcr-strip-tubes-0-2ml",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/pcr-strip-tubes-0-2ml",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
   },
   {
     "source": "resources/qubit-assay-tubes",
@@ -1000,22 +880,6 @@
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "resources/qubit-dsdna-hs-assay-kit",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/qubit-dsdna-hs-assay-kit",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/sqk-nbd114-24",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "resources/sqk-nbd114-24",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
     "source": "resources/sqk-nbd114-24",
     "target": "resources/nebnext-companion-module-ont"
   },
@@ -1024,28 +888,12 @@
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "resources/wide-bore-filter-tips-p1000",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/wide-bore-filter-tips-p1000",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
     "source": "resources/wide-bore-filter-tips-p200",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "resources/wide-bore-filter-tips-p200",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "resources/wide-bore-filter-tips-p200",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "resources/wide-bore-filter-tips-p200",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
   },
   {
     "source": "stocks/bl21-de3-competent-cells",
@@ -2296,106 +2144,6 @@
     "target": "people/satoyo-oya"
   },
   {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/femtopulse"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/minion-mk1b"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/flongle-starter-pack"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/flow-cell-wash-kit-exp-wsh004"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/ampure-xp-beads"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/bovine-serum-albumin-50mg-ml"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/nuclease-free-water"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "resources/flongle-flow-cells-flo-flg114"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "wet-lab/library-prep/flongle-sequencing-and-analysis",
-    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "resources/isopropyl-alcohol-2"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "resources/tween-80"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/illumina-library-qc-on-flongle",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
     "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
     "target": "resources/femtopulse"
   },
@@ -2449,27 +2197,11 @@
   },
   {
     "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
     "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
     "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
   },
   {
     "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
@@ -2504,114 +2236,6 @@
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/magnetic-rack"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/ot2-thermocycler-module"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/ph-meter"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/qubit-fluorometer"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/thermocycler"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/neb-blunt-ta-ligase-master-mix"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/nebnext-quick-ligation-module"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/nebnext-ultra-ii-end-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/qubit-dsdna-hs-assay-kit"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/ampure-xp-beads"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/ethanol-70"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/ethanol-absolute"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/nuclease-free-water"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/dna-lobind-tubes"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/pcr-strip-tubes-0-2ml"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/qubit-assay-tubes"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
     "source": "wet-lab/library-prep/operating-the-ot2",
     "target": "resources/magnetic-rack"
   },
@@ -2649,135 +2273,11 @@
   },
   {
     "source": "wet-lab/library-prep/operating-the-ot2",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/operating-the-ot2",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
     "source": "wet-lab/library-prep/operating-the-ot2",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/clean-bench-laminar-flow"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/magnetic-rack"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ot2-magnetic-module"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ot2-temperature-module"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ph-meter"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/qubit-fluorometer"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/neb-blunt-ta-ligase-master-mix"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/nebnext-quick-ligation-module"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/nebnext-ultra-ii-end-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/qubit-dsdna-hs-assay-kit"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ampure-xp-beads"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ethanol-70"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/ethanol-absolute"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/nuclease-free-water"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/dna-lobind-tubes"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/kingfisher-deepwell-96-plate"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/pcr-strip-tubes-0-2ml"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/qubit-assay-tubes"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/operating-the-ot2"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/illumina-library-qc-on-flongle"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-automated-nbd114-prep",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
     "source": "wet-lab/library-prep/ot2-hmw-shearing",
@@ -2837,10 +2337,6 @@
   },
   {
     "source": "wet-lab/library-prep/ot2-hmw-shearing",
-    "target": "wet-lab/library-prep/ot2-automated-nbd114-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-hmw-shearing",
     "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
@@ -2850,14 +2346,6 @@
   {
     "source": "wet-lab/library-prep/ot2-hmw-shearing",
     "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-hmw-shearing",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-hmw-shearing",
-    "target": "wet-lab/library-prep/flongle-sequencing-and-analysis"
   },
   {
     "source": "wet-lab/library-prep/pacbio-hifi-sequencing",
@@ -2946,10 +2434,6 @@
   {
     "source": "wet-lab/library-prep/spri-beads-preparation",
     "target": "resources/tris-edta-te-buffer-solution"
-  },
-  {
-    "source": "wet-lab/library-prep/spri-beads-preparation",
-    "target": "wet-lab/library-prep/nbd114-multiplexed-flongle-prep"
   },
   {
     "source": "wet-lab/library-prep/spri-beads-preparation",

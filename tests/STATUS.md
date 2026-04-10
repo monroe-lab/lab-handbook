@@ -111,7 +111,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Fix safety SOP rendering** — All 10 SOP files reformatted: broken ASCII-art tables replaced with Markdown pipe tables, Pandoc artifacts removed, heading hierarchy standardized, signature tables cleaned up. -936/+388 lines. Fix-loop agent (batch 3).
 - [ ] **Audit imported lab protocols** — Cross-check protocols imported from Google Docs for correctness. Verify steps, reagent amounts, temperatures, times, etc. haven't been garbled in conversion.
 - [ ] **Remove time estimate charts from protocols** — Old code-chunk-style time estimate charts exist in some protocols. Remove them — they clutter the content and aren't maintained.
-- [ ] **Remove Nanopore/Flongle content** — Delete all Nanopore Flongle-related protocols and inventory items. Dead project, no longer relevant. Clean up any cross-references.
+- [x] **Remove Nanopore/Flongle content** — Deleted 4 Nanopore/Flongle protocol files (flongle-sequencing-and-analysis, illumina-library-qc-on-flongle, nbd114-multiplexed-flongle-prep, ot2-automated-nbd114-prep). Cleaned broken wikilinks in operating-the-ot2, in-house-hifi-shearing-pipeline, in-house-vs-genome-center-decision. Removed entries from object-index.json (4) and link-index.json (129). Fix-loop agent.
 - [x] **Organize protocols with wikilinks** — Resources sections with wikilinks added to all wet-lab protocols. Inventory items linked via `inventory://` syntax, cross-references between related protocols. 37 files changed, 419 insertions. Fix-loop agent (batch 3).
 
 ---
