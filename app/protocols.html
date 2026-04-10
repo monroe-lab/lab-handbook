@@ -1116,7 +1116,7 @@ async function renameDoc() {
     if (newSlug !== oldSlug) {
       // Slug changed — create new file, delete old
       var newPath = 'docs/' + dir + '/' + newSlug + '.md';
-      await gh.saveFile(newPath, newContent, null, 'Rename: ' + oldTitle + ' → ' + newTitle);
+      var createResult = await gh.saveFile(newPath, newContent, null, 'Rename: ' + oldTitle + ' → ' + newTitle);
       await gh.deleteFile(filePath, result.sha, 'Renamed ' + oldSlug + ' to ' + newSlug);
 
       var newDocPath = dir + '/' + newSlug;
@@ -1132,7 +1132,13 @@ async function renameDoc() {
       gh.patchObjectIndex(newPath, parsed.meta);
       gh.removeFromObjectIndex(filePath);
       renderSidebar(document.getElementById('protoSearch').value);
-      loadDoc(newDocPath);
+
+      // Render directly from saved content (avoid stale GitHub API cache)
+      currentDoc = newDocPath;
+      currentSha = createResult.sha;
+      editFrontmatter = parsed.meta;
+      cachedBody = newBody;
+      isEditing = false;
     } else {
       // Same slug, just update title in file
       var saveResult = await gh.saveFile(filePath, newContent, result.sha, 'Rename: ' + oldTitle + ' → ' + newTitle);
@@ -1147,8 +1153,37 @@ async function renameDoc() {
 
       gh.patchObjectIndex(filePath, parsed.meta);
       renderSidebar(document.getElementById('protoSearch').value);
-      loadDoc(currentDoc);
+
+      // Render directly from saved content (avoid stale GitHub API cache)
+      editFrontmatter = parsed.meta;
+      cachedBody = newBody;
+      isEditing = false;
     }
+
+    // Render the content directly instead of calling loadDoc (which hits stale API cache)
+    var html = await Lab.editorModal.renderMarkdown(newBody);
+    var contentEl = document.getElementById('protoContent');
+    contentEl.innerHTML =
+      '<div class="proto-content">' +
+        '<div class="proto-edit-bar">' +
+          '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
+            '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span> Delete</button>' +
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="lab-rendered theme-teal" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+    var renderedEl = document.getElementById('renderedDoc');
+    if (Lab.wikilinks) {
+      await Lab.wikilinks.processRendered(renderedEl);
+    }
+    postProcessRendered(renderedEl);
+    document.getElementById('protoMain').scrollTop = 0;
+    history.pushState(null, '', '?doc=' + encodeURIComponent(currentDoc));
 
     Lab.showToast('Renamed to: ' + newTitle, 'success');
   } catch(e) {

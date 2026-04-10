@@ -1899,6 +1899,10 @@
     md = unresolveImagePaths(md);
     md = placeholdersToMedia(md);
     md = applyImageSizes(md);
+    // Ensure a blank line after tables before the next block element.
+    // Matches a table row (line containing |) immediately followed by a
+    // non-empty, non-table line (no blank line in between).
+    md = md.replace(/(\|[^\n]*\|[ \t]*\n)(?=[^\n|])/g, '$1\n');
     return md;
   }
 

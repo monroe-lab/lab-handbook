@@ -272,25 +272,53 @@
       }
     });
 
-    // If image fails from Pages (not deployed yet), fetch via GitHub API
-    el.querySelectorAll('img').forEach(function(img) {
-      img.addEventListener('error', function() {
-        if (img.dataset.retried) return;
-        img.dataset.retried = '1';
-        var src = img.getAttribute('src') || '';
-        var relPath = src.replace(mediaBase, '');
-        if (relPath.startsWith('images/') && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
-          fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
-            headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
-          }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
-            if (data && data.content) {
-              var ext = relPath.split('.').pop().toLowerCase();
-              var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
-              img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
-            }
-          }).catch(function() {});
-        }
-      });
+    // If image fails from Pages (not deployed yet), fetch via GitHub API.
+    // Use a capture-phase listener on the container so it catches errors from
+    // images added later AND images that fail before per-element listeners
+    // could be attached (race condition with innerHTML rendering).
+    _setupRenderedImageFallback(el, mediaBase);
+  }
+
+  // ── Rendered-view image fallback (capture-phase, race-safe) ──
+  // Attaches once per container. When any <img> inside fires an error,
+  // fetches the image via the authenticated GitHub API and swaps in a data URL.
+  function _setupRenderedImageFallback(containerEl, mediaBase) {
+    if (!containerEl || containerEl._imgFallbackSetup) return;
+    containerEl._imgFallbackSetup = true;
+
+    function tryApiFallback(img) {
+      if (img.dataset.apiFallback) return;
+      img.dataset.apiFallback = '1';
+      var src = img.getAttribute('src') || '';
+      var relPath = '';
+      if (src.includes('/images/')) {
+        relPath = 'images/' + src.split('/images/').pop();
+      } else if (mediaBase && src.startsWith(mediaBase)) {
+        relPath = src.replace(mediaBase, '');
+      }
+      if (relPath && relPath.startsWith('images/') && window.Lab && window.Lab.gh && window.Lab.gh.isLoggedIn()) {
+        fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/docs/' + relPath + '?ref=' + window.Lab.gh.BRANCH, {
+          headers: { 'Authorization': 'Bearer ' + window.Lab.gh.getToken(), 'Accept': 'application/vnd.github.v3+json' }
+        }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
+          if (data && data.content) {
+            var ext = relPath.split('.').pop().toLowerCase();
+            var mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+            img.src = 'data:' + mime + ';base64,' + data.content.replace(/\n/g, '');
+          }
+        }).catch(function() {});
+      }
+    }
+
+    // Capture-phase listener catches errors from future/dynamic images too
+    containerEl.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG') tryApiFallback(e.target);
+    }, true);
+
+    // Retry any images that already failed before the listener was attached
+    containerEl.querySelectorAll('img').forEach(function(img) {
+      if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) {
+        tryApiFallback(img);
+      }
     });
   }
 

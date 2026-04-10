@@ -113,12 +113,15 @@ Found by `tests/workflow-e2e.mjs` (James Freckles + Lab Manager simulation). Wor
 ### Dev improvements (site code changes)
 
 - [x] **Projects: stale render after save** — `projects.html saveDoc()` called `loadDoc()` which re-fetched stale content. **Fixed:** render directly from saved markdown (same pattern as wiki/notebooks). Also captures editor image data URLs for instant preview.
-- [ ] **Table rendering: missing trailing newline** — NanoDrop table in notebook view has headers merging with next heading ("SampleGel Electrophoresis"). Toast UI table markdown output may lack blank line before next element. Fix in markdown rendering or post-processing.
 - [x] **Freezer grid: cell labels too short** — Grid cells showed only 3 chars. **Fixed:** now shows type icon + 10-char truncated name with tooltip on hover. Font reduced to 6px with ellipsis overflow.
 - [x] **Image default size on insertion** — Images inserted at 100% width. **Fixed:** new images default to 50% max-width via `_imgSizes` map + inline style. Users can still resize via toolbar.
-- [ ] **Inventory: name vs slug confusion** — Add Item modal uses same field for display name and filename slug. Should show human-readable name field with auto-generated slug preview beneath.
 - [x] **Protocol sidebar: copies indistinguishable** — Copies had no visual distinction. **Fixed:** protocols with `-copy` suffix now show "(Copy)" badge in sidebar using flex layout.
 - [x] **Sample tracker: species field not searchable** — Search only indexed some fields. **Fixed:** haystack now includes all 8 text fields (sampleId, project, species, lead, sequencingType, status, notes, currentBlocker) with null guards.
+- [x] **Dashboard notebook count wrong** — Showed "1 NOTEBOOKS" because only 1 entry had `type: notebook` in frontmatter. **Fixed:** counts entries by `notebooks/` path prefix instead of relying on type field.
+- [ ] **Protocols: stale render after rename** — `renameDoc()` calls `loadDoc()` which fetches stale cached content. Same bug as projects/wiki had. Needs render-from-saved-markdown fix.
+- [ ] **Rendered view: images not visible after save** — Image URLs point to GitHub Pages path which hasn't rebuilt yet (~40s). API fallback only works in edit mode. Need fallback in rendered view too, or use data URLs captured from editor.
+- [ ] **Table rendering: missing trailing newline** — Toast UI table markdown output may lack blank line before next heading, causing merged rendering. Fix in markdown post-processing.
+- [ ] **Inventory: name vs slug confusion** — Add Item modal uses same field for display name and filename slug. Should show human-readable name field with auto-generated slug preview beneath.
 
 ---
 
@@ -142,6 +145,18 @@ These are problems with the test bot itself, not the site:
 3. **Wiki render-after-save showed stale content** — `saveDoc()` called `loadDoc()` which re-fetched from GitHub API (cached/stale). **Fixed:** render directly from the just-saved markdown, matching notebooks.html pattern. Also captures editor image data URLs for instant preview.
 
 4. **Dashboard bulletin Edit link broken** — link used `wiki.html?file=docs/bulletin.md` but wiki.html only reads `?doc=` parameter. **Fixed:** changed to `wiki.html?doc=bulletin`. Also fixed "Needs Ordering" widget links (same `?file=` → `?doc=` bug).
+
+5. **Projects stale render after save** — `projects.html saveDoc()` called `loadDoc()` which re-fetched from GitHub API (cached/stale). Same as wiki bug #3. **Fixed:** render directly from the just-saved markdown.
+
+6. **Dashboard notebook count = 1** — stat card counted `type: notebook` entries in object-index.json, but notebook entries are created without frontmatter type. Only the template had it. **Fixed:** counts by `notebooks/` path prefix.
+
+7. **Freezer grid labels unreadable** — occupied cells showed only 3 characters. **Fixed:** type icon + 10-char truncated name + tooltip.
+
+8. **Images insert at 100% width** — pushed all editor content off-screen. **Fixed:** default to 50% max-width on upload.
+
+9. **Protocol sidebar: copies look identical** — `-copy` suffix truncated away. **Fixed:** "(Copy)" badge appended to sidebar items.
+
+10. **Sample tracker search missed species/status** — only searched sampleId, project, lead. **Fixed:** now indexes all 8 text fields.
 
 ---
 
