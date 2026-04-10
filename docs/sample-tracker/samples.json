@@ -3176,5 +3176,19 @@
     "lastUpdated": "2026-03-29",
     "notes": "Runcie -80, top of our two shelves. Behind the 50mL tubes in a bag",
     "detailSheetLink": "Please create a sheet when you begin"
+  },
+  {
+    "id": 228,
+    "sampleId": "RW-mnsj5szd",
+    "project": "DNA Extraction Optimization",
+    "species": "Sequoia sempervirens",
+    "lead": "James Freckles",
+    "sequencingType": "HiFi",
+    "status": "DNA extracted",
+    "priority": "",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-10",
+    "notes": "DNeasy Plant Mini Kit, 50uL elution (modified protocol). NanoDrop: 82.7 ng/uL, 260/280=1.91. Stored -80C.",
+    "detailSheetLink": ""
   }
 ]
