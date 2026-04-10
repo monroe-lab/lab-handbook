@@ -14,15 +14,16 @@ title: "Working Alone in the Laboratory SOP"
 
 ## HAZARD OVERVIEW
 According to [Prudent Practices in the Laboratory](http://ucanr.edu/sites/ucehs/files/133892.pdf), the definition of "alone" is beyond visible or audible range of another individual for more than a few minutes at a time.
->
+
 Incidents are unexpected by definition. If a person is working alone when an incident occurs, their ability to respond appropriately can be severely impaired. This could result in personal injury, death, and/or catastrophic facility damage. Indeed, working alone in any laboratory creates increased risk including not having access to basic first aid and the possibility of being unable to summon help in an emergency.
->
+
 If the design of your workspace/laboratory makes both audible and visual range questionable, contact [chem-safety@ucdavis.edu](mailto:chem-safety@ucdavis.edu) for consultation.
 
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S) RESTRICTIONS
-Dispensing, manipulating or quenching Pyrophoric Materials are prohibited while alone in the laboratory. Using Acutely Toxic Gases are prohibited while alone in the laboratory..
+Dispensing, manipulating or quenching Pyrophoric Materials are prohibited while alone in the laboratory. Using Acutely Toxic Gases are prohibited while alone in the laboratory.
 
 ## ENGINEERING/VENTILATION CONTROLS & EQUIPMENT RESTRICTIONS
+
 ## ADMINISTRATIVE CONTROLS & RESTRICTIONS
 The following elements are required:
 
@@ -49,76 +50,48 @@ The following are also required for working alone in a laboratory:
 10. No deviations from the restrictions described in this SOP are allowed without documented approval from the Principal Investigator/Laboratory Supervisor.
 
 The following activities and laboratory processes are **prohibited** while alone in the laboratory:
->
+
 Undergraduate students must obtain permission from Grey Monroe prior to working alone.
 
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health System ERG](http://www.ucdmc.ucdavis.edu/medresearch/downloads/labsafety/2.6-UCDHS-Emergency-Response-Guide.pdf). The applicable ERG must be posted in the laboratory. All other locations must describe detailed emergency procedure instructions below.
->
+
 If an incident occurs when someone is working alone, the PI/Lab Manager and lab personnel **must** review the process and determine whether or not changes need to be made to the process. The lab policy on working alone should also be reviewed.
->
+
 Cleaning up a chemical spill while alone in the laboratory can present additional challenges. Before proceeding with spill cleanup ensure that you have identified all the hazards associated with the chemical spill and any other ongoing laboratory activities/equipment. Assess the risks posed by the spill and other hazards. Only proceed with spill cleanup if the risks can be effectively managed, you have appropriate Personal Protective Equipment (PPE), you have the skills to clean up the spill properly, and you choose to complete the cleanup procedure. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
->
+
 Personnel should contact the PI or appropriate supervisor/lab manager before cleaning up a spill in the Monroe laboratory when working alone in the laboratory.
 
-6.  **AREA RESTRICTIONS** There are no area restrictions when working alone in the lab.
+## AREA RESTRICTIONS
+There are no area restrictions when working alone in the lab.
 
 ## ADDITIONAL INFORMATION & RESTRICTIONS
 Personnel in the Monroe lab are allowed to do all procedures they have documented training on when working alone in the lab. Any special restrictions about working alone using a particular protocol is covered by that protocol.
 
-**TEMPLATE REVISION HISTORY**
+---
 
-  -----------------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- --------------------- ---------------------------------------------------------------------
-  **1.012/1/2014CLSC Task ForceNew template1.14/16/2015Chris JakoberChanged SDS link, language relating to soiled PPE1.23/10/2016Chris JakoberUpdated URLs following website redesign, added URL to UCDHS ERG1.311/30/2016Lindy GervinUnlocked editable fields1.45/10/2017Lindy GervinUpdated email address in section 1**
-  -----------------------------------------------------------------------------------------------------------------------------
+## REVISION HISTORY
 
-**LAB-SPECIFIC REVISION HISTORY**
+### Template Revision History
 
-  ---------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- ------------- ---------------------------------------
-  **1     **    12/8/21             **GM     2     **    12/1/25             **KZ     **        Updated version
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 12/1/2014 | CLSC Task Force | New template |
+| 1.1 | 4/16/2015 | Chris Jakober | Changed SDS link, language relating to soiled PPE |
+| 1.2 | 3/10/2016 | Chris Jakober | Updated URLs following website redesign, added URL to UCDHS ERG |
+| 1.3 | 11/30/2016 | Lindy Gervin | Unlocked editable fields |
+| 1.4 | 5/10/2017 | Lindy Gervin | Updated email address in section 1 |
 
-                                     
+### Lab-Specific Revision History
 
-                                     
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1 | 12/8/21 | GM | Initial version |
+| 2 | 12/1/25 | KZ | Updated version |
 
-                                     
+---
 
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-  ---------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -132,34 +105,8 @@ Personnel in the Monroe lab are allowed to do all procedures they have documente
 
 **Designated Trainer:** *Kehan Zhao*
 
-     
-
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  ---------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- -----------
-                                                                     
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-  ---------------------------------------------------------------------------------------
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |

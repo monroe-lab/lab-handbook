@@ -29,7 +29,7 @@ This SOP is intended to address the use of Hazardous Drugs in research settings.
 |  | |  | | | |  |  | | |
 | Location(s) covered by SOP: | Building: | | Robbins | | | Lab Phone: |  | | |
 | Room #(s): | | 0170 | | |
-1. HAZARD OVERVIEW
+## HAZARD OVERVIEW
 
 The [National Institute for Occupational Safety and Health (NIOSH) has defined hazardous drugs](https://www.cdc.gov/niosh/docs/2016-161/pdfs/2016-161.pdf?id=10.26616/NIOSHPUB2016161) as those that exhibit one or more of the following characteristics in humans or animals:
 
@@ -46,7 +46,7 @@ NIOSH recommends that all hazardous drugs be handled safely and has published gu
 
 There is a wide variety of Hazardous Drugs used for research purposes at UC Davis: each Hazardous Drug has unique properties and many different potential health effects. Recognition of the hazards associated with the transportation, use, storage, and disposal of these materials is essential. While the quantities handled in a research setting may be lower than that of a health care setting, precautions must still be taken to reduce the potential for exposure. There are 4 major routes by which a hazardous material can enter the body: inhalation, absorption, injection, and/or skin/eye contact. Breathing of contaminated air is the most common way that workplace chemicals enter the body. This SOP outlines precautions that should be taken to minimize potential chemical exposure by all routes of exposure to Hazardous Drugs.
 
-2. HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
+## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
 
 Hazardous Drugs include those used for cancer chemotherapy, antiviral drugs, hormones, some bioengineered drugs and other miscellaneous agents that could potentially be used as drugs. NIOSH has published a [list of major hazardous drugs](https://www.cdc.gov/niosh/docs/2016-161/default.html) (mostly chemotherapy drugs) which will be used as the basis for identifying Hazardous Drugs relevant to this SOP.
 
@@ -80,7 +80,7 @@ All SDSs, [Occupational Health Categorization](https://reader.elsevier.com/reade
 
 Our lab contains: [[mitomycin-c]], [[cis-diamineplatinum-ii-dichloride]] and Paraquat (N, N′-dimethyl-4,4′-bipyridinium dichloride)
 
-3. ENGINEERING/VENTILATION CONTROLS
+## ENGINEERING/VENTILATION CONTROLS
 
 Open handling of Category 3 Hazardous Drugs in powder form outside of ventilation control must be strictly limited; open handling of Category 4 Hazardous Drugs in powder form outside of ventilation control is not permitted. Preparations should be conducted inside a glove box or powders weigh hood (also known as a ventilated balance enclosure or VBE). If a glove box or powders weigh hood is not available, a [[fume-hood]] or a Class I Biosafety Cabinet (BSC) may be sufficient if the ventilated engineering control exhaust is HEPA filtered or appropriately exhausted to the outside of the building.
 
@@ -90,7 +90,7 @@ Initial solution preparation of Category 3 or 4 Hazardous Drug powders should be
 
 Contact the Chemical Hygiene Officer or [healthandsafety@ucdavis.edu](mailto:healthandsafety@ucdavis.edu) for assistance or if an exposure assessment is needed.
 
-4. ADMINISTRATIVE CONTROLS
+## ADMINISTRATIVE CONTROLS
 
 The following elements are required:
 
@@ -115,7 +115,7 @@ For Hazardous Drugs, the following are also required:
 16. All local work surfaces in active Hazardous Drugs handling areas should be cleaned immediately after use, or at least at the end of the day. In the absence of a known cleaning protocol, clean the area with 0.5% bleach to deactivate any residual material, followed by 70% EtOH to clean the area; and
 17. All waste containing Hazardous Drugs must be disposed of properly, following the guidelines for hazardous waste or chemotherapy waste outlined in Section 7.
 
-5. PERSONAL PROTECTIVE EQUIPMENT (PPE)
+## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
 
@@ -141,7 +141,7 @@ for processes where splashes are foreseeable or when generating aerosols. Howeve
 
 Upon completion of work with Hazardous Drugs and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated Hazardous Drugs work area, remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused and must be disposed according to Section 7.
 
-6. SPILL AND EMERGENCY PROCEDURES
+## SPILL AND EMERGENCY PROCEDURES
 
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](https://safetyservices.ucdavis.edu/safetynet/guidelines-for-chemical-spill) and/or the [UC Davis Chemical Hygiene Plan](https://safetyservices.ucdavis.edu/units/ehs/research/chemical/safety-manual), unless specialized cleanup procedures are described below.  Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Chemical Hygiene Plan](https://safetyservices.ucdavis.edu/units/ehs/research/chemical/safety-manual) and the [Emergency Response Guide](https://ucdavis.app.box.com/s/8c4fpyg9vrz2melx7xc9zpp4c7mdc7kw) (which must be posted in the laboratory).  All other locations must describe detailed emergency procedure instructions below.
 
@@ -176,7 +176,7 @@ Follow the guidance for chemical spill cleanup from [SafetyNet #13](https://safe
 
 EH&S must be notified immediately for any uncontrolled release of Hazardous Drugs; please call (530) 752-1493.  Some examples of an uncontrolled release include, but are not limited to, equipment failure, rupture of containers, or failure of control equipment.  Depending on the chemical EH&S may need to report this information to Cal/OSHA within 24 hours.
 
-7. WASTE MANAGEMENT AND DECONTAMINATION
+## WASTE MANAGEMENT AND DECONTAMINATION
 
 Waste generated from the use and handling of Hazardous Drugs could potentially fall into one of three hazardous waste categories: hazardous waste, trace chemotherapeutic hazardous waste, or bulk chemotherapeutic hazardous waste. Chemotherapeutic drug waste must be handled separately from other waste streams and in accordance with the [UC Davis Medical Waste Management Plan](https://safetyservices.ucdavis.edu/units/ehs/biological-safety/waste/medical). Chemotherapeutic drugs are indicated in the “Hazardous Drug List” in Appendix II by an asterisk.
 
@@ -206,13 +206,13 @@ Decontamination procedures vary depending on the material being handled. Careful
 
 Upon completion of work with Hazardous Drugs and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated Hazardous Drugs work area, remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
 
-8. DESIGNATED AREA
+## DESIGNATED AREA
 
 Designated area(s) for the use and storage of Hazardous Drugs shall be established where limited access, special procedures, knowledge, and work skills are required. The entire laboratory, a portion of the laboratory, a fume hood, etc. can be the designated area. Signage indicating the materials being used and/or stored and the applicable hazards should be easily visible for the designated work space and/or storage area.
 
 All work surfaces, equipment, and containers used for Category 2, 3, or 4 Hazardous Drugs handling must be clearly marked indicating designation for handling of these Hazardous Drugs.
 
-9. DETAILED PROTOCOL
+## DETAILED PROTOCOL
 
 Task-specific written procedures are required for all work involving Category 3 or 4 Hazardous Drugs including weighing, solution preparation, reaction steps, suspension filtration, synthesis steps, lyophilization, and analytical methods (e.g. HPLC).  All task-specific written procedures should address task specific precautions and potential hazard condition in sufficient detail to ensure safe work practices and avoidance of incidents.
 
@@ -228,45 +228,27 @@ Appendix III - Laboratory-Specific Hazardous Drug List
 
 ---
 
-TEMPLATE REVISION HISTORY
+## REVISION HISTORY
 
-| Version | Date Approved | Author | Revision Notes: |
+### Template Revision History
+
+| Version | Date Approved | Author | Revision Notes |
 | --- | --- | --- | --- |
 | 1.0 | 12/15/21 | Karen Gagnon & Phil Painter | New template |
-| 1.1 | 7/12/22 | Karen Gagnon | Updated links and added information directing users to refer to the NIOSH list for the most current list of hazardous drugs covered by this SOP. |
-| 1.2 | 3/6/2024 | Karen Gagnon | Added clarifying information regarding trace chemotherapeutic waste handling. |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-LAB-SPECIFIC REVISION HISTORY
+| 1.1 | 7/12/22 | Karen Gagnon | Updated links and added information directing users to refer to the NIOSH list for the most current list of hazardous drugs covered by this SOP |
+| 1.2 | 3/6/2024 | Karen Gagnon | Added clarifying information regarding trace chemotherapeutic waste handling |
 
-| Version | Date Approved | Author | Revision Notes: |
+### Lab-Specific Revision History
+
+| Version | Date Approved | Author | Revision Notes |
 | --- | --- | --- | --- |
 | 1.2.1 | 11/8/2024 | KZ | Customized to Monroe Lab |
 | 1.2.2 | 6/26/2025 | KZ, SO | Updated Paraquat |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
 ---
 
-Documentation of Standard Operating Procedure Training
+## TRAINING DOCUMENTATION
 
-(Signature of all users is required)
+*(Signature of all users is required)*
 
 - Prior to using Hazardous Drugs, laboratory personnel must be trained on the hazards described in this SOP, how to protect themselves from these hazards, and emergency procedures.
 
@@ -276,24 +258,15 @@ Documentation of Standard Operating Procedure Training
 
 - Training must be repeated following any revision to the content of this SOP.  Training must be documented.  This training sheet is provided as one option; other forms of training documentation (including electronic) are acceptable but records must be accessible and immediately available upon request.
 
-Designated Trainer: (signature is required)
+**Designated Trainer:** *Kehan Zhao*
 
 I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
 
 | Name | Signature | Trainer Initials | Date |
 | --- | --- | --- | --- |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| | | | |
+| | | | |
+| | | | |
 |  | Potency/Toxicity Category 1  OELs: > 500 µg/m3 | Potency/Toxicity Category 2  OELs: 10 - 500 µg/m3 | Potency/Toxicity Category 3  OELs:  > 0.03 - 10 µg/m3 | Potency/Toxicity Category 4  OELs:  < 0.03 µg/m3 |
 | --- | --- | --- | --- | --- |
 | Designated Areas | An area designated for handling compounds recommended. | | An area designated for handling compounds is required. Work surfaces, including chemical bench hood bases are to be cleaned daily. If lab bench absorbent paper is used, it is to be changed at least daily. | An area designated for handling compounds is required. Work surfaces are to be cleaned daily. If lab bench absorbent paper is used, it is to be changed at least daily. Access to the area should be restricted. |

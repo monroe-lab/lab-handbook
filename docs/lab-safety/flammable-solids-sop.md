@@ -17,10 +17,10 @@ Flammable Solids are solid or semi-solid substances which are easily ignited by 
 
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
 Flammable solids included in this control band are those which burn rapidly or intensely when ignited, and which may be difficult to extinguish or react violently with water. Examples include powdered aluminum, [[sodium-dodecyl-sulfate]], camphor, paraformaldehyde, magnesium, zinc metal dust (greater than 44 microns particle size or 325 mesh), etc. Particle size must be considered when determining if materials, such as finely divided metals, have additional hazards for water reactive or pyrophoric behavior. For example, zinc metal dust smaller than 44 microns is considered water reactive and also subject to the requirements of the Water Reactive SOP. Flammable solids for this control band may be identified with the GHS Hazard code H228.
->
+
 Our Lab contains:
->
-H228 [[activated-charcoal]], Sodium dodecyl sulfate
+
+**H228** [[activated-charcoal]], Sodium dodecyl sulfate
 
 ## ENGINEERING/VENTILATION CONTROLS
 Some flammable solids are quite fluffy and can be difficult to control and contain in a [[fume-hood]] or ventilated enclosure. Careful assessment of the handling hazards in the protocol context will determine the need for ventilation controls.
@@ -64,11 +64,9 @@ For Flammable Solids, the following are also required:
 
     d.  Segregate from other incompatible materials (e.g., oxidizers and pyrophorics).
 
-<!-- -->
-
 ## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
->
+
 In addition to the minimum attire required upon entering a laboratory, the following PPE is required for all work with Flammable Solids:
 
 A.  Eye Protection:
@@ -83,7 +81,7 @@ B.  Body Protection: At a minimum a chemically-compatible laboratory coat that f
 
     i.  Clothing worn under PPE should not be constructed from synthetic materials
 
-    ii. A flame-resistant laboratory coat that is NFPA 2112-compliant that fully extends to the wrist may be required, if quantities in use are large or if the activities include the use of flammable solids in the presence of an open flame or ignition source. Some FR fabrics (e.g., Nomex®, Rhovyl®, Kevlar®, etc.) are highly permeable and do not provide good chemical resistance; and
+    ii. A flame-resistant laboratory coat that is NFPA 2112-compliant that fully extends to the wrist may be required, if quantities in use are large or if the activities include the use of flammable solids in the presence of an open flame or ignition source. Some FR fabrics (e.g., Nomex, Rhovyl, Kevlar, etc.) are highly permeable and do not provide good chemical resistance; and
 
     iii. For chemicals that are corrosive and/or toxic by skin contact/absorption additional protective clothing (*e.g.,* face shield, chemically-resistant layer, disposable sleeves, etc.) are required where splashes or skin contact is foreseeable.
 
@@ -91,76 +89,47 @@ C.  Hand Protection: When hand protection is needed for the activities described
 
     i.  Flame-resistant gloves should be considered if quantities in use are large or when using Flammable Solids near an open flame or ignition source.
 
-<!-- -->
-
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health System ERG](https://health.ucdavis.edu/medresearch/safety/Documents/2.4_UCDH_DavisCampus_Emergency_Response_Guide_reviewed_08052019.pdf). The applicable ERG must be posted in the laboratory. All other locations must describe detailed emergency procedure instructions below.
->
+
 Dry sweeping or wiping is not appropriate to clean up small spills of flammable solids. Wet-wiping with a suitable solvent is required. Pre-wetting the spilled material might be helpful. Dispose contaminated wipers and solvent in an appropriate fire-resistant container.
 
 ## WASTE MANAGEMENT AND DECONTAMINATION
 Hazardous waste must be managed according to [Safety Net #8](http://safetyservices.ucdavis.edu/safetynet/guidelines-disposal-chemical-waste), and must be [properly labeled](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). In general, hazardous waste must be removed from your laboratory within 9 months of the accumulation start date; refer to the [accumulation time for waste disposal](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). Hazardous waste pick up requests must be completed using [WASTe](https://safetyservices.ucdavis.edu/units/ehs/hazardous-materials-management/waste-tracking).
->
+
 **Note:** See the [WASTe Factsheet](https://ucdavis.app.box.com/s/dgpovz3l71h3mtd4zegq0ago708q4sc5) for instructions on how to complete a label.
->
+
 Upon completion of work with hazardous chemicals and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated hazardous chemical work area remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
 
 ## DESIGNATED AREA
 Signage indicating the presence and use of Flammable Solids should be easily visible for the designated work space and/or storage area, for example: DANGER! FLAMMABLE SOLIDS WORK AREA!
 
-**TEMPLATE REVISION HISTORY**
+---
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- -------------------------------------- ---------------------------------------------------------------------
-  **1.010/26/2015CLSC Task ForceNew template1.13/10/2016Chris JakoberUpdated URLs following website redesign, added URL to UCDHS ERG1.211/30/2016Lindy GervinUnlocked editable fields1.33/13/2017Lindy GervinUpdated links in section 7 to WASTe system1.45/10/2017Lindy GervinAdded email address to introduction1.512/2/2020Phillip PainterUpdated SDS link in section 41.65/17/2022Phillip Painter and Karen GagnonClarified storage expectations and segregation guidance**
-  ----------------------------------------------------------------------------------------------------------------------------------------------
+## REVISION HISTORY
 
-**LAB-SPECIFIC REVISION HISTORY**
+### Template Revision History
 
-  ---------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- ------------- ---------------------------------------
-  **   1  **      11/28/22          **   KZ     2  **    12/1/25             **   KZ  **        Updated version
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 10/26/2015 | CLSC Task Force | New template |
+| 1.1 | 3/10/2016 | Chris Jakober | Updated URLs following website redesign, added URL to UCDHS ERG |
+| 1.2 | 11/30/2016 | Lindy Gervin | Unlocked editable fields |
+| 1.3 | 3/13/2017 | Lindy Gervin | Updated links in section 7 to WASTe system |
+| 1.4 | 5/10/2017 | Lindy Gervin | Added email address to introduction |
+| 1.5 | 12/2/2020 | Phillip Painter | Updated SDS link in section 4 |
+| 1.6 | 5/17/2022 | Phillip Painter and Karen Gagnon | Clarified storage expectations and segregation guidance |
 
-                                     
+### Lab-Specific Revision History
 
-                                     
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1 | 11/28/22 | KZ | Initial version |
+| 2 | 12/1/25 | KZ | Updated version |
 
-                                     
+---
 
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-
-                                     
-  ---------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -172,36 +141,10 @@ Signage indicating the presence and use of Flammable Solids should be easily vis
 
 - Training must be repeated following **any** revision to the content of this SOP. Training must be documented. This training sheet is provided as one option; other forms of training documentation (including electronic) are acceptable but records must be accessible and immediately available upon request.
 
-**Designated Trainer:** *(signature is required)*      
+**Designated Trainer:** *Kehan Zhao*
 
-     
-
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  ---------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- -----------
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-  ---------------------------------------------------------------------------------------
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |

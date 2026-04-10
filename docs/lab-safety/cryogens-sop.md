@@ -16,11 +16,11 @@ title: "Cryogens SOP"
 Cryogens are liquefied or solid gases at low temperatures. These materials may be used for cooling, sample storage, or a ready source of pressurized gas. Cryogen exposure may result in tissue damage or asphyxiation due to displaced oxygen. Cryogenic materials stored in pressurized containers must contain safety pressure release valves in order to avoid rapid expansion and container failure.
 
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
-Cryogenic liquids are defined as liquids with a normal boiling point below -150 ^o^C (-240 ^o^F). Some examples include: liquid N~2~, O~2~, He, etc, which have typical gas:liquid expansion volumes of 650-1500:1. Cryogenic solids are defined as solids with a sublimation range of -78.5 ^o^C to -109.3 ^o^C (-109.3 °F to -164.7 °F). An example of this would be solid CO~2~ (dry ice). Finally, some mixtures of Cryogenic materials and a solvent (*e.g.*, dry ice/[[acetone]]) may have flammability or other hazards in addition to Cryogenic hazards.
+Cryogenic liquids are defined as liquids with a normal boiling point below -150 °C (-240 °F). Some examples include: liquid N₂, O₂, He, etc, which have typical gas:liquid expansion volumes of 650-1500:1. Cryogenic solids are defined as solids with a sublimation range of -78.5 °C to -109.3 °C (-109.3 °F to -164.7 °F). An example of this would be solid CO₂ (dry ice). Finally, some mixtures of Cryogenic materials and a solvent (*e.g.*, dry ice/[[acetone]]) may have flammability or other hazards in addition to Cryogenic hazards.
 
 ## ENGINEERING/VENTILATION CONTROLS
 Cryogens should only be used in well-ventilated areas. Use within small rooms or unventilated areas (*e.g.*, cold rooms) may cause a buildup of gas as the Cryogen evaporates or sublimes, displacing oxygen creating an asphyxiation hazard. If the use of Cryogens are required in a small or unventilated room contact [chem-safety@ucdavis.edu](mailto:chem-safety@ucdavis.edu) for alternative respiratory and/or ventilation options.
->
+
 How not to do it: [Texas Dewar Accident Summary](http://www.tdi.texas.gov/fire/documents/fmred022206.pdf)
 
 ## ADMINISTRATIVE CONTROLS
@@ -70,7 +70,7 @@ Liquid Nitrogen must be transported in a non-glass container.
 
 ## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
->
+
 In addition to the minimum attire required upon entering a laboratory, the following PPE are required for work with Cryogens:
 
 A.  Eye Protection: Eye protection is required for all work with Cryogens.
@@ -95,15 +95,15 @@ B.  Body Protection: At a minimum a chemically-compatible laboratory coat that f
 
 C.  Hand Protection: When hand protection is needed for the activities described in this SOP define the type of glove to be used based on: A) the chemical(s) being used, B) the anticipated chemical contact (*e.g.*, incidental, immersion, etc.), C) the manufacturers' permeation/compatibility data, and D) whether a combination of different gloves is needed for any specific procedural step or task.
 
-    i.  Loose-fitting, thermal-insulated gloves (not intended for full immersion purposes) that are meant for incidental contact **must** be available to all personnel using Cryogens. These gloves shall be inspected at least annually, and replaced [as directed in the Administrative Controls](#bookmark=id.1fob9te). No metal jewelry, watches, or rings should be worn while handing Cryogens.
+    i.  Loose-fitting, thermal-insulated gloves (not intended for full immersion purposes) that are meant for incidental contact **must** be available to all personnel using Cryogens. These gloves shall be inspected at least annually, and replaced as directed in the Administrative Controls. No metal jewelry, watches, or rings should be worn while handing Cryogens.
 
 Appropriate PPE can be found in Robbins 170.
 
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health System ERG](http://www.ucdmc.ucdavis.edu/medresearch/downloads/labsafety/2.6-UCDHS-Emergency-Response-Guide.pdf). The applicable ERG must be posted in the laboratory. All other locations must describe detailed emergency procedure instructions below.
->
+
 REQUIRED - Insert lab-specific definition of a small and large spill of Cryogenic material.
->
+
 For a small spill of Cryogenic liquid:
 
 a.  Evacuate the area;
@@ -113,80 +113,51 @@ b.  Allow ventilation to dissipate the gas; and
 c.  Contact EH&S at (530) 752-1493 for oxygen deficiency monitoring prior to reentry.
 
 For large spills, delivery line failures, tank/dewar failures, or any other uncontrolled release immediately evacuate the room and pull the fire alarm to evacuate building.
->
+
 If a leak is suspected from a Cryogen dewar or delivery line/system discontinue use. If it is safe and feasible to do so, move the leaking dewar to a safe location. Contact the vendor immediately.
->
+
 Care should be taken to prevent the accidental accumulation of liquid Oxygen. Laboratory activities where liquid Nitrogen or Helium are used for cooling (*e.g.*, vacuum traps) have increased potential for liquid oxygen enrichment or entrapment.
->
+
 Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
 
 ## WASTE MANAGEMENT
 Specific waste concerns for Cryogens:
 
-A.  Do not put unneeded Cryogens into a sealed container.  Ensure good ventilation while the unneeded Cryogen evaporates/sublimates;
+A.  Do not put unneeded Cryogens into a sealed container. Ensure good ventilation while the unneeded Cryogen evaporates/sublimates;
 
 B.  If Cryogen has been mixed with a liquid (*e.g.*, dry ice/acetone) that would normally be disposed of as hazardous waste, follow waste disposal procedures for that liquid once the Cryogen has completely dissipated; and
 
 C.  Do not dispose of Cryogens into sinks, as thermal shock or gaseous expansion may damage the sink and/or plumbing.
 
-<!-- -->
-
 ## DESIGNATED AREA
 Entire Laboratory
 
-**TEMPLATE REVISION HISTORY**
+---
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- --------------------- --------------------------------------------------------------------------------------------------------
-  **1.04/14/2015CLSC Task ForceNew template1.17/10/2015Chris JakoberUpdated safety training name/hyperlink1.23/10/2016Chris JakoberUpdated URLs following website redesign, added URL to UCDHS ERG1.311/30/2016Lindy GervinUnlocked editable fields1.45/10/2017Lindy GervinUpdated email address in section 31.56/19/2018Chris JakoberAdded Administrative Control regarding annual thermal glove inspection and replacement directions.**
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## REVISION HISTORY
 
-**LAB-SPECIFIC REVISION HISTORY**
+### Template Revision History
 
-  --------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- ------------------ ---------------------------------------
-  **   1  **    3/6/21              **   GM     2  **    12/8/21             **GM, KZ   **           Updated version
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 4/14/2015 | CLSC Task Force | New template |
+| 1.1 | 7/10/2015 | Chris Jakober | Updated safety training name/hyperlink |
+| 1.2 | 3/10/2016 | Chris Jakober | Updated URLs following website redesign, added URL to UCDHS ERG |
+| 1.3 | 11/30/2016 | Lindy Gervin | Unlocked editable fields |
+| 1.4 | 5/10/2017 | Lindy Gervin | Updated email address in section 3 |
+| 1.5 | 6/19/2018 | Chris Jakober | Added Administrative Control regarding annual thermal glove inspection and replacement directions |
 
-  **  3 **      12/1/25             **  GM, KZ    **        Updated version
+### Lab-Specific Revision History
 
-                                          
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1 | 3/6/21 | GM | Initial version |
+| 2 | 12/8/21 | GM, KZ | Updated version |
+| 3 | 12/1/25 | GM, KZ | Updated version |
 
-                                          
+---
 
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-  --------------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -198,38 +169,10 @@ Entire Laboratory
 
 - Training must be repeated following any revision to the content of this SOP.
 
-**Designated Trainer:** *Kehan Zhao*     
+**Designated Trainer:** *Kehan Zhao*
 
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  --------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- ----------
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-
-                                                                 
-  --------------------------------------------------------------------------------------
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |
