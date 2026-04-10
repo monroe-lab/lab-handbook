@@ -84,8 +84,12 @@ High Salt CTAB Lysis
 | PVP-40 |  | 1% (w/v) | 0.1 g |
 | Na2S2O5 (Sodium Metabisulfite) |  | 1% (w/v) | 0.1 g |
 | dH2O |  |  | Up to 10 ml |
-| Notes: - Pre-warm the CTAB buffer at 45 - 55̊C to dissolve PVP. - Pre-warm the [[thermomixer]] to 45 ̊C - Make sure the CI is at room temperature. - Take SPRI beads out of the fridge so they are at room temperature for the next step. |
-| \-\-\- |
+**Notes:**
+
+- Pre-warm the CTAB buffer at 45-55°C to dissolve PVP.
+- Pre-warm the [[thermomixer]] to 45°C
+- Make sure the CI is at room temperature.
+- Take SPRI beads out of the fridge so they are at room temperature for the next step.
 
 1. Add 700ul of pre-warmed CTAB lysis buffer to sample tubes and resuspend the samples by inverting the tube 20 times.
 
@@ -130,9 +134,17 @@ To prepare the solution of 0.4% SeraMag Beads:
 8. After pipetting of the supernatant the last time take off tube from the magnet and add 40 μl of the previous (step 1) prepared stock solution, mix well, spin down and pipette everything into the remaining stock solution in the 50 mL tube and mix
 9. Now the 2.2 ml 50% PEG can be added to the stock solution, which after vortexing very well is ready for use. Be careful to accurately pipette 2.2 ml as the solution is very viscous, but the final concentration of PEG is crucial for the clean up to work properly.
 
-| Notes: - Prepare fresh 80% Ethanol and keep at RT. (Need 4ml per sample) - Pre-warm EB buffer to 50 ̊C . - Make sure the SPRI beads are at RT before use. - After adding EtOH for washes, work quickly, as beads will clump in EtOH, reducing elution efficiency. - Unlike using SPRI beads to recover shorter DNA fragments, for HMW DNA recovery, it is best not to dry the beads. Simply make sure to remove as much ethanol as possible by repeating: - Spin down tubes - Place on rack - Pipette out excess ethanol using successively smaller pipette tips.             It is okay that the bead appears glossy when adding EB buffer, as long as residual             EtOH has been removed. |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|
+**Notes:**
+
+- Prepare fresh 80% Ethanol and keep at RT. (Need 4ml per sample)
+- Pre-warm EB buffer to 50°C.
+- Make sure the SPRI beads are at RT before use.
+- After adding EtOH for washes, work quickly, as beads will clump in EtOH, reducing elution efficiency.
+- Unlike using SPRI beads to recover shorter DNA fragments, for HMW DNA recovery, it is best not to dry the beads. Simply make sure to remove as much ethanol as possible by repeating:
+    - Spin down tubes
+    - Place on rack
+    - Pipette out excess ethanol using successively smaller pipette tips.
+- It is okay that the bead appears glossy when adding EB buffer, as long as residual EtOH has been removed.
 
 1. Add an equal volume (as aqueous phase after CI) of 0.4% SeraMag beads and mix by pipetting with a wide-bore tip. Incubate for 30 min at 10rpm at RT on the hula mixer.
 2. Spin tubes down and place on a magnetic rack. Wait until the solution becomes clear. Remove supernatant.
