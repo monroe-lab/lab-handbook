@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 1,
+  "cycle": 2,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -148,6 +148,39 @@
         "Waste tracker shows 3 containers, 2 at 192 days held (approaching 9mo limit)",
         "All pages have proper titles and auth works correctly"
       ]
+    },
+    {
+      "cycle": 2,
+      "persona": "Kayla Torres",
+      "modifier": "explorer",
+      "task": "Navigate from dashboard to protocols to notebooks (full tour) + URL manipulation + error states",
+      "bugs": [],
+      "observations": [
+        "Full nav tour: Dashboard → Protocols → Notebooks → Wiki → Inventory all load correctly",
+        "Nav has 14 links, consistent across all pages",
+        "Protocols sidebar: 8 categories with 77 total protocols, search works, 'PCR' finds 3 results across 2 categories",
+        "Protocol search typo 'prc' shows 'No protocols match' — proper empty state",
+        "Notebooks: 3 folders (Alex Chen 5, Grey Monroe 2, Test Person 0), 5 recent entries visible",
+        "Wiki: 308 documents, 556 links, full knowledge graph renders with type-colored legend",
+        "Wiki search 'PCR' filters sidebar to Resources and Wet Lab categories",
+        "Inventory: 207 items, 9 types, 1 needs more. Search 'ethanol' returns 5 relevant items",
+        "Inventory search matches: 2-Mercaptoethanol, Ethanol 70%, Ethanol Absolute, Formaldehyde (16% methanol free) PFA, Methanol",
+        "Projects: 4 projects visible in sidebar (Alfalfa Pangenome, In-House Flongle, Mutation Accumulation, Pistachio Pangenome)",
+        "Lab Map: Robbins Hall 0170 floor plan with 10 storage locations and item counts (total ~204 items mapped)",
+        "Waste: 3 active containers, 0 approaching 9mo limit. Paraquat containers at 192 days (correctly below 270-day threshold)",
+        "Calendar: Apr 6-10 2026 weekly view with 7 scheduled lab blocks across 4 lab members",
+        "Sample tracker: 228 rows visible",
+        "URL manipulation tests — nonexistent page returns 404 (GitHub Pages default)",
+        "Wiki ?doc=nonexistent shows clear 'Failed to load: HTTP 404' error message",
+        "Protocols ?doc=fake-protocol-xyz shows 'Failed to load: HTTP 404' error message",
+        "Notebooks with bad folder/entry params gracefully ignores them and shows normal view",
+        "Inventory with bad type filter loads normally (graceful degradation)",
+        "Lab map with bad location param loads normally (graceful degradation)",
+        "Path traversal /app/../app/dashboard.html resolves correctly",
+        "Hash fragment to nonexistent section loads page normally",
+        "Back button navigation works correctly through full history stack (Inventory → Notebooks → Protocols → Dashboard)",
+        "All error states are user-friendly with descriptive messages, no raw errors or blank screens"
+      ]
     }
   ],
   "bugs_found": [],
@@ -159,7 +192,19 @@
       "priority": "low"
     }
   ],
-  "edge_cases_tested": [],
+  "edge_cases_tested": [
+    "Nonexistent app page (/app/nonexistent.html) → 404",
+    "Wiki with bad ?doc= parameter → clear error message",
+    "Protocols with bad ?doc= parameter → clear error message",
+    "Notebooks with bad ?folder= and ?entry= params → graceful ignore",
+    "Inventory with bad ?type= filter → graceful degradation",
+    "Lab map with bad ?location= param → graceful degradation",
+    "Path traversal (/app/../app/dashboard.html) → resolves correctly",
+    "Hash fragment to nonexistent section → loads normally",
+    "Back button through 4-page navigation history → correct at each step",
+    "Search with typo ('prc' instead of 'PCR') → proper empty state on protocols",
+    "Search 'ethanol' on inventory → matches substrings (mercaptoethanol, methanol)"
+  ],
   "screenshots_taken": [
     "/tmp/qa-screenshots/cycle1-dashboard.png",
     "/tmp/qa-screenshots/cycle1-protocols.png",
@@ -173,7 +218,35 @@
     "/tmp/qa-screenshots/cycle1-mkdocs-home.png",
     "/tmp/qa-screenshots/cycle1-dashboard-deep.png",
     "/tmp/qa-screenshots/cycle1-samples.png",
-    "/tmp/qa-screenshots/cycle1-calendar.png"
+    "/tmp/qa-screenshots/cycle1-calendar.png",
+    "/tmp/qa-screenshots/cycle2-tour-01-dashboard.png",
+    "/tmp/qa-screenshots/cycle2-tour-02-protocols.png",
+    "/tmp/qa-screenshots/cycle2-tour-04-notebooks.png",
+    "/tmp/qa-screenshots/cycle2-tour-05-notebook-folder-open.png",
+    "/tmp/qa-screenshots/cycle2-tour-07-wiki.png",
+    "/tmp/qa-screenshots/cycle2-tour-08-inventory.png",
+    "/tmp/qa-screenshots/cycle2-tour-09-inventory-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle2-explore-01-nonexistent-page.png",
+    "/tmp/qa-screenshots/cycle2-explore-02-wiki-bad-doc.png",
+    "/tmp/qa-screenshots/cycle2-explore-03-protocols-bad-doc.png",
+    "/tmp/qa-screenshots/cycle2-explore-04-notebooks-bad-params.png",
+    "/tmp/qa-screenshots/cycle2-explore-05-inventory-bad-filter.png",
+    "/tmp/qa-screenshots/cycle2-explore-06-labmap-bad-location.png",
+    "/tmp/qa-screenshots/cycle2-explore-07-path-traversal.png",
+    "/tmp/qa-screenshots/cycle2-explore-08-hash-fragment.png",
+    "/tmp/qa-screenshots/cycle2-explore-09-back-to-notebooks.png",
+    "/tmp/qa-screenshots/cycle2-explore-10-back-to-protocols.png",
+    "/tmp/qa-screenshots/cycle2-explore-11-back-to-dashboard.png",
+    "/tmp/qa-screenshots/cycle2-search-protocols-pcr.png",
+    "/tmp/qa-screenshots/cycle2-search-protocols-typo.png",
+    "/tmp/qa-screenshots/cycle2-search-wiki-pcr.png",
+    "/tmp/qa-screenshots/cycle2-search-wiki-typo.png",
+    "/tmp/qa-screenshots/cycle2-search-inventory-pcr.png",
+    "/tmp/qa-screenshots/cycle2-search-inventory-typo.png",
+    "/tmp/qa-screenshots/cycle2-projects-01-list.png",
+    "/tmp/qa-screenshots/cycle2-waste-01-overview.png",
+    "/tmp/qa-screenshots/cycle2-calendar-01-view.png",
+    "/tmp/qa-screenshots/cycle2-samples-01-view.png"
   ],
-  "notes": "Cycle 1 complete: full exploration done. All 12 routes discovered and baselined. No blocking bugs found. Phase advanced to 'functional' for CRUD testing in next cycles."
+  "notes": "Cycle 2 complete: Kayla Torres (undergrad) + explorer modifier. Full navigation tour across all pages plus comprehensive URL manipulation and error state testing. All pages render correctly, search works well across protocols/wiki/inventory, error handling is user-friendly with descriptive messages. No bugs found. Back button navigation works correctly. Phase remains 'functional' — next cycle should test CRUD operations (create/edit/save)."
 }
