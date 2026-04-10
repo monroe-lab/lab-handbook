@@ -7,7 +7,7 @@ containers:
     quantity: 10
     unit: "each"
 legacy_inventory_id: 11
-location_detail: "Shelf 1 / Box A / A5"
+location_detail: "Shelf 1 / Box A / A1"
 ---
 
 # Microtube
