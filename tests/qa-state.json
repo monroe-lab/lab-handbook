@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 2,
+  "cycle": 3,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -181,10 +181,58 @@
         "Back button navigation works correctly through full history stack (Inventory → Notebooks → Protocols → Dashboard)",
         "All error states are user-friendly with descriptive messages, no raw errors or blank screens"
       ]
+    },
+    {
+      "cycle": 3,
+      "persona": "Alex Chen",
+      "modifier": "thorough",
+      "task": "Create detailed library prep protocol with 16 steps, full CRUD, inventory search, notebook + dashboard verification",
+      "bugs": [
+        {
+          "id": "bug-1",
+          "severity": "medium",
+          "description": "duplicateDoc creates copy with empty body. fetchFile returns browser-cached (stale) version of the source file after a recent save, so the duplicate gets only frontmatter + duplication note but not the actual content. Root cause: GitHub API responses cached by browser (Cache-Control: max-age=60).",
+          "screenshot": "/tmp/qa-screenshots/cycle3-07-protocol-duplicated.png",
+          "fixed": true,
+          "fix": "Added cache: 'no-store' to fetch() calls in fetchFile() and deleteFile() SHA lookup in app/js/github-api.js"
+        }
+      ],
+      "observations": [
+        "Protocol CRUD: create, edit (16 steps + 10 materials + notes), save, render, duplicate all work",
+        "Protocol save: 8/8 content checks passed — all sections (Overview, Materials, Procedure, Notes) saved correctly",
+        "Protocol render: 6/6 checks — all headers and content visible in rendered view, scrollHeight 1350px",
+        "Protocol duplicate: file created on GitHub but body content was empty (stale cache bug, now fixed)",
+        "Inventory: 207 items, search 'ethanol' returns 5 results, 'SMRTbell' returns 0 (correct)",
+        "Inventory filters: Type and Location dropdowns visible, Need More checkbox works, 1 item needs ordering",
+        "Notebooks: 3 folders (Alex Chen 5, Grey Monroe 2, Test Person 0), New Entry button visible",
+        "Notebook entry creation: clicked New Entry but editor didn't load — may need folder selection first",
+        "Dashboard: 78 protocols, 207 resources, 3 stocks, 3 people, 6 projects, 7 notebooks",
+        "Dashboard Recent Updates shows QA3 protocol commits in real-time",
+        "Bulletin board: Orders Needed (SPRI beads, 1kb+ DNA Ladder, Micropore tape), Announcements section",
+        "Wiki: knowledge graph renders, search works, doc view loads content",
+        "Projects: 4 folders (Alfalfa Pangenome, In-House Flongle, Mutation Accumulation, Pistachio Pangenome) — these are expandable folders, not direct-load items"
+      ]
     }
   ],
-  "bugs_found": [],
-  "fixes_applied": [],
+  "bugs_found": [
+    {
+      "id": "bug-1",
+      "severity": "medium",
+      "description": "duplicateDoc creates copy with empty body due to browser caching of GitHub API fetchFile response",
+      "page": "protocols",
+      "status": "fixed",
+      "fix": "Added cache: 'no-store' to fetchFile() and deleteFile() in app/js/github-api.js"
+    }
+  ],
+  "fixes_applied": [
+    {
+      "id": "fix-1",
+      "bug": "bug-1",
+      "file": "app/js/github-api.js",
+      "description": "Added cache: 'no-store' to fetch() in fetchFile() and deleteFile() SHA lookup to prevent browser from serving stale GitHub API responses after saves",
+      "cycle": 3
+    }
+  ],
   "improvements_proposed": [
     {
       "id": "imp-1",
@@ -246,7 +294,29 @@
     "/tmp/qa-screenshots/cycle2-projects-01-list.png",
     "/tmp/qa-screenshots/cycle2-waste-01-overview.png",
     "/tmp/qa-screenshots/cycle2-calendar-01-view.png",
-    "/tmp/qa-screenshots/cycle2-samples-01-view.png"
+    "/tmp/qa-screenshots/cycle2-samples-01-view.png",
+    "/tmp/qa-screenshots/cycle3-01-protocols-landing.png",
+    "/tmp/qa-screenshots/cycle3-02-protocol-created.png",
+    "/tmp/qa-screenshots/cycle3-03-editor-open.png",
+    "/tmp/qa-screenshots/cycle3-04-protocol-content-typed.png",
+    "/tmp/qa-screenshots/cycle3-05-protocol-after-save.png",
+    "/tmp/qa-screenshots/cycle3-06-protocol-rendered-view.png",
+    "/tmp/qa-screenshots/cycle3-07-protocol-duplicated.png",
+    "/tmp/qa-screenshots/cycle3-08-inventory-landing.png",
+    "/tmp/qa-screenshots/cycle3-09-inventory-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle3-10-inventory-search-smrtbell.png",
+    "/tmp/qa-screenshots/cycle3-11-inventory-needs-more.png",
+    "/tmp/qa-screenshots/cycle3-12-notebooks-landing.png",
+    "/tmp/qa-screenshots/cycle3-13-notebooks-alex-folder.png",
+    "/tmp/qa-screenshots/cycle3-14-notebook-entry-created.png",
+    "/tmp/qa-screenshots/cycle3-15-notebook-content-typed.png",
+    "/tmp/qa-screenshots/cycle3-16-notebook-after-save.png",
+    "/tmp/qa-screenshots/cycle3-17-dashboard.png",
+    "/tmp/qa-screenshots/cycle3-18-wiki-landing.png",
+    "/tmp/qa-screenshots/cycle3-19-wiki-search-library-prep.png",
+    "/tmp/qa-screenshots/cycle3-20-wiki-doc-view.png",
+    "/tmp/qa-screenshots/cycle3-21-projects.png",
+    "/tmp/qa-screenshots/cycle3-22-project-detail.png"
   ],
-  "notes": "Cycle 2 complete: Kayla Torres (undergrad) + explorer modifier. Full navigation tour across all pages plus comprehensive URL manipulation and error state testing. All pages render correctly, search works well across protocols/wiki/inventory, error handling is user-friendly with descriptive messages. No bugs found. Back button navigation works correctly. Phase remains 'functional' — next cycle should test CRUD operations (create/edit/save)."
+  "notes": "Cycle 3 complete: Alex Chen (postdoc) + thorough modifier. Full protocol CRUD tested: create from template, edit with 16 procedural steps + 10 materials + notes, save (8/8 content checks), render (6/6 visual checks), duplicate. Found bug-1: duplicateDoc creates empty copy due to browser caching stale GitHub API responses. Fixed by adding cache:'no-store' to fetchFile() and deleteFile() in github-api.js. Inventory search works (ethanol 5 results, SMRTbell 0). Dashboard stats accurate. Wiki graph renders. Phase remains 'functional' — next cycle should test notebook CRUD more thoroughly and project page interaction."
 }

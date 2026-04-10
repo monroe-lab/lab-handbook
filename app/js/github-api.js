@@ -97,7 +97,7 @@
 
   // ── File Operations ──
   async function fetchFile(path) {
-    var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, { headers: authHeaders() });
+    var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' });
     if (!resp.ok) throw new Error('Failed to load ' + path + ' (HTTP ' + resp.status + ')');
     var data = await resp.json();
     return {
@@ -133,7 +133,7 @@
 
     // Get SHA if not provided
     if (!sha) {
-      var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, { headers: authHeaders() });
+      var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' });
       if (resp.ok) {
         var data = await resp.json();
         sha = data.sha;
