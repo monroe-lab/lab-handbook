@@ -24,15 +24,15 @@
         { key: 'location',            label: 'Default Location',    type: 'select',  options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
         { key: 'location_detail',     label: 'Location Detail',     type: 'text' },
         { key: 'containers',          label: 'Containers',          type: 'container_list' },
-        { key: 'need_more',           label: 'Need More',           type: 'checkbox' },
+        { key: 'status',              label: 'Status',              type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
         { key: 'created_at',          label: 'Created',             type: 'meta_readonly' },
         { key: 'created_by',          label: 'Created by',          type: 'meta_readonly' },
         { key: 'updated_at',          label: 'Updated',             type: 'meta_readonly' },
       ],
       // Which fields to show in popup card (read-only view)
-      displayFields: ['quantity', 'unit', 'location', 'containers', 'cas', 'notes', 'updated_at'],
+      displayFields: ['status', 'quantity', 'unit', 'location', 'containers', 'cas', 'notes', 'updated_at'],
       // Which fields to show as table columns
-      tableColumns: ['name', 'type', 'quantity', 'location', 'notes', 'updated_at'],
+      tableColumns: ['name', 'type', 'status', 'quantity', 'location', 'updated_at'],
     },
     buffer: {
       color: '#e65100',

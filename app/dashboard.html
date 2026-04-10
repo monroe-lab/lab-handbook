@@ -60,8 +60,8 @@
   <div class="dash-grid">
 
     <div class="dash-card">
-      <h3><span class="material-icons-outlined" style="color:#e65100;">shopping_cart</span> Needs Ordering</h3>
-      <div id="needsOrdering" style="font-size:13px;color:var(--grey-500);">Loading...</div>
+      <h3><span class="material-icons-outlined" style="color:#e65100;">shopping_cart</span> Inventory Status</h3>
+      <div id="inventoryStatus" style="font-size:13px;color:var(--grey-500);">Loading...</div>
     </div>
 
     <div class="dash-card">
@@ -156,33 +156,73 @@
   }
 
   function renderStatCards(el, counts) {
-    var order = ['protocol', 'resource', 'stock', 'people', 'project', 'notebook'];
-    el.innerHTML = order.map(function(gk) {
+    // Single inventory count (resources + stocks combined)
+    var inventoryCount = (counts['resource'] || 0) + (counts['stock'] || 0);
+    var cards = [
+      { color: '#009688', label: 'Inventory', icon: 'inventory_2', href: BASE + 'app/inventory.html', count: inventoryCount },
+    ];
+    var order = ['protocol', 'people', 'project', 'notebook'];
+    order.forEach(function(gk) {
       var gc = GROUP_CONFIG[gk];
-      var count = counts[gk] || 0;
-      return '<a href="' + gc.href + '" class="dash-stat">' +
-        '<span class="material-icons-outlined" style="color:' + gc.color + ';font-size:22px;">' + gc.icon + '</span>' +
-        '<div><div class="stat-num" style="color:' + gc.color + ';">' + count + '</div>' +
-        '<div class="stat-label">' + gc.label + '</div></div></a>';
+      cards.push({ color: gc.color, label: gc.label, icon: gc.icon, href: gc.href, count: counts[gk] || 0 });
+    });
+    el.innerHTML = cards.map(function(c) {
+      return '<a href="' + c.href + '" class="dash-stat">' +
+        '<span class="material-icons-outlined" style="color:' + c.color + ';font-size:22px;">' + c.icon + '</span>' +
+        '<div><div class="stat-num" style="color:' + c.color + ';">' + c.count + '</div>' +
+        '<div class="stat-label">' + c.label + '</div></div></a>';
     }).join('');
   }
 
-  // ── Needs Ordering ──
-  function loadNeedsOrdering(objects) {
-    var el = document.getElementById('needsOrdering');
+  // ── Inventory Status ──
+  var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
+  var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
+  var STATUS_ICONS = { in_stock: 'check_circle', needs_more: 'warning_amber', out_of_stock: 'cancel', external: 'open_in_new' };
+
+  function resolveStatus(obj) {
+    if (obj.status) return obj.status;
+    if (obj.need_more) return 'needs_more';
+    return 'in_stock';
+  }
+
+  function loadInventoryStatus(objects) {
+    var el = document.getElementById('inventoryStatus');
     if (!el) return;
-    var needs = objects.filter(function(obj) { return obj.need_more; });
-    if (!needs.length) {
-      el.innerHTML = '<div style="color:var(--green);display:flex;align-items:center;gap:6px;">' +
+    var isInv = function(t) { var c = TYPE_CONFIG[t]; return c && (c.group === 'resource' || c.group === 'stock'); };
+    var invItems = objects.filter(function(obj) { return isInv(obj.type); });
+    var counts = { in_stock: 0, needs_more: 0, out_of_stock: 0, external: 0 };
+    var alertItems = [];
+    invItems.forEach(function(obj) {
+      var s = resolveStatus(obj);
+      counts[s] = (counts[s] || 0) + 1;
+      if (s === 'needs_more' || s === 'out_of_stock') alertItems.push({ obj: obj, status: s });
+    });
+
+    var summaryHtml = '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">';
+    ['in_stock','needs_more','out_of_stock','external'].forEach(function(s) {
+      if (!counts[s]) return;
+      summaryHtml += '<div style="display:flex;align-items:center;gap:4px;">' +
+        '<span class="material-icons-outlined" style="font-size:16px;color:' + STATUS_COLORS[s] + ';">' + STATUS_ICONS[s] + '</span>' +
+        '<span style="font-weight:600;color:' + STATUS_COLORS[s] + ';">' + counts[s] + '</span>' +
+        '<span style="color:var(--grey-500);font-size:12px;">' + STATUS_LABELS[s] + '</span></div>';
+    });
+    summaryHtml += '</div>';
+
+    if (!alertItems.length) {
+      el.innerHTML = summaryHtml +
+        '<div style="color:#22c55e;display:flex;align-items:center;gap:6px;">' +
         '<span class="material-icons-outlined" style="font-size:16px;">check_circle</span> All stocked up</div>';
       return;
     }
-    el.innerHTML = needs.map(function(obj) {
+    el.innerHTML = summaryHtml + alertItems.map(function(a) {
+      var obj = a.obj;
+      var color = STATUS_COLORS[a.status];
+      var label = STATUS_LABELS[a.status];
       var slug = obj.path.replace(/\.md$/, '');
       return '<div class="dash-list-item">' +
-        '<span class="material-icons-outlined" style="font-size:16px;color:#e65100;">warning</span>' +
+        '<span class="material-icons-outlined" style="font-size:16px;color:' + color + ';">' + STATUS_ICONS[a.status] + '</span>' +
         '<a href="' + BASE + 'app/wiki.html?doc=' + slug.replace(/^docs\//, '') + '" style="color:inherit;text-decoration:none;font-weight:500;">' + esc(obj.title) + '</a>' +
-        '<span style="color:#e65100;font-size:11px;margin-left:auto;">' + esc(obj.type) + '</span>' +
+        '<span style="display:inline-block;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;background:' + color + '18;color:' + color + ';border:1px solid ' + color + '40;margin-left:auto;">' + label + '</span>' +
         '</div>';
     }).join('');
   }
@@ -253,7 +293,7 @@
       .then(function(r) { return r.json(); })
       .then(function(objects) {
         loadStats(objects);
-        loadNeedsOrdering(objects);
+        loadInventoryStatus(objects);
       })
       .catch(function() {
         // Fallback: try via GitHub API
@@ -261,7 +301,7 @@
           .then(function(r) { return r.json(); })
           .then(function(json) {
             var objects = JSON.parse(atob(json.content));
-            loadStats(objects); loadNeedsOrdering(objects); buildGraph(objects);
+            loadStats(objects); loadInventoryStatus(objects);
           });
       });
     loadRecentUpdates();

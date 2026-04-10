@@ -115,9 +115,13 @@ tr.low-stock td:first-child::before {
       <option>Freezer -80C</option>
       <option>Bench</option>
     </select>
-    <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--grey-600);white-space:nowrap;cursor:pointer">
-      <input type="checkbox" id="needMoreOnly"> Need More only
-    </label>
+    <select class="filter-select" id="filterStatus">
+      <option value="">All Statuses</option>
+      <option value="in_stock">In Stock</option>
+      <option value="needs_more">Needs More</option>
+      <option value="out_of_stock">Out of Stock</option>
+      <option value="external">External</option>
+    </select>
     <button class="btn btn-primary" id="addBtn" style="display:none" onclick="addItem()">
       <span class="material-icons-outlined">add</span> Add Item
     </button>
@@ -129,13 +133,17 @@ tr.low-stock td:first-child::before {
       <span class="material-icons-outlined">inventory_2</span>
       <div><div class="stat-value" id="statTotal">-</div><div class="stat-label">Total Items</div></div>
     </div>
-    <div class="stat-card">
-      <span class="material-icons-outlined">category</span>
-      <div><div class="stat-value" id="statTypes">-</div><div class="stat-label">Types</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='in_stock';renderTable()">
+      <span class="material-icons-outlined" style="color:#22c55e">check_circle</span>
+      <div><div class="stat-value" id="statInStock" style="color:#22c55e">-</div><div class="stat-label">In Stock</div></div>
     </div>
-    <div class="stat-card warning">
-      <span class="material-icons-outlined">warning_amber</span>
-      <div><div class="stat-value" id="statLow">-</div><div class="stat-label">Need More</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='needs_more';renderTable()">
+      <span class="material-icons-outlined" style="color:#f59e0b">warning_amber</span>
+      <div><div class="stat-value" id="statNeedsMore" style="color:#f59e0b">-</div><div class="stat-label">Needs More</div></div>
+    </div>
+    <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='out_of_stock';renderTable()">
+      <span class="material-icons-outlined" style="color:#ef4444">cancel</span>
+      <div><div class="stat-value" id="statOutOfStock" style="color:#ef4444">-</div><div class="stat-label">Out of Stock</div></div>
     </div>
   </div>
 
@@ -148,9 +156,9 @@ tr.low-stock td:first-child::before {
           <tr>
             <th onclick="setSort('name')">Name <span class="sort-arrow" id="sort-name"></span></th>
             <th onclick="setSort('type')">Type <span class="sort-arrow" id="sort-type"></span></th>
+            <th onclick="setSort('status')">Status <span class="sort-arrow" id="sort-status"></span></th>
             <th onclick="setSort('quantity')">Qty <span class="sort-arrow" id="sort-quantity"></span></th>
             <th onclick="setSort('location')">Location <span class="sort-arrow" id="sort-location"></span></th>
-            <th class="hide-mobile">Notes</th>
             <th class="hide-mobile" onclick="setSort('updatedAt')">Updated <span class="sort-arrow" id="sort-updatedAt"></span></th>
             <th style="width:80px">Actions</th>
           </tr>
@@ -283,7 +291,7 @@ function toInventoryRow(obj) {
     containerCount: containers.length,
     notes: obj.notes || '',
     lowStockThreshold: obj.low_stock_threshold || 0,
-    needMore: !!obj.need_more,
+    status: obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock'),
     updatedAt: obj.updated_at || '',
     createdAt: obj.created_at || '',
     createdBy: obj.created_by || '',
@@ -320,12 +328,12 @@ function getFiltered() {
   var search = document.getElementById('searchInput').value.toLowerCase();
   var typeFilter = document.getElementById('filterType').value;
   var locFilter = document.getElementById('filterLocation').value;
-  var needMoreOnly = document.getElementById('needMoreOnly').checked;
+  var statusFilter = document.getElementById('filterStatus').value;
 
   var items = inventory.filter(function(item) {
     if (typeFilter && item.type !== typeFilter) return false;
     if (locFilter && item.location !== locFilter) return false;
-    if (needMoreOnly && !item.needMore) return false;
+    if (statusFilter && item.status !== statusFilter) return false;
     if (search) {
       var hay = [item.name, item.typeLabel, item.location, item.notes].join(' ').toLowerCase();
       if (!hay.includes(search)) return false;
@@ -344,16 +352,25 @@ function getFiltered() {
   return items;
 }
 
+var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
+var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
+
+function statusBadge(status) {
+  var label = STATUS_LABELS[status] || STATUS_LABELS.in_stock;
+  var color = STATUS_COLORS[status] || STATUS_COLORS.in_stock;
+  return '<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '18;color:' + color + ';border:1.5px solid ' + color + '40;">' + label + '</span>';
+}
+
 function renderTable() {
   var items = getFiltered();
 
   // Stats
-  var lowCount = inventory.filter(function(i) { return i.needMore; }).length;
-  var types = {};
-  inventory.forEach(function(i) { types[i.type] = true; });
+  var statusCounts = { in_stock: 0, needs_more: 0, out_of_stock: 0, external: 0 };
+  inventory.forEach(function(i) { statusCounts[i.status] = (statusCounts[i.status] || 0) + 1; });
   document.getElementById('statTotal').textContent = inventory.length;
-  document.getElementById('statTypes').textContent = Object.keys(types).length;
-  document.getElementById('statLow').textContent = lowCount;
+  document.getElementById('statInStock').textContent = statusCounts.in_stock;
+  document.getElementById('statNeedsMore').textContent = statusCounts.needs_more;
+  document.getElementById('statOutOfStock').textContent = statusCounts.out_of_stock;
 
   // Sort arrows
   document.querySelectorAll('.sort-arrow').forEach(function(el) { el.textContent = ''; });
@@ -373,15 +390,15 @@ function renderTable() {
   document.getElementById('invTable').style.display = '';
 
   tbody.innerHTML = items.map(function(item) {
-    var needMore = item.needMore;
+    var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
     var qtyHtml = Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') +
       (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' containers)</span>' : '');
-    return '<tr class="' + (needMore ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
-      '<td><strong>' + Lab.escHtml(item.name) + '</strong>' + (needMore ? ' <span class="badge badge-amber">Need More</span>' : '') + '</td>' +
+    return '<tr class="' + (isAlert ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<td><strong>' + Lab.escHtml(item.name) + '</strong></td>' +
       '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
+      '<td>' + statusBadge(item.status) + '</td>' +
       '<td>' + qtyHtml + '</td>' +
       '<td><span class="badge badge-grey">' + Lab.escHtml(item.location) + '</span></td>' +
-      '<td class="hide-mobile" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.notes) + '</td>' +
       '<td class="hide-mobile" style="font-size:12px;color:var(--grey-500);white-space:nowrap">' + Lab.escHtml(formatDateShort(item.updatedAt)) + '</td>' +
       '<td><div class="row-actions">' +
         '<button onclick="event.stopPropagation();openItem(\'' + Lab.escHtml(item.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button>' +
@@ -392,9 +409,9 @@ function renderTable() {
   // Mobile cards
   var cardView = document.getElementById('cardView');
   cardView.innerHTML = items.map(function(item) {
-    var needMore = item.needMore;
-    return '<div class="inv-card' + (needMore ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
-      '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + (needMore ? ' <span class="badge badge-amber" style="font-size:10px">Need More</span>' : '') + '</span>' +
+    var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
+    return '<div class="inv-card' + (isAlert ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
+      '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + ' ' + statusBadge(item.status) + '</span>' +
       '<span class="inv-card-qty">' + item.quantity + (item.unit ? ' ' + item.unit : '') + '</span></div>' +
       '<div class="inv-card-meta"><span>' + Lab.escHtml(item.typeLabel) + '</span><span>' + Lab.escHtml(item.location) + '</span></div></div>';
   }).join('');
@@ -449,7 +466,7 @@ function confirmAdd() {
     type: type,
     title: name,
     location: location,
-    need_more: false,
+    status: 'in_stock',
     created_at: nowIso,
     updated_at: nowIso,
     created_by: user && user.login ? user.login : '',
@@ -497,7 +514,7 @@ async function confirmDelete() {
 document.getElementById('searchInput').addEventListener('input', renderTable);
 document.getElementById('filterType').addEventListener('change', renderTable);
 document.getElementById('filterLocation').addEventListener('change', renderTable);
-document.getElementById('needMoreOnly').addEventListener('change', renderTable);
+document.getElementById('filterStatus').addEventListener('change', renderTable);
 document.querySelectorAll('.modal-overlay').forEach(function(o) {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });

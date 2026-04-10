@@ -144,7 +144,9 @@
     var p = createPopup();
     var conf = getConf(obj.type);
     var isLow = obj.low_stock_threshold && obj.quantity != null && obj.quantity <= obj.low_stock_threshold;
-    var needMore = obj.need_more;
+    var itemStatus = obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock');
+    var _statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
+    var _statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
     var esc = window.Lab ? window.Lab.escHtml : function(s) { return s; };
 
     var details = '';
@@ -181,7 +183,7 @@
       '</div>' +
       '<div style="margin-bottom:12px;">' +
         '<span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:#fff;background:' + conf.color + ';">' + conf.label + '</span>' +
-        (needMore ? ' <span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:#c62828;background:#ffebee;">Need More</span>' : (isLow ? ' <span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:#e65100;background:#fff3e0;">Low Stock</span>' : '')) +
+        (itemStatus !== 'in_stock' ? ' <span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:' + _statusColors[itemStatus] + ';background:' + _statusColors[itemStatus] + '18;">' + _statusLabels[itemStatus] + '</span>' : (isLow ? ' <span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;color:#e65100;background:#fff3e0;">Low Stock</span>' : '')) +
       '</div>' +
       (details ? '<div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;margin-bottom:16px;">' + details + '</div>' : '') +
       '<div style="display:flex;gap:8px;">' + buttons + '</div>';
