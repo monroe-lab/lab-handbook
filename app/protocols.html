@@ -939,11 +939,83 @@ function printProtocol() {
 }
 
 function togglePrintPreview(btn) {
+  var rendered = document.getElementById('renderedDoc');
+  if (!rendered) return;
   var active = document.body.classList.toggle('print-preview-active');
   if (btn) {
     btn.innerHTML = active
       ? '<span class="material-icons-outlined">visibility_off</span> Exit Preview'
       : '<span class="material-icons-outlined">article</span> Print Preview';
+  }
+  if (active) {
+    // Save original HTML and paginate
+    rendered._origHTML = rendered.innerHTML;
+    paginateContent(rendered);
+  } else {
+    // Restore original
+    if (rendered._origHTML) {
+      rendered.innerHTML = rendered._origHTML;
+      delete rendered._origHTML;
+      // Re-process wikilinks
+      if (Lab.wikilinks) Lab.wikilinks.processRendered(rendered);
+      postProcessRendered(rendered);
+    }
+  }
+}
+
+function paginateContent(container) {
+  // US Letter: 8.5x11in at 96dpi = 816x1056px; with 72px padding each side = 672px content height
+  var PAGE_HEIGHT = 1056;
+  var PAD = 72;
+  var CONTENT_H = PAGE_HEIGHT - PAD * 2; // 912px usable
+
+  // Wrap all children into a hidden measuring div
+  var measure = document.createElement('div');
+  measure.style.cssText = 'position:absolute;visibility:hidden;width:706px;font-size:12pt;line-height:1.5;';
+  // 706px = 850px page - 72px*2 padding
+  while (container.firstChild) measure.appendChild(container.firstChild);
+  document.body.appendChild(measure);
+
+  // Collect top-level block elements
+  var blocks = [];
+  for (var i = 0; i < measure.children.length; i++) {
+    var el = measure.children[i];
+    blocks.push({ node: el, height: el.offsetHeight + parseInt(getComputedStyle(el).marginTop || 0) + parseInt(getComputedStyle(el).marginBottom || 0) });
+  }
+
+  // Build pages
+  var pages = [];
+  var currentPage = null;
+  var usedHeight = 0;
+
+  function newPage() {
+    currentPage = document.createElement('div');
+    currentPage.className = 'print-page';
+    pages.push(currentPage);
+    usedHeight = 0;
+  }
+  newPage();
+
+  for (var j = 0; j < blocks.length; j++) {
+    var b = blocks[j];
+    if (usedHeight > 0 && usedHeight + b.height > CONTENT_H) {
+      newPage();
+    }
+    currentPage.appendChild(b.node);
+    usedHeight += b.height;
+  }
+
+  document.body.removeChild(measure);
+
+  // Render pages into container
+  container.innerHTML = '';
+  for (var k = 0; k < pages.length; k++) {
+    container.appendChild(pages[k]);
+    // Add page number
+    var num = document.createElement('div');
+    num.className = 'print-page-number';
+    num.textContent = (k + 1) + ' / ' + pages.length;
+    pages[k].appendChild(num);
   }
 }
 
