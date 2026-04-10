@@ -367,23 +367,21 @@
       var title = parsed.meta.title || filePath.split('/').pop().replace('.md', '');
       document.getElementById('em-title').textContent = title;
 
-      // Show edit toggle
+      // Show edit toggle for logged-in users
       if (gh.isLoggedIn()) {
         document.getElementById('em-edit-toggle').style.display = '';
       }
 
-      // If logged in, go straight to edit mode
-      if (gh.isLoggedIn()) {
-        await startEditing();
-      } else {
-        // Read-only view for non-authenticated users
-        renderFields(parsed.meta, false);
-        var html = await renderMarkdown(parsed.body);
-        var contentEl = document.getElementById('em-content');
-        contentEl.innerHTML = '<div class="lab-rendered em-rendered">' + html + '</div>';
-        if (window.Lab.wikilinks) {
-          await window.Lab.wikilinks.processRendered(contentEl);
-        }
+      // Default to view mode — user clicks Edit to switch
+      renderFields(parsed.meta, false);
+      var html = await renderMarkdown(parsed.body);
+      var contentEl = document.getElementById('em-content');
+      contentEl.innerHTML = '<div class="lab-rendered em-rendered">' + html + '</div>';
+      if (window.Lab.wikilinks) {
+        await window.Lab.wikilinks.processRendered(contentEl);
+      }
+      if (window.Lab.postProcessImages) {
+        window.Lab.postProcessImages(contentEl);
       }
     } catch(e) {
       document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + window.Lab.escHtml(e.message) + '</p></div>';
