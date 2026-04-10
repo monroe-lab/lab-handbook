@@ -89,6 +89,7 @@ Early cycles: normal modifiers (careful, thorough). Later cycles: adversarial mo
 - **complete**: All clear, no new bugs found for 2 cycles
 
 ## Rules
+- CRITICAL: You may ONLY read and write files under /Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/ and /tmp/. Do NOT touch ANY files outside this directory. No parent directories, no other repos, no home directory files.
 - NEVER modify: mkdocs.yml, .github/, requirements.txt, overrides/
 - All file changes (fixes) go to app/ or docs/ only
 - Take screenshots CONSTANTLY — they are your evidence
@@ -97,6 +98,7 @@ Early cycles: normal modifiers (careful, thorough). Later cycles: adversarial mo
 - If you find no new bugs for 2 cycles, set phase to "complete"
 - Increment cycle counter in state file
 - ALWAYS clean up files you create on GitHub (delete via gh CLI)
+- Stay in the lab/ directory. Do not cd elsewhere. Do not read or write files in Obsidian_ProfessorHQ/ parent or siblings.
 
 ## Key patterns from existing tests
 ```javascript
