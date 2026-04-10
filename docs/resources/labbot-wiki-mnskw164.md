@@ -1,2 +1,15 @@
-# labbot-wiki-mnskw164
+## Test Chemical
 
+**Hazard:** *flammable*
+
+> Store in flammable cabinet below 25C
+
+```
+concentration: 70%
+```
+
+|  |  |
+| --- | --- |
+|  |  |
+
+[[2-mercaptoethanol]]
