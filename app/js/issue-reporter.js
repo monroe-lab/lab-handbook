@@ -183,22 +183,52 @@
     if (overlay) overlay.remove();
   }
 
+  function toast(msg, type) {
+    if (window.Lab && window.Lab.showToast) {
+      window.Lab.showToast(msg, type || 'success');
+    } else {
+      // Inline toast fallback for pages without shared.js
+      var el = document.createElement('div');
+      var bg = type === 'error' ? '#ef4444' : '#22c55e';
+      Object.assign(el.style, {
+        position: 'fixed', top: '20px', right: '20px', zIndex: '10001',
+        background: bg, color: '#fff', padding: '12px 20px', borderRadius: '8px',
+        fontSize: '14px', fontWeight: '500', boxShadow: '0 4px 12px rgba(0,0,0,.2)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        transition: 'opacity .3s'
+      });
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, 4000);
+    }
+  }
+
+  function getUser() {
+    try {
+      var u = JSON.parse(localStorage.getItem('gh_lab_user') || '{}');
+      return u.login || 'unknown';
+    } catch(e) { return 'unknown'; }
+  }
+
   async function submitIssue(description, btn) {
     if (!description.trim()) {
-      alert('Please describe the issue.');
+      toast('Please describe the issue.', 'error');
       return;
     }
 
     var token = getToken();
     if (!token) {
-      alert('You must be logged in to report an issue. Please sign in first.');
+      toast('You must be logged in to report an issue.', 'error');
       return;
     }
 
     btn.disabled = true;
     btn.textContent = 'Submitting...';
+    btn.style.opacity = '0.7';
 
+    var user = getUser();
     var meta = [
+      '**Reported by:** @' + user,
       '**Page:** `' + location.pathname + '`',
       '**Title:** ' + document.title,
       '**Time:** ' + new Date().toISOString(),
@@ -225,23 +255,18 @@
 
       if (!resp.ok) {
         var err = await resp.text();
-        throw new Error('GitHub API error: ' + resp.status + ' ' + err);
+        throw new Error('GitHub API ' + resp.status);
       }
 
       var issue = await resp.json();
       closeModal();
-
-      // Show success toast if Lab.toast exists, otherwise alert
-      if (window.Lab && window.Lab.toast) {
-        window.Lab.toast('Issue #' + issue.number + ' created. Thank you!', 'success');
-      } else {
-        alert('Issue #' + issue.number + ' created. Thank you!');
-      }
+      toast('Issue #' + issue.number + ' created. Thank you!', 'success');
     } catch (e) {
       console.error('Issue reporter error:', e);
       btn.disabled = false;
       btn.textContent = 'Submit Issue';
-      alert('Failed to submit issue: ' + e.message);
+      btn.style.opacity = '1';
+      toast('Failed to submit: ' + e.message, 'error');
     }
   }
 
