@@ -147,6 +147,8 @@ LabBot is a Playwright bot that simulates a real authenticated lab member. It cr
 
 **Tracking doc:** `tests/STATUS.md` — read this first for current test scores, the TODO list of untested features (50+ items, P0-P4), known bugs, and architecture notes.
 
+**Syncing STATUS.md with GitHub Issues:** When reading STATUS.md or when asked about development status, always also run `gh issue list --repo monroe-lab/lab-handbook --state open` to check for new or unresolved issues. Any open issue that isn't already reflected in STATUS.md should be added (as a TODO item under the appropriate priority section, and/or as a bug entry). Closed issues whose fixes aren't noted in STATUS.md should be added as completed items. STATUS.md is the single source of truth for development state — keep it in sync with the issues page.
+
 **Development workflow:** Pick next unchecked item from STATUS.md → implement → add test to `tests/labbot.mjs` → run `--headed` to verify → check box → commit → push.
 
 ## Fix Loop — Autonomous Batch Development
