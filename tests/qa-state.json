@@ -1,6 +1,6 @@
 {
-  "phase": "edge_cases",
-  "cycle": 7,
+  "phase": "complete",
+  "cycle": 8,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -347,6 +347,35 @@
         "All previous bug fixes confirmed working: CDN cache-buster, bulletin board rendering, double-click prevention",
         "No new bugs found — all test 'failures' were false positives from incorrect Playwright selectors"
       ]
+    },
+    {
+      "cycle": 8,
+      "persona": "Alex Chen",
+      "modifier": "mobile",
+      "task": "Mobile viewport (375x812 iPhone) responsive layout audit across all 11 routes: overflow checks, bottom nav, touch targets, sidebar behavior, modal usability, text readability",
+      "bugs": [],
+      "observations": [
+        "Top nav correctly hidden on mobile (display:none at 375px), bottom nav visible (display:flex)",
+        "Bottom nav has 5 tabs: Wiki, Protocols, Notebooks, Inventory, More — all meet 44px touch target minimum",
+        "Dashboard: no horizontal overflow, stat cards fit, bulletin board readable, knowledge graph mini renders",
+        "Protocols: sidebar hidden behind hamburger FAB (bottom-left), 'Select a protocol from the sidebar' placeholder shown — good mobile UX",
+        "Protocol view (PCR Genotyping): content readable at mobile width, 9 wikilink pills none overflowing viewport, action buttons (print/edit/copy/delete) at top",
+        "Inventory: card-based layout on mobile, search works (DNeasy search functional), Add Item modal covers full width with all fields accessible",
+        "Notebooks: folder cards are tappable (279px wide), Recent Entries cards with chevrons, New Entry button prominent — excellent mobile layout",
+        "Wiki: knowledge graph fills mobile viewport (375x764px), type-colored legend visible at bottom, sidebar toggle available",
+        "Wiki doc view (ethanol-absolute): no horizontal overflow, type badge and metadata render correctly",
+        "Lab Map: floor plan scales to 375px viewport, location cards below with icons and item counts — all tappable",
+        "Projects: no overflow, sidebar with 4 expandable project folders",
+        "Waste: clean mobile layout, 3 containers with status badges, search and filter dropdowns accessible",
+        "Sample tracker (MkDocs): table renders with horizontal scroll expected for data-heavy tables",
+        "Calendar: smart responsive — shows single day (Fri Apr 10) instead of full week, events readable with times and assigned members",
+        "Graph: full knowledge graph renders at mobile viewport without overflow",
+        "Bottom nav navigation: tapped Wiki → Protocols → Notebooks, all loaded correctly with proper page titles",
+        "Inventory Add Item modal: full width (375x812), Name field, Type/Location dropdowns, Cancel/Create buttons all accessible",
+        "Text readability: 14px font-size on both dashboard and protocols, ~42-43 chars/line (within readable range)",
+        "No page across all 11 routes shows horizontal overflow on mobile — scrollWidth matches clientWidth on every page",
+        "All previous bug fixes confirmed still working (CDN cache-buster, bulletin board, double-click prevention, beforeunload guard)"
+      ]
     }
   ],
   "bugs_found": [
@@ -483,7 +512,18 @@
     "Sample tracker: 227 samples, filters and status badges working",
     "Dashboard bulletin board: cycle 6 fix confirmed, colored dots rendering for orders",
     "Notebooks + button → New Folder modal (not New Entry) — separate UX paths",
-    "Projects: 4 projects with expandable folders in sidebar"
+    "Projects: 4 projects with expandable folders in sidebar",
+    "Mobile (375x812): top nav hidden, bottom nav visible with 5 tabs meeting 44px touch targets",
+    "Mobile: all 11 routes have zero horizontal overflow (scrollWidth === clientWidth)",
+    "Mobile: protocols sidebar hidden behind hamburger FAB — no content clipping",
+    "Mobile: protocol wikilink pills (9 in PCR Genotyping) none overflow viewport",
+    "Mobile: inventory Add Item modal covers full width, all fields accessible",
+    "Mobile: notebook folder cards tappable at 279px width",
+    "Mobile: calendar shows single-day view (responsive reduction from weekly)",
+    "Mobile: text readability 14px font-size, ~42 chars/line",
+    "Mobile: bottom nav navigation (Wiki → Protocols → Notebooks) all load correctly",
+    "Mobile: lab map floor plan scales correctly to 375px viewport",
+    "Mobile: knowledge graph renders at mobile viewport without overflow"
   ],
   "screenshots_taken": [
     "/tmp/qa-screenshots/cycle1-dashboard.png",
