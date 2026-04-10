@@ -102,7 +102,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 - [ ] **Screenshot comparison** — take baseline screenshots of each page, compare future runs to catch visual regressions. LabBot already saves screenshots to `/tmp/labbot-*.png` on every run.
 - [ ] **Dark mode** — if/when added, verify all pages render correctly. Feature doesn't exist yet.
-- [ ] **Print view** — click Print on a protocol, verify the print-friendly layout. Playwright can't verify print CSS easily.
+- [x] **Print preview** — Added Print Preview toggle to protocols toolbar. Renders content in an iframe with print-like CSS, paginated into 8.5x11in page divs with margins, page numbers, and grey gaps between pages. Content reflows naturally across page breaks.
 
 ### P5: New features (wishlist)
 
@@ -113,6 +113,14 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Remove time estimate charts from protocols** — Removed ASCII bar charts from 6 protocols (pcr-genotyping, gel-electrophoresis, gel-electrophoresis-copy, quick-dna-extraction, ms-media-recipe, planting-arabidopsis-on-ms-plates). Text time summaries preserved. Fix-loop agent.
 - [x] **Remove Nanopore/Flongle content** — Deleted 4 Nanopore/Flongle protocol files (flongle-sequencing-and-analysis, illumina-library-qc-on-flongle, nbd114-multiplexed-flongle-prep, ot2-automated-nbd114-prep). Cleaned broken wikilinks in operating-the-ot2, in-house-hifi-shearing-pipeline, in-house-vs-genome-center-decision. Removed entries from object-index.json (4) and link-index.json (129). Fix-loop agent.
 - [x] **Organize protocols with wikilinks** — Resources sections with wikilinks added to all wet-lab protocols. Inventory items linked via `inventory://` syntax, cross-references between related protocols. 37 files changed, 419 insertions. Fix-loop agent (batch 3).
+- [x] **View mode paragraph spacing** — Added `p { margin: 10px 0 }` to `.lab-rendered` CSS. Global reset was stripping paragraph margins, making view mode look squished vs editor. (Issue #12)
+- [x] **Protocol print preview** — Print Preview toggle in protocols toolbar renders paginated pages via iframe with print-like CSS. 8.5x11in pages, page numbers, grey gaps. (Issue #13)
+- [x] **Fix Google Docs notes formatting** — Converted notes-as-table-rows (single-cell tables with very long lines) to proper bullet lists in sorbitol-ctab-hifi-extraction.md and hmw-extraction-challenging-plants.md.
+- [ ] **Dashboard: bulletin wikilink pills** — Wikilinks on the bulletin board don't render as pills. Need consistent pill rendering. (Issue #14)
+- [ ] **Dashboard: remove knowledge graph widget** — Redundant since wiki page has connectivity info. (Issue #14)
+- [ ] **Inventory status states** — Replace binary "needs ordering" with 4 states: In Stock, Needs More, Out of Stock, External (items at other facilities). Implement as fields on inventory items. Remove "needs ordering" from dashboard bulletin. (Issue #14)
+- [ ] **Inventory terminology cleanup** — Clarify naming: "inventory" = catalog of everything (equipment, samples, reagents, etc.). Clean up nav overlap with protocols/notebooks/projects. (Issue #14)
+- [ ] **Inventory dashboard display** — Show single total count on dashboard, breakdown by type within inventory page. (Issue #14)
 
 ---
 
@@ -175,6 +183,12 @@ These are problems with the test bot itself, not the site:
 13. **Object pill popups opened in edit mode** — Clicking a wikilink pill (e.g., Acrylamide on a protocol page) opened the editor modal in edit mode immediately. Users just want to view the item. **Fixed:** `openPopup()` in `editor-modal.js` now renders view mode by default. Edit button available for logged-in users.
 
 14. **Issue reporter used alert() instead of toast** — `issue-reporter.js` fell back to `alert()` because it checked for `Lab.toast` instead of `Lab.showToast`. **Fixed:** uses `Lab.showToast` with inline toast fallback. Also added `@username` attribution and full URL + page context in metadata.
+
+15. **View mode paragraph spacing missing** — Global CSS reset (`* { margin: 0 }`) stripped all `<p>` margins in `.lab-rendered`, making view mode content look squished compared to the editor. **Fixed:** added `.lab-rendered p { margin: 10px 0 }`. (Issue #12)
+
+16. **Google Docs notes imported as table rows** — Notes sections in extraction protocols were single-cell table rows with all items on one line, causing horizontal overflow. Affected: sorbitol-ctab-hifi-extraction.md, hmw-extraction-challenging-plants.md. **Fixed:** converted to `**Notes:**` + bullet lists.
+
+17. **Dashboard bulletin wikilinks don't render as pills** — Wikilinks on the bulletin board show as plain text instead of styled pills. (Issue #14, open)
 
 ---
 
