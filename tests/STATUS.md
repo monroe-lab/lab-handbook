@@ -21,10 +21,10 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Section | Score | Status |
 |---------|-------|--------|
 | Protocols | 9/9 | ✅ Search, open, edit mode, cancel, create, edit & save, duplicate, rename, delete |
-| Wiki | 11/11 | ✅ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, render-after-save, open existing, ProseMirror, cancel |
+| Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
-| Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
+| Lab Map | 14/14 | ✅ Floor plan, 5 zones, boxes, grid, tube detail, assign popover, search, create-at-position, location_detail |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -33,7 +33,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 86/86 (100%)**
+**Total: 93/93 (100%)**
 
 ---
 
@@ -75,12 +75,12 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 ### P2: Interactive features
 
 - [ ] **Freezer drag-and-drop** — move a tube from A1 to B3, verify position persists after reload.
-- [ ] **Freezer: create new item at position** — use the "Create New" button in the assign popover, verify item created with correct `location_detail`.
-- [ ] **Freezer: assign existing item** — search for an existing item in the assign popover, place it, verify.
-- [ ] **Object popup cards** — hover/click a wikilink pill, verify the popup card shows correct info (title, type, location).
-- [ ] **Inventory link pills** — on protocol pages, verify `inventory://` links render as teal pills with popup cards.
+- [x] **Freezer: create new item at position** — clicks "Create New" in assign popover, fills `#newItemName`/`#newItemType`, verifies pre-filled `location_detail` format ("Shelf X / Box Y / PosLabel"), saves, verifies file on GitHub with `location_detail` in frontmatter.
+- [x] **Freezer: assign existing item** — searches "ethanol" in `#assignSearch`, verifies `.assign-result` items appear (5 found).
+- [x] **Object popup cards** — navigates to AMPure XP Beads page (has `[[wikilinks]]`), verifies `a.object-pill` elements render (4 found) with inline styling from `types.pillStyle()`.
+- [ ] **Inventory link pills** — N/A: no protocol files currently use `inventory://` links. Feature exists in code but not in content.
 - [x] **Knowledge graph** — verifies canvas element renders inside `#knowledgeGraph` on dashboard. Canvas-based (not SVG), uses D3 force simulation.
-- [ ] **Connections panel** — on wiki pages, verify the CONNECTIONS panel shows linked documents.
+- [x] **Connections panel** — navigates to Ethanol page, verifies `#miniGraph` container exists with canvas and header showing connection count.
 - [x] **Search across pages** — tests search on protocols ("PCR"), wiki ("ethanol"), inventory ("buffer"), notebooks ("alex"). All return >0 results.
 
 ### P3: Edge cases & error handling

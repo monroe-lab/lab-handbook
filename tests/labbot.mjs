@@ -613,6 +613,50 @@ function ghReadFile(path) {
       }
     }
 
+    // ── Object popup cards ──
+    // Navigate to a page with wikilinks (AMPure XP Beads has [[...]] links)
+    await p.goto(BASE + '/app/wiki.html?doc=resources%2Fampure-xp-beads', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(3000);
+    const pills = await p.$$('a.object-pill');
+    log('wiki', 'Object pills rendered', pills.length > 0 ? 'PASS' : 'WARN',
+      pills.length > 0 ? `${pills.length} pills on page` : 'No object pills found');
+
+    if (pills.length > 0) {
+      // Verify pills are styled with type-specific colors (from types.pillStyle)
+      const pillStyled = await p.evaluate(() => {
+        const pill = document.querySelector('a.object-pill');
+        if (!pill) return { styled: false };
+        const style = pill.getAttribute('style') || '';
+        return {
+          styled: style.includes('border-radius') || style.includes('background'),
+          text: pill.textContent.trim().substring(0, 40),
+          href: (pill.getAttribute('href') || '').substring(0, 30),
+        };
+      });
+      log('wiki', 'Object pill styled', pillStyled.styled ? 'PASS' : 'WARN',
+        `"${pillStyled.text}" → ${pillStyled.href}`);
+    }
+
+    // ── Connections panel (mini graph) ──
+    // Navigate to Ethanol page which has known connections
+    await p.goto(BASE + '/app/wiki.html?doc=resources%2Fethanol-70', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(3000);
+    const miniGraph = await p.evaluate(() => {
+      const el = document.getElementById('miniGraph');
+      if (!el) return { found: false };
+      const canvas = el.querySelector('canvas');
+      const header = el.querySelector('.mini-header');
+      return {
+        found: true,
+        hasCanvas: !!canvas,
+        headerText: header?.textContent || '',
+      };
+    });
+    log('wiki', 'Connections panel', miniGraph.found ? 'PASS' : 'WARN',
+      miniGraph.found
+        ? `canvas=${miniGraph.hasCanvas}, header="${miniGraph.headerText}"`
+        : 'Mini graph not found');
+
     await p.screenshot({ path: '/tmp/labbot-wiki.png', fullPage: false });
     await p.close();
   }
@@ -1354,6 +1398,70 @@ function ghReadFile(path) {
         const popText = popover ? await popover.evaluate(el => el.innerText.substring(0, 50)) : '';
         log('labmap', 'Empty cell assign popover', popText.length > 0 ? 'PASS' : 'WARN',
           popText || 'No popover text');
+
+        // ── Assign popover search ──
+        const assignSearch = await p.$('#assignSearch');
+        if (assignSearch) {
+          await assignSearch.fill('ethanol');
+          await p.waitForTimeout(1000);
+          const searchResults = await p.$$('.assign-result');
+          log('labmap', 'Assign popover search', searchResults.length > 0 ? 'PASS' : 'WARN',
+            `${searchResults.length} results for "ethanol"`);
+        }
+
+        // ── Create new item at position ──
+        // Click "Create New" in the popover
+        const createBtn = await p.evaluate(() => {
+          const pop = document.getElementById('assignPopover');
+          if (!pop) return false;
+          const btns = pop.querySelectorAll('button');
+          for (const b of btns) {
+            if (b.textContent.includes('Create New') || b.textContent.includes('Create')) {
+              b.click(); return true;
+            }
+          }
+          return false;
+        });
+        if (createBtn) {
+          await p.waitForTimeout(1000);
+          const nameInput = await p.$('#newItemName');
+          if (nameInput) {
+            const itemName = `LabBot Freezer Item ${TS}`;
+            await nameInput.fill(itemName);
+            const typeSelect = await p.$('#newItemType');
+            if (typeSelect) await typeSelect.selectOption('reagent');
+
+            // Check location_detail is pre-filled
+            const locDetail = await p.$eval('#newItemLocDetail', el => el.value).catch(() => '');
+            const hasLocDetail = locDetail.includes('Shelf') && locDetail.includes('Box');
+            log('labmap', 'Create form location_detail', hasLocDetail ? 'PASS' : 'FAIL',
+              hasLocDetail ? locDetail : 'Missing or wrong format');
+
+            // Click Create/Save
+            const saveBtn = await p.$('#newItemSave');
+            if (saveBtn) {
+              await saveBtn.click();
+              await p.waitForTimeout(8000);
+
+              const itemSlug = itemName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+              const itemPath = `docs/resources/${itemSlug}.md`;
+              const itemCreated = ghFileExists(itemPath);
+              log('labmap', 'Create item at position', itemCreated ? 'PASS' : 'FAIL',
+                itemCreated ? `${itemPath} on GitHub` : 'Item not created');
+              if (itemCreated) cleanup.push({ path: itemPath });
+
+              // Verify the item has correct location_detail in its frontmatter
+              if (itemCreated) {
+                const content = ghReadFile(itemPath);
+                const hasDetail = content?.includes('location_detail:') && content?.includes('Shelf');
+                log('labmap', 'Item location_detail persisted', hasDetail ? 'PASS' : 'FAIL',
+                  hasDetail ? 'Frontmatter has location_detail' : 'Missing location_detail');
+              }
+            }
+          } else {
+            log('labmap', 'Create at position', 'WARN', 'Create form not rendered');
+          }
+        }
       }
     }
 
