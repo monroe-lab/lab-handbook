@@ -12,6 +12,7 @@
     'js/rich-input.js',
     'js/editor-modal.js',
     'js/annotate.js',
+    'js/issue-reporter.js',
   ];
 
   // Inherit cache-bust param from our own src (e.g. lab.js?v=abc123)
