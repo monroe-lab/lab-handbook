@@ -1521,6 +1521,27 @@ function ghReadFile(path) {
       log('projects', 'Open project', 'FAIL', 'handleFolderClick not found');
     }
 
+    // ── Create project ──
+    p.on('dialog', async dialog => {
+      if (dialog.type() === 'prompt') await dialog.accept(`LabBot Project ${TS}`);
+      else if (dialog.type() === 'confirm') await dialog.accept();
+      else await dialog.dismiss();
+    });
+    const createProjOk = await p.evaluate(() => typeof createNewProject === 'function');
+    if (createProjOk) {
+      await p.evaluate(() => createNewProject());
+      await p.waitForTimeout(8000);
+
+      const projSlug = `labbot-project-${TS}`.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const projPath = `docs/projects/${projSlug}/index.md`;
+      const projCreated = ghFileExists(projPath);
+      log('projects', 'Create project', projCreated ? 'PASS' : 'FAIL',
+        projCreated ? `${projPath} on GitHub` : 'Project not created');
+      if (projCreated) cleanup.push({ path: projPath });
+    } else {
+      log('projects', 'Create project', 'WARN', 'createNewProject() not available');
+    }
+
     await p.screenshot({ path: '/tmp/labbot-projects.png', fullPage: false });
     await p.close();
   }
@@ -1667,6 +1688,11 @@ function ghReadFile(path) {
     log('dashboard', 'Recent updates', text.includes('RECENT UPDATES') ? 'PASS' : 'FAIL', 'Section present');
     log('dashboard', 'Bulletin board', text.includes('BULLETIN') ? 'PASS' : 'FAIL', 'Section present');
     log('dashboard', 'Knowledge graph', text.includes('KNOWLEDGE GRAPH') ? 'PASS' : 'FAIL', 'Section present');
+
+    // ── Bulletin board edit link ──
+    const bulletinLink = await p.$('a[href*="wiki.html?doc=bulletin"]');
+    log('dashboard', 'Bulletin edit link', bulletinLink ? 'PASS' : 'FAIL',
+      bulletinLink ? 'Link points to wiki.html?doc=bulletin' : 'Edit link not found or wrong param');
 
     // ── Knowledge graph renders (canvas-based force graph) ──
     const graphInfo = await p.evaluate(() => {

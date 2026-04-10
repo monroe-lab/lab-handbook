@@ -72,7 +72,7 @@
     <div class="dash-card dash-full">
       <h3>
         <span class="material-icons-outlined" style="color:#795548;">assignment</span> Bulletin Board
-        <a href="wiki.html?file=docs/bulletin.md" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:var(--teal);color:#fff;text-decoration:none;font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;">
+        <a href="wiki.html?doc=bulletin" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:var(--teal);color:#fff;text-decoration:none;font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;">
           <span class="material-icons-outlined" style="font-size:14px;">edit</span> Edit
         </a>
       </h3>
@@ -169,7 +169,7 @@
       var slug = obj.path.replace(/\.md$/, '');
       return '<div class="dash-list-item">' +
         '<span class="material-icons-outlined" style="font-size:16px;color:#e65100;">warning</span>' +
-        '<a href="' + BASE + 'app/wiki.html?file=docs/' + slug + '.md" style="color:inherit;text-decoration:none;font-weight:500;">' + esc(obj.title) + '</a>' +
+        '<a href="' + BASE + 'app/wiki.html?doc=' + slug.replace(/^docs\//, '') + '" style="color:inherit;text-decoration:none;font-weight:500;">' + esc(obj.title) + '</a>' +
         '<span style="color:#e65100;font-size:11px;margin-left:auto;">' + esc(obj.type) + '</span>' +
         '</div>';
     }).join('');
