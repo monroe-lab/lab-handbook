@@ -3260,5 +3260,19 @@
     "lastUpdated": "2026-04-10",
     "notes": "",
     "detailSheetLink": ""
+  },
+  {
+    "id": 234,
+    "sampleId": "LABBOT-mnsek1ho",
+    "project": "LabBot Test Project",
+    "species": "Testus boticus",
+    "lead": "",
+    "sequencingType": "HiFi",
+    "status": "Not yet received",
+    "priority": "",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-10",
+    "notes": "",
+    "detailSheetLink": ""
   }
 ]
