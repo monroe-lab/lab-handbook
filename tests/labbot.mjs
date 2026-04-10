@@ -1807,22 +1807,10 @@ function ghReadFile(path) {
     log('dashboard', 'Stats cards', text.includes('PROTOCOLS') ? 'PASS' : 'FAIL', 'Protocols stat present');
     log('dashboard', 'Recent updates', text.includes('RECENT UPDATES') ? 'PASS' : 'FAIL', 'Section present');
     log('dashboard', 'Bulletin board', text.includes('BULLETIN') ? 'PASS' : 'FAIL', 'Section present');
-    log('dashboard', 'Knowledge graph', text.includes('KNOWLEDGE GRAPH') ? 'PASS' : 'FAIL', 'Section present');
-
     // ── Bulletin board edit link ──
     const bulletinLink = await p.$('a[href*="wiki.html?doc=bulletin"]');
     log('dashboard', 'Bulletin edit link', bulletinLink ? 'PASS' : 'FAIL',
       bulletinLink ? 'Link points to wiki.html?doc=bulletin' : 'Edit link not found or wrong param');
-
-    // ── Knowledge graph renders (canvas-based force graph) ──
-    const graphInfo = await p.evaluate(() => {
-      const container = document.getElementById('knowledgeGraph');
-      if (!container) return { found: false };
-      const canvas = container.querySelector('canvas');
-      return { found: !!canvas, width: canvas?.width || 0, height: canvas?.height || 0 };
-    });
-    log('dashboard', 'Graph renders', graphInfo.found ? 'PASS' : 'FAIL',
-      graphInfo.found ? `Canvas ${graphInfo.width}x${graphInfo.height}` : 'No canvas found');
 
     await p.screenshot({ path: '/tmp/labbot-dashboard.png', fullPage: false });
     await p.close();

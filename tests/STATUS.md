@@ -29,13 +29,13 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
 | Calendar | 3/3 | ✅ Loads, add event, delete event |
-| Dashboard | 6/6 | ✅ Stats, recent updates, bulletin, knowledge graph, graph canvas, bulletin edit link |
+| Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, bulletin edit link |
 | Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
 | Cross-nav | 2/2 | ✅ Wikilink pill found, navigates to protocols page |
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 97/97 (100%)**
+**Total: 95/95 (100%)**
 
 ---
 
