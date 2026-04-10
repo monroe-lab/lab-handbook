@@ -55,16 +55,6 @@ title: "MS Media Recipe"
 
 **Wall time:** \~2 hours \| **Hands-on:** \~40 min
 
-```
-|████████| Weigh and dissolve reagents    15 min
-|████| pH adjustment                      10 min
-|██| Add agar, cover with foil             5 min
-|░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| Autoclave  60-90 min (walk away)
-|░░░░| Cool to ~55 C                      15 min (nearby, check occasionally)
-|████████| Pour plates in clean bench     15 min
-|░░░░| Solidify                           20 min (walk away)
-```
-
 ***
 
 ## Standard Recipe (1 L)

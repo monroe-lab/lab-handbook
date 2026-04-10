@@ -24,23 +24,9 @@ title: "PCR Genotyping"
 
 **Wall time:** ~2 hours | **Hands-on:** ~30 min
 
-```
-|████████| Set up master mix on ice              10 min
-|████████| Aliquot into tubes, add template      10 min
-|████| Load [[thermocycler]], start program           2 min
-|░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| Thermocycler running  70-90 min (walk away)
-|████| Transfer to gel                            5 min
-```
-
 Then continue to [[gel-electrophoresis]] (~40-60 min, mostly waiting).
 
-**Full genotyping pipeline (extraction → PCR → gel):**
-```
-|████████████| Quick DNA extraction        15 min
-|████████████████████| PCR setup + run     10 min active + 80 min waiting
-|████████████████| Gel run + image         10 min active + 40 min waiting
-                                           TOTAL: ~2.5 hr wall, ~45 min hands-on
-```
+**Full genotyping pipeline (extraction → PCR → gel):** ~2.5 hr wall, ~45 min hands-on
 
 ---
 

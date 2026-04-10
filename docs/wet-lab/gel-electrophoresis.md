@@ -24,15 +24,6 @@ title: "Gel Electrophoresis"
 
 **Wall time:** 40-70 min | **Hands-on:** ~10 min
 
-```
-|████████| Load samples into gel wells           5 min
-|████| Start power supply                        1 min
-|░░░░░░░░░░░░░░░░░░░░░░| Run gel               10-45 min (walk away)
-|████| Transfer gel to stain                     1 min
-|░░░░░░░░░░░░░░| Stain in SYBR Gold            10 min (walk away)
-|████| Image on UV lamp                          3 min
-```
-
 ---
 
 ## Background

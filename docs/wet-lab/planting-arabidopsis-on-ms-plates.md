@@ -28,32 +28,9 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 **Total wall time:** 3 days (2 days 📖 Stratification + 1 day plating)
 **Total hands-on time:** \~2.5 hours across all days
 
-### Day -2: Seed sterilization + stratification (\~35 min hands-on)
-
-```
-|████| Aliquot seeds into tubes           5 min
-|████| Add EtOH, load on rotator          5 min
-|░░░░░░░░░░░░░░░░░░| Rotating            15 min (walk away)
-|████| Remove EtOH, resuspend, foil, fridge  5 min
-```
-
-### Day -1 or Day 0: Make MS plates (\~1.5 hr hands-on)
-
-```
-|████████| Weigh reagents, dissolve, pH   20 min
-|░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| Autoclave  60-90 min (walk away)
-|████| Wait for cooling                   15 min (nearby but idle)
-|████████| Pour plates in 📖 Clean Bench (Laminar Flow Hood)     20 min
-|░░░░| Plates solidify                    20 min (walk away)
-```
-
-### Day 0: Plating seeds (\~30 min hands-on)
-
-```
-|████| Set up clean bench, spray, arrange 10 min
-|████████| Plate seeds (4 genotypes)      20 min
-|████| Seal, label, move to ⚙️ Growth Chamber 5 min
-```
+- **Day -2:** Seed sterilization + stratification (\~35 min hands-on)
+- **Day -1 or Day 0:** Make MS plates (\~1.5 hr hands-on)
+- **Day 0:** Plating seeds (\~30 min hands-on)
 
 **Key gaps you can use:** The autoclave step (60-90 min) and stratification (2 full days) are completely free time. The actual hands-on work is short bursts.
 

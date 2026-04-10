@@ -24,13 +24,6 @@ title: "Quick DNA Extraction for PCR (Buffer A Method)"
 
 **Wall time:** ~15 min | **Hands-on:** ~10 min (for 8-16 samples)
 
-```
-|████████| Cut leaf tissue, place in Buffer A    5 min (1-2 min per 8 samples)
-|████| Load into [[thermocycler]]                    1 min
-|░░░░░░░░| Boil 95 C                             5 min (walk away)
-|████| Add TE, mix                               2 min
-```
-
 ---
 
 ## Background
