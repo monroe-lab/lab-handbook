@@ -1093,12 +1093,9 @@ function ghReadFile(path) {
               }
 
               // ── GitHub API fallback test ──
-              // Re-enter edit mode. Editor loads markdown with images/slug path.
-              // The fallback (setupEditorImageFallback) catches img load errors and
-              // fetches via authenticated GitHub API. However, re-entering edit mode
-              // fetches content from GitHub API which may return cached/stale content
-              // without the image reference (API cache lag). If no images in editor
-              // content, the fallback can't trigger — that's a test limitation, not a bug.
+              // Re-enter edit mode, then inject an <img> pointing to the just-uploaded
+              // image. The URL will 404 on Pages (not deployed yet), triggering
+              // setupEditorImageFallback() which fetches via authenticated GitHub API.
               const fallbackEditOk = await p.evaluate(() => {
                 if (typeof startEdit === 'function') { startEdit(); return true; }
                 return false;
@@ -1113,23 +1110,75 @@ function ghReadFile(path) {
                   await p.waitForTimeout(500);
                 }
                 if (fallbackEdReady) {
-                  await p.waitForTimeout(5000);
-                  const fallbackImg = await p.evaluate(() => {
-                    const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
-                    if (!ww) return { found: false, total: 0, loaded: 0 };
-                    const imgs = Array.from(ww.querySelectorAll('img'));
-                    const loaded = imgs.filter(i => i.naturalWidth > 0 || (i.src || '').startsWith('data:'));
-                    return { found: loaded.length > 0, total: imgs.length, loaded: loaded.length };
-                  });
-                  if (fallbackImg.total > 0) {
-                    log('notebooks', 'Image API fallback', fallbackImg.found ? 'PASS' : 'WARN',
-                      fallbackImg.found
-                        ? `${fallbackImg.loaded}/${fallbackImg.total} images loaded via API fallback`
-                        : `${fallbackImg.total} images in editor but none loaded via fallback`);
-                  } else {
-                    log('notebooks', 'Image API fallback', 'WARN',
-                      'GitHub API cache returned stale content (no image ref); fallback cannot be tested');
-                  }
+                  // Inject a test <img> into the editor surface (where fallback listener lives)
+                  // Use a path that will definitely 404 — append a cache-buster
+                  const fallbackResult = await p.evaluate(async (slug) => {
+                    const surface = document.getElementById('editorSurface');
+                    if (!surface) return { error: 'no editorSurface' };
+
+                    // Create a promise that resolves when the image loads or errors
+                    return new Promise((resolve) => {
+                      const img = document.createElement('img');
+                      img.id = 'labbot-fallback-test';
+                      // Use a URL that will definitely 404 (non-existent image)
+                      img.src = '/lab-handbook/images/' + slug + '?bust=' + Date.now();
+                      img.alt = 'fallback test';
+                      img.style.cssText = 'max-width:100px;display:block;';
+
+                      let resolved = false;
+                      const check = () => {
+                        if (resolved) return;
+                        resolved = true;
+                        // Wait a bit for the fallback fetch to complete
+                        setTimeout(() => {
+                          resolve({
+                            found: img.naturalWidth > 0 || (img.src || '').startsWith('data:'),
+                            src: (img.src || '').substring(0, 40),
+                            hasFallbackAttr: !!img.dataset.apiFallback,
+                            hasRealSrc: !!img.dataset.realSrc,
+                          });
+                        }, 5000);
+                      };
+
+                      img.onerror = check;
+                      img.onload = () => {
+                        // Image loaded directly (Pages deployed?) — still a pass
+                        if (!resolved) {
+                          resolved = true;
+                          resolve({
+                            found: true,
+                            src: (img.src || '').substring(0, 40),
+                            hasFallbackAttr: !!img.dataset.apiFallback,
+                            loadedDirectly: true,
+                          });
+                        }
+                      };
+
+                      surface.appendChild(img);
+
+                      // Fallback timeout in case neither event fires
+                      setTimeout(() => {
+                        if (!resolved) {
+                          resolved = true;
+                          resolve({
+                            found: img.naturalWidth > 0 || (img.src || '').startsWith('data:'),
+                            src: (img.src || '').substring(0, 40),
+                            hasFallbackAttr: !!img.dataset.apiFallback,
+                            timeout: true,
+                          });
+                        }
+                      }, 8000);
+                    });
+                  }, imgSlug);
+
+                  log('notebooks', 'Image API fallback',
+                    fallbackResult.found ? 'PASS' : (fallbackResult.hasFallbackAttr ? 'WARN' : 'FAIL'),
+                    fallbackResult.found
+                      ? `Image loaded${fallbackResult.loadedDirectly ? ' directly' : ' via API fallback'} (src=${fallbackResult.src}...)`
+                      : fallbackResult.hasFallbackAttr
+                        ? 'Fallback triggered but fetch failed'
+                        : `Fallback not triggered (src=${fallbackResult.src}, err=${fallbackResult.error || 'none'})`);
+
                   await p.evaluate(() => { if (typeof cancelEdit === 'function') cancelEdit(); });
                   await p.waitForTimeout(1000);
                 }

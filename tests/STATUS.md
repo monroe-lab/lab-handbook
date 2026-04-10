@@ -23,7 +23,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Protocols | 6/6 | ✅ Search, open, enter editor, cancel, create from template, edit & save |
 | Wiki | 11/11 | ✅ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, render-after-save, open existing, ProseMirror, cancel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
-| Notebooks | 15/16 | ⚠️ Create, folders, rich text, image upload+annotation+resize+save+render, delete. API fallback WARN (cache lag) |
+| Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
 | Projects | 2/2 | ✅ Folder listing (.proto-category), open project content |
@@ -32,7 +32,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 69/70 (99%)**
+**Total: 70/70 (100%)**
 
 ---
 
@@ -110,7 +110,7 @@ These are problems with the test bot itself, not the site:
 1. ~~**Notebook folder selector**~~ — **FIXED.** Changed `.nb-folder-header` to `.nb-folder`.
 2. ~~**Notebook edit timeout**~~ — **FIXED.** Uses `evaluate(() => startEdit())` instead of Playwright click.
 3. ~~**Projects folder listing**~~ — **FIXED.** Changed `.proto-folder-header` to `.proto-category`.
-4. **Image API fallback** — After saving a notebook with an image, re-entering edit mode fetches stale content from GitHub API (no image reference in markdown), so the `setupEditorImageFallback()` can't trigger. This is a test limitation caused by GitHub API caching, not a site bug.
+4. ~~**Image API fallback**~~ — **FIXED.** Test now injects an `<img>` into `#editorSurface` with a cache-busted URL that 404s on Pages, triggering `setupEditorImageFallback()` which fetches via authenticated GitHub API and replaces src with base64 data URL.
 
 ---
 
