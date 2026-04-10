@@ -403,14 +403,5 @@
     "startTime": "13:00",
     "endTime": "16:00",
     "notes": ""
-  },
-  {
-    "id": 100,
-    "title": "LabBot Test mnti5798",
-    "member": "[[LabBot]]",
-    "date": "2026-04-10",
-    "startTime": "09:00",
-    "endTime": "10:00",
-    "notes": ""
   }
 ]
