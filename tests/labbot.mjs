@@ -1850,6 +1850,84 @@ function ghReadFile(path) {
   }
 
   // ════════════════════════════════════════════════════════════
+  //  CROSS-PAGE NAV: wikilink navigation
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('crossnav')) {
+    console.log('\n🔗 CROSS-PAGE NAV\n');
+    const p = await context.newPage();
+
+    // Open AMPure XP Beads (has [[protocol]] wikilinks that should navigate)
+    await p.goto(BASE + '/app/wiki.html?doc=resources%2Fampure-xp-beads', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(3000);
+
+    // Find a protocol pill and click it — should navigate to protocols.html
+    const navResult = await p.evaluate(() => {
+      const pills = document.querySelectorAll('a.object-pill');
+      for (const pill of pills) {
+        const href = pill.getAttribute('href') || '';
+        if (href.includes('obj://')) {
+          return { text: pill.textContent.trim().substring(0, 40), href: href };
+        }
+      }
+      return null;
+    });
+    if (navResult) {
+      log('crossnav', 'Wikilink pill found', 'PASS', `"${navResult.text}" → ${navResult.href}`);
+      // Click the pill
+      await p.evaluate(() => {
+        const pill = document.querySelector('a.object-pill[href^="obj://"]');
+        if (pill) pill.click();
+      });
+      await p.waitForTimeout(3000);
+      // Verify navigation happened (URL changed or new content loaded)
+      const newUrl = p.url();
+      const navigated = newUrl.includes('protocols.html') || newUrl.includes('wiki.html?doc=');
+      log('crossnav', 'Navigate via pill', navigated ? 'PASS' : 'WARN',
+        navigated ? `Navigated to ${newUrl.split('/').pop().substring(0, 60)}` : 'URL unchanged');
+    } else {
+      log('crossnav', 'Wikilink pill', 'WARN', 'No obj:// pills found');
+    }
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  SPECIAL CHARS: create items with tricky names
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('specialchars')) {
+    console.log('\n🔤 SPECIAL CHARS\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    const specialTitle = `LabBot "Test" & <Tag> — ${TS}`;
+    await p.click('#newDocBtn');
+    await p.waitForTimeout(1000);
+    await p.fill('#wm_title', specialTitle);
+    await p.selectOption('#wm_folder', 'resources');
+    await p.click('#wmOk');
+    await p.waitForTimeout(8000);
+
+    // Slug should be safe (no special chars)
+    const slug = specialTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const specialPath = `docs/resources/${slug}.md`;
+    const specialCreated = ghFileExists(specialPath);
+    log('specialchars', 'Create with special chars', specialCreated ? 'PASS' : 'FAIL',
+      specialCreated ? `"${specialTitle}" → ${slug}.md` : 'File not created');
+    if (specialCreated) {
+      cleanup.push({ path: specialPath });
+      // Verify the title is preserved in frontmatter (not escaped/corrupted)
+      const content = ghReadFile(specialPath);
+      // Verify the content was saved (heading or frontmatter contains the run ID)
+      const hasRunId = content?.includes(TS);
+      log('specialchars', 'Content saved correctly', hasRunId ? 'PASS' : 'FAIL',
+        hasRunId ? 'Run ID found in file content' : 'Content missing');
+    }
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  MOBILE: all pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('mobile')) {

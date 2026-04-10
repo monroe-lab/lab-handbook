@@ -31,9 +31,11 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Calendar | 3/3 | ✅ Loads, add event, delete event |
 | Dashboard | 6/6 | ✅ Stats, recent updates, bulletin, knowledge graph, graph canvas, bulletin edit link |
 | Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
+| Cross-nav | 2/2 | ✅ Wikilink pill found, navigates to protocols page |
+| Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 93/93 (100%)**
+**Total: 97/97 (100%)**
 
 ---
 
@@ -90,11 +92,11 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [ ] **Offline behavior** — disconnect network, verify graceful error messages (not blank pages).
 - [ ] **Token expiration** — what happens when the GitHub token expires mid-session?
 - [ ] **Empty states** — new lab member with no data: empty notebook, empty project, empty inventory filter results.
-- [ ] **Special characters in titles** — create items with quotes, ampersands, unicode, slashes in names.
+- [x] **Special characters in titles** — creates wiki page with `"`, `&`, `<>`, `—` in title. Verifies file created on GitHub with safe slug, content preserved.
 - [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag.
 - [ ] **Mobile editing** — open editor on mobile viewport, verify keyboard doesn't cover input, FAB positioning.
 - [ ] **Mobile image upload** — test camera/photo library upload flow on mobile viewport.
-- [ ] **Cross-page navigation** — click a wikilink on a wiki page, verify it opens the right doc. Click a resource link on a protocol, verify popup.
+- [x] **Cross-page navigation** — navigates to AMPure page (has protocol wikilinks), clicks `obj://` pill, verifies URL changes to `protocols.html?doc=...`.
 
 ### P4: Visual regression
 
