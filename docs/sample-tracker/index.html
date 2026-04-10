@@ -867,7 +867,7 @@ function renderTable() {
     if (seqFilter && item.sequencingType !== seqFilter) return false;
     if (leadFilter && item.lead !== leadFilter) return false;
     if (search) {
-      const haystack = [item.sampleId, item.project, item.species, item.lead, item.notes || '', item.currentBlocker || '']
+      const haystack = [item.sampleId || '', item.project || '', item.species || '', item.lead || '', item.sequencingType || '', item.status || '', item.notes || '', item.currentBlocker || '']
         .join(' ').toLowerCase();
       if (!haystack.includes(search)) return false;
     }

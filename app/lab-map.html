@@ -529,8 +529,8 @@
         if (item) {
           orderedBoxItems.push(item);
           var tc = getType(item.type || 'reagent');
-          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemI + '" title="' + esc(item.title || '') + '" style="font-size:8px;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + '">';
-          html += (item.title || '').substring(0, 3);
+          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemI + '" title="' + esc(item.title || '') + '" style="font-size:6px;line-height:1.15;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + ';overflow:hidden;padding:1px;flex-direction:column;text-align:center">';
+          html += '<span style="font-size:9px;line-height:1;display:block">' + tc.icon + '</span><span style="display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc((item.title || '').substring(0, 10)) + '</span>';
           html += '</div>';
         } else {
           html += '<div class="tube-cell empty" data-idx="' + idx + '">' + cellId + '</div>';

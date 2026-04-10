@@ -106,6 +106,22 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ---
 
+## Workflow E2E findings (2026-04-10)
+
+Found by `tests/workflow-e2e.mjs` (James Freckles + Lab Manager simulation). Worker: 18/18 pass, Manager: 10/13.
+
+### Dev improvements (site code changes)
+
+- [x] **Projects: stale render after save** — `projects.html saveDoc()` called `loadDoc()` which re-fetched stale content. **Fixed:** render directly from saved markdown (same pattern as wiki/notebooks). Also captures editor image data URLs for instant preview.
+- [ ] **Table rendering: missing trailing newline** — NanoDrop table in notebook view has headers merging with next heading ("SampleGel Electrophoresis"). Toast UI table markdown output may lack blank line before next element. Fix in markdown rendering or post-processing.
+- [x] **Freezer grid: cell labels too short** — Grid cells showed only 3 chars. **Fixed:** now shows type icon + 10-char truncated name with tooltip on hover. Font reduced to 6px with ellipsis overflow.
+- [x] **Image default size on insertion** — Images inserted at 100% width. **Fixed:** new images default to 50% max-width via `_imgSizes` map + inline style. Users can still resize via toolbar.
+- [ ] **Inventory: name vs slug confusion** — Add Item modal uses same field for display name and filename slug. Should show human-readable name field with auto-generated slug preview beneath.
+- [x] **Protocol sidebar: copies indistinguishable** — Copies had no visual distinction. **Fixed:** protocols with `-copy` suffix now show "(Copy)" badge in sidebar using flex layout.
+- [x] **Sample tracker: species field not searchable** — Search only indexed some fields. **Fixed:** haystack now includes all 8 text fields (sampleId, project, species, lead, sequencingType, status, notes, currentBlocker) with null guards.
+
+---
+
 ## Known test infrastructure issues
 
 These are problems with the test bot itself, not the site:

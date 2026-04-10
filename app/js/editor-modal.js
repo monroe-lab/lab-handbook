@@ -1354,6 +1354,8 @@
         editor.changeMode('markdown');
         editor.replaceSelection('\n\n![' + slug.replace(/\.[^.]+$/, '') + '](images/' + slug + ')\n\n');
         editor.changeMode('wysiwyg');
+        // Default new images to 50% width
+        _imgSizes['images/' + slug] = '50%';
         // Show instant preview via data URL for the just-uploaded image.
         // We set img.src to the data URL so the user sees it immediately.
         setTimeout(function() {
@@ -1363,6 +1365,7 @@
             if (src.includes(slug) && (!img.complete || img.naturalWidth === 0)) {
               img.dataset.realSrc = src;
               img.src = dataUrl;
+              img.style.setProperty('max-width', '50%', 'important');
             }
           });
         }, 300);

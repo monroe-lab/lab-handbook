@@ -403,7 +403,8 @@ function renderSidebar(filter) {
     items.forEach(function(item) {
       var active = currentDoc === item.path ? ' active' : '';
       var draggable = loggedIn ? ' draggable="true"' : '';
-      html += '<div class="proto-item' + active + '"' + draggable + ' data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+      var copyBadge = item.path.replace(/\.md$/, '').match(/-copy(-\d+)?$/) ? '<span style="font-size:10px;color:#888;margin-left:4px;flex-shrink:0">(Copy)</span>' : '';
+      html += '<div class="proto-item' + active + '"' + draggable + ' data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')" style="display:flex;align-items:center">' + '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.title) + '</span>' + copyBadge + '</div>';
     });
     html += '</div>';
   });
