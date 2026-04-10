@@ -80,7 +80,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Freezer: create new item at position** — clicks "Create New" in assign popover, fills `#newItemName`/`#newItemType`, verifies pre-filled `location_detail` format ("Shelf X / Box Y / PosLabel"), saves, verifies file on GitHub with `location_detail` in frontmatter.
 - [x] **Freezer: assign existing item** — searches "ethanol" in `#assignSearch`, verifies `.assign-result` items appear (5 found).
 - [x] **Object popup cards** — navigates to AMPure XP Beads page (has `[[wikilinks]]`), verifies `a.object-pill` elements render (4 found) with inline styling from `types.pillStyle()`.
-- [ ] **Inventory link pills** — N/A: no protocol files currently use `inventory://` links. Feature exists in code but not in content.
+- [x] **Inventory link pills** — Protocol wikilinks agent added `inventory://` links to all wet-lab protocols (batch 3). Feature now has content to test against.
 - [x] **Knowledge graph** — verifies canvas element renders inside `#knowledgeGraph` on dashboard. Canvas-based (not SVG), uses D3 force simulation.
 - [x] **Connections panel** — navigates to Ethanol page, verifies `#miniGraph` container exists with canvas and header showing connection count.
 - [x] **Search across pages** — tests search on protocols ("PCR"), wiki ("ethanol"), inventory ("buffer"), notebooks ("alex"). All return >0 results.
@@ -171,6 +171,10 @@ These are problems with the test bot itself, not the site:
 11. **GitHub API CDN caching caused stale data** — `fetchFile()` returned stale content after saves because GitHub CDN caches API responses for 60s (`s-maxage=60`). Browser `cache: 'no-store'` only controls browser cache, not CDN. **Fixed:** added `&_t=Date.now()` timestamp cache-buster to `fetchFile()` and `deleteFile()` URLs. (QA cycles 3–4)
 
 12. **Inventory Add Item double-click race** — Create button not disabled after click. Double-clicking sends two `saveFile()` requests for the same path; first succeeds, second gets 422 SHA mismatch. Shows confusing success + error toasts. **Fixed:** disable Create button and show "Creating…" on click in `confirmAdd()`. Re-enable on error. (QA cycle 5)
+
+13. **Object pill popups opened in edit mode** — Clicking a wikilink pill (e.g., Acrylamide on a protocol page) opened the editor modal in edit mode immediately. Users just want to view the item. **Fixed:** `openPopup()` in `editor-modal.js` now renders view mode by default. Edit button available for logged-in users.
+
+14. **Issue reporter used alert() instead of toast** — `issue-reporter.js` fell back to `alert()` because it checked for `Lab.toast` instead of `Lab.showToast`. **Fixed:** uses `Lab.showToast` with inline toast fallback. Also added `@username` attribution and full URL + page context in metadata.
 
 ---
 
