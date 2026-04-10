@@ -16,7 +16,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ---
 
-## Current scores (2026-04-09)
+## Current scores (2026-04-10)
 
 | Section | Score | Status |
 |---------|-------|--------|
@@ -87,22 +87,22 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ### P3: Edge cases & error handling
 
-- [ ] **Concurrent edits** — open same doc in two tabs, edit both, save both, verify no data loss.
-- [ ] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile.
-- [ ] **Offline behavior** — disconnect network, verify graceful error messages (not blank pages).
-- [ ] **Token expiration** — what happens when the GitHub token expires mid-session?
-- [ ] **Empty states** — new lab member with no data: empty notebook, empty project, empty inventory filter results.
+- [ ] **Concurrent edits** — open same doc in two tabs, edit both, save both, verify no data loss. Hard to test reliably in Playwright (requires two browser contexts with independent auth).
+- [ ] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile. Requires creating a large test file; image resize caps at 1600px so OOM is unlikely.
+- [ ] **Offline behavior** — disconnect network, verify graceful error messages. Playwright can simulate offline via `context.setOffline(true)`.
+- [ ] **Token expiration** — what happens when the GitHub token expires mid-session? Would need to inject an expired token.
+- [ ] **Empty states** — new lab member with no data: empty notebook, empty project, empty inventory filter results. Would need a clean auth context with no data.
 - [x] **Special characters in titles** — creates wiki page with `"`, `&`, `<>`, `—` in title. Verifies file created on GitHub with safe slug, content preserved.
-- [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag.
-- [ ] **Mobile editing** — open editor on mobile viewport, verify keyboard doesn't cover input, FAB positioning.
-- [ ] **Mobile image upload** — test camera/photo library upload flow on mobile viewport.
+- [ ] **Long content** — open a very long protocol, verify scroll works and editor doesn't lag. Performance testing is hard in Playwright.
+- [ ] **Mobile editing** — open editor on mobile viewport, verify keyboard doesn't cover input, FAB positioning. Playwright can't simulate mobile keyboards.
+- [ ] **Mobile image upload** — test camera/photo library upload flow on mobile viewport. Playwright can't access camera/photo library.
 - [x] **Cross-page navigation** — navigates to AMPure page (has protocol wikilinks), clicks `obj://` pill, verifies URL changes to `protocols.html?doc=...`.
 
 ### P4: Visual regression
 
-- [ ] **Screenshot comparison** — take baseline screenshots of each page, compare future runs to catch visual regressions.
-- [ ] **Dark mode** — if/when added, verify all pages render correctly.
-- [ ] **Print view** — click Print on a protocol, verify the print-friendly layout.
+- [ ] **Screenshot comparison** — take baseline screenshots of each page, compare future runs to catch visual regressions. LabBot already saves screenshots to `/tmp/labbot-*.png` on every run.
+- [ ] **Dark mode** — if/when added, verify all pages render correctly. Feature doesn't exist yet.
+- [ ] **Print view** — click Print on a protocol, verify the print-friendly layout. Playwright can't verify print CSS easily.
 
 ---
 
@@ -117,11 +117,15 @@ These are problems with the test bot itself, not the site:
 
 ---
 
-## Bugs found and fixed (this session)
+## Bugs found and fixed
 
 1. **Freezer grid positions not persisting** — `location_detail` was saved in frontmatter but never parsed on reload. Items filled sequentially instead of at their assigned cell positions. **Fixed:** added `parseLocDetail()` to parse "Shelf 1 / Box A / A2" and place items correctly.
 
 2. **Dashboard object-index.json 404** — dashboard fetched `BASE + 'docs/object-index.json'` but the deployed path is `BASE + 'object-index.json'` (MkDocs strips the `docs/` prefix). **Fixed:** removed `docs/` prefix.
+
+3. **Wiki render-after-save showed stale content** — `saveDoc()` called `loadDoc()` which re-fetched from GitHub API (cached/stale). **Fixed:** render directly from the just-saved markdown, matching notebooks.html pattern. Also captures editor image data URLs for instant preview.
+
+4. **Dashboard bulletin Edit link broken** — link used `wiki.html?file=docs/bulletin.md` but wiki.html only reads `?doc=` parameter. **Fixed:** changed to `wiki.html?doc=bulletin`. Also fixed "Needs Ordering" widget links (same `?file=` → `?doc=` bug).
 
 ---
 
