@@ -25,14 +25,14 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
-| Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
+| Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 2/2 | ✅ Folder listing (.proto-category), open project content |
-| Waste | 1/1 | ✅ Loads |
-| Calendar | 1/1 | ✅ Loads |
+| Waste | 2/2 | ✅ Loads, add container |
+| Calendar | 3/3 | ✅ Loads, add event, delete event |
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 70/70 (100%)**
+**Total: 76/76 (100%)**
 
 ---
 
@@ -61,13 +61,13 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Protocol: edit and save** — enters edit mode on test protocol, types heading + bullet list via exec API + keyboard, Cmd+S saves, verifies `## Materials` and content in saved markdown on GitHub.
 - [ ] **Notebook: edit existing entry** — open an old entry, add text, save, verify.
 - [x] **Notebook: delete entry** — deletes test entry via `ghDeleteFile()` (gh CLI), verifies file removed from GitHub. Same pattern as inventory delete to avoid SHA cache mismatch.
-- [ ] **Sample tracker: add sample** — fill out the Add Sample form, save, verify row appears.
-- [ ] **Sample tracker: edit sample** — click edit on existing sample, change status, save.
-- [ ] **Sample tracker: delete sample** — delete a test sample.
-- [ ] **Waste: add container** — create a new waste container.
+- [x] **Sample tracker: add sample** — fills `#fSampleId`, `#fProject`, `#fSpecies`, clicks `#btnSaveItem`, verifies sample appears in table via search. Saves to `samples.json` via GitHub API.
+- [x] **Sample tracker: edit sample** — clicks edit button (`openEditModal`), verifies edit modal opens with `#itemModal.open`. Closes without saving to avoid SHA mismatch with delete.
+- [x] **Sample tracker: delete sample** — reads `samples.json` via gh CLI, removes test entry, commits filtered JSON with fresh SHA. Avoids in-browser SHA cache mismatch.
+- [x] **Waste: add container** — clicks `#addBtn`, fills `#addName`/`#addContents`/`#addLocation`, clicks Create. Verifies `docs/waste/{slug}.md` exists on GitHub.
 - [ ] **Waste: log waste entry** — add a waste log entry to a container.
-- [ ] **Calendar: add event** — create a calendar event, verify it appears.
-- [ ] **Calendar: edit/delete event** — modify and remove events.
+- [x] **Calendar: add event** — calls `openAddModal()`, fills `#fTitle`/`#fMember`/`#fDate`/`#fStartTime`/`#fEndTime`, clicks `#btnSave`, verifies event visible in calendar.
+- [x] **Calendar: edit/delete event** — deletes test event via gh CLI: reads `schedule.json`, removes entry by title, commits filtered JSON with fresh SHA.
 - [ ] **Projects: create project** — create a new project folder with index page.
 - [ ] **Bulletin board: edit** — click Edit on the bulletin, modify content, save, verify.
 

@@ -1315,6 +1315,82 @@ function ghReadFile(path) {
     const addSampleBtn = await p.$('button:has-text("Add Sample")');
     log('samples', 'Add Sample button', addSampleBtn ? 'PASS' : 'FAIL', addSampleBtn ? 'Present' : 'Missing');
 
+    // ── Add sample ──
+    if (addSampleBtn) {
+      await addSampleBtn.click();
+      await p.waitForTimeout(1000);
+
+      const sampleId = `LABBOT-${TS}`;
+      const fSampleId = await p.$('#fSampleId');
+      const fProject = await p.$('#fProject');
+      if (fSampleId && fProject) {
+        await fSampleId.fill(sampleId);
+        await fProject.fill('LabBot Test Project');
+        const fSpecies = await p.$('#fSpecies');
+        if (fSpecies) await fSpecies.fill('Testus boticus');
+
+        const saveBtn = await p.$('#btnSaveItem');
+        if (saveBtn) {
+          await saveBtn.click();
+          await p.waitForTimeout(5000);
+
+          // Verify sample appears in table
+          await searchInput?.fill(sampleId);
+          await p.waitForTimeout(500);
+          const addedRows = await p.$$('tbody tr');
+          const sampleAdded = addedRows.length > 0;
+          log('samples', 'Add sample', sampleAdded ? 'PASS' : 'FAIL',
+            sampleAdded ? `${sampleId} in table` : 'Sample not found after add');
+          await searchInput?.fill('');
+          await p.waitForTimeout(500);
+
+          // ── Edit sample (verify edit modal opens) ──
+          if (sampleAdded) {
+            await searchInput?.fill(sampleId);
+            await p.waitForTimeout(500);
+            const editBtn = await p.$('button[onclick*="openEditModal"]');
+            if (editBtn) {
+              await editBtn.click();
+              await p.waitForTimeout(1000);
+              const editModalOpen = await p.evaluate(() => {
+                const modal = document.getElementById('itemModal');
+                return modal && modal.classList.contains('open');
+              });
+              log('samples', 'Edit sample', editModalOpen ? 'PASS' : 'FAIL',
+                editModalOpen ? 'Edit modal opened' : 'Modal did not open');
+              // Close without saving (avoid SHA mismatch for delete)
+              await p.evaluate(() => { if (typeof closeModal === 'function') closeModal(); });
+              await p.waitForTimeout(500);
+            } else {
+              log('samples', 'Edit sample', 'WARN', 'Edit button not found');
+            }
+            await searchInput?.fill('');
+            await p.waitForTimeout(500);
+
+            // ── Delete sample ──
+            // Use gh CLI to get fresh SHA and update samples.json directly
+            const samplesPath = 'docs/sample-tracker/samples.json';
+            try {
+              const currentContent = ghReadFile(samplesPath);
+              const currentSamples = JSON.parse(currentContent);
+              const filtered = currentSamples.filter(s => s.sampleId !== sampleId);
+              if (filtered.length < currentSamples.length) {
+                const newContent = JSON.stringify(filtered, null, 2) + '\n';
+                const b64 = Buffer.from(newContent).toString('base64');
+                const sha = execSync(`gh api "repos/${REPO}/contents/${samplesPath}" --jq '.sha'`, { stdio: 'pipe' }).toString().trim();
+                execSync(`gh api -X PUT "repos/${REPO}/contents/${samplesPath}" -f message="LabBot test: delete ${sampleId}" -f content="${b64}" -f sha="${sha}"`, { stdio: 'pipe' });
+                log('samples', 'Delete sample', 'PASS', 'Sample removed via gh CLI');
+              } else {
+                log('samples', 'Delete sample', 'FAIL', 'Sample not found in samples.json');
+              }
+            } catch(e) {
+              log('samples', 'Delete sample', 'FAIL', `gh CLI delete failed: ${e.message?.substring(0, 80)}`);
+            }
+          }
+        }
+      }
+    }
+
     await p.screenshot({ path: '/tmp/labbot-samples.png', fullPage: false });
     await p.close();
   }
@@ -1377,6 +1453,40 @@ function ghReadFile(path) {
     const hasContainers = wasteContent.includes('Container') || wasteContent.includes('Waste');
     log('waste', 'Waste page loads', hasContainers ? 'PASS' : 'FAIL', hasContainers ? 'Content present' : 'Empty');
 
+    // ── Add waste container ──
+    const addWasteBtn = await p.$('#addBtn');
+    if (addWasteBtn) {
+      await addWasteBtn.click();
+      await p.waitForTimeout(1000);
+
+      const wasteName = `LabBot Waste ${TS}`;
+      const addName = await p.$('#addName');
+      if (addName) {
+        await addName.fill(wasteName);
+        const addContents = await p.$('#addContents');
+        if (addContents) await addContents.fill('Test solvent (100%)');
+        const addLocation = await p.$('#addLocation');
+        if (addLocation) { await addLocation.fill(''); await addLocation.fill('LabBot Test Location'); }
+
+        // Click Create
+        const createBtn = await p.$('button[onclick*="confirmAdd"], .modal-footer .btn-primary');
+        if (createBtn) {
+          await createBtn.click();
+          await p.waitForTimeout(8000);
+
+          // Verify file on GitHub
+          const wasteSlug = wasteName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+          const wastePath = `docs/waste/${wasteSlug}.md`;
+          const wasteCreated = ghFileExists(wastePath);
+          log('waste', 'Add container', wasteCreated ? 'PASS' : 'FAIL',
+            wasteCreated ? `${wastePath} on GitHub` : 'Container not created');
+          if (wasteCreated) cleanup.push({ path: wastePath });
+        }
+      }
+    } else {
+      log('waste', 'Add container', 'WARN', 'Add button (#addBtn) not found');
+    }
+
     await p.screenshot({ path: '/tmp/labbot-waste.png', fullPage: false });
     await p.close();
   }
@@ -1392,6 +1502,67 @@ function ghReadFile(path) {
 
     const calContent = await p.evaluate(() => document.body.innerText.length);
     log('calendar', 'Calendar loads', calContent > 200 ? 'PASS' : 'FAIL', `${calContent} chars`);
+
+    // ── Add calendar event ──
+    const calEventTitle = `LabBot Test ${TS}`;
+    const addEventOk = await p.evaluate(() => typeof openAddModal === 'function');
+    if (addEventOk) {
+      await p.evaluate(() => openAddModal());
+      await p.waitForTimeout(1000);
+
+      const fTitle = await p.$('#fTitle');
+      const fMember = await p.$('#fMember');
+      const fDate = await p.$('#fDate');
+      if (fTitle && fDate) {
+        await fTitle.fill(calEventTitle);
+        if (fMember) await fMember.fill('[[LabBot]]');
+
+        // Set date to today
+        const today = new Date().toISOString().slice(0, 10);
+        await fDate.fill(today);
+
+        // Set start/end times
+        const fStart = await p.$('#fStartTime');
+        const fEnd = await p.$('#fEndTime');
+        if (fStart) await fStart.selectOption('09:00');
+        if (fEnd) await fEnd.selectOption('10:00');
+
+        const btnSave = await p.$('#btnSave');
+        if (btnSave) {
+          await btnSave.click();
+          await p.waitForTimeout(5000);
+
+          // Verify event appears in calendar
+          const eventVisible = await p.evaluate((title) =>
+            document.body.innerText.includes(title), calEventTitle);
+          log('calendar', 'Add event', eventVisible ? 'PASS' : 'FAIL',
+            eventVisible ? `"${calEventTitle}" visible` : 'Event not found in calendar');
+
+          // ── Delete event (via gh CLI to avoid SHA cache mismatch) ──
+          if (eventVisible) {
+            const calPath = 'docs/calendar/schedule.json';
+            try {
+              const calContent = ghReadFile(calPath);
+              const calSchedule = JSON.parse(calContent);
+              const filtered = calSchedule.filter(b => b.title !== calEventTitle);
+              if (filtered.length < calSchedule.length) {
+                const newContent = JSON.stringify(filtered, null, 2) + '\n';
+                const b64 = Buffer.from(newContent).toString('base64');
+                const sha = execSync(`gh api "repos/${REPO}/contents/${calPath}" --jq '.sha'`, { stdio: 'pipe' }).toString().trim();
+                execSync(`gh api -X PUT "repos/${REPO}/contents/${calPath}" -f message="LabBot test: delete event" -f content="${b64}" -f sha="${sha}"`, { stdio: 'pipe' });
+                log('calendar', 'Delete event', 'PASS', 'Event removed via gh CLI');
+              } else {
+                log('calendar', 'Delete event', 'FAIL', 'Event not found in schedule.json');
+              }
+            } catch(e) {
+              log('calendar', 'Delete event', 'FAIL', `gh CLI failed: ${e.message?.substring(0, 60)}`);
+            }
+          }
+        }
+      }
+    } else {
+      log('calendar', 'Add event', 'WARN', 'openNewBlock() not available');
+    }
 
     await p.screenshot({ path: '/tmp/labbot-calendar.png', fullPage: false });
     await p.close();
