@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 3,
+  "cycle": 4,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -212,6 +212,39 @@
         "Wiki: knowledge graph renders, search works, doc view loads content",
         "Projects: 4 folders (Alfalfa Pangenome, In-House Flongle, Mutation Accumulation, Pistachio Pangenome) — these are expandable folders, not direct-load items"
       ]
+    },
+    {
+      "cycle": 4,
+      "persona": "Vianney Ahn",
+      "modifier": "rushed",
+      "task": "Create daily notebook entry with extraction results, edit fast, stale data hunt (save + reload), double-click save, rapid navigation, notebook search",
+      "bugs": [
+        {
+          "id": "bug-2",
+          "severity": "high",
+          "description": "Notebook (and all pages) show stale content after save + reload. Root cause: GitHub CDN caches API responses for 60s (s-maxage=60). The browser's cache:'no-store' only prevents browser-level caching. On reload, fetchFile() GET returns the pre-edit version from CDN cache. Save itself works correctly (PUT writes data to GitHub). Fixed by adding &_t=Date.now() timestamp cache-buster to fetchFile/deleteFile URLs.",
+          "screenshot": "/tmp/qa-screenshots/cycle4-09b-stale.png",
+          "fixed": true,
+          "fix": "Added &_t=Date.now() to fetchFile() and deleteFile() API URLs in github-api.js"
+        }
+      ],
+      "observations": [
+        "Notebooks page: 9 folders visible (Alex Chen has 6 subfolders, Grey Monroe, Test Person)",
+        "New Entry modal: type (daily/blank), folder dropdown with 9 options, name auto-fills today's date",
+        "Daily template: all 4 sections present (Plan for today, What I did, Results & observations, Next steps)",
+        "Toast UI WYSIWYG editor initializes correctly via startEdit()",
+        "Keyboard typing into ProseMirror WYSIWYG works (must use evaluate+focus, not elementHandle.click)",
+        "getMarkdown() captures typed content correctly (underscores get backslash-escaped — normal markdown behavior)",
+        "Save completes successfully: exits edit mode, shows 'Saved' toast, renders content locally from editor markdown",
+        "STALE DATA BUG: After save + immediate reload, rendered view shows original template without edits",
+        "Debug confirmed: save PUT sends correct content to GitHub, file on GitHub has data, but subsequent GET returns stale CDN-cached response",
+        "Double-click save: button disabled immediately after first click — no race condition (good)",
+        "Rapid navigation (protocols → inventory → dashboard → notebooks): all pages load correctly even with 300ms waits",
+        "Notebook search by slug ('qa4'): correctly filters sidebar to 1 result",
+        "Notebook search by date partial ('2026-04'): returns 5 matching entries",
+        "Dashboard shows updated notebook count (9) and recent commits from QA test",
+        "All test artifacts cleaned up from GitHub"
+      ]
     }
   ],
   "bugs_found": [
@@ -222,6 +255,14 @@
       "page": "protocols",
       "status": "fixed",
       "fix": "Added cache: 'no-store' to fetchFile() and deleteFile() in app/js/github-api.js"
+    },
+    {
+      "id": "bug-2",
+      "severity": "high",
+      "description": "Notebook content lost on reload after save. GitHub CDN (s-maxage=60) serves stale API responses even with cache:'no-store' header. Save succeeds (data reaches GitHub) but subsequent fetchFile GET returns pre-edit content because CDN caches by URL. Affects all pages that save then immediately reload/re-fetch.",
+      "page": "notebooks (all editor pages affected)",
+      "status": "fixed",
+      "fix": "Added &_t=Date.now() timestamp cache-buster to fetchFile() and deleteFile() URLs in github-api.js to force CDN cache miss on every request"
     }
   ],
   "fixes_applied": [
@@ -231,6 +272,13 @@
       "file": "app/js/github-api.js",
       "description": "Added cache: 'no-store' to fetch() in fetchFile() and deleteFile() SHA lookup to prevent browser from serving stale GitHub API responses after saves",
       "cycle": 3
+    },
+    {
+      "id": "fix-2",
+      "bug": "bug-2",
+      "file": "app/js/github-api.js",
+      "description": "Added &_t=Date.now() timestamp parameter to fetchFile() and deleteFile() GitHub API URLs. cache:'no-store' only controls browser cache; GitHub CDN uses s-maxage=60 and ignores request cache headers. The timestamp makes each URL unique, forcing a CDN cache miss.",
+      "cycle": 4
     }
   ],
   "improvements_proposed": [
@@ -251,7 +299,12 @@
     "Hash fragment to nonexistent section → loads normally",
     "Back button through 4-page navigation history → correct at each step",
     "Search with typo ('prc' instead of 'PCR') → proper empty state on protocols",
-    "Search 'ethanol' on inventory → matches substrings (mercaptoethanol, methanol)"
+    "Search 'ethanol' on inventory → matches substrings (mercaptoethanol, methanol)",
+    "Notebook save + immediate reload → stale data (CDN cache), fixed with timestamp buster",
+    "Double-click save button → button disabled after first click (safe)",
+    "Rapid page navigation (protocols → inventory → notebooks) → all pages load correctly",
+    "Notebook search by slug → filters sidebar to matching entries",
+    "Notebook search by date partial → filters to date-matching entries"
   ],
   "screenshots_taken": [
     "/tmp/qa-screenshots/cycle1-dashboard.png",
@@ -316,7 +369,26 @@
     "/tmp/qa-screenshots/cycle3-19-wiki-search-library-prep.png",
     "/tmp/qa-screenshots/cycle3-20-wiki-doc-view.png",
     "/tmp/qa-screenshots/cycle3-21-projects.png",
-    "/tmp/qa-screenshots/cycle3-22-project-detail.png"
+    "/tmp/qa-screenshots/cycle3-22-project-detail.png",
+    "/tmp/qa-screenshots/cycle4-01-notebooks-landing.png",
+    "/tmp/qa-screenshots/cycle4-02-new-entry-modal.png",
+    "/tmp/qa-screenshots/cycle4-03-modal-filled.png",
+    "/tmp/qa-screenshots/cycle4-04-entry-created.png",
+    "/tmp/qa-screenshots/cycle4-05-editor-open.png",
+    "/tmp/qa-screenshots/cycle4-06-content-typed.png",
+    "/tmp/qa-screenshots/cycle4-07-saving.png",
+    "/tmp/qa-screenshots/cycle4-08-after-save.png",
+    "/tmp/qa-screenshots/cycle4-09-after-reload.png",
+    "/tmp/qa-screenshots/cycle4-09b-stale.png",
+    "/tmp/qa-screenshots/cycle4-11-second-edit.png",
+    "/tmp/qa-screenshots/cycle4-12-after-double-save.png",
+    "/tmp/qa-screenshots/cycle4-13-rapid-protocols.png",
+    "/tmp/qa-screenshots/cycle4-14-rapid-inventory.png",
+    "/tmp/qa-screenshots/cycle4-15-rapid-dashboard.png",
+    "/tmp/qa-screenshots/cycle4-16-back-to-notebooks.png",
+    "/tmp/qa-screenshots/cycle4-17-search-qa4.png",
+    "/tmp/qa-screenshots/cycle4-18-search-date.png",
+    "/tmp/qa-screenshots/cycle4-19-dashboard.png"
   ],
-  "notes": "Cycle 3 complete: Alex Chen (postdoc) + thorough modifier. Full protocol CRUD tested: create from template, edit with 16 procedural steps + 10 materials + notes, save (8/8 content checks), render (6/6 visual checks), duplicate. Found bug-1: duplicateDoc creates empty copy due to browser caching stale GitHub API responses. Fixed by adding cache:'no-store' to fetchFile() and deleteFile() in github-api.js. Inventory search works (ethanol 5 results, SMRTbell 0). Dashboard stats accurate. Wiki graph renders. Phase remains 'functional' — next cycle should test notebook CRUD more thoroughly and project page interaction."
+  "notes": "Cycle 4 complete: Vianney Ahn (grad student) + rushed modifier. Full notebook CRUD tested: create daily entry, edit with extraction data, save, stale data hunt. Found bug-2: GitHub CDN caches API responses for 60s (s-maxage=60), causing fetchFile() to return pre-edit content on reload even with cache:'no-store'. Fixed by adding &_t=Date.now() timestamp cache-buster to all fetchFile/deleteFile URLs. Double-click save safe (button disables). Notebook search works. Rapid navigation stable. Phase remains 'functional' — next cycle should test wiki/project CRUD, or move to edge_cases with adversarial/confused modifiers."
 }
