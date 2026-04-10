@@ -3176,5 +3176,19 @@
     "lastUpdated": "2026-03-29",
     "notes": "Runcie -80, top of our two shelves. Behind the 50mL tubes in a bag",
     "detailSheetLink": "Please create a sheet when you begin"
+  },
+  {
+    "id": 228,
+    "sampleId": "LABBOT-mnshijlp",
+    "project": "LabBot Test Project",
+    "species": "Testus boticus",
+    "lead": "",
+    "sequencingType": "HiFi",
+    "status": "Not yet received",
+    "priority": "",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-10",
+    "notes": "",
+    "detailSheetLink": ""
   }
 ]
