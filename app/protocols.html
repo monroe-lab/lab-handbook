@@ -948,69 +948,48 @@ function togglePrintPreview(btn) {
       : '<span class="material-icons-outlined">article</span> Print Preview';
   }
   if (active) {
-    // Save original HTML and paginate
-    rendered._origHTML = rendered.innerHTML;
     paginateContent(rendered);
   } else {
-    // Restore original
-    if (rendered._origHTML) {
-      rendered.innerHTML = rendered._origHTML;
-      delete rendered._origHTML;
-      // Re-process wikilinks
-      if (Lab.wikilinks) Lab.wikilinks.processRendered(rendered);
-      postProcessRendered(rendered);
-    }
+    // Remove break lines and inline styles
+    rendered.querySelectorAll('.print-page-break-line').forEach(function(el) { el.remove(); });
+    rendered.style.cssText = '';
   }
 }
 
 function paginateContent(container) {
-  // US Letter: 8.5x11in at 96dpi = 816x1056px; padding 72px each side
-  var CONTENT_H = 1056 - 72 * 2; // 912px usable per page
+  // US Letter at 96dpi: ~1056px height, 72px padding top/bottom → 912px usable
+  var PAGE_H = 912;
+  var PAD = 72;
+  var FULL_PAGE = PAGE_H + PAD * 2; // 1056px total page height
 
-  // Measure children in-place (they're already rendered with correct styles)
-  var children = Array.prototype.slice.call(container.children);
-  if (!children.length) return;
+  // Apply page container styling
+  container.style.padding = PAD + 'px';
+  container.style.background = '#fff';
+  container.style.boxShadow = '0 1px 6px rgba(0,0,0,.15)';
+  container.style.maxWidth = '850px';
+  container.style.margin = '0 auto';
+  container.style.position = 'relative';
+  container.style.boxSizing = 'border-box';
 
-  var containerTop = container.getBoundingClientRect().top;
-  var blocks = children.map(function(el) {
-    var rect = el.getBoundingClientRect();
-    var cs = getComputedStyle(el);
-    var mt = parseFloat(cs.marginTop) || 0;
-    var mb = parseFloat(cs.marginBottom) || 0;
-    return { node: el, top: rect.top - containerTop, height: rect.height + mt + mb };
-  });
+  // Wait a frame for layout to settle, then measure and insert break lines
+  requestAnimationFrame(function() {
+    var totalH = container.scrollHeight;
+    var pageCount = Math.max(1, Math.ceil(totalH / FULL_PAGE));
 
-  // Assign blocks to pages
-  var pages = [];
-  var currentPage = null;
-  var usedHeight = 0;
-
-  function newPage() {
-    currentPage = document.createElement('div');
-    currentPage.className = 'print-page';
-    pages.push(currentPage);
-    usedHeight = 0;
-  }
-  newPage();
-
-  for (var j = 0; j < blocks.length; j++) {
-    var b = blocks[j];
-    if (usedHeight > 0 && usedHeight + b.height > CONTENT_H) {
-      newPage();
+    for (var p = 1; p < pageCount; p++) {
+      var y = p * FULL_PAGE;
+      var line = document.createElement('div');
+      line.className = 'print-page-break-line';
+      line.style.cssText =
+        'position:absolute;left:-8px;right:-8px;top:' + y + 'px;' +
+        'height:40px;background:var(--grey-200);' +
+        'border-top:2px dashed var(--grey-400);border-bottom:2px dashed var(--grey-400);' +
+        'display:flex;align-items:center;justify-content:center;' +
+        'font-size:11px;color:var(--grey-500);letter-spacing:0.5px;z-index:2;';
+      line.textContent = 'page ' + p + ' / ' + pageCount;
+      container.appendChild(line);
     }
-    currentPage.appendChild(b.node);
-    usedHeight += b.height;
-  }
-
-  // Render pages
-  container.innerHTML = '';
-  for (var k = 0; k < pages.length; k++) {
-    container.appendChild(pages[k]);
-    var num = document.createElement('div');
-    num.className = 'print-page-number';
-    num.textContent = (k + 1) + ' / ' + pages.length;
-    pages[k].appendChild(num);
-  }
+  });
 }
 
 // Inject a new doc into the local NAV so sidebar updates immediately

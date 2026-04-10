@@ -425,34 +425,12 @@ tr:hover { background: var(--teal-50); }
 .print-preview-active .proto-content { max-width: 100% !important; padding: 0 !important; }
 .print-preview-active .proto-edit-bar { max-width: 850px; margin: 0 auto 0; padding: 8px 0; }
 .print-preview-active .lab-rendered {
-  background: transparent;
-  max-width: 850px;
-  margin: 0 auto;
-  padding: 0;
   font-size: 12pt;
   line-height: 1.5;
 }
 .print-preview-active .lab-rendered h1 { font-size: 18pt; }
 .print-preview-active .lab-rendered h2 { font-size: 15pt; }
 .print-preview-active .lab-rendered h3 { font-size: 13pt; }
-.print-page {
-  position: relative;
-  background: #fff;
-  width: 850px;
-  min-height: 1056px;
-  margin: 0 auto 24px;
-  padding: 72px;
-  box-shadow: 0 1px 6px rgba(0,0,0,.15);
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.print-page-number {
-  position: absolute;
-  bottom: 24px;
-  right: 36px;
-  font-size: 10px;
-  color: var(--grey-400);
-}
 
 /* Print styles for rendered markdown */
 @media print {
