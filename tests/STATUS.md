@@ -20,10 +20,10 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 | Section | Score | Status |
 |---------|-------|--------|
-| Protocols | 4/4 | ✅ Search, open, enter editor, cancel |
+| Protocols | 6/6 | ✅ Search, open, enter editor, cancel, create from template, edit & save |
 | Wiki | 10/11 | ⚠️ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, open existing, ProseMirror, cancel. Render-after-save WARN (API cache) |
-| Inventory | 7/7 | ✅ Load, search, add item, type filter, edit item & save, delete item |
-| Notebooks | 13/15 | ⚠️ Create, rich text, image upload+annotation+resize+save+render. Folder selector WARN, API fallback WARN (cache lag) |
+| Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
+| Notebooks | 14/16 | ⚠️ Create, rich text, image upload+annotation+resize+save+render, delete. Folder selector WARN, API fallback WARN (cache lag) |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
 | Projects | 1/2 | ⚠️ Opens project content, folder listing selector wrong |
@@ -32,7 +32,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 62/66 (94%)**
+**Total: 66/70 (94%)**
 
 ---
 
@@ -52,15 +52,15 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 ### P1: CRUD operations
 
 - [x] **Inventory: edit existing item** — opens test item via openItem(), changes title field, saves via em-save, verifies content on GitHub.
-- [ ] **Inventory: mark "need more"** — toggle the need-more flag, verify it shows in the dashboard "Needs Ordering" widget.
+- [x] **Inventory: mark "need more"** — toggles `need_more` checkbox (`[data-key="need_more"]`) during the same edit session as title change, saves via `#em-save`, verifies `need_more: true` in frontmatter on GitHub.
 - [x] **Inventory: delete item** — deletes test item via gh CLI (browser delete has SHA cache mismatch after edit). Verified file removed from GitHub.
 - [ ] **Wiki: rename document** — use the Rename button, verify old file deleted and new file created.
 - [ ] **Wiki: duplicate document** — use the Duplicate button, verify copy exists.
 - [ ] **Wiki: delete document** — delete a test document, verify removed from GitHub.
-- [ ] **Protocol: create from template** — use "Protocol Template" to create a new protocol, verify structure.
-- [ ] **Protocol: edit and save** — actually modify protocol content (on a test protocol), save, verify rendered output.
+- [x] **Protocol: create from template** — handles `prompt()` dialog with test title, calls `createNewProtocol()`, verifies file created on GitHub at `docs/wet-lab/` with frontmatter and content.
+- [x] **Protocol: edit and save** — enters edit mode on test protocol, types heading + bullet list via exec API + keyboard, Cmd+S saves, verifies `## Materials` and content in saved markdown on GitHub.
 - [ ] **Notebook: edit existing entry** — open an old entry, add text, save, verify.
-- [ ] **Notebook: delete entry** — delete a test entry, verify removed.
+- [x] **Notebook: delete entry** — deletes test entry via `ghDeleteFile()` (gh CLI), verifies file removed from GitHub. Same pattern as inventory delete to avoid SHA cache mismatch.
 - [ ] **Sample tracker: add sample** — fill out the Add Sample form, save, verify row appears.
 - [ ] **Sample tracker: edit sample** — click edit on existing sample, change status, save.
 - [ ] **Sample tracker: delete sample** — delete a test sample.

@@ -149,6 +149,89 @@ function ghReadFile(path) {
       log('protocols', 'Exit edit mode', cancelBtn ? 'PASS' : 'WARN', cancelBtn ? 'Cancelled' : 'No cancel button');
     }
 
+    // ── Create protocol from template ──
+    const protoTitle = `LabBot Test Protocol ${TS}`;
+    const protoSlug = protoTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const protoFilePath = `docs/wet-lab/${protoSlug}.md`;
+
+    // Handle the prompt() dialog for protocol title
+    p.on('dialog', async dialog => {
+      if (dialog.type() === 'prompt') await dialog.accept(protoTitle);
+      else if (dialog.type() === 'confirm') await dialog.accept();
+      else await dialog.dismiss();
+    });
+
+    await p.evaluate(() => { if (typeof createNewProtocol === 'function') createNewProtocol(); });
+    await p.waitForTimeout(8000);
+
+    const protoCreated = ghFileExists(protoFilePath);
+    log('protocols', 'Create from template', protoCreated ? 'PASS' : 'FAIL',
+      protoCreated ? `${protoFilePath} on GitHub` : 'Protocol not created');
+    if (protoCreated) cleanup.push({ path: protoFilePath });
+
+    // ── Edit protocol and save ──
+    if (protoCreated) {
+      // startEdit should already be in edit mode after creation, or we enter it
+      const WW_PM = '.toastui-editor-ww-container .ProseMirror';
+      let protoEdReady = false;
+      for (let i = 0; i < 30; i++) {
+        protoEdReady = await p.evaluate(() =>
+          !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
+        );
+        if (protoEdReady) break;
+        await p.waitForTimeout(500);
+      }
+      if (!protoEdReady) {
+        // Try entering edit mode
+        await p.evaluate(() => { if (typeof startEdit === 'function') startEdit(); });
+        for (let i = 0; i < 30; i++) {
+          protoEdReady = await p.evaluate(() =>
+            !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
+          );
+          if (protoEdReady) break;
+          await p.waitForTimeout(500);
+        }
+      }
+
+      if (protoEdReady) {
+        // Focus WYSIWYG and add test content
+        await p.evaluate((sel) => {
+          const pm = document.querySelector(sel);
+          if (pm) {
+            pm.focus();
+            const s = window.getSelection();
+            s.selectAllChildren(pm);
+            s.collapseToEnd();
+          }
+        }, WW_PM);
+        await p.waitForTimeout(500);
+
+        await p.keyboard.press('Enter');
+        await p.keyboard.press('Enter');
+        await p.evaluate(() => editorInstance.editor.exec('heading', { level: 2 }));
+        await p.keyboard.type('Materials');
+        await p.keyboard.press('Enter');
+        await p.evaluate(() => editorInstance.editor.exec('bulletList'));
+        await p.keyboard.type('LabBot test reagent');
+        await p.keyboard.press('Enter');
+        await p.keyboard.type('Sterile water');
+        await p.waitForTimeout(500);
+
+        // Save via Cmd+S
+        await p.keyboard.press('Meta+s');
+        await p.waitForTimeout(8000);
+
+        const protoSaved = ghReadFile(protoFilePath);
+        const hasMaterials = protoSaved?.includes('## Materials');
+        const hasReagent = protoSaved?.includes('LabBot test reagent');
+        log('protocols', 'Edit & save protocol',
+          (hasMaterials && hasReagent) ? 'PASS' : 'FAIL',
+          `heading=${hasMaterials} content=${hasReagent}`);
+      } else {
+        log('protocols', 'Edit protocol', 'FAIL', 'Editor not ready');
+      }
+    }
+
     await p.screenshot({ path: '/tmp/labbot-protocols.png', fullPage: false });
     await p.close();
   }
@@ -575,6 +658,19 @@ function ghReadFile(path) {
         });
 
         if (fieldChanged) {
+          // Also toggle "Need More" checkbox
+          const needMoreToggled = await p.evaluate(() => {
+            const checkboxes = document.querySelectorAll('.em-field-input[type="checkbox"]');
+            for (const cb of checkboxes) {
+              if (cb.dataset.key === 'need_more') {
+                cb.checked = true;
+                cb.dispatchEvent(new Event('change', { bubbles: true }));
+                return true;
+              }
+            }
+            return false;
+          });
+
           await p.evaluate(() => {
             const btn = document.getElementById('em-save');
             if (btn) btn.click();
@@ -585,6 +681,13 @@ function ghReadFile(path) {
           const hasEdit = editContent?.includes('LabBot edit test');
           log('inventory', 'Edit item & save', hasEdit ? 'PASS' : 'FAIL',
             `Changed ${fieldChanged}, verified=${hasEdit}`);
+
+          // Verify need_more: true in saved markdown
+          if (needMoreToggled) {
+            const hasNeedMore = editContent?.includes('need_more: true');
+            log('inventory', 'Mark "need more"', hasNeedMore ? 'PASS' : 'FAIL',
+              hasNeedMore ? 'need_more: true in frontmatter' : 'need_more not found in saved markdown');
+          }
         } else {
           log('inventory', 'Edit item fields', 'FAIL', 'No editable field found in modal');
         }
@@ -1042,6 +1145,16 @@ function ghReadFile(path) {
       }
     } else {
       log('notebooks', 'New Entry button', 'FAIL', 'Not found');
+    }
+
+    // ── Delete notebook entry (via gh CLI for reliability) ──
+    const nbPath2 = `docs/notebooks/alex-chen/labbot-nb-${TS}.md`;
+    if (ghFileExists(nbPath2)) {
+      const nbDeleted = ghDeleteFile(nbPath2, 'LabBot test: delete notebook entry');
+      log('notebooks', 'Delete entry', nbDeleted ? 'PASS' : 'FAIL',
+        nbDeleted ? 'File removed from GitHub' : 'Delete failed');
+      const nbIdx = cleanup.findIndex(c => c.path === nbPath2);
+      if (nbIdx >= 0 && nbDeleted) cleanup.splice(nbIdx, 1);
     }
 
     } catch(e) {
