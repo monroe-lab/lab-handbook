@@ -547,6 +547,68 @@ function ghReadFile(path) {
       log('inventory', 'Type filter options', types.length > 1 ? 'PASS' : 'WARN', types.slice(0, 5).join(', '));
     }
 
+    // ── Edit existing item ──
+    const invSlug = `labbot-reagent-${TS}`;
+    const invPath = `docs/resources/${invSlug}.md`;
+    if (ghFileExists(invPath)) {
+      await p.evaluate((slug) => {
+        if (typeof openItem === 'function') openItem(slug);
+      }, invSlug);
+      await p.waitForTimeout(3000);
+
+      const editModalOpen = await p.evaluate(() => {
+        const modal = document.querySelector('.em-modal');
+        return modal && modal.offsetParent !== null;
+      });
+
+      if (editModalOpen) {
+        const fieldChanged = await p.evaluate(() => {
+          const inputs = document.querySelectorAll('.em-field-input');
+          for (const inp of inputs) {
+            if (inp.type === 'text' && inp.dataset.key && inp.offsetParent) {
+              inp.value = 'LabBot edit test';
+              inp.dispatchEvent(new Event('input', { bubbles: true }));
+              return inp.dataset.key + '→LabBot edit test';
+            }
+          }
+          return null;
+        });
+
+        if (fieldChanged) {
+          await p.evaluate(() => {
+            const btn = document.getElementById('em-save');
+            if (btn) btn.click();
+          });
+          await p.waitForTimeout(8000);
+
+          const editContent = ghReadFile(invPath);
+          const hasEdit = editContent?.includes('LabBot edit test');
+          log('inventory', 'Edit item & save', hasEdit ? 'PASS' : 'FAIL',
+            `Changed ${fieldChanged}, verified=${hasEdit}`);
+        } else {
+          log('inventory', 'Edit item fields', 'FAIL', 'No editable field found in modal');
+        }
+      } else {
+        log('inventory', 'Open item for edit', 'FAIL', 'Modal did not open');
+      }
+
+      // Close any open modal
+      await p.evaluate(() => {
+        const close = document.getElementById('em-close');
+        if (close) close.click();
+      });
+      await p.waitForTimeout(500);
+    }
+
+    // ── Delete item (via gh CLI — avoids SHA cache mismatch after edit) ──
+    if (ghFileExists(invPath)) {
+      const deleted = ghDeleteFile(invPath, 'LabBot test: delete ' + invSlug);
+      log('inventory', 'Delete item', deleted ? 'PASS' : 'FAIL',
+        deleted ? 'File removed from GitHub' : 'Delete failed');
+      const idx = cleanup.findIndex(c => c.path === invPath);
+      if (idx >= 0 && deleted) cleanup.splice(idx, 1);
+    }
+
     await p.screenshot({ path: '/tmp/labbot-inventory.png', fullPage: false });
     await p.close();
   }

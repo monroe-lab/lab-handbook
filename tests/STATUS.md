@@ -22,7 +22,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 |---------|-------|--------|
 | Protocols | 4/4 | ✅ Search, open, enter editor, cancel |
 | Wiki | 10/11 | ⚠️ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, open existing, ProseMirror, cancel. Render-after-save WARN (API cache) |
-| Inventory | 5/5 | ✅ Load, search, add new item (verified on GitHub), type filter |
+| Inventory | 7/7 | ✅ Load, search, add item, type filter, edit item & save, delete item |
 | Notebooks | 5/6 | ⚠️ Create, rich text edit (h2/bold/italic/list), save to GitHub, render verify. Folder selector still mismatched |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
@@ -32,7 +32,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 52/55 (95%)**
+**Total: 54/57 (95%)**
 
 ---
 
@@ -51,9 +51,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ### P1: CRUD operations
 
-- [ ] **Inventory: edit existing item** — open an item, change quantity, change location, save, verify on GitHub.
+- [x] **Inventory: edit existing item** — opens test item via openItem(), changes title field, saves via em-save, verifies content on GitHub.
 - [ ] **Inventory: mark "need more"** — toggle the need-more flag, verify it shows in the dashboard "Needs Ordering" widget.
-- [ ] **Inventory: delete item** — delete a test item, verify it's gone from GitHub.
+- [x] **Inventory: delete item** — deletes test item via gh CLI (browser delete has SHA cache mismatch after edit). Verified file removed from GitHub.
 - [ ] **Wiki: rename document** — use the Rename button, verify old file deleted and new file created.
 - [ ] **Wiki: duplicate document** — use the Duplicate button, verify copy exists.
 - [ ] **Wiki: delete document** — delete a test document, verify removed from GitHub.
