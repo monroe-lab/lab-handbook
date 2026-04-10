@@ -95,9 +95,24 @@
     history.replaceState(null, '', url.toString());
   }
 
+  // ── Offline detection ──
+  function isOffline() { return typeof navigator !== 'undefined' && !navigator.onLine; }
+
+  function offlineAwareFetch(url, options) {
+    if (isOffline()) {
+      return Promise.reject(new Error('You appear to be offline. Check your connection and try again.'));
+    }
+    return fetch(url, options).catch(function(e) {
+      if (e instanceof TypeError && /fetch|network/i.test(e.message)) {
+        throw new Error('Network error — you may be offline. Check your connection and try again.');
+      }
+      throw e;
+    });
+  }
+
   // ── File Operations ──
   async function fetchFile(path) {
-    var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
+    var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
     if (!resp.ok) throw new Error('Failed to load ' + path + ' (HTTP ' + resp.status + ')');
     var data = await resp.json();
     return {
@@ -114,7 +129,7 @@
     var body = { message: message || 'Update ' + path, content: encoded, branch: BRANCH };
     if (sha) body.sha = sha;
 
-    var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path, {
+    var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path, {
       method: 'PUT',
       headers: { ...authHeaders(), 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -133,7 +148,7 @@
 
     // Get SHA if not provided
     if (!sha) {
-      var resp = await fetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
+      var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
       if (resp.ok) {
         var data = await resp.json();
         sha = data.sha;
@@ -142,7 +157,7 @@
       }
     }
 
-    var delResp = await fetch(API + '/repos/' + REPO + '/contents/' + path, {
+    var delResp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path, {
       method: 'DELETE',
       headers: { ...authHeaders(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: message || 'Delete ' + path, sha: sha, branch: BRANCH })
@@ -154,7 +169,7 @@
   }
 
   async function fetchTree(path) {
-    var resp = await fetch(API + '/repos/' + REPO + '/git/trees/' + BRANCH + '?recursive=1', { headers: authHeaders() });
+    var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/git/trees/' + BRANCH + '?recursive=1', { headers: authHeaders() });
     if (!resp.ok) throw new Error('Failed to load tree');
     var data = await resp.json();
     var files = data.tree.filter(function(t) { return t.type === 'blob'; }).map(function(t) { return t.path; });
