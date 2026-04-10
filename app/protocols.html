@@ -961,130 +961,133 @@ function showPrintPreview(rendered) {
   // Hide original content
   rendered.style.display = 'none';
 
-  // Create an iframe that renders content with print styles as screen styles
   var iframe = document.createElement('iframe');
   iframe.id = 'print-preview-frame';
-  iframe.style.cssText =
-    'width:100%;border:none;display:block;background:var(--grey-200);';
+  iframe.style.cssText = 'width:100%;border:none;display:block;background:#e5e7eb;';
   rendered.parentNode.insertBefore(iframe, rendered.nextSibling);
 
-  var html = rendered.innerHTML;
+  // Write to iframe via DOM after it loads — avoids string-escaping issues
+  iframe.addEventListener('load', function() {
+    var idoc = iframe.contentDocument;
 
-  // Build a standalone page with print-like styling baked in
-  var doc = '<!DOCTYPE html><html><head><style>' +
-    // Reset
-    '*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }' +
-    // Page simulation
-    'html { background: #e5e7eb; }' +
-    'body { background: #e5e7eb; padding: 24px 0; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }' +
-    '.page { background: #fff; width: 8.5in; min-height: 11in; margin: 0 auto 24px; padding: 0.75in 1in; ' +
-      'box-shadow: 0 1px 6px rgba(0,0,0,.15); position: relative; }' +
-    '.page-number { position: absolute; bottom: 0.4in; right: 0.75in; font-size: 9pt; color: #999; }' +
-    // Content styles (matches @media print CSS)
-    '.content { font-size: 12pt; line-height: 1.5; color: #1a1a1a; columns: auto; }' +
-    '.content p { margin: 8pt 0; }' +
-    '.content h1 { font-size: 18pt; font-weight: 700; margin: 0 0 10pt; border-bottom: 1pt solid #999; padding-bottom: 8pt; }' +
-    '.content h2 { font-size: 15pt; font-weight: 600; margin: 20pt 0 8pt; }' +
-    '.content h3 { font-size: 13pt; font-weight: 600; margin: 16pt 0 6pt; }' +
-    '.content h4 { font-size: 12pt; font-weight: 600; margin: 14pt 0 4pt; }' +
-    '.content table { border-collapse: collapse; width: 100%; margin: 10pt 0; page-break-inside: avoid; }' +
-    '.content td, .content th { border: 1px solid #ccc; padding: 4pt 8pt; font-size: 10pt; }' +
-    '.content thead th { background: #f5f5f5; font-weight: 600; }' +
-    '.content ul, .content ol { padding-left: 20pt; margin: 6pt 0; }' +
-    '.content li { margin: 3pt 0; }' +
-    '.content code { background: #f3f4f6; padding: 1pt 4pt; border-radius: 3pt; font-size: 10pt; }' +
-    '.content pre { background: #1a1a1a; color: #e0e0e0; padding: 10pt; border-radius: 4pt; overflow-x: auto; margin: 10pt 0; font-size: 9pt; white-space: pre-wrap; word-wrap: break-word; border: 1px solid #ccc; }' +
-    '.content pre code { background: transparent; padding: 0; color: inherit; }' +
-    '.content blockquote { border-left: 3pt solid #009688; padding: 6pt 12pt; margin: 10pt 0; background: #f0f9f7; }' +
-    '.content img { max-width: 100%; border-radius: 4pt; margin: 6pt 0; }' +
-    '.content hr { border: none; border-top: 1px solid #ccc; margin: 16pt 0; }' +
-    '.content a { color: #00695c; }' +
-    '.content details { margin: 6pt 0; }' +
-    '.content details[open] summary { margin-bottom: 6pt; }' +
-    '.content summary { font-weight: 600; cursor: pointer; }' +
-    // Object pills — simplified for print
-    '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; font-size: inherit !important; box-shadow: none !important; }' +
-    '</style></head><body><div id="pages"></div>' +
-    '<script>' +
-    'var content = document.createElement("div");' +
-    'content.className = "content";' +
-    'content.innerHTML = ' + JSON.stringify(html) + ';' +
-    // Open all <details> so content is measurable
-    'content.querySelectorAll("details").forEach(function(d) { d.open = true; });' +
-    // Temporarily add to body to measure
-    'document.body.appendChild(content);' +
-    // Page height in px: 11in at 96dpi = 1056px, margins 0.75in*2 = 144px → 912px usable
-    'var PAGE_H = 912;' +
-    'var pages = document.getElementById("pages");' +
-    'var currentPage = makePage(1);' +
-    'var usedH = 0;' +
-    'var pageNum = 1;' +
-    'function makePage(n) {' +
-    '  var p = document.createElement("div");' +
-    '  p.className = "page";' +
-    '  var c = document.createElement("div");' +
-    '  c.className = "content";' +
-    '  p.appendChild(c);' +
-    '  pages.appendChild(p);' +
-    '  return p;' +
-    '}' +
-    // Collect all block-level children recursively from the content
-    // But we want the leaf blocks — the ones that contain text, not wrappers
-    'function getBlocks(el) {' +
-    '  var result = [];' +
-    '  for (var i = 0; i < el.childNodes.length; i++) {' +
-    '    var child = el.childNodes[i];' +
-    '    if (child.nodeType === 3) {' +
-    '      if (child.textContent.trim()) result.push(child);' +
-    '    } else if (child.nodeType === 1) {' +
-    '      var tag = child.tagName;' +
-    '      if (tag === "DETAILS" || tag === "DIV" || tag === "SECTION") {' +
-    '        result = result.concat(getBlocks(child));' +
-    '      } else {' +
-    '        result.push(child);' +
-    '      }' +
-    '    }' +
-    '  }' +
-    '  return result;' +
-    '}' +
-    'var blocks = getBlocks(content);' +
-    // Measure each block and assign to pages
-    'blocks.forEach(function(block) {' +
-    '  var h = block.nodeType === 1 ? block.offsetHeight : 20;' +
-    '  var cs = block.nodeType === 1 ? getComputedStyle(block) : null;' +
-    '  if (cs) h += (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0);' +
-    '  if (usedH > 0 && usedH + h > PAGE_H) {' +
-    '    pageNum++;' +
-    '    currentPage = makePage(pageNum);' +
-    '    usedH = 0;' +
-    '  }' +
-    '  currentPage.querySelector(".content").appendChild(block);' +
-    '  usedH += h;' +
-    '});' +
-    // Remove temp container
-    'content.remove();' +
-    // Add page numbers
-    'var allPages = document.querySelectorAll(".page");' +
-    'var total = allPages.length;' +
-    'allPages.forEach(function(p, i) {' +
-    '  var num = document.createElement("div");' +
-    '  num.className = "page-number";' +
-    '  num.textContent = (i + 1) + " of " + total;' +
-    '  p.appendChild(num);' +
-    '});' +
-    // Resize iframe to fit
-    'window.parent.postMessage({ type: "print-preview-height", height: document.body.scrollHeight + 48 }, "*");' +
-    '</script></body></html>';
+    // Inject styles
+    var style = idoc.createElement('style');
+    style.textContent =
+      '*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }' +
+      'html, body { background: #e5e7eb; margin: 0; padding: 24px 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }' +
+      '.page { background: #fff; width: 8.5in; min-height: 11in; margin: 0 auto 24px; padding: 0.75in 1in; box-shadow: 0 1px 6px rgba(0,0,0,.15); position: relative; }' +
+      '.page-number { position: absolute; bottom: 0.4in; right: 0.75in; font-size: 9pt; color: #999; }' +
+      '.content { font-size: 12pt; line-height: 1.5; color: #1a1a1a; }' +
+      '.content p { margin: 8pt 0; }' +
+      '.content h1 { font-size: 18pt; font-weight: 700; margin: 0 0 10pt; border-bottom: 1pt solid #999; padding-bottom: 8pt; }' +
+      '.content h2 { font-size: 15pt; font-weight: 600; margin: 20pt 0 8pt; }' +
+      '.content h3 { font-size: 13pt; font-weight: 600; margin: 16pt 0 6pt; }' +
+      '.content h4 { font-size: 12pt; font-weight: 600; margin: 14pt 0 4pt; }' +
+      '.content table { border-collapse: collapse; width: 100%; margin: 10pt 0; }' +
+      '.content td, .content th { border: 1px solid #ccc; padding: 4pt 8pt; font-size: 10pt; }' +
+      '.content thead th { background: #f5f5f5; font-weight: 600; }' +
+      '.content ul, .content ol { padding-left: 20pt; margin: 6pt 0; }' +
+      '.content li { margin: 3pt 0; }' +
+      '.content code { background: #f3f4f6; padding: 1pt 4pt; border-radius: 3pt; font-size: 10pt; }' +
+      '.content pre { background: #1a1a1a; color: #e0e0e0; padding: 10pt; border-radius: 4pt; margin: 10pt 0; font-size: 9pt; white-space: pre-wrap; word-wrap: break-word; }' +
+      '.content pre code { background: transparent; padding: 0; color: inherit; }' +
+      '.content blockquote { border-left: 3pt solid #009688; padding: 6pt 12pt; margin: 10pt 0; background: #f0f9f7; }' +
+      '.content img { max-width: 100%; border-radius: 4pt; margin: 6pt 0; }' +
+      '.content hr { border: none; border-top: 1px solid #ccc; margin: 16pt 0; }' +
+      '.content a { color: #00695c; text-decoration: none; }' +
+      '.content details { margin: 6pt 0; }' +
+      '.content details[open] summary { margin-bottom: 6pt; }' +
+      '.content summary { font-weight: 600; cursor: pointer; }' +
+      '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; font-size: inherit !important; box-shadow: none !important; }';
+    idoc.head.appendChild(style);
 
-  iframe.srcdoc = doc;
+    // Create measuring container with the rendered HTML
+    var content = idoc.createElement('div');
+    content.className = 'content';
+    content.innerHTML = rendered.innerHTML;
+    content.querySelectorAll('details').forEach(function(d) { d.open = true; });
+    idoc.body.appendChild(content);
 
-  // Listen for height message from iframe
-  window.addEventListener('message', function handler(e) {
-    if (e.data && e.data.type === 'print-preview-height') {
-      iframe.style.height = e.data.height + 'px';
-      window.removeEventListener('message', handler);
+    // Unwrap containers to get leaf block elements
+    function getBlocks(el) {
+      var result = [];
+      for (var i = 0; i < el.childNodes.length; i++) {
+        var child = el.childNodes[i];
+        if (child.nodeType === 3) {
+          if (child.textContent.trim()) result.push(child);
+        } else if (child.nodeType === 1) {
+          var tag = child.tagName;
+          if (tag === 'DETAILS' || tag === 'DIV' || tag === 'SECTION') {
+            // For DETAILS, keep the summary but unwrap the rest
+            if (tag === 'DETAILS') {
+              var sum = child.querySelector('summary');
+              if (sum) result.push(sum);
+              var inner = child.querySelector('div') || child;
+              result = result.concat(getBlocks(inner === child ? child : inner));
+            } else {
+              result = result.concat(getBlocks(child));
+            }
+          } else {
+            result.push(child);
+          }
+        }
+      }
+      return result;
     }
+
+    var blocks = getBlocks(content);
+    var PAGE_H = 912; // 11in - 1.5in margins at 96dpi
+
+    // Build pages
+    var pagesDiv = idoc.createElement('div');
+    var pageNum = 0;
+    var currentContent = null;
+    var usedH = 0;
+
+    function newPage() {
+      pageNum++;
+      var page = idoc.createElement('div');
+      page.className = 'page';
+      currentContent = idoc.createElement('div');
+      currentContent.className = 'content';
+      page.appendChild(currentContent);
+      pagesDiv.appendChild(page);
+      usedH = 0;
+    }
+    newPage();
+
+    blocks.forEach(function(block) {
+      var h = block.nodeType === 1 ? block.offsetHeight : 20;
+      if (block.nodeType === 1) {
+        var cs = idoc.defaultView.getComputedStyle(block);
+        h += (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0);
+      }
+      if (usedH > 0 && usedH + h > PAGE_H) newPage();
+      currentContent.appendChild(block);
+      usedH += h;
+    });
+
+    content.remove();
+
+    // Add page numbers
+    var allPages = pagesDiv.querySelectorAll('.page');
+    var total = allPages.length;
+    allPages.forEach(function(p, i) {
+      var num = idoc.createElement('div');
+      num.className = 'page-number';
+      num.textContent = (i + 1) + ' of ' + total;
+      p.appendChild(num);
+    });
+
+    idoc.body.innerHTML = '';
+    idoc.body.appendChild(pagesDiv);
+
+    // Resize iframe to fit content
+    iframe.style.height = (idoc.body.scrollHeight + 48) + 'px';
   });
+
+  // Trigger load by writing a blank doc
+  iframe.src = 'about:blank';
 }
 
 // Inject a new doc into the local NAV so sidebar updates immediately
