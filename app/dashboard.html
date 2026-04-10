@@ -356,7 +356,7 @@
 
   // ── Init ──
   function init() {
-    fetch(BASE + 'docs/object-index.json')
+    fetch(BASE + 'object-index.json')
       .then(function(r) { return r.json(); })
       .then(function(objects) {
         loadStats(objects);
