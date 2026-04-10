@@ -1,6 +1,6 @@
 {
-  "phase": "exploration",
-  "cycle": 0,
+  "phase": "functional",
+  "cycle": 1,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -104,13 +104,76 @@
     "Stale data hunt: Save something, immediately reload, check if content matches",
     "Image-heavy notebook: Upload 5 images in one entry, annotate 3, resize 2, save, verify all render"
   ],
-  "routes_discovered": [],
-  "routes_tested": [],
-  "workflows_tested": [],
+  "routes_discovered": [
+    { "name": "dashboard", "path": "/app/dashboard.html", "status": 200, "notes": "Stats cards, needs ordering, recent updates, bulletin board, knowledge graph mini" },
+    { "name": "protocols", "path": "/app/protocols.html", "status": 200, "notes": "Sidebar with categories (8 groups, 77 total), search, create button" },
+    { "name": "wiki", "path": "/app/wiki.html", "status": 200, "notes": "308 documents, 556 links, type filter pills, interactive graph, folder tree sidebar" },
+    { "name": "notebooks", "path": "/app/notebooks.html", "status": 200, "notes": "Folder-per-person (Alex Chen 5, Grey Monroe 2, Test Person 0), New Entry button, recent entries" },
+    { "name": "inventory", "path": "/app/inventory.html", "status": 200, "notes": "Full table, 200+ items, search, filters, add button" },
+    { "name": "projects", "path": "/app/projects.html", "status": 200, "notes": "4 projects: Alfalfa Pangenome, In-House Flongle, Mutation Accumulation, Pistachio Pangenome" },
+    { "name": "lab-map", "path": "/app/lab-map.html", "status": 200, "notes": "Interactive floor plan, Robbins Hall 0170, storage locations with item counts" },
+    { "name": "waste", "path": "/app/waste.html", "status": 200, "notes": "3 active containers, days held tracking, status badges, waste tag numbers" },
+    { "name": "graph", "path": "/app/graph.html", "status": 200, "notes": "Full knowledge graph, 293 objects, 555 connections, type-colored legend" },
+    { "name": "samples", "path": "/sample-tracker/", "status": 200, "notes": "Sample tracker table, MkDocs-based page" },
+    { "name": "calendar", "path": "/calendar/", "status": 200, "notes": "Weekly view, member filter, Add Block button, scheduled lab activities" },
+    { "name": "mkdocs-home", "path": "/", "status": 200, "notes": "Redirects to dashboard (same content)" }
+  ],
+  "routes_tested": [
+    "dashboard", "protocols", "wiki", "notebooks", "inventory", "projects",
+    "lab-map", "waste", "graph", "samples", "calendar", "mkdocs-home"
+  ],
+  "workflows_tested": [
+    {
+      "cycle": 1,
+      "persona": "Dr. Monroe",
+      "modifier": "careful",
+      "task": "Review dashboard: are stats correct? Recent updates make sense? + Full site exploration",
+      "bugs": [
+        {
+          "id": "info-1",
+          "severity": "info",
+          "description": "Legacy /editor/ and /inventory-app/ routes return 404 — these were migrated to app/ pages. CLAUDE.md still references them but they don't exist on the live site.",
+          "screenshot": "/tmp/qa-screenshots/cycle1-editor-legacy.png"
+        }
+      ],
+      "observations": [
+        "All 12 routes load successfully with HTTP 200",
+        "Nav is consistent across all pages: 10 top items + 4 bottom items",
+        "Dashboard stats: 77 protocols, 207 resources, 3 stocks, 3 people, 6 projects, 7 notebooks",
+        "Needs Ordering shows 1 item: Native Barcoding Kit 24 V14",
+        "Bulletin board has Orders Needed, Announcements, Notes sections",
+        "Recent Updates shows LabBot cleanup commits from prior test run",
+        "Knowledge graph mini visualization on dashboard works",
+        "Calendar shows Apr 6-10 2026 week with multiple lab blocks",
+        "Waste tracker shows 3 containers, 2 at 192 days held (approaching 9mo limit)",
+        "All pages have proper titles and auth works correctly"
+      ]
+    }
+  ],
   "bugs_found": [],
   "fixes_applied": [],
-  "improvements_proposed": [],
+  "improvements_proposed": [
+    {
+      "id": "imp-1",
+      "description": "Waste containers at 192 days (Paraquat Solid Waste, Paraquat Wash Waste) are approaching the 9-month (270 day) regulatory limit. The UI shows 'In Accumulation' status but no visual warning for aging containers.",
+      "priority": "low"
+    }
+  ],
   "edge_cases_tested": [],
-  "screenshots_taken": [],
-  "notes": "Initial state. First cycle should explore all routes and take baseline screenshots. Each cycle: pick a random persona + random modifier + random task or scenario card."
+  "screenshots_taken": [
+    "/tmp/qa-screenshots/cycle1-dashboard.png",
+    "/tmp/qa-screenshots/cycle1-protocols.png",
+    "/tmp/qa-screenshots/cycle1-wiki.png",
+    "/tmp/qa-screenshots/cycle1-notebooks.png",
+    "/tmp/qa-screenshots/cycle1-inventory.png",
+    "/tmp/qa-screenshots/cycle1-projects.png",
+    "/tmp/qa-screenshots/cycle1-lab-map.png",
+    "/tmp/qa-screenshots/cycle1-waste.png",
+    "/tmp/qa-screenshots/cycle1-graph.png",
+    "/tmp/qa-screenshots/cycle1-mkdocs-home.png",
+    "/tmp/qa-screenshots/cycle1-dashboard-deep.png",
+    "/tmp/qa-screenshots/cycle1-samples.png",
+    "/tmp/qa-screenshots/cycle1-calendar.png"
+  ],
+  "notes": "Cycle 1 complete: full exploration done. All 12 routes discovered and baselined. No blocking bugs found. Phase advanced to 'functional' for CRUD testing in next cycles."
 }
