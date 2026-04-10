@@ -5,6 +5,15 @@ title: "Planting Arabidopsis in Soil"
 
 # Planting Arabidopsis in Soil
 
+
+## Resources
+
+**Equipment:** [[growth-chamber]]
+
+**Reagents:** [[glufosinate-ammonium]], [[silwet-l-77]]
+
+**Related Protocols:** [[planting-arabidopsis-on-ms-plates]], [[stratification]], [[seed-sterilization]]
+
 **Purpose:** Direct sowing in soil for growing plants to maturity (flowering, crossing, seed set).
 
 ---

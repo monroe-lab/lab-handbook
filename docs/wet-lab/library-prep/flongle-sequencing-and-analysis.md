@@ -5,6 +5,19 @@ title: "Flongle Sequencing and Read-Length Analysis"
 
 # Flongle Sequencing and Read-Length Analysis
 
+
+## Resources
+
+**Equipment:** [[femtopulse]], [[minion-mk1b]]
+
+**Kits:** [[flongle-starter-pack]], [[flow-cell-wash-kit-exp-wsh004]], [[sqk-nbd114-24]]
+
+**Reagents:** [[ampure-xp-beads]], [[bovine-serum-albumin-50mg-ml]], [[mes-buffer]], [[nuclease-free-water]]
+
+**Consumables:** [[flongle-flow-cells-flo-flg114]]
+
+**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[ot2-automated-nbd114-prep]], [[illumina-library-qc-on-flongle]], [[in-house-hifi-shearing-pipeline]]
+
 **Purpose:** Run a multiplexed library on a [[flongle-flow-cells-flo-flg114]] in the [[minion-mk1b]], demultiplex with Dorado, and produce per-sample read-length histograms for go/no-go decisions. Final step of the [[in-house-hifi-shearing-pipeline]]. Input can come from any NBD114.24 library prep variant: [[ot2-automated-nbd114-prep]] (default production), [[nbd114-multiplexed-flongle-prep]] (manual fallback), or [[illumina-library-qc-on-flongle]] (stretch use case at 1.8× AMPure).
 
 **Source:** Oxford Nanopore [Flongle quick start](https://store.nanoporetech.com/us/flongle-starter-pack-2.html), MinKNOW documentation (Nanopore community portal), and the [Dorado](https://github.com/nanoporetech/dorado) and [NanoPlot](https://github.com/wdecoster/NanoPlot) docs.

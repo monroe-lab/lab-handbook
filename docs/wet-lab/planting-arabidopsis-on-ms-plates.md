@@ -4,6 +4,17 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 ---
 # Planting Arabidopsis Seeds on MS Plates
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]], [[clean-bench-laminar-flow]], [[growth-chamber]], [[ph-meter]], [[tube-rotator]]
+
+**Reagents:** [[agar-plant-tc]], [[ethanol-70]], [[mes-buffer]], [[ms-basal-salt-mixture]], [[sucrose]], [[tc-agar-a175]]
+
+**Related Protocols:** [[ms-media-recipe]], [[seed-sterilization]], [[stratification]], [[planting-in-soil]], [[clean-bench]]
+
+**Contacts:** [[satoyo-oya]], [[grey-monroe]]
+
 **Purpose:** Sterilize seeds, prepare MS agar plates, and sow seeds for germination under sterile conditions.
 
 📖 Autoclave

@@ -5,6 +5,19 @@ title: "PacBio HiFi Sequencing (Col-0)"
 
 # PacBio HiFi Sequencing (Col-0)
 
+
+## Resources
+
+**Equipment:** [[centrifuge]], [[clean-bench-laminar-flow]]
+
+**Kits:** [[qubit-dsdna-hs-assay-kit]]
+
+**Reagents:** [[ethanol-70]], [[isopropyl-alcohol]], [[tween-80]]
+
+**Consumables:** [[qubit-assay-tubes]]
+
+**Related Protocols:** [[in-house-hifi-shearing-pipeline]], [[ot2-hmw-shearing]], [[hifi-dna-extraction]]
+
 Tab 1
 
 x[Col-0 HMW gDNA extractions & libraries](https://docs.google.com/spreadsheets/d/1nWy1T0GWThBWpcfzS10ANcgUsvvXtHLdVDAryb4O0ow/edit?usp=sharing)

@@ -5,6 +5,17 @@ title: "Sorbitol/CTAB HiFi Extraction"
 
 # Sorbitol/CTAB HiFi Extraction
 
+
+## Resources
+
+**Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[hula-mixer]], [[magnetic-rack]], [[nanodrop]], [[thermomixer]]
+
+**Reagents:** [[cetrimonium-bromide]], [[chloroform]], [[dnase]], [[ethanol-70]], [[hexadecyltrimethyl-ammonium-bromide]], [[isopropyl-alcohol]], [[mes-buffer]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]]
+
+**Related Protocols:** [[hifi-dna-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]]
+
+**Contacts:** [[grey-monroe]], [[kehan-zhao]]
+
 HiFi Extraction for Challenging Plant Samples
 
 Sorbitol washes remove polysaccharides and polyphenols from plant tissue before nuclei are lysed, and is followed by a high salt CTAB extraction. This protocol is based on [Inglis et al. 2018](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0206085), with modifications for HMW DNA. The final DNA cleanup step is based on the DIY HiFi extraction for Arabidopsis (based on modified protocols by [Rabanal et al. 2022](https://paperpile.com/c/Ov8wZy/6421), [Russo et al. 2022](https://paperpile.com/c/Ov8wZy/JoWJ) and [Mayjonade et al. 2016](https://paperpile.com/c/Ov8wZy/veB8)).

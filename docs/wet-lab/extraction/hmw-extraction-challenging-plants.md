@@ -5,6 +5,19 @@ title: "HMW Extraction for Challenging Plants"
 
 # HMW Extraction for Challenging Plants
 
+
+## Resources
+
+**Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[hula-mixer]], [[magnetic-rack]], [[mortar-and-pestle]], [[nanodrop]], [[thermomixer]]
+
+**Kits:** [[dneasy-plant-mini]]
+
+**Reagents:** [[2-mercaptoethanol]], [[ammonium-acetate]], [[ampure-xp-beads]], [[cesium-chloride]], [[chloroform]], [[chloroform-isoamyl-alcohol-24-1]], [[dnase]], [[ethanol-70]], [[guanidine-thiocyanate]], [[guanidine-thiocyanate-2]], [[isopropyl-alcohol]], [[lithium-chloride]], [[mes-buffer]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[polyvinylpyrrolidone]], [[potassium-acetate]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]], [[tween-80]]
+
+**Related Protocols:** [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]]
+
+**Contacts:** [[grey-monroe]]
+
 Protocols
 
 [Working(ish) Protocol](https://docs.google.com/document/d/1Pd11l5aPiGD3ea84_kkG8-ASfWnzw1_PVfsBSsB4BLE/edit?usp=sharing) for DNA Extraction from Kalanchoe (short read)

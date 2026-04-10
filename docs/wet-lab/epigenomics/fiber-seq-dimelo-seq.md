@@ -5,6 +5,19 @@ title: "Fiber-Seq / DiMeLo-Seq"
 
 # Fiber-Seq / DiMeLo-Seq
 
+
+## Resources
+
+**Equipment:** [[celldrop]], [[centrifuge]], [[nanodrop]], [[ph-meter]], [[thermocycler]]
+
+**Reagents:** [[agarose]], [[ampure-xp-beads]], [[dimethyl-sulfoxide]], [[dnase]], [[egta]], [[ethanol-70]], [[formamide]], [[formamide-2]], [[magnesium-chloride]], [[mes-buffer]], [[rnase-aliquot]], [[sodium-chloride]], [[spermidine]], [[sucrose]], [[tris-base]], [[triton-x-100]], [[tween-80]]
+
+**Consumables:** [[pcr-strip-tubes-0-2ml]], [[qubit-assay-tubes]]
+
+**Related Protocols:** [[chip-seq]], [[cut-and-tag]], [[hifi-dna-extraction]]
+
+**Contacts:** [[grey-monroe]]
+
 Overview of Fiber-Seq
 
 Structure of chromatin fibers:

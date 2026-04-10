@@ -5,6 +5,21 @@ title: "In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)"
 
 # In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)
 
+
+## Resources
+
+**Equipment:** [[femtopulse]], [[minion-mk1b]], [[nanodrop]], [[opentrons-ot2]], [[ot2-magnetic-module]], [[ot2-temperature-module]]
+
+**Kits:** [[qubit-dsdna-hs-assay-kit]], [[sqk-nbd114-24]]
+
+**Reagents:** [[ampure-xp-beads]]
+
+**Consumables:** [[flongle-flow-cells-flo-flg114]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
+
+**Related Protocols:** [[ot2-hmw-shearing]], [[ot2-automated-nbd114-prep]], [[flongle-sequencing-and-analysis]], [[pacbio-hifi-sequencing]]
+
+**Contacts:** [[grey-monroe]]
+
 **Status:** Planned, not yet validated. See [[in-house-hifi-shearing]] for project context. Do not use in production until the validation phase below is logged.
 
 ## What this pipeline is (and what it is not)

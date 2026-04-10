@@ -5,6 +5,21 @@ title: "CUT&Tag Protocol"
 
 # CUT&Tag Protocol
 
+
+## Resources
+
+**Equipment:** [[celldrop]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[magnetic-rack]], [[mortar-and-pestle]], [[thermocycler]], [[thermomixer]]
+
+**Kits:** [[qubit-dsdna-hs-assay-kit]]
+
+**Reagents:** [[agarose]], [[ampure-xp-beads]], [[calcium-chloride]], [[chloroform]], [[dimethyl-sulfoxide]], [[egta]], [[ethanol-70]], [[hepes]], [[isopropyl-alcohol]], [[magnesium-chloride]], [[manganese-ii-chloride]], [[mes-buffer]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[sodium-acetate-anhydrous]], [[sodium-chloride]], [[spermidine]], [[spermine]], [[sucrose]], [[tris-base]]
+
+**Consumables:** [[qubit-assay-tubes]]
+
+**Related Protocols:** [[chip-seq]], [[fiber-seq-dimelo-seq]], [[tn5-loading-library-prep]]
+
+**Contacts:** [[grey-monroe]]
+
 Protocol
 
 Buffers

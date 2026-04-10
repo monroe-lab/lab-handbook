@@ -5,6 +5,15 @@ title: "[protocol][draft] Fast neutron treatment"
 
 # [protocol][draft] Fast neutron treatment
 
+
+## Resources
+
+**Reagents:** [[1-hydroxy-3-3-trifluoromethylphenyl-urea]], [[aristolochic-acid-i]], [[cis-diamineplatinum-ii-dichloride]], [[ethyl-methanesulfonate]], [[hydrogen-peroxide-30]], [[hydrogen-peroxide-20-to-35-in-water]], [[hydroxylamine-hydrochloride]], [[methyl-methanesulfonate]], [[mitomycin-c]], [[potassium-permanganate]], [[sodium-arsenate-dibasic-heptahydrate]]
+
+**Related Protocols:** [[m2-forward-genetic-screening]], [[seed-sterilization]], [[planting-arabidopsis-on-ms-plates]]
+
+**Contacts:** [[grey-monroe]]
+
 ### Objective
 
 Fast neutron (FN) causes all kinds of mutation (source; ). See if the mutagenic effect of FN is altered in H3K4me-related/repair mutants.

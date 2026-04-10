@@ -5,6 +5,15 @@ title: "Illumina Library QC on a Flongle (Stretch Use Case)"
 
 # Illumina Library QC on a Flongle (Stretch Use Case)
 
+
+## Resources
+
+**Kits:** [[sqk-nbd114-24]]
+
+**Reagents:** [[isopropyl-alcohol-2]], [[mes-buffer]], [[tween-80]]
+
+**Related Protocols:** [[flongle-sequencing-and-analysis]], [[nbd114-multiplexed-flongle-prep]], [[in-house-hifi-shearing-pipeline]]
+
 **Purpose:** Read every molecule of an Illumina short-read library end-to-end on a Flongle as a **pre-flight QC before a $1,400–5,000 NovaSeq/MiSeq run**. Not a replacement for TapeStation, KAPA qPCR, or the actual Illumina run — a same-day sanity check.
 
 **Status: stretch use case, not the primary pipeline capability.** The primary capability is HiFi shearing QC (see [[in-house-hifi-shearing-pipeline]]). This variant uses the **same hardware and the same [[sqk-nbd114-24]] kit** but differs in AMPure ratio, expected read counts, and interpretation.

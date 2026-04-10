@@ -5,6 +5,17 @@ title: "Quick DNA Extraction for PCR (Buffer A Method)"
 
 # Quick DNA Extraction for PCR (Buffer A Method)
 
+
+## Resources
+
+**Equipment:** [[thermocycler]]
+
+**Reagents:** [[1m-tris-hcl-ph-8-8-5]], [[ethanol-70]], [[mes-buffer]], [[potassium-chloride]], [[tween-80]]
+
+**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]]
+
+**Contacts:** [[satoyo-oya]]
+
 **Purpose:** Crude/fast DNA extraction from Arabidopsis leaf tissue for [[pcr-genotyping]]. Not for sequencing or other applications requiring pure DNA — just enough template for a PCR reaction.
 
 **Source:** [[Satoyo Oya]]'s Genotyping protocol ([Google Doc](https://docs.google.com/document/d/1Ntjr3jwrAEfu_PsRdqjOj0F_NCVHU1GqtIcL2dezXzI))

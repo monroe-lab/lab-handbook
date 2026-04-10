@@ -5,6 +5,15 @@ title: "Tn5 Loading & Library Prep"
 
 # Tn5 Loading & Library Prep
 
+
+## Resources
+
+**Equipment:** [[hula-mixer]], [[thermomixer]]
+
+**Reagents:** [[agarose]], [[dimethyl-sulfoxide]], [[ethanol-70]], [[isopropyl-alcohol]], [[mes-buffer]], [[nuclease-free-water]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[taps]], [[tris-base]]
+
+**Related Protocols:** [[cut-and-tag]], [[spri-beads-preparation]], [[gel-electrophoresis]]
+
 Transposase Assembly and Validation Protocol
 
 Overview

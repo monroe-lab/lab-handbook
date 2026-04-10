@@ -5,6 +5,17 @@ title: "MS Media Recipe"
 
 # MS Media Recipe
 
+
+## Resources
+
+**Equipment:** [[autoclave-sterilizer]], [[clean-bench-laminar-flow]], [[ph-meter]]
+
+**Reagents:** [[3-methylbutanol]], [[aceto-orcein-solution-2]], [[activated-charcoal]], [[agar-non-tc]], [[agar-plant-tc]], [[alpha-d-glucose]], [[ammonium-chloride]], [[ammonium-nitrate]], [[ammonium-phosphate-monobasic]], [[basic-fuchsin]], [[boric-acid]], [[calcium-carbonate]], [[calcium-chloride]], [[calcium-nitrate-tetrahydrate]], [[carbon-activated]], [[casein-hydrolysate]], [[cefotaxime-sodium-salt]], [[citric-acid]], [[d-glucose]], [[d-mannitol]], [[d-sorbitol]], [[disodium-ethylenediamine-tetraacetate]], [[dkw-medium-with-vitamins]], [[ethyl-alcohol-absolute]], [[ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt]], [[glycerin]], [[iohexol]], [[iron-iii-chloride]], [[l-glutamine]], [[l-lysine-monohydrochloride]], [[lithium-acetate-dihydrate]], [[lithium-hydroxide-monohydrate]], [[magnesium-acetate-tetrahydrate]], [[magnesium-chloride]], [[magnesium-sulfate-heptahydrate]], [[manganese-ii-chloride]], [[mes-buffer]], [[mineral-oil]], [[ms-basal-salt-mixture]], [[phenol-nitroprusside-solution]], [[potassium-chloride]], [[potassium-hydroxide]], [[potassium-nitrate]], [[potassium-phosphate-dibasic]], [[potassium-phosphate-monobasic]], [[reagent-alcohol-100-200-proof-denatured]], [[sodium-bisulfite]], [[sodium-citrate]], [[sodium-hydroxide]], [[sodium-hydroxide-2]], [[sodium-hydroxide-10n-aqueous-solution]], [[sodium-hydroxide-10-0-normal]], [[sodium-phosphate-dibasic]], [[sodium-sulfite]], [[sodium-tetraborate]], [[sodium-thiosulfate-pentahydrate]], [[sucrose]], [[tc-agar-a175]], [[triton-x-100]]
+
+**Related Protocols:** [[autoclave]], [[clean-bench]], [[planting-arabidopsis-on-ms-plates]], [[seed-sterilization]]
+
+**Contacts:** [[satoyo-oya]], [[grey-monroe]]
+
 **Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth.
 
 **Source:** [[satoyo-oya]]'s lab recipe; also in [Recipes doc](https://docs.google.com/document/d/1um8iG9L81WxicA_Ez5yNWPw1V0Uhwa0yoWsYKIMmloY)

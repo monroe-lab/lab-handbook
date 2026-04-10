@@ -5,6 +5,15 @@ title: "Protein Induction (BL21)"
 
 # Protein Induction (BL21)
 
+
+## Resources
+
+**Reagents:** [[1m-tris-hcl-ph-8-8-5]], [[acrylamide]], [[bis-n-n-methylene-bis-acrylamide]], [[carbenicillin-disodium-salt]], [[chloramphenicol]], [[glycerol-50-aqueous-solution]], [[imidazole-hydrochloride]], [[kanamycin-sulfate]], [[mes-buffer]], [[ponceau-s]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[trichloroacetic-acid]], [[tris-base]], [[tween-80]], [[urea]]
+
+**Related Protocols:** [[dsb-repair-master-protocol]], [[gel-electrophoresis]]
+
+**Contacts:** [[grey-monroe]]
+
 Soya Feb 2025
 
 [protocol] protein induction using BL21
