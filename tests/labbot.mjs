@@ -168,6 +168,7 @@ function ghReadFile(path) {
     log('protocols', 'Create from template', protoCreated ? 'PASS' : 'FAIL',
       protoCreated ? `${protoFilePath} on GitHub` : 'Protocol not created');
     if (protoCreated) cleanup.push({ path: protoFilePath });
+    await p.screenshot({ path: '/tmp/labbot-proto-created.png', fullPage: false });
 
     // ── Edit protocol and save ──
     if (protoCreated) {
@@ -227,6 +228,7 @@ function ghReadFile(path) {
         log('protocols', 'Edit & save protocol',
           (hasMaterials && hasReagent) ? 'PASS' : 'FAIL',
           `heading=${hasMaterials} content=${hasReagent}`);
+        await p.screenshot({ path: '/tmp/labbot-proto-edited.png', fullPage: false });
       } else {
         log('protocols', 'Edit protocol', 'FAIL', 'Editor not ready');
       }
@@ -281,6 +283,7 @@ function ghReadFile(path) {
           ghDeleteFile(protoFilePath, 'LabBot cleanup: old renamed protocol');
         }
         if (renamedExists) cleanup.push({ path: renamedPath });
+        await p.screenshot({ path: '/tmp/labbot-proto-renamed.png', fullPage: false });
       } else {
         log('protocols', 'Rename protocol', 'FAIL', `renameDoc: ${renameResult.error}`);
       }
@@ -568,6 +571,7 @@ function ghReadFile(path) {
         log('wiki', 'Rich text renders after save',
           wikiRenderOk ? 'PASS' : (hasAnyContent ? 'WARN' : 'FAIL'),
           `h2=${wikiRendered.hasH2} strong=${wikiRendered.hasStrong} em=${wikiRendered.hasEm} quote=${wikiRendered.hasBlockquote} code=${wikiRendered.hasCode} table=${wikiRendered.hasTable} pill=${wikiRendered.hasPill}`);
+        await p.screenshot({ path: '/tmp/labbot-wiki-rendered.png', fullPage: false });
       } else {
         log('wiki', 'Wiki editor init', 'FAIL', 'ProseMirror or editorInstance not ready');
       }
@@ -1049,6 +1053,13 @@ function ghReadFile(path) {
                 });
                 log('notebooks', 'Image in editor', imgInEditor.found ? 'PASS' : 'FAIL',
                   imgInEditor.found ? `${imgInEditor.count} image(s) in WYSIWYG` : 'No images in editor');
+                // Scroll to see the image in editor before screenshot
+                await p.evaluate(() => {
+                  const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
+                  const img = ww?.querySelector('img');
+                  if (img) img.scrollIntoView({ block: 'center' });
+                });
+                await p.waitForTimeout(500);
                 await p.screenshot({ path: '/tmp/labbot-nb-image.png', fullPage: false });
 
                 // ── Image annotation test ──
@@ -1646,6 +1657,7 @@ function ghReadFile(path) {
       log('projects', 'Create project', projCreated ? 'PASS' : 'FAIL',
         projCreated ? `${projPath} on GitHub` : 'Project not created');
       if (projCreated) cleanup.push({ path: projPath });
+      await p.screenshot({ path: '/tmp/labbot-proj-created.png', fullPage: false });
     } else {
       log('projects', 'Create project', 'WARN', 'createNewProject() not available');
     }

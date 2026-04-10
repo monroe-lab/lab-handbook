@@ -140,6 +140,11 @@
     if (!el) return;
     var counts = {};
     objects.forEach(function(obj) {
+      // Notebook entries often lack type: notebook in frontmatter — detect by path
+      if ((obj.path || '').startsWith('notebooks/') && obj.type !== 'notebook') {
+        counts['notebook'] = (counts['notebook'] || 0) + 1;
+        return;
+      }
       var conf = TYPE_CONFIG[obj.type];
       var group = conf ? conf.group : 'resource';
       counts[group] = (counts[group] || 0) + 1;
