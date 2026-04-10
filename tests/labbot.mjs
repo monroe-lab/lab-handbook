@@ -818,11 +818,118 @@ function ghReadFile(path) {
                 log('notebooks', 'Image in editor', imgInEditor.found ? 'PASS' : 'FAIL',
                   imgInEditor.found ? `${imgInEditor.count} image(s) in WYSIWYG` : 'No images in editor');
                 await p.screenshot({ path: '/tmp/labbot-nb-image.png', fullPage: false });
+
+                // ── Image annotation test ──
+                // Double-click the image to open annotation overlay
+                if (imgInEditor.found) {
+                  const annotOpened = await p.evaluate(() => {
+                    const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
+                    const img = ww?.querySelector('img');
+                    if (!img) return false;
+                    // Dispatch dblclick (triggers Lab.annotate.open)
+                    img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+                    return true;
+                  });
+                  if (annotOpened) {
+                    // Wait for annotation overlay + canvas to render
+                    await p.waitForTimeout(2000);
+
+                    // Check if annotation overlay is visible (fixed overlay with canvas)
+                    const overlayVisible = await p.evaluate(() => {
+                      const canvas = document.querySelector('canvas');
+                      return !!canvas && canvas.offsetParent !== null;
+                    });
+
+                    if (overlayVisible) {
+                      // Click canvas center to create a new annotation
+                      const canvasBox = await p.evaluate(() => {
+                        const c = document.querySelector('canvas');
+                        if (!c) return null;
+                        const r = c.getBoundingClientRect();
+                        return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+                      });
+                      if (canvasBox) {
+                        await p.mouse.click(canvasBox.x, canvasBox.y);
+                        await p.waitForTimeout(500);
+
+                        // Type label text in #annot-text
+                        const annotInput = await p.$('#annot-text');
+                        if (annotInput) {
+                          await annotInput.fill('LabBot Test Label');
+                          await p.waitForTimeout(300);
+                        }
+
+                        // Click "Save annotations" button
+                        const saveAnnotBtn = await p.$('button:has-text("Save annotations")');
+                        if (saveAnnotBtn) {
+                          await saveAnnotBtn.click();
+                          await p.waitForTimeout(8000);
+
+                          // Annotated file path: images/labbot-test-{TS}-annotated.png
+                          const annotatedPath = `docs/images/${imgSlug.replace(/\.[^.]+$/, '')}-annotated.png`;
+                          const annotExists = ghFileExists(annotatedPath);
+                          log('notebooks', 'Image annotation saved', annotExists ? 'PASS' : 'FAIL',
+                            annotExists ? `${annotatedPath} on GitHub` : 'Annotated file not found');
+                          if (annotExists) cleanup.push({ path: annotatedPath });
+
+                          // Verify overlay closed
+                          const overlayClosed = await p.evaluate(() => {
+                            const c = document.querySelector('canvas');
+                            return !c || c.offsetParent === null;
+                          });
+                          log('notebooks', 'Annotation overlay closed', overlayClosed ? 'PASS' : 'WARN',
+                            overlayClosed ? 'Overlay dismissed' : 'Overlay still visible');
+                        } else {
+                          log('notebooks', 'Image annotation', 'FAIL', 'Save annotations button not found');
+                        }
+                      }
+                    } else {
+                      log('notebooks', 'Image annotation', 'WARN', 'Annotation overlay/canvas not visible');
+                    }
+                  }
+                  await p.screenshot({ path: '/tmp/labbot-nb-annotated.png', fullPage: false });
+                }
+
+                // ── Image resize test ──
+                // Click image to show resize toolbar, click 50%
+                const resizeResult = await p.evaluate(() => {
+                  const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
+                  const img = ww?.querySelector('img');
+                  if (!img) return { found: false };
+                  // Single click triggers the resize toolbar
+                  img.click();
+                  return { found: true };
+                });
+                if (resizeResult.found) {
+                  await p.waitForTimeout(1000);
+                  // Find and click the 50% button in the toolbar
+                  const resizeClicked = await p.evaluate(() => {
+                    const btns = document.querySelectorAll('[data-img-toolbar="1"]');
+                    for (const btn of btns) {
+                      if (btn.textContent?.trim() === '50%') { btn.click(); return true; }
+                    }
+                    return false;
+                  });
+                  if (resizeClicked) {
+                    await p.waitForTimeout(500);
+                    // Verify the image has max-width:50% style
+                    const hasResize = await p.evaluate(() => {
+                      const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
+                      const img = ww?.querySelector('img');
+                      if (!img) return false;
+                      return img.style.maxWidth === '50%';
+                    });
+                    log('notebooks', 'Image resize 50%', hasResize ? 'PASS' : 'FAIL',
+                      hasResize ? 'Image max-width set to 50%' : 'Image style not changed');
+                  } else {
+                    log('notebooks', 'Image resize', 'WARN', 'Resize toolbar 50% button not found');
+                  }
+                }
               } else {
                 log('notebooks', 'Image upload', 'WARN', 'File input[type=file][accept=image/*] not found');
               }
 
-              // Save via Cmd+S (saves both rich text AND image in one go)
+              // Save via Cmd+S (saves rich text, image, annotation, resize in one go)
               await p.keyboard.press('Meta+s');
               await p.waitForTimeout(8000);
 
@@ -838,12 +945,18 @@ function ghReadFile(path) {
                 richSave ? 'PASS' : (savedContent ? 'FAIL' : 'WARN'),
                 `heading=${hasHeading} bold=${hasBold} italic=${hasItalic} list=${hasList}`);
 
-              // Verify image reference in saved markdown
-              const hasImgRef = savedContent?.includes(`images/${imgSlug}`) || savedContent?.includes(`images/`) || savedContent?.includes('<img');
+              // Verify image reference in saved markdown (may be annotated version or original)
+              const hasImgRef = savedContent?.includes(`images/`) || savedContent?.includes('<img');
               log('notebooks', 'Image saved to GitHub',
                 hasImgRef ? 'PASS' : (imgInputFound ? 'FAIL' : 'WARN'),
                 hasImgRef ? `Markdown contains image reference` : 'No image ref in saved markdown');
               if (!hasImgRef && savedContent) console.log('    DEBUG saved md (last 300):', savedContent.slice(-300));
+
+              // Check if resize style persisted (applyImageSizes converts to <img style="max-width:50%">)
+              const hasResizeStyle = savedContent?.includes('max-width:50%') || savedContent?.includes('max-width: 50%');
+              if (hasResizeStyle) {
+                log('notebooks', 'Resize persisted in markdown', 'PASS', 'max-width:50% found in saved markdown');
+              }
 
               // After Cmd+S, saveDoc() re-renders the content in view mode.
               if (richSave) {
