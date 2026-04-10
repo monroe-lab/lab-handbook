@@ -80,11 +80,6 @@
       <div id="bulletinBoard" class="bulletin-content" style="font-size:13px;color:var(--grey-600);">Loading...</div>
     </div>
 
-    <div class="dash-card dash-full">
-      <h3><span class="material-icons-outlined" style="color:#6a1b9a;">hub</span> Knowledge Graph</h3>
-      <div id="knowledgeGraph" style="width:100%;min-height:300px;border-radius:var(--radius);overflow:hidden;"></div>
-    </div>
-
   </div>
 </div>
 
@@ -249,129 +244,6 @@
       .catch(function() { el.innerHTML = 'Could not load bulletin. Set a GitHub token to see content.'; });
   }
 
-  // ── Knowledge Graph ──
-  function buildGraph(objects) {
-    var container = document.getElementById('knowledgeGraph');
-    if (!container) return;
-    var width = container.clientWidth || 400;
-    var height = 300;
-
-    var groupCounts = {};
-    objects.forEach(function(obj) {
-      var conf = TYPE_CONFIG[obj.type];
-      var group = conf ? conf.group : 'resource';
-      groupCounts[group] = (groupCounts[group] || 0) + 1;
-    });
-
-    var nodes = [];
-    Object.keys(GROUP_CONFIG).forEach(function(gk) {
-      var count = groupCounts[gk] || 0;
-      if (count === 0) return;
-      var gc = GROUP_CONFIG[gk];
-      nodes.push({
-        id: gk, label: gc.label + ' (' + count + ')',
-        color: gc.color, href: gc.href,
-        radius: Math.max(18, Math.min(44, Math.sqrt(count) * 5.5)),
-        count: count,
-      });
-    });
-
-    var links = [];
-    var ids = nodes.map(function(n) { return n.id; });
-    if (ids.indexOf('protocol') >= 0 && ids.indexOf('resource') >= 0) links.push({ source: 'protocol', target: 'resource' });
-    if (ids.indexOf('protocol') >= 0 && ids.indexOf('people') >= 0) links.push({ source: 'protocol', target: 'people' });
-    if (ids.indexOf('protocol') >= 0 && ids.indexOf('stock') >= 0) links.push({ source: 'protocol', target: 'stock' });
-    if (ids.indexOf('project') >= 0 && ids.indexOf('protocol') >= 0) links.push({ source: 'project', target: 'protocol' });
-    if (ids.indexOf('notebook') >= 0 && ids.indexOf('protocol') >= 0) links.push({ source: 'notebook', target: 'protocol' });
-    if (ids.indexOf('project') >= 0 && ids.indexOf('people') >= 0) links.push({ source: 'project', target: 'people' });
-
-    var canvas = document.createElement('canvas');
-    canvas.width = width * 2; canvas.height = height * 2;
-    canvas.style.cssText = 'width:100%;height:' + height + 'px;cursor:pointer;';
-    container.innerHTML = '';
-    container.appendChild(canvas);
-    var ctx = canvas.getContext('2d');
-    ctx.scale(2, 2);
-
-    var cx = width / 2, cy = height / 2;
-    nodes.forEach(function(n, i) {
-      var angle = (i / nodes.length) * Math.PI * 2 - Math.PI / 2;
-      var r = Math.min(width, height) * 0.3;
-      n.x = cx + Math.cos(angle) * r;
-      n.y = cy + Math.sin(angle) * r;
-      n.vx = 0; n.vy = 0;
-    });
-
-    var alpha = 1;
-    function tick() {
-      alpha *= 0.97;
-      if (alpha < 0.002) { draw(); return; }
-      nodes.forEach(function(n) { n.vx += (cx - n.x) * 0.002; n.vy += (cy - n.y) * 0.002; });
-      links.forEach(function(l) {
-        var s = nodes.find(function(n) { return n.id === l.source; });
-        var t = nodes.find(function(n) { return n.id === l.target; });
-        if (!s || !t) return;
-        var dx = t.x - s.x, dy = t.y - s.y, dist = Math.sqrt(dx*dx+dy*dy) || 1;
-        var f = (dist - 110) * 0.003 * alpha;
-        s.vx += dx/dist*f; s.vy += dy/dist*f;
-        t.vx -= dx/dist*f; t.vy -= dy/dist*f;
-      });
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i+1; j < nodes.length; j++) {
-          var a = nodes[i], b = nodes[j];
-          var dx = b.x-a.x, dy = b.y-a.y, dist = Math.sqrt(dx*dx+dy*dy) || 1;
-          var min = (a.radius+b.radius) * 2.2;
-          if (dist < min) {
-            var f = (min-dist) * 0.05 * alpha;
-            a.vx -= dx/dist*f; a.vy -= dy/dist*f;
-            b.vx += dx/dist*f; b.vy += dy/dist*f;
-          }
-        }
-      }
-      nodes.forEach(function(n) {
-        n.vx *= 0.85; n.vy *= 0.85;
-        n.x += n.vx; n.y += n.vy;
-        n.x = Math.max(n.radius+5, Math.min(width-n.radius-5, n.x));
-        n.y = Math.max(n.radius+5, Math.min(height-n.radius-5, n.y));
-      });
-      draw();
-      requestAnimationFrame(tick);
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      links.forEach(function(l) {
-        var s = nodes.find(function(n) { return n.id === l.source; });
-        var t = nodes.find(function(n) { return n.id === l.target; });
-        if (!s || !t) return;
-        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(t.x, t.y);
-        ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = 1.5; ctx.stroke();
-      });
-      nodes.forEach(function(n) {
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.radius, 0, Math.PI*2);
-        ctx.fillStyle = n.color; ctx.globalAlpha = 0.88; ctx.fill(); ctx.globalAlpha = 1;
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold ' + Math.max(9, Math.min(12, n.radius * 0.45)) + 'px Inter,-apple-system,sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(n.label, n.x, n.y);
-      });
-    }
-
-    canvas.addEventListener('click', function(e) {
-      var rect = canvas.getBoundingClientRect();
-      var mx = (e.clientX-rect.left)*(width/rect.width), my = (e.clientY-rect.top)*(height/rect.height);
-      for (var i = nodes.length-1; i >= 0; i--) {
-        var n = nodes[i], dx = mx-n.x, dy = my-n.y;
-        if (dx*dx+dy*dy < n.radius*n.radius) {
-          window.location.href = n.href;
-          break;
-        }
-      }
-    });
-
-    tick();
-  }
-
   // ── Init ──
   function init() {
     fetch(BASE + 'object-index.json')
@@ -379,7 +251,6 @@
       .then(function(objects) {
         loadStats(objects);
         loadNeedsOrdering(objects);
-        buildGraph(objects);
       })
       .catch(function() {
         // Fallback: try via GitHub API
