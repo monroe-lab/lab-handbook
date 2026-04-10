@@ -619,7 +619,7 @@
       if (t) { var tc = t.closest('.tube-cell'); if (tc && tc !== dragging.sourceCell) tc.classList.add('drag-over'); }
     });
 
-    document.addEventListener('mouseup', function(e) {
+    document.addEventListener('mouseup', async function(e) {
       if (!dragging) return;
       var d = dragging;
       dragging = null;
@@ -633,14 +633,59 @@
       var targetCell = t.closest('.tube-cell');
       if (!targetCell || targetCell === d.sourceCell) return;
 
-      var targetItemI = targetCell.dataset.item;
-      if (targetItemI != null) {
-        var ti = parseInt(targetItemI);
-        var temp = boxItems[d.itemIdx];
-        boxItems[d.itemIdx] = boxItems[ti];
-        boxItems[ti] = temp;
+      // Compute cell labels from data-idx
+      function cellLabel(cellEl) {
+        var idx = parseInt(cellEl.dataset.idx);
+        var row = Math.floor(idx / gridSize);
+        var col = idx % gridSize;
+        return String.fromCharCode(65 + row) + (col + 1);
       }
-      Lab.showToast('Moved ' + (boxItems[d.itemIdx].title || 'item'), 'success');
+      var targetPos = cellLabel(targetCell);
+      var sourcePos = cellLabel(d.sourceCell);
+
+      var draggedItem = boxItems[d.itemIdx];
+      var targetItemI = targetCell.dataset.item;
+      var targetItem = targetItemI != null ? boxItems[parseInt(targetItemI)] : null;
+
+      // Build new location_detail strings
+      var newDraggedDetail = buildLocDetail(locId, shelfIdx, boxIdx, targetPos);
+      var newTargetDetail = targetItem ? buildLocDetail(locId, shelfIdx, boxIdx, sourcePos) : null;
+
+      // Persist to GitHub if signed in
+      if (Lab.gh.isLoggedIn()) {
+        Lab.showToast('Moving ' + (draggedItem.title || 'item') + '…', 'info');
+        try {
+          // Update dragged item
+          if (draggedItem.path) {
+            var filePath = 'docs/' + draggedItem.path;
+            var result = await Lab.gh.fetchFile(filePath);
+            var parsed = Lab.parseFrontmatter(result.content);
+            parsed.meta.location_detail = newDraggedDetail;
+            var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
+            await Lab.gh.saveFile(filePath, content, result.sha,
+              'Map: move ' + (draggedItem.title || draggedItem.path) + ' to ' + targetPos);
+            Lab.gh.patchObjectIndex(filePath, parsed.meta);
+          }
+          // Update target item (swap case)
+          if (targetItem && targetItem.path) {
+            var filePath2 = 'docs/' + targetItem.path;
+            var result2 = await Lab.gh.fetchFile(filePath2);
+            var parsed2 = Lab.parseFrontmatter(result2.content);
+            parsed2.meta.location_detail = newTargetDetail;
+            var content2 = Lab.buildFrontmatter(parsed2.meta, parsed2.body);
+            await Lab.gh.saveFile(filePath2, content2, result2.sha,
+              'Map: move ' + (targetItem.title || targetItem.path) + ' to ' + sourcePos);
+            Lab.gh.patchObjectIndex(filePath2, parsed2.meta);
+          }
+          // Refresh in-memory index
+          allObjects = await Lab.gh.fetchObjectIndex();
+          Lab.showToast('Moved ' + (draggedItem.title || 'item') + ' to ' + targetPos, 'success');
+        } catch(err) {
+          Lab.showToast('Move failed: ' + err.message, 'error');
+        }
+      } else {
+        Lab.showToast('Sign in to persist moves', 'error');
+      }
       openBox(locId, shelfIdx, boxIdx);
     });
   }
