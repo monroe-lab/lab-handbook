@@ -96,13 +96,23 @@ tr.low-stock td:first-child::before {
     </div>
     <select class="filter-select" id="filterType">
       <option value="">All Types</option>
-      <option value="reagent">Reagent</option>
-      <option value="buffer">Buffer/Solution</option>
-      <option value="consumable">Consumable</option>
-      <option value="equipment">Equipment</option>
-      <option value="seed">Seed Stock</option>
-      <option value="glycerol_stock">Glycerol Stock</option>
-      <option value="kit">Kit</option>
+      <optgroup label="Resources">
+        <option value="reagent">Reagent</option>
+        <option value="buffer">Buffer/Solution</option>
+        <option value="consumable">Consumable</option>
+        <option value="equipment">Equipment</option>
+        <option value="kit">Kit</option>
+        <option value="chemical">Chemical</option>
+        <option value="enzyme">Enzyme</option>
+        <option value="solution">Solution</option>
+      </optgroup>
+      <optgroup label="Stocks">
+        <option value="seed">Seed Stock</option>
+        <option value="glycerol_stock">Glycerol Stock</option>
+        <option value="plasmid">Plasmid</option>
+        <option value="agro_strain">Agro Strain</option>
+        <option value="dna_prep">DNA Prep</option>
+      </optgroup>
     </select>
     <select class="filter-select" id="filterLocation">
       <option value="">All Locations</option>
@@ -193,13 +203,23 @@ tr.low-stock td:first-child::before {
         <div class="form-group">
           <label>Type</label>
           <select id="addType">
-            <option value="reagent">Reagent</option>
-            <option value="buffer">Buffer/Solution</option>
-            <option value="consumable">Consumable</option>
-            <option value="kit">Kit</option>
-            <option value="enzyme">Enzyme</option>
-            <option value="chemical">Chemical</option>
-            <option value="equipment">Equipment</option>
+            <optgroup label="Resources">
+              <option value="reagent">Reagent</option>
+              <option value="buffer">Buffer/Solution</option>
+              <option value="consumable">Consumable</option>
+              <option value="kit">Kit</option>
+              <option value="enzyme">Enzyme</option>
+              <option value="chemical">Chemical</option>
+              <option value="equipment">Equipment</option>
+              <option value="solution">Solution</option>
+            </optgroup>
+            <optgroup label="Stocks">
+              <option value="seed">Seed Stock</option>
+              <option value="glycerol_stock">Glycerol Stock</option>
+              <option value="plasmid">Plasmid</option>
+              <option value="agro_strain">Agro Strain</option>
+              <option value="dna_prep">DNA Prep</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-group">
@@ -459,7 +479,9 @@ function confirmAdd() {
   var location = document.getElementById('addLocation').value;
 
   var slug = Lab.slugify(name);
-  var path = 'docs/resources/' + slug + '.md';
+  var typeGroup = Lab.types.get(type).group;
+  var dir = typeGroup === 'stocks' ? 'stocks' : 'resources';
+  var path = 'docs/' + dir + '/' + slug + '.md';
   var nowIso = new Date().toISOString();
   var user = Lab.gh.getUser && Lab.gh.getUser();
   var meta = {

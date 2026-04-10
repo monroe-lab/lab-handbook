@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>People - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.people-page { max-width: 960px; margin: 0 auto; padding: 24px 20px calc(var(--bottom-nav-height) + 24px); }
+.people-header { margin-bottom: 20px; }
+.people-header h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+.people-header p { font-size: 13px; color: var(--grey-500); margin: 0; }
+.people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+.person-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .1s;
+}
+.person-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+.person-card-header {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  padding: 24px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.person-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: #fff; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.3);
+}
+.person-name { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.2; }
+.person-role { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 2px; }
+
+.person-card-body { padding: 16px 20px; }
+.person-field {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; font-size: 13px; color: var(--grey-700);
+}
+.person-field .material-icons-outlined { font-size: 16px; color: var(--grey-400); flex-shrink: 0; }
+.person-field a { color: var(--teal); text-decoration: none; }
+.person-field a:hover { text-decoration: underline; }
+
+.person-links { padding: 12px 20px; border-top: 1px solid var(--grey-100); }
+.person-links-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); margin-bottom: 6px; }
+.person-pill-list { display: flex; flex-wrap: wrap; gap: 6px; }
+
+@media (max-width: 768px) {
+  .people-page { padding: 14px 12px calc(var(--bottom-nav-height) + 14px); }
+  .people-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+
+<div class="people-page">
+  <div class="people-header">
+    <h1>People</h1>
+    <p>Monroe Lab members</p>
+  </div>
+
+  <div id="loadingState" style="text-align:center;padding:40px;color:var(--grey-400);">
+    <div class="spinner"></div><p>Loading...</p>
+  </div>
+
+  <div class="people-grid" id="peopleGrid"></div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+  var REPO = 'monroe-lab/lab-handbook';
+
+  function esc(s) { return Lab.escHtml ? Lab.escHtml(s) : s; }
+
+  function getInitials(name) {
+    return (name || '').split(/\s+/).map(function(w) { return w[0] || ''; }).join('').toUpperCase().slice(0, 2);
+  }
+
+  function getPageForType(typeName) {
+    if (!typeName) return 'wiki.html';
+    var t = Lab.types.get(typeName);
+    if (!t) return 'wiki.html';
+    if (t.group === 'resources' || t.group === 'stocks') return 'inventory.html';
+    if (t.group === 'protocols') return 'protocols.html';
+    if (t.group === 'projects') return 'projects.html';
+    return 'wiki.html';
+  }
+
+  async function loadPeople() {
+    var objects;
+    try {
+      objects = await Lab.gh.fetchObjectIndex();
+    } catch(e) {
+      try {
+        var r = await fetch(BASE + 'object-index.json');
+        objects = await r.json();
+      } catch(e2) {
+        document.getElementById('loadingState').innerHTML = '<p>Could not load people. Sign in with GitHub to see content.</p>';
+        return;
+      }
+    }
+
+    // Build object lookup for pill styling
+    var objectLookup = {};
+    objects.forEach(function(obj) {
+      var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+      objectLookup[slug] = obj;
+    });
+
+    var people = objects.filter(function(obj) { return obj.type === 'person'; });
+    document.getElementById('loadingState').style.display = 'none';
+
+    if (!people.length) {
+      document.getElementById('peopleGrid').innerHTML =
+        '<div style="text-align:center;padding:40px;color:var(--grey-400);grid-column:1/-1;">' +
+        '<span class="material-icons-outlined" style="font-size:48px;">person_off</span>' +
+        '<p>No people added yet.</p></div>';
+      return;
+    }
+
+    // Load full markdown for each person to extract wikilinks and contact details
+    var cards = await Promise.all(people.map(async function(person) {
+      var slug = person.path.replace(/\.md$/, '').split('/').pop();
+      var body = '';
+      try {
+        var headers = { 'Accept': 'application/vnd.github.v3+json' };
+        var token = Lab.gh.getToken();
+        if (token) headers['Authorization'] = 'token ' + token;
+        var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/docs/people/' + slug + '.md', {
+          headers: headers
+        });
+        var data = await resp.json();
+        if (data.content) body = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+      } catch(e) { /* use metadata only */ }
+
+      // Extract wikilinks from body
+      var wikilinks = [];
+      var re = /\[\[([^\]]+)\]\]/g, m;
+      while ((m = re.exec(body)) !== null) {
+        var link = m[1];
+        var label = link.indexOf('|') >= 0 ? link.split('|')[1] : link.split('/').pop();
+        wikilinks.push({ slug: link.split('|')[0].split('/').pop(), label: label });
+      }
+
+      // Extract contact fields from body
+      var phone = '';
+      var location = '';
+      var phoneMatch = body.match(/Phone:\s*(.+)/);
+      if (phoneMatch) phone = phoneMatch[1].trim();
+      var locMatch = body.match(/Location:\s*(.+)/);
+      if (locMatch) location = locMatch[1].trim();
+
+      return {
+        title: person.title || slug,
+        role: person.role || '',
+        email: person.email || '',
+        phone: phone,
+        location: location,
+        slug: slug,
+        path: person.path,
+        wikilinks: wikilinks,
+      };
+    }));
+
+    // Render cards
+    var grid = document.getElementById('peopleGrid');
+    grid.innerHTML = cards.map(function(p) {
+      var fieldsHtml = '';
+      if (p.email) {
+        fieldsHtml += '<div class="person-field"><span class="material-icons-outlined">email</span><a href="mailto:' + esc(p.email) + '" onclick="event.stopPropagation()">' + esc(p.email) + '</a></div>';
+      }
+      if (p.phone) {
+        fieldsHtml += '<div class="person-field"><span class="material-icons-outlined">phone</span>' + esc(p.phone) + '</div>';
+      }
+      if (p.location) {
+        fieldsHtml += '<div class="person-field"><span class="material-icons-outlined">location_on</span>' + esc(p.location) + '</div>';
+      }
+
+      var linksHtml = '';
+      if (p.wikilinks.length) {
+        var pills = p.wikilinks.map(function(wl) {
+          var obj = objectLookup[wl.slug];
+          var typeName = obj ? obj.type : null;
+          var style = Lab.types.pillStyle(typeName || 'unknown');
+          var content = Lab.types.pillContent(typeName || 'unknown', wl.label);
+          return '<a href="' + esc(getPageForType(typeName)) + '?doc=' + esc(wl.slug) + '" style="' + style + '" onclick="event.stopPropagation()">' + content + '</a>';
+        }).join('');
+        linksHtml = '<div class="person-links"><div class="person-links-label">Connected</div><div class="person-pill-list">' + pills + '</div></div>';
+      }
+
+      return '<div class="person-card" onclick="openPerson(\'' + esc(p.slug) + '\')">' +
+        '<div class="person-card-header">' +
+          '<div class="person-avatar">' + getInitials(p.title) + '</div>' +
+          '<div><div class="person-name">' + esc(p.title) + '</div>' +
+          (p.role ? '<div class="person-role">' + esc(p.role) + '</div>' : '') +
+          '</div></div>' +
+        '<div class="person-card-body">' + fieldsHtml + '</div>' +
+        linksHtml +
+        '</div>';
+    }).join('');
+  }
+
+  window.openPerson = function(slug) {
+    Lab.editorModal.open('docs/people/' + slug + '.md');
+  };
+
+  loadPeople();
+})();
+</script>
+</body>
+</html>

@@ -120,7 +120,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Dashboard: remove knowledge graph widget** — Removed canvas-based force graph (~120 lines JS) and HTML container from dashboard. Wiki page connections panel kept. (Issue #14)
 - [x] **Inventory status states** — Replaced `need_more` checkbox with 4-state `status` select (in_stock/needs_more/out_of_stock/external). Status badges with colors on inventory table. "All Statuses" filter dropdown. Dashboard shows "Inventory Status" widget with counts. Old `need_more: true` auto-migrates to `needs_more`. (Issue #14)
 - [x] **Inventory dashboard display** — Single combined "INVENTORY" count on dashboard stat bar. "Inventory Status" widget shows In Stock/Needs More/Out of Stock counts with colored indicators. (Issue #14)
-- [ ] **Inventory terminology cleanup** — Clarify naming: "inventory" = catalog of everything (equipment, samples, reagents, etc.). Clean up nav overlap with protocols/notebooks/projects. (Issue #14)
+- [x] **Inventory terminology cleanup** — Inventory is the unified catalog of everything (resources + stocks). Type filter and Add Item dropdowns now include all types with optgroups. Stocks link on dashboard fixed to point to inventory page. New items save to correct directory (resources/ vs stocks/) based on type group. (Issue #14)
+- [x] **Dedicated People page** — New `app/people.html` with card-based layout showing name, role, email, phone, location, and connected wikilink pills. People tab added to nav bar. Dashboard People link updated. Clicking a card opens the editor modal. (Issue #15)
 
 ---
 

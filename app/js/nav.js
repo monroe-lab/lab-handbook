@@ -11,6 +11,7 @@
     { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
+    { label: 'People',    href: BASE + 'app/people.html',      icon: 'people' },
     { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
     { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
@@ -32,6 +33,7 @@
     if (path.includes('/protocols'))      return 'Protocols';
     if (path.includes('/wiki'))           return 'Wiki';
     if (path.includes('/inventory'))      return 'Inventory';
+    if (path.includes('/people'))         return 'People';
     if (path.includes('/waste'))          return 'Waste';
     if (path.includes('/lab-map'))        return 'Lab Map';
     if (path.includes('/graph'))          return '';
