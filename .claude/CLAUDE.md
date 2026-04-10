@@ -133,6 +133,22 @@ mkdocs serve
 # Site at http://localhost:8000/lab-handbook/
 ```
 
+## LabBot — Automated Testing
+
+**Before making changes, run LabBot to see the current state. After making changes, run LabBot to verify nothing broke.**
+
+```bash
+node tests/labbot.mjs --headed     # watch the bot test every page (preferred)
+node tests/labbot.mjs              # headless (faster)
+node tests/labbot.mjs --only=wiki  # test just one section
+```
+
+LabBot is a Playwright bot that simulates a real authenticated lab member. It creates files, edits content, navigates the freezer map, searches inventory, and cleans up after itself. Auth uses `gh auth token` injected via `context.addInitScript`.
+
+**Tracking doc:** `tests/STATUS.md` — read this first for current test scores, the TODO list of untested features (50+ items, P0-P4), known bugs, and architecture notes.
+
+**Development workflow:** Pick next unchecked item from STATUS.md → implement → add test to `tests/labbot.mjs` → run `--headed` to verify → check box → commit → push.
+
 ## Key Design Decisions
 
 - **GitHub PAT over OAuth** — OAuth requires a proxy server. PATs are simpler (one-time paste) and work directly with the GitHub API. The tradeoff is each lab member generates their own token.
