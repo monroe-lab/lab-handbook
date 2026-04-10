@@ -12,3 +12,12 @@
 
 ## Next steps
 
+
+\#\# Extraction Results
+
+Sample A1: 245 ng/uL, 260/280 = 1.87
+Sample A2: 312 ng/uL, 260/280 = 1.92
+Sample A3: 178 ng/uL, 260/280 = 1.85
+Sample A4: FAILED - low yield (<10 ng/uL)
+
+Used DNeasy kit lot #4521. Protocol: standard with 30min lysis.
