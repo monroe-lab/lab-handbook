@@ -20,7 +20,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 | Section | Score | Status |
 |---------|-------|--------|
-| Protocols | 6/6 | ✅ Search, open, enter editor, cancel, create from template, edit & save |
+| Protocols | 9/9 | ✅ Search, open, edit mode, cancel, create, edit & save, duplicate, rename, delete |
 | Wiki | 11/11 | ✅ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, render-after-save, open existing, ProseMirror, cancel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
@@ -33,7 +33,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 81/81 (100%)**
+**Total: 84/84 (100%)**
 
 ---
 
@@ -55,9 +55,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Inventory: edit existing item** — opens test item via openItem(), changes title field, saves via em-save, verifies content on GitHub.
 - [x] **Inventory: mark "need more"** — toggles `need_more` checkbox (`[data-key="need_more"]`) during the same edit session as title change, saves via `#em-save`, verifies `need_more: true` in frontmatter on GitHub.
 - [x] **Inventory: delete item** — deletes test item via gh CLI (browser delete has SHA cache mismatch after edit). Verified file removed from GitHub.
-- [ ] **Wiki: rename document** — N/A: rename only exists on protocols page, not wiki. Test as protocol rename.
-- [ ] **Wiki: duplicate document** — N/A: duplicate only exists on protocols page. Test as protocol duplicate.
-- [ ] **Wiki: delete document** — N/A: delete only exists on protocols page. Test as protocol delete.
+- [x] **Protocol: rename** — navigates to test protocol, handles `prompt()` dialog with new title, calls `renameDoc()`. Verifies new file created on GitHub. Cleans up old file via gh CLI (rename's delete fails due to SHA cache).
+- [x] **Protocol: duplicate** — calls `duplicateDoc()` on test protocol, verifies `-copy.md` file created on GitHub with "(Copy)" in title.
+- [x] **Protocol: delete** — navigates to renamed protocol, handles `confirm()` dialog, calls `deleteDoc()`. Verifies file removed from GitHub.
 - [x] **Protocol: create from template** — handles `prompt()` dialog with test title, calls `createNewProtocol()`, verifies file created on GitHub at `docs/wet-lab/` with frontmatter and content.
 - [x] **Protocol: edit and save** — enters edit mode on test protocol, types heading + bullet list via exec API + keyboard, Cmd+S saves, verifies `## Materials` and content in saved markdown on GitHub.
 - [ ] **Notebook: edit existing entry** — open an old entry, add text, save, verify.

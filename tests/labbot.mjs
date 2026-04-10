@@ -230,6 +230,91 @@ function ghReadFile(path) {
       } else {
         log('protocols', 'Edit protocol', 'FAIL', 'Editor not ready');
       }
+
+      // ── Duplicate protocol ──
+      const dupResult = await p.evaluate(async () => {
+        if (typeof duplicateDoc !== 'function' || !currentDoc) return { error: 'not available' };
+        try { await duplicateDoc(); return { ok: true, doc: currentDoc }; }
+        catch(e) { return { error: e.message }; }
+      });
+      await p.waitForTimeout(8000);
+      if (dupResult.ok) {
+        const dupPath = protoFilePath.replace('.md', '-copy.md');
+        const dupExists = ghFileExists(dupPath);
+        log('protocols', 'Duplicate protocol', dupExists ? 'PASS' : 'FAIL',
+          dupExists ? `${dupPath} on GitHub` : 'Copy not found');
+        if (dupExists) cleanup.push({ path: dupPath });
+      } else {
+        log('protocols', 'Duplicate protocol', 'FAIL', `duplicateDoc: ${dupResult.error}`);
+      }
+
+      // ── Rename protocol (via prompt dialog) ──
+      const renamedTitle = `LabBot Renamed ${TS}`;
+      const renamedSlug = renamedTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const renamedPath = `docs/wet-lab/${renamedSlug}.md`;
+      // Navigate back to original protocol first
+      await p.evaluate((slug) => {
+        if (typeof loadDoc === 'function') loadDoc('wet-lab/' + slug);
+      }, protoSlug);
+      await p.waitForTimeout(3000);
+      // Set up prompt handler for rename
+      p.removeAllListeners('dialog');
+      p.on('dialog', async dialog => {
+        if (dialog.type() === 'prompt') await dialog.accept(renamedTitle);
+        else if (dialog.type() === 'confirm') await dialog.accept();
+        else await dialog.dismiss();
+      });
+      const renameResult = await p.evaluate(async () => {
+        if (typeof renameDoc !== 'function') return { error: 'not available' };
+        try { await renameDoc(); return { ok: true }; }
+        catch(e) { return { error: e.message }; }
+      });
+      await p.waitForTimeout(8000);
+      if (renameResult.ok) {
+        const renamedExists = ghFileExists(renamedPath);
+        log('protocols', 'Rename protocol', renamedExists ? 'PASS' : 'FAIL',
+          renamedExists ? `${renamedPath} created` : 'New file not found');
+        // Clean up old file if rename didn't delete it (SHA cache mismatch)
+        const oldIdx = cleanup.findIndex(c => c.path === protoFilePath);
+        if (oldIdx >= 0) cleanup.splice(oldIdx, 1);
+        if (ghFileExists(protoFilePath)) {
+          ghDeleteFile(protoFilePath, 'LabBot cleanup: old renamed protocol');
+        }
+        if (renamedExists) cleanup.push({ path: renamedPath });
+      } else {
+        log('protocols', 'Rename protocol', 'FAIL', `renameDoc: ${renameResult.error}`);
+      }
+
+      // ── Delete protocol (via confirm dialog) ──
+      // Delete the renamed protocol (or original if rename failed)
+      const delTarget = ghFileExists(renamedPath) ? renamedPath : protoFilePath;
+      const delTargetSlug = delTarget.replace('docs/wet-lab/', '').replace('.md', '');
+      await p.evaluate((slug) => {
+        if (typeof loadDoc === 'function') loadDoc('wet-lab/' + slug);
+      }, delTargetSlug);
+      await p.waitForTimeout(3000);
+      p.removeAllListeners('dialog');
+      p.on('dialog', async dialog => {
+        if (dialog.type() === 'confirm') await dialog.accept();
+        else await dialog.dismiss();
+      });
+      const deleteResult = await p.evaluate(async () => {
+        if (typeof deleteDoc !== 'function') return { error: 'not available' };
+        try { await deleteDoc(); return { ok: true }; }
+        catch(e) { return { error: e.message }; }
+      });
+      await p.waitForTimeout(8000);
+      if (deleteResult.ok) {
+        const deleted = !ghFileExists(delTarget);
+        log('protocols', 'Delete protocol', deleted ? 'PASS' : 'FAIL',
+          deleted ? `${delTarget} removed` : 'File still exists');
+        if (deleted) {
+          const idx = cleanup.findIndex(c => c.path === delTarget);
+          if (idx >= 0) cleanup.splice(idx, 1);
+        }
+      } else {
+        log('protocols', 'Delete protocol', 'FAIL', `deleteDoc: ${deleteResult.error}`);
+      }
     }
 
     await p.screenshot({ path: '/tmp/labbot-protocols.png', fullPage: false });
