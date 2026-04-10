@@ -37,9 +37,9 @@ Acutely Toxic Materials can be identified using the Globally Harmonized System H
 5.  Isocyanates
 
 Our lab contains:
->
+
 **H300** [[mitomycin-c]], [[cis-diamineplatinum-ii-dichloride]]
->
+
 **H310** [[2-mercaptoethanol]]
 
 ## ENGINEERING/VENTILATION CONTROLS
@@ -86,11 +86,9 @@ For Acutely Toxic Materials, the following are also required:
 
 11. Work surfaces should be protected (*e.g.,* disposable absorbent bench paper, aluminum foil, etc.) and must be decontaminated after each use.
 
-<!-- -->
-
 ## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
->
+
 In addition to the minimum attire required upon entering a laboratory, the following PPE is required for work with Acutely Toxic Materials:
 
 A.  Eye Protection: Eye protection is required for all work with Acutely Toxic Materials.
@@ -109,24 +107,22 @@ B.  Body Protection: At a minimum a chemically-compatible laboratory coat that f
 
 C.  Hand Protection: When hand protection is needed for the activities described in this SOP define the type of glove to be used based on: A) the chemical(s) being used, B) the anticipated chemical contact (*e.g.,* incidental, immersion, etc.), C) the manufacturers' permeation/compatibility data, and D) whether a combination of different gloves is needed for any specific procedural step or task.
 
-<!-- -->
-
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health System ERG](http://www.ucdmc.ucdavis.edu/medresearch/downloads/labsafety/2.6-UCDHS-Emergency-Response-Guide.pdf). The applicable ERG must be posted in the laboratory. All other locations must describe detailed emergency procedure instructions below.
->
+
 For spills of solid materials, DO NOT dry sweep.
 
 ## WASTE MANAGEMENT AND DECONTAMINATION
 Hazardous waste must be managed according to [Safety Net #8](http://safetyservices.ucdavis.edu/safetynet/guidelines-disposal-chemical-waste), and must be [properly labeled](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). In general, hazardous waste must be removed from your laboratory within 9 months of the accumulation start date; refer to the [accumulation time for waste disposal](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). Hazardous waste pick up requests must be completed using [WASTe](https://ehs.ucop.edu/waste/#/).
->
+
 **Note:** See the [WASTe Factsheet](http://safetyservices.ucdavis.edu/sites/default/files/documents/WASTe_Factsheet.pdf) for instructions on how to complete a label.
->
+
 Decontamination procedures vary depending on the material being handled. The toxicity of some materials can be neutralized with other reagents. All surfaces and equipment should be wiped with the appropriate cleaning agent following dispensing or handling to prevent accumulation of Acutely Toxic chemical residue. Decontaminate vacuum pumps or other contaminated equipment before removing them from the designated area or before resuming normal laboratory work in the area.
->
+
 Carefully inspect work areas to make sure no hazardous materials remain. Clean contaminated work areas with an appropriate cleaning agent, and dispose of cleaning materials properly. Be sure all ignition sources are secured before beginning clean up with flammable liquids.
->
+
 Dispose of waste, including contaminated PPE in designated waste areas.
->
+
 Upon completion of work with Acutely Toxic Materials and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated Acutely Toxic Materials work area remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
 
 ## DESIGNATED AREA
@@ -135,59 +131,33 @@ Designated area(s) are required for the use and storage of Acutely Toxic Materia
 ## DETAILED PROTOCOL
 Review SDS for each chemical before use.
 
-**TEMPLATE REVISION HISTORY**
+---
 
-  -----------------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- --------------------- ---------------------------------------------------------------------
-  **1.012/1/2014CLSC Task ForceNew template1.14/16/2015Chris JakoberChanged SDS link, language related to soiled PPE1.23/10/2016Chris JakoberUpdated URLs following website redesign, added URL to UCDHS ERG1.311/30/2016Lindy GervinUnlocked editable fields1.43/13/2017Lindy GervinUpdated links in section 7 to WASTe system1.55/10/2017Lindy GervinUpdated email address in section 31.612/2/2020Phillip PainterUpdated SDS link in section 4**
-  -----------------------------------------------------------------------------------------------------------------------------
+## REVISION HISTORY
 
-**LAB-SPECIFIC REVISION HISTORY**
+### Template Revision History
 
-  --------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- ------------------ ---------------------------------------
-  **    1 **      8/12/21           ** GM     2 **     11/15/23           **  GM, KZ    **     Updated chemical list
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 12/1/2014 | CLSC Task Force | New template |
+| 1.1 | 4/16/2015 | Chris Jakober | Changed SDS link, language related to soiled PPE |
+| 1.2 | 3/10/2016 | Chris Jakober | Updated URLs following website redesign, added URL to UCDHS ERG |
+| 1.3 | 11/30/2016 | Lindy Gervin | Unlocked editable fields |
+| 1.4 | 3/13/2017 | Lindy Gervin | Updated links in section 7 to WASTe system |
+| 1.5 | 5/10/2017 | Lindy Gervin | Updated email address in section 3 |
+| 1.6 | 12/2/2020 | Phillip Painter | Updated SDS link in section 4 |
 
-  **    3 **    12/1/25             ** GM, KZ    **      Updated chemical list   
+### Lab-Specific Revision History
 
-                                          
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1 | 8/12/21 | GM | Initial version |
+| 2 | 11/15/23 | GM, KZ | Updated chemical list |
+| 3 | 12/1/25 | GM, KZ | Updated chemical list |
 
-                                          
+---
 
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-  --------------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -199,36 +169,10 @@ Review SDS for each chemical before use.
 
 - Training must be repeated following **any** revision to the content of this SOP. Training must be documented. This training sheet is provided as one option; other forms of training documentation (including electronic) are acceptable but records must be accessible and immediately available upon request.
 
-**Designated Trainer:** *Kehan Zhao*      
+**Designated Trainer:** *Kehan Zhao*
 
-     
-
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  ---------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- -----------
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-  ---------------------------------------------------------------------------------------
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |

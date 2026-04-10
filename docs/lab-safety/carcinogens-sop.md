@@ -17,7 +17,7 @@ Carcinogens are chemicals that are known to cause cancer in humans and/or animal
 
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
 Carcinogens are chemicals that are capable of causing cancer or tumor development, typically after repeated or chronic exposure. Their effects may only become evident after a long latency period and may cause no immediate harmful effects.
->
+
 Carcinogens regulated by the California Occupational Safety and Health Administration (Cal/OSHA) can be found in [Title 8 of California Code of Regulations (8 CCR), Article 110](https://www.dir.ca.gov/title8/sb7g16a110.html), §5200-5220. Additionally, Cal/OSHA defines Carcinogens in [8 CCR §5191](http://www.dir.ca.gov/title8/5191.html) as materials that meet any of the following:
 
 1.  Is a regulated Cal/OSHA Carcinogen;
@@ -51,12 +51,12 @@ Carcinogens can be identified in the Globally Harmonized System by the Hazard Co
 10. Polycyclic Aromatic Hydrocarbons (PAHs)
 
 Note, many Carcinogens have additional chemical hazards. Review a current Safety Data Sheet for each Carcinogen prior to use.
->
+
 Our Lab contains:
->
-H350 [[acrylamide]], [[sodium-arsenate-dibasic-heptahydrate]], [[basic-fuchsin]], [[chloramphenicol]], [[cis-diamineplatinum-ii-dichloride]], [[methyl-methanesulfonate]], [[formaldehyde-16-[[methanol]]-free-pfa]]
->
-H351 [[chloroform]], [[mitomycin-c]], [[ethyl-methanesulfonate]], [[formamide]], [[hydroxylamine-hydrochloride]], Phenol - chloroform - isoamyl alcohol mixture 25:24:1, [[chloroform-isoamyl-alcohol-24-1]]
+
+**H350** [[acrylamide]], [[sodium-arsenate-dibasic-heptahydrate]], [[basic-fuchsin]], [[chloramphenicol]], [[cis-diamineplatinum-ii-dichloride]], [[methyl-methanesulfonate]], [[formaldehyde-16-methanol-free-pfa]]
+
+**H351** [[chloroform]], [[mitomycin-c]], [[ethyl-methanesulfonate]], [[formamide]], [[hydroxylamine-hydrochloride]], Phenol - chloroform - isoamyl alcohol mixture 25:24:1, [[chloroform-isoamyl-alcohol-24-1]]
 
 ## ENGINEERING/VENTILATION CONTROLS
 Use available engineering/ventilation controls to keep exposure to Carcinogens as low as possible. The following is a general plan for Carcinogens:
@@ -110,7 +110,7 @@ Only use chloroform under proper fume hood.
 
 ## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
->
+
 In addition to the minimum attire required upon entering a laboratory, the following PPE are required for work with Carcinogens:
 
 A.  Eye Protection: Eye protection is required for all work with Carcinogens.
@@ -133,83 +133,56 @@ Only use chloroform under proper fume hood.
 
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health System ERG](http://www.ucdmc.ucdavis.edu/medresearch/downloads/labsafety/2.6-UCDHS-Emergency-Response-Guide.pdf). The applicable ERG must be posted in the laboratory. All other locations must describe detailed emergency procedure instructions below.
->
+
 For spills of solid materials, DO NOT dry sweep.
->
+
 EH&S **must be notified immediately** for any uncontrolled release of Carcinogens; please call (530) 752-1493. Some examples of an uncontrolled release include, but are not limited to, equipment failure, rupture of containers, or failure of control equipment. EH&S must report this information to Cal/OSHA within 24 hours.
 
 ## WASTE MANAGEMENT AND DECONTAMINATION
 Hazardous waste must be managed according to [Safety Net #8](http://safetyservices.ucdavis.edu/safetynet/guidelines-disposal-chemical-waste), and must be [properly labeled](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). In general, hazardous waste must be removed from your laboratory within 9 months of the accumulation start date; refer to the [accumulation time for waste disposal](http://safetyservices.ucdavis.edu/article/hazardous-waste-storage-and-labeling). Hazardous waste pick up requests must be completed using [WASTe](https://ehs.ucop.edu/waste/#/).
->
+
 **Note:** See the [WASTe Factsheet](http://safetyservices.ucdavis.edu/sites/default/files/documents/WASTe_Factsheet.pdf) for instructions on how to complete a label.
->
+
 Decontamination procedures vary depending on the material being handled. Carefully inspect work areas to make sure no hazardous materials remain. Following dispensing or handling, all surfaces and equipment should be wiped with the appropriate cleaning agent to prevent accumulation of Carcinogen chemical residue. Dispose of cleaning materials properly. Be sure all ignition sources are secured before beginning clean up with flammable liquids. Decontaminate vacuum pumps or other contaminated equipment before removing them from the regulated area or before resuming normal laboratory work in the area.
->
+
 Dispose of liquid waste in proper waste container.
->
+
 Upon completion of work with Carcinogens and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated Carcinogen work area remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused.
 
 ## DESIGNATED AREA
 Designated area(s) for the use and storage of Carcinogens shall be established where limited access, special procedures, knowledge, and work skills are required. Signage indicating the materials being used and/or stored and the applicable hazards should be easily visible for the designated work space and/or storage area, for example: DANGER! CARCINOGEN WORK AREA!
->
+
 Only use chloroform under proper fume hood.
 
 ## DETAILED PROTOCOL
 Review SDS and SOP before use.
 
-**TEMPLATE REVISION HISTORY**
+---
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- --------------------- -------------------------------------------------------------------------------------------------------------------------------
-  **1.04/14/2015CLSC Task ForceNew template1.13/10/2016Chris JakoberUpdated URLs following website redesign, added URL to UCDHS ERG, removed reference to Carcinogen Manual and SafetyNet #321.211/30/2016Lindy GervinUnlocked editable fields1.33/13/2017Lindy GervinUpdated links in section 7 to WASTe system1.45/10/2017Lindy GervinUpdated email address in section 31.512/2/2020Phillip PainterUpdated SDS hyperlink in section 4**
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## REVISION HISTORY
 
-**LAB-SPECIFIC REVISION HISTORY**
+### Template Revision History
 
-  -------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- ----------------- ---------------------------------------
-  **    1 **         12/8/21        **    GM    2  **    11/28/22            **GM, KZ     **        Updated chemical list
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 4/14/2015 | CLSC Task Force | New template |
+| 1.1 | 3/10/2016 | Chris Jakober | Updated URLs following website redesign, added URL to UCDHS ERG, removed reference to Carcinogen Manual and SafetyNet #32 |
+| 1.2 | 11/30/2016 | Lindy Gervin | Unlocked editable fields |
+| 1.3 | 3/13/2017 | Lindy Gervin | Updated links in section 7 to WASTe system |
+| 1.4 | 5/10/2017 | Lindy Gervin | Updated email address in section 3 |
+| 1.5 | 12/2/2020 | Phillip Painter | Updated SDS hyperlink in section 4 |
 
-  **  3   **      12/1/25           **GM, KZ  **           Updated chemical list
+### Lab-Specific Revision History
 
-                                         
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1 | 12/8/21 | GM | Initial version |
+| 2 | 11/28/22 | GM, KZ | Updated chemical list |
+| 3 | 12/1/25 | GM, KZ | Updated chemical list |
 
-                                         
+---
 
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-
-                                         
-  -------------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -221,36 +194,10 @@ Review SDS and SOP before use.
 
 - Training must be repeated following **any** revision to the content of this SOP. Training must be documented. This training sheet is provided as one option; other forms of training documentation (including electronic) are acceptable but records must be accessible and immediately available upon request.
 
-**Designated Trainer:** *Kehan Zhao*     
+**Designated Trainer:** *Kehan Zhao*
 
-     
-
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  ---------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- -----------
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-  ---------------------------------------------------------------------------------------
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |

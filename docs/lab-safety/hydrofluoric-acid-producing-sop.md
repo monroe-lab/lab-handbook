@@ -18,19 +18,19 @@ Hydrofluoric acid (HF)-producing materials produce HF under common laboratory co
 ## HAZARDOUS CHEMICAL(S)/CLASS OF HAZARDOUS CHEMICAL(S)
 Although HF is a weak acid (pKa = 3.17), exposures can be fatal or cause permanent bone, tissue, and nerve damage. HF-producing materials should be handled with extreme care (i.e. beyond what is generally required to handle other mineral acids). HF is a lipid-soluble molecule which penetrates tissue more rapidly than typical mineral acids, due to its low dissociation constant. Because of the ability of HF to penetrate tissue, poisoning can occur readily through minimal exposure of skin or eyes, or when inhaled or ingested. HF irreversibly binds calcium which affects nerve signaling, delaying detection of exposure (burns may not initially be painful and may not be evident until sometime after exposure). This property may also lead to:
 
-- Cardiac arrest from higher exposure levels to a small portion of your body (as little as 25 in^2^ of skin to concentrated acid); and
+- Cardiac arrest from higher exposure levels to a small portion of your body (as little as 25 in² of skin to concentrated acid); and
 
 - Dissolution of calcium from bone from lower exposure levels if left untreated.
 
 **HF-producing materials can be identified by the safety data sheet in Section 2.3 "Hazards not otherwise classified or not covered by GHS".** In the case of HF-producing materials the SDS will indicate that the material is a "Strong hydrogen fluoride releaser" or similar language to that effect.
->
-Additional information and data for HF is available from [PubChem](https://pubchem.ncbi.nlm.nih.gov/compound/14917#datasheet=lcss&section=Top) and [Honeywell](#bookmark=id.1t3h5sf).
->
-**NOTE:** Solutions of sodium fluoride and potassium fluoride under 1% in water can be classified as "Weak hydrogen fluoride releaser\[s\]." Solutions containing soluble fluorides can react strongly with compounds containing calcium, magnesium, or silicon ions, which means that these solutions can be corrosive to both living tissue and glass. Fluoride solutions can react with acid to evolve corrosive and toxic HF. Review lab-specific usage of sodium fluoride and potassium fluoride solutions less than 1% to determine whether this SOP applies.
+
+Additional information and data for HF is available from [PubChem](https://pubchem.ncbi.nlm.nih.gov/compound/14917#datasheet=lcss&section=Top) and Honeywell.
+
+**NOTE:** Solutions of sodium fluoride and potassium fluoride under 1% in water can be classified as "Weak hydrogen fluoride releasers." Solutions containing soluble fluorides can react strongly with compounds containing calcium, magnesium, or silicon ions, which means that these solutions can be corrosive to both living tissue and glass. Fluoride solutions can react with acid to evolve corrosive and toxic HF. Review lab-specific usage of sodium fluoride and potassium fluoride solutions less than 1% to determine whether this SOP applies.
 
 1.  Phenylmethylsulfonyl fluoride (PMSF) (CAS-No.: 329-98-6): H301 Acute oral toxicity, H314 skin corrosion, H318 serious eye damage, strong hydrogen fluoride-releaser in contact with acid.
 
-2.  4-(2-Aminoethyl)benzenesulfonyl fluoride ([AEBSF)]{.mark} (CAS-No.: 30827-99-7): H314 Skin corrosion, H318 serious eye damage, strong hydrogen fluoride-releaser if burned.
+2.  4-(2-Aminoethyl)benzenesulfonyl fluoride (AEBSF) (CAS-No.: 30827-99-7): H314 Skin corrosion, H318 serious eye damage, strong hydrogen fluoride-releaser if burned.
 
 3.  Protease inhibitor cocktail (CAS-No.: mixture): contains AEBSF, see above.
 
@@ -91,16 +91,16 @@ For HF-producing materials, the following are also required:
 17. HF-producing materials must be segregated appropriately as indicated by the SDS.
 
 PMSF and sodium fluoride produce HF upon exposure to acids.
->
+
 Ammonium fluoride and AEBSF should not be burned; they both produce HF when exposed to fire. In case of a fire, evacuate the lab immediately.
->
+
 HF reacts with water, silicates, glass, acids, bases, and strong oxidizing agents.
->
+
 All work with chemicals that produce HF must be approved by the PI in writing or email and the protocol approved before work can start.
 
 ## PERSONAL PROTECTIVE EQUIPMENT (PPE)
 At a minimum, long pants (covered legs) and closed toe/closed heel shoes (covered feet) are required to enter a laboratory or technical area where hazardous chemicals are used or stored.
->
+
 In addition to the minimum PPE required upon entering a laboratory, the following are required for work with HF-producing materials:
 
 A.  Eye Protection: Eye protection is required for all work with HF-producing materials.
@@ -130,37 +130,35 @@ Neoprene or nitrile rubber gloves are best for working with HF-producing materia
 ## SPILL AND EMERGENCY PROCEDURES
 Follow the guidance for chemical spill cleanup from [SafetyNet #13](http://safetyservices.ucdavis.edu/safetynet/guidelines-chemical-spill-control) and/or the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/ps/cls/clsm), unless specialized cleanup procedures are described below. Emergency procedure instructions for the UC Davis campus and UCD Medical Center are contained in the [UC Davis Laboratory Safety Manual](http://safetyservices.ucdavis.edu/article/laboratory-safety-manual), [campus Emergency Response Guide (ERG)](http://safetyservices.ucdavis.edu/sites/default/files/documents/Emergency_Response_Guide.pdf), and [UCD Health ERG](https://ucdavis.app.box.com/v/SacramentoEmergencyResponse). All other locations must describe detailed emergency procedure instructions below. Any spill occurring outside of a fume hood shall be reported to EH&S and may require an emergency response.
 
-A.  **In case of skin contact**:
-
-<!-- -->
+**A. In case of skin contact:**
 
 1.  Speed and thoroughness of washing off the HF-producing material is of primary importance. Move the victim immediately under a shower or other water source. Wash thoroughly with large amounts of running water. Remove clothing and continue to flush with water. If 2.5% calcium gluconate gel is available rinsing may be limited to 5 minutes, if gel is not available continue rinsing until medical treatment is rendered.
 
-2.  While the victim is being rinsed with water, have someone call to arrange medical treatment. If the exposure is to the eyes or covers a large area (\> 25mL or whole hand or limb), **call 911**. For smaller exposures (e.g.; a few mL on the skin), seek medical treatment if the victim wishes to do so. Report all exposures to the PI/Supervisor and to EH&S via the Employee Injury and Illness Reporting ([EIIR](https://safetyservices.ucdavis.edu/units/risk-management-services/workers-compensation/injury-reporting)).
+2.  While the victim is being rinsed with water, have someone call to arrange medical treatment. If the exposure is to the eyes or covers a large area (> 25mL or whole hand or limb), **call 911**. For smaller exposures (e.g.; a few mL on the skin), seek medical treatment if the victim wishes to do so. Report all exposures to the PI/Supervisor and to EH&S via the Employee Injury and Illness Reporting ([EIIR](https://safetyservices.ucdavis.edu/units/risk-management-services/workers-compensation/injury-reporting)).
 
 3.  Immediately after thorough washing, start massaging 2.5% calcium gluconate gel into the burn site. Apply the gel frequently and massage continuously until pain/redness ceases or professional medical care is available. The expiration date of calcium gluconate is 36 months. Responders **must** wear thick neoprene or nitrile gloves when applying the gel to prevent secondary HF burns to their hands.
 
 **ALL HF BURNS SHOULD BE EVALUATED BY A PHYSICIAN EXPERIENCED IN MEDICAL TOXICOLOGY AND TREATMENT OF CHEMICAL BURNS**.
 
-B.  **In case of eye contact:**
+**B. In case of eye contact:**
 
 Immediately flush eyes with water for at least 15 minutes under emergency eyewash or other water source. Contact lenses should be removed if possible. If only one eye is affected, be careful not to flush contaminated water into the other eye. If a sterile 1% calcium gluconate solution is available, washing may be limited to 5 minutes followed by irrigation of the eye with 1% calcium gluconate solution. Call 911 and then EH&S at (530) 752-1493. If possible, provide continuous irrigation during transport.
 
-C.  **In case of inhalation**
+**C. In case of inhalation:**
 
 Immediately move the victim to fresh air and get medical attention. Call 911 and then EH&S at (530) 752-1493.
 
-D.  **If swallowed:**
+**D. If swallowed:**
 
-DO NOT INDUCE VOMITING. Give large quantities of milk (preferable) or water. Never give anything by mouth to an unconscious person. In addition, victims may be given several ounces of milk of magnesia, any calcium containing antacid, Maalox®, etc. or grind up and administer up to 30 Tums™, Caltrate® or other antacid tablets with water. Call 911 and then EH&S at (530) 752-1493 immediately.
->
+DO NOT INDUCE VOMITING. Give large quantities of milk (preferable) or water. Never give anything by mouth to an unconscious person. In addition, victims may be given several ounces of milk of magnesia, any calcium containing antacid, Maalox, etc. or grind up and administer up to 30 Tums, Caltrate or other antacid tablets with water. Call 911 and then EH&S at (530) 752-1493 immediately.
+
 **INGESTION OF HYDROFLUORIC ACID IS A LIFE-THREATENING EMERGENCY**.
 
-E.  **Spill Clean Up Guidelines**
+**E. Spill Clean Up Guidelines:**
 
 Immediately assess the amount spilled. **Assess the extent of danger**. Assist contaminated or injured persons. Evacuate the spill area. Notify EH&S if you have any hesitations about cleaning up any spills of HF-producing material (of any volume).
->
-If you have training, and chose to assist in the clean-up effort, the following are guidelines. Refer to the product specific SDS for specific guidelines on spill clean-up.:
+
+If you have training, and chose to assist in the clean-up effort, the following are guidelines. Refer to the product specific SDS for specific guidelines on spill clean-up:
 
 - Personal Protective equipment must be worn -- thick neoprene or nitrile gloves that cover the wrist, goggles, face shield, natural rubber apron/suit, long pants, closed-toe rubber/leather shoes, and respirator approved for HF handling. Assure adequate personal protection with a respirator if needed.
 
@@ -173,94 +171,57 @@ If you have training, and chose to assist in the clean-up effort, the following 
 - Label and tag as hazardous waste and bring to hazardous waste pick up location. Keep in suitable, closed containers for disposal.
 
 If there is a spill, put signage in the hood that describes the spill and that the hood is closed until further notice. Notify the PI of the spill. Wait until the PI is available and then the spill can be evaluated. Small spills might be able to be wiped up using paper towels. Large spills require EH&S response.
->
+
 Be aware that some fluorides react with silicates, so kitty litter should not be used as a spill clean up material.
->
+
 Be aware that some fluorides react with water, so spill clean up should involve first wiping up with a 5% sodium carbonate.
->
+
 There are no specialized emergency procedures for locations outside of the UC Davis main campus and the UCD Medical Center campus because these chemicals will only be used on the main campus.
 
 ## WASTE MANAGEMENT AND DECONTAMINATION
 Hazardous waste must be managed according to [Safety Net #8](http://safetyservices.ucdavis.edu/safetynet/chemical-waste-disposal-guidelines) using the appropriate [label](http://safetyservices.ucdavis.edu/ps/hmhwm/iwm/hwl/hwl). In general, hazardous waste must be removed from your laboratory within 9 months of the accumulation start date; refer to the [timeline for waste disposal](http://safetyservices.ucdavis.edu/ps/hmhwm/iwm/cw/accumulationTime). Hazardous waste pick up requests must be [completed online](http://safetyservices.ucdavis.edu/article/hazardous-waste-management) through the WASTe Hazard Waste Management Program.
->
+
 Waste storage bottles that contain HF-producing wastes may need to be capped with pressure-relief caps. EH&S provides vented caps for 4 L bottles free of charge, contact your Laboratory Safety Professional or [researchsafety@ucdavis.edu](mailto:researchsafety@ucdavis.edu?subject=Vented%20Caps%20for%20Acid%20Waste) to obtain caps for your containers.
->
+
 A neutralizing agent specific to HF should be used for initial decontamination of surfaces. Any plastic ware used for a reaction wherein HF is produced should be decontaminated with an aqueous solution of [[calcium-carbonate]], then washed as normal with water followed by [[acetone]]. It is also recommended to wash the surrounding area in the fume hood with an aqueous solution of calcium carbonate. Final decontamination of surfaces may be performed with wipes moistened with dry, non-polar solvent. Carefully inspect work areas to make sure no residual materials remain. Use detection strips sensitive to the fluoride ion as a final check to verify cleanliness.
->
+
 Any surface or container contact with these chemicals will be decontaminated. The general procedure detailed is that the work area will be wiped down with a 5% sodium carbonate solution, twice, followed by a water wipe. Signage will be posted on the fume hood that was used/contaminated before and during the decontamination process. Signage will contain spill procedures such as not using kitty litter or direct water.
->
+
 All things used in the decontamination process will be treated as hazardous waste.
->
+
 Upon completion of work with HF-producing materials and/or decontamination of equipment, remove gloves and/or PPE to wash hands and arms with soap and water. Additionally, upon leaving a designated HF-producing material work area remove all PPE worn and wash hands, forearms, face and neck as needed. Contaminated clothing or PPE should not be worn outside the lab. Soiled lab coats should be sent for professional laundering. Grossly contaminated clothing/PPE and disposable gloves must not be reused. See [PPE FAQ](http://safetyservices.ucdavis.edu/faq/personal-protective-equipment-ppe-faqs) page for more information.
 
 ## DESIGNATED AREA
 Work with these chemicals should only take place within the fume hood or their designated storage area in the freezer/refrigerator.
 
 ## DETAILED PROTOCOL
-All work with these chemicals should be preceded by
->
-1\. making 1 L of a 5% sodium carbonate solution that can be used to decontaminate work surfaces and equipment.
->
-2\. checking that the calcium gluconate gel is present and not expired at the work space.
->
-3\. all doors to the lab and near the fume hood should be posted that work with a HF producing chemical is occurring. This posting should include HF treatment and spill clean up procedures.
+All work with these chemicals should be preceded by:
 
-**TEMPLATE REVISION HISTORY**
+1. Making 1 L of a 5% sodium carbonate solution that can be used to decontaminate work surfaces and equipment.
 
-  ----------------------------------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  ------------- ------------------- --------------------------------- --------------------------------------------------
-  **1.06/18/2024Karen Gagnon & Phil PainterNew template based on Hydrofluoric Acid SOP.**
+2. Checking that the calcium gluconate gel is present and not expired at the work space.
 
-  ----------------------------------------------------------------------------------------------------------------------
+3. All doors to the lab and near the fume hood should be posted that work with a HF producing chemical is occurring. This posting should include HF treatment and spill clean up procedures.
 
-**LAB-SPECIFIC REVISION HISTORY**
+---
 
-  --------------------------------------------------------------------------------------------
-  **VersionDate ApprovedAuthorRevision Notes:**
-  -------------- ------------------- ----------------- ---------------------------------------
-  **1.1     **   11/8/2024           **KD, KZ     **        Customized to Monroe Lab
+## REVISION HISTORY
 
-                                          
+### Template Revision History
 
-                                          
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.0 | 6/18/2024 | Karen Gagnon & Phil Painter | New template based on Hydrofluoric Acid SOP |
 
-                                          
+### Lab-Specific Revision History
 
-                                          
+| Version | Date Approved | Author | Revision Notes |
+|---------|---------------|--------|----------------|
+| 1.1 | 11/8/2024 | KD, KZ | Customized to Monroe Lab |
 
-                                          
+---
 
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-
-                                          
-  --------------------------------------------------------------------------------------------
-
-**Documentation of Standard Operating Procedure Training**
+## TRAINING DOCUMENTATION
 
 *(Signature of all users is required)*
 
@@ -272,38 +233,10 @@ All work with these chemicals should be preceded by
 
 - Training must be repeated following any revision to the content of this SOP.
 
-**Designated Trainer:** *(signature is required)*      
+**Designated Trainer:** *Kehan Zhao*
 
-     
-
-I have read and acknowledge the contents, requirements, and responsibilities outlined in this SOP:
-
-  ---------------------------------------------------------------------------------------
-  **NameSignatureTrainer InitialsDate**
-  ------------------------- -------------------------- ---------------------- -----------
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-
-                                                            
-  ---------------------------------------------------------------------------------------
-
-![](media/image2.png){width="11.0in" height="7.28669072615923in"}
+| Name | Signature | Trainer Initials | Date |
+|------|-----------|------------------|------|
+| | | | |
+| | | | |
+| | | | |
