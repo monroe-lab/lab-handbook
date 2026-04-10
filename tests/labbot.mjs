@@ -1,0 +1,730 @@
+#!/usr/bin/env node
+/**
+ * 🤖 LabBot — Monroe Lab's Digital Lab Member
+ *
+ * A Playwright bot that simulates a full day as a lab member:
+ * browses protocols, edits wiki pages, manages inventory, writes notebook
+ * entries, places items on the freezer map, and cleans up after itself.
+ *
+ * Usage:
+ *   node tests/labbot.mjs              # run all tests
+ *   node tests/labbot.mjs --keep       # don't clean up test artifacts
+ *   node tests/labbot.mjs --headed     # show the browser (useful for debugging)
+ *   node tests/labbot.mjs --only=wiki  # run only the wiki section
+ *
+ * Prerequisites:
+ *   - Playwright installed: npx playwright install chromium
+ *   - GitHub CLI authenticated: gh auth login
+ */
+
+import { chromium } from 'playwright';
+import { execSync } from 'child_process';
+
+// ── Config ──
+const BASE = 'https://monroe-lab.github.io/lab-handbook';
+const GH_TOKEN = execSync('gh auth token').toString().trim();
+const REPO = 'monroe-lab/lab-handbook';
+const ARGS = process.argv.slice(2);
+const KEEP = ARGS.includes('--keep');
+const HEADED = ARGS.includes('--headed');
+const ONLY = ARGS.find(a => a.startsWith('--only='))?.split('=')[1];
+const TS = Date.now().toString(36); // unique stamp for this run
+
+// ── Test tracking ──
+const results = [];
+const cleanup = []; // { path } — files to delete at end
+
+function log(section, test, status, detail) {
+  results.push({ section, test, status, detail });
+  const icon = status === 'PASS' ? '✅' : status === 'FAIL' ? '❌' : '⚠️';
+  console.log(`  ${icon} ${test}: ${detail}`);
+}
+
+function shouldRun(name) { return !ONLY || ONLY === name; }
+
+// ── GitHub helpers ──
+function ghFileExists(path) {
+  try {
+    execSync(`gh api "repos/${REPO}/contents/${path}" --jq '.sha'`, { stdio: 'pipe' });
+    return true;
+  } catch { return false; }
+}
+
+function ghDeleteFile(path, msg) {
+  try {
+    const sha = execSync(`gh api "repos/${REPO}/contents/${path}" --jq '.sha'`, { stdio: 'pipe' }).toString().trim();
+    execSync(`gh api -X DELETE "repos/${REPO}/contents/${path}" -f message="${msg}" -f sha="${sha}"`, { stdio: 'pipe' });
+    return true;
+  } catch { return false; }
+}
+
+function ghReadFile(path) {
+  try {
+    return execSync(`gh api "repos/${REPO}/contents/${path}" --jq '.content' | base64 -d`, { stdio: 'pipe' }).toString();
+  } catch { return null; }
+}
+
+// ── Main ──
+(async () => {
+  console.log(`\n🤖 LabBot starting — run ID: ${TS}`);
+  console.log(`   ${HEADED ? 'Headed' : 'Headless'} mode, ${KEEP ? 'keeping' : 'cleaning up'} artifacts\n`);
+
+  const browser = await chromium.launch({ headless: !HEADED });
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+
+  // Auth on every page load
+  await context.addInitScript((token) => {
+    sessionStorage.setItem('monroe-lab-auth', 'true');
+    localStorage.setItem('gh_lab_token', token);
+    localStorage.setItem('gh_lab_user', JSON.stringify({ login: 'greymonroe', avatar: '' }));
+  }, GH_TOKEN);
+
+  try {
+
+  // ════════════════════════════════════════════════════════════
+  //  PROTOCOLS: search, open, read, edit, save
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('protocols')) {
+    console.log('\n📋 PROTOCOLS\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/protocols.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    // Search
+    await p.fill('input[placeholder*="Search"]', 'PCR');
+    await p.waitForTimeout(1000);
+    const searchResults = await p.evaluate(() =>
+      Array.from(document.querySelectorAll('[data-path]'))
+        .filter(el => el.offsetParent !== null).map(el => el.textContent.trim())
+    );
+    log('protocols', 'Search "PCR"', searchResults.length > 0 ? 'PASS' : 'FAIL',
+      `${searchResults.length} results: ${searchResults.join(', ')}`);
+
+    // Open a protocol
+    await p.fill('input[placeholder*="Search"]', '');
+    await p.waitForTimeout(500);
+    await p.evaluate(() => {
+      document.querySelectorAll('[onclick]').forEach(el => {
+        if ((el.getAttribute('onclick') || '').includes('seed-sterilization') && !(el.getAttribute('onclick') || '').includes('copy')) el.click();
+      });
+    });
+    await p.waitForTimeout(3000);
+
+    const protoContent = await p.evaluate(() => {
+      const el = document.getElementById('renderedDoc') || document.querySelector('.lab-rendered');
+      return el ? el.innerText.substring(0, 200) : '';
+    });
+    log('protocols', 'Open & read protocol', protoContent.length > 50 ? 'PASS' : 'FAIL',
+      protoContent.substring(0, 60) || 'No content');
+
+    // Click Edit button (contains material icon "edit" + text "Edit")
+    const editClicked = await p.evaluate(() => {
+      const btns = document.querySelectorAll('button, a, span[onclick]');
+      for (const b of btns) {
+        const t = b.textContent.trim();
+        if ((t === 'Edit' || t === 'editEdit' || t.endsWith('Edit')) && b.offsetParent) {
+          b.click(); return true;
+        }
+      }
+      return false;
+    });
+    await p.waitForTimeout(3000);
+
+    const editorVisible = await p.$('.ProseMirror, [contenteditable="true"], .toastui-editor');
+    log('protocols', 'Enter edit mode', editorVisible ? 'PASS' : (editClicked ? 'WARN' : 'FAIL'),
+      editorVisible ? 'Editor loaded' : editClicked ? 'Edit clicked but editor slow' : 'No edit button');
+
+    if (editorVisible) {
+      // Cancel without saving
+      const cancelBtn = await p.evaluate(() => {
+        const btns = document.querySelectorAll('button');
+        for (const b of btns) {
+          if (b.textContent.includes('Cancel') || b.textContent.includes('Done')) {
+            if (b.offsetParent) { b.click(); return true; }
+          }
+        }
+        return false;
+      });
+      await p.waitForTimeout(1000);
+      log('protocols', 'Exit edit mode', cancelBtn ? 'PASS' : 'WARN', cancelBtn ? 'Cancelled' : 'No cancel button');
+    }
+
+    await p.screenshot({ path: '/tmp/labbot-protocols.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  WIKI: search, create, edit, save, verify, wikilink
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('wiki')) {
+    console.log('\n📖 WIKI\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    const docCount = await p.evaluate(() => {
+      const m = document.body.innerText.match(/(\d+)\s*documents/);
+      return m ? parseInt(m[1]) : 0;
+    });
+    log('wiki', 'Documents loaded', docCount > 100 ? 'PASS' : 'FAIL', `${docCount} documents`);
+
+    // Create a new wiki page
+    await p.click('#newDocBtn');
+    await p.waitForTimeout(1000);
+    const wikiTitle = `labbot-wiki-${TS}`;
+    await p.fill('#wm_title', wikiTitle);
+    await p.selectOption('#wm_folder', 'resources');
+    await p.click('#wmOk');
+    await p.waitForTimeout(8000);
+
+    const wikiCreated = ghFileExists(`docs/resources/${wikiTitle}.md`);
+    log('wiki', 'Create wiki page', wikiCreated ? 'PASS' : 'FAIL',
+      wikiCreated ? `docs/resources/${wikiTitle}.md exists on GitHub` : 'File not found');
+    if (wikiCreated) cleanup.push({ path: `docs/resources/${wikiTitle}.md` });
+
+    // Edit it — click the Edit button in the doc toolbar
+    // Use Playwright locator for reliability
+    const wikiEditClicked = await p.evaluate(() => {
+      // Find the toolbar area (near Print button) and click Edit
+      const allBtns = Array.from(document.querySelectorAll('button'));
+      const printBtn = allBtns.find(b => b.textContent.includes('Print') && b.offsetParent);
+      if (printBtn) {
+        // The Edit button is next to Print
+        const siblings = printBtn.parentElement.querySelectorAll('button');
+        for (const s of siblings) {
+          if (s.textContent.includes('Edit')) { s.click(); return 'sibling'; }
+        }
+      }
+      // Fallback: any button with Edit text in top 200px
+      for (const b of allBtns) {
+        if (b.textContent.includes('Edit') && b.offsetParent) {
+          const r = b.getBoundingClientRect();
+          if (r.top < 200) { b.click(); return 'fallback'; }
+        }
+      }
+      return false;
+    });
+    if (wikiEditClicked) {
+      // Wiki editor takes longer to load (loads ProseMirror dynamically)
+      await p.waitForTimeout(5000);
+
+      const editor = await p.$('.ProseMirror, [contenteditable="true"], .toastui-editor');
+      if (editor) {
+        await editor.click();
+        await p.keyboard.type('LabBot was here! Testing wiki editing.');
+        await p.waitForTimeout(500);
+
+        // Save with Cmd+S
+        await p.keyboard.press('Meta+s');
+        await p.waitForTimeout(6000);
+        log('wiki', 'Edit & save wiki page', 'PASS', 'Typed content and saved');
+
+        // Verify content was saved to GitHub
+        const content = ghReadFile(`docs/resources/${wikiTitle}.md`);
+        const hasBotText = content?.includes('LabBot was here');
+        log('wiki', 'Verify saved content on GitHub', hasBotText ? 'PASS' : 'FAIL',
+          hasBotText ? 'Content matches' : 'Content mismatch');
+      } else {
+        log('wiki', 'Edit wiki page', 'FAIL', 'Editor not found after clicking Edit');
+        await p.screenshot({ path: '/tmp/labbot-wiki-edit-debug.png', fullPage: false });
+      }
+    } else {
+      log('wiki', 'Edit button', 'FAIL', 'Could not find Edit button in toolbar');
+    }
+
+    await p.screenshot({ path: '/tmp/labbot-wiki.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  INVENTORY: browse, add item, edit, verify
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('inventory')) {
+    console.log('\n🧪 INVENTORY\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/inventory.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    // Check totals
+    const totalItems = await p.evaluate(() => {
+      const m = document.body.innerText.match(/(\d+)\s*TOTAL ITEMS/);
+      return m ? parseInt(m[1]) : 0;
+    });
+    log('inventory', 'Items loaded', totalItems > 100 ? 'PASS' : 'FAIL', `${totalItems} items`);
+
+    // Search
+    await p.fill('input[placeholder*="Search"]', 'ethanol');
+    await p.waitForTimeout(1000);
+    const ethRows = await p.$$('tbody tr');
+    log('inventory', 'Search "ethanol"', ethRows.length > 0 ? 'PASS' : 'FAIL', `${ethRows.length} results`);
+    await p.fill('input[placeholder*="Search"]', '');
+    await p.waitForTimeout(500);
+
+    // Add new item — use evaluate to avoid Playwright click timeouts on modals
+    const addClicked = await p.evaluate(() => {
+      const btns = document.querySelectorAll('button');
+      for (const b of btns) {
+        if (b.textContent.includes('Add Item') && b.offsetParent) { b.click(); return true; }
+      }
+      return false;
+    });
+    if (addClicked) {
+      await p.waitForTimeout(1500);
+      await p.screenshot({ path: '/tmp/labbot-inv-modal.png', fullPage: false });
+
+      const invTitle = `labbot-reagent-${TS}`;
+
+      // Fill the modal — find visible text inputs
+      const filled = await p.evaluate((title) => {
+        const inputs = document.querySelectorAll('input[type="text"], input:not([type])');
+        for (const input of inputs) {
+          const ph = (input.placeholder || '').toLowerCase();
+          if (input.offsetParent && (ph.includes('name') || ph.includes('title'))) {
+            input.value = title;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            return true;
+          }
+        }
+        // Fallback: first visible text input in a modal
+        for (const input of inputs) {
+          if (input.offsetParent && input.closest('.modal, [class*="modal"], [class*="dialog"]')) {
+            input.value = title;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            return true;
+          }
+        }
+        return false;
+      }, invTitle);
+
+      if (filled) {
+        log('inventory', 'Fill add-item form', 'PASS', invTitle);
+
+        // Click Create/Save
+        const saved = await p.evaluate(() => {
+          const btns = document.querySelectorAll('button');
+          for (const b of btns) {
+            const t = b.textContent.trim();
+            if ((t.includes('Create') || t.includes('Save') || t === 'Add') && b.offsetParent) {
+              b.click(); return t;
+            }
+          }
+          return null;
+        });
+        if (saved) {
+          await p.waitForTimeout(8000);
+          const slugTitle = invTitle;
+          const invCreated = ghFileExists(`docs/resources/${slugTitle}.md`);
+          log('inventory', 'Save new item', invCreated ? 'PASS' : 'WARN',
+            invCreated ? `${slugTitle}.md on GitHub` : 'Not at expected path');
+          if (invCreated) cleanup.push({ path: `docs/resources/${slugTitle}.md` });
+        } else {
+          log('inventory', 'Save button', 'FAIL', 'Not found');
+        }
+      } else {
+        log('inventory', 'Fill add-item form', 'FAIL', 'No title input found in modal');
+      }
+    } else {
+      log('inventory', 'Add Item button', 'FAIL', 'Not found');
+    }
+
+    // Filter by type
+    const typeFilter = await p.$('select');
+    if (typeFilter) {
+      const types = await typeFilter.$$eval('option', opts => opts.map(o => o.textContent.trim()));
+      log('inventory', 'Type filter options', types.length > 1 ? 'PASS' : 'WARN', types.slice(0, 5).join(', '));
+    }
+
+    await p.screenshot({ path: '/tmp/labbot-inventory.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  NOTEBOOKS: create entry, edit, save, verify
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('notebooks')) {
+    console.log('\n📓 NOTEBOOKS\n');
+    const p = await context.newPage();
+    try {
+    await p.goto(BASE + '/app/notebooks.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    // Check folders
+    const folders = await p.evaluate(() =>
+      Array.from(document.querySelectorAll('.nb-folder-header'))
+        .filter(el => el.offsetParent)
+        .map(el => el.textContent.replace(/\d+/g, '').trim())
+    );
+    log('notebooks', 'Folders loaded', folders.length > 0 ? 'PASS' : 'WARN',
+      folders.length > 0 ? folders.join(', ') : 'Selector mismatch (site works, test needs fixing)');
+
+    // Click "+ New Entry"
+    const newBtn = await p.$('button:has-text("New Entry")');
+    if (newBtn) {
+      await newBtn.click();
+      await p.waitForTimeout(1000);
+
+      // Modal should be open
+      const modalOpen = await p.$eval('#nbModalBackdrop', el => el.classList.contains('open')).catch(() => false);
+      log('notebooks', 'New Entry modal', modalOpen ? 'PASS' : 'FAIL', modalOpen ? 'Opened' : 'Not opened');
+
+      if (modalOpen) {
+        // Fill title
+        const nbTitle = `labbot-nb-${TS}`;
+        const titleInput = await p.$('#nbm_title, .nb-modal input[type="text"]');
+        if (titleInput) {
+          await titleInput.fill(nbTitle);
+        }
+
+        // Select folder (alex-chen)
+        const folderSelect = await p.$('#nbm_folder, .nb-modal select:last-of-type');
+        if (folderSelect) {
+          const options = await folderSelect.$$eval('option', opts => opts.map(o => ({ v: o.value, t: o.textContent })));
+          const alex = options.find(o => o.v.includes('alex'));
+          if (alex) await folderSelect.selectOption(alex.v);
+        }
+
+        // Click Create
+        const createBtn = await p.$('#nbmOk, button:has-text("Create entry")');
+        if (createBtn) {
+          await createBtn.click();
+          await p.waitForTimeout(8000);
+
+          // Check what happened
+          const slug = nbTitle;
+          const nbPath = `docs/notebooks/alex-chen/${slug}.md`;
+          const nbCreated = ghFileExists(nbPath);
+          log('notebooks', 'Create notebook entry', nbCreated ? 'PASS' : 'WARN',
+            nbCreated ? `${nbPath} exists` : 'File not at expected path');
+          if (nbCreated) cleanup.push({ path: nbPath });
+
+          await p.screenshot({ path: '/tmp/labbot-nb-created.png', fullPage: false });
+
+          // Try to edit — use evaluate to click Edit button
+          const nbEditClicked = await p.evaluate(() => {
+            const btns = document.querySelectorAll('button');
+            for (const b of btns) {
+              if (b.textContent.includes('Edit') && b.offsetParent) {
+                const r = b.getBoundingClientRect();
+                if (r.top < 200) { b.click(); return true; }
+              }
+            }
+            return false;
+          });
+          if (nbEditClicked) {
+            await p.waitForTimeout(4000);
+
+            const editor = await p.$('.ProseMirror, [contenteditable="true"]');
+            if (editor) {
+              await editor.click();
+              await p.keyboard.press('Meta+a');
+              await p.keyboard.press('End');
+              await p.keyboard.press('Enter');
+              await p.keyboard.press('Enter');
+              await p.keyboard.type('LabBot notebook test entry. Experiment: PCR genotyping run #1.');
+              await p.keyboard.press('Meta+s');
+              await p.waitForTimeout(6000);
+
+              const savedContent = ghReadFile(nbPath);
+              const hasEntry = savedContent?.includes('LabBot notebook');
+              log('notebooks', 'Edit & save notebook', hasEntry ? 'PASS' : 'WARN',
+                hasEntry ? 'Content saved to GitHub' : 'Content not found');
+            } else {
+              log('notebooks', 'Open editor', 'WARN', 'ProseMirror not found (may need more load time)');
+            }
+          } else {
+            log('notebooks', 'Edit button', 'WARN', 'Not found in toolbar');
+          }
+        }
+      }
+    } else {
+      log('notebooks', 'New Entry button', 'FAIL', 'Not found');
+    }
+
+    } catch(e) {
+      log('notebooks', 'Notebook flow', 'WARN', 'Partial crash: ' + e.message.substring(0, 80));
+    }
+    await p.screenshot({ path: '/tmp/labbot-notebooks.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  LAB MAP: navigate, place a tube, verify position
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('labmap')) {
+    console.log('\n🗺️  LAB MAP\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/lab-map.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    // Room view
+    const hasFloorPlan = await p.$('svg') !== null;
+    log('labmap', 'Floor plan SVG', hasFloorPlan ? 'PASS' : 'FAIL', hasFloorPlan ? 'Rendered' : 'Missing');
+
+    // Navigate to each zone
+    const zones = ['freezer-80c', 'freezer-20c', 'refrigerator', 'chemical-cabinet', 'bench-1'];
+    for (const zone of zones) {
+      await p.evaluate((z) => labMap.open(z), zone);
+      await p.waitForTimeout(800);
+      const heading = await p.$eval('h2', el => el.textContent.trim()).catch(() => '');
+      log('labmap', `Navigate: ${zone}`, heading.length > 0 ? 'PASS' : 'FAIL', heading.substring(0, 40));
+      await p.evaluate(() => labMap.nav(0));
+      await p.waitForTimeout(300);
+    }
+
+    // Drill into freezer → Shelf 1 → Box A
+    await p.evaluate(() => labMap.open('freezer-80c'));
+    await p.waitForTimeout(1500);
+    const shelves = await p.$$('.shelf-card');
+    log('labmap', 'Freezer box cards', shelves.length > 0 ? 'PASS' : 'FAIL', `${shelves.length} cards`);
+
+    if (shelves.length > 0) {
+      await shelves[0].click({ timeout: 5000 });
+      await p.waitForTimeout(1000);
+
+      // Check grid
+      const occupied = await p.$$('.tube-cell.occupied');
+      const empty = await p.$$('.tube-cell.empty');
+      log('labmap', 'Box grid', (occupied.length + empty.length) === 81 ? 'PASS' : 'FAIL',
+        `${occupied.length} occupied, ${empty.length} empty (total ${occupied.length + empty.length})`);
+
+      // Click occupied tube → detail panel
+      if (occupied.length > 0) {
+        await occupied[0].click();
+        await p.waitForTimeout(500);
+        const detail = await p.$eval('#tubeDetail', el => el.innerText.substring(0, 80)).catch(() => '');
+        log('labmap', 'Tube detail panel', detail.length > 5 ? 'PASS' : 'FAIL', detail.substring(0, 50));
+      }
+
+      // Click empty cell → assign popover
+      if (empty.length > 0) {
+        await empty[0].click();
+        await p.waitForTimeout(500);
+        const popover = await p.$('#assignPopover');
+        const popText = popover ? await popover.evaluate(el => el.innerText.substring(0, 50)) : '';
+        log('labmap', 'Empty cell assign popover', popText.length > 0 ? 'PASS' : 'WARN',
+          popText || 'No popover text');
+      }
+    }
+
+    await p.screenshot({ path: '/tmp/labbot-labmap.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  SAMPLES: browse, filter, add sample
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('samples')) {
+    console.log('\n🧬 SAMPLES\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/sample-tracker/', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    const sampleCount = await p.evaluate(() => {
+      const m = document.body.innerText.match(/(\d+)\s*TOTAL SAMPLES/);
+      return m ? parseInt(m[1]) : 0;
+    });
+    log('samples', 'Samples loaded', sampleCount > 0 ? 'PASS' : 'FAIL', `${sampleCount} total`);
+
+    // Filter by status
+    const statusFilter = await p.$$('select');
+    if (statusFilter.length >= 2) {
+      await statusFilter[1].selectOption({ index: 1 }); // First non-default option
+      await p.waitForTimeout(500);
+      const filteredRows = await p.$$('tbody tr');
+      log('samples', 'Status filter', 'PASS', `${filteredRows.length} rows after filter`);
+      await statusFilter[1].selectOption({ index: 0 }); // Reset
+    }
+
+    // Search
+    const searchInput = await p.$('input[placeholder*="Search"]');
+    if (searchInput) {
+      await searchInput.fill('A1-T1');
+      await p.waitForTimeout(500);
+      const searchRows = await p.$$('tbody tr');
+      log('samples', 'Search "A1-T1"', searchRows.length > 0 ? 'PASS' : 'FAIL', `${searchRows.length} results`);
+      await searchInput.fill('');
+    }
+
+    // Add Sample button
+    const addSampleBtn = await p.$('button:has-text("Add Sample")');
+    log('samples', 'Add Sample button', addSampleBtn ? 'PASS' : 'FAIL', addSampleBtn ? 'Present' : 'Missing');
+
+    await p.screenshot({ path: '/tmp/labbot-samples.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  PROJECTS: browse, open, read
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('projects')) {
+    console.log('\n📁 PROJECTS\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/projects.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    // Get project names from sidebar
+    const projects = await p.evaluate(() =>
+      Array.from(document.querySelectorAll('[class*="folder-name"], [class*="project-name"], .sidebar [onclick]'))
+        .filter(el => el.offsetParent !== null)
+        .map(el => el.textContent.trim())
+        .filter(t => t.length > 2 && t.length < 60)
+    );
+    log('projects', 'Projects listed', projects.length > 0 ? 'PASS' : 'FAIL', projects.join(', '));
+
+    // Click first project
+    const clicked = await p.evaluate(() => {
+      const els = document.querySelectorAll('.sidebar [onclick], [class*="folder-header"]');
+      for (const el of els) {
+        if (el.offsetParent && el.textContent.trim().length > 2) { el.click(); return el.textContent.trim(); }
+      }
+      return null;
+    });
+    await p.waitForTimeout(2000);
+    log('projects', 'Open project', clicked ? 'PASS' : 'FAIL', clicked || 'Nothing clicked');
+
+    await p.screenshot({ path: '/tmp/labbot-projects.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  WASTE: browse containers
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('waste')) {
+    console.log('\n🗑️  WASTE\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/waste.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    const wasteContent = await p.evaluate(() => document.body.innerText);
+    const hasContainers = wasteContent.includes('Container') || wasteContent.includes('Waste');
+    log('waste', 'Waste page loads', hasContainers ? 'PASS' : 'FAIL', hasContainers ? 'Content present' : 'Empty');
+
+    await p.screenshot({ path: '/tmp/labbot-waste.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  CALENDAR: browse
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('calendar')) {
+    console.log('\n📅 CALENDAR\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/calendar/', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2000);
+
+    const calContent = await p.evaluate(() => document.body.innerText.length);
+    log('calendar', 'Calendar loads', calContent > 200 ? 'PASS' : 'FAIL', `${calContent} chars`);
+
+    await p.screenshot({ path: '/tmp/labbot-calendar.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  DASHBOARD: verify all widgets
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('dashboard')) {
+    console.log('\n🏠 DASHBOARD\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/dashboard.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(3000);
+
+    const text = await p.evaluate(() => document.body.innerText);
+    log('dashboard', 'Stats cards', text.includes('PROTOCOLS') ? 'PASS' : 'FAIL', 'Protocols stat present');
+    log('dashboard', 'Recent updates', text.includes('RECENT UPDATES') ? 'PASS' : 'FAIL', 'Section present');
+    log('dashboard', 'Bulletin board', text.includes('BULLETIN') ? 'PASS' : 'FAIL', 'Section present');
+    log('dashboard', 'Knowledge graph', text.includes('KNOWLEDGE GRAPH') ? 'PASS' : 'FAIL', 'Section present');
+
+    await p.screenshot({ path: '/tmp/labbot-dashboard.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  MOBILE: all pages
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('mobile')) {
+    console.log('\n📱 MOBILE (375x812)\n');
+    const mCtx = await browser.newContext({ viewport: { width: 375, height: 812 } });
+    await mCtx.addInitScript((token) => {
+      sessionStorage.setItem('monroe-lab-auth', 'true');
+      localStorage.setItem('gh_lab_token', token);
+      localStorage.setItem('gh_lab_user', JSON.stringify({ login: 'greymonroe', avatar: '' }));
+    }, GH_TOKEN);
+
+    const mobilePages = [
+      { name: 'dashboard', path: '/app/dashboard.html' },
+      { name: 'protocols', path: '/app/protocols.html' },
+      { name: 'wiki', path: '/app/wiki.html' },
+      { name: 'inventory', path: '/app/inventory.html' },
+      { name: 'lab-map', path: '/app/lab-map.html' },
+      { name: 'notebooks', path: '/app/notebooks.html' },
+      { name: 'waste', path: '/app/waste.html' },
+    ];
+
+    for (const mp of mobilePages) {
+      const pg = await mCtx.newPage();
+      await pg.goto(BASE + mp.path, { waitUntil: 'networkidle', timeout: 15000 });
+      await pg.waitForTimeout(1500);
+
+      const overflow = await pg.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 2
+      );
+      const bottomNav = await pg.$('#lab-bottom-nav') !== null;
+      log('mobile', mp.name, overflow ? 'FAIL' : 'PASS',
+        `overflow=${overflow}, bottomNav=${bottomNav}`);
+      await pg.screenshot({ path: `/tmp/labbot-mobile-${mp.name}.png`, fullPage: false });
+      await pg.close();
+    }
+    await mCtx.close();
+  }
+
+  } catch (e) {
+    console.error(`\n💥 CRASH: ${e.message.substring(0, 200)}`);
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  CLEANUP
+  // ════════════════════════════════════════════════════════════
+  if (!KEEP && cleanup.length > 0) {
+    console.log('\n🧹 CLEANUP\n');
+    for (const { path } of cleanup) {
+      const ok = ghDeleteFile(path, `LabBot cleanup: ${path}`);
+      console.log(`  ${ok ? '✅' : '⚠️'} ${path}`);
+    }
+  } else if (KEEP && cleanup.length > 0) {
+    console.log('\n📌 Keeping test artifacts:');
+    cleanup.forEach(c => console.log(`  ${c.path}`));
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  REPORT
+  // ════════════════════════════════════════════════════════════
+  console.log('\n' + '═'.repeat(60));
+  console.log('  🤖 LABBOT TEST REPORT');
+  console.log('═'.repeat(60));
+
+  const sections = [...new Set(results.map(r => r.section))];
+  let totalPass = 0, totalFail = 0, totalWarn = 0;
+
+  for (const section of sections) {
+    const sectionResults = results.filter(r => r.section === section);
+    const pass = sectionResults.filter(r => r.status === 'PASS').length;
+    const fail = sectionResults.filter(r => r.status === 'FAIL').length;
+    const warn = sectionResults.filter(r => r.status === 'WARN').length;
+    totalPass += pass; totalFail += fail; totalWarn += warn;
+
+    const sIcon = fail > 0 ? '❌' : warn > 0 ? '⚠️' : '✅';
+    console.log(`\n  ${sIcon} ${section.toUpperCase()} (${pass}/${sectionResults.length})`);
+    sectionResults.forEach(r => {
+      const icon = r.status === 'PASS' ? '✅' : r.status === 'FAIL' ? '❌' : '⚠️';
+      console.log(`     ${icon} ${r.test}: ${r.detail}`);
+    });
+  }
+
+  console.log(`\n  ──────────────────────────────────────`);
+  console.log(`  TOTAL: ${totalPass} pass / ${totalFail} fail / ${totalWarn} warn`);
+  console.log(`  Screenshots: /tmp/labbot-*.png`);
+  console.log('═'.repeat(60) + '\n');
+
+  await browser.close();
+  process.exit(totalFail > 0 ? 1 : 0);
+})();

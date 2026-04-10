@@ -1,0 +1,28 @@
+{
+  "name": "lab",
+  "version": "1.0.0",
+  "description": "Welcome! This repo is **required reading for any new lab member** who will be using the FARM compute cluster or doing computational work in our group.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node tests/labbot.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monroe-lab/lab-handbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/monroe-lab/lab-handbook/issues"
+  },
+  "homepage": "https://github.com/monroe-lab/lab-handbook#readme",
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}
