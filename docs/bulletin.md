@@ -13,10 +13,6 @@ created_by: "greymonroe"
 * [ ] Gel electrophoresis
 * [ ] Grinding tissue
 
-## Orders Needed
-
-* [ ] [[ms-basal-salt-mixture]]
-
 ## Announcements
 
 * **Lab meeting** every Tuesday 10:15am, Robbins 289
