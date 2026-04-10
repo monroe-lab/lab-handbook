@@ -1,5 +1,7 @@
 # 2026-04-10 — Alex Chen
 
+<img src="images/fallback-test-mnt0961a.png" alt="fallback-test-mnt0961a" style="max-width:50%">
+
 **Person:** Alex Chen
 
 **Date:** 2026-04-10
@@ -11,4 +13,3 @@
 ## Results & observations
 
 ## Next steps
-
