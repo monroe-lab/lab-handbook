@@ -1,0 +1,41 @@
+{
+  "phase": "exploration",
+  "cycle": 0,
+  "site_url": "https://monroe-lab.github.io/lab-handbook",
+  "repo": "monroe-lab/lab-handbook",
+  "personas": [
+    {
+      "name": "Vianney Ahn",
+      "role": "grad_student",
+      "focus": "DNA extraction, sample prep, pistachio pangenome",
+      "workflow": "notebook-heavy, daily entries, gel images, sample tracking"
+    },
+    {
+      "name": "Alex Chen",
+      "role": "postdoc",
+      "focus": "library prep, sequencing, epigenomics protocols",
+      "workflow": "protocol creation, inventory management, project pages"
+    },
+    {
+      "name": "Kayla Torres",
+      "role": "undergrad",
+      "focus": "seed sterilization, planting, growth chamber",
+      "workflow": "follows existing protocols, checks inventory, simple notebook entries"
+    },
+    {
+      "name": "Dr. Monroe",
+      "role": "pi",
+      "focus": "oversight, bulletin board, dashboard review, project status",
+      "workflow": "dashboard → check updates → review notebooks → check inventory needs"
+    }
+  ],
+  "routes_discovered": [],
+  "routes_tested": [],
+  "workflows_tested": [],
+  "bugs_found": [],
+  "fixes_applied": [],
+  "improvements_proposed": [],
+  "edge_cases_tested": [],
+  "screenshots_taken": [],
+  "notes": "Initial state. First cycle should explore all routes and take baseline screenshots."
+}
