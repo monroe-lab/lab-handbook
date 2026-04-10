@@ -753,6 +753,7 @@ async function loadDoc(docPath) {
         '<div class="proto-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(docPath) + '</div>' +
           '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             (Lab.gh.isLoggedIn() ?
               '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
@@ -786,6 +787,7 @@ async function startEdit() {
   console.log('[protocols] startEdit called, currentDoc:', currentDoc, 'isEditing:', isEditing);
   if (!currentDoc || isEditing) return;
   isEditing = true;
+  document.body.classList.remove('print-preview-active');
   window.addEventListener('beforeunload', unsavedGuard);
   document.body.classList.add('editing-mode');
 
@@ -884,6 +886,7 @@ async function saveDoc() {
         '<div class="proto-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
           '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
             '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
@@ -933,6 +936,15 @@ async function saveDoc() {
 
 function printProtocol() {
   window.print();
+}
+
+function togglePrintPreview(btn) {
+  var active = document.body.classList.toggle('print-preview-active');
+  if (btn) {
+    btn.innerHTML = active
+      ? '<span class="material-icons-outlined">visibility_off</span> Exit Preview'
+      : '<span class="material-icons-outlined">article</span> Print Preview';
+  }
 }
 
 // Inject a new doc into the local NAV so sidebar updates immediately
@@ -1176,6 +1188,7 @@ async function renameDoc() {
         '<div class="proto-edit-bar">' +
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
           '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
             '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
             '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
