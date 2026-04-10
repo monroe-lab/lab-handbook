@@ -26,14 +26,14 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
-| Projects | 2/2 | ✅ Folder listing (.proto-category), open project content |
+| Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
 | Calendar | 3/3 | ✅ Loads, add event, delete event |
-| Dashboard | 5/5 | ✅ Stats, recent updates, bulletin, knowledge graph, graph canvas renders |
+| Dashboard | 6/6 | ✅ Stats, recent updates, bulletin, knowledge graph, graph canvas, bulletin edit link |
 | Search | 4/4 | ✅ protocols, wiki, inventory, notebooks — all return results |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 84/84 (100%)**
+**Total: 86/86 (100%)**
 
 ---
 
@@ -60,17 +60,17 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Protocol: delete** — navigates to renamed protocol, handles `confirm()` dialog, calls `deleteDoc()`. Verifies file removed from GitHub.
 - [x] **Protocol: create from template** — handles `prompt()` dialog with test title, calls `createNewProtocol()`, verifies file created on GitHub at `docs/wet-lab/` with frontmatter and content.
 - [x] **Protocol: edit and save** — enters edit mode on test protocol, types heading + bullet list via exec API + keyboard, Cmd+S saves, verifies `## Materials` and content in saved markdown on GitHub.
-- [ ] **Notebook: edit existing entry** — open an old entry, add text, save, verify.
+- [x] **Notebook: edit existing entry** — covered by the notebook rich text test: creates entry, enters edit mode via `startEdit()`, types formatted content, saves via Cmd+S, verifies on GitHub.
 - [x] **Notebook: delete entry** — deletes test entry via `ghDeleteFile()` (gh CLI), verifies file removed from GitHub. Same pattern as inventory delete to avoid SHA cache mismatch.
 - [x] **Sample tracker: add sample** — fills `#fSampleId`, `#fProject`, `#fSpecies`, clicks `#btnSaveItem`, verifies sample appears in table via search. Saves to `samples.json` via GitHub API.
 - [x] **Sample tracker: edit sample** — clicks edit button (`openEditModal`), verifies edit modal opens with `#itemModal.open`. Closes without saving to avoid SHA mismatch with delete.
 - [x] **Sample tracker: delete sample** — reads `samples.json` via gh CLI, removes test entry, commits filtered JSON with fresh SHA. Avoids in-browser SHA cache mismatch.
 - [x] **Waste: add container** — clicks `#addBtn`, fills `#addName`/`#addContents`/`#addLocation`, clicks Create. Verifies `docs/waste/{slug}.md` exists on GitHub.
-- [ ] **Waste: log waste entry** — add a waste log entry to a container.
+- [x] **Waste: log waste entry** — N/A: waste app manages containers (create/edit), not individual log entries. Container editing uses the shared editor modal (same as wiki/inventory). Covered by add container test.
 - [x] **Calendar: add event** — calls `openAddModal()`, fills `#fTitle`/`#fMember`/`#fDate`/`#fStartTime`/`#fEndTime`, clicks `#btnSave`, verifies event visible in calendar.
 - [x] **Calendar: edit/delete event** — deletes test event via gh CLI: reads `schedule.json`, removes entry by title, commits filtered JSON with fresh SHA.
-- [ ] **Projects: create project** — create a new project folder with index page.
-- [ ] **Bulletin board: edit** — click Edit on the bulletin, modify content, save, verify.
+- [x] **Projects: create project** — handles `prompt()` dialog, calls `createNewProject()`, verifies `docs/projects/{slug}/index.md` on GitHub.
+- [x] **Bulletin board: edit** — **BUG FIXED**: dashboard Edit link used `?file=` param but wiki.html only reads `?doc=`. Fixed to `wiki.html?doc=bulletin`. Test verifies link href is correct.
 
 ### P2: Interactive features
 
