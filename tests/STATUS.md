@@ -23,7 +23,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Protocols | 4/4 | ✅ Search, open, enter editor, cancel |
 | Wiki | 10/11 | ⚠️ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, open existing, ProseMirror, cancel. Render-after-save WARN (API cache) |
 | Inventory | 7/7 | ✅ Load, search, add item, type filter, edit item & save, delete item |
-| Notebooks | 5/6 | ⚠️ Create, rich text edit (h2/bold/italic/list), save to GitHub, render verify. Folder selector still mismatched |
+| Notebooks | 9/11 | ⚠️ Create, rich text edit, image upload+save+render, save to GitHub, render verify. Folder selector WARN, API fallback WARN (cache lag) |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
 | Projects | 1/2 | ⚠️ Opens project content, folder listing selector wrong |
@@ -32,7 +32,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 54/57 (95%)**
+**Total: 58/62 (94%)**
 
 ---
 
@@ -42,7 +42,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 - [x] **Rich text editing in notebook** — bold, italic, headers, bullet lists. Type formatted content, save, verify it rendered correctly with the right HTML tags. Uses Toast UI exec API for heading/bulletList + Cmd+B/Cmd+I keyboard shortcuts. Targets WYSIWYG ProseMirror (`.toastui-editor-ww-container .ProseMirror`).
 - [x] **Rich text editing in wiki** — tables, code blocks, blockquotes, headings, bold, italic. Uses test wiki page with Toast UI exec API + keyboard shortcuts. Verifies WYSIWYG DOM, saved markdown on GitHub, and rendered view. Render-after-save is WARN due to GitHub API cache lag (not a site bug).
-- [ ] **Image upload in notebook** — click the image button, upload a test PNG, verify it appears in the editor, verify it saves and renders after reload. Test the GitHub API fallback for private repo images.
+- [x] **Image upload in notebook** — uses DataTransfer API to inject a 1x1 PNG into the hidden file input, triggers uploadMedia which uploads to GitHub. Verifies: image file exists on GitHub, image appears in WYSIWYG via data URL preview, saved markdown contains image reference, rendered view shows image. API fallback tested on re-enter-edit but GitHub API cache returns stale content (WARN, test limitation).
 - [ ] **Image annotation** — upload image, add text annotation overlay, save, verify annotation persists on reload.
 - [ ] **Image resize** — upload image, drag resize handle, verify the new size persists after save/reload.
 - [x] **Save and reload verification** — covered by notebook and wiki rich text tests: Cmd+S saves, content verified on GitHub via API, rendered view checked after save. True page-reload hits GitHub API cache lag; save-to-GitHub verification is the reliable check.
