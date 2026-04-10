@@ -728,7 +728,7 @@ function ghReadFile(path) {
 
     // Check folders
     const folders = await p.evaluate(() =>
-      Array.from(document.querySelectorAll('.nb-folder-header'))
+      Array.from(document.querySelectorAll('.nb-folder'))
         .filter(el => el.offsetParent)
         .map(el => el.textContent.replace(/\d+/g, '').trim())
     );
@@ -1279,9 +1279,9 @@ function ghReadFile(path) {
     await p.goto(BASE + '/app/projects.html', { waitUntil: 'networkidle', timeout: 20000 });
     await p.waitForTimeout(2000);
 
-    // Get project names from sidebar — uses proto-folder-header class (same as protocols)
+    // Get project names from sidebar — uses .proto-category class
     const projects = await p.evaluate(() => {
-      const headers = document.querySelectorAll('.proto-folder-header, [class*="folder-header"]');
+      const headers = document.querySelectorAll('.proto-category');
       return Array.from(headers)
         .filter(el => el.offsetParent)
         .map(el => el.textContent.replace(/\d+/g, '').replace(/expand_more|chevron_right/g, '').trim())

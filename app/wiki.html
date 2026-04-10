@@ -662,10 +662,63 @@ async function saveDoc() {
     currentSha = result.sha;
     Lab.showToast('Saved', 'success');
 
+    // Capture editor image data URLs before destroying the editor instance
+    var editorImages = {};
+    var editorSurface = document.getElementById('editorSurface');
+    if (editorSurface) {
+      editorSurface.querySelectorAll('img').forEach(function(img) {
+        if (img.src && img.complete && img.naturalWidth > 0) {
+          var origSrc = img.dataset.realSrc || img.getAttribute('src') || '';
+          var fname = origSrc.split('/').pop().split('?')[0];
+          if (fname) editorImages[fname] = img.src;
+        }
+      });
+    }
+
     isEditing = false;
     document.body.classList.remove('editing-mode');
     editorInstance = null;
-    loadDoc(currentDoc);
+
+    // Render directly from the just-saved markdown (avoids GitHub API cache lag)
+    var html = await Lab.editorModal.renderMarkdown(md);
+    var meta = INDEX_MAP[currentDoc + '.md'] || {};
+    var typeBadge = '';
+    if (meta.type) {
+      var t = Lab.types && Lab.types.get ? Lab.types.get(meta.type) : null;
+      var color = (t && t.color) || GENERIC_PILL.color;
+      typeBadge = '<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50;margin-right:8px">' + Lab.escHtml((t && t.label) || meta.type) + '</span>';
+    }
+    var contentEl = document.getElementById('docContentWrap');
+    contentEl.innerHTML =
+      '<div class="doc-content">' +
+        '<div class="doc-edit-bar">' +
+          '<div class="breadcrumb">' + typeBadge + Lab.escHtml(currentDoc) + '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
+            '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="lab-rendered theme-indigo" id="renderedDoc">' + html + '</div>' +
+      '</div>';
+
+    var renderedEl = document.getElementById('renderedDoc');
+
+    // Swap image srcs with captured data URLs from editor (for images not yet deployed)
+    if (Object.keys(editorImages).length > 0) {
+      renderedEl.querySelectorAll('img').forEach(function(img) {
+        var src = img.getAttribute('src') || '';
+        var fname = src.split('/').pop().split('?')[0];
+        if (editorImages[fname]) {
+          img.dataset.realSrc = src;
+          img.src = editorImages[fname];
+        }
+      });
+    }
+
+    if (Lab.wikilinks) await Lab.wikilinks.processRendered(renderedEl);
+    if (Lab.postProcessImages) Lab.postProcessImages(renderedEl);
+    document.getElementById('docMain').scrollTop = 0;
+    showMiniGraph(currentDoc);
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
     btn.disabled = false;
