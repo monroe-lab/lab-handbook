@@ -122,6 +122,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 - [x] **Inventory dashboard display** — Single combined "INVENTORY" count on dashboard stat bar. "Inventory Status" widget shows In Stock/Needs More/Out of Stock counts with colored indicators. (Issue #14)
 - [x] **Inventory terminology cleanup** — Inventory is the unified catalog of everything (resources + stocks). Type filter and Add Item dropdowns now include all types with optgroups. Stocks link on dashboard fixed to point to inventory page. New items save to correct directory (resources/ vs stocks/) based on type group. (Issue #14)
 - [x] **Dedicated People page** — New `app/people.html` with card-based layout showing name, role, email, phone, location, and connected wikilink pills. People tab added to nav bar. Dashboard People link updated. Clicking a card opens the editor modal. (Issue #15)
+- [ ] **Link SOPs to inventory items** — Corrosives SOP (and likely other safety SOPs) reference chemicals that exist in inventory but aren't wikilinked. Need an agent pass to match SOP chemical names to inventory items and add `[[wikilinks]]`. May require fuzzy matching since names won't be exact. (Issue #16)
+- [ ] **Liquid nitrogen protocol** — Create a new protocol for getting liquid nitrogen: Dewar location/room, key access, filling procedure. Short and practical. (Issue #17)
 
 ---
 
