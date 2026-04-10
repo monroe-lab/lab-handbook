@@ -8,6 +8,7 @@ title: "Sorbitol/CTAB HiFi Extraction"
 
 **Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[hula-mixer]], [[magnetic-rack]], [[nanodrop]], [[thermomixer]]
 
+<br>
 **Reagents:** [[cetrimonium-bromide]], [[chloroform]], [[dnase]], [[ethanol-70]], [[hexadecyltrimethyl-ammonium-bromide]], [[isopropyl-alcohol]], [[mes-buffer]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]]
 
 **Related Protocols:** [[hifi-dna-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]]
@@ -130,7 +131,7 @@ To prepare the solution of 0.4% SeraMag Beads:
 9. Now the 2.2 ml 50% PEG can be added to the stock solution, which after vortexing very well is ready for use. Be careful to accurately pipette 2.2 ml as the solution is very viscous, but the final concentration of PEG is crucial for the clean up to work properly.
 
 | Notes: - Prepare fresh 80% Ethanol and keep at RT. (Need 4ml per sample) - Pre-warm EB buffer to 50 ̊C . - Make sure the SPRI beads are at RT before use. - After adding EtOH for washes, work quickly, as beads will clump in EtOH, reducing elution efficiency. - Unlike using SPRI beads to recover shorter DNA fragments, for HMW DNA recovery, it is best not to dry the beads. Simply make sure to remove as much ethanol as possible by repeating: - Spin down tubes - Place on rack - Pipette out excess ethanol using successively smaller pipette tips.             It is okay that the bead appears glossy when adding EB buffer, as long as residual             EtOH has been removed. |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |
 
 1. Add an equal volume (as aqueous phase after CI) of 0.4% SeraMag beads and mix by pipetting with a wide-bore tip. Incubate for 30 min at 10rpm at RT on the hula mixer.
