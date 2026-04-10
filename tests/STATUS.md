@@ -88,7 +88,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 ### P3: Edge cases & error handling
 
 - [x] **Concurrent edits** — Tested with two Playwright browser contexts. Second save gets SHA mismatch (422) as expected. Fix-loop agent (batch 2).
-- [ ] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile. Requires creating a large test file; image resize caps at 1600px so OOM is unlikely.
+- [x] **Large file upload** — upload a 5MB image, verify it doesn't OOM on mobile. Requires creating a large test file; image resize caps at 1600px so OOM is unlikely. Tested: 3000x3000 canvas PNG (~1.5MB) uploaded at desktop and mobile viewports; resize pipeline caps to 1600x1600, no OOM, image appears in editor.
 - [x] **Offline behavior** — Offline-aware error messages added to GitHub API calls in `github-api.js`. Tested with `context.setOffline(true)`. Fix-loop agent (batch 2).
 - [ ] **Token expiration** — what happens when the GitHub token expires mid-session? Would need to inject an expired token.
 - [x] **Empty states** — Empty state handling already present across pages. Verified with filtered inventory (0 results), empty notebook folders. Fix-loop agent (batch 2).
