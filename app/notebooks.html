@@ -173,6 +173,8 @@ var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/alex-
 var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
+
+function unsavedGuard(e) { e.preventDefault(); e.returnValue = ''; }
 var loggedIn = false;
 
 function prettify(slug) {
@@ -531,6 +533,7 @@ async function createNewEntry() {
 async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
+  window.removeEventListener('beforeunload', unsavedGuard);
   document.body.classList.remove('editing-mode');
   editorInstance = null;
   renderSidebar(document.getElementById('nbSearch').value);
@@ -575,6 +578,7 @@ async function loadDoc(docPath) {
 async function startEdit() {
   if (!currentDoc || isEditing) return;
   isEditing = true;
+  window.addEventListener('beforeunload', unsavedGuard);
   document.body.classList.add('editing-mode');
 
   var contentEl = document.getElementById('nbContent');
@@ -605,6 +609,7 @@ async function startEdit() {
   } catch(e) {
     Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
   }
 }
 
@@ -635,6 +640,7 @@ async function saveDoc() {
     Lab.showToast('Saved', 'success');
 
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
     document.body.classList.remove('editing-mode');
     editorInstance = null;
     var html = await Lab.editorModal.renderMarkdown(md);

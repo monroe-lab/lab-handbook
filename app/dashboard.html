@@ -238,9 +238,9 @@
         md = md.replace(/^---[\s\S]*?---\s*/, '');
         var html = md
           .replace(/^## (.+)$/gm, '<h4>$1</h4>')
-          .replace(/^- \[x\] (.+)$/gm, '<div><span style="color:var(--green);">&#10003;</span> <s style="color:var(--grey-400);">$1</s></div>')
-          .replace(/^- \[ \] (.+)$/gm, '<div><span style="color:#e65100;">&#9679;</span> $1</div>')
-          .replace(/^- (.+)$/gm, '<div>$1</div>')
+          .replace(/^[-*] \[x\] (.+)$/gm, '<div><span style="color:var(--green);">&#10003;</span> <s style="color:var(--grey-400);">$1</s></div>')
+          .replace(/^[-*] \[ \] (.+)$/gm, '<div><span style="color:#e65100;">&#9679;</span> $1</div>')
+          .replace(/^[-*] (.+)$/gm, '<div>$1</div>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
           .replace(/_(.+?)_/g, '<em>$1</em>');
         el.innerHTML = html;

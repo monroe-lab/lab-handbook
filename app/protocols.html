@@ -313,6 +313,8 @@ var isEditing = false;
 var editorInstance = null;
 var allProtocols = [];
 
+function unsavedGuard(e) { e.preventDefault(); e.returnValue = ''; }
+
 // Build NAV dynamically from object-index.json
 async function buildNav() {
   var index = await Lab.gh.fetchObjectIndex();
@@ -722,6 +724,7 @@ function postProcessRendered(el) {
 async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
+  window.removeEventListener('beforeunload', unsavedGuard);
   document.body.classList.remove('editing-mode');
   editorInstance = null;
   cachedBody = null; // clear cache when loading a different doc
@@ -783,6 +786,7 @@ async function startEdit() {
   console.log('[protocols] startEdit called, currentDoc:', currentDoc, 'isEditing:', isEditing);
   if (!currentDoc || isEditing) return;
   isEditing = true;
+  window.addEventListener('beforeunload', unsavedGuard);
   document.body.classList.add('editing-mode');
 
   var contentEl = document.getElementById('protoContent');
@@ -833,6 +837,7 @@ async function startEdit() {
     console.error('[protocols] startEdit error:', e);
     Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
   }
 }
 
@@ -870,6 +875,7 @@ async function saveDoc() {
 
     // Render saved content directly (avoid GitHub API propagation delay)
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
     editorInstance = null;
     var html = await Lab.editorModal.renderMarkdown(body);
     var contentEl = document.getElementById('protoContent');
@@ -1139,6 +1145,7 @@ async function renameDoc() {
       editFrontmatter = parsed.meta;
       cachedBody = newBody;
       isEditing = false;
+      window.removeEventListener('beforeunload', unsavedGuard);
     } else {
       // Same slug, just update title in file
       var saveResult = await gh.saveFile(filePath, newContent, result.sha, 'Rename: ' + oldTitle + ' → ' + newTitle);
@@ -1158,6 +1165,7 @@ async function renameDoc() {
       editFrontmatter = parsed.meta;
       cachedBody = newBody;
       isEditing = false;
+      window.removeEventListener('beforeunload', unsavedGuard);
     }
 
     // Render the content directly instead of calling loadDoc (which hits stale API cache)

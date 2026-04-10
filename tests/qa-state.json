@@ -1,6 +1,6 @@
 {
   "phase": "edge_cases",
-  "cycle": 5,
+  "cycle": 6,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "personas": [
@@ -286,6 +286,38 @@
         "All test artifacts cleaned up from GitHub"
       ]
     }
+    ,{
+      "cycle": 6,
+      "persona": "Dr. Monroe",
+      "modifier": "adversarial",
+      "task": "Adversarial input testing: XSS payloads in search/create, Unicode/emoji, long strings, SQL injection strings, regex special chars, bulletin board rendering, beforeunload guard fix",
+      "bugs": [
+        {
+          "id": "bug-6",
+          "severity": "medium",
+          "description": "Bulletin board markdown parser only handles '- ' (dash) list prefixes, but actual content uses '* ' (asterisk). Checkboxes (* [ ], * [x]) and list items (* item) render as raw text instead of styled HTML.",
+          "screenshot": "/tmp/qa-screenshots/cycle6-37-bulletin-scrolled.png",
+          "fixed": true,
+          "fix": "Changed regex patterns in dashboard.html loadBulletin() from /^- / to /^[-*] / to match both dash and asterisk list syntax."
+        }
+      ],
+      "observations": [
+        "Inventory search with <script>alert(1)</script>: renders as text in search box, no XSS execution (safe)",
+        "Inventory search with emoji (🧪🔬): works, shows 'No items match' (correct, no emoji items)",
+        "Inventory search with 500-char string: page remains responsive, no crash",
+        "Inventory Add Item modal: XSS in name field sanitized in slug preview (img-src-x-onerror-alert-xss-test-reagent.md)",
+        "Protocols search with Unicode (日本語テスト): no crash, shows empty results",
+        "Protocols search with SQL injection string: no crash, handled as literal text",
+        "Protocols search with null bytes: no crash",
+        "Protocols search with regex special chars (.*[a-z]+): no crash",
+        "Dashboard bulletin board: 3 h4 headings rendered, but checkbox items showed as raw * [ ] text (fixed)",
+        "Dashboard stats: 77 protocols, 207 resources, 3 stocks, 3 people, 6 projects, 7 notebooks",
+        "Knowledge graph mini renders correctly on dashboard",
+        "Beforeunload guard fix: added unsavedGuard() to wiki.html, protocols.html, notebooks.html — code verified, cannot test in headless Chromium (dialogs auto-dismissed)",
+        "All search fields treat HTML/script payloads as plain text — no XSS vectors found in search",
+        "Inventory slug generation correctly strips HTML tags from adversarial input"
+      ]
+    }
   ],
   "bugs_found": [
     {
@@ -317,7 +349,16 @@
       "severity": "low",
       "description": "No beforeunload handler in wiki fullpage edit mode. Navigating away discards unsaved changes silently.",
       "page": "wiki",
-      "status": "open"
+      "status": "fixed",
+      "fix": "Added beforeunload unsavedGuard handler in wiki.html, protocols.html, and notebooks.html"
+    },
+    {
+      "id": "bug-6",
+      "severity": "medium",
+      "description": "Bulletin board markdown parser only handles dash-prefix lists (- item) but actual content uses asterisk-prefix (* item). Checkboxes and list items show as raw markdown.",
+      "page": "dashboard",
+      "status": "fixed",
+      "fix": "Changed regex patterns from /^- / to /^[-*] / in dashboard.html loadBulletin()"
     }
   ],
   "fixes_applied": [
@@ -341,6 +382,20 @@
       "file": "app/inventory.html",
       "description": "Disable Create button on click in confirmAdd() to prevent double-click race condition. Shows 'Creating…' text. Re-enables on error.",
       "cycle": 5
+    },
+    {
+      "id": "fix-4",
+      "bug": "bug-5",
+      "file": "app/wiki.html, app/protocols.html, app/notebooks.html",
+      "description": "Added beforeunload unsavedGuard handler. Listener added in startEdit(), removed in all isEditing=false paths (save success, cancelEdit, loadDoc, startEdit error). Prevents silent loss of unsaved changes on navigation.",
+      "cycle": 6
+    },
+    {
+      "id": "fix-5",
+      "bug": "bug-6",
+      "file": "app/dashboard.html",
+      "description": "Changed bulletin board markdown regex from /^- / to /^[-*] / for list items, checked checkboxes, and unchecked checkboxes. Fixes rendering of asterisk-prefixed markdown lists.",
+      "cycle": 6
     }
   ],
   "improvements_proposed": [
@@ -374,7 +429,18 @@
     "Wiki create via modal → file created, editor opens automatically",
     "Wiki save + immediate reload → content persists (CDN cache-buster working)",
     "Wiki double Cmd+S → no errors (safe — either debounced or SHA updated)",
-    "Rapid navigation 6 pages at 150ms intervals → all load correctly"
+    "Rapid navigation 6 pages at 150ms intervals → all load correctly",
+    "Inventory search with <script>alert(1)</script> → no XSS, text displayed safely",
+    "Inventory search with emoji (🧪🔬) → no crash, proper empty state",
+    "Inventory search with 500-char string → page responsive, no crash",
+    "Inventory Add modal XSS name → slug strips HTML tags (safe)",
+    "Protocols search with Unicode (日本語テスト) → no crash",
+    "Protocols search with SQL injection string → no crash, literal text",
+    "Protocols search with null bytes → no crash",
+    "Protocols search with regex special chars → no crash",
+    "Bulletin board renders raw * [ ] instead of checkboxes (fixed: regex now matches [-*])",
+    "Dashboard bulletin: no <script> tags in rendered HTML (safe)",
+    "Beforeunload guard added to wiki, protocols, notebooks (code-verified, headless suppresses dialogs)"
   ],
   "screenshots_taken": [
     "/tmp/qa-screenshots/cycle1-dashboard.png",
@@ -473,7 +539,22 @@
     "/tmp/qa-screenshots/cycle5-62-after-create.png",
     "/tmp/qa-screenshots/cycle5-63-saved.png",
     "/tmp/qa-screenshots/cycle5-64-reloaded.png",
-    "/tmp/qa-screenshots/cycle5-65-double-save.png"
+    "/tmp/qa-screenshots/cycle5-65-double-save.png",
+    "/tmp/qa-screenshots/cycle6-01-wiki-landing.png",
+    "/tmp/qa-screenshots/cycle6-04-inventory-landing.png",
+    "/tmp/qa-screenshots/cycle6-05-inventory-xss-search.png",
+    "/tmp/qa-screenshots/cycle6-06-inventory-emoji-search.png",
+    "/tmp/qa-screenshots/cycle6-07-inventory-long-search.png",
+    "/tmp/qa-screenshots/cycle6-08-inventory-add-modal.png",
+    "/tmp/qa-screenshots/cycle6-09-inventory-adversarial-name.png",
+    "/tmp/qa-screenshots/cycle6-10-protocols-landing.png",
+    "/tmp/qa-screenshots/cycle6-11-protocols-unicode-search.png",
+    "/tmp/qa-screenshots/cycle6-12-protocols-sqli-search.png",
+    "/tmp/qa-screenshots/cycle6-13-protocols-regex-search.png",
+    "/tmp/qa-screenshots/cycle6-14-dashboard-bulletin.png",
+    "/tmp/qa-screenshots/cycle6-15-dashboard-stats.png",
+    "/tmp/qa-screenshots/cycle6-30-wiki-create-modal.png",
+    "/tmp/qa-screenshots/cycle6-37-bulletin-scrolled.png"
   ],
-  "notes": "Cycle 5 complete: Kayla Torres (undergrad) + impatient modifier. Tested inventory search + add (double-click race condition found and fixed), wiki full CRUD (create via modal, edit, save, reload, double Cmd+S), no beforeunload guard on edit pages. CDN cache-buster confirmed working for wiki pages. Moving to edge_cases phase — functional coverage of protocols, notebooks, wiki, and inventory is solid."
+  "notes": "Cycle 6 complete: Dr. Monroe (PI) + adversarial modifier. Tested XSS payloads in search fields (inventory, protocols), adversarial names in create modals, Unicode/emoji/long strings in search, SQL injection strings, regex special chars, null bytes. All search fields safe — treat HTML as plain text. Inventory slug generation strips HTML. Found and fixed: bulletin board asterisk-list rendering (bug-6), beforeunload guard for all editor pages (bug-5). No XSS vectors found. 6 bugs found total (all fixed). Next cycle should test wiki CRUD with adversarial content (create modal button needs better selector) and mobile viewport adversarial inputs."
 }

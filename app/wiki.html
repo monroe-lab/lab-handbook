@@ -260,6 +260,8 @@ var isEditing = false;
 var editorInstance = null;
 var loggedIn = false;
 
+function unsavedGuard(e) { e.preventDefault(); e.returnValue = ''; }
+
 // Splits a markdown file into [frontmatter, body]. Frontmatter delimiters can
 // be --- or *** (Toast UI sometimes round-trips one to the other). The
 // frontmatter string includes the delimiters and trailing newline so it can
@@ -542,6 +544,7 @@ function toggleFolder(el) {
 async function loadDoc(docPath) {
   currentDoc = docPath;
   isEditing = false;
+  window.removeEventListener('beforeunload', unsavedGuard);
   document.body.classList.remove('editing-mode');
   editorInstance = null;
   if (welcomeGraph) { welcomeGraph.stop(); welcomeGraph = null; }
@@ -600,6 +603,7 @@ async function loadDoc(docPath) {
 async function startEdit() {
   if (!currentDoc || isEditing) return;
   isEditing = true;
+  window.addEventListener('beforeunload', unsavedGuard);
   document.body.classList.add('editing-mode');
   closeMiniGraph();
 
@@ -638,6 +642,7 @@ async function startEdit() {
   } catch(e) {
     Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
     document.body.classList.remove('editing-mode');
   }
 }
@@ -676,6 +681,7 @@ async function saveDoc() {
     }
 
     isEditing = false;
+    window.removeEventListener('beforeunload', unsavedGuard);
     document.body.classList.remove('editing-mode');
     editorInstance = null;
 
