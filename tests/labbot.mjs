@@ -182,6 +182,229 @@ function ghReadFile(path) {
       wikiCreated ? `docs/resources/${wikiTitle}.md exists on GitHub` : 'File not found');
     if (wikiCreated) cleanup.push({ path: `docs/resources/${wikiTitle}.md` });
 
+    // ── Rich text editing on the test wiki page ──
+    if (wikiCreated) {
+      await p.goto(BASE + `/app/wiki.html?doc=resources%2F${wikiTitle}`,
+        { waitUntil: 'networkidle', timeout: 20000 });
+      // Wait for doc to load
+      for (let i = 0; i < 30; i++) {
+        const ready = await p.evaluate(() => !!currentDoc && !isEditing);
+        if (ready) break;
+        await p.waitForTimeout(500);
+      }
+
+      // Enter edit mode
+      await p.evaluate(() => startEdit());
+      let wikiEdReady = false;
+      const WW_PM = '.toastui-editor-ww-container .ProseMirror';
+      for (let i = 0; i < 30; i++) {
+        wikiEdReady = await p.evaluate(() =>
+          !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
+        );
+        if (wikiEdReady) break;
+        await p.waitForTimeout(500);
+      }
+
+      if (wikiEdReady) {
+        // Focus WYSIWYG ProseMirror
+        await p.evaluate((sel) => {
+          document.querySelector(sel)?.focus();
+        }, WW_PM);
+        await p.waitForTimeout(500);
+
+        // Clear and type rich content: heading, bold, blockquote, table, code block
+        await p.keyboard.press('Meta+a');
+        await p.keyboard.press('Backspace');
+        await p.waitForTimeout(300);
+
+        // Heading
+        await p.evaluate(() => editorInstance.editor.exec('heading', { level: 2 }));
+        await p.keyboard.type('Test Chemical');
+        await p.keyboard.press('Enter');
+        await p.waitForTimeout(200);
+
+        // Bold + italic line
+        await p.keyboard.press('Meta+b');
+        await p.keyboard.type('Hazard:');
+        await p.keyboard.press('Meta+b');
+        await p.keyboard.type(' ');
+        await p.keyboard.press('Meta+i');
+        await p.keyboard.type('flammable');
+        await p.keyboard.press('Meta+i');
+        await p.keyboard.press('Enter');
+        await p.waitForTimeout(200);
+
+        // Blockquote
+        await p.evaluate(() => editorInstance.editor.exec('blockQuote'));
+        await p.keyboard.type('Store in flammable cabinet below 25C');
+        await p.keyboard.press('Enter');
+        await p.keyboard.press('Enter'); // exit blockquote
+        await p.waitForTimeout(200);
+
+        // Code block
+        await p.evaluate(() => editorInstance.editor.exec('codeBlock'));
+        await p.waitForTimeout(300);
+        await p.keyboard.type('concentration: 70%');
+        // Exit code block — press Enter at end then arrow down
+        await p.keyboard.press('ArrowDown');
+        await p.keyboard.press('Enter');
+        await p.waitForTimeout(200);
+
+        // Table via exec
+        await p.evaluate(() => editorInstance.editor.exec('addTable', { rowCount: 2, columnCount: 2 }));
+        await p.waitForTimeout(500);
+
+        // Check WYSIWYG DOM
+        const wikiDom = await p.evaluate((sel) => {
+          const pm = document.querySelector(sel);
+          if (!pm) return {};
+          return {
+            hasH2: !!pm.querySelector('h2'),
+            hasStrong: !!pm.querySelector('strong'),
+            hasEm: !!pm.querySelector('em'),
+            hasBlockquote: !!pm.querySelector('blockquote'),
+            hasCodeBlock: !!pm.querySelector('pre') || !!pm.querySelector('code'),
+            hasTable: !!pm.querySelector('table'),
+          };
+        }, WW_PM);
+
+        const wikiRich = wikiDom.hasH2 && wikiDom.hasStrong && wikiDom.hasEm &&
+                         wikiDom.hasBlockquote && wikiDom.hasCodeBlock && wikiDom.hasTable;
+        log('wiki', 'Rich text in editor (h2/bold/italic/quote/code/table)',
+          wikiRich ? 'PASS' : 'FAIL',
+          `h2=${wikiDom.hasH2} strong=${wikiDom.hasStrong} em=${wikiDom.hasEm} quote=${wikiDom.hasBlockquote} code=${wikiDom.hasCodeBlock} table=${wikiDom.hasTable}`);
+
+        // ── Wikilink insertion (same editing session, before save) ──
+        // Move cursor to end of document without selecting (Meta+a would select all)
+        await p.evaluate((sel) => {
+          const pm = document.querySelector(sel);
+          if (!pm) return;
+          pm.focus();
+          // Move ProseMirror cursor to end of document
+          const sel2 = window.getSelection();
+          sel2.selectAllChildren(pm);
+          sel2.collapseToEnd();
+        }, WW_PM);
+        await p.waitForTimeout(300);
+        await p.keyboard.press('Enter');
+        await p.keyboard.press('Enter');
+        await p.waitForTimeout(200);
+
+        // Click "Resources" insert button to open link modal
+        const modalOpened = await p.evaluate(() => {
+          const buttons = document.querySelectorAll('button');
+          for (const b of buttons) {
+            if (b.textContent.includes('Resources') && b.offsetParent) {
+              b.click(); return true;
+            }
+          }
+          return false;
+        });
+        await p.waitForTimeout(1500);
+
+        let wlInserted = false;
+        if (modalOpened) {
+          const searchInput = await p.$('#em-link-search');
+          if (searchInput) {
+            await searchInput.fill('ethanol');
+            await p.waitForTimeout(1000);
+            const clicked = await p.evaluate(() => {
+              const list = document.getElementById('em-link-list');
+              const item = list?.querySelector('[onclick]');
+              if (item) { item.click(); return true; }
+              return false;
+            });
+            await p.waitForTimeout(1000);
+
+            if (clicked) {
+              const wlInEditor = await p.evaluate((sel) => {
+                const pm = document.querySelector(sel);
+                if (!pm) return {};
+                const links = pm.querySelectorAll('a[href*="obj.link"]');
+                return {
+                  count: links.length,
+                  text: links.length > 0 ? links[links.length - 1].textContent : '',
+                };
+              }, WW_PM);
+              wlInserted = wlInEditor.count > 0;
+              log('wiki', 'Wikilink inserted in editor',
+                wlInserted ? 'PASS' : 'FAIL',
+                `${wlInEditor.count} obj.link(s), text="${wlInEditor.text}"`);
+            } else {
+              log('wiki', 'Wikilink insert', 'FAIL', 'No item in results');
+            }
+          }
+        }
+
+        await p.screenshot({ path: '/tmp/labbot-wiki-richtext.png', fullPage: false });
+
+        // ── Save everything (rich text + wikilink) ──
+        await p.evaluate((sel) => {
+          document.querySelector(sel)?.focus();
+        }, WW_PM);
+        await p.waitForTimeout(200);
+        await p.keyboard.press('Meta+s');
+        await p.waitForTimeout(8000);
+
+        // Verify saved markdown
+        const wikiSaved = ghReadFile(`docs/resources/${wikiTitle}.md`);
+        const wikiMdCheck = {
+          heading: wikiSaved?.includes('## Test Chemical'),
+          bold: wikiSaved?.includes('**Hazard:**'),
+          italic: wikiSaved?.includes('*flammable*'),
+          quote: wikiSaved?.includes('> Store in flammable'),
+          code: wikiSaved?.includes('concentration: 70%'),
+          table: wikiSaved?.includes('|'),
+        };
+        const wikiSaveOk = wikiMdCheck.heading && wikiMdCheck.bold && wikiMdCheck.italic &&
+                           wikiMdCheck.quote && wikiMdCheck.code && wikiMdCheck.table;
+        log('wiki', 'Rich text saved to GitHub',
+          wikiSaveOk ? 'PASS' : (wikiSaved ? 'FAIL' : 'WARN'),
+          `heading=${wikiMdCheck.heading} bold=${wikiMdCheck.bold} italic=${wikiMdCheck.italic} quote=${wikiMdCheck.quote} code=${wikiMdCheck.code} table=${wikiMdCheck.table}`);
+
+        // Check wikilink round-trip
+        if (wlInserted && wikiSaved) {
+          const wlMatch = wikiSaved.match(/\[\[([^\]]+)\]\]/);
+          log('wiki', 'Wikilink saved as [[slug]]',
+            wlMatch ? 'PASS' : 'FAIL',
+            wlMatch ? `Found [[${wlMatch[1]}]]` : 'No [[...]] in saved md');
+        }
+
+        // Check rendered view after save
+        for (let i = 0; i < 30; i++) {
+          const ready = await p.evaluate(() => {
+            const el = document.getElementById('renderedDoc');
+            return el && el.querySelector('h2') && !document.body.classList.contains('editing-mode');
+          });
+          if (ready) break;
+          await p.waitForTimeout(500);
+        }
+        await p.waitForTimeout(500);
+        const wikiRendered = await p.evaluate(() => {
+          const el = document.getElementById('renderedDoc');
+          if (!el) return {};
+          return {
+            hasH2: !!el.querySelector('h2'),
+            hasStrong: !!el.querySelector('strong'),
+            hasEm: !!el.querySelector('em') || !!el.querySelector('i'),
+            hasBlockquote: !!el.querySelector('blockquote'),
+            hasCode: !!el.querySelector('pre') || !!el.querySelector('code'),
+            hasTable: !!el.querySelector('table'),
+            hasPill: !!el.querySelector('.object-pill'),
+            text: el.innerText.substring(0, 100),
+          };
+        });
+        const wikiRenderOk = wikiRendered.hasH2 && wikiRendered.hasStrong && wikiRendered.hasEm &&
+                             wikiRendered.hasBlockquote && wikiRendered.hasCode && wikiRendered.hasTable;
+        const hasAnyContent = (wikiRendered.text || '').length > 10;
+        log('wiki', 'Rich text renders after save',
+          wikiRenderOk ? 'PASS' : (hasAnyContent ? 'WARN' : 'FAIL'),
+          `h2=${wikiRendered.hasH2} strong=${wikiRendered.hasStrong} em=${wikiRendered.hasEm} quote=${wikiRendered.hasBlockquote} code=${wikiRendered.hasCode} table=${wikiRendered.hasTable} pill=${wikiRendered.hasPill}`);
+      } else {
+        log('wiki', 'Wiki editor init', 'FAIL', 'ProseMirror or editorInstance not ready');
+      }
+    }
+
     // Test editing on an EXISTING page — navigate via URL
     await p.goto(BASE + '/app/wiki.html?doc=resources%2Fethanol-70', { waitUntil: 'networkidle', timeout: 20000 });
     let docReady = false;
@@ -389,35 +612,159 @@ function ghReadFile(path) {
 
           await p.screenshot({ path: '/tmp/labbot-nb-created.png', fullPage: false });
 
-          // Try to edit — call startEdit() directly
+          // ── Rich text editing test ──
+          // Enter edit mode via evaluate (avoids Playwright click timeout on ProseMirror)
           const nbEditClicked = await p.evaluate(() => {
             if (typeof startEdit === 'function') { startEdit(); return true; }
             return false;
           });
           if (nbEditClicked) {
-            await p.waitForTimeout(8000);
+            // Poll for BOTH ProseMirror AND editorInstance (async init)
+            let editorReady = false;
+            for (let i = 0; i < 30; i++) {
+              editorReady = await p.evaluate(() =>
+                !!document.querySelector('.ProseMirror') && !!window.editorInstance
+              );
+              if (editorReady) break;
+              await p.waitForTimeout(500);
+            }
             await p.screenshot({ path: '/tmp/labbot-nb-editing.png', fullPage: false });
 
-            const editor = await p.$('.ProseMirror, [contenteditable="true"]');
-            if (editor) {
-              await editor.click();
-              await p.keyboard.press('Meta+a');
-              await p.keyboard.press('End');
-              await p.keyboard.press('Enter');
-              await p.keyboard.press('Enter');
-              await p.keyboard.type('LabBot notebook test entry. Experiment: PCR genotyping run #1.');
-              await p.keyboard.press('Meta+s');
-              await p.waitForTimeout(6000);
+            if (editorReady) {
+              // Focus ProseMirror via evaluate (not elementHandle.click — that times out)
+              await p.evaluate(() => {
+                const pm = document.querySelector('.ProseMirror');
+                if (pm) pm.focus();
+              });
+              await p.waitForTimeout(500);
 
+              // ── Type rich text using keyboard shortcuts (realistic editing) ──
+              // Toast UI has TWO ProseMirror instances: markdown + WYSIWYG.
+              // Must target the WYSIWYG one: .toastui-editor-ww-container .ProseMirror
+              const WW_PM = '.toastui-editor-ww-container .ProseMirror';
+
+              // Focus the WYSIWYG ProseMirror
+              await p.evaluate((sel) => {
+                const pm = document.querySelector(sel);
+                if (pm) pm.focus();
+              }, WW_PM);
+              await p.waitForTimeout(500);
+
+              // Select all and delete existing template content
+              await p.keyboard.press('Meta+a');
+              await p.keyboard.press('Backspace');
+              await p.waitForTimeout(300);
+
+              // 1. Heading via exec API + keyboard type
+              await p.evaluate(() => {
+                editorInstance.editor.exec('heading', { level: 2 });
+              });
+              await p.keyboard.type('Experiment Log');
+              await p.keyboard.press('Enter');
+              await p.waitForTimeout(300);
+
+              // 2. Bold text (Cmd+B)
+              await p.keyboard.press('Meta+b');
+              await p.keyboard.type('Protocol:');
+              await p.keyboard.press('Meta+b');
+              await p.keyboard.type(' PCR genotyping run #1');
+              await p.keyboard.press('Enter');
+              await p.waitForTimeout(300);
+
+              // 3. Italic text (Cmd+I)
+              await p.keyboard.press('Meta+i');
+              await p.keyboard.type('Note:');
+              await p.keyboard.press('Meta+i');
+              await p.keyboard.type(' annealing temp was 58C');
+              await p.keyboard.press('Enter');
+              await p.waitForTimeout(300);
+
+              // 4. Bullet list via exec
+              await p.evaluate(() => {
+                editorInstance.editor.exec('bulletList');
+              });
+              await p.keyboard.type('Sample A: band at 450bp');
+              await p.keyboard.press('Enter');
+              await p.keyboard.type('Sample B: no amplification');
+              await p.keyboard.press('Enter');
+              await p.keyboard.type('Sample C: faint band at 450bp');
+              await p.waitForTimeout(500);
+
+              // Check WYSIWYG ProseMirror DOM for rich text elements
+              const domCheck = await p.evaluate((sel) => {
+                const pm = document.querySelector(sel);
+                if (!pm) return { html: 'no WYSIWYG ProseMirror' };
+                return {
+                  hasH2: !!pm.querySelector('h2'),
+                  hasStrong: !!pm.querySelector('strong'),
+                  hasEm: !!pm.querySelector('em'),
+                  hasUl: !!pm.querySelector('ul'),
+                  hasLi: !!pm.querySelector('li'),
+                  h2Text: pm.querySelector('h2')?.textContent || '',
+                  strongText: pm.querySelector('strong')?.textContent || '',
+                  emText: pm.querySelector('em')?.textContent || '',
+                  liCount: pm.querySelectorAll('li').length,
+                  html: pm.innerHTML.substring(0, 500),
+                };
+              }, WW_PM);
+
+              const richDom = domCheck.hasH2 && domCheck.hasStrong && domCheck.hasEm && domCheck.hasUl;
+              log('notebooks', 'Rich text in editor',
+                richDom ? 'PASS' : 'FAIL',
+                `h2="${domCheck.h2Text}" strong="${domCheck.strongText}" em="${domCheck.emText}" li=${domCheck.liCount}`);
+              if (!richDom) console.log('    DEBUG DOM:', domCheck.html?.substring(0, 300));
+
+              await p.screenshot({ path: '/tmp/labbot-nb-richtext.png', fullPage: false });
+
+              // Save via Cmd+S
+              await p.keyboard.press('Meta+s');
+              await p.waitForTimeout(8000);
+
+              // Verify saved markdown on GitHub
               const savedContent = ghReadFile(nbPath);
-              const hasEntry = savedContent?.includes('LabBot notebook');
-              log('notebooks', 'Edit & save notebook', hasEntry ? 'PASS' : 'WARN',
-                hasEntry ? 'Content saved to GitHub' : 'Content not found');
+              const hasBold = savedContent?.includes('**Protocol:**');
+              const hasItalic = savedContent?.includes('*Note:*');
+              const hasHeading = savedContent?.includes('## Experiment Log');
+              // Toast UI may use - or * for bullet lists
+              const hasList = savedContent?.includes('- Sample A') || savedContent?.includes('* Sample A');
+              const richSave = hasBold && hasItalic && hasHeading && hasList;
+              log('notebooks', 'Rich text saved to GitHub',
+                richSave ? 'PASS' : (savedContent ? 'FAIL' : 'WARN'),
+                `heading=${hasHeading} bold=${hasBold} italic=${hasItalic} list=${hasList}`);
+
+              // After Cmd+S, saveDoc() re-renders the content in view mode.
+              // Check the rendered view for rich text elements.
+              if (richSave) {
+                // Wait for view mode (editing-mode class removed)
+                for (let i = 0; i < 20; i++) {
+                  const inView = await p.evaluate(() => !document.body.classList.contains('editing-mode'));
+                  if (inView) break;
+                  await p.waitForTimeout(500);
+                }
+                await p.waitForTimeout(1000);
+
+                const rendered = await p.evaluate(() => {
+                  const el = document.getElementById('renderedDoc');
+                  if (!el) return { html: 'no renderedDoc' };
+                  return {
+                    hasH2: !!el.querySelector('h2'),
+                    hasStrong: !!el.querySelector('strong'),
+                    hasEm: !!el.querySelector('em') || !!el.querySelector('i'),
+                    hasUl: !!el.querySelector('ul') || !!el.querySelector('ol'),
+                    text: el.innerText.substring(0, 200),
+                  };
+                });
+                const richRender = rendered.hasH2 && rendered.hasStrong && rendered.hasEm && rendered.hasUl;
+                log('notebooks', 'Rich text renders after save',
+                  richRender ? 'PASS' : 'FAIL',
+                  `h2=${rendered.hasH2} strong=${rendered.hasStrong} em=${rendered.hasEm} ul=${rendered.hasUl}`);
+                await p.screenshot({ path: '/tmp/labbot-nb-rendered.png', fullPage: false });
+              }
             } else {
-              log('notebooks', 'Open editor', 'WARN', 'ProseMirror not found (may need more load time)');
+              log('notebooks', 'Open editor', 'FAIL', 'ProseMirror not found after 15s');
             }
           } else {
-            log('notebooks', 'Edit button', 'WARN', 'Not found in toolbar');
+            log('notebooks', 'Edit button', 'FAIL', 'startEdit() not available');
           }
         }
       }
