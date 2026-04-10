@@ -5,11 +5,17 @@ updated_at: "2026-04-07T17:00:02.580Z"
 created_at: "2026-04-07T17:00:02.580Z"
 created_by: "greymonroe"
 ---
+
+## Protocol requests
+
+* [ ] Qubit
+* [ ] Nanodrop
+* [ ] Gel electrophoresis
+* [ ] Grinding tissue
+
 ## Orders Needed
 
-* [ ] SPRI beads (SeraMag SpeedBeads) - running low
-* [ ] 1 kb+ DNA Ladder - out of stock
-* [ ] Micropore surgical tape - 2 rolls left
+* [ ] [[ms-basal-salt-mixture]]
 
 ## Announcements
 
