@@ -21,18 +21,18 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Section | Score | Status |
 |---------|-------|--------|
 | Protocols | 6/6 | ✅ Search, open, enter editor, cancel, create from template, edit & save |
-| Wiki | 10/11 | ⚠️ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, open existing, ProseMirror, cancel. Render-after-save WARN (API cache) |
+| Wiki | 11/11 | ✅ Create, rich text (h2/bold/italic/quote/code/table), wikilink insert+round-trip, save to GitHub, render-after-save, open existing, ProseMirror, cancel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
-| Notebooks | 14/16 | ⚠️ Create, rich text, image upload+annotation+resize+save+render, delete. Folder selector WARN, API fallback WARN (cache lag) |
+| Notebooks | 15/16 | ⚠️ Create, folders, rich text, image upload+annotation+resize+save+render, delete. API fallback WARN (cache lag) |
 | Lab Map | 10/10 | ✅ Floor plan, 5 zone navigations, freezer drill-down, tube detail, assign popover |
 | Samples | 4/4 | ✅ Load, status filter, search, Add Sample button |
-| Projects | 1/2 | ⚠️ Opens project content, folder listing selector wrong |
+| Projects | 2/2 | ✅ Folder listing (.proto-category), open project content |
 | Waste | 1/1 | ✅ Loads |
 | Calendar | 1/1 | ✅ Loads |
 | Dashboard | 4/4 | ✅ Stats, recent updates, bulletin, knowledge graph |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 66/70 (94%)**
+**Total: 69/70 (99%)**
 
 ---
 
@@ -107,9 +107,10 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 These are problems with the test bot itself, not the site:
 
-1. **Notebook folder selector** — LabBot can't find folder names in the sidebar. The selector `'.nb-folder-header'` doesn't match. Need to inspect the actual DOM class used.
-2. **Notebook edit timeout** — after creating an entry, clicking Edit causes a Playwright `elementHandle.click` timeout. Probably need to use `evaluate(() => startEdit())` like the wiki test does.
-3. **Projects folder listing** — selector `'.proto-folder-header'` doesn't match. The projects page generates folder headers dynamically with inline onclick handlers.
+1. ~~**Notebook folder selector**~~ — **FIXED.** Changed `.nb-folder-header` to `.nb-folder`.
+2. ~~**Notebook edit timeout**~~ — **FIXED.** Uses `evaluate(() => startEdit())` instead of Playwright click.
+3. ~~**Projects folder listing**~~ — **FIXED.** Changed `.proto-folder-header` to `.proto-category`.
+4. **Image API fallback** — After saving a notebook with an image, re-entering edit mode fetches stale content from GitHub API (no image reference in markdown), so the `setupEditorImageFallback()` can't trigger. This is a test limitation caused by GitHub API caching, not a site bug.
 
 ---
 
