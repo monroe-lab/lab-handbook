@@ -35,6 +35,7 @@ OBJECT_DIRS = [
     "workflow-templates",
     "notebooks",
     "waste",
+    "samples",
 ]
 
 # Frontmatter keys to extract (all optional except type and title)
@@ -45,6 +46,7 @@ EXTRACT_KEYS = [
     "legacy_inventory_id", "containers", "need_more",
     "contents", "physical_state", "container", "hazard_class", "started", "waste_tag",
     "created_at", "created_by", "updated_at",
+    "sample_id", "species", "lead", "sequencing_type",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)

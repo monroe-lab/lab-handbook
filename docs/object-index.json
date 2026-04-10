@@ -1491,6 +1491,7 @@
     "type": "consumable",
     "title": "Microtube",
     "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A1",
     "legacy_inventory_id": 11,
     "containers": [
       {
@@ -2478,6 +2479,7 @@
     "type": "glycerol_stock",
     "title": "BL21(DE3) Competent Cells",
     "location": "-80C Freezer, rack 2",
+    "location_detail": "Shelf 1 / Box A / A5",
     "organism": "E. coli",
     "stock_type": "glycerol_stock",
     "source": "NEB"
@@ -2490,6 +2492,24 @@
     "organism": "Arabidopsis thaliana",
     "stock_type": "seed",
     "source": "ABRC"
+  },
+  {
+    "path": "stocks/redwood-dna-sample-b-mnsinxli.md",
+    "type": "dna_prep",
+    "title": "Redwood DNA Sample B mnsinxli",
+    "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A3",
+    "created_at": "2026-04-10T06:23:47.277Z",
+    "created_by": "greymonroe"
+  },
+  {
+    "path": "stocks/redwood-dna-sample-b-mnsiw64a.md",
+    "type": "dna_prep",
+    "title": "Redwood DNA Sample B mnsiw64a",
+    "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A4",
+    "created_at": "2026-04-10T06:30:42.126Z",
+    "created_by": "greymonroe"
   },
   {
     "path": "stocks/test-seed-entry.md",
@@ -2580,6 +2600,11 @@
     "title": "Gel Electrophoresis"
   },
   {
+    "path": "wet-lab/labbot-test-protocol-mnsfdepd.md",
+    "type": "protocol",
+    "title": "LabBot Test Protocol mnsfdepd"
+  },
+  {
     "path": "wet-lab/ms-media-recipe.md",
     "type": "protocol",
     "title": "MS Media Recipe"
@@ -2647,7 +2672,9 @@
   {
     "path": "wet-lab/extraction/test-new.md",
     "type": "protocol",
-    "title": "test new"
+    "title": "test new",
+    "location": "Freezer -80C",
+    "location_detail": "Shelf 1 / Box A / A2"
   },
   {
     "path": "wet-lab/library-prep/flongle-sequencing-and-analysis.md",
@@ -2980,5 +3007,16 @@
     "hazard_class": "Toxic, Oxidizer",
     "started": "2025-09-30",
     "waste_tag": "10496910"
+  },
+  {
+    "path": "samples/test-sample.md",
+    "type": "sample",
+    "title": "Arabidopsis Col-0 HiFi Library",
+    "notes": "HiFi library prep from Col-0 leaf tissue, passage 30",
+    "status": "active",
+    "sample_id": "SAMP-001",
+    "species": "Arabidopsis thaliana",
+    "lead": "greymonroe",
+    "sequencing_type": "HiFi"
   }
 ]
