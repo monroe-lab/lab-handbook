@@ -179,6 +179,7 @@ tr.low-stock td:first-child::before {
       <div class="form-group">
         <label>Name *</label>
         <input type="text" id="addName" placeholder="e.g. Qiagen DNeasy Plant Kit">
+        <div id="addSlugPreview" style="font-size:12px;color:#888;margin-top:4px;font-family:monospace;min-height:16px"></div>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -413,12 +414,21 @@ function openItem(slug) {
 }
 
 // ── Add new item ──
+function updateSlugPreview() {
+  var val = document.getElementById('addName').value.trim();
+  var el = document.getElementById('addSlugPreview');
+  el.textContent = val ? 'File: ' + Lab.slugify(val) + '.md' : '';
+}
 function addItem() {
   document.getElementById('addName').value = '';
+  document.getElementById('addSlugPreview').textContent = '';
   document.getElementById('addType').value = 'reagent';
   document.getElementById('addLocation').value = 'Chemical Cabinet';
   document.getElementById('addModal').classList.add('open');
-  setTimeout(function() { document.getElementById('addName').focus(); }, 50);
+  var nameInput = document.getElementById('addName');
+  nameInput.removeEventListener('input', updateSlugPreview);
+  nameInput.addEventListener('input', updateSlugPreview);
+  setTimeout(function() { nameInput.focus(); }, 50);
 }
 function closeAddModal() {
   document.getElementById('addModal').classList.remove('open');

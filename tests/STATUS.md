@@ -121,7 +121,7 @@ Found by `tests/workflow-e2e.mjs` (James Freckles + Lab Manager simulation). Wor
 - [ ] **Protocols: stale render after rename** — `renameDoc()` calls `loadDoc()` which fetches stale cached content. Same bug as projects/wiki had. Needs render-from-saved-markdown fix.
 - [ ] **Rendered view: images not visible after save** — Image URLs point to GitHub Pages path which hasn't rebuilt yet (~40s). API fallback only works in edit mode. Need fallback in rendered view too, or use data URLs captured from editor.
 - [ ] **Table rendering: missing trailing newline** — Toast UI table markdown output may lack blank line before next heading, causing merged rendering. Fix in markdown post-processing.
-- [ ] **Inventory: name vs slug confusion** — Add Item modal uses same field for display name and filename slug. Should show human-readable name field with auto-generated slug preview beneath.
+- [x] **Inventory: name vs slug confusion** — Add Item modal had no slug visibility. **Fixed:** added live slug preview below name field (`File: some-slug.md`) using `Lab.slugify()` + monospace font.
 
 ---
 
