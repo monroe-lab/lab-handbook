@@ -110,7 +110,12 @@
 
   // ── Render + positioning ──
 
-  async function renderItems(items) {
+  // Render the dropdown contents. Explicit args (selectedIdx + onPick) so
+  // this function works for BOTH the [[ contenteditable variant and the
+  // plain text-input variant without them stepping on each other via
+  // module-level `state` mutation.
+  async function renderItems(items, selectedIdx, onPick) {
+    selectedIdx = selectedIdx || 0;
     var html = '';
     for (var i = 0; i < items.length; i++) {
       var entry = items[i].entry;
@@ -121,7 +126,7 @@
       var label = typeCfg.label || type;
       var crumb = await breadcrumbFor(slug);
       html += '<div class="lab-wla-item" data-idx="' + i + '"' +
-        (i === state.selectedIdx ? ' data-selected="1" style="background:#e0f2f1"' : '') +
+        (i === selectedIdx ? ' data-selected="1" style="background:#e0f2f1"' : '') +
         ' style="padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:1px solid #eceff1">' +
         '<span style="font-size:16px;flex-shrink:0">' + icon + '</span>' +
         '<span style="flex:1;min-width:0;overflow:hidden">' +
@@ -135,13 +140,14 @@
     }
     dropdown.innerHTML = html || '<div style="padding:12px;color:#90a4ae;font-style:italic">No matches</div>';
 
-    // Click to select
+    // Click to select — `onPick` is variant-specific (applySelection for the
+    // [[ variant, applyInputSelection for the plain-input variant).
     dropdown.querySelectorAll('.lab-wla-item').forEach(function(el) {
       el.addEventListener('mousedown', function(e) {
         // mousedown (not click) so we fire before the editor loses focus
         e.preventDefault();
         var idx = parseInt(el.getAttribute('data-idx'), 10);
-        applySelection(idx);
+        if (onPick) onPick(idx);
       });
     });
   }
@@ -224,7 +230,7 @@
     state.query = t.query;
     state.items = await filterEntries(t.query);
     state.selectedIdx = 0;
-    await renderItems(state.items);
+    await renderItems(state.items, state.selectedIdx, applySelection);
     positionDropdown();
   }
 
@@ -237,11 +243,11 @@
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       state.selectedIdx = (state.selectedIdx + 1) % state.items.length;
-      renderItems(state.items);
+      renderItems(state.items, state.selectedIdx, applySelection);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       state.selectedIdx = (state.selectedIdx - 1 + state.items.length) % state.items.length;
-      renderItems(state.items);
+      renderItems(state.items, state.selectedIdx, applySelection);
     } else if (e.key === 'Enter' || e.key === 'Tab') {
       e.preventDefault();
       e.stopPropagation();
@@ -381,29 +387,13 @@
       }
       inputState.items = filtered;
       inputState.selectedIdx = 0;
-      // Re-use the same dropdown renderer used by the `[[` variant — the
-      // mousedown handlers it installs will call applyInputSelection via the
-      // shared `state` object, which in this mode we redirect below.
-      state = inputState; // swap state so renderItems uses our items
-      state.caretOffset = -1;
-      state.triggerNode = null;
-      state.triggerOffset = -1;
-      await renderItems(inputState.items);
+      await renderItems(inputState.items, inputState.selectedIdx, applyInputSelection);
       // Position dropdown under the input
       var rect = inputEl.getBoundingClientRect();
       dropdown.style.left = rect.left + 'px';
       dropdown.style.top = (rect.bottom + 4) + 'px';
       dropdown.style.minWidth = Math.max(rect.width, 360) + 'px';
       dropdown.style.display = 'block';
-      // Override the click handlers to call applyInputSelection instead of
-      // applySelection (which is for the contentEditable [[ variant).
-      dropdown.querySelectorAll('.lab-wla-item').forEach(function(el) {
-        el.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          var idx = parseInt(el.getAttribute('data-idx'), 10);
-          applyInputSelection(idx);
-        });
-      });
     }
 
     function applyInputSelection(idx) {
@@ -423,13 +413,11 @@
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         inputState.selectedIdx = (inputState.selectedIdx + 1) % inputState.items.length;
-        state = inputState;
-        renderItems(inputState.items);
+        renderItems(inputState.items, inputState.selectedIdx, applyInputSelection);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         inputState.selectedIdx = (inputState.selectedIdx - 1 + inputState.items.length) % inputState.items.length;
-        state = inputState;
-        renderItems(inputState.items);
+        renderItems(inputState.items, inputState.selectedIdx, applyInputSelection);
       } else if (e.key === 'Enter') {
         e.preventDefault();
         applyInputSelection(inputState.selectedIdx);
