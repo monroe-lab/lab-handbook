@@ -22,13 +22,14 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 |---------|-------|--------|
 | Protocols | 9/9 | ✅ Search, open, edit mode, cancel, create, edit & save, duplicate, rename, delete |
 | Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
-| Inventory | 6/7 | ⚠️ Load, search, add item, type filter, delete item — `Edit item fields` pre-existing failure (openItem opens popup view, no editable inputs to find) |
+| Inventory | 7/7 | ✅ Load, search, add item, type filter, edit item & save, delete item — **R6: edit test now clicks #em-edit-toggle to enter edit mode before querying inputs** |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
-| Lab Map | 12/12 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file + DOM node |
+| Lab Map | 12/12 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file + DOM node — **R6: tree now rendered via Lab.locationTree module** |
 | Hierarchy | 15/15 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb, parent field as object pill, multi-line labels preserve newlines |
 | Editor | 11/11 | ✅ (R3, Issue #18) 3-column modal layout, universal grid renderer (10x10 + 9x9 with collisions), label_2 in cells, collision badge + popover, shelf children list with +Add, **R5: reagent col 3 shows bottle backlinks** (was: container_list relocated), type field as datalist with discovered types, empty-cell click opens new-object modal (parent/position/type pre-filled), new mode clears col 2/3 synchronously |
 | Wikilinks | 9/9 | ✅ (R4, Issue #18) Module loaded, autocomplete filter, sample popup shows backlinks from tubes, click backlink navigates, parent field autocomplete (location-only), empty cell opens place-here popover with search + create-new, place-here search returns results, [[ autocomplete fires on trigger in WYSIWYG, items show title + breadcrumb |
-| Bottles | 10/10 | ✅ (R5) bottle type registered, 156 migrated bottles in index, all carry of:+parent:, ethanol-absolute wired to cabinet-flammable, 5 placeholder locations created, concept files cleaned of containers:, concept popup col 3 lists physical bottles via of:-aware backlinks, inventory hides bottle rows + counts them under concept |
+| Bottles | 10/10 | ✅ (R5) bottle type registered, 156 migrated bottles in index, all carry of:+parent:, ethanol-absolute wired to cabinet-flammable, location anchors exist (R6: bench, fridge-4c-main merged), concept files cleaned of containers:, concept popup col 3 lists physical bottles via of:-aware backlinks, inventory hides bottle rows + counts them under concept |
+| R6 | 10/10 | ✅ Lab.locationTree module loaded, cabinets parented under Robbins 0170, bench renamed (no bench-reagent), fridge-reagent merged into fridge-4c-main, location: field stripped from concepts, locations picker mounts a tree, picker tree excludes bottles via childFilter, lab-map tree renders via module, lab-map nodes draggable, grid occupied cells draggable |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -39,7 +40,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 132/133 (99.2%)** — R5 adds 10 bottle tests covering the concept/instance migration. The single failure is the pre-existing inventory `Edit item fields` test (modal opens in popup view, not edit mode — predates R5, broken by an inventory.html change after the last STATUS update).
+**Total: 144/144 (100%)** — R6 adds 10 new tests + closes the pre-existing inventory `Edit item fields` failure.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -163,6 +164,100 @@ Body: `Bottle of [[resources/ethanol-absolute]].`
 - **Locations hierarchy picker** for the "Locations" insert pill — R6.
 - **Ambiguous wikilink rendering** — R6 cosmetic.
 - **Drag-and-drop in grid** — R6+.
+
+## Round 6: Cleanup + reusable tree module + drag-drop (2026-04-11)
+
+R5 left a handful of loose ends and three R6 candidates were deferred from R4. R6 closes everything but the explicitly-skipped ambiguous-wikilink rendering (a survey of all 1330 [[wikilinks]] in the corpus found zero actually-ambiguous cases — solving a future problem, revisit when real collisions appear).
+
+### Pre-flight reality check
+
+Before designing, I scanned the data:
+- **1330 total `[[wikilinks]]` in the corpus.** 173 use slug form (`resources/foo`), 1041 resolve to a unique basename, 116 are unresolved (broken refs to nothing), **0 are actually ambiguous**.
+- **142 reagent files still carry the now-redundant `location:` field** post-R5, since R5 only stripped `containers:`.
+- **6 placeholder location objects** from R5 had no parent set, so they showed up as orphan roots in the lab-map tree alongside `room-robbins-0170`.
+
+### Cleanup batch (small, do first)
+
+- [x] **Cabinets parented under Robbins 0170** — `cabinet-chemical`, `cabinet-flammable`, `cabinet-corrosive` now nest inside the real lab room. They show up as children of Robbins 0170 in the lab-map tree instead of floating roots.
+- [x] **`bench-reagent` renamed to `bench`** — cleaner name now that there's only one bench location. The 2 bottles previously parented to `bench-reagent` were re-parented to the new `bench`. Old file deleted.
+- [x] **`fridge-reagent` merged into `fridge-4c-main`** — same physical fridge as the existing R1 seed. The 13 reagent bottles previously parented to `fridge-reagent` are now parented directly to `fridge-4c-main` (no shelf yet — Grey will add specific shelves later as needed). Placeholder file deleted.
+- [x] **`location-unsorted` left parentless** — intentional "review me" bucket alongside Robbins 0170. Items that need manual triage live there.
+- [x] **`location:` field stripped from 188 concept files** — bottles' `parent:` is the source of truth post-R5; the old free-text string was redundant and would drift.
+- [x] **Inventory `Edit item fields` test fixed** — `openItem()` opens the editor in popup view by design (this is the agreed UX: read-only first, click Edit to modify). The test now clicks `#em-edit-toggle` to enter edit mode before querying for `.em-field-input[type="text"]`. Inventory back to 7/7.
+
+### Lab.locationTree module
+
+Lifted the ~280 LoC tree component out of `app/lab-map.html` (where it was inline) into `app/js/location-tree.js` so it can power both the lab-map page AND the editor's locations picker. Module API:
+
+```js
+Lab.locationTree.attach(mountEl, {
+  mode: 'full' | 'picker',
+  onOpen, onEdit, onDelete,        // full mode callbacks
+  onPick,                          // picker mode callback
+  onReparent,                      // drag-drop re-parent (full mode)
+  draggable: bool,
+  showActions: bool,
+  showSearch: bool,                // module-owned search input vs page-owned
+  initialDepth: number,
+  locationsOnly: bool,             // root filter
+  childFilter: (typeName) => bool, // descendant filter
+})
+// → { refresh, filter, expand, collapseAll, getRoots, getOrphans, isExpanded, destroy }
+```
+
+- [x] **Module emits both `lt-*` AND legacy `tree-*`/`tw-*` classnames** so lab-map's existing CSS and labbot's existing test selectors keep working without rewrites. Cost: ~5 extra characters per element. Benefit: zero test churn.
+- [x] **`childFilter` option** — picker mode + `locationsOnly` defaults this to "location types only" so bottles parented to a cabinet don't show up in the locations picker. Lab-map's full mode leaves it null and shows everything in the location subtree (180 nodes total: locations + bottles + tubes).
+- [x] **`app/lab-map.html` refactored** to use the module — now ~100 lines of glue (open/edit/delete/reparent callbacks + page-owned toolbar wiring) instead of 280 lines of inline tree code. The module is loaded via `app/js/lab.js`.
+
+### Locations hierarchy picker (in editor's Insert Link Modal)
+
+- [x] When the user picks the **Locations** category in the editor's Insert Link Modal, render a `Lab.locationTree` tree (picker mode) into `#em-link-list` instead of the flat alphabetical list.
+- [x] The shared `#em-link-search` input drives the tree's filter (instead of `filterLinkItems()`).
+- [x] Clicking any location node inserts `[[locations/<slug>]]` into the body via the existing `insertLink()` flow.
+- [x] Switching to a different category destroys the tree before falling back to the flat list.
+- [x] **Picker tree shows 16 nodes** (the location subtree under Robbins 0170 + the unsorted bucket), 0 bottles.
+
+### Drag-and-drop re-parenting in lab-map tree
+
+- [x] **Tree nodes are `draggable=true`** when `opts.draggable` is on. Drop on any other valid node fires `opts.onReparent(srcSlug, newParentSlug)`.
+- [x] **Cycle prevention** — `isDescendantOf(maybeDescendant, ancestor)` walks the resolved parent chain. Drops that would create a cycle are silently rejected (no preventDefault on the dragover, so the cell isn't highlighted).
+- [x] **`reparentSlug()` in lab-map.html** — confirms with the user, fetches the file via `Lab.gh.fetchFile`, patches the `parent:` line in frontmatter (replaces if present, inserts after `type:` otherwise), clears `position:` (the new parent's grid is different), saves to GitHub via `Lab.gh.saveFile`, rebuilds the tree.
+- [x] **Visual feedback** — `.lt-dragging` class (low opacity on the dragged node), `.lt-drop-target` class (teal dashed outline on the hovered drop target), grab/grabbing cursor on draggable rows.
+- [x] **Lab-map tree shows 180 draggable nodes** — every location, bottle, and tube parented into the location hierarchy can be dragged.
+
+### Drag-and-drop within editor grid (single-grid only)
+
+- [x] **Occupied grid cells are `draggable=true`** in `renderGridPane`.
+- [x] **`bindGridHandlers` wires dragstart/dragover/drop on cells.** Drop on an empty cell calls the existing `moveObjectHere(slug, sameParent, newCell)` (R4 helper) which patches the dragged file's `position:` frontmatter, saves to GitHub, patches the index, and re-renders the grid.
+- [x] **Drop on an occupied cell is rejected** — only empty cells are valid drop targets. Swap-on-drop is a future enhancement.
+- [x] **Cross-grid drag is out of scope** for R6 — would require cross-popup state and a shared drop target. Grey explicitly scoped this to single-grid only.
+- [x] **CSS** — grab/grabbing cursor on draggable cells, opacity dim while dragging, teal dashed outline on the hovered drop target.
+
+### Tests added in R6
+
+10 new tests in a new `r6` section:
+- Lab.locationTree module loads and exposes attach()
+- Cabinets parented under Robbins 0170
+- bench renamed (bench-reagent gone)
+- fridge-reagent merged into fridge-4c-main (13 bottles now on fridge-4c-main)
+- `location:` field stripped from 167 concept files
+- Locations picker mounts a tree (16 nodes including Robbins Hall 0170)
+- Picker tree excludes bottles via childFilter
+- Lab-map tree renders 180 nodes via the module
+- Lab-map tree nodes are all draggable
+- Editor grid occupied cells are draggable
+
+Plus the R5 bottles test was updated to reflect the post-R6 cleanup (now expects `bench` and `fridge-4c-main` instead of the old placeholder slugs).
+
+### Explicitly skipped in R6
+
+- **Ambiguous wikilink rendering** — survey found 0 actually-ambiguous cases in the corpus. Will revisit when the first real collision appears (probably after Grey adds a second bottle of something with a colliding title).
+
+### Subtle issues caught and fixed during R6
+
+1. **`docs/stocks/` non-bottle files missed by initial cleanup glob** — my staging command used `docs/stocks/bottle-*.md`, which missed 5 non-bottle stocks files (`bl21-de3-competent-cells.md`, the redwood DNA samples, etc.). Caught by the `R6 cleanup followup` commit.
+2. **Module needed `childFilter` option to keep bottles out of the picker** — initial implementation showed all descendants, which polluted the locations picker with 156 bottles. Added `childFilter: (typeName) => bool` and a default for picker mode that restricts to location types.
+3. **R5 bottles test referenced now-deleted placeholder slugs** — `bench-reagent` and `fridge-reagent` were renamed/merged in the R6 cleanup but the R5 test still expected them. Updated to look for `bench` and `fridge-4c-main`.
 
 ---
 
