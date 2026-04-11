@@ -4035,68 +4035,36 @@ Test container used by the labmap delete test. Should not persist.
 
     const p = await context.newPage();
     await p.setViewportSize({ width: 411, height: 795 });
-    await p.goto(BASE + '/app/notebooks.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.goto(BASE + '/app/notebooks.html?doc=notebooks%2Fbarb-m%2F2026-03-31', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await p.waitForFunction(() => window.Lab && Lab.editorModal && Lab.editorModal.initFullpage, { timeout: 15000 }).catch(() => {});
-    await p.waitForTimeout(2000);
+    // Wait for the doc to load (renderedDoc in the content wrap).
+    await p.waitForSelector('#renderedDoc, .lab-rendered', { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(1500);
 
-    // Create a throwaway notebook page to edit. Uses the same flow as
-    // the existing notebooks regression test — scroll to folders, create
-    // a new entry, wait for the editor to mount.
-    const TS = Date.now().toString(36);
-    const nbTitle = `labbot-r15-${TS}`;
-    const nbSetup = await p.evaluate(async (title) => {
-      // Call createNewEntry directly — that's the flow the modal button
-      // triggers. We go straight through it to avoid Playwright fighting
-      // with the nav modal DOM.
-      if (typeof openNewEntryModal === 'function') {
-        openNewEntryModal();
-      }
-      return { triggered: typeof openNewEntryModal === 'function' };
-    }, nbTitle).catch(() => ({}));
+    // Trigger edit mode. notebooks.html exposes startEdit() as a global
+    // (inherited from the same wiki.html pattern).
+    const started = await p.evaluate(() => {
+      if (typeof startEdit === 'function') { startEdit(); return true; }
+      return false;
+    });
 
-    // Fallback: if the modal helper isn't exposed, jump to the page
-    // without creating a doc — the edit toolbar only mounts when a doc
-    // is loaded. Bail with a SKIP in that case.
-    if (!nbSetup.triggered) {
+    if (!started) {
       log('r15', '#28 mobile format toolbar smoke test setup',
-        'SKIP', 'no openNewEntryModal helper exposed');
+        'SKIP', 'startEdit() global not exposed on notebooks.html');
       await p.close();
     } else {
-      await p.waitForTimeout(500);
-      // Fill title + select first folder + hit Create
-      await p.evaluate(async (title) => {
-        var t = document.querySelector('#nbm_title, .nb-modal input[type="text"]');
-        if (t) t.value = title;
-        var f = document.querySelector('#nbm_folder, .nb-modal select:last-of-type');
-        if (f && f.options.length > 1) f.selectedIndex = 1;
-        var ok = document.querySelector('#nbmOk') || document.querySelector('button[onclick*="createNewEntry"]');
-        if (ok) ok.click();
-      }, nbTitle);
-      // Give the create flow time (GH PUT + re-open)
-      for (let i = 0; i < 20; i++) {
-        const editorUp = await p.evaluate(() => !!document.querySelector('.toastui-editor-ww-container .ProseMirror'));
-        if (editorUp) break;
+      // Poll for ProseMirror + editorInstance to appear.
+      let editorReady = false;
+      for (let i = 0; i < 30; i++) {
+        editorReady = await p.evaluate(() =>
+          !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
+        );
+        if (editorReady) break;
         await p.waitForTimeout(500);
       }
-      await p.waitForTimeout(1200); // let setupMobileToolbarToggle's 400ms delay fire
-
-      // Trigger edit mode if we're not already in it
-      const needsEdit = await p.evaluate(() => {
-        if (typeof startEdit !== 'function') return false;
-        if (!window.editorInstance) { startEdit(); return true; }
-        return false;
-      });
-      if (needsEdit) {
-        for (let i = 0; i < 20; i++) {
-          const ready = await p.evaluate(() =>
-            !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
-          );
-          if (ready) break;
-          await p.waitForTimeout(500);
-        }
-        // Also wait for the mobile fab bar (400ms setTimeout inside setup)
-        await p.waitForTimeout(1500);
-      }
+      // setupMobileToolbarToggle has a 400ms setTimeout before it appends
+      // the fab bar. Give it a beat.
+      await p.waitForTimeout(1200);
 
       // ── #28: the format toggle FAB exists in the mobile fab bar ──
       const toggleCheck = await p.evaluate(() => {
@@ -4179,10 +4147,9 @@ Test container used by the labmap delete test. Should not persist.
       log('r15', '#28 clicking toggle again closes the format bar',
         closedCheck.barGone ? 'PASS' : 'FAIL');
 
-      // Clean up: delete the notebook entry to keep the repo tidy
-      const cleanupPath = `docs/notebooks/barb-m/${nbTitle}.md`;
-      ghDeleteFile(cleanupPath, 'R15 test cleanup');
-
+      // Clean up: restore the notebook entry back to its saved state
+      // (we mutated it in-memory to test Bold; since we haven't saved,
+      // there's nothing on disk to clean up).
       await p.close();
     }
   }
