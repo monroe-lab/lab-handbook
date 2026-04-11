@@ -26,7 +26,7 @@ Ex: Nitric Acid (70 %) and Hydrochloric Acid
 
 B.  Concentrated Organic Acids:
 
-Ex: Formic and Acetic acid (glacial)
+Ex: Formic and [[glacial-acetic-acid]] (glacial)
 
 C.  Strong Bases
 
@@ -38,17 +38,17 @@ D.  Other Corrosives
 
 These materials vary widely and a chemical-specific SDS should be consulted prior to use. In case of exposure, the seriousness of the injury depends on such factors as the type and concentration of the chemical, the body parts contacted, and the duration of exposure.
 
-Bromine, hydrogen peroxide (>30%), and most amines are examples of highly Corrosive liquids. Examples of common Corrosive solids include phosphorus and alkali metals. Strong dehydrating agents, such as phosphorus pentoxide and calcium oxide, have a powerful affinity for water and can cause serious burns upon contact with skin.
+Bromine, [[hydrogen-peroxide-30]] (>30%), and most amines are examples of highly Corrosive liquids. Examples of common Corrosive solids include phosphorus and alkali metals. Strong dehydrating agents, such as phosphorus pentoxide and calcium oxide, have a powerful affinity for water and can cause serious burns upon contact with skin.
 
 Ex: Phenol, dehydrating agents, and metal halides
 
 Our Lab contains:
 
-**H290** Bleach, [[hydroxylamine-hydrochloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], Sodium hydroxide, [[phenylmethanesulfonyl-fluoride]]
+**H290** Bleach, [[hydroxylamine-hydrochloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], [[sodium-hydroxide]], [[phenylmethanesulfonyl-fluoride]]
 
-**H314** Acetic acid, Hydrogen peroxide, Lithium hydroxide, [[potassium-permanganate]], [[spermidine]], [[spermine]], [[trichloroacetic-acid]], Sodium hydroxide, [[glacial-acetic-acid]], [[guanidine-thiocyanate]], Phenylmethanesulfonyl fluoride, Potassium hydroxide, Aceto-Orcein Solution 2%, Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1, [[phenol-nitroprusside-solution]], Hydrochloric acid
+**H314** [[glacial-acetic-acid]], [[hydrogen-peroxide-30]], [[lithium-hydroxide-monohydrate]], [[potassium-permanganate]], [[spermidine]], [[spermine]], [[trichloroacetic-acid]], [[sodium-hydroxide]], [[glacial-acetic-acid]], [[guanidine-thiocyanate]], [[phenylmethanesulfonyl-fluoride]], [[potassium-hydroxide]], [[aceto-orcein-solution-2]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[phenol-nitroprusside-solution]], Hydrochloric acid
 
-**H318** [[2-mercaptoethanol]], [[calcium-nitrate-tetrahydrate]], [[cetrimonium-bromide]], [[edta-tetrasodium-salt-dihydrate]], Sodium hydroxide, Spermidine, Spermine, Glacial Acetic Acid, [[igepal-ca-630]], Trichloroacetic acid, Guanidine thiocyanate, Phenylmethanesulfonyl fluoride, Potassium permanganate, [[manganese-ii-chloride]], Iron(III) chloride, Potassium hydroxide, [[lithium-hydroxide-monohydrate]], [[sodium-bisulfite]], [[sodium-dodecyl-sulfate]], [[sodium-metabisulfite]], Sodium pyrophosphate, [[triton-x-100]], Hydrogen peroxide, Phenol - chloroform - isoamyl alcohol mixture 25:24:1, Phenol nitroprusside solution, Hydrochloric acid
+**H318** [[2-mercaptoethanol]], [[calcium-nitrate-tetrahydrate]], [[cetrimonium-bromide]], [[edta-tetrasodium-salt-dihydrate]], [[sodium-hydroxide]], [[spermidine]], [[spermine]], [[glacial-acetic-acid]], [[igepal-ca-630]], [[trichloroacetic-acid]], [[guanidine-thiocyanate]], [[phenylmethanesulfonyl-fluoride]], [[potassium-permanganate]], [[manganese-ii-chloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], [[lithium-hydroxide-monohydrate]], [[sodium-bisulfite]], [[sodium-dodecyl-sulfate]], [[sodium-metabisulfite]], [[sodium-pyrophosphate-decahydrate]], [[triton-x-100]], [[hydrogen-peroxide-30]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[phenol-nitroprusside-solution]], Hydrochloric acid
 
 ## ENGINEERING/VENTILATION CONTROLS
 The following is a general plan for all strong Corrosives:

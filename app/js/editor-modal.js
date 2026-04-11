@@ -310,7 +310,105 @@
     // Open external links in new tab
     html = html.replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"');
 
+    // R10 #37: chemistry sub/superscript rendering. Two layers:
+    //   1. Explicit `~text~` → <sub>, `^text^` → <sup> — standard Markdown
+    //      extension syntax that anyone who wants rich chemistry can use.
+    //   2. Auto-whitelist of common formulas (H2O, CO2, H2SO4, NaHCO3, …)
+    //      gets its digits promoted to Unicode subscripts so existing
+    //      chemistry text renders nicely with zero author effort.
+    // Both layers run AFTER marked has rendered to HTML, and both skip
+    // <code>, <pre>, and <a href="..."> contents so URLs, code blocks,
+    // and inline literals are never rewritten.
+    html = applyChemistryRendering(html);
+
     return html;
+  }
+
+  // ── R10 #37: chemistry rendering helpers ──
+  // Whitelist of common lab chemistry formulas. Anything not in this list
+  // is untouched by the auto-substitution layer; users who want arbitrary
+  // subscripts can use the `~text~` syntax below. Keys must be exact-match
+  // word-boundaried — `HCl` only matches `HCl`, never `HClO` etc.
+  var CHEMISTRY_FORMULAS = {
+    'H2O': 'H\u2082O',
+    'H2O2': 'H\u2082O\u2082',
+    'D2O': 'D\u2082O',
+    'CO2': 'CO\u2082',
+    'O2': 'O\u2082',
+    'N2': 'N\u2082',
+    'H2': 'H\u2082',
+    'Cl2': 'Cl\u2082',
+    'NH3': 'NH\u2083',
+    'NH4': 'NH\u2084',
+    'CH4': 'CH\u2084',
+    'C2H5OH': 'C\u2082H\u2085OH',
+    'C6H12O6': 'C\u2086H\u2081\u2082O\u2086',
+    'H2SO4': 'H\u2082SO\u2084',
+    'HNO3': 'HNO\u2083',
+    'H3PO4': 'H\u2083PO\u2084',
+    'MgCl2': 'MgCl\u2082',
+    'CaCl2': 'CaCl\u2082',
+    'CaCO3': 'CaCO\u2083',
+    'NaHCO3': 'NaHCO\u2083',
+    'Na2CO3': 'Na\u2082CO\u2083',
+    'Na2SO4': 'Na\u2082SO\u2084',
+    'K2SO4': 'K\u2082SO\u2084',
+    'MgSO4': 'MgSO\u2084',
+    'CuSO4': 'CuSO\u2084',
+    'ZnSO4': 'ZnSO\u2084',
+    'FeCl3': 'FeCl\u2083',
+    'KNO3': 'KNO\u2083',
+    'NH4Cl': 'NH\u2084Cl',
+    'NH4NO3': 'NH\u2084NO\u2083',
+    'KH2PO4': 'KH\u2082PO\u2084',
+    'K2HPO4': 'K\u2082HPO\u2084',
+    'Na2HPO4': 'Na\u2082HPO\u2084',
+    'NaH2PO4': 'NaH\u2082PO\u2084',
+  };
+
+  // Pre-build one joined regex over all whitelist keys so we do a single
+  // scan per text segment. Sorted by length desc so longer formulas match
+  // before their shorter prefixes (e.g. H2SO4 before H2).
+  var _chemFormulaRe = (function() {
+    var keys = Object.keys(CHEMISTRY_FORMULAS).sort(function(a, b) { return b.length - a.length; });
+    var escaped = keys.map(function(k) { return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
+    // Boundaries: preceded by start or non-alphanumeric, followed by non-alphanumeric or end.
+    // Using a lookahead for the trailing boundary so the match itself is just the formula.
+    return new RegExp('(^|[^A-Za-z0-9])(' + escaped.join('|') + ')(?![A-Za-z0-9])', 'g');
+  })();
+
+  function applyChemistryRendering(html) {
+    // Protect regions we must not touch: <pre>...</pre>, <code>...</code>,
+    // <a ...>...</a> (URL attribute + link text), and every bare HTML tag.
+    // The non-code segments that remain are the rendered text we can edit.
+    var protectedRegions = [];
+    var protect = function(match) {
+      protectedRegions.push(match);
+      return '\u0000CHEMPROT' + (protectedRegions.length - 1) + '\u0000';
+    };
+    var work = html
+      .replace(/<pre[\s\S]*?<\/pre>/g, protect)
+      .replace(/<code[\s\S]*?<\/code>/g, protect)
+      .replace(/<a\s[^>]*?>[\s\S]*?<\/a>/g, protect)
+      .replace(/<[^>]+>/g, protect);
+
+    // Auto-whitelist formulas (runs before sub/sup so `H~2~O` still works
+    // if someone writes it explicitly — those won't match the whitelist).
+    work = work.replace(_chemFormulaRe, function(m, pre, formula) {
+      return pre + CHEMISTRY_FORMULAS[formula];
+    });
+
+    // Explicit `~text~` → <sub>, `^text^` → <sup>. Constrained to short
+    // alphanumeric-ish runs so this doesn't collide with GFM strikethrough
+    // (which uses double tildes) or text that happens to contain a tilde.
+    work = work.replace(/~([0-9A-Za-z+\-]{1,10})~/g, '<sub>$1</sub>');
+    work = work.replace(/\^([0-9A-Za-z+\-]{1,10})\^/g, '<sup>$1</sup>');
+
+    // Restore protected regions.
+    work = work.replace(/\u0000CHEMPROT(\d+)\u0000/g, function(_, i) {
+      return protectedRegions[parseInt(i, 10)];
+    });
+    return work;
   }
 
   // ── Popup Mode ──

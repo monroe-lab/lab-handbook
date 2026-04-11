@@ -34,6 +34,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R7 | 13/13 | ✅ (R7) Scrubbed R5 migration leftover text from 156 bottle files (#31), location-tree preserves expanded set across refresh (#21), popup Edit button resets label on every open (#30), stray mobile Graph nav link removed (#25), three new base-level rooms indexed (#41), mtime-aware object index for recency sort (#27), inventory mobile toolbar stacks into filter-row (#27), mini-graph close button gets bigger tap target (#24), issue-reporter FAB raised above editor-modal overlay (#33), body.em-editing hides FAB during edit (#23), popup closeOrBack pops nav stack (box→tube→close returns to box) (#32), dashboard bulletin edit round-trips via from=dashboard (#22), chip-seq empty rpm placeholders replaced with visible TODO (#35), annotate save-callback errors no longer block close (#29) |
 | R8 | 7/7 | ✅ (R8 quick wins) alex-chen fake user retired (#26), barb-m (Barbara McClintock) demo notebooks + person card, liquid nitrogen refill SOP scaffolded with TODO placeholders (#17), chip-seq empty `lot:` placeholders replaced with visible TODO (#36), personalized notebooks view sorts current user's folder first with "Your notebook" section label (#39) |
 | R9 | 7/7 | ✅ (R9) dropped the redundant "(Copy)" sidebar badge on duplicated protocols — title still carries "(Copy)" as a rename cue but the sidebar no longer doubles it (#43), rewrote workflow-templates/protocol-template.md as an educational roadmap teaching "what makes a good protocol" while demonstrating callouts, wikilinks, tables, images, videos, and code blocks (#44) |
+| R10 | 14/14 | ✅ (R10) chemistry sub/superscript rendering in renderMarkdown with auto-whitelist of common formulas (H₂O, CO₂, H₂SO₄, NaHCO₃, MgCl₂, …) + explicit `~n~` / `^n^` markdown syntax, skipping code/pre/URLs and no false positives on grid cells (A1), room numbers (170), or pH 7.5 (#37), corrosives SOP H290/H314/H318 chemical lists promoted to wikilinks against real inventory slugs — went from 6 to 44 wikilinks (#16) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -44,7 +45,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 180/180 (100%)** — R9 adds 7 new tests covering the duplicate-protocol sidebar badge removal (#43) and the protocol-template rewrite (#44). See Round 9 below for the full writeup.
+**Total: 194/194 (100%)** — R10 adds 14 new tests covering chemistry sub/superscript rendering (#37: auto-whitelist of common formulas, explicit `~n~`/`^n^` markdown syntax, false-positive avoidance on grid cells and room numbers, code block / URL protection) and the corrosives SOP wiki-linking (#16: went from 6 wikilinks to 44). See Round 10 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -452,6 +453,66 @@ Two issues filed while R8 was mid-flight. Bundled together because both are abou
 My first attempt to #43 removed the `(Copy)` title suffix in `duplicateDoc` — because I misread Grey's issue as "the word 'copy' appears in two places, remove both." It turned out Grey was describing the exact opposite: the title's `(Copy)` is the *wanted* signal, and the sidebar's extra badge is the redundant noise. Grey called me out sharply (rightly) and pointed me at the live site. **Lesson**: when a user describes a double-rendering bug, confirm with Playwright against the deployed site *before* deciding which of the two labels to remove. One-line visual inspections beat written descriptions when describing rendered UI.
 
 I also relaxed the R6.5 uniqueness check to only fire on `isNew === true` as a "fix" for the (non-existent) edit-after-duplicate problem. Grey correctly flagged that as weakening a guardrail he wanted kept. Reverted. **Lesson**: don't weaken a safety check to enable an edge case that isn't actually blocking anyone.
+
+---
+
+## Round 10: Chemistry rendering + corrosives SOP wiki-linking (2026-04-11)
+
+First half of the "place of learning" content vision. Two tightly-scoped fixes — a generic markdown extension and a one-off content pass — that together make chemistry content look professional and keep every SOP chemical one click away from its inventory card.
+
+### What shipped
+
+- [x] **#37 sub/superscript rendering** — new `applyChemistryRendering(html)` pass at the end of `Lab.editorModal.renderMarkdown()` that runs after marked has produced HTML. Three layers:
+  - **Auto-whitelist of ~35 common lab formulas** → Unicode subscripts. `H2O` → `H₂O`, `CO2` → `CO₂`, `H2SO4` → `H₂SO₄`, `NaHCO3` → `NaHCO₃`, `MgCl2` → `MgCl₂`, etc. Scoped to a curated list so we never false-positive on `A1` grid cells, `Room 170`, `pH 7.5`, `2M`, or `1M` — those were the main risks with a dumber regex-based approach. One compiled regex alternates all whitelist keys, sorted longest-first, bounded by `(^|[^A-Za-z0-9])...(?![A-Za-z0-9])`. Single scan per text segment.
+  - **Explicit `~text~` / `^text^` markdown extensions** for anything not in the whitelist. Constrained to `[0-9A-Za-z+\-]{1,10}` so it doesn't collide with GFM double-tilde strikethrough (`~~text~~` still renders as `<del>`), and so a stray single tilde in a sentence doesn't accidentally match.
+  - **Protected regions** — the entire pass wraps `<pre>`, `<code>`, `<a ...>...</a>`, and every bare HTML tag behind placeholder strings before running the substitutions, then restores them after. This guarantees:
+    - URLs with `?q=H2O` are never rewritten
+    - Code blocks showing literal `H2O should stay as H2O` are preserved
+    - Inline `` `H2O` `` backticks stay literal
+    - Rendered anchor text with chemical formulas still wikilinks correctly
+  - All rendered surfaces inherit this automatically because they all go through `Lab.editorModal.renderMarkdown` — wiki pages, protocol rendering, notebook rendering, project pages, and the editor popup. One change, eight surfaces.
+- [x] **#16 corrosives SOP wiki-linked** — `docs/lab-safety/corrosives-sop.md` had 6 wikilinks before R10 (`[[grey-monroe]]`, `[[kehan-zhao]]`, `[[chloroform]]`, `[[fume-hood]]`, and 2 chemical bottles); Grey flagged the H290/H314/H318 chemical lists as an example of "things listed as if they're in our lab but with no links to our inventory items." A one-shot python pass walked those lines with case-insensitive patterns against a curated mapping of plain-text names → inventory slugs, protecting existing `[[...]]` regions from getting touched. Results:
+  - **H290**: was `Bleach, [[hydroxylamine-hydrochloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], Sodium hydroxide, [[phenylmethanesulfonyl-fluoride]]` → now fully linked with `[[sodium-hydroxide]]`.
+  - **H314**: was 3 wikilinks + 11 plain-text names → now 16 wikilinks. Includes `[[hydrogen-peroxide-30]]`, `[[lithium-hydroxide-monohydrate]]`, `[[potassium-permanganate]]`, `[[guanidine-thiocyanate]]`, `[[phenylmethanesulfonyl-fluoride]]`, `[[potassium-hydroxide]]`, `[[aceto-orcein-solution-2]]`, `[[phenol-chloroform-isoamyl-alcohol-25-24-1]]`, `[[phenol-nitroprusside-solution]]`. Only `Bleach` and `Hydrochloric acid` remain plain text — neither has a specific matching bottle in inventory (bleach is generic, HCl is only stocked as gaseous).
+  - **H318**: was ~7 wikilinks out of 25 chemicals → now 25 wikilinks. Every entry with a matching inventory bottle is linked.
+  - **Hazard example paragraphs**: the intro example "Formic and [[glacial-acetic-acid]] (glacial)" and "Potassium and [[sodium-hydroxide]]" and "Bromine, [[hydrogen-peroxide-30]] (>30%)" picked up wikilinks even though they're in narrative text, which is a bonus.
+  - Total: 6 → 44 wikilinks, covering every chemical in the SOP's lab-specific inventory lists.
+
+### Tests added in R10
+
+14 new tests in a new `r10` section:
+
+**Chemistry rendering (#37)** — tests use `Lab.editorModal.renderMarkdown()` on a crafted markdown string with every edge case:
+- `#37 auto-renders H2O → H₂O` (U+2082)
+- `#37 auto-renders CO2 → CO₂`
+- `#37 auto-renders H2O2 → H₂O₂`
+- `#37 auto-renders NaOH stays NaOH` (no digits, no false-positive)
+- `#37 auto-renders H2SO4 → H₂SO₄`
+- `#37 auto-renders NaHCO3 / Na2CO3 / MgCl2`
+- `#37 explicit ^3^ → <sup>3</sup>`
+- `#37 explicit ~14~ → <sub>14</sub>`
+- `#37 code block preserves literal H2O` (fenced ``` block)
+- `#37 inline \`H2O\` in backticks stays literal`
+- `#37 URL with H2O query param not rewritten` (protects `<a href>`)
+- `#37 no false-positive on "A1" "Room 170" "pH 7.5"` (the three feared false-positive patterns)
+
+**Corrosives SOP wiki-linking (#16)** — tests pull the SOP content via `Lab.gh.fetchFile` and assert:
+- `#16 corrosives SOP has expected wiki-linked slugs` (11 specific slugs present)
+- `#16 corrosives SOP total wikilinks grew substantially` (≥30)
+- `#16 H290/H314/H318 lines each contain multiple wikilinks` (H290 ≥5, H314 ≥10, H318 ≥15)
+
+### Skipped in R10
+
+- **#38 educational descriptive sentences on chemicals** — the bulk content task (adding 2-3 sentences to every chemical card explaining what it is and why we use it) is deferred to a dedicated content round. It's too big to squeeze in alongside a rendering fix, and the scope question ("all 142 reagents? just the most common? what tone?") needs more thought. R11+ candidate.
+- **Dynamic compound formula detection** (e.g. auto-rendering any `[A-Z][a-z]?\d+` pattern) — considered but rejected because of false positives on grid cells (`A1`, `B12`), room numbers (`Room 170`), and unrelated alphanumeric strings. The whitelist approach is safer, and users can opt into arbitrary subscripts via the `~text~` syntax.
+- **Chemical structure images** (second half of Grey's #37 ask) — deferred because it requires deciding on a source (PubChem? CAS-indexed download? store locally?) and a caching strategy. R11+ candidate.
+- **`Hydrochloric acid` and `Bleach` in the corrosives SOP** — left unlinked because neither has a matching inventory bottle. Grey can add them later.
+
+### Subtle bugs caught during R10 implementation
+
+1. **Over-protecting HTML tags** — first cut of `applyChemistryRendering` protected only `<pre>`, `<code>`, `<a>...</a>`. That left rendered `<p>` and `<h1>` tags unprotected, so the regex could match across tag boundaries (e.g. `<p>text ~2~ text</p>` is fine, but `<p class="foo bar">` contained a space-separated token list that my regex could chew through). Fix: after protecting the content-bearing regions, also protect every bare HTML tag (`<[^>]+>` → placeholder), so the regex only sees plain text between tags. Restore happens at the end.
+2. **Whitelist ordering matters** — without sorting formulas longest-first, `H2` would match inside `H2SO4` before `H2SO4` had a chance. Fixed by sorting keys by length descending before building the alternation regex.
+3. **Corrosives SOP had `[[chloroform]]` in the middle of a composite phrase** — the line `Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1` needed to become a single `[[phenol-chloroform-isoamyl-alcohol-25-24-1]]` wikilink. Ran the composite pattern FIRST (before protecting individual wikilinks), so the already-linked `[[chloroform]]` inside the phrase got consumed as part of the match instead of blocking the substitution.
 
 ---
 

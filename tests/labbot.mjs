@@ -3537,6 +3537,127 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R10: Chemistry rendering + SOP wiki-linking (#37 #16)
+  //  ────────────────────────────────────────────────────────────
+  //  #37: renderMarkdown applies sub/sup rendering — explicit ~2~
+  //       and ^2^ syntax plus an auto-whitelist of common lab
+  //       formulas (H2O, CO2, H2SO4, …). Skips code/pre/anchor.
+  //  #16: corrosives SOP gets plain-text chemical names promoted
+  //       to wikilinks that resolve to real inventory bottles.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r10')) {
+    console.log('\n⚗️  R10\n');
+
+    // ── #37: chemistry rendering via Lab.editorModal.renderMarkdown ──
+    const p1 = await context.newPage();
+    await p1.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p1.waitForFunction(() => window.Lab && Lab.editorModal && Lab.editorModal.renderMarkdown, { timeout: 15000 }).catch(() => {});
+    const chemTests = await p1.evaluate(async () => {
+      const r = await Lab.editorModal.renderMarkdown(
+        // Plain-text chemistry that should auto-render
+        'Add 5 mL of H2O to the flask.\n\n' +
+        'Dilute CO2 with H2O2 in a 1:1 ratio.\n\n' +
+        'Use 2M NaOH and 1M H2SO4.\n\n' +
+        // Explicit sub/sup syntax
+        'Exponent: 10^3^ copies.\n\n' +
+        'Isotope: C~14~ dating.\n\n' +
+        // Inside code block — should NOT be rendered
+        '```\nCode: H2O should stay as H2O\n```\n\n' +
+        // Inline code — should NOT be rendered
+        'Literal `H2O` in backticks.\n\n' +
+        // Inside a URL — should NOT be rendered
+        '[Link](https://example.com/search?q=H2O)\n\n' +
+        // Freezer "A1" / "Room 170" false-positives — should NOT be touched
+        'Freezer shelf A1, Room 170, pH 7.5.\n\n' +
+        // Multi-char formulas
+        'Buffer: NaHCO3 + Na2CO3 + MgCl2.'
+      );
+      return { html: r };
+    }).catch(e => ({ error: String(e) }));
+
+    const h = chemTests.html || '';
+    // H2O auto-render to H₂O (U+2082)
+    log('r10', '#37 auto-renders H2O → H₂O',
+      /H\u2082O/.test(h) ? 'PASS' : 'FAIL',
+      h.match(/H[\u2082\u2083]?O/)?.[0] || 'no match');
+    log('r10', '#37 auto-renders CO2 → CO₂',
+      /CO\u2082/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 auto-renders H2O2 → H₂O₂',
+      /H\u2082O\u2082/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 auto-renders NaOH stays NaOH (no digits)',
+      /NaOH/.test(h) && !/Na\u2080OH/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 auto-renders H2SO4 → H₂SO₄',
+      /H\u2082SO\u2084/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 auto-renders NaHCO3 / Na2CO3 / MgCl2',
+      /NaHCO\u2083/.test(h) && /Na\u2082CO\u2083/.test(h) && /MgCl\u2082/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 explicit ^3^ → <sup>3</sup>',
+      /<sup>3<\/sup>/.test(h) ? 'PASS' : 'FAIL');
+    log('r10', '#37 explicit ~14~ → <sub>14</sub>',
+      /<sub>14<\/sub>/.test(h) ? 'PASS' : 'FAIL');
+    // Code blocks preserved
+    log('r10', '#37 code block preserves literal H2O',
+      /<code>[\s\S]*?H2O should stay as H2O[\s\S]*?<\/code>/.test(h) ||
+      /<pre[\s\S]*?H2O should stay as H2O[\s\S]*?<\/pre>/.test(h) ? 'PASS' : 'FAIL');
+    // Inline code preserved
+    log('r10', '#37 inline `H2O` in backticks stays literal',
+      /<code>H2O<\/code>/.test(h) ? 'PASS' : 'FAIL');
+    // URL preserved
+    log('r10', '#37 URL with H2O query param not rewritten',
+      /href="https:\/\/example\.com\/search\?q=H2O"/.test(h) ? 'PASS' : 'FAIL');
+    // Freezer cell A1 / Room 170 / pH 7.5 not touched
+    log('r10', '#37 no false-positive on "A1" "Room 170" "pH 7.5"',
+      /A1/.test(h) && /Room 170/.test(h) && /pH 7\.5/.test(h) && !/A\u2081/.test(h) ? 'PASS' : 'FAIL');
+    await p1.close();
+
+    // ── #16: corrosives SOP is now heavily wiki-linked ──
+    const p2 = await context.newPage();
+    await p2.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchFile, { timeout: 15000 }).catch(() => {});
+    const sopCheck = await p2.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/lab-safety/corrosives-sop.md');
+      const text = res.content;
+      const wikilinks = (text.match(/\[\[[^\]]+\]\]/g) || []);
+      // Specific slugs we expect to see after R10 wiki-linking
+      const expectedSlugs = [
+        'sodium-hydroxide',
+        'hydrogen-peroxide-30',
+        'lithium-hydroxide-monohydrate',
+        'potassium-permanganate',
+        'guanidine-thiocyanate',
+        'iron-iii-chloride',
+        'sodium-pyrophosphate-decahydrate',
+        'trichloroacetic-acid',
+        'aceto-orcein-solution-2',
+        'phenol-chloroform-isoamyl-alcohol-25-24-1',
+        'phenol-nitroprusside-solution',
+      ];
+      const found = expectedSlugs.filter(s => text.includes('[[' + s + ']]'));
+      // Also sanity-check: the H290/H314/H318 lines should have mostly wikilinked chemicals
+      const h290 = (text.match(/\*\*H290\*\*[^\n]*/) || [''])[0];
+      const h314 = (text.match(/\*\*H314\*\*[^\n]*/) || [''])[0];
+      const h318 = (text.match(/\*\*H318\*\*[^\n]*/) || [''])[0];
+      return {
+        totalWikilinks: wikilinks.length,
+        foundExpected: found.length,
+        expected: expectedSlugs.length,
+        h290Links: (h290.match(/\[\[/g) || []).length,
+        h314Links: (h314.match(/\[\[/g) || []).length,
+        h318Links: (h318.match(/\[\[/g) || []).length,
+      };
+    }).catch(() => ({ totalWikilinks: 0 }));
+    log('r10', '#16 corrosives SOP has expected wiki-linked slugs',
+      sopCheck.foundExpected === sopCheck.expected ? 'PASS' : 'FAIL',
+      `${sopCheck.foundExpected}/${sopCheck.expected} found`);
+    log('r10', '#16 corrosives SOP total wikilinks grew substantially',
+      sopCheck.totalWikilinks >= 30 ? 'PASS' : 'FAIL',
+      `${sopCheck.totalWikilinks} links`);
+    log('r10', '#16 H290/H314/H318 lines each contain multiple wikilinks',
+      sopCheck.h290Links >= 5 && sopCheck.h314Links >= 10 && sopCheck.h318Links >= 15 ? 'PASS' : 'FAIL',
+      `H290=${sopCheck.h290Links} H314=${sopCheck.h314Links} H318=${sopCheck.h318Links}`);
+    await p2.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {
