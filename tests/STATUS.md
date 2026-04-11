@@ -34,7 +34,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R7 | 13/13 | ✅ (R7) Scrubbed R5 migration leftover text from 156 bottle files (#31), location-tree preserves expanded set across refresh (#21), popup Edit button resets label on every open (#30), stray mobile Graph nav link removed (#25), three new base-level rooms indexed (#41), mtime-aware object index for recency sort (#27), inventory mobile toolbar stacks into filter-row (#27), mini-graph close button gets bigger tap target (#24), issue-reporter FAB raised above editor-modal overlay (#33), body.em-editing hides FAB during edit (#23), popup closeOrBack pops nav stack (box→tube→close returns to box) (#32), dashboard bulletin edit round-trips via from=dashboard (#22), chip-seq empty rpm placeholders replaced with visible TODO (#35), annotate save-callback errors no longer block close (#29) |
 | R8 | 7/7 | ✅ (R8 quick wins) alex-chen fake user retired (#26), barb-m (Barbara McClintock) demo notebooks + person card, liquid nitrogen refill SOP scaffolded with TODO placeholders (#17), chip-seq empty `lot:` placeholders replaced with visible TODO (#36), personalized notebooks view sorts current user's folder first with "Your notebook" section label (#39) |
 | R9 | 7/7 | ✅ (R9) dropped the redundant "(Copy)" sidebar badge on duplicated protocols — title still carries "(Copy)" as a rename cue but the sidebar no longer doubles it (#43), rewrote workflow-templates/protocol-template.md as an educational roadmap teaching "what makes a good protocol" while demonstrating callouts, wikilinks, tables, images, videos, and code blocks (#44) |
-| R10 | 14/14 | ✅ (R10) chemistry sub/superscript rendering in renderMarkdown with auto-whitelist of common formulas (H₂O, CO₂, H₂SO₄, NaHCO₃, MgCl₂, …) + explicit `~n~` / `^n^` markdown syntax, skipping code/pre/URLs and no false positives on grid cells (A1), room numbers (170), or pH 7.5 (#37), corrosives SOP H290/H314/H318 chemical lists promoted to wikilinks against real inventory slugs — went from 6 to 44 wikilinks (#16) |
+| R10 | 15/15 | ✅ (R10) chemistry sub/superscript rendering in renderMarkdown with auto-whitelist of common formulas (H₂O, CO₂, H₂SO₄, NaHCO₃, MgCl₂, …) + explicit `~n~` / `^n^` markdown syntax, skipping code/pre/URLs and no false positives on grid cells (A1), room numbers (170), or pH 7.5 (#37), corrosives SOP H290/H314/H318 chemical lists promoted to wikilinks against real inventory slugs — went from 6 to 44 wikilinks (#16) |
+| R11 | 7/7 | ✅ (R11) issue reporter accepts file/screenshot attachments — drag-drop zone, file picker, clipboard paste; chip preview with remove button; uploads to `issue-attachments/YYYY/MM/` outside docs/ so MkDocs ignores them; images embedded as `![name](raw.githubusercontent.com/...)` markdown so GitHub renders them inline in the issue body; non-image files linked via blob URL; 5 MB cap per file (#45) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -45,7 +46,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 194/194 (100%)** — R10 adds 14 new tests covering chemistry sub/superscript rendering (#37: auto-whitelist of common formulas, explicit `~n~`/`^n^` markdown syntax, false-positive avoidance on grid cells and room numbers, code block / URL protection) and the corrosives SOP wiki-linking (#16: went from 6 wikilinks to 44). See Round 10 below for the full writeup.
+**Total: 202/202 (100%)** — R11 adds 7 new tests covering the issue reporter file attachment feature (#45: dropzone DOM, multiple file input, chip preview with filename/size/remove button, upload path reaching the repo). See Round 11 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -513,6 +514,43 @@ First half of the "place of learning" content vision. Two tightly-scoped fixes �
 1. **Over-protecting HTML tags** — first cut of `applyChemistryRendering` protected only `<pre>`, `<code>`, `<a>...</a>`. That left rendered `<p>` and `<h1>` tags unprotected, so the regex could match across tag boundaries (e.g. `<p>text ~2~ text</p>` is fine, but `<p class="foo bar">` contained a space-separated token list that my regex could chew through). Fix: after protecting the content-bearing regions, also protect every bare HTML tag (`<[^>]+>` → placeholder), so the regex only sees plain text between tags. Restore happens at the end.
 2. **Whitelist ordering matters** — without sorting formulas longest-first, `H2` would match inside `H2SO4` before `H2SO4` had a chance. Fixed by sorting keys by length descending before building the alternation regex.
 3. **Corrosives SOP had `[[chloroform]]` in the middle of a composite phrase** — the line `Phenol - [[chloroform]] - isoamyl alcohol mixture 25:24:1` needed to become a single `[[phenol-chloroform-isoamyl-alcohol-25-24-1]]` wikilink. Ran the composite pattern FIRST (before protecting individual wikilinks), so the already-linked `[[chloroform]]` inside the phrase got consumed as part of the match instead of blocking the substitution.
+4. **Marked GFM strikethrough consuming single tildes** — first R10 pass handled `~text~` → `<sub>text</sub>` as a post-marked regex. Marked was eating single-tilde runs as strikethrough (`~14~` → `<del>14</del>`) before my chemistry pass ever saw them — caught by labbot r10 (14/15, one fail). Fix: rescue `~token~` and `^token^` BEFORE marked runs by swapping them with `\0SUB<n>\0` / `\0SUP<n>\0` null-byte placeholders (which marked can't interpret), let marked parse, then restore as `<sub>` / `<sup>` tags. Added as an important callout in the auto-memory: **if marked is eating your syntax, preprocess it to a placeholder and restore after parsing**.
+
+---
+
+## Round 11: Issue reporter file attachments (2026-04-11)
+
+Single-issue round filed while R10 was mid-flight. Small, self-contained, ships in one pass.
+
+### What shipped
+
+- [x] **#45 drag-drop file attachments on issue reporter** — the floating issue reporter now accepts screenshots and files. Three input paths: (1) drag-drop onto the dashed attachment zone, (2) click the zone to open a native file picker, (3) Cmd/Ctrl-V to paste from clipboard anywhere in the modal. Each attachment gets a chip in the preview list showing an icon (image vs file), filename, size in KB, and a × remove button. A 5 MB per-file cap catches oversized uploads with a clean error toast.
+- [x] **Upload path** — on submit, `uploadAttachment()` reads each queued file as base64 and PUTs it to the repo via `/repos/monroe-lab/lab-handbook/contents/issue-attachments/YYYY/MM/<timestamp>-<slug>.<ext>`. The path lives **outside** `docs/` so MkDocs doesn't index screenshots as content. Each upload is a separate commit (one per attachment) with a message like `Issue reporter attachment: <filename>`.
+- [x] **Inline rendering in GitHub issues** — the upload returns a `raw.githubusercontent.com` URL. Image attachments get embedded in the issue body as `![name](raw-url)`, non-images as `[name](blob-url)`. GitHub renders those inline because the viewer's github.com session is authenticated for the private repo. The attachments appear below the auto-captured reporter metadata in an "**Attachments:**" section.
+- [x] **UX polish** — the submit button shows progress through each upload (`Uploading 1 file(s)...` → `Submitting...`), queuedFiles is reset every time the modal opens so a cancelled-then-reopened modal starts fresh, and the success toast reports both the issue number and the attachment count (`Issue #47 created with 2 attachment(s). Thank you!`).
+
+### Tests added in R11
+
+7 new tests in a new `r11` section:
+
+**DOM structure**
+- `#45 issue modal renders dropzone + file input + attach list`
+- `#45 file input supports multiple selection`
+
+**Attachment lifecycle** (using Playwright's `setInputFiles` to inject a 1×1 transparent PNG)
+- `#45 attaching a file renders a chip preview`
+- `#45 chip shows filename + has remove button`
+- `#45 clicking × removes the chip`
+- `#45 cancel closes the modal`
+
+**End-to-end upload**
+- `#45 upload path (issue-attachments/...) reaches the repo` — writes a small text file through `Lab.gh.saveFile` (same API shape as the issue reporter's `uploadAttachment`) to an `issue-attachments/labbot-test/` path, verifies it lands on GitHub, and cleans up via `ghDeleteFile` so no trail is left.
+
+### Skipped in R11
+
+- **Create-a-real-issue end-to-end test** — clicking the submit button with a real attachment and a real PAT would create a real `bug-report` issue on every labbot run. Too noisy. The separated DOM + upload tests cover the same paths without polluting the issues tab.
+- **Upload progress bars / retries** — MVP. Current UX just flips the submit button label to `Uploading N file(s)...` for the duration. Lab members with fast connections won't notice; those with slow connections will have to wait.
+- **Dedicated delete endpoint for attachments referenced in closed issues** — we're not auto-cleaning attachment files when the issue closes. They stay in the repo as a historical record. Could be a later cleanup task if the folder grows unwieldy.
 
 ---
 

@@ -3658,6 +3658,129 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R11: Issue reporter file attachments (#45)
+  //  ────────────────────────────────────────────────────────────
+  //  The floating issue reporter now accepts drag-drop screenshots
+  //  and file attachments. They upload to issue-attachments/YYYY/MM/
+  //  in the repo and get embedded as markdown image / file links in
+  //  the issue body so GitHub renders them inline.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r11')) {
+    console.log('\n📎  R11\n');
+
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForTimeout(1500);
+
+    // ── Modal structure: dropzone + file input + attach list present ──
+    const domCheck = await p.evaluate(() => {
+      const btn = document.getElementById('issue-reporter-btn');
+      if (!btn) return { error: 'no button' };
+      btn.click();
+      // Give the modal a tick to render
+      return new Promise(r => setTimeout(() => {
+        r({
+          hasDropzone: !!document.getElementById('issue-reporter-dropzone'),
+          hasFileInput: !!document.getElementById('issue-reporter-file-input'),
+          hasAttachList: !!document.getElementById('issue-reporter-attach-list'),
+          inputMultiple: (document.getElementById('issue-reporter-file-input') || {}).multiple,
+          modalWidth: (document.getElementById('issue-reporter-modal') || {}).style?.width,
+        });
+      }, 200));
+    });
+    log('r11', '#45 issue modal renders dropzone + file input + attach list',
+      domCheck.hasDropzone && domCheck.hasFileInput && domCheck.hasAttachList ? 'PASS' : 'FAIL',
+      JSON.stringify(domCheck));
+    log('r11', '#45 file input supports multiple selection',
+      domCheck.inputMultiple === true ? 'PASS' : 'FAIL');
+
+    // ── Attach a tiny test PNG via setInputFiles and verify a chip renders ──
+    // 1x1 transparent PNG. Small enough to not matter, image type so the
+    // chip uses the "image" icon and queuedFiles sees it as image/png.
+    const TINY_PNG = Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=',
+      'base64'
+    );
+    await p.setInputFiles('#issue-reporter-file-input', {
+      name: 'labbot-test.png',
+      mimeType: 'image/png',
+      buffer: TINY_PNG,
+    });
+    await p.waitForTimeout(300);
+
+    const afterAttach = await p.evaluate(() => {
+      const list = document.getElementById('issue-reporter-attach-list');
+      const chips = list ? list.querySelectorAll('.issue-reporter-attach-chip') : [];
+      return {
+        chipCount: chips.length,
+        firstChipText: chips[0] ? chips[0].textContent.trim() : '',
+        hasRemoveBtn: chips[0] ? !!chips[0].querySelector('button') : false,
+      };
+    });
+    log('r11', '#45 attaching a file renders a chip preview',
+      afterAttach.chipCount === 1 ? 'PASS' : 'FAIL',
+      `chips=${afterAttach.chipCount} text="${afterAttach.firstChipText}"`);
+    log('r11', '#45 chip shows filename + has remove button',
+      /labbot-test\.png/.test(afterAttach.firstChipText) && afterAttach.hasRemoveBtn ? 'PASS' : 'FAIL',
+      afterAttach.firstChipText);
+
+    // ── Click the remove button and verify the chip disappears ──
+    await p.evaluate(() => {
+      const btn = document.querySelector('.issue-reporter-attach-chip button');
+      if (btn) btn.click();
+    });
+    await p.waitForTimeout(200);
+    const afterRemove = await p.evaluate(() => {
+      const list = document.getElementById('issue-reporter-attach-list');
+      return list ? list.querySelectorAll('.issue-reporter-attach-chip').length : -1;
+    });
+    log('r11', '#45 clicking × removes the chip',
+      afterRemove === 0 ? 'PASS' : 'FAIL',
+      `chipCount=${afterRemove}`);
+
+    // ── Close the modal ──
+    await p.evaluate(() => {
+      const cancel = document.getElementById('issue-reporter-cancel');
+      if (cancel) cancel.click();
+    });
+    await p.waitForTimeout(200);
+    const afterClose = await p.evaluate(() => ({
+      overlayGone: !document.getElementById('issue-reporter-overlay'),
+    }));
+    log('r11', '#45 cancel closes the modal',
+      afterClose.overlayGone ? 'PASS' : 'FAIL');
+    await p.close();
+
+    // ── End-to-end: upload a test file via the same path the issue
+    //    reporter uses, verify it lands in the repo, then clean up. This
+    //    is the only way to actually exercise the PUT contents call
+    //    without creating a real GitHub issue. ──
+    const p2 = await context.newPage();
+    await p2.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.isLoggedIn(), { timeout: 15000 }).catch(() => {});
+    const uploadPath = `issue-attachments/labbot-test/${TS}.txt`;
+    const uploadCheck = await p2.evaluate(async (path) => {
+      // Use Lab.gh.saveFile (same api shape as the issue reporter's uploadAttachment).
+      try {
+        const content = 'labbot r11 test attachment';
+        await Lab.gh.saveFile(path, content, null, 'R11: issue-attachments upload smoke test');
+        return { ok: true };
+      } catch (e) {
+        return { ok: false, error: String(e) };
+      }
+    }, uploadPath);
+    const uploadLanded = uploadCheck.ok && ghFileExists(uploadPath);
+    log('r11', '#45 upload path (issue-attachments/...) reaches the repo',
+      uploadLanded ? 'PASS' : 'FAIL',
+      uploadCheck.error || uploadPath);
+    if (uploadLanded) {
+      // Clean up immediately so we don't leave a trail.
+      ghDeleteFile(uploadPath, 'R11 test cleanup');
+    }
+    await p2.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {
