@@ -1931,6 +1931,232 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  EDITOR (R3, Issue #18): 3-column popup layout + grid + create flow
+  //  ──────────────────────────────────────────────────────────────
+  //  Covers: 3-col structure, grid renderer, children list, container_list
+  //  relocation, create-in-edit flow, type datalist with discovered types.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('editor')) {
+    console.log('\n🪟 EDITOR\n');
+    const p = await context.newPage();
+    p.on('dialog', async d => { try { await d.accept(); } catch(e) {} });
+    // Use domcontentloaded — wiki.html has an always-animating knowledge graph
+    // so networkidle never settles. domcontentloaded + an explicit wait for
+    // Lab.editorModal is the reliable combination.
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && window.Lab.editorModal, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
+
+    // 1. Open a box popup and verify 3-column layout is present.
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/box-pistachio-dna.md'));
+    await p.waitForSelector('#em-contents .em-grid-view', { timeout: 8000 }).catch(() => {});
+    const layout = await p.evaluate(() => {
+      const modal = document.querySelector('.em-modal');
+      const cols = document.querySelectorAll('.em-modal .em-col');
+      const fields = document.getElementById('em-fields');
+      const content = document.getElementById('em-content');
+      const contents = document.getElementById('em-contents');
+      return {
+        modalMaxWidth: modal ? getComputedStyle(modal).maxWidth : '',
+        colCount: cols.length,
+        hasFields: !!fields && fields.innerHTML.length > 0,
+        hasContent: !!content && content.innerHTML.length > 0,
+        hasContents: !!contents && contents.innerHTML.length > 0,
+      };
+    });
+    log('editor', '3-column layout present',
+      layout.colCount === 3 && layout.hasFields && layout.hasContent && layout.hasContents ? 'PASS' : 'FAIL',
+      `cols=${layout.colCount} maxW=${layout.modalMaxWidth} fields=${layout.hasFields} content=${layout.hasContent} contents=${layout.hasContents}`);
+
+    // 2. Grid renderer: verify 10x10 cells + correct occupied/empty counts.
+    const gridState = await p.evaluate(() => {
+      const view = document.querySelector('#em-contents .em-grid-view');
+      if (!view) return { ok: false };
+      const cells = view.querySelectorAll('.em-grid-cell');
+      const occupied = view.querySelectorAll('.em-grid-cell.occupied');
+      const empty = view.querySelectorAll('.em-grid-cell.empty');
+      const a1 = view.querySelector('[data-cell="A1"]');
+      const a2 = view.querySelector('[data-cell="A2"]');
+      return {
+        ok: true,
+        cellCount: cells.length,
+        occupiedCount: occupied.length,
+        emptyCount: empty.length,
+        a1Occupied: a1 ? a1.classList.contains('occupied') : false,
+        a1Text: a1 ? a1.innerText : '',
+        a2Occupied: a2 ? a2.classList.contains('occupied') : false,
+      };
+    });
+    log('editor', 'Grid renders 10x10 with 2 tubes placed',
+      gridState.cellCount === 100 && gridState.occupiedCount === 2 && gridState.emptyCount === 98 && gridState.a1Occupied && gridState.a2Occupied ? 'PASS' : 'FAIL',
+      `cells=${gridState.cellCount} occ=${gridState.occupiedCount} empty=${gridState.emptyCount}`);
+
+    // 3. Occupied cell shows label_2 text. tube-pistachio-leaf-1 has label_2: "PL1\n4/01".
+    log('editor', 'Occupied cell shows label_2',
+      gridState.a1Text.includes('PL1') || gridState.a1Text.includes('4/01') ? 'PASS' : 'FAIL',
+      `A1 text: "${gridState.a1Text}"`);
+
+    // 4. Close the box popup, open the migration box to check collision rendering
+    // (the migration put 3 items at A2).
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/box-minus80-a-1-a.md'));
+    await p.waitForSelector('#em-contents .em-grid-view', { timeout: 8000 }).catch(() => {});
+    const collision = await p.evaluate(() => {
+      const view = document.querySelector('#em-contents .em-grid-view');
+      if (!view) return { ok: false };
+      const a2 = view.querySelector('[data-cell="A2"]');
+      const collideBadge = a2 ? a2.querySelector('.gc-collide') : null;
+      return {
+        ok: true,
+        hasCollision: !!collideBadge,
+        collideText: collideBadge ? collideBadge.innerText : '',
+        a2HasClass: a2 ? a2.classList.contains('collision') : false,
+      };
+    });
+    log('editor', 'Collision cell shows count badge',
+      collision.ok && collision.hasCollision && collision.a2HasClass ? 'PASS' : 'FAIL',
+      collision.ok ? `badge="${collision.collideText}" hasClass=${collision.a2HasClass}` : 'no grid view');
+
+    // 5. Click the collision badge → popover shows multiple items.
+    if (collision.hasCollision) {
+      await p.evaluate(() => {
+        const badge = document.querySelector('#em-contents [data-cell="A2"] .gc-collide');
+        if (badge) badge.click();
+      });
+      await p.waitForTimeout(600);
+      const popState = await p.evaluate(() => {
+        const pop = document.querySelector('.em-collide-pop');
+        return {
+          present: !!pop,
+          rowCount: pop ? pop.querySelectorAll('.em-child-row').length : 0,
+        };
+      });
+      log('editor', 'Collision popover lists items',
+        popState.present && popState.rowCount >= 2 ? 'PASS' : 'FAIL',
+        `popover=${popState.present} rows=${popState.rowCount}`);
+      // Dismiss popover
+      await p.click('body', { position: { x: 10, y: 10 } });
+      await p.waitForTimeout(200);
+    }
+
+    // 6. Shelf popup shows children list (no grid) with "+ Add" button.
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/shelf-minus80-a-1.md'));
+    await p.waitForSelector('#em-contents', { timeout: 8000 }).catch(() => {});
+    await p.waitForTimeout(1500);
+    const shelfContents = await p.evaluate(() => {
+      const contents = document.getElementById('em-contents');
+      if (!contents) return { ok: false };
+      const rows = contents.querySelectorAll('.em-child-row');
+      const addBtn = contents.querySelector('[data-em-add]');
+      const hasGrid = !!contents.querySelector('.em-grid-view');
+      return {
+        ok: true,
+        rowCount: rows.length,
+        hasAddBtn: !!addBtn,
+        hasGrid,
+        rowTitles: Array.from(rows).map(r => r.querySelector('.ec-title')?.innerText || ''),
+      };
+    });
+    log('editor', 'Shelf shows children list with +Add',
+      shelfContents.ok && !shelfContents.hasGrid && shelfContents.rowCount >= 2 && shelfContents.hasAddBtn ? 'PASS' : 'FAIL',
+      shelfContents.ok ? `rows=${shelfContents.rowCount} add=${shelfContents.hasAddBtn} grid=${shelfContents.hasGrid}` : 'no contents');
+
+    // 7. Reagent popup shows container_list in col 3 (relocated from col 1).
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+    await p.evaluate(() => Lab.editorModal.open('docs/resources/microtube.md'));
+    await p.waitForTimeout(2500);
+    const reagent = await p.evaluate(() => {
+      const fields = document.getElementById('em-fields');
+      const contents = document.getElementById('em-contents');
+      const fieldsText = fields ? fields.innerText : '';
+      const contentsText = contents ? contents.innerText : '';
+      return {
+        fieldsHasContainerUI: fieldsText.toLowerCase().includes('container') && fieldsText.toLowerCase().includes('quantity'),
+        contentsHasContainerTable: !!contents && (contents.querySelector('table') || contents.innerHTML.includes('container')),
+        contentsText: contentsText.substring(0, 160),
+      };
+    });
+    log('editor', 'Reagent container_list relocated to col 3',
+      !reagent.fieldsHasContainerUI && reagent.contentsHasContainerTable ? 'PASS' : 'FAIL',
+      `col1HasContainer=${reagent.fieldsHasContainerUI} col3HasContainer=${reagent.contentsHasContainerTable}`);
+
+    // 8. Click Edit → type input appears as a datalist in edit mode.
+    await p.evaluate(() => {
+      const btn = document.getElementById('em-edit-toggle');
+      if (btn) btn.click();
+    });
+    await p.waitForTimeout(1500);
+    const typeInEdit = await p.evaluate(() => {
+      const input = document.querySelector('.em-field-input[data-key="type"]');
+      const dl = document.getElementById('em-types-list');
+      return {
+        isInput: input ? input.tagName === 'INPUT' : false,
+        inputType: input ? input.type : '',
+        hasList: input ? input.getAttribute('list') === 'em-types-list' : false,
+        optionCount: dl ? dl.querySelectorAll('option').length : 0,
+        hasKnownTypes: dl ? (dl.innerHTML.includes('reagent') && dl.innerHTML.includes('tube') && dl.innerHTML.includes('freezer')) : false,
+      };
+    });
+    log('editor', 'Edit mode: type is datalist input',
+      typeInEdit.isInput && typeInEdit.hasList && typeInEdit.hasKnownTypes && typeInEdit.optionCount >= 10 ? 'PASS' : 'FAIL',
+      `isInput=${typeInEdit.isInput} hasList=${typeInEdit.hasList} opts=${typeInEdit.optionCount} hasKnown=${typeInEdit.hasKnownTypes}`);
+    // Cancel out of edit mode without saving
+    await p.evaluate(() => {
+      const btn = document.getElementById('em-edit-toggle');
+      if (btn) btn.click();
+    });
+    await p.waitForTimeout(800);
+
+    // 9. Click an empty grid cell on box-pistachio-dna → new-object modal opens.
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/box-pistachio-dna.md'));
+    await p.waitForSelector('#em-contents .em-grid-view', { timeout: 8000 }).catch(() => {});
+    await p.evaluate(() => {
+      // Click an empty cell — E5 should be empty (2 tubes are A1 and A2)
+      const cell = document.querySelector('#em-contents .em-grid-cell.empty[data-cell="E5"]');
+      if (cell) cell.click();
+    });
+    await p.waitForTimeout(2000);
+    const newMode = await p.evaluate(() => {
+      const title = document.getElementById('em-title');
+      const typeInput = document.querySelector('.em-field-input[data-key="type"]');
+      // In edit mode the parent field is an <input>, not a data-parent-pill span.
+      const parentInput = document.querySelector('.em-field-input[data-key="parent"]');
+      const posField = document.querySelector('.em-field-input[data-key="position"]');
+      const saveBtn = document.getElementById('em-save');
+      return {
+        titleText: title ? title.textContent : '',
+        hasTypeInput: !!typeInput,
+        typeValue: typeInput ? typeInput.value : '',
+        parentValue: parentInput ? parentInput.value : '',
+        positionValue: posField ? posField.value : '',
+        saveVisible: saveBtn && saveBtn.style.display !== 'none',
+      };
+    });
+    const newOK = newMode.titleText.includes('New') &&
+                  newMode.hasTypeInput &&
+                  newMode.typeValue === 'tube' &&
+                  newMode.parentValue === 'locations/box-pistachio-dna' &&
+                  newMode.positionValue === 'E5' &&
+                  newMode.saveVisible;
+    log('editor', 'Empty cell click opens new-object modal',
+      newOK ? 'PASS' : 'FAIL',
+      `title="${newMode.titleText}" type=${newMode.typeValue} parent=${newMode.parentValue} pos=${newMode.positionValue} save=${newMode.saveVisible}`);
+
+    // Close the new-object modal without saving
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+
+    await p.screenshot({ path: '/tmp/labbot-editor.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  HIERARCHY (R1, Issue #18): location hierarchy data model
   //  ────────────────────────────────────────────────────────
   //  Tests the new parent/position/grid/label_1/label_2 schema:
@@ -1946,8 +2172,11 @@ Test container used by the labmap delete test. Should not persist.
     const p = await context.newPage();
 
     // Load any app page so lab.js + hierarchy.js + types.js are all in scope.
-    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'networkidle', timeout: 20000 });
-    await p.waitForTimeout(2500);
+    // wiki.html never reaches networkidle (knowledge graph keeps repainting),
+    // so use domcontentloaded + explicit wait for Lab modules.
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && window.Lab.editorModal && window.Lab.hierarchy, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
 
     // 1. Object index has location entries with hierarchy fields.
     const indexShape = await p.evaluate(async () => {
