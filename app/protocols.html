@@ -405,8 +405,11 @@ function renderSidebar(filter) {
     items.forEach(function(item) {
       var active = currentDoc === item.path ? ' active' : '';
       var draggable = loggedIn ? ' draggable="true"' : '';
-      var copyBadge = item.path.replace(/\.md$/, '').match(/-copy(-\d+)?$/) ? '<span style="font-size:10px;color:#888;margin-left:4px;flex-shrink:0">(Copy)</span>' : '';
-      html += '<div class="proto-item' + active + '"' + draggable + ' data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')" style="display:flex;align-items:center">' + '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.title) + '</span>' + copyBadge + '</div>';
+      // R9 #43: dropped the "(Copy)" sidebar badge that used to annotate any
+      // slug ending in -copy. Grey's reasoning: duplication is a starting
+      // point for a new protocol, and the user will rename it anyway — the
+      // annotation just creates visual noise that has to be mentally ignored.
+      html += '<div class="proto-item' + active + '"' + draggable + ' data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')" style="display:flex;align-items:center">' + '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + Lab.escHtml(item.title) + '</span></div>';
     });
     html += '</div>';
   });

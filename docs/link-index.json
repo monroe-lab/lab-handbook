@@ -3865,11 +3865,23 @@
   },
   {
     "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
     "target": "resources/fume-hood"
   },
   {
     "source": "workflow-templates/protocol-template",
-    "target": "resources/ethanol-70"
+    "target": "wet-lab/liquid-nitrogen-refill"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "lab-safety/cryogens-sop"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "resources/ethanol-absolute"
   },
   {
     "source": "workflow-templates/protocol-template",
@@ -3897,14 +3909,14 @@
   },
   {
     "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/seed-sterilization"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/gel-electrophoresis"
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
   },
   {
     "source": "workflow-templates/protocol-template",
     "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "workflow-templates/protocol-template",
+    "target": "wet-lab/gel-electrophoresis"
   }
 ]

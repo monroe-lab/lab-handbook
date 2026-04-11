@@ -3457,6 +3457,86 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R9: Protocol duplication + template rewrite (#43 #44)
+  //  ────────────────────────────────────────────────────────────
+  //  #43: the sidebar used to decorate any slug ending in -copy with
+  //       a smaller "(Copy)" badge NEXT TO the already-"(Copy)"-suffixed
+  //       title. Doubled label. Dropped the badge; keep the title
+  //       suffix so the user still sees the "please rename me" cue.
+  //  #44: protocol-template.md rewritten as an educational roadmap
+  //       teaching what makes a good protocol while demonstrating
+  //       each markdown feature.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r9')) {
+    console.log('\n🧬  R9\n');
+
+    // ── #43: no single sidebar entry contains the word "copy" twice ──
+    const p1 = await context.newPage();
+    await p1.goto(BASE + '/app/protocols.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p1.waitForTimeout(3500);
+    const dupCheck = await p1.evaluate(() => {
+      const items = Array.from(document.querySelectorAll('.proto-item'));
+      const dupes = items.filter(el => (el.getAttribute('data-path') || '').match(/-copy(-\d+)?$/));
+      const doubled = dupes.filter(el => (el.textContent.match(/copy/gi) || []).length > 1);
+      return {
+        totalDupes: dupes.length,
+        doubledCount: doubled.length,
+        samples: dupes.slice(0, 3).map(el => ({
+          path: el.getAttribute('data-path'),
+          text: el.textContent.trim(),
+          childCount: el.children.length,
+        })),
+      };
+    });
+    log('r9', '#43 no duplicated "(Copy)" label on any sidebar entry',
+      dupCheck.totalDupes === 0 || dupCheck.doubledCount === 0 ? 'PASS' : 'FAIL',
+      `${dupCheck.totalDupes} dup entries, ${dupCheck.doubledCount} with doubled "copy" text`);
+
+    // Also verify the title suffix is still there (we deliberately kept it).
+    const titleKept = dupCheck.totalDupes === 0 ||
+      dupCheck.samples.some(s => /\(Copy\)/i.test(s.text));
+    log('r9', '#43 duplicated protocols still carry "(Copy)" in the title',
+      titleKept ? 'PASS' : 'FAIL',
+      `samples: ${JSON.stringify(dupCheck.samples.map(s => s.text))}`);
+
+    // ── #43: no sidebar entry has more than 1 child span in .proto-item ──
+    // The previous code rendered two child spans (title + badge). The fix
+    // renders one. This is a structural sanity check.
+    const structuralCheck = dupCheck.totalDupes === 0 ||
+      dupCheck.samples.every(s => s.childCount === 1);
+    log('r9', '#43 sidebar entry has one child span (title only, no badge)',
+      structuralCheck ? 'PASS' : 'FAIL',
+      `childCounts: ${dupCheck.samples.map(s => s.childCount).join(',')}`);
+    await p1.close();
+
+    // ── #44: protocol-template.md rewritten, contains teaching markers ──
+    const p2 = await context.newPage();
+    await p2.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchFile, { timeout: 15000 }).catch(() => {});
+    const tmpl = await p2.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/workflow-templates/protocol-template.md');
+      return res.content;
+    }).catch(() => '');
+    const hasPrinciples = /## What makes a good protocol/i.test(tmpl);
+    const hasRoadmap = /reproducible by someone who has never done it before/i.test(tmpl);
+    const demosCallouts = /💡 \*\*Principle\*\*/.test(tmpl) && /⚠️ \*\*/.test(tmpl);
+    const linksSops = /\[\[cryogens-sop\]\]/.test(tmpl);
+    const noTestVideoDump = !(tmpl.match(/<br>/g) || []).length || (tmpl.match(/<br>/g) || []).length < 5;
+    log('r9', '#44 protocol-template has "What makes a good protocol" section',
+      hasPrinciples ? 'PASS' : 'FAIL');
+    log('r9', '#44 protocol-template states the reproducibility north star',
+      hasRoadmap ? 'PASS' : 'FAIL');
+    log('r9', '#44 protocol-template demonstrates callouts (principle + warning)',
+      demosCallouts ? 'PASS' : 'FAIL');
+    log('r9', '#44 protocol-template links upstream SOPs (e.g. cryogens-sop)',
+      linksSops ? 'PASS' : 'FAIL');
+    log('r9', '#44 protocol-template purged the old stray <br> padding dump',
+      noTestVideoDump ? 'PASS' : 'FAIL',
+      `<br> count: ${(tmpl.match(/<br>/g) || []).length}`);
+    await p2.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

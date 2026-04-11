@@ -33,6 +33,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R6.5 | 9/9 | ✅ (R6.5) isConceptType helper, concepts/instances/locations/stocks classified correctly, scoped save-time uniqueness check catches dupe concepts, instance-count map from `of:` + link-index, ethanol-absolute → 1 bottle, ethanol-70 → 2 bottles (multi-bottle), sample-pistachio-4 → 3 tubes, autocomplete dropdown badges 19 concepts with instances |
 | R7 | 13/13 | ✅ (R7) Scrubbed R5 migration leftover text from 156 bottle files (#31), location-tree preserves expanded set across refresh (#21), popup Edit button resets label on every open (#30), stray mobile Graph nav link removed (#25), three new base-level rooms indexed (#41), mtime-aware object index for recency sort (#27), inventory mobile toolbar stacks into filter-row (#27), mini-graph close button gets bigger tap target (#24), issue-reporter FAB raised above editor-modal overlay (#33), body.em-editing hides FAB during edit (#23), popup closeOrBack pops nav stack (box→tube→close returns to box) (#32), dashboard bulletin edit round-trips via from=dashboard (#22), chip-seq empty rpm placeholders replaced with visible TODO (#35), annotate save-callback errors no longer block close (#29) |
 | R8 | 7/7 | ✅ (R8 quick wins) alex-chen fake user retired (#26), barb-m (Barbara McClintock) demo notebooks + person card, liquid nitrogen refill SOP scaffolded with TODO placeholders (#17), chip-seq empty `lot:` placeholders replaced with visible TODO (#36), personalized notebooks view sorts current user's folder first with "Your notebook" section label (#39) |
+| R9 | 7/7 | ✅ (R9) dropped the redundant "(Copy)" sidebar badge on duplicated protocols — title still carries "(Copy)" as a rename cue but the sidebar no longer doubles it (#43), rewrote workflow-templates/protocol-template.md as an educational roadmap teaching "what makes a good protocol" while demonstrating callouts, wikilinks, tables, images, videos, and code blocks (#44) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -43,7 +44,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 173/173 (100%)** — R8 adds 7 new quick-win tests covering the Alex Chen retirement / Barb M. (Barbara McClintock) demo fixture, the liquid nitrogen refill SOP scaffold, chip-seq empty `lot:` placeholder scrub, and the personalized notebooks view (current user's folder sorted first with a "Your notebook" section label). See Round 8 below for the full writeup.
+**Total: 180/180 (100%)** — R9 adds 7 new tests covering the duplicate-protocol sidebar badge removal (#43) and the protocol-template rewrite (#44). See Round 9 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -403,6 +404,54 @@ Plus 1 search regression update: the labbot search section now looks for `barb` 
 ### Skipped in R8
 
 - **Matching folder by author frontmatter** — `sortChildrenForUser` matches purely by folder slug prefix. A user whose GitHub login bears no resemblance to their notebook folder name won't get personalized sort. Not worth the complexity until a real lab member hits it — `grey-monroe` / `greymonroe` matches cleanly, and the 11 real lab members all have folders (or will) that match their logins.
+
+---
+
+## Round 9: Protocol duplication polish + template rewrite (2026-04-11)
+
+Two issues filed while R8 was mid-flight. Bundled together because both are about the ergonomics of creating protocols from a template or from an existing one.
+
+### What shipped
+
+- [x] **#43 duplicated protocol sidebar badge** — the protocols sidebar rendered a second "(Copy)" badge next to any item whose slug ended in `-copy`. This duplicated the `(Copy)` suffix already baked into the frontmatter title by `duplicateDoc()` — so a freshly-duplicated protocol showed up in the sidebar as **"ChIP-seq Protocol (Copy)** *(Copy)*" with the title decoration once from the title and once from the sidebar. Grey's preferred behavior: keep the "(Copy)" in the title (it's a cue to the user that they should rename before the duplicate is taken seriously), drop the sidebar badge. Fix is one line: remove the `copyBadge` variable and the `+ copyBadge` concatenation in `renderNode` on `app/protocols.html:408`. Verified via a Playwright evaluate pass against the live site before deploy, then re-verified after.
+- [x] **Preserve R6.5 uniqueness check** — my first pass also tried to scope the R6.5 concept-title uniqueness check to `isNew === true` so the duplicate's subsequent saves wouldn't be blocked. Grey correctly flagged that as the wrong tradeoff (he *wants* duplicates to be forced through a rename because it catches duplicate concepts); reverted to the unscoped check. The duplication flow still works: the new file is saved via the raw `gh.saveFile` path in `duplicateDoc`, which doesn't run the check; when the user later opens the duplicate and edits it, the uniqueness check fires and prompts them to rename before saving — which is the desired workflow.
+- [x] **#44 protocol-template rewrite** — replaced `docs/workflow-templates/protocol-template.md` (258 lines of mock DNA-extraction protocol interspersed with test images and stray `<br>` padding) with a document that keeps the same protocol-shaped layout but teaches what each section is *for*. New top section "What makes a good protocol" lists ten principles with "reproducible by someone who has never done it before" as the north star. Every downstream section demonstrates a markdown feature while teaching the section's purpose:
+  - **Purpose** → how to write a one-sentence purpose (good vs bad examples)
+  - **Author/metadata** → wikilinks to people
+  - **Overview table** → separating hands-on time from wait time
+  - **Background** → why the "why" matters (the PVP-in-lysis-buffer example)
+  - **Safety** → linking to SOPs (`[[cryogens-sop]]`, `[[liquid-nitrogen-refill]]`)
+  - **Materials** → wikilinks to inventory so reagent cards roll up correctly
+  - **Procedure** → warning vs tip vs note callouts, numbered atomic steps
+  - **Variants** → the `🔀 Variant:` callout pattern with the column-vs-organic tradeoff
+  - **Quality check** → code blocks for schematic gel patterns
+  - **Media** → static image, GIF, local video, YouTube — each with a short "when to use" note
+  - **Troubleshooting** → "symptom → cause → solution" table philosophy
+  - **Expected results** → quantitative targets so success is comparable
+  - **Related** → upstream / downstream / project links as navigation
+  - **Revision history** → terse change-log at the top of the file
+  - **Closing note** → "Could I follow this tired at 6 PM?" as the reproducibility test
+- [x] **Removed stray test content** — purged 19 empty `<br>` tags, 3 unrelated test videos, and a couple of random annotated screenshots from the old template. The new template's media references (*example caption for a pellet photo*) are explanatory text, not real files — so nothing to upload.
+
+### Tests added in R9
+
+7 new tests in a new `r9` section:
+- `#43` no duplicated "(Copy)" label on any sidebar entry (scans `.proto-item` for entries whose `data-path` ends in `-copy` and counts "copy" in textContent; expects ≤ 1)
+- `#43` duplicated protocols still carry "(Copy)" in the title (forces the rename cue to still be present)
+- `#43` sidebar entry has one child span (title only, no badge) — structural sanity check
+- `#44` protocol-template has "What makes a good protocol" section
+- `#44` protocol-template states the reproducibility north star ("reproducible by someone who has never done it before")
+- `#44` protocol-template demonstrates callouts (`💡 Principle` + `⚠️ Warning`)
+- `#44` protocol-template links upstream SOPs (e.g. `[[cryogens-sop]]`)
+- `#44` protocol-template purged the old stray `<br>` padding dump (count < 5)
+
+*(8 tests actually, counted as 7 for the scoreboard because one is bundled.)*
+
+### What I got wrong on the first pass (noted so future me doesn't repeat it)
+
+My first attempt to #43 removed the `(Copy)` title suffix in `duplicateDoc` — because I misread Grey's issue as "the word 'copy' appears in two places, remove both." It turned out Grey was describing the exact opposite: the title's `(Copy)` is the *wanted* signal, and the sidebar's extra badge is the redundant noise. Grey called me out sharply (rightly) and pointed me at the live site. **Lesson**: when a user describes a double-rendering bug, confirm with Playwright against the deployed site *before* deciding which of the two labels to remove. One-line visual inspections beat written descriptions when describing rendered UI.
+
+I also relaxed the R6.5 uniqueness check to only fire on `isNew === true` as a "fix" for the (non-existent) edit-after-duplicate problem. Grey correctly flagged that as weakening a guardrail he wanted kept. Reverted. **Lesson**: don't weaken a safety check to enable an edge case that isn't actually blocking anyone.
 
 ---
 
