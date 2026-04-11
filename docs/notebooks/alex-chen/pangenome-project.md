@@ -1,7 +1,7 @@
 # 2026-04-08 — Alex Chen
 
-**Person:** Alex Chen  
-**Date:** 2026-04-08
+**Person:** Alex Chen**Date:** 2026-04-08
 
 ## Notes
 
+![17759117266968181878586364670214.jpg](images/17759117266968181878586364670214-annotated.png)
