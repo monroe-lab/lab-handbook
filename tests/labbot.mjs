@@ -43,7 +43,8 @@ function log(section, test, status, detail) {
 // Sections quarantined while a feature is being rebuilt. They run only when
 // explicitly targeted via --only=<name>. See STATUS.md + Issue #19.
 const QUARANTINED = new Set([
-  'labmap', // R2: floor-plan view deprecated, rebuilding as hierarchy tree
+  // labmap was quarantined during R1/R2 while the floor-plan was retired.
+  // Rebuilt as a hierarchical tree view in R2 — tests below cover the new UI.
 ]);
 function shouldRun(name) {
   if (QUARANTINED.has(name) && ONLY !== name) return false;
@@ -1362,129 +1363,214 @@ function ghReadFile(path) {
   }
 
   // ════════════════════════════════════════════════════════════
-  //  LAB MAP: navigate, place a tube, verify position
+  //  LAB MAP (R2, Issue #19): static placeholder + hierarchy tree
+  //  ──────────────────────────────────────────────────────────
+  //  The clickable floor plan is retired. lab-map.html now shows:
+  //    1. A "map design in progress" placeholder card.
+  //    2. A hierarchical tree rooted at any top-level location, click to
+  //       open popup, expand/collapse, filter, inline edit, inline delete.
   // ════════════════════════════════════════════════════════════
   if (shouldRun('labmap')) {
     console.log('\n🗺️  LAB MAP\n');
     const p = await context.newPage();
+
+    // Accept all confirm() dialogs (for the delete-throwaway test below).
+    p.on('dialog', async d => { try { await d.accept(); } catch(e) {} });
+
     await p.goto(BASE + '/app/lab-map.html', { waitUntil: 'networkidle', timeout: 20000 });
-    await p.waitForTimeout(2000);
+    await p.waitForTimeout(2500);
 
-    // Room view
-    const hasFloorPlan = await p.$('svg') !== null;
-    log('labmap', 'Floor plan SVG', hasFloorPlan ? 'PASS' : 'FAIL', hasFloorPlan ? 'Rendered' : 'Missing');
+    // 1. Static placeholder renders.
+    const placeholder = await p.evaluate(() => {
+      const el = document.querySelector('.map-placeholder');
+      return {
+        present: !!el,
+        text: el ? el.innerText : '',
+        hasSvg: el ? !!el.querySelector('svg') : false,
+      };
+    });
+    log('labmap', 'Placeholder card renders',
+      placeholder.present && placeholder.hasSvg && placeholder.text.includes('Map design in progress') ? 'PASS' : 'FAIL',
+      placeholder.present ? 'card + svg + text' : 'missing');
 
-    // Navigate to each zone
-    const zones = ['freezer-80c', 'freezer-20c', 'refrigerator', 'chemical-cabinet', 'bench-1'];
-    for (const zone of zones) {
-      await p.evaluate((z) => labMap.open(z), zone);
-      await p.waitForTimeout(800);
-      const heading = await p.$eval('h2', el => el.textContent.trim()).catch(() => '');
-      log('labmap', `Navigate: ${zone}`, heading.length > 0 ? 'PASS' : 'FAIL', heading.substring(0, 40));
-      await p.evaluate(() => labMap.nav(0));
-      await p.waitForTimeout(300);
+    // 2. Tree mount has a root room node.
+    const rootRender = await p.evaluate(() => {
+      const mount = document.getElementById('treeMount');
+      if (!mount) return { ok: false };
+      const rootNode = mount.querySelector('[data-slug="locations/room-robbins-0170"]');
+      if (!rootNode) return { ok: false, html: mount.innerHTML.substring(0, 300) };
+      return {
+        ok: true,
+        title: rootNode.querySelector('.tw-title').innerText,
+        isExpanded: rootNode.classList.contains('is-expanded'),
+      };
+    });
+    log('labmap', 'Root room renders in tree',
+      rootRender.ok && rootRender.title.includes('Robbins Hall') ? 'PASS' : 'FAIL',
+      rootRender.ok ? `title="${rootRender.title}" expanded=${rootRender.isExpanded}` : 'no root node');
+
+    // 3. Tree walks down: room > freezer > shelf > box > tubes (expand-all).
+    await p.click('#expandAllBtn');
+    await p.waitForTimeout(400);
+    const chain = await p.evaluate(() => {
+      const get = s => document.querySelector(`[data-slug="${s}"]`);
+      return {
+        room:    !!get('locations/room-robbins-0170'),
+        freezer: !!get('locations/freezer-minus80-a'),
+        shelf:   !!get('locations/shelf-minus80-a-1'),
+        boxPist: !!get('locations/box-pistachio-dna'),
+        tube1:   !!get('locations/tube-pistachio-leaf-1'),
+        tube2:   !!get('locations/tube-pistachio-leaf-2'),
+        fridge:  !!get('locations/fridge-4c-main'),
+        extrBox: !!get('locations/box-dna-extracts'),
+        migBox:  !!get('locations/box-minus80-a-1-a'),
+      };
+    });
+    const chainOK = Object.values(chain).every(Boolean);
+    log('labmap', 'Tree expands room > freezer > shelf > boxes > tubes',
+      chainOK ? 'PASS' : 'FAIL',
+      chainOK ? 'all 9 expected slugs present' : JSON.stringify(chain));
+
+    // 4. Migrated legacy items appear under box-minus80-a-1-a.
+    const migrated = await p.evaluate(() => {
+      const migBox = document.querySelector('[data-slug="locations/box-minus80-a-1-a"]');
+      if (!migBox) return { ok: false, count: 0 };
+      const kids = migBox.querySelectorAll(':scope > .tree-children > .tree-node');
+      return { ok: true, count: kids.length, slugs: Array.from(kids).map(k => k.getAttribute('data-slug')) };
+    });
+    log('labmap', 'Migrated items nested under new box',
+      migrated.ok && migrated.count >= 8 ? 'PASS' : 'FAIL',
+      migrated.ok ? `${migrated.count} children under migrated box` : 'migrated box not found');
+
+    // 5. Grid badge shows "10x10" on the seed box node.
+    const gridBadge = await p.evaluate(() => {
+      const box = document.querySelector('[data-slug="locations/box-pistachio-dna"]');
+      if (!box) return '';
+      return box.querySelector('.tree-node-row').innerText;
+    });
+    log('labmap', 'Box node shows grid badge',
+      gridBadge.includes('10x10') ? 'PASS' : 'FAIL',
+      gridBadge ? `row: "${gridBadge}"` : 'box not found');
+
+    // 6. Position badge on tubes (A1/A2).
+    const tubePositions = await p.evaluate(() => {
+      const t1 = document.querySelector('[data-slug="locations/tube-pistachio-leaf-1"]');
+      const t2 = document.querySelector('[data-slug="locations/tube-pistachio-leaf-2"]');
+      return {
+        a1: t1 ? t1.querySelector('.tree-node-row').innerText : '',
+        a2: t2 ? t2.querySelector('.tree-node-row').innerText : '',
+      };
+    });
+    log('labmap', 'Tube nodes show position badges',
+      tubePositions.a1.includes('A1') && tubePositions.a2.includes('A2') ? 'PASS' : 'FAIL',
+      `t1="${tubePositions.a1}" t2="${tubePositions.a2}"`);
+
+    // 7. Click tube title → popup opens with breadcrumb.
+    await p.evaluate(() => {
+      const el = document.querySelector('[data-slug="locations/tube-pistachio-leaf-1"] .tw-title');
+      if (el) el.click();
+    });
+    await p.waitForTimeout(2500);
+    const popupAfterClick = await p.evaluate(() => {
+      const overlay = document.querySelector('.em-overlay.open, #em-overlay.open');
+      const content = document.getElementById('em-content');
+      const crumb = content ? content.querySelector('.lab-breadcrumb') : null;
+      return { overlayOpen: !!overlay, hasCrumb: !!crumb, crumbText: crumb ? crumb.innerText : '' };
+    });
+    const popupOK = popupAfterClick.overlayOpen && popupAfterClick.hasCrumb &&
+                    popupAfterClick.crumbText.includes('Pistachio DNA Box');
+    log('labmap', 'Click tube opens popup with breadcrumb',
+      popupOK ? 'PASS' : 'FAIL',
+      popupOK ? 'breadcrumb present' : `overlay=${popupAfterClick.overlayOpen} crumb=${popupAfterClick.hasCrumb}`);
+    // Close popup before next test
+    await p.evaluate(() => { const c = document.getElementById('em-close'); if (c) c.click(); });
+    await p.waitForTimeout(400);
+
+    // 8. Filter by name — type "pistachio", verify non-matching nodes hidden.
+    await p.fill('#treeSearch', 'pistachio');
+    await p.waitForTimeout(400);
+    const filterResult = await p.evaluate(() => {
+      const visibleNodes = Array.from(document.querySelectorAll('.tree-node'))
+        .filter(n => n.style.display !== 'none');
+      const visibleSlugs = visibleNodes.map(n => n.getAttribute('data-slug'));
+      const hits = document.querySelectorAll('.tree-node-row.is-hit').length;
+      return { visibleCount: visibleNodes.length, hits, hasExtract: visibleSlugs.includes('locations/tube-pistachio-dna-extract-1') };
+    });
+    log('labmap', 'Filter narrows tree to matches',
+      filterResult.hits >= 3 && filterResult.hasExtract ? 'PASS' : 'FAIL',
+      `${filterResult.visibleCount} visible, ${filterResult.hits} direct hits`);
+    await p.fill('#treeSearch', '');
+    await p.waitForTimeout(200);
+
+    // 9. Collapse all.
+    await p.click('#collapseAllBtn');
+    await p.waitForTimeout(300);
+    const collapsed = await p.evaluate(() => {
+      const expanded = document.querySelectorAll('.tree-node.is-expanded').length;
+      return { expanded };
+    });
+    log('labmap', 'Collapse-all clears expansion',
+      collapsed.expanded === 0 ? 'PASS' : 'FAIL',
+      `${collapsed.expanded} still expanded`);
+
+    // 10. Inline delete: create a throwaway location via gh, reload tree,
+    // click its delete button, confirm dialog auto-accepted, verify gone.
+    const throwawaySlug = `locations/labbot-test-${TS}`;
+    const throwawayPath = `docs/${throwawaySlug}.md`;
+    const throwawayContent = `---
+type: "container"
+title: "LabBot Throwaway ${TS}"
+parent: "locations/room-robbins-0170"
+notes: "Created by LabBot test for delete verification. Safe to delete."
+---
+
+# LabBot Throwaway ${TS}
+
+Test container used by the labmap delete test. Should not persist.
+`;
+    const b64 = Buffer.from(throwawayContent).toString('base64');
+    let createdThrowaway = false;
+    try {
+      execSync(`gh api -X PUT "repos/${REPO}/contents/${throwawayPath}" -f message="labbot test throwaway" -f content="${b64}"`, { stdio: 'pipe' });
+      createdThrowaway = true;
+    } catch(e) {
+      log('labmap', 'Create throwaway for delete test', 'WARN', `gh create failed: ${e.message?.substring(0, 60)}`);
     }
 
-    // Drill into freezer → Shelf 1 → Box A
-    await p.evaluate(() => labMap.open('freezer-80c'));
-    await p.waitForTimeout(1500);
-    const shelves = await p.$$('.shelf-card');
-    log('labmap', 'Freezer box cards', shelves.length > 0 ? 'PASS' : 'FAIL', `${shelves.length} cards`);
+    if (createdThrowaway) {
+      // Refresh the tree from the new index (page does this on refresh click)
+      await p.evaluate(() => Lab.gh.clearObjectIndexCache());
+      await p.click('#refreshBtn');
+      // build() re-fetches object-index from the deployed site — may still be
+      // cached at GitHub Pages for a bit after the direct gh api write.
+      await p.waitForTimeout(3500);
+      const throwawayVisible = await p.evaluate((slug) => {
+        return !!document.querySelector(`[data-slug="${slug}"]`);
+      }, throwawaySlug);
+      log('labmap', 'Throwaway location appears after refresh',
+        throwawayVisible ? 'PASS' : 'WARN',
+        throwawayVisible ? 'visible in tree' : 'not yet visible (CDN lag)');
 
-    if (shelves.length > 0) {
-      await shelves[0].click({ timeout: 5000 });
-      await p.waitForTimeout(1000);
-
-      // Check grid
-      const occupied = await p.$$('.tube-cell.occupied');
-      const empty = await p.$$('.tube-cell.empty');
-      log('labmap', 'Box grid', (occupied.length + empty.length) === 81 ? 'PASS' : 'FAIL',
-        `${occupied.length} occupied, ${empty.length} empty (total ${occupied.length + empty.length})`);
-
-      // Click occupied tube → detail panel
-      if (occupied.length > 0) {
-        await occupied[0].click();
-        await p.waitForTimeout(500);
-        const detail = await p.$eval('#tubeDetail', el => el.innerText.substring(0, 80)).catch(() => '');
-        log('labmap', 'Tube detail panel', detail.length > 5 ? 'PASS' : 'FAIL', detail.substring(0, 50));
-      }
-
-      // Click empty cell → assign popover
-      if (empty.length > 0) {
-        await empty[0].click();
-        await p.waitForTimeout(500);
-        const popover = await p.$('#assignPopover');
-        const popText = popover ? await popover.evaluate(el => el.innerText.substring(0, 50)) : '';
-        log('labmap', 'Empty cell assign popover', popText.length > 0 ? 'PASS' : 'WARN',
-          popText || 'No popover text');
-
-        // ── Assign popover search ──
-        const assignSearch = await p.$('#assignSearch');
-        if (assignSearch) {
-          await assignSearch.fill('ethanol');
-          await p.waitForTimeout(1000);
-          const searchResults = await p.$$('.assign-result');
-          log('labmap', 'Assign popover search', searchResults.length > 0 ? 'PASS' : 'WARN',
-            `${searchResults.length} results for "ethanol"`);
-        }
-
-        // ── Create new item at position ──
-        // Click "Create New" in the popover
-        const createBtn = await p.evaluate(() => {
-          const pop = document.getElementById('assignPopover');
-          if (!pop) return false;
-          const btns = pop.querySelectorAll('button');
-          for (const b of btns) {
-            if (b.textContent.includes('Create New') || b.textContent.includes('Create')) {
-              b.click(); return true;
-            }
-          }
-          return false;
-        });
-        if (createBtn) {
-          await p.waitForTimeout(1000);
-          const nameInput = await p.$('#newItemName');
-          if (nameInput) {
-            const itemName = `LabBot Freezer Item ${TS}`;
-            await nameInput.fill(itemName);
-            const typeSelect = await p.$('#newItemType');
-            if (typeSelect) await typeSelect.selectOption('reagent');
-
-            // Check location_detail is pre-filled
-            const locDetail = await p.$eval('#newItemLocDetail', el => el.value).catch(() => '');
-            const hasLocDetail = locDetail.includes('Shelf') && locDetail.includes('Box');
-            log('labmap', 'Create form location_detail', hasLocDetail ? 'PASS' : 'FAIL',
-              hasLocDetail ? locDetail : 'Missing or wrong format');
-
-            // Click Create/Save
-            const saveBtn = await p.$('#newItemSave');
-            if (saveBtn) {
-              await saveBtn.click();
-              await p.waitForTimeout(8000);
-
-              const itemSlug = itemName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-              const itemPath = `docs/resources/${itemSlug}.md`;
-              const itemCreated = ghFileExists(itemPath);
-              log('labmap', 'Create item at position', itemCreated ? 'PASS' : 'FAIL',
-                itemCreated ? `${itemPath} on GitHub` : 'Item not created');
-              if (itemCreated) cleanup.push({ path: itemPath });
-
-              // Verify the item has correct location_detail in its frontmatter
-              if (itemCreated) {
-                const content = ghReadFile(itemPath);
-                const hasDetail = content?.includes('location_detail:') && content?.includes('Shelf');
-                log('labmap', 'Item location_detail persisted', hasDetail ? 'PASS' : 'FAIL',
-                  hasDetail ? 'Frontmatter has location_detail' : 'Missing location_detail');
-              }
-            }
-          } else {
-            log('labmap', 'Create at position', 'WARN', 'Create form not rendered');
-          }
-        }
+      if (throwawayVisible) {
+        // Click the delete button
+        await p.evaluate((slug) => {
+          const n = document.querySelector(`[data-slug="${slug}"]`);
+          if (n) n.querySelector('[data-act="delete"]').click();
+        }, throwawaySlug);
+        await p.waitForTimeout(3500);
+        // Verify gone from GitHub
+        const stillExists = ghFileExists(throwawayPath);
+        log('labmap', 'Inline delete removes file',
+          !stillExists ? 'PASS' : 'FAIL',
+          stillExists ? `${throwawayPath} still present` : 'deleted');
+      } else {
+        // Fall back to gh-delete cleanup to avoid leaving garbage behind.
+        ghDeleteFile(throwawayPath, 'labbot test cleanup');
+        log('labmap', 'Inline delete removes file', 'WARN', 'CDN lag — cleaned up via gh CLI');
       }
     }
 
-    await p.screenshot({ path: '/tmp/labbot-labmap.png', fullPage: false });
+    await p.screenshot({ path: '/tmp/labbot-labmap-tree.png', fullPage: false });
     await p.close();
   }
 

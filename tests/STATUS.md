@@ -24,8 +24,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
-| Lab Map | 🚧 quarantined | Floor-plan view deprecated per Issue #19; rebuilding as hierarchy tree in R2. Old tests skipped by default; `--only=labmap` still runs them for reference. |
-| Hierarchy | 10/10 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb |
+| Lab Map | 10/10 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file |
+| Hierarchy | 15/15 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb, parent field as object pill, multi-line labels preserve newlines |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -36,7 +36,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 91/91 (100%)** — Lab Map (14) quarantined pending R2 rebuild, Hierarchy (10) added in R1.
+**Total: 101/101 (100%)** — Lab Map rebuilt as hierarchical tree in R2 (10 new tests), Hierarchy expanded to 15 tests after R1 fixes (parent-pill, multi-line labels).
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -50,6 +50,18 @@ Backend-first implementation of the hierarchical location/object system. No new 
 - [x] **Mock hierarchy seeded** — `locations/room-robbins-0170` → `freezer-minus80-a` → `shelf-minus80-a-1` → `box-pistachio-dna` (10x10) → `tube-pistachio-leaf-1` / `tube-pistachio-leaf-2`; plus `fridge-4c-main` → `box-dna-extracts` (8x12) → `tube-pistachio-dna-extract-1`. All three tubes prose-link to `samples/sample-pistachio-4` via wikilinks, proving cross-location references work.
 - [x] **Playwright hierarchy tests** — 10 checks covering object-index shape, parentChain, breadcrumbHTML, childrenOf, parseGrid, parsePosition, normalizeParent, migration integrity, sample-to-tube cross-links, and the tube popup breadcrumb.
 - [x] **Quarantined lab-map tests** — Current floor-plan view deprecated per Issue #19. Tests skipped by default via `QUARANTINED` set in labbot.mjs; `--only=labmap` still runs them for reference during R2 rebuild.
+
+## Round 2: Lab map placeholder + hierarchy tree (2026-04-10, Issue #19)
+
+Retired the clickable floor plan and rebuilt `app/lab-map.html` around the R1 hierarchy data model. No more hardcoded zone IDs, no more `location_detail` string parsing.
+
+- [x] **Static placeholder card** — Replaces the canvas SVG floor plan with a "Map design in progress" card containing a simplified CSS/SVG room outline. Lives at the top of lab-map.html above the tree. No image files committed.
+- [x] **Hierarchical tree view** — Rendered from `Lab.hierarchy.build()`, rooted at any parentless location type (room/freezer/fridge/shelf/box/tube/container). Expand/collapse per node, initial auto-expand depth of 2 so room + freezers are visible on load. Nodes show icon, title, position badge (e.g. "A1"), grid badge (e.g. "10x10"), and child count.
+- [x] **Click-anywhere-on-row to open** — The full row is `data-act="open"` so clicking icon, title, or empty space opens the popup. Toggle chevron and inline action buttons have their own `data-act` values and win via `closest()` innermost-match.
+- [x] **Inline edit + delete per node** — Hover reveals two buttons. Edit opens the editor-modal in edit mode. Delete prompts for confirmation (with a warning if the location has children that would be orphaned), calls `Lab.gh.deleteFile`, and rebuilds the tree.
+- [x] **Filter input + expand-all / collapse-all** — `treeSearch` input filters nodes by slug/title/type, auto-expanding ancestors of any hit. Buttons to bulk expand or collapse.
+- [x] **Orphan section** — Any entry whose `parent` field doesn't resolve appears in a dashed-border "Unresolved parents" section at the bottom with an orange "orphan: <raw>" badge showing the failed slug. Warns without crashing — aligns with the warn-but-allow decision.
+- [x] **New Playwright tests** — 10 tests covering placeholder, root render, full chain expand, migrated-items nesting, grid & position badges, click-opens-popup, filter, collapse-all, throwaway-delete. Replaces the 14 obsolete floor-plan tests; `labmap` un-quarantined.
 
 ---
 

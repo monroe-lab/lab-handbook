@@ -6,160 +6,193 @@
 <title>Lab Map - Monroe Lab</title>
 <link rel="stylesheet" href="css/base.css">
 <style>
-.map-page { padding: 0; height: calc(100vh - var(--nav-height)); display: flex; flex-direction: column; }
+/*
+  Lab Map (R2, Issue #19)
+  ──────────────────────
+  The clickable floor-plan view has been retired while the hierarchical
+  object model stabilizes. This page now shows:
 
-/* Breadcrumb */
-.map-breadcrumb {
+    1. A static placeholder card where the visual floor plan used to be,
+       labelled "Map design in progress".
+    2. A hierarchical tree rooted at any top-level room/location, expanding
+       down through freezers → shelves → boxes → tubes and the migrated
+       legacy items that now carry parent-refs.
+
+  Every node is a real markdown object (type in the `locations` group or any
+  object with a `parent` field). Clicking a node opens its popup (which
+  already renders a breadcrumb thanks to R1). Inline edit/delete buttons let
+  the user fix up wrong parent refs without hunting through the file tree.
+*/
+.map-page { padding: 0; min-height: calc(100vh - var(--nav-height)); display: flex; flex-direction: column; }
+
+.map-header {
   background: #fff;
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  padding: 14px 24px;
+  display: flex; align-items: center; gap: 10px;
   border-bottom: 1px solid var(--grey-200);
   box-shadow: var(--shadow);
+  z-index: 5;
   flex-shrink: 0;
-  font-size: 14px;
-  z-index: 10;
 }
-.map-breadcrumb a { color: var(--teal); text-decoration: none; cursor: pointer; font-weight: 500; }
-.map-breadcrumb a:hover { text-decoration: underline; }
-.map-breadcrumb .sep { color: var(--grey-400); }
-.map-breadcrumb .current { color: var(--grey-800); font-weight: 600; }
+.map-header h1 { margin: 0; font-size: 18px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+.map-header .map-header-actions { margin-left: auto; display: flex; gap: 8px; }
 
-/* Main canvas */
 .map-canvas { flex: 1; overflow: auto; padding: 24px; background: var(--grey-100); }
+.map-inner  { max-width: 1100px; margin: 0 auto; }
 
-/* Room Layout */
-.room-layout { max-width: 1100px; margin: 0 auto; }
-.room-header { margin-bottom: 20px; }
-.room-header h1 { font-size: 22px; display: flex; align-items: center; gap: 10px; color: var(--grey-800); margin: 0 0 4px; }
-.room-header p { color: var(--grey-600); font-size: 14px; margin: 0; }
-.room-grid { display: grid; gap: 16px; }
-
-/* Zone card */
-.zone-card {
-  background: #fff; border-radius: var(--radius); padding: 16px 20px;
-  box-shadow: var(--shadow); cursor: pointer; transition: box-shadow .15s, transform .1s;
-  display: flex; align-items: center; gap: 14px; border-left: 4px solid var(--grey-300);
+/* ── Static placeholder ── */
+.map-placeholder {
+  background: #fff; border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); margin-bottom: 24px;
+  display: flex; gap: 20px; align-items: stretch;
 }
-.zone-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.zone-card .zone-icon { width: 48px; height: 48px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-.zone-card .zone-info { flex: 1; min-width: 0; }
-.zone-card .zone-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
-.zone-card .zone-count { font-size: 13px; color: var(--grey-500); }
-.zone-card .zone-arrow { color: var(--grey-400); font-size: 20px; flex-shrink: 0; }
-
-/* Container view */
-.container-view { max-width: 900px; margin: 0 auto; }
-.container-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-.container-header .ch-icon { width: 56px; height: 56px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 28px; }
-.container-header h2 { font-size: 20px; margin: 0; }
-.container-header .ch-subtitle { font-size: 13px; color: var(--grey-500); margin-top: 2px; }
-
-/* Shelf grid */
-.shelf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.shelf-card {
-  background: #fff; border-radius: var(--radius); padding: 14px 16px;
-  box-shadow: var(--shadow); cursor: pointer; transition: box-shadow .15s;
-  text-align: center; border: 2px solid transparent;
-}
-.shelf-card:hover { box-shadow: var(--shadow-md); border-color: var(--teal); }
-.shelf-card .shelf-label { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-.shelf-card .shelf-count { font-size: 12px; color: var(--grey-500); }
-.shelf-card .shelf-preview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 8px; }
-.shelf-card .shelf-preview .sp-cell { aspect-ratio: 1; border-radius: 2px; background: var(--grey-100); }
-.shelf-card .shelf-preview .sp-cell.filled { background: var(--teal-light); border: 1px solid var(--teal); }
-
-/* Box Grid */
-.box-view { max-width: 700px; margin: 0 auto; }
-.box-grid-wrap { background: #fff; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
-.box-grid { display: grid; gap: 4px; }
-.box-grid .grid-header { font-size: 11px; font-weight: 600; color: var(--grey-500); text-align: center; padding: 4px; }
-
-/* Tube cells */
-.tube-cell {
-  aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--grey-200);
-  background: var(--grey-50); display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all .15s; font-size: 10px; font-weight: 600;
-  color: var(--grey-500); position: relative; min-width: 0; user-select: none;
-}
-.tube-cell:hover { border-color: var(--teal); background: var(--teal-light); transform: scale(1.1); z-index: 2; }
-.tube-cell.occupied { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); }
-.tube-cell.occupied:hover { background: var(--teal); color: #fff; }
-.tube-cell.empty { border-style: dashed; }
-.tube-cell.selected { border-color: var(--teal-dark); background: var(--teal); color: #fff; box-shadow: 0 0 0 3px rgba(0,150,136,.3); transform: scale(1.1); z-index: 2; }
-.tube-cell.drag-over { border-color: var(--teal-dark); background: var(--teal-light); transform: scale(1.15); box-shadow: 0 0 0 3px rgba(0,150,136,.3); }
-.tube-cell.dragging { opacity: 0.4; }
-
-/* Drag ghost */
-.drag-ghost {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 44px; height: 44px; border-radius: 50%;
+.map-placeholder .mp-svg {
+  flex: 0 0 280px;
+  background: repeating-linear-gradient(
+    135deg, var(--grey-100), var(--grey-100) 10px,
+    #f5f5f5 10px, #f5f5f5 20px
+  );
+  border: 2px dashed var(--grey-300);
+  border-radius: var(--radius);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; box-shadow: var(--shadow-lg);
-  transform: translate(-50%, -50%);
+  min-height: 180px; position: relative; overflow: hidden;
 }
+.map-placeholder .mp-svg svg { width: 100%; height: 100%; max-width: 260px; }
+.map-placeholder .mp-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.map-placeholder .mp-info h2 { font-size: 17px; margin: 0 0 10px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+.map-placeholder .mp-info p  { font-size: 14px; color: var(--grey-600); margin: 0 0 8px; line-height: 1.5; }
+.map-placeholder .mp-info .mp-hint { font-size: 12px; color: var(--grey-500); background: var(--grey-50); padding: 8px 12px; border-radius: 6px; border-left: 3px solid var(--teal); margin-top: 10px; }
 
-/* Tube detail panel */
-.tube-detail { background: #fff; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-top: 16px; }
-.tube-detail h3 { font-size: 16px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
-.tube-detail .td-field { display: flex; gap: 8px; margin-bottom: 8px; font-size: 14px; }
-.tube-detail .td-label { color: var(--grey-500); min-width: 80px; font-weight: 500; }
-.tube-detail .td-value { color: var(--grey-800); }
-.tube-detail .td-actions { display: flex; gap: 8px; margin-top: 16px; }
-
-/* Item list */
-.item-list { margin-top: 16px; }
-.item-row {
-  background: #fff; border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px;
-  box-shadow: var(--shadow); display: flex; align-items: center; gap: 12px;
-  cursor: pointer; transition: box-shadow .15s;
+/* ── Tree view ── */
+.tree-wrap {
+  background: #fff; border-radius: var(--radius); padding: 16px 20px 24px;
+  box-shadow: var(--shadow);
 }
-.item-row:hover { box-shadow: var(--shadow-md); }
-.item-row .ir-icon { font-size: 20px; flex-shrink: 0; }
-.item-row .ir-info { flex: 1; }
-.item-row .ir-name { font-weight: 600; font-size: 14px; }
-.item-row .ir-meta { font-size: 12px; color: var(--grey-500); margin-top: 2px; }
-.item-row .ir-pill { font-size: 11px; padding: 2px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.tree-wrap > h2 { font-size: 16px; margin: 0 0 4px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+.tree-wrap > .tree-sub { font-size: 13px; color: var(--grey-600); margin: 0 0 16px; }
 
-/* Floor plan */
-.floor-plan { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 20px; }
-.floor-plan svg { width: 100%; height: auto; }
-.floor-plan .fp-zone { cursor: pointer; transition: opacity .15s; }
-.floor-plan .fp-zone:hover { opacity: 0.8; }
-.floor-plan .fp-label { font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; fill: #fff; pointer-events: none; }
-.floor-plan .fp-count { font-family: Inter, sans-serif; font-size: 9px; fill: rgba(255,255,255,.8); pointer-events: none; }
-
-/* Context menu */
-.ctx-menu {
-  position: fixed; z-index: 1000; background: #fff; border-radius: var(--radius);
-  box-shadow: var(--shadow-lg); padding: 4px 0; min-width: 180px;
+.tree-toolbar { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
+.tree-toolbar input {
+  flex: 1; padding: 7px 12px; font-size: 13px;
+  border: 1px solid var(--grey-300); border-radius: 6px;
 }
-.ctx-menu-item {
-  display: flex; align-items: center; gap: 8px; padding: 8px 16px;
-  font-size: 13px; cursor: pointer; color: var(--grey-800);
+.tree-toolbar .btn {
+  font-size: 12px; padding: 6px 12px; border-radius: 6px;
+  background: var(--grey-100); border: 1px solid var(--grey-300);
+  cursor: pointer; color: var(--grey-700); font-family: inherit;
 }
-.ctx-menu-item:hover { background: var(--grey-100); }
-.ctx-menu-item .material-icons-outlined { font-size: 18px; color: var(--grey-500); }
-.ctx-menu-item.danger { color: var(--red); }
-.ctx-menu-item.danger .material-icons-outlined { color: var(--red); }
-.ctx-sep { height: 1px; background: var(--grey-200); margin: 4px 0; }
+.tree-toolbar .btn:hover { background: var(--grey-200); }
 
-/* Empty state */
-.empty-state { text-align: center; padding: 60px 20px; color: var(--grey-500); }
-.empty-state .material-icons-outlined { font-size: 48px; margin-bottom: 12px; color: var(--grey-300); }
-.empty-state h3 { font-size: 16px; margin: 0 0 8px; color: var(--grey-600); }
-.empty-state p { font-size: 14px; }
+.tree-node { user-select: none; }
+.tree-node-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+  transition: background .1s;
+}
+.tree-node-row:hover { background: var(--grey-50); }
+.tree-node-row.is-hit { background: var(--teal-light); }
+.tree-node-row .tw-toggle {
+  width: 18px; height: 18px; flex-shrink: 0; display: flex;
+  align-items: center; justify-content: center; color: var(--grey-500);
+  font-size: 16px; transition: transform .12s;
+  border-radius: 3px;
+}
+.tree-node-row .tw-toggle:hover { background: var(--grey-200); }
+.tree-node-row.is-leaf .tw-toggle { visibility: hidden; }
+.tree-node.is-expanded > .tree-node-row .tw-toggle { transform: rotate(90deg); }
+.tree-node-row .tw-icon { font-size: 15px; flex-shrink: 0; }
+.tree-node-row .tw-title { font-size: 14px; font-weight: 500; color: var(--grey-800); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree-node-row .tw-pos   { font-size: 11px; color: var(--grey-500); padding: 1px 6px; background: var(--grey-100); border-radius: 10px; flex-shrink: 0; }
+.tree-node-row .tw-count { font-size: 11px; color: var(--grey-500); flex-shrink: 0; }
+.tree-node-row .tw-actions { display: flex; gap: 2px; opacity: 0; transition: opacity .1s; flex-shrink: 0; }
+.tree-node-row:hover .tw-actions { opacity: 1; }
+.tree-node-row .tw-actions button {
+  background: none; border: none; color: var(--grey-500); cursor: pointer;
+  padding: 2px 4px; border-radius: 3px; display: flex; align-items: center;
+}
+.tree-node-row .tw-actions button:hover { background: var(--grey-200); color: var(--grey-800); }
+.tree-node-row .tw-actions .danger:hover { background: #ffebee; color: var(--red); }
+.tree-node-row .tw-actions .material-icons-outlined { font-size: 16px; }
+.tree-children { padding-left: 22px; display: none; }
+.tree-node.is-expanded > .tree-children { display: block; }
+
+/* Orphan section */
+.orphan-section { margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--grey-300); }
+.orphan-section h3 { font-size: 13px; color: var(--grey-600); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.empty-state { text-align: center; padding: 48px 20px; color: var(--grey-500); }
+.empty-state .material-icons-outlined { font-size: 40px; color: var(--grey-300); margin-bottom: 10px; }
+.empty-state p { margin: 4px 0; font-size: 14px; }
+
+/* Loading */
+.tree-loading { display: flex; align-items: center; gap: 10px; color: var(--grey-500); font-size: 13px; padding: 20px; }
 </style>
 </head>
 <body>
 <div class="map-page">
-  <div class="map-breadcrumb" id="breadcrumb">
-    <span class="material-icons-outlined" style="font-size:18px;color:var(--teal)">map</span>
-    <span class="current">Lab Map</span>
+  <div class="map-header">
+    <h1><span class="material-icons-outlined" style="color:var(--teal)">map</span> Lab Map</h1>
+    <div class="map-header-actions">
+      <button class="btn" id="refreshBtn" title="Reload from object index" style="font-size:12px;padding:6px 12px;border-radius:6px;background:var(--grey-100);border:1px solid var(--grey-300);cursor:pointer">
+        <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">refresh</span> Refresh
+      </button>
+    </div>
   </div>
-  <div class="map-canvas" id="mapCanvas">
-    <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Loading lab map...</p></div>
+  <div class="map-canvas">
+    <div class="map-inner">
+
+      <!-- Static placeholder card (Issue #19) -->
+      <div class="map-placeholder">
+        <div class="mp-svg" aria-hidden="true">
+          <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="240" height="160" rx="4" fill="none" stroke="#bdbdbd" stroke-width="2"/>
+            <rect x="20" y="20" width="60" height="35" rx="3" fill="#e3f2fd" stroke="#90caf9"/>
+            <text x="50" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#546e7a">-80C</text>
+            <rect x="90" y="20" width="50" height="35" rx="3" fill="#e1f5fe" stroke="#81d4fa"/>
+            <text x="115" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#546e7a">-20C</text>
+            <rect x="150" y="20" width="50" height="35" rx="3" fill="#e0f7fa" stroke="#80deea"/>
+            <text x="175" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#546e7a">Fridge</text>
+            <rect x="20" y="70" width="60" height="25" rx="3" fill="#e8f5e9" stroke="#a5d6a7"/>
+            <text x="50" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#546e7a">Chem</text>
+            <rect x="95" y="75" width="130" height="18" rx="3" fill="#eceff1" stroke="#b0bec5"/>
+            <text x="160" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#546e7a">Bench 1</text>
+            <rect x="95" y="100" width="130" height="18" rx="3" fill="#eceff1" stroke="#b0bec5"/>
+            <text x="160" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#546e7a">Bench 2</text>
+            <rect x="95" y="125" width="130" height="18" rx="3" fill="#eceff1" stroke="#b0bec5"/>
+            <text x="160" y="138" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#546e7a">Bench 3</text>
+            <rect x="115" y="163" width="30" height="5" rx="1" fill="#fff" stroke="#9e9e9e"/>
+            <text x="130" y="177" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" fill="#9e9e9e">Door</text>
+            <g opacity="0.6">
+              <text x="130" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#37474f">Map design</text>
+              <text x="130" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#546e7a">in progress…</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mp-info">
+          <h2><span class="material-icons-outlined" style="color:var(--teal)">construction</span> Map design in progress</h2>
+          <p>The clickable floor plan is being rebuilt on top of the new object hierarchy. In the meantime, use the hierarchical list below to navigate locations.</p>
+          <p>Every box, tube, and piece of equipment is a real markdown object with a <code>parent</code> ref. Click any node to view or edit it.</p>
+          <div class="mp-hint">
+            <strong>Tip:</strong> Each node has edit and delete buttons (hover to reveal). Use delete to clean up auto-migrated objects whose parent chain needs fixing.
+          </div>
+        </div>
+      </div>
+
+      <!-- Hierarchical tree -->
+      <div class="tree-wrap">
+        <h2><span class="material-icons-outlined" style="color:var(--teal);font-size:20px">account_tree</span> Locations</h2>
+        <p class="tree-sub">All physical places and the items they contain. Click to open, hover for edit/delete.</p>
+        <div class="tree-toolbar">
+          <input type="text" id="treeSearch" placeholder="Filter by name or slug…" autocomplete="off">
+          <button class="btn" id="expandAllBtn" type="button">Expand all</button>
+          <button class="btn" id="collapseAllBtn" type="button">Collapse all</button>
+        </div>
+        <div id="treeMount">
+          <div class="tree-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div> Loading hierarchy…</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -170,868 +203,288 @@
 
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
   var esc = Lab.escHtml;
-  var getType = Lab.types.get.bind(Lab.types);
-
-  var LOCATIONS = [
-    { id: 'freezer-80c',      label: 'Freezer -80\u00B0C',       locKey: 'Freezer -80C',    icon: '\u2744\uFE0F',       color: '#1565c0', mode: 'grid',  matchKeys: ['Freezer -80C', 'Freezer -80\u00B0C', '-80C Freezer', '-80C Freezer, rack'] },
-    { id: 'freezer-20c',      label: 'Freezer -20\u00B0C',       locKey: 'Freezer -20C',    icon: '\uD83E\uDDCA',       color: '#1976d2', mode: 'grid',  matchKeys: ['Freezer -20C', 'Freezer -20\u00B0C'] },
-    { id: 'refrigerator',     label: 'Refrigerator',              locKey: 'Refrigerator',    icon: '\uD83C\uDF21\uFE0F', color: '#0288d1', mode: 'list',  matchKeys: ['Refrigerator'] },
-    { id: 'chemical-cabinet',  label: 'Chemical Cabinet',          locKey: 'Chemical Cabinet', icon: '\uD83E\uDDEA',       color: '#00796b', mode: 'list',  matchKeys: ['Chemical Cabinet'] },
-    { id: 'flammable-cabinet', label: 'Flammable Cabinet',         locKey: 'Flammable Cabinet',icon: '\uD83D\uDD25',       color: '#e65100', mode: 'list',  matchKeys: ['Flammable Cabinet'] },
-    { id: 'corrosive-cabinet', label: 'Corrosive Cabinet',         locKey: 'Corrosive Cabinet',icon: '\u26A0\uFE0F',       color: '#f57f17', mode: 'list',  matchKeys: ['Corrosive Cabinet'] },
-    { id: 'bench-1',          label: 'Bench 1',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#455a64', mode: 'list',  matchKeys: ['Bench', 'Bench 1', 'Lab bench'] },
-    { id: 'bench-2',          label: 'Bench 2',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#546e7a', mode: 'list',  matchKeys: ['Bench 2'] },
-    { id: 'bench-3',          label: 'Bench 3',                   locKey: 'Bench',           icon: '\uD83E\uDD4C',       color: '#607d8b', mode: 'list',  matchKeys: ['Bench 3'] },
-    { id: 'seed-cabinet',     label: 'Seed Cabinet',              locKey: 'Other',           icon: '\uD83C\uDF31',       color: '#558b2f', mode: 'grid',  matchKeys: ['Seed cabinet'] },
-    { id: 'other',            label: 'Other Locations',           locKey: 'Other',           icon: '\uD83D\uDCCD',       color: '#757575', mode: 'list',  matchKeys: [] },
-  ];
 
   // ── State ──
-  var allObjects = [];
-  var navStack = [];
-  var dragState = null; // { itemIdx, shelfItems, sourceCell, ghost }
+  var rootGraph = null;       // slug -> entry (from hierarchy.build)
+  var childrenMap = null;     // slug -> [childSlug]
+  var expanded = new Set();   // slug -> expanded boolean
+  var lastQuery = '';
 
-  // ── Init ──
-  async function loadData() {
-    try {
-      allObjects = await Promise.race([
-        Lab.gh.fetchObjectIndex(),
-        new Promise(function(_, rej) { setTimeout(function() { rej(new Error('timeout')); }, 8000); })
-      ]);
-      if (!Array.isArray(allObjects)) allObjects = [];
-    } catch(e) {
-      console.error('Failed to load object index:', e);
-      try {
-        var resp = await fetch(BASE + 'object-index.json');
-        if (resp.ok) allObjects = await resp.json();
-        else allObjects = [];
-      } catch(e2) { allObjects = []; }
-    }
-    showRoomView();
-  }
-  loadData();
+  // Depth to auto-expand on first render.
+  var INITIAL_DEPTH = 2;
 
-  // ── Location matching ──
-  function getItemsForLocation(loc) {
-    if (loc.id === 'other') {
-      return allObjects.filter(function(obj) {
-        var objLoc = (obj.location || '').toLowerCase();
-        if (!objLoc) return false;
-        for (var i = 0; i < LOCATIONS.length; i++) {
-          if (LOCATIONS[i].id === 'other') continue;
-          for (var j = 0; j < LOCATIONS[i].matchKeys.length; j++) {
-            if (objLoc.indexOf(LOCATIONS[i].matchKeys[j].toLowerCase()) !== -1) return false;
-          }
-        }
-        return true;
+  // ── Build ──
+  async function build() {
+    Lab.hierarchy.invalidate();
+    rootGraph = await Lab.hierarchy.build();
+    childrenMap = {};
+    Object.keys(rootGraph).forEach(function(slug) {
+      var e = rootGraph[slug];
+      if (e.parentResolved) {
+        (childrenMap[e.parentResolved] = childrenMap[e.parentResolved] || []).push(slug);
+      }
+    });
+    // Sort each child array by position (if present) then title
+    Object.keys(childrenMap).forEach(function(p) {
+      childrenMap[p].sort(function(a, b) {
+        var ea = rootGraph[a], eb = rootGraph[b];
+        var pa = ea.position || '', pb = eb.position || '';
+        if (pa !== pb) return pa < pb ? -1 : 1;
+        var ta = (ea.title || a).toLowerCase();
+        var tb = (eb.title || b).toLowerCase();
+        return ta < tb ? -1 : ta > tb ? 1 : 0;
       });
-    }
-    return allObjects.filter(function(obj) {
-      var objLoc = (obj.location || '').toLowerCase();
-      for (var j = 0; j < loc.matchKeys.length; j++) {
-        if (objLoc.indexOf(loc.matchKeys[j].toLowerCase()) !== -1) return true;
-      }
-      if (obj.containers && obj.containers.length) {
-        for (var c = 0; c < obj.containers.length; c++) {
-          var cLoc = (obj.containers[c].location || '').toLowerCase();
-          for (var j = 0; j < loc.matchKeys.length; j++) {
-            if (cLoc.indexOf(loc.matchKeys[j].toLowerCase()) !== -1) return true;
-          }
-        }
-      }
-      return false;
     });
+    seedInitialExpansion();
+    render();
   }
 
-  // ── Breadcrumb ──
-  function updateBreadcrumb() {
-    var el = document.getElementById('breadcrumb');
-    var html = '<span class="material-icons-outlined" style="font-size:18px;color:var(--teal)">map</span>';
-    if (navStack.length === 0) {
-      html += '<span class="current">Robbins Hall 0170</span>';
-    } else {
-      html += '<a onclick="labMap.nav(0)">Lab Map</a>';
-      for (var i = 0; i < navStack.length; i++) {
-        html += '<span class="sep">/</span>';
-        if (i === navStack.length - 1) {
-          html += '<span class="current">' + esc(navStack[i].label) + '</span>';
-        } else {
-          html += '<a onclick="labMap.nav(' + (i + 1) + ')">' + esc(navStack[i].label) + '</a>';
-        }
-      }
-    }
-    el.innerHTML = html;
+  // Expand every node within INITIAL_DEPTH of a root.
+  function seedInitialExpansion() {
+    var roots = findRoots();
+    roots.forEach(function(r) { expandTo(r, INITIAL_DEPTH); });
+  }
+  function expandTo(slug, remainingDepth) {
+    if (remainingDepth <= 0) return;
+    expanded.add(slug);
+    var kids = childrenMap[slug] || [];
+    kids.forEach(function(k) { expandTo(k, remainingDepth - 1); });
   }
 
-  // ── Room View ──
-  function showRoomView() {
-    navStack = [];
-    updateBreadcrumb();
-    var canvas = document.getElementById('mapCanvas');
-    var html = '<div class="room-layout">';
-    html += '<div class="room-header"><h1><span class="material-icons-outlined">map</span> Robbins Hall 0170</h1>';
-    html += '<p>Click a location to explore its contents</p></div>';
-    html += '<div class="floor-plan">' + buildFloorPlanSVG() + '</div>';
-    html += '<div class="room-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
-    LOCATIONS.forEach(function(loc) {
-      var items = getItemsForLocation(loc);
-      if (!items.length && loc.id === 'other') return;
-      html += '<div class="zone-card" onclick="labMap.open(\'' + loc.id + '\')" style="border-left-color:' + loc.color + '">';
-      html += '<div class="zone-icon" style="background:' + loc.color + '15">' + loc.icon + '</div>';
-      html += '<div class="zone-info"><div class="zone-name">' + esc(loc.label) + '</div>';
-      html += '<div class="zone-count">' + items.length + ' item' + (items.length !== 1 ? 's' : '') + '</div></div>';
-      html += '<span class="material-icons-outlined zone-arrow">chevron_right</span></div>';
+  // Roots = all location-type entries whose parent doesn't resolve, preferring
+  // rooms first. If there are no location roots, fall back to just the seed room.
+  function findRoots() {
+    var LOC_TYPES = { room: 1, freezer: 1, fridge: 1, shelf: 1, box: 1, tube: 1, container: 1 };
+    var roots = [];
+    Object.keys(rootGraph).forEach(function(slug) {
+      var e = rootGraph[slug];
+      if (!LOC_TYPES[e.type]) return;
+      if (e.parentResolved) return;
+      roots.push(slug);
     });
-    html += '</div></div>';
-    canvas.innerHTML = html;
-  }
-
-  // ── Floor Plan SVG ──
-  function buildFloorPlanSVG() {
-    var svg = '<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">';
-    svg += '<rect x="10" y="10" width="780" height="380" rx="4" fill="none" stroke="#e0e0e0" stroke-width="2"/>';
-    svg += '<rect x="370" y="380" width="60" height="12" rx="2" fill="#fff" stroke="#bdbdbd"/>';
-    svg += '<text x="400" y="400" text-anchor="middle" font-size="9" fill="#9e9e9e" font-family="Inter,sans-serif">Door</text>';
-    var zones = [
-      { loc: 'freezer-80c',      x:20,  y:20,  w:120, h:70,  label: '-80\u00B0C Freezer' },
-      { loc: 'freezer-20c',      x:150, y:20,  w:100, h:70,  label: '-20\u00B0C Freezer' },
-      { loc: 'refrigerator',     x:260, y:20,  w:90,  h:70,  label: 'Fridge' },
-      { loc: 'chemical-cabinet', x:20,  y:110, w:100, h:60,  label: 'Chemical\nCabinet' },
-      { loc: 'flammable-cabinet',x:20,  y:180, w:100, h:60,  label: 'Flammable\nCabinet' },
-      { loc: 'corrosive-cabinet',x:20,  y:250, w:100, h:60,  label: 'Corrosive\nCabinet' },
-      { loc: 'bench-1',          x:200, y:130, w:240, h:50,  label: 'Bench 1' },
-      { loc: 'bench-2',          x:200, y:200, w:240, h:50,  label: 'Bench 2' },
-      { loc: 'bench-3',          x:200, y:270, w:240, h:50,  label: 'Bench 3' },
-      { loc: 'seed-cabinet',     x:20,  y:330, w:100, h:50,  label: 'Seed Cabinet' },
-      { loc: 'other',            x:550, y:20,  w:230, h:360, label: 'Other Equipment' },
-    ];
-    zones.forEach(function(z) {
-      var loc = LOCATIONS.find(function(l) { return l.id === z.loc; });
-      if (!loc) return;
-      var items = getItemsForLocation(loc);
-      if (!items.length && loc.id === 'other') return;
-      svg += '<g class="fp-zone" onclick="labMap.open(\'' + z.loc + '\')">';
-      svg += '<rect x="' + z.x + '" y="' + z.y + '" width="' + z.w + '" height="' + z.h + '" rx="4" fill="' + loc.color + '" opacity="0.85"/>';
-      var lines = z.label.split('\n');
-      var ly = z.y + z.h/2 - (lines.length - 1) * 7;
-      lines.forEach(function(line, i) {
-        svg += '<text class="fp-label" x="' + (z.x + z.w/2) + '" y="' + (ly + i*14) + '" text-anchor="middle" dominant-baseline="central">' + line + '</text>';
-      });
-      svg += '<text class="fp-count" x="' + (z.x + z.w/2) + '" y="' + (z.y + z.h - 8) + '" text-anchor="middle">' + items.length + ' items</text>';
-      svg += '</g>';
+    roots.sort(function(a, b) {
+      var ta = rootGraph[a].type, tb = rootGraph[b].type;
+      // rooms first, then freezers, fridges, shelves, boxes, tubes, containers
+      var order = ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'];
+      return order.indexOf(ta) - order.indexOf(tb);
     });
-    svg += '</svg>';
-    return svg;
+    return roots;
   }
 
-  // ── Open location ──
-  function openLocation(locId) {
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    if (!loc) return;
-    navStack = [{ label: loc.label, view: 'location', params: { locId: locId } }];
-    updateBreadcrumb();
-    var items = getItemsForLocation(loc);
-    if (loc.mode === 'grid') showGridLocation(loc, items);
-    else showListLocation(loc, items);
-  }
-
-  // ── List location ──
-  function showListLocation(loc, items) {
-    var canvas = document.getElementById('mapCanvas');
-    var html = '<div class="container-view">';
-    html += containerHeader(loc, items.length + ' item' + (items.length !== 1 ? 's' : ''));
-    if (!items.length) {
-      html += emptyMsg();
-    } else {
-      html += '<div class="item-list" id="itemList">';
-      items.sort(function(a, b) { return (a.title || '').localeCompare(b.title || ''); });
-      items.forEach(function(obj, i) { html += itemRow(obj, i); });
-      html += '</div>';
-      html += '<div id="tubeDetail"></div>';
-    }
-    html += '</div>';
-    canvas.innerHTML = html;
-
-    // Click shows detail inline instead of navigating away
-    if (items.length) {
-      document.getElementById('itemList').addEventListener('click', function(e) {
-        var row = e.target.closest('.item-row');
-        if (!row) return;
-        var idx = parseInt(row.dataset.itemIdx);
-        if (isNaN(idx)) return;
-        // Highlight selected
-        document.querySelectorAll('.item-row.selected').forEach(function(el) { el.classList.remove('selected'); el.style.borderLeft = ''; });
-        row.classList.add('selected');
-        var tc = getType(items[idx].type || 'reagent');
-        row.style.borderLeft = '4px solid ' + tc.color;
-        showTubeDetail(items[idx]);
-      });
-    }
-  }
-
-  // ── Grid location (freezer) — show shelves as a visual stack ──
-  function showGridLocation(loc, items) {
-    var canvas = document.getElementById('mapCanvas');
-    var shelves = buildShelves(loc, items);
-    var html = '<div class="container-view">';
-    html += containerHeader(loc, items.length + ' item' + (items.length !== 1 ? 's' : '') + ' stored here');
-
-    // Freezer visualization — stacked shelves like drawers
-    html += '<div style="max-width:600px;margin:0 auto">';
-    shelves.forEach(function(shelf, si) {
-      var n = shelf.items.length;
-      var boxesPerShelf = 4; // 4 boxes per shelf
-      var boxes = [];
-      for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
-      var unplacedBox = [];
-      shelf.items.forEach(function(item) {
-        var p = parseLocDetail(item.location_detail);
-        if (p && p.box >= 0 && p.box < boxesPerShelf) {
-          boxes[p.box].push(item);
-        } else {
-          unplacedBox.push(item);
-        }
-      });
-      unplacedBox.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
-
-      html += '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden">';
-      // Shelf header bar
-      html += '<div style="background:' + loc.color + ';color:#fff;padding:8px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:space-between">';
-      html += '<span>' + esc(shelf.label) + '</span>';
-      html += '<span style="opacity:.8;font-weight:400">' + n + ' item' + (n !== 1 ? 's' : '') + '</span>';
-      html += '</div>';
-      // Boxes in this shelf — row of clickable box cards
-      html += '<div style="display:grid;grid-template-columns:repeat(' + boxesPerShelf + ',1fr);gap:8px;padding:12px">';
-      boxes.forEach(function(boxItems, bi) {
-        var boxLabel = 'Box ' + String.fromCharCode(65 + bi);
-        var filled = boxItems.length;
-        html += '<div class="shelf-card" onclick="labMap.box(\'' + loc.id + '\',' + si + ',' + bi + ')" style="margin:0;padding:10px;border:2px solid ' + (filled ? loc.color + '40' : 'var(--grey-200)') + '">';
-        html += '<div style="font-size:12px;font-weight:600;color:' + (filled ? loc.color : 'var(--grey-400)') + '">' + boxLabel + '</div>';
-        html += '<div style="font-size:11px;color:var(--grey-500);margin-top:2px">' + filled + ' tube' + (filled !== 1 ? 's' : '') + '</div>';
-        // Mini 3x3 preview
-        html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:6px">';
-        for (var t = 0; t < 9; t++) {
-          var hasItem = t < filled;
-          html += '<div style="aspect-ratio:1;border-radius:50%;background:' + (hasItem ? loc.color + '25' : 'var(--grey-100)') + ';border:1px solid ' + (hasItem ? loc.color + '60' : 'var(--grey-200)') + '"></div>';
-        }
-        html += '</div></div>';
-      });
-      html += '</div></div>';
+  // Orphans = non-location entries whose parent is set but doesn't resolve.
+  function findOrphans() {
+    var LOC_TYPES = { room: 1, freezer: 1, fridge: 1, shelf: 1, box: 1, tube: 1, container: 1 };
+    var orphans = [];
+    Object.keys(rootGraph).forEach(function(slug) {
+      var e = rootGraph[slug];
+      if (!e.parent) return;
+      if (e.parentResolved) return;
+      orphans.push(slug);
     });
-    html += '</div></div>';
-    canvas.innerHTML = html;
+    return orphans;
   }
 
-  // Parse "Shelf 1 / Box A / A2" → { shelf: 0, box: 0, cell: "A2" }
-  function parseLocDetail(detail) {
-    if (!detail) return null;
-    var m = detail.match(/Shelf\s+(\d+)\s*\/\s*Box\s+([A-Z])\s*\/\s*([A-Z]\d+)/i);
-    if (!m) return null;
-    return { shelf: parseInt(m[1], 10) - 1, box: m[2].toUpperCase().charCodeAt(0) - 65, cell: m[3].toUpperCase() };
-  }
-
-  function buildShelves(loc, items) {
-    var n = 5, shelves = [];
-    for (var i = 0; i < n; i++) shelves.push({ label: 'Shelf ' + (i + 1), items: [] });
-    var unplaced = [];
-    items.forEach(function(item) {
-      var p = parseLocDetail(item.location_detail);
-      if (p && p.shelf >= 0 && p.shelf < n) {
-        shelves[p.shelf].items.push(item);
-      } else {
-        unplaced.push(item);
-      }
-    });
-    // Distribute unplaced items round-robin (legacy fallback)
-    unplaced.forEach(function(item, idx) { shelves[idx % n].items.push(item); });
-    return shelves;
-  }
-
-  // ── Box view — 9x9 tube grid with drag-and-drop ──
-  function openBox(locId, shelfIdx, boxIdx) {
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    if (!loc) return;
-    var items = getItemsForLocation(loc);
-    var shelves = buildShelves(loc, items);
-    var shelf = shelves[shelfIdx];
-    if (!shelf) return;
-
-    // Split shelf items into boxes using location_detail
-    var boxesPerShelf = 4;
-    var boxes = [];
-    for (var b = 0; b < boxesPerShelf; b++) boxes.push([]);
-    var unplacedBox = [];
-    shelf.items.forEach(function(item) {
-      var p = parseLocDetail(item.location_detail);
-      if (p && p.box >= 0 && p.box < boxesPerShelf) {
-        boxes[p.box].push(item);
-      } else {
-        unplacedBox.push(item);
-      }
-    });
-    unplacedBox.forEach(function(item, idx) { boxes[idx % boxesPerShelf].push(item); });
-    var boxItems = boxes[boxIdx] || [];
-    var boxLabel = shelf.label + ' \u2192 Box ' + String.fromCharCode(65 + boxIdx);
-
-    navStack = [
-      { label: loc.label, view: 'location', params: { locId: locId } },
-      { label: boxLabel, view: 'box', params: { locId: locId, shelfIdx: shelfIdx, boxIdx: boxIdx } },
-    ];
-    updateBreadcrumb();
-
-    var gridSize = 9;
-
-    // Build cell→item map from location_detail
-    var cellMap = {}; // e.g. { "A1": item, "A2": item }
-    var unmappedItems = [];
-    boxItems.forEach(function(item) {
-      var p = parseLocDetail(item.location_detail);
-      if (p && p.cell) {
-        cellMap[p.cell] = item;
-      } else {
-        unmappedItems.push(item);
-      }
-    });
-
-    // Build ordered array for initTubeInteractions (indexed by item order in grid)
-    var orderedBoxItems = [];
-
-    var canvas = document.getElementById('mapCanvas');
-    var html = '<div class="box-view">';
-    html += '<div class="container-header"><div class="ch-icon" style="background:' + loc.color + '15">' + loc.icon + '</div>';
-    html += '<div><h2>' + esc(boxLabel) + '</h2>';
-    var tubeCount = Object.keys(cellMap).length + unmappedItems.length;
-    html += '<div class="ch-subtitle">' + esc(loc.label) + ' &middot; ' + tubeCount + ' tube' + (tubeCount !== 1 ? 's' : '') + '</div></div></div>';
-
-    html += '<div class="box-grid-wrap">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-    html += '<span style="font-size:14px;font-weight:600;color:var(--grey-700)">' + gridSize + ' \u00D7 ' + gridSize + ' Grid</span>';
-    html += '<span style="font-size:12px;color:var(--grey-400)">Click to inspect \u00B7 Drag to rearrange</span>';
-    html += '</div>';
-    html += '<div class="box-grid" id="tubeGrid" style="grid-template-columns:30px repeat(' + gridSize + ',1fr)">';
-
-    html += '<div class="grid-header"></div>';
-    for (var c = 1; c <= gridSize; c++) html += '<div class="grid-header">' + c + '</div>';
-
-    var unmappedIdx = 0;
-    for (var r = 0; r < gridSize; r++) {
-      var rowLabel = String.fromCharCode(65 + r);
-      html += '<div class="grid-header" style="display:flex;align-items:center;justify-content:center">' + rowLabel + '</div>';
-      for (var c = 0; c < gridSize; c++) {
-        var cellId = rowLabel + (c + 1);
-        var item = cellMap[cellId] || null;
-        // Fill unmapped items into first available empty cells
-        if (!item && unmappedIdx < unmappedItems.length) {
-          item = unmappedItems[unmappedIdx++];
-        }
-        var idx = r * gridSize + c;
-        var itemI = item ? orderedBoxItems.length : -1;
-        if (item) {
-          orderedBoxItems.push(item);
-          var tc = getType(item.type || 'reagent');
-          html += '<div class="tube-cell occupied" data-idx="' + idx + '" data-item="' + itemI + '" title="' + esc(item.title || '') + '" style="font-size:6px;line-height:1.15;border-color:' + tc.color + ';background:' + tc.color + '15;color:' + tc.color + ';overflow:hidden;padding:1px;flex-direction:column;text-align:center">';
-          html += '<span style="font-size:9px;line-height:1;display:block">' + tc.icon + '</span><span style="display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc((item.title || '').substring(0, 10)) + '</span>';
-          html += '</div>';
-        } else {
-          html += '<div class="tube-cell empty" data-idx="' + idx + '">' + cellId + '</div>';
-        }
-      }
-    }
-    boxItems = orderedBoxItems;
-    html += '</div></div>';
-    html += '<div id="tubeDetail"></div>';
-    html += '</div>';
-    canvas.innerHTML = html;
-
-    initTubeInteractions(locId, shelfIdx, boxIdx, boxItems, gridSize);
-  }
-
-  // ── Tube grid interactions ──
-  function initTubeInteractions(locId, shelfIdx, boxIdx, boxItems, gridSize) {
-    var grid = document.getElementById('tubeGrid');
-
-    // Click: occupied = select, empty = assign popover
-    grid.addEventListener('click', function(e) {
-      var cell = e.target.closest('.tube-cell');
-      if (!cell) return;
-      closeAssignPopover();
-      var itemI = cell.dataset.item;
-      if (itemI != null) {
-        // Select occupied tube
-        grid.querySelectorAll('.tube-cell.selected').forEach(function(el) { el.classList.remove('selected'); });
-        cell.classList.add('selected');
-        showTubeDetail(boxItems[parseInt(itemI)]);
-      } else {
-        // Empty cell — show assign popover
-        var cellIdx = parseInt(cell.dataset.idx);
-        var row = Math.floor(cellIdx / gridSize);
-        var col = cellIdx % gridSize;
-        var posLabel = String.fromCharCode(65 + row) + (col + 1);
-        showAssignPopover(cell, posLabel, locId, shelfIdx, boxIdx);
-      }
-    });
-
-    // Right-click context menu on occupied tubes
-    grid.addEventListener('contextmenu', function(e) {
-      var cell = e.target.closest('.tube-cell');
-      if (!cell) return;
-      e.preventDefault();
-      var itemI = cell.dataset.item;
-      if (itemI != null) {
-        showContextMenu(e.clientX, e.clientY, boxItems[parseInt(itemI)], cell);
-      }
-    });
-
-    // Drag-and-drop
-    var dragging = null;
-    grid.addEventListener('mousedown', function(e) {
-      if (e.button !== 0) return;
-      var cell = e.target.closest('.tube-cell.occupied');
-      if (!cell) return;
-      e.preventDefault();
-      var itemI = parseInt(cell.dataset.item);
-      var tc = getType(boxItems[itemI].type || 'reagent');
-
-      var ghost = document.createElement('div');
-      ghost.className = 'drag-ghost';
-      ghost.style.background = tc.color;
-      ghost.style.color = '#fff';
-      ghost.textContent = (boxItems[itemI].title || '').substring(0, 3);
-      ghost.style.left = e.clientX + 'px';
-      ghost.style.top = e.clientY + 'px';
-      document.body.appendChild(ghost);
-
-      cell.classList.add('dragging');
-      dragging = { itemIdx: itemI, sourceCell: cell, ghost: ghost, started: false, startX: e.clientX, startY: e.clientY };
-    });
-
-    document.addEventListener('mousemove', function(e) {
-      if (!dragging) return;
-      if (!dragging.started) {
-        var dx = e.clientX - dragging.startX, dy = e.clientY - dragging.startY;
-        if (dx*dx + dy*dy < 16) return;
-        dragging.started = true;
-      }
-      dragging.ghost.style.left = e.clientX + 'px';
-      dragging.ghost.style.top = e.clientY + 'px';
-      grid.querySelectorAll('.tube-cell.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
-      var t = document.elementFromPoint(e.clientX, e.clientY);
-      if (t) { var tc = t.closest('.tube-cell'); if (tc && tc !== dragging.sourceCell) tc.classList.add('drag-over'); }
-    });
-
-    document.addEventListener('mouseup', async function(e) {
-      if (!dragging) return;
-      var d = dragging;
-      dragging = null;
-      d.ghost.remove();
-      d.sourceCell.classList.remove('dragging');
-      grid.querySelectorAll('.tube-cell.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
-      if (!d.started) return;
-
-      var t = document.elementFromPoint(e.clientX, e.clientY);
-      if (!t) return;
-      var targetCell = t.closest('.tube-cell');
-      if (!targetCell || targetCell === d.sourceCell) return;
-
-      // Compute cell labels from data-idx
-      function cellLabel(cellEl) {
-        var idx = parseInt(cellEl.dataset.idx);
-        var row = Math.floor(idx / gridSize);
-        var col = idx % gridSize;
-        return String.fromCharCode(65 + row) + (col + 1);
-      }
-      var targetPos = cellLabel(targetCell);
-      var sourcePos = cellLabel(d.sourceCell);
-
-      var draggedItem = boxItems[d.itemIdx];
-      var targetItemI = targetCell.dataset.item;
-      var targetItem = targetItemI != null ? boxItems[parseInt(targetItemI)] : null;
-
-      // Build new location_detail strings
-      var newDraggedDetail = buildLocDetail(locId, shelfIdx, boxIdx, targetPos);
-      var newTargetDetail = targetItem ? buildLocDetail(locId, shelfIdx, boxIdx, sourcePos) : null;
-
-      // Persist to GitHub if signed in
-      if (Lab.gh.isLoggedIn()) {
-        Lab.showToast('Moving ' + (draggedItem.title || 'item') + '…', 'info');
-        try {
-          // Update dragged item
-          if (draggedItem.path) {
-            var filePath = 'docs/' + draggedItem.path;
-            var result = await Lab.gh.fetchFile(filePath);
-            var parsed = Lab.parseFrontmatter(result.content);
-            parsed.meta.location_detail = newDraggedDetail;
-            var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
-            await Lab.gh.saveFile(filePath, content, result.sha,
-              'Map: move ' + (draggedItem.title || draggedItem.path) + ' to ' + targetPos);
-            Lab.gh.patchObjectIndex(filePath, parsed.meta);
-          }
-          // Update target item (swap case)
-          if (targetItem && targetItem.path) {
-            var filePath2 = 'docs/' + targetItem.path;
-            var result2 = await Lab.gh.fetchFile(filePath2);
-            var parsed2 = Lab.parseFrontmatter(result2.content);
-            parsed2.meta.location_detail = newTargetDetail;
-            var content2 = Lab.buildFrontmatter(parsed2.meta, parsed2.body);
-            await Lab.gh.saveFile(filePath2, content2, result2.sha,
-              'Map: move ' + (targetItem.title || targetItem.path) + ' to ' + sourcePos);
-            Lab.gh.patchObjectIndex(filePath2, parsed2.meta);
-          }
-          // Refresh in-memory index
-          allObjects = await Lab.gh.fetchObjectIndex();
-          Lab.showToast('Moved ' + (draggedItem.title || 'item') + ' to ' + targetPos, 'success');
-        } catch(err) {
-          Lab.showToast('Move failed: ' + err.message, 'error');
-        }
-      } else {
-        Lab.showToast('Sign in to persist moves', 'error');
-      }
-      openBox(locId, shelfIdx, boxIdx);
-    });
-  }
-
-  // ── Assign popover for empty wells ──
-  function showAssignPopover(cell, posLabel, locId, shelfIdx, boxIdx) {
-    closeAssignPopover();
-
-    var rect = cell.getBoundingClientRect();
-    var pop = document.createElement('div');
-    pop.id = 'assignPopover';
-    pop.style.cssText = 'position:fixed;z-index:1000;background:#fff;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.18);padding:16px;width:300px;';
-    // Position below the cell
-    pop.style.left = Math.min(rect.left, window.innerWidth - 320) + 'px';
-    pop.style.top = (rect.bottom + 8) + 'px';
-
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
-    var boxLabel = (shelf ? shelf.label : '') + ' \u2192 Box ' + String.fromCharCode(65 + boxIdx);
-
-    pop.innerHTML =
-      '<div style="font-size:14px;font-weight:600;margin-bottom:4px">Position ' + esc(posLabel) + '</div>' +
-      '<div style="font-size:12px;color:var(--grey-500);margin-bottom:12px">' + esc(boxLabel) + '</div>' +
-      '<div style="position:relative;margin-bottom:12px">' +
-        '<span class="material-icons-outlined" style="position:absolute;left:10px;top:9px;font-size:16px;color:var(--grey-400)">search</span>' +
-        '<input type="text" id="assignSearch" placeholder="Search existing items..." ' +
-        'style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--grey-300);border-radius:6px;font-size:13px;font-family:inherit">' +
-      '</div>' +
-      '<div id="assignResults" style="max-height:200px;overflow-y:auto;margin-bottom:12px"></div>' +
-      '<div style="border-top:1px solid var(--grey-200);padding-top:12px">' +
-        '<button class="btn btn-primary" style="width:100%;justify-content:center" onclick="labMap.createAtPosition(\'' + posLabel + '\',\'' + locId + '\',' + shelfIdx + ',' + boxIdx + ')">' +
-        '<span class="material-icons-outlined" style="font-size:16px">add</span> Create New Item Here</button>' +
-      '</div>';
-
-    document.body.appendChild(pop);
-
-    // Adjust if below viewport
-    var popRect = pop.getBoundingClientRect();
-    if (popRect.bottom > window.innerHeight) {
-      pop.style.top = (rect.top - popRect.height - 8) + 'px';
-    }
-
-    var searchInput = document.getElementById('assignSearch');
-    searchInput.focus();
-
-    // Search handler
-    searchInput.addEventListener('input', function() {
-      var q = searchInput.value.toLowerCase().trim();
-      var results = document.getElementById('assignResults');
-      if (!q) { results.innerHTML = ''; return; }
-
-      var matches = allObjects.filter(function(obj) {
-        return (obj.title || '').toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 10);
-
-      if (!matches.length) {
-        results.innerHTML = '<div style="padding:8px;font-size:13px;color:var(--grey-500)">No matches</div>';
-        return;
-      }
-
-      results.innerHTML = matches.map(function(obj, i) {
-        var tc = getType(obj.type || 'reagent');
-        return '<div class="assign-result" style="display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;border-radius:6px;transition:background .1s" ' +
-          'onmouseenter="this.style.background=\'var(--grey-100)\'" onmouseleave="this.style.background=\'\'" ' +
-          'onclick="labMap.assignItem(' + i + ',\'' + posLabel + '\',\'' + locId + '\',' + shelfIdx + ',' + boxIdx + ')">' +
-          '<span style="font-size:16px">' + tc.icon + '</span>' +
-          '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(obj.title || 'Untitled') + '</div>' +
-          '<div style="font-size:11px;color:var(--grey-500)">' + esc(tc.label) + (obj.location ? ' \u00B7 ' + esc(obj.location) : '') + '</div></div></div>';
-      }).join('');
-
-      // Store matches for onclick reference
-      pop._matches = matches;
-    });
-
-    // Close on outside click (delayed to avoid immediate close)
-    setTimeout(function() {
-      document.addEventListener('click', function handler(e) {
-        if (!pop.contains(e.target) && e.target !== cell) {
-          closeAssignPopover();
-          document.removeEventListener('click', handler);
-        }
-      });
-    }, 0);
-  }
-
-  function closeAssignPopover() {
-    var p = document.getElementById('assignPopover');
-    if (p) p.remove();
-  }
-
-  // Build location_detail string
-  function buildLocDetail(locId, shelfIdx, boxIdx, posLabel) {
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
-    var boxLetter = String.fromCharCode(65 + boxIdx);
-    return (shelf ? shelf.label : 'Shelf ' + (shelfIdx+1)) + ' / Box ' + boxLetter + ' / ' + posLabel;
-  }
-
-  // Assign an existing item to a position — updates its frontmatter
-  async function assignItem(matchIdx, posLabel, locId, shelfIdx, boxIdx) {
-    var pop = document.getElementById('assignPopover');
-    var item = pop && pop._matches ? pop._matches[matchIdx] : null;
-    if (!item || !item.path) return;
-    closeAssignPopover();
-
-    if (!Lab.gh.isLoggedIn()) {
-      Lab.showToast('Sign in to assign items', 'error');
+  // ── Render ──
+  function render() {
+    var mount = document.getElementById('treeMount');
+    if (!rootGraph) {
+      mount.innerHTML = '<div class="tree-loading">Loading…</div>';
       return;
     }
-
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    var locDetail = buildLocDetail(locId, shelfIdx, boxIdx, posLabel);
-
-    try {
-      var filePath = 'docs/' + item.path;
-      var result = await Lab.gh.fetchFile(filePath);
-      var parsed = Lab.parseFrontmatter(result.content);
-
-      // Set location to the parent zone, location_detail to the specific spot
-      parsed.meta.location = loc ? loc.locKey : parsed.meta.location;
-      parsed.meta.location_detail = locDetail;
-      var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
-
-      await Lab.gh.saveFile(filePath, content, result.sha,
-        'Map: place ' + (item.title || item.path) + ' at ' + locDetail);
-
-      Lab.gh.patchObjectIndex(filePath, parsed.meta);
-      // Use patched in-memory index (don't re-fetch from stale deploy)
-      allObjects = await Lab.gh.fetchObjectIndex();
-      Lab.showToast('Placed "' + (item.title || 'item') + '" at ' + posLabel + ' \u2014 saved to GitHub', 'success');
-      openBox(locId, shelfIdx, boxIdx);
-    } catch(e) {
-      Lab.showToast('Failed: ' + e.message, 'error');
-    }
-  }
-
-  // Create a new item at a position — shows inline form in the detail panel
-  function createAtPosition(posLabel, locId, shelfIdx, boxIdx) {
-    closeAssignPopover();
-
-    if (!Lab.gh.isLoggedIn()) {
-      Lab.showToast('Sign in to create items', 'error');
+    var roots = findRoots();
+    if (!roots.length) {
+      mount.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">home_work</span><p>No top-level locations yet.</p><p>Create a room object under <code>docs/locations/</code> to get started.</p></div>';
       return;
     }
+    var html = '';
+    roots.forEach(function(slug) { html += renderNode(slug, 0); });
 
-    var loc = LOCATIONS.find(function(l) { return l.id === locId; });
-    var shelf = buildShelves(loc, getItemsForLocation(loc))[shelfIdx];
-    var boxLetter = String.fromCharCode(65 + boxIdx);
-    var detailLocStr = (shelf ? shelf.label : '') + ' / Box ' + boxLetter + ' / ' + posLabel;
+    // Orphans (items with parent ref that didn't resolve)
+    var orphans = findOrphans();
+    if (orphans.length) {
+      html += '<div class="orphan-section">';
+      html += '<h3>⚠ Unresolved parents (' + orphans.length + ')</h3>';
+      orphans.forEach(function(slug) { html += renderNode(slug, 0, true); });
+      html += '</div>';
+    }
 
-    var detail = document.getElementById('tubeDetail');
-    var types = [
-      { val: 'reagent', label: 'Reagent' },
-      { val: 'buffer', label: 'Buffer/Solution' },
-      { val: 'chemical', label: 'Chemical' },
-      { val: 'enzyme', label: 'Enzyme' },
-      { val: 'solution', label: 'Solution' },
-      { val: 'consumable', label: 'Consumable' },
-      { val: 'kit', label: 'Kit' },
-      { val: 'equipment', label: 'Equipment' },
-      { val: 'dna_prep', label: 'DNA Prep' },
-      { val: 'glycerol_stock', label: 'Glycerol Stock' },
-      { val: 'plasmid', label: 'Plasmid' },
-      { val: 'seed', label: 'Seed Stock' },
-      { val: 'agro_strain', label: 'Agro Strain' },
-    ];
-    var typeOptions = types.map(function(t) {
-      return '<option value="' + t.val + '">' + esc(t.label) + '</option>';
-    }).join('');
+    mount.innerHTML = html;
+    applyFilter(lastQuery);
+  }
 
-    var html = '<div class="tube-detail">';
-    html += '<h3><span class="material-icons-outlined" style="font-size:20px;color:var(--teal)">add_circle</span> New Item at ' + esc(posLabel) + '</h3>';
+  function renderNode(slug, depth, isOrphan) {
+    var e = rootGraph[slug];
+    if (!e) return '';
+    var kids = childrenMap[slug] || [];
+    var isLeaf = kids.length === 0;
+    var isExpanded = expanded.has(slug);
+    var type = e.type || 'container';
+    var typeConfig = Lab.types.get(type);
+    var icon = typeConfig.icon || '📄';
+    var title = e.title || slug.split('/').pop();
+    var pos = e.position ? '<span class="tw-pos" title="Position in parent">' + esc(e.position) + '</span>' : '';
+    var grid = e.grid ? '<span class="tw-pos" title="Grid size" style="background:#e0f2f1;color:#00695c">' + esc(e.grid) + '</span>' : '';
+    var count = kids.length ? '<span class="tw-count">' + kids.length + ' item' + (kids.length === 1 ? '' : 's') + '</span>' : '';
+    var orphanBadge = isOrphan ? '<span class="tw-pos" title="Parent ref does not resolve" style="background:#fff3e0;color:#e65100">orphan: ' + esc(e.parent || '') + '</span>' : '';
 
-    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Name';
-    html += '<input type="text" id="newItemName" placeholder="e.g., pUC19 glycerol stock" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
+    var html = '<div class="tree-node' + (isExpanded ? ' is-expanded' : '') + '" data-slug="' + esc(slug) + '" data-depth="' + depth + '">';
+    // The row itself is data-act="open" so clicking anywhere on it (icon,
+    // title, empty space, position badge) opens the popup. The toggle and the
+    // action buttons have their own data-act values, and closest() picks the
+    // innermost match first — so those clicks win over the row-level handler.
+    html += '<div class="tree-node-row' + (isLeaf ? ' is-leaf' : '') + '" data-act="open">';
+    html += '<span class="tw-toggle material-icons-outlined" data-act="toggle">chevron_right</span>';
+    html += '<span class="tw-icon">' + icon + '</span>';
+    html += '<span class="tw-title" title="' + esc(slug) + '">' + esc(title) + '</span>';
+    html += pos + grid + count + orphanBadge;
+    html += '<span class="tw-actions">';
+    html += '<button type="button" data-act="edit" title="Edit"><span class="material-icons-outlined">edit</span></button>';
+    html += '<button type="button" data-act="delete" class="danger" title="Delete"><span class="material-icons-outlined">delete</span></button>';
+    html += '</span>';
+    html += '</div>';
+    if (!isLeaf) {
+      html += '<div class="tree-children">';
+      kids.forEach(function(childSlug) { html += renderNode(childSlug, depth + 1); });
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
 
-    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Type';
-    html += '<select id="newItemType" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px">' + typeOptions + '</select></label>';
+  // ── Actions ──
+  document.addEventListener('click', function(e) {
+    var actEl = e.target.closest('[data-act]');
+    if (!actEl) return;
+    var nodeEl = actEl.closest('.tree-node');
+    if (!nodeEl) return;
+    var slug = nodeEl.getAttribute('data-slug');
+    var act = actEl.getAttribute('data-act');
 
-    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Location';
-    html += '<input type="text" id="newItemLocation" value="' + esc(loc ? loc.locKey : '') + '" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px;background:var(--grey-50);color:var(--grey-600)" readonly></label>';
+    if (act === 'toggle') {
+      e.stopPropagation();
+      if (expanded.has(slug)) expanded.delete(slug);
+      else expanded.add(slug);
+      nodeEl.classList.toggle('is-expanded');
+      return;
+    }
+    if (act === 'open') {
+      e.stopPropagation();
+      openSlug(slug, false);
+      return;
+    }
+    if (act === 'edit') {
+      e.stopPropagation();
+      openSlug(slug, true);
+      return;
+    }
+    if (act === 'delete') {
+      e.stopPropagation();
+      deleteSlug(slug);
+      return;
+    }
+  });
 
-    html += '<label style="display:block;margin-bottom:12px;font-size:13px;font-weight:500;color:var(--grey-700)">Location Detail <span style="font-weight:400;color:var(--grey-400)">(specific spot)</span>';
-    html += '<input type="text" id="newItemLocDetail" value="' + esc(detailLocStr) + '" placeholder="e.g., Shelf 2 / Box C / D7" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
-
-    html += '<label style="display:block;margin-bottom:16px;font-size:13px;font-weight:500;color:var(--grey-700)">Notes <span style="font-weight:400;color:var(--grey-400)">(optional)</span>';
-    html += '<input type="text" id="newItemNotes" placeholder="" style="width:100%;padding:8px 12px;border:1px solid var(--grey-300);border-radius:6px;font-size:14px;font-family:inherit;margin-top:4px"></label>';
-
-    html += '<div style="display:flex;gap:8px">';
-    html += '<button class="btn btn-primary" id="newItemSave" style="flex:1;justify-content:center"><span class="material-icons-outlined" style="font-size:16px">check</span> Create</button>';
-    html += '<button class="btn btn-ghost" onclick="document.getElementById(\'tubeDetail\').innerHTML=\'\'">Cancel</button>';
-    html += '</div></div>';
-
-    detail.innerHTML = html;
-    document.getElementById('newItemName').focus();
-
-    document.getElementById('newItemSave').addEventListener('click', async function() {
-      var name = document.getElementById('newItemName').value.trim();
-      if (!name) { Lab.showToast('Enter a name', 'error'); return; }
-
-      var type = document.getElementById('newItemType').value;
-      var location = document.getElementById('newItemLocation').value;
-      var locDetail = document.getElementById('newItemLocDetail').value.trim();
-      var notes = document.getElementById('newItemNotes').value.trim();
-
-      // Determine directory based on type group
-      var typeConf = Lab.types.get(type);
-      var dir = 'resources';
-      if (['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep'].indexOf(type) !== -1) dir = 'stocks';
-
-      var slug = Lab.slugify(name);
-      var path = 'docs/' + dir + '/' + slug + '.md';
-
-      var meta = {
-        type: type,
-        title: name,
-        location: location,
-        location_detail: locDetail,
-      };
-      if (notes) meta.notes = notes;
-      meta.created_at = new Date().toISOString();
-      var u = Lab.gh.getUser && Lab.gh.getUser();
-      if (u && u.login) meta.created_by = u.login;
-
-      var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
-
-      var btn = document.getElementById('newItemSave');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">hourglass_empty</span> Creating...';
-
-      try {
-        await Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name);
-        Lab.gh.patchObjectIndex(path, meta);
-        // Use the patched in-memory index (don't re-fetch from stale deploy)
-        allObjects = await Lab.gh.fetchObjectIndex();
-        Lab.showToast('Created "' + name + '" \u2014 saved to GitHub. Site rebuilds in ~40s.', 'success');
-        openBox(locId, shelfIdx, boxIdx);
-      } catch(e) {
-        Lab.showToast('Failed: ' + e.message, 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">check</span> Create';
+  function openSlug(slug, editMode) {
+    if (!window.Lab.editorModal) return;
+    Lab.editorModal.open('docs/' + slug + '.md').then(function() {
+      // Editor modal doesn't expose a startEdit entry point yet; clicking the
+      // edit toggle button in the modal header is equivalent.
+      if (editMode) {
+        setTimeout(function() {
+          var btn = document.getElementById('em-edit-toggle');
+          if (btn) btn.click();
+        }, 300);
       }
     });
   }
 
-  // ── Tube detail panel ──
-  function showTubeDetail(item) {
-    var tc = getType(item.type || 'reagent');
-    var detail = document.getElementById('tubeDetail');
-    var html = '<div class="tube-detail">';
-    html += '<h3>' + tc.icon + ' ' + esc(item.title || 'Untitled') + '</h3>';
-    html += '<div class="td-field"><span class="td-label">Type</span>';
-    html += '<span class="td-value"><span style="display:inline-block;padding:1px 10px;border-radius:20px;font-size:12px;font-weight:600;background:' + tc.color + '15;color:' + tc.color + '">' + esc(tc.label) + '</span></span></div>';
-    if (item.location) html += '<div class="td-field"><span class="td-label">Location</span><span class="td-value">' + esc(item.location) + '</span></div>';
-    if (item.containers && item.containers.length) {
-      item.containers.forEach(function(c) {
-        html += '<div class="td-field"><span class="td-label">Container</span><span class="td-value">' + esc((c.quantity || '?') + ' ' + (c.unit || '') + ' @ ' + (c.location || '?')) + '</span></div>';
+  async function deleteSlug(slug) {
+    var entry = rootGraph[slug];
+    if (!entry) return;
+    var kidsCount = (childrenMap[slug] || []).length;
+    var msg = 'Delete "' + (entry.title || slug) + '"?';
+    if (kidsCount > 0) {
+      msg += '\n\nWARNING: this location has ' + kidsCount + ' child item' + (kidsCount === 1 ? '' : 's') +
+             '. Their parent ref will become orphaned (they will show in the "Unresolved parents" section).';
+    }
+    if (!window.confirm(msg)) return;
+    try {
+      await Lab.gh.deleteFile('docs/' + slug + '.md');
+      if (window.Lab.showToast) Lab.showToast('Deleted ' + slug, 'success');
+      await build();
+    } catch(err) {
+      if (window.Lab.showToast) Lab.showToast('Delete failed: ' + err.message, 'error');
+      console.error(err);
+    }
+  }
+
+  // ── Filter ──
+  document.getElementById('treeSearch').addEventListener('input', function(e) {
+    lastQuery = (e.target.value || '').toLowerCase().trim();
+    applyFilter(lastQuery);
+  });
+  document.getElementById('expandAllBtn').addEventListener('click', function() {
+    Object.keys(rootGraph).forEach(function(slug) {
+      if ((childrenMap[slug] || []).length) expanded.add(slug);
+    });
+    render();
+  });
+  document.getElementById('collapseAllBtn').addEventListener('click', function() {
+    expanded.clear();
+    render();
+  });
+  document.getElementById('refreshBtn').addEventListener('click', build);
+
+  function applyFilter(q) {
+    if (!q) {
+      document.querySelectorAll('.tree-node').forEach(function(n) {
+        n.style.display = '';
+        n.querySelector('.tree-node-row').classList.remove('is-hit');
       });
+      return;
     }
-    if (item.notes) html += '<div class="td-field"><span class="td-label">Notes</span><span class="td-value">' + esc(item.notes) + '</span></div>';
-    html += '<div class="td-actions">';
-    if (item.path) {
-      html += '<a class="btn btn-ghost" href="' + BASE + 'app/wiki.html?file=' + encodeURIComponent(item.path) + '" style="text-decoration:none">';
-      html += '<span class="material-icons-outlined" style="font-size:16px">open_in_new</span> View Card</a>';
-    }
-    html += '</div></div>';
-    detail.innerHTML = html;
+    // Pass 1: mark hits
+    var hits = new Set();
+    Object.keys(rootGraph).forEach(function(slug) {
+      var e = rootGraph[slug];
+      var hay = (slug + ' ' + (e.title || '') + ' ' + (e.type || '')).toLowerCase();
+      if (hay.indexOf(q) !== -1) hits.add(slug);
+    });
+    // Pass 2: expand ancestors of every hit and show them
+    var show = new Set();
+    hits.forEach(function(slug) {
+      var cur = slug;
+      var seen = {};
+      while (cur && rootGraph[cur] && !seen[cur]) {
+        seen[cur] = true;
+        show.add(cur);
+        cur = rootGraph[cur].parentResolved || null;
+      }
+    });
+    document.querySelectorAll('.tree-node').forEach(function(n) {
+      var slug = n.getAttribute('data-slug');
+      if (show.has(slug)) {
+        n.style.display = '';
+        n.classList.add('is-expanded');
+        if (hits.has(slug)) n.querySelector('.tree-node-row').classList.add('is-hit');
+        else                n.querySelector('.tree-node-row').classList.remove('is-hit');
+      } else {
+        n.style.display = 'none';
+      }
+    });
   }
 
-  // ── Context menu ──
-  function showContextMenu(x, y, item, cell) {
-    closeContextMenu();
-    var tc = getType(item.type || 'reagent');
-    var menu = document.createElement('div');
-    menu.className = 'ctx-menu';
-    menu.id = 'ctxMenu';
-    menu.style.left = x + 'px';
-    menu.style.top = y + 'px';
-    menu.innerHTML =
-      '<div class="ctx-menu-item" onclick="labMap.viewItem(\'' + esc(item.path || '') + '\')"><span class="material-icons-outlined">open_in_new</span> View Card</div>' +
-      '<div class="ctx-sep"></div>' +
-      '<div class="ctx-menu-item danger" onclick="labMap.closeCtx()"><span class="material-icons-outlined">close</span> Cancel</div>';
-    document.body.appendChild(menu);
+  // ── Boot ──
+  build();
 
-    // Adjust if off-screen
-    var rect = menu.getBoundingClientRect();
-    if (rect.right > window.innerWidth) menu.style.left = (x - rect.width) + 'px';
-    if (rect.bottom > window.innerHeight) menu.style.top = (y - rect.height) + 'px';
-
-    setTimeout(function() {
-      document.addEventListener('click', closeContextMenu, { once: true });
-    }, 0);
-  }
-
-  function closeContextMenu() {
-    var m = document.getElementById('ctxMenu');
-    if (m) m.remove();
-  }
-
-  // ── Helpers ──
-  function containerHeader(loc, subtitle) {
-    return '<div class="container-header"><div class="ch-icon" style="background:' + loc.color + '15">' + loc.icon + '</div>' +
-      '<div><h2>' + esc(loc.label) + '</h2><div class="ch-subtitle">' + subtitle + '</div></div></div>';
-  }
-
-  function itemRow(obj, idx) {
-    var tc = getType(obj.type || 'reagent');
-    var qty = '';
-    if (obj.containers && obj.containers.length) {
-      qty = obj.containers.map(function(c) { return (c.quantity || '?') + ' ' + (c.unit || ''); }).join(', ');
-    }
-    return '<div class="item-row" data-item-idx="' + (idx != null ? idx : '') + '">' +
-      '<div class="ir-icon">' + tc.icon + '</div>' +
-      '<div class="ir-info"><div class="ir-name">' + esc(obj.title || 'Untitled') + '</div>' +
-      (qty ? '<div class="ir-meta">' + esc(qty) + '</div>' : '') + '</div>' +
-      '<span class="ir-pill" style="background:' + tc.color + '15;color:' + tc.color + '">' + esc(tc.label) + '</span></div>';
-  }
-
-  function emptyMsg() {
-    return '<div class="empty-state"><span class="material-icons-outlined">inventory_2</span>' +
-      '<h3>Nothing here yet</h3><p>Items assigned to this location will appear here.</p></div>';
-  }
-
-  // ── Navigation ──
-  function navigateTo(depth) {
-    if (depth === 0) { showRoomView(); return; }
-    var t = navStack[depth - 1];
-    if (!t) return;
-    if (t.view === 'location') openLocation(t.params.locId);
-    else if (t.view === 'box') openBox(t.params.locId, t.params.shelfIdx, t.params.boxIdx);
-  }
-
-  function viewItem(path) {
-    closeContextMenu();
-    if (path) location.href = BASE + 'app/wiki.html?file=' + encodeURIComponent(path);
-  }
-
-  // ── Public API ──
+  // Public API for tests.
   window.labMap = {
-    open: openLocation,
-    box: openBox,
-    nav: navigateTo,
-    viewItem: viewItem,
-    closeCtx: closeContextMenu,
-    assignItem: assignItem,
-    createAtPosition: createAtPosition,
+    build: build,
+    findRoots: findRoots,
+    findOrphans: findOrphans,
+    expand: function(slug) { expanded.add(slug); render(); },
+    collapseAll: function() { expanded.clear(); render(); },
+    isExpanded: function(slug) { return expanded.has(slug); },
   };
 
 })();
