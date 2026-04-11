@@ -2,7 +2,7 @@
 type: bottle
 title: DNeasy plant mini
 of: resources/dneasy-plant-mini
-parent: locations/location-unsorted
+parent: locations/new-container-mnubklee
 quantity: 1
 unit: box
 ---
