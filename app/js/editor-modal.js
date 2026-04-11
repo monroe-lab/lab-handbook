@@ -477,11 +477,22 @@
     document.getElementById('em-edit-toggle').style.display = 'none';
     document.getElementById('em-save').style.display = '';
 
+    // Clear cols 2 and 3 SYNCHRONOUSLY before awaiting Toast UI. Otherwise
+    // the old popup's rendered body and contents pane stay visible while the
+    // Toast UI bundle downloads, which looks like the previous object is
+    // still open even though the title and fields have already updated.
+    var contentEl = document.getElementById('em-content');
+    contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"><div class="loading-state" style="padding:40px;text-align:center;color:var(--grey-500)"><div class="spinner"></div><p>Loading editor…</p></div></div>';
+    var contentsMount = document.getElementById('em-contents');
+    if (contentsMount) contentsMount.innerHTML = '<div class="em-col-empty">This item has no contents yet. Save it first, then add children.</div>';
+
     // Mount an empty Toast UI editor in col 2.
     await loadToast();
-    var contentEl = document.getElementById('em-content');
-    contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
-    var editorEl = contentEl.querySelector('.em-surface');
+    // Re-query the surface — user may have closed the modal while we were loading.
+    var editorSurface = document.getElementById('em-content');
+    if (!editorSurface || !overlayEl.classList.contains('open')) return;
+    editorSurface.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
+    var editorEl = editorSurface.querySelector('.em-surface');
     currentEditor = new toastui.Editor({
       el: editorEl,
       initialEditType: 'wysiwyg',
@@ -494,10 +505,6 @@
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
     injectCategoryPills(editorEl, currentEditor);
-
-    // Contents column starts empty (no children yet for a brand-new object).
-    var mount = document.getElementById('em-contents');
-    if (mount) mount.innerHTML = '<div class="em-col-empty">This item has no contents yet. Save it first, then add children.</div>';
   }
 
   async function openPopup(filePath) {

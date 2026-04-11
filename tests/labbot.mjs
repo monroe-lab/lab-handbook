@@ -2122,6 +2122,9 @@ Test container used by the labmap delete test. Should not persist.
       if (cell) cell.click();
     });
     await p.waitForTimeout(2000);
+    // Wait long enough for openNew to clear cols 2+3 synchronously AND for
+    // Toast UI to mount the editor. 3s covers the Toast UI bundle download.
+    await p.waitForTimeout(3000);
     const newMode = await p.evaluate(() => {
       const title = document.getElementById('em-title');
       const typeInput = document.querySelector('.em-field-input[data-key="type"]');
@@ -2129,6 +2132,19 @@ Test container used by the labmap delete test. Should not persist.
       const parentInput = document.querySelector('.em-field-input[data-key="parent"]');
       const posField = document.querySelector('.em-field-input[data-key="position"]');
       const saveBtn = document.getElementById('em-save');
+      const content = document.getElementById('em-content');
+      const contents = document.getElementById('em-contents');
+      // Col 2 should either be the em-surface (Toast UI mounted) or the loading
+      // spinner — in neither case should the OLD parent's rendered body be left
+      // behind ("Pistachio DNA Box" heading + prose).
+      const col2HTML = content ? content.innerHTML : '';
+      const col2HasOldParent = col2HTML.includes('lab-rendered em-rendered') ||
+                               col2HTML.includes('Standard 10×10 cryobox');
+      const col2HasFreshMount = col2HTML.includes('em-surface') || col2HTML.includes('Loading editor');
+      // Col 3 should show the "no contents yet" placeholder, NOT the old grid.
+      const col3HTML = contents ? contents.innerHTML : '';
+      const col3HasOldGrid = col3HTML.includes('em-grid-view') || col3HTML.includes('data-cell=');
+      const col3HasEmptyState = col3HTML.includes('no contents yet') || col3HTML.includes('em-col-empty');
       return {
         titleText: title ? title.textContent : '',
         hasTypeInput: !!typeInput,
@@ -2136,6 +2152,8 @@ Test container used by the labmap delete test. Should not persist.
         parentValue: parentInput ? parentInput.value : '',
         positionValue: posField ? posField.value : '',
         saveVisible: saveBtn && saveBtn.style.display !== 'none',
+        col2HasOldParent, col2HasFreshMount,
+        col3HasOldGrid, col3HasEmptyState,
       };
     });
     const newOK = newMode.titleText.includes('New') &&
@@ -2147,6 +2165,14 @@ Test container used by the labmap delete test. Should not persist.
     log('editor', 'Empty cell click opens new-object modal',
       newOK ? 'PASS' : 'FAIL',
       `title="${newMode.titleText}" type=${newMode.typeValue} parent=${newMode.parentValue} pos=${newMode.positionValue} save=${newMode.saveVisible}`);
+
+    log('editor', 'New mode clears col 2 (no stale parent body)',
+      !newMode.col2HasOldParent && newMode.col2HasFreshMount ? 'PASS' : 'FAIL',
+      `stale=${newMode.col2HasOldParent} fresh=${newMode.col2HasFreshMount}`);
+
+    log('editor', 'New mode clears col 3 (no stale parent grid)',
+      !newMode.col3HasOldGrid && newMode.col3HasEmptyState ? 'PASS' : 'FAIL',
+      `staleGrid=${newMode.col3HasOldGrid} emptyState=${newMode.col3HasEmptyState}`);
 
     // Close the new-object modal without saving
     await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
