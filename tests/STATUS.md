@@ -30,6 +30,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Wikilinks | 9/9 | ✅ (R4, Issue #18) Module loaded, autocomplete filter, sample popup shows backlinks from tubes, click backlink navigates, parent field autocomplete (location-only), empty cell opens place-here popover with search + create-new, place-here search returns results, [[ autocomplete fires on trigger in WYSIWYG, items show title + breadcrumb |
 | Bottles | 10/10 | ✅ (R5) bottle type registered, 156 migrated bottles in index, all carry of:+parent:, ethanol-absolute wired to cabinet-flammable, location anchors exist (R6: bench, fridge-4c-main merged), concept files cleaned of containers:, concept popup col 3 lists physical bottles via of:-aware backlinks, inventory hides bottle rows + counts them under concept |
 | R6 | 10/10 | ✅ Lab.locationTree module loaded, cabinets parented under Robbins 0170, bench renamed (no bench-reagent), fridge-reagent merged into fridge-4c-main, location: field stripped from concepts, locations picker mounts a tree, picker tree excludes bottles via childFilter, lab-map tree renders via module, lab-map nodes draggable, grid occupied cells draggable |
+| R6.5 | 9/9 | ✅ (R6.5) isConceptType helper, concepts/instances/locations/stocks classified correctly, scoped save-time uniqueness check catches dupe concepts, instance-count map from `of:` + link-index, ethanol-absolute → 1 bottle, ethanol-70 → 2 bottles (multi-bottle), sample-pistachio-4 → 3 tubes, autocomplete dropdown badges 19 concepts with instances |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -40,7 +41,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 144/144 (100%)** — R6 adds 10 new tests + closes the pre-existing inventory `Edit item fields` failure.
+**Total: 153/153 (100%)** — R6.5 adds 9 new tests covering the concept-type helper, scoped uniqueness check, and the autocomplete instance badge. Also fixes a long-standing create-then-edit race in the inventory flow (see Round 6.5 below).
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -252,6 +253,78 @@ Plus the R5 bottles test was updated to reflect the post-R6 cleanup (now expects
 ### Explicitly skipped in R6
 
 - **Ambiguous wikilink rendering** — survey found 0 actually-ambiguous cases in the corpus. Will revisit when the first real collision appears (probably after Grey adds a second bottle of something with a colliding title).
+
+## Round 6.5: scoped uniqueness + autocomplete instance badge (2026-04-11)
+
+Two silent helpers for the concept↔instance ambiguity space. Both live on the *create* and *write* sides — no warning pills, no orange badges, no user-visible rebukes. The guiding principle (decided during R6): ambiguous-pill rendering at read time would mostly fire on healthy shorthand and annoy users, so we're catching ambiguity earlier and quieter.
+
+### `Lab.types.isConceptType(typeName)`
+
+New helper in `app/js/types.js`. Returns true for types whose cards represent abstract entities, false for instance types:
+
+| Returns | Types |
+|---|---|
+| `true` | `reagent`, `buffer`, `consumable`, `equipment`, `kit`, `chemical`, `enzyme`, `solution`, `person`, `project`, `protocol`, `sample`, `guide`, `waste_container` |
+| `false` | `bottle` (R5), all location-group types (`room`, `freezer`, `fridge`, `shelf`, `box`, `tube`, `container`), legacy stocks (`seed`, `glycerol_stock`, `plasmid`, `agro_strain`, `dna_prep`), unknown types |
+
+The rule is by `type`, not by group, because the `stocks` group mixes concept-ish (seed) and instance-ish (bottle). Legacy stock types are treated as instances because each file historically represented one physical stock — if/when we promote them to a concept/instance split like R5 did for reagents, this will flip.
+
+### Scoped title uniqueness at save time (editor-modal.js)
+
+- [x] Before `Lab.gh.saveFile`, if `Lab.types.isConceptType(meta.type)` is true, walk the cached object index for entries with the same `(type, title)` at a different path. If any match, refuse with a toast naming the existing file: *"A reagent titled 'Ethanol Absolute' already exists at resources/ethanol-absolute.md. Pick a different title or open the existing one."*
+- [x] Exempts bottles and locations — 156 bottles legitimately share their concept's title, and multiple tubes labeled "Pistachio Leaf 1" can live in different boxes.
+- [x] Uses the cached index; if the index isn't loaded yet (rare), the check is skipped to avoid blocking the save on a network round-trip.
+- [x] Catches the genuine dupe-concept bug (an agent accidentally creating a second "Ethanol Absolute" reagent card) at write time, silently, without ever rendering a warning pill in the body.
+
+### Autocomplete instance badge (wikilink-autocomplete.js)
+
+- [x] When the `[[` autocomplete dropdown renders an item for a concept type, badge it with a small teal pill: "· N instances". The pill is a hint that this concept has N physical instances the writer could have linked to instead.
+- [x] Instance count is computed from two signals:
+  1. **R5 bottles** via `of:` frontmatter in the object index (high-volume, ~163 concepts have at least 1 instance)
+  2. **R1 tubes/containers** via body wikilinks from location-type entries (smaller, but catches the pistachio-sample case where 3 tubes point at one sample concept)
+- [x] The count map is built lazily from cached indexes (`_getCachedIndex` + new `_getCachedLinkIndex` for symmetry), invalidated on autocomplete attach so fresh saves are picked up.
+- [x] Verified: `resources/ethanol-absolute` → 1 instance, `resources/ethanol-70` → 2 (multi-bottle), `samples/sample-pistachio-4` → 3 tubes, 163 concept slugs total have ≥1 instance.
+- [x] Render-only change — the inserted link is still `[[slug]]` pointing at whatever the writer picked. No behavioral change, just an "fyi, specific instances exist" hint.
+
+### Bonus fix: inventory create-then-edit race (4-way)
+
+While landing R6.5 I hit a pre-existing race condition that was making the inventory `Edit item & save` test flake on about half the runs. The R6.5 eager `fetchLinkIndex` on autocomplete attach was adding network contention that tipped the timing over the edge and made the flake deterministic.
+
+**Root cause sequence** (confirmed via telemetry):
+1. `inventory.html confirmAdd` calls `Lab.gh.saveFile(path, content, null, msg)` then immediately `Lab.editorModal.open(path)`.
+2. `openPopup` calls `Lab.gh.fetchFile(path)` which hits the GitHub contents API — and **the contents API still serves the pre-commit state for 1-3 seconds after a write** (cache lag).
+3. `fetchFile` throws a 404, caught by `openPopup`'s try/catch, but `currentState.meta` stays `{}` and `currentState.sha` stays `null` because the catch runs before the `parseFrontmatter` line.
+4. Test clicks edit-toggle → `renderFields` renders the form from an empty meta with only the default `type` value.
+5. Test changes `location_detail` → saves.
+6. `save()` calls `gh.saveFile(path, content, null, msg)` — no sha — GitHub's PUT `/contents` rejects with **422 "sha was not supplied"** for an existing file.
+7. Test reads the file via `gh api` → gets the original pre-edit content → `verified=false`.
+
+**Three complementary fixes:**
+
+- [x] **`inventory.html confirmAdd`** now primes `lab_file_cache` with the just-saved content + sha right after `saveFile` succeeds. `openPopup`'s existing cache-fallback picks it up and sidesteps the contents API entirely for the first few seconds after create.
+- [x] **`editor-modal.js openPopup`** falls back to the localStorage cache when `fetchFile` throws, instead of dropping into the error state. Defensive safety net for any other create-then-open flow (not just inventory).
+- [x] **`wikilink-autocomplete.js attach`** no longer eagerly fetches both indexes — just invalidates the instance map. The eager fetches were redundant (`filterEntries` already awaits `fetchObjectIndex` on first keystroke) and were adding network contention during the race window.
+
+Two consecutive inventory runs at 7/7 after the fix.
+
+### Tests added in R6.5
+
+9 new tests in a new `r65` section:
+- `isConceptType` classifies concepts correctly (reagent, protocol, person, sample → true)
+- `isConceptType` classifies instances/locations/stocks/unknowns correctly (bottle, tube, seed, unknown → false)
+- A real concept exists with unique (type, title) in the index
+- Instance map counts `resources/ethanol-absolute` → 1 bottle
+- Instance map counts `resources/ethanol-70` → 2 bottles (multi-bottle case)
+- Instance map counts `samples/sample-pistachio-4` → 3 tubes (body-wikilink path)
+- 100+ concept slugs have instance counts (shows the map is dense)
+- Autocomplete dropdown opens when typing into a parent input
+- Autocomplete badges 19 concepts with "N instances" when searching "ethanol"
+
+### Skipped in R6.5
+
+- **`Lab.gh._getCachedLinkIndex` surface area** — added as a minimal sync accessor only for use by wikilink-autocomplete's lazy map builder. Not promoted to a public API.
+
+---
 
 ### Subtle issues caught and fixed during R6
 
