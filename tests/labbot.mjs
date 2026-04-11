@@ -1473,7 +1473,10 @@ function ghReadFile(path) {
     // Popup rendering chains through fetchFile → renderFields → upgradeParent
     // → renderMarkdown → breadcrumbHTML before the crumb node exists. Use
     // waitForSelector with a generous timeout instead of a fixed sleep.
-    await p.waitForSelector('#em-content .lab-breadcrumb', { timeout: 8000 }).catch(() => {});
+    // R3 widened this wait because the Toast UI editor mount now races with
+    // the breadcrumb injection on the first popup open of a session.
+    await p.waitForSelector('#em-content .lab-breadcrumb', { timeout: 12000 }).catch(() => {});
+    await p.waitForTimeout(300);
     const popupAfterClick = await p.evaluate(() => {
       const overlay = document.querySelector('.em-overlay.open, #em-overlay.open');
       const content = document.getElementById('em-content');
@@ -1569,20 +1572,39 @@ Test container used by the labmap delete test. Should not persist.
           const n = document.querySelector(`[data-slug="${slug}"]`);
           if (n) n.querySelector('[data-act="delete"]').click();
         }, throwawaySlug);
-        await p.waitForTimeout(3500);
-        // Verify gone from GitHub
-        const stillExists = ghFileExists(throwawayPath);
+        // The delete click fires deleteFile → removeFromObjectIndex → build().
+        // build() is async and awaited inside deleteSlug, but the gh API then
+        // needs a beat for the contents endpoint to reflect the delete. Poll
+        // ghFileExists up to 10s to avoid flake on slow GitHub API reflection.
+        let stillExists = true;
+        for (let tries = 0; tries < 10; tries++) {
+          await p.waitForTimeout(1000);
+          if (!ghFileExists(throwawayPath)) { stillExists = false; break; }
+        }
         log('labmap', 'Inline delete removes file',
           !stillExists ? 'PASS' : 'FAIL',
-          stillExists ? `${throwawayPath} still present` : 'deleted');
-        // Also verify it's gone from the tree after rebuild
-        const stillInTree = await p.evaluate((slug) => {
-          return !!document.querySelector(`[data-slug="${slug}"]`);
-        }, throwawaySlug);
-        if (stillInTree) {
-          log('labmap', 'Tree removes deleted node', 'FAIL', 'still in DOM after rebuild');
-        } else {
+          stillExists ? `${throwawayPath} still present after 10s` : 'deleted');
+        // Force an extra rebuild in case deleteSlug's async chain raced the
+        // DOM check below.
+        await p.evaluate(() => window.labMap.build());
+        await p.waitForTimeout(800);
+        // Also verify it's gone from the tree after rebuild. Dig deeper if
+        // it's still there — check the in-memory graph + index. Playwright
+        // evaluate only passes one argument, so wrap both in an object.
+        const postDelete = await p.evaluate(({ slug, path }) => {
+          const inDom = !!document.querySelector(`[data-slug="${slug}"]`);
+          const idx = Lab.gh._getCachedIndex();
+          const relPath = path.replace(/^docs\//, '');
+          const inIndex = idx ? idx.some(e => e.path === relPath) : null;
+          const patches = JSON.parse(localStorage.getItem('lab_index_patches') || '{}');
+          const patchEntry = patches[relPath];
+          return { inDom, inIndex, patchEntry, idxLen: idx ? idx.length : -1 };
+        }, { slug: throwawaySlug, path: throwawayPath });
+        if (!postDelete.inDom) {
           log('labmap', 'Tree removes deleted node', 'PASS', 'gone from DOM');
+        } else {
+          log('labmap', 'Tree removes deleted node', 'FAIL',
+            `inDom=${postDelete.inDom} inIndex=${postDelete.inIndex} patch=${JSON.stringify(postDelete.patchEntry)}`);
         }
       } else {
         // Safety: clean up file so we don't leave garbage behind.

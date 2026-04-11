@@ -24,8 +24,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
-| Lab Map | 10/10 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file |
+| Lab Map | 12/12 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file + DOM node |
 | Hierarchy | 15/15 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb, parent field as object pill, multi-line labels preserve newlines |
+| Editor | 11/11 | ✅ (R3, Issue #18) 3-column modal layout, universal grid renderer (10x10 + 9x9 with collisions), label_2 in cells, collision badge + popover, shelf children list with +Add, reagent container_list relocated to col 3, type field as datalist with discovered types, empty-cell click opens new-object modal (parent/position/type pre-filled), new mode clears col 2/3 synchronously |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -36,7 +37,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 101/101 (100%)** — Lab Map rebuilt as hierarchical tree in R2 (10 new tests), Hierarchy expanded to 15 tests after R1 fixes (parent-pill, multi-line labels).
+**Total: 114/114 (100%)** — R3 adds 11 editor tests, labmap grew to 12 with the DOM-removal assertion.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -62,6 +63,24 @@ Retired the clickable floor plan and rebuilt `app/lab-map.html` around the R1 hi
 - [x] **Filter input + expand-all / collapse-all** — `treeSearch` input filters nodes by slug/title/type, auto-expanding ancestors of any hit. Buttons to bulk expand or collapse.
 - [x] **Orphan section** — Any entry whose `parent` field doesn't resolve appears in a dashed-border "Unresolved parents" section at the bottom with an orange "orphan: <raw>" badge showing the failed slug. Warns without crashing — aligns with the warn-but-allow decision.
 - [x] **New Playwright tests** — 10 tests covering placeholder, root render, full chain expand, migrated-items nesting, grid & position badges, click-opens-popup, filter, collapse-all, throwaway-delete. Replaces the 14 obsolete floor-plan tests; `labmap` un-quarantined.
+
+## Round 3: 3-column editor, universal grid, create-in-edit (2026-04-10, Issue #18)
+
+Grey's design: every popup is three columns by concern — identity (fields), knowledge (body), contents (what this thing holds). Every container can declare a `grid` and the contents pane renders it without any type-specific logic.
+
+- [x] **3-column popup layout** — `editor-modal.js` restructured so `em-modal-body` contains an `em-cols` flex with `em-col-fields` (280px), `em-col-body` (flex 1), `em-col-contents` (340px). Modal max-width bumped from 620px to 1180px. On narrow viewports (<900px) columns stack vertically. `#em-fields` and `#em-content` IDs preserved so downstream render logic is unchanged.
+- [x] **Universal grid renderer** — `renderGridPane` parses any `grid: RxC` frontmatter. Square cells (not tube-shaped), A1-style biology labels (rows A-J, cols 1-10 for a 10x10). Cells with a matching child position show `label_2` in the type color. Unplaced children list below the grid. Grid works on any type — box, rack, shelf with `grid: 4x1`, even a fridge.
+- [x] **Collision handling** — when two or more children share a position, the cell renders the first child and shows a bold orange badge with the count. Clicking the badge opens a small popover listing every colliding item as pills; outside-click dismisses.
+- [x] **Children list pane** — location-type objects without a grid render a sorted clickable list of direct children via `hierarchy.childrenOf`. Each row shows icon, title, position badge. "+ Add" button spawns the create flow.
+- [x] **Container_list relocated** — the repeating-rows `containers:` UI for reagents/stocks (individual bottles/kits with location/qty/unit/lot/expiration) moved from col 1 to col 3. Same helper functions, just a different mount. `collectContainers` still works because its selector (`[data-container-list]`) is global.
+- [x] **Create-in-edit-mode flow** — new `Lab.editorModal.openNew({parent, position, defaultType, returnTo})`. Opens the modal directly in edit state for a fresh file, fields pre-filled (parent + position + type), Toast UI editor mounted with empty content, contents pane shows "Save first, then add children". On save, recomputes the target directory from the (possibly-changed) type, patches the index, then reopens the parent popup so its contents pane refreshes with the new child. Called from empty grid cell clicks and "+ Add" list buttons.
+- [x] **Type field = `<datalist>` with discovered types** — `collectDiscoveredTypes` unions `Lab.types.TYPES` with every unique `type` string seen in the cached object index (exposed via new `Lab.gh._getCachedIndex()` sync accessor). Users can pick a known type or type any new value; unknown types render with the default icon/color via `Lab.types.get(...)` fallback. Grey edits `types.js` later to give formalized types proper icons. `save()` no longer force-overwrites `meta.type` from hidden schema values — that was buggy for inherited schemas (a `room` inheriting freezer's schema was being clobbered back to `freezer`).
+- [x] **Auto type defaults** — `autoChildType(parentType)` picks a sensible default when creating a child: `room→container`, `freezer/fridge→shelf`, `shelf→box`, `box/rack/plate→tube`, `container/tube→container`. User can change via the datalist before saving.
+- [x] **Flicker fix** — `openNew` clears col 2 (to a loading spinner) and col 3 (to the "no contents yet" placeholder) SYNCHRONOUSLY before awaiting Toast UI download, so the previous popup's body and grid aren't left visible while the bundle loads. Regression tests added.
+- [x] **Empty-schema case** — notebooks / guides with no structured fields now show "No structured fields for this type" placeholder in col 1 instead of a blank column.
+- [x] **stopEditing re-renders breadcrumb** — after save/edit, `Lab.hierarchy.invalidate()` + `breadcrumbHTML` reruns so changes to parent references update the chain.
+- [x] **11 new Playwright editor tests** — 3-col layout, grid dimensions, multi-line cell labels, collision badge + popover, shelf children list + Add, container_list relocation, edit-mode type datalist, empty-cell create flow, col 2/3 cleared in new mode.
+- [x] **Test infrastructure fixes** — wiki.html never reaches networkidle (knowledge graph repaints forever), so hierarchy/editor tests switched to `{ waitUntil: 'domcontentloaded' }` + `waitForFunction(() => Lab.editorModal)`. Breadcrumb assertion waits via `waitForSelector('.lab-breadcrumb', { timeout: 12000 })` instead of a fixed sleep. Throwaway delete test polls `ghFileExists` up to 10s to absorb GitHub contents-API cache lag.
 
 ---
 
