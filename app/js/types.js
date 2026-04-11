@@ -243,9 +243,9 @@
         { key: 'lead',            label: 'Lead',            type: 'text' },
         { key: 'sequencing_type', label: 'Sequencing Type', type: 'select', options: ['HiFi','Illumina','Nanopore','Other'] },
         { key: 'status',          label: 'Status',          type: 'select', options: ['active','sequenced','extracted','archived'] },
-        { key: 'notes',           label: 'Notes',           type: 'textarea' },
+        // Notes removed (R3 feedback) — markdown body is the freeform area.
       ],
-      displayFields: ['sample_id', 'species', 'project', 'lead', 'sequencing_type', 'status', 'notes'],
+      displayFields: ['sample_id', 'species', 'project', 'lead', 'sequencing_type', 'status'],
       tableColumns: ['name', 'sample_id', 'species', 'status', 'project'],
     },
     guide: {
@@ -276,9 +276,8 @@
         { key: 'parent',   label: 'Inside',                      type: 'text', placeholder: 'slug of parent (optional)' },
         { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
         { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
-        { key: 'notes',    label: 'Notes',                       type: 'textarea' },
       ],
-      displayFields: ['parent', 'notes'],
+      displayFields: ['parent'],
       tableColumns: ['name', 'type', 'parent'],
     },
     freezer: {
@@ -294,9 +293,11 @@
         { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
         { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
         { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
-        { key: 'notes',    label: 'Notes',                       type: 'textarea' },
+        // Notes removed (R3 feedback) — the markdown body is the canonical
+        // freeform text area for every object. A separate `notes:` field
+        // was redundant and visually cluttered col 1.
       ],
-      displayFields: ['parent', 'grid', 'notes'],
+      displayFields: ['parent', 'grid'],
       tableColumns: ['name', 'type', 'parent'],
     },
     fridge: {
