@@ -321,6 +321,44 @@
     return overlayEl;
   }
 
+  // After renderFields writes a `<span data-parent-pill="slug">` placeholder
+  // for the `parent` field, this replaces the placeholder content with a
+  // proper object pill that navigates to the parent when clicked. If the slug
+  // can't be resolved in the index, the placeholder stays as raw text.
+  async function upgradeParentField() {
+    var pills = document.querySelectorAll('[data-parent-pill]');
+    if (!pills.length || !window.Lab.hierarchy) return;
+    for (var i = 0; i < pills.length; i++) {
+      var span = pills[i];
+      var raw = span.getAttribute('data-parent-pill') || '';
+      var norm = window.Lab.hierarchy.normalizeParent(raw);
+      if (!norm) continue;
+      var entry = await window.Lab.hierarchy.get(norm);
+      if (!entry) continue; // leave as raw text if unresolved
+      var type = entry.type || 'container';
+      var style = window.Lab.types.pillStyle(type);
+      var icon = window.Lab.types.get(type).icon;
+      var title = entry.title || norm.split('/').pop();
+      var pill = document.createElement('a');
+      pill.href = 'javascript:void(0)';
+      pill.className = 'object-pill';
+      pill.setAttribute('style', style);
+      pill.innerHTML = icon + ' ' + escHtml(title);
+      pill.addEventListener('click', function(slug) {
+        return function(e) {
+          e.preventDefault();
+          openPopup('docs/' + slug + '.md');
+        };
+      }(norm));
+      span.innerHTML = '';
+      span.appendChild(pill);
+    }
+  }
+
+  function escHtml(s) {
+    return window.Lab.escHtml(String(s == null ? '' : s));
+  }
+
   async function openPopup(filePath) {
     createOverlay();
     var gh = window.Lab.gh;
@@ -374,6 +412,14 @@
 
       // Default to view mode — user clicks Edit to switch
       renderFields(parsed.meta, false);
+
+      // Upgrade the `parent` read-only field into a real clickable object pill
+      // (icon + title + opens parent popup on click). Done after renderFields
+      // writes the placeholder span. If the slug doesn't resolve, leave as text.
+      try {
+        await upgradeParentField();
+      } catch(e) { /* non-fatal */ }
+
       var html = await renderMarkdown(parsed.body);
       var contentEl = document.getElementById('em-content');
 
@@ -546,6 +592,12 @@
             '<span style="font-size:14px;font-weight:500;color:var(--grey-700)">' + field.label + '</span></label>';
         } else if (field.type === 'number') {
           input = '<input type="number" id="' + id + '" class="em-field-input" data-key="' + field.key + '" value="' + val + '" step="any" min="0">';
+        } else if (field.type === 'textarea') {
+          // Multi-line values (labels, notes). Auto-growing height per value.
+          var rows = Math.max(2, Math.min(6, String(val).split('\n').length + 1));
+          input = '<textarea id="' + id + '" class="em-field-input" data-key="' + field.key + '" rows="' + rows + '"' +
+            ' style="width:100%;font-family:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--grey-300);border-radius:4px;resize:vertical">' +
+            window.Lab.escHtml(String(val)) + '</textarea>';
         } else {
           input = '<input type="text" id="' + id + '" class="em-field-input" data-key="' + field.key + '" value="' + window.Lab.escHtml(String(val)) + '"' + (field.required ? ' required' : '') + '>';
         }
@@ -575,6 +627,30 @@
           return;
         }
         if (val === '' || val === undefined) return;
+
+        // Parent field: render as a placeholder pill; async upgrade in openPopup
+        // replaces it with a real object pill (with icon, title, and click handler).
+        // If the parent slug can't be resolved later, the placeholder stays as raw text.
+        if (field.key === 'parent') {
+          var parentSlug = window.Lab.escHtml(String(val));
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
+            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
+            '<span data-parent-pill="' + parentSlug + '" style="font-weight:500">' + parentSlug + '</span>' +
+            '</div>';
+          return;
+        }
+
+        // Textarea values (multi-line labels, notes): preserve line breaks
+        // with pre-wrap instead of collapsing to a single line. label_1 / label_2
+        // are deliberately multi-line for grid cell display.
+        if (field.type === 'textarea') {
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:flex-start">' +
+            '<span style="color:var(--grey-500);min-width:80px;padding-top:1px">' + field.label + '</span>' +
+            '<span style="font-weight:500;white-space:pre-wrap;line-height:1.35">' + window.Lab.escHtml(String(val)) + '</span>' +
+            '</div>';
+          return;
+        }
+
         html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
           '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
           '<span style="font-weight:500">' + window.Lab.escHtml(String(val)) + '</span>' +

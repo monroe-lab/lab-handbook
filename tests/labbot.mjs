@@ -1990,10 +1990,37 @@ function ghReadFile(path) {
     const tubePopup = await p.evaluate(() => {
       const content = document.getElementById('em-content');
       const crumb = content ? content.querySelector('.lab-breadcrumb') : null;
+      const fields = document.getElementById('em-fields');
+      // Parent field upgrade: placeholder span should contain an <a.object-pill>
+      const parentSpan = fields ? fields.querySelector('[data-parent-pill]') : null;
+      const parentPill = parentSpan ? parentSpan.querySelector('a.object-pill') : null;
+      // Label textarea display: find label_1 row by scanning for its label text,
+      // then confirm the value span has pre-wrap and contains a real newline char.
+      let label1ValueHTML = '';
+      let label1HasNewline = false;
+      let label1Style = '';
+      if (fields) {
+        const rows = fields.querySelectorAll('div');
+        for (const r of rows) {
+          const lbl = r.querySelector('span');
+          if (lbl && lbl.textContent.trim().startsWith('Label 1')) {
+            const val = r.querySelectorAll('span')[1];
+            if (val) {
+              label1ValueHTML = val.innerHTML;
+              label1Style = val.getAttribute('style') || '';
+              label1HasNewline = val.textContent.indexOf('\n') >= 0;
+            }
+            break;
+          }
+        }
+      }
       return {
         hasCrumb: !!crumb,
         crumbText: crumb ? crumb.innerText : '',
         crumbLinkCount: crumb ? crumb.querySelectorAll('a').length : 0,
+        parentIsPill: !!parentPill,
+        parentPillText: parentPill ? parentPill.textContent : '',
+        label1HasNewline, label1Style, label1ValueHTML,
       };
     });
     const tubeOK = tubePopup.hasCrumb &&
@@ -2002,6 +2029,14 @@ function ghReadFile(path) {
                    tubePopup.crumbLinkCount >= 4; // all ancestors clickable, self is not
     log('hierarchy', 'Tube popup shows breadcrumb', tubeOK ? 'PASS' : 'FAIL',
       tubeOK ? `${tubePopup.crumbLinkCount} links in crumb` : tubePopup.crumbText.substring(0, 80));
+
+    log('hierarchy', 'Parent field renders as object pill',
+      tubePopup.parentIsPill && tubePopup.parentPillText.includes('Pistachio DNA Box') ? 'PASS' : 'FAIL',
+      tubePopup.parentIsPill ? `pill text: "${tubePopup.parentPillText}"` : 'no a.object-pill in parent span');
+
+    log('hierarchy', 'Multi-line label preserves newlines',
+      tubePopup.label1HasNewline && tubePopup.label1Style.includes('pre-wrap') ? 'PASS' : 'FAIL',
+      tubePopup.label1HasNewline ? 'real \\n in text + pre-wrap style' : `style="${tubePopup.label1Style}" html="${tubePopup.label1ValueHTML.substring(0, 60)}"`);
 
     await p.close();
   }
