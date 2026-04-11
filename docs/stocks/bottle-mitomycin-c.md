@@ -1,0 +1,14 @@
+---
+type: bottle
+title: Mitomycin C
+of: resources/mitomycin-c
+parent: locations/fridge-reagent
+quantity: 10
+unit: each
+---
+
+# Mitomycin C
+
+Bottle of [[resources/mitomycin-c]].
+
+Migrated from inline `containers:` entry (original location: 'Refrigerator').

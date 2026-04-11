@@ -2668,6 +2668,148 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  BOTTLES (R5): concept/instance migration
+  //  ────────────────────────────────────────
+  //  Tests the new bottle type and the migration of `containers:` arrays
+  //  into first-class bottle objects with their own parent + position + of:
+  //   • bottle type registered in Lab.types
+  //   • object index carries 100+ bottle entries with `of:` set
+  //   • placeholder location objects exist (cabinet-flammable etc.)
+  //   • concept popup col 3 lists its bottles via of:-aware backlinks
+  //   • inventory page filters bottles out of row list but counts them
+  //     into the concept's instance count
+  //   • concept files have been cleaned of containers:
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('bottles')) {
+    console.log('\n🍶 BOTTLES\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && window.Lab.types && window.Lab.editorModal, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
+
+    // 1. Bottle type is registered in the type system.
+    const typeInfo = await p.evaluate(() => {
+      const t = Lab.types.get('bottle');
+      const fields = Lab.types.getFields('bottle').map(f => f.key);
+      return {
+        label: t.label,
+        color: t.color,
+        group: t.group,
+        hasOf: fields.includes('of'),
+        hasParent: fields.includes('parent'),
+        hasLot: fields.includes('lot'),
+        hasExpiration: fields.includes('expiration'),
+      };
+    });
+    log('bottles', 'bottle type registered',
+      typeInfo.label === 'Bottle' && typeInfo.group === 'stocks' ? 'PASS' : 'FAIL',
+      `label=${typeInfo.label} group=${typeInfo.group}`);
+    log('bottles', 'bottle schema has of/parent/lot/expiration',
+      typeInfo.hasOf && typeInfo.hasParent && typeInfo.hasLot && typeInfo.hasExpiration ? 'PASS' : 'FAIL',
+      `of=${typeInfo.hasOf} parent=${typeInfo.hasParent} lot=${typeInfo.hasLot} exp=${typeInfo.hasExpiration}`);
+
+    // 2. Index has 100+ bottle entries and they all carry of:.
+    const bottleStats = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const bottles = idx.filter(e => e.type === 'bottle');
+      const withOf = bottles.filter(e => !!e.of);
+      const withParent = bottles.filter(e => !!e.parent);
+      const ethanol = idx.find(e => e.path === 'stocks/bottle-ethanol-absolute.md');
+      return {
+        total: bottles.length,
+        withOf: withOf.length,
+        withParent: withParent.length,
+        ethanolHasOf: !!ethanol && ethanol.of === 'resources/ethanol-absolute',
+        ethanolParent: ethanol ? ethanol.parent : null,
+      };
+    });
+    log('bottles', 'index has migrated bottles',
+      bottleStats.total >= 100 ? 'PASS' : 'FAIL',
+      `${bottleStats.total} bottle entries`);
+    log('bottles', 'all bottles carry of: + parent:',
+      bottleStats.withOf === bottleStats.total && bottleStats.withParent === bottleStats.total ? 'PASS' : 'FAIL',
+      `of=${bottleStats.withOf}/${bottleStats.total} parent=${bottleStats.withParent}/${bottleStats.total}`);
+    log('bottles', 'ethanol-absolute bottle wired to concept',
+      bottleStats.ethanolHasOf && bottleStats.ethanolParent === 'locations/cabinet-flammable' ? 'PASS' : 'FAIL',
+      `of→resources/ethanol-absolute, parent=${bottleStats.ethanolParent}`);
+
+    // 3. Placeholder location objects were created.
+    const placeholderCheck = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const wanted = [
+        'locations/cabinet-flammable',
+        'locations/cabinet-chemical',
+        'locations/cabinet-corrosive',
+        'locations/fridge-reagent',
+        'locations/bench-reagent',
+      ];
+      const found = wanted.filter(slug =>
+        idx.some(e => e.path === slug + '.md'));
+      return { wanted: wanted.length, found: found.length, missing: wanted.filter(s => !found.includes(s)) };
+    });
+    log('bottles', 'placeholder locations created',
+      placeholderCheck.found === placeholderCheck.wanted ? 'PASS' : 'FAIL',
+      placeholderCheck.found === placeholderCheck.wanted
+        ? `${placeholderCheck.found}/${placeholderCheck.wanted} placeholder locations exist`
+        : `missing: ${placeholderCheck.missing.join(', ')}`);
+
+    // 4. Source concept files have been cleaned of containers:.
+    const concepts = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const reagents = idx.filter(e => e.type === 'reagent');
+      const stillHaveContainers = reagents.filter(e => Array.isArray(e.containers) && e.containers.length > 0);
+      return { reagents: reagents.length, dirty: stillHaveContainers.length };
+    });
+    log('bottles', 'concept files cleaned of containers:',
+      concepts.dirty === 0 ? 'PASS' : 'FAIL',
+      `${concepts.dirty} reagent files still carry non-empty containers (of ${concepts.reagents} total)`);
+
+    // 5. Concept popup col 3 lists physical bottles via of:-aware backlinks.
+    await p.evaluate(() => Lab.editorModal.open('docs/resources/ethanol-absolute.md'));
+    await p.waitForTimeout(2500);
+    const conceptCol3 = await p.evaluate(() => {
+      const mount = document.getElementById('em-contents');
+      if (!mount) return { html: 'no mount' };
+      const rows = mount.querySelectorAll('.em-backlink-row');
+      const slugs = Array.from(rows).map(r => r.dataset.slug || '');
+      return {
+        rowCount: rows.length,
+        hasEthanolBottle: slugs.some(s => s.indexOf('bottle-ethanol-absolute') >= 0),
+        firstFew: slugs.slice(0, 3),
+      };
+    });
+    log('bottles', 'concept popup col 3 lists its bottles',
+      conceptCol3.rowCount >= 1 && conceptCol3.hasEthanolBottle ? 'PASS' : 'FAIL',
+      `${conceptCol3.rowCount} backlink rows; first: ${conceptCol3.firstFew.join(' | ')}`);
+
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(400);
+
+    // 6. Inventory page hides bottles from rows + rolls them into concept counts.
+    await p.goto(BASE + '/app/inventory.html', { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await p.waitForTimeout(3000);
+    const invCheck = await p.evaluate(() => {
+      const rows = Array.from(document.querySelectorAll('tbody tr'));
+      const names = rows.map(r => r.querySelector('td')?.textContent.trim() || '');
+      const ethanolRow = rows.find(r => /Ethanol Absolute/i.test(r.textContent));
+      const hasBottleRow = names.some(n => /^bottle-/.test(n));
+      return {
+        rowCount: rows.length,
+        hasBottleRow,
+        ethanolRowText: ethanolRow ? ethanolRow.textContent.replace(/\s+/g, ' ').trim().substring(0, 200) : null,
+      };
+    });
+    log('bottles', 'inventory hides bottle rows',
+      !invCheck.hasBottleRow && invCheck.rowCount > 0 ? 'PASS' : 'FAIL',
+      `${invCheck.rowCount} rows visible, bottle rows present=${invCheck.hasBottleRow}`);
+    log('bottles', 'concept row found in inventory',
+      !!invCheck.ethanolRowText ? 'PASS' : 'FAIL',
+      invCheck.ethanolRowText ? invCheck.ethanolRowText.substring(0, 100) : 'no ethanol row');
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

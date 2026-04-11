@@ -940,6 +940,630 @@
     "target": "resources/chloramphenicol"
   },
   {
+    "source": "stocks/bottle-1-8-naphthalic-anhydride",
+    "target": "resources/1-8-naphthalic-anhydride"
+  },
+  {
+    "source": "stocks/bottle-1-hydroxy-3-3-trifluoromethylphenyl-urea",
+    "target": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea"
+  },
+  {
+    "source": "stocks/bottle-1-octanol",
+    "target": "resources/1-octanol"
+  },
+  {
+    "source": "stocks/bottle-1m-tris-hcl-ph-8-8-5",
+    "target": "resources/1m-tris-hcl-ph-8-8-5"
+  },
+  {
+    "source": "stocks/bottle-2-mercaptoethanol",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "stocks/bottle-3-methylbutanol",
+    "target": "resources/3-methylbutanol"
+  },
+  {
+    "source": "stocks/bottle-4-morpholineethanesulfonic-acid",
+    "target": "resources/4-morpholineethanesulfonic-acid"
+  },
+  {
+    "source": "stocks/bottle-aceto-orcein-solution-2",
+    "target": "resources/aceto-orcein-solution-2"
+  },
+  {
+    "source": "stocks/bottle-acetone",
+    "target": "resources/acetone"
+  },
+  {
+    "source": "stocks/bottle-acrylamide",
+    "target": "resources/acrylamide"
+  },
+  {
+    "source": "stocks/bottle-activated-charcoal",
+    "target": "resources/activated-charcoal"
+  },
+  {
+    "source": "stocks/bottle-agar-non-tc",
+    "target": "resources/agar-non-tc"
+  },
+  {
+    "source": "stocks/bottle-agar-plant-tc",
+    "target": "resources/agar-plant-tc"
+  },
+  {
+    "source": "stocks/bottle-agarose",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "stocks/bottle-alpha-d-glucose",
+    "target": "resources/alpha-d-glucose"
+  },
+  {
+    "source": "stocks/bottle-ammonium-acetate",
+    "target": "resources/ammonium-acetate"
+  },
+  {
+    "source": "stocks/bottle-ammonium-chloride",
+    "target": "resources/ammonium-chloride"
+  },
+  {
+    "source": "stocks/bottle-ammonium-nitrate",
+    "target": "resources/ammonium-nitrate"
+  },
+  {
+    "source": "stocks/bottle-ammonium-phosphate-monobasic",
+    "target": "resources/ammonium-phosphate-monobasic"
+  },
+  {
+    "source": "stocks/bottle-aristolochic-acid-i",
+    "target": "resources/aristolochic-acid-i"
+  },
+  {
+    "source": "stocks/bottle-basic-fuchsin",
+    "target": "resources/basic-fuchsin"
+  },
+  {
+    "source": "stocks/bottle-bis-n-n-methylene-bis-acrylamide",
+    "target": "resources/bis-n-n-methylene-bis-acrylamide"
+  },
+  {
+    "source": "stocks/bottle-boric-acid",
+    "target": "resources/boric-acid"
+  },
+  {
+    "source": "stocks/bottle-bromophenol-blue",
+    "target": "resources/bromophenol-blue"
+  },
+  {
+    "source": "stocks/bottle-calcium-carbonate",
+    "target": "resources/calcium-carbonate"
+  },
+  {
+    "source": "stocks/bottle-calcium-chloride",
+    "target": "resources/calcium-chloride"
+  },
+  {
+    "source": "stocks/bottle-calcium-nitrate-tetrahydrate",
+    "target": "resources/calcium-nitrate-tetrahydrate"
+  },
+  {
+    "source": "stocks/bottle-carbenicillin-disodium-salt",
+    "target": "resources/carbenicillin-disodium-salt"
+  },
+  {
+    "source": "stocks/bottle-carbon-activated",
+    "target": "resources/carbon-activated"
+  },
+  {
+    "source": "stocks/bottle-casein-hydrolysate",
+    "target": "resources/casein-hydrolysate"
+  },
+  {
+    "source": "stocks/bottle-cefotaxime-sodium-salt",
+    "target": "resources/cefotaxime-sodium-salt"
+  },
+  {
+    "source": "stocks/bottle-cesium-chloride",
+    "target": "resources/cesium-chloride"
+  },
+  {
+    "source": "stocks/bottle-cetrimonium-bromide",
+    "target": "resources/cetrimonium-bromide"
+  },
+  {
+    "source": "stocks/bottle-chloramphenicol",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "stocks/bottle-chloroform-isoamyl-alcohol-24-1",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "stocks/bottle-chloroform",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "stocks/bottle-cis-diamineplatinum-ii-dichloride",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "stocks/bottle-citric-acid",
+    "target": "resources/citric-acid"
+  },
+  {
+    "source": "stocks/bottle-colibri-dna-library-cleanup-kit",
+    "target": "resources/colibri-dna-library-cleanup-kit"
+  },
+  {
+    "source": "stocks/bottle-d-glucose",
+    "target": "resources/d-glucose"
+  },
+  {
+    "source": "stocks/bottle-d-mannitol",
+    "target": "resources/d-mannitol"
+  },
+  {
+    "source": "stocks/bottle-d-sorbitol",
+    "target": "resources/d-sorbitol"
+  },
+  {
+    "source": "stocks/bottle-dextran",
+    "target": "resources/dextran"
+  },
+  {
+    "source": "stocks/bottle-diethyl-pyrocarbonate",
+    "target": "resources/diethyl-pyrocarbonate"
+  },
+  {
+    "source": "stocks/bottle-dimethyl-sulfoxide",
+    "target": "resources/dimethyl-sulfoxide"
+  },
+  {
+    "source": "stocks/bottle-disodium-ethylenediamine-tetraacetate",
+    "target": "resources/disodium-ethylenediamine-tetraacetate"
+  },
+  {
+    "source": "stocks/bottle-dkw-medium-with-vitamins",
+    "target": "resources/dkw-medium-with-vitamins"
+  },
+  {
+    "source": "stocks/bottle-dneasy-plant-mini",
+    "target": "resources/dneasy-plant-mini"
+  },
+  {
+    "source": "stocks/bottle-edta-tetrasodium-salt-dihydrate",
+    "target": "resources/edta-tetrasodium-salt-dihydrate"
+  },
+  {
+    "source": "stocks/bottle-edta-trisodium-salt",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "stocks/bottle-egta",
+    "target": "resources/egta"
+  },
+  {
+    "source": "stocks/bottle-ethanol-70-1",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "stocks/bottle-ethanol-70-2",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "stocks/bottle-ethanol-absolute",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "stocks/bottle-ethyl-alcohol-absolute",
+    "target": "resources/ethyl-alcohol-absolute"
+  },
+  {
+    "source": "stocks/bottle-ethyl-methanesulfonate",
+    "target": "resources/ethyl-methanesulfonate"
+  },
+  {
+    "source": "stocks/bottle-ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt",
+    "target": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt"
+  },
+  {
+    "source": "stocks/bottle-ethylenediaminetetraacetic-acid-gmp",
+    "target": "resources/ethylenediaminetetraacetic-acid-gmp"
+  },
+  {
+    "source": "stocks/bottle-ficoll-400",
+    "target": "resources/ficoll-400"
+  },
+  {
+    "source": "stocks/bottle-formaldehyde-16-methanol-free-pfa",
+    "target": "resources/formaldehyde-16-methanol-free-pfa"
+  },
+  {
+    "source": "stocks/bottle-formamide-2",
+    "target": "resources/formamide-2"
+  },
+  {
+    "source": "stocks/bottle-formamide",
+    "target": "resources/formamide"
+  },
+  {
+    "source": "stocks/bottle-gaseous-hydrochloric-acid",
+    "target": "resources/gaseous-hydrochloric-acid"
+  },
+  {
+    "source": "stocks/bottle-gentamicin-sulfate-salt",
+    "target": "resources/gentamicin-sulfate-salt"
+  },
+  {
+    "source": "stocks/bottle-glacial-acetic-acid-2",
+    "target": "resources/glacial-acetic-acid-2"
+  },
+  {
+    "source": "stocks/bottle-glacial-acetic-acid",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "stocks/bottle-glufosinate-ammonium",
+    "target": "resources/glufosinate-ammonium"
+  },
+  {
+    "source": "stocks/bottle-glycerin",
+    "target": "resources/glycerin"
+  },
+  {
+    "source": "stocks/bottle-glycerol-50-aqueous-solution",
+    "target": "resources/glycerol-50-aqueous-solution"
+  },
+  {
+    "source": "stocks/bottle-glycine",
+    "target": "resources/glycine"
+  },
+  {
+    "source": "stocks/bottle-guanidine-thiocyanate-2",
+    "target": "resources/guanidine-thiocyanate-2"
+  },
+  {
+    "source": "stocks/bottle-guanidine-thiocyanate",
+    "target": "resources/guanidine-thiocyanate"
+  },
+  {
+    "source": "stocks/bottle-hepes",
+    "target": "resources/hepes"
+  },
+  {
+    "source": "stocks/bottle-hexadecyltrimethyl-ammonium-bromide",
+    "target": "resources/hexadecyltrimethyl-ammonium-bromide"
+  },
+  {
+    "source": "stocks/bottle-hydrogen-peroxide-20-to-35-in-water",
+    "target": "resources/hydrogen-peroxide-20-to-35-in-water"
+  },
+  {
+    "source": "stocks/bottle-hydrogen-peroxide-30",
+    "target": "resources/hydrogen-peroxide-30"
+  },
+  {
+    "source": "stocks/bottle-hydroxylamine-hydrochloride",
+    "target": "resources/hydroxylamine-hydrochloride"
+  },
+  {
+    "source": "stocks/bottle-igepal-ca-630",
+    "target": "resources/igepal-ca-630"
+  },
+  {
+    "source": "stocks/bottle-imidazole-hydrochloride",
+    "target": "resources/imidazole-hydrochloride"
+  },
+  {
+    "source": "stocks/bottle-iohexol",
+    "target": "resources/iohexol"
+  },
+  {
+    "source": "stocks/bottle-iron-iii-chloride",
+    "target": "resources/iron-iii-chloride"
+  },
+  {
+    "source": "stocks/bottle-isopropyl-alcohol-2",
+    "target": "resources/isopropyl-alcohol-2"
+  },
+  {
+    "source": "stocks/bottle-isopropyl-alcohol-70-in-water-2",
+    "target": "resources/isopropyl-alcohol-70-in-water-2"
+  },
+  {
+    "source": "stocks/bottle-isopropyl-alcohol-70-in-water",
+    "target": "resources/isopropyl-alcohol-70-in-water"
+  },
+  {
+    "source": "stocks/bottle-isopropyl-alcohol",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "stocks/bottle-kanamycin-sulfate",
+    "target": "resources/kanamycin-sulfate"
+  },
+  {
+    "source": "stocks/bottle-l-glutamine",
+    "target": "resources/l-glutamine"
+  },
+  {
+    "source": "stocks/bottle-l-lysine-monohydrochloride",
+    "target": "resources/l-lysine-monohydrochloride"
+  },
+  {
+    "source": "stocks/bottle-lithium-acetate-dihydrate",
+    "target": "resources/lithium-acetate-dihydrate"
+  },
+  {
+    "source": "stocks/bottle-lithium-chloride",
+    "target": "resources/lithium-chloride"
+  },
+  {
+    "source": "stocks/bottle-lithium-hydroxide-monohydrate",
+    "target": "resources/lithium-hydroxide-monohydrate"
+  },
+  {
+    "source": "stocks/bottle-magnesium-acetate-tetrahydrate",
+    "target": "resources/magnesium-acetate-tetrahydrate"
+  },
+  {
+    "source": "stocks/bottle-magnesium-chloride",
+    "target": "resources/magnesium-chloride"
+  },
+  {
+    "source": "stocks/bottle-magnesium-sulfate-heptahydrate",
+    "target": "resources/magnesium-sulfate-heptahydrate"
+  },
+  {
+    "source": "stocks/bottle-manganese-ii-chloride",
+    "target": "resources/manganese-ii-chloride"
+  },
+  {
+    "source": "stocks/bottle-mes-buffer",
+    "target": "resources/mes-buffer"
+  },
+  {
+    "source": "stocks/bottle-methanol",
+    "target": "resources/methanol"
+  },
+  {
+    "source": "stocks/bottle-methyl-methanesulfonate",
+    "target": "resources/methyl-methanesulfonate"
+  },
+  {
+    "source": "stocks/bottle-microtube",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "stocks/bottle-mineral-oil",
+    "target": "resources/mineral-oil"
+  },
+  {
+    "source": "stocks/bottle-mitomycin-c",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "stocks/bottle-ms-basal-salt-mixture",
+    "target": "resources/ms-basal-salt-mixture"
+  },
+  {
+    "source": "stocks/bottle-peptones-casein-tryptone",
+    "target": "resources/peptones-casein-tryptone"
+  },
+  {
+    "source": "stocks/bottle-phenol-chloroform-isoamyl-alcohol-25-24-1",
+    "target": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1"
+  },
+  {
+    "source": "stocks/bottle-phenol-nitroprusside-solution",
+    "target": "resources/phenol-nitroprusside-solution"
+  },
+  {
+    "source": "stocks/bottle-phenylmethanesulfonyl-fluoride",
+    "target": "resources/phenylmethanesulfonyl-fluoride"
+  },
+  {
+    "source": "stocks/bottle-piperazine-1-4-bis-2-ethanesulfonic-acid",
+    "target": "resources/piperazine-1-4-bis-2-ethanesulfonic-acid"
+  },
+  {
+    "source": "stocks/bottle-pipes-dipotassium-salt",
+    "target": "resources/pipes-dipotassium-salt"
+  },
+  {
+    "source": "stocks/bottle-polyethylene-glycol-solid",
+    "target": "resources/polyethylene-glycol-solid"
+  },
+  {
+    "source": "stocks/bottle-polyvinylpyrrolidone",
+    "target": "resources/polyvinylpyrrolidone"
+  },
+  {
+    "source": "stocks/bottle-ponceau-s",
+    "target": "resources/ponceau-s"
+  },
+  {
+    "source": "stocks/bottle-potassium-acetate",
+    "target": "resources/potassium-acetate"
+  },
+  {
+    "source": "stocks/bottle-potassium-chloride",
+    "target": "resources/potassium-chloride"
+  },
+  {
+    "source": "stocks/bottle-potassium-hydroxide",
+    "target": "resources/potassium-hydroxide"
+  },
+  {
+    "source": "stocks/bottle-potassium-nitrate",
+    "target": "resources/potassium-nitrate"
+  },
+  {
+    "source": "stocks/bottle-potassium-permanganate",
+    "target": "resources/potassium-permanganate"
+  },
+  {
+    "source": "stocks/bottle-potassium-phosphate-dibasic",
+    "target": "resources/potassium-phosphate-dibasic"
+  },
+  {
+    "source": "stocks/bottle-potassium-phosphate-monobasic",
+    "target": "resources/potassium-phosphate-monobasic"
+  },
+  {
+    "source": "stocks/bottle-reagent-alcohol-100-200-proof-denatured",
+    "target": "resources/reagent-alcohol-100-200-proof-denatured"
+  },
+  {
+    "source": "stocks/bottle-silwet-l-77",
+    "target": "resources/silwet-l-77"
+  },
+  {
+    "source": "stocks/bottle-sodium-acetate-anhydrous",
+    "target": "resources/sodium-acetate-anhydrous"
+  },
+  {
+    "source": "stocks/bottle-sodium-arsenate-dibasic-heptahydrate",
+    "target": "resources/sodium-arsenate-dibasic-heptahydrate"
+  },
+  {
+    "source": "stocks/bottle-sodium-bicarbonate",
+    "target": "resources/sodium-bicarbonate"
+  },
+  {
+    "source": "stocks/bottle-sodium-bisulfite",
+    "target": "resources/sodium-bisulfite"
+  },
+  {
+    "source": "stocks/bottle-sodium-chloride",
+    "target": "resources/sodium-chloride"
+  },
+  {
+    "source": "stocks/bottle-sodium-citrate",
+    "target": "resources/sodium-citrate"
+  },
+  {
+    "source": "stocks/bottle-sodium-dodecyl-sulfate",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "stocks/bottle-sodium-hydroxide-10-0-normal",
+    "target": "resources/sodium-hydroxide-10-0-normal"
+  },
+  {
+    "source": "stocks/bottle-sodium-hydroxide-10n-aqueous-solution",
+    "target": "resources/sodium-hydroxide-10n-aqueous-solution"
+  },
+  {
+    "source": "stocks/bottle-sodium-hydroxide-2",
+    "target": "resources/sodium-hydroxide-2"
+  },
+  {
+    "source": "stocks/bottle-sodium-hydroxide",
+    "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "stocks/bottle-sodium-metabisulfite",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "stocks/bottle-sodium-phosphate-dibasic",
+    "target": "resources/sodium-phosphate-dibasic"
+  },
+  {
+    "source": "stocks/bottle-sodium-pyrophosphate-decahydrate",
+    "target": "resources/sodium-pyrophosphate-decahydrate"
+  },
+  {
+    "source": "stocks/bottle-sodium-sulfite",
+    "target": "resources/sodium-sulfite"
+  },
+  {
+    "source": "stocks/bottle-sodium-tetraborate",
+    "target": "resources/sodium-tetraborate"
+  },
+  {
+    "source": "stocks/bottle-sodium-thiosulfate-pentahydrate",
+    "target": "resources/sodium-thiosulfate-pentahydrate"
+  },
+  {
+    "source": "stocks/bottle-spermidine",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "stocks/bottle-spermine",
+    "target": "resources/spermine"
+  },
+  {
+    "source": "stocks/bottle-taps",
+    "target": "resources/taps"
+  },
+  {
+    "source": "stocks/bottle-tapso",
+    "target": "resources/tapso"
+  },
+  {
+    "source": "stocks/bottle-tc-agar-a175",
+    "target": "resources/tc-agar-a175"
+  },
+  {
+    "source": "stocks/bottle-test-item-mobile",
+    "target": "resources/test-item-mobile"
+  },
+  {
+    "source": "stocks/bottle-test-item",
+    "target": "resources/test-item"
+  },
+  {
+    "source": "stocks/bottle-tetracycline-hydrochloride",
+    "target": "resources/tetracycline-hydrochloride"
+  },
+  {
+    "source": "stocks/bottle-tham",
+    "target": "resources/tham"
+  },
+  {
+    "source": "stocks/bottle-trichloroacetic-acid",
+    "target": "resources/trichloroacetic-acid"
+  },
+  {
+    "source": "stocks/bottle-tricine",
+    "target": "resources/tricine"
+  },
+  {
+    "source": "stocks/bottle-tris-base",
+    "target": "resources/tris-base"
+  },
+  {
+    "source": "stocks/bottle-tris-edta-te-buffer-solution",
+    "target": "resources/tris-edta-te-buffer-solution"
+  },
+  {
+    "source": "stocks/bottle-triton-x-100",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "stocks/bottle-trizma-base",
+    "target": "resources/trizma-base"
+  },
+  {
+    "source": "stocks/bottle-tween-80",
+    "target": "resources/tween-80"
+  },
+  {
+    "source": "stocks/bottle-urea",
+    "target": "resources/urea"
+  },
+  {
+    "source": "stocks/bottle-yeast-extract",
+    "target": "resources/yeast-extract"
+  },
+  {
+    "source": "stocks/bottle-zeocin",
+    "target": "resources/zeocin"
+  },
+  {
     "source": "stocks/col-0-wild-type",
     "target": "wet-lab/planting-arabidopsis-on-ms-plates"
   },

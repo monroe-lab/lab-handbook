@@ -275,23 +275,35 @@ var sortDir = 1;
 var deletingItem = null;
 
 // Map an object-index entry to a row used by the table.
-// Rolls up containers[] for quantity and location display when present.
-function toInventoryRow(obj) {
+// R5: rolls up `bottle` instances (objects with `of:` pointing at this concept)
+// for quantity/location. Falls back to the legacy `containers[]` array for any
+// concept that hasn't been migrated yet.
+function toInventoryRow(obj, bottles) {
   var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-  var containers = Array.isArray(obj.containers) ? obj.containers : [];
+  bottles = bottles || [];
+  var legacyContainers = Array.isArray(obj.containers) ? obj.containers : [];
+  // Prefer R5 bottle objects; fall back to legacy inline containers.
+  var instances = bottles.length ? bottles : legacyContainers;
+  var sourceIsBottles = bottles.length > 0;
+
   var quantity, unit, location;
-  if (containers.length) {
+  if (instances.length) {
     var totals = {};
-    containers.forEach(function(c) {
+    instances.forEach(function(c) {
       var u = c.unit || obj.unit || '';
       var q = parseFloat(c.quantity) || 0;
       totals[u] = (totals[u] || 0) + q;
     });
     var units = Object.keys(totals);
     if (units.length === 1) { quantity = totals[units[0]]; unit = units[0]; }
-    else { quantity = containers.length; unit = 'containers'; }
+    else { quantity = instances.length; unit = sourceIsBottles ? 'bottles' : 'containers'; }
+
+    // Bottles use `parent:` (location slug); legacy used `location:` (free text).
     var locs = {};
-    containers.forEach(function(c) { if (c.location) locs[c.location] = true; });
+    instances.forEach(function(c) {
+      var loc = c.parent || c.location;
+      if (loc) locs[loc] = true;
+    });
     var locKeys = Object.keys(locs);
     location = locKeys.length === 1 ? locKeys[0] : locKeys.length > 1 ? (locKeys.length + ' locations') : (obj.location || '');
   } else {
@@ -308,7 +320,8 @@ function toInventoryRow(obj) {
     quantity: quantity,
     unit: unit,
     location: location,
-    containerCount: containers.length,
+    containerCount: instances.length,
+    instanceLabel: sourceIsBottles ? 'bottles' : 'containers',
     notes: obj.notes || '',
     lowStockThreshold: obj.low_stock_threshold || 0,
     status: obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock'),
@@ -329,9 +342,24 @@ function formatDateShort(iso) {
 async function loadInventory() {
   try {
     var index = await Lab.gh.fetchObjectIndex();
+    // R5: build a concept-slug → [bottle entries] map so each concept row
+    // can roll up its physical bottles. Bottles themselves are excluded
+    // from the top-level row list — they're shown nested under their concept.
+    var bottlesByConcept = {};
+    index.forEach(function(obj) {
+      if (obj.type !== 'bottle' || !obj.of) return;
+      var ofSlug = String(obj.of).replace(/^\[\[/, '').replace(/\]\]$/, '').replace(/\.md$/, '').replace(/^\.\//, '');
+      (bottlesByConcept[ofSlug] = bottlesByConcept[ofSlug] || []).push(obj);
+    });
     inventory = index
-      .filter(function(obj) { return isInventoryType(obj.type); })
-      .map(toInventoryRow);
+      .filter(function(obj) {
+        if (obj.type === 'bottle') return false;
+        return isInventoryType(obj.type);
+      })
+      .map(function(obj) {
+        var conceptSlug = obj.path.replace(/\.md$/, '');
+        return toInventoryRow(obj, bottlesByConcept[conceptSlug] || []);
+      });
   } catch(e) {
     Lab.showToast('Failed to load inventory: ' + e.message, 'error');
     inventory = [];
@@ -412,7 +440,7 @@ function renderTable() {
   tbody.innerHTML = items.map(function(item) {
     var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
     var qtyHtml = Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') +
-      (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' containers)</span>' : '');
+      (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' ' + item.instanceLabel + ')</span>' : '');
     return '<tr class="' + (isAlert ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
       '<td><strong>' + Lab.escHtml(item.name) + '</strong></td>' +
       '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +

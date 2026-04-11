@@ -54,6 +54,9 @@ EXTRACT_KEYS = [
     # `grid` declares this object is itself a grid container, e.g. "10x10", "8x12".
     # `label_1` / `label_2` are display labels; label_2 is used for compact grid cells.
     "parent", "position", "grid", "label_1", "label_2",
+    # R5: bottle (concept/instance) fields. `of` points at the concept slug
+    # for a physical bottle/instance; the rest is per-bottle metadata.
+    "of", "lot", "expiration", "acquired", "level",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)

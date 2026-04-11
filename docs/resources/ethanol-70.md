@@ -2,12 +2,6 @@
 type: reagent
 title: Ethanol 70%
 location: Chemical Cabinet
-containers:
-  - location: Bench
-    quantity: 1
-    expiration: '2026-04-07'
-  - location: Bench
-    quantity: 1
 need_more: false
 created_at: '2026-04-07T16:48:44.166Z'
 created_by: greymonroe

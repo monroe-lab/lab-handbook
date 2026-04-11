@@ -962,6 +962,7 @@
       var byPath = {};
       idx.forEach(function(e) { byPath[e.path.replace(/\.md$/, '')] = e; });
       var results = [];
+      // 1. Body wikilinks pointing at this slug.
       for (var i = 0; i < edges.length; i++) {
         var edge = edges[i];
         if (edge.target !== slug) continue;
@@ -970,6 +971,24 @@
           slug: edge.source,
           title: (source && source.title) || edge.source.split('/').pop(),
           type: (source && source.type) || 'container',
+        });
+      }
+      // 2. R5: frontmatter `of:` pointers. Bottle objects reference their
+      //    concept via `of: <slug>` so the concept's backlinks pane shows
+      //    every physical instance even if the body has no [[wikilink]].
+      for (var j = 0; j < idx.length; j++) {
+        var entry = idx[j];
+        if (!entry.of) continue;
+        var ofRaw = String(entry.of).trim();
+        // Normalize: strip [[...]] and .md, leading ./
+        ofRaw = ofRaw.replace(/^\[\[/, '').replace(/\]\]$/, '');
+        ofRaw = ofRaw.replace(/^\.\//, '').replace(/\.md$/, '');
+        if (ofRaw !== slug) continue;
+        var entrySlug = entry.path.replace(/\.md$/, '');
+        results.push({
+          slug: entrySlug,
+          title: entry.title || entrySlug.split('/').pop(),
+          type: entry.type || 'bottle',
         });
       }
       // Dedupe by slug + sort by title

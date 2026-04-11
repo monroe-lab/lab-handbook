@@ -160,6 +160,32 @@
       displayFields: null,
       tableColumns: null,
     },
+    bottle: {
+      // R5: physical instance of a reagent/stock concept.
+      // Concept lives at docs/resources/<slug>.md (or docs/stocks/<slug>.md).
+      // Each bottle is its own object with parent + position + lot + expiration.
+      // The `of:` frontmatter points at the concept slug; the body should also
+      // contain a [[wikilink]] to the concept for prose readability.
+      color: '#ef6c00',
+      icon: '\uD83E\uDDF4',
+      label: 'Bottle',
+      group: 'stocks',
+      fields: [
+        { key: 'title',      label: 'Name',                type: 'text', required: true },
+        { key: 'type',       label: 'Type',                type: 'hidden', value: 'bottle' },
+        { key: 'of',         label: 'Of (concept slug)',   type: 'text', placeholder: 'e.g. resources/ethanol-absolute' },
+        { key: 'parent',     label: 'Inside',              type: 'text', placeholder: 'slug of parent location' },
+        { key: 'position',   label: 'Position in parent',  type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
+        { key: 'quantity',   label: 'Quantity',            type: 'text', placeholder: 'amount in the bottle' },
+        { key: 'unit',       label: 'Unit',                type: 'text', placeholder: 'g, mL, L, each' },
+        { key: 'lot',        label: 'Lot',                 type: 'text' },
+        { key: 'expiration', label: 'Expiration',          type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'acquired',   label: 'Acquired',            type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'level',      label: 'Level',               type: 'text', placeholder: 'e.g. full, 3/4, empty' },
+      ],
+      displayFields: ['of', 'parent', 'position', 'quantity', 'unit', 'lot', 'expiration', 'acquired', 'level'],
+      tableColumns: ['name', 'of', 'parent', 'quantity', 'unit', 'expiration'],
+    },
     person: {
       color: '#1565c0',
       icon: '\uD83D\uDC64',
@@ -364,7 +390,7 @@
       label: 'Stocks',
       icon: 'eco',
       color: '#4caf50',
-      types: ['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep'],
+      types: ['seed', 'glycerol_stock', 'plasmid', 'agro_strain', 'dna_prep', 'bottle'],
       dir: 'stocks',
       defaultType: 'seed',
     },
