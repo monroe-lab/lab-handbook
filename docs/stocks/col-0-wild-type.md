@@ -1,12 +1,10 @@
 ---
 type: seed
-title: "Col-0 Wild Type"
-organism: "Arabidopsis thaliana"
-stock_type: "seed"
-location: "Seed cabinet, drawer 1"
-source: "ABRC"
+title: Col-0 Wild Type
+organism: Arabidopsis thaliana
+stock_type: seed
+source: ABRC
 ---
-
 # Col-0 Wild Type
 
 Standard Columbia-0 wild type reference accession for Arabidopsis thaliana.
