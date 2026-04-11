@@ -36,6 +36,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R9 | 7/7 | ✅ (R9) dropped the redundant "(Copy)" sidebar badge on duplicated protocols — title still carries "(Copy)" as a rename cue but the sidebar no longer doubles it (#43), rewrote workflow-templates/protocol-template.md as an educational roadmap teaching "what makes a good protocol" while demonstrating callouts, wikilinks, tables, images, videos, and code blocks (#44) |
 | R10 | 15/15 | ✅ (R10) chemistry sub/superscript rendering in renderMarkdown with auto-whitelist of common formulas (H₂O, CO₂, H₂SO₄, NaHCO₃, MgCl₂, …) + explicit `~n~` / `^n^` markdown syntax, skipping code/pre/URLs and no false positives on grid cells (A1), room numbers (170), or pH 7.5 (#37), corrosives SOP H290/H314/H318 chemical lists promoted to wikilinks against real inventory slugs — went from 6 to 44 wikilinks (#16) |
 | R11 | 7/7 | ✅ (R11) issue reporter accepts file/screenshot attachments — drag-drop zone, file picker, clipboard paste; chip preview with remove button; uploads to `issue-attachments/YYYY/MM/` outside docs/ so MkDocs ignores them; images embedded as `![name](raw.githubusercontent.com/...)` markdown so GitHub renders them inline in the issue body; non-image files linked via blob URL; 5 MB cap per file (#45) |
+| R12 | 10/10 | ✅ (R12) new scripts/build-user-stats.py walks git log and emits docs/user-stats.json with per-user totals (commits, protocols authored, notebooks authored, inventory edits, wiki edits, images uploaded, issue attachments) + recent commit list. New app/profile.html renders a per-user dashboard with stats grid, 11 unlockable badges (First Commit, Protocol Master, Chronicler, Inventory Keeper, Century, Photographer, Wiki Builder, Debugger, Founder, …), recent activity, and a cross-user leaderboard. Nav avatar now links to profile (#42) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -46,7 +47,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 202/202 (100%)** — R11 adds 7 new tests covering the issue reporter file attachment feature (#45: dropzone DOM, multiple file input, chip preview with filename/size/remove button, upload path reaching the repo). See Round 11 below for the full writeup.
+**Total: 212/212 (100%)** — R12 adds 10 new tests covering the profile page and gamification system (#42): user-stats.json shape, greymonroe heavy-stats, profile page header + stat tiles + badges + recent commits + leaderboard render, nav avatar link. See Round 12 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -551,6 +552,59 @@ Single-issue round filed while R10 was mid-flight. Small, self-contained, ships 
 - **Create-a-real-issue end-to-end test** — clicking the submit button with a real attachment and a real PAT would create a real `bug-report` issue on every labbot run. Too noisy. The separated DOM + upload tests cover the same paths without polluting the issues tab.
 - **Upload progress bars / retries** — MVP. Current UX just flips the submit button label to `Uploading N file(s)...` for the duration. Lab members with fast connections won't notice; those with slow connections will have to wait.
 - **Dedicated delete endpoint for attachments referenced in closed issues** — we're not auto-cleaning attachment files when the issue closes. They stay in the repo as a historical record. Could be a later cleanup task if the folder grows unwieldy.
+
+---
+
+## Round 12: Profile page + git-action gamification (2026-04-11)
+
+Grey asked for per-user tracking of git actions in #42 so the site could gamify contributions — "first step is tracking, then badges." R12 delivers both halves.
+
+### What shipped
+
+- [x] **`scripts/build-user-stats.py` git walker** — runs `git log --reverse --name-status --no-merges --pretty=format:<<<COMMIT>>>%H|||%an|||%ae|||%at|||%s` once, parses the stream, and groups commits by an inferred GitHub login. Login inference: (1) if the email is the GitHub noreply format `ID+login@users.noreply.github.com`, extract the login directly; (2) otherwise look up a hand-maintained `EMAIL_LOGIN_MAP` dict (currently just `greymonroe@gmail.com → greymonroe`); (3) else fall back to the email local-part for visibility. Per-user tallies: `total_commits`, `first_commit`/`last_commit` (ISO dates), `protocols_authored` (unique .md files under `docs/wet-lab` or `docs/lab-safety` with status `A`), `notebooks_authored` (unique `docs/notebooks/*.md` with status `A`), `inventory_edits` (commits touching `docs/resources`, `docs/stocks`, or `docs/inventory-app/inventory.json`), `wiki_edits` (any other `docs/` path), `images_uploaded` (unique `docs/images/*` with status `A`), `issue_attachments` (anything under `issue-attachments/`), plus the 8 most recent commits per user. Emits `docs/user-stats.json` with `{generated_at, total_commits, users}`. Run alongside `build-object-index.py` in the build flow.
+- [x] **`app/profile.html`** — new standalone HTML page that loads `user-stats.json` at runtime and renders a profile dashboard. Components:
+  - **Header** with avatar (GitHub avatar for the logged-in user, else initials), display name, `@login`, and a "Active YYYY-MM-DD → YYYY-MM-DD" date range. Includes a user picker dropdown if there's more than one user in the stats file.
+  - **Stats grid** of 7 tiles (Commits, Protocols authored, Notebook entries, Inventory edits, Wiki edits, Images uploaded, Issue attachments) each with a material icon and the current value.
+  - **Badges grid** — 11 unlockable badges defined in-page with threshold checks: `First Commit`, `First Protocol`, `First Notebook`, `Chronicler` (20+ notebooks), `Protocol Master` (10+ protocols), `Inventory Keeper` (50+ inventory edits), `Century` (100+ commits), `Photographer` (25+ images), `Wiki Builder` (100+ wiki edits), `Debugger` (5+ issue attachments), `Founder` (active since Dec 2025). Locked badges render desaturated with a progress counter like `18 / 20`.
+  - **Recent activity list** — shows the 8 most recent commits for the displayed user, newest first, with short sha + subject + date.
+  - **Lab leaderboard** — lists every user in `user-stats.json` sorted by total commits desc, with click-to-switch to that user's profile. Highlights the currently-displayed user.
+  - **URL params**: defaults to the logged-in user (via `localStorage.gh_lab_user.login`); `?user=<login>` viewing another user's profile; falls back to the top of the leaderboard if neither is set.
+  - **Empty state**: if a login isn't in the stats file, shows "No activity recorded for @<login> yet" with instructions to push a commit and re-run the build script.
+- [x] **Nav avatar link** — `nav.js renderAuth()` wraps the user's avatar + login name in an `<a href="profile.html?user=<login>">` so clicking either navigates to the profile. Kept the logout button outside the link so it doesn't accidentally fire.
+
+### Tests added in R12
+
+10 new tests in a new `r12` section:
+
+**Stats data (fetched directly from the deployed `user-stats.json`):**
+- `#42 user-stats.json is deployed and parseable`
+- `#42 greymonroe has expected heavy stats` (>100 commits)
+- `#42 stats entry carries protocols_authored + notebooks_authored + inventory_edits`
+- `#42 stats entry carries recent_commits list`
+
+**Profile page rendering** (navigates to `/app/profile.html?user=greymonroe`):
+- `#42 profile page renders the header with display name + login`
+- `#42 profile page renders all 7 stat tiles`
+- `#42 profile page renders badges with some unlocked` (≥10 total, ≥5 unlocked)
+- `#42 profile page lists recent commits` (≥5)
+- `#42 profile page renders a leaderboard with multiple users` (≥2)
+
+**Nav link**:
+- `#42 nav avatar links to profile page with user param`
+
+### Skipped in R12
+
+- **Live stats recomputation on commit** — the stats file is rebuilt only when `build-user-stats.py` is run (currently manual). A follow-up could make it part of the GitHub Actions deploy pipeline so stats stay fresh without a local build. Not blocking — rerun the script before deploying.
+- **Line count totals** — the walker skips `git show --numstat` per commit because it'd shell out ~2000 times on this repo and take 30s. The per-bucket counters give enough signal for badges; if we ever need lines_added/removed, we can parse them from the same `--name-status` output with `--numstat` appended (single git pass, just more lines to parse).
+- **Per-month activity sparkline** — nice to have, not blocking. Would need a daily bucket in the stats file and a little canvas/SVG chart.
+- **Custom badges Grey can author** — currently badge definitions are hard-coded in profile.html. A future round could load them from `docs/badges.json` or similar so Grey can tweak without editing code.
+- **Privacy opt-out** — everyone listed in the stats file is visible to everyone. For a private lab wiki with authenticated access that's fine; if this ever goes public we'd need a consent flow.
+
+### Subtle bugs caught during R12 implementation
+
+1. **Null bytes in subprocess args** — my first cut of the git walker used `\x00` as a field separator in `git log --pretty=format:"COMMIT\x00%H\x00..."`. Python's `subprocess.run` rejected it: `ValueError: embedded null byte`. Swapped to printable markers (`<<<COMMIT>>>%H|||%an|||...`) — commit metadata can't contain those strings, so parsing stays unambiguous without the null-byte hazard.
+2. **Author email → login inference** — GitHub noreply emails are easy (`ID+login@users.noreply.github.com` regex captures the login), but Grey's commit email is `greymonroe@gmail.com` and can't be derived from the string alone. Added `EMAIL_LOGIN_MAP` as a hand-maintained dict for those cases. Current mapping covers Grey; will need entries when lab members start pushing with non-noreply emails.
+3. **Recent commits window ordering** — walker runs oldest → newest (so first-touch tracking works correctly for "authored" counts), which means I append to `recent_commits` chronologically. Trimming to the last 8 entries keeps the list at the newest 8. Profile page reverses it before display so the view is newest-first.
 
 ---
 

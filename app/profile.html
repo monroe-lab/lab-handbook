@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.profile-page { max-width: 960px; margin: 0 auto; padding: 24px 20px calc(var(--bottom-nav-height) + 24px); }
+
+.profile-header {
+  background: linear-gradient(135deg, #00695c, #00897b);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 20px;
+}
+.profile-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; color: #fff; flex-shrink: 0;
+  border: 3px solid rgba(255,255,255,.35);
+  overflow: hidden;
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.profile-meta h1 { font-size: 26px; font-weight: 700; margin: 0; line-height: 1.1; }
+.profile-meta .profile-login { font-size: 14px; color: rgba(255,255,255,.82); margin-top: 4px; }
+.profile-meta .profile-active { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 6px; }
+
+.profile-user-picker {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,.7);
+}
+.profile-user-picker select {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+.profile-user-picker option { color: #1a1a1a; }
+
+.profile-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--grey-400);
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.profile-empty .material-icons-outlined { font-size: 48px; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-tile {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.stat-tile .material-icons-outlined { font-size: 28px; color: var(--teal); flex-shrink: 0; }
+.stat-tile-value { font-size: 24px; font-weight: 700; color: #1a1a1a; line-height: 1; }
+.stat-tile-label { font-size: 11px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .4px; margin-top: 4px; }
+
+.section-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--grey-600);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin: 24px 0 12px;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.badge-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.badge-card.locked { opacity: .5; filter: grayscale(.6); }
+.badge-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd54f, #ffa000);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.badge-card.locked .badge-icon {
+  background: var(--grey-300);
+}
+.badge-title { font-size: 13px; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
+.badge-desc { font-size: 11px; color: var(--grey-500); margin-top: 2px; }
+.badge-progress { font-size: 10px; color: var(--grey-400); margin-top: 3px; }
+
+.recent-list {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 6px 0;
+  margin-bottom: 24px;
+}
+.recent-item {
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--grey-100);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.recent-item:last-child { border-bottom: none; }
+.recent-sha {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: var(--grey-400);
+  min-width: 62px;
+}
+.recent-subject { font-size: 13px; color: #1a1a1a; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent-date { font-size: 11px; color: var(--grey-400); flex-shrink: 0; }
+
+.leaderboard {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 6px 0;
+}
+.leaderboard-item {
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--grey-100);
+  transition: background .1s;
+}
+.leaderboard-item:last-child { border-bottom: none; }
+.leaderboard-item:hover { background: var(--grey-50, #f9fafb); }
+.leaderboard-item.active { background: #e0f2f1; }
+.leaderboard-rank { font-size: 13px; font-weight: 700; color: var(--grey-400); min-width: 24px; }
+.leaderboard-name { font-size: 13px; font-weight: 600; color: #1a1a1a; flex: 1; }
+.leaderboard-stats { font-size: 11px; color: var(--grey-500); }
+
+@media (max-width: 768px) {
+  .profile-page { padding: 14px 12px calc(var(--bottom-nav-height) + 14px); }
+  .profile-header { flex-direction: column; text-align: center; padding: 20px; }
+  .profile-user-picker { margin-left: 0; margin-top: 8px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .badges-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+
+<div class="profile-page" id="profilePage">
+  <div id="loadingState" style="text-align:center;padding:40px;color:var(--grey-400);">
+    <div class="spinner"></div><p>Loading profile...</p>
+  </div>
+  <div id="profileContent" style="display:none"></div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+
+  function esc(s) { return Lab.escHtml ? Lab.escHtml(s) : String(s == null ? '' : s); }
+
+  // ── R12 #42: badge definitions ──
+  // Each badge has a threshold check against a user-stats entry. Ordered
+  // roughly by difficulty so the rendered grid looks progressive.
+  var BADGES = [
+    { id: 'first-commit',   icon: '🌱', title: 'First Commit',       desc: 'Pushed your first commit',            check: function(s) { return s.total_commits >= 1; },       goal: function(s) { return { cur: Math.min(s.total_commits, 1), max: 1 }; } },
+    { id: 'first-protocol', icon: '📜', title: 'First Protocol',     desc: 'Authored your first protocol',        check: function(s) { return s.protocols_authored >= 1; }, goal: function(s) { return { cur: Math.min(s.protocols_authored, 1), max: 1 }; } },
+    { id: 'first-notebook', icon: '📓', title: 'First Notebook',     desc: 'Created your first notebook entry',   check: function(s) { return s.notebooks_authored >= 1; }, goal: function(s) { return { cur: Math.min(s.notebooks_authored, 1), max: 1 }; } },
+    { id: 'chronicler',     icon: '✍️', title: 'Chronicler',         desc: '20+ notebook entries',                check: function(s) { return s.notebooks_authored >= 20; }, goal: function(s) { return { cur: s.notebooks_authored, max: 20 }; } },
+    { id: 'protocol-master',icon: '🧪', title: 'Protocol Master',    desc: '10+ protocols authored',              check: function(s) { return s.protocols_authored >= 10; }, goal: function(s) { return { cur: s.protocols_authored, max: 10 }; } },
+    { id: 'inventory-keeper', icon: '📦', title: 'Inventory Keeper', desc: '50+ inventory edits',                 check: function(s) { return s.inventory_edits >= 50; },   goal: function(s) { return { cur: s.inventory_edits, max: 50 }; } },
+    { id: 'century',        icon: '💯', title: 'Century',            desc: '100 total commits',                   check: function(s) { return s.total_commits >= 100; },    goal: function(s) { return { cur: s.total_commits, max: 100 }; } },
+    { id: 'photographer',   icon: '📸', title: 'Photographer',       desc: '25+ images uploaded',                 check: function(s) { return s.images_uploaded >= 25; },   goal: function(s) { return { cur: s.images_uploaded, max: 25 }; } },
+    { id: 'wiki-builder',   icon: '📚', title: 'Wiki Builder',       desc: '100+ wiki edits',                     check: function(s) { return s.wiki_edits >= 100; },       goal: function(s) { return { cur: s.wiki_edits, max: 100 }; } },
+    { id: 'debugger',       icon: '🐛', title: 'Debugger',           desc: '5+ issue attachments uploaded',       check: function(s) { return s.issue_attachments >= 5; },  goal: function(s) { return { cur: s.issue_attachments, max: 5 }; } },
+    { id: 'founder',        icon: '🏛️', title: 'Founder',            desc: 'Active since December 2025',          check: function(s) { return s.first_commit && s.first_commit <= '2025-12-31'; }, goal: function(s) { return { cur: s.first_commit && s.first_commit <= '2025-12-31' ? 1 : 0, max: 1 }; } },
+  ];
+
+  function getCurrentLogin() {
+    try {
+      var u = JSON.parse(localStorage.getItem('gh_lab_user') || '{}');
+      return u.login || '';
+    } catch(e) { return ''; }
+  }
+
+  function getUrlUser() {
+    var params = new URLSearchParams(location.search);
+    return params.get('user') || '';
+  }
+
+  async function loadStats() {
+    try {
+      var r = await fetch(BASE + 'user-stats.json?' + Date.now());
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } catch(e) {
+      throw new Error('Could not load user-stats.json: ' + e.message);
+    }
+  }
+
+  function formatDateRange(first, last) {
+    if (!first || !last) return '';
+    if (first === last) return 'Active on ' + first;
+    return 'Active ' + first + ' → ' + last;
+  }
+
+  function renderStats(user) {
+    var tiles = [
+      { icon: 'commit', value: user.total_commits || 0, label: 'Commits' },
+      { icon: 'science', value: user.protocols_authored || 0, label: 'Protocols authored' },
+      { icon: 'edit_note', value: user.notebooks_authored || 0, label: 'Notebook entries' },
+      { icon: 'inventory_2', value: user.inventory_edits || 0, label: 'Inventory edits' },
+      { icon: 'article', value: user.wiki_edits || 0, label: 'Wiki edits' },
+      { icon: 'image', value: user.images_uploaded || 0, label: 'Images uploaded' },
+      { icon: 'attach_file', value: user.issue_attachments || 0, label: 'Issue attachments' },
+    ];
+    return '<div class="stats-grid">' +
+      tiles.map(function(t) {
+        return '<div class="stat-tile" data-stat="' + t.label.toLowerCase().replace(/ /g, '-') + '">' +
+          '<span class="material-icons-outlined">' + t.icon + '</span>' +
+          '<div><div class="stat-tile-value">' + t.value + '</div>' +
+          '<div class="stat-tile-label">' + t.label + '</div></div>' +
+        '</div>';
+      }).join('') +
+      '</div>';
+  }
+
+  function renderBadges(user) {
+    var html = '<h2 class="section-heading">Badges</h2><div class="badges-grid">';
+    BADGES.forEach(function(b) {
+      var unlocked = b.check(user);
+      var goal = b.goal(user);
+      var cls = unlocked ? 'badge-card' : 'badge-card locked';
+      var progressHtml = '';
+      if (!unlocked && goal && goal.max > 0) {
+        progressHtml = '<div class="badge-progress">' + (goal.cur || 0) + ' / ' + goal.max + '</div>';
+      }
+      html += '<div class="' + cls + '" data-badge="' + b.id + '">' +
+        '<div class="badge-icon">' + b.icon + '</div>' +
+        '<div>' +
+          '<div class="badge-title">' + esc(b.title) + '</div>' +
+          '<div class="badge-desc">' + esc(b.desc) + '</div>' +
+          progressHtml +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderRecent(user) {
+    var recent = (user.recent_commits || []).slice().reverse();
+    if (!recent.length) return '';
+    var html = '<h2 class="section-heading">Recent activity</h2><div class="recent-list">';
+    recent.forEach(function(c) {
+      html += '<div class="recent-item">' +
+        '<div class="recent-sha">' + esc(c.sha || '') + '</div>' +
+        '<div class="recent-subject">' + esc(c.subject || '') + '</div>' +
+        '<div class="recent-date">' + esc(c.date || '') + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderLeaderboard(allUsers, activeLogin) {
+    var logins = Object.keys(allUsers);
+    if (logins.length <= 1) return '';
+    var html = '<h2 class="section-heading">Lab leaderboard</h2><div class="leaderboard" id="leaderboard">';
+    logins.forEach(function(login, i) {
+      var u = allUsers[login];
+      var cls = login === activeLogin ? 'leaderboard-item active' : 'leaderboard-item';
+      html += '<div class="' + cls + '" data-login="' + esc(login) + '">' +
+        '<div class="leaderboard-rank">#' + (i + 1) + '</div>' +
+        '<div class="leaderboard-name">' + esc(u.display_name || login) + '</div>' +
+        '<div class="leaderboard-stats">' + (u.total_commits || 0) + ' commits · ' +
+          (u.protocols_authored || 0) + ' protocols · ' + (u.notebooks_authored || 0) + ' notes</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderHeader(user, allUsers) {
+    var avatar = '<div class="profile-avatar">' + esc(((user.display_name || user.login || '?')[0] || '?').toUpperCase()) + '</div>';
+    // Use GitHub avatar if this is the logged-in user
+    try {
+      var me = JSON.parse(localStorage.getItem('gh_lab_user') || '{}');
+      if (me.login === user.login && me.avatar) {
+        avatar = '<div class="profile-avatar"><img src="' + esc(me.avatar) + '" alt=""></div>';
+      }
+    } catch(e) {}
+
+    var picker = '';
+    if (Object.keys(allUsers).length > 1) {
+      var options = Object.keys(allUsers).map(function(l) {
+        var selected = l === user.login ? ' selected' : '';
+        return '<option value="' + esc(l) + '"' + selected + '">' + esc(allUsers[l].display_name || l) + '</option>';
+      }).join('');
+      picker = '<div class="profile-user-picker">Viewing: <select id="userPicker">' + options + '</select></div>';
+    }
+
+    return '<div class="profile-header">' +
+      avatar +
+      '<div class="profile-meta">' +
+        '<h1>' + esc(user.display_name || user.login) + '</h1>' +
+        '<div class="profile-login">@' + esc(user.login) + '</div>' +
+        '<div class="profile-active">' + esc(formatDateRange(user.first_commit, user.last_commit)) + '</div>' +
+      '</div>' +
+      picker +
+    '</div>';
+  }
+
+  async function init() {
+    var statsPayload;
+    try {
+      statsPayload = await loadStats();
+    } catch(e) {
+      document.getElementById('loadingState').innerHTML =
+        '<p>Could not load user stats. Is <code>user-stats.json</code> deployed?</p>';
+      return;
+    }
+
+    var users = statsPayload.users || {};
+    var loginFromUrl = getUrlUser();
+    var loginFromLocal = getCurrentLogin();
+    var login = loginFromUrl || loginFromLocal || Object.keys(users)[0];
+    var user = users[login];
+
+    document.getElementById('loadingState').style.display = 'none';
+    var content = document.getElementById('profileContent');
+    content.style.display = '';
+
+    if (!user) {
+      content.innerHTML =
+        '<div class="profile-empty">' +
+          '<span class="material-icons-outlined">person_off</span>' +
+          '<p>No activity recorded for <strong>@' + esc(login) + '</strong> yet.</p>' +
+          '<p style="font-size:12px;color:var(--grey-400);">' +
+            'Push a commit and re-run <code>scripts/build-user-stats.py</code> to see stats here.' +
+          '</p>' +
+        '</div>';
+      return;
+    }
+
+    content.innerHTML =
+      renderHeader(user, users) +
+      renderStats(user) +
+      renderBadges(user) +
+      renderRecent(user) +
+      renderLeaderboard(users, login);
+
+    // Wire the user picker
+    var picker = document.getElementById('userPicker');
+    if (picker) {
+      picker.addEventListener('change', function(e) {
+        var url = new URL(location.href);
+        url.searchParams.set('user', e.target.value);
+        location.href = url.toString();
+      });
+    }
+    // Wire leaderboard rows
+    document.querySelectorAll('.leaderboard-item').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var l = row.getAttribute('data-login');
+        if (!l) return;
+        var url = new URL(location.href);
+        url.searchParams.set('user', l);
+        location.href = url.toString();
+      });
+    });
+
+    // R12 #42: dispatch an event so tests (and other pages) can hook
+    // into "profile loaded" without racing against network.
+    window.dispatchEvent(new CustomEvent('profile-loaded', { detail: { user: user } }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

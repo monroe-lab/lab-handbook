@@ -3781,6 +3781,105 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R12: Profile page + git-action gamification (#42)
+  //  ────────────────────────────────────────────────────────────
+  //  scripts/build-user-stats.py walks git log and emits
+  //  docs/user-stats.json. app/profile.html renders per-user
+  //  dashboards with stats, badges, recent activity, and a
+  //  leaderboard across lab members. Nav avatar links to it.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r12')) {
+    console.log('\n🏅  R12\n');
+
+    // ── user-stats.json exists on the live site and has the expected shape ──
+    const p1 = await context.newPage();
+    const statsResp = await p1.request.fetch(BASE + '/user-stats.json', { timeout: 10000 }).catch(() => null);
+    let statsJson = null;
+    if (statsResp && statsResp.ok()) {
+      try { statsJson = await statsResp.json(); } catch(e) {}
+    }
+    log('r12', '#42 user-stats.json is deployed and parseable',
+      statsJson && statsJson.users ? 'PASS' : 'FAIL',
+      statsJson ? `${Object.keys(statsJson.users).length} users` : 'missing');
+
+    log('r12', '#42 greymonroe has expected heavy stats',
+      statsJson && statsJson.users && statsJson.users.greymonroe &&
+      statsJson.users.greymonroe.total_commits > 100 ? 'PASS' : 'FAIL',
+      statsJson && statsJson.users && statsJson.users.greymonroe
+        ? `commits=${statsJson.users.greymonroe.total_commits} protocols=${statsJson.users.greymonroe.protocols_authored}`
+        : 'no user');
+
+    log('r12', '#42 stats entry carries protocols_authored + notebooks_authored + inventory_edits',
+      statsJson && statsJson.users && statsJson.users.greymonroe &&
+      typeof statsJson.users.greymonroe.protocols_authored === 'number' &&
+      typeof statsJson.users.greymonroe.notebooks_authored === 'number' &&
+      typeof statsJson.users.greymonroe.inventory_edits === 'number' ? 'PASS' : 'FAIL');
+
+    log('r12', '#42 stats entry carries recent_commits list',
+      statsJson && statsJson.users && statsJson.users.greymonroe &&
+      Array.isArray(statsJson.users.greymonroe.recent_commits) &&
+      statsJson.users.greymonroe.recent_commits.length > 0 ? 'PASS' : 'FAIL',
+      statsJson && statsJson.users && statsJson.users.greymonroe ?
+        `${statsJson.users.greymonroe.recent_commits.length} recent` : '');
+    await p1.close();
+
+    // ── profile.html renders for the logged-in user ──
+    const p2 = await context.newPage();
+    await p2.goto(BASE + '/app/profile.html?user=greymonroe', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForFunction(() => !!document.querySelector('.profile-header'), { timeout: 15000 }).catch(() => {});
+    await p2.waitForTimeout(800);
+    const rendered = await p2.evaluate(() => {
+      const header = document.querySelector('.profile-header');
+      const h1 = header ? header.querySelector('h1') : null;
+      const login = header ? header.querySelector('.profile-login') : null;
+      const statTiles = document.querySelectorAll('.stat-tile');
+      const badges = document.querySelectorAll('.badge-card');
+      const unlockedBadges = document.querySelectorAll('.badge-card:not(.locked)');
+      const recent = document.querySelectorAll('.recent-item');
+      const leaderboard = document.querySelectorAll('.leaderboard-item');
+      return {
+        hasHeader: !!header,
+        title: h1 ? h1.textContent.trim() : '',
+        login: login ? login.textContent.trim() : '',
+        statCount: statTiles.length,
+        badgeCount: badges.length,
+        unlockedCount: unlockedBadges.length,
+        recentCount: recent.length,
+        leaderboardCount: leaderboard.length,
+      };
+    });
+    log('r12', '#42 profile page renders the header with display name + login',
+      rendered.hasHeader && /grey/i.test(rendered.title) && /greymonroe/i.test(rendered.login) ? 'PASS' : 'FAIL',
+      `title="${rendered.title}" login="${rendered.login}"`);
+    log('r12', '#42 profile page renders all 7 stat tiles',
+      rendered.statCount === 7 ? 'PASS' : 'FAIL',
+      `${rendered.statCount} tiles`);
+    log('r12', '#42 profile page renders badges with some unlocked',
+      rendered.badgeCount >= 10 && rendered.unlockedCount >= 5 ? 'PASS' : 'FAIL',
+      `${rendered.unlockedCount}/${rendered.badgeCount} unlocked`);
+    log('r12', '#42 profile page lists recent commits',
+      rendered.recentCount >= 5 ? 'PASS' : 'FAIL',
+      `${rendered.recentCount} recent`);
+    log('r12', '#42 profile page renders a leaderboard with multiple users',
+      rendered.leaderboardCount >= 2 ? 'PASS' : 'FAIL',
+      `${rendered.leaderboardCount} users in leaderboard`);
+    await p2.close();
+
+    // ── nav avatar links to profile.html?user=<login> ──
+    const p3 = await context.newPage();
+    await p3.goto(BASE + '/app/dashboard.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p3.waitForTimeout(1800);
+    const navLink = await p3.evaluate(() => {
+      const link = document.getElementById('nav-profile-link');
+      return link ? link.getAttribute('href') : null;
+    });
+    log('r12', '#42 nav avatar links to profile page with user param',
+      navLink && /profile\.html\?user=/.test(navLink) ? 'PASS' : 'FAIL',
+      navLink || 'no link');
+    await p3.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

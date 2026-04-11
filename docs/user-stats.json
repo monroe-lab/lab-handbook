@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-04-11T18:52:11.298697+00:00",
+  "total_commits": 1866,
+  "users": {
+    "greymonroe": {
+      "login": "greymonroe",
+      "display_name": "Grey Monroe",
+      "total_commits": 1863,
+      "first_commit": "2025-12-04",
+      "last_commit": "2026-04-11",
+      "protocols_authored": 128,
+      "notebooks_authored": 81,
+      "inventory_edits": 1511,
+      "wiki_edits": 622,
+      "images_uploaded": 145,
+      "issue_attachments": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "3b96b6c",
+          "subject": "Delete protocol: LabBot Renamed mnuo0ck9",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "c4e5490",
+          "subject": "LabBot cleanup: docs/wet-lab/labbot-test-protocol-mnuo0ck9-copy.md",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "e37b21c",
+          "subject": "R10: chemistry rendering + corrosives SOP wiki-linking (#37 #16)",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "0711511",
+          "subject": "R10 followup: rescue ~sub~ / ^sup^ from marked GFM strikethrough",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "cf8a1ed",
+          "subject": "New document: resources/labbot-wiki-mnuom0ym.md",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "075bb43",
+          "subject": "Update document resources/labbot-wiki-mnuom0ym",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "712e787",
+          "subject": "LabBot cleanup: docs/resources/labbot-wiki-mnuom0ym.md",
+          "date": "2026-04-11"
+        },
+        {
+          "sha": "f0334c2",
+          "subject": "R11: issue reporter file attachments (#45)",
+          "date": "2026-04-11"
+        }
+      ]
+    },
+    "matthewwdavis": {
+      "login": "matthewwdavis",
+      "display_name": "matthewwdavis",
+      "total_commits": 2,
+      "first_commit": "2025-12-05",
+      "last_commit": "2025-12-05",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 2,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "ea4d604",
+          "subject": "Update bashrc-customization.md",
+          "date": "2025-12-05"
+        },
+        {
+          "sha": "d356ee7",
+          "subject": "Update bashrc-customization.md",
+          "date": "2025-12-05"
+        }
+      ]
+    },
+    "alicepierce": {
+      "login": "alicepierce",
+      "display_name": "Alice",
+      "total_commits": 1,
+      "first_commit": "2026-04-07",
+      "last_commit": "2026-04-07",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 0,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "eaf2747",
+          "subject": "Update wet-lab/autoclave",
+          "date": "2026-04-07"
+        }
+      ]
+    }
+  }
+}

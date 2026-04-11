@@ -181,9 +181,14 @@
 
     var user = gh.getUser();
     if (gh.isLoggedIn() && user) {
+      // R12 #42: avatar + login link to the profile page (gamification + stats).
+      var profileHref = BASE + 'app/profile.html?user=' + encodeURIComponent(user.login);
+      var loginEsc = window.Lab.escHtml ? window.Lab.escHtml(user.login) : user.login;
       area.innerHTML =
-        '<img src="' + user.avatar + '" style="width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3);object-fit:cover">' +
-        '<span class="hide-mobile" style="color:#fff;font-size:13px;font-weight:500;opacity:.9">' + (window.Lab.escHtml ? window.Lab.escHtml(user.login) : user.login) + '</span>' +
+        '<a href="' + profileHref + '" id="nav-profile-link" title="View your profile" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">' +
+          '<img src="' + user.avatar + '" style="width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3);object-fit:cover">' +
+          '<span class="hide-mobile" style="color:#fff;font-size:13px;font-weight:500;opacity:.9">' + loginEsc + '</span>' +
+        '</a>' +
         '<button id="nav-logout-btn" style="background:transparent;border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer;padding:4px 8px;font-family:inherit">Sign out</button>';
       document.getElementById('nav-logout-btn').addEventListener('click', function() { gh.logout(); });
     } else {
