@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: PIPES, dipotassium salt
-location: Chemical Cabinet
 legacy_inventory_id: 97
 ---
 # PIPES, dipotassium salt

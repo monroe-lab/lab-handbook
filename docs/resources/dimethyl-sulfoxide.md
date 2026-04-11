@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Dimethyl sulfoxide
-location: Flammable Cabinet
 legacy_inventory_id: 50
 ---
 # Dimethyl sulfoxide

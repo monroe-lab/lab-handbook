@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Trizma base
-location: Chemical Cabinet
 legacy_inventory_id: 142
 ---
 # Trizma base

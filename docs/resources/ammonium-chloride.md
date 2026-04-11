@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Ammonium chloride
-location: Chemical Cabinet
 legacy_inventory_id: 25
 ---
 # Ammonium chloride

@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Glycerol, 50% aqueous solution
-location: Chemical Cabinet
 legacy_inventory_id: 69
 ---
 # Glycerol, 50% aqueous solution

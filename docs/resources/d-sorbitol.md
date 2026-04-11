@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: D-Sorbitol
-location: Chemical Cabinet
 legacy_inventory_id: 46
 ---
 # D-Sorbitol

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium citrate
-location: Chemical Cabinet
 legacy_inventory_id: 120
 ---
 # Sodium citrate

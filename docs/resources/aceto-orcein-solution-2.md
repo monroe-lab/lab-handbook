@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Aceto-Orcein Solution, 2%
-location: Flammable Cabinet
 legacy_inventory_id: 19
 ---
 # Aceto-Orcein Solution, 2%

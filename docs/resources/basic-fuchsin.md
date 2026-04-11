@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Basic Fuchsin
-location: Chemical Cabinet
 legacy_inventory_id: 29
 ---
 # Basic Fuchsin

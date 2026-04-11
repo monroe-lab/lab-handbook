@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Methanol
-location: Flammable Cabinet
 legacy_inventory_id: 94
 ---
 # Methanol

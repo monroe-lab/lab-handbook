@@ -1,7 +1,6 @@
 ---
 type: kit
 title: Colibri DNA Library Cleanup Kit
-location: Refrigerator
 need_more: false
 created_at: '2026-04-07T16:42:53.765Z'
 created_by: greymonroe

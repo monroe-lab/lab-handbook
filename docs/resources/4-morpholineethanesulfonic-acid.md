@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: 4-Morpholineethanesulfonic acid
-location: Chemical Cabinet
 legacy_inventory_id: 18
 ---
 # 4-Morpholineethanesulfonic acid

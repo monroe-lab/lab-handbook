@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Bromophenol Blue
-location: Chemical Cabinet
 legacy_inventory_id: 32
 ---
 # Bromophenol Blue

@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Tham
-location: Chemical Cabinet
 legacy_inventory_id: 137
 ---
 # Tham

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium chloride
-location: Chemical Cabinet
 legacy_inventory_id: 119
 ---
 # Sodium chloride

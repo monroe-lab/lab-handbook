@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: TWEEN 80
-location: Chemical Cabinet
 legacy_inventory_id: 135
 ---
 # TWEEN 80

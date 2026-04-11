@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium sulfite
-location: Chemical Cabinet
 legacy_inventory_id: 128
 ---
 # Sodium sulfite

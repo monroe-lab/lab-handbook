@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Isopropyl alcohol
-location: Flammable Cabinet
 legacy_inventory_id: 81
 ---
 # Isopropyl alcohol

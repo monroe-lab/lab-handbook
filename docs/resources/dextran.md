@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Dextran
-location: Chemical Cabinet
 legacy_inventory_id: 48
 ---
 # Dextran

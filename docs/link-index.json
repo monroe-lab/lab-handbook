@@ -665,10 +665,6 @@
   },
   {
     "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/flongle-starter-pack"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
     "target": "resources/sqk-nbd114-24"
   },
   {
@@ -812,12 +808,12 @@
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
-    "source": "resources/flongle-starter-pack",
-    "target": "resources/minion-mk1b"
+    "source": "projects/tudor-reader-fusions/index",
+    "target": "people/grey-monroe"
   },
   {
-    "source": "resources/flongle-starter-pack",
-    "target": "resources/flongle-flow-cells-flo-flg114"
+    "source": "projects/tudor-reader-fusions/index",
+    "target": "people/satoyo-oya"
   },
   {
     "source": "resources/flow-cell-wash-kit-exp-wsh004",
@@ -830,10 +826,6 @@
   {
     "source": "resources/labbot-wiki-mnthp11v",
     "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "resources/minion-mk1b",
-    "target": "resources/flongle-starter-pack"
   },
   {
     "source": "resources/neb-blunt-ta-ligase-master-mix",

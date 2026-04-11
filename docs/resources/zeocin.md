@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Zeocin
-location: Refrigerator
 legacy_inventory_id: 145
 ---
 # Zeocin

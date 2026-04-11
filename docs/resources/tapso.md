@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: TAPSO
-location: Chemical Cabinet
 legacy_inventory_id: 134
 ---
 # TAPSO

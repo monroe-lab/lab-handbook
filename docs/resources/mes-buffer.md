@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: MES Buffer
-location: Chemical Cabinet
 legacy_inventory_id: 2
 ---
 # MES Buffer

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Glufosinate-ammonium
-location: Refrigerator
 legacy_inventory_id: 67
 ---
 # Glufosinate-ammonium

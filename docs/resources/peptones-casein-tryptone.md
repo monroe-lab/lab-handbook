@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Peptones, casein (Tryptone)
-location: Chemical Cabinet
 legacy_inventory_id: 98
 ---
 # Peptones, casein (Tryptone)

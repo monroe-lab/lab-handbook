@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: 1M Tris-HCL (pH 8-8.5)
-location: Chemical Cabinet
 legacy_inventory_id: 15
 ---
 # 1M Tris-HCL (pH 8-8.5)

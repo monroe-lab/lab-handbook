@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Potassium phosphate monobasic
-location: Chemical Cabinet
 legacy_inventory_id: 111
 ---
 # Potassium phosphate monobasic

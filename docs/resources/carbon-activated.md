@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Carbon, activated
-location: Chemical Cabinet
 legacy_inventory_id: 37
 ---
 # Carbon, activated

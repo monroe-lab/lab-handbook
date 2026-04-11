@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium phosphate dibasic
-location: Chemical Cabinet
 legacy_inventory_id: 126
 ---
 # Sodium phosphate dibasic

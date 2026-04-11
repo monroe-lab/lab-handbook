@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Formamide
-location: Refrigerator
 legacy_inventory_id: 62
 ---
 # Formamide

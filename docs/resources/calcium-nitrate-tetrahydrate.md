@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Calcium nitrate tetrahydrate
-location: Chemical Cabinet
 legacy_inventory_id: 35
 ---
 # Calcium nitrate tetrahydrate

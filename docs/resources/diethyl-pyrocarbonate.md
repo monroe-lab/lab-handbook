@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Diethyl pyrocarbonate
-location: Refrigerator
 legacy_inventory_id: 49
 ---
 # Diethyl pyrocarbonate

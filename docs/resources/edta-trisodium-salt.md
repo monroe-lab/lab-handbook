@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: EDTA trisodium salt
-location: Chemical Cabinet
 legacy_inventory_id: 53
 ---
 # EDTA trisodium salt

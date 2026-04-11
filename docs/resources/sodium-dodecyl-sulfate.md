@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium dodecyl sulfate
-location: Chemical Cabinet
 legacy_inventory_id: 121
 ---
 # Sodium dodecyl sulfate

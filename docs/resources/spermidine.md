@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Spermidine
-location: Corrosive Cabinet
 legacy_inventory_id: 131
 ---
 # Spermidine

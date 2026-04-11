@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Ammonium phosphate monobasic
-location: Chemical Cabinet
 legacy_inventory_id: 27
 ---
 # Ammonium phosphate monobasic

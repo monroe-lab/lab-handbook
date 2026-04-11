@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: 3-Methylbutanol
-location: Flammable Cabinet
 legacy_inventory_id: 17
 ---
 # 3-Methylbutanol

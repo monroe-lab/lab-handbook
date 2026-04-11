@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Formamide
-location: Chemical Cabinet
 legacy_inventory_id: 61
 ---
 # Formamide

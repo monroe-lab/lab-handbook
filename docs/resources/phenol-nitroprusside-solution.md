@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Phenol nitroprusside solution
-location: Refrigerator
 legacy_inventory_id: 99
 ---
 # Phenol nitroprusside solution

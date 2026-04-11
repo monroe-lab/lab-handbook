@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Isopropyl alcohol, 70% in water
-location: Flammable Cabinet
 legacy_inventory_id: 84
 ---
 # Isopropyl alcohol, 70% in water

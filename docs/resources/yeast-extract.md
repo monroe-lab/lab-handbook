@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Yeast extract
-location: Chemical Cabinet
 legacy_inventory_id: 144
 ---
 # Yeast extract

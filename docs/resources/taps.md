@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: TAPS
-location: Chemical Cabinet
 legacy_inventory_id: 133
 ---
 # TAPS

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Iohexol
-location: Chemical Cabinet
 legacy_inventory_id: 79
 ---
 # Iohexol

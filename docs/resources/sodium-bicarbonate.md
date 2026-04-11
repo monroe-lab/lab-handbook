@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium bicarbonate
-location: Chemical Cabinet
 legacy_inventory_id: 117
 ---
 # Sodium bicarbonate

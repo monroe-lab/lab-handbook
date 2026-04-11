@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Phenylmethanesulfonyl fluoride
-location: Corrosive Cabinet
 legacy_inventory_id: 100
 ---
 # Phenylmethanesulfonyl fluoride

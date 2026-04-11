@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Ammonium nitrate
-location: Chemical Cabinet
 legacy_inventory_id: 26
 ---
 # Ammonium nitrate

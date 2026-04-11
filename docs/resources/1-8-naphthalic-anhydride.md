@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: 1,8-Naphthalic anhydride
-location: Chemical Cabinet
 legacy_inventory_id: 12
 ---
 # 1,8-Naphthalic anhydride

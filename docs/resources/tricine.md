@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Tricine
-location: Chemical Cabinet
 legacy_inventory_id: 139
 ---
 # Tricine

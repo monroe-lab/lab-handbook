@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Polyvinylpyrrolidone
-location: Chemical Cabinet
 legacy_inventory_id: 103
 ---
 # Polyvinylpyrrolidone

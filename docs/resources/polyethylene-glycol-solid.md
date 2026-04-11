@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Polyethylene glycol (solid)
-location: Chemical Cabinet
 legacy_inventory_id: 102
 ---
 # Polyethylene glycol (solid)

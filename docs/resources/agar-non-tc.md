@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Agar (non-TC)
-location: Chemical Cabinet
 legacy_inventory_id: 150
 ---
 # Agar (non-TC)

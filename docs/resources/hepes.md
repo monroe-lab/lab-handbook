@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: HEPES
-location: Chemical Cabinet
 legacy_inventory_id: 73
 ---
 # HEPES

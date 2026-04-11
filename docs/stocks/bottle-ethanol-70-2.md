@@ -2,10 +2,9 @@
 type: bottle
 title: Ethanol 70%
 of: resources/ethanol-70
-parent: locations/bench-reagent
+parent: locations/bench
 quantity: 1
 ---
-
 # Ethanol 70%
 
 Bottle of [[resources/ethanol-70]].

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Ficoll 400
-location: Chemical Cabinet
 legacy_inventory_id: 59
 ---
 # Ficoll 400

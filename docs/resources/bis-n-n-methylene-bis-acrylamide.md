@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Bis (N,N'-Methylene-bis-acrylamide)
-location: Chemical Cabinet
 legacy_inventory_id: 30
 ---
 # Bis (N,N'-Methylene-bis-acrylamide)

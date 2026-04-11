@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Mineral oil
-location: Chemical Cabinet
 legacy_inventory_id: 96
 ---
 # Mineral oil

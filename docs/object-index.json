@@ -3,133 +3,114 @@
     "path": "resources/1-8-naphthalic-anhydride.md",
     "type": "reagent",
     "title": "1,8-Naphthalic anhydride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 12
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
     "type": "reagent",
     "title": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 13
   },
   {
     "path": "resources/1-octanol.md",
     "type": "reagent",
     "title": "1-Octanol",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 14
   },
   {
     "path": "resources/1m-tris-hcl-ph-8-8-5.md",
     "type": "buffer",
     "title": "1M Tris-HCL (pH 8-8.5)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 15
   },
   {
     "path": "resources/2-mercaptoethanol.md",
     "type": "reagent",
     "title": "2-Mercaptoethanol",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 16
   },
   {
     "path": "resources/3-methylbutanol.md",
     "type": "reagent",
     "title": "3-Methylbutanol",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 17
   },
   {
     "path": "resources/4-morpholineethanesulfonic-acid.md",
     "type": "buffer",
     "title": "4-Morpholineethanesulfonic acid",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 18
   },
   {
     "path": "resources/aceto-orcein-solution-2.md",
     "type": "buffer",
     "title": "Aceto-Orcein Solution, 2%",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 19
   },
   {
     "path": "resources/acetone.md",
     "type": "reagent",
     "title": "Acetone",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 20
   },
   {
     "path": "resources/acrylamide.md",
     "type": "reagent",
     "title": "Acrylamide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 21
   },
   {
     "path": "resources/activated-charcoal.md",
     "type": "reagent",
     "title": "Activated charcoal",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 22
   },
   {
     "path": "resources/agar-non-tc.md",
     "type": "reagent",
     "title": "Agar (non-TC)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 150
   },
   {
     "path": "resources/agar-plant-tc.md",
     "type": "reagent",
     "title": "Agar, Plant, TC",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 23
   },
   {
     "path": "resources/agarose.md",
     "type": "reagent",
     "title": "Agarose",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 10
   },
   {
     "path": "resources/alpha-d-glucose.md",
     "type": "reagent",
     "title": "alpha-D-Glucose",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 146
   },
   {
     "path": "resources/ammonium-acetate.md",
     "type": "reagent",
     "title": "Ammonium acetate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 24
   },
   {
     "path": "resources/ammonium-chloride.md",
     "type": "reagent",
     "title": "Ammonium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 25
   },
   {
     "path": "resources/ammonium-nitrate.md",
     "type": "reagent",
     "title": "Ammonium nitrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 26
   },
   {
     "path": "resources/ammonium-phosphate-monobasic.md",
     "type": "reagent",
     "title": "Ammonium phosphate monobasic",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 27
   },
   {
@@ -142,46 +123,39 @@
     "path": "resources/aristolochic-acid-i.md",
     "type": "reagent",
     "title": "Aristolochic acid I",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 28
   },
   {
     "path": "resources/autoclave-sterilizer.md",
     "type": "equipment",
-    "title": "Autoclave",
-    "location": "Robbins Hall"
+    "title": "Autoclave"
   },
   {
     "path": "resources/automill.md",
     "type": "equipment",
-    "title": "Automill",
-    "location": "Bench 3"
+    "title": "Automill"
   },
   {
     "path": "resources/basic-fuchsin.md",
     "type": "reagent",
     "title": "Basic Fuchsin",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 29
   },
   {
     "path": "resources/bioruptor.md",
     "type": "equipment",
-    "title": "Bioruptor",
-    "location": "Bench 3"
+    "title": "Bioruptor"
   },
   {
     "path": "resources/bis-n-n-methylene-bis-acrylamide.md",
     "type": "reagent",
     "title": "Bis (N,N'-Methylene-bis-acrylamide)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 30
   },
   {
     "path": "resources/boric-acid.md",
     "type": "reagent",
     "title": "Boric acid",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 31
   },
   {
@@ -194,130 +168,111 @@
     "path": "resources/bromophenol-blue.md",
     "type": "reagent",
     "title": "Bromophenol Blue",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 32
   },
   {
     "path": "resources/calcium-carbonate.md",
     "type": "reagent",
     "title": "Calcium carbonate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 33
   },
   {
     "path": "resources/calcium-chloride.md",
     "type": "reagent",
     "title": "Calcium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 34
   },
   {
     "path": "resources/calcium-nitrate-tetrahydrate.md",
     "type": "reagent",
     "title": "Calcium nitrate tetrahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 35
   },
   {
     "path": "resources/carbenicillin-disodium-salt.md",
     "type": "reagent",
     "title": "Carbenicillin disodium salt",
-    "location": "Refrigerator",
     "legacy_inventory_id": 36
   },
   {
     "path": "resources/carbon-activated.md",
     "type": "reagent",
     "title": "Carbon, activated",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 37
   },
   {
     "path": "resources/casein-hydrolysate.md",
     "type": "reagent",
     "title": "Casein Hydrolysate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 38
   },
   {
     "path": "resources/cefotaxime-sodium-salt.md",
     "type": "reagent",
     "title": "Cefotaxime sodium salt",
-    "location": "Refrigerator",
     "legacy_inventory_id": 39
   },
   {
     "path": "resources/celldrop.md",
     "type": "equipment",
-    "title": "CellDrop",
-    "location": "Bench 2"
+    "title": "CellDrop"
   },
   {
     "path": "resources/centrifuge.md",
     "type": "equipment",
-    "title": "Centrifuge",
-    "location": "Bench 3"
+    "title": "Centrifuge"
   },
   {
     "path": "resources/cesium-chloride.md",
     "type": "reagent",
     "title": "Cesium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 40
   },
   {
     "path": "resources/cetrimonium-bromide.md",
     "type": "reagent",
     "title": "Cetrimonium bromide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 41
   },
   {
     "path": "resources/chloramphenicol.md",
     "type": "reagent",
     "title": "Chloramphenicol",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 42
   },
   {
     "path": "resources/chloroform-isoamyl-alcohol-24-1.md",
     "type": "reagent",
     "title": "Chloroform:Isoamyl alcohol 24:1",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 148
   },
   {
     "path": "resources/chloroform.md",
     "type": "reagent",
     "title": "Chloroform",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 9
   },
   {
     "path": "resources/cis-diamineplatinum-ii-dichloride.md",
     "type": "reagent",
     "title": "cis-Diamineplatinum(II) dichloride",
-    "location": "Refrigerator",
     "legacy_inventory_id": 147
   },
   {
     "path": "resources/citric-acid.md",
     "type": "reagent",
     "title": "Citric acid",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 43
   },
   {
     "path": "resources/clean-bench-laminar-flow.md",
     "type": "equipment",
-    "title": "Clean Bench",
-    "location": "Room 170"
+    "title": "Clean Bench"
   },
   {
     "path": "resources/colibri-dna-library-cleanup-kit.md",
     "type": "kit",
     "title": "Colibri DNA Library Cleanup Kit",
-    "location": "Refrigerator",
     "need_more": false,
     "created_at": "2026-04-07T16:42:53.765Z",
     "created_by": "greymonroe",
@@ -327,56 +282,48 @@
     "path": "resources/d-glucose.md",
     "type": "reagent",
     "title": "D-(+)-Glucose",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 44
   },
   {
     "path": "resources/d-mannitol.md",
     "type": "reagent",
     "title": "D-Mannitol",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 45
   },
   {
     "path": "resources/d-sorbitol.md",
     "type": "reagent",
     "title": "D-Sorbitol",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 46
   },
   {
     "path": "resources/dextran.md",
     "type": "reagent",
     "title": "Dextran",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 48
   },
   {
     "path": "resources/diethyl-pyrocarbonate.md",
     "type": "reagent",
     "title": "Diethyl pyrocarbonate",
-    "location": "Refrigerator",
     "legacy_inventory_id": 49
   },
   {
     "path": "resources/dimethyl-sulfoxide.md",
     "type": "reagent",
     "title": "Dimethyl sulfoxide",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 50
   },
   {
     "path": "resources/disodium-ethylenediamine-tetraacetate.md",
     "type": "reagent",
     "title": "Disodium Ethylenediamine Tetraacetate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 51
   },
   {
     "path": "resources/dkw-medium-with-vitamins.md",
     "type": "reagent",
     "title": "DKW Medium with Vitamins",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 47
   },
   {
@@ -393,35 +340,30 @@
   {
     "path": "resources/dneasy-plant-mini.md",
     "type": "kit",
-    "title": "DNeasy plant mini",
-    "location": "Other"
+    "title": "DNeasy plant mini"
   },
   {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
     "type": "reagent",
     "title": "EDTA tetrasodium salt dihydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 52
   },
   {
     "path": "resources/edta-trisodium-salt.md",
     "type": "buffer",
     "title": "EDTA trisodium salt",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 53
   },
   {
     "path": "resources/egta.md",
     "type": "reagent",
     "title": "EGTA",
-    "location": "Refrigerator",
     "legacy_inventory_id": 54
   },
   {
     "path": "resources/ethanol-70.md",
     "type": "reagent",
     "title": "Ethanol 70%",
-    "location": "Chemical Cabinet",
     "unit": "g",
     "need_more": false,
     "created_at": "2026-04-07T16:48:44.166Z",
@@ -432,60 +374,47 @@
     "path": "resources/ethanol-absolute.md",
     "type": "reagent",
     "title": "Ethanol Absolute",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 5
   },
   {
     "path": "resources/ethyl-alcohol-absolute.md",
     "type": "reagent",
     "title": "Ethyl Alcohol Absolute",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 55
   },
   {
     "path": "resources/ethyl-methanesulfonate.md",
     "type": "reagent",
     "title": "Ethyl methanesulfonate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 56
   },
   {
     "path": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt.md",
     "type": "reagent",
     "title": "Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 57
   },
   {
     "path": "resources/ethylenediaminetetraacetic-acid-gmp.md",
     "type": "reagent",
     "title": "Ethylenediaminetetraacetic acid, GMP",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 58
   },
   {
     "path": "resources/femtopulse.md",
     "type": "equipment",
-    "title": "FemtoPulse",
-    "location": "Genome Center"
+    "title": "FemtoPulse"
   },
   {
     "path": "resources/ficoll-400.md",
     "type": "reagent",
     "title": "Ficoll 400",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 59
   },
   {
     "path": "resources/flongle-flow-cells-flo-flg114.md",
     "type": "consumable",
     "title": "Flongle Flow Cells (FLO-FLG114)",
-    "status": "needed"
-  },
-  {
-    "path": "resources/flongle-starter-pack.md",
-    "type": "kit",
-    "title": "Flongle Starter Pack",
     "status": "needed"
   },
   {
@@ -498,213 +427,182 @@
     "path": "resources/formaldehyde-16-methanol-free-pfa.md",
     "type": "reagent",
     "title": "Formaldehyde (16% methanol free) PFA",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 60
   },
   {
     "path": "resources/formamide-2.md",
     "type": "reagent",
     "title": "Formamide",
-    "location": "Refrigerator",
     "legacy_inventory_id": 62
   },
   {
     "path": "resources/formamide.md",
     "type": "reagent",
     "title": "Formamide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 61
   },
   {
     "path": "resources/fume-hood.md",
     "type": "equipment",
-    "title": "Fume Hood",
-    "location": "Room 170"
+    "title": "Fume Hood"
   },
   {
     "path": "resources/gaseous-hydrochloric-acid.md",
     "type": "reagent",
     "title": "Gaseous hydrochloric acid",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 63
   },
   {
     "path": "resources/gel-electrophoresis-tank.md",
     "type": "equipment",
-    "title": "Gel Electrophoresis Tank",
-    "location": "Bench 1"
+    "title": "Gel Electrophoresis Tank"
   },
   {
     "path": "resources/gentamicin-sulfate-salt.md",
     "type": "reagent",
     "title": "Gentamicin sulfate salt",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 64
   },
   {
     "path": "resources/glacial-acetic-acid-2.md",
     "type": "reagent",
     "title": "Glacial Acetic Acid",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 66
   },
   {
     "path": "resources/glacial-acetic-acid.md",
     "type": "reagent",
     "title": "Glacial Acetic Acid",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 65
   },
   {
     "path": "resources/glufosinate-ammonium.md",
     "type": "reagent",
     "title": "Glufosinate-ammonium",
-    "location": "Refrigerator",
     "legacy_inventory_id": 67
   },
   {
     "path": "resources/glycerin.md",
     "type": "reagent",
     "title": "Glycerin",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 68
   },
   {
     "path": "resources/glycerol-50-aqueous-solution.md",
     "type": "buffer",
     "title": "Glycerol, 50% aqueous solution",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 69
   },
   {
     "path": "resources/glycine.md",
     "type": "reagent",
     "title": "Glycine",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 70
   },
   {
     "path": "resources/growth-chamber.md",
     "type": "equipment",
-    "title": "Growth Chamber",
-    "location": "Controlled Environment Facility"
+    "title": "Growth Chamber"
   },
   {
     "path": "resources/guanidine-thiocyanate-2.md",
     "type": "reagent",
     "title": "Guanidine thiocyanate",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 72
   },
   {
     "path": "resources/guanidine-thiocyanate.md",
     "type": "reagent",
     "title": "Guanidine thiocyanate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 71
   },
   {
     "path": "resources/hepes.md",
     "type": "buffer",
     "title": "HEPES",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 73
   },
   {
     "path": "resources/hexadecyltrimethyl-ammonium-bromide.md",
     "type": "reagent",
     "title": "Hexadecyltrimethyl-ammonium bromide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 74
   },
   {
     "path": "resources/hula-mixer.md",
     "type": "equipment",
-    "title": "Hula Mixer",
-    "location": "Bench 3"
+    "title": "Hula Mixer"
   },
   {
     "path": "resources/hydrogen-peroxide-20-to-35-in-water.md",
     "type": "reagent",
     "title": "Hydrogen peroxide,  20 to  35 % in water",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 75
   },
   {
     "path": "resources/hydrogen-peroxide-30.md",
     "type": "reagent",
     "title": "Hydrogen Peroxide 30%",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 7
   },
   {
     "path": "resources/hydroxylamine-hydrochloride.md",
     "type": "reagent",
     "title": "Hydroxylamine hydrochloride",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 76
   },
   {
     "path": "resources/igepal-ca-630.md",
     "type": "reagent",
     "title": "IGEPAL CA-630",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 77
   },
   {
     "path": "resources/imidazole-hydrochloride.md",
     "type": "reagent",
     "title": "Imidazole hydrochloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 78
   },
   {
     "path": "resources/iohexol.md",
     "type": "reagent",
     "title": "Iohexol",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 79
   },
   {
     "path": "resources/iron-iii-chloride.md",
     "type": "reagent",
     "title": "Iron(III) chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 80
   },
   {
     "path": "resources/isopropyl-alcohol-2.md",
     "type": "reagent",
     "title": "Isopropyl alcohol",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 82
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water-2.md",
     "type": "reagent",
     "title": "Isopropyl alcohol, 70% in water",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 84
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water.md",
     "type": "reagent",
     "title": "Isopropyl alcohol, 70% in water",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 83
   },
   {
     "path": "resources/isopropyl-alcohol.md",
     "type": "reagent",
     "title": "Isopropyl alcohol",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 81
   },
   {
     "path": "resources/kanamycin-sulfate.md",
     "type": "reagent",
     "title": "Kanamycin Sulfate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 6
   },
   {
@@ -717,21 +615,18 @@
     "path": "resources/l-glutamine.md",
     "type": "reagent",
     "title": "L-Glutamine",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 85
   },
   {
     "path": "resources/l-lysine-monohydrochloride.md",
     "type": "reagent",
     "title": "L-Lysine monohydrochloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 86
   },
   {
     "path": "resources/labbot-freezer-item-mnthp11v.md",
     "type": "reagent",
     "title": "LabBot Freezer Item mnthp11v",
-    "location": "Freezer -80C",
     "created_at": "2026-04-10T22:44:21.260Z",
     "created_by": "greymonroe",
     "parent": "locations/box-minus80-a-1-a",
@@ -741,83 +636,71 @@
     "path": "resources/lithium-acetate-dihydrate.md",
     "type": "reagent",
     "title": "Lithium acetate dihydrate",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 87
   },
   {
     "path": "resources/lithium-chloride.md",
     "type": "reagent",
     "title": "Lithium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 88
   },
   {
     "path": "resources/lithium-hydroxide-monohydrate.md",
     "type": "reagent",
     "title": "Lithium hydroxide monohydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 89
   },
   {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
     "type": "reagent",
     "title": "Magnesium acetate tetrahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 90
   },
   {
     "path": "resources/magnesium-chloride.md",
     "type": "reagent",
     "title": "Magnesium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 91
   },
   {
     "path": "resources/magnesium-sulfate-heptahydrate.md",
     "type": "reagent",
     "title": "Magnesium sulfate heptahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 92
   },
   {
     "path": "resources/magnetic-rack.md",
     "type": "equipment",
-    "title": "Magnetic Rack",
-    "location": "Bench 2"
+    "title": "Magnetic Rack"
   },
   {
     "path": "resources/manganese-ii-chloride.md",
     "type": "reagent",
     "title": "Manganese(II) chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 93
   },
   {
     "path": "resources/mes-buffer.md",
     "type": "buffer",
     "title": "MES Buffer",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 2
   },
   {
     "path": "resources/methanol.md",
     "type": "reagent",
     "title": "Methanol",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 94
   },
   {
     "path": "resources/methyl-methanesulfonate.md",
     "type": "reagent",
     "title": "Methyl methanesulfonate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 95
   },
   {
     "path": "resources/microtube.md",
     "type": "consumable",
     "title": "Microtube",
-    "location": "Freezer -80C",
     "legacy_inventory_id": 11,
     "parent": "locations/box-minus80-a-1-a",
     "position": "A1"
@@ -826,7 +709,6 @@
     "path": "resources/mineral-oil.md",
     "type": "reagent",
     "title": "Mineral oil",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 96
   },
   {
@@ -839,27 +721,23 @@
     "path": "resources/mitomycin-c.md",
     "type": "reagent",
     "title": "Mitomycin C",
-    "location": "Refrigerator",
     "legacy_inventory_id": 8
   },
   {
     "path": "resources/mortar-and-pestle.md",
     "type": "equipment",
-    "title": "Mortar and Pestle",
-    "location": "Bench 3"
+    "title": "Mortar and Pestle"
   },
   {
     "path": "resources/ms-basal-salt-mixture.md",
     "type": "reagent",
     "title": "MS Basal Salt Mixture",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 1
   },
   {
     "path": "resources/nanodrop.md",
     "type": "equipment",
-    "title": "NanoDrop",
-    "location": "Bench 2"
+    "title": "NanoDrop"
   },
   {
     "path": "resources/neb-blunt-ta-ligase-master-mix.md",
@@ -895,28 +773,24 @@
     "path": "resources/opentrons-ot2.md",
     "type": "equipment",
     "title": "Opentrons OT-2",
-    "location": "Lab bench",
     "status": "owned"
   },
   {
     "path": "resources/ot2-magnetic-module.md",
     "type": "equipment",
     "title": "OT-2 Magnetic Module (GEN2)",
-    "location": "Lab bench (on OT-2 deck)",
     "status": "owned"
   },
   {
     "path": "resources/ot2-temperature-module.md",
     "type": "equipment",
     "title": "OT-2 Temperature Module (GEN2)",
-    "location": "Lab bench (on OT-2 deck)",
     "status": "owned"
   },
   {
     "path": "resources/ot2-thermocycler-module.md",
     "type": "equipment",
     "title": "OT-2 Thermocycler Module",
-    "location": "Lab bench (on OT-2 deck)",
     "status": "owned"
   },
   {
@@ -929,118 +803,101 @@
     "path": "resources/peptones-casein-tryptone.md",
     "type": "reagent",
     "title": "Peptones, casein (Tryptone)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 98
   },
   {
     "path": "resources/ph-meter.md",
     "type": "equipment",
-    "title": "pH Meter",
-    "location": "Bench 1"
+    "title": "pH Meter"
   },
   {
     "path": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1.md",
     "type": "reagent",
     "title": "Phenol-Chloroform-Isoamyl alcohol 25:24:1",
-    "location": "Refrigerator",
     "legacy_inventory_id": 149
   },
   {
     "path": "resources/phenol-nitroprusside-solution.md",
     "type": "buffer",
     "title": "Phenol nitroprusside solution",
-    "location": "Refrigerator",
     "legacy_inventory_id": 99
   },
   {
     "path": "resources/phenylmethanesulfonyl-fluoride.md",
     "type": "reagent",
     "title": "Phenylmethanesulfonyl fluoride",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 100
   },
   {
     "path": "resources/piperazine-1-4-bis-2-ethanesulfonic-acid.md",
     "type": "reagent",
     "title": "Piperazine-1,4-bis(2-ethanesulfonic acid)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 101
   },
   {
     "path": "resources/pipes-dipotassium-salt.md",
     "type": "buffer",
     "title": "PIPES, dipotassium salt",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 97
   },
   {
     "path": "resources/polyethylene-glycol-solid.md",
     "type": "reagent",
     "title": "Polyethylene glycol (solid)",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 102
   },
   {
     "path": "resources/polyvinylpyrrolidone.md",
     "type": "reagent",
     "title": "Polyvinylpyrrolidone",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 103
   },
   {
     "path": "resources/ponceau-s.md",
     "type": "reagent",
     "title": "Ponceau S",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 104
   },
   {
     "path": "resources/potassium-acetate.md",
     "type": "reagent",
     "title": "Potassium acetate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 105
   },
   {
     "path": "resources/potassium-chloride.md",
     "type": "reagent",
     "title": "Potassium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 106
   },
   {
     "path": "resources/potassium-hydroxide.md",
     "type": "reagent",
     "title": "Potassium hydroxide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 107
   },
   {
     "path": "resources/potassium-nitrate.md",
     "type": "reagent",
     "title": "Potassium nitrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 108
   },
   {
     "path": "resources/potassium-permanganate.md",
     "type": "reagent",
     "title": "Potassium permanganate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 109
   },
   {
     "path": "resources/potassium-phosphate-dibasic.md",
     "type": "reagent",
     "title": "Potassium phosphate dibasic",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 110
   },
   {
     "path": "resources/potassium-phosphate-monobasic.md",
     "type": "reagent",
     "title": "Potassium phosphate monobasic",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 111
   },
   {
@@ -1058,14 +915,12 @@
   {
     "path": "resources/qubit-fluorometer.md",
     "type": "equipment",
-    "title": "Qubit Fluorometer",
-    "location": "Bench 2"
+    "title": "Qubit Fluorometer"
   },
   {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
     "type": "reagent",
     "title": "Reagent Alcohol 100% (200 proof, Denatured)",
-    "location": "Flammable Cabinet",
     "legacy_inventory_id": 112
   },
   {
@@ -1077,147 +932,126 @@
     "path": "resources/silwet-l-77.md",
     "type": "reagent",
     "title": "Silwet L-77",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 113
   },
   {
     "path": "resources/sodium-acetate-anhydrous.md",
     "type": "reagent",
     "title": "Sodium Acetate, Anhydrous",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 114
   },
   {
     "path": "resources/sodium-arsenate-dibasic-heptahydrate.md",
     "type": "reagent",
     "title": "Sodium arsenate dibasic heptahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 116
   },
   {
     "path": "resources/sodium-bicarbonate.md",
     "type": "reagent",
     "title": "Sodium bicarbonate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 117
   },
   {
     "path": "resources/sodium-bisulfite.md",
     "type": "reagent",
     "title": "Sodium bisulfite",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 118
   },
   {
     "path": "resources/sodium-chloride.md",
     "type": "reagent",
     "title": "Sodium chloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 119
   },
   {
     "path": "resources/sodium-citrate.md",
     "type": "reagent",
     "title": "Sodium citrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 120
   },
   {
     "path": "resources/sodium-dodecyl-sulfate.md",
     "type": "reagent",
     "title": "Sodium dodecyl sulfate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 121
   },
   {
     "path": "resources/sodium-hydroxide-10-0-normal.md",
     "type": "reagent",
     "title": "Sodium Hydroxide, 10.0 Normal",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 115
   },
   {
     "path": "resources/sodium-hydroxide-10n-aqueous-solution.md",
     "type": "buffer",
     "title": "Sodium hydroxide 10N aqueous solution",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 124
   },
   {
     "path": "resources/sodium-hydroxide-2.md",
     "type": "reagent",
     "title": "Sodium hydroxide",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 123
   },
   {
     "path": "resources/sodium-hydroxide.md",
     "type": "reagent",
     "title": "Sodium hydroxide",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 122
   },
   {
     "path": "resources/sodium-metabisulfite.md",
     "type": "reagent",
     "title": "Sodium metabisulfite",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 125
   },
   {
     "path": "resources/sodium-phosphate-dibasic.md",
     "type": "reagent",
     "title": "Sodium phosphate dibasic",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 126
   },
   {
     "path": "resources/sodium-pyrophosphate-decahydrate.md",
     "type": "reagent",
     "title": "Sodium pyrophosphate decahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 127
   },
   {
     "path": "resources/sodium-sulfite.md",
     "type": "reagent",
     "title": "Sodium sulfite",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 128
   },
   {
     "path": "resources/sodium-tetraborate.md",
     "type": "reagent",
     "title": "Sodium tetraborate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 129
   },
   {
     "path": "resources/sodium-thiosulfate-pentahydrate.md",
     "type": "reagent",
     "title": "Sodium thiosulfate pentahydrate",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 130
   },
   {
     "path": "resources/spermidine.md",
     "type": "reagent",
     "title": "Spermidine",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 131
   },
   {
     "path": "resources/spermine.md",
     "type": "reagent",
     "title": "Spermine",
-    "location": "Refrigerator",
     "legacy_inventory_id": 132
   },
   {
     "path": "resources/sqk-nbd114-24.md",
     "type": "kit",
     "title": "Native Barcoding Kit 24 V14 (SQK-NBD114.24)",
-    "location": "Chemical Cabinet",
     "status": "needed",
     "need_more": true,
     "created_at": "2026-04-08T21:44:54.344Z",
@@ -1228,7 +1062,6 @@
     "path": "resources/sucrose.md",
     "type": "chemical",
     "title": "Sucrose",
-    "location": "Chemical Cabinet",
     "need_more": false,
     "created_at": "2026-04-07T16:55:31.489Z",
     "created_by": "greymonroe",
@@ -1238,108 +1071,92 @@
     "path": "resources/taps.md",
     "type": "buffer",
     "title": "TAPS",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 133
   },
   {
     "path": "resources/tapso.md",
     "type": "buffer",
     "title": "TAPSO",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 134
   },
   {
     "path": "resources/tc-agar-a175.md",
     "type": "reagent",
     "title": "TC Agar A175",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 3
   },
   {
     "path": "resources/test-item-mobile.md",
     "type": "reagent",
-    "title": "test item mobile",
-    "location": "Chemical Cabinet"
+    "title": "test item mobile"
   },
   {
     "path": "resources/test-item.md",
     "type": "reagent",
-    "title": "test item",
-    "location": "Chemical Cabinet"
+    "title": "test item"
   },
   {
     "path": "resources/tetracycline-hydrochloride.md",
     "type": "reagent",
     "title": "Tetracycline hydrochloride",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 136
   },
   {
     "path": "resources/tham.md",
     "type": "buffer",
     "title": "Tham",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 137
   },
   {
     "path": "resources/thermocycler.md",
     "type": "equipment",
-    "title": "Thermocycler",
-    "location": "Bench 2"
+    "title": "Thermocycler"
   },
   {
     "path": "resources/thermomixer.md",
     "type": "equipment",
-    "title": "Thermomixer",
-    "location": "Bench 3"
+    "title": "Thermomixer"
   },
   {
     "path": "resources/trichloroacetic-acid.md",
     "type": "reagent",
     "title": "Trichloroacetic acid",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 138
   },
   {
     "path": "resources/tricine.md",
     "type": "buffer",
     "title": "Tricine",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 139
   },
   {
     "path": "resources/tris-base.md",
     "type": "buffer",
     "title": "Tris base",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 140
   },
   {
     "path": "resources/tris-edta-te-buffer-solution.md",
     "type": "buffer",
     "title": "Tris-EDTA (TE) buffer solution",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 141
   },
   {
     "path": "resources/triton-x-100.md",
     "type": "reagent",
     "title": "Triton X-100",
-    "location": "Corrosive Cabinet",
     "legacy_inventory_id": 4
   },
   {
     "path": "resources/trizma-base.md",
     "type": "buffer",
     "title": "Trizma base",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 142
   },
   {
     "path": "resources/tube-item.md",
     "type": "reagent",
     "title": "tube item",
-    "location": "Freezer -80C",
     "created_at": "2026-04-09T07:58:18.233Z",
     "created_by": "greymonroe",
     "parent": "locations/box-minus80-a-1-a",
@@ -1348,28 +1165,24 @@
   {
     "path": "resources/tube-rotator.md",
     "type": "equipment",
-    "title": "Tube Rotator",
-    "location": "Bench 3"
+    "title": "Tube Rotator"
   },
   {
     "path": "resources/tween-80.md",
     "type": "reagent",
     "title": "TWEEN 80",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 135
   },
   {
     "path": "resources/urea.md",
     "type": "reagent",
     "title": "Urea",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 143
   },
   {
     "path": "resources/uv-transilluminator.md",
     "type": "equipment",
-    "title": "UV Transilluminator",
-    "location": "Bench 1"
+    "title": "UV Transilluminator"
   },
   {
     "path": "resources/wide-bore-filter-tips-p1000.md",
@@ -1387,21 +1200,18 @@
     "path": "resources/yeast-extract.md",
     "type": "reagent",
     "title": "Yeast extract",
-    "location": "Chemical Cabinet",
     "legacy_inventory_id": 144
   },
   {
     "path": "resources/zeocin.md",
     "type": "reagent",
     "title": "Zeocin",
-    "location": "Refrigerator",
     "legacy_inventory_id": 145
   },
   {
     "path": "stocks/bl21-de3-competent-cells.md",
     "type": "glycerol_stock",
     "title": "BL21(DE3) Competent Cells",
-    "location": "-80C Freezer, rack 2",
     "organism": "E. coli",
     "stock_type": "glycerol_stock",
     "source": "NEB",
@@ -1657,7 +1467,7 @@
     "title": "Carbenicillin disodium salt",
     "quantity": 5,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/carbenicillin-disodium-salt"
   },
   {
@@ -1684,7 +1494,7 @@
     "title": "Cefotaxime sodium salt",
     "quantity": 50,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/cefotaxime-sodium-salt"
   },
   {
@@ -1738,7 +1548,7 @@
     "title": "cis-Diamineplatinum(II) dichloride",
     "quantity": 0.1,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/cis-diamineplatinum-ii-dichloride"
   },
   {
@@ -1756,7 +1566,7 @@
     "title": "Colibri DNA Library Cleanup Kit",
     "quantity": 96,
     "unit": "each",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/colibri-dna-library-cleanup-kit"
   },
   {
@@ -1801,7 +1611,7 @@
     "title": "Diethyl pyrocarbonate",
     "quantity": 25,
     "unit": "mL",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/diethyl-pyrocarbonate"
   },
   {
@@ -1864,7 +1674,7 @@
     "title": "EGTA",
     "quantity": 25,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/egta"
   },
   {
@@ -1872,7 +1682,7 @@
     "type": "bottle",
     "title": "Ethanol 70%",
     "quantity": 1,
-    "parent": "locations/bench-reagent",
+    "parent": "locations/bench",
     "of": "resources/ethanol-70",
     "expiration": "2026-04-07"
   },
@@ -1881,7 +1691,7 @@
     "type": "bottle",
     "title": "Ethanol 70%",
     "quantity": 1,
-    "parent": "locations/bench-reagent",
+    "parent": "locations/bench",
     "of": "resources/ethanol-70"
   },
   {
@@ -1953,7 +1763,7 @@
     "title": "Formamide",
     "quantity": 100,
     "unit": "mL",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/formamide-2"
   },
   {
@@ -2007,7 +1817,7 @@
     "title": "Glufosinate-ammonium",
     "quantity": 1,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/glufosinate-ammonium"
   },
   {
@@ -2313,7 +2123,7 @@
     "title": "Mitomycin C",
     "quantity": 10,
     "unit": "each",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/mitomycin-c"
   },
   {
@@ -2340,7 +2150,7 @@
     "title": "Phenol-Chloroform-Isoamyl alcohol 25:24:1",
     "quantity": 500,
     "unit": "mL",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1"
   },
   {
@@ -2349,7 +2159,7 @@
     "title": "Phenol nitroprusside solution",
     "quantity": 120,
     "unit": "mL",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/phenol-nitroprusside-solution"
   },
   {
@@ -2655,7 +2465,7 @@
     "title": "Spermine",
     "quantity": 25,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/spermine"
   },
   {
@@ -2808,14 +2618,13 @@
     "title": "Zeocin",
     "quantity": 0.1,
     "unit": "g",
-    "parent": "locations/fridge-reagent",
+    "parent": "locations/fridge-4c-main",
     "of": "resources/zeocin"
   },
   {
     "path": "stocks/col-0-wild-type.md",
     "type": "seed",
     "title": "Col-0 Wild Type",
-    "location": "Seed cabinet, drawer 1",
     "organism": "Arabidopsis thaliana",
     "stock_type": "seed",
     "source": "ABRC"
@@ -2824,7 +2633,6 @@
     "path": "stocks/redwood-dna-sample-b-mnsinxli.md",
     "type": "dna_prep",
     "title": "Redwood DNA Sample B mnsinxli",
-    "location": "Freezer -80C",
     "created_at": "2026-04-10T06:23:47.277Z",
     "created_by": "greymonroe",
     "parent": "locations/box-minus80-a-1-a",
@@ -2834,7 +2642,6 @@
     "path": "stocks/redwood-dna-sample-b-mnsiw64a.md",
     "type": "dna_prep",
     "title": "Redwood DNA Sample B mnsiw64a",
-    "location": "Freezer -80C",
     "created_at": "2026-04-10T06:30:42.126Z",
     "created_by": "greymonroe",
     "parent": "locations/box-minus80-a-1-a",
@@ -2844,7 +2651,6 @@
     "path": "stocks/test-seed-entry.md",
     "type": "seed",
     "title": "test seed entry",
-    "location": "Freezer -80C",
     "created_at": "2026-04-09T08:13:28.226Z",
     "created_by": "greymonroe",
     "parent": "locations/box-minus80-a-1-a",
@@ -2910,6 +2716,13 @@
     "pi": "Grey Monroe"
   },
   {
+    "path": "projects/tudor-reader-fusions/index.md",
+    "type": "project",
+    "title": "Tudor Reader Fusion Proteins",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
     "path": "wet-lab/autoclave.md",
     "type": "protocol",
     "title": "Autoclave"
@@ -2938,6 +2751,11 @@
     "path": "wet-lab/labbot-test-protocol-mnthp11v-copy.md",
     "type": "protocol",
     "title": "LabBot Test Protocol mnthp11v (Copy)"
+  },
+  {
+    "path": "wet-lab/labbot-test-protocol-mntzkf4h-copy.md",
+    "type": "protocol",
+    "title": "LabBot Test Protocol mntzkf4h (Copy)"
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3332,10 +3150,11 @@
     "sequencing_type": "HiFi"
   },
   {
-    "path": "locations/bench-reagent.md",
+    "path": "locations/bench.md",
     "type": "container",
-    "title": "Reagent Bench",
-    "label_1": "Reagent Bench"
+    "title": "Bench",
+    "parent": "locations/room-robbins-0170",
+    "label_1": "Bench"
   },
   {
     "path": "locations/box-dna-extracts.md",
@@ -3370,18 +3189,21 @@
     "path": "locations/cabinet-chemical.md",
     "type": "container",
     "title": "Chemical Cabinet",
+    "parent": "locations/room-robbins-0170",
     "label_1": "Chemical Cabinet"
   },
   {
     "path": "locations/cabinet-corrosive.md",
     "type": "container",
     "title": "Corrosive Cabinet",
+    "parent": "locations/room-robbins-0170",
     "label_1": "Corrosive Cabinet"
   },
   {
     "path": "locations/cabinet-flammable.md",
     "type": "container",
     "title": "Flammable Cabinet",
+    "parent": "locations/room-robbins-0170",
     "label_1": "Flammable Cabinet"
   },
   {
@@ -3399,12 +3221,6 @@
     "notes": "Standard 4C fridge. Short-term storage for DNA extracts, buffers, media.",
     "parent": "locations/room-robbins-0170",
     "label_1": "Main 4C Fridge"
-  },
-  {
-    "path": "locations/fridge-reagent.md",
-    "type": "fridge",
-    "title": "Reagent Refrigerator",
-    "label_1": "Reagent Refrigerator"
   },
   {
     "path": "locations/labbot-test-mntrsc3o.md",

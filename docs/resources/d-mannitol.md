@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: D-Mannitol
-location: Chemical Cabinet
 legacy_inventory_id: 45
 ---
 # D-Mannitol

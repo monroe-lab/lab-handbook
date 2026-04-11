@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Sodium hydroxide 10N aqueous solution
-location: Corrosive Cabinet
 legacy_inventory_id: 124
 ---
 # Sodium hydroxide 10N aqueous solution

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium hydroxide
-location: Chemical Cabinet
 legacy_inventory_id: 122
 ---
 # Sodium hydroxide

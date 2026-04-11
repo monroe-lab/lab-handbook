@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium Hydroxide, 10.0 Normal
-location: Corrosive Cabinet
 legacy_inventory_id: 115
 ---
 # Sodium Hydroxide, 10.0 Normal

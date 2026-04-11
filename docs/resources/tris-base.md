@@ -1,7 +1,6 @@
 ---
 type: buffer
 title: Tris base
-location: Chemical Cabinet
 legacy_inventory_id: 140
 ---
 # Tris base

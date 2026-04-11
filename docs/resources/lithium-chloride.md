@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Lithium chloride
-location: Chemical Cabinet
 legacy_inventory_id: 88
 ---
 # Lithium chloride

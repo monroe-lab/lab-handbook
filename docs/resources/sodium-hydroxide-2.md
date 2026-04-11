@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium hydroxide
-location: Corrosive Cabinet
 legacy_inventory_id: 123
 ---
 # Sodium hydroxide

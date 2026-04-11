@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Silwet L-77
-location: Chemical Cabinet
 legacy_inventory_id: 113
 ---
 # Silwet L-77

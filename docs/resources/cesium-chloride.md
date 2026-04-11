@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Cesium chloride
-location: Chemical Cabinet
 legacy_inventory_id: 40
 ---
 # Cesium chloride

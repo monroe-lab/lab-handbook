@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Glycerin
-location: Chemical Cabinet
 legacy_inventory_id: 68
 ---
 # Glycerin

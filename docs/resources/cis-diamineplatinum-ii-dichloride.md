@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: cis-Diamineplatinum(II) dichloride
-location: Refrigerator
 legacy_inventory_id: 147
 ---
 # cis-Diamineplatinum(II) dichloride

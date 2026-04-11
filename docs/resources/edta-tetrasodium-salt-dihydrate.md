@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: EDTA tetrasodium salt dihydrate
-location: Chemical Cabinet
 legacy_inventory_id: 52
 ---
 # EDTA tetrasodium salt dihydrate

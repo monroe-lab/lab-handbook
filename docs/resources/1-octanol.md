@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: 1-Octanol
-location: Flammable Cabinet
 legacy_inventory_id: 14
 ---
 # 1-Octanol

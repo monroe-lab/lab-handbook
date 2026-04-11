@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Cetrimonium bromide
-location: Chemical Cabinet
 legacy_inventory_id: 41
 ---
 # Cetrimonium bromide

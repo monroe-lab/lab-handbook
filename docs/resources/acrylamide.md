@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Acrylamide
-location: Chemical Cabinet
 legacy_inventory_id: 21
 ---
 # Acrylamide

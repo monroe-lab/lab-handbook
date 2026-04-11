@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: EGTA
-location: Refrigerator
 legacy_inventory_id: 54
 ---
 # EGTA

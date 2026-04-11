@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Guanidine thiocyanate
-location: Corrosive Cabinet
 legacy_inventory_id: 72
 ---
 # Guanidine thiocyanate

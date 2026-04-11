@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Mitomycin C
-location: Refrigerator
 legacy_inventory_id: 8
 ---
 # Mitomycin C

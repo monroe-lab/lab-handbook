@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Magnesium chloride
-location: Chemical Cabinet
 legacy_inventory_id: 91
 ---
 # Magnesium chloride

@@ -787,6 +787,14 @@ function ghReadFile(path) {
       });
 
       if (editModalOpen) {
+        // openItem() opens the editor in popup (read-only) view by design.
+        // Click #em-edit-toggle to switch into edit mode before looking for inputs.
+        await p.evaluate(() => {
+          const btn = document.getElementById('em-edit-toggle');
+          if (btn) btn.click();
+        });
+        await p.waitForTimeout(1500);
+
         const fieldChanged = await p.evaluate(() => {
           const inputs = document.querySelectorAll('.em-field-input');
           for (const inp of inputs) {

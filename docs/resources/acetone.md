@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Acetone
-location: Flammable Cabinet
 legacy_inventory_id: 20
 ---
 # Acetone

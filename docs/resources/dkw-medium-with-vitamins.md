@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: DKW Medium with Vitamins
-location: Chemical Cabinet
 legacy_inventory_id: 47
 ---
 # DKW Medium with Vitamins

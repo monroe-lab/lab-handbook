@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Ponceau S
-location: Chemical Cabinet
 legacy_inventory_id: 104
 ---
 # Ponceau S

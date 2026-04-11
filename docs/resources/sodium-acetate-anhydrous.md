@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Sodium Acetate, Anhydrous
-location: Chemical Cabinet
 legacy_inventory_id: 114
 ---
 # Sodium Acetate, Anhydrous

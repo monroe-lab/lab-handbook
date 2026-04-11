@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Lithium hydroxide monohydrate
-location: Chemical Cabinet
 legacy_inventory_id: 89
 ---
 # Lithium hydroxide monohydrate

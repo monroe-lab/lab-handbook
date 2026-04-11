@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Potassium hydroxide
-location: Chemical Cabinet
 legacy_inventory_id: 107
 ---
 # Potassium hydroxide

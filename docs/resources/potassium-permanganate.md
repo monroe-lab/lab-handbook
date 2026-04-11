@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Potassium permanganate
-location: Chemical Cabinet
 legacy_inventory_id: 109
 ---
 # Potassium permanganate

@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Spermine
-location: Refrigerator
 legacy_inventory_id: 132
 ---
 # Spermine

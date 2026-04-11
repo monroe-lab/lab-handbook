@@ -1,7 +1,6 @@
 ---
 type: reagent
 title: Tetracycline hydrochloride
-location: Chemical Cabinet
 legacy_inventory_id: 136
 ---
 # Tetracycline hydrochloride
