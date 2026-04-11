@@ -2366,15 +2366,25 @@ Test container used by the labmap delete test. Should not persist.
     });
     await p.waitForTimeout(800);
 
-    // 9. Click an empty grid cell on box-pistachio-dna → new-object modal opens.
+    // 9. Click an empty grid cell → place-here popover (R4) → click
+    // "Create new here" → new-object modal opens with parent + position
+    // pre-filled. (R3 used to call openNew() directly on the empty cell;
+    // R4 inserts the pick-or-create popover in between.)
     await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
     await p.waitForTimeout(400);
     await p.evaluate(() => Lab.editorModal.open('docs/locations/box-pistachio-dna.md'));
     await p.waitForSelector('#em-contents .em-grid-view', { timeout: 8000 }).catch(() => {});
+    await p.waitForTimeout(800);
     await p.evaluate(() => {
       // Click an empty cell — E5 should be empty (2 tubes are A1 and A2)
       const cell = document.querySelector('#em-contents .em-grid-cell.empty[data-cell="E5"]');
       if (cell) cell.click();
+    });
+    await p.waitForTimeout(600);
+    // Now click "Create new here" inside the place-here popover
+    await p.evaluate(() => {
+      const btn = document.querySelector('.em-place-here-pop .em-place-create');
+      if (btn) btn.click();
     });
     await p.waitForTimeout(2000);
     // Wait long enough for openNew to clear cols 2+3 synchronously AND for

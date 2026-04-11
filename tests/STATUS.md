@@ -27,6 +27,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Lab Map | 12/12 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file + DOM node |
 | Hierarchy | 15/15 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb, parent field as object pill, multi-line labels preserve newlines |
 | Editor | 11/11 | ✅ (R3, Issue #18) 3-column modal layout, universal grid renderer (10x10 + 9x9 with collisions), label_2 in cells, collision badge + popover, shelf children list with +Add, reagent container_list relocated to col 3, type field as datalist with discovered types, empty-cell click opens new-object modal (parent/position/type pre-filled), new mode clears col 2/3 synchronously |
+| Wikilinks | 9/9 | ✅ (R4, Issue #18) Module loaded, autocomplete filter, sample popup shows backlinks from tubes, click backlink navigates, parent field autocomplete (location-only), empty cell opens place-here popover with search + create-new, place-here search returns results, [[ autocomplete fires on trigger in WYSIWYG, items show title + breadcrumb |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -37,7 +38,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 114/114 (100%)** — R3 adds 11 editor tests, labmap grew to 12 with the DOM-removal assertion.
+**Total: 123/123 (100%)** — R4 adds 9 wikilinks tests covering [[ autocomplete, parent field autocomplete, place-here popover, and backlinks pane.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -81,6 +82,31 @@ Grey's design: every popup is three columns by concern — identity (fields), kn
 - [x] **stopEditing re-renders breadcrumb** — after save/edit, `Lab.hierarchy.invalidate()` + `breadcrumbHTML` reruns so changes to parent references update the chain.
 - [x] **11 new Playwright editor tests** — 3-col layout, grid dimensions, multi-line cell labels, collision badge + popover, shelf children list + Add, container_list relocation, edit-mode type datalist, empty-cell create flow, col 2/3 cleared in new mode.
 - [x] **Test infrastructure fixes** — wiki.html never reaches networkidle (knowledge graph repaints forever), so hierarchy/editor tests switched to `{ waitUntil: 'domcontentloaded' }` + `waitForFunction(() => Lab.editorModal)`. Breadcrumb assertion waits via `waitForSelector('.lab-breadcrumb', { timeout: 12000 })` instead of a fixed sleep. Throwaway delete test polls `ghFileExists` up to 10s to absorb GitHub contents-API cache lag.
+
+## Round 4: wikilinks at scale (2026-04-10, Issue #18)
+
+The vault is going to grow to thousands of objects with collidable titles (DI water aliquots in 10 different boxes, etc). R4 makes wikilinks workable at that scale: autocomplete with breadcrumbs to disambiguate, slug-as-stored-form so moves don't break refs, and a backlinks pane so concept cards can show all their references.
+
+- [x] **Inline `[[` autocomplete in Toast UI editor** (`app/js/wikilink-autocomplete.js`, new) — Typing `[[` in the WYSIWYG editor triggers a floating dropdown of objects from the index, filterable by title/slug/type. Each item shows icon + title + type + parent breadcrumb (so two tubes both titled "DI H2O" can be told apart by their location chain). Arrow keys navigate, Enter/click inserts `[[slug]]` replacing the trigger text, Esc dismisses. Insertion uses `execCommand('insertText')` + Toast UI mode round-trip to force re-parse so the inserted slug renders as an object pill immediately.
+- [x] **Parent field autocomplete in edit mode** — The `parent:` input in col 1 (edit mode only) uses the same autocomplete dropdown, restricted to location types. Student workflow for moving an object: open popup → Edit → type new parent name → pick from list → Save. Slug is preserved so all wikilinks still resolve. New `attachToInput()` + `detachInput()` methods on the autocomplete module.
+- [x] **Empty grid cell = pick existing OR create new** — Clicking an empty cell now opens a small "place at this cell" popover with a search input (autocomplete for existing objects) and a "Create new here" fallback. Picking an existing object MOVES it: updates its parent + position, saves the file, patches the index, re-renders the contents pane. Slug is preserved. Wikilinks don't break.
+- [x] **Backlinks pane in col 3** — For non-location, non-container objects (samples, reagents, people, projects, protocols), col 3 now shows a "References" list computed from `link-index.json`. New `Lab.gh.fetchLinkIndex()` + `clearLinkIndexCache()`. Clicking a backlink opens that object's popup. Verified on `samples/sample-pistachio-4.md` showing all three referencing tubes (leaf 1, leaf 2, DNA extract 1).
+- [x] **Notes field removed from location/sample types** (small R3 cleanup) — Markdown body is the canonical freeform area; a separate `notes:` frontmatter field was redundant and visually cluttered col 1.
+- [x] **9 new Playwright wikilinks tests** — Module load, filter utility, sample backlinks, click-backlink-navigates, parent field autocomplete with type filter, empty cell place-here popover, place-here search, `[[` trigger fires in WYSIWYG, autocomplete items show breadcrumb.
+
+### Subtle bugs caught and fixed during R4
+
+1. **Wrong ProseMirror selected** — Toast UI keeps TWO ProseMirror instances in the DOM at all times: one for markdown mode (with syntax-highlighter spans like `toastui-editor-md-heading`) and one for WYSIWYG. `document.querySelector('.ProseMirror')` was picking the markdown-mode one by document order, so the autocomplete attached to the wrong element. Fixed by preferring `.toastui-editor-ww-container .ProseMirror`.
+2. **Shared state collision** — `attachToInput` was piggybacking on the `[[` variant's module-level `state` variable. When the body editor's attach() ran 200ms later, it clobbered the input variant's state. Fixed by passing explicit `(items, selectedIdx, onPick)` args into `renderItems` so each variant tracks its own state independently.
+3. **Cross-variant blur clobber** — The `[[` variant's blur handler on the ProseMirror fired when the user clicked from the body editor to the col 1 parent input field, hiding the dropdown 200ms later — clobbering the input variant's just-opened dropdown. Fixed by adding a `data-wla-owner` attribute to the dropdown ('trigger' / 'input') and making `hide(callerOwner)` no-op if another variant currently owns the dropdown.
+
+### Deferred from R4 (R5 candidates)
+
+- **Locations hierarchy picker** — `[[` autocomplete with breadcrumbs already covers disambiguation. A dedicated tree-view picker for the "Locations" insert pill is nice but not blocking.
+- **Ambiguous wikilink rendering** — when a legacy `[[Title]]` link resolves to >1 object, render as an orange "ambiguous" pill with click-to-pick. Cosmetic improvement; won't ship in R4.
+- **Concept/instance migration** — script to convert existing `containers: []` arrays into first-class bottle objects with parent + position. Big restructure with migration concerns; will be R5's main feature.
+- **Fields card on rendered MkDocs pages** — needs a MkDocs plugin / template override. Separate task from JS-level work.
+- **Add field button in edit mode** — turns out renderFields already shows every schema field as an editable input in edit mode (including empty ones), so "turn grid on" is already "type 10x10 in the Grid input, save". No button needed.
 
 ---
 
