@@ -12,6 +12,7 @@
     'js/wikilinks.js',
     'js/rich-input.js',
     'js/editor-modal.js',
+    'js/wikilink-autocomplete.js',
     'js/annotate.js',
     'js/issue-reporter.js',
   ];

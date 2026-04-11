@@ -505,6 +505,15 @@
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
     injectCategoryPills(editorEl, currentEditor);
+
+    // Attach inline [[ autocomplete for openNew — same as startEditing.
+    try {
+      if (window.Lab.wikilinkAutocomplete) {
+        setTimeout(function() {
+          try { Lab.wikilinkAutocomplete.attach(currentEditor, editorEl); } catch(e) {}
+        }, 200);
+      }
+    } catch(e) {}
   }
 
   async function openPopup(filePath) {
@@ -862,6 +871,21 @@
     if (row.length) html += '<div class="form-row">' + row.join('') + '</div>';
 
     fieldsEl.innerHTML = html;
+
+    // R4 Phase 3: wire the parent field (edit mode only) to the wikilink
+    // autocomplete restricted to location-group types. The dropdown lets the
+    // user search by title/slug and pick a new parent without typing the
+    // exact slug. Detaches any previous attachment to avoid leaks.
+    if (editable && window.Lab.wikilinkAutocomplete) {
+      var parentInput = fieldsEl.querySelector('.em-field-input[data-key="parent"]');
+      if (parentInput) {
+        try {
+          Lab.wikilinkAutocomplete.attachToInput(parentInput, {
+            typeFilter: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
+          });
+        } catch(e) { /* non-fatal */ }
+      }
+    }
   }
 
   // ── Contents column (R3) ──
@@ -913,7 +937,86 @@
       return;
     }
 
-    mount.innerHTML = '<div class="em-col-empty">No contents.</div>';
+    // R4 Phase 7: backlinks pane for non-location, non-container types.
+    // Shows everything that wikilinks to this object (from link-index.json).
+    // Covers the "Ethanol is referenced from many protocols" case.
+    var backlinks = await fetchBacklinksFor(slug);
+    if (backlinks.length) {
+      mount.innerHTML = renderBacklinksPane(backlinks);
+      bindBacklinksHandlers();
+      return;
+    }
+
+    mount.innerHTML = '<div class="em-col-empty">No references to this object yet.</div>';
+  }
+
+  // ── Backlinks (R4 Phase 7) ──
+  //
+  // Filter the cached link-index for edges targeting this slug. Each returned
+  // row carries the source entry's title + type for rich rendering.
+  async function fetchBacklinksFor(slug) {
+    if (!slug || !window.Lab.gh || !window.Lab.gh.fetchLinkIndex) return [];
+    try {
+      var edges = await Lab.gh.fetchLinkIndex();
+      var idx = Lab.gh._getCachedIndex() || (await Lab.gh.fetchObjectIndex());
+      var byPath = {};
+      idx.forEach(function(e) { byPath[e.path.replace(/\.md$/, '')] = e; });
+      var results = [];
+      for (var i = 0; i < edges.length; i++) {
+        var edge = edges[i];
+        if (edge.target !== slug) continue;
+        var source = byPath[edge.source];
+        results.push({
+          slug: edge.source,
+          title: (source && source.title) || edge.source.split('/').pop(),
+          type: (source && source.type) || 'container',
+        });
+      }
+      // Dedupe by slug + sort by title
+      var seen = {};
+      results = results.filter(function(r) {
+        if (seen[r.slug]) return false;
+        seen[r.slug] = true;
+        return true;
+      });
+      results.sort(function(a, b) {
+        return (a.title || '').toLowerCase() < (b.title || '').toLowerCase() ? -1 : 1;
+      });
+      return results;
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function renderBacklinksPane(backlinks) {
+    var html = '<div style="font-size:11px;color:var(--grey-500);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px">' +
+      backlinks.length + ' reference' + (backlinks.length === 1 ? '' : 's') + '</div>';
+    backlinks.forEach(function(b) {
+      var tc = Lab.types.get(b.type || 'container');
+      html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
+        '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
+        '<span style="flex:1;min-width:0;overflow:hidden">' +
+          '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
+          '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
+            '<span style="color:' + tc.color + '">' + escHtml(tc.label || b.type) + '</span>' +
+          '</div>' +
+        '</span>' +
+      '</div>';
+    });
+    return html;
+  }
+
+  function bindBacklinksHandlers() {
+    var mount = document.getElementById('em-contents');
+    if (!mount) return;
+    mount.querySelectorAll('.em-backlink-row[data-slug]').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var slug = row.dataset.slug;
+        if (slug) openPopup('docs/' + slug + '.md');
+      });
+      row.addEventListener('mouseenter', function() { row.style.background = 'var(--grey-100)'; });
+      row.addEventListener('mouseleave', function() { row.style.background = ''; });
+    });
   }
 
   // Container list section for the Contents column. Re-uses the existing
@@ -1036,13 +1139,10 @@
           return;
         }
         if (cell.dataset.empty) {
-          // Empty cell → create new child at this position
+          // Empty cell → "place at this cell" popover with pick-existing
+          // (autocomplete) and create-new options. R4 Phase 4.
           var cellKey = cell.dataset.cell;
-          openNew({
-            parent: parentSlug,
-            position: cellKey,
-            defaultType: autoChildType(meta.type),
-          });
+          showPlaceHerePopover(cell, parentSlug, cellKey, meta);
           return;
         }
         // Occupied → open the child's popup
@@ -1056,6 +1156,156 @@
         openPopup('docs/' + row.dataset.slug + '.md');
       });
     });
+  }
+
+  // ── Place-here popover (R4 Phase 4) ──
+  //
+  // Opens at an empty grid cell. The user can either:
+  //   (a) Search for an existing object and pick it → move it here (update
+  //       its parent + position, save to GitHub).
+  //   (b) Click "Create new here" → openNew() with parent + position pre-filled.
+  //
+  // The pick path avoids duplicating objects when a student just wants to
+  // relocate something — the slug is preserved, so every existing wikilink
+  // keeps pointing at the same file.
+  var _placeHerePop = null;
+  function dismissPlaceHerePopover() {
+    if (_placeHerePop) {
+      _placeHerePop.remove();
+      _placeHerePop = null;
+      document.removeEventListener('click', _placeHereOutside);
+    }
+  }
+  function _placeHereOutside(e) {
+    if (_placeHerePop && !_placeHerePop.contains(e.target)) {
+      dismissPlaceHerePopover();
+    }
+  }
+
+  function showPlaceHerePopover(cellEl, parentSlug, cellKey, parentMeta) {
+    dismissPlaceHerePopover();
+    var pop = document.createElement('div');
+    pop.className = 'em-place-here-pop';
+    pop.style.cssText = [
+      'position:fixed',
+      'z-index:10050',
+      'background:#fff',
+      'border:1px solid var(--grey-300)',
+      'border-radius:8px',
+      'box-shadow:0 6px 20px rgba(0,0,0,.18)',
+      'width:340px',
+      'padding:12px',
+    ].join(';');
+    pop.innerHTML =
+      '<div style="font-size:11px;color:var(--grey-500);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px">Place at ' + escHtml(cellKey) + '</div>' +
+      '<input type="text" class="em-place-search" placeholder="Search existing objects…" style="width:100%;padding:6px 10px;font-size:13px;border:1px solid var(--grey-300);border-radius:4px;font-family:inherit;margin-bottom:8px">' +
+      '<div class="em-place-results" style="max-height:220px;overflow-y:auto;margin-bottom:8px;font-size:12px"></div>' +
+      '<button type="button" class="em-place-create" style="width:100%;padding:8px 12px;font-size:12px;background:var(--teal-light);color:var(--teal-dark);border:1px dashed var(--teal);border-radius:6px;cursor:pointer;font-family:inherit;font-weight:600">' +
+        '<span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">add</span> Create new here' +
+      '</button>';
+
+    document.body.appendChild(pop);
+    var rect = cellEl.getBoundingClientRect();
+    var left = Math.min(rect.right + 8, window.innerWidth - 350);
+    var top = Math.min(rect.top, window.innerHeight - 340);
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    _placeHerePop = pop;
+
+    var searchEl = pop.querySelector('.em-place-search');
+    var resultsEl = pop.querySelector('.em-place-results');
+    var createEl = pop.querySelector('.em-place-create');
+
+    async function refreshResults() {
+      var q = (searchEl.value || '').toLowerCase().trim();
+      var idx = Lab.gh._getCachedIndex() || (await Lab.gh.fetchObjectIndex());
+      var scored = [];
+      idx.forEach(function(entry) {
+        var slug = entry.path.replace(/\.md$/, '');
+        if (slug === parentSlug) return; // can't move a thing into itself
+        var title = (entry.title || '').toLowerCase();
+        var sl = slug.toLowerCase();
+        var type = (entry.type || '').toLowerCase();
+        if (!q) {
+          scored.push({ entry: entry, slug: slug, score: 50 });
+          return;
+        }
+        if (title === q || sl === q) { scored.push({ entry: entry, slug: slug, score: 0 }); return; }
+        if (title.startsWith(q)) { scored.push({ entry: entry, slug: slug, score: 10 }); return; }
+        if (sl.startsWith(q))    { scored.push({ entry: entry, slug: slug, score: 15 }); return; }
+        if (title.indexOf(q) >= 0) { scored.push({ entry: entry, slug: slug, score: 25 }); return; }
+        if (sl.indexOf(q) >= 0)    { scored.push({ entry: entry, slug: slug, score: 30 }); return; }
+        if (type.indexOf(q) >= 0)  { scored.push({ entry: entry, slug: slug, score: 50 }); return; }
+      });
+      scored.sort(function(a, b) { return a.score - b.score; });
+      scored = scored.slice(0, 12);
+      var html = '';
+      for (var i = 0; i < scored.length; i++) {
+        var s = scored[i];
+        var tc = Lab.types.get(s.entry.type || 'container');
+        html += '<div class="em-place-result" data-slug="' + escHtml(s.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:4px;cursor:pointer">' +
+          '<span style="font-size:14px">' + tc.icon + '</span>' +
+          '<span style="flex:1;min-width:0;overflow:hidden">' +
+            '<div style="font-weight:600;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(s.entry.title || s.slug) + '</div>' +
+            '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
+              '<span style="color:' + tc.color + '">' + escHtml(tc.label || s.entry.type) + '</span>' +
+              (s.entry.parent ? ' · in ' + escHtml(s.entry.parent) : '') +
+            '</div>' +
+          '</span>' +
+        '</div>';
+      }
+      resultsEl.innerHTML = html || '<div style="color:var(--grey-500);padding:10px;text-align:center;font-style:italic">No matches</div>';
+      resultsEl.querySelectorAll('.em-place-result').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { el.style.background = 'var(--grey-100)'; });
+        el.addEventListener('mouseleave', function() { el.style.background = ''; });
+        el.addEventListener('click', async function() {
+          var targetSlug = el.getAttribute('data-slug');
+          await moveObjectHere(targetSlug, parentSlug, cellKey);
+          dismissPlaceHerePopover();
+        });
+      });
+    }
+
+    refreshResults();
+    searchEl.addEventListener('input', refreshResults);
+    searchEl.focus();
+
+    createEl.addEventListener('click', function() {
+      dismissPlaceHerePopover();
+      openNew({
+        parent: parentSlug,
+        position: cellKey,
+        defaultType: autoChildType(parentMeta.type),
+      });
+    });
+
+    // Outside click dismisses — defer the listener so this click doesn't trip it.
+    setTimeout(function() { document.addEventListener('click', _placeHereOutside); }, 0);
+  }
+
+  // Move an existing object into the current parent + cell. Updates the
+  // target file's frontmatter, saves it, patches the index, and re-renders
+  // the current popup's contents pane.
+  async function moveObjectHere(targetSlug, newParentSlug, newCellKey) {
+    if (!targetSlug || !newParentSlug) return;
+    var targetPath = 'docs/' + targetSlug + '.md';
+    try {
+      var file = await Lab.gh.fetchFile(targetPath);
+      var parsed = window.Lab.parseFrontmatter(file.content);
+      parsed.meta.parent = newParentSlug;
+      parsed.meta.position = newCellKey;
+      var newContent = window.Lab.buildFrontmatter(parsed.meta, parsed.body);
+      var msg = 'Move ' + targetSlug + ' to ' + newParentSlug + '/' + newCellKey;
+      var result = await Lab.gh.saveFile(targetPath, newContent, file.sha, msg);
+      Lab.gh.patchObjectIndex(targetPath, parsed.meta);
+      if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
+      if (window.Lab.showToast) Lab.showToast('Moved to ' + newCellKey, 'success');
+      // Refresh the current popup's contents pane so the grid shows the new occupant.
+      if (currentState) await renderContents(currentState, false);
+    } catch(e) {
+      if (window.Lab.showToast) Lab.showToast('Move failed: ' + e.message, 'error');
+      console.error(e);
+    }
   }
 
   // Popover listing every child at a collision cell (bucket.length > 1).
@@ -1234,6 +1484,19 @@
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
 
+    // Attach the inline [[ autocomplete (R4 Phase 1) to the WYSIWYG surface.
+    // Fires when the user types `[[` anywhere in the editor, shows a filterable
+    // dropdown of objects from the index, inserts `[[slug]]` on selection.
+    try {
+      if (window.Lab.wikilinkAutocomplete) {
+        // Small delay lets the ProseMirror DOM settle before we look up the
+        // contentEditable node to attach listeners to.
+        setTimeout(function() {
+          try { Lab.wikilinkAutocomplete.attach(currentEditor, editorEl); } catch(e) {}
+        }, 200);
+      }
+    } catch(e) {}
+
     // Re-render the Contents column in editable mode. container_list becomes
     // an editable repeating-rows widget; grid/children-list stay read-only
     // for now (editing positions happens via the child objects themselves).
@@ -1261,6 +1524,9 @@
 
     currentState.editing = false;
     currentEditor = null;
+
+    // Detach the inline [[ autocomplete (R4) — no editor to listen to anymore.
+    try { if (window.Lab.wikilinkAutocomplete) Lab.wikilinkAutocomplete.detach(); } catch(e) {}
 
     // Switch back to read mode
     document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
@@ -1410,6 +1676,9 @@
     if (currentEditor) {
       currentEditor = null;
     }
+    // Detach the inline [[ autocomplete (R4) so its DOM listeners don't leak
+    // across popup opens.
+    try { if (window.Lab.wikilinkAutocomplete) Lab.wikilinkAutocomplete.detach(); } catch(e) {}
     currentState = null;
   }
 

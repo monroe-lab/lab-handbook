@@ -206,6 +206,35 @@
   var _objectIndex = null;
   var _objectIndexPromise = null;
 
+  // Link index cache (R4, Issue #18): wikilink edges of the form
+  //   [{ source: "wet-lab/pcr", target: "resources/ethanol" }, ...]
+  // Used by the backlinks pane in the popup's col 3.
+  var _linkIndex = null;
+  var _linkIndexPromise = null;
+
+  async function fetchLinkIndex() {
+    if (_linkIndex) return _linkIndex;
+    if (_linkIndexPromise) return _linkIndexPromise;
+    _linkIndexPromise = (async function() {
+      var base = window.Lab ? window.Lab.BASE : '/lab-handbook/';
+      try {
+        var resp = await fetch(base + 'link-index.json?_=' + Date.now());
+        if (resp.ok) {
+          _linkIndex = await resp.json();
+          return _linkIndex;
+        }
+      } catch(e) {}
+      _linkIndex = [];
+      return _linkIndex;
+    })();
+    return _linkIndexPromise;
+  }
+
+  function clearLinkIndexCache() {
+    _linkIndex = null;
+    _linkIndexPromise = null;
+  }
+
   // ── localStorage patch layer ──
   // Saves edits locally so they survive refresh without waiting for deploy
   var PATCH_KEY = 'lab_index_patches';
@@ -348,6 +377,8 @@
     // editor-modal type datalist which runs inside renderFields (sync) and
     // can't await a fetch. Returns null if no fetch has completed yet.
     _getCachedIndex: function() { return _objectIndex; },
+    fetchLinkIndex: fetchLinkIndex,
+    clearLinkIndexCache: clearLinkIndexCache,
     REPO: REPO,
     BRANCH: BRANCH
   };
