@@ -38,6 +38,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R11 | 7/7 | ✅ (R11) issue reporter accepts file/screenshot attachments — drag-drop zone, file picker, clipboard paste; chip preview with remove button; uploads to `issue-attachments/YYYY/MM/` outside docs/ so MkDocs ignores them; images embedded as `![name](raw.githubusercontent.com/...)` markdown so GitHub renders them inline in the issue body; non-image files linked via blob URL; 5 MB cap per file (#45) |
 | R12 | 10/10 | ✅ (R12) new scripts/build-user-stats.py walks git log and emits docs/user-stats.json with per-user totals (commits, protocols authored, notebooks authored, inventory edits, wiki edits, images uploaded, issue attachments) + recent commit list. New app/profile.html renders a per-user dashboard with stats grid, 11 unlockable badges (First Commit, Protocol Master, Chronicler, Inventory Keeper, Century, Photographer, Wiki Builder, Debugger, Founder, …), recent activity, and a cross-user leaderboard. Nav avatar now links to profile (#42) |
 | R13 | 8/8 | ✅ (R13) calendar page now includes the global issue reporter FAB and each hour cell in the week grid is click-to-create — clicking an empty slot opens the Add Block modal pre-filled with that day's date and the hour's start time (end time defaults to +1h), hover highlight + `cursor:cell` make cells feel clickable (#40) |
+| R14 | 12/12 | ✅ (R14 tone samples for #38) hand-written educational intros for 5 common chemicals (ethanol-absolute, agarose, edta-trisodium-salt, tris-base, sodium-dodecyl-sulfate) establishing the "What it is / Why we use it / Callout" template for the full catalog rewrite. Scope is intentionally small — 5 cards done, remaining ~137 to be scaled up in a follow-up round |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -48,7 +49,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 220/220 (100%)** — R13 adds 8 new tests covering the calendar integration (#40): issue reporter FAB on the calendar page, clickable day-column cells, cellClick onclick handler, title hint, click-to-create pre-fills date/startTime/endTime in the Add Block modal. See Round 13 below for the full writeup.
+**Total: 232/232 (100%)** — R14 adds 12 new tests covering the 5 hand-written educational chemical intros (#38 tone samples): each has the "What it is" + "Why we use it" section structure, each carries its expected educational marker phrase, rendered page has h2 headings + safety callout. See Round 14 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -642,6 +643,59 @@ Grey's #40 was "the calendar app is drifting from the rest of the site — no is
 - **Drag-to-extend / drag-to-move** — Grey mentioned "click on times and dragging things" but the drag gesture is a bigger build (custom pointer handlers, live preview of extent, commit on drop, collision with existing blocks). The click-to-create covers 90% of the "adding new items" complaint with 10% of the code. A future round can layer drag on top.
 - **Deeper calendar app rewrite** — the calendar runs its own rendering + schedule store (`docs/calendar/schedule.json`) because it predated the object-index system. Migrating it to use the same object-index + type infrastructure as the rest of the site would let calendar events participate in wikilink autocomplete, the knowledge graph, etc. Not in scope for this round.
 - **Multi-day / all-day events** — still tied to a single day + time slot. No support for "Tuesday-Friday conference" yet.
+
+---
+
+## Round 14: Educational chemical intros — tone samples (2026-04-11)
+
+Grey's #38 was "would be really helpful if chemicals, buffers, solutions had a few descriptive sentences — this lab handbook space should feel like a place of learning." R14 hand-writes the first 5 to establish the tone before scaling up.
+
+### What shipped
+
+Five chemicals picked to span functional categories — solvent, sieve matrix, chelator, buffer, detergent — so the tone template gets stress-tested across different "what does chemistry do in a lab" stories:
+
+- [x] **`resources/ethanol-absolute`** — C₂H₅OH as both DNA precipitation medium (high concentration + Na⁺ neutralizes the phosphate backbone) and surface sterilant (70% is actually better than 100% because water helps membrane penetration). Flammability callout.
+- [x] **`resources/agarose`** — polysaccharide from red seaweed, how the cooled gel forms a pore network, why a uniformly-charged polyanion (DNA) gets sorted by size in that pore network. Comparison callout vs polyacrylamide for resolution tradeoff.
+- [x] **`resources/edta-trisodium-salt`** — hexadentate chelator that handcuffs divalent metal cofactors, which is why every lysis buffer starts with EDTA and why DNA lives in TE. Concentration-matters callout for downstream enzymes (PCR, restriction, ligation) that also need Mg²⁺.
+- [x] **`resources/tris-base`** — tris(hydroxymethyl)aminomethane, pKa 8.1 buffer, workhorse for slightly-basic enzymology. Two callouts: (1) temperature sensitivity (pKa drops 0.028 per °C — titrate at the use temperature), (2) free base vs pre-titrated HCl form.
+- [x] **`resources/sodium-dodecyl-sulfate`** — ionic detergent with 12-carbon tail + sulfate head, three uses (cell lysis, protein denaturation for SDS-PAGE, nuclease inactivation as a bonus). Safety callout on respiratory irritation from the powder form. Comparison callout vs non-ionic detergents (Triton X-100, NP-40) for native vs denaturing workflows.
+
+### The "What it is / Why we use it / Callout" template
+
+Each card follows the same shape:
+
+```markdown
+## What it is
+
+[Chemistry: what the molecule is structurally, what it does in solution,
+what the naming conventions mean. Target 3-5 sentences, real chemistry
+but accessible.]
+
+## Why we use it
+
+[Lab relevance: specific protocols or classes of protocols where this
+chemical shows up and WHY. Answer "why this one over alternatives" if
+applicable. Target a paragraph or two.]
+
+> ⚠️ **Safety / trade-off callout**
+> Flammability, temperature sensitivity, concentration limits, handling
+> hazards, alternatives — whatever the "don't miss this" detail is.
+```
+
+The template is small enough that it doesn't become a content mill and big enough that each card earns its keep as a teaching artifact.
+
+### Tests added in R14
+
+12 new tests in a new `r14` section:
+- For each of the 5 sample slugs: **"What it is" + "Why we use it" sections present** and **expected educational marker phrase present** (e.g. `"hexadentate chelator"` for EDTA, `"red seaweed"` for agarose)
+- **Rendered ethanol-absolute has h2 headings** after running through `Lab.editorModal.renderMarkdown`
+- **Rendered page contains a safety callout** (admonition or ⚠️ marker)
+
+### Skipped in R14 (deferred for a follow-up scale-up round)
+
+- **The other ~137 chemicals, reagents, and buffers** — that's the bulk of the work. My plan for the follow-up: use the 5 hand-written samples as reference, batch 20-30 high-frequency chemicals at a time, focus first on things students actually use (media components, PCR ingredients, gel buffers, common salts, common acids, etc.), leave obscure specialty reagents for last. Easily parallelizable via a fix-loop batch. Grey to confirm tone is right before scaling up.
+- **Chemical structure images** — the other half of Grey's #37 ask that got deferred in R10. Requires picking a source (PubChem via CID lookup? local cache? raw SVG?) and a caching strategy. Meaningfully larger build.
+- **Per-type templates for non-chemical types** (equipment, kits, consumables) — those need a different teaching shape (what does this instrument do, when do you use it, common mistakes). Left for a later round.
 
 ---
 

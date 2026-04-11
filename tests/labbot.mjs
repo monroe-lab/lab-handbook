@@ -3966,6 +3966,63 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R14: Educational chemical intros — tone samples (#38)
+  //  ────────────────────────────────────────────────────────────
+  //  5 hand-written educational intros for common lab chemicals.
+  //  Each follows the same shape: "## What it is" (chemistry
+  //  background) + "## Why we use it" (lab relevance) + at least
+  //  one safety/trade-off callout.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r14')) {
+    console.log('\n🎓  R14\n');
+
+    const samples = [
+      { slug: 'resources/ethanol-absolute',       marker: 'DNA/RNA precipitation' },
+      { slug: 'resources/agarose',                marker: 'red seaweed' },
+      { slug: 'resources/edta-trisodium-salt',    marker: 'hexadentate chelator' },
+      { slug: 'resources/tris-base',              marker: 'temperature-sensitive' },
+      { slug: 'resources/sodium-dodecyl-sulfate', marker: 'respiratory irritant' },
+    ];
+
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchFile, { timeout: 15000 }).catch(() => {});
+
+    for (const sample of samples) {
+      const content = await p.evaluate(async (path) => {
+        const res = await Lab.gh.fetchFile('docs/' + path + '.md');
+        return res.content;
+      }, sample.slug).catch(() => '');
+
+      const hasWhatItIs = /## What it is/.test(content);
+      const hasWhyWeUseIt = /## Why we use it/.test(content);
+      const hasMarker = content.toLowerCase().includes(sample.marker.toLowerCase());
+      log('r14', `#38 ${sample.slug}: "What it is" + "Why we use it" sections`,
+        hasWhatItIs && hasWhyWeUseIt ? 'PASS' : 'FAIL',
+        `whatItIs=${hasWhatItIs} whyWeUseIt=${hasWhyWeUseIt}`);
+      log('r14', `#38 ${sample.slug}: contains marker "${sample.marker}"`,
+        hasMarker ? 'PASS' : 'FAIL');
+    }
+
+    // Spot-check: the rendered page has the h2 headings we expect.
+    const renderCheck = await p.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/resources/ethanol-absolute.md');
+      const html = await Lab.editorModal.renderMarkdown(res.content);
+      return {
+        hasWhatItIs: /<h2[^>]*>\s*What it is\s*<\/h2>/i.test(html),
+        hasWarning: /admonition|\u26A0/.test(html),
+        bodyLen: html.length,
+      };
+    }).catch(() => ({ bodyLen: 0 }));
+    log('r14', '#38 rendered ethanol-absolute has "What it is" h2 heading',
+      renderCheck.hasWhatItIs ? 'PASS' : 'FAIL', `bodyLen=${renderCheck.bodyLen}`);
+    log('r14', '#38 rendered page contains a safety callout',
+      renderCheck.hasWarning ? 'PASS' : 'FAIL');
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

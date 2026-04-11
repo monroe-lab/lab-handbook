@@ -3455,7 +3455,7 @@
     "path": "lab-safety/corrosives-sop.md",
     "type": "protocol",
     "title": "Corrosives SOP",
-    "mtime": 1775835649
+    "mtime": 1775932702
   },
   {
     "path": "lab-safety/cryogens-sop.md",
@@ -3520,7 +3520,7 @@
     "path": "workflow-templates/protocol-template.md",
     "type": "protocol",
     "title": "Protocol Template",
-    "mtime": 1775614144
+    "mtime": 1775931835
   },
   {
     "path": "workflow-templates/strelka2.md",

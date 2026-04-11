@@ -161,7 +161,15 @@
   },
   {
     "source": "lab-safety/corrosives-sop",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
     "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/hydrogen-peroxide-30"
   },
   {
     "source": "lab-safety/corrosives-sop",
@@ -181,6 +189,10 @@
   },
   {
     "source": "lab-safety/corrosives-sop",
+    "target": "resources/lithium-hydroxide-monohydrate"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
     "target": "resources/potassium-permanganate"
   },
   {
@@ -197,15 +209,15 @@
   },
   {
     "source": "lab-safety/corrosives-sop",
-    "target": "resources/glacial-acetic-acid"
-  },
-  {
-    "source": "lab-safety/corrosives-sop",
     "target": "resources/guanidine-thiocyanate"
   },
   {
     "source": "lab-safety/corrosives-sop",
-    "target": "resources/chloroform"
+    "target": "resources/aceto-orcein-solution-2"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1"
   },
   {
     "source": "lab-safety/corrosives-sop",
@@ -237,10 +249,6 @@
   },
   {
     "source": "lab-safety/corrosives-sop",
-    "target": "resources/lithium-hydroxide-monohydrate"
-  },
-  {
-    "source": "lab-safety/corrosives-sop",
     "target": "resources/sodium-bisulfite"
   },
   {
@@ -250,6 +258,10 @@
   {
     "source": "lab-safety/corrosives-sop",
     "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "lab-safety/corrosives-sop",
+    "target": "resources/sodium-pyrophosphate-decahydrate"
   },
   {
     "source": "lab-safety/corrosives-sop",
@@ -852,6 +864,14 @@
     "target": "people/satoyo-oya"
   },
   {
+    "source": "resources/agarose",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "resources/ethanol-absolute",
+    "target": "resources/ethanol-70"
+  },
+  {
     "source": "resources/flow-cell-wash-kit-exp-wsh004",
     "target": "resources/flongle-flow-cells-flo-flg114"
   },
@@ -934,6 +954,10 @@
   {
     "source": "resources/sqk-nbd114-24",
     "target": "resources/nebnext-companion-module-ont"
+  },
+  {
+    "source": "resources/tris-base",
+    "target": "resources/1m-tris-hcl-ph-8-8-5"
   },
   {
     "source": "resources/wide-bore-filter-tips-p1000",
