@@ -288,10 +288,33 @@
 
     // Preprocess wikilinks
     processed = window.Lab.wikilinks ? window.Lab.wikilinks.preprocess(processed) : processed;
+
+    // R10 #37: rescue `~token~` and `^token^` BEFORE marked runs. With
+    // gfm enabled (default) marked eats single-tilde runs as strikethrough
+    // and turns `~14~` into `<del>14</del>`, which would prevent us from
+    // rendering explicit subscripts later. We swap in placeholders that
+    // marked ignores and restore them as <sub>/<sup> after parsing.
+    var subSupPlaceholders = [];
+    var stashSubSup = function(prefix) {
+      return function(_, token) {
+        subSupPlaceholders.push({ kind: prefix, text: token });
+        return '\u0000' + prefix + (subSupPlaceholders.length - 1) + '\u0000';
+      };
+    };
+    processed = processed.replace(/~([0-9A-Za-z+\-]{1,10})~/g, stashSubSup('SUB'));
+    processed = processed.replace(/\^([0-9A-Za-z+\-]{1,10})\^/g, stashSubSup('SUP'));
+
     // breaks:false matches Toast UI's CommonMark behavior — single newlines stay
     // in the same paragraph; blank lines separate paragraphs. Explicit hard breaks
     // ("  \n") still render as <br> in both viewer and editor. See EDITOR_ARCHITECTURE.md.
     var html = marked.parse(processed, { breaks: false });
+
+    // Restore the sub/sup placeholders.
+    html = html.replace(/\u0000(SUB|SUP)(\d+)\u0000/g, function(_, kind, idx) {
+      var p = subSupPlaceholders[parseInt(idx, 10)];
+      var tag = kind === 'SUB' ? 'sub' : 'sup';
+      return '<' + tag + '>' + p.text + '</' + tag + '>';
+    });
 
     // Replace placeholders with rendered callouts
     admonitions.forEach(function(a, i) {
@@ -392,17 +415,13 @@
       .replace(/<a\s[^>]*?>[\s\S]*?<\/a>/g, protect)
       .replace(/<[^>]+>/g, protect);
 
-    // Auto-whitelist formulas (runs before sub/sup so `H~2~O` still works
-    // if someone writes it explicitly — those won't match the whitelist).
+    // Auto-whitelist formulas. The explicit `~text~` / `^text^` syntax is
+    // handled as a pre-marked preprocessor in renderMarkdown() itself
+    // (marked's GFM strikethrough would otherwise consume single tildes
+    // before we got a chance to render them as subscripts).
     work = work.replace(_chemFormulaRe, function(m, pre, formula) {
       return pre + CHEMISTRY_FORMULAS[formula];
     });
-
-    // Explicit `~text~` → <sub>, `^text^` → <sup>. Constrained to short
-    // alphanumeric-ish runs so this doesn't collide with GFM strikethrough
-    // (which uses double tildes) or text that happens to contain a tilde.
-    work = work.replace(/~([0-9A-Za-z+\-]{1,10})~/g, '<sub>$1</sub>');
-    work = work.replace(/\^([0-9A-Za-z+\-]{1,10})\^/g, '<sup>$1</sup>');
 
     // Restore protected regions.
     work = work.replace(/\u0000CHEMPROT(\d+)\u0000/g, function(_, i) {
