@@ -3880,6 +3880,92 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R13: Calendar integration (#40)
+  //  ────────────────────────────────────────────────────────────
+  //  The calendar app was drifting from the rest of the site —
+  //  no issue reporter, no click-to-create. R13 folds both in.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r13')) {
+    console.log('\n📅  R13\n');
+
+    const p = await context.newPage();
+    await p.goto(BASE + '/calendar/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForTimeout(2500);
+
+    // ── #40: issue reporter FAB appears on the calendar page ──
+    const fabCheck = await p.evaluate(() => {
+      const btn = document.getElementById('issue-reporter-btn');
+      return {
+        present: !!btn,
+        zIndex: btn ? (btn.style.zIndex || getComputedStyle(btn).zIndex) : null,
+      };
+    });
+    log('r13', '#40 calendar page includes issue reporter FAB',
+      fabCheck.present ? 'PASS' : 'FAIL',
+      fabCheck.present ? `z=${fabCheck.zIndex}` : 'missing');
+
+    // ── #40: calendar grid cells have click-to-create handlers ──
+    const gridCheck = await p.evaluate(() => {
+      const grid = document.getElementById('calendarGrid');
+      const cells = grid ? grid.querySelectorAll('.day-column[data-day][data-hour]') : [];
+      const first = cells[0];
+      return {
+        cellCount: cells.length,
+        firstHasOnClick: first ? !!first.getAttribute('onclick') : false,
+        firstOnClick: first ? first.getAttribute('onclick') : null,
+        firstTitle: first ? first.getAttribute('title') : null,
+      };
+    });
+    log('r13', '#40 calendar grid has clickable day-column cells',
+      gridCheck.cellCount > 0 ? 'PASS' : 'FAIL',
+      `${gridCheck.cellCount} cells`);
+    log('r13', '#40 each cell carries a cellClick onclick handler',
+      gridCheck.firstHasOnClick && /cellClick/.test(gridCheck.firstOnClick || '') ? 'PASS' : 'FAIL',
+      gridCheck.firstOnClick || 'none');
+    log('r13', '#40 cell title hints at click-to-create',
+      /click/i.test(gridCheck.firstTitle || '') ? 'PASS' : 'FAIL',
+      gridCheck.firstTitle || '');
+
+    // ── #40: clicking a cell opens the Add Block modal pre-filled ──
+    // Find a specific Wednesday 10am cell and click it via evaluate
+    // (not page.click — the grid cells are tiny and absolute-positioned).
+    const modalResult = await p.evaluate(() => {
+      const cell = document.querySelector('.day-column[data-day="Wednesday"][data-hour="10"]');
+      if (!cell) return { error: 'no wednesday 10am cell' };
+      cell.click();
+      return new Promise(r => setTimeout(() => {
+        const modal = document.getElementById('blockModal');
+        const isOpen = modal && modal.classList.contains('open');
+        const startTime = (document.getElementById('fStartTime') || {}).value;
+        const endTime = (document.getElementById('fEndTime') || {}).value;
+        const date = (document.getElementById('fDate') || {}).value;
+        r({ isOpen, startTime, endTime, date });
+      }, 250));
+    });
+    log('r13', '#40 clicking a cell opens the Add Block modal',
+      modalResult.isOpen ? 'PASS' : 'FAIL',
+      JSON.stringify(modalResult));
+    log('r13', '#40 Add Block modal pre-fills the clicked start time',
+      modalResult.startTime === '10:00' ? 'PASS' : 'FAIL',
+      `start=${modalResult.startTime}`);
+    log('r13', '#40 Add Block modal pre-fills end time = start + 1 hour',
+      modalResult.endTime === '11:00' ? 'PASS' : 'FAIL',
+      `end=${modalResult.endTime}`);
+    log('r13', '#40 Add Block modal pre-fills the date field',
+      /^\d{4}-\d{2}-\d{2}$/.test(modalResult.date || '') ? 'PASS' : 'FAIL',
+      `date=${modalResult.date}`);
+
+    // ── #40: close the modal cleanly so we leave the page in a known state ──
+    await p.evaluate(() => {
+      var btns = document.querySelectorAll('button');
+      for (var i = 0; i < btns.length; i++) {
+        if ((btns[i].textContent || '').trim() === 'Cancel') { btns[i].click(); break; }
+      }
+    });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

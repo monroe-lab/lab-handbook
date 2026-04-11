@@ -37,6 +37,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R10 | 15/15 | ✅ (R10) chemistry sub/superscript rendering in renderMarkdown with auto-whitelist of common formulas (H₂O, CO₂, H₂SO₄, NaHCO₃, MgCl₂, …) + explicit `~n~` / `^n^` markdown syntax, skipping code/pre/URLs and no false positives on grid cells (A1), room numbers (170), or pH 7.5 (#37), corrosives SOP H290/H314/H318 chemical lists promoted to wikilinks against real inventory slugs — went from 6 to 44 wikilinks (#16) |
 | R11 | 7/7 | ✅ (R11) issue reporter accepts file/screenshot attachments — drag-drop zone, file picker, clipboard paste; chip preview with remove button; uploads to `issue-attachments/YYYY/MM/` outside docs/ so MkDocs ignores them; images embedded as `![name](raw.githubusercontent.com/...)` markdown so GitHub renders them inline in the issue body; non-image files linked via blob URL; 5 MB cap per file (#45) |
 | R12 | 10/10 | ✅ (R12) new scripts/build-user-stats.py walks git log and emits docs/user-stats.json with per-user totals (commits, protocols authored, notebooks authored, inventory edits, wiki edits, images uploaded, issue attachments) + recent commit list. New app/profile.html renders a per-user dashboard with stats grid, 11 unlockable badges (First Commit, Protocol Master, Chronicler, Inventory Keeper, Century, Photographer, Wiki Builder, Debugger, Founder, …), recent activity, and a cross-user leaderboard. Nav avatar now links to profile (#42) |
+| R13 | 8/8 | ✅ (R13) calendar page now includes the global issue reporter FAB and each hour cell in the week grid is click-to-create — clicking an empty slot opens the Add Block modal pre-filled with that day's date and the hour's start time (end time defaults to +1h), hover highlight + `cursor:cell` make cells feel clickable (#40) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -47,7 +48,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 212/212 (100%)** — R12 adds 10 new tests covering the profile page and gamification system (#42): user-stats.json shape, greymonroe heavy-stats, profile page header + stat tiles + badges + recent commits + leaderboard render, nav avatar link. See Round 12 below for the full writeup.
+**Total: 220/220 (100%)** — R13 adds 8 new tests covering the calendar integration (#40): issue reporter FAB on the calendar page, clickable day-column cells, cellClick onclick handler, title hint, click-to-create pre-fills date/startTime/endTime in the Add Block modal. See Round 13 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -605,6 +606,42 @@ Grey asked for per-user tracking of git actions in #42 so the site could gamify 
 1. **Null bytes in subprocess args** — my first cut of the git walker used `\x00` as a field separator in `git log --pretty=format:"COMMIT\x00%H\x00..."`. Python's `subprocess.run` rejected it: `ValueError: embedded null byte`. Swapped to printable markers (`<<<COMMIT>>>%H|||%an|||...`) — commit metadata can't contain those strings, so parsing stays unambiguous without the null-byte hazard.
 2. **Author email → login inference** — GitHub noreply emails are easy (`ID+login@users.noreply.github.com` regex captures the login), but Grey's commit email is `greymonroe@gmail.com` and can't be derived from the string alone. Added `EMAIL_LOGIN_MAP` as a hand-maintained dict for those cases. Current mapping covers Grey; will need entries when lab members start pushing with non-noreply emails.
 3. **Recent commits window ordering** — walker runs oldest → newest (so first-touch tracking works correctly for "authored" counts), which means I append to `recent_commits` chronologically. Trimming to the last 8 entries keeps the list at the newest 8. Profile page reverses it before display so the view is newest-first.
+
+---
+
+## Round 13: Calendar integration (2026-04-11)
+
+Grey's #40 was "the calendar app is drifting from the rest of the site — no issue reporter button, no click-to-create." Two small fixes bring it back in line.
+
+### What shipped
+
+- [x] **Issue reporter on calendar** — `docs/calendar/index.html` now includes `<script src="../app/js/issue-reporter.js">` alongside the other shared modules. Lab members can now file issues directly from the calendar view like they can from every other page.
+- [x] **Click-to-create time slots** — the week grid renders 5 days × N hours (where N = `HOUR_END - HOUR_START`) of `.day-column` cells, each with `data-day` and `data-hour` attributes. I added:
+  - `onclick="cellClick(event, this)"` on every cell
+  - `title="Click to add a block at this time"` as a hover hint
+  - `cursor: cell` + hover highlight (`background-color: var(--teal-50)`) so the cell visibly feels clickable
+  - A new `cellClick(evt, cellEl)` function that resolves `data-day` + `data-hour` to a full date (via `currentMonday` + day offset) and start time, then calls the new `openAddModal(prefill)` with `{date, startTime}`
+  - `openAddModal` now accepts an optional `prefill` object with `date` / `startTime` / `endTime`. Default end time is computed as start + 1 hour via a small `addHour(timeStr)` helper, so a click at 10am pre-fills 10:00–11:00. If the prefill is present, focus jumps to the `fTitle` field (not `fMember`) so the user types what they're doing and not who they are.
+- [x] **Preserved existing paths** — clicks on existing block cards still open the edit modal, not the add modal: `cellClick` early-returns if `evt.target.closest('.block-card')` matches. The top-right "Add Block" button in the header still calls `openAddModal()` with no prefill and uses the original "next weekday at 9am" default.
+
+### Tests added in R13
+
+8 new tests in a new `r13` section:
+
+- `#40 calendar page includes issue reporter FAB` (checks `#issue-reporter-btn` exists)
+- `#40 calendar grid has clickable day-column cells` (counts `.day-column[data-day][data-hour]`)
+- `#40 each cell carries a cellClick onclick handler`
+- `#40 cell title hints at click-to-create`
+- `#40 clicking a cell opens the Add Block modal` (programmatically clicks the Wednesday 10am cell)
+- `#40 Add Block modal pre-fills the clicked start time` (expects `10:00`)
+- `#40 Add Block modal pre-fills end time = start + 1 hour` (expects `11:00`)
+- `#40 Add Block modal pre-fills the date field` (matches ISO date shape)
+
+### Skipped in R13
+
+- **Drag-to-extend / drag-to-move** — Grey mentioned "click on times and dragging things" but the drag gesture is a bigger build (custom pointer handlers, live preview of extent, commit on drop, collision with existing blocks). The click-to-create covers 90% of the "adding new items" complaint with 10% of the code. A future round can layer drag on top.
+- **Deeper calendar app rewrite** — the calendar runs its own rendering + schedule store (`docs/calendar/schedule.json`) because it predated the object-index system. Migrating it to use the same object-index + type infrastructure as the rest of the site would let calendar events participate in wikilink autocomplete, the knowledge graph, etc. Not in scope for this round.
+- **Multi-day / all-day events** — still tied to a single day + time slot. No support for "Tuesday-Friday conference" yet.
 
 ---
 

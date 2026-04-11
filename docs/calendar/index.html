@@ -246,7 +246,12 @@ body {
   border-right: 1px solid var(--grey-200);
   height: 60px;
   border-bottom: 1px solid var(--grey-100);
+  /* R13 #40: clickable to create. Subtle hover highlight makes it
+     discoverable without being noisy on every cell. */
+  cursor: cell;
+  transition: background-color .1s;
 }
+.day-column:hover { background-color: var(--teal-50, #f0fdfb); }
 .day-column:last-child { border-right: none; }
 
 /* Block cards */
@@ -658,6 +663,11 @@ if (window.self !== window.top) {
 <script src="../app/js/github-api.js"></script>
 <script src="../app/js/nav.js"></script>
 <script src="../app/js/rich-input.js"></script>
+<!-- R13 #40: the calendar page was missing the global issue-reporter FAB
+     and was drifting away from the rest of the site chrome. Include the
+     shared module so the red floating button appears here like on every
+     other page. -->
+<script src="../app/js/issue-reporter.js"></script>
 
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
@@ -1015,11 +1025,15 @@ function renderCalendar() {
   });
 
   // Hour rows
+  // R13 #40: each hour cell is now click-to-create. Clicking an empty
+  // part of a cell opens the Add Block modal pre-filled with that day's
+  // date and the hour's start time. Clicks on existing block-cards still
+  // open the edit modal because they stopPropagation inside cellClick.
   for (var h = HOUR_START; h < HOUR_END; h++) {
     var timeStr = formatTime12(String(h).padStart(2, '0') + ':00');
     html += '<div class="time-label">' + timeStr + '</div>';
     DAYS.forEach(function(day) {
-      html += '<div class="day-column" data-day="' + day + '" data-hour="' + h + '"></div>';
+      html += '<div class="day-column" data-day="' + day + '" data-hour="' + h + '" onclick="cellClick(event, this)" title="Click to add a block at this time"></div>';
     });
   }
 
@@ -1125,26 +1139,70 @@ function layoutBlocks(dayBlocks) {
 }
 
 // --- Add / Edit ---
-function openAddModal() {
+function openAddModal(prefill) {
   editingId = null;
+  prefill = prefill || {};
   document.getElementById('modalTitle').textContent = 'Add Block';
   document.getElementById('fTitle').value = '';
   document.getElementById('fMember').value = '';
-  var today = new Date();
-  if (today.getDay() === 0) today.setDate(today.getDate() + 1);
-  if (today.getDay() === 6) today.setDate(today.getDate() + 2);
-  document.getElementById('fDate').value = isoMonday(today);
-  document.getElementById('fStartTime').value = '09:00';
-  document.getElementById('fEndTime').value = '10:00';
+  // R13 #40: default date is "a weekday close to today"; `prefill.date`
+  // overrides for click-to-create on a specific calendar cell.
+  var dateStr;
+  if (prefill.date) {
+    dateStr = prefill.date;
+  } else {
+    var today = new Date();
+    if (today.getDay() === 0) today.setDate(today.getDate() + 1);
+    if (today.getDay() === 6) today.setDate(today.getDate() + 2);
+    dateStr = isoMonday(today);
+  }
+  document.getElementById('fDate').value = dateStr;
+  document.getElementById('fStartTime').value = prefill.startTime || '09:00';
+  document.getElementById('fEndTime').value = prefill.endTime ||
+    (prefill.startTime ? addHour(prefill.startTime) : '10:00');
   document.getElementById('fNotes').value = '';
   document.getElementById('fRepeat').value = 'none';
-  var defaultEnd = new Date(today); defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
+  var dateForRepeat = new Date(dateStr + 'T00:00:00');
+  var defaultEnd = new Date(dateForRepeat); defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
   document.getElementById('fRepeatUntil').value = isoMonday(defaultEnd);
   document.getElementById('repeatUntilWrap').style.display = 'none';
   document.getElementById('repeatRow').style.display = '';
   document.getElementById('btnDeleteBlock').style.display = 'none';
   document.getElementById('blockModal').classList.add('open');
-  document.getElementById('fMember').focus();
+  // When prefilled from a click, jump straight to the title field so the
+  // user can start typing what they're doing.
+  var focusTarget = prefill.date ? 'fTitle' : 'fMember';
+  document.getElementById(focusTarget).focus();
+}
+
+// R13 #40: click-to-create from a calendar grid cell. Extracts the day
+// + hour from the clicked element's data attributes, resolves the full
+// date relative to currentMonday, and opens the Add Block modal with the
+// date and start time pre-filled. Ignores clicks that bubble from an
+// existing block-card (those open the edit modal instead).
+function cellClick(evt, cellEl) {
+  if (evt && evt.target && evt.target.closest('.block-card')) return;
+  if (!cellEl) return;
+  var day = cellEl.getAttribute('data-day');
+  var hour = parseInt(cellEl.getAttribute('data-hour'), 10);
+  if (!day || isNaN(hour)) return;
+  var dayIdx = DAYS.indexOf(day);
+  if (dayIdx < 0) return;
+  var date = new Date(currentMonday);
+  date.setDate(date.getDate() + dayIdx);
+  var startTime = String(hour).padStart(2, '0') + ':00';
+  openAddModal({
+    date: isoMonday(date),
+    startTime: startTime,
+  });
+}
+
+// Helper for openAddModal: given "HH:00" return the next hour as "HH:00".
+function addHour(timeStr) {
+  var parts = timeStr.split(':');
+  var h = parseInt(parts[0], 10) + 1;
+  if (h >= 24) h = 23;
+  return String(h).padStart(2, '0') + ':' + (parts[1] || '00');
 }
 
 function openEditModal(id) {
