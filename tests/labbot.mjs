@@ -788,21 +788,36 @@ function ghReadFile(path) {
 
       if (editModalOpen) {
         // openItem() opens the editor in popup (read-only) view by design.
-        // Click #em-edit-toggle to switch into edit mode before looking for inputs.
+        // Click #em-edit-toggle to switch into edit mode, then poll for an
+        // editable input to absorb the form re-render delay (the 1500ms
+        // fixed wait was flaky on slower paint cycles).
         await p.evaluate(() => {
           const btn = document.getElementById('em-edit-toggle');
           if (btn) btn.click();
         });
-        await p.waitForTimeout(1500);
-
-        const fieldChanged = await p.evaluate(() => {
+        await p.waitForFunction(() => {
           const inputs = document.querySelectorAll('.em-field-input');
           for (const inp of inputs) {
-            if (inp.type === 'text' && inp.dataset.key && inp.offsetParent) {
-              inp.value = 'LabBot edit test';
-              inp.dispatchEvent(new Event('input', { bubbles: true }));
-              return inp.dataset.key + '→LabBot edit test';
-            }
+            if (inp.type === 'text' && inp.dataset.key && inp.offsetParent) return true;
+          }
+          return false;
+        }, { timeout: 8000 }).catch(() => {});
+
+        const fieldChanged = await p.evaluate(() => {
+          // Find a safe text field to mutate. Skip `type` (changing it to a
+          // non-existent value reroutes the editor's save-path logic) and
+          // `title` (changing the title can trigger a slug rename, which
+          // moves the file to a new path the test no longer reads from).
+          // `location_detail` is a real text input on the reagent schema
+          // and round-trips cleanly.
+          const inputs = document.querySelectorAll('.em-field-input');
+          for (const inp of inputs) {
+            if (inp.type !== 'text') continue;
+            if (!inp.dataset.key || !inp.offsetParent) continue;
+            if (inp.dataset.key === 'type' || inp.dataset.key === 'title') continue;
+            inp.value = 'LabBot edit test';
+            inp.dispatchEvent(new Event('input', { bubbles: true }));
+            return inp.dataset.key + '→LabBot edit test';
           }
           return null;
         });
