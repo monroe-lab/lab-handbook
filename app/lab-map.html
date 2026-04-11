@@ -126,6 +126,16 @@
 
 /* Loading */
 .tree-loading { display: flex; align-items: center; gap: 10px; color: var(--grey-500); font-size: 13px; padding: 20px; }
+
+/* R6: drag-and-drop re-parenting (Lab.locationTree draggable mode) */
+.lt-dragging > .tree-node-row { opacity: 0.4; }
+.lt-drop-target > .tree-node-row {
+  background: #e0f2f1;
+  outline: 2px dashed var(--teal, #009688);
+  outline-offset: -2px;
+}
+.tree-node[draggable="true"] > .tree-node-row { cursor: grab; }
+.tree-node[draggable="true"] > .tree-node-row:active { cursor: grabbing; }
 </style>
 </head>
 <body>
@@ -204,191 +214,35 @@
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
   var esc = Lab.escHtml;
 
-  // ── State ──
-  var rootGraph = null;       // slug -> entry (from hierarchy.build)
-  var childrenMap = null;     // slug -> [childSlug]
-  var expanded = new Set();   // slug -> expanded boolean
-  var lastQuery = '';
+  // R6: tree rendering moved into Lab.locationTree (app/js/location-tree.js).
+  // This page wires the existing toolbar (search, expand-all, collapse-all,
+  // refresh) into the module's API and supplies callbacks for open/edit/delete
+  // and drag-and-drop re-parenting.
+  var tree = null;
 
-  // Depth to auto-expand on first render.
-  var INITIAL_DEPTH = 2;
-
-  // ── Build ──
   async function build() {
-    Lab.hierarchy.invalidate();
-    rootGraph = await Lab.hierarchy.build();
-    childrenMap = {};
-    Object.keys(rootGraph).forEach(function(slug) {
-      var e = rootGraph[slug];
-      if (e.parentResolved) {
-        (childrenMap[e.parentResolved] = childrenMap[e.parentResolved] || []).push(slug);
-      }
+    if (tree && tree.destroy) tree.destroy();
+    tree = Lab.locationTree.attach(document.getElementById('treeMount'), {
+      mode: 'full',
+      showSearch: false,        // page provides its own search input
+      showActions: true,
+      draggable: true,
+      initialDepth: 2,
+      locationsOnly: true,
+      onOpen: function(slug) { openSlug(slug, false); },
+      onEdit: function(slug) { openSlug(slug, true); },
+      onDelete: function(slug) { deleteSlug(slug); },
+      onReparent: reparentSlug,
     });
-    // Sort each child array by position (if present) then title
-    Object.keys(childrenMap).forEach(function(p) {
-      childrenMap[p].sort(function(a, b) {
-        var ea = rootGraph[a], eb = rootGraph[b];
-        var pa = ea.position || '', pb = eb.position || '';
-        if (pa !== pb) return pa < pb ? -1 : 1;
-        var ta = (ea.title || a).toLowerCase();
-        var tb = (eb.title || b).toLowerCase();
-        return ta < tb ? -1 : ta > tb ? 1 : 0;
-      });
-    });
-    seedInitialExpansion();
-    render();
   }
 
-  // Expand every node within INITIAL_DEPTH of a root.
-  function seedInitialExpansion() {
-    var roots = findRoots();
-    roots.forEach(function(r) { expandTo(r, INITIAL_DEPTH); });
-  }
-  function expandTo(slug, remainingDepth) {
-    if (remainingDepth <= 0) return;
-    expanded.add(slug);
-    var kids = childrenMap[slug] || [];
-    kids.forEach(function(k) { expandTo(k, remainingDepth - 1); });
-  }
-
-  // Roots = all location-type entries whose parent doesn't resolve, preferring
-  // rooms first. If there are no location roots, fall back to just the seed room.
-  function findRoots() {
-    var LOC_TYPES = { room: 1, freezer: 1, fridge: 1, shelf: 1, box: 1, tube: 1, container: 1 };
-    var roots = [];
-    Object.keys(rootGraph).forEach(function(slug) {
-      var e = rootGraph[slug];
-      if (!LOC_TYPES[e.type]) return;
-      if (e.parentResolved) return;
-      roots.push(slug);
-    });
-    roots.sort(function(a, b) {
-      var ta = rootGraph[a].type, tb = rootGraph[b].type;
-      // rooms first, then freezers, fridges, shelves, boxes, tubes, containers
-      var order = ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'];
-      return order.indexOf(ta) - order.indexOf(tb);
-    });
-    return roots;
-  }
-
-  // Orphans = non-location entries whose parent is set but doesn't resolve.
-  function findOrphans() {
-    var LOC_TYPES = { room: 1, freezer: 1, fridge: 1, shelf: 1, box: 1, tube: 1, container: 1 };
-    var orphans = [];
-    Object.keys(rootGraph).forEach(function(slug) {
-      var e = rootGraph[slug];
-      if (!e.parent) return;
-      if (e.parentResolved) return;
-      orphans.push(slug);
-    });
-    return orphans;
-  }
-
-  // ── Render ──
-  function render() {
-    var mount = document.getElementById('treeMount');
-    if (!rootGraph) {
-      mount.innerHTML = '<div class="tree-loading">Loading…</div>';
-      return;
-    }
-    var roots = findRoots();
-    if (!roots.length) {
-      mount.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">home_work</span><p>No top-level locations yet.</p><p>Create a room object under <code>docs/locations/</code> to get started.</p></div>';
-      return;
-    }
-    var html = '';
-    roots.forEach(function(slug) { html += renderNode(slug, 0); });
-
-    // Orphans (items with parent ref that didn't resolve)
-    var orphans = findOrphans();
-    if (orphans.length) {
-      html += '<div class="orphan-section">';
-      html += '<h3>⚠ Unresolved parents (' + orphans.length + ')</h3>';
-      orphans.forEach(function(slug) { html += renderNode(slug, 0, true); });
-      html += '</div>';
-    }
-
-    mount.innerHTML = html;
-    applyFilter(lastQuery);
-  }
-
-  function renderNode(slug, depth, isOrphan) {
-    var e = rootGraph[slug];
-    if (!e) return '';
-    var kids = childrenMap[slug] || [];
-    var isLeaf = kids.length === 0;
-    var isExpanded = expanded.has(slug);
-    var type = e.type || 'container';
-    var typeConfig = Lab.types.get(type);
-    var icon = typeConfig.icon || '📄';
-    var title = e.title || slug.split('/').pop();
-    var pos = e.position ? '<span class="tw-pos" title="Position in parent">' + esc(e.position) + '</span>' : '';
-    var grid = e.grid ? '<span class="tw-pos" title="Grid size" style="background:#e0f2f1;color:#00695c">' + esc(e.grid) + '</span>' : '';
-    var count = kids.length ? '<span class="tw-count">' + kids.length + ' item' + (kids.length === 1 ? '' : 's') + '</span>' : '';
-    var orphanBadge = isOrphan ? '<span class="tw-pos" title="Parent ref does not resolve" style="background:#fff3e0;color:#e65100">orphan: ' + esc(e.parent || '') + '</span>' : '';
-
-    var html = '<div class="tree-node' + (isExpanded ? ' is-expanded' : '') + '" data-slug="' + esc(slug) + '" data-depth="' + depth + '">';
-    // The row itself is data-act="open" so clicking anywhere on it (icon,
-    // title, empty space, position badge) opens the popup. The toggle and the
-    // action buttons have their own data-act values, and closest() picks the
-    // innermost match first — so those clicks win over the row-level handler.
-    html += '<div class="tree-node-row' + (isLeaf ? ' is-leaf' : '') + '" data-act="open">';
-    html += '<span class="tw-toggle material-icons-outlined" data-act="toggle">chevron_right</span>';
-    html += '<span class="tw-icon">' + icon + '</span>';
-    html += '<span class="tw-title" title="' + esc(slug) + '">' + esc(title) + '</span>';
-    html += pos + grid + count + orphanBadge;
-    html += '<span class="tw-actions">';
-    html += '<button type="button" data-act="edit" title="Edit"><span class="material-icons-outlined">edit</span></button>';
-    html += '<button type="button" data-act="delete" class="danger" title="Delete"><span class="material-icons-outlined">delete</span></button>';
-    html += '</span>';
-    html += '</div>';
-    if (!isLeaf) {
-      html += '<div class="tree-children">';
-      kids.forEach(function(childSlug) { html += renderNode(childSlug, depth + 1); });
-      html += '</div>';
-    }
-    html += '</div>';
-    return html;
-  }
-
-  // ── Actions ──
-  document.addEventListener('click', function(e) {
-    var actEl = e.target.closest('[data-act]');
-    if (!actEl) return;
-    var nodeEl = actEl.closest('.tree-node');
-    if (!nodeEl) return;
-    var slug = nodeEl.getAttribute('data-slug');
-    var act = actEl.getAttribute('data-act');
-
-    if (act === 'toggle') {
-      e.stopPropagation();
-      if (expanded.has(slug)) expanded.delete(slug);
-      else expanded.add(slug);
-      nodeEl.classList.toggle('is-expanded');
-      return;
-    }
-    if (act === 'open') {
-      e.stopPropagation();
-      openSlug(slug, false);
-      return;
-    }
-    if (act === 'edit') {
-      e.stopPropagation();
-      openSlug(slug, true);
-      return;
-    }
-    if (act === 'delete') {
-      e.stopPropagation();
-      deleteSlug(slug);
-      return;
-    }
-  });
+  // Legacy build() return is no longer used; kept for parity with the tests
+  // and the test-only window.labMap API below.
+  function _legacyBuildShim() {}
 
   function openSlug(slug, editMode) {
     if (!window.Lab.editorModal) return;
     Lab.editorModal.open('docs/' + slug + '.md').then(function() {
-      // Editor modal doesn't expose a startEdit entry point yet; clicking the
-      // edit toggle button in the modal header is equivalent.
       if (editMode) {
         setTimeout(function() {
           var btn = document.getElementById('em-edit-toggle');
@@ -399,9 +253,11 @@
   }
 
   async function deleteSlug(slug) {
-    var entry = rootGraph[slug];
+    var entry = (await Lab.hierarchy.build())[slug];
     if (!entry) return;
-    var kidsCount = (childrenMap[slug] || []).length;
+    // childrenOf is faster than re-walking the graph for the kids count.
+    var kids = await Lab.hierarchy.childrenOf(slug);
+    var kidsCount = kids.length;
     var msg = 'Delete "' + (entry.title || slug) + '"?';
     if (kidsCount > 0) {
       msg += '\n\nWARNING: this location has ' + kidsCount + ' child item' + (kidsCount === 1 ? '' : 's') +
@@ -411,8 +267,6 @@
     var path = 'docs/' + slug + '.md';
     try {
       await Lab.gh.deleteFile(path);
-      // Mark deleted in the localStorage patch layer so the tree rebuild
-      // filters it out even if the CDN still serves the pre-delete index.
       if (Lab.gh.removeFromObjectIndex) Lab.gh.removeFromObjectIndex(path);
       if (window.Lab.showToast) Lab.showToast('Deleted ' + slug, 'success');
       await build();
@@ -422,73 +276,72 @@
     }
   }
 
-  // ── Filter ──
-  document.getElementById('treeSearch').addEventListener('input', function(e) {
-    lastQuery = (e.target.value || '').toLowerCase().trim();
-    applyFilter(lastQuery);
-  });
-  document.getElementById('expandAllBtn').addEventListener('click', function() {
-    Object.keys(rootGraph).forEach(function(slug) {
-      if ((childrenMap[slug] || []).length) expanded.add(slug);
-    });
-    render();
-  });
-  document.getElementById('collapseAllBtn').addEventListener('click', function() {
-    expanded.clear();
-    render();
-  });
-  document.getElementById('refreshBtn').addEventListener('click', build);
-
-  function applyFilter(q) {
-    if (!q) {
-      document.querySelectorAll('.tree-node').forEach(function(n) {
-        n.style.display = '';
-        n.querySelector('.tree-node-row').classList.remove('is-hit');
-      });
+  // R6: drag-and-drop re-parenting. The tree module catches the drop event
+  // (and prevents cycles by walking the parent chain) and hands us the
+  // (src, newParent) pair. We confirm with the user, patch the dragged
+  // file's frontmatter, save to GitHub, and rebuild.
+  async function reparentSlug(srcSlug, newParentSlug) {
+    var path = 'docs/' + srcSlug + '.md';
+    var newParentPath = 'docs/' + newParentSlug + '.md';
+    if (!window.confirm('Move "' + srcSlug + '"\ninto "' + newParentSlug + '" ?\n\n(Updates the parent: frontmatter and saves to GitHub.)')) {
       return;
     }
-    // Pass 1: mark hits
-    var hits = new Set();
-    Object.keys(rootGraph).forEach(function(slug) {
-      var e = rootGraph[slug];
-      var hay = (slug + ' ' + (e.title || '') + ' ' + (e.type || '')).toLowerCase();
-      if (hay.indexOf(q) !== -1) hits.add(slug);
-    });
-    // Pass 2: expand ancestors of every hit and show them
-    var show = new Set();
-    hits.forEach(function(slug) {
-      var cur = slug;
-      var seen = {};
-      while (cur && rootGraph[cur] && !seen[cur]) {
-        seen[cur] = true;
-        show.add(cur);
-        cur = rootGraph[cur].parentResolved || null;
-      }
-    });
-    document.querySelectorAll('.tree-node').forEach(function(n) {
-      var slug = n.getAttribute('data-slug');
-      if (show.has(slug)) {
-        n.style.display = '';
-        n.classList.add('is-expanded');
-        if (hits.has(slug)) n.querySelector('.tree-node-row').classList.add('is-hit');
-        else                n.querySelector('.tree-node-row').classList.remove('is-hit');
+    try {
+      var file = await Lab.gh.fetchFile(path);
+      var text = file.content;
+      // Patch the parent: line in the frontmatter — replace if present, insert otherwise.
+      var fmMatch = text.match(/^---\s*\n([\s\S]*?)\n---/);
+      if (!fmMatch) throw new Error('No frontmatter');
+      var fm = fmMatch[1];
+      if (/^parent:\s*.*$/m.test(fm)) {
+        fm = fm.replace(/^parent:\s*.*$/m, 'parent: ' + newParentSlug);
       } else {
-        n.style.display = 'none';
+        // Insert after `type:` if present, otherwise at the end of frontmatter.
+        if (/^type:\s*.*$/m.test(fm)) {
+          fm = fm.replace(/^(type:\s*.*)$/m, '$1\nparent: ' + newParentSlug);
+        } else {
+          fm = fm + '\nparent: ' + newParentSlug;
+        }
       }
-    });
+      // Also clear `position:` since the new parent's grid (if any) is different.
+      fm = fm.replace(/^position:\s*.*\n?/m, '');
+      var newText = '---\n' + fm + '\n---' + text.slice(fmMatch[0].length);
+      await Lab.gh.saveFile(path, newText, file.sha, 'lab-map: re-parent ' + srcSlug + ' → ' + newParentSlug);
+      if (window.Lab.showToast) Lab.showToast('Moved ' + srcSlug.split('/').pop() + ' → ' + newParentSlug.split('/').pop(), 'success');
+      await build();
+    } catch(err) {
+      if (window.Lab.showToast) Lab.showToast('Re-parent failed: ' + err.message, 'error');
+      console.error('reparent failed:', err);
+    }
   }
+
+  // ── Toolbar wiring (page-owned controls drive the module) ──
+  document.getElementById('treeSearch').addEventListener('input', function(e) {
+    var q = (e.target.value || '').toLowerCase().trim();
+    if (tree && tree.filter) tree.filter(q);
+  });
+  document.getElementById('expandAllBtn').addEventListener('click', function() {
+    if (!tree) return;
+    tree.getRoots().forEach(function(slug) { tree.expand(slug); });
+    // The tree module's expand() re-renders per-call; for many roots that's
+    // wasteful but acceptable for the lab-map use case.
+  });
+  document.getElementById('collapseAllBtn').addEventListener('click', function() {
+    if (tree) tree.collapseAll();
+  });
+  document.getElementById('refreshBtn').addEventListener('click', build);
 
   // ── Boot ──
   build();
 
-  // Public API for tests.
+  // Public API for tests (legacy shim — most callers should use Lab.locationTree).
   window.labMap = {
     build: build,
-    findRoots: findRoots,
-    findOrphans: findOrphans,
-    expand: function(slug) { expanded.add(slug); render(); },
-    collapseAll: function() { expanded.clear(); render(); },
-    isExpanded: function(slug) { return expanded.has(slug); },
+    findRoots: function() { return tree ? tree.getRoots() : []; },
+    findOrphans: function() { return tree ? tree.getOrphans() : []; },
+    expand: function(slug) { if (tree) tree.expand(slug); },
+    collapseAll: function() { if (tree) tree.collapseAll(); },
+    isExpanded: function(slug) { return tree ? tree.isExpanded(slug) : false; },
   };
 
 })();

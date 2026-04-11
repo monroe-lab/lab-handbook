@@ -13,6 +13,7 @@
     'js/rich-input.js',
     'js/editor-modal.js',
     'js/wikilink-autocomplete.js',
+    'js/location-tree.js',
     'js/annotate.js',
     'js/issue-reporter.js',
   ];
