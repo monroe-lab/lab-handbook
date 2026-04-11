@@ -1,11 +1,11 @@
 ---
-type: glycerol_stock
-title: BL21(DE3) Competent Cells
-organism: E. coli
-stock_type: glycerol_stock
-source: NEB
-parent: locations/box-minus80-a-1-a
-position: A5
+type: "glycerol_stock"
+title: "BL21(DE3) Competent Cells"
+organism: "E. coli"
+stock_type: "glycerol_stock"
+source: "NEB"
+parent: "locations/box-minus80-a-1-a"
+position: "D3"
 ---
 # BL21(DE3) Competent Cells
 
