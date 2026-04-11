@@ -10,5 +10,3 @@ unit: mL
 # Dimethyl sulfoxide
 
 Bottle of [[resources/dimethyl-sulfoxide]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

@@ -10,5 +10,3 @@ unit: mL
 # Formaldehyde (16% methanol free) PFA
 
 Bottle of [[resources/formaldehyde-16-methanol-free-pfa]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

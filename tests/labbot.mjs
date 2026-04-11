@@ -3143,6 +3143,225 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R7: Mobile UX cluster + cleanup (13 GitHub issues)
+  //  ────────────────────────────────────────────────────────────
+  //  A quick-wins round addressing issues #21 #22 #23 #24 #25 #27
+  //  #29 #30 #31 #32 #33 #34 #35 #41 — mostly mobile friction, a
+  //  few regressions, and R5 migration junk cleanup.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r7')) {
+    console.log('\n🪚  R7\n');
+
+    // ── R7 #31: Migrated-from-inline text scrubbed from bottle files ──
+    const p1 = await context.newPage();
+    await p1.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p1.waitForFunction(() => window.Lab && window.Lab.gh && window.Lab.gh.fetchObjectIndex, { timeout: 15000 }).catch(() => {});
+    const ethanolBody = await p1.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/stocks/bottle-ethanol-absolute.md');
+      return res.content;
+    }).catch(() => '');
+    log('r7', '#31 bottle body has no "Migrated from inline" leftover',
+      ethanolBody && !ethanolBody.includes('Migrated from inline') ? 'PASS' : 'FAIL',
+      ethanolBody.includes('Migrated from inline') ? 'still present' : 'clean');
+
+    // ── R7 #27: mtime field reaches the client-side object index ──
+    const mtimeCheck = await p1.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const withMtime = idx.filter(e => typeof e.mtime === 'number' && e.mtime > 0);
+      return { total: idx.length, withMtime: withMtime.length, sample: withMtime[0] };
+    }).catch(() => ({ total: 0, withMtime: 0 }));
+    log('r7', '#27 object-index entries carry mtime (recency sort data)',
+      mtimeCheck.withMtime > 100 ? 'PASS' : 'FAIL',
+      `${mtimeCheck.withMtime}/${mtimeCheck.total} with mtime`);
+
+    // ── R7 #41: new top-level locations exist in index ──
+    const newLocs = await p1.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const want = ['locations/room-asmundson-growth-chamber.md', 'locations/room-robbins-262.md', 'locations/room-genome-center.md'];
+      return want.filter(w => idx.some(e => e.path === w));
+    }).catch(() => []);
+    log('r7', '#41 three new base-level room locations indexed',
+      newLocs.length === 3 ? 'PASS' : 'FAIL',
+      `${newLocs.length}/3: ${newLocs.join(', ')}`);
+
+    await p1.close();
+
+    // ── R7 #25: nav overflow popover does NOT include Graph link ──
+    const p2 = await context.newPage();
+    await p2.setViewportSize({ width: 411, height: 795 });   // mobile viewport
+    await p2.goto(BASE + '/app/dashboard.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForTimeout(1500);
+    const graphCheck = await p2.evaluate(() => {
+      // Click the mobile "..." overflow button to open the popover.
+      const moreBtn = document.querySelector('#lab-bottom-nav [data-more], #lab-bottom-nav button:last-child');
+      if (moreBtn) moreBtn.click();
+      // Give it a tick to render.
+      return new Promise(resolve => setTimeout(() => {
+        const pop = document.getElementById('nav-more-popover');
+        const hasGraph = pop ? !!pop.textContent.match(/Graph/i) : false;
+        resolve({ popoverOpen: !!pop, hasGraph });
+      }, 100));
+    });
+    log('r7', '#25 mobile nav overflow popover has no stray Graph link',
+      graphCheck.popoverOpen && !graphCheck.hasGraph ? 'PASS' :
+        graphCheck.popoverOpen ? 'FAIL' : 'SKIP',
+      graphCheck.popoverOpen ? (graphCheck.hasGraph ? 'Graph still present' : 'removed') : 'popover did not open');
+    await p2.close();
+
+    // ── R7 #33: issue-reporter FAB z-index is above editor-modal overlay ──
+    const p3 = await context.newPage();
+    await p3.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p3.waitForTimeout(1500);
+    const fabZ = await p3.evaluate(() => {
+      const btn = document.getElementById('issue-reporter-btn');
+      if (!btn) return null;
+      return parseInt(btn.style.zIndex, 10) || parseInt(getComputedStyle(btn).zIndex, 10) || 0;
+    });
+    log('r7', '#33 issue reporter FAB z-index > em-overlay (10000)',
+      fabZ && fabZ > 10000 ? 'PASS' : 'FAIL', `z-index=${fabZ}`);
+
+    // ── R7 #23: body.em-editing hides the issue FAB via CSS ──
+    const emEditingHides = await p3.evaluate(() => {
+      document.body.classList.add('em-editing');
+      const btn = document.getElementById('issue-reporter-btn');
+      const hidden = btn && getComputedStyle(btn).display === 'none';
+      document.body.classList.remove('em-editing');
+      return hidden;
+    });
+    log('r7', '#23 body.em-editing CSS hides issue FAB',
+      emEditingHides ? 'PASS' : 'FAIL');
+    await p3.close();
+
+    // ── R7 #21: location-tree preserves expanded set across refresh ──
+    const p4 = await context.newPage();
+    await p4.goto(BASE + '/app/lab-map.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p4.waitForFunction(() => window.Lab && Lab.locationTree, { timeout: 15000 }).catch(() => {});
+    await p4.waitForTimeout(2500);
+    const treePreserve = await p4.evaluate(async () => {
+      // Attach a detached tree, expand a deep node, call refresh, check it's still expanded.
+      const mount = document.createElement('div');
+      mount.style.cssText = 'position:absolute;left:-9999px';
+      document.body.appendChild(mount);
+      const tree = Lab.locationTree.attach(mount, { mode: 'full', showSearch: false, initialDepth: 1 });
+      await new Promise(r => setTimeout(r, 1500));
+      // Find any non-root slug in the tree and expand it
+      const nodes = mount.querySelectorAll('.lt-node');
+      if (nodes.length < 2) return { ok: false, reason: 'not enough nodes', count: nodes.length };
+      const target = nodes[nodes.length - 1].getAttribute('data-slug');
+      tree.expand(target);
+      const beforeRefresh = tree.isExpanded(target);
+      await tree.refresh();
+      await new Promise(r => setTimeout(r, 500));
+      const afterRefresh = tree.isExpanded(target);
+      tree.destroy();
+      mount.remove();
+      return { ok: beforeRefresh && afterRefresh, beforeRefresh, afterRefresh, target };
+    });
+    log('r7', '#21 location tree keeps expanded slugs across refresh()',
+      treePreserve.ok ? 'PASS' : 'FAIL',
+      `before=${treePreserve.beforeRefresh} after=${treePreserve.afterRefresh}`);
+    await p4.close();
+
+    // ── R7 #30 + #32: popup Edit/View button + nav stack back-behavior ──
+    const p5 = await context.newPage();
+    await p5.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p5.waitForFunction(() => window.Lab && Lab.editorModal && Lab.editorModal.open, { timeout: 15000 }).catch(() => {});
+    await p5.waitForTimeout(2000);
+    const popupBtn = await p5.evaluate(async () => {
+      // Open an item, check the edit-toggle starts as "Edit"
+      await Lab.editorModal.open('docs/stocks/bottle-ethanol-absolute.md');
+      await new Promise(r => setTimeout(r, 1800));
+      const btnText = (document.getElementById('em-edit-toggle') || {}).textContent || '';
+      return btnText.trim();
+    }).catch(() => 'error');
+    log('r7', '#30 popup edit toggle starts as "Edit"',
+      /edit/i.test(popupBtn) && !/view/i.test(popupBtn) ? 'PASS' : 'FAIL',
+      `button text: "${popupBtn}"`);
+
+    // Open a second item on top, then closeOrBack — should return to the first
+    const navBack = await p5.evaluate(async () => {
+      // Sanity: there must already be a popup from the previous step.
+      if (!document.querySelector('.em-overlay.open')) return { skipped: 'no popup' };
+      // Open a second item
+      await Lab.editorModal.open('docs/stocks/bottle-ethanol-70-1.md');
+      await new Promise(r => setTimeout(r, 1500));
+      const titleAfterSecond = (document.getElementById('em-title') || {}).textContent || '';
+      // Click the X (closeOrBack) — should pop nav stack back to first item
+      const closeBtn = document.getElementById('em-close');
+      if (closeBtn) closeBtn.click();
+      await new Promise(r => setTimeout(r, 1500));
+      const titleAfterClose = (document.getElementById('em-title') || {}).textContent || '';
+      const overlayStillOpen = document.querySelector('.em-overlay.open') !== null;
+      return { titleAfterSecond, titleAfterClose, overlayStillOpen };
+    }).catch(e => ({ error: String(e) }));
+    const backWorked = navBack.overlayStillOpen && /ethanol absolute/i.test(navBack.titleAfterClose || '');
+    log('r7', '#32 closeOrBack pops nav stack to previous popup',
+      backWorked ? 'PASS' : 'FAIL',
+      `second=${navBack.titleAfterSecond}, after close=${navBack.titleAfterClose}, open=${navBack.overlayStillOpen}`);
+    await p5.close();
+
+    // ── R7 #24: wiki mini-graph close button has pointer-events:auto ──
+    const p6 = await context.newPage();
+    await p6.goto(BASE + '/app/wiki.html?doc=bulletin', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p6.waitForTimeout(2500);
+    const miniClose = await p6.evaluate(() => {
+      const btn = document.querySelector('.wiki-mini-graph .mini-close');
+      if (!btn) return { present: false };
+      const cs = getComputedStyle(btn);
+      return { present: true, pointerEvents: cs.pointerEvents, zIndex: cs.zIndex };
+    });
+    log('r7', '#24 mini-graph close button is tappable',
+      miniClose.present && miniClose.pointerEvents === 'auto' ? 'PASS' :
+        miniClose.present ? 'FAIL' : 'SKIP',
+      miniClose.present ? `pointerEvents=${miniClose.pointerEvents} z=${miniClose.zIndex}` : 'no mini-graph on bulletin');
+    await p6.close();
+
+    // ── R7 #27: inventory mobile filter-row DOM present ──
+    const p7 = await context.newPage();
+    await p7.setViewportSize({ width: 411, height: 795 });
+    await p7.goto(BASE + '/app/inventory.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p7.waitForTimeout(2000);
+    const filterRow = await p7.evaluate(() => {
+      const row = document.querySelector('.inv-toolbar .filter-row');
+      if (!row) return null;
+      const selects = row.querySelectorAll('.filter-select');
+      return { present: true, count: selects.length };
+    });
+    log('r7', '#27 inventory toolbar has .filter-row wrapper on mobile',
+      filterRow && filterRow.count === 3 ? 'PASS' : 'FAIL',
+      filterRow ? `${filterRow.count} selects` : 'no filter-row');
+    await p7.close();
+
+    // ── R7 #22: dashboard bulletin link includes from=dashboard param ──
+    const p8 = await context.newPage();
+    await p8.goto(BASE + '/app/dashboard.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p8.waitForTimeout(1500);
+    const bulletinLink = await p8.evaluate(() => {
+      const a = document.querySelector('a[href*="wiki.html?doc=bulletin"]');
+      return a ? a.getAttribute('href') : null;
+    });
+    log('r7', '#22 dashboard bulletin edit link carries from=dashboard',
+      bulletinLink && bulletinLink.includes('from=dashboard') ? 'PASS' : 'FAIL',
+      bulletinLink || 'no link');
+    await p8.close();
+
+    // ── R7 #35: chip-seq rpm placeholders are no longer whitespace-only ──
+    const p9 = await context.newPage();
+    await p9.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p9.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchFile, { timeout: 15000 }).catch(() => {});
+    const chipBody = await p9.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/wet-lab/epigenomics/chip-seq.md');
+      return res.content;
+    }).catch(() => '');
+    const hasEmptyRpm = /\(rpm:\s{5,}\)/.test(chipBody);
+    const hasTodoRpm = /rpm:\s*_\*\*TODO/i.test(chipBody);
+    log('r7', '#35 chip-seq empty rpm placeholders replaced with visible TODO',
+      !hasEmptyRpm && hasTodoRpm ? 'PASS' : 'FAIL',
+      `emptyRpm=${hasEmptyRpm} todoRpm=${hasTodoRpm}`);
+    await p9.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

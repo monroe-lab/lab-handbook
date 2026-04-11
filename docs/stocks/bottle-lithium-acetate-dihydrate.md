@@ -10,5 +10,3 @@ unit: g
 # Lithium acetate dihydrate
 
 Bottle of [[resources/lithium-acetate-dihydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

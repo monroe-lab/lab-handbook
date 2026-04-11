@@ -10,5 +10,3 @@ unit: g
 # Aristolochic acid I
 
 Bottle of [[resources/aristolochic-acid-i]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # D-Mannitol
 
 Bottle of [[resources/d-mannitol]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

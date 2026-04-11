@@ -10,5 +10,3 @@ unit: g
 # Iron(III) chloride
 
 Bottle of [[resources/iron-iii-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

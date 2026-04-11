@@ -560,15 +560,26 @@
       });
       if (!resp.ok) throw new Error('Failed to upload annotated image');
 
-      // 4. Callback with the annotated image path and data URL for immediate preview
+      // 4. Callback with the annotated image path and data URL for immediate preview.
+      // R7 #29: isolate the host's callback in its own try/catch so a
+      // failure inside it (e.g. Toast UI setMarkdown, ProseMirror reflow)
+      // can't block the modal from closing. Previously a thrown error
+      // here left the annotation modal visible with the "Saved!" toast
+      // already shown, forcing the user to click Cancel.
       var dataUrl = canvas.toDataURL('image/png');
-      if (onSaveCallback) onSaveCallback(annotatedPath, dataUrl);
+      if (onSaveCallback) {
+        try { onSaveCallback(annotatedPath, dataUrl); }
+        catch(cbErr) { console.error('annotate: save callback error:', cbErr); }
+      }
 
       window.Lab.showToast('Annotations saved!', 'success');
-      close();
     } catch(e) {
       window.Lab.showToast('Save failed: ' + e.message, 'error');
+      return;
     }
+    // R7 #29: close unconditionally after the try — reached for both the
+    // success path and any path that doesn't `return` out of the catch.
+    close();
   }
 
   function blobToBase64(blob) {

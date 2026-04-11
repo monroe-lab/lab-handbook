@@ -10,5 +10,3 @@ unit: g
 # Guanidine thiocyanate
 
 Bottle of [[resources/guanidine-thiocyanate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

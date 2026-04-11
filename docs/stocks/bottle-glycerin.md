@@ -10,5 +10,3 @@ unit: mL
 # Glycerin
 
 Bottle of [[resources/glycerin]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

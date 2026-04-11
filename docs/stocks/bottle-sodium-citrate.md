@@ -10,5 +10,3 @@ unit: g
 # Sodium citrate
 
 Bottle of [[resources/sodium-citrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

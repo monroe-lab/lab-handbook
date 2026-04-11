@@ -9,5 +9,3 @@ unit: g
 # Zeocin
 
 Bottle of [[resources/zeocin]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

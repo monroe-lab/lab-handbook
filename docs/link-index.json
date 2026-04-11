@@ -604,6 +604,10 @@
     "target": "wet-lab/epigenomics/cut-and-tag"
   },
   {
+    "source": "plant-harvesting/poplar-leaf-collection",
+    "target": "shipping/shipping-samples-to-monroe-lab"
+  },
+  {
     "source": "projects/alfalfa-pangenome/index",
     "target": "people/grey-monroe"
   },
@@ -918,6 +922,14 @@
   {
     "source": "samples/sample-pistachio-4",
     "target": "locations/tube-pistachio-dna-extract-1"
+  },
+  {
+    "source": "shipping/shipping-samples-to-monroe-lab",
+    "target": "shipping/aggieship-inbound-hazmat-label"
+  },
+  {
+    "source": "shipping/shipping-samples-to-monroe-lab",
+    "target": "plant-harvesting/poplar-leaf-collection"
   },
   {
     "source": "stocks/bl21-de3-competent-cells",

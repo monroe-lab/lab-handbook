@@ -10,5 +10,3 @@ unit: g
 # L-Glutamine
 
 Bottle of [[resources/l-glutamine]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

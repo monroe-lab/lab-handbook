@@ -10,5 +10,3 @@ unit: mL
 # 3-Methylbutanol
 
 Bottle of [[resources/3-methylbutanol]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

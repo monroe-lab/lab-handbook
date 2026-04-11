@@ -157,12 +157,9 @@
       popover.appendChild(a);
     });
 
-    // Graph link
-    var graphLink = document.createElement('a');
-    graphLink.href = BASE + 'app/graph.html';
-    graphLink.style.cssText = 'display:flex;align-items:center;gap:10px;padding:12px 20px;text-decoration:none;color:#424242;font-size:14px;border-top:1px solid #e0e0e0;margin-top:4px;';
-    graphLink.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">hub</span>Graph';
-    popover.appendChild(graphLink);
+    // R7 #25: removed redundant "Graph" link — it wasn't in the desktop nav
+    // and duplicated the wiki graph tab. If we add a separate graph page
+    // back, add it to TABS so it surfaces in both mobile and desktop.
 
     document.body.appendChild(popover);
 

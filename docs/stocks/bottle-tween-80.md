@@ -10,5 +10,3 @@ unit: mL
 # TWEEN 80
 
 Bottle of [[resources/tween-80]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

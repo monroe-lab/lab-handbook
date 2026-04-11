@@ -10,5 +10,3 @@ unit: g
 # Dextran
 
 Bottle of [[resources/dextran]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

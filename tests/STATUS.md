@@ -31,6 +31,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Bottles | 10/10 | ✅ (R5) bottle type registered, 156 migrated bottles in index, all carry of:+parent:, ethanol-absolute wired to cabinet-flammable, location anchors exist (R6: bench, fridge-4c-main merged), concept files cleaned of containers:, concept popup col 3 lists physical bottles via of:-aware backlinks, inventory hides bottle rows + counts them under concept |
 | R6 | 10/10 | ✅ Lab.locationTree module loaded, cabinets parented under Robbins 0170, bench renamed (no bench-reagent), fridge-reagent merged into fridge-4c-main, location: field stripped from concepts, locations picker mounts a tree, picker tree excludes bottles via childFilter, lab-map tree renders via module, lab-map nodes draggable, grid occupied cells draggable |
 | R6.5 | 9/9 | ✅ (R6.5) isConceptType helper, concepts/instances/locations/stocks classified correctly, scoped save-time uniqueness check catches dupe concepts, instance-count map from `of:` + link-index, ethanol-absolute → 1 bottle, ethanol-70 → 2 bottles (multi-bottle), sample-pistachio-4 → 3 tubes, autocomplete dropdown badges 19 concepts with instances |
+| R7 | 13/13 | ✅ (R7) Scrubbed R5 migration leftover text from 156 bottle files (#31), location-tree preserves expanded set across refresh (#21), popup Edit button resets label on every open (#30), stray mobile Graph nav link removed (#25), three new base-level rooms indexed (#41), mtime-aware object index for recency sort (#27), inventory mobile toolbar stacks into filter-row (#27), mini-graph close button gets bigger tap target (#24), issue-reporter FAB raised above editor-modal overlay (#33), body.em-editing hides FAB during edit (#23), popup closeOrBack pops nav stack (box→tube→close returns to box) (#32), dashboard bulletin edit round-trips via from=dashboard (#22), chip-seq empty rpm placeholders replaced with visible TODO (#35), annotate save-callback errors no longer block close (#29) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -41,7 +42,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 153/153 (100%)** — R6.5 adds 9 new tests covering the concept-type helper, scoped uniqueness check, and the autocomplete instance badge. Also fixes a long-standing create-then-edit race in the inventory flow (see Round 6.5 below).
+**Total: 166/166 (100%)** — R7 adds 13 new tests covering the scrub of migration leftover text, location-tree expanded-state persistence, popup Edit/View button reset, nav-stack back behavior, mobile issue-reporter FAB positioning, the connections panel close button, inventory mobile layout + mtime recency sort, three new base-level rooms, and the bulletin edit round-trip. See Round 7 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -323,6 +324,54 @@ Two consecutive inventory runs at 7/7 after the fix.
 ### Skipped in R6.5
 
 - **`Lab.gh._getCachedLinkIndex` surface area** — added as a minimal sync accessor only for use by wikilink-autocomplete's lazy map builder. Not promoted to a public API.
+
+---
+
+## Round 7: Mobile UX cluster + cleanup quick wins (2026-04-11)
+
+Grey filed 24 issues against the live site today, mostly from his phone on 411×795. R7 is a batch of 13 small, independent fixes covering mobile friction, a few regressions from R5/R6, and the R5 migration leftover text. No new features — this round is about tightening what's already there so the 11 lab members picking it up next don't hit the same papercuts.
+
+### What shipped
+
+- [x] **#31 scrub R5 migration leftover text** — `Migrated from inline \`containers:\` entry (original location: 'Chemical Cabinet').` was sitting at the bottom of all 156 bottle files after the R5 migration. One-shot python pass stripped the line. Nothing to test in labbot beyond "this string is gone from ethanol-absolute's body".
+- [x] **#21 tree uncollapse after reparent** — the lab-map `build()` call in `reparentSlug` was calling `tree.destroy()` + re-attach after every drag-drop, which rebuilt the expanded `Set` from scratch (to just `initialDepth=2` depth). Fixed two ways: (1) `location-tree.js build()` now only seeds `initialDepth` on the first boot (`seeded` flag) and preserves the existing Set on subsequent builds, dropping any stale slugs that no longer exist; (2) `lab-map.html reparentSlug`/`deleteSlug` now call `tree.refresh()` instead of rebuilding the whole tree. User's expanded branches survive re-parent.
+- [x] **#30 popup Edit button label stale** — `em-edit-toggle` flipped between "Edit" (view mode) and "View" (edit mode), but `openPopup` was never resetting the button HTML. Sequence: edit item A → button becomes "View" → close → open item B → button still says "View" while the new popup is actually in view mode. Fix: `openPopup` sets the button HTML back to "Edit" every time, before the async file fetch.
+- [x] **#25 stray mobile Graph link** — `nav.js toggleMorePopover` was appending an extra "Graph" link to the mobile `...` overflow popover that didn't exist in the desktop `TABS` array and duplicated the wiki graph tab. Removed. If we want a graph page back, add it to `TABS`.
+- [x] **#33 issue FAB disappears over modal** — the issue-reporter FAB (`bottom:80px left:18px`) had `z-index:9999`, under `em-overlay`'s `z-index:10000`. Bumped FAB to `10001` and its submit overlay to `10002` so the user can submit an issue while looking at an item card popup.
+- [x] **#23 issue FAB covers edit toolbar** — the FAB sat on top of the Toast UI mobile fab bar in edit mode. Fix is to hide the FAB while any editor is active. Added body class `em-editing` toggled by `startEditing` / `stopEditing` / `close` / `openNew`, mirroring wiki.html's existing `body.editing-mode`. CSS in `issue-reporter.js` hides the FAB when either class is set.
+- [x] **#34 issue submit popup keyboard-covered** — on mobile, the centered modal meant the submit button was below the fold once the keyboard came up. CSS inside `issue-reporter.js injectCSS` anchors the overlay to `align-items:flex-start` with a 12px top padding on narrow viewports.
+- [x] **#32 close-returns-to-parent-box (popup nav history)** — `editor-modal.js` now keeps a `navStack` of previously-open paths. `openPopup` pushes the current path when it replaces another popup (guarded by `isBackNavigation`); the X button and footer Close button are rebound to `closeOrBack()`, which pops the stack and re-opens if there's a parent to return to, else hard-closes. Escape and outside-click still hard-close (explicit "dismiss everything" gestures). Works for `openNew` too: opening the Add flow from a parent pushes the parent onto the stack.
+- [x] **#41 three new base-level rooms** — Grey listed Asmundson growth chamber, Robbins Hall 262 (his office), and the Genome Center. Added as parentless `room` entries under `docs/locations/`. They'll show up as tree roots on lab-map.html alongside `room-robbins-0170`.
+- [x] **#27 inventory mobile filter bar + recency sort** — two parts:
+  - **Layout**: on `max-width: 768px`, the toolbar now stacks: search input full-width, filters wrapped in a new `.filter-row` that flows as a second row with each select flex-1 and font-size 13px. The three selects had been squeezed into 80px wide pills on mobile.
+  - **Sort**: `scripts/build-object-index.py` now shells out to `git log --reverse --name-only --pretty=format:COMMIT:%at --diff-filter=AM` once, parses the stream into `{path → unix timestamp}`, and attaches `mtime` to every object-index entry that has a commit history. `github-api.js INDEX_KEYS` picks up `mtime`, `inventory.html toInventoryRow` forwards it to the row, and the default `sortCol` flips from `name` to `mtime` with `sortDir=-1` (newest first). User can still click any column header to re-sort. 464/468 entries carry mtimes.
+- [x] **#24 wiki connections panel close button on mobile** — the `.mini-close` X was 22×22 on all viewports, too small to hit reliably on a phone. Also lacked an explicit `z-index` and `pointer-events`. Added `z-index:3; pointer-events:auto;` and bumped to 32×32 on mobile with 18px icon.
+- [x] **#22 bulletin edit returns to dashboard** — dashboard's Edit button linked to `wiki.html?doc=bulletin` and after save the user landed on the wiki article. Added `&from=dashboard` to the link; `wiki.html saveDoc` reads the param and `location.href='dashboard.html'` on successful save (after the save-in-flight pieces unwind).
+- [x] **#29 annotate save-callback error blocks close** — `annotate.js saveAnnotations` called the host callback (Toast UI `setMarkdown` round-trip), then `showToast('Saved!')`, then `close()`. A throw from the callback escaped to the outer try/catch and skipped both the toast and close, but Grey saw the saved toast in his report — suggesting a different failure mode. Defensive fix: wrap the callback in its own try/catch so its errors never block the close, move `close()` outside the try, and only skip it if the outer catch fires (which early-returns).
+- [x] **#35 chip-seq rpm placeholders** — the source file had `(rpm:             )` with whitespace-only placeholders. Markdown collapses multi-space runs on render, so on mobile these showed up as `(rpm: )` and Grey read them as a rendering bug. Replaced with `(rpm: _**TODO: fill in**_)` so they render as an obvious fill-me placeholder. Grey will put the real values in when he has them.
+
+### Tests added in R7
+
+13 new tests in a new `r7` section of `tests/labbot.mjs`:
+- `#31` bottle body has no "Migrated from inline" leftover
+- `#27` object-index entries carry `mtime` (464+ with mtime)
+- `#41` three new base-level room locations indexed
+- `#25` mobile nav overflow popover has no stray Graph link
+- `#33` issue reporter FAB z-index > 10000
+- `#23` body.em-editing CSS hides the FAB
+- `#21` `location-tree.refresh()` preserves expanded slugs
+- `#30` popup edit toggle starts as "Edit" on fresh open
+- `#32` closeOrBack pops nav stack to previous popup (box → tube → close returns to box)
+- `#24` wiki mini-graph close button has `pointer-events:auto`
+- `#27` inventory toolbar has `.filter-row` wrapper
+- `#22` dashboard bulletin edit link carries `from=dashboard`
+- `#35` chip-seq empty rpm placeholders replaced with visible TODO
+
+### Subtle bugs caught during R7 implementation
+
+1. **`seeded` guard in location-tree.build()** — my first attempt to the tree-uncollapse regression was just to call `tree.refresh()` in lab-map instead of rebuilding. But `refresh()` internally calls `build()` which calls `seedInitialExpansion()` — which re-expands roots to `initialDepth=2` every time. That would revert any *manual collapsing* the user had done of a root node, which is just as bad. Added a `seeded` flag so `seedInitialExpansion` only fires on the very first build — subsequent builds preserve the user's exact expansion state (with a sweep to drop any stale slugs that no longer exist in the rebuilt graph).
+2. **em-editing class leak on openPopup** — first cut of the `body.em-editing` mechanism set the class in `startEditing` and cleared in `stopEditing` / `close`. Problem: if the user was in edit mode of item A and opened item B directly via a link click (without stopEditing first), item B's popup opens in view mode but the body class is still set → issue FAB stays hidden even though we're viewing. Fixed by clearing `em-editing` at the top of `openPopup` (item B will be in view mode anyway).
+3. **nav stack leaks across openPopup loops** — without the `isBackNavigation` guard, `closeOrBack` → `openPopup(prev)` would push the just-popped path back onto the stack, trapping the user in a ping-pong. Guarded by setting `isBackNavigation = true` before the re-open and reading/clearing it at the top of openPopup.
 
 ---
 

@@ -10,5 +10,3 @@ unit: g
 # Cesium chloride
 
 Bottle of [[resources/cesium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

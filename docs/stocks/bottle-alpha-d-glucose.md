@@ -10,5 +10,3 @@ unit: g
 # alpha-D-Glucose
 
 Bottle of [[resources/alpha-d-glucose]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

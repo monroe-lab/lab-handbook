@@ -10,5 +10,3 @@ unit: g
 # Sodium metabisulfite
 
 Bottle of [[resources/sodium-metabisulfite]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

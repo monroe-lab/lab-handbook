@@ -9,5 +9,3 @@ unit: mL
 # Formamide
 
 Bottle of [[resources/formamide-2]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

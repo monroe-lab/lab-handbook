@@ -10,5 +10,3 @@ unit: g
 # Tris base
 
 Bottle of [[resources/tris-base]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

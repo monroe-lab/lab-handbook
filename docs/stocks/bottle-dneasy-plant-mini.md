@@ -10,5 +10,3 @@ unit: box
 # DNeasy plant mini
 
 Bottle of [[resources/dneasy-plant-mini]].
-
-Migrated from inline `containers:` entry (original location: 'Other').

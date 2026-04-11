@@ -10,5 +10,3 @@ unit: g
 # 2-Mercaptoethanol
 
 Bottle of [[resources/2-mercaptoethanol]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

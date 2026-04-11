@@ -10,5 +10,3 @@ unit: g
 # Tetracycline hydrochloride
 
 Bottle of [[resources/tetracycline-hydrochloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

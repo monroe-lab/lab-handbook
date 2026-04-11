@@ -10,5 +10,3 @@ unit: g
 # TAPSO
 
 Bottle of [[resources/tapso]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

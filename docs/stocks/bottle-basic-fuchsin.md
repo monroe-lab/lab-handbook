@@ -10,5 +10,3 @@ unit: g
 # Basic Fuchsin
 
 Bottle of [[resources/basic-fuchsin]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

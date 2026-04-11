@@ -10,5 +10,3 @@ unit: g
 # Potassium acetate
 
 Bottle of [[resources/potassium-acetate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

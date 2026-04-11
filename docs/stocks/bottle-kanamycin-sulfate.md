@@ -10,5 +10,3 @@ unit: g
 # Kanamycin Sulfate
 
 Bottle of [[resources/kanamycin-sulfate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

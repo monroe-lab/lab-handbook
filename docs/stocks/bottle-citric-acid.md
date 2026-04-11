@@ -10,5 +10,3 @@ unit: g
 # Citric acid
 
 Bottle of [[resources/citric-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # Acrylamide
 
 Bottle of [[resources/acrylamide]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

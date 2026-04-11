@@ -9,5 +9,3 @@ unit: mL
 # Diethyl pyrocarbonate
 
 Bottle of [[resources/diethyl-pyrocarbonate]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

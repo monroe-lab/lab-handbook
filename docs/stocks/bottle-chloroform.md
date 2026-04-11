@@ -10,5 +10,3 @@ unit: L
 # Chloroform
 
 Bottle of [[resources/chloroform]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

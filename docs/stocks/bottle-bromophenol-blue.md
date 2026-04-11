@@ -10,5 +10,3 @@ unit: g
 # Bromophenol Blue
 
 Bottle of [[resources/bromophenol-blue]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

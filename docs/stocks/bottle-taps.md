@@ -10,5 +10,3 @@ unit: g
 # TAPS
 
 Bottle of [[resources/taps]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

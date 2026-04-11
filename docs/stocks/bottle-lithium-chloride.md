@@ -10,5 +10,3 @@ unit: g
 # Lithium chloride
 
 Bottle of [[resources/lithium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

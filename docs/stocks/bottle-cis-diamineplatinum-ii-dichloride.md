@@ -9,5 +9,3 @@ unit: g
 # cis-Diamineplatinum(II) dichloride
 
 Bottle of [[resources/cis-diamineplatinum-ii-dichloride]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

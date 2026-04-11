@@ -10,5 +10,3 @@ unit: g
 # HEPES
 
 Bottle of [[resources/hepes]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

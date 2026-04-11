@@ -10,5 +10,3 @@ unit: g
 # Potassium chloride
 
 Bottle of [[resources/potassium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

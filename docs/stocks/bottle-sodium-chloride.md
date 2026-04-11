@@ -10,5 +10,3 @@ unit: g
 # Sodium chloride
 
 Bottle of [[resources/sodium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

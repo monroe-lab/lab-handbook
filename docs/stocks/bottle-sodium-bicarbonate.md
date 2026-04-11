@@ -10,5 +10,3 @@ unit: g
 # Sodium bicarbonate
 
 Bottle of [[resources/sodium-bicarbonate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

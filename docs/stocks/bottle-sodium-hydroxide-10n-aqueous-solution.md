@@ -10,5 +10,3 @@ unit: L
 # Sodium hydroxide 10N aqueous solution
 
 Bottle of [[resources/sodium-hydroxide-10n-aqueous-solution]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # Magnesium sulfate heptahydrate
 
 Bottle of [[resources/magnesium-sulfate-heptahydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

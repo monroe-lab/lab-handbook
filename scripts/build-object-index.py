@@ -93,9 +93,46 @@ def infer_type_from_path(path: str) -> str | None:
     return None
 
 
+def get_git_mtimes() -> dict[str, int]:
+    """Return {'docs/path.md': unix_timestamp} for every tracked markdown file.
+    Runs a single `git log` pass so we don't shell out per file.
+    Used by inventory.html (R7 #27) to rank items by most-recent edit.
+    """
+    import subprocess
+    try:
+        # --diff-filter=d drops deletions; --name-only + %x00 separator lets
+        # us parse cheaply. We walk commits oldest → newest so the LAST time
+        # we see a path wins, giving us the most recent commit that touched it.
+        out = subprocess.run(
+            ["git", "log", "--reverse", "--name-only", "--pretty=format:COMMIT:%at", "--diff-filter=AM", "--", "docs/"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        if out.returncode != 0:
+            return {}
+    except Exception:
+        return {}
+    mtimes: dict[str, int] = {}
+    cur_ts = 0
+    for line in out.stdout.splitlines():
+        if not line:
+            continue
+        if line.startswith("COMMIT:"):
+            try:
+                cur_ts = int(line.split(":", 1)[1])
+            except ValueError:
+                cur_ts = 0
+        elif cur_ts and line.endswith(".md"):
+            mtimes[line] = cur_ts
+    return mtimes
+
+
 def build_index():
     index = []
     seen_paths = set()
+    mtimes = get_git_mtimes()
 
     for dir_rel in OBJECT_DIRS:
         dir_path = DOCS_DIR / dir_rel
@@ -118,11 +155,17 @@ def build_index():
             text = md_file.read_text(errors="replace")
             fm = parse_frontmatter(text)
 
+            # R7 #27: attach git mtime so the frontend can rank by recency.
+            git_path = "docs/" + rel_path
+            mt = mtimes.get(git_path)
+
             if fm:
                 entry = {"path": rel_path}
                 for key in EXTRACT_KEYS:
                     if key in fm:
                         entry[key] = fm[key]
+                if mt:
+                    entry["mtime"] = mt
                 index.append(entry)
             else:
                 # Files without frontmatter: infer type if possible, use filename as title
@@ -134,11 +177,14 @@ def build_index():
                         if line.startswith("# "):
                             title = line[2:].strip()
                             break
-                    index.append({
+                    entry = {
                         "path": rel_path,
                         "type": inferred,
                         "title": title,
-                    })
+                    }
+                    if mt:
+                        entry["mtime"] = mt
+                    index.append(entry)
 
     with open(OUTPUT, "w") as f:
         json.dump(index, f, indent=2)

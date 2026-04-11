@@ -10,5 +10,3 @@ unit: L
 # Isopropyl alcohol, 70% in water
 
 Bottle of [[resources/isopropyl-alcohol-70-in-water]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

@@ -10,5 +10,3 @@ unit: mL
 # Gaseous hydrochloric acid
 
 Bottle of [[resources/gaseous-hydrochloric-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

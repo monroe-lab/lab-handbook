@@ -10,5 +10,3 @@ unit: g
 # MES Buffer
 
 Bottle of [[resources/mes-buffer]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: L
 # DKW Medium with Vitamins
 
 Bottle of [[resources/dkw-medium-with-vitamins]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

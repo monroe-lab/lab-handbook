@@ -10,5 +10,3 @@ unit: g
 # Potassium permanganate
 
 Bottle of [[resources/potassium-permanganate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

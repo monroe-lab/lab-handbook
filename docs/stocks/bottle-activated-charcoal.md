@@ -10,5 +10,3 @@ unit: g
 # Activated charcoal
 
 Bottle of [[resources/activated-charcoal]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

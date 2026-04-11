@@ -10,5 +10,3 @@ unit: mL
 # Ethyl Alcohol Absolute
 
 Bottle of [[resources/ethyl-alcohol-absolute]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

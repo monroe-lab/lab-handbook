@@ -9,5 +9,3 @@ unit: g
 # EGTA
 
 Bottle of [[resources/egta]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

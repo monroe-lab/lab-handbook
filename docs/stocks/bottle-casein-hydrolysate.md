@@ -10,5 +10,3 @@ unit: g
 # Casein Hydrolysate
 
 Bottle of [[resources/casein-hydrolysate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

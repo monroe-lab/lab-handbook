@@ -10,5 +10,3 @@ unit: g
 # Tham
 
 Bottle of [[resources/tham]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

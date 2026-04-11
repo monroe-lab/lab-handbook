@@ -10,5 +10,3 @@ unit: g
 # Sodium hydroxide
 
 Bottle of [[resources/sodium-hydroxide-2]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

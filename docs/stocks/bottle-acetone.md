@@ -10,5 +10,3 @@ unit: mL
 # Acetone
 
 Bottle of [[resources/acetone]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

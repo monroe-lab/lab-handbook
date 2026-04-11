@@ -10,5 +10,3 @@ unit: L
 # Isopropyl alcohol
 
 Bottle of [[resources/isopropyl-alcohol]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

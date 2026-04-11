@@ -10,5 +10,3 @@ unit: L
 # Hydrogen Peroxide 30%
 
 Bottle of [[resources/hydrogen-peroxide-30]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

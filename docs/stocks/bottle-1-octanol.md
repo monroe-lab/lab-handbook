@@ -10,5 +10,3 @@ unit: mL
 # 1-Octanol
 
 Bottle of [[resources/1-octanol]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

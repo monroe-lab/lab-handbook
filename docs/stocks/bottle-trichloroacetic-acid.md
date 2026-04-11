@@ -10,5 +10,3 @@ unit: g
 # Trichloroacetic acid
 
 Bottle of [[resources/trichloroacetic-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

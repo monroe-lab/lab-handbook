@@ -10,5 +10,3 @@ unit: g
 # Glycine
 
 Bottle of [[resources/glycine]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

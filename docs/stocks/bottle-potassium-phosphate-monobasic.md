@@ -10,5 +10,3 @@ unit: g
 # Potassium phosphate monobasic
 
 Bottle of [[resources/potassium-phosphate-monobasic]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

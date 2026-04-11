@@ -10,5 +10,3 @@ unit: g
 # L-Lysine monohydrochloride
 
 Bottle of [[resources/l-lysine-monohydrochloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # Phenylmethanesulfonyl fluoride
 
 Bottle of [[resources/phenylmethanesulfonyl-fluoride]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

@@ -10,5 +10,3 @@ unit: L
 # Methanol
 
 Bottle of [[resources/methanol]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

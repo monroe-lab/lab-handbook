@@ -9,5 +9,3 @@ unit: each
 # Colibri DNA Library Cleanup Kit
 
 Bottle of [[resources/colibri-dna-library-cleanup-kit]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

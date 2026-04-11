@@ -10,5 +10,3 @@ unit: g
 # 4-Morpholineethanesulfonic acid
 
 Bottle of [[resources/4-morpholineethanesulfonic-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

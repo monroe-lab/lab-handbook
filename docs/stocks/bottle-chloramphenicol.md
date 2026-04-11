@@ -10,5 +10,3 @@ unit: g
 # Chloramphenicol
 
 Bottle of [[resources/chloramphenicol]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

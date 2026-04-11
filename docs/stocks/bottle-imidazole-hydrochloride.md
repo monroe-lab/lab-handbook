@@ -10,5 +10,3 @@ unit: g
 # Imidazole hydrochloride
 
 Bottle of [[resources/imidazole-hydrochloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

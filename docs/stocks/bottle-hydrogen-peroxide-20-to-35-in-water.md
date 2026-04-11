@@ -10,5 +10,3 @@ unit: L
 # Hydrogen peroxide,  20 to  35 % in water
 
 Bottle of [[resources/hydrogen-peroxide-20-to-35-in-water]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

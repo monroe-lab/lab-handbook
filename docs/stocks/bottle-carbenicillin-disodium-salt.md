@@ -9,5 +9,3 @@ unit: g
 # Carbenicillin disodium salt
 
 Bottle of [[resources/carbenicillin-disodium-salt]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

@@ -10,5 +10,3 @@ unit: g
 # Magnesium chloride
 
 Bottle of [[resources/magnesium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # Polyvinylpyrrolidone
 
 Bottle of [[resources/polyvinylpyrrolidone]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # EDTA tetrasodium salt dihydrate
 
 Bottle of [[resources/edta-tetrasodium-salt-dihydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

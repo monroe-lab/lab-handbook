@@ -10,5 +10,3 @@ unit: g
 # Hydroxylamine hydrochloride
 
 Bottle of [[resources/hydroxylamine-hydrochloride]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

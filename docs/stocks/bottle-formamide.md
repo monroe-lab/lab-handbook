@@ -10,5 +10,3 @@ unit: mL
 # Formamide
 
 Bottle of [[resources/formamide]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

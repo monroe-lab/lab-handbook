@@ -10,5 +10,3 @@ unit: mL
 # Chloroform:Isoamyl alcohol 24:1
 
 Bottle of [[resources/chloroform-isoamyl-alcohol-24-1]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

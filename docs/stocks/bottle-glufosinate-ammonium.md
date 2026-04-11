@@ -9,5 +9,3 @@ unit: g
 # Glufosinate-ammonium
 
 Bottle of [[resources/glufosinate-ammonium]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

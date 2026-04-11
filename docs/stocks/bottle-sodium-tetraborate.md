@@ -10,5 +10,3 @@ unit: g
 # Sodium tetraborate
 
 Bottle of [[resources/sodium-tetraborate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # D-(+)-Glucose
 
 Bottle of [[resources/d-glucose]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

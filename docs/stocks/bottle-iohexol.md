@@ -10,5 +10,3 @@ unit: g
 # Iohexol
 
 Bottle of [[resources/iohexol]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

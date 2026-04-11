@@ -10,5 +10,3 @@ unit: mL
 # Spermidine
 
 Bottle of [[resources/spermidine]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

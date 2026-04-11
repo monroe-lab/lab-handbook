@@ -12,7 +12,29 @@
 
   function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
 
+  function injectCSS() {
+    if (document.getElementById('issue-reporter-css')) return;
+    var s = document.createElement('style');
+    s.id = 'issue-reporter-css';
+    // R7 #23: hide the FAB whenever the user is editing (wiki full-page editor
+    // sets body.editing-mode; editor-modal sets body.em-editing when it
+    // enters edit state). Also hide while any other modal-like FAB-blocker is
+    // open. Without this the red icon overlaps the toolbars/fabs in the
+    // Toast UI editor on mobile.
+    // R7 #34: on mobile the submit modal is bottom-anchored so the keyboard
+    // doesn't cover the submit button.
+    s.textContent =
+      'body.editing-mode #issue-reporter-btn,' +
+      'body.em-editing #issue-reporter-btn{display:none !important}' +
+      '@media (max-width: 768px){' +
+      '  #issue-reporter-overlay{align-items:flex-start !important;padding-top:12px !important}' +
+      '  #issue-reporter-modal{margin-top:0 !important;padding:16px !important}' +
+      '}';
+    document.head.appendChild(s);
+  }
+
   function createButton() {
+    injectCSS();
     var btn = document.createElement('button');
     btn.id = 'issue-reporter-btn';
     btn.setAttribute('aria-label', 'Report an issue');
@@ -21,7 +43,9 @@
       position: 'fixed',
       bottom: '80px',
       left: '18px',
-      zIndex: '9999',
+      // R7 #33: raise above editor-modal overlay (z:10000) so the button
+      // stays reachable while looking at an item card inside a protocol.
+      zIndex: '10001',
       width: '44px',
       height: '44px',
       borderRadius: '50%',
@@ -57,7 +81,9 @@
     Object.assign(overlay.style, {
       position: 'fixed',
       inset: '0',
-      zIndex: '10000',
+      // R7 #33: above editor-modal overlay (z:10000) so the reporter modal
+      // shows on top when the user submits from inside an item card popup.
+      zIndex: '10002',
       background: 'rgba(0,0,0,.4)',
       display: 'flex',
       alignItems: 'center',

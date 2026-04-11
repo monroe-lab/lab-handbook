@@ -10,5 +10,3 @@ unit: g
 # Ponceau S
 
 Bottle of [[resources/ponceau-s]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

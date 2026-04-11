@@ -1,0 +1,11 @@
+---
+type: "room"
+title: "Asmundson Growth Chamber"
+label_1: "Shared growth facility"
+notes: "Shared plant growth chamber facility, UC Davis Asmundson Hall. Ask the building manager for access."
+---
+
+# Asmundson Growth Chamber
+
+Shared plant growth chamber space used by the Monroe Lab for controlled-environment experiments.
+Add racks, shelves, and trays as children of this room via the lab-map tree or the editor's +Add flow.

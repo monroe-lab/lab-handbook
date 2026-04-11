@@ -10,5 +10,3 @@ unit: each
 # Ethanol Absolute
 
 Bottle of [[resources/ethanol-absolute]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

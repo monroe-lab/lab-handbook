@@ -10,5 +10,3 @@ unit: g
 # Calcium nitrate tetrahydrate
 
 Bottle of [[resources/calcium-nitrate-tetrahydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

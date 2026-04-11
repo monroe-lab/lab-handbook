@@ -10,5 +10,3 @@ unit: g
 # Yeast extract
 
 Bottle of [[resources/yeast-extract]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

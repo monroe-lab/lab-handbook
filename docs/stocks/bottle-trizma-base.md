@@ -10,5 +10,3 @@ unit: g
 # Trizma base
 
 Bottle of [[resources/trizma-base]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

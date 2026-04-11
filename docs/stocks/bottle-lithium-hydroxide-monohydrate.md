@@ -10,5 +10,3 @@ unit: g
 # Lithium hydroxide monohydrate
 
 Bottle of [[resources/lithium-hydroxide-monohydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

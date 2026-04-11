@@ -76,7 +76,14 @@ tr.low-stock td:first-child::before {
 .inv-card.low-stock { border-left: 3px solid var(--amber); }
 
 @media (max-width: 768px) {
-  .inv-toolbar { padding: 12px 16px; }
+  /* R7 #27: stack the toolbar on mobile. Search gets its own row; the
+     filters wrap to a second row and split the width. Previously every
+     control crammed onto a single line and the dropdowns were ~80px wide
+     each — unreadable. */
+  .inv-toolbar { padding: 12px 12px; flex-direction: column; align-items: stretch; gap: 8px; }
+  .inv-toolbar .search-box { width: 100%; }
+  .inv-toolbar .filter-row { display: flex; gap: 8px; }
+  .inv-toolbar .filter-row .filter-select { flex: 1; min-width: 0; font-size: 13px; padding: 8px 6px; }
   .inv-stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .inv-stats .stat-card { min-width: 0; }
   .inv-table-wrap { display: none; }
@@ -94,6 +101,9 @@ tr.low-stock td:first-child::before {
       <span class="material-icons-outlined">search</span>
       <input type="text" id="searchInput" placeholder="Search inventory...">
     </div>
+    <!-- R7 #27: wrap the three filters in a row so mobile CSS can stack them
+         below the search input as a single secondary row. -->
+    <div class="filter-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
     <select class="filter-select" id="filterType">
       <option value="">All Types</option>
       <optgroup label="Resources">
@@ -132,6 +142,7 @@ tr.low-stock td:first-child::before {
       <option value="out_of_stock">Out of Stock</option>
       <option value="external">External</option>
     </select>
+    </div>
     <button class="btn btn-primary" id="addBtn" style="display:none" onclick="addItem()">
       <span class="material-icons-outlined">add</span> Add Item
     </button>
@@ -270,8 +281,10 @@ function isInventoryType(t) { return Lab.types.isInventoryType(t); }
 function typeLabel(t) { return Lab.types.get(t).label; }
 
 var inventory = [];
-var sortCol = 'name';
-var sortDir = 1;
+// R7 #27: default to most-recently-edited first (git mtime). Users can click
+// any column header to re-sort alphabetically or by any other field.
+var sortCol = 'mtime';
+var sortDir = -1;
 var deletingItem = null;
 
 // Map an object-index entry to a row used by the table.
@@ -328,6 +341,9 @@ function toInventoryRow(obj, bottles) {
     updatedAt: obj.updated_at || '',
     createdAt: obj.created_at || '',
     createdBy: obj.created_by || '',
+    // R7 #27: git commit mtime (unix int seconds) — injected by
+    // build-object-index.py. Used for recency sort.
+    mtime: obj.mtime || 0,
   };
 }
 
@@ -391,7 +407,7 @@ function getFiltered() {
 
   items.sort(function(a, b) {
     var va = a[sortCol], vb = b[sortCol];
-    if (sortCol === 'quantity') return (va - vb) * sortDir;
+    if (sortCol === 'quantity' || sortCol === 'mtime') return ((va || 0) - (vb || 0)) * sortDir;
     va = String(va || '').toLowerCase();
     vb = String(vb || '').toLowerCase();
     return va < vb ? -sortDir : va > vb ? sortDir : 0;

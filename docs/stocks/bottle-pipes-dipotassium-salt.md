@@ -10,5 +10,3 @@ unit: g
 # PIPES, dipotassium salt
 
 Bottle of [[resources/pipes-dipotassium-salt]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -269,7 +269,8 @@
       await Lab.gh.deleteFile(path);
       if (Lab.gh.removeFromObjectIndex) Lab.gh.removeFromObjectIndex(path);
       if (window.Lab.showToast) Lab.showToast('Deleted ' + slug, 'success');
-      await build();
+      // R7 #21: preserve expanded state across refresh
+      if (tree && tree.refresh) await tree.refresh();
     } catch(err) {
       if (window.Lab.showToast) Lab.showToast('Delete failed: ' + err.message, 'error');
       console.error(err);
@@ -308,7 +309,10 @@
       var newText = '---\n' + fm + '\n---' + text.slice(fmMatch[0].length);
       await Lab.gh.saveFile(path, newText, file.sha, 'lab-map: re-parent ' + srcSlug + ' → ' + newParentSlug);
       if (window.Lab.showToast) Lab.showToast('Moved ' + srcSlug.split('/').pop() + ' → ' + newParentSlug.split('/').pop(), 'success');
-      await build();
+      // R7 #21: use tree.refresh() so the user's expanded nodes persist
+      // across the rebuild. Previously we called build() which destroyed
+      // and re-attached, discarding the whole expanded Set.
+      if (tree && tree.refresh) await tree.refresh();
     } catch(err) {
       if (window.Lab.showToast) Lab.showToast('Re-parent failed: ' + err.message, 'error');
       console.error('reparent failed:', err);

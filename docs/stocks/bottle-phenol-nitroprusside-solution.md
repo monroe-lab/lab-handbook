@@ -9,5 +9,3 @@ unit: mL
 # Phenol nitroprusside solution
 
 Bottle of [[resources/phenol-nitroprusside-solution]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

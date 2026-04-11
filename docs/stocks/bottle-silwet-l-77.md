@@ -10,5 +10,3 @@ unit: mL
 # Silwet L-77
 
 Bottle of [[resources/silwet-l-77]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

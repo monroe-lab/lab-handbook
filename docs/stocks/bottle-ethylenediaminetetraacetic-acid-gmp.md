@@ -10,5 +10,3 @@ unit: g
 # Ethylenediaminetetraacetic acid, GMP
 
 Bottle of [[resources/ethylenediaminetetraacetic-acid-gmp]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

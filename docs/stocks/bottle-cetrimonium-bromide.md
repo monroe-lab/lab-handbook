@@ -10,5 +10,3 @@ unit: g
 # Cetrimonium bromide
 
 Bottle of [[resources/cetrimonium-bromide]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

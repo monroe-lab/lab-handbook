@@ -10,5 +10,3 @@ unit: g
 # Magnesium acetate tetrahydrate
 
 Bottle of [[resources/magnesium-acetate-tetrahydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

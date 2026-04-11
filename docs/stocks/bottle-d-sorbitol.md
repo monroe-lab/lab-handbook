@@ -10,5 +10,3 @@ unit: g
 # D-Sorbitol
 
 Bottle of [[resources/d-sorbitol]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

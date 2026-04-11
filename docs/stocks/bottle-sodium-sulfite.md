@@ -10,5 +10,3 @@ unit: g
 # Sodium sulfite
 
 Bottle of [[resources/sodium-sulfite]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

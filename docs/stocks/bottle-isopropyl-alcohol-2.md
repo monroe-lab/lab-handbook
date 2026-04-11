@@ -10,5 +10,3 @@ unit: mL
 # Isopropyl alcohol
 
 Bottle of [[resources/isopropyl-alcohol-2]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

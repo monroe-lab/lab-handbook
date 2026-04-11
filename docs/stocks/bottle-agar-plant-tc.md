@@ -10,5 +10,3 @@ unit: g
 # Agar, Plant, TC
 
 Bottle of [[resources/agar-plant-tc]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

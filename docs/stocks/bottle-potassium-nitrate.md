@@ -10,5 +10,3 @@ unit: g
 # Potassium nitrate
 
 Bottle of [[resources/potassium-nitrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

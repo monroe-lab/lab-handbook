@@ -10,5 +10,3 @@ unit: L
 # Glacial Acetic Acid
 
 Bottle of [[resources/glacial-acetic-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

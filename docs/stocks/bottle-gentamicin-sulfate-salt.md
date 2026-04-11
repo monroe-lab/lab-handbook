@@ -10,5 +10,3 @@ unit: g
 # Gentamicin sulfate salt
 
 Bottle of [[resources/gentamicin-sulfate-salt]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

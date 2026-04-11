@@ -10,5 +10,3 @@ unit: g
 # Hexadecyltrimethyl-ammonium bromide
 
 Bottle of [[resources/hexadecyltrimethyl-ammonium-bromide]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

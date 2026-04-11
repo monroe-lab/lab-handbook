@@ -10,5 +10,3 @@ unit: g
 # Ammonium acetate
 
 Bottle of [[resources/ammonium-acetate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: mL
 # Triton X-100
 
 Bottle of [[resources/triton-x-100]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

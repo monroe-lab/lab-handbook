@@ -10,5 +10,3 @@ unit: mL
 # IGEPAL CA-630
 
 Bottle of [[resources/igepal-ca-630]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

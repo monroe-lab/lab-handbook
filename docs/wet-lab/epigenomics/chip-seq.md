@@ -83,9 +83,9 @@ Procedure
 | ◻︎ | 200 mM Spermine | 25 µl |  |
 - Aliquot 25 ml each to 50 ml tube x sample number
 - Pour the plant tissue powder to the nuclei isolation buffer tube. Immediately invert gently to mix.
-- Place the mixture on a rotator (rpm:             ) for 10 min in RT
+- Place the mixture on a rotator (rpm: _**TODO: fill in**_) for 10 min in RT
 - Add 1.56 ml  of formaldehyde per 25 ml of sample
-- Place the mixture on a rotator (rpm:             ) for 10 min in RT
+- Place the mixture on a rotator (rpm: _**TODO: fill in**_) for 10 min in RT
 - Take the 50 ml tube out of rotator and add the aliquoted 1.7 ml Glycine
 - Rotate for another 5 min in RT
 - Filter through 70 µl filter into a new 50 ml tube

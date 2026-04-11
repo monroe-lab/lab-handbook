@@ -10,5 +10,3 @@ unit: g
 # Ammonium chloride
 
 Bottle of [[resources/ammonium-chloride]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: mL
 # Isopropyl alcohol, 70% in water
 
 Bottle of [[resources/isopropyl-alcohol-70-in-water-2]].
-
-Migrated from inline `containers:` entry (original location: 'Flammable Cabinet').

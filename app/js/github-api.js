@@ -247,7 +247,11 @@
     // Location hierarchy (R1, Issue #18): parent is a slug (or [[wikilink]]),
     // position is a grid cell label, grid declares a container with rows x cols,
     // label_1 / label_2 are display labels (label_2 used in compact grid cells).
-    'parent', 'position', 'grid', 'label_1', 'label_2'
+    'parent', 'position', 'grid', 'label_1', 'label_2',
+    // R5: concept/instance fields
+    'of', 'lot', 'expiration', 'acquired', 'level',
+    // R7 #27: git mtime (unix timestamp) for recency ranking in inventory.
+    'mtime'
   ];
 
   function getLocalPatches() {

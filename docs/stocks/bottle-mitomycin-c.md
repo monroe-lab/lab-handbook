@@ -9,5 +9,3 @@ unit: each
 # Mitomycin C
 
 Bottle of [[resources/mitomycin-c]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

@@ -10,5 +10,3 @@ unit: g
 # Urea
 
 Bottle of [[resources/urea]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

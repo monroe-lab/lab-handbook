@@ -9,5 +9,3 @@ unit: g
 # Cefotaxime sodium salt
 
 Bottle of [[resources/cefotaxime-sodium-salt]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

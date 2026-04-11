@@ -190,10 +190,16 @@
   position: absolute; top: 4px; right: 4px; width: 22px; height: 22px;
   background: rgba(255,255,255,.1); border: none; border-radius: 50%;
   color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  /* R7 #24: explicit z-index + pointer-events so the X wins over the
+     canvas/header stacking on mobile browsers that were swallowing the tap. */
+  z-index: 3; pointer-events: auto;
 }
 .wiki-mini-graph .mini-close .material-icons-outlined { font-size: 14px; }
 @media (max-width: 768px) {
   .wiki-mini-graph { width: 180px; height: 140px; bottom: calc(var(--bottom-nav-height) + 12px); right: 8px; }
+  /* R7 #24: finger-friendly hit target on mobile — 22px was too small. */
+  .wiki-mini-graph .mini-close { width: 32px; height: 32px; top: 6px; right: 6px; }
+  .wiki-mini-graph .mini-close .material-icons-outlined { font-size: 18px; }
 }
 
 @media print {
@@ -666,6 +672,17 @@ async function saveDoc() {
     var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update document ' + currentDoc);
     currentSha = result.sha;
     Lab.showToast('Saved', 'success');
+
+    // R7 #22: if the user arrived here via `?from=dashboard` (the bulletin
+    // Edit button on dashboard.html), return them to the dashboard after
+    // a successful save instead of dumping them on the wiki article.
+    var fromParam = new URLSearchParams(location.search).get('from');
+    if (fromParam === 'dashboard') {
+      window.removeEventListener('beforeunload', unsavedGuard);
+      isEditing = false;
+      setTimeout(function() { location.href = 'dashboard.html'; }, 250);
+      return;
+    }
 
     // Capture editor image data URLs before destroying the editor instance
     var editorImages = {};

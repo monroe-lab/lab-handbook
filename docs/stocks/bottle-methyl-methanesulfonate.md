@@ -10,5 +10,3 @@ unit: g
 # Methyl methanesulfonate
 
 Bottle of [[resources/methyl-methanesulfonate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

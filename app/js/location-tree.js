@@ -52,6 +52,7 @@
     var graph = null;
     var childrenMap = null;
     var expanded = new Set();
+    var seeded = false;   // R7 #21: only seed initialDepth expansion on first build
     var lastQuery = '';
 
     // ── DOM scaffolding ──
@@ -130,7 +131,17 @@
           return ta < tb ? -1 : ta > tb ? 1 : 0;
         });
       });
-      seedInitialExpansion();
+      // R7 #21: preserve the user's expanded set across refreshes (e.g. after
+      // a drag-drop reparent or a delete). Drop any slugs that no longer exist
+      // in the rebuilt graph so the Set doesn't leak forever.
+      if (seeded) {
+        var next = new Set();
+        expanded.forEach(function(s) { if (graph[s]) next.add(s); });
+        expanded = next;
+      } else {
+        seedInitialExpansion();
+        seeded = true;
+      }
       render();
     }
 

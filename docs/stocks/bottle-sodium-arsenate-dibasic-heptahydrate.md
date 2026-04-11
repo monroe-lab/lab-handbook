@@ -10,5 +10,3 @@ unit: g
 # Sodium arsenate dibasic heptahydrate
 
 Bottle of [[resources/sodium-arsenate-dibasic-heptahydrate]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

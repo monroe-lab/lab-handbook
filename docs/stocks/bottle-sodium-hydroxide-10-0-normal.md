@@ -10,5 +10,3 @@ unit: L
 # Sodium Hydroxide, 10.0 Normal
 
 Bottle of [[resources/sodium-hydroxide-10-0-normal]].
-
-Migrated from inline `containers:` entry (original location: 'Corrosive Cabinet').

@@ -318,6 +318,13 @@
   var currentEditor = null;
 
   var currentState = null; // { path, sha, meta, body, editing }
+  // R7 #32: nav stack so "box → tube → close" returns to the box instead
+  // of dismissing to the root. Each entry is the file path string of the
+  // previously-open popup. Pushed in openPopup() when there was already a
+  // popup visible; popped by closeOrBack() (bound to the X and Close buttons).
+  // Fully cleared on hard-close (Escape / outside click / saveWhenNew).
+  var navStack = [];
+  var isBackNavigation = false;
 
   function createOverlay() {
     if (overlayEl) return overlayEl;
@@ -360,8 +367,11 @@
     document.body.appendChild(overlayEl);
 
     // Close handlers
-    document.getElementById('em-close').onclick = close;
-    document.getElementById('em-cancel').onclick = close;
+    // R7 #32: X and Close button go back-one-level if there's a nav stack,
+    // so that "box → tube → close" returns to the box. Escape and outside
+    // click are the full-dismiss escape hatches that blow the whole stack.
+    document.getElementById('em-close').onclick = closeOrBack;
+    document.getElementById('em-cancel').onclick = closeOrBack;
     overlayEl.addEventListener('click', function(e) { if (e.target === overlayEl) close(); });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && overlayEl.classList.contains('open')) close();
@@ -437,6 +447,13 @@
     createOverlay();
     if (!window.Lab.gh) { window.Lab.showToast('GitHub API not loaded', 'error'); return; }
 
+    // R7 #32: push the current popup onto the nav stack so cancel/back
+    // returns to it. Save-new already has its own returnTo flow that
+    // clears navStack via close(), so there's no double-handling.
+    if (currentState && currentState.path && overlayEl && overlayEl.classList.contains('open')) {
+      navStack.push(currentState.path);
+    }
+
     // Record where to return after save/close so the parent pane can refresh.
     var returnTo = opts.returnTo || (opts.parent ? 'docs/' + opts.parent + '.md' : null);
 
@@ -475,6 +492,9 @@
 
     document.getElementById('em-title').textContent = 'New ' + (Lab.types.get(defaultType).label || 'item');
     overlayEl.classList.add('open');
+    // R7 #23: openNew enters edit mode directly — set the body class now
+    // so the issue FAB hides (close() will clear it).
+    document.body.classList.add('em-editing');
 
     // Render fields in edit mode immediately.
     renderFields(meta, true);
@@ -525,14 +545,31 @@
     var gh = window.Lab.gh;
     if (!gh) { window.Lab.showToast('GitHub API not loaded', 'error'); return; }
 
+    // R7 #32: if there's already a popup open for a different file and
+    // we're not arriving here via the back button, push the previous
+    // path onto the nav stack so the user can walk back.
+    if (!isBackNavigation && currentState && currentState.path && currentState.path !== filePath && overlayEl && overlayEl.classList.contains('open')) {
+      navStack.push(currentState.path);
+    }
+    isBackNavigation = false;
+
     // Reset state
     currentState = { path: filePath, sha: null, meta: {}, body: '', editing: false };
     document.getElementById('em-title').textContent = 'Loading...';
     document.getElementById('em-fields').style.display = 'none';
     document.getElementById('em-fields').innerHTML = '';
     document.getElementById('em-content').innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading...</p></div>';
-    document.getElementById('em-edit-toggle').style.display = 'none';
+    // R7 #30: reset the Edit/View toggle to "Edit" on every open. Without this,
+    // if the user edits item A then opens item B directly (without first
+    // clicking View to stop editing), the button still reads "View" while the
+    // new popup is actually in view mode — confusing and inverted.
+    var editToggleBtn = document.getElementById('em-edit-toggle');
+    editToggleBtn.style.display = 'none';
+    editToggleBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
     document.getElementById('em-save').style.display = 'none';
+    // R7 #23: openPopup always enters view mode, so the em-editing body
+    // class must not leak from a previous popup's edit state.
+    document.body.classList.remove('em-editing');
     overlayEl.classList.add('open');
 
     try {
@@ -1521,6 +1558,9 @@
   async function startEditing() {
     if (!currentState) return;
     currentState.editing = true;
+    // R7 #23: body class so the issue-reporter FAB hides while we're
+    // editing (same mechanism as wiki.html's body.editing-mode).
+    document.body.classList.add('em-editing');
 
     // Switch fields to editable
     renderFields(currentState.meta, true);
@@ -1610,6 +1650,9 @@
 
     currentState.editing = false;
     currentEditor = null;
+    // R7 #23: drop the body class so the issue-reporter FAB becomes
+    // reachable again in view mode.
+    document.body.classList.remove('em-editing');
 
     // Detach the inline [[ autocomplete (R4) — no editor to listen to anymore.
     try { if (window.Lab.wikilinkAutocomplete) Lab.wikilinkAutocomplete.detach(); } catch(e) {}
@@ -1794,10 +1837,38 @@
     if (currentEditor) {
       currentEditor = null;
     }
+    // R7 #32: a hard close blows away the nav history — Escape / outside
+    // click are explicit "dismiss everything" gestures.
+    navStack = [];
+    isBackNavigation = false;
+    // R7 #23: make sure the em-editing body class is cleared whenever we
+    // close — openNew may have set it before the user hit Cancel, and a
+    // stale class would keep the issue FAB hidden after close.
+    document.body.classList.remove('em-editing');
     // Detach the inline [[ autocomplete (R4) so its DOM listeners don't leak
     // across popup opens.
     try { if (window.Lab.wikilinkAutocomplete) Lab.wikilinkAutocomplete.detach(); } catch(e) {}
     currentState = null;
+  }
+
+  // R7 #32: bound to X + footer Close buttons. Pops one level off the nav
+  // stack if there's a parent to return to, else hard-closes. This way
+  // "box → tube → X" returns you to the box popup instead of dismissing
+  // all the way out to the page.
+  function closeOrBack() {
+    if (navStack.length > 0) {
+      var prev = navStack.pop();
+      isBackNavigation = true;
+      // Tear down just the editor/autocomplete attachments before re-open
+      // (openPopup would otherwise see a live state from the current popup
+      // and try to push it onto the stack — isBackNavigation guards that).
+      if (currentEditor) currentEditor = null;
+      try { if (window.Lab.wikilinkAutocomplete) Lab.wikilinkAutocomplete.detach(); } catch(e) {}
+      document.body.classList.remove('em-editing');
+      openPopup(prev);
+      return;
+    }
+    close();
   }
 
   // ── Fullpage Mode (for protocols.html) ──

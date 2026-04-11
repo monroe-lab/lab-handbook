@@ -10,5 +10,3 @@ unit: g
 # Boric acid
 
 Bottle of [[resources/boric-acid]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

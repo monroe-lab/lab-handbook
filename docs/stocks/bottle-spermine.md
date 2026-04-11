@@ -9,5 +9,3 @@ unit: g
 # Spermine
 
 Bottle of [[resources/spermine]].
-
-Migrated from inline `containers:` entry (original location: 'Refrigerator').

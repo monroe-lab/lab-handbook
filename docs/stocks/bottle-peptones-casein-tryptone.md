@@ -10,5 +10,3 @@ unit: g
 # Peptones, casein (Tryptone)
 
 Bottle of [[resources/peptones-casein-tryptone]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

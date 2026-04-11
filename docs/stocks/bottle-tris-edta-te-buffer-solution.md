@@ -10,5 +10,3 @@ unit: mL
 # Tris-EDTA (TE) buffer solution
 
 Bottle of [[resources/tris-edta-te-buffer-solution]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').

@@ -10,5 +10,3 @@ unit: g
 # Polyethylene glycol (solid)
 
 Bottle of [[resources/polyethylene-glycol-solid]].
-
-Migrated from inline `containers:` entry (original location: 'Chemical Cabinet').
