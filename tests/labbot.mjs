@@ -1953,6 +1953,228 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  WIKILINKS (R4, Issue #18): [[ autocomplete, parent autocomplete,
+  //  move-to-cell, backlinks. Covers the "type [[ anywhere" UX and the
+  //  move-without-breaking-refs workflow.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('wikilinks')) {
+    console.log('\n🔗 WIKILINKS\n');
+    const p = await context.newPage();
+    p.on('dialog', async d => { try { await d.accept(); } catch(e) {} });
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && window.Lab.editorModal && window.Lab.wikilinkAutocomplete, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
+
+    // 1. Module loaded + Lab.gh has fetchLinkIndex
+    const modules = await p.evaluate(() => ({
+      wla: typeof Lab.wikilinkAutocomplete === 'object',
+      attach: typeof Lab.wikilinkAutocomplete.attach === 'function',
+      attachToInput: typeof Lab.wikilinkAutocomplete.attachToInput === 'function',
+      fetchLinkIndex: typeof Lab.gh.fetchLinkIndex === 'function',
+    }));
+    log('wikilinks', 'Modules loaded',
+      modules.wla && modules.attach && modules.attachToInput && modules.fetchLinkIndex ? 'PASS' : 'FAIL',
+      JSON.stringify(modules));
+
+    // 2. Filter utility: search for "pistachio" returns multiple tube matches.
+    const filterResult = await p.evaluate(async () => {
+      const items = await Lab.wikilinkAutocomplete._filter('pistachio');
+      return {
+        count: items.length,
+        titles: items.slice(0, 5).map(i => i.entry.title),
+      };
+    });
+    log('wikilinks', 'Autocomplete filter returns pistachio matches',
+      filterResult.count >= 3 ? 'PASS' : 'FAIL',
+      `${filterResult.count} matches: ${filterResult.titles.join(', ')}`);
+
+    // 3. Backlinks pane on the sample card (references from tubes).
+    await p.evaluate(() => Lab.editorModal.open('docs/samples/sample-pistachio-4.md'));
+    await p.waitForSelector('#em-contents', { timeout: 8000 }).catch(() => {});
+    await p.waitForTimeout(1500);
+    const samplePane = await p.evaluate(() => {
+      const contents = document.getElementById('em-contents');
+      const backlinks = contents ? contents.querySelectorAll('.em-backlink-row') : [];
+      return {
+        ok: !!contents,
+        backlinkCount: backlinks.length,
+        titles: Array.from(backlinks).map(b => b.querySelector('div').innerText),
+      };
+    });
+    log('wikilinks', 'Sample popup shows backlinks from tubes',
+      samplePane.backlinkCount >= 2 ? 'PASS' : 'FAIL',
+      `${samplePane.backlinkCount} backlinks: ${samplePane.titles.join(', ')}`);
+
+    // 4. Click a backlink → opens that tube's popup
+    if (samplePane.backlinkCount >= 1) {
+      await p.evaluate(() => {
+        const el = document.querySelector('#em-contents .em-backlink-row');
+        if (el) el.click();
+      });
+      await p.waitForTimeout(1500);
+      const afterClick = await p.evaluate(() => document.getElementById('em-title').textContent);
+      log('wikilinks', 'Click backlink navigates to referencing object',
+        afterClick && afterClick !== 'Pistachio Tree #4' ? 'PASS' : 'FAIL',
+        `title: "${afterClick}"`);
+    }
+
+    // Close
+    await p.evaluate(() => { const c = document.getElementById('em-close'); if (c) c.click(); });
+    await p.waitForTimeout(400);
+
+    // 5. Parent field autocomplete: open a tube in edit mode, type in the
+    // parent field, verify the dropdown appears with location candidates.
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/tube-pistachio-leaf-2.md'));
+    await p.waitForTimeout(2500);
+    // Enter edit mode
+    await p.evaluate(() => { const btn = document.getElementById('em-edit-toggle'); if (btn) btn.click(); });
+    // Wait for Toast UI to mount
+    await p.waitForTimeout(5000);
+    // Find the parent input and trigger focus + input
+    const parentFieldState = await p.evaluate(async () => {
+      const input = document.querySelector('.em-field-input[data-key="parent"]');
+      if (!input) return { ok: false };
+      input.focus();
+      input.value = 'box';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      // Wait a tick for the dropdown to render
+      await new Promise(r => setTimeout(r, 500));
+      const dropdown = document.querySelector('.lab-wla-dropdown');
+      const visible = dropdown && dropdown.style.display !== 'none';
+      const itemCount = visible ? dropdown.querySelectorAll('.lab-wla-item').length : 0;
+      return { ok: true, visible, itemCount };
+    });
+    log('wikilinks', 'Parent field autocomplete opens on input',
+      parentFieldState.ok && parentFieldState.visible && parentFieldState.itemCount >= 2 ? 'PASS' : 'FAIL',
+      `visible=${parentFieldState.visible} items=${parentFieldState.itemCount}`);
+
+    // Cancel edit mode without saving
+    await p.evaluate(() => { const btn = document.getElementById('em-edit-toggle'); if (btn) btn.click(); });
+    await p.waitForTimeout(600);
+    // Close popup
+    await p.evaluate(() => { const c = document.getElementById('em-close'); if (c) c.click(); });
+    await p.waitForTimeout(400);
+
+    // 6. Empty grid cell click opens place-here popover (not direct openNew).
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/box-pistachio-dna.md'));
+    await p.waitForSelector('#em-contents .em-grid-view', { timeout: 8000 }).catch(() => {});
+    await p.waitForTimeout(1000);
+    await p.evaluate(() => {
+      const cell = document.querySelector('#em-contents .em-grid-cell.empty[data-cell="F6"]');
+      if (cell) cell.click();
+    });
+    await p.waitForTimeout(800);
+    const popover = await p.evaluate(() => {
+      const pop = document.querySelector('.em-place-here-pop');
+      if (!pop) return { present: false };
+      return {
+        present: true,
+        hasSearch: !!pop.querySelector('.em-place-search'),
+        hasCreate: !!pop.querySelector('.em-place-create'),
+        hasResults: !!pop.querySelector('.em-place-results'),
+      };
+    });
+    log('wikilinks', 'Empty cell opens place-here popover',
+      popover.present && popover.hasSearch && popover.hasCreate ? 'PASS' : 'FAIL',
+      `pop=${popover.present} search=${popover.hasSearch} create=${popover.hasCreate}`);
+
+    // 7. Type in the search → results appear
+    if (popover.present) {
+      await p.evaluate(() => {
+        const input = document.querySelector('.em-place-here-pop .em-place-search');
+        if (input) {
+          input.value = 'tube';
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+      await p.waitForTimeout(600);
+      const results = await p.evaluate(() => {
+        const list = document.querySelectorAll('.em-place-here-pop .em-place-result');
+        return list.length;
+      });
+      log('wikilinks', 'Place-here search returns results',
+        results >= 1 ? 'PASS' : 'FAIL',
+        `${results} results for "tube"`);
+    }
+
+    // Dismiss popover by clicking outside
+    await p.click('.em-modal-header', { position: { x: 10, y: 10 } }).catch(()=>{});
+    await p.waitForTimeout(400);
+
+    // 8. Close popup for the [[ autocomplete test below
+    await p.evaluate(() => { const c = document.getElementById('em-close'); if (c) c.click(); });
+    await p.waitForTimeout(400);
+
+    // 9. Inline [[ autocomplete: open a tube in edit mode, type `[[pist` in
+    // the Toast UI editor, verify the dropdown appears with matches.
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/tube-pistachio-leaf-1.md'));
+    await p.waitForTimeout(2500);
+    await p.evaluate(() => { const btn = document.getElementById('em-edit-toggle'); if (btn) btn.click(); });
+    // Wait for Toast UI to fully mount + the autocomplete attach timeout (200ms)
+    await p.waitForSelector('#em-content .toastui-editor-defaultUI', { timeout: 12000 }).catch(() => {});
+    await p.waitForTimeout(800);
+
+    // Focus the ProseMirror contentEditable in-page (clicking the element
+    // handle times out because Toast UI's initial mount leaves zero-size
+    // intermediate DOM). Then use keyboard.type which types into the focused
+    // element with real keyboard events.
+    await p.evaluate(() => {
+      // Target the WYSIWYG ProseMirror specifically — Toast UI keeps a second
+      // hidden ProseMirror for markdown mode that would otherwise match.
+      const pm = document.querySelector('#em-content .toastui-editor-ww-container .ProseMirror')
+              || document.querySelector('#em-content .ProseMirror');
+      if (!pm) return;
+      pm.focus();
+      // Place caret at the end of the content
+      const range = document.createRange();
+      range.selectNodeContents(pm);
+      range.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+    await p.waitForTimeout(300);
+    await p.keyboard.type('[[pist', { delay: 40 });
+    await p.waitForTimeout(1200);
+    const triggerState = await p.evaluate(() => {
+      const pm = document.querySelector('#em-content .ProseMirror');
+      const dropdown = document.querySelector('.lab-wla-dropdown');
+      const visible = dropdown && dropdown.style.display !== 'none';
+      const items = visible ? dropdown.querySelectorAll('.lab-wla-item') : [];
+      // Debug: what does the ProseMirror actually contain after typing?
+      const pmText = pm ? pm.innerText.substring(0, 80) : '';
+      const pmHTML = pm ? pm.innerHTML.substring(0, 200) : '';
+      // Is the autocomplete attached?
+      const triggerFound = typeof Lab.wikilinkAutocomplete._findTrigger === 'function'
+        ? Lab.wikilinkAutocomplete._findTrigger() : null;
+      return {
+        ok: !!pm,
+        visible,
+        itemCount: items.length,
+        firstItemText: items[0] ? items[0].innerText.substring(0, 120) : '',
+        pmText,
+        pmHTML,
+        triggerFound: triggerFound ? { query: triggerFound.query, offset: triggerFound.offset } : null,
+      };
+    });
+    if (!triggerState.visible) {
+      console.log('    DEBUG: pmText="' + triggerState.pmText + '" pmHTML="' + triggerState.pmHTML + '" trigger=' + JSON.stringify(triggerState.triggerFound));
+    }
+    log('wikilinks', '[[ autocomplete dropdown fires on trigger',
+      triggerState.ok && triggerState.visible && triggerState.itemCount >= 2 ? 'PASS' : 'FAIL',
+      triggerState.ok ? `visible=${triggerState.visible} items=${triggerState.itemCount}` : triggerState.reason);
+
+    if (triggerState.visible && triggerState.itemCount) {
+      log('wikilinks', 'Autocomplete items show title + breadcrumb',
+        triggerState.firstItemText.toLowerCase().includes('pist') ? 'PASS' : 'FAIL',
+        `first: "${triggerState.firstItemText.replace(/\n/g, ' | ')}"`);
+    }
+
+    await p.screenshot({ path: '/tmp/labbot-wikilinks.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  EDITOR (R3, Issue #18): 3-column popup layout + grid + create flow
   //  ──────────────────────────────────────────────────────────────
   //  Covers: 3-col structure, grid renderer, children list, container_list

@@ -312,8 +312,15 @@
       items: [],
       selectedIdx: 0,
     };
-    // Listen on the contentEditable ProseMirror element
-    var contentEl = editorEl.querySelector('.ProseMirror') || editorEl;
+    // Toast UI keeps TWO ProseMirror instances in the DOM — one for markdown
+    // mode (with syntax-highlighter spans) and one for WYSIWYG mode — only
+    // one is visible at a time based on the active mode. We only care about
+    // the WYSIWYG one because the popup edit flow is WYSIWYG by default.
+    // Try the ww-container first, fall back to a generic `.ProseMirror` only
+    // if the structure is different.
+    var contentEl = editorEl.querySelector('.toastui-editor-ww-container .ProseMirror')
+                 || editorEl.querySelector('.ProseMirror')
+                 || editorEl;
     state.contentEl = contentEl;
     state._onInput = function() { onInput(); };
     state._onKeydown = onKeydown;
