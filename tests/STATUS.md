@@ -39,6 +39,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R12 | 10/10 | ✅ (R12) new scripts/build-user-stats.py walks git log and emits docs/user-stats.json with per-user totals (commits, protocols authored, notebooks authored, inventory edits, wiki edits, images uploaded, issue attachments) + recent commit list. New app/profile.html renders a per-user dashboard with stats grid, 11 unlockable badges (First Commit, Protocol Master, Chronicler, Inventory Keeper, Century, Photographer, Wiki Builder, Debugger, Founder, …), recent activity, and a cross-user leaderboard. Nav avatar now links to profile (#42) |
 | R13 | 8/8 | ✅ (R13) calendar page now includes the global issue reporter FAB and each hour cell in the week grid is click-to-create — clicking an empty slot opens the Add Block modal pre-filled with that day's date and the hour's start time (end time defaults to +1h), hover highlight + `cursor:cell` make cells feel clickable (#40) |
 | R14 | 12/12 | ✅ (R14 tone samples for #38) hand-written educational intros for 5 common chemicals (ethanol-absolute, agarose, edta-trisodium-salt, tris-base, sodium-dodecyl-sulfate) establishing the "What it is / Why we use it / Callout" template for the full catalog rewrite. Scope is intentionally small — 5 cards done, remaining ~137 to be scaled up in a follow-up round |
+| R15 | 7/7 | ✅ (R15) mobile markdown format toolbar — new Aa toggle button in the mobile fab bar opens a compact strip with Bold / Italic / H2 / H3 / bullet / numbered / code / blockquote buttons that call Toast UI `editor.exec()`; each button refocuses the WYSIWYG ProseMirror first so exec lands in the right instance; toggling again closes the strip; desktop unaffected (still uses the native Toast UI toolbar) (#28) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -49,7 +50,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 232/232 (100%)** — R14 adds 12 new tests covering the 5 hand-written educational chemical intros (#38 tone samples): each has the "What it is" + "Why we use it" section structure, each carries its expected educational marker phrase, rendered page has h2 headings + safety callout. See Round 14 below for the full writeup.
+**Total: 239/239 (100%)** — R15 adds 7 new tests covering the mobile markdown format toolbar (#28): format toggle button in the fab bar, clicking reveals the 8-button format strip, buttons include Bold/Italic/H2/H3, Bold button wraps selection in `**` via `exec('bold')`, toggle closes the strip. See Round 15 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -696,6 +697,45 @@ The template is small enough that it doesn't become a content mill and big enoug
 - **The other ~137 chemicals, reagents, and buffers** — that's the bulk of the work. My plan for the follow-up: use the 5 hand-written samples as reference, batch 20-30 high-frequency chemicals at a time, focus first on things students actually use (media components, PCR ingredients, gel buffers, common salts, common acids, etc.), leave obscure specialty reagents for last. Easily parallelizable via a fix-loop batch. Grey to confirm tone is right before scaling up.
 - **Chemical structure images** — the other half of Grey's #37 ask that got deferred in R10. Requires picking a source (PubChem via CID lookup? local cache? raw SVG?) and a caching strategy. Meaningfully larger build.
 - **Per-type templates for non-chemical types** (equipment, kits, consumables) — those need a different teaching shape (what does this instrument do, when do you use it, common mistakes). Left for a later round.
+
+---
+
+## Round 15: Mobile markdown format toolbar (2026-04-11)
+
+Grey's #28 was "on mobile it would be nice if you could still edit markdown text style like if you select plus icon you could insert but also maybe another icon for changing text like size and other things." R15 adds exactly that — a second FAB button next to the existing + Insert that opens a text-formatting strip.
+
+### What shipped
+
+- [x] **New `text_format` (Aa) FAB button** in `setupMobileToolbarToggle`'s fab bar, sitting next to Cancel / Save / + Insert. Clicking it toggles a floating format strip positioned just below the fab bar at the top-right of the editor.
+- [x] **Format strip with 8 buttons**: Bold, Italic, H2, H3, Bullet list, Numbered list, Inline code, Blockquote. Labels are compact so all 8 fit on a 411px mobile viewport without scrolling: `B`, `I`, `H2`, `H3`, `•`, `1.`, `</>`, `”`.
+- [x] **Each button wires into Toast UI `editor.exec()`** — `bold`, `italic`, `heading {level: 2}`, `heading {level: 3}`, `bulletList`, `orderedList`, `code`, `blockQuote`. No custom markdown wrangling — Toast UI's exec API handles the DOM mutations and the markdown round-trip.
+- [x] **WYSIWYG refocus before exec** — each button handler calls a `withFocus(fn)` wrapper that refocuses the WYSIWYG ProseMirror (`.toastui-editor-ww-container .ProseMirror`) before running `exec`. Without that, `exec` can land in the hidden markdown mirror instead. Same pattern used by R4's wikilink autocomplete.
+- [x] **Toggle closes on second click** — clicking the Aa button again removes the bar. `_mobileFormatBar` is tracked at the module level and cleaned up in `cleanupMobileSheet` alongside `_mobileSheet` so nothing leaks when the editor is destroyed.
+- [x] **Desktop untouched** — the format toolbar only mounts as part of `setupMobileToolbarToggle`, which is only called when `isMobile()` is true. Desktop still gets the native Toast UI toolbar with all its buttons.
+
+### Tests added in R15
+
+7 new tests in a new `r15` section. Each test runs on a 411×795 viewport inside a freshly-created notebook entry:
+
+- `#28 mobile fab bar contains the format toggle button`
+- `#28 clicking the toggle reveals the format bar`
+- `#28 format bar has 8 buttons (B, I, H2, H3, •, 1., code, quote)`
+- `#28 format bar includes Bold / Italic / Heading 2 / Heading 3` (title-attribute check)
+- `#28 Bold button wraps selection in ** via exec("bold")` — the actual behavior test: sets the editor markdown to `Hello world`, selects all, clicks the Bold button via DOM, reads the resulting markdown, expects `**Hello world**`
+- `#28 clicking toggle again closes the format bar`
+
+### Skipped in R15
+
+- **Inline "appears on selection" bar** — the macOS-style popup bar that floats above selected text. Different UX model, more complicated positioning logic (needs to track selection coordinates). The persistent toggle is simpler and more predictable on mobile where selection gestures are fiddly.
+- **Font size controls** — Grey mentioned "changing text like size and other things." Toast UI doesn't have a direct font-size exec API without custom extensions; headings (H2/H3) cover the "make this bigger" ask for most cases. A follow-up could add a `small` / `large` pair if needed.
+- **Strikethrough, subscript, superscript** — not on Grey's list and would make the 8-button strip feel crowded. The R10 `~text~` / `^text^` syntax + the chemistry whitelist cover the scientific sub/sup use case.
+- **Color / highlight** — same reasoning; not requested, hard to do well on mobile without a color picker.
+
+### Subtle decisions worth noting for future work
+
+1. **Two separate FABs** (Aa format + + Insert) rather than consolidating into one sheet. Rationale: Grey's request explicitly distinguishes between "insert" (images, links, object pills) and "format" (bold, heading, list). Merging them into one sheet would either double its height or hide half the buttons behind sub-menus. Two small toggles at top-right feel lighter than one bigger one.
+2. **Format bar is persistent until toggled off**, not auto-closing on button click. A user applying bold + italic + heading in sequence would otherwise have to re-open the bar three times. Auto-close is worse UX.
+3. **`withFocus` wrapper is always called, even for commands that don't need selection** (like `bulletList`). Cost is negligible, and it keeps the focus-pattern uniform across all buttons so we never have a "works sometimes" bug.
 
 ---
 

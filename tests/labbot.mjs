@@ -4023,6 +4023,171 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R15: Mobile markdown format toolbar (#28)
+  //  ────────────────────────────────────────────────────────────
+  //  Adds a text-formatting strip to the mobile editor's fab bar.
+  //  Aa toggle button reveals B / I / H2 / H3 / • / 1. / code /
+  //  blockquote buttons, each calling Toast UI exec() on the
+  //  WYSIWYG ProseMirror. Desktop is unaffected.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r15')) {
+    console.log('\n🔤  R15\n');
+
+    const p = await context.newPage();
+    await p.setViewportSize({ width: 411, height: 795 });
+    await p.goto(BASE + '/app/notebooks.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && Lab.editorModal && Lab.editorModal.initFullpage, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
+
+    // Create a throwaway notebook page to edit. Uses the same flow as
+    // the existing notebooks regression test — scroll to folders, create
+    // a new entry, wait for the editor to mount.
+    const TS = Date.now().toString(36);
+    const nbTitle = `labbot-r15-${TS}`;
+    const nbSetup = await p.evaluate(async (title) => {
+      // Call createNewEntry directly — that's the flow the modal button
+      // triggers. We go straight through it to avoid Playwright fighting
+      // with the nav modal DOM.
+      if (typeof openNewEntryModal === 'function') {
+        openNewEntryModal();
+      }
+      return { triggered: typeof openNewEntryModal === 'function' };
+    }, nbTitle).catch(() => ({}));
+
+    // Fallback: if the modal helper isn't exposed, jump to the page
+    // without creating a doc — the edit toolbar only mounts when a doc
+    // is loaded. Bail with a SKIP in that case.
+    if (!nbSetup.triggered) {
+      log('r15', '#28 mobile format toolbar smoke test setup',
+        'SKIP', 'no openNewEntryModal helper exposed');
+      await p.close();
+    } else {
+      await p.waitForTimeout(500);
+      // Fill title + select first folder + hit Create
+      await p.evaluate(async (title) => {
+        var t = document.querySelector('#nbm_title, .nb-modal input[type="text"]');
+        if (t) t.value = title;
+        var f = document.querySelector('#nbm_folder, .nb-modal select:last-of-type');
+        if (f && f.options.length > 1) f.selectedIndex = 1;
+        var ok = document.querySelector('#nbmOk') || document.querySelector('button[onclick*="createNewEntry"]');
+        if (ok) ok.click();
+      }, nbTitle);
+      // Give the create flow time (GH PUT + re-open)
+      for (let i = 0; i < 20; i++) {
+        const editorUp = await p.evaluate(() => !!document.querySelector('.toastui-editor-ww-container .ProseMirror'));
+        if (editorUp) break;
+        await p.waitForTimeout(500);
+      }
+      await p.waitForTimeout(1200); // let setupMobileToolbarToggle's 400ms delay fire
+
+      // Trigger edit mode if we're not already in it
+      const needsEdit = await p.evaluate(() => {
+        if (typeof startEdit !== 'function') return false;
+        if (!window.editorInstance) { startEdit(); return true; }
+        return false;
+      });
+      if (needsEdit) {
+        for (let i = 0; i < 20; i++) {
+          const ready = await p.evaluate(() =>
+            !!document.querySelector('.toastui-editor-ww-container .ProseMirror') && !!window.editorInstance
+          );
+          if (ready) break;
+          await p.waitForTimeout(500);
+        }
+        // Also wait for the mobile fab bar (400ms setTimeout inside setup)
+        await p.waitForTimeout(1500);
+      }
+
+      // ── #28: the format toggle FAB exists in the mobile fab bar ──
+      const toggleCheck = await p.evaluate(() => {
+        const bar = document.querySelector('.mobile-fab-bar');
+        const toggle = bar ? bar.querySelector('.mobile-format-toggle') : null;
+        return {
+          hasBar: !!bar,
+          hasToggle: !!toggle,
+          toggleTitle: toggle ? toggle.getAttribute('title') : null,
+        };
+      });
+      log('r15', '#28 mobile fab bar contains the format toggle button',
+        toggleCheck.hasBar && toggleCheck.hasToggle ? 'PASS' : 'FAIL',
+        JSON.stringify(toggleCheck));
+
+      // ── #28: clicking the format toggle reveals the format bar ──
+      await p.evaluate(() => {
+        const t = document.querySelector('.mobile-format-toggle');
+        if (t) t.click();
+      });
+      await p.waitForTimeout(300);
+      const openedCheck = await p.evaluate(() => {
+        const bar = document.querySelector('.mobile-format-bar');
+        if (!bar) return { opened: false };
+        const btns = bar.querySelectorAll('.mobile-format-btn');
+        return {
+          opened: true,
+          btnCount: btns.length,
+          titles: Array.from(btns).map(b => b.getAttribute('title')),
+        };
+      });
+      log('r15', '#28 clicking the toggle reveals the format bar',
+        openedCheck.opened ? 'PASS' : 'FAIL');
+      log('r15', '#28 format bar has 8 buttons (B, I, H2, H3, •, 1., code, quote)',
+        openedCheck.btnCount === 8 ? 'PASS' : 'FAIL',
+        `${openedCheck.btnCount} buttons`);
+      log('r15', '#28 format bar includes Bold / Italic / Heading 2 / Heading 3',
+        openedCheck.titles &&
+        openedCheck.titles.includes('Bold') &&
+        openedCheck.titles.includes('Italic') &&
+        openedCheck.titles.includes('Heading 2') &&
+        openedCheck.titles.includes('Heading 3') ? 'PASS' : 'FAIL',
+        JSON.stringify(openedCheck.titles));
+
+      // ── #28: clicking Bold actually executes on the editor ──
+      // Focus the editor + type some text, select it, click bold, check
+      // the Toast UI document for a strong mark.
+      const boldResult = await p.evaluate(async () => {
+        const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
+        if (!ww || !window.editorInstance) return { error: 'no editor' };
+        ww.focus();
+        window.editorInstance.setMarkdown('Hello world');
+        await new Promise(r => setTimeout(r, 200));
+        // Select-all so bold applies to everything
+        window.editorInstance.exec('selectAll');
+        await new Promise(r => setTimeout(r, 100));
+        // Click the Bold button in the format bar
+        const btns = document.querySelectorAll('.mobile-format-btn');
+        let boldBtn = null;
+        btns.forEach(b => { if (b.getAttribute('title') === 'Bold') boldBtn = b; });
+        if (boldBtn) boldBtn.click();
+        await new Promise(r => setTimeout(r, 300));
+        return {
+          markdown: window.editorInstance.getMarkdown(),
+        };
+      });
+      log('r15', '#28 Bold button wraps selection in ** via exec("bold")',
+        boldResult.markdown && /\*\*Hello world\*\*/.test(boldResult.markdown) ? 'PASS' : 'FAIL',
+        JSON.stringify(boldResult));
+
+      // ── #28: toggling again closes the bar ──
+      await p.evaluate(() => {
+        const t = document.querySelector('.mobile-format-toggle');
+        if (t) t.click();
+      });
+      await p.waitForTimeout(200);
+      const closedCheck = await p.evaluate(() => ({
+        barGone: !document.querySelector('.mobile-format-bar'),
+      }));
+      log('r15', '#28 clicking toggle again closes the format bar',
+        closedCheck.barGone ? 'PASS' : 'FAIL');
+
+      // Clean up: delete the notebook entry to keep the repo tidy
+      const cleanupPath = `docs/notebooks/barb-m/${nbTitle}.md`;
+      ghDeleteFile(cleanupPath, 'R15 test cleanup');
+
+      await p.close();
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

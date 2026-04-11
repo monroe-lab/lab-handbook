@@ -2282,6 +2282,22 @@
       };
       fabBar.appendChild(saveFab);
 
+      // R15 #28: Format toggle button (Aa icon) — opens a horizontal row
+      // of text-formatting buttons (bold, italic, headings, lists, link,
+      // code) that call Toast UI's exec() API. Scoped to mobile edit mode
+      // only; desktop still uses the native Toast UI toolbar.
+      var formatFab = document.createElement('button');
+      formatFab.type = 'button';
+      formatFab.className = 'mobile-format-toggle';
+      formatFab.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">text_format</span>';
+      formatFab.style.cssText = 'width:34px;height:34px;border-radius:50%;border:none;background:#fff;color:var(--teal-dark);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);';
+      formatFab.title = 'Text formatting';
+      formatFab.onclick = function(e) {
+        e.preventDefault();
+        toggleMobileFormatBar(containerEl, editor);
+      };
+      fabBar.appendChild(formatFab);
+
       // + Insert button
       _mobileFab = document.createElement('button');
       _mobileFab.type = 'button';
@@ -2308,6 +2324,10 @@
     }, 400);
   }
 
+  // R15 #28: Format bar element — separate from _mobileSheet so users can
+  // toggle the format row independently of the + Insert sheet.
+  var _mobileFormatBar = null;
+
   function cleanupMobileSheet() {
     if (_mobileFab) {
       var bar = _mobileFab.closest('.mobile-fab-bar');
@@ -2315,7 +2335,84 @@
       _mobileFab = null;
     }
     if (_mobileSheet) { _mobileSheet.remove(); _mobileSheet = null; }
+    if (_mobileFormatBar) { _mobileFormatBar.remove(); _mobileFormatBar = null; }
     _mobileEditor = null;
+  }
+
+  // R15 #28: Mobile text-formatting toolbar. Clicking the Aa format button
+  // in the fab bar opens a compact horizontal strip of buttons that each
+  // call Toast UI's exec() API for the corresponding formatter. Positioned
+  // just below the fab bar at the top-right of the editor. Buttons: Bold,
+  // Italic, H2, H3, Bullet list, Numbered list, Code, Blockquote. Link /
+  // images / object links live in the + Insert sheet — this bar is
+  // strictly text styles.
+  function toggleMobileFormatBar(containerEl, editor) {
+    if (_mobileFormatBar) {
+      _mobileFormatBar.remove();
+      _mobileFormatBar = null;
+      return;
+    }
+
+    var bar = document.createElement('div');
+    bar.className = 'mobile-format-bar';
+    // Sits below the fab bar (top:4 + 34 + 6 = 44px) and anchors to the
+    // right edge of the editor. Semi-opaque white with a shadow so text
+    // under it stays legible during the brief hover.
+    bar.style.cssText =
+      'position:absolute;top:44px;right:4px;z-index:101;' +
+      'display:flex;gap:4px;padding:4px;' +
+      'background:rgba(255,255,255,.98);border-radius:8px;' +
+      'box-shadow:0 2px 12px rgba(0,0,0,.18);' +
+      'flex-wrap:nowrap';
+
+    function addFormatBtn(label, title, onClick) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'mobile-format-btn';
+      b.innerHTML = label;
+      b.title = title;
+      b.style.cssText =
+        'min-width:32px;height:32px;border-radius:6px;border:none;' +
+        'background:transparent;color:#262626;' +
+        'font-size:14px;font-weight:600;cursor:pointer;' +
+        'padding:0 6px;display:flex;align-items:center;justify-content:center;' +
+        'font-family:inherit';
+      b.addEventListener('mouseenter', function() { b.style.background = '#f3f4f6'; });
+      b.addEventListener('mouseleave', function() { b.style.background = 'transparent'; });
+      b.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        try { onClick(); } catch(err) { console.error('mobile format:', err); }
+      };
+      bar.appendChild(b);
+    }
+
+    // Each handler refocuses the WYSIWYG editor first so Toast UI's exec
+    // applies to the correct ProseMirror instance (markdown mode + WYSIWYG
+    // both live in the DOM at the same time).
+    function withFocus(fn) {
+      return function() {
+        var ww = containerEl.querySelector('.toastui-editor-ww-container .ProseMirror');
+        if (ww) ww.focus();
+        fn();
+      };
+    }
+
+    addFormatBtn('<b>B</b>', 'Bold',        withFocus(function() { editor.exec('bold'); }));
+    addFormatBtn('<i>I</i>', 'Italic',      withFocus(function() { editor.exec('italic'); }));
+    addFormatBtn('H2',       'Heading 2',   withFocus(function() { editor.exec('heading', { level: 2 }); }));
+    addFormatBtn('H3',       'Heading 3',   withFocus(function() { editor.exec('heading', { level: 3 }); }));
+    addFormatBtn('<span style="font-size:18px;line-height:1">\u2022</span>', 'Bullet list',   withFocus(function() { editor.exec('bulletList'); }));
+    addFormatBtn('1.',       'Numbered list', withFocus(function() { editor.exec('orderedList'); }));
+    addFormatBtn('<code style="font-size:12px">&lt;/&gt;</code>', 'Inline code', withFocus(function() { editor.exec('code'); }));
+    addFormatBtn('<span style="font-size:16px;line-height:1">\u201D</span>', 'Blockquote', withFocus(function() { editor.exec('blockQuote'); }));
+
+    var editorUI = containerEl.querySelector('.toastui-editor-defaultUI');
+    if (editorUI) {
+      editorUI.style.position = 'relative';
+      editorUI.appendChild(bar);
+      _mobileFormatBar = bar;
+    }
   }
 
   function toggleMobileSheet(containerEl, editor) {
