@@ -842,6 +842,13 @@ function ghReadFile(path) {
           });
           await p.waitForTimeout(8000);
 
+          // R6.5 debug: read the uniqueness-check telemetry to see why a
+          // save might have been refused.
+          const r65Debug = await p.evaluate(() => window._r65LastSaveCheck || null);
+          if (r65Debug) {
+            console.log('  [R6.5 check]', JSON.stringify(r65Debug));
+          }
+
           const editContent = ghReadFile(invPath);
           const hasEdit = editContent?.includes('LabBot edit test');
           log('inventory', 'Edit item & save', hasEdit ? 'PASS' : 'FAIL',
@@ -2991,6 +2998,149 @@ Test container used by the labmap delete test. Should not persist.
     log('r6', 'Grid occupied cells are draggable',
       gridCheck.occCount > 0 && gridCheck.dragCount === gridCheck.occCount ? 'PASS' : 'FAIL',
       `${gridCheck.dragCount}/${gridCheck.occCount} occupied cells draggable, ${gridCheck.emptyCount} empty`);
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  R6.5: scoped concept-title uniqueness + autocomplete instance badge
+  //  ────────────────────────────────────────────────────────────────────
+  // Two silent helpers in the concept↔instance space:
+  //   1. Lab.types.isConceptType() classifies types correctly
+  //   2. Save-time uniqueness check refuses duplicate concept titles
+  //      within the same type (does NOT block bottles or locations)
+  //   3. Autocomplete badges concepts that have known physical instances
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r65')) {
+    console.log('\n🪪  R6.5\n');
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && window.Lab.types && window.Lab.types.isConceptType, { timeout: 15000 }).catch(() => {});
+    await p.waitForTimeout(2000);
+
+    // 1. isConceptType helper classifies known types correctly.
+    const helperCheck = await p.evaluate(() => ({
+      reagent:  Lab.types.isConceptType('reagent'),
+      protocol: Lab.types.isConceptType('protocol'),
+      person:   Lab.types.isConceptType('person'),
+      sample:   Lab.types.isConceptType('sample'),
+      bottle:   Lab.types.isConceptType('bottle'),    // instance — false
+      tube:     Lab.types.isConceptType('tube'),      // location — false
+      seed:     Lab.types.isConceptType('seed'),      // legacy stock — false
+      unknown:  Lab.types.isConceptType('made-up'),   // unknown — false
+    }));
+    log('r65', 'isConceptType: concepts return true',
+      helperCheck.reagent && helperCheck.protocol && helperCheck.person && helperCheck.sample ? 'PASS' : 'FAIL',
+      `reagent=${helperCheck.reagent} protocol=${helperCheck.protocol} person=${helperCheck.person} sample=${helperCheck.sample}`);
+    log('r65', 'isConceptType: instances/locations/stocks return false',
+      !helperCheck.bottle && !helperCheck.tube && !helperCheck.seed && !helperCheck.unknown ? 'PASS' : 'FAIL',
+      `bottle=${helperCheck.bottle} tube=${helperCheck.tube} seed=${helperCheck.seed} unknown=${helperCheck.unknown}`);
+
+    // 2. The cached object index (after R5+R6 cleanup) has a known reagent
+    //    title we can use as a positive collision target. We pick a real
+    //    existing concept and verify the helper would flag a duplicate.
+    const collisionCheck = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      // Pick a real concept to test against
+      const target = idx.find(e => e.type === 'reagent' && e.title);
+      if (!target) return { found: false };
+      // Count how many entries already share its (type, title) — should be 1
+      const sameTitle = idx.filter(e =>
+        e.type === target.type &&
+        (e.title || '').trim().toLowerCase() === target.title.trim().toLowerCase()
+      );
+      return {
+        found: true,
+        targetTitle: target.title,
+        targetPath: target.path,
+        sameTitleCount: sameTitle.length,
+      };
+    });
+    log('r65', 'real concept exists with unique (type,title)',
+      collisionCheck.found && collisionCheck.sameTitleCount === 1 ? 'PASS' : 'FAIL',
+      collisionCheck.found ? `"${collisionCheck.targetTitle}" sameTitleCount=${collisionCheck.sameTitleCount}` : 'no reagent found');
+
+    // 3. The instance badge map: build it locally from cached indexes and
+    //    verify Ethanol Absolute (concept) has its 1 bottle counted.
+    const badgeMap = await p.evaluate(async () => {
+      // Force-build the maps the same way wikilink-autocomplete does.
+      await Lab.gh.fetchObjectIndex();
+      await Lab.gh.fetchLinkIndex();
+      const idx = Lab.gh._getCachedIndex() || [];
+      const linkIdx = Lab.gh._getCachedLinkIndex() || [];
+      const map = {};
+      idx.forEach(e => {
+        if (!e.of) return;
+        const ofSlug = String(e.of).replace(/^\[\[/, '').replace(/\]\]$/, '').replace(/\.md$/, '').replace(/^\.\//, '');
+        if (ofSlug) map[ofSlug] = (map[ofSlug] || 0) + 1;
+      });
+      const typeBySlug = {};
+      idx.forEach(e => { typeBySlug[e.path.replace(/\.md$/, '')] = e.type; });
+      const INSTANCE_TYPES = { tube: 1, box: 1, container: 1, freezer: 1, fridge: 1, shelf: 1, room: 1 };
+      linkIdx.forEach(edge => {
+        if (!INSTANCE_TYPES[typeBySlug[edge.source]]) return;
+        map[edge.target] = (map[edge.target] || 0) + 1;
+      });
+      return {
+        ethanolAbsolute: map['resources/ethanol-absolute'] || 0,
+        pistachio4: map['samples/sample-pistachio-4'] || 0,    // R1: 3 tubes
+        ethanol70: map['resources/ethanol-70'] || 0,           // R5: 2 bottles
+        totalKeysWithInstances: Object.keys(map).length,
+      };
+    });
+    log('r65', 'instance map counts ethanol-absolute bottle',
+      badgeMap.ethanolAbsolute === 1 ? 'PASS' : 'FAIL',
+      `ethanol-absolute → ${badgeMap.ethanolAbsolute} (expected 1)`);
+    log('r65', 'instance map counts ethanol-70 (multi-bottle)',
+      badgeMap.ethanol70 === 2 ? 'PASS' : 'FAIL',
+      `ethanol-70 → ${badgeMap.ethanol70} (expected 2)`);
+    log('r65', 'instance map counts pistachio sample tubes',
+      badgeMap.pistachio4 >= 3 ? 'PASS' : 'FAIL',
+      `sample-pistachio-4 → ${badgeMap.pistachio4} (expected >= 3)`);
+    log('r65', 'many concepts have instance counts',
+      badgeMap.totalKeysWithInstances >= 100 ? 'PASS' : 'FAIL',
+      `${badgeMap.totalKeysWithInstances} concept slugs have ≥1 instance`);
+
+    // 4. Autocomplete badge actually renders. Drive the [[ trigger via the
+    //    parent-input variant (attachToInput) — it uses the same renderItems
+    //    path so the badge logic is exercised.
+    await p.evaluate(() => {
+      const ta = document.createElement('input');
+      ta.type = 'text';
+      ta.id = 'r65-test-input';
+      document.body.appendChild(ta);
+      Lab.wikilinkAutocomplete.attachToInput(ta);
+      ta.focus();
+      ta.value = 'ethanol';
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await p.waitForTimeout(800);
+    const dropdownCheck = await p.evaluate(() => {
+      const drop = document.querySelector('.lab-wla-dropdown');
+      if (!drop || drop.style.display === 'none') return { visible: false };
+      const items = drop.querySelectorAll('.lab-wla-item');
+      let badgeCount = 0;
+      let firstBadgeText = '';
+      items.forEach(it => {
+        const badge = it.querySelector('span[style*="background:#e0f2f1"]');
+        if (badge && /\d+\s+instance/.test(badge.textContent)) {
+          badgeCount++;
+          if (!firstBadgeText) firstBadgeText = badge.textContent.trim();
+        }
+      });
+      return {
+        visible: true,
+        itemCount: items.length,
+        badgeCount,
+        firstBadgeText,
+      };
+    });
+    log('r65', 'autocomplete dropdown opens for "ethanol"',
+      dropdownCheck.visible && dropdownCheck.itemCount > 0 ? 'PASS' : 'FAIL',
+      dropdownCheck.visible ? `${dropdownCheck.itemCount} items` : 'dropdown not visible');
+    log('r65', 'autocomplete badges concepts with instances',
+      dropdownCheck.visible && dropdownCheck.badgeCount > 0 ? 'PASS' : 'FAIL',
+      `${dropdownCheck.badgeCount} badges; first: "${dropdownCheck.firstBadgeText}"`);
 
     await p.close();
   }

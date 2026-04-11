@@ -1701,8 +1701,11 @@
     // the save on a network round-trip.
     var saveType = currentState.meta.type;
     var saveTitle = (currentState.meta.title || '').trim();
+    var _r65DebugInfo = { type: saveType, title: saveTitle, currentPath: currentState.path, isConcept: false, cachedIdxLen: 0, collisions: [] };
     if (saveType && saveTitle && Lab.types.isConceptType(saveType)) {
+      _r65DebugInfo.isConcept = true;
       var cachedIdx = (gh._getCachedIndex && gh._getCachedIndex()) || null;
+      _r65DebugInfo.cachedIdxLen = cachedIdx ? cachedIdx.length : 0;
       if (cachedIdx && cachedIdx.length) {
         var collisions = cachedIdx.filter(function(e) {
           if (e.type !== saveType) return false;
@@ -1712,6 +1715,8 @@
           if (entryPath === currentState.path) return false;
           return true;
         });
+        _r65DebugInfo.collisions = collisions.map(function(c) { return { path: c.path, title: c.title, type: c.type }; });
+        window._r65LastSaveCheck = _r65DebugInfo;
         if (collisions.length) {
           var existing = collisions[0].path;
           window.Lab.showToast(
@@ -1724,6 +1729,7 @@
         }
       }
     }
+    window._r65LastSaveCheck = _r65DebugInfo;
 
     var commitMsg = (isNew ? 'Create ' : 'Update ') + currentState.path.replace(/^docs\//, '');
 
