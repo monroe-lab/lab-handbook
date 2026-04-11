@@ -127,13 +127,22 @@
       // Popup modal styles
       '.em-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}',
       '.em-overlay.open{opacity:1;pointer-events:auto}',
-      '.em-modal{background:#fff;border-radius:12px;width:90%;max-width:620px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .2s}',
+      // 3-column layout (R3). Desktop: wide modal with fields / body / contents.
+      // Narrow: stack the three panes vertically.
+      '.em-modal{background:#fff;border-radius:12px;width:95%;max-width:1180px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .2s}',
       '.em-overlay.open .em-modal{transform:translateY(0)}',
-      '.em-modal-header{padding:16px 20px;border-bottom:1px solid var(--grey-200);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}',
-      '.em-modal-header h2{font-size:17px;font-weight:600;margin:0}',
-      '.em-modal-body{flex:1;overflow-y:auto;padding:0}',
+      '.em-modal-header{padding:16px 20px;border-bottom:1px solid var(--grey-200);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px}',
+      '.em-modal-header h2{font-size:17px;font-weight:600;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}',
+      '.em-modal-body{flex:1;overflow:hidden;padding:0;display:flex;flex-direction:column;min-height:0}',
       '.em-modal-footer{padding:12px 20px;border-top:1px solid var(--grey-200);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}',
-      '.em-fields{padding:16px 20px;border-bottom:1px solid var(--grey-200)}',
+      '.em-cols{flex:1;display:flex;min-height:0;overflow:hidden}',
+      '.em-col{display:flex;flex-direction:column;min-height:0;min-width:0;overflow-y:auto}',
+      '.em-col-fields{flex:0 0 300px;border-right:1px solid var(--grey-200);padding:16px 18px;background:#fafafa}',
+      '.em-col-body{flex:1 1 auto;padding:0}',
+      '.em-col-contents{flex:0 0 340px;border-left:1px solid var(--grey-200);padding:16px 18px;background:#fafafa}',
+      '.em-col-heading{font-size:11px;font-weight:700;color:var(--grey-500);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;display:flex;align-items:center;gap:6px}',
+      '.em-col-empty{font-size:12px;color:var(--grey-400);font-style:italic;padding:8px 0}',
+      '.em-fields{padding:0}',
       '.em-fields .form-row{display:flex;gap:12px}',
       '.em-fields .form-group{margin-bottom:12px}',
       '/* Modal rendered content: inherits .lab-rendered from base.css, overrides below */',
@@ -141,6 +150,39 @@
       '.em-rendered table{table-layout:fixed}',
       '.em-rendered td,.em-rendered th{word-wrap:break-word;overflow-wrap:break-word;word-break:break-all}',
       '.em-rendered a{text-decoration:underline}',
+      // Contents pane: grid view
+      '.em-grid-view{margin-top:6px}',
+      '.em-grid-meta{font-size:11px;color:var(--grey-500);margin-bottom:8px}',
+      '.em-grid{display:grid;gap:3px;background:var(--grey-200);padding:3px;border-radius:6px}',
+      '.em-grid-cell{aspect-ratio:1;background:#fff;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;line-height:1.1;color:var(--grey-700);cursor:pointer;padding:2px;text-align:center;overflow:hidden;transition:transform .08s,box-shadow .08s;position:relative}',
+      '.em-grid-cell:hover{transform:scale(1.08);box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:2}',
+      '.em-grid-cell.empty{background:#fff;border:1px dashed var(--grey-300);color:var(--grey-400)}',
+      '.em-grid-cell.empty:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}',
+      '.em-grid-cell.occupied{font-weight:600}',
+      '.em-grid-cell.collision{box-shadow:0 0 0 2px #ff6f00 inset}',
+      '.em-grid-cell .gc-icon{font-size:12px;line-height:1}',
+      '.em-grid-cell .gc-label{white-space:pre-line;overflow:hidden;max-height:22px;font-size:8px}',
+      '.em-grid-cell .gc-collide{position:absolute;top:1px;right:2px;background:#ff6f00;color:#fff;font-size:9px;font-weight:700;padding:0 4px;border-radius:8px;line-height:14px}',
+      '.em-grid-labels-row{display:grid;gap:3px;margin-bottom:2px;padding:0 3px}',
+      '.em-grid-label-col{font-size:9px;color:var(--grey-500);text-align:center;font-weight:600}',
+      '.em-grid-row{display:grid;gap:3px;align-items:center}',
+      '.em-grid-label-row{font-size:9px;color:var(--grey-500);text-align:center;font-weight:600;padding:0 4px 0 3px}',
+      '.em-unplaced{margin-top:12px;padding-top:8px;border-top:1px dashed var(--grey-300)}',
+      '.em-unplaced h4{font-size:11px;color:var(--grey-500);margin:0 0 6px;text-transform:uppercase;letter-spacing:.3px}',
+      '.em-unplaced .em-child-row{font-size:12px}',
+      // Contents pane: children list
+      '.em-child-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s}',
+      '.em-child-row:hover{background:var(--grey-100)}',
+      '.em-child-row .ec-icon{font-size:14px;flex-shrink:0}',
+      '.em-child-row .ec-title{flex:1;font-size:13px;color:var(--grey-800);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+      '.em-child-row .ec-pos{font-size:10px;color:var(--grey-500);background:#fff;border-radius:10px;padding:1px 6px;flex-shrink:0}',
+      '.em-add-btn{width:100%;padding:8px 12px;font-size:12px;background:var(--teal-light);color:var(--teal-dark);border:1px dashed var(--teal);border-radius:6px;cursor:pointer;font-family:inherit;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px}',
+      '.em-add-btn:hover{background:#b2dfdb}',
+      // Collision popover
+      '.em-collide-pop{position:fixed;z-index:10050;background:#fff;border:1px solid var(--grey-300);border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:8px;max-width:260px}',
+      '.em-collide-pop h5{font-size:11px;margin:0 0 6px;color:var(--grey-500);text-transform:uppercase}',
+      '.em-collide-pop .em-child-row{padding:4px 6px}',
+      '@media(max-width:900px){.em-cols{flex-direction:column;overflow-y:auto}.em-col{flex:none!important;max-height:none;overflow-y:visible}.em-col-fields{border-right:none;border-bottom:1px solid var(--grey-200);padding:14px 18px}.em-col-contents{border-left:none;border-top:1px solid var(--grey-200)}}',
       '@media(max-width:768px){.em-modal{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0}.em-fields .form-row{flex-direction:column;gap:0}.em-rendered{padding:16px}}',
     ].join('\n');
     document.head.appendChild(style);
@@ -279,6 +321,10 @@
 
     overlayEl = document.createElement('div');
     overlayEl.className = 'em-overlay';
+    // 3-column layout (R3): fields (left) / body (middle) / contents (right).
+    // Each column scrolls independently on desktop; stacks vertically on narrow.
+    // #em-fields and #em-content IDs are preserved so existing code (rendering,
+    // Toast UI mount, wikilink processing) continues to work without changes.
     overlayEl.innerHTML =
       '<div class="em-modal">' +
         '<div class="em-modal-header">' +
@@ -286,8 +332,19 @@
           '<button class="modal-close" id="em-close"><span class="material-icons-outlined">close</span></button>' +
         '</div>' +
         '<div class="em-modal-body">' +
-          '<div id="em-fields" class="em-fields" style="display:none"></div>' +
-          '<div id="em-content"></div>' +
+          '<div class="em-cols">' +
+            '<div class="em-col em-col-fields" id="em-col-fields">' +
+              '<h4 class="em-col-heading"><span class="material-icons-outlined" style="font-size:13px">label</span> Fields</h4>' +
+              '<div id="em-fields" class="em-fields"></div>' +
+            '</div>' +
+            '<div class="em-col em-col-body" id="em-col-body">' +
+              '<div id="em-content"></div>' +
+            '</div>' +
+            '<div class="em-col em-col-contents" id="em-col-contents">' +
+              '<h4 class="em-col-heading"><span class="material-icons-outlined" style="font-size:13px">inventory_2</span> Contents</h4>' +
+              '<div id="em-contents"></div>' +
+            '</div>' +
+          '</div>' +
         '</div>' +
         '<div class="em-modal-footer" id="em-footer">' +
           '<button class="btn btn-outline" id="em-cancel">Close</button>' +
@@ -357,6 +414,90 @@
 
   function escHtml(s) {
     return window.Lab.escHtml(String(s == null ? '' : s));
+  }
+
+  // Open the modal for creating a new object. Goes straight into edit mode
+  // with fields pre-filled from the opts argument. The type field defaults
+  // to opts.defaultType but the user can change it via the datalist.
+  //
+  // opts:
+  //   parent       — slug of the parent object (optional)
+  //   position     — grid cell like "A1" (optional, typically set when called
+  //                  from an empty grid cell)
+  //   defaultType  — initial type, auto-picked from parent (see autoChildType)
+  //   returnTo     — path to reopen after save/close (optional; typically the
+  //                  parent popup that spawned the create). If omitted, the
+  //                  parent path is computed from opts.parent.
+  async function openNew(opts) {
+    opts = opts || {};
+    createOverlay();
+    if (!window.Lab.gh) { window.Lab.showToast('GitHub API not loaded', 'error'); return; }
+
+    // Record where to return after save/close so the parent pane can refresh.
+    var returnTo = opts.returnTo || (opts.parent ? 'docs/' + opts.parent + '.md' : null);
+
+    var defaultType = opts.defaultType || 'container';
+    // Suggest a slug from a placeholder title. User will edit both.
+    var titleSeed = 'New ' + (Lab.types.get(defaultType).label || 'item');
+    var slugSeed = titleSeed.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    // Append a short timestamp suffix to avoid collisions; user can rename.
+    var stamp = Date.now().toString(36);
+    var newSlug = slugSeed + '-' + stamp;
+
+    // Decide the directory: location types → docs/locations/, others → group dir.
+    var group = Lab.types.get(defaultType).group;
+    var dir = 'locations';
+    var groupCfg = Lab.types.GROUPS[group];
+    if (groupCfg && groupCfg.dir) dir = groupCfg.dir;
+    var newPath = 'docs/' + dir + '/' + newSlug + '.md';
+
+    // Seed meta with parent/position/type + creation stamps.
+    var meta = {
+      type: defaultType,
+      title: titleSeed,
+    };
+    if (opts.parent)   meta.parent = opts.parent;
+    if (opts.position) meta.position = opts.position;
+
+    currentState = {
+      path: newPath,
+      sha: null,   // new file — saveFile will create without sha
+      meta: meta,
+      body: '',
+      editing: true,
+      isNew: true,
+      returnTo: returnTo,
+    };
+
+    document.getElementById('em-title').textContent = 'New ' + (Lab.types.get(defaultType).label || 'item');
+    overlayEl.classList.add('open');
+
+    // Render fields in edit mode immediately.
+    renderFields(meta, true);
+    document.getElementById('em-edit-toggle').style.display = 'none';
+    document.getElementById('em-save').style.display = '';
+
+    // Mount an empty Toast UI editor in col 2.
+    await loadToast();
+    var contentEl = document.getElementById('em-content');
+    contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
+    var editorEl = contentEl.querySelector('.em-surface');
+    currentEditor = new toastui.Editor({
+      el: editorEl,
+      initialEditType: 'wysiwyg',
+      hideModeSwitch: true,
+      previewStyle: 'vertical',
+      height: '300px',
+      initialValue: '',
+      usageStatistics: false,
+      toolbarItems: isMobile() ? [] :
+        [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
+    });
+    injectCategoryPills(editorEl, currentEditor);
+
+    // Contents column starts empty (no children yet for a brand-new object).
+    var mount = document.getElementById('em-contents');
+    if (mount) mount.innerHTML = '<div class="em-col-empty">This item has no contents yet. Save it first, then add children.</div>';
   }
 
   async function openPopup(filePath) {
@@ -440,6 +581,12 @@
       if (window.Lab.postProcessImages) {
         window.Lab.postProcessImages(contentEl);
       }
+
+      // Contents column: grid / children list / container_list / empty.
+      // Non-fatal on error so the popup still shows fields + body.
+      try {
+        await renderContents(currentState, false);
+      } catch(e) { /* non-fatal */ console.warn('renderContents failed:', e); }
     } catch(e) {
       document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + window.Lab.escHtml(e.message) + '</p></div>';
     }
@@ -513,22 +660,93 @@
     });
   }
 
+  // Discovered types: all known TYPES plus every unique `type` string seen in
+  // the current object index. Used to populate the type datalist so the set
+  // of choices grows as users create new kinds of things. Unknown types that
+  // appear in the dropdown get the default icon/color until someone hard-codes
+  // an entry in types.js.
+  function collectDiscoveredTypes() {
+    var known = Object.keys(Lab.types.TYPES || {});
+    var set = {};
+    known.forEach(function(k) { set[k] = true; });
+    try {
+      // gh.fetchObjectIndex returns a promise, but there's a synchronous
+      // shortcut: the underlying cache is already populated by the time any
+      // popup opens (lab.js loads github-api.js before editor-modal.js, and
+      // every page that uses the modal has already called fetchObjectIndex
+      // to render its own content). Falling back to known-only is fine.
+      var idx = Lab.gh && Lab.gh.__cache;
+      if (!idx && window.Lab && window.Lab.hierarchy) {
+        // hierarchy.build() caches in its own module; we can read the graph
+        // indirectly by querying resolveParentSlug for a sentinel, but the
+        // cleaner path is just the array approach below.
+      }
+    } catch(e) {}
+    // Fallback: pull from the object index if it's available synchronously.
+    // We attached it to Lab.gh inside fetchObjectIndex via `_objectIndex`.
+    // Use a private hook that reads the cached array without awaiting.
+    var cached = (Lab.gh && typeof Lab.gh._getCachedIndex === 'function')
+      ? Lab.gh._getCachedIndex() : null;
+    if (Array.isArray(cached)) {
+      cached.forEach(function(e) {
+        if (e && e.type) set[String(e.type)] = true;
+      });
+    }
+    var out = Object.keys(set).sort();
+    return out;
+  }
+
   function renderFields(meta, editable) {
     var type = meta.type || 'reagent';
     var schema = getSchema(type);
-    if (!schema || schema.length === 0) {
-      document.getElementById('em-fields').style.display = 'none';
-      return;
-    }
-
     var fieldsEl = document.getElementById('em-fields');
     fieldsEl.style.display = '';
+    if (!schema || schema.length === 0) {
+      fieldsEl.innerHTML = '<div class="em-col-empty">No structured fields for this type.</div>';
+      return;
+    }
     var html = '';
+
+    // Discovered types: union of known TYPES and any type string seen in
+    // the current object index. Used to populate the datalist below so users
+    // can pick any existing value (or type a fresh one to create a new type).
+    var discoveredTypes = collectDiscoveredTypes();
+
+    // Always render the `type` field as a datalist input at the top — even if
+    // the schema declared it as hidden. This gives R3's "any type, extensible"
+    // UX. The datalist is shared across fields so we only emit it once.
+    var hasTypeField = schema.some(function(f) { return f.key === 'type'; });
+    var typeShown = false;
+    if (hasTypeField) {
+      var currentType = meta.type || (type);
+      html += '<datalist id="em-types-list">';
+      discoveredTypes.forEach(function(t) {
+        html += '<option value="' + escHtml(t) + '"></option>';
+      });
+      html += '</datalist>';
+      if (editable) {
+        html += '<div class="form-group"><label>Type</label>' +
+          '<input type="text" id="em-f-type" class="em-field-input" data-key="type" list="em-types-list" value="' + escHtml(currentType) + '" placeholder="pick or type">' +
+          '<div style="font-size:11px;color:var(--grey-500);margin-top:3px">Pick a known type or type a new one — new types are added automatically.</div>' +
+          '</div>';
+      } else {
+        var tc = Lab.types.get(currentType);
+        var style = Lab.types.pillStyle(currentType);
+        html += '<div style="display:flex;gap:8px;margin-bottom:10px;font-size:14px;align-items:center">' +
+          '<span style="color:var(--grey-500);min-width:80px">Type</span>' +
+          '<span style="' + style + '">' + tc.icon + ' ' + escHtml(tc.label || currentType) + '</span>' +
+          '</div>';
+      }
+      typeShown = true;
+    }
 
     // Group small fields into rows
     var row = [];
     schema.forEach(function(field) {
+      // Skip hidden fields (including the "hidden" form of the type field —
+      // we already rendered type as a datalist above).
       if (field.type === 'hidden') return;
+      if (field.key === 'type' && typeShown) return;
 
       var val = meta[field.key] !== undefined ? meta[field.key] : '';
       var id = 'em-f-' + field.key;
@@ -548,33 +766,10 @@
         return;
       }
 
-      // Container list: repeating rows of {location, quantity, unit, lot, expiration}
+      // Container list: repeating rows of {location, quantity, unit, lot, expiration}.
+      // As of R3 these render into the Contents column (col 3) via renderContents()
+      // below. Skip them here so they don't appear in the Fields column too.
       if (field.type === 'container_list') {
-        if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
-        var containers = Array.isArray(val) ? val : [];
-        if (editable) {
-          html += '<div class="form-group" data-container-list="' + field.key + '">' +
-            '<label>' + field.label + ' <span style="font-weight:400;color:var(--grey-500);font-size:12px">(individual bottles/boxes/kits)</span></label>' +
-            (containers.length ? renderContainerHeader() : '') +
-            '<div class="em-containers" id="em-containers-' + field.key + '">' +
-              containers.map(function(c, idx) { return renderContainerRow(field.key, c, idx); }).join('') +
-            '</div>' +
-            '<button type="button" class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:4px 10px" onclick="Lab.editorModal._addContainer(\'' + field.key + '\')">' +
-              '<span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">add</span> Add container</button>' +
-            '</div>';
-        } else if (containers.length) {
-          html += '<div style="margin-bottom:8px"><div style="font-size:12px;color:var(--grey-500);margin-bottom:4px">' + field.label + '</div>' +
-            '<table style="width:100%;font-size:13px;border-collapse:collapse">' +
-            '<thead><tr style="color:var(--grey-500);text-align:left"><th style="padding:2px 4px">Location</th><th style="padding:2px 4px">Qty</th><th style="padding:2px 4px">Lot</th><th style="padding:2px 4px">Expiration</th></tr></thead>' +
-            '<tbody>' +
-            containers.map(function(c) {
-              return '<tr><td style="padding:2px 4px">' + window.Lab.escHtml(c.location || '') + '</td>' +
-                '<td style="padding:2px 4px">' + window.Lab.escHtml(String(c.quantity || '')) + (c.unit ? ' ' + window.Lab.escHtml(c.unit) : '') + '</td>' +
-                '<td style="padding:2px 4px">' + window.Lab.escHtml(c.lot || '') + '</td>' +
-                '<td style="padding:2px 4px">' + window.Lab.escHtml(c.expiration || '') + '</td></tr>';
-            }).join('') +
-            '</tbody></table></div>';
-        }
         return;
       }
 
@@ -662,6 +857,324 @@
     fieldsEl.innerHTML = html;
   }
 
+  // ── Contents column (R3) ──
+  //
+  // Renders col 3 for the current object based on what it "contains":
+  //   1. A `grid` field → rows×cols cell grid with position badges + label_2.
+  //   2. A location-type object without a grid → clickable list of children.
+  //   3. A container_list schema field → the repeating-rows UI (resources, stocks).
+  //   4. Anything else → "No contents" placeholder.
+  //
+  // Every contents pane that can hold children has an "+ Add" button at the
+  // bottom which spawns the create-in-edit-mode flow (openNew below) with the
+  // parent slug pre-filled.
+  async function renderContents(state, editable) {
+    var mount = document.getElementById('em-contents');
+    if (!mount) return;
+    var meta = state.meta || {};
+    var type = meta.type || '';
+    var schema = getSchema(type);
+
+    // Container list (resources/stocks) — existing repeating-rows UI
+    var containerListField = schema.find ? schema.find(function(f) { return f.type === 'container_list'; }) : null;
+    if (containerListField) {
+      mount.innerHTML = renderContainerListPane(containerListField, meta, editable);
+      return;
+    }
+
+    // Grid or children list for location-type objects (and anything else that
+    // declares a grid or has children in the hierarchy).
+    var slug = state.path ? state.path.replace(/^docs\//, '').replace(/\.md$/, '') : null;
+    var hasGrid = !!meta.grid;
+    var children = [];
+    if (slug && window.Lab.hierarchy) {
+      try {
+        children = await Lab.hierarchy.childrenOf(slug);
+      } catch(e) { children = []; }
+    }
+
+    if (hasGrid) {
+      mount.innerHTML = renderGridPane(meta, children, slug);
+      bindGridHandlers(slug, meta);
+      return;
+    }
+
+    var isLocationType = Lab.types.get(type).group === 'locations';
+    if (isLocationType || children.length) {
+      mount.innerHTML = renderChildrenListPane(children, slug, type);
+      bindChildrenListHandlers(slug, type);
+      return;
+    }
+
+    mount.innerHTML = '<div class="em-col-empty">No contents.</div>';
+  }
+
+  // Container list section for the Contents column. Re-uses the existing
+  // renderContainerHeader / renderContainerRow helpers so the format is
+  // identical to before — it's just living in col 3 instead of col 1.
+  function renderContainerListPane(field, meta, editable) {
+    var containers = Array.isArray(meta[field.key]) ? meta[field.key] : [];
+    if (editable) {
+      return '<div data-container-list="' + field.key + '">' +
+        '<div style="font-size:12px;color:var(--grey-500);margin-bottom:6px">Individual bottles, boxes, or kits</div>' +
+        (containers.length ? renderContainerHeader() : '') +
+        '<div class="em-containers" id="em-containers-' + field.key + '">' +
+          containers.map(function(c, idx) { return renderContainerRow(field.key, c, idx); }).join('') +
+        '</div>' +
+        '<button type="button" class="em-add-btn" onclick="Lab.editorModal._addContainer(\'' + field.key + '\')">' +
+          '<span class="material-icons-outlined" style="font-size:14px">add</span> Add container</button>' +
+        '</div>';
+    }
+    if (!containers.length) {
+      return '<div class="em-col-empty">No individual containers logged.</div>';
+    }
+    return '<table style="width:100%;font-size:12px;border-collapse:collapse">' +
+      '<thead><tr style="color:var(--grey-500);text-align:left"><th style="padding:4px 4px">Location</th><th style="padding:4px 4px">Qty</th><th style="padding:4px 4px">Lot</th><th style="padding:4px 4px">Expires</th></tr></thead>' +
+      '<tbody>' +
+      containers.map(function(c) {
+        return '<tr><td style="padding:4px 4px">' + escHtml(c.location || '') + '</td>' +
+          '<td style="padding:4px 4px">' + escHtml(String(c.quantity == null ? '' : c.quantity)) + (c.unit ? ' ' + escHtml(c.unit) : '') + '</td>' +
+          '<td style="padding:4px 4px">' + escHtml(c.lot || '') + '</td>' +
+          '<td style="padding:4px 4px">' + escHtml(c.expiration || '') + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  // Grid renderer. rows × cols of square cells. Cells with a matching child
+  // position show label_2 (fallback title) on the type color. Collisions get
+  // a badge with a click-popover. Empty cells are clickable to open create-new
+  // at that position. Items outside the grid or without a position list below.
+  function renderGridPane(meta, children, parentSlug) {
+    var parsed = Lab.hierarchy.parseGrid(meta.grid);
+    if (!parsed) {
+      return '<div class="em-col-empty">Grid value "' + escHtml(meta.grid) + '" is not valid. Use formats like "10x10" or "8x12".</div>';
+    }
+    var rows = parsed.rows, cols = parsed.cols;
+
+    // Bucket children by position string
+    var buckets = {}; // "A1" -> [entry, entry]
+    var unplaced = [];
+    children.forEach(function(c) {
+      var p = Lab.hierarchy.parsePosition(c.position);
+      if (!p || p.row < 0 || p.row >= rows || p.col < 0 || p.col >= cols) {
+        unplaced.push(c);
+        return;
+      }
+      var key = String.fromCharCode(65 + p.row) + String(p.col + 1);
+      (buckets[key] = buckets[key] || []).push(c);
+    });
+
+    var html = '<div class="em-grid-view">';
+    html += '<div class="em-grid-meta">' + rows + ' × ' + cols + ' · ' + children.length + ' item' + (children.length === 1 ? '' : 's') + '</div>';
+
+    // Column labels (numbers across top). Grid template: empty cell at col 0
+    // for the row label, then cols columns of equal width.
+    var colTemplate = '22px repeat(' + cols + ', minmax(0, 1fr))';
+    html += '<div class="em-grid-labels-row" style="grid-template-columns:' + colTemplate + '">';
+    html += '<div></div>'; // corner
+    for (var c = 0; c < cols; c++) {
+      html += '<div class="em-grid-label-col">' + (c + 1) + '</div>';
+    }
+    html += '</div>';
+
+    for (var r = 0; r < rows; r++) {
+      var rowLabel = String.fromCharCode(65 + r);
+      html += '<div class="em-grid-row" style="grid-template-columns:' + colTemplate + ';margin-bottom:3px">';
+      html += '<div class="em-grid-label-row">' + rowLabel + '</div>';
+      for (var c2 = 0; c2 < cols; c2++) {
+        var key = rowLabel + (c2 + 1);
+        var bucket = buckets[key];
+        if (bucket && bucket.length) {
+          var first = bucket[0];
+          var tc = Lab.types.get(first.type || 'container');
+          var bg = tc.color + '30';
+          var border = tc.color + '80';
+          var label2 = (first.label_2 && String(first.label_2).trim()) || first.title || '';
+          var collideBadge = bucket.length > 1 ? '<span class="gc-collide" data-collide-key="' + key + '">' + bucket.length + '</span>' : '';
+          var collClass = bucket.length > 1 ? ' collision' : '';
+          html += '<div class="em-grid-cell occupied' + collClass + '" data-cell="' + key + '" data-slug="' + escHtml(first.slug) + '" title="' + escHtml(first.title || '') + '" style="background:' + bg + ';border:1px solid ' + border + ';color:' + tc.color + '">' +
+            collideBadge +
+            '<span class="gc-icon">' + tc.icon + '</span>' +
+            '<span class="gc-label">' + escHtml(String(label2).substring(0, 24)) + '</span>' +
+          '</div>';
+        } else {
+          html += '<div class="em-grid-cell empty" data-cell="' + key + '" data-empty="1" title="Empty cell ' + key + ' (click to add)">' +
+            '<span style="font-size:9px">' + key + '</span>' +
+          '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    // Unplaced list
+    if (unplaced.length) {
+      html += '<div class="em-unplaced">';
+      html += '<h4>Unplaced (' + unplaced.length + ')</h4>';
+      unplaced.forEach(function(c) { html += renderChildRow(c); });
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  function bindGridHandlers(parentSlug, meta) {
+    var mount = document.getElementById('em-contents');
+    if (!mount) return;
+    mount.querySelectorAll('.em-grid-cell').forEach(function(cell) {
+      cell.addEventListener('click', function(e) {
+        // Collision badge — show a popover listing every item at this cell
+        if (e.target.classList && e.target.classList.contains('gc-collide')) {
+          e.stopPropagation();
+          showCollidePopover(cell, parentSlug, meta);
+          return;
+        }
+        if (cell.dataset.empty) {
+          // Empty cell → create new child at this position
+          var cellKey = cell.dataset.cell;
+          openNew({
+            parent: parentSlug,
+            position: cellKey,
+            defaultType: autoChildType(meta.type),
+          });
+          return;
+        }
+        // Occupied → open the child's popup
+        var slug = cell.dataset.slug;
+        if (slug) openPopup('docs/' + slug + '.md');
+      });
+    });
+    // Unplaced children rows
+    mount.querySelectorAll('.em-unplaced .em-child-row[data-slug]').forEach(function(row) {
+      row.addEventListener('click', function() {
+        openPopup('docs/' + row.dataset.slug + '.md');
+      });
+    });
+  }
+
+  // Popover listing every child at a collision cell (bucket.length > 1).
+  // Rendered as a floating element next to the cell; dismissed on outside click.
+  var _activeCollidePop = null;
+  function showCollidePopover(cellEl, parentSlug, meta) {
+    dismissCollidePopover();
+    var cellKey = cellEl.dataset.cell;
+    // Re-fetch the bucket so we don't rely on a stale closure.
+    Lab.hierarchy.childrenOf(parentSlug).then(function(children) {
+      var bucket = children.filter(function(c) {
+        var p = Lab.hierarchy.parsePosition(c.position);
+        if (!p) return false;
+        var k = String.fromCharCode(65 + p.row) + String(p.col + 1);
+        return k === cellKey;
+      });
+      if (!bucket.length) return;
+      var pop = document.createElement('div');
+      pop.className = 'em-collide-pop';
+      var html = '<h5>' + bucket.length + ' items at cell ' + cellKey + '</h5>';
+      bucket.forEach(function(c) { html += renderChildRow(c); });
+      pop.innerHTML = html;
+      document.body.appendChild(pop);
+      var rect = cellEl.getBoundingClientRect();
+      var popW = 260;
+      var left = Math.min(rect.right + 6, window.innerWidth - popW - 10);
+      var top = Math.min(rect.top, window.innerHeight - 200);
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+      pop.querySelectorAll('.em-child-row[data-slug]').forEach(function(row) {
+        row.addEventListener('click', function() {
+          dismissCollidePopover();
+          openPopup('docs/' + row.dataset.slug + '.md');
+        });
+      });
+      _activeCollidePop = pop;
+      // Outside click dismisses — set after the current click finishes bubbling.
+      setTimeout(function() {
+        document.addEventListener('click', _outsideCollideHandler);
+      }, 0);
+    });
+  }
+  function _outsideCollideHandler(e) {
+    if (_activeCollidePop && !_activeCollidePop.contains(e.target)) {
+      dismissCollidePopover();
+    }
+  }
+  function dismissCollidePopover() {
+    if (_activeCollidePop) {
+      _activeCollidePop.remove();
+      _activeCollidePop = null;
+      document.removeEventListener('click', _outsideCollideHandler);
+    }
+  }
+
+  // Children list pane (for locations without a grid, and anywhere we want
+  // to show direct hierarchy children). Each row is clickable; "+ Add" at the
+  // bottom opens the create-new flow scoped to this parent.
+  function renderChildrenListPane(children, parentSlug, parentType) {
+    var html = '';
+    if (!children.length) {
+      html += '<div class="em-col-empty">No children yet.</div>';
+    } else {
+      // Sort by position (letter+number) then title
+      children = children.slice().sort(function(a, b) {
+        var pa = a.position || '', pb = b.position || '';
+        if (pa !== pb) return pa < pb ? -1 : 1;
+        var ta = (a.title || a.slug || '').toLowerCase();
+        var tb = (b.title || b.slug || '').toLowerCase();
+        return ta < tb ? -1 : ta > tb ? 1 : 0;
+      });
+      children.forEach(function(c) { html += renderChildRow(c); });
+    }
+    html += '<button type="button" class="em-add-btn" data-em-add="1">' +
+      '<span class="material-icons-outlined" style="font-size:16px">add</span> Add item</button>';
+    return html;
+  }
+
+  function renderChildRow(entry) {
+    if (!entry) return '';
+    var type = entry.type || 'container';
+    var tc = Lab.types.get(type);
+    var pos = entry.position ? '<span class="ec-pos">' + escHtml(entry.position) + '</span>' : '';
+    return '<div class="em-child-row" data-slug="' + escHtml(entry.slug || '') + '">' +
+      '<span class="ec-icon">' + tc.icon + '</span>' +
+      '<span class="ec-title" title="' + escHtml(entry.slug || '') + '">' + escHtml(entry.title || entry.slug || '') + '</span>' +
+      pos +
+      '</div>';
+  }
+
+  function bindChildrenListHandlers(parentSlug, parentType) {
+    var mount = document.getElementById('em-contents');
+    if (!mount) return;
+    mount.querySelectorAll('.em-child-row[data-slug]').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var slug = row.dataset.slug;
+        if (slug) openPopup('docs/' + slug + '.md');
+      });
+    });
+    var addBtn = mount.querySelector('[data-em-add]');
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
+        openNew({
+          parent: parentSlug,
+          defaultType: autoChildType(parentType),
+        });
+      });
+    }
+  }
+
+  // Given a parent type, pick a sensible default type for a new child.
+  // This is "auto" (Grey's choice, option a): one default per parent type,
+  // user can change it before saving.
+  function autoChildType(parentType) {
+    switch (parentType) {
+      case 'room':      return 'container'; // generic furniture — user picks specific
+      case 'freezer':
+      case 'fridge':    return 'shelf';
+      case 'shelf':     return 'box';
+      case 'box':       return 'tube';
+      case 'tube':      return 'container';
+      case 'container': return 'container';
+      default:          return 'container';
+    }
+  }
+
   async function startEditing() {
     if (!currentState) return;
     currentState.editing = true;
@@ -713,6 +1226,13 @@
 
     // Add category insert pills
     injectCategoryPills(editorEl, currentEditor);
+
+    // Re-render the Contents column in editable mode. container_list becomes
+    // an editable repeating-rows widget; grid/children-list stay read-only
+    // for now (editing positions happens via the child objects themselves).
+    try {
+      await renderContents(currentState, true);
+    } catch(e) { /* non-fatal */ }
   }
 
   async function stopEditing() {
@@ -741,12 +1261,29 @@
 
     renderFields(currentState.meta, false);
 
+    // Re-upgrade parent field pill after switching back to view mode.
+    try { await upgradeParentField(); } catch(e) {}
+
     var html = await renderMarkdown(currentState.body);
     var contentEl = document.getElementById('em-content');
-    contentEl.innerHTML = '<div class="lab-rendered em-rendered">' + html + '</div>';
+
+    // Re-render breadcrumb (post-edit the parent may have changed)
+    var crumbHTML = '';
+    try {
+      if (window.Lab.hierarchy && currentState.path) {
+        Lab.hierarchy.invalidate();
+        var slug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
+        crumbHTML = await Lab.hierarchy.breadcrumbHTML(slug);
+      }
+    } catch(e) {}
+
+    contentEl.innerHTML = crumbHTML + '<div class="lab-rendered em-rendered">' + html + '</div>';
     if (window.Lab.wikilinks) {
       await window.Lab.wikilinks.processRendered(contentEl);
     }
+
+    // Refresh contents column
+    try { await renderContents(currentState, false); } catch(e) {}
   }
 
   async function save() {
@@ -769,9 +1306,15 @@
       currentState.body = getMarkdownClean(currentEditor);
     }
 
-    // Also include hidden fields from schema
+    // Also include hidden fields from schema. The `type` key is deliberately
+    // skipped here even if the schema declares type as a hidden field with a
+    // fixed value — in R3 the type is a user-editable datalist input (see
+    // renderFields), and force-overwriting it from the schema would clobber
+    // the user's pick (and break the inherited-schema case where a `room`
+    // object inherits freezer's schema whose hidden value is `freezer`).
     var schema = getSchema(currentState.meta.type || 'reagent');
     schema.forEach(function(f) {
+      if (f.key === 'type') return;
       if (f.type === 'hidden' && f.value) {
         currentState.meta[f.key] = f.value;
       }
@@ -793,11 +1336,26 @@
     saveBtn.disabled = true;
     saveBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">hourglass_empty</span> Saving...';
 
+    var isNew = !!currentState.isNew;
+    var returnTo = currentState.returnTo;
+
+    // If this is a new object, recompute the target directory based on the
+    // user's chosen type. openNew picked an initial dir from the defaultType,
+    // but the datalist input may have moved the user to a different type —
+    // in which case the file should land in that group's dir instead.
+    if (isNew) {
+      var grp = Lab.types.get(currentState.meta.type || 'container').group;
+      var newDir = (Lab.types.GROUPS[grp] && Lab.types.GROUPS[grp].dir) || 'locations';
+      var slugPart = currentState.path.split('/').pop();
+      currentState.path = 'docs/' + newDir + '/' + slugPart;
+    }
+
+    var commitMsg = (isNew ? 'Create ' : 'Update ') + currentState.path.replace(/^docs\//, '');
+
     try {
-      var result = await gh.saveFile(currentState.path, content, currentState.sha,
-        'Update ' + currentState.path.replace(/^docs\//, ''));
+      var result = await gh.saveFile(currentState.path, content, currentState.sha, commitMsg);
       currentState.sha = result.sha;
-      window.Lab.showToast('Saved', 'success');
+      window.Lab.showToast(isNew ? 'Created' : 'Saved', 'success');
 
       // Cache the saved content + sha locally so re-opening the item shows new values
       // immediately and avoids a stale-sha conflict if the GitHub API hasn't caught up.
@@ -809,12 +1367,27 @@
 
       // Update object index in-memory + localStorage (survives refresh without waiting for deploy)
       gh.patchObjectIndex(currentState.path, currentState.meta);
+      if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
 
       // Fire custom event so parent app can refresh
-      window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: currentState.path, meta: currentState.meta } }));
+      window.dispatchEvent(new CustomEvent('lab-file-saved', {
+        detail: { path: currentState.path, meta: currentState.meta, isNew: isNew }
+      }));
 
-      // Switch back to view mode
-      await stopEditing();
+      if (isNew && returnTo) {
+        // After a successful create, reopen the parent popup so the user sees
+        // the new child in the contents pane. Brief delay gives Toast UI a
+        // chance to tear down cleanly.
+        currentState.isNew = false;
+        close();
+        setTimeout(function() { openPopup(returnTo); }, 80);
+      } else if (isNew) {
+        // No parent to return to — just close and let the caller handle UI.
+        close();
+      } else {
+        // Standard update: switch back to view mode.
+        await stopEditing();
+      }
     } catch(e) {
       window.Lab.showToast('Save failed: ' + e.message, 'error');
     }
@@ -2156,6 +2729,7 @@
   window.Lab = window.Lab || {};
   window.Lab.editorModal = {
     open: openPopup,
+    openNew: openNew,
     close: close,
     initFullpage: initFullpageEditor,
     loadMarked: loadMarked,

@@ -344,6 +344,10 @@
     patchObjectIndex: patchObjectIndex,
     removeFromObjectIndex: removeFromObjectIndex,
     fetchRecentCommits: fetchRecentCommits,
+    // Synchronous accessor for the already-loaded object-index. Used by the
+    // editor-modal type datalist which runs inside renderFields (sync) and
+    // can't await a fetch. Returns null if no fetch has completed yet.
+    _getCachedIndex: function() { return _objectIndex; },
     REPO: REPO,
     BRANCH: BRANCH
   };
