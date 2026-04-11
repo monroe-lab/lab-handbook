@@ -1634,14 +1634,24 @@
     var gh = window.Lab.gh;
     if (!gh || !gh.isLoggedIn()) { window.Lab.showToast('Sign in to save', 'error'); return; }
 
+    // R6.5 debug: capture meta.title BEFORE collectFields
+    window._r65SaveDebug = {
+      titleBeforeCollect: currentState.meta.title,
+      metaKeysBeforeCollect: Object.keys(currentState.meta),
+    };
+
     // Collect field values
+    var _seenInputs = [];
     document.querySelectorAll('.em-field-input').forEach(function(input) {
       var key = input.dataset.key;
       var val = input.value;
       if (input.type === 'checkbox') { val = input.checked; }
       else if (input.type === 'number' && val !== '') val = parseFloat(val);
+      _seenInputs.push({ key: key, type: input.type, val: String(val).substring(0, 40) });
       currentState.meta[key] = val;
     });
+    window._r65SaveDebug.seenInputs = _seenInputs;
+    window._r65SaveDebug.titleAfterCollect = currentState.meta.title;
     collectContainers(currentState.meta);
 
     // Get markdown from editor (restore wikilink pills to [[slug]] syntax)

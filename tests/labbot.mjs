@@ -680,7 +680,11 @@ function ghReadFile(path) {
   if (shouldRun('inventory')) {
     console.log('\n🧪 INVENTORY\n');
     const p = await context.newPage();
-    await p.goto(BASE + '/app/inventory.html', { waitUntil: 'networkidle', timeout: 20000 });
+    // inventory.html is flaky on networkidle (the page makes ongoing XHRs
+    // for object/link indexes + image lazy loads). Use domcontentloaded
+    // and explicitly wait for the items table to populate.
+    await p.goto(BASE + '/app/inventory.html', { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await p.waitForFunction(() => document.querySelectorAll('tbody tr').length > 0, { timeout: 15000 }).catch(() => {});
     await p.waitForTimeout(2000);
 
     // Check totals
@@ -847,6 +851,10 @@ function ghReadFile(path) {
           const r65Debug = await p.evaluate(() => window._r65LastSaveCheck || null);
           if (r65Debug) {
             console.log('  [R6.5 check]', JSON.stringify(r65Debug));
+          }
+          const r65SaveDebug = await p.evaluate(() => window._r65SaveDebug || null);
+          if (r65SaveDebug) {
+            console.log('  [R6.5 save]', JSON.stringify(r65SaveDebug));
           }
 
           const editContent = ghReadFile(invPath);
