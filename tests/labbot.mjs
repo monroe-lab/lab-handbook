@@ -40,7 +40,15 @@ function log(section, test, status, detail) {
   console.log(`  ${icon} ${test}: ${detail}`);
 }
 
-function shouldRun(name) { return !ONLY || ONLY === name; }
+// Sections quarantined while a feature is being rebuilt. They run only when
+// explicitly targeted via --only=<name>. See STATUS.md + Issue #19.
+const QUARANTINED = new Set([
+  'labmap', // R2: floor-plan view deprecated, rebuilding as hierarchy tree
+]);
+function shouldRun(name) {
+  if (QUARANTINED.has(name) && ONLY !== name) return false;
+  return !ONLY || ONLY === name;
+}
 
 // ── GitHub helpers ──
 function ghFileExists(path) {
@@ -1813,6 +1821,188 @@ function ghReadFile(path) {
       bulletinLink ? 'Link points to wiki.html?doc=bulletin' : 'Edit link not found or wrong param');
 
     await p.screenshot({ path: '/tmp/labbot-dashboard.png', fullPage: false });
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  HIERARCHY (R1, Issue #18): location hierarchy data model
+  //  ────────────────────────────────────────────────────────
+  //  Tests the new parent/position/grid/label_1/label_2 schema:
+  //   • object-index.json carries hierarchy fields
+  //   • Lab.hierarchy.parentChain walks up through the seed chain
+  //   • breadcrumbHTML renders a clickable crumb trail
+  //   • migrated items (formerly location_detail) resolve to parent-ref
+  //   • cross-location wikilinks still render as pills
+  //   • bogus parent refs warn-but-allow (no crash)
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('hierarchy')) {
+    console.log('\n🗂️  HIERARCHY\n');
+    const p = await context.newPage();
+
+    // Load any app page so lab.js + hierarchy.js + types.js are all in scope.
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'networkidle', timeout: 20000 });
+    await p.waitForTimeout(2500);
+
+    // 1. Object index has location entries with hierarchy fields.
+    const indexShape = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const loc = idx.filter(e => ['room','freezer','fridge','shelf','box','tube','container'].includes(e.type));
+      const sample = idx.find(e => e.path === 'samples/sample-pistachio-4.md');
+      const leaf   = idx.find(e => e.path === 'locations/tube-pistachio-leaf-1.md');
+      const box    = idx.find(e => e.path === 'locations/box-pistachio-dna.md');
+      return {
+        total: idx.length,
+        locationCount: loc.length,
+        leafHasParent: !!leaf && leaf.parent === 'locations/box-pistachio-dna',
+        leafHasPosition: !!leaf && leaf.position === 'A1',
+        boxHasGrid: !!box && box.grid === '10x10',
+        sampleLoaded: !!sample,
+      };
+    });
+    log('hierarchy', 'Object index has location entries',
+      indexShape.locationCount >= 10 ? 'PASS' : 'FAIL',
+      `${indexShape.locationCount} location objects of ${indexShape.total} total`);
+    log('hierarchy', 'Tube has parent+position',
+      indexShape.leafHasParent && indexShape.leafHasPosition ? 'PASS' : 'FAIL',
+      `parent=${indexShape.leafHasParent} position=${indexShape.leafHasPosition}`);
+    log('hierarchy', 'Box carries grid field',
+      indexShape.boxHasGrid ? 'PASS' : 'FAIL',
+      `grid=${indexShape.boxHasGrid}`);
+    log('hierarchy', 'Sample object seeded',
+      indexShape.sampleLoaded ? 'PASS' : 'FAIL',
+      indexShape.sampleLoaded ? 'sample-pistachio-4.md in index' : 'missing');
+
+    // 2. parentChain walks up through the seed chain.
+    const chainResult = await p.evaluate(async () => {
+      const chain = await Lab.hierarchy.parentChain('locations/tube-pistachio-leaf-1');
+      return chain;
+    });
+    const expectedChain = [
+      'locations/room-robbins-0170',
+      'locations/freezer-minus80-a',
+      'locations/shelf-minus80-a-1',
+      'locations/box-pistachio-dna',
+      'locations/tube-pistachio-leaf-1',
+    ];
+    const chainOK = JSON.stringify(chainResult) === JSON.stringify(expectedChain);
+    log('hierarchy', 'parentChain walks root → leaf', chainOK ? 'PASS' : 'FAIL',
+      chainOK ? chainResult.join(' → ') : `got: ${chainResult.join(' → ')}`);
+
+    // 3. breadcrumbHTML returns a crumb element with the expected titles.
+    const crumbHTML = await p.evaluate(async () => {
+      return await Lab.hierarchy.breadcrumbHTML('locations/tube-pistachio-leaf-1');
+    });
+    const crumbOK = crumbHTML.includes('lab-breadcrumb') &&
+                    crumbHTML.includes('Robbins Hall 0170') &&
+                    crumbHTML.includes('Pistachio DNA Box') &&
+                    crumbHTML.includes('Pistachio Leaf 1');
+    log('hierarchy', 'breadcrumbHTML renders chain', crumbOK ? 'PASS' : 'FAIL',
+      crumbOK ? 'contains room + box + tube titles' : 'crumbs missing');
+
+    // 4. Migration preserved items under the generated box.
+    const migratedCount = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      return idx.filter(e => e.parent === 'locations/box-minus80-a-1-a').length;
+    });
+    log('hierarchy', 'Migrated items have parent-ref',
+      migratedCount >= 8 ? 'PASS' : 'FAIL',
+      `${migratedCount} items in migrated box (expected >= 8)`);
+
+    // 5. childrenOf() returns the right kids.
+    const kids = await p.evaluate(async () => {
+      const c = await Lab.hierarchy.childrenOf('locations/box-pistachio-dna');
+      return c.map(k => k.slug).sort();
+    });
+    const kidsOK = kids.includes('locations/tube-pistachio-leaf-1') &&
+                   kids.includes('locations/tube-pistachio-leaf-2');
+    log('hierarchy', 'childrenOf() reverse lookup', kidsOK ? 'PASS' : 'FAIL',
+      kidsOK ? `${kids.length} children` : `got: ${kids.join(', ')}`);
+
+    // 6. parseGrid utility
+    const gridParse = await p.evaluate(() => {
+      return {
+        g10x10: Lab.hierarchy.parseGrid('10x10'),
+        g8x12:  Lab.hierarchy.parseGrid('8x12'),
+        bad:    Lab.hierarchy.parseGrid('not a grid'),
+      };
+    });
+    const gridOK = gridParse.g10x10 && gridParse.g10x10.rows === 10 && gridParse.g10x10.cols === 10 &&
+                   gridParse.g8x12 && gridParse.g8x12.rows === 8 && gridParse.g8x12.cols === 12 &&
+                   gridParse.bad === null;
+    log('hierarchy', 'parseGrid helper', gridOK ? 'PASS' : 'FAIL',
+      gridOK ? '10x10, 8x12, bad→null' : JSON.stringify(gridParse));
+
+    // 7. parsePosition utility (A1 → row 0, col 0)
+    const posParse = await p.evaluate(() => {
+      return {
+        A1: Lab.hierarchy.parsePosition('A1'),
+        H12: Lab.hierarchy.parsePosition('H12'),
+        numeric: Lab.hierarchy.parsePosition('2,3'),
+        bad: Lab.hierarchy.parsePosition('garbage'),
+      };
+    });
+    const posOK = posParse.A1 && posParse.A1.row === 0 && posParse.A1.col === 0 &&
+                  posParse.H12 && posParse.H12.row === 7 && posParse.H12.col === 11 &&
+                  posParse.numeric && posParse.numeric.row === 1 && posParse.numeric.col === 2 &&
+                  posParse.bad === null;
+    log('hierarchy', 'parsePosition helper', posOK ? 'PASS' : 'FAIL',
+      posOK ? 'A1, H12, 2,3, bad→null' : JSON.stringify(posParse));
+
+    // 8. normalizeParent strips [[brackets]].
+    const normResult = await p.evaluate(() => ({
+      plain: Lab.hierarchy.normalizeParent('locations/box-pistachio-dna'),
+      bracket: Lab.hierarchy.normalizeParent('[[locations/box-pistachio-dna]]'),
+      withMd: Lab.hierarchy.normalizeParent('locations/box-pistachio-dna.md'),
+      empty: Lab.hierarchy.normalizeParent(''),
+      nul:   Lab.hierarchy.normalizeParent(null),
+    }));
+    const normOK = normResult.plain === 'locations/box-pistachio-dna' &&
+                   normResult.bracket === 'locations/box-pistachio-dna' &&
+                   normResult.withMd === 'locations/box-pistachio-dna' &&
+                   normResult.empty === null && normResult.nul === null;
+    log('hierarchy', 'normalizeParent strips [[]] / .md', normOK ? 'PASS' : 'FAIL',
+      normOK ? 'all 5 forms OK' : JSON.stringify(normResult));
+
+    // 9. Sample-to-tube cross-reference — the sample card opens via popup and
+    // renders the breadcrumb for the sample itself (empty, because sample has
+    // no parent) plus the wikilinks to its physical tubes.
+    await p.evaluate(() => Lab.editorModal.open('docs/samples/sample-pistachio-4.md'));
+    await p.waitForTimeout(2500);
+    const samplePopup = await p.evaluate(() => {
+      const content = document.getElementById('em-content');
+      return {
+        hasContent: !!content && content.innerText.length > 50,
+        pillCount: content ? content.querySelectorAll('a.object-pill').length : 0,
+        tubeLinkText: content ? content.innerText.includes('Pistachio Leaf 1') || content.innerText.includes('tube-pistachio-leaf-1') : false,
+      };
+    });
+    log('hierarchy', 'Sample popup renders cross-location links',
+      samplePopup.hasContent && samplePopup.pillCount >= 2 && samplePopup.tubeLinkText ? 'PASS' : 'WARN',
+      `pills=${samplePopup.pillCount} tubeText=${samplePopup.tubeLinkText}`);
+
+    // Close the popup before moving on.
+    await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
+    await p.waitForTimeout(500);
+
+    // 10. Open a tube popup and verify the breadcrumb is injected.
+    await p.evaluate(() => Lab.editorModal.open('docs/locations/tube-pistachio-leaf-1.md'));
+    await p.waitForTimeout(2500);
+    const tubePopup = await p.evaluate(() => {
+      const content = document.getElementById('em-content');
+      const crumb = content ? content.querySelector('.lab-breadcrumb') : null;
+      return {
+        hasCrumb: !!crumb,
+        crumbText: crumb ? crumb.innerText : '',
+        crumbLinkCount: crumb ? crumb.querySelectorAll('a').length : 0,
+      };
+    });
+    const tubeOK = tubePopup.hasCrumb &&
+                   tubePopup.crumbText.includes('Robbins Hall 0170') &&
+                   tubePopup.crumbText.includes('Pistachio DNA Box') &&
+                   tubePopup.crumbLinkCount >= 4; // all ancestors clickable, self is not
+    log('hierarchy', 'Tube popup shows breadcrumb', tubeOK ? 'PASS' : 'FAIL',
+      tubeOK ? `${tubePopup.crumbLinkCount} links in crumb` : tubePopup.crumbText.substring(0, 80));
+
     await p.close();
   }
 

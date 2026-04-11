@@ -36,6 +36,7 @@ OBJECT_DIRS = [
     "notebooks",
     "waste",
     "samples",
+    "locations",
 ]
 
 # Frontmatter keys to extract (all optional except type and title)
@@ -47,6 +48,12 @@ EXTRACT_KEYS = [
     "contents", "physical_state", "container", "hazard_class", "started", "waste_tag",
     "created_at", "created_by", "updated_at",
     "sample_id", "species", "lead", "sequencing_type",
+    # Hierarchy fields — every object may declare where it sits in the location tree.
+    # `parent` is a slug (or [[wikilink]] — brackets stripped client-side).
+    # `position` is a grid cell label (e.g. "A1", "3,5") meaningful when the parent has a `grid`.
+    # `grid` declares this object is itself a grid container, e.g. "10x10", "8x12".
+    # `label_1` / `label_2` are display labels; label_2 is used for compact grid cells.
+    "parent", "position", "grid", "label_1", "label_2",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)

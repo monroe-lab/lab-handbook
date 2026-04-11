@@ -260,6 +260,90 @@
       displayFields: [],
       tableColumns: ['name'],
     },
+
+    // ── Location hierarchy types ──
+    // All location types share the same schema (title, parent, position, grid, labels).
+    // Different types get different colors/icons but behave identically in the index
+    // and breadcrumb renderer. Containers with a `grid` field render as grid views.
+    room: {
+      color: '#37474f',
+      icon: '\uD83C\uDFE2',
+      label: 'Room',
+      group: 'locations',
+      fields: [
+        { key: 'title',    label: 'Name',                        type: 'text', required: true },
+        { key: 'type',     label: 'Type',                        type: 'hidden', value: 'room' },
+        { key: 'parent',   label: 'Inside',                      type: 'text', placeholder: 'slug of parent (optional)' },
+        { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
+        { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
+        { key: 'notes',    label: 'Notes',                       type: 'textarea' },
+      ],
+      displayFields: ['parent', 'notes'],
+      tableColumns: ['name', 'type', 'parent'],
+    },
+    freezer: {
+      color: '#0277bd',
+      icon: '\u2744\uFE0F',
+      label: 'Freezer',
+      group: 'locations',
+      fields: [
+        { key: 'title',    label: 'Name',                        type: 'text', required: true },
+        { key: 'type',     label: 'Type',                        type: 'hidden', value: 'freezer' },
+        { key: 'parent',   label: 'Inside',                      type: 'text' },
+        { key: 'position', label: 'Position in parent',          type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
+        { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
+        { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
+        { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
+        { key: 'notes',    label: 'Notes',                       type: 'textarea' },
+      ],
+      displayFields: ['parent', 'grid', 'notes'],
+      tableColumns: ['name', 'type', 'parent'],
+    },
+    fridge: {
+      color: '#0288d1',
+      icon: '\uD83E\uDDCA',
+      label: 'Fridge',
+      group: 'locations',
+      fields: null, // inherits from freezer
+      displayFields: null,
+      tableColumns: null,
+    },
+    shelf: {
+      color: '#546e7a',
+      icon: '\uD83D\uDDC4\uFE0F',
+      label: 'Shelf',
+      group: 'locations',
+      fields: null,
+      displayFields: null,
+      tableColumns: null,
+    },
+    box: {
+      color: '#8d6e63',
+      icon: '\uD83D\uDCE6',
+      label: 'Box',
+      group: 'locations',
+      fields: null,
+      displayFields: null,
+      tableColumns: null,
+    },
+    tube: {
+      color: '#00897b',
+      icon: '\uD83E\uDDEB',
+      label: 'Tube',
+      group: 'locations',
+      fields: null,
+      displayFields: null,
+      tableColumns: null,
+    },
+    container: {
+      color: '#616161',
+      icon: '\uD83D\uDCCB',
+      label: 'Container',
+      group: 'locations',
+      fields: null,
+      displayFields: null,
+      tableColumns: null,
+    },
   };
 
   var DEFAULT_TYPE = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };
@@ -323,6 +407,14 @@
       dir: 'waste',
       defaultType: 'waste_container',
     },
+    locations: {
+      label: 'Locations',
+      icon: 'location_on',
+      color: '#546e7a',
+      types: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
+      dir: 'locations',
+      defaultType: 'box',
+    },
   };
 
   // ── Helpers ──
@@ -339,9 +431,11 @@
     var t = TYPES[typeName];
     if (!t) return [];
     if (t.fields) return t.fields;
-    // Inherit from reagent for resource types, seed for stock types
+    // Inherit from reagent for resource types, seed for stock types,
+    // freezer for location types (all location types share the same schema).
     if (t.group === 'resources') return TYPES.reagent.fields;
     if (t.group === 'stocks') return TYPES.seed.fields;
+    if (t.group === 'locations') return TYPES.freezer.fields;
     return [];
   }
 
@@ -352,6 +446,7 @@
     if (t.displayFields) return t.displayFields;
     if (t.group === 'resources') return TYPES.reagent.displayFields;
     if (t.group === 'stocks') return TYPES.seed.displayFields;
+    if (t.group === 'locations') return TYPES.freezer.displayFields;
     return [];
   }
 

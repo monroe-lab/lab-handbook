@@ -500,6 +500,58 @@
     "target": "people/kehan-zhao"
   },
   {
+    "source": "locations/box-dna-extracts",
+    "target": "locations/fridge-4c-main"
+  },
+  {
+    "source": "locations/box-pistachio-dna",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "locations/box-pistachio-dna",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "locations/freezer-minus80-a",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "locations/fridge-4c-main",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "locations/shelf-minus80-a-1",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "locations/tube-pistachio-dna-extract-1",
+    "target": "samples/sample-pistachio-4"
+  },
+  {
+    "source": "locations/tube-pistachio-dna-extract-1",
+    "target": "locations/tube-pistachio-leaf-1"
+  },
+  {
+    "source": "locations/tube-pistachio-leaf-1",
+    "target": "samples/sample-pistachio-4"
+  },
+  {
+    "source": "locations/tube-pistachio-leaf-1",
+    "target": "locations/box-pistachio-dna"
+  },
+  {
+    "source": "locations/tube-pistachio-leaf-1",
+    "target": "locations/tube-pistachio-dna-extract-1"
+  },
+  {
+    "source": "locations/tube-pistachio-leaf-2",
+    "target": "samples/sample-pistachio-4"
+  },
+  {
+    "source": "locations/tube-pistachio-leaf-2",
+    "target": "locations/tube-pistachio-leaf-1"
+  },
+  {
     "source": "notebooks/grey-monroe/ma-experiment/2026-04-08",
     "target": "stocks/col-0-wild-type"
   },
@@ -681,10 +733,6 @@
   },
   {
     "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
     "target": "projects/in-house-hifi-shearing/validation-plan"
   },
   {
@@ -714,10 +762,6 @@
   {
     "source": "projects/in-house-hifi-shearing/validation-plan",
     "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "projects/mutation-accumulation/index",
@@ -768,10 +812,6 @@
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
-    "source": "resources/dna-lobind-tubes",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
     "source": "resources/flongle-starter-pack",
     "target": "resources/minion-mk1b"
   },
@@ -784,20 +824,16 @@
     "target": "resources/flongle-flow-cells-flo-flg114"
   },
   {
-    "source": "resources/flow-cell-wash-kit-exp-wsh004",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
     "source": "resources/kingfisher-deepwell-96-plate",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "resources/minion-mk1b",
-    "target": "resources/flongle-starter-pack"
+    "source": "resources/labbot-wiki-mnthp11v",
+    "target": "resources/2-mercaptoethanol"
   },
   {
     "source": "resources/minion-mk1b",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+    "target": "resources/flongle-starter-pack"
   },
   {
     "source": "resources/neb-blunt-ta-ligase-master-mix",
@@ -832,14 +868,6 @@
     "target": "resources/ot2-temperature-module"
   },
   {
-    "source": "resources/nuclease-free-water",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "resources/opentrons-ot2",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
     "source": "resources/opentrons-ot2",
     "target": "wet-lab/library-prep/operating-the-ot2"
   },
@@ -858,10 +886,6 @@
   {
     "source": "resources/ot2-thermocycler-module",
     "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "resources/ot2-thermocycler-module",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "resources/qubit-assay-tubes",
@@ -889,11 +913,19 @@
   },
   {
     "source": "resources/wide-bore-filter-tips-p200",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "resources/wide-bore-filter-tips-p200",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+    "source": "samples/sample-pistachio-4",
+    "target": "locations/tube-pistachio-leaf-1"
+  },
+  {
+    "source": "samples/sample-pistachio-4",
+    "target": "locations/tube-pistachio-leaf-2"
+  },
+  {
+    "source": "samples/sample-pistachio-4",
+    "target": "locations/tube-pistachio-dna-extract-1"
   },
   {
     "source": "stocks/bl21-de3-competent-cells",
@@ -1661,10 +1693,6 @@
   },
   {
     "source": "wet-lab/extraction/hifi-dna-extraction",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/extraction/hifi-dna-extraction",
     "target": "people/grey-monroe"
   },
   {
@@ -2020,10 +2048,6 @@
     "target": "people/grey-monroe"
   },
   {
-    "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
-    "target": "people/kehan-zhao"
-  },
-  {
     "source": "wet-lab/extraction/test-new",
     "target": "wet-lab/clean-bench"
   },
@@ -2144,92 +2168,12 @@
     "target": "people/satoyo-oya"
   },
   {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/femtopulse"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/minion-mk1b"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/nanodrop"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/ot2-magnetic-module"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/ot2-temperature-module"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/qubit-dsdna-hs-assay-kit"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/ampure-xp-beads"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/flongle-flow-cells-flo-flg114"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/operating-the-ot2"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-hifi-shearing-pipeline",
-    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
-  },
-  {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
     "target": "resources/femtopulse"
   },
   {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
     "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "resources/flongle-flow-cells-flo-flg114"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
@@ -2274,10 +2218,6 @@
   {
     "source": "wet-lab/library-prep/operating-the-ot2",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "wet-lab/library-prep/operating-the-ot2",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "wet-lab/library-prep/ot2-hmw-shearing",
@@ -2337,10 +2277,6 @@
   },
   {
     "source": "wet-lab/library-prep/ot2-hmw-shearing",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
-  },
-  {
-    "source": "wet-lab/library-prep/ot2-hmw-shearing",
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
@@ -2374,10 +2310,6 @@
   {
     "source": "wet-lab/library-prep/pacbio-hifi-sequencing",
     "target": "resources/qubit-assay-tubes"
-  },
-  {
-    "source": "wet-lab/library-prep/pacbio-hifi-sequencing",
-    "target": "wet-lab/library-prep/in-house-hifi-shearing-pipeline"
   },
   {
     "source": "wet-lab/library-prep/pacbio-hifi-sequencing",
@@ -3156,26 +3088,6 @@
     "target": "people/grey-monroe"
   },
   {
-    "source": "wet-lab/planting-in-soil-copy",
-    "target": "resources/growth-chamber"
-  },
-  {
-    "source": "wet-lab/planting-in-soil-copy",
-    "target": "resources/silwet-l-77"
-  },
-  {
-    "source": "wet-lab/planting-in-soil-copy",
-    "target": "wet-lab/planting-in-soil"
-  },
-  {
-    "source": "wet-lab/planting-in-soil-copy",
-    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "wet-lab/planting-in-soil-copy",
-    "target": "wet-lab/stratification"
-  },
-  {
     "source": "wet-lab/planting-in-soil",
     "target": "resources/growth-chamber"
   },
@@ -3306,58 +3218,6 @@
   {
     "source": "wet-lab/stratification",
     "target": "people/satoyo-oya"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "workflow-templates/protocol-template"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "resources/ethanol-70"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "resources/agarose"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "wet-lab/clean-bench"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "resources/tube-rotator"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "stocks/col-0-wild-type"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "stocks/bl21-de3-competent-cells"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "wet-lab/seed-sterilization"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "wet-lab/gel-electrophoresis"
-  },
-  {
-    "source": "workflow-templates/protocol-template-vianney-special-in-devel",
-    "target": "wet-lab/pcr-genotyping"
   },
   {
     "source": "workflow-templates/protocol-template",

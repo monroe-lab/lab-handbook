@@ -819,7 +819,7 @@
     "containers": [
       {
         "location": "Flammable Cabinet",
-        "quantity": 8544,
+        "quantity": 8544.0,
         "unit": "mL"
       }
     ]
@@ -1259,7 +1259,7 @@
     "containers": [
       {
         "location": "Flammable Cabinet",
-        "quantity": 414,
+        "quantity": 414.0,
         "unit": "mL"
       }
     ]
@@ -1339,6 +1339,16 @@
         "unit": "g"
       }
     ]
+  },
+  {
+    "path": "resources/labbot-freezer-item-mnthp11v.md",
+    "type": "reagent",
+    "title": "LabBot Freezer Item mnthp11v",
+    "location": "Freezer -80C",
+    "created_at": "2026-04-10T22:44:21.260Z",
+    "created_by": "greymonroe",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A6"
   },
   {
     "path": "resources/lithium-acetate-dihydrate.md",
@@ -1491,7 +1501,6 @@
     "type": "consumable",
     "title": "Microtube",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A1",
     "legacy_inventory_id": 11,
     "containers": [
       {
@@ -1499,7 +1508,9 @@
         "quantity": 10,
         "unit": "each"
       }
-    ]
+    ],
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A1"
   },
   {
     "path": "resources/mineral-oil.md",
@@ -2390,9 +2401,10 @@
     "type": "reagent",
     "title": "tube item",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A2",
     "created_at": "2026-04-09T07:58:18.233Z",
-    "created_by": "greymonroe"
+    "created_by": "greymonroe",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A2"
   },
   {
     "path": "resources/tube-rotator.md",
@@ -2479,10 +2491,11 @@
     "type": "glycerol_stock",
     "title": "BL21(DE3) Competent Cells",
     "location": "-80C Freezer, rack 2",
-    "location_detail": "Shelf 1 / Box A / A5",
     "organism": "E. coli",
     "stock_type": "glycerol_stock",
-    "source": "NEB"
+    "source": "NEB",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A5"
   },
   {
     "path": "stocks/col-0-wild-type.md",
@@ -2498,27 +2511,30 @@
     "type": "dna_prep",
     "title": "Redwood DNA Sample B mnsinxli",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A3",
     "created_at": "2026-04-10T06:23:47.277Z",
-    "created_by": "greymonroe"
+    "created_by": "greymonroe",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A3"
   },
   {
     "path": "stocks/redwood-dna-sample-b-mnsiw64a.md",
     "type": "dna_prep",
     "title": "Redwood DNA Sample B mnsiw64a",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A4",
     "created_at": "2026-04-10T06:30:42.126Z",
-    "created_by": "greymonroe"
+    "created_by": "greymonroe",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A4"
   },
   {
     "path": "stocks/test-seed-entry.md",
     "type": "seed",
     "title": "test seed entry",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A2",
     "created_at": "2026-04-09T08:13:28.226Z",
-    "created_by": "greymonroe"
+    "created_by": "greymonroe",
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A2"
   },
   {
     "path": "people/grey-monroe.md",
@@ -2605,6 +2621,11 @@
     "title": "LabBot Test Protocol mnsfdepd"
   },
   {
+    "path": "wet-lab/labbot-test-protocol-mnthp11v-copy.md",
+    "type": "protocol",
+    "title": "LabBot Test Protocol mnthp11v (Copy)"
+  },
+  {
     "path": "wet-lab/ms-media-recipe.md",
     "type": "protocol",
     "title": "MS Media Recipe"
@@ -2618,11 +2639,6 @@
     "path": "wet-lab/planting-arabidopsis-on-ms-plates.md",
     "type": "protocol",
     "title": "Planting Arabidopsis Seeds on MS Plates"
-  },
-  {
-    "path": "wet-lab/planting-in-soil-copy.md",
-    "type": "protocol",
-    "title": "Planting Arabidopsis in Soil (Copy)"
   },
   {
     "path": "wet-lab/planting-in-soil.md",
@@ -2674,12 +2690,8 @@
     "type": "protocol",
     "title": "test new",
     "location": "Freezer -80C",
-    "location_detail": "Shelf 1 / Box A / A2"
-  },
-  {
-    "path": "wet-lab/library-prep/in-house-hifi-shearing-pipeline.md",
-    "type": "protocol",
-    "title": "In-House Flongle Diagnostic Pipeline (HiFi Shearing QC + More)"
+    "parent": "locations/box-minus80-a-1-a",
+    "position": "A2"
   },
   {
     "path": "wet-lab/library-prep/in-house-vs-genome-center-decision.md",
@@ -2927,11 +2939,6 @@
     "title": "HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)"
   },
   {
-    "path": "workflow-templates/protocol-template-vianney-special-in-devel.md",
-    "type": "protocol",
-    "title": "Protocol Template (Vianney special in devel)"
-  },
-  {
     "path": "workflow-templates/protocol-template.md",
     "type": "protocol",
     "title": "Protocol Template"
@@ -2989,6 +2996,17 @@
     "waste_tag": "10496910"
   },
   {
+    "path": "samples/sample-pistachio-4.md",
+    "type": "sample",
+    "title": "Pistachio Tree #4",
+    "notes": "Wild pistachio, site X cultivar Y, selected for HiFi sequencing 2026.",
+    "status": "extracted",
+    "sample_id": "PIST-4",
+    "species": "Pistacia vera",
+    "lead": "J. Freckles",
+    "sequencing_type": "HiFi"
+  },
+  {
     "path": "samples/test-sample.md",
     "type": "sample",
     "title": "Arabidopsis Col-0 HiFi Library",
@@ -2998,5 +3016,95 @@
     "species": "Arabidopsis thaliana",
     "lead": "greymonroe",
     "sequencing_type": "HiFi"
+  },
+  {
+    "path": "locations/box-dna-extracts.md",
+    "type": "box",
+    "title": "DNA Extracts Box",
+    "notes": "96-position tube rack for DNA extracts in active sequencing prep.",
+    "parent": "locations/fridge-4c-main",
+    "grid": "8x12",
+    "label_1": "Working DNA Extracts (96-well)",
+    "label_2": "EXT-96"
+  },
+  {
+    "path": "locations/box-minus80-a-1-a.md",
+    "type": "box",
+    "title": "Box A",
+    "parent": "locations/shelf-minus80-a-1",
+    "grid": "9x9",
+    "label_1": "Box A",
+    "label_2": "BxA"
+  },
+  {
+    "path": "locations/box-pistachio-dna.md",
+    "type": "box",
+    "title": "Pistachio DNA Box",
+    "notes": "Standard 100-tube cryobox for pistachio genomics project leaf samples and DNA extracts.",
+    "parent": "locations/shelf-minus80-a-1",
+    "grid": "10x10",
+    "label_1": "Pistachio DNA (100 tubes)",
+    "label_2": "PIST-DNA"
+  },
+  {
+    "path": "locations/freezer-minus80-a.md",
+    "type": "freezer",
+    "title": "-80C Freezer A",
+    "notes": "Primary -80C storage. Holds long-term sample and DNA archives.",
+    "parent": "locations/room-robbins-0170",
+    "label_1": "Freezer A (-80C)"
+  },
+  {
+    "path": "locations/fridge-4c-main.md",
+    "type": "fridge",
+    "title": "4C Fridge (Main)",
+    "notes": "Standard 4C fridge. Short-term storage for DNA extracts, buffers, media.",
+    "parent": "locations/room-robbins-0170",
+    "label_1": "Main 4C Fridge"
+  },
+  {
+    "path": "locations/room-robbins-0170.md",
+    "type": "room",
+    "title": "Robbins Hall 0170",
+    "notes": "Primary wet lab space, UC Davis Robbins Hall ground floor.",
+    "label_1": "Monroe Lab"
+  },
+  {
+    "path": "locations/shelf-minus80-a-1.md",
+    "type": "shelf",
+    "title": "Shelf 1",
+    "notes": "Top shelf of -80C Freezer A. DNA archive boxes.",
+    "parent": "locations/freezer-minus80-a",
+    "label_1": "Shelf 1"
+  },
+  {
+    "path": "locations/tube-pistachio-dna-extract-1.md",
+    "type": "tube",
+    "title": "Pistachio DNA Extract 1",
+    "notes": "HMW DNA, nanodrop 85 ng/uL, 260/280 ~1.85, 260/230 ~2.1.",
+    "parent": "locations/box-dna-extracts",
+    "position": "A1",
+    "label_1": "Pistachio #4\nDNA extract\n85 ng/uL",
+    "label_2": "P4-DNA\n85"
+  },
+  {
+    "path": "locations/tube-pistachio-leaf-1.md",
+    "type": "tube",
+    "title": "Pistachio Leaf 1",
+    "notes": "Leaf tissue, flash-frozen in liquid N2 at collection.",
+    "parent": "locations/box-pistachio-dna",
+    "position": "A1",
+    "label_1": "Pistachio Tree #4\nleaf, 2026-04-01",
+    "label_2": "PL1\n4/01"
+  },
+  {
+    "path": "locations/tube-pistachio-leaf-2.md",
+    "type": "tube",
+    "title": "Pistachio Leaf 2",
+    "notes": "Backup leaf tissue punch, same tree and collection date.",
+    "parent": "locations/box-pistachio-dna",
+    "position": "A2",
+    "label_1": "Pistachio Tree #4\nleaf, 2026-04-01\n(backup)",
+    "label_2": "PL2\n4/01"
   }
 ]

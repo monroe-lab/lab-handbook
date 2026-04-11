@@ -1,13 +1,13 @@
 ---
-type: "glycerol_stock"
-title: "BL21(DE3) Competent Cells"
-organism: "E. coli"
-stock_type: "glycerol_stock"
-location: "-80C Freezer, rack 2"
-source: "NEB"
-location_detail: "Shelf 1 / Box A / A5"
+type: glycerol_stock
+title: BL21(DE3) Competent Cells
+organism: E. coli
+stock_type: glycerol_stock
+location: -80C Freezer, rack 2
+source: NEB
+parent: locations/box-minus80-a-1-a
+position: A5
 ---
-
 # BL21(DE3) Competent Cells
 
 E. coli expression strain for protein induction with pET vectors.

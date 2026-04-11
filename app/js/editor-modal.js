@@ -376,7 +376,18 @@
       renderFields(parsed.meta, false);
       var html = await renderMarkdown(parsed.body);
       var contentEl = document.getElementById('em-content');
-      contentEl.innerHTML = '<div class="lab-rendered em-rendered">' + html + '</div>';
+
+      // Breadcrumb for any object in the location hierarchy (parent ref chain).
+      // Renders nothing for objects with no resolvable parent chain.
+      var crumbHTML = '';
+      try {
+        if (window.Lab.hierarchy) {
+          var slug = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
+          crumbHTML = await window.Lab.hierarchy.breadcrumbHTML(slug);
+        }
+      } catch(e) { /* non-fatal */ }
+
+      contentEl.innerHTML = crumbHTML + '<div class="lab-rendered em-rendered">' + html + '</div>';
       if (window.Lab.wikilinks) {
         await window.Lab.wikilinks.processRendered(contentEl);
       }

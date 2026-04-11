@@ -24,7 +24,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
 | Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
-| Lab Map | 14/14 | ✅ Floor plan, 5 zones, boxes, grid, tube detail, assign popover, search, create-at-position, location_detail |
+| Lab Map | 🚧 quarantined | Floor-plan view deprecated per Issue #19; rebuilding as hierarchy tree in R2. Old tests skipped by default; `--only=labmap` still runs them for reference. |
+| Hierarchy | 10/10 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -35,7 +36,20 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 95/95 (100%)**
+**Total: 91/91 (100%)** — Lab Map (14) quarantined pending R2 rebuild, Hierarchy (10) added in R1.
+
+## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
+
+Backend-first implementation of the hierarchical location/object system. No new UI yet — R2 adds the tree view, R3 adds grid renderers.
+
+- [x] **Location types in types.js** — Added `room`, `freezer`, `fridge`, `shelf`, `box`, `tube`, `container` + `locations` group. All share the freezer field schema via null-inheritance (title, parent, position, grid, label_1, label_2, notes).
+- [x] **Hierarchy fields in object-index** — Added `parent`, `position`, `grid`, `label_1`, `label_2` to `EXTRACT_KEYS` in `scripts/build-object-index.py` and `INDEX_KEYS` in `app/js/github-api.js`. New `docs/locations/` directory added to OBJECT_DIRS.
+- [x] **`app/js/hierarchy.js` utility** — `Lab.hierarchy.parentChain()`, `childrenOf()`, `breadcrumbHTML()`, `parseGrid()`, `parsePosition()`, `normalizeParent()`. Strips `[[brackets]]` from parent refs, resolves by slug or basename, cycle-safe chain walking.
+- [x] **Breadcrumb wired into editor-modal popup** — Every object with a resolvable parent chain shows a clickable crumb trail above the body in its popup card.
+- [x] **Migration script** — `scripts/migrate-location-detail.py --apply` parses legacy `"Shelf N / Box L / CellAN"` strings, auto-creates shelf/box objects under `docs/locations/`, rewrites items to `parent` + `position`, removes `location_detail`. Dry-run by default. Ran 2026-04-10: 8 items migrated into 1 new box (`locations/box-minus80-a-1-a`) attached to the seed freezer chain.
+- [x] **Mock hierarchy seeded** — `locations/room-robbins-0170` → `freezer-minus80-a` → `shelf-minus80-a-1` → `box-pistachio-dna` (10x10) → `tube-pistachio-leaf-1` / `tube-pistachio-leaf-2`; plus `fridge-4c-main` → `box-dna-extracts` (8x12) → `tube-pistachio-dna-extract-1`. All three tubes prose-link to `samples/sample-pistachio-4` via wikilinks, proving cross-location references work.
+- [x] **Playwright hierarchy tests** — 10 checks covering object-index shape, parentChain, breadcrumbHTML, childrenOf, parseGrid, parsePosition, normalizeParent, migration integrity, sample-to-tube cross-links, and the tube popup breadcrumb.
+- [x] **Quarantined lab-map tests** — Current floor-plan view deprecated per Issue #19. Tests skipped by default via `QUARANTINED` set in labbot.mjs; `--only=labmap` still runs them for reference during R2 rebuild.
 
 ---
 

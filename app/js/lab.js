@@ -7,6 +7,7 @@
     'js/shared.js',
     'js/types.js',
     'js/github-api.js',
+    'js/hierarchy.js',
     'js/nav.js',
     'js/wikilinks.js',
     'js/rich-input.js',
