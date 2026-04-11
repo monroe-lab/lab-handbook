@@ -169,7 +169,7 @@
 var ROOT = 'docs/notebooks';
 var TREE = null;        // { dir, label, children: [Tree], items: [{title,path}] }
 var allFiles = [];
-var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/alex-chen/2026-04-01)
+var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/barb-m/2026-04-01)
 var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
@@ -255,7 +255,7 @@ function newNode(dir, label) {
 }
 
 function ensureNode(root, dirParts) {
-  // dirParts: array of folder slugs relative to ROOT (e.g., ['alex-chen','dna-extraction'])
+  // dirParts: array of folder slugs relative to ROOT (e.g., ['barb-m','dna-extraction'])
   var node = root;
   var acc = [];
   for (var i = 0; i < dirParts.length; i++) {
@@ -356,6 +356,43 @@ function renderNode(node, depth, q) {
   return html;
 }
 
+// R8 #39: return a normalised key derived from the logged-in GitHub user
+// so we can match against a notebook folder slug. "greymonroe" login →
+// "greymonroe", "grey-monroe" folder → "greymonroe", both match.
+// Returns '' if not logged in (short-circuits the personalization).
+function getCurrentUserKey() {
+  try {
+    var raw = localStorage.getItem('gh_lab_user');
+    if (!raw) return '';
+    var user = JSON.parse(raw);
+    var login = user && user.login ? String(user.login) : '';
+    return login.toLowerCase().replace(/[^a-z0-9]/g, '');
+  } catch(e) { return ''; }
+}
+
+function normalizeFolderKey(slug) {
+  return String(slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+// Sort children so the current user's folder is first. Otherwise stable
+// alphabetical. Returns a new array (doesn't mutate the input).
+function sortChildrenForUser(children) {
+  var userKey = getCurrentUserKey();
+  var sorted = children.slice();
+  sorted.sort(function(a, b) {
+    var an = normalizeFolderKey(a.dir.split('/').pop());
+    var bn = normalizeFolderKey(b.dir.split('/').pop());
+    if (userKey) {
+      var aIsUser = an === userKey || an.indexOf(userKey) === 0;
+      var bIsUser = bn === userKey || bn.indexOf(userKey) === 0;
+      if (aIsUser && !bIsUser) return -1;
+      if (bIsUser && !aIsUser) return 1;
+    }
+    return an < bn ? -1 : an > bn ? 1 : 0;
+  });
+  return sorted;
+}
+
 function renderSidebar(filter) {
   var treeEl = document.getElementById('nbTree');
   var q = (filter || '').toLowerCase();
@@ -369,8 +406,26 @@ function renderSidebar(filter) {
     return;
   }
 
+  // R8 #39: promote the current user's folder to the top so the first
+  // thing a logged-in lab member sees is their own notebook.
+  var orderedChildren = sortChildrenForUser(view.children);
+
   var html = '';
-  view.children.forEach(function(ch) { html += renderNode(ch, 0, q); });
+  // Mark the first child as "yours" with a subtle header if it matched.
+  var userKey = getCurrentUserKey();
+  var firstChild = orderedChildren[0];
+  var firstIsUser = userKey && firstChild &&
+    normalizeFolderKey(firstChild.dir.split('/').pop()).indexOf(userKey) === 0;
+  if (firstIsUser) {
+    html += '<div class="nb-section-label" style="padding:10px 16px 4px;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--teal);letter-spacing:.5px">Your notebook</div>';
+    html += renderNode(firstChild, 0, q);
+    if (orderedChildren.length > 1) {
+      html += '<div class="nb-section-label" style="padding:14px 16px 4px;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--grey-500);letter-spacing:.5px">All notebooks</div>';
+    }
+    orderedChildren.slice(1).forEach(function(ch) { html += renderNode(ch, 0, q); });
+  } else {
+    orderedChildren.forEach(function(ch) { html += renderNode(ch, 0, q); });
+  }
   treeEl.innerHTML = html;
 }
 
@@ -392,7 +447,7 @@ async function createNewFolder() {
     submitLabel: 'Create folder',
     fields: [
       { key: 'parent', label: 'Parent folder', type: 'select', value: '', options: parentOpts },
-      { key: 'name',   label: 'Folder name',   type: 'text',   value: '', placeholder: 'e.g. alex-chen' }
+      { key: 'name',   label: 'Folder name',   type: 'text',   value: '', placeholder: 'e.g. barb-m' }
     ]
   });
   if (!values || !values.name.trim()) return;

@@ -127,7 +127,7 @@ Clean-ups:
 
 Materials
 
-- M2 FLAG Antibody (lot:                )
+- M2 FLAG Antibody (lot: _**TODO: fill in**_)
 - Frozen chromatin
 - Rotator
 - A bucket of ice
@@ -144,7 +144,7 @@ Chill the TE, PBS and water for tomorrow
 
 Materials
 
-- Protein G beads (lot:               )
+- Protein G beads (lot: _**TODO: fill in**_)
 - x2 RIPA solution
 - LNDET
 - X1 Low salt RIPA + Complete

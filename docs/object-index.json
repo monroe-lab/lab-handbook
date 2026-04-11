@@ -1429,7 +1429,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/1-8-naphthalic-anhydride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
@@ -1439,7 +1439,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-1-octanol.md",
@@ -1449,7 +1449,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/1-octanol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-1m-tris-hcl-ph-8-8-5.md",
@@ -1459,7 +1459,7 @@
     "unit": "L",
     "parent": "locations/cabinet-chemical",
     "of": "resources/1m-tris-hcl-ph-8-8-5",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-2-mercaptoethanol.md",
@@ -1469,7 +1469,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/2-mercaptoethanol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-3-methylbutanol.md",
@@ -1479,7 +1479,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/3-methylbutanol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-4-morpholineethanesulfonic-acid.md",
@@ -1489,7 +1489,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/4-morpholineethanesulfonic-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-aceto-orcein-solution-2.md",
@@ -1499,7 +1499,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/aceto-orcein-solution-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-acetone.md",
@@ -1509,7 +1509,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/acetone",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-acrylamide.md",
@@ -1519,7 +1519,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/acrylamide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-activated-charcoal.md",
@@ -1529,7 +1529,7 @@
     "unit": "g",
     "parent": "locations/cabinet-flammable",
     "of": "resources/activated-charcoal",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-agar-non-tc.md",
@@ -1539,7 +1539,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/agar-non-tc",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-agar-plant-tc.md",
@@ -1549,7 +1549,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/agar-plant-tc",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-agarose.md",
@@ -1559,7 +1559,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/agarose",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-alpha-d-glucose.md",
@@ -1569,7 +1569,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/alpha-d-glucose",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ammonium-acetate.md",
@@ -1579,7 +1579,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ammonium-acetate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ammonium-chloride.md",
@@ -1589,7 +1589,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ammonium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ammonium-nitrate.md",
@@ -1599,7 +1599,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ammonium-nitrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ammonium-phosphate-monobasic.md",
@@ -1609,7 +1609,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ammonium-phosphate-monobasic",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-aristolochic-acid-i.md",
@@ -1619,7 +1619,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/aristolochic-acid-i",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-basic-fuchsin.md",
@@ -1629,7 +1629,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/basic-fuchsin",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-bis-n-n-methylene-bis-acrylamide.md",
@@ -1639,7 +1639,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/bis-n-n-methylene-bis-acrylamide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-boric-acid.md",
@@ -1649,7 +1649,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/boric-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-bromophenol-blue.md",
@@ -1659,7 +1659,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/bromophenol-blue",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-calcium-carbonate.md",
@@ -1669,7 +1669,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/calcium-carbonate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-calcium-chloride.md",
@@ -1679,7 +1679,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/calcium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-calcium-nitrate-tetrahydrate.md",
@@ -1689,7 +1689,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/calcium-nitrate-tetrahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-carbenicillin-disodium-salt.md",
@@ -1699,7 +1699,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/carbenicillin-disodium-salt",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-carbon-activated.md",
@@ -1709,7 +1709,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/carbon-activated",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-casein-hydrolysate.md",
@@ -1719,7 +1719,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/casein-hydrolysate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-cefotaxime-sodium-salt.md",
@@ -1729,7 +1729,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/cefotaxime-sodium-salt",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-cesium-chloride.md",
@@ -1739,7 +1739,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/cesium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-cetrimonium-bromide.md",
@@ -1749,7 +1749,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/cetrimonium-bromide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-chloramphenicol.md",
@@ -1759,7 +1759,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/chloramphenicol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-chloroform-isoamyl-alcohol-24-1.md",
@@ -1769,7 +1769,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/chloroform-isoamyl-alcohol-24-1",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-chloroform.md",
@@ -1779,7 +1779,7 @@
     "unit": "L",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/chloroform",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-cis-diamineplatinum-ii-dichloride.md",
@@ -1789,7 +1789,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/cis-diamineplatinum-ii-dichloride",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-citric-acid.md",
@@ -1799,7 +1799,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/citric-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-colibri-dna-library-cleanup-kit.md",
@@ -1809,7 +1809,7 @@
     "unit": "each",
     "parent": "locations/fridge-4c-main",
     "of": "resources/colibri-dna-library-cleanup-kit",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-d-glucose.md",
@@ -1819,7 +1819,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/d-glucose",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-d-mannitol.md",
@@ -1829,7 +1829,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/d-mannitol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-d-sorbitol.md",
@@ -1839,7 +1839,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/d-sorbitol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-dextran.md",
@@ -1849,7 +1849,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/dextran",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-diethyl-pyrocarbonate.md",
@@ -1859,7 +1859,7 @@
     "unit": "mL",
     "parent": "locations/fridge-4c-main",
     "of": "resources/diethyl-pyrocarbonate",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-dimethyl-sulfoxide.md",
@@ -1869,7 +1869,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/dimethyl-sulfoxide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-disodium-ethylenediamine-tetraacetate.md",
@@ -1879,7 +1879,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/disodium-ethylenediamine-tetraacetate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-dkw-medium-with-vitamins.md",
@@ -1889,7 +1889,7 @@
     "unit": "L",
     "parent": "locations/cabinet-chemical",
     "of": "resources/dkw-medium-with-vitamins",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-dneasy-plant-mini.md",
@@ -1899,7 +1899,7 @@
     "unit": "box",
     "parent": "locations/new-container-mnubklee",
     "of": "resources/dneasy-plant-mini",
-    "mtime": 1775911318
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-edta-tetrasodium-salt-dihydrate.md",
@@ -1909,7 +1909,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/edta-tetrasodium-salt-dihydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-edta-trisodium-salt.md",
@@ -1919,7 +1919,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/edta-trisodium-salt",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-egta.md",
@@ -1929,7 +1929,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/egta",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethanol-70-1.md",
@@ -1939,7 +1939,7 @@
     "parent": "locations/bench",
     "of": "resources/ethanol-70",
     "expiration": "2026-04-07",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethanol-70-2.md",
@@ -1948,7 +1948,7 @@
     "quantity": 1,
     "parent": "locations/bench",
     "of": "resources/ethanol-70",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethanol-absolute.md",
@@ -1958,7 +1958,7 @@
     "unit": "each",
     "parent": "locations/cabinet-flammable",
     "of": "resources/ethanol-absolute",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethyl-alcohol-absolute.md",
@@ -1968,7 +1968,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/ethyl-alcohol-absolute",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethyl-methanesulfonate.md",
@@ -1978,7 +1978,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ethyl-methanesulfonate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt.md",
@@ -1988,7 +1988,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ethylenediaminetetraacetic-acid-gmp.md",
@@ -1998,7 +1998,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ethylenediaminetetraacetic-acid-gmp",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ficoll-400.md",
@@ -2008,7 +2008,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ficoll-400",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-formaldehyde-16-methanol-free-pfa.md",
@@ -2018,7 +2018,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/formaldehyde-16-methanol-free-pfa",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-formamide-2.md",
@@ -2028,7 +2028,7 @@
     "unit": "mL",
     "parent": "locations/fridge-4c-main",
     "of": "resources/formamide-2",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-formamide.md",
@@ -2038,7 +2038,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/formamide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-gaseous-hydrochloric-acid.md",
@@ -2048,7 +2048,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/gaseous-hydrochloric-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-gentamicin-sulfate-salt.md",
@@ -2058,7 +2058,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/gentamicin-sulfate-salt",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glacial-acetic-acid-2.md",
@@ -2068,7 +2068,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/glacial-acetic-acid-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glacial-acetic-acid.md",
@@ -2078,7 +2078,7 @@
     "unit": "L",
     "parent": "locations/cabinet-flammable",
     "of": "resources/glacial-acetic-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glufosinate-ammonium.md",
@@ -2088,7 +2088,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/glufosinate-ammonium",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glycerin.md",
@@ -2098,7 +2098,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/glycerin",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glycerol-50-aqueous-solution.md",
@@ -2108,7 +2108,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/glycerol-50-aqueous-solution",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-glycine.md",
@@ -2118,7 +2118,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/glycine",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-guanidine-thiocyanate-2.md",
@@ -2128,7 +2128,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/guanidine-thiocyanate-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-guanidine-thiocyanate.md",
@@ -2138,7 +2138,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/guanidine-thiocyanate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-hepes.md",
@@ -2148,7 +2148,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/hepes",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-hexadecyltrimethyl-ammonium-bromide.md",
@@ -2158,7 +2158,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/hexadecyltrimethyl-ammonium-bromide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-hydrogen-peroxide-20-to-35-in-water.md",
@@ -2168,7 +2168,7 @@
     "unit": "L",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/hydrogen-peroxide-20-to-35-in-water",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-hydrogen-peroxide-30.md",
@@ -2178,7 +2178,7 @@
     "unit": "L",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/hydrogen-peroxide-30",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-hydroxylamine-hydrochloride.md",
@@ -2188,7 +2188,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/hydroxylamine-hydrochloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-igepal-ca-630.md",
@@ -2198,7 +2198,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/igepal-ca-630",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-imidazole-hydrochloride.md",
@@ -2208,7 +2208,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/imidazole-hydrochloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-iohexol.md",
@@ -2218,7 +2218,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/iohexol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-iron-iii-chloride.md",
@@ -2228,7 +2228,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/iron-iii-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-isopropyl-alcohol-2.md",
@@ -2238,7 +2238,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/isopropyl-alcohol-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-isopropyl-alcohol-70-in-water-2.md",
@@ -2248,7 +2248,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/isopropyl-alcohol-70-in-water-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-isopropyl-alcohol-70-in-water.md",
@@ -2258,7 +2258,7 @@
     "unit": "L",
     "parent": "locations/cabinet-flammable",
     "of": "resources/isopropyl-alcohol-70-in-water",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-isopropyl-alcohol.md",
@@ -2268,7 +2268,7 @@
     "unit": "L",
     "parent": "locations/cabinet-flammable",
     "of": "resources/isopropyl-alcohol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-kanamycin-sulfate.md",
@@ -2278,7 +2278,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/kanamycin-sulfate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-l-glutamine.md",
@@ -2288,7 +2288,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/l-glutamine",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-l-lysine-monohydrochloride.md",
@@ -2298,7 +2298,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/l-lysine-monohydrochloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-lithium-acetate-dihydrate.md",
@@ -2308,7 +2308,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/lithium-acetate-dihydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-lithium-chloride.md",
@@ -2318,7 +2318,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/lithium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-lithium-hydroxide-monohydrate.md",
@@ -2328,7 +2328,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/lithium-hydroxide-monohydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-magnesium-acetate-tetrahydrate.md",
@@ -2338,7 +2338,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/magnesium-acetate-tetrahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-magnesium-chloride.md",
@@ -2348,7 +2348,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/magnesium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-magnesium-sulfate-heptahydrate.md",
@@ -2358,7 +2358,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/magnesium-sulfate-heptahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-manganese-ii-chloride.md",
@@ -2368,7 +2368,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/manganese-ii-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-mes-buffer.md",
@@ -2378,7 +2378,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/mes-buffer",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-methanol.md",
@@ -2388,7 +2388,7 @@
     "unit": "L",
     "parent": "locations/cabinet-flammable",
     "of": "resources/methanol",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-methyl-methanesulfonate.md",
@@ -2398,7 +2398,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/methyl-methanesulfonate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-microtube.md",
@@ -2408,7 +2408,7 @@
     "unit": "each",
     "parent": "locations/freezer-minus80-a",
     "of": "resources/microtube",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-mineral-oil.md",
@@ -2418,7 +2418,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/mineral-oil",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-mitomycin-c.md",
@@ -2428,7 +2428,7 @@
     "unit": "each",
     "parent": "locations/fridge-4c-main",
     "of": "resources/mitomycin-c",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ms-basal-salt-mixture.md",
@@ -2438,7 +2438,7 @@
     "unit": "each",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ms-basal-salt-mixture",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-peptones-casein-tryptone.md",
@@ -2448,7 +2448,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/peptones-casein-tryptone",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-phenol-chloroform-isoamyl-alcohol-25-24-1.md",
@@ -2458,7 +2458,7 @@
     "unit": "mL",
     "parent": "locations/fridge-4c-main",
     "of": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-phenol-nitroprusside-solution.md",
@@ -2468,7 +2468,7 @@
     "unit": "mL",
     "parent": "locations/fridge-4c-main",
     "of": "resources/phenol-nitroprusside-solution",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-phenylmethanesulfonyl-fluoride.md",
@@ -2478,7 +2478,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/phenylmethanesulfonyl-fluoride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-piperazine-1-4-bis-2-ethanesulfonic-acid.md",
@@ -2488,7 +2488,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/piperazine-1-4-bis-2-ethanesulfonic-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-pipes-dipotassium-salt.md",
@@ -2498,7 +2498,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/pipes-dipotassium-salt",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-polyethylene-glycol-solid.md",
@@ -2508,7 +2508,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/polyethylene-glycol-solid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-polyvinylpyrrolidone.md",
@@ -2518,7 +2518,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/polyvinylpyrrolidone",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-ponceau-s.md",
@@ -2528,7 +2528,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/ponceau-s",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-acetate.md",
@@ -2538,7 +2538,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-acetate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-chloride.md",
@@ -2548,7 +2548,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-hydroxide.md",
@@ -2558,7 +2558,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-hydroxide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-nitrate.md",
@@ -2568,7 +2568,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-nitrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-permanganate.md",
@@ -2578,7 +2578,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-permanganate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-phosphate-dibasic.md",
@@ -2588,7 +2588,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-phosphate-dibasic",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-potassium-phosphate-monobasic.md",
@@ -2598,7 +2598,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/potassium-phosphate-monobasic",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-reagent-alcohol-100-200-proof-denatured.md",
@@ -2608,7 +2608,7 @@
     "unit": "L",
     "parent": "locations/cabinet-flammable",
     "of": "resources/reagent-alcohol-100-200-proof-denatured",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-silwet-l-77.md",
@@ -2618,7 +2618,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/silwet-l-77",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-acetate-anhydrous.md",
@@ -2628,7 +2628,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-acetate-anhydrous",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-arsenate-dibasic-heptahydrate.md",
@@ -2638,7 +2638,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-arsenate-dibasic-heptahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-bicarbonate.md",
@@ -2648,7 +2648,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-bicarbonate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-bisulfite.md",
@@ -2658,7 +2658,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-bisulfite",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-chloride.md",
@@ -2668,7 +2668,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-chloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-citrate.md",
@@ -2678,7 +2678,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-citrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-dodecyl-sulfate.md",
@@ -2688,7 +2688,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-dodecyl-sulfate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-hydroxide-10-0-normal.md",
@@ -2698,7 +2698,7 @@
     "unit": "L",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/sodium-hydroxide-10-0-normal",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-hydroxide-10n-aqueous-solution.md",
@@ -2708,7 +2708,7 @@
     "unit": "L",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/sodium-hydroxide-10n-aqueous-solution",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-hydroxide-2.md",
@@ -2718,7 +2718,7 @@
     "unit": "g",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/sodium-hydroxide-2",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-hydroxide.md",
@@ -2728,7 +2728,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-hydroxide",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-metabisulfite.md",
@@ -2738,7 +2738,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-metabisulfite",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-phosphate-dibasic.md",
@@ -2748,7 +2748,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-phosphate-dibasic",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-pyrophosphate-decahydrate.md",
@@ -2758,7 +2758,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-pyrophosphate-decahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-sulfite.md",
@@ -2768,7 +2768,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-sulfite",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-tetraborate.md",
@@ -2778,7 +2778,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-tetraborate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-sodium-thiosulfate-pentahydrate.md",
@@ -2788,7 +2788,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/sodium-thiosulfate-pentahydrate",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-spermidine.md",
@@ -2798,7 +2798,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/spermidine",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-spermine.md",
@@ -2808,7 +2808,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/spermine",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-taps.md",
@@ -2818,7 +2818,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/taps",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tapso.md",
@@ -2828,7 +2828,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tapso",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tc-agar-a175.md",
@@ -2838,7 +2838,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tc-agar-a175",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-test-item-mobile.md",
@@ -2848,7 +2848,7 @@
     "unit": "each",
     "parent": "locations/cabinet-chemical",
     "of": "resources/test-item-mobile",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-test-item.md",
@@ -2858,7 +2858,7 @@
     "unit": "each",
     "parent": "locations/cabinet-chemical",
     "of": "resources/test-item",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tetracycline-hydrochloride.md",
@@ -2868,7 +2868,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tetracycline-hydrochloride",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tham.md",
@@ -2878,7 +2878,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tham",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-trichloroacetic-acid.md",
@@ -2888,7 +2888,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/trichloroacetic-acid",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tricine.md",
@@ -2898,7 +2898,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tricine",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tris-base.md",
@@ -2908,7 +2908,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tris-base",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tris-edta-te-buffer-solution.md",
@@ -2918,7 +2918,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tris-edta-te-buffer-solution",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-triton-x-100.md",
@@ -2928,7 +2928,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-corrosive",
     "of": "resources/triton-x-100",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-trizma-base.md",
@@ -2938,7 +2938,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/trizma-base",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-tween-80.md",
@@ -2948,7 +2948,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-chemical",
     "of": "resources/tween-80",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-urea.md",
@@ -2958,7 +2958,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/urea",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-yeast-extract.md",
@@ -2968,7 +2968,7 @@
     "unit": "g",
     "parent": "locations/cabinet-chemical",
     "of": "resources/yeast-extract",
-    "mtime": 1775890429
+    "mtime": 1775927241
   },
   {
     "path": "stocks/bottle-zeocin.md",
@@ -2978,7 +2978,7 @@
     "unit": "g",
     "parent": "locations/fridge-4c-main",
     "of": "resources/zeocin",
-    "mtime": 1775895055
+    "mtime": 1775927241
   },
   {
     "path": "stocks/col-0-wild-type.md",
@@ -3018,6 +3018,13 @@
     "parent": "locations/box-minus80-a-1-a",
     "position": "A2",
     "mtime": 1775895711
+  },
+  {
+    "path": "people/barb-m.md",
+    "type": "person",
+    "title": "Barb M.",
+    "role": "Rotation student (demo)",
+    "email": ""
   },
   {
     "path": "people/daniela-quiroz.md",
@@ -3139,6 +3146,11 @@
     "type": "protocol",
     "title": "LabBot Test Protocol mntzkf4h (Copy)",
     "mtime": 1775890964
+  },
+  {
+    "path": "wet-lab/liquid-nitrogen-refill.md",
+    "type": "protocol",
+    "title": "Liquid Nitrogen: Where, How, and Refill"
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3273,7 +3285,7 @@
     "path": "wet-lab/epigenomics/chip-seq.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol",
-    "mtime": 1775832918
+    "mtime": 1775927241
   },
   {
     "path": "wet-lab/epigenomics/cut-and-tag.md",
@@ -3703,12 +3715,36 @@
     "mtime": 1775911264
   },
   {
+    "path": "locations/room-asmundson-growth-chamber.md",
+    "type": "room",
+    "title": "Asmundson Growth Chamber",
+    "notes": "Shared plant growth chamber facility, UC Davis Asmundson Hall. Ask the building manager for access.",
+    "label_1": "Shared growth facility",
+    "mtime": 1775927241
+  },
+  {
+    "path": "locations/room-genome-center.md",
+    "type": "room",
+    "title": "Genome Center",
+    "notes": "UC Davis Genome Center building. Houses shared sequencing, imaging, and computational resources.",
+    "label_1": "UC Davis Genome Center",
+    "mtime": 1775927241
+  },
+  {
     "path": "locations/room-robbins-0170.md",
     "type": "room",
     "title": "Robbins Hall 0170",
     "notes": "Primary wet lab space, UC Davis Robbins Hall ground floor.",
     "label_1": "Monroe Lab",
     "mtime": 1775868762
+  },
+  {
+    "path": "locations/room-robbins-262.md",
+    "type": "room",
+    "title": "Robbins Hall 262",
+    "notes": "PI office, UC Davis Robbins Hall 2nd floor. Stores personal reference materials and some lab documentation.",
+    "label_1": "Grey's office",
+    "mtime": 1775927241
   },
   {
     "path": "locations/shelf-minus80-a-1.md",

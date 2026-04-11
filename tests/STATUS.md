@@ -32,6 +32,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R6 | 10/10 | ✅ Lab.locationTree module loaded, cabinets parented under Robbins 0170, bench renamed (no bench-reagent), fridge-reagent merged into fridge-4c-main, location: field stripped from concepts, locations picker mounts a tree, picker tree excludes bottles via childFilter, lab-map tree renders via module, lab-map nodes draggable, grid occupied cells draggable |
 | R6.5 | 9/9 | ✅ (R6.5) isConceptType helper, concepts/instances/locations/stocks classified correctly, scoped save-time uniqueness check catches dupe concepts, instance-count map from `of:` + link-index, ethanol-absolute → 1 bottle, ethanol-70 → 2 bottles (multi-bottle), sample-pistachio-4 → 3 tubes, autocomplete dropdown badges 19 concepts with instances |
 | R7 | 13/13 | ✅ (R7) Scrubbed R5 migration leftover text from 156 bottle files (#31), location-tree preserves expanded set across refresh (#21), popup Edit button resets label on every open (#30), stray mobile Graph nav link removed (#25), three new base-level rooms indexed (#41), mtime-aware object index for recency sort (#27), inventory mobile toolbar stacks into filter-row (#27), mini-graph close button gets bigger tap target (#24), issue-reporter FAB raised above editor-modal overlay (#33), body.em-editing hides FAB during edit (#23), popup closeOrBack pops nav stack (box→tube→close returns to box) (#32), dashboard bulletin edit round-trips via from=dashboard (#22), chip-seq empty rpm placeholders replaced with visible TODO (#35), annotate save-callback errors no longer block close (#29) |
+| R8 | 7/7 | ✅ (R8 quick wins) alex-chen fake user retired (#26), barb-m (Barbara McClintock) demo notebooks + person card, liquid nitrogen refill SOP scaffolded with TODO placeholders (#17), chip-seq empty `lot:` placeholders replaced with visible TODO (#36), personalized notebooks view sorts current user's folder first with "Your notebook" section label (#39) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -42,7 +43,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 166/166 (100%)** — R7 adds 13 new tests covering the scrub of migration leftover text, location-tree expanded-state persistence, popup Edit/View button reset, nav-stack back behavior, mobile issue-reporter FAB positioning, the connections panel close button, inventory mobile layout + mtime recency sort, three new base-level rooms, and the bulletin edit round-trip. See Round 7 below for the full writeup.
+**Total: 173/173 (100%)** — R8 adds 7 new quick-win tests covering the Alex Chen retirement / Barb M. (Barbara McClintock) demo fixture, the liquid nitrogen refill SOP scaffold, chip-seq empty `lot:` placeholder scrub, and the personalized notebooks view (current user's folder sorted first with a "Your notebook" section label). See Round 8 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -372,6 +373,36 @@ Grey filed 24 issues against the live site today, mostly from his phone on 411×
 1. **`seeded` guard in location-tree.build()** — my first attempt to the tree-uncollapse regression was just to call `tree.refresh()` in lab-map instead of rebuilding. But `refresh()` internally calls `build()` which calls `seedInitialExpansion()` — which re-expands roots to `initialDepth=2` every time. That would revert any *manual collapsing* the user had done of a root node, which is just as bad. Added a `seeded` flag so `seedInitialExpansion` only fires on the very first build — subsequent builds preserve the user's exact expansion state (with a sweep to drop any stale slugs that no longer exist in the rebuilt graph).
 2. **em-editing class leak on openPopup** — first cut of the `body.em-editing` mechanism set the class in `startEditing` and cleared in `stopEditing` / `close`. Problem: if the user was in edit mode of item A and opened item B directly via a link click (without stopEditing first), item B's popup opens in view mode but the body class is still set → issue FAB stays hidden even though we're viewing. Fixed by clearing `em-editing` at the top of `openPopup` (item B will be in view mode anyway).
 3. **nav stack leaks across openPopup loops** — without the `isBackNavigation` guard, `closeOrBack` → `openPopup(prev)` would push the just-popped path back onto the stack, trapping the user in a ping-pong. Guarded by setting `isBackNavigation = true` before the re-open and reading/clearing it at the top of openPopup.
+
+---
+
+## Round 8: Quick wins batch (2026-04-11)
+
+First drain of the remaining post-R7 issue backlog. Four small independent fixes, each standing on its own with no cross-dependencies. Nobody's using the site yet, so rather than sequence for maximum user impact we're just clearing issues in efficiency order.
+
+### What shipped
+
+- [x] **#26 retire Alex Chen, add Barb M.** — `docs/notebooks/alex-chen/` had become a dumping ground of realistic demo notebook entries + labbot test debris (`fallback-test-*`, `project-dir/`, `tes-proj/`, `test/`, all nearly empty). Renamed the folder to `docs/notebooks/barb-m/`, kept the four real daily entries (2026-03-31 through 04-05) + `pangenome-project.md`, updated signed names and extraction IDs (`AC-ext-001` → `BM-ext-001`), and dropped all the test-debris subfolders and fallback files. Added a `docs/people/barb-m.md` knowledge card framing Barb as "demo student named after Barbara McClintock, Grey's hero for careful maize genetics." Grey's take: fake users should feel like a tribute to a real scientist, not an anonymized Alex-shaped placeholder. Three code references (`notebooks.html` comments + placeholder text, `labbot.mjs` folder selector in the notebook-create flow) were updated to match. Search regression: changed the labbot search section's notebook query from `alex` to `barb`.
+- [x] **#17 liquid nitrogen protocol scaffold** — created `docs/wet-lab/liquid-nitrogen-refill.md`. Practical "where's the dewar, how do you fill it, what PPE" format distinct from the existing institutional `docs/lab-safety/cryogens-sop.md` (which is the UC Davis template with PPE, emergency procedures, and waste handling). The new file links back to `[[cryogens-sop]]` and gates first-time use on reading it. Every section Grey flagged in the issue (dewar location, key access, fill procedure) is there as a `TODO` marker Grey can fill in with the specifics — the structure and safety framing is done, the lab-specifics are Grey's to supply. Tagged `#todo-fill-in` so this protocol can be found via the wiki search when someone has time.
+- [x] **#39 personalized notebooks view** — on `notebooks.html`, the sidebar now sorts the current GitHub user's folder first with a dedicated "Your notebook" section label above it, then "All notebooks" below for everyone else. Three new helpers: `getCurrentUserKey()` reads `localStorage.gh_lab_user.login` and normalises it (`greymonroe` → `greymonroe`, `grey-monroe` folder → `greymonroe`, match via prefix), `normalizeFolderKey()` applies the same normalisation to folder slugs, and `sortChildrenForUser()` returns a new children array with the user's folder first. `renderSidebar()` calls the sort, injects section headers if there's a match, and falls through to plain alphabetical if there's no logged-in user or no matching folder. Tested authenticated as `greymonroe`: `grey-monroe` folder renders first under the teal "Your notebook" label.
+- [x] **#36 Protein G lot number** — same underlying bug as R7 #35 (chip-seq rpm). Source file had `(lot:                )` — whitespace-only placeholders that collapse to `(lot: )` on render. Found 2 empty `lot:` placeholders in `chip-seq.md` (M2 FLAG antibody + Protein G beads) and 2 more in `chip-seq-copy.md`. One python pass replaced all four with `(lot: _**TODO: fill in**_)` so they render as visible fill-me markers. Grey's original issue was "Protein G lot number not showing. Maybe it was missing from original?" — confirmed: it was missing from the original, not a rendering bug. Same fix pattern applies to any future empty-placeholder bug reports.
+
+### Tests added in R8
+
+7 new tests in a new `r8` section:
+- `#26` alex-chen fake user retired (no entries in object-index)
+- `#26` barb-m notebooks present (≥4 entries)
+- `#26` barb-m person card exists
+- `#17` liquid nitrogen refill SOP indexed as type=protocol
+- `#36` chip-seq empty `lot:` placeholders replaced with TODO markers
+- `#39` personalized notebooks view sorts `grey-monroe` folder first (for authenticated `greymonroe` user)
+- `#39` "Your notebook" section label rendered
+
+Plus 1 search regression update: the labbot search section now looks for `barb` in the notebooks search instead of `alex`.
+
+### Skipped in R8
+
+- **Matching folder by author frontmatter** — `sortChildrenForUser` matches purely by folder slug prefix. A user whose GitHub login bears no resemblance to their notebook folder name won't get personalized sort. Not worth the complexity until a real lab member hits it — `grey-monroe` / `greymonroe` matches cleanly, and the 11 real lab members all have folders (or will) that match their logins.
 
 ---
 

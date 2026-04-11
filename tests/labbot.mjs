@@ -922,12 +922,12 @@ function ghReadFile(path) {
           await titleInput.fill(nbTitle);
         }
 
-        // Select folder (alex-chen)
+        // Select folder (barb-m — renamed from alex-chen in R8)
         const folderSelect = await p.$('#nbm_folder, .nb-modal select:last-of-type');
         if (folderSelect) {
           const options = await folderSelect.$$eval('option', opts => opts.map(o => ({ v: o.value, t: o.textContent })));
-          const alex = options.find(o => o.v.includes('alex'));
-          if (alex) await folderSelect.selectOption(alex.v);
+          const barb = options.find(o => o.v.includes('barb'));
+          if (barb) await folderSelect.selectOption(barb.v);
         }
 
         // Click Create
@@ -938,7 +938,7 @@ function ghReadFile(path) {
 
           // Check what happened
           const slug = nbTitle;
-          const nbPath = `docs/notebooks/alex-chen/${slug}.md`;
+          const nbPath = `docs/notebooks/barb-m/${slug}.md`;
           const nbCreated = ghFileExists(nbPath);
           log('notebooks', 'Create notebook entry', nbCreated ? 'PASS' : 'WARN',
             nbCreated ? `${nbPath} exists` : 'File not at expected path');
@@ -1373,7 +1373,7 @@ function ghReadFile(path) {
     }
 
     // ── Delete notebook entry (via gh CLI for reliability) ──
-    const nbPath2 = `docs/notebooks/alex-chen/labbot-nb-${TS}.md`;
+    const nbPath2 = `docs/notebooks/barb-m/labbot-nb-${TS}.md`;
     if (ghFileExists(nbPath2)) {
       const nbDeleted = ghDeleteFile(nbPath2, 'LabBot test: delete notebook entry');
       log('notebooks', 'Delete entry', nbDeleted ? 'PASS' : 'FAIL',
@@ -3362,6 +3362,101 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R8: quick wins batch (#17 #26 #36 #39)
+  //  ────────────────────────────────────────────────────────────
+  //  Four small independent fixes: retire Alex Chen fake user,
+  //  scaffold the liquid nitrogen SOP, personalize the notebooks
+  //  tree (your folder first), scrub chip-seq empty lot placeholders.
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r8')) {
+    console.log('\n🪵  R8\n');
+
+    // ── #26: alex-chen retired, barb-m present ──
+    const p1 = await context.newPage();
+    await p1.goto(BASE + '/app/notebooks.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p1.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchObjectIndex, { timeout: 15000 }).catch(() => {});
+    const userCleanup = await p1.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const hasAlex = idx.some(e => e.path.includes('alex-chen'));
+      const barbNotebooks = idx.filter(e => e.path.startsWith('notebooks/barb-m/')).length;
+      const barbCard = idx.find(e => e.path === 'people/barb-m.md');
+      return { hasAlex, barbNotebooks, barbCard: !!barbCard, barbTitle: barbCard ? barbCard.title : null };
+    }).catch(() => ({ hasAlex: true }));
+    log('r8', '#26 alex-chen fake user retired',
+      !userCleanup.hasAlex ? 'PASS' : 'FAIL',
+      userCleanup.hasAlex ? 'alex-chen still in index' : 'removed');
+    log('r8', '#26 barb-m notebooks present (barbara mcclintock demo)',
+      userCleanup.barbNotebooks >= 4 ? 'PASS' : 'FAIL',
+      `${userCleanup.barbNotebooks} entries`);
+    log('r8', '#26 barb-m person card exists',
+      userCleanup.barbCard ? 'PASS' : 'FAIL',
+      userCleanup.barbTitle || 'missing');
+
+    // ── #17: liquid nitrogen protocol exists ──
+    const cryoCheck = await p1.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const entry = idx.find(e => e.path === 'wet-lab/liquid-nitrogen-refill.md');
+      return entry ? { present: true, title: entry.title, type: entry.type } : { present: false };
+    }).catch(() => ({ present: false }));
+    log('r8', '#17 liquid nitrogen refill SOP indexed',
+      cryoCheck.present && cryoCheck.type === 'protocol' ? 'PASS' : 'FAIL',
+      cryoCheck.present ? `"${cryoCheck.title}"` : 'missing');
+
+    // ── #36: chip-seq lot placeholders replaced ──
+    const chipLots = await p1.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/wet-lab/epigenomics/chip-seq.md');
+      return res.content;
+    }).catch(() => '');
+    const hasEmptyLot = /\(lot:\s{2,}\)/.test(chipLots);
+    const hasTodoLot = /lot:\s*_\*\*TODO/i.test(chipLots);
+    log('r8', '#36 chip-seq empty lot placeholders replaced with TODO',
+      !hasEmptyLot && hasTodoLot ? 'PASS' : 'FAIL',
+      `emptyLot=${hasEmptyLot} todoLot=${hasTodoLot}`);
+    await p1.close();
+
+    // ── #39: personalized notebooks view ──
+    // The test runs authenticated as the `gh auth token` user, which for
+    // Grey's environment is `greymonroe`. After render, the first child in
+    // the notebooks sidebar should be the grey-monroe folder, prefixed by
+    // a "Your notebook" section label.
+    const p2 = await context.newPage();
+    await p2.goto(BASE + '/app/notebooks.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p2.waitForFunction(() => typeof TREE !== 'undefined' && TREE && TREE.children && TREE.children.length > 0, { timeout: 15000 }).catch(() => {});
+    await p2.waitForTimeout(1500);
+    const personCheck = await p2.evaluate(() => {
+      // Wait for at least one folder header to be in the DOM
+      const headers = Array.from(document.querySelectorAll('.nb-folder'));
+      if (!headers.length) return { ok: false, reason: 'no folders rendered' };
+      const firstHeader = headers[0];
+      const firstLabel = firstHeader.querySelector('span:nth-of-type(2)');
+      const firstName = firstLabel ? firstLabel.textContent.trim() : '';
+      // Check for the "Your notebook" section label immediately preceding.
+      const prev = firstHeader.previousElementSibling;
+      const hasSectionLabel = prev && prev.classList && prev.classList.contains('nb-section-label');
+      const sectionText = hasSectionLabel ? prev.textContent.trim() : '';
+      // User key
+      const raw = localStorage.getItem('gh_lab_user');
+      const login = raw ? (JSON.parse(raw).login || '') : '';
+      return {
+        ok: true,
+        firstFolder: firstName,
+        sectionText,
+        hasSectionLabel,
+        login,
+        allHeaders: headers.length,
+      };
+    });
+    const firstIsGrey = personCheck.firstFolder && /grey/i.test(personCheck.firstFolder);
+    log('r8', '#39 personalized notebooks: current user folder sorted first',
+      personCheck.ok && firstIsGrey ? 'PASS' : 'FAIL',
+      `login=${personCheck.login} firstFolder="${personCheck.firstFolder}" of ${personCheck.allHeaders}`);
+    log('r8', '#39 "Your notebook" section label rendered',
+      personCheck.ok && personCheck.hasSectionLabel && /your/i.test(personCheck.sectionText) ? 'PASS' : 'FAIL',
+      `label="${personCheck.sectionText}"`);
+    await p2.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {
@@ -3371,7 +3466,7 @@ Test container used by the labmap delete test. Should not persist.
       { name: 'protocols', path: '/app/protocols.html', query: 'PCR', selector: '[data-path]' },
       { name: 'wiki', path: '/app/wiki.html', query: 'ethanol', selector: '.doc-item, [data-path]' },
       { name: 'inventory', path: '/app/inventory.html', query: 'buffer', selector: 'tbody tr' },
-      { name: 'notebooks', path: '/app/notebooks.html', query: 'alex', selector: '.nb-item, [data-path]' },
+      { name: 'notebooks', path: '/app/notebooks.html', query: 'barb', selector: '.nb-item, [data-path]' },
     ];
 
     for (const sp of searchPages) {
