@@ -4110,16 +4110,19 @@ Test container used by the labmap delete test. Should not persist.
         JSON.stringify(openedCheck.titles));
 
       // ── #28: clicking Bold actually executes on the editor ──
-      // Focus the editor + type some text, select it, click bold, check
-      // the Toast UI document for a strong mark.
+      // notebooks.html wraps the Toast UI editor in a `{editor, getMarkdown,
+      // save}` object returned from Lab.editorModal.initFullpage — so we
+      // reach the raw editor via editorInstance.editor and call its
+      // setMarkdown/exec directly.
       const boldResult = await p.evaluate(async () => {
         const ww = document.querySelector('.toastui-editor-ww-container .ProseMirror');
-        if (!ww || !window.editorInstance) return { error: 'no editor' };
+        if (!ww || !window.editorInstance || !window.editorInstance.editor) return { error: 'no editor' };
+        const toast = window.editorInstance.editor;
         ww.focus();
-        window.editorInstance.setMarkdown('Hello world');
+        toast.setMarkdown('Hello world');
         await new Promise(r => setTimeout(r, 200));
         // Select-all so bold applies to everything
-        window.editorInstance.exec('selectAll');
+        toast.exec('selectAll');
         await new Promise(r => setTimeout(r, 100));
         // Click the Bold button in the format bar
         const btns = document.querySelectorAll('.mobile-format-btn');
