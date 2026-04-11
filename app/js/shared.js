@@ -143,11 +143,19 @@
     return btoa(unescape(encodeURIComponent(content)));
   }
 
-  // Coerce a raw YAML scalar string to JS value
+  // Coerce a raw YAML scalar string to JS value.
+  // Double-quoted strings support JSON-compatible escapes (\n, \t, \\, \",
+  // \uXXXX) so multi-line label fields round-trip cleanly. Single-quoted
+  // strings use YAML's '' → ' convention. Unquoted scalars are bare.
   function coerceScalar(val) {
     val = val.trim();
-    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-      return val.slice(1, -1);
+    if (val.length >= 2 && val.charAt(0) === '"' && val.charAt(val.length - 1) === '"') {
+      // JSON.parse handles all standard escape sequences. Fall back to naive
+      // quote-stripping if the string isn't JSON-legal (e.g. raw backslashes).
+      try { return JSON.parse(val); } catch(e) { return val.slice(1, -1); }
+    }
+    if (val.length >= 2 && val.charAt(0) === "'" && val.charAt(val.length - 1) === "'") {
+      return val.slice(1, -1).replace(/''/g, "'");
     }
     if (val === 'true') return true;
     if (val === 'false') return false;
@@ -219,7 +227,7 @@
               if (v === undefined || v === null || v === '') return;
               var serialized = (typeof v === 'number' || typeof v === 'boolean')
                 ? String(v)
-                : '"' + String(v).replace(/"/g, '\\"') + '"';
+                : JSON.stringify(String(v));
               lines.push((first ? '  - ' : '    ') + k + ': ' + serialized);
               first = false;
             });
@@ -230,7 +238,10 @@
       if (typeof val === 'number' || typeof val === 'boolean') {
         lines.push(key + ': ' + val);
       } else {
-        lines.push(key + ': "' + String(val).replace(/"/g, '\\"') + '"');
+        // JSON.stringify handles all escapes (\n, \t, \\, \", \u....), which
+        // YAML double-quoted strings also accept. Round-trips cleanly with
+        // coerceScalar above.
+        lines.push(key + ': ' + JSON.stringify(String(val)));
       }
     });
     lines.push('---');
