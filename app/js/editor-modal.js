@@ -1693,6 +1693,38 @@
       currentState.path = 'docs/' + newDir + '/' + slugPart;
     }
 
+    // R6.5: Scoped title uniqueness check for concept types.
+    // Refuses to save a second concept card with the same title in the same
+    // type. Bottles + locations + legacy stocks are exempt — see
+    // Lab.types.isConceptType for the rule. The check uses the cached index;
+    // if no index is loaded yet (rare) the check is skipped to avoid blocking
+    // the save on a network round-trip.
+    var saveType = currentState.meta.type;
+    var saveTitle = (currentState.meta.title || '').trim();
+    if (saveType && saveTitle && Lab.types.isConceptType(saveType)) {
+      var cachedIdx = (gh._getCachedIndex && gh._getCachedIndex()) || null;
+      if (cachedIdx && cachedIdx.length) {
+        var collisions = cachedIdx.filter(function(e) {
+          if (e.type !== saveType) return false;
+          if (!e.title || String(e.title).trim().toLowerCase() !== saveTitle.toLowerCase()) return false;
+          // Don't count the file we're currently saving.
+          var entryPath = 'docs/' + e.path;
+          if (entryPath === currentState.path) return false;
+          return true;
+        });
+        if (collisions.length) {
+          var existing = collisions[0].path;
+          window.Lab.showToast(
+            'A ' + saveType + ' titled "' + saveTitle + '" already exists at ' + existing + '. Pick a different title or open the existing one.',
+            'error'
+          );
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">save</span> Save';
+          return;
+        }
+      }
+    }
+
     var commitMsg = (isNew ? 'Create ' : 'Update ') + currentState.path.replace(/^docs\//, '');
 
     try {

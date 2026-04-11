@@ -377,6 +377,7 @@
     // editor-modal type datalist which runs inside renderFields (sync) and
     // can't await a fetch. Returns null if no fetch has completed yet.
     _getCachedIndex: function() { return _objectIndex; },
+    _getCachedLinkIndex: function() { return _linkIndex; },
     fetchLinkIndex: fetchLinkIndex,
     clearLinkIndexCache: clearLinkIndexCache,
     REPO: REPO,

@@ -23,6 +23,48 @@
   var dropdown = null;
   var state = null; // { editor, editorEl, triggerNode, triggerOffset, query, items, selectedIdx, onInput, onKeydown }
 
+  // R6.5: Map of concept-slug → number of known instances pointing at it.
+  // Built lazily from cached object index + link index. Used by renderItems
+  // to badge concepts that have physical instances ("· 2 instances").
+  // Counts:
+  //   1. R5 bottles via `of:` frontmatter (the high-volume case)
+  //   2. R1-style instance objects (location-types) whose body wikilinks
+  //      point at the concept (via the link-index from R4)
+  var _instanceMap = null;
+  function buildInstanceMap() {
+    var idx = (Lab.gh && Lab.gh._getCachedIndex && Lab.gh._getCachedIndex()) || [];
+    var linkIdx = (Lab.gh && Lab.gh._getCachedLinkIndex && Lab.gh._getCachedLinkIndex()) || [];
+    var map = {};
+    // Pass 1: `of:` frontmatter (R5 bottles).
+    idx.forEach(function(e) {
+      if (!e.of) return;
+      var ofSlug = String(e.of).replace(/^\[\[/, '').replace(/\]\]$/, '').replace(/\.md$/, '').replace(/^\.\//, '');
+      if (!ofSlug) return;
+      map[ofSlug] = (map[ofSlug] || 0) + 1;
+    });
+    // Pass 2: link-index edges from a location/instance type to a concept.
+    // Build a quick type lookup so we only count edges originating from
+    // instance-flavored types (tubes, boxes, containers, etc.) — otherwise
+    // every protocol that mentions a reagent would inflate the count.
+    var typeBySlug = {};
+    idx.forEach(function(e) { typeBySlug[e.path.replace(/\.md$/, '')] = e.type; });
+    var INSTANCE_TYPES = { tube: 1, box: 1, container: 1, freezer: 1, fridge: 1, shelf: 1, room: 1 };
+    linkIdx.forEach(function(edge) {
+      var srcType = typeBySlug[edge.source];
+      if (!INSTANCE_TYPES[srcType]) return;
+      // Avoid double-counting if the source already has an `of:` pointing
+      // at the same target (would be a degenerate case for now).
+      map[edge.target] = (map[edge.target] || 0) + 1;
+    });
+    return map;
+  }
+  function getInstanceMap() {
+    if (_instanceMap) return _instanceMap;
+    _instanceMap = buildInstanceMap();
+    return _instanceMap;
+  }
+  function clearInstanceMap() { _instanceMap = null; }
+
   // ── DOM helpers ──
 
   function ensureDropdown() {
@@ -116,6 +158,8 @@
   // module-level `state` mutation.
   async function renderItems(items, selectedIdx, onPick) {
     selectedIdx = selectedIdx || 0;
+    // R6.5: pull the instance-count map once per render, not per item.
+    var instMap = (Lab.types && Lab.types.isConceptType) ? getInstanceMap() : {};
     var html = '';
     for (var i = 0; i < items.length; i++) {
       var entry = items[i].entry;
@@ -125,12 +169,22 @@
       var icon = typeCfg.icon || '📄';
       var label = typeCfg.label || type;
       var crumb = await breadcrumbFor(slug);
+      // R6.5: badge concepts that have known physical instances. Soft hint —
+      // doesn't change the link target, just lets the writer notice that
+      // there's a more specific thing they could have linked to instead.
+      var instanceBadge = '';
+      if (Lab.types.isConceptType(type)) {
+        var n = instMap[slug] || 0;
+        if (n > 0) {
+          instanceBadge = ' <span style="display:inline-block;font-size:10px;font-weight:600;color:#00695c;background:#e0f2f1;padding:1px 6px;border-radius:8px;margin-left:4px;vertical-align:middle">' + n + ' instance' + (n === 1 ? '' : 's') + '</span>';
+        }
+      }
       html += '<div class="lab-wla-item" data-idx="' + i + '"' +
         (i === selectedIdx ? ' data-selected="1" style="background:#e0f2f1"' : '') +
         ' style="padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:1px solid #eceff1">' +
         '<span style="font-size:16px;flex-shrink:0">' + icon + '</span>' +
         '<span style="flex:1;min-width:0;overflow:hidden">' +
-          '<div style="font-weight:600;color:#263238;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(entry.title || slug) + '</div>' +
+          '<div style="font-weight:600;color:#263238;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(entry.title || slug) + instanceBadge + '</div>' +
           '<div style="font-size:11px;color:#78909c;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
             '<span style="color:' + typeCfg.color + '">' + escHtml(label) + '</span>' +
             (crumb ? ' · ' + escHtml(crumb) : '') +
@@ -321,6 +375,12 @@
     if (!editor || !editorEl) return;
     ensureDropdown();
     detach(); // ensure only one active attachment
+    // R6.5: warm both caches so the instance-count badge has data when
+    // renderItems runs. Both calls are no-ops if already cached.
+    if (Lab.gh) {
+      if (Lab.gh.fetchObjectIndex) Lab.gh.fetchObjectIndex().then(clearInstanceMap);
+      if (Lab.gh.fetchLinkIndex) Lab.gh.fetchLinkIndex().then(clearInstanceMap);
+    }
     state = {
       editor: editor,
       editorEl: editorEl,

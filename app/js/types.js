@@ -499,6 +499,34 @@
     return t.group === 'resources' || t.group === 'stocks';
   }
 
+  // R6.5: A "concept type" is one whose cards represent abstract entities,
+  // not physical instances. Concept types enforce title uniqueness within
+  // their type at save time — you should never have two `reagent` cards
+  // both titled "Ethanol Absolute" or two `protocol` cards both titled "PCR".
+  //
+  // Instance types (bottle, the locations group) are EXEMPT — multiple
+  // bottles of the same concept legitimately share their concept's title,
+  // and multiple tubes of "Pistachio Leaf 1" can live in different boxes.
+  // Legacy stock types (seed, plasmid, etc.) are also exempt because each
+  // file historically represented one physical stock.
+  //
+  // The check is by `type` field, not by group, because the `stocks` group
+  // mixes concept-ish (seed) and instance-ish (bottle) types.
+  function isConceptType(typeName) {
+    var t = TYPES[typeName];
+    if (!t) return false;
+    // Locations group: structural, not conceptual.
+    if (t.group === 'locations') return false;
+    // R5 bottles are explicit instances.
+    if (typeName === 'bottle') return false;
+    // Stock types (seed, plasmid, etc.) historically represented physical
+    // instances; do not enforce concept uniqueness on them. (When/if we
+    // promote them to a concept/instance split like R5 did for reagents,
+    // revisit this.)
+    if (t.group === 'stocks') return false;
+    return true;
+  }
+
   // Build a flat TYPE_CONFIG-style map for quick color/icon lookups
   var _configCache = null;
   function getTypeConfig() {
@@ -551,6 +579,7 @@
     getGroup: getGroup,
     getTypesInGroup: getTypesInGroup,
     isInventoryType: isInventoryType,
+    isConceptType: isConceptType,
     getTypeConfig: getTypeConfig,
     pillStyle: pillStyle,
     pillContent: pillContent,
