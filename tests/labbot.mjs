@@ -1470,7 +1470,10 @@ function ghReadFile(path) {
       const el = document.querySelector('[data-slug="locations/tube-pistachio-leaf-1"] .tw-title');
       if (el) el.click();
     });
-    await p.waitForTimeout(2500);
+    // Popup rendering chains through fetchFile → renderFields → upgradeParent
+    // → renderMarkdown → breadcrumbHTML before the crumb node exists. Use
+    // waitForSelector with a generous timeout instead of a fixed sleep.
+    await p.waitForSelector('#em-content .lab-breadcrumb', { timeout: 8000 }).catch(() => {});
     const popupAfterClick = await p.evaluate(() => {
       const overlay = document.querySelector('.em-overlay.open, #em-overlay.open');
       const content = document.getElementById('em-content');
@@ -1513,8 +1516,11 @@ function ghReadFile(path) {
       collapsed.expanded === 0 ? 'PASS' : 'FAIL',
       `${collapsed.expanded} still expanded`);
 
-    // 10. Inline delete: create a throwaway location via gh, reload tree,
-    // click its delete button, confirm dialog auto-accepted, verify gone.
+    // 10. Inline delete: create a throwaway location via gh, patch the
+    // client-side index cache so the tree sees it immediately (avoiding the
+    // GitHub Pages CDN lag), click its delete button, verify the file is
+    // gone from GitHub. Uses patchObjectIndex + removeFromObjectIndex which
+    // is the same overlay mechanism every other save/delete in the app uses.
     const throwawaySlug = `locations/labbot-test-${TS}`;
     const throwawayPath = `docs/${throwawaySlug}.md`;
     const throwawayContent = `---
@@ -1538,21 +1544,27 @@ Test container used by the labmap delete test. Should not persist.
     }
 
     if (createdThrowaway) {
-      // Refresh the tree from the new index (page does this on refresh click)
-      await p.evaluate(() => Lab.gh.clearObjectIndexCache());
-      await p.click('#refreshBtn');
-      // build() re-fetches object-index from the deployed site — may still be
-      // cached at GitHub Pages for a bit after the direct gh api write.
-      await p.waitForTimeout(3500);
+      // Patch the client index immediately so the tree can render the new
+      // node without waiting for the CDN to refresh object-index.json.
+      await p.evaluate((path) => {
+        Lab.gh.patchObjectIndex(path, {
+          type: 'container',
+          title: 'LabBot Throwaway',
+          parent: 'locations/room-robbins-0170',
+        });
+      }, throwawayPath);
+      await p.evaluate(() => window.labMap.build());
+      await p.waitForTimeout(800);
       const throwawayVisible = await p.evaluate((slug) => {
         return !!document.querySelector(`[data-slug="${slug}"]`);
       }, throwawaySlug);
-      log('labmap', 'Throwaway location appears after refresh',
-        throwawayVisible ? 'PASS' : 'WARN',
-        throwawayVisible ? 'visible in tree' : 'not yet visible (CDN lag)');
+      log('labmap', 'Throwaway location appears after patch+build',
+        throwawayVisible ? 'PASS' : 'FAIL',
+        throwawayVisible ? 'visible in tree' : 'not in tree after patch');
 
       if (throwawayVisible) {
-        // Click the delete button
+        // Click the delete button (the confirm() is auto-accepted by the
+        // dialog handler registered at the top of this test block).
         await p.evaluate((slug) => {
           const n = document.querySelector(`[data-slug="${slug}"]`);
           if (n) n.querySelector('[data-act="delete"]').click();
@@ -1563,10 +1575,18 @@ Test container used by the labmap delete test. Should not persist.
         log('labmap', 'Inline delete removes file',
           !stillExists ? 'PASS' : 'FAIL',
           stillExists ? `${throwawayPath} still present` : 'deleted');
+        // Also verify it's gone from the tree after rebuild
+        const stillInTree = await p.evaluate((slug) => {
+          return !!document.querySelector(`[data-slug="${slug}"]`);
+        }, throwawaySlug);
+        if (stillInTree) {
+          log('labmap', 'Tree removes deleted node', 'FAIL', 'still in DOM after rebuild');
+        } else {
+          log('labmap', 'Tree removes deleted node', 'PASS', 'gone from DOM');
+        }
       } else {
-        // Fall back to gh-delete cleanup to avoid leaving garbage behind.
+        // Safety: clean up file so we don't leave garbage behind.
         ghDeleteFile(throwawayPath, 'labbot test cleanup');
-        log('labmap', 'Inline delete removes file', 'WARN', 'CDN lag — cleaned up via gh CLI');
       }
     }
 

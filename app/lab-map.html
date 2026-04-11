@@ -408,8 +408,12 @@
              '. Their parent ref will become orphaned (they will show in the "Unresolved parents" section).';
     }
     if (!window.confirm(msg)) return;
+    var path = 'docs/' + slug + '.md';
     try {
-      await Lab.gh.deleteFile('docs/' + slug + '.md');
+      await Lab.gh.deleteFile(path);
+      // Mark deleted in the localStorage patch layer so the tree rebuild
+      // filters it out even if the CDN still serves the pre-delete index.
+      if (Lab.gh.removeFromObjectIndex) Lab.gh.removeFromObjectIndex(path);
       if (window.Lab.showToast) Lab.showToast('Deleted ' + slug, 'success');
       await build();
     } catch(err) {
