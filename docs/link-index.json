@@ -2736,38 +2736,6 @@
     "target": "stocks/col-0-wild-type"
   },
   {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "wet-lab/gel-electrophoresis"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "resources/gel-electrophoresis-tank"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "resources/uv-transilluminator"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "resources/agarose"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "wet-lab/pcr-genotyping"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "wet-lab/quick-dna-extraction"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis-copy",
-    "target": "people/satoyo-oya"
-  },
-  {
     "source": "wet-lab/gel-electrophoresis",
     "target": "resources/gel-electrophoresis-tank"
   },

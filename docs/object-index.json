@@ -3024,7 +3024,8 @@
     "type": "person",
     "title": "Barb M.",
     "role": "Rotation student (demo)",
-    "email": ""
+    "email": "",
+    "mtime": 1775930982
   },
   {
     "path": "people/daniela-quiroz.md",
@@ -3118,22 +3119,10 @@
     "mtime": 1775832918
   },
   {
-    "path": "wet-lab/gel-electrophoresis-copy.md",
-    "type": "protocol",
-    "title": "Gel Electrophoresis (Copy)",
-    "mtime": 1775845692
-  },
-  {
     "path": "wet-lab/gel-electrophoresis.md",
     "type": "protocol",
     "title": "Gel Electrophoresis",
     "mtime": 1775845692
-  },
-  {
-    "path": "wet-lab/labbot-test-protocol-mnsfdepd.md",
-    "type": "protocol",
-    "title": "LabBot Test Protocol mnsfdepd",
-    "mtime": 1775796514
   },
   {
     "path": "wet-lab/labbot-test-protocol-mnthp11v-copy.md",
@@ -3150,7 +3139,8 @@
   {
     "path": "wet-lab/liquid-nitrogen-refill.md",
     "type": "protocol",
-    "title": "Liquid Nitrogen: Where, How, and Refill"
+    "title": "Liquid Nitrogen: Where, How, and Refill",
+    "mtime": 1775930982
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3279,13 +3269,13 @@
     "path": "wet-lab/epigenomics/chip-seq-copy.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol (Copy)",
-    "mtime": 1775832918
+    "mtime": 1775930982
   },
   {
     "path": "wet-lab/epigenomics/chip-seq.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol",
-    "mtime": 1775927241
+    "mtime": 1775930982
   },
   {
     "path": "wet-lab/epigenomics/cut-and-tag.md",
@@ -3537,6 +3527,44 @@
     "type": "guide",
     "title": "Strelka2",
     "mtime": 1775173244
+  },
+  {
+    "path": "notebooks/barb-m/2026-03-31.md",
+    "type": "notebook",
+    "title": "2026-03-31"
+  },
+  {
+    "path": "notebooks/barb-m/2026-04-01.md",
+    "type": "notebook",
+    "title": "2026-04-01"
+  },
+  {
+    "path": "notebooks/barb-m/2026-04-02.md",
+    "type": "notebook",
+    "title": "2026-04-02"
+  },
+  {
+    "path": "notebooks/barb-m/2026-04-05.md",
+    "type": "notebook",
+    "title": "2026-04-05"
+  },
+  {
+    "path": "notebooks/barb-m/pangenome-project.md",
+    "type": "notebook",
+    "title": "Pangenome Project \u2014 Barb M.",
+    "mtime": 1775930982
+  },
+  {
+    "path": "notebooks/grey-monroe/2026-04-08.md",
+    "type": "notebook",
+    "title": "2026-04-08 \u2014 Grey Monroe",
+    "mtime": 1775666110
+  },
+  {
+    "path": "notebooks/grey-monroe/ma-experiment/2026-04-08.md",
+    "type": "notebook",
+    "title": "2026-04-08 \u2014 Ma Experiment",
+    "mtime": 1775669516
   },
   {
     "path": "notebooks/template.md",

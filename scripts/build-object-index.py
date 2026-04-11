@@ -139,9 +139,11 @@ def build_index():
         if not dir_path.is_dir():
             continue
 
-        # Projects recurse into subfolders (folder-tree structure like protocols);
-        # other object dirs stay flat.
-        glob_pattern = "**/*.md" if dir_rel == "projects" else "*.md"
+        # Projects and notebooks recurse into subfolders (both have folder-tree
+        # structure: projects are nested like protocols, notebooks are scoped
+        # per-user like `notebooks/barb-m/2026-04-01.md`). Other object dirs
+        # stay flat.
+        glob_pattern = "**/*.md" if dir_rel in ("projects", "notebooks") else "*.md"
         for md_file in sorted(dir_path.glob(glob_pattern)):
             # Skip index/template files
             if md_file.name.startswith("_"):
