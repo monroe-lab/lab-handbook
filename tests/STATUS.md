@@ -16,18 +16,19 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ---
 
-## Current scores (2026-04-10)
+## Current scores (2026-04-11)
 
 | Section | Score | Status |
 |---------|-------|--------|
 | Protocols | 9/9 | ✅ Search, open, edit mode, cancel, create, edit & save, duplicate, rename, delete |
 | Wiki | 14/14 | ✅ Create, rich text, wikilink, save, render, open, ProseMirror, cancel, object pills, pill styling, connections panel |
-| Inventory | 8/8 | ✅ Load, search, add item, type filter, edit+need_more & save, delete item |
+| Inventory | 6/7 | ⚠️ Load, search, add item, type filter, delete item — `Edit item fields` pre-existing failure (openItem opens popup view, no editable inputs to find) |
 | Notebooks | 16/16 | ✅ Create, folders, rich text, image upload+annotation+resize+save+render, API fallback, delete |
 | Lab Map | 12/12 | ✅ (R2, Issue #19) Placeholder card + hierarchy tree: renders root room, tree walks room→freezer→shelf→box→tubes, migrated items nest under auto-created box, grid & position badges, click opens popup with breadcrumb, filter narrows tree, collapse-all, inline delete removes file + DOM node |
 | Hierarchy | 15/15 | ✅ (R1, Issue #18) Location entries in object-index, parentChain walks root→leaf, breadcrumbHTML, migrated items carry parent-ref, childrenOf reverse lookup, parseGrid, parsePosition, normalizeParent, sample cross-location wikilinks, tube popup breadcrumb, parent field as object pill, multi-line labels preserve newlines |
-| Editor | 11/11 | ✅ (R3, Issue #18) 3-column modal layout, universal grid renderer (10x10 + 9x9 with collisions), label_2 in cells, collision badge + popover, shelf children list with +Add, reagent container_list relocated to col 3, type field as datalist with discovered types, empty-cell click opens new-object modal (parent/position/type pre-filled), new mode clears col 2/3 synchronously |
+| Editor | 11/11 | ✅ (R3, Issue #18) 3-column modal layout, universal grid renderer (10x10 + 9x9 with collisions), label_2 in cells, collision badge + popover, shelf children list with +Add, **R5: reagent col 3 shows bottle backlinks** (was: container_list relocated), type field as datalist with discovered types, empty-cell click opens new-object modal (parent/position/type pre-filled), new mode clears col 2/3 synchronously |
 | Wikilinks | 9/9 | ✅ (R4, Issue #18) Module loaded, autocomplete filter, sample popup shows backlinks from tubes, click backlink navigates, parent field autocomplete (location-only), empty cell opens place-here popover with search + create-new, place-here search returns results, [[ autocomplete fires on trigger in WYSIWYG, items show title + breadcrumb |
+| Bottles | 10/10 | ✅ (R5) bottle type registered, 156 migrated bottles in index, all carry of:+parent:, ethanol-absolute wired to cabinet-flammable, 5 placeholder locations created, concept files cleaned of containers:, concept popup col 3 lists physical bottles via of:-aware backlinks, inventory hides bottle rows + counts them under concept |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -38,7 +39,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 123/123 (100%)** — R4 adds 9 wikilinks tests covering [[ autocomplete, parent field autocomplete, place-here popover, and backlinks pane.
+**Total: 132/133 (99.2%)** — R5 adds 10 bottle tests covering the concept/instance migration. The single failure is the pre-existing inventory `Edit item fields` test (modal opens in popup view, not edit mode — predates R5, broken by an inventory.html change after the last STATUS update).
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -107,6 +108,61 @@ The vault is going to grow to thousands of objects with collidable titles (DI wa
 - **Concept/instance migration** — script to convert existing `containers: []` arrays into first-class bottle objects with parent + position. Big restructure with migration concerns; will be R5's main feature.
 - **Fields card on rendered MkDocs pages** — needs a MkDocs plugin / template override. Separate task from JS-level work.
 - **Add field button in edit mode** — turns out renderFields already shows every schema field as an editable input in edit mode (including empty ones), so "turn grid on" is already "type 10x10 in the Grid input, save". No button needed.
+
+## Round 5: Concept/instance migration — bottles as first-class objects (2026-04-11, R5_PLAN.md)
+
+The vault's reagent/stock concepts (`docs/resources/*.md`, `docs/stocks/*.md`) historically tracked physical instances inline as `containers: []` arrays in YAML frontmatter. That compromise didn't scale: bottles couldn't have their own `parent:` (a specific shelf or box) or `position:`, couldn't be referenced by wikilink, and couldn't carry per-bottle lot/expiration metadata. R5 ports the same concept/instance split that R1 proved for the pistachio sample model to reagents/stocks.
+
+**Pre-migration data reality check:** 155 concept files with non-empty `containers:`, 156 total entries (one file had 2). Zero entries had `lot:`. Only 1 had `expiration:` (ethanol-70 → 2026-04-07). Only 7 unique location strings, all coarse cabinet-level: Chemical Cabinet (108), Flammable Cabinet (16), Corrosive Cabinet (15), Refrigerator (13), Bench (2), Other (1), Freezer -80C (1). The migration is dramatically thinner than R5_PLAN.md anticipated: lot/expiration/acquired schema is **aspirational** for new bottles arriving post-R5, not a backfill exercise.
+
+### Design decisions (Grey-confirmed before coding)
+
+- **New `bottle` type, not reuse `consumable`.** Semantically distinct, easier to filter/group, has its own field schema. Color: deep orange `#ef6c00`. Icon: 🧴. Group: `stocks`. (Q1)
+- **Both `of:` frontmatter AND body wikilink.** `of:` is load-bearing for queryability and the col 3 backlinks pane; body wikilink is convenience for prose. (Q2)
+- **`docs/stocks/` is the home** — same bucket as `bl21-de3-competent-cells.md`, the existing redwood DNA stocks. (Q3)
+- **Auto-create placeholder location objects.** Six new ones (`cabinet-chemical`, `cabinet-flammable`, `cabinet-corrosive`, `fridge-reagent`, `bench-reagent`, `location-unsorted`); the 1 `Freezer -80C` entry reuses R1's `freezer-minus80-a`. Grey expands the real lab hierarchy at his own pace; bottles re-parent via one-line frontmatter edits without breaking slugs. (Q4)
+- **Drop `quantity` as a *count*; preserve `quantity`+`unit` as *contents amount*; add `level` for fullness.** A bottle is one bottle by definition — count comes from counting files. `quantity:500 unit:g` describes what's *inside* the bottle (500g of NaCl). `level` is optional text ("3/4", "empty"). (Q5, refined after data reality check)
+- **Delete `containers:` from source concept files on apply.** Dual sources of truth always rot.
+
+### Schema
+
+```yaml
+type: bottle
+title: "Ethanol Absolute"
+of: resources/ethanol-absolute       # concept pointer (frontmatter)
+parent: locations/cabinet-flammable  # R1 hierarchy
+position: ""                         # optional grid cell
+quantity: 500                        # amount in the bottle
+unit: g
+lot: ""                              # aspirational
+expiration: ""                       # aspirational
+acquired: ""                         # aspirational
+level: ""                            # aspirational ("full", "3/4", etc.)
+```
+
+Body: `Bottle of [[resources/ethanol-absolute]].`
+
+### What R5 shipped
+
+- [x] **`bottle` type added to `app/js/types.js`** — explicit field schema (not inherited from seed/reagent), color, icon, displayFields, tableColumns. Added to `GROUPS.stocks.types` array.
+- [x] **`scripts/build-object-index.py` extended** — `EXTRACT_KEYS` now includes `of`, `lot`, `expiration`, `acquired`, `level`. The 156 bottles + their fields are queryable via `Lab.gh.fetchObjectIndex()`.
+- [x] **Backlinks pane unions body wikilinks + frontmatter `of:` references** — `editor-modal.js` `fetchBacklinksFor()` (R4 function) now also walks the index for entries whose `of:` field matches the current concept slug. The Ethanol concept's col 3 lists every physical bottle pointing at it, with no body wikilink required.
+- [x] **`scripts/migrate-containers-to-bottles.py`** — dry-run + `--apply` migration. Auto-creates the 6 placeholder location objects. Generates one bottle file per container entry under `docs/stocks/bottle-<concept-slug>[-N].md`. Multi-bottle concepts get numeric suffixes (e.g. `bottle-ethanol-70-1.md`, `-2.md`). Carry-over fields (`quantity`, `unit`, `lot`, `expiration`, `acquired`, `level`) are preserved. Source concept files have `containers:` stripped on apply.
+- [x] **Migration applied 2026-04-11** — 6 locations created, 156 bottles created, 155 concepts cleaned. One subtle case: ethanol-70 had 2 container entries → 2 bottle files (`-1`, `-2`), and the carryover preserved the `expiration: '2026-04-07'` on the right one.
+- [x] **`reagent` schema cleanup** — dropped the now-dead `container_list` field from the reagent schema entirely. Removed `containers` from `displayFields`. Resource subtypes (buffer/consumable/etc.) inherit from reagent so they're covered too. Without this, `editor-modal.js renderContents()` short-circuited on the `container_list` field at line 910 and rendered an empty container UI in col 3 instead of falling through to the new bottle backlinks pane — caught by the labbot test the first time it ran.
+- [x] **`app/inventory.html` rolls up bottles per concept** — `loadInventory()` builds a `bottlesByConcept` map from index, then `toInventoryRow()` rolls up bottles into the concept row's quantity/location/count instead of the legacy `containers[]`. Bottles themselves are excluded from the top-level row list (they're shown as instances under their concept via the editor popup, not as separate inventory rows). Display label switches between "(N bottles)" and "(N containers)" depending on which path the rollup used.
+- [x] **R5 editor test updated** — the old "Reagent container_list relocated to col 3" check (R3) is now "Reagent col 3 shows bottle backlinks (R5)". Verifies col 1 has no container UI AND col 3 has at least one `.em-backlink-row` whose data-slug starts with `bottle-ethanol-absolute`.
+- [x] **10 new Playwright `bottles` tests** — bottle type registered in Lab.types with the right group/schema, index has 156 bottles all carrying `of:`+`parent:`, ethanol-absolute bottle wired to `cabinet-flammable`, 5 placeholder locations exist, concept files have 0 leftover `containers:`, concept popup col 3 lists its bottles via `of:`-aware backlinks, inventory page hides bottle rows from the table while still rendering the concept row.
+
+### Pre-existing test failure noted
+
+- **`inventory: Edit item fields`** — Pre-existing failure unrelated to R5. `openItem()` in inventory.html calls `Lab.editorModal.open()` which opens the editor modal in popup (read-only) view. The test queries `.em-field-input[type="text"]` looking for editable inputs, which only exist in edit mode. The test was last claimed as passing at commit `76bb013` (2026-04-09); inventory.html was modified after that by commits 8cdcc29 and 1cae12e and f6734c3, one of which broke the openItem→edit-mode flow without updating STATUS.md. R5 did not change `openItem`. Fix is for a future round.
+
+### What R5 explicitly did NOT include
+
+- **Locations hierarchy picker** for the "Locations" insert pill — R6.
+- **Ambiguous wikilink rendering** — R6 cosmetic.
+- **Drag-and-drop in grid** — R6+.
 
 ---
 

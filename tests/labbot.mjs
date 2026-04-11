@@ -2319,25 +2319,30 @@ Test container used by the labmap delete test. Should not persist.
       shelfContents.ok && !shelfContents.hasGrid && shelfContents.rowCount >= 2 && shelfContents.hasAddBtn ? 'PASS' : 'FAIL',
       shelfContents.ok ? `rows=${shelfContents.rowCount} add=${shelfContents.hasAddBtn} grid=${shelfContents.hasGrid}` : 'no contents');
 
-    // 7. Reagent popup shows container_list in col 3 (relocated from col 1).
+    // 7. R5: Reagent popup shows bottle backlinks in col 3.
+    // (Was: container_list relocated from col 1 to col 3 — that field is dead
+    //  as of R5; physical instances are now standalone bottle objects pointing
+    //  at the concept via `of:`.)
     await p.evaluate(() => { const el = document.getElementById('em-close'); if (el) el.click(); });
     await p.waitForTimeout(400);
-    await p.evaluate(() => Lab.editorModal.open('docs/resources/microtube.md'));
+    await p.evaluate(() => Lab.editorModal.open('docs/resources/ethanol-absolute.md'));
     await p.waitForTimeout(2500);
     const reagent = await p.evaluate(() => {
       const fields = document.getElementById('em-fields');
       const contents = document.getElementById('em-contents');
       const fieldsText = fields ? fields.innerText : '';
-      const contentsText = contents ? contents.innerText : '';
+      const backlinkRows = contents ? contents.querySelectorAll('.em-backlink-row') : [];
+      const slugs = Array.from(backlinkRows).map(r => r.dataset.slug || '');
       return {
+        // Col 1 must NOT contain a container_list UI anymore
         fieldsHasContainerUI: fieldsText.toLowerCase().includes('container') && fieldsText.toLowerCase().includes('quantity'),
-        contentsHasContainerTable: !!contents && (contents.querySelector('table') || contents.innerHTML.includes('container')),
-        contentsText: contentsText.substring(0, 160),
+        backlinkCount: backlinkRows.length,
+        hasBottleBacklink: slugs.some(s => s.indexOf('bottle-ethanol-absolute') >= 0),
       };
     });
-    log('editor', 'Reagent container_list relocated to col 3',
-      !reagent.fieldsHasContainerUI && reagent.contentsHasContainerTable ? 'PASS' : 'FAIL',
-      `col1HasContainer=${reagent.fieldsHasContainerUI} col3HasContainer=${reagent.contentsHasContainerTable}`);
+    log('editor', 'Reagent col 3 shows bottle backlinks (R5)',
+      !reagent.fieldsHasContainerUI && reagent.backlinkCount >= 1 && reagent.hasBottleBacklink ? 'PASS' : 'FAIL',
+      `col1Containers=${reagent.fieldsHasContainerUI} backlinks=${reagent.backlinkCount} hasBottle=${reagent.hasBottleBacklink}`);
 
     // 8. Click Edit → type input appears as a datalist in edit mode.
     await p.evaluate(() => {
