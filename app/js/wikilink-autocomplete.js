@@ -344,7 +344,12 @@
       contentEl.removeEventListener('keydown', state._onKeydown, true);
       contentEl.removeEventListener('blur', state._onBlur);
     }
-    hide();
+    // Only touch the dropdown if WE had opened it (state.items non-empty and
+    // dropdown visible). Otherwise the attachToInput variant may have it open
+    // and we'd step on its render.
+    if (state.items && state.items.length) {
+      hide();
+    }
     state = null;
   }
 
