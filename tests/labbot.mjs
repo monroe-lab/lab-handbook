@@ -846,17 +846,6 @@ function ghReadFile(path) {
           });
           await p.waitForTimeout(8000);
 
-          // R6.5 debug: read the uniqueness-check telemetry to see why a
-          // save might have been refused.
-          const r65Debug = await p.evaluate(() => window._r65LastSaveCheck || null);
-          if (r65Debug) {
-            console.log('  [R6.5 check]', JSON.stringify(r65Debug));
-          }
-          const r65SaveDebug = await p.evaluate(() => window._r65SaveDebug || null);
-          if (r65SaveDebug) {
-            console.log('  [R6.5 save]', JSON.stringify(r65SaveDebug));
-          }
-
           const editContent = ghReadFile(invPath);
           const hasEdit = editContent?.includes('LabBot edit test');
           log('inventory', 'Edit item & save', hasEdit ? 'PASS' : 'FAIL',

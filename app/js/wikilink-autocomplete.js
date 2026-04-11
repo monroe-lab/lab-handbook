@@ -375,12 +375,12 @@
     if (!editor || !editorEl) return;
     ensureDropdown();
     detach(); // ensure only one active attachment
-    // R6.5: warm both caches so the instance-count badge has data when
-    // renderItems runs. Both calls are no-ops if already cached.
-    if (Lab.gh) {
-      if (Lab.gh.fetchObjectIndex) Lab.gh.fetchObjectIndex().then(clearInstanceMap);
-      if (Lab.gh.fetchLinkIndex) Lab.gh.fetchLinkIndex().then(clearInstanceMap);
-    }
+    // R6.5: invalidate the instance map on attach so the first render picks
+    // up any recent saves. Don't eagerly fetch — that was causing network
+    // contention right after create flows (traced to an inventory save race
+    // where the pre-populated cache got starved). filterEntries already
+    // awaits fetchObjectIndex; link-index is fetched lazily on first render.
+    clearInstanceMap();
     state = {
       editor: editor,
       editorEl: editorEl,

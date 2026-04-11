@@ -523,9 +523,17 @@ function confirmAdd() {
   };
   var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
 
-  Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name).then(function() {
+  Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name).then(function(saved) {
     Lab.showToast('Created: ' + name, 'success');
     Lab.gh.patchObjectIndex(path, meta);
+    // Prime the editor-modal file cache so openPopup doesn't race the GitHub
+    // contents API right after a fresh create. Without this, a cache-lag 404
+    // leaves currentState.sha=null and the next save() is rejected.
+    try {
+      var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+      fileCache[path] = { content: content, sha: (saved && saved.sha) || null, savedAt: Date.now() };
+      localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+    } catch(e) {}
     closeAddModal();
     if (btn) { btn.disabled = false; btn.textContent = 'Create'; }
     Lab.editorModal.open(path);

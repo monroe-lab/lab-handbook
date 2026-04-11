@@ -543,14 +543,30 @@
         if (fileCache[filePath]) cached = fileCache[filePath];
       } catch(e) {}
 
-      var result = await gh.fetchFile(filePath);
-      currentState.sha = result.sha;
+      // R6.5 fix: if fetchFile fails (e.g. cache-lag 404 right after a create),
+      // fall back to the localStorage cache instead of showing an error state.
+      // Without this the save() below runs with currentState.sha=null and
+      // GitHub's PUT /contents rejects the update.
+      var result = null;
+      var fetchError = null;
+      try {
+        result = await gh.fetchFile(filePath);
+      } catch(fetchErr) {
+        fetchError = fetchErr;
+      }
+      if (result) {
+        currentState.sha = result.sha;
+      } else if (cached && cached.content) {
+        currentState.sha = cached.sha || null;
+      } else {
+        throw fetchError || new Error('Failed to load ' + filePath);
+      }
 
       // Use cached content if it's newer (GitHub API can lag after a commit).
       // Critically: also use the cached sha — the API may return the stale blob
       // sha, which would cause the next save to 409.
-      var content = result.content;
-      if (cached && cached.savedAt && cached.content) {
+      var content = result ? result.content : cached.content;
+      if (result && cached && cached.savedAt && cached.content) {
         var age = Date.now() - cached.savedAt;
         if (age < 120000) {
           content = cached.content;
@@ -1634,24 +1650,14 @@
     var gh = window.Lab.gh;
     if (!gh || !gh.isLoggedIn()) { window.Lab.showToast('Sign in to save', 'error'); return; }
 
-    // R6.5 debug: capture meta.title BEFORE collectFields
-    window._r65SaveDebug = {
-      titleBeforeCollect: currentState.meta.title,
-      metaKeysBeforeCollect: Object.keys(currentState.meta),
-    };
-
     // Collect field values
-    var _seenInputs = [];
     document.querySelectorAll('.em-field-input').forEach(function(input) {
       var key = input.dataset.key;
       var val = input.value;
       if (input.type === 'checkbox') { val = input.checked; }
       else if (input.type === 'number' && val !== '') val = parseFloat(val);
-      _seenInputs.push({ key: key, type: input.type, val: String(val).substring(0, 40) });
       currentState.meta[key] = val;
     });
-    window._r65SaveDebug.seenInputs = _seenInputs;
-    window._r65SaveDebug.titleAfterCollect = currentState.meta.title;
     collectContainers(currentState.meta);
 
     // Get markdown from editor (restore wikilink pills to [[slug]] syntax)
@@ -1711,11 +1717,8 @@
     // the save on a network round-trip.
     var saveType = currentState.meta.type;
     var saveTitle = (currentState.meta.title || '').trim();
-    var _r65DebugInfo = { type: saveType, title: saveTitle, currentPath: currentState.path, isConcept: false, cachedIdxLen: 0, collisions: [] };
     if (saveType && saveTitle && Lab.types.isConceptType(saveType)) {
-      _r65DebugInfo.isConcept = true;
       var cachedIdx = (gh._getCachedIndex && gh._getCachedIndex()) || null;
-      _r65DebugInfo.cachedIdxLen = cachedIdx ? cachedIdx.length : 0;
       if (cachedIdx && cachedIdx.length) {
         var collisions = cachedIdx.filter(function(e) {
           if (e.type !== saveType) return false;
@@ -1725,8 +1728,6 @@
           if (entryPath === currentState.path) return false;
           return true;
         });
-        _r65DebugInfo.collisions = collisions.map(function(c) { return { path: c.path, title: c.title, type: c.type }; });
-        window._r65LastSaveCheck = _r65DebugInfo;
         if (collisions.length) {
           var existing = collisions[0].path;
           window.Lab.showToast(
@@ -1739,7 +1740,6 @@
         }
       }
     }
-    window._r65LastSaveCheck = _r65DebugInfo;
 
     var commitMsg = (isNew ? 'Create ' : 'Update ') + currentState.path.replace(/^docs\//, '');
 
