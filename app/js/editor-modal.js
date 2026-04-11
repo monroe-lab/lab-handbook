@@ -160,6 +160,10 @@
       '.em-grid-cell.empty:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}',
       '.em-grid-cell.occupied{font-weight:600}',
       '.em-grid-cell.collision{box-shadow:0 0 0 2px #ff6f00 inset}',
+      '.em-grid-cell.occupied[draggable="true"]{cursor:grab}',
+      '.em-grid-cell.occupied[draggable="true"]:active{cursor:grabbing}',
+      '.em-grid-cell.em-grid-dragging{opacity:.4}',
+      '.em-grid-cell.em-grid-drop{background:#e0f2f1!important;border:2px dashed #009688!important;color:#00695c!important}',
       '.em-grid-cell .gc-icon{font-size:12px;line-height:1}',
       '.em-grid-cell .gc-label{white-space:pre-line;overflow:hidden;max-height:22px;font-size:8px}',
       '.em-grid-cell .gc-collide{position:absolute;top:1px;right:2px;background:#ff6f00;color:#fff;font-size:9px;font-weight:700;padding:0 4px;border-radius:8px;line-height:14px}',
@@ -1120,7 +1124,9 @@
           var label2 = (first.label_2 && String(first.label_2).trim()) || first.title || '';
           var collideBadge = bucket.length > 1 ? '<span class="gc-collide" data-collide-key="' + key + '">' + bucket.length + '</span>' : '';
           var collClass = bucket.length > 1 ? ' collision' : '';
-          html += '<div class="em-grid-cell occupied' + collClass + '" data-cell="' + key + '" data-slug="' + escHtml(first.slug) + '" title="' + escHtml(first.title || '') + '" style="background:' + bg + ';border:1px solid ' + border + ';color:' + tc.color + '">' +
+          // R6: occupied cells are draggable so users can move items between
+          // grid cells in the same box. Drop is handled in bindGridHandlers.
+          html += '<div class="em-grid-cell occupied' + collClass + '" data-cell="' + key + '" data-slug="' + escHtml(first.slug) + '" draggable="true" title="' + escHtml(first.title || '') + '" style="background:' + bg + ';border:1px solid ' + border + ';color:' + tc.color + '">' +
             collideBadge +
             '<span class="gc-icon">' + tc.icon + '</span>' +
             '<span class="gc-label">' + escHtml(String(label2).substring(0, 24)) + '</span>' +
@@ -1169,6 +1175,51 @@
         if (slug) openPopup('docs/' + slug + '.md');
       });
     });
+
+    // R6: drag-and-drop within a single grid. Drop on an empty cell moves
+    // the dragged child via moveObjectHere() (same parent, new cell). Drop
+    // on an occupied cell is rejected — user must clear the target first.
+    // Cross-grid drag is out of scope for R6.
+    var dragSlug = null;
+    mount.querySelectorAll('.em-grid-cell.occupied[draggable="true"]').forEach(function(cell) {
+      cell.addEventListener('dragstart', function(e) {
+        dragSlug = cell.dataset.slug;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', dragSlug);
+        cell.classList.add('em-grid-dragging');
+      });
+      cell.addEventListener('dragend', function() {
+        cell.classList.remove('em-grid-dragging');
+        mount.querySelectorAll('.em-grid-drop').forEach(function(el) {
+          el.classList.remove('em-grid-drop');
+        });
+        dragSlug = null;
+      });
+    });
+    mount.querySelectorAll('.em-grid-cell.empty').forEach(function(cell) {
+      cell.addEventListener('dragover', function(e) {
+        if (!dragSlug) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        cell.classList.add('em-grid-drop');
+      });
+      cell.addEventListener('dragleave', function() {
+        cell.classList.remove('em-grid-drop');
+      });
+      cell.addEventListener('drop', function(e) {
+        if (!dragSlug) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var srcSlug = dragSlug;
+        var newCell = cell.dataset.cell;
+        dragSlug = null;
+        cell.classList.remove('em-grid-drop');
+        // Same parent, new cell. moveObjectHere() handles the save +
+        // index patch + grid re-render.
+        moveObjectHere(srcSlug, parentSlug, newCell);
+      });
+    });
+
     // Unplaced children rows
     mount.querySelectorAll('.em-unplaced .em-child-row[data-slug]').forEach(function(row) {
       row.addEventListener('click', function() {
@@ -1773,7 +1824,17 @@
     }).join('');
   }
 
+  // R6: when the user picks the Locations category we render a hierarchy
+  // tree (via Lab.locationTree) into #em-link-list instead of a flat list.
+  // The shared #em-link-search input becomes the tree filter.
+  var linkModalLocationTree = null;
+
   function selectLinkCategory(key) {
+    // Tear down any previous tree before swapping categories.
+    if (linkModalLocationTree && linkModalLocationTree.destroy) {
+      linkModalLocationTree.destroy();
+      linkModalLocationTree = null;
+    }
     linkModalCategory = key;
     renderLinkCategories();
     document.getElementById('em-link-search').value = '';
@@ -1784,6 +1845,36 @@
     if (!linkModalCategory || !linkModalIndex) return;
     var q = (document.getElementById('em-link-search').value || '').toLowerCase().trim();
     var cfg = getObjectTypes()[linkModalCategory];
+
+    // R6: Locations category renders a hierarchy tree picker, not a flat list.
+    if (linkModalCategory === 'locations') {
+      var list = document.getElementById('em-link-list');
+      // Hide the "create new" button — locations are picked from the tree.
+      document.getElementById('em-link-create').style.display = 'none';
+      // First call: mount the tree. Subsequent calls just push the filter.
+      if (!linkModalLocationTree) {
+        list.innerHTML = '';
+        list.style.maxHeight = '380px';
+        linkModalLocationTree = Lab.locationTree.attach(list, {
+          mode: 'picker',
+          showSearch: false,            // shared #em-link-search drives filter
+          showActions: false,
+          draggable: false,
+          locationsOnly: true,
+          initialDepth: 2,
+          onPick: function(slug) {
+            // Pull the title out of the index for the toast.
+            var entry = (linkModalIndex || []).find(function(o) {
+              return o.path === slug + '.md' || o.path === slug;
+            });
+            insertLink(slug, (entry && entry.title) || slug.split('/').pop());
+          },
+        });
+      }
+      linkModalLocationTree.filter(q);
+      return;
+    }
+
     var items = linkModalIndex.filter(function(obj) { return cfg.types.indexOf(obj.type) !== -1; });
     if (q) {
       items = items.filter(function(obj) {

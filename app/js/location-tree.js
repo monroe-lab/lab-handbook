@@ -40,6 +40,13 @@
     var showActions = opts.showActions !== false && mode === 'full';
     var showSearch = opts.showSearch !== false;
     var draggable = !!opts.draggable;
+    // childFilter: optional predicate (typeName) → bool that gates which
+    // descendants render. Default: in picker mode, restrict to location types
+    // (so the picker doesn't list bottles parented to a cabinet etc.). In
+    // full mode, show everything that has a parent in the tree.
+    var childFilter = opts.childFilter || (mode === 'picker' && locationsOnly
+      ? function(t) { return !!LOC_TYPES[t]; }
+      : null);
     var esc = (window.Lab && window.Lab.escHtml) || function(s) { return String(s == null ? '' : s); };
 
     var graph = null;
@@ -106,9 +113,12 @@
       childrenMap = {};
       Object.keys(graph).forEach(function(slug) {
         var e = graph[slug];
-        if (e.parentResolved) {
-          (childrenMap[e.parentResolved] = childrenMap[e.parentResolved] || []).push(slug);
-        }
+        if (!e.parentResolved) return;
+        // Apply childFilter (if any) so e.g. bottles don't show up in the
+        // locations picker. The lab-map full view leaves childFilter unset
+        // and shows everything parented into the location hierarchy.
+        if (childFilter && !childFilter(e.type)) return;
+        (childrenMap[e.parentResolved] = childrenMap[e.parentResolved] || []).push(slug);
       });
       Object.keys(childrenMap).forEach(function(p) {
         childrenMap[p].sort(function(a, b) {
