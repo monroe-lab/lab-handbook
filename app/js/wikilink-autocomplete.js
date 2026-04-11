@@ -383,6 +383,7 @@
 
     async function refresh() {
       var q = (inputEl.value || '').toLowerCase().trim();
+      console.log('WLA: input refresh q="' + q + '"');
       var raw = await filterEntries(q);
       var filtered = raw;
       if (inputState.typeFilter && inputState.typeFilter.length) {
@@ -392,6 +393,7 @@
       }
       inputState.items = filtered;
       inputState.selectedIdx = 0;
+      console.log('WLA: input items=' + filtered.length);
       await renderItems(inputState.items, inputState.selectedIdx, applyInputSelection);
       // Position dropdown under the input
       var rect = inputEl.getBoundingClientRect();
@@ -399,6 +401,7 @@
       dropdown.style.top = (rect.bottom + 4) + 'px';
       dropdown.style.minWidth = Math.max(rect.width, 360) + 'px';
       dropdown.style.display = 'block';
+      console.log('WLA: input dropdown shown display=' + dropdown.style.display);
     }
 
     function applyInputSelection(idx) {
@@ -410,8 +413,14 @@
     }
 
     function onInputEvt() { refresh(); }
-    function onFocus() { refresh(); }
-    function onBlur() { setTimeout(function() { dropdown.style.display = 'none'; }, 200); }
+    function onFocus() { console.log('WLA: input focus'); refresh(); }
+    function onBlur() {
+      console.log('WLA: input blur, hiding in 200ms');
+      setTimeout(function() {
+        console.log('WLA: input blur timeout firing, display=none');
+        dropdown.style.display = 'none';
+      }, 200);
+    }
     function onKeydownEvt(e) {
       if (!dropdown || dropdown.style.display === 'none') return;
       if (!inputState.items || !inputState.items.length) return;

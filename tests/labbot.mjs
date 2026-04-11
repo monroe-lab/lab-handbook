@@ -1961,6 +1961,7 @@ Test container used by the labmap delete test. Should not persist.
     console.log('\n🔗 WIKILINKS\n');
     const p = await context.newPage();
     p.on('dialog', async d => { try { await d.accept(); } catch(e) {} });
+    p.on('console', msg => { if (msg.type() === 'log' && msg.text().startsWith('WLA:')) console.log('    ' + msg.text()); });
     await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await p.waitForFunction(() => window.Lab && window.Lab.editorModal && window.Lab.wikilinkAutocomplete, { timeout: 15000 }).catch(() => {});
     await p.waitForTimeout(2000);
@@ -2030,23 +2031,33 @@ Test container used by the labmap delete test. Should not persist.
     await p.evaluate(() => { const btn = document.getElementById('em-edit-toggle'); if (btn) btn.click(); });
     // Wait for Toast UI to mount
     await p.waitForTimeout(5000);
-    // Find the parent input and trigger focus + input
+    // Find the parent input and trigger focus + input. Use a long wait
+    // because renderItems awaits breadcrumb lookups for each item via
+    // hierarchy.parentChain — up to 12 items x ~50ms each.
     const parentFieldState = await p.evaluate(async () => {
       const input = document.querySelector('.em-field-input[data-key="parent"]');
-      if (!input) return { ok: false };
+      if (!input) return { ok: false, reason: 'no parent input in fields col' };
       input.focus();
       input.value = 'box';
       input.dispatchEvent(new Event('input', { bubbles: true }));
-      // Wait a tick for the dropdown to render
-      await new Promise(r => setTimeout(r, 500));
+      // Wait for the dropdown to render + breadcrumb lookups
+      await new Promise(r => setTimeout(r, 2500));
       const dropdown = document.querySelector('.lab-wla-dropdown');
       const visible = dropdown && dropdown.style.display !== 'none';
       const itemCount = visible ? dropdown.querySelectorAll('.lab-wla-item').length : 0;
-      return { ok: true, visible, itemCount };
+      return {
+        ok: true, visible, itemCount,
+        // Debug: dropdown position + html head
+        dropdownDisplay: dropdown ? dropdown.style.display : 'no-dropdown',
+        dropdownHtmlHead: dropdown ? dropdown.innerHTML.substring(0, 120) : '',
+      };
     });
     log('wikilinks', 'Parent field autocomplete opens on input',
       parentFieldState.ok && parentFieldState.visible && parentFieldState.itemCount >= 2 ? 'PASS' : 'FAIL',
-      `visible=${parentFieldState.visible} items=${parentFieldState.itemCount}`);
+      `visible=${parentFieldState.visible} items=${parentFieldState.itemCount} display=${parentFieldState.dropdownDisplay}`);
+    if (!parentFieldState.visible) {
+      console.log('    DEBUG: reason=' + (parentFieldState.reason || '') + ' head=' + parentFieldState.dropdownHtmlHead);
+    }
 
     // Cancel edit mode without saving
     await p.evaluate(() => { const btn = document.getElementById('em-edit-toggle'); if (btn) btn.click(); });
