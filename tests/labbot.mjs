@@ -4158,6 +4158,97 @@ Test container used by the labmap delete test. Should not persist.
   }
 
   // ════════════════════════════════════════════════════════════
+  //  R16: Full chemical catalog educational intros (#38)
+  //  ────────────────────────────────────────────────────────────
+  //  R14 wrote 5 tone samples. R16 scales to the full catalog via
+  //  6 parallel subagents. Every reagent/buffer/chemical/enzyme/
+  //  solution card in docs/resources/ now has the 3-callout
+  //  intro structure (ℹ️ Chemistry / 💡 Lab use / ⚠️ Safety).
+  // ════════════════════════════════════════════════════════════
+  if (shouldRun('r16')) {
+    console.log('\n🧫  R16\n');
+
+    const p = await context.newPage();
+    await p.goto(BASE + '/app/wiki.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await p.waitForFunction(() => window.Lab && Lab.gh && Lab.gh.fetchFile, { timeout: 15000 }).catch(() => {});
+
+    // Spot-check a diverse set of chemicals across categories.
+    const samples = [
+      { slug: 'resources/acetone',            marker: 'ketone' },
+      { slug: 'resources/kanamycin-sulfate',  marker: 'aminoglycoside' },
+      { slug: 'resources/sodium-bisulfite',   marker: 'bisulfite sequencing' },
+      { slug: 'resources/ficoll-400',         marker: 'sucrose-epichlorohydrin' },
+      { slug: 'resources/sucrose',            marker: 'disaccharide' },
+      { slug: 'resources/2-mercaptoethanol',  marker: 'thiol' },
+      { slug: 'resources/cetrimonium-bromide', marker: 'CTAB' },
+    ];
+
+    let pass = 0;
+    let fail = 0;
+    for (const sample of samples) {
+      const content = await p.evaluate(async (path) => {
+        const res = await Lab.gh.fetchFile('docs/' + path + '.md');
+        return res.content;
+      }, sample.slug).catch(() => '');
+
+      const hasChemistry = /> \u2139\uFE0F \*\*Chemistry\*\*/.test(content);
+      const hasLabUse = /> \uD83D\uDCA1 \*\*Lab use\*\*/.test(content);
+      const hasSafety = /> \u26A0\uFE0F \*\*Safety\*\*/.test(content);
+      const hasMarker = content.toLowerCase().includes(sample.marker.toLowerCase());
+      const ok = hasChemistry && hasLabUse && hasSafety && hasMarker;
+      log('r16', `#38 ${sample.slug}: 3-callout structure + marker "${sample.marker}"`,
+        ok ? 'PASS' : 'FAIL',
+        `chem=${hasChemistry} lab=${hasLabUse} safety=${hasSafety} marker=${hasMarker}`);
+      if (ok) pass++; else fail++;
+    }
+
+    // Catalog-wide coverage: walk the object-index, count how many
+    // reagent/buffer/chemical cards in resources/ have all 3 callouts.
+    const coverage = await p.evaluate(async () => {
+      const idx = await Lab.gh.fetchObjectIndex();
+      const targets = idx.filter(e =>
+        e.path.startsWith('resources/') &&
+        ['reagent', 'buffer', 'chemical', 'enzyme', 'solution'].includes(e.type)
+      );
+      let withAllThree = 0;
+      let withNone = 0;
+      const missing = [];
+      for (const e of targets) {
+        try {
+          const f = await Lab.gh.fetchFile('docs/' + e.path);
+          const text = f.content;
+          const c = /> \u2139\uFE0F \*\*Chemistry\*\*/.test(text);
+          const l = /> \uD83D\uDCA1 \*\*Lab use\*\*/.test(text);
+          const s = /> \u26A0\uFE0F \*\*Safety\*\*/.test(text);
+          if (c && l && s) withAllThree++;
+          else { withNone++; if (missing.length < 5) missing.push(e.path); }
+        } catch (err) { /* ignore */ }
+      }
+      return { total: targets.length, withAllThree, withNone, missingSample: missing };
+    });
+    log('r16', '#38 catalog coverage: ≥140 chemicals carry all 3 callouts',
+      coverage.withAllThree >= 140 ? 'PASS' : 'FAIL',
+      `${coverage.withAllThree}/${coverage.total} (missing sample: ${coverage.missingSample.join(', ')})`);
+
+    // Render spot-check: the ethanol card (R14 hand-written) should still
+    // render cleanly after its peers got the tight template.
+    const renderCheck = await p.evaluate(async () => {
+      const res = await Lab.gh.fetchFile('docs/resources/acetone.md');
+      const html = await Lab.editorModal.renderMarkdown(res.content);
+      return {
+        hasChemistryAdmonition: /admonition-note/.test(html),
+        hasSafetyAdmonition: /admonition-warn/.test(html),
+        hasLabUseAdmonition: /admonition-tip/.test(html),
+      };
+    }).catch(() => ({}));
+    log('r16', '#38 rendered card has Chemistry (note), Lab use (tip), Safety (warn) admonitions',
+      renderCheck.hasChemistryAdmonition && renderCheck.hasLabUseAdmonition && renderCheck.hasSafetyAdmonition ? 'PASS' : 'FAIL',
+      JSON.stringify(renderCheck));
+
+    await p.close();
+  }
+
+  // ════════════════════════════════════════════════════════════
   //  SEARCH: verify search works across pages
   // ════════════════════════════════════════════════════════════
   if (shouldRun('search')) {

@@ -868,6 +868,10 @@
     "target": "wet-lab/gel-electrophoresis"
   },
   {
+    "source": "resources/bis-n-n-methylene-bis-acrylamide",
+    "target": "resources/acrylamide"
+  },
+  {
     "source": "resources/ethanol-absolute",
     "target": "resources/ethanol-70"
   },
@@ -952,12 +956,36 @@
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
+    "source": "resources/spermine",
+    "target": "resources/spermidine"
+  },
+  {
     "source": "resources/sqk-nbd114-24",
     "target": "resources/nebnext-companion-module-ont"
   },
   {
+    "source": "resources/tapso",
+    "target": "resources/taps"
+  },
+  {
+    "source": "resources/tc-agar-a175",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "resources/tham",
+    "target": "resources/trizma-base"
+  },
+  {
     "source": "resources/tris-base",
     "target": "resources/1m-tris-hcl-ph-8-8-5"
+  },
+  {
+    "source": "resources/tris-edta-te-buffer-solution",
+    "target": "resources/trizma-base"
+  },
+  {
+    "source": "resources/tris-edta-te-buffer-solution",
+    "target": "resources/edta-trisodium-salt"
   },
   {
     "source": "resources/wide-bore-filter-tips-p1000",

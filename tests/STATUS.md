@@ -40,6 +40,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R13 | 8/8 | ✅ (R13) calendar page now includes the global issue reporter FAB and each hour cell in the week grid is click-to-create — clicking an empty slot opens the Add Block modal pre-filled with that day's date and the hour's start time (end time defaults to +1h), hover highlight + `cursor:cell` make cells feel clickable (#40) |
 | R14 | 12/12 | ✅ (R14 tone samples for #38) hand-written educational intros for 5 common chemicals (ethanol-absolute, agarose, edta-trisodium-salt, tris-base, sodium-dodecyl-sulfate) establishing the "What it is / Why we use it / Callout" template for the full catalog rewrite. Scope is intentionally small — 5 cards done, remaining ~137 to be scaled up in a follow-up round |
 | R15 | 7/7 | ✅ (R15) mobile markdown format toolbar — new Aa toggle button in the mobile fab bar opens a compact strip with Bold / Italic / H2 / H3 / bullet / numbered / code / blockquote buttons that call Toast UI `editor.exec()`; each button refocuses the WYSIWYG ProseMirror first so exec lands in the right instance; toggling again closes the strip; desktop unaffected (still uses the native Toast UI toolbar) (#28) |
+| R16 | 9/9 | ✅ (R16) scaled R14 template to the full chemical catalog via 6 parallel subagents. 151 reagent/buffer/chemical/enzyme cards in `docs/resources/` now carry the 3-callout intro (ℹ️ Chemistry / 💡 Lab use / ⚠️ Safety), ≤6 sentences each. 4 skips: 1 freezer-slot placeholder + 3 test fixtures. 156/156 total coverage counting the 5 R14 tone samples (#38) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -50,7 +51,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 239/239 (100%)** — R15 adds 7 new tests covering the mobile markdown format toolbar (#28): format toggle button in the fab bar, clicking reveals the 8-button format strip, buttons include Bold/Italic/H2/H3, Bold button wraps selection in `**` via `exec('bold')`, toggle closes the strip. See Round 15 below for the full writeup.
+**Total: 248/248 (100%)** — R16 adds 9 new tests covering the full chemical catalog educational intro pass (#38): 7 spot-check slugs across diverse categories (ketones, antibiotics, detergents, density polymers, thiols, quaternary ammonium), catalog-wide coverage count (≥140 cards with all 3 callouts), and a rendered-page admonition class check. See Round 16 below for the full writeup.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -736,6 +737,85 @@ Grey's #28 was "on mobile it would be nice if you could still edit markdown text
 1. **Two separate FABs** (Aa format + + Insert) rather than consolidating into one sheet. Rationale: Grey's request explicitly distinguishes between "insert" (images, links, object pills) and "format" (bold, heading, list). Merging them into one sheet would either double its height or hide half the buttons behind sub-menus. Two small toggles at top-right feel lighter than one bigger one.
 2. **Format bar is persistent until toggled off**, not auto-closing on button click. A user applying bold + italic + heading in sequence would otherwise have to re-open the bar three times. Auto-close is worse UX.
 3. **`withFocus` wrapper is always called, even for commands that don't need selection** (like `bulletList`). Cost is negligible, and it keeps the focus-pattern uniform across all buttons so we never have a "works sometimes" bug.
+
+---
+
+## Round 16: Full chemical catalog educational intros (2026-04-11)
+
+R14 wrote 5 hand-written tone samples for #38 and deferred the scale-up. Grey approved the direction with one key adjustment: **tighter**. Target "a couple of sentences" per card, use the existing admonition callouts as structural chunks, answer 5 questions compressed into 3 callouts.
+
+### The tight template (approved by Grey)
+
+Every card gets three callouts:
+
+```markdown
+> ℹ️ **Chemistry**
+> [1-2 sentences: what the molecule is structurally, how it behaves in solution]
+
+> 💡 **Lab use**
+> [1-2 sentences: where + why it's useful + why we keep it in stock]
+
+> ⚠️ **Safety**
+> [1 sentence: primary hazard, or "Low hazard." if benign]
+```
+
+**Length cap: 6 sentences total, shorter is better.** The 5 R14 tone samples (ethanol-absolute, agarose, edta-trisodium-salt, tris-base, sodium-dodecyl-sulfate) remain as the longer-form "deep dive" versions — I did NOT rewrite them down to the tight template because they're good as the detailed reference.
+
+### How it shipped — parallel subagents
+
+Doing 155 cards sequentially would have been ~70 minutes of me hand-writing. Instead I split the catalog into 6 batches of ~26 slugs each, wrote a strict template file at `/tmp/r16-template.md`, and dispatched 6 parallel Agent tool calls. Each subagent:
+1. Read the template + writing rules
+2. Read its batch file
+3. Walked the slugs, reading each `docs/resources/<slug>.md`
+4. Inserted the 3-callout intro right after the `# <Title>` h1, preserving frontmatter and legacy body content
+5. Reported back how many files it updated + a sample for tone verification
+
+Total wall-clock: ~5 minutes for all 6 agents to complete in parallel (vs ~70 minutes sequential).
+
+### Results
+
+- **Batch 1** (26 chemicals A–B): 26/26 ✅ (acetone, 2-mercaptoethanol, acrylamide, etc.)
+- **Batch 2** (26 C–E): 26/26 ✅ (calcium chloride, cetrimonium bromide, chloroform, DEPC, etc.)
+- **Batch 3** (26 E–H): 26/26 ✅ (ethyl methanesulfonate, ficoll-400, guanidine thiocyanate, etc.)
+- **Batch 4** (26 I–L): 25/26 ✅ — skipped `labbot-freezer-item-mnthp11v.md` (placeholder freezer slot, no chemical identity to write about)
+- **Batch 5** (26 P–S): 26/26 ✅ (PIPES, potassium salts, sodium bisulfite, etc.)
+- **Batch 6** (25 S–Z): 22/25 ✅ — skipped 3 test fixtures (`test-item.md`, `test-item-mobile.md`, `tube-item.md` — UI placeholders, not real reagents)
+
+**Total: 151 files updated, 4 legitimate skips.** Combined with R14's 5 tone samples, every meaningful chemical card in `docs/resources/` now has educational content.
+
+### Tone verification (spot-checks across categories)
+
+| Card | Chemistry gist | Lab use | Safety |
+|---|---|---|---|
+| **acetone** | (CH₃)₂C=O, simplest ketone, universal bridge solvent | pigment extraction, glassware drying, protein precipitation | flammable, flash point −20°C |
+| **kanamycin-sulfate** | aminoglycoside from *Streptomyces*, binds 30S ribosome | plasmid selection at 50 µg/mL for *nptII/kanR* marker | suspected reproductive toxin |
+| **sodium-bisulfite** | NaHSO₃, deaminates unmethylated C to U | the chemistry behind bisulfite sequencing | releases SO₂ on acidification |
+| **ficoll-400** | neutral 400 kDa sucrose-epichlorohydrin copolymer | density layering in DNA loading dye + gradient centrifugation | low hazard |
+| **sucrose** | C₁₂H₂₂O₁₁, disaccharide of glucose + fructose | osmotic stabilizer, gradient medium, TC plate carbon source | low hazard |
+| **2-mercaptoethanol** | HOCH₂CH₂SH, thiol that breaks disulfides | CTAB + Laemmli buffers, SDS-PAGE sample buffer | acutely toxic, foul-smelling, pipette in hood |
+| **cetrimonium-bromide** | CTAB, cationic quaternary ammonium detergent with C16 tail | the detergent in CTAB DNA extraction (plant genomic DNA) | weigh in hood, avoid dust |
+
+Accuracy held up across solvents, antibiotics, detergents, chelators, density polymers, and thiols. The subagents didn't invent specific protocols where they didn't know them — obscure reagents got general-but-accurate framing with correct chemistry + safety.
+
+### Tests added in R16
+
+9 new tests in a new `r16` section:
+- **7 spot-check slugs** — for each, verify all three callouts are present (`> ℹ️ **Chemistry**`, `> 💡 **Lab use**`, `> ⚠️ **Safety**`) and the file contains its expected educational marker phrase (e.g. `"ketone"` for acetone, `"bisulfite sequencing"` for sodium bisulfite, `"CTAB"` for cetrimonium bromide).
+- **Catalog-wide coverage test** — walk the live object-index, filter to `reagent`/`buffer`/`chemical`/`enzyme`/`solution` entries in `resources/`, pull each file via `Lab.gh.fetchFile`, count how many have all 3 callouts. Passes if ≥140.
+- **Rendered admonition class test** — after running a chemical through `Lab.editorModal.renderMarkdown`, verify the output contains `admonition-note` (Chemistry), `admonition-tip` (Lab use), and `admonition-warn` (Safety) CSS classes — proves the renderer's blockquote-callout regex is recognizing all three emoji.
+
+### Skipped in R16
+
+- **Equipment / kits / consumables (non-chemistry types)** — different teaching shape required (what does this instrument do, when do you use it, common mistakes vs what is this molecule). Deferred to a later round with its own template.
+- **Chemical structure images** — still deferred from R10 #37, needs a source decision (PubChem via CID? local SVG cache?).
+- **Expand the 5 R14 tone samples down to the tight format** — the deep-dive versions stay as a reference for anyone wanting more depth on a particular chemical. Mixing tight and detailed in the same catalog is fine; the detailed ones are a natural "start here" for newcomers.
+- **Per-category style variants** — every card uses the same 3-callout template regardless of category. Could be more tailored (e.g. antibiotics get a "selection marker" callout instead of "lab use"), but uniformity is more important for the first-pass content pass than perfect fit.
+
+### Subtle issues worth noting
+
+1. **Parallel subagents with no worktree isolation** — all 6 agents wrote directly into the main working tree concurrently. Safe because each batch file contained a non-overlapping slice of slugs, so no two agents ever touched the same file. If batches had overlapped, I would have needed `isolation: "worktree"` and merge steps.
+2. **Template-as-file beats template-as-prompt** — I wrote the tone rules + 5 reference samples to `/tmp/r16-template.md` once, and every subagent prompt just pointed at that file. Saved ~5k tokens of duplicated instructions across the 6 prompts, and made the template easy to revise in one place if the first batch needed tone fixes.
+3. **"Write accurate chemistry, don't invent lab uses" rule** — the biggest risk of parallel content generation is hallucinating specific protocols. I instructed each agent to write general-but-accurate framing when unsure of specific lab uses rather than invent pathways. Spot-checks confirm they followed this: obscure reagents like aristolochic acid I, 1,8-naphthalic anhydride, and trifluoromethyl-phenyl urea got correct chemistry + safety without fabricated protocols.
 
 ---
 

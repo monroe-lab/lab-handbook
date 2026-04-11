@@ -95,7 +95,7 @@
     "type": "reagent",
     "title": "Agarose",
     "legacy_inventory_id": 10,
-    "mtime": 1775895055
+    "mtime": 1775939805
   },
   {
     "path": "resources/alpha-d-glucose.md",
@@ -412,7 +412,7 @@
     "type": "buffer",
     "title": "EDTA trisodium salt",
     "legacy_inventory_id": 53,
-    "mtime": 1775895055
+    "mtime": 1775939805
   },
   {
     "path": "resources/egta.md",
@@ -437,7 +437,7 @@
     "type": "reagent",
     "title": "Ethanol Absolute",
     "legacy_inventory_id": 5,
-    "mtime": 1775895055
+    "mtime": 1775939873
   },
   {
     "path": "resources/ethyl-alcohol-absolute.md",
@@ -1138,7 +1138,7 @@
     "type": "reagent",
     "title": "Sodium dodecyl sulfate",
     "legacy_inventory_id": 121,
-    "mtime": 1775895055
+    "mtime": 1775939805
   },
   {
     "path": "resources/sodium-hydroxide-10-0-normal.md",
@@ -1323,7 +1323,7 @@
     "type": "buffer",
     "title": "Tris base",
     "legacy_inventory_id": 140,
-    "mtime": 1775895055
+    "mtime": 1775939805
   },
   {
     "path": "resources/tris-edta-te-buffer-solution.md",
