@@ -181,8 +181,20 @@
     dropdown.style.display = 'block';
   }
 
-  function hide() {
-    if (dropdown) dropdown.style.display = 'none';
+  // Hide the dropdown, but ONLY if the caller's variant currently owns it.
+  // The [[ variant's blur handler must not clobber the input variant's
+  // visible dropdown, and vice versa. `owner` is one of 'trigger' (the [[
+  // contenteditable variant), 'input' (the attachToInput variant), or
+  // null/undefined (unconditional hide — for Escape key, detach on close).
+  function hide(callerOwner) {
+    if (!dropdown) return;
+    var currentOwner = dropdown.getAttribute('data-wla-owner');
+    if (callerOwner && currentOwner && currentOwner !== callerOwner) {
+      // Another variant owns the dropdown — leave it alone.
+      return;
+    }
+    dropdown.style.display = 'none';
+    dropdown.removeAttribute('data-wla-owner');
     if (state) {
       state.triggerNode = null;
       state.triggerOffset = -1;
@@ -232,6 +244,7 @@
     state.selectedIdx = 0;
     await renderItems(state.items, state.selectedIdx, applySelection);
     positionDropdown();
+    dropdown.setAttribute('data-wla-owner', 'trigger');
   }
 
   function onKeydown(e) {
@@ -330,7 +343,10 @@
     state.contentEl = contentEl;
     state._onInput = function() { onInput(); };
     state._onKeydown = onKeydown;
-    state._onBlur = function() { setTimeout(hide, 200); }; // delay so click-to-select fires first
+    // Pass 'trigger' so hide() only acts if this variant currently owns the
+    // dropdown. Otherwise we'd clobber the input-variant's dropdown when the
+    // user tabs from the body editor to the col 1 parent field.
+    state._onBlur = function() { setTimeout(function() { hide('trigger'); }, 200); };
     contentEl.addEventListener('input', state._onInput);
     contentEl.addEventListener('keydown', state._onKeydown, true);
     contentEl.addEventListener('blur', state._onBlur);
@@ -383,7 +399,6 @@
 
     async function refresh() {
       var q = (inputEl.value || '').toLowerCase().trim();
-      console.log('WLA: input refresh q="' + q + '"');
       var raw = await filterEntries(q);
       var filtered = raw;
       if (inputState.typeFilter && inputState.typeFilter.length) {
@@ -393,7 +408,6 @@
       }
       inputState.items = filtered;
       inputState.selectedIdx = 0;
-      console.log('WLA: input items=' + filtered.length);
       await renderItems(inputState.items, inputState.selectedIdx, applyInputSelection);
       // Position dropdown under the input
       var rect = inputEl.getBoundingClientRect();
@@ -401,7 +415,7 @@
       dropdown.style.top = (rect.bottom + 4) + 'px';
       dropdown.style.minWidth = Math.max(rect.width, 360) + 'px';
       dropdown.style.display = 'block';
-      console.log('WLA: input dropdown shown display=' + dropdown.style.display);
+      dropdown.setAttribute('data-wla-owner', 'input');
     }
 
     function applyInputSelection(idx) {
@@ -413,13 +427,11 @@
     }
 
     function onInputEvt() { refresh(); }
-    function onFocus() { console.log('WLA: input focus'); refresh(); }
+    function onFocus() { refresh(); }
     function onBlur() {
-      console.log('WLA: input blur, hiding in 200ms');
-      setTimeout(function() {
-        console.log('WLA: input blur timeout firing, display=none');
-        dropdown.style.display = 'none';
-      }, 200);
+      // Only hide if this variant still owns the dropdown. Avoids clobbering
+      // the [[ variant if the user tabbed from the parent input to the body.
+      setTimeout(function() { hide('input'); }, 200);
     }
     function onKeydownEvt(e) {
       if (!dropdown || dropdown.style.display === 'none') return;
