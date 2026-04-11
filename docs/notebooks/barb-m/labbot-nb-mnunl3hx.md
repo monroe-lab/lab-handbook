@@ -1,14 +1,10 @@
-# 2026-04-11 — Barb M
+## Experiment Log
 
-**Person:** Barb M
+**Protocol:** PCR genotyping run #1
+*Note:* annealing temp was 58C
 
-**Date:** 2026-04-11
+* Sample A: band at 450bp
+* Sample B: no amplification
+* Sample C: faint band at 450bp
 
-## Plan for today
-
-## What I did
-
-## Results & observations
-
-## Next steps
-
+<img src="images/labbot-test-mnunl3hx-annotated.png" alt="labbot-test-mnunl3hx" style="max-width:50%">
