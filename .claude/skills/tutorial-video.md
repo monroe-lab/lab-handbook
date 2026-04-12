@@ -250,4 +250,4 @@ git push ssh://git@ssh.github.com:443/monroe-lab/lab-handbook.git HEAD:main
 | YouTube OAuth token | `~/.grey-matter-credentials/youtube_token.json` |
 | Lab handbook repo | `monroe-lab/lab-handbook` on GitHub |
 | LabBot (selector reference) | `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/tests/labbot.mjs` |
-| Voice pool | Ava (`en-US-AvaNeural`), Emma (`en-US-EmmaNeural`), Natasha (`en-AU-NatashaNeural`), Guy (`en-US-GuyNeural`) |
+| Voice pool | Ava (`en-US-AvaNeural`), Emma (`en-US-EmmaNeural`), Natasha (`en-AU-NatashaNeural`) |
