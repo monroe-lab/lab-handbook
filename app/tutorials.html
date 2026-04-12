@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorials - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.tutorials-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+.tutorials-header {
+  margin-bottom: 32px;
+}
+.tutorials-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--grey-900);
+  margin-bottom: 6px;
+}
+.tutorials-header p {
+  font-size: 14px;
+  color: var(--grey-600);
+  line-height: 1.5;
+}
+
+/* Section */
+.tutorial-section {
+  margin-bottom: 40px;
+}
+.tutorial-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-600);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+/* Card grid */
+.tutorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+@media (max-width: 480px) {
+  .tutorial-grid { grid-template-columns: 1fr; }
+}
+
+/* Video card */
+.tutorial-card {
+  background: #fff;
+  border-radius: var(--radius);
+  border: 1px solid var(--grey-200);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.tutorial-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.tutorial-card .video-wrap {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: #000;
+}
+.tutorial-card .video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.tutorial-card .card-body {
+  padding: 16px;
+}
+.tutorial-card .card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--grey-900);
+  margin-bottom: 4px;
+}
+.tutorial-card .card-desc {
+  font-size: 13px;
+  color: var(--grey-600);
+  line-height: 1.5;
+}
+.tutorial-card .card-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.tutorial-card .card-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+
+/* Empty state */
+.tutorial-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--grey-500);
+  font-size: 14px;
+}
+.tutorial-empty .material-icons-outlined {
+  font-size: 48px;
+  color: var(--grey-300);
+  margin-bottom: 12px;
+  display: block;
+}
+</style>
+</head>
+<body>
+<script src="js/shared.js"></script>
+<script src="js/nav.js"></script>
+
+<div class="tutorials-page">
+  <div class="tutorials-header">
+    <h1>Video Tutorials</h1>
+    <p>Short walkthroughs for using the lab wiki, inventory system, notebooks, and wet lab protocols.</p>
+  </div>
+
+  <!-- Using Our Wiki -->
+  <div class="tutorial-section">
+    <h2>Using Our Wiki</h2>
+    <div class="tutorial-grid">
+
+      <div class="tutorial-card">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/BsIp0dFn0LU" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-title">How to Annotate a Gel Image</div>
+          <div class="card-desc">Walk-through of uploading a gel photo to the lab handbook, annotating lanes and bands, and saving it to your notebook entry.</div>
+          <div class="card-tags">
+            <span class="card-tag">gel electrophoresis</span>
+            <span class="card-tag">documentation</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Placeholder sections for future videos -->
+  <!--
+  <div class="tutorial-section">
+    <h2>Lab Notebooks</h2>
+    <div class="tutorial-grid"></div>
+  </div>
+
+  <div class="tutorial-section">
+    <h2>Inventory System</h2>
+    <div class="tutorial-grid"></div>
+  </div>
+
+  <div class="tutorial-section">
+    <h2>Protocols</h2>
+    <div class="tutorial-grid"></div>
+  </div>
+  -->
+
+</div>
+
+</body>
+</html>

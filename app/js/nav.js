@@ -17,6 +17,7 @@
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
+    { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
     { label: 'Lab Map',  href: BASE + 'app/lab-map.html',    icon: 'map' },
   ];
 
@@ -35,6 +36,7 @@
     if (path.includes('/inventory'))      return 'Inventory';
     if (path.includes('/people'))         return 'People';
     if (path.includes('/waste'))          return 'Waste';
+    if (path.includes('/tutorials'))      return 'Tutorials';
     if (path.includes('/lab-map'))        return 'Lab Map';
     if (path.includes('/graph'))          return '';
     if (path.match(/\/app\/(index\.html)?$/)) return 'Home';
