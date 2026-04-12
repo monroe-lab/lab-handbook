@@ -1,0 +1,10 @@
+---
+type: event
+title: "Alex Chen block"
+date: "2026-05-05"
+start_time: "14:00"
+end_time: "16:00"
+member: "[[barb-m]]"
+created_by: greymonroe
+---
+# Alex Chen block

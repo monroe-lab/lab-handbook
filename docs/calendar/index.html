@@ -524,21 +524,15 @@ if (window.self !== window.top) {
 }
 </script>
 
-<!-- Header -->
+<!-- Header — R17: removed duplicate sign-out/sign-in buttons (#49).
+     Auth is handled by the shared nav bar injected by nav.js below.
+     Only the Add Block button stays in the header. -->
 <div class="header">
   <h1>
     <span class="material-icons-outlined">calendar_month</span>
     Lab Calendar
   </h1>
   <div class="header-actions">
-    <div class="conn-status">
-      <span class="conn-dot" id="connDot"></span>
-      <span id="connLabel">Not connected</span>
-    </div>
-    <button class="btn btn-primary" id="btnConnect" onclick="(window.Lab && window.Lab.gh) ? (window.Lab.gh.isLoggedIn() ? window.Lab.gh.logout() : window.Lab.gh.login()) : alert('Auth not loaded')">
-      <span class="material-icons-outlined">link</span>
-      Sign in
-    </button>
     <button class="btn btn-primary" onclick="openAddModal()">
       <span class="material-icons-outlined">add</span>
       Add Block
@@ -674,8 +668,10 @@ if (window.self !== window.top) {
 
 <script>
 // --- Config ---
-var REPO_API = 'https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/calendar/schedule.json';
-var BRANCH = 'main';
+// R17: events are now markdown files under docs/events/ in the object-index.
+// No more schedule.json — each event is a first-class typed markdown object
+// with frontmatter (type:event, date, start_time, end_time, member) and a
+// markdown body for notes/wikilinks.
 var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 var HOUR_START = 8;
 var HOUR_END = 18;
@@ -693,27 +689,13 @@ var MEMBER_COLORS = [
 ];
 
 // --- State ---
-var schedule = [];
-var fileSha = null;
-var editingId = null;
+var schedule = [];   // array of {title, member, date, startTime, endTime, notes, path}
+var editingPath = null;  // path of the event being edited (null = creating new)
 var currentMonday = getMonday(new Date());
 var memberColorMap = {};
 
 // --- Auth (shared via Lab.gh) ---
 function getToken() { return (window.Lab && window.Lab.gh) ? window.Lab.gh.getToken() : ''; }
-
-function updateConnStatus() {
-  var connected = !!getToken();
-  var user = window.Lab && window.Lab.gh && window.Lab.gh.getUser();
-  document.getElementById('connDot').className = 'conn-dot' + (connected ? ' connected' : '');
-  document.getElementById('connLabel').textContent = connected ? ('Signed in' + (user ? ' as ' + user.login : '')) : 'Not signed in';
-  document.getElementById('btnConnect').innerHTML = connected
-    ? '<span class="material-icons-outlined">link_off</span> Sign out'
-    : '<span class="material-icons-outlined">link</span> Sign in';
-  document.getElementById('btnConnect').onclick = connected
-    ? function() { window.Lab.gh.logout(); }
-    : function() { window.Lab.gh.login(); };
-}
 
 // --- Utility ---
 function getMonday(d) {
@@ -800,80 +782,36 @@ function populateTimeSelects() {
   endSel.value = '12:00';
 }
 
-// --- Data loading ---
-async function migrateBlocks() {
-  var DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-  var changed = false;
-  var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
-  var newSchedule = [];
-  schedule.forEach(function(b) {
-    if (b.date && typeof b.title !== 'undefined') {
-      newSchedule.push(b);
-      return;
-    }
-    changed = true;
-    var occurrences = [];
-    if (b.recurring) {
-      for (var i = 0; i < 5; i++) {
-        var w = new Date(currentMonday); w.setDate(w.getDate() + 7 * i);
-        occurrences.push(w);
-      }
-    } else if (b.weekOf) {
-      occurrences.push(new Date(b.weekOf + 'T00:00:00'));
-    } else {
-      return;
-    }
-    var dayIdx = DAY_NAMES.indexOf(b.day);
-    if (dayIdx < 0) dayIdx = 0;
-    occurrences.forEach(function(monday) {
-      var d = new Date(monday); d.setDate(d.getDate() + dayIdx);
-      maxId += 1;
-      newSchedule.push({
-        id: maxId,
-        title: (b.activity && b.activity.trim()) || (b.member ? b.member + ' block' : 'Untitled block'),
-        member: b.member || '',
-        date: isoMonday(d),
-        startTime: b.startTime,
-        endTime: b.endTime,
-        notes: b.notes || ''
-      });
-    });
-  });
-  if (changed) {
-    schedule = newSchedule;
-    var ok = await commitSchedule('Migrate calendar to simplified schema');
-    if (!ok) console.warn('Migration commit failed');
-  }
-}
-
+// --- Data loading (R17: reads from object-index, not schedule.json) ---
 async function loadSchedule() {
   try {
-    var headers = {};
-    var token = getToken();
-    if (token) headers['Authorization'] = 'token ' + token;
-    headers['Accept'] = 'application/vnd.github.v3+json';
-
-    var resp = await fetch(REPO_API + '?ref=' + BRANCH, { headers: headers });
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-
-    var data = await resp.json();
-    fileSha = data.sha;
-    var content = atob(data.content.replace(/\n/g, ''));
-    schedule = JSON.parse(content);
-  } catch (e) {
-    console.warn('GitHub API failed, trying direct file load:', e);
-    try {
-      var resp2 = await fetch('schedule.json?_=' + Date.now());
-      if (!resp2.ok) throw new Error('HTTP ' + resp2.status);
-      schedule = await resp2.json();
-      fileSha = null;
-    } catch (e2) {
-      toast('Failed to load schedule: ' + e2.message, 'error');
-      schedule = [];
+    var idx;
+    if (window.Lab && window.Lab.gh && window.Lab.gh.fetchObjectIndex) {
+      idx = await window.Lab.gh.fetchObjectIndex();
+    } else {
+      // Fallback: fetch the static file directly
+      var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+      var resp = await fetch(BASE + 'object-index.json?' + Date.now());
+      idx = await resp.json();
     }
+    // Filter to event-type entries and map to the shape renderCalendar expects
+    schedule = idx
+      .filter(function(e) { return e.type === 'event'; })
+      .map(function(e) {
+        return {
+          title: e.title || '',
+          member: e.member || '',
+          date: e.date || '',
+          startTime: e.start_time || '09:00',
+          endTime: e.end_time || '10:00',
+          notes: '', // notes are in the markdown body; loaded on edit
+          path: 'docs/' + e.path,
+        };
+      });
+  } catch(e) {
+    toast('Failed to load events: ' + e.message, 'error');
+    schedule = [];
   }
-
-  await migrateBlocks();
 
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('calendarGrid').style.display = '';
@@ -883,56 +821,32 @@ async function loadSchedule() {
 }
 
 // --- GitHub write ---
-async function commitSchedule(message) {
-  var token = getToken();
-  if (!token) {
-    toast('Connect to GitHub first to save changes', 'error');
-    return false;
-  }
+// R17: commitSchedule removed — each event is saved individually as a
+// markdown file via Lab.gh.saveFile. No more patching a single JSON blob.
 
-  // Re-fetch SHA to avoid conflicts
-  try {
-    var headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
-    var getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers: headers });
-    if (getResp.ok) {
-      var getData = await getResp.json();
-      fileSha = getData.sha;
-    }
-  } catch (e) { /* proceed with existing sha */ }
+// Build a markdown file string from event form fields.
+function buildEventMarkdown(title, member, date, startTime, endTime, notes) {
+  var user = (window.Lab && window.Lab.gh && window.Lab.gh.getUser()) || {};
+  var fm = [
+    '---',
+    'type: event',
+    'title: "' + (title || 'Untitled').replace(/"/g, '\\"') + '"',
+    'date: "' + date + '"',
+    'start_time: "' + startTime + '"',
+    'end_time: "' + endTime + '"',
+  ];
+  if (member) fm.push('member: "' + member.replace(/"/g, '\\"') + '"');
+  fm.push('created_by: ' + (user.login || 'unknown'));
+  fm.push('---');
+  var body = '\n# ' + (title || 'Untitled') + '\n';
+  if (notes && notes.trim()) body += '\n' + notes.trim() + '\n';
+  return fm.join('\n') + body;
+}
 
-  var content = JSON.stringify(schedule, null, 2) + '\n';
-  var encoded = btoa(unescape(encodeURIComponent(content)));
-
-  var body = {
-    message: message,
-    content: encoded,
-    branch: BRANCH
-  };
-  if (fileSha) body.sha = fileSha;
-
-  try {
-    var resp = await fetch(REPO_API, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'token ' + token,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!resp.ok) {
-      var err = await resp.json().catch(function() { return {}; });
-      throw new Error(err.message || 'HTTP ' + resp.status);
-    }
-
-    var result = await resp.json();
-    fileSha = result.content.sha;
-    return true;
-  } catch (e) {
-    toast('Save failed: ' + e.message, 'error');
-    return false;
-  }
+// Generate a slug for a new event file: YYYY-MM-DD-<title-slug>.md
+function eventSlug(title, date) {
+  var slug = (title || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50);
+  return date + '-' + slug;
 }
 
 // --- Member colors ---
@@ -1065,8 +979,9 @@ function renderCalendar() {
       var card = document.createElement('div');
       card.className = 'block-card';
       card.style.cssText = 'top:' + topOffset + 'px;height:' + height + 'px;left:' + leftPct + '%;width:calc(' + widthPct + '% - 4px);background:' + color.bg + ';border-left-color:' + color.border + ';color:' + color.text + ';';
-      card.onclick = (function(block) { return function() { openEditModal(block.id); }; })(b);
-      card.title = (b.title || '') + (b.member ? ' • ' + b.member : '') + (b.notes ? '\n\n' + b.notes : '');
+      // R17: pass the markdown file path instead of a JSON id
+      card.onclick = (function(block) { return function() { openEditModal(block.path); }; })(b);
+      card.title = (b.title || '') + (b.member ? ' • ' + b.member : '');
 
       var innerHtml = '';
       if (b.title) innerHtml += '<div class="block-member">' + esc(b.title) + '</div>';
@@ -1205,17 +1120,25 @@ function addHour(timeStr) {
   return String(h).padStart(2, '0') + ':' + (parts[1] || '00');
 }
 
-function openEditModal(id) {
-  var item = schedule.find(function(b) { return b.id === id; });
+// R17: openEditModal now loads the event's markdown body for the notes field
+async function openEditModal(path) {
+  var item = schedule.find(function(b) { return b.path === path; });
   if (!item) return;
-  editingId = id;
+  editingPath = path;
   document.getElementById('modalTitle').textContent = 'Edit Block';
   document.getElementById('fTitle').value = item.title || '';
   document.getElementById('fMember').value = item.member || '';
   document.getElementById('fDate').value = item.date;
   document.getElementById('fStartTime').value = item.startTime;
   document.getElementById('fEndTime').value = item.endTime;
-  document.getElementById('fNotes').value = item.notes || '';
+  // Load notes from the markdown body
+  var notes = '';
+  try {
+    var file = await Lab.gh.fetchFile(path);
+    var parsed = Lab.parseFrontmatter(file.content);
+    notes = (parsed.body || '').replace(/^#[^\n]*\n?/, '').trim();
+  } catch(e) { /* leave notes empty */ }
+  document.getElementById('fNotes').value = notes;
   document.getElementById('repeatRow').style.display = 'none';
   document.getElementById('btnDeleteBlock').style.display = '';
   document.getElementById('blockModal').classList.add('open');
@@ -1224,8 +1147,10 @@ function openEditModal(id) {
 
 function closeModal() {
   document.getElementById('blockModal').classList.remove('open');
+  editingPath = null;
 }
 
+// R17: saveBlock creates/updates markdown files instead of patching JSON
 async function saveBlock() {
   var title = document.getElementById('fTitle').value.trim();
   var member = document.getElementById('fMember').value.trim();
@@ -1246,70 +1171,76 @@ async function saveBlock() {
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
-  if (editingId !== null) {
-    var item = schedule.find(function(b) { return b.id === editingId; });
-    if (item) {
-      Object.assign(item, { title: title, member: member, date: date, startTime: startTime, endTime: endTime, notes: notes });
-    }
-    var ok = await commitSchedule('Update block: ' + title);
-    if (ok) { toast('Block updated', 'success'); closeModal(); }
-  } else {
-    var maxId = schedule.reduce(function(m, b) { return Math.max(m, b.id); }, 0);
-    var dates = [date];
-    if (repeat !== 'none') {
-      var untilStr = document.getElementById('fRepeatUntil').value;
-      if (!untilStr) { toast('Pick an end date for the repeat', 'error'); btn.disabled = false; btn.textContent = 'Save Block'; return; }
-      var until = new Date(untilStr + 'T00:00:00');
-      var step = repeat === 'daily' ? 1 : 7;
-      var cursor = new Date(date + 'T00:00:00'); cursor.setDate(cursor.getDate() + step);
-      while (cursor <= until) {
-        if (repeat === 'daily') {
-          var dow = cursor.getDay();
-          if (dow >= 1 && dow <= 5) dates.push(isoMonday(cursor));
-        } else {
-          dates.push(isoMonday(cursor));
-        }
-        cursor.setDate(cursor.getDate() + step);
-      }
-    }
-    var added = [];
-    dates.forEach(function(dt) {
-      maxId += 1;
-      var nb = { id: maxId, title: title, member: member, date: dt, startTime: startTime, endTime: endTime, notes: notes };
-      schedule.push(nb);
-      added.push(nb);
-    });
-    var msg = repeat !== 'none' ? ('Add ' + added.length + ' blocks: ' + title) : ('Add block: ' + title);
-    var ok2 = await commitSchedule(msg);
-    if (ok2) {
-      toast(repeat !== 'none' ? ('Added ' + added.length + ' blocks') : 'Block added', 'success');
+  try {
+    if (editingPath) {
+      // Update existing event markdown file
+      var file = await Lab.gh.fetchFile(editingPath);
+      var content = buildEventMarkdown(title, member, date, startTime, endTime, notes);
+      await Lab.gh.saveFile(editingPath, content, file.sha, 'Update event: ' + title);
+      // Update in-memory schedule
+      var item = schedule.find(function(b) { return b.path === editingPath; });
+      if (item) Object.assign(item, { title: title, member: member, date: date, startTime: startTime, endTime: endTime, notes: notes });
+      toast('Event updated', 'success');
       closeModal();
     } else {
-      added.forEach(function(b) {
-        var i = schedule.indexOf(b);
-        if (i >= 0) schedule.splice(i, 1);
-      });
+      // Create new event(s) as markdown files
+      var dates = [date];
+      if (repeat !== 'none') {
+        var untilStr = document.getElementById('fRepeatUntil').value;
+        if (!untilStr) { toast('Pick an end date for the repeat', 'error'); btn.disabled = false; btn.textContent = 'Save Block'; return; }
+        var until = new Date(untilStr + 'T00:00:00');
+        var step = repeat === 'daily' ? 1 : 7;
+        var cursor = new Date(date + 'T00:00:00'); cursor.setDate(cursor.getDate() + step);
+        while (cursor <= until) {
+          if (repeat === 'daily') {
+            var dow = cursor.getDay();
+            if (dow >= 1 && dow <= 5) dates.push(isoMonday(cursor));
+          } else {
+            dates.push(isoMonday(cursor));
+          }
+          cursor.setDate(cursor.getDate() + step);
+        }
+      }
+
+      btn.textContent = 'Saving ' + dates.length + ' event(s)...';
+      for (var i = 0; i < dates.length; i++) {
+        var dt = dates[i];
+        var slug = eventSlug(title || member, dt);
+        var path = 'docs/events/' + slug + '.md';
+        var content = buildEventMarkdown(title, member, dt, startTime, endTime, notes);
+        await Lab.gh.saveFile(path, content, null, 'Add event: ' + (title || member) + ' on ' + dt);
+        schedule.push({ title: title, member: member, date: dt, startTime: startTime, endTime: endTime, notes: notes, path: path });
+      }
+      toast(dates.length > 1 ? ('Added ' + dates.length + ' events') : 'Event added', 'success');
+      closeModal();
     }
+  } catch(e) {
+    toast('Save failed: ' + e.message, 'error');
   }
 
   btn.disabled = false;
   btn.textContent = 'Save Block';
+  Lab.gh.clearObjectIndexCache();
   buildMemberColors();
   populateMemberFilter();
   renderCalendar();
 }
 
+// R17: deleteBlock deletes the markdown file
 async function deleteBlock() {
-  if (editingId === null) return;
-  var item = schedule.find(function(b) { return b.id === editingId; });
+  if (!editingPath) return;
+  var item = schedule.find(function(b) { return b.path === editingPath; });
   if (!item) return;
-  if (!confirm('Delete "' + (item.title || 'this block') + '"?')) return;
-  var idx = schedule.indexOf(item);
-  schedule.splice(idx, 1);
-  var ok = await commitSchedule('Remove block: ' + (item.title || ''));
-  if (ok) toast('Block deleted', 'success');
-  else schedule.splice(idx, 0, item);
+  if (!confirm('Delete "' + (item.title || 'this event') + '"?')) return;
+  try {
+    await Lab.gh.deleteFile(editingPath);
+    schedule = schedule.filter(function(b) { return b.path !== editingPath; });
+    toast('Event deleted', 'success');
+  } catch(e) {
+    toast('Delete failed: ' + e.message, 'error');
+  }
   closeModal();
+  Lab.gh.clearObjectIndexCache();
   buildMemberColors();
   populateMemberFilter();
   renderCalendar();
@@ -1419,7 +1350,7 @@ window.addEventListener('resize', function() {
 
 // --- Init ---
 populateTimeSelects();
-updateConnStatus();
+// R17: updateConnStatus() removed — auth handled by shared nav.js
 loadSchedule();
 
 // Enhance member and notes fields with [[ autocomplete

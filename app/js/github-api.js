@@ -251,7 +251,9 @@
     // R5: concept/instance fields
     'of', 'lot', 'expiration', 'acquired', 'level',
     // R7 #27: git mtime (unix timestamp) for recency ranking in inventory.
-    'mtime'
+    'mtime',
+    // Calendar event fields (R17 migration from schedule.json to markdown)
+    'date', 'start_time', 'end_time', 'member'
   ];
 
   function getLocalPatches() {

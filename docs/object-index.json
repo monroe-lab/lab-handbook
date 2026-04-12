@@ -4,91 +4,91 @@
     "type": "reagent",
     "title": "1,8-Naphthalic anhydride",
     "legacy_inventory_id": 12,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
     "type": "reagent",
     "title": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
     "legacy_inventory_id": 13,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/1-octanol.md",
     "type": "reagent",
     "title": "1-Octanol",
     "legacy_inventory_id": 14,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/1m-tris-hcl-ph-8-8-5.md",
     "type": "buffer",
     "title": "1M Tris-HCL (pH 8-8.5)",
     "legacy_inventory_id": 15,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/2-mercaptoethanol.md",
     "type": "reagent",
     "title": "2-Mercaptoethanol",
     "legacy_inventory_id": 16,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/3-methylbutanol.md",
     "type": "reagent",
     "title": "3-Methylbutanol",
     "legacy_inventory_id": 17,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/4-morpholineethanesulfonic-acid.md",
     "type": "buffer",
     "title": "4-Morpholineethanesulfonic acid",
     "legacy_inventory_id": 18,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/aceto-orcein-solution-2.md",
     "type": "buffer",
     "title": "Aceto-Orcein Solution, 2%",
     "legacy_inventory_id": 19,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/acetone.md",
     "type": "reagent",
     "title": "Acetone",
     "legacy_inventory_id": 20,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/acrylamide.md",
     "type": "reagent",
     "title": "Acrylamide",
     "legacy_inventory_id": 21,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/activated-charcoal.md",
     "type": "reagent",
     "title": "Activated charcoal",
     "legacy_inventory_id": 22,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/agar-non-tc.md",
     "type": "reagent",
     "title": "Agar (non-TC)",
     "legacy_inventory_id": 150,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/agar-plant-tc.md",
     "type": "reagent",
     "title": "Agar, Plant, TC",
     "legacy_inventory_id": 23,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/agarose.md",
@@ -102,49 +102,49 @@
     "type": "reagent",
     "title": "alpha-D-Glucose",
     "legacy_inventory_id": 146,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-acetate.md",
     "type": "reagent",
     "title": "Ammonium acetate",
     "legacy_inventory_id": 24,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-chloride.md",
     "type": "reagent",
     "title": "Ammonium chloride",
     "legacy_inventory_id": 25,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-nitrate.md",
     "type": "reagent",
     "title": "Ammonium nitrate",
     "legacy_inventory_id": 26,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-phosphate-monobasic.md",
     "type": "reagent",
     "title": "Ammonium phosphate monobasic",
     "legacy_inventory_id": 27,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ampure-xp-beads.md",
     "type": "reagent",
     "title": "AMPure XP Beads",
     "status": "owned",
-    "mtime": 1775684016
+    "mtime": 1775946810
   },
   {
     "path": "resources/aristolochic-acid-i.md",
     "type": "reagent",
     "title": "Aristolochic acid I",
     "legacy_inventory_id": 28,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/autoclave-sterilizer.md",
@@ -163,7 +163,7 @@
     "type": "reagent",
     "title": "Basic Fuchsin",
     "legacy_inventory_id": 29,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/bioruptor.md",
@@ -176,77 +176,77 @@
     "type": "reagent",
     "title": "Bis (N,N'-Methylene-bis-acrylamide)",
     "legacy_inventory_id": 30,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/boric-acid.md",
     "type": "reagent",
     "title": "Boric acid",
     "legacy_inventory_id": 31,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/bovine-serum-albumin-50mg-ml.md",
     "type": "reagent",
     "title": "Bovine Serum Albumin (50 mg/mL)",
     "status": "needed",
-    "mtime": 1775679889
+    "mtime": 1775946810
   },
   {
     "path": "resources/bromophenol-blue.md",
     "type": "reagent",
     "title": "Bromophenol Blue",
     "legacy_inventory_id": 32,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/calcium-carbonate.md",
     "type": "reagent",
     "title": "Calcium carbonate",
     "legacy_inventory_id": 33,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/calcium-chloride.md",
     "type": "reagent",
     "title": "Calcium chloride",
     "legacy_inventory_id": 34,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/calcium-nitrate-tetrahydrate.md",
     "type": "reagent",
     "title": "Calcium nitrate tetrahydrate",
     "legacy_inventory_id": 35,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/carbenicillin-disodium-salt.md",
     "type": "reagent",
     "title": "Carbenicillin disodium salt",
     "legacy_inventory_id": 36,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/carbon-activated.md",
     "type": "reagent",
     "title": "Carbon, activated",
     "legacy_inventory_id": 37,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/casein-hydrolysate.md",
     "type": "reagent",
     "title": "Casein Hydrolysate",
     "legacy_inventory_id": 38,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/cefotaxime-sodium-salt.md",
     "type": "reagent",
     "title": "Cefotaxime sodium salt",
     "legacy_inventory_id": 39,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/celldrop.md",
@@ -265,49 +265,49 @@
     "type": "reagent",
     "title": "Cesium chloride",
     "legacy_inventory_id": 40,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/cetrimonium-bromide.md",
     "type": "reagent",
     "title": "Cetrimonium bromide",
     "legacy_inventory_id": 41,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/chloramphenicol.md",
     "type": "reagent",
     "title": "Chloramphenicol",
     "legacy_inventory_id": 42,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/chloroform-isoamyl-alcohol-24-1.md",
     "type": "reagent",
     "title": "Chloroform:Isoamyl alcohol 24:1",
     "legacy_inventory_id": 148,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/chloroform.md",
     "type": "reagent",
     "title": "Chloroform",
     "legacy_inventory_id": 9,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/cis-diamineplatinum-ii-dichloride.md",
     "type": "reagent",
     "title": "cis-Diamineplatinum(II) dichloride",
     "legacy_inventory_id": 147,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/citric-acid.md",
     "type": "reagent",
     "title": "Citric acid",
     "legacy_inventory_id": 43,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/clean-bench-laminar-flow.md",
@@ -330,56 +330,56 @@
     "type": "reagent",
     "title": "D-(+)-Glucose",
     "legacy_inventory_id": 44,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/d-mannitol.md",
     "type": "reagent",
     "title": "D-Mannitol",
     "legacy_inventory_id": 45,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/d-sorbitol.md",
     "type": "reagent",
     "title": "D-Sorbitol",
     "legacy_inventory_id": 46,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/dextran.md",
     "type": "reagent",
     "title": "Dextran",
     "legacy_inventory_id": 48,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/diethyl-pyrocarbonate.md",
     "type": "reagent",
     "title": "Diethyl pyrocarbonate",
     "legacy_inventory_id": 49,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/dimethyl-sulfoxide.md",
     "type": "reagent",
     "title": "Dimethyl sulfoxide",
     "legacy_inventory_id": 50,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/disodium-ethylenediamine-tetraacetate.md",
     "type": "reagent",
     "title": "Disodium Ethylenediamine Tetraacetate",
     "legacy_inventory_id": 51,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/dkw-medium-with-vitamins.md",
     "type": "reagent",
     "title": "DKW Medium with Vitamins",
     "legacy_inventory_id": 47,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/dna-lobind-tubes.md",
@@ -392,7 +392,7 @@
     "path": "resources/dnase.md",
     "type": "reagent",
     "title": "DNAse",
-    "mtime": 1775581035
+    "mtime": 1775946810
   },
   {
     "path": "resources/dneasy-plant-mini.md",
@@ -405,7 +405,7 @@
     "type": "reagent",
     "title": "EDTA tetrasodium salt dihydrate",
     "legacy_inventory_id": 52,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/edta-trisodium-salt.md",
@@ -419,7 +419,7 @@
     "type": "reagent",
     "title": "EGTA",
     "legacy_inventory_id": 54,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ethanol-70.md",
@@ -430,7 +430,7 @@
     "created_at": "2026-04-07T16:48:44.166Z",
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:48:44.166Z",
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ethanol-absolute.md",
@@ -444,28 +444,28 @@
     "type": "reagent",
     "title": "Ethyl Alcohol Absolute",
     "legacy_inventory_id": 55,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ethyl-methanesulfonate.md",
     "type": "reagent",
     "title": "Ethyl methanesulfonate",
     "legacy_inventory_id": 56,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt.md",
     "type": "reagent",
     "title": "Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt",
     "legacy_inventory_id": 57,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ethylenediaminetetraacetic-acid-gmp.md",
     "type": "reagent",
     "title": "Ethylenediaminetetraacetic acid, GMP",
     "legacy_inventory_id": 58,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/femtopulse.md",
@@ -478,7 +478,7 @@
     "type": "reagent",
     "title": "Ficoll 400",
     "legacy_inventory_id": 59,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/flongle-flow-cells-flo-flg114.md",
@@ -499,21 +499,21 @@
     "type": "reagent",
     "title": "Formaldehyde (16% methanol free) PFA",
     "legacy_inventory_id": 60,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/formamide-2.md",
     "type": "reagent",
     "title": "Formamide",
     "legacy_inventory_id": 62,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/formamide.md",
     "type": "reagent",
     "title": "Formamide",
     "legacy_inventory_id": 61,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/fume-hood.md",
@@ -526,7 +526,7 @@
     "type": "reagent",
     "title": "Gaseous hydrochloric acid",
     "legacy_inventory_id": 63,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/gel-electrophoresis-tank.md",
@@ -539,49 +539,49 @@
     "type": "reagent",
     "title": "Gentamicin sulfate salt",
     "legacy_inventory_id": 64,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glacial-acetic-acid-2.md",
     "type": "reagent",
     "title": "Glacial Acetic Acid",
     "legacy_inventory_id": 66,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glacial-acetic-acid.md",
     "type": "reagent",
     "title": "Glacial Acetic Acid",
     "legacy_inventory_id": 65,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glufosinate-ammonium.md",
     "type": "reagent",
     "title": "Glufosinate-ammonium",
     "legacy_inventory_id": 67,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glycerin.md",
     "type": "reagent",
     "title": "Glycerin",
     "legacy_inventory_id": 68,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glycerol-50-aqueous-solution.md",
     "type": "buffer",
     "title": "Glycerol, 50% aqueous solution",
     "legacy_inventory_id": 69,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/glycine.md",
     "type": "reagent",
     "title": "Glycine",
     "legacy_inventory_id": 70,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/growth-chamber.md",
@@ -594,28 +594,28 @@
     "type": "reagent",
     "title": "Guanidine thiocyanate",
     "legacy_inventory_id": 72,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/guanidine-thiocyanate.md",
     "type": "reagent",
     "title": "Guanidine thiocyanate",
     "legacy_inventory_id": 71,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/hepes.md",
     "type": "buffer",
     "title": "HEPES",
     "legacy_inventory_id": 73,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/hexadecyltrimethyl-ammonium-bromide.md",
     "type": "reagent",
     "title": "Hexadecyltrimethyl-ammonium bromide",
     "legacy_inventory_id": 74,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/hula-mixer.md",
@@ -628,84 +628,84 @@
     "type": "reagent",
     "title": "Hydrogen peroxide,  20 to  35 % in water",
     "legacy_inventory_id": 75,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/hydrogen-peroxide-30.md",
     "type": "reagent",
     "title": "Hydrogen Peroxide 30%",
     "legacy_inventory_id": 7,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/hydroxylamine-hydrochloride.md",
     "type": "reagent",
     "title": "Hydroxylamine hydrochloride",
     "legacy_inventory_id": 76,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/igepal-ca-630.md",
     "type": "reagent",
     "title": "IGEPAL CA-630",
     "legacy_inventory_id": 77,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/imidazole-hydrochloride.md",
     "type": "reagent",
     "title": "Imidazole hydrochloride",
     "legacy_inventory_id": 78,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/iohexol.md",
     "type": "reagent",
     "title": "Iohexol",
     "legacy_inventory_id": 79,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/iron-iii-chloride.md",
     "type": "reagent",
     "title": "Iron(III) chloride",
     "legacy_inventory_id": 80,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-2.md",
     "type": "reagent",
     "title": "Isopropyl alcohol",
     "legacy_inventory_id": 82,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water-2.md",
     "type": "reagent",
     "title": "Isopropyl alcohol, 70% in water",
     "legacy_inventory_id": 84,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water.md",
     "type": "reagent",
     "title": "Isopropyl alcohol, 70% in water",
     "legacy_inventory_id": 83,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol.md",
     "type": "reagent",
     "title": "Isopropyl alcohol",
     "legacy_inventory_id": 81,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/kanamycin-sulfate.md",
     "type": "reagent",
     "title": "Kanamycin Sulfate",
     "legacy_inventory_id": 6,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/kingfisher-deepwell-96-plate.md",
@@ -719,14 +719,14 @@
     "type": "reagent",
     "title": "L-Glutamine",
     "legacy_inventory_id": 85,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/l-lysine-monohydrochloride.md",
     "type": "reagent",
     "title": "L-Lysine monohydrochloride",
     "legacy_inventory_id": 86,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/labbot-freezer-item-mnthp11v.md",
@@ -743,42 +743,42 @@
     "type": "reagent",
     "title": "Lithium acetate dihydrate",
     "legacy_inventory_id": 87,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/lithium-chloride.md",
     "type": "reagent",
     "title": "Lithium chloride",
     "legacy_inventory_id": 88,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/lithium-hydroxide-monohydrate.md",
     "type": "reagent",
     "title": "Lithium hydroxide monohydrate",
     "legacy_inventory_id": 89,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
     "type": "reagent",
     "title": "Magnesium acetate tetrahydrate",
     "legacy_inventory_id": 90,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-chloride.md",
     "type": "reagent",
     "title": "Magnesium chloride",
     "legacy_inventory_id": 91,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-sulfate-heptahydrate.md",
     "type": "reagent",
     "title": "Magnesium sulfate heptahydrate",
     "legacy_inventory_id": 92,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/magnetic-rack.md",
@@ -791,28 +791,28 @@
     "type": "reagent",
     "title": "Manganese(II) chloride",
     "legacy_inventory_id": 93,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/mes-buffer.md",
     "type": "buffer",
     "title": "MES Buffer",
     "legacy_inventory_id": 2,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/methanol.md",
     "type": "reagent",
     "title": "Methanol",
     "legacy_inventory_id": 94,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/methyl-methanesulfonate.md",
     "type": "reagent",
     "title": "Methyl methanesulfonate",
     "legacy_inventory_id": 95,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/microtube.md",
@@ -828,7 +828,7 @@
     "type": "reagent",
     "title": "Mineral oil",
     "legacy_inventory_id": 96,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/minion-mk1b.md",
@@ -842,7 +842,7 @@
     "type": "reagent",
     "title": "Mitomycin C",
     "legacy_inventory_id": 8,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/mortar-and-pestle.md",
@@ -855,7 +855,7 @@
     "type": "reagent",
     "title": "MS Basal Salt Mixture",
     "legacy_inventory_id": 1,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/nanodrop.md",
@@ -896,7 +896,7 @@
     "type": "reagent",
     "title": "Nuclease-Free Water",
     "status": "needed",
-    "mtime": 1775679889
+    "mtime": 1775946810
   },
   {
     "path": "resources/opentrons-ot2.md",
@@ -938,7 +938,7 @@
     "type": "reagent",
     "title": "Peptones, casein (Tryptone)",
     "legacy_inventory_id": 98,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ph-meter.md",
@@ -951,105 +951,105 @@
     "type": "reagent",
     "title": "Phenol-Chloroform-Isoamyl alcohol 25:24:1",
     "legacy_inventory_id": 149,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/phenol-nitroprusside-solution.md",
     "type": "buffer",
     "title": "Phenol nitroprusside solution",
     "legacy_inventory_id": 99,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/phenylmethanesulfonyl-fluoride.md",
     "type": "reagent",
     "title": "Phenylmethanesulfonyl fluoride",
     "legacy_inventory_id": 100,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/piperazine-1-4-bis-2-ethanesulfonic-acid.md",
     "type": "reagent",
     "title": "Piperazine-1,4-bis(2-ethanesulfonic acid)",
     "legacy_inventory_id": 101,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/pipes-dipotassium-salt.md",
     "type": "buffer",
     "title": "PIPES, dipotassium salt",
     "legacy_inventory_id": 97,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/polyethylene-glycol-solid.md",
     "type": "reagent",
     "title": "Polyethylene glycol (solid)",
     "legacy_inventory_id": 102,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/polyvinylpyrrolidone.md",
     "type": "reagent",
     "title": "Polyvinylpyrrolidone",
     "legacy_inventory_id": 103,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/ponceau-s.md",
     "type": "reagent",
     "title": "Ponceau S",
     "legacy_inventory_id": 104,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-acetate.md",
     "type": "reagent",
     "title": "Potassium acetate",
     "legacy_inventory_id": 105,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-chloride.md",
     "type": "reagent",
     "title": "Potassium chloride",
     "legacy_inventory_id": 106,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-hydroxide.md",
     "type": "reagent",
     "title": "Potassium hydroxide",
     "legacy_inventory_id": 107,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-nitrate.md",
     "type": "reagent",
     "title": "Potassium nitrate",
     "legacy_inventory_id": 108,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-permanganate.md",
     "type": "reagent",
     "title": "Potassium permanganate",
     "legacy_inventory_id": 109,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-phosphate-dibasic.md",
     "type": "reagent",
     "title": "Potassium phosphate dibasic",
     "legacy_inventory_id": 110,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/potassium-phosphate-monobasic.md",
     "type": "reagent",
     "title": "Potassium phosphate monobasic",
     "legacy_inventory_id": 111,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/qubit-assay-tubes.md",
@@ -1076,62 +1076,62 @@
     "type": "reagent",
     "title": "Reagent Alcohol 100% (200 proof, Denatured)",
     "legacy_inventory_id": 112,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/rnase-aliquot.md",
     "type": "reagent",
     "title": "RNase aliquot",
-    "mtime": 1775581035
+    "mtime": 1775946810
   },
   {
     "path": "resources/silwet-l-77.md",
     "type": "reagent",
     "title": "Silwet L-77",
     "legacy_inventory_id": 113,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-acetate-anhydrous.md",
     "type": "reagent",
     "title": "Sodium Acetate, Anhydrous",
     "legacy_inventory_id": 114,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-arsenate-dibasic-heptahydrate.md",
     "type": "reagent",
     "title": "Sodium arsenate dibasic heptahydrate",
     "legacy_inventory_id": 116,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-bicarbonate.md",
     "type": "reagent",
     "title": "Sodium bicarbonate",
     "legacy_inventory_id": 117,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-bisulfite.md",
     "type": "reagent",
     "title": "Sodium bisulfite",
     "legacy_inventory_id": 118,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-chloride.md",
     "type": "reagent",
     "title": "Sodium chloride",
     "legacy_inventory_id": 119,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-citrate.md",
     "type": "reagent",
     "title": "Sodium citrate",
     "legacy_inventory_id": 120,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-dodecyl-sulfate.md",
@@ -1145,84 +1145,84 @@
     "type": "reagent",
     "title": "Sodium Hydroxide, 10.0 Normal",
     "legacy_inventory_id": 115,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-hydroxide-10n-aqueous-solution.md",
     "type": "buffer",
     "title": "Sodium hydroxide 10N aqueous solution",
     "legacy_inventory_id": 124,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-hydroxide-2.md",
     "type": "reagent",
     "title": "Sodium hydroxide",
     "legacy_inventory_id": 123,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-hydroxide.md",
     "type": "reagent",
     "title": "Sodium hydroxide",
     "legacy_inventory_id": 122,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-metabisulfite.md",
     "type": "reagent",
     "title": "Sodium metabisulfite",
     "legacy_inventory_id": 125,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-phosphate-dibasic.md",
     "type": "reagent",
     "title": "Sodium phosphate dibasic",
     "legacy_inventory_id": 126,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-pyrophosphate-decahydrate.md",
     "type": "reagent",
     "title": "Sodium pyrophosphate decahydrate",
     "legacy_inventory_id": 127,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-sulfite.md",
     "type": "reagent",
     "title": "Sodium sulfite",
     "legacy_inventory_id": 128,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-tetraborate.md",
     "type": "reagent",
     "title": "Sodium tetraborate",
     "legacy_inventory_id": 129,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sodium-thiosulfate-pentahydrate.md",
     "type": "reagent",
     "title": "Sodium thiosulfate pentahydrate",
     "legacy_inventory_id": 130,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/spermidine.md",
     "type": "reagent",
     "title": "Spermidine",
     "legacy_inventory_id": 131,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/spermine.md",
     "type": "reagent",
     "title": "Spermine",
     "legacy_inventory_id": 132,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/sqk-nbd114-24.md",
@@ -1243,28 +1243,28 @@
     "created_at": "2026-04-07T16:55:31.489Z",
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:55:31.489Z",
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/taps.md",
     "type": "buffer",
     "title": "TAPS",
     "legacy_inventory_id": 133,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tapso.md",
     "type": "buffer",
     "title": "TAPSO",
     "legacy_inventory_id": 134,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tc-agar-a175.md",
     "type": "reagent",
     "title": "TC Agar A175",
     "legacy_inventory_id": 3,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/test-item-mobile.md",
@@ -1283,14 +1283,14 @@
     "type": "reagent",
     "title": "Tetracycline hydrochloride",
     "legacy_inventory_id": 136,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tham.md",
     "type": "buffer",
     "title": "Tham",
     "legacy_inventory_id": 137,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/thermocycler.md",
@@ -1309,14 +1309,14 @@
     "type": "reagent",
     "title": "Trichloroacetic acid",
     "legacy_inventory_id": 138,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tricine.md",
     "type": "buffer",
     "title": "Tricine",
     "legacy_inventory_id": 139,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tris-base.md",
@@ -1330,21 +1330,21 @@
     "type": "buffer",
     "title": "Tris-EDTA (TE) buffer solution",
     "legacy_inventory_id": 141,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/triton-x-100.md",
     "type": "reagent",
     "title": "Triton X-100",
     "legacy_inventory_id": 4,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/trizma-base.md",
     "type": "buffer",
     "title": "Trizma base",
     "legacy_inventory_id": 142,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/tube-item.md",
@@ -1367,14 +1367,14 @@
     "type": "reagent",
     "title": "TWEEN 80",
     "legacy_inventory_id": 135,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/urea.md",
     "type": "reagent",
     "title": "Urea",
     "legacy_inventory_id": 143,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/uv-transilluminator.md",
@@ -1401,14 +1401,14 @@
     "type": "reagent",
     "title": "Yeast extract",
     "legacy_inventory_id": 144,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "resources/zeocin.md",
     "type": "reagent",
     "title": "Zeocin",
     "legacy_inventory_id": 145,
-    "mtime": 1775895055
+    "mtime": 1775946810
   },
   {
     "path": "stocks/bl21-de3-competent-cells.md",
@@ -3520,7 +3520,7 @@
     "path": "workflow-templates/protocol-template.md",
     "type": "protocol",
     "title": "Protocol Template",
-    "mtime": 1775931835
+    "mtime": 1775966802
   },
   {
     "path": "workflow-templates/strelka2.md",
@@ -3815,5 +3815,455 @@
     "label_1": "Pistachio Tree #4\nleaf, 2026-04-01\n(backup)",
     "label_2": "PL2\n4/01",
     "mtime": 1775868762
+  },
+  {
+    "path": "events/2026-04-06-cut-tag-library-prep.md",
+    "type": "event",
+    "title": "CUT&Tag library prep",
+    "date": "2026-04-06",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "14:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-06-ms-plate-preparation-and-seed-sterilization.md",
+    "type": "event",
+    "title": "MS plate preparation and seed sterilization",
+    "date": "2026-04-06",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-07-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-07",
+    "created_by": "greymonroe",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-07-check-plates-and-transfer-seedlings-to-soil.md",
+    "type": "event",
+    "title": "Check plates and transfer seedlings to soil",
+    "date": "2026-04-07",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-08-bioinformatics-analysis.md",
+    "type": "event",
+    "title": "Bioinformatics analysis",
+    "date": "2026-04-08",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-09-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-09",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "15:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-09-dna-extraction-from-leaf-tissue.md",
+    "type": "event",
+    "title": "DNA extraction from leaf tissue",
+    "date": "2026-04-09",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-10-gel-electrophoresis-and-data-entry.md",
+    "type": "event",
+    "title": "Gel electrophoresis and data entry",
+    "date": "2026-04-10",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-10-jordan-patel-block.md",
+    "type": "event",
+    "title": "Jordan Patel block",
+    "date": "2026-04-10",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-13-cut-tag-library-prep.md",
+    "type": "event",
+    "title": "CUT&Tag library prep",
+    "date": "2026-04-13",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "14:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-13-ms-plate-preparation-and-seed-sterilization.md",
+    "type": "event",
+    "title": "MS plate preparation and seed sterilization",
+    "date": "2026-04-13",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-14-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-14",
+    "created_by": "greymonroe",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-14-check-plates-and-transfer-seedlings-to-soil.md",
+    "type": "event",
+    "title": "Check plates and transfer seedlings to soil",
+    "date": "2026-04-14",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-15-bioinformatics-analysis.md",
+    "type": "event",
+    "title": "Bioinformatics analysis",
+    "date": "2026-04-15",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-16-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-16",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "15:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-16-dna-extraction-from-leaf-tissue.md",
+    "type": "event",
+    "title": "DNA extraction from leaf tissue",
+    "date": "2026-04-16",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-17-gel-electrophoresis-and-data-entry.md",
+    "type": "event",
+    "title": "Gel electrophoresis and data entry",
+    "date": "2026-04-17",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-17-jordan-patel-block.md",
+    "type": "event",
+    "title": "Jordan Patel block",
+    "date": "2026-04-17",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-20-cut-tag-library-prep.md",
+    "type": "event",
+    "title": "CUT&Tag library prep",
+    "date": "2026-04-20",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "14:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-20-ms-plate-preparation-and-seed-sterilization.md",
+    "type": "event",
+    "title": "MS plate preparation and seed sterilization",
+    "date": "2026-04-20",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-21-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-21",
+    "created_by": "greymonroe",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-21-check-plates-and-transfer-seedlings-to-soil.md",
+    "type": "event",
+    "title": "Check plates and transfer seedlings to soil",
+    "date": "2026-04-21",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-22-bioinformatics-analysis.md",
+    "type": "event",
+    "title": "Bioinformatics analysis",
+    "date": "2026-04-22",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-23-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-23",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "15:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-23-dna-extraction-from-leaf-tissue.md",
+    "type": "event",
+    "title": "DNA extraction from leaf tissue",
+    "date": "2026-04-23",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-24-gel-electrophoresis-and-data-entry.md",
+    "type": "event",
+    "title": "Gel electrophoresis and data entry",
+    "date": "2026-04-24",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-24-jordan-patel-block.md",
+    "type": "event",
+    "title": "Jordan Patel block",
+    "date": "2026-04-24",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-27-cut-tag-library-prep.md",
+    "type": "event",
+    "title": "CUT&Tag library prep",
+    "date": "2026-04-27",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "14:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-27-ms-plate-preparation-and-seed-sterilization.md",
+    "type": "event",
+    "title": "MS plate preparation and seed sterilization",
+    "date": "2026-04-27",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-28-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-28",
+    "created_by": "greymonroe",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-28-check-plates-and-transfer-seedlings-to-soil.md",
+    "type": "event",
+    "title": "Check plates and transfer seedlings to soil",
+    "date": "2026-04-28",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-29-bioinformatics-analysis.md",
+    "type": "event",
+    "title": "Bioinformatics analysis",
+    "date": "2026-04-29",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-04-30-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-04-30",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "15:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-04-30-dna-extraction-from-leaf-tissue.md",
+    "type": "event",
+    "title": "DNA extraction from leaf tissue",
+    "date": "2026-04-30",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-01-gel-electrophoresis-and-data-entry.md",
+    "type": "event",
+    "title": "Gel electrophoresis and data entry",
+    "date": "2026-05-01",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-01-jordan-patel-block.md",
+    "type": "event",
+    "title": "Jordan Patel block",
+    "date": "2026-05-01",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-05-04-cut-tag-library-prep.md",
+    "type": "event",
+    "title": "CUT&Tag library prep",
+    "date": "2026-05-04",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "14:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-05-04-ms-plate-preparation-and-seed-sterilization.md",
+    "type": "event",
+    "title": "MS plate preparation and seed sterilization",
+    "date": "2026-05-04",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-05-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-05-05",
+    "created_by": "greymonroe",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-05-check-plates-and-transfer-seedlings-to-soil.md",
+    "type": "event",
+    "title": "Check plates and transfer seedlings to soil",
+    "date": "2026-05-05",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-06-bioinformatics-analysis.md",
+    "type": "event",
+    "title": "Bioinformatics analysis",
+    "date": "2026-05-06",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "member": "Jordan Patel"
+  },
+  {
+    "path": "events/2026-05-07-alex-chen-block.md",
+    "type": "event",
+    "title": "Alex Chen block",
+    "date": "2026-05-07",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "15:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-07-dna-extraction-from-leaf-tissue.md",
+    "type": "event",
+    "title": "DNA extraction from leaf tissue",
+    "date": "2026-05-07",
+    "created_by": "greymonroe",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-08-gel-electrophoresis-and-data-entry.md",
+    "type": "event",
+    "title": "Gel electrophoresis and data entry",
+    "date": "2026-05-08",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "member": "[[barb-m]]"
+  },
+  {
+    "path": "events/2026-05-08-jordan-patel-block.md",
+    "type": "event",
+    "title": "Jordan Patel block",
+    "date": "2026-05-08",
+    "created_by": "greymonroe",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "member": "Jordan Patel"
   }
 ]

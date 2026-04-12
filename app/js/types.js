@@ -375,6 +375,29 @@
     },
   };
 
+    // Calendar events — markdown files under docs/events/ that replace
+    // the old schedule.json approach. Each event is a first-class object
+    // with frontmatter fields for date/time/member and a markdown body
+    // for notes, wikilinks, instructions, etc.
+    event: {
+      color: '#0288d1',
+      icon: '\uD83D\uDCC5', // 📅
+      label: 'Event',
+      group: 'calendar',
+      fields: [
+        { key: 'title',      label: 'Title',      type: 'text',   required: true },
+        { key: 'type',       label: 'Type',        type: 'hidden', value: 'event' },
+        { key: 'date',       label: 'Date',        type: 'text',   required: true },
+        { key: 'start_time', label: 'Start Time',  type: 'text',   required: true },
+        { key: 'end_time',   label: 'End Time',    type: 'text',   required: true },
+        { key: 'member',     label: 'Member(s)',   type: 'text' },
+        { key: 'created_by', label: 'Created By',  type: 'meta_readonly' },
+        { key: 'created_at', label: 'Created',     type: 'meta_readonly' },
+      ],
+      displayFields: ['date', 'start_time', 'end_time', 'member', 'created_by'],
+      tableColumns: ['name', 'date', 'start_time', 'end_time', 'member'],
+    },
+
   var DEFAULT_TYPE = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };
 
   // ── Category Groupings ──
@@ -435,6 +458,14 @@
       types: ['waste_container'],
       dir: 'waste',
       defaultType: 'waste_container',
+    },
+    calendar: {
+      label: 'Calendar',
+      icon: 'event',
+      color: '#0288d1',
+      types: ['event'],
+      dir: 'events',
+      defaultType: 'event',
     },
     locations: {
       label: 'Locations',

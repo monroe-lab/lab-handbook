@@ -37,6 +37,7 @@ OBJECT_DIRS = [
     "waste",
     "samples",
     "locations",
+    "events",
 ]
 
 # Frontmatter keys to extract (all optional except type and title)
@@ -57,6 +58,8 @@ EXTRACT_KEYS = [
     # R5: bottle (concept/instance) fields. `of` points at the concept slug
     # for a physical bottle/instance; the rest is per-bottle metadata.
     "of", "lot", "expiration", "acquired", "level",
+    # Calendar event fields (R17 migration from schedule.json to markdown)
+    "date", "start_time", "end_time", "member",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)
