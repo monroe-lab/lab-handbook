@@ -1231,7 +1231,8 @@ async function deleteBlock() {
   if (!editingPath) return;
   var item = schedule.find(function(b) { return b.path === editingPath; });
   if (!item) return;
-  if (!confirm('Delete "' + (item.title || 'this event') + '"?')) return;
+  var confirmed = await Lab.modal.confirm({ title: 'Delete Event', message: 'Delete "' + (item.title || 'this event') + '"?\nThis cannot be undone.', confirmText: 'Delete', danger: true });
+  if (!confirmed) return;
   try {
     await Lab.gh.deleteFile(editingPath);
     schedule = schedule.filter(function(b) { return b.path !== editingPath; });
