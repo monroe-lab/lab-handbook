@@ -1,5 +1,23 @@
 # Monroe Lab Handbook — Site Architecture
 
+## When you start a session
+
+1. Run `gh issue list --repo monroe-lab/lab-handbook --state open` — this is the work queue. Any open issue that isn't reflected in STATUS.md should be added.
+2. Read `tests/STATUS.md` — scores table at the top shows what's tested. The most recent round section has the latest context. Scan the "Not yet tested" P0–P4 sections for stale items.
+3. Tell Grey what's open and ask what to tackle, unless he's already told you.
+4. **Don't start coding until the plan is clear.** If Grey filed a specific issue, that's clear. If it's ambiguous, ask.
+
+## Build & Deploy
+
+- **Always commit and push** every change so the live site matches local. Tests run against the deployed site, not local.
+- **SSH port 22 is often blocked** — use `git push ssh://git@ssh.github.com:443/monroe-lab/lab-handbook.git HEAD:main` (do NOT modify git config or ~/.ssh/config).
+- **Python scripts require 3.10+** — system python is 3.9. Use `/opt/homebrew/bin/python3.13`.
+- **After structural changes** (new types, new directories, new index fields), run both:
+  - `/opt/homebrew/bin/python3.13 scripts/build-object-index.py`
+  - `/opt/homebrew/bin/python3.13 scripts/build-user-stats.py`
+- **Password gate session key** is `monroe-lab-auth` in sessionStorage (the labbot tests set this via `addInitScript`).
+- **Deploy takes ~40s** via GitHub Actions after push. Check with `gh run list --repo monroe-lab/lab-handbook --limit 1`.
+
 ## What This Is
 
 A lab wiki and handbook for the Monroe Lab at UC Davis, built as a static site with custom interactive apps. It serves two purposes:
