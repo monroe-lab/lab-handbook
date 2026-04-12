@@ -140,6 +140,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/analytical-balance.md",
+    "type": "equipment",
+    "title": "Analytical Balance",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/aristolochic-acid-i.md",
     "type": "reagent",
     "title": "Aristolochic acid I",
@@ -151,6 +157,12 @@
     "type": "equipment",
     "title": "Autoclave",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/autoclave-tape.md",
+    "type": "consumable",
+    "title": "Autoclave Tape",
+    "mtime": 1775980234
   },
   {
     "path": "resources/automill.md",
@@ -198,6 +210,12 @@
     "title": "Bromophenol Blue",
     "legacy_inventory_id": 32,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/buffer-a-quick-extraction.md",
+    "type": "buffer",
+    "title": "Buffer A (Quick Extraction Buffer)",
+    "mtime": 1775980234
   },
   {
     "path": "resources/calcium-carbonate.md",
@@ -326,6 +344,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/cryo-labels.md",
+    "type": "consumable",
+    "title": "Cryo Labels",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/d-glucose.md",
     "type": "reagent",
     "title": "D-(+)-Glucose",
@@ -382,6 +406,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/dna-ladder-1kb-plus.md",
+    "type": "reagent",
+    "title": "1 kb+ Fast DNA Ladder",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/dna-lobind-tubes.md",
     "type": "consumable",
     "title": "DNA LoBind Tubes (1.5 mL)",
@@ -420,6 +450,12 @@
     "title": "EGTA",
     "legacy_inventory_id": 54,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/emerald-amp-max-pcr-mix.md",
+    "type": "kit",
+    "title": "Emerald Amp MAX PCR Master Mix",
+    "mtime": 1775980234
   },
   {
     "path": "resources/ethanol-70.md",
@@ -468,6 +504,24 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/eyewash-station.md",
+    "type": "equipment",
+    "title": "Eyewash Station",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/falcon-tubes-15ml.md",
+    "type": "consumable",
+    "title": "Falcon Tubes (15 mL)",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/falcon-tubes-50ml.md",
+    "type": "consumable",
+    "title": "Falcon Tubes (50 mL)",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/femtopulse.md",
     "type": "equipment",
     "title": "FemtoPulse",
@@ -479,6 +533,30 @@
     "title": "Ficoll 400",
     "legacy_inventory_id": 59,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/filter-tips-p10.md",
+    "type": "consumable",
+    "title": "Filter Tips P10",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/filter-tips-p1000.md",
+    "type": "consumable",
+    "title": "Filter Tips P1000",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/filter-tips-p20.md",
+    "type": "consumable",
+    "title": "Filter Tips P20",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/filter-tips-p200.md",
+    "type": "consumable",
+    "title": "Filter Tips P200",
+    "mtime": 1775980234
   },
   {
     "path": "resources/flongle-flow-cells-flo-flg114.md",
@@ -604,6 +682,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/heat-block.md",
+    "type": "equipment",
+    "title": "Heat Block",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/hepes.md",
     "type": "buffer",
     "title": "HEPES",
@@ -622,6 +706,12 @@
     "type": "equipment",
     "title": "Hula Mixer",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/hydrochloric-acid.md",
+    "type": "chemical",
+    "title": "Hydrochloric Acid (HCl)",
+    "mtime": 1775980234
   },
   {
     "path": "resources/hydrogen-peroxide-20-to-35-in-water.md",
@@ -739,6 +829,18 @@
     "mtime": 1775918749
   },
   {
+    "path": "resources/liquid-nitrogen-dewar.md",
+    "type": "equipment",
+    "title": "Liquid Nitrogen Dewar",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/liquid-nitrogen.md",
+    "type": "chemical",
+    "title": "Liquid Nitrogen",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/lithium-acetate-dihydrate.md",
     "type": "reagent",
     "title": "Lithium acetate dihydrate",
@@ -815,6 +917,36 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/micropipette-p10.md",
+    "type": "equipment",
+    "title": "Micropipette P10",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/micropipette-p1000.md",
+    "type": "equipment",
+    "title": "Micropipette P1000",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/micropipette-p20.md",
+    "type": "equipment",
+    "title": "Micropipette P20",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/micropipette-p200.md",
+    "type": "equipment",
+    "title": "Micropipette P200",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/micropore-tape.md",
+    "type": "consumable",
+    "title": "Micropore Tape (Surgical Tape)",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/microtube.md",
     "type": "consumable",
     "title": "Microtube",
@@ -829,6 +961,12 @@
     "title": "Mineral oil",
     "legacy_inventory_id": 96,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/minion-flow-cell.md",
+    "type": "consumable",
+    "title": "MinION Flow Cell",
+    "mtime": 1775980234
   },
   {
     "path": "resources/minion-mk1b.md",
@@ -858,10 +996,22 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/multichannel-pipette.md",
+    "type": "equipment",
+    "title": "Multichannel Pipette",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/nanodrop.md",
     "type": "equipment",
     "title": "NanoDrop",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/nanopore-rapid-sequencing-kit.md",
+    "type": "kit",
+    "title": "Oxford Nanopore Rapid Sequencing Kit",
+    "mtime": 1775980234
   },
   {
     "path": "resources/neb-blunt-ta-ligase-master-mix.md",
@@ -890,6 +1040,12 @@
     "title": "NEBNext Ultra II End Repair / dA-Tailing Module (E7546S)",
     "status": "needed",
     "mtime": 1775684016
+  },
+  {
+    "path": "resources/nitrile-gloves.md",
+    "type": "consumable",
+    "title": "Nitrile Gloves",
+    "mtime": 1775980234
   },
   {
     "path": "resources/nuclease-free-water.md",
@@ -927,6 +1083,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/parafilm.md",
+    "type": "consumable",
+    "title": "Parafilm",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/pcr-strip-tubes-0-2ml.md",
     "type": "consumable",
     "title": "PCR Strip Tubes (0.2 mL)",
@@ -939,6 +1101,18 @@
     "title": "Peptones, casein (Tryptone)",
     "legacy_inventory_id": 98,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/petri-dishes-100mm.md",
+    "type": "consumable",
+    "title": "Petri Dishes (100 mm)",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/ph-calibration-buffers.md",
+    "type": "reagent",
+    "title": "pH Calibration Buffers",
+    "mtime": 1775980234
   },
   {
     "path": "resources/ph-meter.md",
@@ -980,6 +1154,30 @@
     "title": "PIPES, dipotassium salt",
     "legacy_inventory_id": 97,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/pipette-tips-p10.md",
+    "type": "consumable",
+    "title": "Pipette Tips P10",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/pipette-tips-p1000.md",
+    "type": "consumable",
+    "title": "Pipette Tips P1000",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/pipette-tips-p20.md",
+    "type": "consumable",
+    "title": "Pipette Tips P20",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/pipette-tips-p200.md",
+    "type": "consumable",
+    "title": "Pipette Tips P200",
+    "mtime": 1775980234
   },
   {
     "path": "resources/polyethylene-glycol-solid.md",
@@ -1057,6 +1255,12 @@
     "title": "Qubit Assay Tubes",
     "status": "owned",
     "mtime": 1775679889
+  },
+  {
+    "path": "resources/qubit-dsdna-br-assay-kit.md",
+    "type": "kit",
+    "title": "Qubit dsDNA BR Assay Kit",
+    "mtime": 1775980234
   },
   {
     "path": "resources/qubit-dsdna-hs-assay-kit.md",
@@ -1236,6 +1440,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/stir-plate.md",
+    "type": "equipment",
+    "title": "Magnetic Stir Plate",
+    "mtime": 1775980234
+  },
+  {
     "path": "resources/sucrose.md",
     "type": "chemical",
     "title": "Sucrose",
@@ -1244,6 +1454,24 @@
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:55:31.489Z",
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/sybr-gold.md",
+    "type": "reagent",
+    "title": "SYBR Gold",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/syringe-filter-0-2um.md",
+    "type": "consumable",
+    "title": "Syringe Filter (0.2 um)",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/tae-buffer-50x.md",
+    "type": "buffer",
+    "title": "TAE Buffer (50x Stock)",
+    "mtime": 1775980234
   },
   {
     "path": "resources/taps.md",
@@ -1303,6 +1531,12 @@
     "type": "equipment",
     "title": "Thermomixer",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/top-loading-balance.md",
+    "type": "equipment",
+    "title": "Top-Loading Balance",
+    "mtime": 1775980234
   },
   {
     "path": "resources/trichloroacetic-acid.md",
@@ -1381,6 +1615,24 @@
     "type": "equipment",
     "title": "UV Transilluminator",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/vortex-mixer.md",
+    "type": "equipment",
+    "title": "Vortex Mixer",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/water-bath.md",
+    "type": "equipment",
+    "title": "Water Bath",
+    "mtime": 1775980234
+  },
+  {
+    "path": "resources/weigh-boats.md",
+    "type": "consumable",
+    "title": "Weigh Boats",
+    "mtime": 1775980234
   },
   {
     "path": "resources/wide-bore-filter-tips-p1000.md",
@@ -3124,25 +3376,25 @@
     "path": "wet-lab/bench-cleanup.md",
     "type": "protocol",
     "title": "Bench Cleanup Protocol",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/breakage-response.md",
     "type": "protocol",
     "title": "What to Do When Something Breaks",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/bulking-seed.md",
     "type": "protocol",
     "title": "Bulking Seed from Arabidopsis",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/centrifuge-operation.md",
     "type": "protocol",
     "title": "Centrifuge Operation",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/clean-bench.md",
@@ -3160,37 +3412,37 @@
     "path": "wet-lab/gel-imaging-and-annotation.md",
     "type": "protocol",
     "title": "Gel Imaging and Annotation",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/growth-chamber-operation.md",
     "type": "protocol",
     "title": "Growth Chamber Operation",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/harvesting-leaf-tissue.md",
     "type": "protocol",
     "title": "Harvesting Leaf Tissue",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/how-to-read-an-sds.md",
     "type": "protocol",
     "title": "Chemical Lookup: How to Read an SDS",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/how-to-use-the-scale.md",
     "type": "protocol",
     "title": "How to Use the Scale",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/lab-orientation.md",
     "type": "protocol",
     "title": "Lab Orientation: Where Things Are",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/labbot-test-protocol-mnthp11v-copy.md",
@@ -3214,37 +3466,37 @@
     "path": "wet-lab/loading-a-minion-flow-cell.md",
     "type": "protocol",
     "title": "Loading and Running a MinION Flow Cell",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/make-agar-seed-suspension.md",
     "type": "protocol",
     "title": "Make 0.1% Agar Seed Suspension",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/make-buffer-a.md",
     "type": "protocol",
     "title": "Make Buffer A (Quick Extraction Buffer)",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/make-tae-buffer.md",
     "type": "protocol",
     "title": "Make TAE Buffer (50x Stock)",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/make-te-buffer.md",
     "type": "protocol",
     "title": "Make TE Buffer",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/making-an-agarose-gel.md",
     "type": "protocol",
     "title": "Making an Agarose Gel",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3256,13 +3508,13 @@
     "path": "wet-lab/nanopore-data-retrieval.md",
     "type": "protocol",
     "title": "Nanopore Data Retrieval",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/nanopore-rapid-library-prep.md",
     "type": "protocol",
     "title": "Nanopore Rapid Library Prep",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/pcr-genotyping.md",
@@ -3274,13 +3526,13 @@
     "path": "wet-lab/ph-measurement.md",
     "type": "protocol",
     "title": "pH Measurement and Adjustment",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/pipette-school.md",
     "type": "protocol",
     "title": "Pipette School",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/planting-arabidopsis-on-ms-plates.md",
@@ -3298,19 +3550,19 @@
     "path": "wet-lab/primer-design.md",
     "type": "protocol",
     "title": "Primer Design for a Target Site",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/quantifying-dna-nanodrop.md",
     "type": "protocol",
     "title": "Quantifying DNA: NanoDrop",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/quantifying-dna-qubit.md",
     "type": "protocol",
     "title": "Quantifying DNA: DeNovix Fluorometer",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/quick-dna-extraction.md",
@@ -3328,13 +3580,13 @@
     "path": "wet-lab/sharps-handling.md",
     "type": "protocol",
     "title": "Sharps Handling and Disposal",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/spill-response.md",
     "type": "protocol",
     "title": "What to Do When Something Spills",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/stratification.md",
@@ -3346,37 +3598,37 @@
     "path": "wet-lab/transferring-seedlings-to-soil.md",
     "type": "protocol",
     "title": "Transferring Seedlings to Soil",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/tube-and-sample-labeling.md",
     "type": "protocol",
     "title": "Tube and Sample Labeling",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/vortexer-and-mixer-use.md",
     "type": "protocol",
     "title": "Vortexer and Mixer Use",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/waste-disposal-quick-reference.md",
     "type": "protocol",
     "title": "Waste Disposal Quick Reference",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/water-bath-and-heat-block.md",
     "type": "protocol",
     "title": "Water Bath and Heat Block",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/watering-and-plant-care.md",
     "type": "protocol",
     "title": "Watering and Plant Care",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
@@ -3406,7 +3658,7 @@
     "path": "wet-lab/extraction/qiagen-dneasy-extraction.md",
     "type": "protocol",
     "title": "QIAGEN DNeasy Plant Extraction",
-    "mtime": 1775978356
+    "mtime": 1775980234
   },
   {
     "path": "wet-lab/extraction/sorbitol-ctab-hifi-extraction.md",
@@ -3732,7 +3984,7 @@
     "path": "notebooks/barb-m/1950-06-15.md",
     "type": "notebook",
     "title": "1950 06 15",
-    "mtime": 1775977055
+    "mtime": 1775979151
   },
   {
     "path": "notebooks/barb-m/2026-03-31.md",
@@ -3849,6 +4101,19 @@
     "mtime": 1775844139
   },
   {
+    "path": "locations/autoclave-room.md",
+    "type": "room",
+    "title": "Autoclave Room (Shared, Robbins Hall)",
+    "mtime": 1775980234
+  },
+  {
+    "path": "locations/bench-chemistry.md",
+    "type": "container",
+    "title": "Chemistry Bench Area",
+    "parent": "locations/room-robbins-0170",
+    "mtime": 1775980234
+  },
+  {
     "path": "locations/bench.md",
     "type": "container",
     "title": "Bench",
@@ -3911,6 +4176,13 @@
     "parent": "locations/room-robbins-0170",
     "label_1": "Flammable Cabinet",
     "mtime": 1775895055
+  },
+  {
+    "path": "locations/freezer-minus20.md",
+    "type": "freezer",
+    "title": "Freezer (-20C)",
+    "parent": "locations/room-robbins-0170",
+    "mtime": 1775980234
   },
   {
     "path": "locations/freezer-minus80-a.md",

@@ -512,6 +512,42 @@
     "target": "people/kehan-zhao"
   },
   {
+    "source": "locations/autoclave-room",
+    "target": "resources/autoclave-sterilizer"
+  },
+  {
+    "source": "locations/autoclave-room",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "resources/stir-plate"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "locations/cabinet-chemical"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "locations/cabinet-flammable"
+  },
+  {
+    "source": "locations/bench-chemistry",
+    "target": "locations/cabinet-corrosive"
+  },
+  {
     "source": "locations/box-dna-extracts",
     "target": "locations/fridge-4c-main"
   },
@@ -522,6 +558,10 @@
   {
     "source": "locations/box-pistachio-dna",
     "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "locations/freezer-minus20",
+    "target": "resources/sybr-gold"
   },
   {
     "source": "locations/freezer-minus80-a",
@@ -1048,16 +1088,128 @@
     "target": "wet-lab/gel-electrophoresis"
   },
   {
+    "source": "resources/analytical-balance",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "resources/analytical-balance",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "resources/autoclave-tape",
+    "target": "wet-lab/autoclave"
+  },
+  {
     "source": "resources/bis-n-n-methylene-bis-acrylamide",
     "target": "resources/acrylamide"
+  },
+  {
+    "source": "resources/buffer-a-quick-extraction",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "resources/buffer-a-quick-extraction",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "resources/buffer-a-quick-extraction",
+    "target": "resources/tris-base"
+  },
+  {
+    "source": "resources/buffer-a-quick-extraction",
+    "target": "resources/potassium-chloride"
+  },
+  {
+    "source": "resources/buffer-a-quick-extraction",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "resources/cryo-labels",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "resources/dna-ladder-1kb-plus",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "resources/dna-ladder-1kb-plus",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "resources/dna-ladder-1kb-plus",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "resources/emerald-amp-max-pcr-mix",
+    "target": "wet-lab/pcr-genotyping"
   },
   {
     "source": "resources/ethanol-absolute",
     "target": "resources/ethanol-70"
   },
   {
+    "source": "resources/eyewash-station",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "resources/eyewash-station",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "resources/filter-tips-p10",
+    "target": "resources/micropipette-p10"
+  },
+  {
+    "source": "resources/filter-tips-p1000",
+    "target": "resources/micropipette-p1000"
+  },
+  {
+    "source": "resources/filter-tips-p20",
+    "target": "resources/micropipette-p20"
+  },
+  {
+    "source": "resources/filter-tips-p200",
+    "target": "resources/micropipette-p200"
+  },
+  {
     "source": "resources/flow-cell-wash-kit-exp-wsh004",
     "target": "resources/flongle-flow-cells-flo-flg114"
+  },
+  {
+    "source": "resources/heat-block",
+    "target": "resources/water-bath"
+  },
+  {
+    "source": "resources/heat-block",
+    "target": "wet-lab/water-bath-and-heat-block"
+  },
+  {
+    "source": "resources/heat-block",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "resources/heat-block",
+    "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "resources/hydrochloric-acid",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "resources/hydrochloric-acid",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "resources/hydrochloric-acid",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "resources/hydrochloric-acid",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "resources/hydrochloric-acid",
+    "target": "locations/cabinet-corrosive"
   },
   {
     "source": "resources/kingfisher-deepwell-96-plate",
@@ -1066,6 +1218,54 @@
   {
     "source": "resources/labbot-wiki-mnthp11v",
     "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "resources/liquid-nitrogen-dewar",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "resources/liquid-nitrogen",
+    "target": "lab-safety/cryogens-sop"
+  },
+  {
+    "source": "resources/micropipette-p10",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "resources/micropipette-p1000",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "resources/micropipette-p20",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "resources/micropipette-p200",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "resources/micropore-tape",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "resources/micropore-tape",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "resources/minion-flow-cell",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "resources/minion-flow-cell",
+    "target": "wet-lab/loading-a-minion-flow-cell"
+  },
+  {
+    "source": "resources/multichannel-pipette",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "resources/nanopore-rapid-sequencing-kit",
+    "target": "wet-lab/nanopore-rapid-library-prep"
   },
   {
     "source": "resources/neb-blunt-ta-ligase-master-mix",
@@ -1120,12 +1320,56 @@
     "target": "resources/opentrons-ot2"
   },
   {
+    "source": "resources/petri-dishes-100mm",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "resources/ph-calibration-buffers",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "resources/ph-calibration-buffers",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "resources/pipette-tips-p10",
+    "target": "resources/micropipette-p10"
+  },
+  {
+    "source": "resources/pipette-tips-p1000",
+    "target": "resources/micropipette-p1000"
+  },
+  {
+    "source": "resources/pipette-tips-p20",
+    "target": "resources/micropipette-p20"
+  },
+  {
+    "source": "resources/pipette-tips-p200",
+    "target": "resources/micropipette-p200"
+  },
+  {
     "source": "resources/qubit-assay-tubes",
     "target": "resources/qubit-fluorometer"
   },
   {
     "source": "resources/qubit-assay-tubes",
     "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "resources/qubit-dsdna-br-assay-kit",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "resources/qubit-dsdna-br-assay-kit",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
+    "source": "resources/qubit-dsdna-br-assay-kit",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "resources/qubit-dsdna-br-assay-kit",
+    "target": "wet-lab/quantifying-dna-qubit"
   },
   {
     "source": "resources/qubit-dsdna-hs-assay-kit",
@@ -1144,6 +1388,62 @@
     "target": "resources/nebnext-companion-module-ont"
   },
   {
+    "source": "resources/stir-plate",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "resources/stir-plate",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "resources/stir-plate",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "resources/sybr-gold",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "resources/sybr-gold",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "resources/sybr-gold",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "resources/sybr-gold",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "resources/sybr-gold",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "resources/tris-base"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "resources/tae-buffer-50x",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
     "source": "resources/tapso",
     "target": "resources/taps"
   },
@@ -1156,6 +1456,22 @@
     "target": "resources/trizma-base"
   },
   {
+    "source": "resources/top-loading-balance",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "resources/top-loading-balance",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "resources/top-loading-balance",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "resources/top-loading-balance",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
     "source": "resources/tris-base",
     "target": "resources/1m-tris-hcl-ph-8-8-5"
   },
@@ -1166,6 +1482,18 @@
   {
     "source": "resources/tris-edta-te-buffer-solution",
     "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "resources/vortex-mixer",
+    "target": "wet-lab/vortexer-and-mixer-use"
+  },
+  {
+    "source": "resources/water-bath",
+    "target": "wet-lab/water-bath-and-heat-block"
+  },
+  {
+    "source": "resources/water-bath",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
   },
   {
     "source": "resources/wide-bore-filter-tips-p1000",
@@ -1933,6 +2261,10 @@
   },
   {
     "source": "wet-lab/bench-cleanup",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
     "target": "wet-lab/lab-orientation"
   },
   {
@@ -1945,11 +2277,27 @@
   },
   {
     "source": "wet-lab/bench-cleanup",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "resources/sybr-gold"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
     "target": "wet-lab/sharps-handling"
   },
   {
     "source": "wet-lab/bench-cleanup",
+    "target": "resources/clean-bench-laminar-flow"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
     "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "resources/nitrile-gloves"
   },
   {
     "source": "wet-lab/breakage-response",
@@ -1965,11 +2313,23 @@
   },
   {
     "source": "wet-lab/breakage-response",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/breakage-response",
     "target": "wet-lab/centrifuge-operation"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "resources/autoclave-sterilizer"
   },
   {
     "source": "wet-lab/bulking-seed",
     "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "locations/fridge-4c-main"
   },
   {
     "source": "wet-lab/bulking-seed",
@@ -1989,6 +2349,30 @@
   },
   {
     "source": "wet-lab/centrifuge-operation",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "resources/falcon-tubes-15ml"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "resources/falcon-tubes-50ml"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "locations/bench"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
     "target": "wet-lab/lab-orientation"
   },
   {
@@ -1998,6 +2382,10 @@
   {
     "source": "wet-lab/centrifuge-operation",
     "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "resources/top-loading-balance"
   },
   {
     "source": "wet-lab/clean-bench",
@@ -2925,6 +3313,38 @@
   },
   {
     "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/heat-block"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/water-bath"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/dneasy-plant-mini"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/rnase-aliquot"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
     "target": "wet-lab/harvesting-leaf-tissue"
   },
   {
@@ -2938,6 +3358,30 @@
   {
     "source": "wet-lab/extraction/qiagen-dneasy-extraction",
     "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/automill"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/mortar-and-pestle"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/liquid-nitrogen"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "locations/freezer-minus20"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "locations/fridge-4c-main"
   },
   {
     "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
@@ -3121,11 +3565,31 @@
   },
   {
     "source": "wet-lab/gel-imaging-and-annotation",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "wet-lab/gel-imaging-and-annotation",
     "target": "wet-lab/gel-electrophoresis"
   },
   {
     "source": "wet-lab/gel-imaging-and-annotation",
     "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/gel-imaging-and-annotation",
+    "target": "resources/sybr-gold"
+  },
+  {
+    "source": "wet-lab/gel-imaging-and-annotation",
+    "target": "resources/dna-ladder-1kb-plus"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "resources/growth-chamber"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "locations/room-asmundson-growth-chamber"
   },
   {
     "source": "wet-lab/growth-chamber-operation",
@@ -3142,6 +3606,38 @@
   {
     "source": "wet-lab/growth-chamber-operation",
     "target": "wet-lab/watering-and-plant-care"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "resources/micropore-tape"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "resources/liquid-nitrogen-dewar"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "resources/cryo-labels"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "resources/liquid-nitrogen"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "locations/freezer-minus80-a"
   },
   {
     "source": "wet-lab/harvesting-leaf-tissue",
@@ -3168,6 +3664,66 @@
     "target": "wet-lab/waste-disposal-quick-reference"
   },
   {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "locations/cabinet-flammable"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "locations/cabinet-corrosive"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/hydrochloric-acid"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "resources/sybr-gold"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "locations/freezer-minus20"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/weigh-boats"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "locations/bench-chemistry"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "locations/room-robbins-0170"
+  },
+  {
     "source": "wet-lab/how-to-use-the-scale",
     "target": "wet-lab/lab-orientation"
   },
@@ -3185,7 +3741,31 @@
   },
   {
     "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/falcon-tubes-50ml"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
     "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/sodium-chloride"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/room-asmundson-growth-chamber"
   },
   {
     "source": "wet-lab/lab-orientation",
@@ -3197,7 +3777,79 @@
   },
   {
     "source": "wet-lab/lab-orientation",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/cabinet-flammable"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/cabinet-corrosive"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/cabinet-chemical"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
     "target": "wet-lab/how-to-read-an-sds"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/fridge-4c-main"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/freezer-minus20"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/bench"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/water-bath"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/heat-block"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/clean-bench-laminar-flow"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/qubit-fluorometer"
   },
   {
     "source": "wet-lab/lab-orientation",
@@ -3205,7 +3857,63 @@
   },
   {
     "source": "wet-lab/lab-orientation",
+    "target": "resources/pipette-tips-p10"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/pipette-tips-p20"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/pipette-tips-p200"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/pipette-tips-p1000"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/falcon-tubes-15ml"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/falcon-tubes-50ml"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/petri-dishes-100mm"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/parafilm"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
     "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "resources/autoclave-sterilizer"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "locations/autoclave-room"
   },
   {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
@@ -3501,11 +4209,47 @@
   },
   {
     "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "resources/minion-flow-cell"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
     "target": "wet-lab/nanopore-rapid-library-prep"
   },
   {
     "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
     "target": "wet-lab/nanopore-data-retrieval"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "locations/fridge-4c-main"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "resources/micropipette-p1000"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "resources/micropipette-p200"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "resources/autoclave-sterilizer"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "resources/agar-non-tc"
   },
   {
     "source": "wet-lab/make-agar-seed-suspension",
@@ -3521,6 +4265,38 @@
   },
   {
     "source": "wet-lab/make-buffer-a",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/stir-plate"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/autoclave-sterilizer"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/tris-base"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/potassium-chloride"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/hydrochloric-acid"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
     "target": "wet-lab/how-to-use-the-scale"
   },
   {
@@ -3533,7 +4309,35 @@
   },
   {
     "source": "wet-lab/make-buffer-a",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
     "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/stir-plate"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/tris-base"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/glacial-acetic-acid"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/edta-trisodium-salt"
   },
   {
     "source": "wet-lab/make-tae-buffer",
@@ -3552,6 +4356,34 @@
     "target": "wet-lab/ph-measurement"
   },
   {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/stir-plate"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/autoclave-sterilizer"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/syringe-filter-0-2um"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/1m-tris-hcl-ph-8-8-5"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
     "source": "wet-lab/make-te-buffer",
     "target": "wet-lab/how-to-use-the-scale"
   },
@@ -3562,6 +4394,34 @@
   {
     "source": "wet-lab/make-te-buffer",
     "target": "wet-lab/library-prep/spri-beads-preparation"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/micropipette-p1000"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/micropipette-p200"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "resources/top-loading-balance"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "resources/gel-electrophoresis-tank"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "resources/tae-buffer-50x"
   },
   {
     "source": "wet-lab/making-an-agarose-gel",
@@ -4129,11 +4989,51 @@
   },
   {
     "source": "wet-lab/nanopore-data-retrieval",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "wet-lab/nanopore-data-retrieval",
     "target": "wet-lab/loading-a-minion-flow-cell"
   },
   {
     "source": "wet-lab/nanopore-data-retrieval",
     "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/heat-block"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/minion-mk1b"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/nanopore-rapid-sequencing-kit"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "resources/dna-lobind-tubes"
   },
   {
     "source": "wet-lab/nanopore-rapid-library-prep",
@@ -4146,6 +5046,10 @@
   {
     "source": "wet-lab/nanopore-rapid-library-prep",
     "target": "wet-lab/nanopore-data-retrieval"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "locations/freezer-minus20"
   },
   {
     "source": "wet-lab/pcr-genotyping",
@@ -4185,6 +5089,38 @@
   },
   {
     "source": "wet-lab/ph-measurement",
+    "target": "resources/ph-meter"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/ph-calibration-buffers"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/stir-plate"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/sodium-hydroxide"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/hydrochloric-acid"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/potassium-hydroxide"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "locations/bench-chemistry"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
     "target": "wet-lab/how-to-use-the-scale"
   },
   {
@@ -4196,8 +5132,76 @@
     "target": "wet-lab/make-tae-buffer"
   },
   {
+    "source": "wet-lab/ph-measurement",
+    "target": "locations/cabinet-corrosive"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "resources/tris-base"
+  },
+  {
     "source": "wet-lab/pipette-school",
-    "target": "wet-lab/lab-orientation"
+    "target": "resources/micropipette-p10"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/micropipette-p20"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/micropipette-p200"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/micropipette-p1000"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/multichannel-pipette"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/pipette-tips-p10"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/pipette-tips-p20"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/pipette-tips-p200"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/pipette-tips-p1000"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/filter-tips-p10"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/filter-tips-p20"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/parafilm"
   },
   {
     "source": "wet-lab/pipette-school",
@@ -4313,11 +5317,35 @@
   },
   {
     "source": "wet-lab/primer-design",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "locations/freezer-minus20"
+  },
+  {
+    "source": "wet-lab/primer-design",
     "target": "wet-lab/tube-and-sample-labeling"
   },
   {
     "source": "wet-lab/primer-design",
     "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "resources/nanodrop"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "resources/nuclease-free-water"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "resources/tris-edta-te-buffer-solution"
   },
   {
     "source": "wet-lab/quantifying-dna-nanodrop",
@@ -4332,6 +5360,34 @@
     "target": "wet-lab/extraction/qiagen-dneasy-extraction"
   },
   {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/qubit-fluorometer"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "locations/bench"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/qubit-dsdna-br-assay-kit"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/qubit-assay-tubes"
+  },
+  {
     "source": "wet-lab/quantifying-dna-qubit",
     "target": "wet-lab/quick-dna-extraction"
   },
@@ -4342,6 +5398,22 @@
   {
     "source": "wet-lab/quantifying-dna-qubit",
     "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "locations/freezer-minus20"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "locations/freezer-minus80-a"
   },
   {
     "source": "wet-lab/quick-dna-extraction",
@@ -4433,6 +5505,10 @@
   },
   {
     "source": "wet-lab/sharps-handling",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "wet-lab/sharps-handling",
     "target": "wet-lab/lab-orientation"
   },
   {
@@ -4449,6 +5525,14 @@
   },
   {
     "source": "wet-lab/spill-response",
+    "target": "resources/eyewash-station"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "wet-lab/spill-response",
     "target": "wet-lab/how-to-read-an-sds"
   },
   {
@@ -4458,6 +5542,18 @@
   {
     "source": "wet-lab/spill-response",
     "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "resources/sybr-gold"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "resources/2-mercaptoethanol"
   },
   {
     "source": "wet-lab/stratification",
@@ -4481,6 +5577,10 @@
   },
   {
     "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "locations/room-asmundson-growth-chamber"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
     "target": "wet-lab/planting-arabidopsis-on-ms-plates"
   },
   {
@@ -4501,11 +5601,59 @@
   },
   {
     "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/cryo-labels"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/microtube"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/falcon-tubes-15ml"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/falcon-tubes-50ml"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/petri-dishes-100mm"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "resources/autoclave-tape"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
     "target": "wet-lab/lab-orientation"
   },
   {
     "source": "wet-lab/tube-and-sample-labeling",
     "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/vortexer-and-mixer-use",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/vortexer-and-mixer-use",
+    "target": "resources/tube-rotator"
+  },
+  {
+    "source": "wet-lab/vortexer-and-mixer-use",
+    "target": "locations/bench"
+  },
+  {
+    "source": "wet-lab/vortexer-and-mixer-use",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/vortexer-and-mixer-use",
+    "target": "resources/magnetic-rack"
   },
   {
     "source": "wet-lab/waste-disposal-quick-reference",
@@ -4524,12 +5672,52 @@
     "target": "wet-lab/bench-cleanup"
   },
   {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "resources/sybr-gold"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "resources/water-bath"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "resources/heat-block"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "locations/bench"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "locations/room-robbins-0170"
+  },
+  {
     "source": "wet-lab/water-bath-and-heat-block",
     "target": "wet-lab/lab-orientation"
   },
   {
     "source": "wet-lab/water-bath-and-heat-block",
     "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "resources/growth-chamber"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "locations/room-asmundson-growth-chamber"
   },
   {
     "source": "wet-lab/watering-and-plant-care",

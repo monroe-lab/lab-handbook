@@ -1,66 +1,66 @@
 {
-  "generated_at": "2026-04-12T05:04:10.851135+00:00",
-  "total_commits": 1887,
+  "generated_at": "2026-04-12T07:50:45.662892+00:00",
+  "total_commits": 1950,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 1884,
+      "total_commits": 1947,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-12",
-      "protocols_authored": 128,
-      "notebooks_authored": 81,
-      "inventory_edits": 1668,
-      "wiki_edits": 516,
-      "images_uploaded": 91,
-      "issue_attachments": 4,
+      "protocols_authored": 160,
+      "notebooks_authored": 82,
+      "inventory_edits": 1710,
+      "wiki_edits": 588,
+      "images_uploaded": 92,
+      "issue_attachments": 5,
       "issues_filed": 30,
-      "locations_created": 43,
-      "items_added": 529,
+      "locations_created": 46,
+      "items_added": 571,
       "bulletin_edits": 6,
       "calendar_edits": 39,
-      "annotations": 54,
+      "annotations": 55,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "e901bbb",
-          "subject": "Embed profile stats + badges on the dashboard",
+          "sha": "5929fba",
+          "subject": "reset",
           "date": "2026-04-12"
         },
         {
-          "sha": "0f08b3a",
-          "subject": "Tiered badge leveling system (Bronze \u2192 Silver \u2192 Gold \u2192 Platinum \u2192 Diamond)",
+          "sha": "4869195",
+          "subject": "cleanup",
           "date": "2026-04-12"
         },
         {
-          "sha": "d29a149",
-          "subject": "Fix bulletin board image rendering on dashboard",
+          "sha": "04b88ef",
+          "subject": "cleanup",
           "date": "2026-04-12"
         },
         {
-          "sha": "ebc7643",
-          "subject": "Issue reporter attachment: screenshot-2026-04-12-at-5.27.45-am.png",
+          "sha": "9e3f4d3",
+          "subject": "Upload sample-gel.png",
           "date": "2026-04-12"
         },
         {
-          "sha": "668ef26",
-          "subject": "Expand tiered badges: 11 categories, fun personality badges, Bug Hunter fix",
+          "sha": "c21a3aa",
+          "subject": "Annotate images/sample-gel-annotated.png",
           "date": "2026-04-12"
         },
         {
-          "sha": "07a6121",
-          "subject": "Replace toxic time-badges with lab-operations badges",
+          "sha": "d2c7b93",
+          "subject": "Update notebook notebooks/barb-m/1950-06-15",
           "date": "2026-04-12"
         },
         {
-          "sha": "d676ac6",
-          "subject": "Issue reporter attachment: screenshot-2026-04-12-at-5.39.46-am.png",
+          "sha": "9143501",
+          "subject": "Add objects tutorial video, update skill with full selector reference",
           "date": "2026-04-12"
         },
         {
-          "sha": "34f2f9f",
-          "subject": "Show frontmatter metadata bar in view mode (#46)",
+          "sha": "ce388f8",
+          "subject": "Add ~45 concept objects, 3 locations, wire 290+ wikilinks across all protocols",
           "date": "2026-04-12"
         }
       ],
