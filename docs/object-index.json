@@ -3824,7 +3824,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "14:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-06-ms-plate-preparation-and-seed-sterilization.md",
@@ -3834,12 +3835,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-07-alex-chen-block.md",
+    "path": "events/2026-04-07-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-07",
     "created_by": "greymonroe",
     "start_time": "14:00",
@@ -3854,7 +3856,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "13:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-08-bioinformatics-analysis.md",
@@ -3864,12 +3867,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-09-alex-chen-block.md",
+    "path": "events/2026-04-09-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-09",
     "created_by": "greymonroe",
     "start_time": "13:00",
@@ -3884,7 +3888,8 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "11:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-10-gel-electrophoresis-and-data-entry.md",
@@ -3894,7 +3899,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-10-jordan-patel-block.md",
@@ -3904,7 +3910,8 @@
     "created_by": "greymonroe",
     "start_time": "13:00",
     "end_time": "16:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-13-cut-tag-library-prep.md",
@@ -3914,7 +3921,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "14:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-13-ms-plate-preparation-and-seed-sterilization.md",
@@ -3924,12 +3932,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-14-alex-chen-block.md",
+    "path": "events/2026-04-14-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-14",
     "created_by": "greymonroe",
     "start_time": "14:00",
@@ -3944,7 +3953,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "13:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-15-bioinformatics-analysis.md",
@@ -3954,12 +3964,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-16-alex-chen-block.md",
+    "path": "events/2026-04-16-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-16",
     "created_by": "greymonroe",
     "start_time": "13:00",
@@ -3974,7 +3985,8 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "11:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-17-gel-electrophoresis-and-data-entry.md",
@@ -3984,7 +3996,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-17-jordan-patel-block.md",
@@ -3994,7 +4007,8 @@
     "created_by": "greymonroe",
     "start_time": "13:00",
     "end_time": "16:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-20-cut-tag-library-prep.md",
@@ -4004,7 +4018,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "14:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-20-ms-plate-preparation-and-seed-sterilization.md",
@@ -4014,12 +4029,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-21-alex-chen-block.md",
+    "path": "events/2026-04-21-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-21",
     "created_by": "greymonroe",
     "start_time": "14:00",
@@ -4034,7 +4050,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "13:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-22-bioinformatics-analysis.md",
@@ -4044,12 +4061,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-23-alex-chen-block.md",
+    "path": "events/2026-04-23-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-23",
     "created_by": "greymonroe",
     "start_time": "13:00",
@@ -4064,7 +4082,8 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "11:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-24-gel-electrophoresis-and-data-entry.md",
@@ -4074,7 +4093,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-24-jordan-patel-block.md",
@@ -4084,7 +4104,8 @@
     "created_by": "greymonroe",
     "start_time": "13:00",
     "end_time": "16:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-27-cut-tag-library-prep.md",
@@ -4094,7 +4115,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "14:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-27-ms-plate-preparation-and-seed-sterilization.md",
@@ -4104,12 +4126,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-28-alex-chen-block.md",
+    "path": "events/2026-04-28-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-28",
     "created_by": "greymonroe",
     "start_time": "14:00",
@@ -4124,7 +4147,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "13:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-04-29-bioinformatics-analysis.md",
@@ -4134,12 +4158,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-30-alex-chen-block.md",
+    "path": "events/2026-04-30-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-04-30",
     "created_by": "greymonroe",
     "start_time": "13:00",
@@ -4154,7 +4179,8 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "11:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-01-gel-electrophoresis-and-data-entry.md",
@@ -4164,7 +4190,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-01-jordan-patel-block.md",
@@ -4174,7 +4201,8 @@
     "created_by": "greymonroe",
     "start_time": "13:00",
     "end_time": "16:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-04-cut-tag-library-prep.md",
@@ -4184,7 +4212,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "14:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-04-ms-plate-preparation-and-seed-sterilization.md",
@@ -4194,12 +4223,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-05-05-alex-chen-block.md",
+    "path": "events/2026-05-05-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-05-05",
     "created_by": "greymonroe",
     "start_time": "14:00",
@@ -4214,7 +4244,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "13:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-06-bioinformatics-analysis.md",
@@ -4224,12 +4255,13 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "12:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   },
   {
-    "path": "events/2026-05-07-alex-chen-block.md",
+    "path": "events/2026-05-07-barb-m-block.md",
     "type": "event",
-    "title": "Alex Chen block",
+    "title": "Barb M. block",
     "date": "2026-05-07",
     "created_by": "greymonroe",
     "start_time": "13:00",
@@ -4244,7 +4276,8 @@
     "created_by": "greymonroe",
     "start_time": "09:00",
     "end_time": "11:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-08-gel-electrophoresis-and-data-entry.md",
@@ -4254,7 +4287,8 @@
     "created_by": "greymonroe",
     "start_time": "10:00",
     "end_time": "12:00",
-    "member": "[[barb-m]]"
+    "member": "[[barb-m]]",
+    "mtime": 1775970289
   },
   {
     "path": "events/2026-05-08-jordan-patel-block.md",
@@ -4264,6 +4298,7 @@
     "created_by": "greymonroe",
     "start_time": "13:00",
     "end_time": "16:00",
-    "member": "Jordan Patel"
+    "member": "Jordan Patel",
+    "mtime": 1775970289
   }
 ]
