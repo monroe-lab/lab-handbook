@@ -16,7 +16,13 @@ title: "Clean Bench (Laminar Flow Hood)"
 
 **Contacts:** [[satoyo-oya]]
 
+**Prerequisites:** [[lab-orientation]]
+
 **Purpose:** Provide a sterile work environment for plating seeds, pouring plates, and handling sterile cultures.
+
+## Time estimate
+
+**Wall time:** ~15-30 min setup + working time | **Hands-on:** ~15 min for setup/shutdown
 
 ---
 
@@ -58,8 +64,11 @@ A laminar flow clean bench blows HEPA-filtered air in a uniform (laminar) flow a
 
 ## Location
 
-- Grey needs to confirm which clean bench in the lab is available for Arabidopsis work
-- [[Lily Tan]] uses one for her seed plating — ask her
+The laminar flow clean bench is in a designated bay in Robbins 170. Ask Grey or your mentor for the exact location on your first visit.
+
+## Documentation
+
+Create a lab notebook entry for your first clean bench session. Date it. Cite this protocol. Note: what you did in the bench and whether you had any contamination issues.
 
 ## See also
 - [[seed-sterilization]]

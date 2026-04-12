@@ -14,6 +14,8 @@ title: "Stratification"
 
 **Contacts:** [[satoyo-oya]]
 
+**Prerequisites:** [[seed-sterilization]]
+
 **Purpose:** Cold treatment to break seed dormancy and synchronize germination.
 
 ---

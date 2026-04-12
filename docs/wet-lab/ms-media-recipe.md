@@ -16,7 +16,9 @@ title: "MS Media Recipe"
 
 **Contacts:** [[satoyo-oya]], [[grey-monroe]]
 
-**Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth.
+**Prerequisites:** [[how-to-use-the-scale]], [[ph-measurement]], [[autoclave]], [[clean-bench]]
+
+**Purpose:** Murashige & Skoog agar plates for Arabidopsis seed germination and seedling growth. This is the first integrative protocol in the training curriculum: it combines weighing, pH adjustment, autoclaving, and sterile technique into one real task.
 
 **Source:** [[satoyo-oya]]'s lab recipe; also in [Recipes doc](https://docs.google.com/document/d/1um8iG9L81WxicA_Ez5yNWPw1V0Uhwa0yoWsYKIMmloY)
 

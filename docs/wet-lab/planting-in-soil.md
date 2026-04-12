@@ -14,6 +14,8 @@ title: "Planting Arabidopsis in Soil"
 
 **Related Protocols:** [[planting-arabidopsis-on-ms-plates]], [[stratification]], [[seed-sterilization]]
 
+**Prerequisites:** [[stratification]]
+
 **Purpose:** Direct sowing in soil for growing plants to maturity (flowering, crossing, seed set).
 
 ---

@@ -16,7 +16,13 @@ title: "Autoclave"
 
 **Contacts:** [[satoyo-oya]]
 
-**Purpose:** Sterilize media, water, and equipment using high-pressure saturated steam.
+**Prerequisites:** [[lab-orientation]]
+
+**Purpose:** Sterilize media, water, and equipment using high-pressure saturated steam. The autoclave is in a shared room in Robbins Hall (not in our lab). Ask Grey or your mentor for the exact location and access on your first visit.
+
+## Time estimate
+
+**Wall time:** ~60-90 min (including ramp-up and cool-down) | **Hands-on:** ~15 min
 
 ---
 
@@ -75,8 +81,11 @@ An autoclave is essentially a pressure cooker. By pressurizing the chamber to ~1
 
 ## Location
 
-- Grey needs to identify which autoclave in the building to use
-- Ask [[Vianney Ahn]], [[Lily Tan]], or lab neighbors for access/training if unfamiliar with the specific unit
+The autoclave is in a shared room in Robbins Hall. It is not in our lab. Ask Grey or your mentor for the exact room number and building access on your first visit.
+
+## Documentation
+
+Create a lab notebook entry for your first autoclave run. Date it. Cite this protocol. Note: what you autoclaved, which cycle you used, and confirm the autoclave tape changed color.
 
 ## See also
 - [[ms-media-recipe]]

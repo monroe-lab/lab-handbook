@@ -5,7 +5,13 @@ title: "Liquid Nitrogen: Where, How, and Refill"
 
 # Liquid Nitrogen: Where, How, and Refill
 
-Short practical protocol for the day-to-day "I need LN₂" question. For the full safety picture, read [[cryogens-sop]] — it's the institutional template with PPE, emergency procedures, and waste handling. This page is just the "I just need to know where and how" checklist.
+## Resources
+
+**Prerequisites:** [[lab-orientation]]
+
+**Related Protocols:** [[harvesting-leaf-tissue]], [[cryogens-sop]]
+
+**Purpose:** Practical protocol for the day-to-day "I need LN2" question. For the full safety picture, read [[cryogens-sop]]. This page is the "where and how" checklist.
 
 > **Before using LN₂ for the first time**, complete the UC Davis [Cryogen Safety training](http://safetyservices.ucdavis.edu/training/cryogen-safety) and read [[cryogens-sop]] end to end. This is not optional.
 

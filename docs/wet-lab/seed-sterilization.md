@@ -15,6 +15,8 @@ title: "Seed Sterilization"
 
 **Contacts:** [[satoyo-oya]]
 
+**Prerequisites:** [[clean-bench]]
+
 **Purpose:** Surface-sterilize Arabidopsis seeds before plating on sterile MS media.
 
 **Source:** [[satoyo-oya]]'s protocols
