@@ -313,6 +313,7 @@ var CATEGORY_CONFIG = {
 var NAV = [];
 var currentDoc = null;
 var currentSha = null;
+var currentMeta = null;  // parsed frontmatter for current doc (used by print preview, edit mode)
 var isEditing = false;
 var editorInstance = null;
 var allProtocols = [];
@@ -714,7 +715,20 @@ function postProcessRendered(el) {
     });
   });
 
-  // Resolve image/video paths and add GitHub API fallback
+  // Resolve relative image/video paths against the document's directory
+  // so that e.g. images/foo.png in plant-harvesting/poplar-leaf-collection
+  // resolves to plant-harvesting/images/foo.png, not /images/foo.png.
+  if (currentDoc) {
+    var docDir = currentDoc.split('/').slice(0, -1).join('/');
+    if (docDir) {
+      el.querySelectorAll('img, video source, video').forEach(function(media) {
+        var src = media.getAttribute('src') || '';
+        if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+          media.setAttribute('src', docDir + '/' + src);
+        }
+      });
+    }
+  }
   Lab.postProcessImages(el);
   el.querySelectorAll('video').forEach(function(vid) {
     vid.addEventListener('error', function() {
@@ -751,6 +765,7 @@ async function loadDoc(docPath) {
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
     var parsed = Lab.parseFrontmatter(result.content);
+    currentMeta = parsed.meta;
     var title = parsed.meta.title || docPath.split('/').pop();
 
     var html = await Lab.editorModal.renderMarkdown(parsed.body);
@@ -761,7 +776,6 @@ async function loadDoc(docPath) {
           '<div class="breadcrumb">' + Lab.escHtml(docPath) + '</div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
-            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             (Lab.gh.isLoggedIn() ?
               '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
               '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
@@ -830,6 +844,7 @@ async function startEdit() {
             '<button class="btn btn-primary btn-sm" id="saveBtn" onclick="saveDoc()" title="Save"><span class="material-icons-outlined">save</span><span class="btn-label"> Save</span></button>' +
           '</div>' +
         '</div>' +
+        (Lab.renderFrontmatterBar && currentMeta ? Lab.renderFrontmatterBar(currentMeta) : '') +
         '<div class="proto-editor-surface em-surface" id="editorSurface"></div>' +
       '</div>';
 
@@ -895,13 +910,13 @@ async function saveDoc() {
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
-            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
             '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
             '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span> Delete</button>' +
             '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
           '</div>' +
         '</div>' +
+        (Lab.renderFrontmatterBar && editFrontmatter ? Lab.renderFrontmatterBar(editFrontmatter) : '') +
         '<div class="lab-rendered theme-teal" id="renderedDoc">' + html + '</div>' +
       '</div>';
     var renderedEl2 = document.getElementById('renderedDoc');
@@ -940,10 +955,6 @@ async function saveDoc() {
       btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
     }
   }
-}
-
-function printProtocol() {
-  window.print();
 }
 
 function togglePrintPreview(btn) {
@@ -1006,13 +1017,21 @@ function showPrintPreview(rendered) {
       '.content details { margin: 6pt 0; }' +
       '.content details[open] summary { margin-bottom: 6pt; }' +
       '.content summary { font-weight: 600; cursor: pointer; }' +
-      '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; font-size: inherit !important; box-shadow: none !important; }';
+      '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; font-size: inherit !important; box-shadow: none !important; }' +
+      '.frontmatter-bar { margin: 0 0 12pt; padding: 6pt 0; border-bottom: 1pt solid #ddd; display: flex; flex-wrap: wrap; gap: 6pt; }' +
+      '.frontmatter-bar .fm-pill { display: inline-block; padding: 2pt 8pt; border-radius: 10pt; font-size: 9pt; font-weight: 500; }' +
+      '.print-fab { position: fixed; bottom: 24px; right: 24px; background: #009688; color: #fff; border: none; border-radius: 28px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.25); font-family: inherit; display: flex; align-items: center; gap: 8px; z-index: 100; }' +
+      '.print-fab:hover { background: #00796b; }' +
+      '@media print { .print-fab { display: none !important; } }';
     idoc.head.appendChild(style);
 
     // Create measuring container with the rendered HTML
     var content = idoc.createElement('div');
     content.className = 'content';
-    content.innerHTML = rendered.innerHTML;
+    // Include frontmatter bar in print preview if available
+    var fmBar = rendered.parentNode.querySelector('.frontmatter-bar');
+    if (fmBar) content.innerHTML = fmBar.outerHTML + rendered.innerHTML;
+    else content.innerHTML = rendered.innerHTML;
     content.querySelectorAll('details').forEach(function(d) { d.open = true; });
     // Strip Material Icons spans (font not loaded in iframe)
     content.querySelectorAll('.material-icons-outlined, .material-icons').forEach(function(el) { el.remove(); });
@@ -1091,6 +1110,13 @@ function showPrintPreview(rendered) {
 
     idoc.body.innerHTML = '';
     idoc.body.appendChild(pagesDiv);
+
+    // Add a floating Print button inside the preview
+    var printFab = idoc.createElement('button');
+    printFab.className = 'print-fab';
+    printFab.innerHTML = '&#x1F5A8; Print';
+    printFab.addEventListener('click', function() { idoc.defaultView.print(); });
+    idoc.body.appendChild(printFab);
 
     // Resize iframe to fit content
     iframe.style.height = (idoc.body.scrollHeight + 48) + 'px';
@@ -1342,15 +1368,16 @@ async function renameDoc() {
           '<div class="breadcrumb">' + Lab.escHtml(currentDoc) + '</div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="togglePrintPreview(this)"><span class="material-icons-outlined">article</span> Print Preview</button>' +
-            '<button class="btn btn-outline btn-sm" onclick="printProtocol()"><span class="material-icons-outlined">print</span> Print</button>' +
             '<button class="btn btn-outline btn-sm" onclick="renameDoc()"><span class="material-icons-outlined">drive_file_rename_outline</span> Rename</button>' +
             '<button class="btn btn-outline btn-sm" onclick="duplicateDoc()"><span class="material-icons-outlined">content_copy</span> Duplicate</button>' +
             '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span> Delete</button>' +
             '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' +
           '</div>' +
         '</div>' +
+        (Lab.renderFrontmatterBar && editFrontmatter ? Lab.renderFrontmatterBar(editFrontmatter) : '') +
         '<div class="lab-rendered theme-teal" id="renderedDoc">' + html + '</div>' +
       '</div>';
+    currentMeta = editFrontmatter;
     var renderedEl = document.getElementById('renderedDoc');
     if (Lab.wikilinks) {
       await Lab.wikilinks.processRendered(renderedEl);
