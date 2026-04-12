@@ -1,5 +1,6 @@
-/* Monroe Lab – Floating Issue Reporter
-   Adds a floating button (bottom-left) that opens a modal to submit GitHub issues.
+/* Monroe Lab – Floating Feedback Button
+   Adds a floating button (bottom-left) that opens a modal to submit feedback,
+   ideas, suggestions, questions, or bug reports as GitHub issues.
    Auto-captures: page path, page title, timestamp, viewport size, user agent.
    Uses PAT from localStorage (gh_lab_token) to create issues via GitHub Issues API.
 */
@@ -49,8 +50,8 @@
     injectCSS();
     var btn = document.createElement('button');
     btn.id = 'issue-reporter-btn';
-    btn.setAttribute('aria-label', 'Report an issue');
-    btn.textContent = '\u26A0\uFE0F';
+    btn.setAttribute('aria-label', 'Share feedback');
+    btn.textContent = '\uD83D\uDCA1';
     Object.assign(btn.style, {
       position: 'fixed',
       bottom: '80px',
@@ -62,7 +63,7 @@
       height: '44px',
       borderRadius: '50%',
       border: 'none',
-      background: '#ef4444',
+      background: '#3b82f6',
       color: '#fff',
       fontSize: '20px',
       cursor: 'pointer',
@@ -118,7 +119,7 @@
     });
 
     var title = document.createElement('h3');
-    title.textContent = 'Report an Issue';
+    title.textContent = 'Share Feedback';
     Object.assign(title.style, {
       margin: '0 0 16px',
       fontSize: '16px',
@@ -127,7 +128,7 @@
     });
 
     var label = document.createElement('label');
-    label.textContent = 'Describe the problem:';
+    label.textContent = 'What\u2019s on your mind?';
     Object.assign(label.style, {
       display: 'block',
       fontSize: '13px',
@@ -138,7 +139,7 @@
 
     var textarea = document.createElement('textarea');
     textarea.id = 'issue-reporter-description';
-    textarea.placeholder = 'What went wrong? What did you expect to happen?';
+    textarea.placeholder = 'Questions, ideas, suggestions, bug reports, improvement requests \u2014 anything goes.';
     Object.assign(textarea.style, {
       width: '100%',
       minHeight: '100px',
@@ -252,13 +253,13 @@
     });
 
     var submitBtn = document.createElement('button');
-    submitBtn.textContent = 'Submit Issue';
+    submitBtn.textContent = 'Submit';
     submitBtn.id = 'issue-reporter-submit';
     Object.assign(submitBtn.style, {
       padding: '8px 16px',
       border: 'none',
       borderRadius: '6px',
-      background: '#ef4444',
+      background: '#3b82f6',
       color: '#fff',
       cursor: 'pointer',
       fontSize: '13px',
@@ -422,13 +423,13 @@
 
   async function submitIssue(description, btn) {
     if (!description.trim()) {
-      toast('Please describe the issue.', 'error');
+      toast('Please write something before submitting.', 'error');
       return;
     }
 
     var token = getToken();
     if (!token) {
-      toast('You must be logged in to report an issue.', 'error');
+      toast('You must be logged in to submit feedback.', 'error');
       return;
     }
 
@@ -485,9 +486,9 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          title: '[Issue Report] ' + description.trim().slice(0, 80),
+          title: '[Feedback] ' + description.trim().slice(0, 80),
           body: body,
-          labels: ['bug-report']
+          labels: ['feedback']
         })
       });
 
@@ -498,14 +499,14 @@
 
       var issue = await resp.json();
       closeModal();
-      var msg = 'Issue #' + issue.number + ' created';
+      var msg = 'Feedback submitted (#' + issue.number + ')';
       if (uploadedAttachments.length) msg += ' with ' + uploadedAttachments.length + ' attachment(s)';
-      msg += '. Thank you!';
+      msg += '. Thanks!';
       toast(msg, 'success');
     } catch (e) {
       console.error('Issue reporter error:', e);
       btn.disabled = false;
-      btn.textContent = 'Submit Issue';
+      btn.textContent = 'Submit';
       btn.style.opacity = '1';
       toast('Failed to submit: ' + e.message, 'error');
     }
