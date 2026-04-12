@@ -12,7 +12,7 @@ title: "PCR Genotyping"
 
 **Reagents:** [[mes-buffer]], [[mineral-oil]], [[nuclease-free-water]], [[tween-80]]
 
-**Related Protocols:** [[quick-dna-extraction]], [[gel-electrophoresis]], [[sanger-sequencing]]
+**Related Protocols:** [[quick-dna-extraction]], [[gel-electrophoresis]], [[sanger-sequencing]], [[primer-design]], [[gel-imaging-and-annotation]], [[making-an-agarose-gel]]
 
 **Contacts:** [[satoyo-oya]]
 

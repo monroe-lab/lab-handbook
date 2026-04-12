@@ -12,7 +12,7 @@ title: "Preparing SPRI Beads"
 
 **Reagents:** [[ampure-xp-beads]], [[edta-trisodium-salt]], [[polyethylene-glycol-solid]], [[sodium-chloride]], [[tris-edta-te-buffer-solution]]
 
-**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[tn5-loading-library-prep]], [[hifi-dna-extraction]]
+**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[tn5-loading-library-prep]], [[hifi-dna-extraction]], [[make-te-buffer]]
 
 Preparing SPRI beads
 

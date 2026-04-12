@@ -12,7 +12,7 @@ title: "Quick DNA Extraction for PCR (Buffer A Method)"
 
 **Reagents:** [[1m-tris-hcl-ph-8-8-5]], [[ethanol-70]], [[mes-buffer]], [[potassium-chloride]], [[tween-80]]
 
-**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]]
+**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]], [[make-buffer-a]], [[harvesting-leaf-tissue]]
 
 **Contacts:** [[satoyo-oya]]
 
@@ -38,7 +38,7 @@ You don't purify the DNA at all — you just dilute the lysate in TE and use 1 u
 
 ## Materials
 
-- **Buffer A:** 100 mM Tris-HCl pH 9.5, 1 M KCl, 10 mM EDTA
+- **[[buffer-a-quick-extraction|Buffer A]]:** 100 mM Tris-HCl pH 9.5, 1 M KCl, 10 mM EDTA (see [[make-buffer-a]] to prepare)
   - Location: [[Satoyo Oya]]'s shelf in lab
   - Check [[Chemical Inventory]] for components if making fresh
 - **TE buffer:** dilute 50x stock (on chemical shelf) to 1x with DI water

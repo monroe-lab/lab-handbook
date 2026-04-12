@@ -11,7 +11,7 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 
 **Reagents:** [[agar-plant-tc]], [[ethanol-70]], [[mes-buffer]], [[ms-basal-salt-mixture]], [[sucrose]], [[tc-agar-a175]]
 
-**Related Protocols:** [[ms-media-recipe]], [[seed-sterilization]], [[stratification]], [[planting-in-soil]], [[clean-bench]]
+**Related Protocols:** [[ms-media-recipe]], [[seed-sterilization]], [[stratification]], [[planting-in-soil]], [[clean-bench]], [[make-agar-seed-suspension]], [[growth-chamber-operation]]
 
 **Contacts:** [[satoyo-oya]], [[grey-monroe]]
 
@@ -47,7 +47,7 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 * KOH for pH adjustment (5N stock + 0.5N stock)
 * 70% ethanol OR 📖 bleach sterilization solution
 * Sterile distilled water
-* 0.1% agar solution (for seed resuspension; sterilized)
+* 0.1% agar solution (for seed resuspension; sterilized — see [[make-agar-seed-suspension]])
 
 ### Equipment
 

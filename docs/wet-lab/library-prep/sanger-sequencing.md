@@ -12,7 +12,7 @@ title: "Sanger on PCR product"
 
 **Consumables:** [[dna-lobind-tubes]], [[pcr-strip-tubes-0-2ml]]
 
-**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]], [[quick-dna-extraction]]
+**Related Protocols:** [[pcr-genotyping]], [[gel-electrophoresis]], [[quick-dna-extraction]], [[primer-design]]
 
 ### 1. Remove primers from your DNA sample by enzymatic digestion
 

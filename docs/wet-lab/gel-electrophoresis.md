@@ -12,7 +12,7 @@ title: "Gel Electrophoresis"
 
 **Reagents:** [[agarose]], [[bromophenol-blue]], [[edta-tetrasodium-salt-dihydrate]], [[edta-trisodium-salt]], [[ethylenediaminetetraacetic-acid-gmp]], [[glacial-acetic-acid]], [[glacial-acetic-acid-2]], [[mes-buffer]], [[tris-edta-te-buffer-solution]], [[trizma-base]]
 
-**Related Protocols:** [[pcr-genotyping]], [[quick-dna-extraction]]
+**Related Protocols:** [[pcr-genotyping]], [[quick-dna-extraction]], [[make-tae-buffer]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
 
 **Contacts:** [[satoyo-oya]]
 
@@ -46,7 +46,7 @@ For most genotyping, **1.5% agarose** is the default.
 ## Materials
 
 - **Pre-cast 1.5% agarose gel** (available on open shelf above UV lamp) OR cast your own:
-  - 1.5 g SeaKem or LE Agarose per 100 mL 1x TAE buffer
+  - 1.5 g SeaKem or LE [[agarose]] per 100 mL 1x [[tae-buffer-50x|TAE buffer]] (see [[make-tae-buffer]] to prepare, [[making-an-agarose-gel]] to cast)
   - Microwave until dissolved, pour into casting tray with comb
 - **1x TAE running buffer** (in gel tank)
 - **1 kb+ Fast DNA Ladder** (size marker)
