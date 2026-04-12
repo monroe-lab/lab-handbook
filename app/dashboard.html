@@ -80,6 +80,10 @@
     </div>
 
   </div>
+
+  <!-- Profile embed: your stats + badges rendered inline on the dashboard -->
+  <div id="dashProfile" style="margin-top:20px"></div>
+
 </div>
 
 <script>
@@ -309,6 +313,99 @@
   }
 
   init();
+
+  // ── Profile embed: your stats + badges on the dashboard ──
+  // Loads user-stats.json and renders a compact profile card for the
+  // logged-in user. Everyone sees their own stats when they land on
+  // the dashboard — Grey's goal is to make contributions visible and
+  // motivate lab members via gamification.
+  (function loadDashProfile() {
+    var mount = document.getElementById('dashProfile');
+    if (!mount) return;
+
+    var login = '';
+    var displayName = '';
+    var avatar = '';
+    try {
+      var u = JSON.parse(localStorage.getItem('gh_lab_user') || '{}');
+      login = u.login || '';
+      displayName = u.name || u.login || '';
+      avatar = u.avatar || '';
+    } catch(e) {}
+    if (!login) {
+      mount.innerHTML = '';
+      return;
+    }
+
+    fetch(BASE + 'user-stats.json?' + Date.now())
+      .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function(data) {
+        var users = data.users || {};
+        var me = users[login] || users[login.toLowerCase()];
+        if (!me) { mount.innerHTML = ''; return; }
+
+        var profileHref = BASE + 'app/profile.html?user=' + encodeURIComponent(login);
+
+        // Badge definitions (same thresholds as profile.html)
+        var BADGES = [
+          { icon: '🌱', title: 'First Commit',       check: function(s) { return s.total_commits >= 1; } },
+          { icon: '📜', title: 'First Protocol',     check: function(s) { return s.protocols_authored >= 1; } },
+          { icon: '📓', title: 'First Notebook',     check: function(s) { return s.notebooks_authored >= 1; } },
+          { icon: '✍️', title: 'Chronicler',         check: function(s) { return s.notebooks_authored >= 20; } },
+          { icon: '🧪', title: 'Protocol Master',    check: function(s) { return s.protocols_authored >= 10; } },
+          { icon: '📦', title: 'Inventory Keeper',   check: function(s) { return s.inventory_edits >= 50; } },
+          { icon: '💯', title: 'Century',            check: function(s) { return s.total_commits >= 100; } },
+          { icon: '📸', title: 'Photographer',       check: function(s) { return s.images_uploaded >= 25; } },
+          { icon: '📚', title: 'Wiki Builder',       check: function(s) { return s.wiki_edits >= 100; } },
+          { icon: '🐛', title: 'Debugger',           check: function(s) { return s.issue_attachments >= 5; } },
+          { icon: '🏛️', title: 'Founder',            check: function(s) { return s.first_commit && s.first_commit <= '2025-12-31'; } },
+        ];
+
+        var unlocked = BADGES.filter(function(b) { return b.check(me); });
+        var locked = BADGES.filter(function(b) { return !b.check(me); });
+
+        // Build compact profile card
+        var avatarHtml = avatar
+          ? '<img src="' + esc(avatar) + '" style="width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.3);object-fit:cover">'
+          : '<div style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:2px solid rgba(255,255,255,.3)">' + esc((displayName[0] || '?').toUpperCase()) + '</div>';
+
+        var statsHtml = [
+          { n: me.total_commits || 0, l: 'Commits', icon: 'commit' },
+          { n: me.protocols_authored || 0, l: 'Protocols', icon: 'science' },
+          { n: me.notebooks_authored || 0, l: 'Notebooks', icon: 'edit_note' },
+          { n: me.inventory_edits || 0, l: 'Inventory', icon: 'inventory_2' },
+        ].map(function(s) {
+          return '<div style="text-align:center;min-width:70px">' +
+            '<span class="material-icons-outlined" style="font-size:16px;color:rgba(255,255,255,.7);display:block;margin-bottom:2px">' + s.icon + '</span>' +
+            '<div style="font-size:18px;font-weight:700">' + s.n + '</div>' +
+            '<div style="font-size:10px;color:rgba(255,255,255,.7)">' + s.l + '</div></div>';
+        }).join('');
+
+        var badgesHtml = unlocked.map(function(b) {
+          return '<span title="' + esc(b.title) + '" style="font-size:20px;cursor:default">' + b.icon + '</span>';
+        }).join('');
+        if (locked.length) {
+          badgesHtml += locked.map(function(b) {
+            return '<span title="' + esc(b.title) + ' (locked)" style="font-size:20px;opacity:.3;filter:grayscale(.8);cursor:default">' + b.icon + '</span>';
+          }).join('');
+        }
+
+        mount.innerHTML =
+          '<div style="background:linear-gradient(135deg,#00695c,#00897b);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:20px 24px;color:#fff">' +
+            '<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">' +
+              avatarHtml +
+              '<div>' +
+                '<div style="font-size:18px;font-weight:700">' + esc(me.display_name || login) + '</div>' +
+                '<div style="font-size:12px;color:rgba(255,255,255,.75)">@' + esc(login) + '</div>' +
+              '</div>' +
+              '<a href="' + profileHref + '" style="margin-left:auto;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.25)">Full profile →</a>' +
+            '</div>' +
+            '<div style="display:flex;justify-content:space-around;gap:8px;margin-bottom:16px">' + statsHtml + '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">' + badgesHtml + '</div>' +
+          '</div>';
+      })
+      .catch(function() { /* silently skip if stats file not deployed yet */ });
+  })();
 })();
 </script>
 </body>
