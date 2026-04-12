@@ -346,23 +346,23 @@
 
         var profileHref = BASE + 'app/profile.html?user=' + encodeURIComponent(login);
 
-        // Badge definitions (same thresholds as profile.html)
-        var BADGES = [
-          { icon: '🌱', title: 'First Commit',       check: function(s) { return s.total_commits >= 1; } },
-          { icon: '📜', title: 'First Protocol',     check: function(s) { return s.protocols_authored >= 1; } },
-          { icon: '📓', title: 'First Notebook',     check: function(s) { return s.notebooks_authored >= 1; } },
-          { icon: '✍️', title: 'Chronicler',         check: function(s) { return s.notebooks_authored >= 20; } },
-          { icon: '🧪', title: 'Protocol Master',    check: function(s) { return s.protocols_authored >= 10; } },
-          { icon: '📦', title: 'Inventory Keeper',   check: function(s) { return s.inventory_edits >= 50; } },
-          { icon: '💯', title: 'Century',            check: function(s) { return s.total_commits >= 100; } },
-          { icon: '📸', title: 'Photographer',       check: function(s) { return s.images_uploaded >= 25; } },
-          { icon: '📚', title: 'Wiki Builder',       check: function(s) { return s.wiki_edits >= 100; } },
-          { icon: '🐛', title: 'Debugger',           check: function(s) { return s.issue_attachments >= 5; } },
-          { icon: '🏛️', title: 'Founder',            check: function(s) { return s.first_commit && s.first_commit <= '2025-12-31'; } },
+        // Tiered badge system (same as profile.html)
+        var TIERS = [
+          { name: 'Bronze',   color: '#cd7f32' },
+          { name: 'Silver',   color: '#94a3b8' },
+          { name: 'Gold',     color: '#d4a017' },
+          { name: 'Platinum', color: '#6366f1' },
+          { name: 'Diamond',  color: '#06b6d4' },
         ];
-
-        var unlocked = BADGES.filter(function(b) { return b.check(me); });
-        var locked = BADGES.filter(function(b) { return !b.check(me); });
+        var CATS = [
+          { icon: '🔨', title: 'Contributor',     field: 'total_commits',       thresholds: [10, 50, 100, 500, 1000] },
+          { icon: '🧪', title: 'Protocol Author', field: 'protocols_authored',  thresholds: [1, 5, 10, 25, 50] },
+          { icon: '📓', title: 'Chronicler',      field: 'notebooks_authored',  thresholds: [1, 10, 20, 50, 100] },
+          { icon: '📦', title: 'Inventory',       field: 'inventory_edits',     thresholds: [10, 50, 100, 500, 1000] },
+          { icon: '📚', title: 'Wiki Builder',    field: 'wiki_edits',          thresholds: [10, 50, 100, 250, 500] },
+          { icon: '📸', title: 'Photographer',    field: 'images_uploaded',     thresholds: [5, 25, 50, 100, 200] },
+          { icon: '🐛', title: 'Bug Hunter',      field: 'issue_attachments',   thresholds: [1, 5, 10, 25, 50] },
+        ];
 
         // Build compact profile card
         var avatarHtml = avatar
@@ -381,14 +381,27 @@
             '<div style="font-size:10px;color:rgba(255,255,255,.7)">' + s.l + '</div></div>';
         }).join('');
 
-        var badgesHtml = unlocked.map(function(b) {
-          return '<span title="' + esc(b.title) + '" style="font-size:20px;cursor:default">' + b.icon + '</span>';
+        // Compact badge row: icon + tier dot strip for each category
+        var badgesHtml = CATS.map(function(cat) {
+          var val = me[cat.field] || 0;
+          var tierIdx = -1;
+          for (var i = cat.thresholds.length - 1; i >= 0; i--) {
+            if (val >= cat.thresholds[i]) { tierIdx = i; break; }
+          }
+          var tierName = tierIdx >= 0 ? TIERS[tierIdx].name : '';
+          var tierColor = tierIdx >= 0 ? TIERS[tierIdx].color : 'rgba(255,255,255,.3)';
+          var dots = '';
+          for (var j = 0; j < 5; j++) {
+            var dc = j <= tierIdx ? TIERS[j].color : 'rgba(255,255,255,.2)';
+            dots += '<div style="width:6px;height:6px;border-radius:50%;background:' + dc + '"></div>';
+          }
+          var opacity = tierIdx >= 0 ? '1' : '.4';
+          var filter = tierIdx >= 0 ? '' : 'filter:grayscale(.8);';
+          return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;opacity:' + opacity + ';' + filter + '" title="' + esc(cat.title) + (tierName ? ' — ' + tierName : ' — not started') + '">' +
+            '<span style="font-size:18px">' + cat.icon + '</span>' +
+            '<div style="display:flex;gap:2px">' + dots + '</div>' +
+          '</div>';
         }).join('');
-        if (locked.length) {
-          badgesHtml += locked.map(function(b) {
-            return '<span title="' + esc(b.title) + ' (locked)" style="font-size:20px;opacity:.3;filter:grayscale(.8);cursor:default">' + b.icon + '</span>';
-          }).join('');
-        }
 
         mount.innerHTML =
           '<div style="background:linear-gradient(135deg,#00695c,#00897b);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:20px 24px;color:#fff">' +
@@ -401,7 +414,7 @@
               '<a href="' + profileHref + '" style="margin-left:auto;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.25)">Full profile →</a>' +
             '</div>' +
             '<div style="display:flex;justify-content:space-around;gap:8px;margin-bottom:16px">' + statsHtml + '</div>' +
-            '<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">' + badgesHtml + '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">' + badgesHtml + '</div>' +
           '</div>';
       })
       .catch(function() { /* silently skip if stats file not deployed yet */ });

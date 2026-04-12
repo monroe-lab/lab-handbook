@@ -196,22 +196,45 @@
 
   function esc(s) { return Lab.escHtml ? Lab.escHtml(s) : String(s == null ? '' : s); }
 
-  // ── R12 #42: badge definitions ──
-  // Each badge has a threshold check against a user-stats entry. Ordered
-  // roughly by difficulty so the rendered grid looks progressive.
-  var BADGES = [
-    { id: 'first-commit',   icon: '🌱', title: 'First Commit',       desc: 'Pushed your first commit',            check: function(s) { return s.total_commits >= 1; },       goal: function(s) { return { cur: Math.min(s.total_commits, 1), max: 1 }; } },
-    { id: 'first-protocol', icon: '📜', title: 'First Protocol',     desc: 'Authored your first protocol',        check: function(s) { return s.protocols_authored >= 1; }, goal: function(s) { return { cur: Math.min(s.protocols_authored, 1), max: 1 }; } },
-    { id: 'first-notebook', icon: '📓', title: 'First Notebook',     desc: 'Created your first notebook entry',   check: function(s) { return s.notebooks_authored >= 1; }, goal: function(s) { return { cur: Math.min(s.notebooks_authored, 1), max: 1 }; } },
-    { id: 'chronicler',     icon: '✍️', title: 'Chronicler',         desc: '20+ notebook entries',                check: function(s) { return s.notebooks_authored >= 20; }, goal: function(s) { return { cur: s.notebooks_authored, max: 20 }; } },
-    { id: 'protocol-master',icon: '🧪', title: 'Protocol Master',    desc: '10+ protocols authored',              check: function(s) { return s.protocols_authored >= 10; }, goal: function(s) { return { cur: s.protocols_authored, max: 10 }; } },
-    { id: 'inventory-keeper', icon: '📦', title: 'Inventory Keeper', desc: '50+ inventory edits',                 check: function(s) { return s.inventory_edits >= 50; },   goal: function(s) { return { cur: s.inventory_edits, max: 50 }; } },
-    { id: 'century',        icon: '💯', title: 'Century',            desc: '100 total commits',                   check: function(s) { return s.total_commits >= 100; },    goal: function(s) { return { cur: s.total_commits, max: 100 }; } },
-    { id: 'photographer',   icon: '📸', title: 'Photographer',       desc: '25+ images uploaded',                 check: function(s) { return s.images_uploaded >= 25; },   goal: function(s) { return { cur: s.images_uploaded, max: 25 }; } },
-    { id: 'wiki-builder',   icon: '📚', title: 'Wiki Builder',       desc: '100+ wiki edits',                     check: function(s) { return s.wiki_edits >= 100; },       goal: function(s) { return { cur: s.wiki_edits, max: 100 }; } },
-    { id: 'debugger',       icon: '🐛', title: 'Debugger',           desc: '5+ issue attachments uploaded',       check: function(s) { return s.issue_attachments >= 5; },  goal: function(s) { return { cur: s.issue_attachments, max: 5 }; } },
-    { id: 'founder',        icon: '🏛️', title: 'Founder',            desc: 'Active since December 2025',          check: function(s) { return s.first_commit && s.first_commit <= '2025-12-31'; }, goal: function(s) { return { cur: s.first_commit && s.first_commit <= '2025-12-31' ? 1 : 0, max: 1 }; } },
+  // ── Tiered badge system ──
+  // Each category has 5 tiers. Your badge levels up as you hit higher
+  // thresholds — there's always a next tier to work toward.
+  var TIERS = [
+    { name: 'Bronze',   color: '#cd7f32', bg: '#fdf4e7' },
+    { name: 'Silver',   color: '#94a3b8', bg: '#f1f5f9' },
+    { name: 'Gold',     color: '#d4a017', bg: '#fef9e7' },
+    { name: 'Platinum', color: '#6366f1', bg: '#eef2ff' },
+    { name: 'Diamond',  color: '#06b6d4', bg: '#ecfeff' },
   ];
+
+  var BADGE_CATEGORIES = [
+    { id: 'commits',    icon: '🔨', title: 'Contributor', field: 'total_commits',       thresholds: [10, 50, 100, 500, 1000] },
+    { id: 'protocols',  icon: '🧪', title: 'Protocol Author', field: 'protocols_authored', thresholds: [1, 5, 10, 25, 50] },
+    { id: 'notebooks',  icon: '📓', title: 'Chronicler',  field: 'notebooks_authored',  thresholds: [1, 10, 20, 50, 100] },
+    { id: 'inventory',  icon: '📦', title: 'Inventory Keeper', field: 'inventory_edits', thresholds: [10, 50, 100, 500, 1000] },
+    { id: 'wiki',       icon: '📚', title: 'Wiki Builder', field: 'wiki_edits',         thresholds: [10, 50, 100, 250, 500] },
+    { id: 'photos',     icon: '📸', title: 'Photographer', field: 'images_uploaded',    thresholds: [5, 25, 50, 100, 200] },
+    { id: 'bugs',       icon: '🐛', title: 'Bug Hunter',   field: 'issue_attachments',  thresholds: [1, 5, 10, 25, 50] },
+  ];
+
+  // Returns { tierIndex: 0-4 or -1 if none, current, nextThreshold, maxTier }
+  function getBadgeLevel(category, stats) {
+    var val = stats[category.field] || 0;
+    var tierIndex = -1;
+    for (var i = category.thresholds.length - 1; i >= 0; i--) {
+      if (val >= category.thresholds[i]) { tierIndex = i; break; }
+    }
+    var nextThreshold = tierIndex < category.thresholds.length - 1
+      ? category.thresholds[tierIndex + 1]
+      : null;
+    return {
+      tierIndex: tierIndex,
+      tier: tierIndex >= 0 ? TIERS[tierIndex] : null,
+      current: val,
+      nextThreshold: nextThreshold,
+      maxTier: tierIndex === category.thresholds.length - 1,
+    };
+  }
 
   function getCurrentLogin() {
     try {
@@ -264,19 +287,57 @@
 
   function renderBadges(user) {
     var html = '<h2 class="section-heading">Badges</h2><div class="badges-grid">';
-    BADGES.forEach(function(b) {
-      var unlocked = b.check(user);
-      var goal = b.goal(user);
-      var cls = unlocked ? 'badge-card' : 'badge-card locked';
+    BADGE_CATEGORIES.forEach(function(cat) {
+      var level = getBadgeLevel(cat, user);
+      var hasAny = level.tierIndex >= 0;
+      var tier = level.tier;
+      var tierLabel = tier ? tier.name : 'Locked';
+      var tierColor = tier ? tier.color : '#cbd5e1';
+      var tierBg = tier ? tier.bg : '#f8fafc';
+      var iconBg = tier
+        ? 'background:linear-gradient(135deg,' + tier.color + '20,' + tier.color + '40);border:2px solid ' + tier.color + '60'
+        : 'background:#e2e8f0;border:2px solid #cbd5e1';
+
+      // Progress bar to next tier
       var progressHtml = '';
-      if (!unlocked && goal && goal.max > 0) {
-        progressHtml = '<div class="badge-progress">' + (goal.cur || 0) + ' / ' + goal.max + '</div>';
+      if (!level.maxTier) {
+        var prevThreshold = level.tierIndex >= 0 ? cat.thresholds[level.tierIndex] : 0;
+        var nextT = level.nextThreshold || cat.thresholds[0];
+        var range = nextT - prevThreshold;
+        var progress = Math.min(level.current - prevThreshold, range);
+        var pct = range > 0 ? Math.round((progress / range) * 100) : 0;
+        var nextTierName = TIERS[level.tierIndex + 1] ? TIERS[level.tierIndex + 1].name : '';
+        var nextTierColor = TIERS[level.tierIndex + 1] ? TIERS[level.tierIndex + 1].color : '#94a3b8';
+        progressHtml =
+          '<div style="margin-top:6px">' +
+            '<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-bottom:3px">' +
+              '<span>' + level.current + ' / ' + nextT + '</span>' +
+              '<span>' + nextTierName + '</span>' +
+            '</div>' +
+            '<div style="height:4px;background:#e2e8f0;border-radius:2px;overflow:hidden">' +
+              '<div style="height:100%;width:' + pct + '%;background:' + nextTierColor + ';border-radius:2px;transition:width .3s"></div>' +
+            '</div>' +
+          '</div>';
+      } else {
+        progressHtml = '<div style="margin-top:6px;font-size:10px;color:' + tierColor + ';font-weight:600">MAX TIER</div>';
       }
-      html += '<div class="' + cls + '" data-badge="' + b.id + '">' +
-        '<div class="badge-icon">' + b.icon + '</div>' +
-        '<div>' +
-          '<div class="badge-title">' + esc(b.title) + '</div>' +
-          '<div class="badge-desc">' + esc(b.desc) + '</div>' +
+
+      // Tier dots showing all 5 levels
+      var dotsHtml = '<div style="display:flex;gap:3px;margin-top:4px">';
+      for (var i = 0; i < TIERS.length; i++) {
+        var dotColor = i <= level.tierIndex ? TIERS[i].color : '#e2e8f0';
+        dotsHtml += '<div title="' + TIERS[i].name + (i <= level.tierIndex ? ' ✓' : '') + '" style="width:8px;height:8px;border-radius:50%;background:' + dotColor + '"></div>';
+      }
+      dotsHtml += '</div>';
+
+      html += '<div class="badge-card" data-badge="' + cat.id + '" style="background:' + tierBg + ';border:1px solid ' + tierColor + '30">' +
+        '<div class="badge-icon" style="' + iconBg + '">' + cat.icon + '</div>' +
+        '<div style="flex:1;min-width:0">' +
+          '<div style="display:flex;align-items:center;gap:6px">' +
+            '<div class="badge-title">' + esc(cat.title) + '</div>' +
+            '<span style="font-size:10px;font-weight:700;color:' + tierColor + ';padding:1px 6px;border-radius:4px;background:' + tierColor + '18">' + tierLabel + '</span>' +
+          '</div>' +
+          dotsHtml +
           progressHtml +
         '</div>' +
       '</div>';
