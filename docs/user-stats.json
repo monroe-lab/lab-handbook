@@ -1,63 +1,68 @@
 {
-  "generated_at": "2026-04-11T18:52:11.298697+00:00",
-  "total_commits": 1866,
+  "generated_at": "2026-04-12T04:33:42.329504+00:00",
+  "total_commits": 1882,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 1863,
+      "total_commits": 1879,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-11",
+      "last_commit": "2026-04-12",
       "protocols_authored": 128,
       "notebooks_authored": 81,
-      "inventory_edits": 1511,
-      "wiki_edits": 622,
+      "inventory_edits": 1668,
+      "wiki_edits": 629,
       "images_uploaded": 145,
-      "issue_attachments": 0,
+      "issue_attachments": 2,
+      "issues_filed": 30,
+      "night_commits": 979,
+      "early_commits": 1078,
+      "weekend_commits": 488,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "3b96b6c",
-          "subject": "Delete protocol: LabBot Renamed mnuo0ck9",
+          "sha": "fcf9330",
+          "subject": "R15 followup 2: reach Toast UI via editorInstance.editor, not the wrapper",
           "date": "2026-04-11"
         },
         {
-          "sha": "c4e5490",
-          "subject": "LabBot cleanup: docs/wet-lab/labbot-test-protocol-mnuo0ck9-copy.md",
+          "sha": "1f93947",
+          "subject": "R16: full chemical catalog educational intros (#38)",
           "date": "2026-04-11"
         },
         {
-          "sha": "e37b21c",
-          "subject": "R10: chemistry rendering + corrosives SOP wiki-linking (#37 #16)",
-          "date": "2026-04-11"
+          "sha": "af2cf4d",
+          "subject": "Restore live media demos to protocol template",
+          "date": "2026-04-12"
         },
         {
-          "sha": "0711511",
-          "subject": "R10 followup: rescue ~sub~ / ^sup^ from marked GFM strikethrough",
-          "date": "2026-04-11"
+          "sha": "a7edc26",
+          "subject": "Sticky edit toolbar on protocols, wiki, notebooks, projects",
+          "date": "2026-04-12"
         },
         {
-          "sha": "cf8a1ed",
-          "subject": "New document: resources/labbot-wiki-mnuom0ym.md",
-          "date": "2026-04-11"
+          "sha": "89a67c6",
+          "subject": "STATUS.md: check off #16 (SOP wiki-linking) and #17 (LN2 protocol)",
+          "date": "2026-04-12"
         },
         {
-          "sha": "075bb43",
-          "subject": "Update document resources/labbot-wiki-mnuom0ym",
-          "date": "2026-04-11"
+          "sha": "e901bbb",
+          "subject": "Embed profile stats + badges on the dashboard",
+          "date": "2026-04-12"
         },
         {
-          "sha": "712e787",
-          "subject": "LabBot cleanup: docs/resources/labbot-wiki-mnuom0ym.md",
-          "date": "2026-04-11"
+          "sha": "0f08b3a",
+          "subject": "Tiered badge leveling system (Bronze \u2192 Silver \u2192 Gold \u2192 Platinum \u2192 Diamond)",
+          "date": "2026-04-12"
         },
         {
-          "sha": "f0334c2",
-          "subject": "R11: issue reporter file attachments (#45)",
-          "date": "2026-04-11"
+          "sha": "d29a149",
+          "subject": "Fix bulletin board image rendering on dashboard",
+          "date": "2026-04-12"
         }
-      ]
+      ],
+      "days_active": 129
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -71,6 +76,10 @@
       "wiki_edits": 2,
       "images_uploaded": 0,
       "issue_attachments": 0,
+      "issues_filed": 0,
+      "night_commits": 0,
+      "early_commits": 0,
+      "weekend_commits": 0,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
@@ -84,7 +93,8 @@
           "subject": "Update bashrc-customization.md",
           "date": "2025-12-05"
         }
-      ]
+      ],
+      "days_active": 128
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -98,6 +108,10 @@
       "wiki_edits": 0,
       "images_uploaded": 0,
       "issue_attachments": 0,
+      "issues_filed": 0,
+      "night_commits": 1,
+      "early_commits": 0,
+      "weekend_commits": 0,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
@@ -106,7 +120,8 @@
           "subject": "Update wet-lab/autoclave",
           "date": "2026-04-07"
         }
-      ]
+      ],
+      "days_active": 5
     }
   }
 }

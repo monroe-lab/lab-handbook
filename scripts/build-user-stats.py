@@ -182,12 +182,26 @@ def main():
             "wiki_edits": 0,
             "images_uploaded": 0,
             "issue_attachments": 0,
+            "issues_filed": 0,       # populated via gh CLI after git walk
+            "night_commits": 0,      # commits after 20:00 local
+            "early_commits": 0,      # commits before 08:00 local
+            "weekend_commits": 0,    # Saturday or Sunday
             "lines_added": 0,
             "lines_removed": 0,
             "recent_commits": [],
         })
         u["total_commits"] += 1
         date_iso = datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
+
+        # Fun badge stats: time-of-day and day-of-week from commit timestamp
+        commit_dt = datetime.fromtimestamp(ts, tz=timezone.utc)
+        hour = commit_dt.hour
+        if hour >= 20 or hour < 5:
+            u["night_commits"] += 1
+        if hour < 8:
+            u["early_commits"] += 1
+        if commit_dt.weekday() >= 5:  # Saturday=5, Sunday=6
+            u["weekend_commits"] += 1
         if u["first_commit"] is None:
             u["first_commit"] = date_iso
         u["last_commit"] = date_iso
@@ -232,10 +246,31 @@ def main():
         if len(u["recent_commits"]) > 8:
             u["recent_commits"] = u["recent_commits"][-8:]
 
-    # Second pass: line counts per commit. Skipped for perf — an average
-    # repo with 2k+ commits would spend ~30s shelling out per commit. The
-    # `total_commits` / per-bucket counters give us enough signal for the
-    # profile page badges without the line totals.
+    # Compute days_active for each user
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    for login, u in users.items():
+        if u["first_commit"]:
+            d1 = datetime.strptime(u["first_commit"], "%Y-%m-%d")
+            d2 = datetime.strptime(today, "%Y-%m-%d")
+            u["days_active"] = (d2 - d1).days
+        else:
+            u["days_active"] = 0
+
+    # Count issues filed per user via GitHub CLI. This is a small number
+    # of API calls (one per unique git author) and gives us the "Bug Hunter"
+    # badge category that counts issues filed, not just attachments uploaded.
+    repo = "monroe-lab/lab-handbook"
+    for login, u in users.items():
+        try:
+            result = subprocess.run(
+                ["gh", "issue", "list", "--repo", repo, "--author", login,
+                 "--state", "all", "--json", "number", "--jq", "length"],
+                capture_output=True, text=True, timeout=15,
+            )
+            if result.returncode == 0:
+                u["issues_filed"] = int(result.stdout.strip() or "0")
+        except Exception:
+            pass  # leave at 0
 
     # Sort users by total_commits desc for a stable output ordering.
     sorted_users = dict(sorted(
