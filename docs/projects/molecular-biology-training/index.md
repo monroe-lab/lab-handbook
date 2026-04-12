@@ -129,22 +129,17 @@ Progressive complexity: fast-and-dirty extraction first, then kit-based, then HM
 | [[quantifying-dna-qubit]] | 0.5 / 1 hr | DNA sample | DeNovix fluorometer. Standards, measurement, interpretation |
 | [[quantifying-dna-nanodrop]] | 0.25 hr | DNA sample | 260/280, 260/230 ratios. NanoDrop needs ordering (placeholder) |
 | [[qiagen-dneasy-extraction]] | 1 / 3 hr | Harvested tissue, Centrifuge, Heat Block | Kit-based column extraction. Higher quality than Buffer A |
-| [[hmw-extraction-satoyo-method-1]] | 1.5 / 4 hr | LN2, Centrifuge, Lysis Buffer | Satoyo's high-throughput HMW method |
-| [[hmw-extraction-satoyo-method-2]] | 1.5 / 4 hr | LN2, Centrifuge | Satoyo's long-read-optimized method |
-| [[nuclei-extraction]] | 1.5 / 3 hr | LN2, Centrifuge | Standalone nuclei isolation. QC on Qubit |
-| [[hmw-extraction-nuclei-based]] | 1.5 / 4 hr | Nuclei Extraction | Method 3: nuclei as input for HMW |
+| [[hifi-dna-extraction]] | 2 / 5 hr | LN2, Centrifuge, HiFi Lysis Buffer, Fume Hood | Satoyo's HMW method for Arabidopsis (Rabanal et al. 2022). Yields 1-4 ug. **This is the capstone extraction method.** |
 
-Buffer sub-protocols spun out from the extraction methods:
+Buffer sub-protocol:
 
 | Protocol | Time | Prereqs | Description |
 |----------|------|---------|-------------|
-| [[make-lysis-buffer]] | 0.5 hr | Scale | PVP40, sodium metabisulfite, NaCl, Tris, EDTA, BME, SDS |
-| [[make-sorbitol-wash-buffer]] | 0.5 hr | Scale | For sorbitol/CTAB extraction |
-| [[make-ctab-lysis-buffer]] | 0.5 hr | Scale | CTAB 3%, Tris, NaCl, EDTA, PVP-40 |
+| [[make-hifi-lysis-buffer]] | 0.25 hr | Scale, Fume Hood | PVP40, sodium metabisulfite, NaCl, Tris, EDTA, BME, SDS. Made fresh on extraction day. |
 
-**Tier total: ~18 hours**
+**Tier total: ~12 hours**
 
-**For the capstone, students will use one HMW method.** Grey will advise which method based on tissue type and the student's assigned line. All three are taught so students understand the options.
+**For the capstone, students use the [[hifi-dna-extraction|HiFi DNA Extraction]] method** on their Arabidopsis SALK line. The lab also has the [[sorbitol-ctab-hifi-extraction|Sorbitol/CTAB method]] (Vianney's protocol, Inglis et al. 2018) for challenging plant species, but it is not part of the 10-week curriculum.
 
 ### Tier 8 — PCR and Gel Electrophoresis (Weeks 7-8)
 
@@ -180,7 +175,7 @@ Not separate protocols. The capstone is the student executing protocols from eve
 1. **Receive assignment** — Grey assigns a SALK T-DNA insertion line
 2. **Grow the line** (Tier 4) — Plant seeds, grow to maturity, begin seed bulking
 3. **Genotype confirmation** (Tier 8) — Design primers for the insertion site, run PCR, confirm homozygosity on a gel
-4. **HMW DNA extraction** (Tier 7) — Extract long-read-quality DNA using one of the three methods
+4. **HMW DNA extraction** (Tier 7) — Extract long-read-quality DNA using the [[hifi-dna-extraction|HiFi DNA Extraction]] method
 5. **QC** (Tier 7) — Qubit quantification, assess quality
 6. **Nanopore sequencing** (Tier 9) — Rapid library prep, load MinION, run
 7. **Genome assembly** — Grey provides a bioinformatics module. Student runs their data through it. No coding required.
@@ -197,8 +192,8 @@ Plant growth is the critical path. Arabidopsis needs ~3 weeks to produce harvest
 | **3** | 10 | Tier 3 (make TAE, TE, 0.1% agar, SPRI beads). Plant Col-0 on plates and in soil. Tier 6 (safety quick-refs). Sterilize + stratify assigned SALK line seeds |
 | **4** | 10 | Plant SALK line in soil. Growth chamber setup. Tier 4 (plant care, watering). Transferring seedlings. Start reading Tier 7 protocols |
 | **5** | 10 | Tier 5 (LN2 safety, harvest Col-0 leaf tissue). Tier 7 begins (quick extraction + Buffer A on Col-0, Qubit). Make extraction buffers |
-| **6** | 10 | Tier 7 continues (DNeasy kit extraction, practice HMW method on Col-0). Tier 8 begins (make agarose gel, practice PCR with known Col-0 primers, run gel, image) |
-| **7** | 10 | Harvest SALK line tissue. Primer design for SALK insertion site. Genotype confirmation PCR + gel. HMW extraction on SALK line |
+| **6** | 10 | Tier 7 continues (DNeasy kit extraction, practice HiFi DNA Extraction on Col-0). Tier 8 begins (make agarose gel, practice PCR with known Col-0 primers, run gel, image) |
+| **7** | 10 | Harvest SALK line tissue. Primer design for SALK insertion site. Genotype confirmation PCR + gel. HiFi DNA Extraction on SALK line |
 | **8** | 10 | QC SALK HMW DNA (Qubit). Troubleshoot and re-extract if needed. Begin Tier 9 (nanopore rapid library prep) |
 | **9** | 10 | Load MinION flow cell, start sequencing run. Data retrieval. Begin seed harvest if plants are mature |
 | **10** | 10 | Bioinformatics module (Grey provides). Assembly. Final documentation. Seed stock logged. Capstone complete |
@@ -226,7 +221,7 @@ Students check off each protocol as they complete it. "Complete" means: the prot
 | 4. Plant Growth | Seed Sterilization, Stratification, Planting on Plates, Growth Chamber, Planting in Soil, Transferring, Watering, Bulking Seed | |
 | 5. Tissue Handling | LN2 Safety, Harvesting Leaf Tissue | |
 | 6. Safety | Spill Response, Breakage, Sharps, Read an SDS, Waste Disposal | |
-| 7. DNA Extraction | Quick Extraction, Buffer A, Qubit, NanoDrop, DNeasy, HMW Method 1, HMW Method 2, Nuclei Extraction, HMW Method 3, Lysis Buffer, Sorbitol Buffer, CTAB Buffer | |
+| 7. DNA Extraction | Quick Extraction, Buffer A, Qubit, NanoDrop, DNeasy, HiFi Lysis Buffer, HiFi DNA Extraction | |
 | 8. PCR / Gel | Agarose Gel, Gel Electrophoresis, Gel Imaging, PCR, Primer Design, Sanger Sequencing | |
 | 9. Nanopore | Rapid Library Prep, Loading MinION, Data Retrieval | |
 | 11. Capstone | Genotype confirmed, HMW DNA extracted, Sequencing complete, Assembly deposited | |

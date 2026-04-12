@@ -15,9 +15,13 @@ title: "HiFi DNA Extraction (DIY)"
 
 **Related Protocols:** [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]], [[in-house-hifi-shearing-pipeline]]
 
-**Contacts:** [[grey-monroe]], [[kehan-zhao]]
+**Contacts:** [[grey-monroe]], [[kehan-zhao]], [[satoyo-oya]]
 
-Soya 2025
+**Prerequisites:** [[harvesting-leaf-tissue]], [[centrifuge-operation]], [[make-hifi-lysis-buffer]], [[quantifying-dna-qubit]]
+
+**Purpose:** Extract high-molecular-weight (HMW) genomic DNA from Arabidopsis leaf tissue for long-read sequencing (Nanopore, PacBio). This is the primary HMW extraction method for the training curriculum capstone. Yields 1-4 ug of HMW DNA from ~100 mg Arabidopsis tissue.
+
+Satoyo Oya, 2025
 
 <br>
 <br>
@@ -32,7 +36,7 @@ Works for Arabidopsis (yields 1-4 µg in our lab). Also validated for species fr
 #### Materials
 
 * Plant tissue \~100 mg each, in 2 ml impact-resistant tube (USA Scientific #1420-9600) with metal beads, LN2 frozen
-* Freshly Lysis buffer (made on the day)
+* Freshly made [[hifi-lysis-buffer|HiFi Lysis Buffer]] (see [[make-hifi-lysis-buffer]] — must be prepared fresh on the day of extraction)
 
 | Reagent | Stock concentration | Final amount | Final concentration |
 | ------- | ------------------- | ------------ | ------------------- |
