@@ -128,7 +128,7 @@
 .proto-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .proto-card p { font-size: 13px; color: var(--grey-500); }
 
-/* Edit toolbar */
+/* Edit toolbar — sticky so it stays visible while scrolling long protocols */
 .proto-edit-bar {
   display: flex;
   align-items: center;
@@ -136,6 +136,10 @@
   padding: 12px 0;
   margin-bottom: 16px;
   border-bottom: 1px solid var(--grey-200);
+  position: sticky;
+  top: 0;
+  background: var(--grey-100);
+  z-index: 10;
 }
 .proto-edit-bar .breadcrumb { font-size: 13px; color: var(--grey-500); }
 
