@@ -283,7 +283,22 @@
           .replace(/^[-*] (.+)$/gm, '<div>$1</div>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
           .replace(/_(.+?)_/g, '<em>$1</em>')
+          // Images MUST come before links — ![alt](src) shares the
+          // [text](url) shape but with a ! prefix. Without this the
+          // link regex eats the image and renders "!<a>" instead of <img>.
+          // Resolve relative paths: bulletin lives at docs/bulletin.md,
+          // so "images/foo.png" → BASE + "images/foo.png".
+          .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(m, alt, src) {
+            if (!src.startsWith('http') && !src.startsWith('/')) src = BASE + src;
+            return '<img src="' + src + '" alt="' + esc(alt) + '" style="max-width:100%;border-radius:8px;margin:8px 0">';
+          })
+          // Also handle inline <img> tags with relative src
+          .replace(/<img\s+([^>]*?)src="((?!http|\/)[^"]+)"([^>]*)>/g, function(m, pre, src, post) {
+            return '<img ' + pre + 'src="' + BASE + src + '"' + post + '>';
+          })
           .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+        // Strip stray <br> tags (Toast UI inserts these and they add unwanted vertical space)
+        html = html.replace(/^\s*<br>\s*$/gm, '');
         el.innerHTML = html;
         if (Lab.wikilinks) Lab.wikilinks.processRendered(el);
         if (Lab.postProcessImages) Lab.postProcessImages(el);
