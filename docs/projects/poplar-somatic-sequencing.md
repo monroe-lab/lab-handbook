@@ -1,3 +1,11 @@
+---
+type: project
+title: "Poplar Somatic Sequencing"
+status: "active"
+pi: "Grey Monroe"
+lead: "Grey Monroe"
+---
+
 # Poplar Somatic Sequencing
 
 **Status:** Active. Field collection April 2026.

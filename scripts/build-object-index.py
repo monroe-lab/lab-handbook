@@ -38,6 +38,8 @@ OBJECT_DIRS = [
     "samples",
     "locations",
     "events",
+    "plant-harvesting",
+    "shipping",
 ]
 
 # Frontmatter keys to extract (all optional except type and title)
@@ -89,7 +91,7 @@ def infer_type_from_path(path: str) -> str | None:
     # files are real bench protocols / SOPs.
     if "bioinformatics/" in path or "workflow-templates/" in path or "lab-management/" in path:
         return "guide"
-    if "wet-lab/" in path or "lab-safety/" in path:
+    if "wet-lab/" in path or "lab-safety/" in path or "plant-harvesting/" in path or "shipping/" in path:
         return "protocol"
     if "notebooks/" in path:
         return "notebook"
