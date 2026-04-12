@@ -101,14 +101,24 @@
   // Score an entry against the query. Lower score = better match.
   // Exact slug match wins; then title prefix; then title contains; then slug contains.
   function scoreEntry(entry, q) {
-    if (!q) return 100;
+    if (!q) {
+      // No query: sort by recency (mtime). Lower score = shown first.
+      // Entries with mtime get 100 - normalized recency; without get 200.
+      var mtime = entry.mtime || 0;
+      return mtime ? (100 - Math.min(mtime / 1e10, 99)) : 200;
+    }
     var slug = (entry.slug || '').toLowerCase();
     var title = (entry.title || '').toLowerCase();
+    // Split the slug's filename for matching (e.g., "chemistry-bench" from
+    // "locations/robbins-hall-0170/chemistry-bench")
+    var slugTail = slug.split('/').pop();
     if (slug === q) return 0;
     if (title === q) return 1;
     if (title.startsWith(q)) return 10;
+    if (slugTail.startsWith(q)) return 12;
     if (slug.startsWith(q)) return 15;
     if (title.indexOf(q) >= 0) return 25;
+    if (slugTail.indexOf(q) >= 0) return 28;
     if (slug.indexOf(q) >= 0) return 30;
     var type = (entry.type || '').toLowerCase();
     if (type.indexOf(q) >= 0) return 50;

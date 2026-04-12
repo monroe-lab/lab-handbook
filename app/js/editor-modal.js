@@ -1092,6 +1092,9 @@
     if (editable && window.Lab.wikilinkAutocomplete) {
       var parentInput = fieldsEl.querySelector('.em-field-input[data-key="parent"]');
       if (parentInput) {
+        // Prevent Chrome autocomplete from covering our custom dropdown
+        parentInput.setAttribute('autocomplete', 'off');
+        parentInput.setAttribute('placeholder', 'Search by name...');
         try {
           Lab.wikilinkAutocomplete.attachToInput(parentInput, {
             typeFilter: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
