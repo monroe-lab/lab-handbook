@@ -23,6 +23,10 @@ title: "Quantifying DNA: DeNovix Fluorometer"
 
 ---
 
+## Videos
+
+- [Quantify DNA, RNA, or Protein with the Qubit 4 Fluorometer (Thermo Fisher)](https://videos.thermofisher.com/detail/video/5783206494001/quantify-dna-rna-or-protein-with-the-qubit-4-fluorometer) — Official Thermo Fisher tutorial on Qubit fluorometer operation
+
 ## Before You Start
 
 Check that you have sufficient stock of:

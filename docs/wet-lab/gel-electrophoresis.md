@@ -43,6 +43,12 @@ For most genotyping, **1.5% agarose** is the default.
 
 ---
 
+## Videos
+
+- [Running an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=U2-5ukpKg_Q) — Walkthrough of loading and running a gel
+- [DNA Gel Electrophoresis (JoVE)](https://www.jove.com/v/5057/dna-gel-electrophoresis) — JoVE video lesson on gel electrophoresis principles
+- [Gel Electrophoresis (LabXchange, Harvard)](https://www.labxchange.org/library/items/lb:LabXchange:31f14b62:video:1) — Free educational video on gel electrophoresis
+
 ## Materials
 
 - **Pre-cast 1.5% agarose gel** (available on open shelf above UV lamp) OR cast your own:

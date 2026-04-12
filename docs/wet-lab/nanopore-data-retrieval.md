@@ -21,6 +21,10 @@ title: "Nanopore Data Retrieval"
 
 ---
 
+## Videos
+
+- [Getting Started with MinION (Oxford Nanopore)](https://nanoporetech.com/getting-started-with-minion) — Oxford Nanopore's MinION onboarding and setup guide
+
 ## Where MinKNOW Puts the Data
 
 MinKNOW saves all run data to a default output directory on the sequencing computer. The path is typically:

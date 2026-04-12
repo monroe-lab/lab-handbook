@@ -29,6 +29,12 @@ A micropipette is a precision instrument for transferring small liquid volumes (
 
 **Why this matters:** A 10% pipetting error in a PCR master mix means some reactions get too much enzyme and some get too little. A sloppy DNA quantification means you load the wrong amount into a library prep. Pipetting errors are the #1 source of failed experiments for new lab members.
 
+## Videos
+
+- [How to Pipette in 5 Simple Steps (Eppendorf)](https://www.youtube.com/watch?v=Wx8clzD-CO4) — 5-minute walkthrough of proper forward pipetting technique
+- [Micropipetting Tutorial Series (miniPCR)](https://www.youtube.com/playlist?list=PLCKY0OHNBaBnoeWPIuWhL-rPeTrAZ9cFy) — 4-video series covering pipette selection, technique, and practice
+- [Eppendorf Video Guide to Perfecting Your Pipetting Technique](https://www.eppendorf.com/us-en/lab-academy/topics-methods-technology/pipetting-dispensing/the-eppendorf-video-guide-to-perfecting-your-pipetting-technique/) — Full video series from Eppendorf on pipetting best practices
+
 ## The Pipettes
 
 The lab has several micropipettes. Each covers a specific volume range. **Never dial a pipette outside its stated range** — this damages the calibration.

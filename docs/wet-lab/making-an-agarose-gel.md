@@ -46,6 +46,11 @@ Agarose is a polysaccharide extracted from seaweed. When dissolved in hot buffer
 
 **For training and genotyping: use 1.5%.** This is what the [[gel-electrophoresis]] protocol uses.
 
+## Videos
+
+- [Making an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=wXiiTW3pflM) — Step-by-step agarose gel preparation demonstration
+- [How to Pour an Agarose Gel: 3 Methods (miniPCR)](https://www.youtube.com/watch?v=4-Knw2JJDbM) — Comparison of three gel-pouring techniques
+
 ## Procedure
 
 ### 1. Calculate amounts

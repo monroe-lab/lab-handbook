@@ -29,6 +29,10 @@ pH measures how acidic or basic a solution is. The scale runs from 0 (extremely 
 
 **Why it matters:** Enzymes, DNA stability, and plant growth media are all pH-sensitive. MS media at the wrong pH will not solidify properly or will inhibit seedling growth. A Tris buffer at the wrong pH will give inconsistent extraction results.
 
+## Videos
+
+- [Using a pH Meter: Principles, Calibration, and Measurement (JoVE)](https://www.jove.com/v/5500/using-a-ph-meter-principles-calibration-and-ph-measurement) — JoVE video on pH meter calibration and use
+
 ## The pH Meter
 
 The pH meter has:
