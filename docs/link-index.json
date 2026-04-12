@@ -3561,7 +3561,23 @@
   },
   {
     "source": "wet-lab/gel-electrophoresis",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/gel-electrophoresis",
+    "target": "resources/tae-buffer-50x"
   },
   {
     "source": "wet-lab/gel-imaging-and-annotation",
@@ -4092,6 +4108,10 @@
     "target": "wet-lab/quick-dna-extraction"
   },
   {
+    "source": "wet-lab/library-prep/sanger-sequencing",
+    "target": "wet-lab/primer-design"
+  },
+  {
     "source": "wet-lab/library-prep/spri-beads-preparation",
     "target": "resources/autoclave-sterilizer"
   },
@@ -4122,6 +4142,10 @@
   {
     "source": "wet-lab/library-prep/spri-beads-preparation",
     "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "wet-lab/library-prep/spri-beads-preparation",
+    "target": "wet-lab/make-te-buffer"
   },
   {
     "source": "wet-lab/library-prep/spri-beads-preparation",
@@ -4705,19 +4729,19 @@
   },
   {
     "source": "wet-lab/ms-media-recipe",
-    "target": "people/satoyo-oya"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
     "target": "wet-lab/how-to-use-the-scale"
   },
   {
     "source": "wet-lab/ms-media-recipe",
     "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "people/grey-monroe"
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
@@ -5085,6 +5109,18 @@
   },
   {
     "source": "wet-lab/pcr-genotyping",
+    "target": "wet-lab/primer-design"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "wet-lab/pcr-genotyping",
     "target": "people/satoyo-oya"
   },
   {
@@ -5273,6 +5309,14 @@
   },
   {
     "source": "wet-lab/planting-arabidopsis-on-ms-plates",
+    "target": "wet-lab/make-agar-seed-suspension"
+  },
+  {
+    "source": "wet-lab/planting-arabidopsis-on-ms-plates",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "wet-lab/planting-arabidopsis-on-ms-plates",
     "target": "people/satoyo-oya"
   },
   {
@@ -5449,7 +5493,19 @@
   },
   {
     "source": "wet-lab/quick-dna-extraction",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/quick-dna-extraction",
+    "target": "resources/buffer-a-quick-extraction"
   },
   {
     "source": "wet-lab/seed-sterilization",
