@@ -263,7 +263,8 @@
       msg += '\n\nWARNING: this location has ' + kidsCount + ' child item' + (kidsCount === 1 ? '' : 's') +
              '. Their parent ref will become orphaned (they will show in the "Unresolved parents" section).';
     }
-    if (!window.confirm(msg)) return;
+    var confirmed = await Lab.modal.confirm({ title: 'Delete Location', message: msg, confirmText: 'Delete', danger: true });
+    if (!confirmed) return;
     var path = 'docs/' + slug + '.md';
     try {
       await Lab.gh.deleteFile(path);
@@ -284,9 +285,16 @@
   async function reparentSlug(srcSlug, newParentSlug) {
     var path = 'docs/' + srcSlug + '.md';
     var newParentPath = 'docs/' + newParentSlug + '.md';
-    if (!window.confirm('Move "' + srcSlug + '"\ninto "' + newParentSlug + '" ?\n\n(Updates the parent: frontmatter and saves to GitHub.)')) {
-      return;
-    }
+    var srcEntry = (await Lab.hierarchy.build())[srcSlug];
+    var dstEntry = (await Lab.hierarchy.build())[newParentSlug];
+    var srcTitle = (srcEntry && srcEntry.title) || srcSlug.split('/').pop();
+    var dstTitle = (dstEntry && dstEntry.title) || newParentSlug.split('/').pop();
+    var confirmed = await Lab.modal.confirm({
+      title: 'Move Item',
+      message: 'Move "' + srcTitle + '" into "' + dstTitle + '"?',
+      confirmText: 'Move',
+    });
+    if (!confirmed) return;
     try {
       var file = await Lab.gh.fetchFile(path);
       var text = file.content;

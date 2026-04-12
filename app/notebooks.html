@@ -572,7 +572,8 @@ async function createNewEntry() {
     var sha = null;
     try {
       var existing = await gh.fetchFile(filePath);
-      if (!confirm('An entry "' + slug + '" already exists in ' + dir + '. Open it instead?')) return;
+      var openExisting = await Lab.modal.confirm({ title: 'Entry Exists', message: 'An entry "' + slug + '" already exists in ' + dir + '.\nOpen it instead?', confirmText: 'Open' });
+      if (!openExisting) return;
       loadDoc(docPath);
       return;
     } catch(e) {}
@@ -749,7 +750,8 @@ async function deleteDoc() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) return;
   var name = currentDoc.split('/').pop();
-  if (!confirm('Delete entry "' + name + '"? This cannot be undone.')) return;
+  var confirmed = await Lab.modal.confirm({ title: 'Delete Notebook Entry', message: 'Delete "' + name + '"?\nThis cannot be undone.', confirmText: 'Delete', danger: true });
+  if (!confirmed) return;
 
   try {
     var filePath = 'docs/' + currentDoc + '.md';

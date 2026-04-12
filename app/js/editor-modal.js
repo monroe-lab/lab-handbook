@@ -2806,9 +2806,9 @@
     ytBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:15px">smart_display</span> YouTube';
     ytBtn.onmouseenter = function() { ytBtn.style.background = 'var(--grey-100)'; };
     ytBtn.onmouseleave = function() { ytBtn.style.background = '#fff'; };
-    ytBtn.onclick = function(e) {
+    ytBtn.onclick = async function(e) {
       e.preventDefault();
-      var url = prompt('Paste YouTube URL:');
+      var url = await Lab.modal.prompt({ title: 'YouTube Video', message: 'Paste a YouTube URL:', placeholder: 'https://www.youtube.com/watch?v=...' });
       if (!url) return;
       // Extract video ID from various YouTube URL formats
       var match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);

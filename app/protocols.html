@@ -433,14 +433,23 @@ function toggleCategory(el) {
 
 // ── New Folder ──
 async function createNewFolder() {
-  var name = prompt('Folder name (e.g. "tissue-culture"):');
-  if (!name || !name.trim()) return;
-  var slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  var label = prompt('Display label:', slug.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '));
-  if (!label || !label.trim()) return;
+  // Build options for parent directory dropdown
+  var dirOptions = [{ value: '', label: '(top-level)' }];
+  NAV.forEach(function(cat) { if (cat.dir) dirOptions.push({ value: cat.dir, label: cat.label }); });
 
-  // Determine parent dir — for now, all new folders go under docs/wet-lab/ or top-level docs/
-  var parentDir = prompt('Parent directory (e.g. "wet-lab" or leave blank for top-level):', '');
+  var result = await Lab.modal.form({
+    title: 'New Folder',
+    fields: [
+      { key: 'name', label: 'Folder name', placeholder: 'e.g. tissue-culture' },
+      { key: 'label', label: 'Display label', placeholder: 'e.g. Tissue Culture' },
+      { key: 'parent', label: 'Parent directory', type: 'select', options: dirOptions },
+    ],
+    submitText: 'Create Folder',
+  });
+  if (!result || !result.name || !result.name.trim()) return;
+  var slug = result.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  var label = result.label && result.label.trim() ? result.label.trim() : slug.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+  var parentDir = result.parent || '';
   var dir = parentDir ? parentDir.trim() + '/' + slug : slug;
 
   // GitHub requires a file to create a directory — create a placeholder index
@@ -468,7 +477,7 @@ async function createNewFolder() {
 async function renameFolder(catIdx) {
   var cat = NAV[catIdx];
   if (!cat) return;
-  var newLabel = prompt('Rename folder:', cat.label);
+  var newLabel = await Lab.modal.prompt({ title: 'Rename Folder', message: 'New display label:', defaultValue: cat.label });
   if (!newLabel || !newLabel.trim() || newLabel.trim() === cat.label) return;
 
   var gh = Lab.gh;
@@ -1157,19 +1166,25 @@ async function createNewProtocol() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
-  var title = prompt('Protocol title:');
-  if (!title || !title.trim()) return;
-  title = title.trim();
+  // Build directory options from NAV
+  var defaultDir = 'wet-lab';
+  if (currentDoc) { var _p = currentDoc.split('/'); _p.pop(); defaultDir = _p.join('/'); }
+  var dirOpts = [];
+  NAV.forEach(function(cat) { if (cat.dir) dirOpts.push({ value: cat.dir, label: cat.label }); });
+
+  var result = await Lab.modal.form({
+    title: 'New Protocol',
+    fields: [
+      { key: 'title', label: 'Protocol title', placeholder: 'e.g. RNA Extraction from Leaf Tissue' },
+      { key: 'dir', label: 'Folder', type: 'select', options: dirOpts, default: defaultDir },
+    ],
+    submitText: 'Create',
+  });
+  if (!result || !result.title || !result.title.trim()) return;
+  var title = result.title.trim();
 
   var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-  // Pick directory — default to current doc's directory, or wet-lab
-  var dir = 'wet-lab';
-  if (currentDoc) {
-    var parts = currentDoc.split('/');
-    parts.pop();
-    dir = parts.join('/');
-  }
+  var dir = result.dir || defaultDir;
 
   var user = gh.getUser();
   var userName = user ? user.name || user.login : 'unknown';
@@ -1251,7 +1266,8 @@ async function deleteDoc() {
     cat.items.forEach(function(i) { if (i.path === currentDoc) title = i.title; });
   });
 
-  if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+  var confirmed = await Lab.modal.confirm({ title: 'Delete Protocol', message: 'Delete "' + title + '"?\nThis cannot be undone.', confirmText: 'Delete', danger: true });
+  if (!confirmed) return;
 
   try {
     var filePath = 'docs/' + currentDoc + '.md';
@@ -1286,7 +1302,7 @@ async function renameDoc() {
     cat.items.forEach(function(i) { if (i.path === currentDoc) oldTitle = i.title; });
   });
 
-  var newTitle = prompt('New title:', oldTitle);
+  var newTitle = await Lab.modal.prompt({ title: 'Rename Protocol', message: 'New title:', defaultValue: oldTitle });
   if (!newTitle || newTitle === oldTitle) return;
 
   try {

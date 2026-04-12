@@ -392,6 +392,221 @@
       pills.join('') + '</div>';
   }
 
+  // ── In-app modal dialogs ──
+  // Replaces native confirm/prompt with styled modals. Returns a Promise.
+  //
+  // Lab.modal.confirm({ title, message, confirmText, danger }) → Promise<bool>
+  // Lab.modal.prompt({ title, message, placeholder, defaultValue }) → Promise<string|null>
+  // Lab.modal.form({ title, fields: [{key,label,type,default,placeholder,options}] }) → Promise<obj|null>
+
+  var _modalZ = 11000; // above editor-modal overlay
+
+  function _modalBase(innerHtml) {
+    return new Promise(function(resolve) {
+      var overlay = document.createElement('div');
+      overlay.className = 'lab-modal-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:' + _modalZ +
+        ';background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;' +
+        'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;animation:labModalFadeIn .15s ease';
+      var modal = document.createElement('div');
+      modal.className = 'lab-modal';
+      modal.style.cssText = 'background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);' +
+        'padding:24px;width:420px;max-width:90vw;max-height:80vh;overflow:auto;animation:labModalSlideIn .2s ease';
+      modal.innerHTML = innerHtml;
+      overlay.appendChild(modal);
+
+      // Inject keyframe animation (once)
+      if (!document.getElementById('lab-modal-keyframes')) {
+        var css = document.createElement('style');
+        css.id = 'lab-modal-keyframes';
+        css.textContent =
+          '@keyframes labModalFadeIn{from{opacity:0}to{opacity:1}}' +
+          '@keyframes labModalSlideIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}';
+        document.head.appendChild(css);
+      }
+
+      // Prevent backdrop close on drag-out (same pattern as editor-modal)
+      var _mdTarget = null;
+      overlay.addEventListener('mousedown', function(e) { _mdTarget = e.target; });
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay && _mdTarget === overlay) { cleanup(null); }
+        _mdTarget = null;
+      });
+
+      document.body.appendChild(overlay);
+
+      // Focus first input
+      var firstInput = modal.querySelector('input,textarea,select');
+      if (firstInput) setTimeout(function() { firstInput.focus(); if (firstInput.select) firstInput.select(); }, 50);
+
+      // Escape to cancel
+      function onKey(e) { if (e.key === 'Escape') cleanup(null); }
+      document.addEventListener('keydown', onKey);
+
+      function cleanup(val) {
+        document.removeEventListener('keydown', onKey);
+        overlay.style.opacity = '0';
+        setTimeout(function() { overlay.remove(); }, 150);
+        resolve(val);
+      }
+
+      // Expose cleanup to inner buttons
+      modal._cleanup = cleanup;
+    });
+  }
+
+  var _inputStyle = 'width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;' +
+    'font-family:inherit;box-sizing:border-box;outline:none;transition:border-color .15s;';
+  var _btnBase = 'padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;';
+  var _btnCancel = _btnBase + 'border:1px solid #ddd;background:#fff;color:#374151;';
+  var _btnPrimary = _btnBase + 'border:none;background:#009688;color:#fff;';
+  var _btnDanger = _btnBase + 'border:none;background:#ef4444;color:#fff;';
+
+  var modal = {
+    confirm: function(opts) {
+      opts = opts || {};
+      var title = opts.title || 'Confirm';
+      var message = opts.message || 'Are you sure?';
+      var confirmText = opts.confirmText || 'Confirm';
+      var cancelText = opts.cancelText || 'Cancel';
+      var danger = opts.danger;
+      var btnStyle = danger ? _btnDanger : _btnPrimary;
+
+      var html =
+        '<h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:#1a1a1a">' + escapeHtml(title) + '</h3>' +
+        '<p style="margin:0 0 20px;font-size:14px;color:#4b5563;line-height:1.5;white-space:pre-wrap">' + escapeHtml(message) + '</p>' +
+        '<div style="display:flex;justify-content:flex-end;gap:8px">' +
+          '<button class="lab-modal-cancel" style="' + _btnCancel + '">' + escapeHtml(cancelText) + '</button>' +
+          '<button class="lab-modal-ok" style="' + btnStyle + '">' + escapeHtml(confirmText) + '</button>' +
+        '</div>';
+
+      return _modalBase(html).then(function(val) {
+        // val is set by button clicks, null by backdrop/escape
+        return val === true;
+      });
+
+      function escapeHtml(s) { return escHtml(s); }
+    },
+
+    prompt: function(opts) {
+      opts = opts || {};
+      var title = opts.title || '';
+      var message = opts.message || '';
+      var placeholder = opts.placeholder || '';
+      var defaultValue = opts.defaultValue || '';
+
+      var html =
+        (title ? '<h3 style="margin:0 0 8px;font-size:16px;font-weight:700;color:#1a1a1a">' + escHtml(title) + '</h3>' : '') +
+        (message ? '<p style="margin:0 0 12px;font-size:13px;color:#6b7280;line-height:1.4">' + escHtml(message) + '</p>' : '') +
+        '<input type="text" class="lab-modal-input" style="' + _inputStyle + 'margin-bottom:16px" ' +
+          'placeholder="' + escHtml(placeholder) + '" value="' + escHtml(defaultValue) + '">' +
+        '<div style="display:flex;justify-content:flex-end;gap:8px">' +
+          '<button class="lab-modal-cancel" style="' + _btnCancel + '">Cancel</button>' +
+          '<button class="lab-modal-ok" style="' + _btnPrimary + '">OK</button>' +
+        '</div>';
+
+      return _modalBase(html);
+    },
+
+    // Multi-field form. fields: [{key, label, type:'text'|'select'|'textarea', default, placeholder, options:[{value,label}]}]
+    form: function(opts) {
+      opts = opts || {};
+      var title = opts.title || '';
+      var message = opts.message || '';
+      var fields = opts.fields || [];
+      var submitText = opts.submitText || 'Create';
+
+      var html = '';
+      if (title) html += '<h3 style="margin:0 0 8px;font-size:16px;font-weight:700;color:#1a1a1a">' + escHtml(title) + '</h3>';
+      if (message) html += '<p style="margin:0 0 12px;font-size:13px;color:#6b7280;line-height:1.4">' + escHtml(message) + '</p>';
+
+      fields.forEach(function(f) {
+        html += '<div style="margin-bottom:12px">';
+        html += '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:4px">' + escHtml(f.label || f.key) + '</label>';
+        if (f.type === 'select' && f.options) {
+          html += '<select data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '">';
+          f.options.forEach(function(o) {
+            var sel = (o.value === (f.default || '')) ? ' selected' : '';
+            html += '<option value="' + escHtml(o.value) + '"' + sel + '>' + escHtml(o.label || o.value) + '</option>';
+          });
+          html += '</select>';
+        } else if (f.type === 'textarea') {
+          html += '<textarea data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + 'min-height:60px;resize:vertical" placeholder="' + escHtml(f.placeholder || '') + '">' + escHtml(f.default || '') + '</textarea>';
+        } else {
+          html += '<input type="text" data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '" ' +
+            'placeholder="' + escHtml(f.placeholder || '') + '" value="' + escHtml(f.default || '') + '">';
+        }
+        html += '</div>';
+      });
+
+      html += '<div style="display:flex;justify-content:flex-end;gap:8px">' +
+        '<button class="lab-modal-cancel" style="' + _btnCancel + '">Cancel</button>' +
+        '<button class="lab-modal-ok" style="' + _btnPrimary + '">' + escHtml(submitText) + '</button>' +
+      '</div>';
+
+      return _modalBase(html);
+    },
+  };
+
+  // Wire up buttons after modal is in DOM (delegated via MutationObserver
+  // would be complex — instead, _modalBase returns a promise and we
+  // override it here with button wiring in a microtask).
+  var _origModalBase = _modalBase;
+  _modalBase = function(html) {
+    return new Promise(function(resolve) {
+      _origModalBase(html).then(resolve);
+      // Wire buttons after DOM insertion (next microtask)
+      setTimeout(function() {
+        var overlay = document.querySelector('.lab-modal-overlay:last-of-type');
+        if (!overlay) return;
+        var m = overlay.querySelector('.lab-modal');
+        var cleanup = m._cleanup;
+
+        var cancelBtn = m.querySelector('.lab-modal-cancel');
+        var okBtn = m.querySelector('.lab-modal-ok');
+
+        if (cancelBtn) cancelBtn.onclick = function() { cleanup(null); };
+
+        if (okBtn) {
+          okBtn.onclick = function() {
+            // Check if it's a prompt (single input)
+            var singleInput = m.querySelector('.lab-modal-input');
+            if (singleInput) {
+              cleanup(singleInput.value);
+              return;
+            }
+            // Check if it's a form (multiple data-modal-key fields)
+            var formFields = m.querySelectorAll('[data-modal-key]');
+            if (formFields.length) {
+              var result = {};
+              formFields.forEach(function(f) {
+                result[f.getAttribute('data-modal-key')] = f.value;
+              });
+              cleanup(result);
+              return;
+            }
+            // It's a confirm
+            cleanup(true);
+          };
+        }
+
+        // Enter key submits prompt/form
+        m.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            if (okBtn) okBtn.click();
+          }
+        });
+
+        // Focus styling on inputs
+        m.querySelectorAll('input,textarea,select').forEach(function(el) {
+          el.addEventListener('focus', function() { el.style.borderColor = '#009688'; });
+          el.addEventListener('blur', function() { el.style.borderColor = '#ddd'; });
+        });
+      }, 0);
+    });
+  };
+
   // ── Exports ──
   window.Lab = window.Lab || {};
   window.Lab.BASE = BASE;
@@ -405,4 +620,5 @@
   window.Lab.buildFrontmatter = buildFrontmatter;
   window.Lab.postProcessImages = postProcessImages;
   window.Lab.renderFrontmatterBar = renderFrontmatterBar;
+  window.Lab.modal = modal;
 })();

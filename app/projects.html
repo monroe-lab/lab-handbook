@@ -546,7 +546,7 @@ function cancelEdit() {
 async function createNewProject() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
-  var title = prompt('Project title:');
+  var title = await Lab.modal.prompt({ title: 'New Project', message: 'Project title:', placeholder: 'e.g. Alfalfa Pangenome' });
   if (!title || !title.trim()) return;
   title = title.trim();
   var slug = Lab.slugify ? Lab.slugify(title) : title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

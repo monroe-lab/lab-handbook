@@ -1296,7 +1296,8 @@ async function createNewDoc(preset) {
   try {
     var existing = await Lab.gh.fetchFile(filePath);
     if (existing) {
-      if (!confirm('A document already exists at ' + relPath + '. Open it instead?')) return;
+      var openExisting = await Lab.modal.confirm({ title: 'Document Exists', message: 'A document already exists at ' + relPath + '.\nOpen it instead?', confirmText: 'Open' });
+      if (!openExisting) return;
       loadDoc(docPath);
       return;
     }
