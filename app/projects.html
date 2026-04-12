@@ -409,6 +409,7 @@ async function loadDoc(docPath) {
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span> Edit</button>' : '') +
           '</div>' +
         '</div>' +
+        (Lab.renderFrontmatterBar ? Lab.renderFrontmatterBar(parsed.meta) : '') +
         '<div class="lab-rendered theme-teal" id="renderedDoc">' + html + '</div>' +
       '</div>';
 

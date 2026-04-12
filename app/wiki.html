@@ -575,7 +575,9 @@ async function loadDoc(docPath) {
     currentSha = result.sha;
     var html = await Lab.editorModal.renderMarkdown(result.content);
 
-    var meta = INDEX_MAP[docPath + '.md'] || {};
+    // Parse frontmatter for the metadata bar
+    var parsed = Lab.parseFrontmatter(result.content);
+    var meta = parsed.meta || INDEX_MAP[docPath + '.md'] || {};
     var typeBadge = '';
     if (meta.type) {
       var t = Lab.types && Lab.types.get ? Lab.types.get(meta.type) : null;
@@ -593,6 +595,7 @@ async function loadDoc(docPath) {
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' : '') +
           '</div>' +
         '</div>' +
+        (Lab.renderFrontmatterBar ? Lab.renderFrontmatterBar(meta) : '') +
         '<div class="lab-rendered theme-indigo" id="renderedDoc">' + html + '</div>' +
       '</div>';
 

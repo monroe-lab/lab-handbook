@@ -333,6 +333,65 @@
     });
   }
 
+  // ── Frontmatter metadata bar (#46) ──
+  // Renders a compact row of pill-shaped field badges from a parsed
+  // frontmatter object. Used by protocols, wiki, notebooks, and projects
+  // to show type/author/dates/status in view mode. Fields that are empty,
+  // or in the skip list (title is already the h1, legacy IDs are noise)
+  // are omitted. Keeps the bar light — one line of pills, not a table.
+  var FM_SKIP = { title: 1, legacy_inventory_id: 1, need_more: 1 };
+
+  function renderFrontmatterBar(meta) {
+    if (!meta || typeof meta !== 'object') return '';
+    var keys = Object.keys(meta).filter(function(k) {
+      if (FM_SKIP[k]) return false;
+      var v = meta[k];
+      if (v == null || v === '' || v === false) return false;
+      return true;
+    });
+    if (!keys.length) return '';
+
+    var typeConfig = (window.Lab && window.Lab.types && window.Lab.types.get)
+      ? window.Lab.types.get(meta.type) : null;
+    var typeColor = (typeConfig && typeConfig.color) || '#6b7280';
+    var typeIcon = (typeConfig && typeConfig.icon) || '';
+    var typeLabel = (typeConfig && typeConfig.label) || meta.type || '';
+
+    var pills = [];
+    if (meta.type) {
+      pills.push(
+        '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;' +
+        'border-radius:12px;font-size:11px;font-weight:600;' +
+        'background:' + typeColor + '15;color:' + typeColor + ';' +
+        'border:1px solid ' + typeColor + '30">' +
+        typeIcon + ' ' + escHtml(typeLabel) + '</span>'
+      );
+    }
+
+    keys.forEach(function(k) {
+      if (k === 'type') return;
+      var v = meta[k];
+      var label = k.replace(/_/g, ' ');
+      var valStr;
+      if (Array.isArray(v)) {
+        valStr = v.map(function(item) { return escHtml(String(item)); }).join(', ');
+      } else if (typeof v === 'object') {
+        return; // skip nested objects
+      } else {
+        valStr = escHtml(String(v));
+      }
+      pills.push(
+        '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;' +
+        'border-radius:6px;font-size:11px;color:#4b5563;background:#f3f4f6">' +
+        '<span style="font-weight:600;color:#9ca3af">' + escHtml(label) + '</span> ' + valStr + '</span>'
+      );
+    });
+
+    return '<div class="frontmatter-bar" style="display:flex;flex-wrap:wrap;gap:6px;' +
+      'padding:10px 0;margin-bottom:8px;font-family:inherit">' +
+      pills.join('') + '</div>';
+  }
+
   // ── Exports ──
   window.Lab = window.Lab || {};
   window.Lab.BASE = BASE;
@@ -345,4 +404,5 @@
   window.Lab.parseFrontmatter = parseFrontmatter;
   window.Lab.buildFrontmatter = buildFrontmatter;
   window.Lab.postProcessImages = postProcessImages;
+  window.Lab.renderFrontmatterBar = renderFrontmatterBar;
 })();
