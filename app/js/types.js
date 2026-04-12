@@ -176,7 +176,7 @@
         { key: 'title',      label: 'Name',                type: 'text', required: true },
         { key: 'type',       label: 'Type',                type: 'hidden', value: 'bottle' },
         { key: 'of',         label: 'Of (concept slug)',   type: 'text', placeholder: 'e.g. resources/ethanol-absolute' },
-        { key: 'parent',     label: 'Inside',              type: 'text', placeholder: 'slug of parent location' },
+        { key: 'parent',     label: 'Parent',              type: 'text', placeholder: 'slug of parent location' },
         { key: 'position',   label: 'Position in parent',  type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
         { key: 'quantity',   label: 'Quantity',            type: 'text', placeholder: 'amount in the bottle' },
         { key: 'unit',       label: 'Unit',                type: 'text', placeholder: 'g, mL, L, each' },
@@ -301,7 +301,7 @@
       fields: [
         { key: 'title',    label: 'Name',                        type: 'text', required: true },
         { key: 'type',     label: 'Type',                        type: 'hidden', value: 'room' },
-        { key: 'parent',   label: 'Inside',                      type: 'text', placeholder: 'slug of parent (optional)' },
+        { key: 'parent',   label: 'Parent',                      type: 'text', placeholder: 'slug of parent (optional)' },
         { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
         { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
       ],
@@ -316,7 +316,7 @@
       fields: [
         { key: 'title',    label: 'Name',                        type: 'text', required: true },
         { key: 'type',     label: 'Type',                        type: 'hidden', value: 'freezer' },
-        { key: 'parent',   label: 'Inside',                      type: 'text' },
+        { key: 'parent',   label: 'Parent',                      type: 'text' },
         { key: 'position', label: 'Position in parent',          type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
         { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
         { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
