@@ -226,28 +226,52 @@ Lane:    M    1    2    3    4    5
 
 ## Showing instead of telling: images and videos
 
-When a step is easier to *show* than *describe*, insert a photo, GIF, or video. The editor's **Media** toolbar buttons handle all three.
+When a step is easier to *show* than *describe*, insert a photo, GIF, or video. The editor's **Media** toolbar buttons handle all three. Here are live examples of each type so you can see what they look like rendered.
 
 ### Static image
 
 Click **Image** in the Media bar, pick a file. It uploads to the repo and appears inline. Include a caption that tells the reader **what to look for**, not just what's shown.
 
-*Example caption:* "The tube on the left shows a correct pellet — compact, cream-colored, tight at the bottom. The tube on the right shows a failed extraction: the pellet is loose, brown, and streaked up the tube wall. If yours looks like the right one, stop and redo."
+![Laminar flow hood setup](images/laminar-flow-hood-example.jpg)
+
+*A laminar flow hood provides a sterile work surface with HEPA-filtered airflow. Always work with the sash at the appropriate height. Notice the organized reagent layout — bottles labeled, tips accessible, waste to the right.*
+
+### Annotated image
+
+Double-click any image in the editor to open the annotation tool. Add labels, arrows, and highlights directly on top of the photo, then save. The annotated version is stored as a separate `-annotated.png` alongside the original — both are kept.
+
+![Annotated example](images/screenshot-2026-04-04-at-2.04.32-pm-annotated.png)
+
+*This screenshot has been annotated with the built-in tool. Use annotations to call out specific parts of a photo: label the bands on a gel, circle the correct setting on an instrument, arrow the thing a new user needs to find. One annotated image is worth a thousand words of description.*
 
 ### Animated GIF
 
-GIFs are great for showing hand positions, mixing techniques, or short equipment operations. Keep them under 5 seconds and under 2 MB — anything longer should be a video.
+GIFs are great for showing hand positions, mixing techniques, or short equipment operation demos. Keep them under 5 seconds and under 2 MB — anything longer should be a video.
+
+![Animated demo](images/pcr-cycle-animation.gif)
+
+*Animated GIFs play automatically and loop. Use them for anything where motion matters: pipetting technique, vortexing speed, how to hold a tube while grinding.*
 
 ### Short video (local file)
 
-Click **Video file** and pick an mp4 or webm (max 25 MB). Use for demonstrations that need audio or need to be longer than a GIF can reasonably be.
+Click **Video file** in the Media bar and pick an mp4 or webm (max 25 MB). Use for demonstrations that need audio or need to be longer than a GIF.
+
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009338.mp4" type="video/mp4">Your browser does not support video.</video>
+
+*Local videos are embedded with native browser controls (play/pause/scrub). Great for bench demonstrations, equipment walkthroughs, or anything you'd otherwise film on your phone and send via Slack.*
+
+<video controls style="max-width:100%;border-radius:8px;margin:12px 0"><source src="images/1000009059.mp4" type="video/mp4">Your browser does not support video.</video>
 
 ### YouTube video
 
-Click **YouTube** and paste a URL. Great for pointing at a manufacturer's demo or an educational video from another lab. You're not reinventing content someone else already made well.
+Click **YouTube** in the Media bar and paste any URL. The full embedded player shows in the rendered view. Great for pointing at a manufacturer's demo or an educational video from another lab — you're not reinventing content someone else already made well.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iQsu3Kz9NYo" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/c1WOBy5vSg8" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
 > 💡 **Principle**
-> A 30-second video of someone pipetting correctly replaces three paragraphs of description. A picture of what "homogenized tissue" actually looks like replaces a paragraph and a half. Use media where it genuinely pays for its weight in page load time.
+> A 30-second video of someone pipetting correctly replaces three paragraphs of description. A picture of what "homogenized tissue" actually looks like replaces a paragraph and a half. Use media where it genuinely pays for its weight in page load time. But don't add media for its own sake — every image, GIF, and video should answer a question the reader would otherwise have to ask.
 
 ***
 
