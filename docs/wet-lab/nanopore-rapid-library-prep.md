@@ -50,6 +50,8 @@ The Rapid Sequencing Kit is the simplest Oxford Nanopore library prep. A transpo
 
 The trade-off vs. the Ligation Kit: the rapid kit wastes ~50% of input DNA (transposase cuts are random, so some fragments lose their adapters). The ligation kit attaches adapters to every fragment end without cutting, giving higher yield from the same input. But the ligation kit takes ~2 hours and requires more steps. For training and most lab applications, the rapid kit is preferred.
 
+<!-- PHOTO: Rapid Sequencing Kit contents laid out -->
+
 ## Procedure
 
 **Follow the Oxford Nanopore protocol document** included with the kit or available at [nanoporetech.com](https://nanoporetech.com). Kit versions change; the steps below are a general guide for the rapid kit workflow.

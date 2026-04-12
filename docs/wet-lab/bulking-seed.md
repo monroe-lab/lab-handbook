@@ -34,6 +34,8 @@ Your plants must be at the correct stage:
 - You stopped watering at least 1-2 weeks ago (see [[watering-and-plant-care]])
 - Siliques are **brittle** and crack open when you touch them
 
+<!-- PHOTO: Mature Arabidopsis plant with dry brown siliques ready for harvest -->
+
 If siliques are still green, wait. Harvesting immature seed gives you low-quality or non-viable seed.
 
 ## Procedure
@@ -47,6 +49,8 @@ If siliques are still green, wait. Harvesting immature seed gives you low-qualit
 5. For stubborn siliques, gently crush them between your fingers over the paper.
 6. Collect all released seeds on the paper.
 
+<!-- PHOTO: Seeds on white paper after threshing, before cleaning -->
+
 ### 2. Clean
 
 Seeds will be mixed with chaff (silique fragments, stem pieces, dust).
@@ -59,6 +63,8 @@ Seeds will be mixed with chaff (silique fragments, stem pieces, dust).
 ### 3. Store
 
 1. Transfer clean seed into a labeled **paper envelope** or **coin envelope**. Do not use plastic bags (seeds need to stay dry; plastic traps moisture and promotes fungal growth).
+<!-- PHOTO: Labeled seed envelope -->
+
 2. Label the envelope with:
    - Genotype / line name (e.g., `Col-0`, `SALK_045678 msh2-1`)
    - Date harvested
@@ -76,8 +82,6 @@ Log the new seed stock in the [inventory system](../inventory-app/index.html):
 - Storage location
 - Date
 - Your initials
-
-<!-- VIDEO: How to log a sample in the inventory system -->
 
 ## Yield Expectations
 

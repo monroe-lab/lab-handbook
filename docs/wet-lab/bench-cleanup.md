@@ -46,6 +46,8 @@ title: "Bench Cleanup Protocol"
 
 ### 3. Wipe down the surface
 
+<!-- PHOTO: Clean bench surface after proper cleanup -->
+
 1. Spray the bench surface with [[ethanol-70|70% ethanol]].
 2. Wipe with paper towels or lint-free wipes.
 3. Wipe in one direction (toward you), not in circles. Circular wiping just moves contamination around.

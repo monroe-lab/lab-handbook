@@ -21,11 +21,9 @@ title: "Nanopore Data Retrieval"
 
 ---
 
-## Videos
-
-- [Getting Started with MinION (Oxford Nanopore)](https://nanoporetech.com/getting-started-with-minion) — Oxford Nanopore's MinION onboarding and setup guide
-
 ## Where MinKNOW Puts the Data
+
+> **Video:** [Getting Started with MinION (Oxford Nanopore)](https://nanoporetech.com/getting-started-with-minion) — Oxford Nanopore's MinION onboarding and setup guide
 
 MinKNOW saves all run data to a default output directory on the sequencing computer. The path is typically:
 
@@ -60,6 +58,8 @@ Within this directory, each run gets its own folder named by the experiment name
 **For the capstone assembly, you need the `fastq_pass/` files.** The POD5 files are useful for advanced analysis (methylation calling) but are not needed for basic genome assembly.
 
 ## Procedure
+
+<!-- PHOTO: MinKNOW run report showing key metrics -->
 
 ### 1. Check the run report
 

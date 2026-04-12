@@ -39,6 +39,8 @@ Both heat samples to a target temperature. The difference is heat transfer.
 
 ### Water Bath
 
+<!-- PHOTO: Our water bath with floating rack and tubes -->
+
 1. **Check the water level.** The water should be high enough to submerge your tubes to the level of the liquid inside them. Add distilled water if needed.
 2. **Set the temperature.** Turn the dial or use the digital controls to set your target temperature.
 3. **Wait for equilibration.** The water bath needs time to reach the target temperature. Turn it on 15-30 minutes before you need it, or leave it running at a commonly used temperature (37C or 55C).
@@ -48,6 +50,8 @@ Both heat samples to a target temperature. The difference is heat transfer.
 7. **Remove tubes.** Wipe the outside of tubes dry before opening to prevent water from dripping into your sample.
 
 ### Heat Block
+
+<!-- PHOTO: Our heat block with different tube inserts -->
 
 1. **Select the correct insert** for your tube size (0.5 mL, 1.5 mL, 2.0 mL, or Falcon tube).
 2. **Set the temperature.**

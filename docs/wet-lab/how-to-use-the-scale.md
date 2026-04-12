@@ -23,10 +23,6 @@ title: "How to Use the Scale"
 
 ---
 
-## Videos
-
-- [Measuring Mass Using an Analytical Balance (JoVE)](https://www.jove.com/v/5037/measuring-mass-in-the-laboratory-using-analytical-balance) — JoVE video on analytical balance principles and technique
-
 ## Two Balances, Two Jobs
 
 The lab has two balances. They are not interchangeable.
@@ -50,6 +46,12 @@ The lab has two balances. They are not interchangeable.
 **Rule of thumb:** If the amount you need is less than 1 g and precision matters, use the analytical balance. For everything else, the top-loader is fine.
 
 ## Procedure
+
+> **Video:** [Measuring Mass Using an Analytical Balance (JoVE)](https://www.jove.com/v/5037/measuring-mass-in-the-laboratory-using-analytical-balance) — JoVE video on analytical balance principles and technique
+
+<!-- PHOTO: Our analytical balance (glass doors open) in the chemistry area -->
+
+<!-- PHOTO: Our top-loading balance showing the weighing platform -->
 
 ### 1. Check the balance
 

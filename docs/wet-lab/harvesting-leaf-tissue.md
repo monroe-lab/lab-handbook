@@ -53,12 +53,16 @@ When in doubt, collect more than you think you need. You can always use less, bu
 
 ### 1. Set up
 
+<!-- PHOTO: Flash-freezing setup: LN2 dewar, labeled tubes in rack, scissors, forceps -->
+
 1. Fill a small dewar with liquid nitrogen. Place it on your bench.
 2. Pre-label your tubes. See [[tube-and-sample-labeling]] for what goes on each label.
 3. Open the tube caps and place tubes in a rack next to the dewar.
 4. Have scissors/razor and forceps clean and ready.
 
 ### 2. Harvest
+
+<!-- PHOTO: Correct leaf selection: young fully expanded leaf vs. old yellowing leaf -->
 
 1. Identify the plant and leaf you will sample. For rosette-stage Arabidopsis, use **young, fully expanded leaves** (not the oldest, yellowing leaves and not the newest, tiny ones).
 2. Using scissors or a razor blade, cut the leaf at the petiole (where the leaf meets the stem).
@@ -77,8 +81,6 @@ When in doubt, collect more than you think you need. You can always use less, bu
 1. Place all tubes into a freezer box.
 2. Record the box grid positions in the [inventory system](../inventory-app/index.html).
 3. Store at **[[freezer-minus80-a|-80C]]**. Tissue is stable at -80C for years.
-
-<!-- VIDEO: How to log a sample in the inventory system -->
 
 ## Important Notes
 

@@ -94,8 +94,13 @@ title: "Planting Arabidopsis Seeds on MS Plates"
 1. Work in the 📖 clean bench
 2. Remove seeds from fridge (end of stratification)
 3. Resuspend seeds in sterile 0.1% agar solution (helps seeds stick to tip and release onto plate)
+
+<!-- PHOTO: Seeds being pipetted onto MS plate using 0.1% agar suspension -->
+
 4. Using a 1 mL pipette tip, touch the agar surface — one touch releases approximately one seed
 5. Space seeds \~1 cm apart on the plate
+<!-- PHOTO: Sealed plate with micropore tape, ready for growth chamber -->
+
 6. Seal plates with surgical tape (Micropore — allows gas exchange)
 7. Place plates **face up** in growth chamber or incubator
     * Long day conditions (16h light / 8h dark)

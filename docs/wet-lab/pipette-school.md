@@ -29,13 +29,13 @@ A micropipette is a precision instrument for transferring small liquid volumes (
 
 **Why this matters:** A 10% pipetting error in a PCR master mix means some reactions get too much enzyme and some get too little. A sloppy DNA quantification means you load the wrong amount into a library prep. Pipetting errors are the #1 source of failed experiments for new lab members.
 
-## Videos
-
-- [How to Pipette in 5 Simple Steps (Eppendorf)](https://www.youtube.com/watch?v=Wx8clzD-CO4) — 5-minute walkthrough of proper forward pipetting technique
-- [Micropipetting Tutorial Series (miniPCR)](https://www.youtube.com/playlist?list=PLCKY0OHNBaBnoeWPIuWhL-rPeTrAZ9cFy) — 4-video series covering pipette selection, technique, and practice
-- [Eppendorf Video Guide to Perfecting Your Pipetting Technique](https://www.eppendorf.com/us-en/lab-academy/topics-methods-technology/pipetting-dispensing/the-eppendorf-video-guide-to-perfecting-your-pipetting-technique/) — Full video series from Eppendorf on pipetting best practices
-
 ## The Pipettes
+
+<!-- PHOTO: Our Fisher Elite pipette set on the bench, showing P10/P20/P200/P1000 -->
+
+![Micropipettes on a stand](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Micropipettes_on_a_pipette_stand_01.jpg/600px-Micropipettes_on_a_pipette_stand_01.jpg)
+
+*Image: [Micropipettes on a pipette stand 01.jpg](https://commons.wikimedia.org/wiki/File:Micropipettes_on_a_pipette_stand_01.jpg) — Wikimedia Commons, CC BY-SA 4.0*
 
 The lab has several micropipettes. Each covers a specific volume range. **Never dial a pipette outside its stated range** — this damages the calibration.
 
@@ -60,6 +60,10 @@ If you aren't sure how to read the display, ask before pipetting.
 
 ## Tips
 
+![Pipette tips in boxes](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg/600px-Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg)
+
+*Image: [Disposable Pipette Tips in Laboratory Tip Boxes 02.jpg](https://commons.wikimedia.org/wiki/File:Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg) — Wikimedia Commons, CC BY-SA 4.0*
+
 - **Always use the correct tip size** for your pipette. Tips are not interchangeable.
 - **Use [[filter-tips-p200|filter tips]]** when working with DNA, RNA, or anything you don't want to contaminate the pipette barrel with. For training exercises with water, unfiltered tips are fine.
 - **Tip ejection:** Use the ejector button to drop the tip into the waste. Never pull a tip off by hand.
@@ -69,6 +73,14 @@ If you aren't sure how to read the display, ask before pipetting.
 ### Forward pipetting (standard)
 
 This is the technique you will use 99% of the time.
+
+> **Video:** [How to Pipette in 5 Simple Steps (Eppendorf)](https://www.youtube.com/watch?v=Wx8clzD-CO4) — 5-minute walkthrough of proper forward pipetting technique
+
+> **Video:** [Eppendorf Video Guide to Perfecting Your Pipetting Technique](https://www.eppendorf.com/us-en/lab-academy/topics-methods-technology/pipetting-dispensing/the-eppendorf-video-guide-to-perfecting-your-pipetting-technique/) — Full video series from Eppendorf on pipetting best practices
+
+![Forward pipetting instruction](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Forward_pipetting_instruction.jpg/600px-Forward_pipetting_instruction.jpg)
+
+*Image: [Forward pipetting instruction.jpg](https://commons.wikimedia.org/wiki/File:Forward_pipetting_instruction.jpg) — Wikimedia Commons, CC BY-SA 4.0*
 
 1. **Set the volume** by turning the dial. Never force the dial past the pipette's range.
 2. **Attach a tip** by pressing the pipette firmly into the tip box. One firm push. Don't hammer it.
@@ -95,6 +107,8 @@ This is the technique you will use 99% of the time.
 | Pipetting with the pipette at an angle | Volume error | Hold pipette vertically during aspiration |
 
 ## Exercises
+
+> **Video:** [Micropipetting Tutorial Series (miniPCR)](https://www.youtube.com/playlist?list=PLCKY0OHNBaBnoeWPIuWhL-rPeTrAZ9cFy) — 4-video series covering pipette selection, technique, and practice exercises
 
 Do all of these. They are not optional.
 

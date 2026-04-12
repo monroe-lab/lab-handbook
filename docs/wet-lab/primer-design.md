@@ -51,6 +51,8 @@ To determine whether a plant is wild-type (WT), heterozygous (HET), or homozygou
 
 ### 2. Design LP and RP using the SALK primer tool
 
+<!-- PHOTO: Screenshot of the SALK T-DNA Primer Design Tool with a real result -->
+
 1. Go to the [SALK T-DNA Primer Design Tool](http://signal.salk.edu/tdnaprimers.2.html).
 2. Enter your SALK line number.
 3. The tool will suggest LP and RP sequences, along with expected band sizes for WT and insertion bands.

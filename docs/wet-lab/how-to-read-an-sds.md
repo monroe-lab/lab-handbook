@@ -35,6 +35,8 @@ SDS documents follow a 16-section format mandated by the Globally Harmonized Sys
 
 ### Section 2: Hazard Identification
 
+<!-- PHOTO: Example SDS first page showing Section 2 hazard identification -->
+
 This is the most important section. It tells you:
 
 - **Signal word:** "Danger" (serious) or "Warning" (less serious)

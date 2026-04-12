@@ -46,12 +46,11 @@ Agarose is a polysaccharide extracted from seaweed. When dissolved in hot buffer
 
 **For training and genotyping: use 1.5%.** This is what the [[gel-electrophoresis]] protocol uses.
 
-## Videos
-
-- [Making an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=wXiiTW3pflM) — Step-by-step agarose gel preparation demonstration
-- [How to Pour an Agarose Gel: 3 Methods (miniPCR)](https://www.youtube.com/watch?v=4-Knw2JJDbM) — Comparison of three gel-pouring techniques
-
 ## Procedure
+
+> **Video:** [Making an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=wXiiTW3pflM) — Step-by-step agarose gel preparation demonstration
+
+<!-- PHOTO: Our gel casting tray with combs -->
 
 ### 1. Calculate amounts
 
@@ -87,7 +86,11 @@ Add the appropriate volume of **1x TAE buffer** to the flask.
 
 Let the flask cool until you can comfortably hold it (~55-60C). If you pour too hot, the gel tray can warp. If you wait too long, the agarose will start to solidify in the flask.
 
+<!-- PHOTO: Melted agarose in flask (clear, no particles) vs. unmelted (cloudy) -->
+
 ### 6. Pour
+
+> **Video:** [How to Pour an Agarose Gel: 3 Methods (miniPCR)](https://www.youtube.com/watch?v=4-Knw2JJDbM) — Comparison of three gel-pouring techniques
 
 1. Set up the casting tray in its mold with the rubber dams in place (or tape if your tray doesn't have dams).
 2. Insert the comb(s) at the appropriate position.

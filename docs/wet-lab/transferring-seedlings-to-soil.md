@@ -34,6 +34,8 @@ title: "Transferring Seedlings to Soil"
 ## Procedure
 
 1. Open the plate in the clean bench or on a clean bench surface. Plates do not need to remain sterile after this point.
+<!-- PHOTO: Seedling being lifted from agar plate with forceps -->
+
 2. Using fine-tipped forceps, gently grasp the seedling at the base of the hypocotyl (the stem between the roots and cotyledons). **Do not squeeze the leaves or the root tip.**
 3. Carefully lift the seedling out of the agar. Some agar will cling to the roots; this is fine. Do not try to remove it.
 4. Place the seedling into the pre-made hole in the soil. The root should point downward. The cotyledons should be at or just above the soil surface.
@@ -42,6 +44,8 @@ title: "Transferring Seedlings to Soil"
 7. Repeat for all seedlings.
 
 ## After Transplanting
+
+<!-- PHOTO: Freshly transplanted seedlings under humidity dome -->
 
 1. Cover the tray with a **humidity dome** (clear plastic lid) for the first 2-3 days. Seedlings transplanted from plates are accustomed to the high humidity of a sealed plate; the dome prevents desiccation shock.
 2. After 2-3 days, crack the dome slightly to begin acclimating seedlings to ambient humidity.

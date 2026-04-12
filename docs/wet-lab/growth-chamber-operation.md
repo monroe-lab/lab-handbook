@@ -38,6 +38,8 @@ These are the default conditions for Col-0 and most Arabidopsis ecotypes. Some e
 
 ## Procedure
 
+<!-- PHOTO: Growth chamber exterior and controls -->
+
 ### Setting temperature
 
 1. Locate the temperature controller (digital display on the front of the chamber).
@@ -54,7 +56,11 @@ These are the default conditions for Col-0 and most Arabidopsis ecotypes. Some e
 
 1. Label your tray or flat clearly with your name, date, genotype, and experiment.
 2. Place plates or pots on a shelf with good light exposure. Avoid the edges of shelves where light intensity drops.
+<!-- PHOTO: Arabidopsis plates standing upright on a shelf in the chamber -->
+
 3. For plates (MS media with seedlings): tape plates shut with [[micropore-tape]], stand them upright or at a slight angle so roots grow downward and shoots grow upward.
+<!-- PHOTO: Arabidopsis pots in a tray in the chamber -->
+
 4. For pots: place in a tray to catch water runoff.
 
 ### Monitoring

@@ -50,6 +50,8 @@ Arabidopsis seeds carry fungal spores and bacteria on their seed coat from the e
 
 ***
 
+<!-- PHOTO: Seed sterilization setup in the clean bench -->
+
 ## Method 1: Ethanol (small batches, <200 seeds)
 
 1. Place seeds in a 1.5 mL tube

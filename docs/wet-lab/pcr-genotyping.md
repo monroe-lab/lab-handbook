@@ -93,6 +93,8 @@ Final concentration: ~6.7 uM each primer (20 uM total).
    - **Positive control:** known wild-type DNA (for LP+RP band)
    - **Negative control:** water instead of DNA (no band = no contamination)
 5. Seal tubes, briefly spin down if needed
+<!-- PHOTO: PCR tube strip loaded in the thermocycler -->
+
 6. Place in thermocycler, run **Emerald Genotyping** program:
 
 | Step | Temp | Time | |

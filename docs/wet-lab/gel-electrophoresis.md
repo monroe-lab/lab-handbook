@@ -37,17 +37,19 @@ title: "Gel Electrophoresis"
 
 For most genotyping, **1.5% agarose** is the default.
 
+> **Video:** [DNA Gel Electrophoresis (JoVE)](https://www.jove.com/v/5057/dna-gel-electrophoresis) — JoVE video lesson on gel electrophoresis principles
+
+> **Video:** [Gel Electrophoresis (LabXchange, Harvard)](https://www.labxchange.org/library/items/lb:LabXchange:31f14b62:video:1) — Free educational video on gel electrophoresis
+
+![Annotated gel electrophoresis diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Agarose_gel_electrophoresis_of_DNA_with_annotation.png/600px-Agarose_gel_electrophoresis_of_DNA_with_annotation.png)
+
+*Image: [Agarose gel electrophoresis of DNA with annotation.png](https://commons.wikimedia.org/wiki/File:Agarose_gel_electrophoresis_of_DNA_with_annotation.png) — Wikimedia Commons, CC BY-SA 4.0*
+
 **Why SYBR Gold instead of ethidium bromide?** SYBR Gold is more sensitive (~25x) and less hazardous. EtBr is a suspected mutagen that requires special waste disposal. SYBR Gold degrades in light and is much safer, though you should still minimize skin contact.
 
 **Why Emerald Amp has built-in loading dye:** The Emerald Amp master mix (TaKaRa) already contains a green loading dye with two tracking markers — a fast-migrating yellow dye and a slow-migrating blue dye. This means you can load PCR products directly onto the gel without adding separate loading buffer.
 
 ---
-
-## Videos
-
-- [Running an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=U2-5ukpKg_Q) — Walkthrough of loading and running a gel
-- [DNA Gel Electrophoresis (JoVE)](https://www.jove.com/v/5057/dna-gel-electrophoresis) — JoVE video lesson on gel electrophoresis principles
-- [Gel Electrophoresis (LabXchange, Harvard)](https://www.labxchange.org/library/items/lb:LabXchange:31f14b62:video:1) — Free educational video on gel electrophoresis
 
 ## Materials
 
@@ -66,6 +68,10 @@ For most genotyping, **1.5% agarose** is the default.
 
 ## Procedure
 
+> **Video:** [Running an Agarose Gel (GenoSensor Education)](https://www.youtube.com/watch?v=U2-5ukpKg_Q) — Walkthrough of loading and running a gel
+
+<!-- PHOTO: Our gel electrophoresis tank with gel loaded -->
+
 1. Place gel in tank, submerge in **1x TAE buffer**
 2. Load **~5 uL** of each PCR product into wells (1-2 uL for thin wells)
    - Emerald Amp products already have loading dye — load directly
@@ -82,6 +88,12 @@ For most genotyping, **1.5% agarose** is the default.
 
 5. **Stain:** Transfer gel to SYBR Gold bath, gently rock/shake for **10 min**
 6. **Image:** Place gel on UV transilluminator, photograph
+
+<!-- PHOTO: Our UV transilluminator with a stained gel -->
+
+![Agarose gel with DNA bands under UV](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg/600px-Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg)
+
+*Image: [Agarose gel with DNA ladders on a UV transilluminator.jpg](https://commons.wikimedia.org/wiki/File:Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg) — Wikimedia Commons, CC BY-SA 4.0*
 
 > *No bands at all (not even the ladder):* SYBR Gold is expired. Make a fresh stain solution from the -30 C freezer stock.
 

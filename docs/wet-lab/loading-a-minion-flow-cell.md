@@ -38,15 +38,15 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 
 **Flow cell capacity:** A single MinION flow cell (R10.4.1) can produce 10-50 Gb of sequence data over a 72-hour run, depending on the number of active pores and library quality. For an Arabidopsis genome (~135 Mb), even a modest run produces 30-100x coverage.
 
-## Videos
-
-- [How Nanopore Sequencing Works (Oxford Nanopore Technologies)](https://youtu.be/RcP85JHLmnI) — Animated overview of the nanopore sequencing mechanism
-- [Loading a Nanopore Flow Cell (Oxford Nanopore Technologies)](https://www.youtube.com/watch?v=Pt-iaemrM88) — Official tutorial on flow cell loading procedure
-- [Getting Started with MinION (Oxford Nanopore)](https://nanoporetech.com/getting-started-with-minion) — Oxford Nanopore's MinION onboarding and setup guide
+> **Video:** [How Nanopore Sequencing Works (Oxford Nanopore Technologies)](https://youtu.be/RcP85JHLmnI) — Animated overview of the nanopore sequencing mechanism
 
 ## Procedure
 
 ### 1. Flow cell QC
+
+<!-- PHOTO: MinION device connected to computer -->
+
+<!-- PHOTO: Flow cell being inserted into MinION -->
 
 1. Insert the [[minion-flow-cell|flow cell]] into the [[minion-mk1b|MinION device]].
 2. In MinKNOW, run a **flow cell check** (Platform QC). This takes ~5 minutes.
@@ -62,6 +62,8 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 5. Add a second priming aliquot if specified by the kit protocol.
 
 ### 3. Load the library
+
+> **Video:** [Loading a Nanopore Flow Cell (Oxford Nanopore Technologies)](https://www.youtube.com/watch?v=Pt-iaemrM88) — Official tutorial on flow cell loading procedure
 
 1. Prepare the **loading mix**: combine your library with the remaining priming/loading reagents as specified in the kit protocol.
 2. Open the **sample port** (the larger port on the flow cell).
@@ -81,6 +83,8 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 3. Click start.
 
 ### 5. Monitor the run
+
+<!-- PHOTO: MinKNOW software showing active pore count -->
 
 MinKNOW shows real-time metrics:
 

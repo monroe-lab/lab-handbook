@@ -23,10 +23,6 @@ title: "Quantifying DNA: DeNovix Fluorometer"
 
 ---
 
-## Videos
-
-- [Quantify DNA, RNA, or Protein with the Qubit 4 Fluorometer (Thermo Fisher)](https://videos.thermofisher.com/detail/video/5783206494001/quantify-dna-rna-or-protein-with-the-qubit-4-fluorometer) — Official Thermo Fisher tutorial on Qubit fluorometer operation
-
 ## Before You Start
 
 Check that you have sufficient stock of:
@@ -52,6 +48,12 @@ The Qubit assay works by mixing your DNA sample with a fluorescent dye that only
 **Why fluorometry over UV absorbance:** A NanoDrop measures absorbance at 260 nm, which is where DNA absorbs. But RNA, free nucleotides, proteins with aromatic residues, and phenol contamination also absorb at 260 nm. The result is often an overestimate. The Qubit dye is specific to dsDNA, giving you the true DNA concentration.
 
 ## Procedure
+
+> **Video:** [Quantify DNA, RNA, or Protein with the Qubit 4 Fluorometer (Thermo Fisher)](https://videos.thermofisher.com/detail/video/5783206494001/quantify-dna-rna-or-protein-with-the-qubit-4-fluorometer) — Official Thermo Fisher tutorial on Qubit fluorometer operation
+
+<!-- PHOTO: Our DeNovix fluorometer on the bench -->
+
+<!-- PHOTO: Qubit assay tubes (thin-wall) vs. regular microcentrifuge tubes side by side -->
 
 ### 1. Prepare the working solution
 

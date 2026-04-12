@@ -34,6 +34,8 @@ At minimum, every tube label must include:
 3. **Sample ID** (a unique identifier: genotype, line name, tissue type, or experiment code)
 4. **Concentration** (if it's a DNA/RNA sample or a buffer stock, write the concentration)
 
+<!-- PHOTO: Well-labeled tubes showing date, initials, sample ID, concentration -->
+
 Example for a DNA extraction:
 ```
 2026-04-12
@@ -60,6 +62,8 @@ GM
 | Ethanol exposure | Solvent-resistant marker | Regular Sharpie dissolves in ethanol. If your protocol involves ethanol washes, label on the cap or use printed labels |
 | Autoclave | [[autoclave-tape]] + Sharpie, or printed autoclave-safe labels | Regular marker on the tube body may fade. Label the tape |
 
+<!-- PHOTO: Cryo-safe labels surviving -80C vs. regular Sharpie that smeared -->
+
 ### Where to write
 
 - **Microcentrifuge tubes (1.5 mL, 2 mL):** Write on the cap AND the side. The cap is visible when tubes are in a rack. The side is visible when tubes are in a freezer box.
@@ -71,8 +75,6 @@ GM
 ### Freezer box grids
 
 When storing tubes in a freezer box, maintain a grid map in the [inventory system](../inventory-app/index.html). Record which tube is in which position (e.g., A1, B3). This is critical for finding samples months later without thawing everything.
-
-<!-- VIDEO: How to log a sample in the inventory system -->
 
 ## Printed Labels
 
@@ -86,6 +88,8 @@ Use consistent, searchable names:
 - **Tissue type:** `leaf`, `root`, `flower`, `seed`, `whole seedling`
 - **Extraction type:** `gDNA`, `HMW`, `RNA`, `nuclei`
 - **Replicate number:** `#1`, `#2`, `#3` or `rep1`, `rep2`, `rep3`
+
+<!-- PHOTO: Examples of good vs. bad labeling -->
 
 **Good:** `2026-04-12 / GM / SALK_045678 leaf #2 / gDNA 38 ng/uL`
 **Bad:** `sample 4` (sample 4 of what?)

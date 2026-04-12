@@ -69,6 +69,8 @@ The pH should be 8.0 if your Tris-HCl stock was correctly made at pH 8.0. You ge
 
 ## Labeling
 
+<!-- PHOTO: Finished TE buffer bottle with proper label -->
+
 Label the bottle with:
 - `1x TE (pH 8.0)`
 - Date prepared

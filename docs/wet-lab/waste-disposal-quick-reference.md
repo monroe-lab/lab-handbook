@@ -29,6 +29,8 @@ title: "Waste Disposal Quick Reference"
 | **Biological waste** | Biohazard bags (orange or red) | Near benches | Plates with bacteria, contaminated cultures |
 | **Sharps** | Red sharps containers | Near benches | Needles, blades, broken glass Pasteur pipettes. See [[sharps-handling]] |
 | **Broken glass** | Broken glass box | Near waste area | Broken beakers, flasks, slides. NOT regular trash. |
+
+<!-- PHOTO: Sharps container, broken glass box, biohazard bag setup -->
 | **Recyclable** | Recycling bins | If available | Clean cardboard, paper, #1 and #2 plastics |
 
 ## Chemical Waste: Segregation Rules
@@ -44,6 +46,8 @@ title: "Waste Disposal Quick Reference"
 | **Staining waste** | [[sybr-gold|SYBR Gold]], ethidium bromide solutions | Collect in dedicated container |
 
 ### How to label a waste bottle
+
+<!-- PHOTO: Labeled chemical waste bottle (showing proper labeling) -->
 
 Every chemical waste bottle must have:
 - The words "HAZARDOUS WASTE"

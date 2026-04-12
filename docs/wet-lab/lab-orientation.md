@@ -31,9 +31,9 @@ The lab has multiple bays with designated benches. As you walk through, note whi
 - **Sterile work** (the laminar flow clean bench for plating, seed work)
 - **Chemistry** (buffer preparation, pH adjustment, weighing)
 
-<!-- VIDEO: Lab walkthrough tour -->
-
 ### Dry Chemical and Reagent Storage
+
+<!-- PHOTO: Chemistry area overview showing balances, pH meter, dry chemical storage -->
 
 The chemistry area contains:
 
@@ -46,6 +46,8 @@ These are all grouped together near each other. Buffer preparation, weighing, an
 
 ### Chemical Cabinets
 
+<!-- PHOTO: Flammable cabinet (yellow), corrosive cabinet, chemical cabinet -->
+
 Chemicals are stored by hazard class, not alphabetically:
 
 - **[[cabinet-flammable]]** (yellow, self-closing) — ethanol, methanol, isopropanol, chloroform
@@ -56,13 +58,13 @@ Know which cabinet a chemical belongs in before you put it back. Check the label
 
 ### Cold Storage
 
+<!-- PHOTO: 4C fridge, -20C freezer, -80C freezer -->
+
 - **[[fridge-4c-main]]** — enzymes, kits, buffers that need cold storage, plates with growing seedlings (stratification)
 - **[[freezer-minus20]]** — primers, competent cells, some enzymes, SYBR Gold aliquots
 - **[[freezer-minus80-a]]** — tissue samples, long-term DNA storage, flash-frozen material
 
 Every item in the freezer should be logged in the [inventory system](../inventory-app/index.html). When you put something in or take something out, update the inventory.
-
-<!-- VIDEO: How to log a sample in the inventory system -->
 
 ### Equipment Locations
 
@@ -77,12 +79,16 @@ Walk through and physically locate each of these:
 | [[heat-block]] | [[bench]] | |
 | [[vortex-mixer]] | [[bench]] | |
 | [[clean-bench-laminar-flow]] | Designated bay | Sterile work only |
+
+<!-- PHOTO: Clean bench / laminar flow hood bay -->
 | [[uv-transilluminator]] | Gel imaging area | For viewing gels |
 | [[qubit-fluorometer]] | [[bench]] | DNA quantification (Qubit-style) |
 | Opentrons OT-2 | Designated area | Liquid handling robot |
 | Autoclave | Shared room in Robbins Hall (not in our lab) | See [[autoclave]] |
 
 ### Consumables
+
+<!-- PHOTO: Consumables storage area (tip boxes, tubes, gloves) -->
 
 Know where to find:
 
@@ -97,6 +103,8 @@ Know where to find:
 If any consumable is running low, note it in the inventory system. You do not order supplies yourself. Mark the item as needs-ordering and notify Grey or your mentor.
 
 ### Waste Streams
+
+<!-- PHOTO: Waste area showing chemical waste bottles, biohazard bags, sharps container, broken glass box -->
 
 | Waste type | Container | Where |
 |-----------|-----------|-------|

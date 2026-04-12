@@ -21,6 +21,8 @@ title: "Gel Imaging and Annotation"
 
 ---
 
+<!-- PHOTO: UV transilluminator viewing window setup with phone camera -->
+
 ## Procedure
 
 ### 1. Image the gel
@@ -64,7 +66,7 @@ The lab notebook entry for a gel run should include:
 - Annotated gel image
 - Interpretation (what the bands tell you)
 
-<!-- VIDEO: How to annotate and save gel images in the lab notebook -->
+<!-- PHOTO: Example annotated gel image from our lab (show lane labels, ladder sizes, genotype calls) -->
 
 ## Example Annotation
 

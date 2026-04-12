@@ -48,6 +48,8 @@ Buffer A lyses plant cells by a combination of high pH (Tris at pH 9.5), high sa
 
 ## Labeling
 
+<!-- PHOTO: Finished Buffer A bottle with proper label -->
+
 Label the bottle:
 - `Buffer A (pH 9.5)`
 - `100 mM Tris, 1 M KCl, 10 mM EDTA`

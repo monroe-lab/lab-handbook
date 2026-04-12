@@ -49,6 +49,8 @@ The DNeasy kit uses a silica membrane in a spin column to bind DNA. The workflow
 | **DNeasy (this protocol)** | **High purity** | **<50 kb** | **Moderate** | **PCR, Sanger, short-read sequencing** |
 | HMW extraction | High purity | >50-100 kb | Variable | Long-read sequencing (Nanopore, PacBio) |
 
+<!-- PHOTO: DNeasy kit box with contents laid out -->
+
 ## Procedure
 
 Follow the QIAGEN DNeasy Plant Mini Kit handbook. The steps below are a summary; refer to the handbook for exact volumes and centrifuge speeds.
@@ -71,6 +73,8 @@ Follow the QIAGEN DNeasy Plant Mini Kit handbook. The steps below are a summary;
 - Incubate on ice for **5 minutes**.
 
 ### 4. Clear the lysate
+
+<!-- PHOTO: QIAshredder column and DNeasy spin column side by side -->
 
 - Centrifuge at max speed for **5 minutes**.
 - Transfer the supernatant to a QIAshredder column. Centrifuge **2 minutes**.

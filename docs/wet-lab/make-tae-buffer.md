@@ -67,6 +67,8 @@ The EDTA chelates divalent cations (Mg2+, Ca2+) that nucleases need to function,
 
 ## Labeling
 
+<!-- PHOTO: Finished 50x TAE stock bottle with proper label -->
+
 Label the bottle with:
 - `50x TAE`
 - Date prepared

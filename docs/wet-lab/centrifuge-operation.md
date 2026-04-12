@@ -33,12 +33,16 @@ A centrifuge spins samples at high speed to separate components by density. Heav
 
 ### Benchtop Microcentrifuges (x2)
 
+<!-- PHOTO: Our benchtop microcentrifuge (closed, showing controls) -->
+
 - Hold **microcentrifuge tubes** (1.5 mL and 2.0 mL Eppendorf tubes)
 - Maximum speed: ~13,000-16,000 RPM (~16,000 x g depending on model)
 - No temperature control (room temperature only)
 - Use for: DNA extractions, pelleting debris, quick spins ("pulse spin" to collect liquid at the bottom of a tube)
 
 ### Large Refrigerated Centrifuge
+
+<!-- PHOTO: Our large refrigerated centrifuge with rotor visible -->
 
 - Holds **Falcon tubes** (15 mL, 50 mL), **plates** (96-well), and microcentrifuge tubes (with adapter rotor)
 - Multiple rotors: fixed-angle rotor for Falcon tubes, swing-bucket rotor for plates, microcentrifuge rotor
@@ -48,6 +52,8 @@ A centrifuge spins samples at high speed to separate components by density. Heav
 ## Procedure
 
 ### 1. Balance your tubes
+
+<!-- PHOTO: Properly balanced tubes in a microcentrifuge rotor -->
 
 **This is the most important step.** An unbalanced centrifuge vibrates violently and can be damaged or injure someone.
 

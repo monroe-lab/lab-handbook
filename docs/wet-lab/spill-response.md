@@ -23,6 +23,10 @@ title: "What to Do When Something Spills"
 
 ---
 
+<!-- PHOTO: Spill kit location and contents -->
+
+<!-- PHOTO: Eyewash station location -->
+
 ## Decision Tree
 
 ### 1. Is anyone hurt?
