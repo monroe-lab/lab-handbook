@@ -308,10 +308,12 @@
       fm = fm.replace(/^position:\s*.*\n?/m, '');
       var newText = '---\n' + fm + '\n---' + text.slice(fmMatch[0].length);
       await Lab.gh.saveFile(path, newText, file.sha, 'lab-map: re-parent ' + srcSlug + ' → ' + newParentSlug);
+      // Patch the in-memory object index so tree.refresh() sees the new parent immediately
+      // (without waiting for GitHub Pages to rebuild object-index.json).
+      var parsed = Lab.parseFrontmatter(newText);
+      if (parsed && parsed.meta) Lab.gh.patchObjectIndex(path, parsed.meta);
+      if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
       if (window.Lab.showToast) Lab.showToast('Moved ' + srcSlug.split('/').pop() + ' → ' + newParentSlug.split('/').pop(), 'success');
-      // R7 #21: use tree.refresh() so the user's expanded nodes persist
-      // across the rebuild. Previously we called build() which destroyed
-      // and re-attached, discarding the whole expanded Set.
       if (tree && tree.refresh) await tree.refresh();
     } catch(err) {
       if (window.Lab.showToast) Lab.showToast('Re-parent failed: ' + err.message, 'error');
@@ -334,6 +336,17 @@
     if (tree) tree.collapseAll();
   });
   document.getElementById('refreshBtn').addEventListener('click', build);
+
+  // Refresh tree when editor modal saves (create, edit, rename, move, type change).
+  // The save flow already patches the in-memory object index and invalidates the
+  // hierarchy cache, so tree.refresh() will rebuild from fresh local data instantly.
+  var _treeRefreshTimer = null;
+  window.addEventListener('lab-file-saved', function() {
+    clearTimeout(_treeRefreshTimer);
+    _treeRefreshTimer = setTimeout(function() {
+      if (tree && tree.refresh) tree.refresh();
+    }, 150);
+  });
 
   // ── Boot ──
   build();
