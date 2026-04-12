@@ -52,9 +52,54 @@
 .person-links-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); margin-bottom: 6px; }
 .person-pill-list { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* Person dashboard */
+.person-dash-header {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-md);
+}
+.person-dash-header .person-avatar { width: 64px; height: 64px; font-size: 28px; }
+.person-dash-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--grey-500); text-decoration: none; font-size: 13px;
+  margin-bottom: 12px; font-weight: 500;
+}
+.person-dash-back:hover { color: var(--teal); }
+.person-dash-section {
+  margin-bottom: 20px;
+}
+.person-dash-section h3 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--grey-600);
+  margin: 0 0 10px; display: flex; align-items: center; gap: 6px;
+}
+.person-dash-section h3 .material-icons-outlined { font-size: 18px; }
+.person-dash-list {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 4px 0;
+}
+.person-dash-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-bottom: 1px solid var(--grey-100);
+  cursor: pointer; transition: background .1s; font-size: 13px;
+}
+.person-dash-item:last-child { border-bottom: none; }
+.person-dash-item:hover { background: var(--grey-50, #f9fafb); }
+.person-dash-item .material-icons-outlined { font-size: 18px; flex-shrink: 0; }
+.person-dash-empty {
+  padding: 16px; color: var(--grey-400); font-size: 13px; text-align: center;
+}
+
 @media (max-width: 768px) {
   .people-page { padding: 14px 12px calc(var(--bottom-nav-height) + 14px); }
   .people-grid { grid-template-columns: 1fr; }
+  .person-dash-header { flex-direction: column; text-align: center; padding: 20px; }
 }
 </style>
 </head>
@@ -62,7 +107,7 @@
 <script src="js/lab.js"></script>
 
 <div class="people-page">
-  <div class="people-header">
+  <div class="people-header" id="pageHeader">
     <h1>People</h1>
     <p>Monroe Lab members</p>
   </div>
@@ -72,6 +117,9 @@
   </div>
 
   <div class="people-grid" id="peopleGrid"></div>
+
+  <!-- Person dashboard (shown when ?person=<slug> is in the URL) -->
+  <div id="personDashboard" style="display:none"></div>
 </div>
 
 <script>
@@ -211,11 +259,229 @@
     }).join('');
   }
 
+  // R17 #51: clicking a person navigates to their full dashboard view
+  // instead of opening the editor-modal popup.
   window.openPerson = function(slug) {
-    Lab.editorModal.open('docs/people/' + slug + '.md');
+    history.pushState(null, '', location.pathname + '?person=' + encodeURIComponent(slug));
+    renderPersonDashboard(slug);
   };
 
-  loadPeople();
+  // ── Person dashboard (#51) ──
+  // Full view of everything connected to one person: notebooks, protocols,
+  // calendar events, inventory items, projects. Data comes from the
+  // object-index (folder matching + created_by) and link-index (backlinks
+  // from any object that wikilinks to [[people/<slug>]]).
+  async function renderPersonDashboard(slug) {
+    document.getElementById('peopleGrid').style.display = 'none';
+    var dash = document.getElementById('personDashboard');
+    dash.style.display = '';
+    dash.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading...</p></div>';
+
+    var idx, linkIdx, personMeta;
+    try {
+      idx = await Lab.gh.fetchObjectIndex();
+      linkIdx = await Lab.gh.fetchLinkIndex();
+    } catch(e) {
+      dash.innerHTML = '<p>Could not load data.</p>';
+      return;
+    }
+
+    // Find the person entry
+    personMeta = idx.find(function(e) { return e.path === 'people/' + slug + '.md'; });
+    if (!personMeta) {
+      dash.innerHTML = '<p>Person not found: ' + esc(slug) + '</p>';
+      return;
+    }
+
+    var title = personMeta.title || slug;
+    var role = personMeta.role || '';
+
+    // ── Gather connected items ──
+
+    // 1. Notebooks: files in notebooks/<slug>/
+    var notebooks = idx.filter(function(e) {
+      return e.path.startsWith('notebooks/' + slug + '/');
+    }).sort(function(a, b) { return (b.path || '').localeCompare(a.path || ''); });
+
+    // 2. Backlinks: anything that wikilinks TO people/<slug>
+    var personTarget = 'people/' + slug;
+    var backlinkSources = {};
+    (linkIdx || []).forEach(function(edge) {
+      if (edge.target === personTarget) {
+        backlinkSources[edge.source] = true;
+      }
+    });
+    var backlinkedItems = idx.filter(function(e) {
+      var s = e.path.replace(/\.md$/, '');
+      return backlinkSources[s];
+    });
+
+    // 3. Calendar events where member mentions this person
+    var events = idx.filter(function(e) {
+      if (e.type !== 'event') return false;
+      var m = e.member || '';
+      return m.includes(slug) || m.toLowerCase().includes(title.toLowerCase());
+    }).sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+
+    // 4. Items with created_by matching this slug (approximate — person slug may differ from login)
+    var createdItems = idx.filter(function(e) {
+      return e.created_by && (e.created_by === slug || e.created_by === slug.replace(/-/g, ''));
+    });
+
+    // Categorize backlinks by type
+    var protocols = backlinkedItems.filter(function(e) { return e.type === 'protocol' || e.type === 'guide'; });
+    var projects = backlinkedItems.filter(function(e) { return e.type === 'project'; });
+    var inventoryBacklinks = backlinkedItems.filter(function(e) {
+      return ['reagent','buffer','chemical','enzyme','solution','bottle','seed','glycerol_stock','plasmid'].indexOf(e.type) >= 0;
+    });
+    var locationBacklinks = backlinkedItems.filter(function(e) {
+      return ['room','freezer','fridge','shelf','box','tube','container'].indexOf(e.type) >= 0;
+    });
+    var sampleBacklinks = backlinkedItems.filter(function(e) { return e.type === 'sample'; });
+
+    // Merge created_by items that aren't already in backlinks
+    var backlinkedPaths = {};
+    backlinkedItems.forEach(function(e) { backlinkedPaths[e.path] = true; });
+    createdItems.forEach(function(e) {
+      if (!backlinkedPaths[e.path]) {
+        var t = e.type || '';
+        if (['reagent','buffer','chemical','bottle','seed'].indexOf(t) >= 0) inventoryBacklinks.push(e);
+        else if (['room','freezer','fridge','shelf','box','tube','container'].indexOf(t) >= 0) locationBacklinks.push(e);
+        else if (t === 'sample') sampleBacklinks.push(e);
+      }
+    });
+
+    // ── Render ──
+    var header = document.getElementById('pageHeader');
+    header.innerHTML =
+      '<a class="person-dash-back" href="people.html">' +
+        '<span class="material-icons-outlined" style="font-size:16px">arrow_back</span> All People</a>' +
+      '<h1>' + esc(title) + '</h1>' +
+      (role ? '<p>' + esc(role) + '</p>' : '');
+
+    function renderSection(icon, label, items, renderItem) {
+      if (!items.length) return '';
+      var html = '<div class="person-dash-section">' +
+        '<h3><span class="material-icons-outlined">' + icon + '</span> ' + esc(label) +
+        ' <span style="font-weight:400;color:var(--grey-400)">(' + items.length + ')</span></h3>' +
+        '<div class="person-dash-list">';
+      items.forEach(function(item) { html += renderItem(item); });
+      html += '</div></div>';
+      return html;
+    }
+
+    function itemRow(item, icon, color, onClick) {
+      var typeConf = Lab.types.get(item.type);
+      var itemIcon = (typeConf && typeConf.icon) || icon || '📄';
+      var itemColor = (typeConf && typeConf.color) || color || '#6b7280';
+      var subtitle = [];
+      if (item.type) subtitle.push(item.type);
+      if (item.date) subtitle.push(item.date);
+      if (item.start_time && item.end_time) subtitle.push(item.start_time + '–' + item.end_time);
+      if (item.member) subtitle.push(item.member.replace(/\[\[|\]\]/g, ''));
+      return '<div class="person-dash-item" onclick="' + (onClick || '') + '">' +
+        '<span style="font-size:16px">' + itemIcon + '</span>' +
+        '<div style="flex:1;min-width:0">' +
+          '<div style="font-weight:500">' + esc(item.title || item.path.split('/').pop().replace('.md', '')) + '</div>' +
+          (subtitle.length ? '<div style="font-size:11px;color:var(--grey-400)">' + esc(subtitle.join(' · ')) + '</div>' : '') +
+        '</div>' +
+        '<span class="material-icons-outlined" style="font-size:14px;color:var(--grey-300)">chevron_right</span>' +
+      '</div>';
+    }
+
+    function navTo(item) {
+      var t = Lab.types.get(item.type);
+      var group = t ? t.group : '';
+      var docPath = item.path.replace(/\.md$/, '');
+      if (group === 'resources' || group === 'stocks') return "location.href='inventory.html'";
+      if (item.type === 'protocol' || item.type === 'guide') return "location.href='protocols.html?doc=" + encodeURIComponent(docPath) + "'";
+      if (item.type === 'project') return "location.href='projects.html?doc=" + encodeURIComponent(docPath) + "'";
+      if (item.type === 'event') return "location.href='../calendar/'";
+      if (item.path.startsWith('notebooks/')) return "location.href='notebooks.html?doc=" + encodeURIComponent(docPath) + "'";
+      return "Lab.editorModal.open('docs/" + item.path + "')";
+    }
+
+    var dashHtml = '';
+
+    // Person header card
+    dashHtml += '<div class="person-dash-header">' +
+      '<div class="person-avatar">' + getInitials(title) + '</div>' +
+      '<div>' +
+        '<div style="font-size:22px;font-weight:700">' + esc(title) + '</div>' +
+        (role ? '<div style="font-size:13px;color:rgba(255,255,255,.8);margin-top:2px">' + esc(role) + '</div>' : '') +
+      '</div>' +
+      '<a href="wiki.html?doc=people%2F' + encodeURIComponent(slug) + '" style="margin-left:auto;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.25)">' +
+        '<span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">description</span> View card</a>' +
+    '</div>';
+
+    // Summary stats bar
+    var statCounts = [
+      { icon: 'edit_note', n: notebooks.length, l: 'Notebooks' },
+      { icon: 'science', n: protocols.length, l: 'Protocols' },
+      { icon: 'event', n: events.length, l: 'Events' },
+      { icon: 'inventory_2', n: inventoryBacklinks.length, l: 'Inventory' },
+      { icon: 'location_on', n: locationBacklinks.length, l: 'Locations' },
+      { icon: 'folder_special', n: projects.length, l: 'Projects' },
+    ];
+    dashHtml += '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px">';
+    statCounts.forEach(function(s) {
+      dashHtml += '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 16px;display:flex;align-items:center;gap:10px;flex:1;min-width:120px">' +
+        '<span class="material-icons-outlined" style="font-size:22px;color:var(--teal)">' + s.icon + '</span>' +
+        '<div><div style="font-size:20px;font-weight:700">' + s.n + '</div>' +
+        '<div style="font-size:11px;color:var(--grey-500)">' + s.l + '</div></div></div>';
+    });
+    dashHtml += '</div>';
+
+    // Sections
+    dashHtml += renderSection('edit_note', 'Lab Notebooks', notebooks, function(item) {
+      return itemRow(item, '📓', '#795548', navTo(item));
+    });
+    dashHtml += renderSection('science', 'Protocols', protocols, function(item) {
+      return itemRow(item, '🧪', '#6a1b9a', navTo(item));
+    });
+    dashHtml += renderSection('event', 'Calendar Events', events, function(item) {
+      return itemRow(item, '📅', '#0288d1', navTo(item));
+    });
+    dashHtml += renderSection('inventory_2', 'Inventory Items', inventoryBacklinks, function(item) {
+      return itemRow(item, '📦', '#009688', navTo(item));
+    });
+    dashHtml += renderSection('location_on', 'Locations', locationBacklinks, function(item) {
+      return itemRow(item, '📍', '#546e7a', navTo(item));
+    });
+    dashHtml += renderSection('biotech', 'Samples', sampleBacklinks, function(item) {
+      return itemRow(item, '🧬', '#7c3aed', navTo(item));
+    });
+    dashHtml += renderSection('folder_special', 'Projects', projects, function(item) {
+      return itemRow(item, '📁', '#e65100', navTo(item));
+    });
+
+    if (!notebooks.length && !protocols.length && !events.length &&
+        !inventoryBacklinks.length && !locationBacklinks.length && !projects.length) {
+      dashHtml += '<div class="person-dash-empty">' +
+        '<span class="material-icons-outlined" style="font-size:36px;display:block;margin-bottom:8px">link_off</span>' +
+        'No connected items yet. Link this person via [[' + esc(slug) + ']] in notebooks, protocols, and calendar events to build their activity profile.</div>';
+    }
+
+    dash.innerHTML = dashHtml;
+  }
+
+  // ── URL routing ──
+  function route() {
+    var params = new URLSearchParams(location.search);
+    var person = params.get('person');
+    if (person) {
+      document.getElementById('peopleGrid').style.display = 'none';
+      renderPersonDashboard(person);
+    } else {
+      document.getElementById('personDashboard').style.display = 'none';
+      document.getElementById('peopleGrid').style.display = '';
+      document.getElementById('pageHeader').innerHTML =
+        '<h1>People</h1><p>Monroe Lab members</p>';
+    }
+  }
+  window.addEventListener('popstate', route);
+
+  loadPeople().then(function() { route(); });
 })();
 </script>
 </body>
