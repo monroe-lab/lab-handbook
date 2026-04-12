@@ -7,9 +7,9 @@ title: "Vortexer and Mixer Use"
 
 ## Resources
 
-**Equipment:** Vortex mixer (benchtop), tube rotator/hula mixer (if available)
+**Equipment:** [[vortex-mixer]] (benchtop), [[tube-rotator]] (hula mixer, if available)
 
-**Location:** Bench area in Robbins 170
+**Location:** [[bench]] in [[room-robbins-0170]]
 
 **Purpose:** Learn when to vortex, when to flick, and when to invert. Different mixing methods suit different situations, and using the wrong one can ruin a sample.
 
@@ -43,7 +43,7 @@ Turn the tube upside down and back, gently.
 
 - **When to use:** Mixing HMW DNA, mixing viscous solutions, any time a protocol says "mix gently."
 - **How:** Close the cap. Turn the tube upside down and back. Repeat 5-10 times. Do not shake.
-- **Tube rotator / hula mixer:** For extended gentle mixing (e.g., "rotate for 10 minutes"), place tubes on the rotator. This is common in extraction protocols.
+- **[[tube-rotator|Tube rotator / hula mixer]]:** For extended gentle mixing (e.g., "rotate for 10 minutes"), place tubes on the rotator. This is common in extraction protocols.
 
 ### Pipette mixing
 
@@ -60,7 +60,7 @@ Aspirate and dispense repeatedly with a pipette.
 | Mix a PCR master mix | Vortex briefly, then pulse spin |
 | Add enzyme to a reaction | Flick, then pulse spin |
 | Mix HMW DNA | Invert gently. Never vortex. |
-| Mix beads (SPRI, magnetic) | Vortex the stock tube. Pipette mix after adding to sample. |
+| Mix beads (SPRI, [[magnetic-rack|magnetic]]) | Vortex the stock tube. Pipette mix after adding to sample. |
 | Dissolve salt in buffer | Vortex or stir |
 
 ## Documentation

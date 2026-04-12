@@ -7,7 +7,7 @@ title: "Nanopore Data Retrieval"
 
 ## Resources
 
-**Software:** MinKNOW (on the sequencing computer), file transfer tools (rsync, scp, or USB drive)
+**Software:** MinKNOW (on the sequencing computer, connected to [[minion-mk1b|MinION]]), file transfer tools (rsync, scp, or USB drive)
 
 **Related Protocols:** [[loading-a-minion-flow-cell]], [[nanopore-rapid-library-prep]]
 

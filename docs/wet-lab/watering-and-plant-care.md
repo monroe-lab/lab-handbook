@@ -7,7 +7,9 @@ title: "Watering and Plant Care"
 
 ## Resources
 
-**Equipment:** Watering can or squeeze bottle, spray bottle, growth chamber access
+**Equipment:** Watering can or squeeze bottle, spray bottle, [[growth-chamber]] access
+
+**Location:** [[room-asmundson-growth-chamber]]
 
 **Related Protocols:** [[planting-in-soil]], [[transferring-seedlings-to-soil]], [[growth-chamber-operation]], [[harvesting-leaf-tissue]], [[bulking-seed]]
 

@@ -7,9 +7,9 @@ title: "Loading and Running a MinION Flow Cell"
 
 ## Resources
 
-**Equipment:** Oxford Nanopore MinION device, MinION flow cell (R10.4.1 or current version), computer with MinKNOW software installed
+**Equipment:** [[minion-mk1b|Oxford Nanopore MinION device]], [[minion-flow-cell|MinION flow cell]] (R10.4.1 or current version), computer with MinKNOW software installed
 
-**Reagents:** Sequencing library (from [[nanopore-rapid-library-prep]]), Flow Cell Flush (FCF), Flow Cell Tether (FCT), nuclease-free water
+**Reagents:** Sequencing library (from [[nanopore-rapid-library-prep]]), Flow Cell Flush (FCF), Flow Cell Tether (FCT), [[nuclease-free-water]]
 
 **Related Protocols:** [[nanopore-rapid-library-prep]], [[nanopore-data-retrieval]]
 
@@ -25,9 +25,9 @@ title: "Loading and Running a MinION Flow Cell"
 
 ## Before You Start
 
-- **MinION device** connected to the computer via USB, powered on.
+- **[[minion-mk1b|MinION device]]** connected to the computer via USB, powered on.
 - **MinKNOW software** installed and updated to the latest version.
-- **Flow cell** at room temperature (remove from 4C storage at least 10 minutes before use).
+- **[[minion-flow-cell|Flow cell]]** at room temperature (remove from [[fridge-4c-main|4C storage]] at least 10 minutes before use).
 - **Library** prepared and ready (do not freeze; load within 1-2 hours of preparation).
 
 **Equipment needed but not yet in the lab:** MinION device, flow cells, and computer setup need to be purchased and configured. See Grey for the ordering plan.
@@ -42,7 +42,7 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 
 ### 1. Flow cell QC
 
-1. Insert the flow cell into the MinION device.
+1. Insert the [[minion-flow-cell|flow cell]] into the [[minion-mk1b|MinION device]].
 2. In MinKNOW, run a **flow cell check** (Platform QC). This takes ~5 minutes.
 3. The check reports the number of **active pores**. A new flow cell should have >800 active pores. If significantly less, the flow cell may be old or damaged.
 4. Record the pore count.
@@ -51,7 +51,7 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 
 1. Prepare the **priming mix**: combine Flow Cell Flush (FCF) with Flow Cell Tether (FCT) according to the kit instructions.
 2. Open the priming port on the flow cell (the small port, not the sample port).
-3. Using a P1000 pipette, slowly load the priming mix into the priming port. **Go very slowly** to avoid introducing air bubbles. Air bubbles can block pores.
+3. Using a [[micropipette-p1000|P1000]] pipette, slowly load the priming mix into the priming port. **Go very slowly** to avoid introducing air bubbles. Air bubbles can block pores.
 4. Wait **5 minutes** for the priming mix to flow across the array.
 5. Add a second priming aliquot if specified by the kit protocol.
 
@@ -59,7 +59,7 @@ The MinION is a portable sequencing device. A flow cell contains an array of nan
 
 1. Prepare the **loading mix**: combine your library with the remaining priming/loading reagents as specified in the kit protocol.
 2. Open the **sample port** (the larger port on the flow cell).
-3. Using a P200 pipette, **slowly** add the loading mix to the sample port. Drip it in. **Do not push air into the port.**
+3. Using a [[micropipette-p200|P200]] pipette, **slowly** add the loading mix to the sample port. Drip it in. **Do not push air into the port.**
 4. Close the sample port.
 5. Close the priming port.
 

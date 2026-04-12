@@ -24,7 +24,7 @@ title: "Waste Disposal Quick Reference"
 | Waste type | Container | Location | Notes |
 |-----------|-----------|----------|-------|
 | **Regular trash** | Trash cans | Throughout lab | Paper towels, clean gloves, packaging, non-contaminated plastic |
-| **Chemical waste (liquid)** | Labeled waste bottles | Under fume hood or designated waste area | Segregate by compatibility (see below). Label every bottle. |
+| **Chemical waste (liquid)** | Labeled waste bottles | Under [[fume-hood]] or designated waste area | Segregate by compatibility (see below). Label every bottle. |
 | **Chemical waste (solid)** | Labeled waste bags or containers | Designated waste area | Contaminated absorbents, spill cleanup materials |
 | **Biological waste** | Biohazard bags (orange or red) | Near benches | Plates with bacteria, contaminated cultures |
 | **Sharps** | Red sharps containers | Near benches | Needles, blades, broken glass Pasteur pipettes. See [[sharps-handling]] |
@@ -41,7 +41,7 @@ title: "Waste Disposal Quick Reference"
 | **Non-halogenated solvents** | Ethanol, methanol, isopropanol, acetone | Halogenated solvents, acids |
 | **Acids** | HCl, acetic acid, H2SO4 | Bases, solvents |
 | **Bases** | NaOH, KOH | Acids, solvents |
-| **Staining waste** | SYBR Gold, ethidium bromide solutions | Collect in dedicated container |
+| **Staining waste** | [[sybr-gold|SYBR Gold]], ethidium bromide solutions | Collect in dedicated container |
 
 ### How to label a waste bottle
 
@@ -50,7 +50,7 @@ Every chemical waste bottle must have:
 - Chemical contents (list every chemical in the bottle)
 - Date started
 - PI name (Grey Monroe)
-- Room number (Robbins 170)
+- Room number ([[room-robbins-0170|Robbins 170]])
 
 Use the UC Davis EH&S waste labels if available. Ask Grey for the labels.
 
@@ -60,10 +60,10 @@ Use the UC Davis EH&S waste labels if available. Ask Grey for the labels.
 Regular lab trash, unless they were used with hazardous chemicals (then chemical waste) or biohazardous material (then biohazard waste).
 
 **Where does gel waste go?**
-Agarose gels stained with SYBR Gold: check with Grey. The stain concentration is very low, but some institutions classify it as chemical waste.
+[[agarose|Agarose]] gels stained with [[sybr-gold|SYBR Gold]]: check with Grey. The stain concentration is very low, but some institutions classify it as chemical waste.
 
 **Where does ethanol-soaked material go?**
-If it is a small amount (paper towels from bench cleanup), let it air-dry in the fume hood, then regular trash. If large amounts, chemical waste.
+If it is a small amount (paper towels from bench cleanup), let it air-dry in the [[fume-hood]], then regular trash. If large amounts, chemical waste.
 
 **Where do empty chemical bottles go?**
 Rinse 3 times with water. Remove or deface the label. Then regular trash or recycling (if glass recycling is available).

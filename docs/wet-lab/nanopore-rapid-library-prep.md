@@ -7,9 +7,11 @@ title: "Nanopore Rapid Library Prep"
 
 ## Resources
 
-**Equipment:** Microcentrifuge, heat block (30C), magnetic rack, vortexer, MinION device
+**Equipment:** [[centrifuge|Microcentrifuge]], [[heat-block]] (30C), [[magnetic-rack]], [[vortex-mixer]], [[minion-mk1b|MinION device]]
 
-**Reagents:** Oxford Nanopore Rapid Sequencing Kit (SQK-RAD114 or current version), HMW DNA sample, nuclease-free water
+**Reagents:** [[nanopore-rapid-sequencing-kit|Oxford Nanopore Rapid Sequencing Kit]] (SQK-RAD114 or current version), HMW DNA sample, [[nuclease-free-water]]
+
+**Consumables:** [[pcr-strip-tubes-0-2ml]], [[dna-lobind-tubes]]
 
 **Related Protocols:** [[quantifying-dna-qubit]], [[loading-a-minion-flow-cell]], [[nanopore-data-retrieval]]
 
@@ -27,11 +29,11 @@ title: "Nanopore Rapid Library Prep"
 
 Check that you have:
 
-- Rapid Sequencing Kit (check expiration date; store at -20C)
+- [[nanopore-rapid-sequencing-kit|Rapid Sequencing Kit]] (check expiration date; store at [[freezer-minus20|-20C]])
 - HMW DNA: **400 ng minimum** in a volume of 7.5 uL or less. Concentration should be at least ~50 ng/uL.
 - Qubit reading from [[quantifying-dna-qubit]] to calculate input volume
-- Nuclease-free water
-- Magnetic rack for 1.5 mL tubes
+- [[nuclease-free-water]]
+- [[magnetic-rack]] for 1.5 mL tubes
 
 If the kit is running low or expired, mark as needs-ordering in the [inventory system](../inventory-app/index.html).
 
@@ -66,13 +68,13 @@ If the required volume is more than 7.5 uL, you need to concentrate your DNA fir
 
 ### 2. Tagmentation
 
-1. In a 0.2 mL PCR tube, combine:
+1. In a 0.2 mL [[pcr-strip-tubes-0-2ml|PCR tube]], combine:
    - X uL HMW DNA (400 ng)
    - Nuclease-free water to bring total to 7.5 uL
    - 2.5 uL **Fragmentation Mix (FRA)**
 2. Flick to mix gently. **Do not vortex HMW DNA.**
 3. Pulse spin.
-4. Incubate at **30C for 1 minute** in the heat block.
+4. Incubate at **30C for 1 minute** in the [[heat-block]].
 5. Immediately incubate at **80C for 1 minute** (heat-kills the transposase).
 6. Place on ice.
 

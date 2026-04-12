@@ -9,6 +9,8 @@ title: "Transferring Seedlings to Soil"
 
 **Equipment:** Forceps (fine-tipped), pots or cell trays, humidity dome, spray bottle
 
+**Location:** [[room-asmundson-growth-chamber]] (growth chambers)
+
 **Reagents:** Pre-moistened potting soil
 
 **Related Protocols:** [[planting-arabidopsis-on-ms-plates]], [[planting-in-soil]], [[watering-and-plant-care]], [[growth-chamber-operation]]

@@ -7,7 +7,7 @@ title: "Growth Chamber Operation"
 
 ## Resources
 
-**Equipment:** Growth chambers (Asmussen Hall)
+**Equipment:** [[growth-chamber]] ([[room-asmundson-growth-chamber|Asmussen Hall]])
 
 **Related Protocols:** [[lab-orientation]], [[planting-arabidopsis-on-ms-plates]], [[planting-in-soil]], [[watering-and-plant-care]]
 
@@ -23,7 +23,7 @@ title: "Growth Chamber Operation"
 
 ## Location
 
-The growth chambers are in **Asmussen Hall**, not in Robbins 170. Your mentor or Grey will show you the location and building access on your first visit.
+The growth chambers are in **[[room-asmundson-growth-chamber|Asmussen Hall]]**, not in [[room-robbins-0170|Robbins 170]]. Your mentor or Grey will show you the location and building access on your first visit.
 
 ## Standard Arabidopsis Conditions
 
@@ -54,7 +54,7 @@ These are the default conditions for Col-0 and most Arabidopsis ecotypes. Some e
 
 1. Label your tray or flat clearly with your name, date, genotype, and experiment.
 2. Place plates or pots on a shelf with good light exposure. Avoid the edges of shelves where light intensity drops.
-3. For plates (MS media with seedlings): tape plates shut with micropore tape, stand them upright or at a slight angle so roots grow downward and shoots grow upward.
+3. For plates (MS media with seedlings): tape plates shut with [[micropore-tape]], stand them upright or at a slight angle so roots grow downward and shoots grow upward.
 4. For pots: place in a tray to catch water runoff.
 
 ### Monitoring

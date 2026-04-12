@@ -7,7 +7,9 @@ title: "Tube and Sample Labeling"
 
 ## Resources
 
-**Supplies:** Permanent markers (fine-tip Sharpie, lab markers), printed labels (if available), labeling tape, cryo-safe markers
+**Supplies:** Permanent markers (fine-tip Sharpie, lab markers), printed labels (if available), labeling tape, [[cryo-labels]], cryo-safe markers
+
+**Consumables:** [[microtube]], [[pcr-strip-tubes-0-2ml]], [[falcon-tubes-15ml]], [[falcon-tubes-50ml]], [[petri-dishes-100mm]], [[autoclave-tape]]
 
 **Related Protocols:** [[lab-orientation]], [[harvesting-leaf-tissue]]
 
@@ -54,9 +56,9 @@ GM
 | Condition | Marker type | Notes |
 |-----------|------------|-------|
 | Room temperature | Fine-tip Sharpie | Works for most purposes |
-| -20C or -80C | Cryo-safe marker or printed cryo-labels | Regular Sharpie can smear or fade at extreme cold |
+| -20C or -80C | Cryo-safe marker or printed [[cryo-labels]] | Regular Sharpie can smear or fade at extreme cold |
 | Ethanol exposure | Solvent-resistant marker | Regular Sharpie dissolves in ethanol. If your protocol involves ethanol washes, label on the cap or use printed labels |
-| Autoclave | Autoclave tape + Sharpie, or printed autoclave-safe labels | Regular marker on the tube body may fade. Label the tape |
+| Autoclave | [[autoclave-tape]] + Sharpie, or printed autoclave-safe labels | Regular marker on the tube body may fade. Label the tape |
 
 ### Where to write
 

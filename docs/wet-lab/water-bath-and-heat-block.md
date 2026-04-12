@@ -7,9 +7,9 @@ title: "Water Bath and Heat Block"
 
 ## Resources
 
-**Equipment:** Water bath, heat block (standalone), heat block (Opentrons temperature module)
+**Equipment:** [[water-bath]], [[heat-block]] (standalone), heat block (Opentrons temperature module)
 
-**Location:** Bench area in Robbins 170
+**Location:** [[bench]] in [[room-robbins-0170]]
 
 **Related Protocols:** [[lab-orientation]], [[qiagen-dneasy-extraction]]
 

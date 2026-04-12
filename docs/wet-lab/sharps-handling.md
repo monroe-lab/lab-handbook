@@ -9,6 +9,8 @@ title: "Sharps Handling and Disposal"
 
 **Equipment:** Sharps containers (red), broken glass boxes
 
+**Supplies:** [[nitrile-gloves]]
+
 **Related Protocols:** [[lab-orientation]], [[breakage-response]], [[waste-disposal-quick-reference]]
 
 **Purpose:** What counts as a sharp, where the containers are, and how to dispose properly.

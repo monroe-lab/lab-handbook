@@ -80,12 +80,12 @@ What personal protective equipment you need:
 
 | Chemical | Key hazard | PPE | Storage |
 |----------|-----------|-----|---------|
-| Ethanol (70% and absolute) | Flammable | Gloves, glasses | Flammable cabinet |
-| Sodium hydroxide (NaOH) | Corrosive | Gloves, glasses | Corrosive cabinet |
-| Hydrochloric acid (HCl) | Corrosive, fumes | Gloves, glasses, fume hood | Corrosive cabinet |
-| Chloroform | Toxic, volatile | Gloves, fume hood | Flammable cabinet |
-| Beta-mercaptoethanol (BME) | Toxic, extremely smelly | Gloves, fume hood | Flammable cabinet |
-| SYBR Gold | Low toxicity, nucleic acid stain | Gloves | -20C freezer |
+| [[ethanol-70|Ethanol (70%)]] and [[ethanol-absolute|absolute]] | Flammable | Gloves, glasses | [[cabinet-flammable]] |
+| [[sodium-hydroxide|Sodium hydroxide (NaOH)]] | Corrosive | Gloves, glasses | [[cabinet-corrosive]] |
+| [[hydrochloric-acid|Hydrochloric acid (HCl)]] | Corrosive, fumes | Gloves, glasses, [[fume-hood]] | [[cabinet-corrosive]] |
+| Chloroform | Toxic, volatile | Gloves, [[fume-hood]] | [[cabinet-flammable]] |
+| [[2-mercaptoethanol|Beta-mercaptoethanol (BME)]] | Toxic, extremely smelly | Gloves, [[fume-hood]] | [[cabinet-flammable]] |
+| [[sybr-gold|SYBR Gold]] | Low toxicity, nucleic acid stain | Gloves | [[freezer-minus20]] |
 | Acrylamide | Neurotoxin, carcinogen | Double gloves, fume hood | Separate from food items |
 | Phenol:chloroform | Corrosive, toxic | Gloves, fume hood, face shield | Flammable/corrosive |
 

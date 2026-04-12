@@ -7,9 +7,9 @@ title: "Make TE Buffer"
 
 ## Resources
 
-**Equipment:** Graduated cylinder, stir plate (optional), autoclave or 0.2 um syringe filter
+**Equipment:** Graduated cylinder, [[stir-plate]] (optional), [[autoclave-sterilizer]] or [[syringe-filter-0-2um]]
 
-**Reagents:** 1 M Tris-HCl (pH 8.0) stock, 0.5 M EDTA (pH 8.0) stock, distilled water
+**Reagents:** [[1m-tris-hcl-ph-8-8-5|1 M Tris-HCl (pH 8.0)]] stock, 0.5 M [[edta-trisodium-salt|EDTA]] (pH 8.0) stock, distilled water
 
 **Related Protocols:** [[how-to-use-the-scale]], [[autoclave]], [[spri-beads-preparation]]
 
@@ -54,18 +54,18 @@ TE is the default storage and elution buffer for purified DNA. When a protocol s
 
 ## Procedure
 
-1. Measure **1 mL of 1 M Tris-HCl (pH 8.0)** with a P1000 pipette.
-2. Measure **200 uL of 0.5 M EDTA (pH 8.0)** with a P200 pipette.
+1. Measure **1 mL of [[1m-tris-hcl-ph-8-8-5|1 M Tris-HCl (pH 8.0)]]** with a [[micropipette-p1000|P1000]] pipette.
+2. Measure **200 uL of 0.5 M [[edta-trisodium-salt|EDTA]] (pH 8.0)** with a [[micropipette-p200|P200]] pipette.
 3. Add both to a graduated cylinder or clean bottle.
 4. Bring to **100 mL** with distilled water.
 5. Mix well.
-6. Sterilize by autoclaving (liquid cycle) or filter-sterilize through a 0.2 um syringe filter.
+6. Sterilize by autoclaving (liquid cycle) or filter-sterilize through a [[syringe-filter-0-2um|0.2 um syringe filter]].
 
 **Scaling:** For 500 mL, multiply all amounts by 5 (5 mL Tris, 1 mL EDTA, water to 500 mL).
 
 ## pH Check
 
-The pH should be 8.0 if your Tris-HCl stock was correctly made at pH 8.0. You generally do not need to adjust. If you want to verify, check with the pH meter.
+The pH should be 8.0 if your Tris-HCl stock was correctly made at pH 8.0. You generally do not need to adjust. If you want to verify, check with the [[ph-meter]].
 
 ## Labeling
 
@@ -83,3 +83,5 @@ Label the bottle with:
 ## Documentation
 
 Create a lab notebook entry. Date it. Cite this protocol. Note: volumes used, sterilization method, storage location.
+
+Create a new bottle entry in the [inventory system](../inventory-app/index.html) for your TE buffer: note the concentration (1x), pH (8.0), volume, date, your initials, sterilization method, and storage location. Label the physical bottle with tape: `1x TE pH 8.0 / [date] / [your initials] / sterile`.

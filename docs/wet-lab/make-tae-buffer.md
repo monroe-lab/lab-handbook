@@ -7,9 +7,9 @@ title: "Make TAE Buffer (50x Stock)"
 
 ## Resources
 
-**Equipment:** Top-loading balance, graduated cylinder, stir plate + stir bar, 1 L bottle
+**Equipment:** [[top-loading-balance]], graduated cylinder, [[stir-plate]] + stir bar, 1 L bottle
 
-**Reagents:** Tris base, glacial acetic acid, EDTA disodium salt (Na2EDTA), distilled water
+**Reagents:** [[tris-base]], [[glacial-acetic-acid]], [[edta-trisodium-salt|EDTA disodium salt]] (Na2EDTA), distilled water
 
 **Related Protocols:** [[how-to-use-the-scale]], [[gel-electrophoresis]], [[making-an-agarose-gel]]
 
@@ -27,9 +27,9 @@ title: "Make TAE Buffer (50x Stock)"
 
 Check that you have sufficient stock of:
 
-- Tris base (~242 g needed for 1 L of 50x)
-- Glacial acetic acid (~57 mL needed)
-- EDTA disodium salt (~37 g needed) OR 0.5 M EDTA stock (~100 mL needed)
+- [[tris-base]] (~242 g needed for 1 L of 50x)
+- [[glacial-acetic-acid]] (~57 mL needed)
+- [[edta-trisodium-salt|EDTA disodium salt]] (~37 g needed) OR 0.5 M EDTA stock (~100 mL needed)
 
 If anything is low or out, mark it as needs-ordering in the [inventory system](../inventory-app/index.html) before proceeding.
 
@@ -57,12 +57,12 @@ The EDTA chelates divalent cations (Mg2+, Ca2+) that nucleases need to function,
 
 ## Procedure
 
-1. Weigh **242 g Tris base** on the top-loading balance. Transfer to a 1 L beaker or bottle.
+1. Weigh **242 g [[tris-base]]** on the [[top-loading-balance]]. Transfer to a 1 L beaker or bottle.
 2. Add approximately **800 mL distilled water**. Add a stir bar and place on the stir plate. Stir until dissolved. Tris dissolves slowly; this may take 10-15 minutes.
-3. While stirring, carefully add **57.1 mL glacial acetic acid**. Use a graduated cylinder. Glacial acetic acid is corrosive and has a strong odor; pour in the fume hood if available.
-4. Add **37.2 g EDTA disodium salt** (or 100 mL of 0.5 M EDTA stock). Stir until dissolved. EDTA dissolves slowly at neutral pH; the acetic acid helps.
+3. While stirring, carefully add **57.1 mL [[glacial-acetic-acid]]**. Use a graduated cylinder. Glacial acetic acid is corrosive and has a strong odor; pour in the [[fume-hood]] if available.
+4. Add **37.2 g [[edta-trisodium-salt|EDTA disodium salt]]** (or 100 mL of 0.5 M EDTA stock). Stir until dissolved. EDTA dissolves slowly at neutral pH; the acetic acid helps.
 5. Bring the total volume to **1 L** with distilled water.
-6. The pH of 50x TAE should be approximately **8.0-8.5**. You do not need to adjust pH if you used the correct amounts. If you want to verify, check with the pH meter.
+6. The pH of 50x TAE should be approximately **8.0-8.5**. You do not need to adjust pH if you used the correct amounts. If you want to verify, check with the [[ph-meter]].
 7. Transfer to a labeled 1 L bottle.
 
 ## Labeling
@@ -86,3 +86,5 @@ You need 1x TAE for both casting the gel and filling the electrophoresis tank. A
 ## Documentation
 
 Create a lab notebook entry. Date it. Cite this protocol. Note: the actual weights you measured, the final volume, and where you stored the bottle.
+
+Create a new bottle entry in the [inventory system](../inventory-app/index.html) for your TAE stock: note the concentration (50x), volume, date, your initials, and storage location. Label the physical bottle with tape: `50x TAE / [date] / [your initials]`.

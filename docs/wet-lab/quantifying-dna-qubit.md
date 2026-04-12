@@ -7,9 +7,9 @@ title: "Quantifying DNA: DeNovix Fluorometer"
 
 ## Resources
 
-**Equipment:** DeNovix fluorometer (bench area, Robbins 170)
+**Equipment:** [[qubit-fluorometer|DeNovix fluorometer]] ([[bench]], [[room-robbins-0170]])
 
-**Reagents:** Qubit dsDNA BR (Broad Range) Assay Kit or Qubit dsDNA HS (High Sensitivity) Assay Kit, Qubit assay tubes (0.5 mL thin-wall)
+**Reagents:** [[qubit-dsdna-br-assay-kit|Qubit dsDNA BR (Broad Range) Assay Kit]] or [[qubit-dsdna-hs-assay-kit|Qubit dsDNA HS (High Sensitivity) Assay Kit]], [[qubit-assay-tubes]] (0.5 mL thin-wall)
 
 **Related Protocols:** [[quick-dna-extraction]], [[qiagen-dneasy-extraction]], [[nanopore-rapid-library-prep]]
 
@@ -27,8 +27,8 @@ title: "Quantifying DNA: DeNovix Fluorometer"
 
 Check that you have sufficient stock of:
 
-- Qubit dsDNA BR Kit **or** HS Kit (choose based on expected concentration; see table below)
-- Qubit assay tubes (thin-wall 0.5 mL, NOT regular microcentrifuge tubes)
+- [[qubit-dsdna-br-assay-kit|Qubit dsDNA BR Kit]] **or** [[qubit-dsdna-hs-assay-kit|HS Kit]] (choose based on expected concentration; see table below)
+- [[qubit-assay-tubes]] (thin-wall 0.5 mL, NOT regular [[microtube|microcentrifuge tubes]])
 
 If supplies are low, mark as needs-ordering in the [inventory system](../inventory-app/index.html).
 
@@ -54,7 +54,7 @@ The Qubit assay works by mixing your DNA sample with a fluorescent dye that only
 1. Set up enough tubes for your samples + 2 standards.
 2. The working solution is: Qubit dye reagent diluted in Qubit buffer. The ratio is **1 uL dye per 199 uL buffer** (1:200 dilution).
 3. Calculate total volume needed: (number of samples + 2 standards) x 200 uL.
-4. Mix the working solution in a clean tube. Vortex briefly.
+4. Mix the working solution in a clean tube. [[vortex-mixer|Vortex]] briefly.
 
 ### 2. Prepare standards
 
@@ -76,7 +76,7 @@ Let all tubes (standards and samples) sit at room temperature for **2 minutes**.
 
 ### 5. Read
 
-1. On the DeNovix, select the Qubit dsDNA assay (BR or HS, matching your kit).
+1. On the [[qubit-fluorometer|DeNovix]], select the Qubit dsDNA assay (BR or HS, matching your kit).
 2. Read Standard 1 first, then Standard 2. The instrument stores the calibration.
 3. Read each sample tube. Record the concentration displayed.
 
@@ -106,3 +106,5 @@ Create a lab notebook entry for the extraction that produced the DNA. Add a row 
 |--------|------------------|-----------|----------------------|-------------------|------|
 
 Total yield = concentration x elution volume (e.g., 42 ng/uL x 50 uL = 2,100 ng = 2.1 ug).
+
+If this measurement is for a DNA extract you are storing, create a new sample entry in the [inventory system](../inventory-app/index.html): note the sample ID, genotype, extraction method, concentration (ng/uL), elution volume, total yield, date, your initials, and storage location ([[freezer-minus20]] or [[freezer-minus80-a]]). Label the physical tube: `[sample ID] / [concentration] ng/uL / [date] / [initials]`.

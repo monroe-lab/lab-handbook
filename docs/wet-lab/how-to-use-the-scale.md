@@ -7,9 +7,11 @@ title: "How to Use the Scale"
 
 ## Resources
 
-**Equipment:** Analytical balance (glass-doored enclosure), top-loading balance (open platform)
+**Equipment:** [[analytical-balance]] (glass-doored enclosure), [[top-loading-balance]] (open platform)
 
-**Location:** Chemistry area in Robbins 170, near the dry chemical storage
+**Consumables:** [[weigh-boats]]
+
+**Location:** [[bench-chemistry]] in [[room-robbins-0170]], near the dry chemical storage
 
 **Related Protocols:** [[lab-orientation]], [[ms-media-recipe]], [[make-tae-buffer]], [[make-te-buffer]]
 
@@ -25,7 +27,7 @@ title: "How to Use the Scale"
 
 The lab has two balances. They are not interchangeable.
 
-### Analytical Balance (glass doors)
+### [[analytical-balance|Analytical Balance]] (glass doors)
 
 - Has a draft shield (glass enclosure with sliding doors) to block air currents
 - Reads to 0.1 mg (four decimal places in grams, e.g., 0.1234 g)
@@ -33,7 +35,7 @@ The lab has two balances. They are not interchangeable.
 - Slow to stabilize. Wait until the display stops flickering before recording
 - Close the glass doors during measurement for accurate readings
 
-### Top-Loading Balance (open platform)
+### [[top-loading-balance|Top-Loading Balance]] (open platform)
 
 - No enclosure, open weighing platform
 - Reads to 0.01 g (two decimal places, e.g., 12.34 g)
@@ -55,7 +57,7 @@ The lab has two balances. They are not interchangeable.
 
 Taring sets the display to zero so you can subtract the weight of your container.
 
-1. Place your empty container (weigh boat, beaker, Falcon tube) on the pan.
+1. Place your empty container ([[weigh-boats|weigh boat]], beaker, [[falcon-tubes-50ml|Falcon tube]]) on the pan.
 2. Press the **Tare** button. The display should read 0.000 g (or 0.00 g on the top-loader).
 3. Now add your reagent. The display shows only the weight of the reagent, not the container.
 
@@ -65,7 +67,7 @@ Taring sets the display to zero so you can subtract the weight of your container
 
 - For powders: use a clean spatula. Add slowly. It is easier to add a tiny bit more than to remove excess.
 - For liquids: pipette or pour into the tared container on the balance. Do not pipette directly over the balance pan.
-- For volatile reagents: work quickly. Some reagents (like beta-mercaptoethanol) evaporate and the reading will drift downward.
+- For volatile reagents: work quickly. Some reagents (like [[2-mercaptoethanol|beta-mercaptoethanol]]) evaporate and the reading will drift downward.
 
 ### 4. Record and clean up
 
@@ -89,14 +91,14 @@ Taring sets the display to zero so you can subtract the weight of your container
 ### Exercise 1: Tare and weigh a solid
 
 1. Tare an empty weigh boat on the analytical balance.
-2. Weigh exactly 0.500 g of any available non-hazardous salt (NaCl is fine).
+2. Weigh exactly 0.500 g of any available non-hazardous salt ([[sodium-chloride|NaCl]] is fine).
 3. Record your actual measurement. How close did you get?
 4. Repeat until you can hit within 0.005 g of the target on the first try.
 
 ### Exercise 2: Top-loader for a larger amount
 
 1. Tare a beaker on the top-loading balance.
-2. Weigh 10.00 g of agarose (or NaCl, or any available dry reagent).
+2. Weigh 10.00 g of [[agarose]] (or NaCl, or any available dry reagent).
 3. This is the amount you will weigh when making agarose gels or buffers.
 
 ## Documentation

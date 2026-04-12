@@ -7,7 +7,9 @@ title: "What to Do When Something Spills"
 
 ## Resources
 
-**Equipment:** Spill kit (location: check during [[lab-orientation]]), paper towels, chemical waste container
+**Equipment:** Spill kit (location: check during [[lab-orientation]]), paper towels, chemical waste container, [[eyewash-station]]
+
+**Supplies:** [[nitrile-gloves]], safety glasses, lab coat
 
 **Related Protocols:** [[lab-orientation]], [[how-to-read-an-sds]], [[waste-disposal-quick-reference]], [[bench-cleanup]]
 
@@ -28,7 +30,7 @@ title: "What to Do When Something Spills"
 **If yes:** Help the person first. If chemical contact with skin or eyes:
 
 - **Skin:** Remove contaminated clothing. Flush with water for 15 minutes.
-- **Eyes:** Use the eyewash station immediately. Flush for 15 minutes. Hold eyelids open.
+- **Eyes:** Use the [[eyewash-station]] immediately. Flush for 15 minutes. Hold eyelids open.
 - **Call 911** if someone is seriously injured. Then call UC Davis EH&S: **530-752-1493**.
 
 ### 2. Is the spill large or do you smell something strong?
@@ -50,7 +52,7 @@ You can clean this up yourself if:
 
 **Steps:**
 
-1. **Put on PPE:** gloves (nitrile or chemical-resistant), safety glasses, lab coat.
+1. **Put on PPE:** [[nitrile-gloves|gloves]] (nitrile or chemical-resistant), safety glasses, lab coat.
 2. **Consult the SDS** if you are unsure about the hazard. See [[how-to-read-an-sds]].
 3. **Contain:** Use absorbent pads, paper towels, or the spill kit materials to surround the spill and prevent it from spreading.
 4. **Absorb:** Place absorbent material on top of the spill. Let it soak up the liquid.
@@ -66,9 +68,9 @@ You can clean this up yourself if:
 | Ethanol | Paper towels | Flammable. No open flames nearby. |
 | Acids (HCl, acetic acid) | Neutralize with sodium bicarbonate, then absorb | Wear acid-resistant gloves |
 | Bases (NaOH, KOH) | Absorb with paper towels, flush area with water | Corrosive to skin |
-| SYBR Gold / ethidium bromide | Absorb, dispose as chemical waste | Nucleic acid stain. Wear gloves. |
-| Chloroform | Absorb, dispose as chemical waste. **Ventilate the area.** | Volatile, toxic. Work in fume hood if possible. |
-| Beta-mercaptoethanol | Absorb in fume hood. **Ventilate.** | Extremely foul-smelling, toxic. |
+| [[sybr-gold|SYBR Gold]] / ethidium bromide | Absorb, dispose as chemical waste | Nucleic acid stain. Wear gloves. |
+| Chloroform | Absorb, dispose as chemical waste. **Ventilate the area.** | Volatile, toxic. Work in [[fume-hood]] if possible. |
+| [[2-mercaptoethanol|Beta-mercaptoethanol]] | Absorb in [[fume-hood]]. **Ventilate.** | Extremely foul-smelling, toxic. |
 
 ### 4. Unknown liquid
 

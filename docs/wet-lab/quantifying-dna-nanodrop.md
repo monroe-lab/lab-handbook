@@ -7,9 +7,9 @@ title: "Quantifying DNA: NanoDrop"
 
 ## Resources
 
-**Equipment:** NanoDrop spectrophotometer (**needs ordering; not yet in the lab**)
+**Equipment:** [[nanodrop|NanoDrop spectrophotometer]] (**needs ordering; not yet in the lab**)
 
-**Reagents:** Nuclease-free water or TE buffer (for blanking)
+**Reagents:** [[nuclease-free-water]] or [[tris-edta-te-buffer-solution|TE buffer]] (for blanking)
 
 **Related Protocols:** [[quantifying-dna-qubit]], [[quick-dna-extraction]], [[qiagen-dneasy-extraction]]
 
@@ -25,7 +25,7 @@ title: "Quantifying DNA: NanoDrop"
 
 ## When to Use NanoDrop vs. Qubit
 
-| | NanoDrop | Qubit (DeNovix) |
+| | [[nanodrop|NanoDrop]] | [[qubit-fluorometer|Qubit (DeNovix)]] |
 |---|---------|------|
 | **Measures** | Total UV-absorbing material at 260 nm | dsDNA specifically (fluorescent dye) |
 | **Accuracy** | Overestimates if RNA, protein, or phenol present | Accurate for dsDNA regardless of contaminants |

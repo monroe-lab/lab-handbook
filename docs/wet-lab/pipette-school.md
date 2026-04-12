@@ -7,7 +7,9 @@ title: "Pipette School"
 
 ## Resources
 
-**Equipment:** [[lab-orientation]] (know where tips and pipettes are stored)
+**Equipment:** [[micropipette-p10]], [[micropipette-p20]], [[micropipette-p200]], [[micropipette-p1000]], [[multichannel-pipette]]
+
+**Consumables:** [[pipette-tips-p10]], [[pipette-tips-p20]], [[pipette-tips-p200]], [[pipette-tips-p1000]], [[filter-tips-p10]], [[filter-tips-p20]], [[filter-tips-p200]], [[filter-tips-p1000]], [[microtube]], [[pcr-strip-tubes-0-2ml]], [[parafilm]]
 
 **Reagents:** Distilled water, food coloring (optional, for visibility)
 
@@ -34,10 +36,10 @@ The lab has several micropipettes. Each covers a specific volume range. **Never 
 | Pipette | Range | Tip color | When to use |
 |---------|-------|-----------|-------------|
 | P2 | 0.1–2 uL | | Very small volumes (rare in routine work) |
-| P10 | 0.5–10 uL | | Enzyme additions, small reagent volumes |
-| P20 | 2–20 uL | | PCR components, small buffer additions |
-| P200 | 20–200 uL | | Most common. DNA samples, buffer additions, gel loading |
-| P1000 | 100–1000 uL | | Large volumes. Filling tubes, buffer prep |
+| [[micropipette-p10|P10]] | 0.5–10 uL | | Enzyme additions, small reagent volumes |
+| [[micropipette-p20|P20]] | 2–20 uL | | PCR components, small buffer additions |
+| [[micropipette-p200|P200]] | 20–200 uL | | Most common. DNA samples, buffer additions, gel loading |
+| [[micropipette-p1000|P1000]] | 100–1000 uL | | Large volumes. Filling tubes, buffer prep |
 
 ### Reading the volume dial
 
@@ -53,7 +55,7 @@ If you aren't sure how to read the display, ask before pipetting.
 ## Tips
 
 - **Always use the correct tip size** for your pipette. Tips are not interchangeable.
-- **Use filter tips** when working with DNA, RNA, or anything you don't want to contaminate the pipette barrel with. For training exercises with water, unfiltered tips are fine.
+- **Use [[filter-tips-p200|filter tips]]** when working with DNA, RNA, or anything you don't want to contaminate the pipette barrel with. For training exercises with water, unfiltered tips are fine.
 - **Tip ejection:** Use the ejector button to drop the tip into the waste. Never pull a tip off by hand.
 
 ## Technique
@@ -124,7 +126,7 @@ This is a 1:10 serial dilution. Each tube is 10x more dilute than the previous. 
 
 ### Exercise 5: Multichannel pipette (if available)
 
-1. Using a multichannel P200, set to 100 uL.
+1. Using a [[multichannel-pipette|multichannel P200]], set to 100 uL.
 2. Aspirate from a reagent reservoir.
 3. Dispense into a row of a 96-well plate.
 4. All wells should have the same volume. Check visually.

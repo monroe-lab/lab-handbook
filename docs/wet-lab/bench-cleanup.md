@@ -7,7 +7,7 @@ title: "Bench Cleanup Protocol"
 
 ## Resources
 
-**Supplies:** 70% ethanol spray bottle, paper towels or lint-free wipes, waste containers
+**Supplies:** [[ethanol-70]] spray bottle, paper towels or lint-free wipes, waste containers
 
 **Related Protocols:** [[lab-orientation]], [[waste-disposal-quick-reference]], [[spill-response]]
 
@@ -39,14 +39,14 @@ title: "Bench Cleanup Protocol"
 |-------|--------------|
 | Used pipette tips | Regular lab waste (if non-hazardous) or chemical waste (if contaminated with solvents, toxic reagents) |
 | Used gloves | Regular lab waste |
-| Gel waste (agarose + SYBR Gold) | Check with Grey. SYBR Gold is a nucleic acid stain. |
+| Gel waste ([[agarose]] + [[sybr-gold]]) | Check with Grey. SYBR Gold is a nucleic acid stain. |
 | Empty chemical containers | Rinse 3x, then regular trash. Labels stay on. |
 | Sharps (razor blades, broken glass, needles) | Sharps container. See [[sharps-handling]] |
 | Liquid chemical waste | Labeled waste bottle under the fume hood. See [[waste-disposal-quick-reference]] |
 
 ### 3. Wipe down the surface
 
-1. Spray the bench surface with 70% ethanol.
+1. Spray the bench surface with [[ethanol-70|70% ethanol]].
 2. Wipe with paper towels or lint-free wipes.
 3. Wipe in one direction (toward you), not in circles. Circular wiping just moves contamination around.
 4. For DNA work, this also reduces cross-contamination between experiments.
@@ -61,7 +61,7 @@ title: "Bench Cleanup Protocol"
 
 ## Clean Bench (Laminar Flow Hood) Cleanup
 
-The laminar flow clean bench has its own cleanup procedure. See [[clean-bench]] for details. The short version:
+The [[clean-bench-laminar-flow|laminar flow clean bench]] has its own cleanup procedure. See [[clean-bench]] for details. The short version:
 
 1. Remove all materials from the bench.
 2. Spray and wipe all surfaces inside the hood with 70% ethanol.

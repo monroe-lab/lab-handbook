@@ -7,9 +7,11 @@ title: "QIAGEN DNeasy Plant Extraction"
 
 ## Resources
 
-**Equipment:** Microcentrifuge, heat block or water bath (65C), vortexer
+**Equipment:** [[centrifuge|Microcentrifuge]], [[heat-block]] or [[water-bath]] (65C), [[vortex-mixer]]
 
-**Reagents:** QIAGEN DNeasy Plant Mini Kit (includes Buffers AP1, P3, AW1, AW2, AE, QIAshredder columns, DNeasy columns, collection tubes), RNase A
+**Reagents:** [[dneasy-plant-mini|QIAGEN DNeasy Plant Mini Kit]] (includes Buffers AP1, P3, AW1, AW2, AE, QIAshredder columns, DNeasy columns, collection tubes), [[rnase-aliquot|RNase A]]
+
+**Consumables:** [[microtube]], [[ethanol-absolute]] (for buffer preparation)
 
 **Related Protocols:** [[harvesting-leaf-tissue]], [[centrifuge-operation]], [[water-bath-and-heat-block]], [[quantifying-dna-qubit]]
 
@@ -27,9 +29,9 @@ title: "QIAGEN DNeasy Plant Extraction"
 
 Check that you have sufficient stock of:
 
-- DNeasy Plant Mini Kit (check number of preps remaining)
-- RNase A (if not included in the kit version you have)
-- 100% ethanol (needed to prepare Buffers AW1 and AW2 on first use; check if already prepared)
+- [[dneasy-plant-mini|DNeasy Plant Mini Kit]] (check number of preps remaining)
+- [[rnase-aliquot|RNase A]] (if not included in the kit version you have)
+- [[ethanol-absolute|100% ethanol]] (needed to prepare Buffers AW1 and AW2 on first use; check if already prepared)
 
 If anything is low, mark as needs-ordering in the [inventory system](../inventory-app/index.html).
 
@@ -54,7 +56,7 @@ Follow the QIAGEN DNeasy Plant Mini Kit handbook. The steps below are a summary;
 ### 1. Grind tissue
 
 - Start with **50-100 mg** of flash-frozen leaf tissue (see [[harvesting-leaf-tissue]]).
-- Grind to a fine powder using a bead mill (TissueLyser) or mortar and pestle with liquid nitrogen.
+- Grind to a fine powder using a [[automill|bead mill (TissueLyser)]] or [[mortar-and-pestle]] with [[liquid-nitrogen]].
 - Transfer the powder to a 1.5 mL tube. Work quickly to prevent thawing.
 
 ### 2. Lyse
@@ -93,9 +95,9 @@ Follow the QIAGEN DNeasy Plant Mini Kit handbook. The steps below are a summary;
 
 ### 8. QC
 
-- Measure concentration with the DeNovix fluorometer. See [[quantifying-dna-qubit]].
+- Measure concentration with the [[qubit-fluorometer|DeNovix fluorometer]]. See [[quantifying-dna-qubit]].
 - Expected yield: 1-10 ug from 100 mg of Arabidopsis leaf tissue.
-- Store at **-20C** for long-term or **4C** for short-term use.
+- Store at **[[freezer-minus20|-20C]]** for long-term or **[[fridge-4c-main|4C]]** for short-term use.
 
 ## Troubleshooting
 
@@ -108,4 +110,6 @@ Follow the QIAGEN DNeasy Plant Mini Kit handbook. The steps below are a summary;
 
 ## Documentation
 
-Create a lab notebook entry. Date it. Cite this protocol. Note: genotype, tissue amount, elution volume, Qubit concentration, total yield, storage location. Enter the sample in the [inventory system](../inventory-app/index.html) if storing long-term.
+Create a lab notebook entry. Date it. Cite this protocol. Note: genotype, tissue amount, elution volume, Qubit concentration, total yield, storage location.
+
+Create a new sample entry in the [inventory system](../inventory-app/index.html) for your DNA extract: note the sample ID, genotype, extraction method (DNeasy), concentration (ng/uL), elution volume, total yield, date, your initials, and storage location. Label the physical tube: `[genotype] gDNA / [concentration] ng/uL / [date] / [initials]`.

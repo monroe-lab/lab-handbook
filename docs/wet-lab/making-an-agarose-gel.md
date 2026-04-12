@@ -7,9 +7,9 @@ title: "Making an Agarose Gel"
 
 ## Resources
 
-**Equipment:** Top-loading balance, microwave or hot plate, gel casting tray, combs, Erlenmeyer flask
+**Equipment:** [[top-loading-balance]], microwave or hot plate, [[gel-electrophoresis-tank|gel casting tray]], combs, Erlenmeyer flask
 
-**Reagents:** Agarose (SeaKem LE or equivalent), 1x TAE buffer
+**Reagents:** [[agarose]] (SeaKem LE or equivalent), 1x [[tae-buffer-50x|TAE buffer]]
 
 **Related Protocols:** [[make-tae-buffer]], [[gel-electrophoresis]], [[gel-imaging-and-annotation]], [[how-to-use-the-scale]]
 
@@ -27,8 +27,8 @@ title: "Making an Agarose Gel"
 
 Check that you have:
 
-- Agarose powder
-- 1x TAE buffer (see [[make-tae-buffer]]; dilute 50x stock before use)
+- [[agarose]] powder
+- 1x [[tae-buffer-50x|TAE buffer]] (see [[make-tae-buffer]]; dilute 50x stock before use)
 - A clean gel casting tray and comb(s)
 
 ## Background
@@ -62,7 +62,7 @@ For a larger gel (~100 mL), double the amounts.
 
 ### 2. Weigh agarose
 
-Weigh the appropriate amount of agarose on the top-loading balance. Transfer to an Erlenmeyer flask.
+Weigh the appropriate amount of [[agarose]] on the [[top-loading-balance]]. Transfer to an Erlenmeyer flask.
 
 ### 3. Add buffer
 
@@ -93,7 +93,7 @@ Let the flask cool until you can comfortably hold it (~55-60C). If you pour too 
 
 1. Gently pull the comb straight up out of the gel. This creates the wells where you will load your samples.
 2. Remove the rubber dams or tape.
-3. The gel is ready to use. Transfer it to the electrophoresis tank and cover with 1x TAE buffer.
+3. The gel is ready to use. Transfer it to the [[gel-electrophoresis-tank|electrophoresis tank]] and cover with 1x TAE buffer.
 
 ## Storage
 

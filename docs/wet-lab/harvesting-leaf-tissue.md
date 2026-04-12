@@ -7,9 +7,13 @@ title: "Harvesting Leaf Tissue"
 
 ## Resources
 
-**Equipment:** Fine scissors or razor blade, forceps, liquid nitrogen dewar, cryo-safe tubes (1.5 mL or 2 mL), freezer box
+**Equipment:** Fine scissors or razor blade, forceps, [[liquid-nitrogen-dewar]], cryo-safe [[microtube]] (1.5 mL or 2 mL), freezer box
 
-**Supplies:** Cryo-safe labels or cryo marker, aluminum foil, ice bucket
+**Supplies:** [[cryo-labels]] or cryo marker, aluminum foil, ice bucket
+
+**Reagents:** [[liquid-nitrogen]], [[ethanol-70]]
+
+**Storage:** [[freezer-minus80-a]]
 
 **Related Protocols:** [[liquid-nitrogen-safety]], [[tube-and-sample-labeling]], [[quick-dna-extraction]], [[qiagen-dneasy-extraction]]
 
@@ -27,7 +31,7 @@ title: "Harvesting Leaf Tissue"
 
 Check that you have:
 
-- Liquid nitrogen in a small dewar (see [[liquid-nitrogen-safety]] for handling)
+- [[liquid-nitrogen]] in a small [[liquid-nitrogen-dewar|dewar]] (see [[liquid-nitrogen-safety]] for handling)
 - Pre-labeled cryo-safe tubes (label BEFORE harvesting; you cannot write on frozen tubes)
 - Clean scissors or a razor blade
 - Forceps
@@ -65,14 +69,14 @@ When in doubt, collect more than you think you need. You can always use less, bu
 
 ### 3. Between samples
 
-- If sampling multiple genotypes: **wipe scissors with 70% ethanol** between plants to prevent cross-contamination. For critical genotyping, use a fresh blade for each sample.
+- If sampling multiple genotypes: **wipe scissors with [[ethanol-70|70% ethanol]]** between plants to prevent cross-contamination. For critical genotyping, use a fresh blade for each sample.
 - If sampling multiple plants of the same genotype: ethanol wipe is less critical but still good practice.
 
 ### 4. Storage
 
 1. Place all tubes into a freezer box.
 2. Record the box grid positions in the [inventory system](../inventory-app/index.html).
-3. Store at **-80C**. Tissue is stable at -80C for years.
+3. Store at **[[freezer-minus80-a|-80C]]**. Tissue is stable at -80C for years.
 
 <!-- VIDEO: How to log a sample in the inventory system -->
 

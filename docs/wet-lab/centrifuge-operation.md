@@ -7,9 +7,11 @@ title: "Centrifuge Operation"
 
 ## Resources
 
-**Equipment:** Benchtop microcentrifuges (x2), large refrigerated centrifuge (multiple rotors)
+**Equipment:** [[centrifuge]] (benchtop microcentrifuges x2), large refrigerated [[centrifuge]] (multiple rotors)
 
-**Location:** Benchtop units at the bench area; large centrifuge in a bay in Robbins 170
+**Consumables:** [[microtube]], [[falcon-tubes-15ml]], [[falcon-tubes-50ml]]
+
+**Location:** Benchtop units at the [[bench]]; large centrifuge in a bay in [[room-robbins-0170]]
 
 **Related Protocols:** [[lab-orientation]], [[quick-dna-extraction]], [[qiagen-dneasy-extraction]]
 
@@ -52,7 +54,7 @@ A centrifuge spins samples at high speed to separate components by density. Heav
 - Always load tubes in **opposing pairs** of equal weight.
 - If you have an odd number of tubes, make a **balance tube**: fill an empty tube with water to match the weight of your sample tube.
 - For microcentrifuge tubes with similar volumes, eyeballing is usually fine.
-- For the large centrifuge with Falcon tubes, weigh the tubes on the top-loading balance and match them within 0.5 g.
+- For the large centrifuge with Falcon tubes, weigh the tubes on the [[top-loading-balance]] and match them within 0.5 g.
 
 ### 2. Load the rotor
 

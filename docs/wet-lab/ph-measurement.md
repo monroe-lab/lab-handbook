@@ -7,11 +7,11 @@ title: "pH Measurement and Adjustment"
 
 ## Resources
 
-**Equipment:** pH meter (near the chemistry area), calibration buffers (pH 4.0, 7.0, 10.0)
+**Equipment:** [[ph-meter]] (near the chemistry area), [[ph-calibration-buffers]] (pH 4.0, 7.0, 10.0), [[stir-plate]]
 
-**Reagents:** 1 M NaOH (for raising pH), 1 M HCl or 1 M KOH (for raising pH of specific buffers), concentrated HCl (for lowering pH), distilled water (for rinsing)
+**Reagents:** [[sodium-hydroxide|NaOH]] (for raising pH), [[hydrochloric-acid|HCl]] or [[potassium-hydroxide|KOH]] (for raising pH of specific buffers), concentrated [[hydrochloric-acid|HCl]] (for lowering pH), distilled water (for rinsing)
 
-**Location:** Chemistry area in Robbins 170, near the balances and dry chemical storage
+**Location:** [[bench-chemistry]] in [[room-robbins-0170]], near the balances and dry chemical storage
 
 **Related Protocols:** [[how-to-use-the-scale]], [[ms-media-recipe]], [[make-tae-buffer]]
 
@@ -62,7 +62,7 @@ Calibrate before each use session (or at least daily if used continuously). Cali
 ### 2. Measure pH
 
 1. Pour your solution into a beaker (you need enough depth to submerge the electrode tip).
-2. Place a stir bar in the beaker and set it on a magnetic stir plate at low speed. Stirring ensures a uniform reading.
+2. Place a stir bar in the beaker and set it on a [[stir-plate|magnetic stir plate]] at low speed. Stirring ensures a uniform reading.
 3. Rinse the electrode with distilled water. Blot.
 4. Submerge the electrode in the solution. The glass bulb must be fully submerged.
 5. Wait for the reading to stabilize (10-30 seconds). Record the pH.
@@ -92,7 +92,7 @@ Most buffers need adjustment after dissolving the components. The protocol will 
 1. Rinse the electrode with distilled water. Blot.
 2. Return the electrode to its storage solution.
 3. Clean the beaker, stir bar, and any pipettes used.
-4. Return acid/base bottles to the corrosive cabinet.
+4. Return acid/base bottles to the [[cabinet-corrosive]].
 
 ## Common Errors
 
@@ -108,7 +108,7 @@ Most buffers need adjustment after dissolving the components. The protocol will 
 
 1. Calibrate the pH meter using a two-point calibration.
 2. Measure the pH of distilled water. It should read close to 7.0 (often 5.5-6.5 due to dissolved CO2, which is normal).
-3. Dissolve a small amount of Tris base in 50 mL of water. Measure the pH (it will be high, ~10-11). Practice adjusting it down to pH 8.0 with HCl.
+3. Dissolve a small amount of [[tris-base]] in 50 mL of water. Measure the pH (it will be high, ~10-11). Practice adjusting it down to pH 8.0 with HCl.
 
 ## Documentation
 

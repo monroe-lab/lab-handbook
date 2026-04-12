@@ -7,9 +7,9 @@ title: "Make 0.1% Agar Seed Suspension"
 
 ## Resources
 
-**Equipment:** Top-loading balance, autoclave, bottle with loosened cap
+**Equipment:** [[top-loading-balance]], [[autoclave-sterilizer]], bottle with loosened cap
 
-**Reagents:** Agar (any grade), distilled water
+**Reagents:** [[agar-non-tc|Agar]] (any grade), distilled water
 
 **Related Protocols:** [[how-to-use-the-scale]], [[autoclave]], [[planting-arabidopsis-on-ms-plates]]
 
@@ -47,7 +47,7 @@ Arabidopsis seeds are tiny (~250 um) and static-prone. Dry seeds cling to surfac
 
 ## Procedure
 
-1. Weigh **0.1 g agar** on the top-loading balance.
+1. Weigh **0.1 g [[agar-non-tc|agar]]** on the [[top-loading-balance]].
 2. Add to a bottle with **100 mL distilled water**.
 3. Swirl to disperse (it will not dissolve until heated).
 4. **Loosen the cap** (do not seal tight; pressure must equalize during autoclaving).
@@ -71,3 +71,5 @@ Label the bottle:
 ## Documentation
 
 No separate lab notebook entry needed. This is a simple reagent prep. Note it in the lab notebook entry for whichever protocol you use it in (usually [[planting-arabidopsis-on-ms-plates]]).
+
+Create a new bottle entry in the [inventory system](../inventory-app/index.html) for your agar suspension: note the concentration (0.1%), volume, date, your initials, and that it is sterile. Label the physical bottle with tape: `0.1% Agar / [date] / [your initials] / sterile`.

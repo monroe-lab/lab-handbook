@@ -11,6 +11,8 @@ title: "Bulking Seed from Arabidopsis"
 
 **Supplies:** Labeling supplies (see [[tube-and-sample-labeling]])
 
+**Storage:** [[fridge-4c-main]] (long-term with desiccant)
+
 **Related Protocols:** [[watering-and-plant-care]], [[planting-in-soil]], [[growth-chamber-operation]], [[seed-sterilization]]
 
 **Prerequisites:** Arabidopsis plants that have flowered and produced mature siliques (typically 8-10 weeks from planting)

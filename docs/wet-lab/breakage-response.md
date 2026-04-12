@@ -7,7 +7,7 @@ title: "What to Do When Something Breaks"
 
 ## Resources
 
-**Supplies:** Dustpan and brush, broken glass box, first aid kit
+**Supplies:** Dustpan and brush, broken glass box, first aid kit, [[nitrile-gloves]]
 
 **Related Protocols:** [[lab-orientation]], [[spill-response]], [[sharps-handling]]
 
@@ -48,8 +48,8 @@ title: "What to Do When Something Breaks"
 
 ### Something is making a bad noise
 
-- **Centrifuge vibrating/grinding:** Press stop immediately. This is an unbalanced rotor. See [[centrifuge-operation]].
-- **Autoclave hissing when it shouldn't be:** Do not touch. Leave the area. Notify Grey.
+- **[[centrifuge]] vibrating/grinding:** Press stop immediately. This is an unbalanced rotor. See [[centrifuge-operation]].
+- **[[autoclave-sterilizer|Autoclave]] hissing when it shouldn't be:** Do not touch. Leave the area. Notify Grey.
 - **Any equipment smoking or sparking:** Turn off at the power strip or wall outlet if you can safely reach it. Leave the area. Call facilities or Grey.
 
 ## Report Everything

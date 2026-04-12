@@ -101,10 +101,10 @@ If the SALK tool doesn't give good results, or if you need primers for a non-SAL
 When primers arrive (lyophilized):
 
 1. Spin down the tube briefly (pulse spin) to collect the pellet.
-2. Add nuclease-free water to make a **100 uM stock**. The amount of water depends on the nmol yield (printed on the tube or the spec sheet). For 25 nmol: add 250 uL water.
-3. Vortex to dissolve. Pulse spin.
+2. Add [[nuclease-free-water]] to make a **100 uM stock**. The amount of water depends on the nmol yield (printed on the tube or the spec sheet). For 25 nmol: add 250 uL water.
+3. [[vortex-mixer|Vortex]] to dissolve. Pulse spin.
 4. Make a **10 uM working stock**: 10 uL of 100 uM stock + 90 uL water.
-5. Store 100 uM stock at **-20C**. Use 10 uM working stock for PCR reactions.
+5. Store 100 uM stock at **[[freezer-minus20|-20C]]**. Use 10 uM working stock for PCR reactions.
 6. Label both tubes clearly. See [[tube-and-sample-labeling]].
 
 ### 7. Test your primers

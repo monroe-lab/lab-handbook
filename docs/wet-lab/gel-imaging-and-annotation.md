@@ -7,7 +7,7 @@ title: "Gel Imaging and Annotation"
 
 ## Resources
 
-**Equipment:** UV transilluminator (with viewing window), cell phone camera
+**Equipment:** [[uv-transilluminator]] (with viewing window), cell phone camera
 
 **Related Protocols:** [[gel-electrophoresis]], [[pcr-genotyping]]
 
@@ -25,8 +25,8 @@ title: "Gel Imaging and Annotation"
 
 ### 1. Image the gel
 
-1. Place the stained gel on the **UV transilluminator**.
-2. Turn on the UV light. DNA bands stained with SYBR Gold will fluoresce bright green/yellow.
+1. Place the stained gel on the **[[uv-transilluminator]]**.
+2. Turn on the UV light. DNA bands stained with [[sybr-gold|SYBR Gold]] will fluoresce bright green/yellow.
 3. Look through the **UV-protective viewing window**. **Never look directly at UV light without protection.** The viewing window filters UV.
 4. Take a photo through the viewing window with your **cell phone camera**.
 5. Take multiple photos if needed. Adjust exposure so bands are clearly visible but not overexposed (washed out).
@@ -36,7 +36,7 @@ title: "Gel Imaging and Annotation"
 
 - **Steady the phone.** Blurry gel images are worthless. Brace your hands or use a phone stand.
 - **Fill the frame.** Get close enough that the gel fills most of the photo. You want to see individual lanes clearly.
-- **Include the ladder.** Make sure the DNA ladder lane is visible and its bands are distinguishable.
+- **Include the ladder.** Make sure the [[dna-ladder-1kb-plus|DNA ladder]] lane is visible and its bands are distinguishable.
 - **Avoid reflections.** Angle the phone to minimize glare from the viewing window.
 
 ### 2. Annotate the image
