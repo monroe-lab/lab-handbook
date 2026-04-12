@@ -476,6 +476,7 @@
         '</div>' +
         '<div class="em-modal-footer" id="em-footer">' +
           '<button class="btn btn-outline" id="em-cancel">Close</button>' +
+          '<button class="btn btn-outline" id="em-copy-link" title="Copy wikilink to clipboard"><span class="material-icons-outlined" style="font-size:16px">content_copy</span> Copy Link</button>' +
           '<button class="btn btn-outline" id="em-edit-toggle" style="display:none"><span class="material-icons-outlined" style="font-size:16px">edit</span> Edit</button>' +
           '<button class="btn btn-primary" id="em-save" style="display:none"><span class="material-icons-outlined" style="font-size:16px">save</span> Save</button>' +
         '</div>' +
@@ -501,6 +502,25 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && overlayEl.classList.contains('open')) close();
     });
+
+    // Copy Link — copies [[slug]] wikilink to clipboard
+    document.getElementById('em-copy-link').onclick = function() {
+      if (!currentState || !currentState.path) return;
+      var slug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
+      var wikilink = '[[' + slug + ']]';
+      navigator.clipboard.writeText(wikilink).then(function() {
+        if (window.Lab && Lab.showToast) Lab.showToast('Copied: ' + wikilink, 'success');
+      }).catch(function() {
+        // Fallback: select a temp input
+        var tmp = document.createElement('input');
+        tmp.value = wikilink;
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand('copy');
+        tmp.remove();
+        if (window.Lab && Lab.showToast) Lab.showToast('Copied: ' + wikilink, 'success');
+      });
+    };
 
     // Edit toggle
     document.getElementById('em-edit-toggle').onclick = function() {

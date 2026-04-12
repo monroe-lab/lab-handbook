@@ -393,11 +393,9 @@
       var t = Lab.types.get(item.type);
       var group = t ? t.group : '';
       var docPath = item.path.replace(/\.md$/, '');
-      if (group === 'resources' || group === 'stocks') return "location.href='inventory.html'";
       if (item.type === 'protocol' || item.type === 'guide') return "location.href='protocols.html?doc=" + encodeURIComponent(docPath) + "'";
-      if (item.type === 'project') return "location.href='projects.html?doc=" + encodeURIComponent(docPath) + "'";
-      if (item.type === 'event') return "location.href='../calendar/'";
       if (item.path.startsWith('notebooks/')) return "location.href='notebooks.html?doc=" + encodeURIComponent(docPath) + "'";
+      // Resources, stocks, locations, projects, events — open as popup card
       return "Lab.editorModal.open('docs/" + item.path + "')";
     }
 
