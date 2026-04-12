@@ -702,6 +702,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/hifi-lysis-buffer.md",
+    "type": "buffer",
+    "title": "HiFi Lysis Buffer",
+    "mtime": 1775984624
+  },
+  {
     "path": "resources/hula-mixer.md",
     "type": "equipment",
     "title": "Hula Mixer",
@@ -3342,7 +3348,7 @@
     "title": "Molecular Biology Training Curriculum",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1775978356
+    "mtime": 1775984624
   },
   {
     "path": "projects/mutation-accumulation/index.md",
@@ -3376,7 +3382,7 @@
     "path": "wet-lab/bench-cleanup.md",
     "type": "protocol",
     "title": "Bench Cleanup Protocol",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/breakage-response.md",
@@ -3388,13 +3394,13 @@
     "path": "wet-lab/bulking-seed.md",
     "type": "protocol",
     "title": "Bulking Seed from Arabidopsis",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/centrifuge-operation.md",
     "type": "protocol",
     "title": "Centrifuge Operation",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/clean-bench.md",
@@ -3406,43 +3412,43 @@
     "path": "wet-lab/gel-electrophoresis.md",
     "type": "protocol",
     "title": "Gel Electrophoresis",
-    "mtime": 1775982373
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/gel-imaging-and-annotation.md",
     "type": "protocol",
     "title": "Gel Imaging and Annotation",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/growth-chamber-operation.md",
     "type": "protocol",
     "title": "Growth Chamber Operation",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/harvesting-leaf-tissue.md",
     "type": "protocol",
     "title": "Harvesting Leaf Tissue",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/how-to-read-an-sds.md",
     "type": "protocol",
     "title": "Chemical Lookup: How to Read an SDS",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/how-to-use-the-scale.md",
     "type": "protocol",
     "title": "How to Use the Scale",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/lab-orientation.md",
     "type": "protocol",
     "title": "Lab Orientation: Where Things Are",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/labbot-test-protocol-mnthp11v-copy.md",
@@ -3466,7 +3472,7 @@
     "path": "wet-lab/loading-a-minion-flow-cell.md",
     "type": "protocol",
     "title": "Loading and Running a MinION Flow Cell",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/make-agar-seed-suspension.md",
@@ -3478,25 +3484,31 @@
     "path": "wet-lab/make-buffer-a.md",
     "type": "protocol",
     "title": "Make Buffer A (Quick Extraction Buffer)",
-    "mtime": 1775980234
+    "mtime": 1775983797
+  },
+  {
+    "path": "wet-lab/make-hifi-lysis-buffer.md",
+    "type": "protocol",
+    "title": "Make HiFi Lysis Buffer",
+    "mtime": 1775984624
   },
   {
     "path": "wet-lab/make-tae-buffer.md",
     "type": "protocol",
     "title": "Make TAE Buffer (50x Stock)",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/make-te-buffer.md",
     "type": "protocol",
     "title": "Make TE Buffer",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/making-an-agarose-gel.md",
     "type": "protocol",
     "title": "Making an Agarose Gel",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3508,37 +3520,37 @@
     "path": "wet-lab/nanopore-data-retrieval.md",
     "type": "protocol",
     "title": "Nanopore Data Retrieval",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/nanopore-rapid-library-prep.md",
     "type": "protocol",
     "title": "Nanopore Rapid Library Prep",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/pcr-genotyping.md",
     "type": "protocol",
     "title": "PCR Genotyping",
-    "mtime": 1775982373
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/ph-measurement.md",
     "type": "protocol",
     "title": "pH Measurement and Adjustment",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/pipette-school.md",
     "type": "protocol",
     "title": "Pipette School",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/planting-arabidopsis-on-ms-plates.md",
     "type": "protocol",
     "title": "Planting Arabidopsis Seeds on MS Plates",
-    "mtime": 1775982373
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/planting-in-soil.md",
@@ -3550,7 +3562,7 @@
     "path": "wet-lab/primer-design.md",
     "type": "protocol",
     "title": "Primer Design for a Target Site",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/quantifying-dna-nanodrop.md",
@@ -3562,7 +3574,7 @@
     "path": "wet-lab/quantifying-dna-qubit.md",
     "type": "protocol",
     "title": "Quantifying DNA: DeNovix Fluorometer",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/quick-dna-extraction.md",
@@ -3574,7 +3586,7 @@
     "path": "wet-lab/seed-sterilization.md",
     "type": "protocol",
     "title": "Seed Sterilization",
-    "mtime": 1775978356
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/sharps-handling.md",
@@ -3586,7 +3598,7 @@
     "path": "wet-lab/spill-response.md",
     "type": "protocol",
     "title": "What to Do When Something Spills",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/stratification.md",
@@ -3598,13 +3610,13 @@
     "path": "wet-lab/transferring-seedlings-to-soil.md",
     "type": "protocol",
     "title": "Transferring Seedlings to Soil",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/tube-and-sample-labeling.md",
     "type": "protocol",
     "title": "Tube and Sample Labeling",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/vortexer-and-mixer-use.md",
@@ -3616,13 +3628,13 @@
     "path": "wet-lab/waste-disposal-quick-reference.md",
     "type": "protocol",
     "title": "Waste Disposal Quick Reference",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/water-bath-and-heat-block.md",
     "type": "protocol",
     "title": "Water Bath and Heat Block",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/watering-and-plant-care.md",
@@ -3634,7 +3646,7 @@
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
     "type": "protocol",
     "title": "HiFi DNA Extraction (DIY)",
-    "mtime": 1775858916
+    "mtime": 1775984624
   },
   {
     "path": "wet-lab/extraction/hmw-extraction-challenging-plants.md",
@@ -3658,7 +3670,7 @@
     "path": "wet-lab/extraction/qiagen-dneasy-extraction.md",
     "type": "protocol",
     "title": "QIAGEN DNeasy Plant Extraction",
-    "mtime": 1775980234
+    "mtime": 1775983797
   },
   {
     "path": "wet-lab/extraction/sorbitol-ctab-hifi-extraction.md",

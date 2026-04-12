@@ -989,6 +989,18 @@
   },
   {
     "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/make-hifi-lysis-buffer"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/extraction/sorbitol-ctab-hifi-extraction"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/making-an-agarose-gel"
   },
   {
@@ -1190,6 +1202,30 @@
   {
     "source": "resources/heat-block",
     "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "resources/nitrile-gloves"
+  },
+  {
+    "source": "resources/hifi-lysis-buffer",
+    "target": "wet-lab/make-hifi-lysis-buffer"
   },
   {
     "source": "resources/hydrochloric-acid",
@@ -3056,6 +3092,30 @@
     "target": "people/kehan-zhao"
   },
   {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "wet-lab/centrifuge-operation"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "wet-lab/make-hifi-lysis-buffer"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "wet-lab/extraction/hifi-dna-extraction",
+    "target": "resources/hifi-lysis-buffer"
+  },
+  {
     "source": "wet-lab/extraction/hmw-extraction-challenging-plants",
     "target": "resources/automill"
   },
@@ -4342,6 +4402,54 @@
   {
     "source": "wet-lab/make-buffer-a",
     "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/analytical-balance"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/sodium-metabisulfite"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/sodium-chloride"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/1m-tris-hcl-ph-8-8-5"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "resources/hifi-lysis-buffer"
+  },
+  {
+    "source": "wet-lab/make-hifi-lysis-buffer",
+    "target": "locations/cabinet-flammable"
   },
   {
     "source": "wet-lab/make-tae-buffer",
