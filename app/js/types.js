@@ -373,7 +373,6 @@
       displayFields: null,
       tableColumns: null,
     },
-  };
 
     // Calendar events — markdown files under docs/events/ that replace
     // the old schedule.json approach. Each event is a first-class object
@@ -397,6 +396,7 @@
       displayFields: ['date', 'start_time', 'end_time', 'member', 'created_by'],
       tableColumns: ['name', 'date', 'start_time', 'end_time', 'member'],
     },
+  };
 
   var DEFAULT_TYPE = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };
 
