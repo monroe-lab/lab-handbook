@@ -489,7 +489,15 @@
     // click are the full-dismiss escape hatches that blow the whole stack.
     document.getElementById('em-close').onclick = closeOrBack;
     document.getElementById('em-cancel').onclick = closeOrBack;
-    overlayEl.addEventListener('click', function(e) { if (e.target === overlayEl) close(); });
+    // Only close when BOTH mousedown and mouseup happen on the overlay itself.
+    // This prevents accidental closes when the user drags a text selection and
+    // the cursor drifts outside the modal card on mouseup.
+    var _overlayMousedownTarget = null;
+    overlayEl.addEventListener('mousedown', function(e) { _overlayMousedownTarget = e.target; });
+    overlayEl.addEventListener('click', function(e) {
+      if (e.target === overlayEl && _overlayMousedownTarget === overlayEl) close();
+      _overlayMousedownTarget = null;
+    });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && overlayEl.classList.contains('open')) close();
     });
