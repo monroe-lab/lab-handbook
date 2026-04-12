@@ -1,41 +1,51 @@
 The user wants to create a tutorial video for the lab handbook website and publish it.
 
-**Before writing any config, read the philosophy doc:** `/Users/greymonroe/Dropbox/myapps/webtutorial/TUTORIAL_PHILOSOPHY.md` — it defines video length, subtitle rules, cursor pacing, tone, and the Barb M (Barbara McClintock) convention for creating tutorial content.
+## REQUIRED READING — Do This First
 
-**Key rules:**
-- Under 5 min, ~2 min ideal. Workflow-sized chunks, not atomic tasks.
-- All tutorial objects (freezer boxes, protocols, notebooks, samples) are created as **Barb M** (Barbara McClintock persona). Never edit real lab data — create new objects as Barb M.
-- Subtitles must never cover the action being demonstrated. Review output.
-- No intro preamble, no outro. Just dive in.
-- Instructional/observational tone. Short subtitle text.
+Before writing ANY config or code, read these files in order:
+
+1. **`/Users/greymonroe/Dropbox/myapps/webtutorial/TUTORIAL_PHILOSOPHY.md`** — Video length, pacing, subtitle rules, cursor behavior, viewport centering, the Barb M persona, voice narration, and all creative guidelines. This is the style guide.
+
+2. **`/Users/greymonroe/Dropbox/myapps/webtutorial/generate-tutorial.js`** — The generator source. Read it to understand all step actions, their options, and the subtitle bar / voice narration features.
+
+3. **Existing example configs in `/Users/greymonroe/Dropbox/myapps/webtutorial/examples/`** — Study `lab-annotate-gel.json`, `lab-map-objects.json`, and `lab-map-navigation.json` for real-world patterns: auth setup, mock routes, tree expansion via exec, modal handling, ProseMirror workarounds.
+
+4. **`/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/tests/labbot.mjs`** — The canonical reference for Playwright selectors and auth patterns on the lab handbook site. If you need a selector, check labbot first.
+
+## Key Rules (Summary — Details in Philosophy Doc)
+
+- **Under 5 min, ~2 min ideal.** Workflow-sized chunks, not atomic tasks.
+- **Barb M (Barbara McClintock) persona.** All tutorial objects (freezer boxes, protocols, notebooks) are created as Barb M. Never edit real lab data.
+- **Subtitles never cover the action.** The subtitle bar sits below the page content (enabled by default).
+- **Scroll targets to mid-screen before clicking.** Never click at viewport edges.
+- **Slower pacing.** Give viewers 3+ seconds to read subtitles and absorb what's on screen.
+- **Use the cursor as a pointer.** Hover over items being discussed, don't just click and move on.
+- **No intro/outro.** Just dive in.
+- **Instructional/observational tone.** Short subtitle text.
+- **Voice narration is ON by default.** Set `"voice": true` in config. Randomly picks from Ava, Emma, Natasha, or Guy (Edge TTS neural voices). Pin a specific voice with `"voice": { "name": "en-US-EmmaNeural" }`.
+- **Voice sync is automatic.** The generator waits for each voice clip to finish before advancing to the next subtitle. No manual timing needed.
 
 ## Full Pipeline
 
-1. **Probe the live DOM** to verify selectors before writing the config
-2. **Write a tutorial config** (JSON) with Playwright step definitions
-3. **Generate the video** using the tutorial generator
-4. **Review frames** — extract frames per step, check subtitle/visual alignment, fix and re-render
-5. **Upload to YouTube** (unlisted) via the upload script
-6. **Add to the tutorials page** on the lab handbook site
-7. **Commit and push** the updated tutorials page
+1. **Probe the live DOM** (if writing new selectors for pages not in examples)
+2. **Write a tutorial config** (JSON)
+3. **Generate the video**
+4. **Review frames** — check subtitle/visual alignment
+5. **Upload to YouTube** (unlisted)
+6. **Add to tutorials page** on the lab handbook site
+7. **Commit and push**
 
-## Step 0: Probe the DOM First
+## Config Format
 
-Before writing selectors based on source code, write a throwaway 30-line Playwright probe script at `/tmp/probe-<task>.mjs` that navigates to the target page with auth and dumps real class names, data-attributes, and element counts. Static source reads miss runtime transformations (e.g., `.md` extensions stripped, class names renamed). A probe catches these in one run vs. two full failed tutorial renders.
+Configs live in **`/Users/greymonroe/Dropbox/myapps/webtutorial/examples/`**.
 
-Skip only for trivial/well-known selectors.
-
-## Step 1: Write the Tutorial Config
-
-Tutorial configs live in `/Users/greymonroe/Dropbox/myapps/webtutorial/examples/`.
-
-### Auth (Correct Pattern)
-
-The lab handbook uses a client-side password gate (`monroe-lab-auth` sessionStorage) and a GitHub PAT in `localStorage['gh_lab_token']`. Token comes from system `gh` CLI:
+### Minimal Config Template
 
 ```json
 {
   "viewport": { "width": 1280, "height": 720 },
+  "subtitleBar": true,
+  "voice": true,
   "networkCheck": {
     "url": "https://api.github.com/zen",
     "samples": 3,
@@ -47,32 +57,39 @@ The lab handbook uses a client-side password gate (`monroe-lab-auth` sessionStor
       "gh_lab_token": "$(gh auth token)",
       "gh_lab_user": "{\"login\":\"greymonroe\",\"avatar\":\"\"}"
     }
-  }
+  },
+  "mockRoutes": [
+    {
+      "url": "https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/**",
+      "method": "PUT",
+      "status": 200,
+      "body": { "content": { "sha": "mock" }, "commit": { "sha": "mock" } }
+    }
+  ],
+  "steps": []
 }
 ```
 
-**The localStorage key is `gh_lab_token`, NOT `github-token`.** The user JSON key is `gh_lab_user`.
+### Auth Keys (EXACT — Do Not Change)
 
-### Mock Routes (Prevent Real Commits)
+- `sessionStorage`: `monroe-lab-auth` = `"true"` (password gate bypass)
+- `localStorage`: `gh_lab_token` = `"$(gh auth token)"` (GitHub PAT, resolved at runtime)
+- `localStorage`: `gh_lab_user` = `"{\"login\":\"greymonroe\",\"avatar\":\"\"}"` (user identity)
 
-Always mock GitHub Contents API writes so tutorials don't commit artifacts to the real repo:
+### Voice Config
 
-```json
-"mockRoutes": [
-  {
-    "url": "https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/images/**",
-    "method": "PUT", "status": 201,
-    "body": { "content": { "sha": "mock", "path": "mocked" }, "commit": { "sha": "mock" } }
-  },
-  {
-    "url": "https://api.github.com/repos/monroe-lab/lab-handbook/contents/docs/**",
-    "method": "PUT", "status": 200,
-    "body": { "content": { "sha": "mock", "path": "mocked" }, "commit": { "sha": "mock" } }
-  }
-]
-```
+- `"voice": true` — randomly picks from: Ava, Emma, Natasha, Guy (Edge TTS)
+- `"voice": { "name": "en-US-AvaNeural" }` — pin a specific voice
+- Omit `"voice"` entirely for silent video
+- Requires `edge-tts` installed: `/Users/greymonroe/Library/Python/3.9/bin/edge-tts`
+- Voice clips are pre-generated before recording; step durations auto-extend to match audio length
+- The generator waits for each voice clip to finish before advancing — no overlap
 
-GETs pass through untouched so the UI stays realistic.
+### Subtitle Bar
+
+- `"subtitleBar": true` (default) — 90px dark bar below page content. Subtitles render inside, never overlap content.
+- `"subtitleBar": false` — floating overlay pill (legacy mode)
+- `"subtitleBarHeight": 90` — adjustable, default 90px
 
 ### Step Actions
 
@@ -83,98 +100,118 @@ GETs pass through untouched so the UI stays realistic.
 | `type` | Click + type into element | `selector`, `typeText`, `text`, `delay` |
 | `scroll` | Scroll page or container | `scrollY`, `scrollSelector`, `text` |
 | `wait` | Pause, optionally wait for element | `duration`, `waitForSelector`, `waitForTimeout`, `text` |
-| `upload` | Set file on input | `selector` (file input), `file`, `triggerSelector` (visible button), `text` |
+| `upload` | Set file on input | `selector` (file input), `file`, `triggerSelector`, `text` |
 | `press` | Key press OR type at cursor | `key` OR `typeText`, `triggerSelector`, `settle`, `delay` |
 | `exec` | Run arbitrary JS | `script`, `triggerSelector`, `preWait`, `settle`, `text` |
 
-**`triggerSelector`** (on press/exec/upload): Animates cursor to a visible button with highlight + click pulse before running the real action. Purely cosmetic — lets narration say "click Save" while the reliable path is a JS call.
+**`triggerSelector`** (on press/exec/upload): Animates cursor to a visible button before running the real action. Use when the reliable code path is JS but narration says "click X."
 
-**`force: true`** (on click): Bypasses Playwright actionability checks. Needed for elements under pointer-intercepting overlays (e.g., Toast UI table size picker).
+**`force: true`** (on click): Bypass Playwright actionability checks. Needed for elements under overlays.
 
-**`dblclick: true`** (on click): Dispatches a `dblclick` MouseEvent via `page.evaluate`. Use for ProseMirror editors where Playwright's native dblclick fails.
+**`dblclick: true`** (on click): Dispatch dblclick via JS. Use for ProseMirror editors.
 
-**`press` has two modes:**
-- `{ key: "Meta+s" }` — keyboard shortcut via `page.keyboard.press`
-- `{ typeText: "hello", delay: 55 }` — types at current cursor via `page.keyboard.type` WITHOUT re-focusing. Critical for Tab-navigating ProseMirror table cells.
+**`press` two modes:**
+- `{ key: "Meta+s" }` — keyboard shortcut
+- `{ typeText: "hello", delay: 55 }` — type at current cursor WITHOUT re-focusing (critical for ProseMirror table cells)
+
+### Common Patterns
+
+**Expanding tree nodes (Lab Map):** Tree children are `display:none` when collapsed. Playwright can't click hidden elements. Use `exec` to expand programmatically with `triggerSelector` for the visual cursor:
+```json
+{
+  "action": "exec",
+  "script": "var n = document.querySelector('.tree-node[data-slug=\"locations/room-robbins-0170\"]'); if(n){n.classList.add('is-expanded'); var c=n.querySelector(':scope > .tree-children'); if(c) c.style.display='block';}",
+  "triggerSelector": ".tree-node[data-slug='locations/room-robbins-0170'] > .tree-node-row .tw-toggle",
+  "text": "Expand the room to see what's inside.",
+  "settle": 600
+}
+```
+
+**Scrolling target to center before clicking:**
+```json
+{
+  "action": "exec",
+  "script": "var el = document.querySelector('.tree-node[data-slug=\"locations/box-pistachio-dna\"] > .tree-node-row'); if(el) el.scrollIntoView({block:'center', behavior:'smooth'});",
+  "text": "",
+  "settle": 600
+}
+```
+
+**Closing the editor modal:**
+```json
+{
+  "action": "exec",
+  "script": "var o = document.querySelector('.em-overlay.open'); if(o) { o.classList.remove('open'); }",
+  "text": "",
+  "settle": 800
+}
+```
+
+**Entering edit mode (ProseMirror-safe):**
+```json
+{
+  "action": "exec",
+  "script": "if (typeof startEdit === 'function') startEdit();",
+  "triggerSelector": "button.btn.btn-outline.btn-sm:has-text(\"Edit\")",
+  "text": "Click Edit to modify."
+}
+```
 
 ### Handbook-Specific Selectors
 
-**Protocols page:**
-- Category toggle: `.proto-category:has(.material-cat-label:text-is("Wet Lab Basics"))`
-- Protocol items: `.proto-item[data-path="wet-lab/quick-dna-extraction"]` — **NO .md extension**
-- Rendered body: `#renderedDoc` — wait for this after clicking a protocol
-- Main scroll container: `#protoMain` (NOT window) — use `scrollSelector: "#protoMain"`
-- Edit button: `.btn.btn-outline.btn-sm:has-text("Edit")`
-
-**Notebooks page:**
-- Direct URL: `notebooks.html?doc=notebooks/<folder>/<slug>` — NO `.md` extension
-- Main scroll container: `#nbMain`
-- Enter edit mode: use `exec` with `script: "if (typeof startEdit === 'function') startEdit();"` — clicking the Edit button times out on ProseMirror pages
-- WYSIWYG surface: `.toastui-editor-ww-container .ProseMirror` (NOT the markdown instance)
-- Focus editor: `pm.focus()` via exec, NOT `el.click()`
-
-**Lab Map page:**
+**Lab Map:**
 - Tree nodes: `.tree-node[data-slug='locations/freezer-minus80-a']`
-- Toggle expand: use `exec` to add `is-expanded` class and set children `display:block` — the toggle chevron is hidden inside collapsed parents so Playwright can't click it. Use `triggerSelector` pointing at the toggle for the visual cursor.
-- Popup overlay: `.em-overlay.open`
+- Node title (clickable): `.tree-node[data-slug='...'] > .tree-node-row .tw-title`
+- Toggle expand: use `exec` (see pattern above)
 - Search: `#treeSearch`
 - Expand/Collapse all: `#expandAllBtn`, `#collapseAllBtn`
 
-**Image annotation (gel, etc.):**
-- Open annotation overlay: double-click the image with `dblclick: true`
-- Canvas: `canvas` (only one when overlay is open)
-- Place label: click canvas at `position: {x, y}`, then type into `#annot-text`
-- Canvas coordinates: CSS coord = image coord × scale, where scale = min(viewportW×0.95/natW, viewportH×0.7/natH, 1)
-- Labels go ABOVE wells (not on bands). Ladder sizes go LEFT of ladder lane.
-- Save annotations: `button:has-text("Save annotations")` — ALWAYS mock this route
+**Editor Modal (3-panel popup):**
+- Overlay: `.em-overlay.open`
+- Left panel (fields): `#em-col-fields`
+- Center panel (content): `#em-col-body`
+- Right panel (contents/grid): `#em-col-contents`
+- Grid cells: `.em-grid-cell.occupied`, `.em-grid-cell.empty`
+- Children list: `.em-child-row[data-slug='...']`
+- Edit button: `#em-edit-toggle`
+- Save button: `#em-save`
+- Close button: `#em-cancel`
 
-**Toast UI table insertion:**
-- Open size picker: `button[aria-label="Insert table"]`
-- Select cell: `.toastui-editor-popup-add-table .toastui-editor-table-row:nth-child(R) .toastui-editor-table-cell:nth-child(C)` — needs `force: true`
-- Fill cells: use `press` with `typeText` and Tab navigation (NOT `type` action, which re-clicks)
+**Protocols page:**
+- Protocol items: `.proto-item[data-path="wet-lab/quick-dna-extraction"]` — **NO .md extension**
+- Rendered body: `#renderedDoc`
+- Scroll container: `#protoMain`
 
-**ProseMirror cursor-to-end:**
-- Click `.toastui-editor-ww-container .ProseMirror > *:last-child`, then `press End`, then `press Enter`
-- DOM selection via createRange does NOT sync ProseMirror state
+**Notebooks page:**
+- Direct URL: `notebooks.html?doc=notebooks/<folder>/<slug>` — NO `.md` extension
+- Edit mode: use `exec` with `startEdit()` (not click)
+- WYSIWYG surface: `.toastui-editor-ww-container .ProseMirror`
 
-**Viewport centering rule:** Before clicking any element, scroll so it's in the middle third of the screen. Never click at the very bottom or top edge — it looks robotic and the subtitle bar obscures bottom-of-screen actions. Add a `scroll` step (or an `exec` with `scrollIntoView({block:'center'})`) before click steps when the target would otherwise be near the viewport edges. This applies to tree nodes, list items, protocol entries — anything in a scrollable container.
+**Image annotation:**
+- Open: double-click image with `dblclick: true`
+- Canvas: `canvas`
+- Place label: click canvas at `position: {x, y}`, type into `#annot-text`
+- Save: `button:has-text("Save annotations")` — ALWAYS mock this route
 
-**Network sensitivity:** The handbook fetches from api.github.com on every load. Set generous `waitForSelector` timeouts (15-30s). Use `#renderedDoc` or `.lab-rendered h1` as ready signals.
+## Commands
 
-## Step 2: Generate the Video
-
+### Generate Video
 ```bash
 cd /Users/greymonroe/Dropbox/myapps/webtutorial
-node generate-tutorial.js examples/<config-name>.json examples/<output-name>.mp4
+node generate-tutorial.js examples/<config>.json examples/<output>.mp4
 ```
 
-Headless Playwright + ffmpeg conversion. Typical runtime: 30-90 seconds.
-
-## Step 3: Review Loop
-
-**Do NOT skip this.** After rendering:
-
-1. Extract one frame per subtitle-bearing step (use ffmpeg: `ffmpeg -i video.mp4 -vf "select='eq(n,FRAME)'" -vsync vfr frame_%d.png`)
-2. Read each frame. Check:
-   - Does subtitle text match actual UI state?
-   - Is the subtitle bar obscuring important content?
-   - Is the cursor in a sensible position?
-3. Fix config and re-render if issues found
-4. Only report done after review passes
-
-## Step 4: Upload to YouTube
-
+### Upload to YouTube
 ```bash
 cd /Users/greymonroe/Dropbox/myapps/webtutorial
-python3 youtube_upload.py examples/<output-name>.mp4 "Video Title" "Description" --json
+python3 youtube_upload.py examples/<output>.mp4 "Title" "Description" --json
 ```
+Returns JSON with `video_id`, `url`, `embed_url`. Uploads as unlisted.
+Auth token: `~/.grey-matter-credentials/youtube_token.json` (auto-refreshes).
 
-Uploads as **unlisted**. Returns JSON with `video_id`, `url`, `embed_url`.
-Auth: `~/.grey-matter-credentials/youtube_token.json` (auto-refreshes).
+### Add to Tutorials Page
 
-## Step 5: Add to Tutorials Page
-
-Edit `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/app/tutorials.html`.
+Edit `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/app/tutorials.html`:
 
 ```html
 <div class="tutorial-card">
@@ -182,19 +219,16 @@ Edit `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/app/
     <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen loading="lazy"></iframe>
   </div>
   <div class="card-body">
-    <div class="card-title">Video Title</div>
-    <div class="card-desc">Short description.</div>
+    <div class="card-title">Title</div>
+    <div class="card-desc">Description.</div>
     <div class="card-tags">
-      <span class="card-tag">tag1</span>
+      <span class="card-tag">tag</span>
     </div>
   </div>
 </div>
 ```
 
-Sections: "Using Our Wiki" (current). Add new `tutorial-section` divs for other categories as needed.
-
-## Step 6: Commit and Push
-
+### Commit and Push
 ```bash
 cd /Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab
 git add app/tutorials.html
@@ -211,8 +245,9 @@ git push ssh://git@ssh.github.com:443/monroe-lab/lab-handbook.git HEAD:main
 | Tutorial configs | `/Users/greymonroe/Dropbox/myapps/webtutorial/examples/*.json` |
 | Generated videos | `/Users/greymonroe/Dropbox/myapps/webtutorial/examples/*.mp4` |
 | Philosophy doc | `/Users/greymonroe/Dropbox/myapps/webtutorial/TUTORIAL_PHILOSOPHY.md` |
+| Edge TTS binary | `/Users/greymonroe/Library/Python/3.9/bin/edge-tts` |
 | Tutorials page | `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/app/tutorials.html` |
 | YouTube OAuth token | `~/.grey-matter-credentials/youtube_token.json` |
 | Lab handbook repo | `monroe-lab/lab-handbook` on GitHub |
-| LabBot (reference selectors) | `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/tests/labbot.mjs` |
-| Existing example configs | `lab-annotate-gel.json`, `lab-map-navigation.json`, `lab-edit-protocol.json` |
+| LabBot (selector reference) | `/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/tests/labbot.mjs` |
+| Voice pool | Ava (`en-US-AvaNeural`), Emma (`en-US-EmmaNeural`), Natasha (`en-AU-NatashaNeural`), Guy (`en-US-GuyNeural`) |
