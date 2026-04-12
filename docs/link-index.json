@@ -808,6 +808,186 @@
     "target": "resources/sqk-nbd114-24"
   },
   {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/centrifuge-operation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/water-bath-and-heat-block"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/vortexer-and-mixer-use"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/make-te-buffer"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/make-agar-seed-suspension"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/library-prep/spri-beads-preparation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/transferring-seedlings-to-soil"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/watering-and-plant-care"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/bulking-seed"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/breakage-response"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/sharps-handling"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/how-to-read-an-sds"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/quantifying-dna-nanodrop"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/primer-design"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/library-prep/sanger-sequencing"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/loading-a-minion-flow-cell"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/nanopore-data-retrieval"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "people/grey-monroe"
+  },
+  {
     "source": "projects/mutation-accumulation/index",
     "target": "people/grey-monroe"
   },
@@ -1748,6 +1928,78 @@
     "target": "people/satoyo-oya"
   },
   {
+    "source": "wet-lab/autoclave",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "wet-lab/sharps-handling"
+  },
+  {
+    "source": "wet-lab/bench-cleanup",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "wet-lab/sharps-handling"
+  },
+  {
+    "source": "wet-lab/breakage-response",
+    "target": "wet-lab/centrifuge-operation"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "wet-lab/watering-and-plant-care"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "wet-lab/bulking-seed",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/centrifuge-operation",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
     "source": "wet-lab/clean-bench",
     "target": "resources/clean-bench-laminar-flow"
   },
@@ -1786,6 +2038,10 @@
   {
     "source": "wet-lab/clean-bench",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/clean-bench",
+    "target": "wet-lab/lab-orientation"
   },
   {
     "source": "wet-lab/epigenomics/chip-seq-copy",
@@ -2668,6 +2924,22 @@
     "target": "wet-lab/extraction/hifi-dna-extraction"
   },
   {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "wet-lab/centrifuge-operation"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "wet-lab/water-bath-and-heat-block"
+  },
+  {
+    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
     "source": "wet-lab/extraction/sorbitol-ctab-hifi-extraction",
     "target": "resources/automill"
   },
@@ -2846,6 +3118,94 @@
   {
     "source": "wet-lab/gel-electrophoresis",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/gel-imaging-and-annotation",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/gel-imaging-and-annotation",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "wet-lab/growth-chamber-operation",
+    "target": "wet-lab/watering-and-plant-care"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/harvesting-leaf-tissue",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/how-to-read-an-sds",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "wet-lab/make-te-buffer"
+  },
+  {
+    "source": "wet-lab/how-to-use-the-scale",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "wet-lab/how-to-read-an-sds"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/lab-orientation",
+    "target": "wet-lab/growth-chamber-operation"
   },
   {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
@@ -3121,6 +3481,14 @@
   },
   {
     "source": "wet-lab/liquid-nitrogen-refill",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/liquid-nitrogen-refill",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/liquid-nitrogen-refill",
     "target": "lab-safety/cryogens-sop"
   },
   {
@@ -3130,6 +3498,86 @@
   {
     "source": "wet-lab/liquid-nitrogen-refill",
     "target": "people/kehan-zhao"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "wet-lab/loading-a-minion-flow-cell",
+    "target": "wet-lab/nanopore-data-retrieval"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/make-agar-seed-suspension",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/make-buffer-a",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "wet-lab/make-tae-buffer",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/make-te-buffer",
+    "target": "wet-lab/library-prep/spri-beads-preparation"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/making-an-agarose-gel",
+    "target": "wet-lab/how-to-use-the-scale"
   },
   {
     "source": "wet-lab/ms-media-recipe",
@@ -3404,6 +3852,14 @@
     "target": "people/grey-monroe"
   },
   {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/ms-media-recipe",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
     "target": "resources/acrylamide"
   },
@@ -3672,6 +4128,26 @@
     "target": "people/grey-monroe"
   },
   {
+    "source": "wet-lab/nanopore-data-retrieval",
+    "target": "wet-lab/loading-a-minion-flow-cell"
+  },
+  {
+    "source": "wet-lab/nanopore-data-retrieval",
+    "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "wet-lab/loading-a-minion-flow-cell"
+  },
+  {
+    "source": "wet-lab/nanopore-rapid-library-prep",
+    "target": "wet-lab/nanopore-data-retrieval"
+  },
+  {
     "source": "wet-lab/pcr-genotyping",
     "target": "resources/thermocycler"
   },
@@ -3706,6 +4182,26 @@
   {
     "source": "wet-lab/pcr-genotyping",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "wet-lab/ph-measurement",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "wet-lab/tube-and-sample-labeling"
   },
   {
     "source": "wet-lab/planting-arabidopsis-on-ms-plates",
@@ -3804,6 +4300,50 @@
     "target": "wet-lab/seed-sterilization"
   },
   {
+    "source": "wet-lab/primer-design",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "wet-lab/library-prep/sanger-sequencing"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/primer-design",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-nanodrop",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/quantifying-dna-qubit",
+    "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
     "source": "wet-lab/quick-dna-extraction",
     "target": "resources/thermocycler"
   },
@@ -3892,6 +4432,34 @@
     "target": "people/satoyo-oya"
   },
   {
+    "source": "wet-lab/sharps-handling",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/sharps-handling",
+    "target": "wet-lab/breakage-response"
+  },
+  {
+    "source": "wet-lab/sharps-handling",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "wet-lab/how-to-read-an-sds"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/spill-response",
+    "target": "wet-lab/bench-cleanup"
+  },
+  {
     "source": "wet-lab/stratification",
     "target": "resources/ethanol-70"
   },
@@ -3910,6 +4478,78 @@
   {
     "source": "wet-lab/stratification",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "wet-lab/watering-and-plant-care"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "wet-lab/transferring-seedlings-to-soil",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/tube-and-sample-labeling",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "wet-lab/sharps-handling"
+  },
+  {
+    "source": "wet-lab/waste-disposal-quick-reference",
+    "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "wet-lab/lab-orientation"
+  },
+  {
+    "source": "wet-lab/water-bath-and-heat-block",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "wet-lab/transferring-seedlings-to-soil"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "wet-lab/watering-and-plant-care",
+    "target": "wet-lab/bulking-seed"
   },
   {
     "source": "workflow-templates/protocol-template",
