@@ -15,7 +15,7 @@
     { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
     { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
-    { label: 'Calendar',  href: BASE + 'calendar/',            icon: 'calendar_month' },
+    { label: 'Calendar',  href: BASE + 'app/calendar.html',    icon: 'calendar_month' },
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
     { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
     { label: 'Lab Map',  href: BASE + 'app/lab-map.html',    icon: 'map' },

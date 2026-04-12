@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+/* Week nav */
+.week-nav {
+  background: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+.week-nav .btn-nav {
+  background: none;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  color: var(--grey-700);
+  transition: all .15s;
+}
+.week-nav .btn-nav:hover { background: var(--teal-light); color: var(--teal-dark); }
+.week-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--grey-900);
+  min-width: 200px;
+  text-align: center;
+}
+.cal-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Filter bar */
+.filter-bar {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.filter-select {
+  padding: 9px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+.filter-select:focus { border-color: var(--teal); }
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--grey-700);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Calendar grid */
+.calendar-wrap {
+  padding: 0 24px 24px;
+}
+.calendar-container {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 60px repeat(5, 1fr);
+  min-width: 700px;
+}
+.cal-header {
+  background: var(--grey-50);
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--grey-700);
+  border-bottom: 2px solid var(--grey-200);
+}
+.cal-header.time-col {
+  font-size: 11px;
+}
+.cal-header .day-date {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--grey-500);
+  margin-top: 2px;
+}
+.time-label {
+  padding: 0 8px;
+  font-size: 11px;
+  color: var(--grey-500);
+  text-align: right;
+  border-right: 1px solid var(--grey-200);
+  height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+.day-column {
+  position: relative;
+  border-right: 1px solid var(--grey-200);
+  height: 60px;
+  border-bottom: 1px solid var(--grey-100);
+  cursor: cell;
+  transition: background-color .1s;
+}
+.day-column:hover { background-color: var(--teal-50, #f0fdfb); }
+.day-column:last-child { border-right: none; }
+
+/* Block cards */
+.block-card {
+  position: absolute;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11px;
+  line-height: 1.3;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  transition: box-shadow .15s;
+  border-left: 3px solid;
+}
+.block-card:hover {
+  box-shadow: var(--shadow-lg);
+  z-index: 2;
+}
+.block-card .block-member {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.block-card .block-time {
+  font-size: 10px;
+  opacity: .7;
+}
+.block-card .block-activity {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* Loading */
+.loading-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--grey-500);
+}
+
+/* Day tabs (mobile only) */
+.day-tabs {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .week-nav { padding: 10px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .week-label { min-width: auto; font-size: 14px; }
+  .cal-toolbar { margin-left: 0; width: 100%; justify-content: center; }
+  .filter-bar { padding: 12px 16px; }
+  .calendar-wrap { padding: 0 16px 16px; }
+  .calendar-container { overflow-x: hidden; }
+  .calendar-grid {
+    grid-template-columns: 60px 1fr !important;
+    min-width: 0 !important;
+  }
+  .cal-header.mobile-hide, .day-column.mobile-hide {
+    display: none !important;
+  }
+  .day-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--grey-200);
+    overflow-x: auto;
+  }
+  .day-tab {
+    flex: 1;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--grey-500);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .day-tab.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+  .day-tab:hover { color: var(--teal-dark); }
+  .legend { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Week navigation -->
+<div class="week-nav">
+  <button class="btn-nav" onclick="changeWeek(-1)" title="Previous week">
+    <span class="material-icons-outlined">chevron_left</span>
+  </button>
+  <button class="btn btn-outline btn-sm" onclick="goToday()">This Week</button>
+  <button class="btn-nav" onclick="changeWeek(1)" title="Next week">
+    <span class="material-icons-outlined">chevron_right</span>
+  </button>
+  <span class="week-label" id="weekLabel"></span>
+  <div class="cal-toolbar">
+    <button class="btn btn-primary btn-sm" onclick="openAddEvent()">
+      <span class="material-icons-outlined">add</span> Add Event
+    </button>
+  </div>
+</div>
+
+<!-- Filter bar + legend -->
+<div class="filter-bar">
+  <select class="filter-select" id="filterMember" onchange="renderCalendar()">
+    <option value="">All Members</option>
+  </select>
+  <div class="legend" id="legend"></div>
+</div>
+
+<!-- Day tabs (mobile) -->
+<div class="day-tabs" id="dayTabs">
+  <button class="day-tab" data-day="Monday" onclick="selectDayTab('Monday')">Mon</button>
+  <button class="day-tab" data-day="Tuesday" onclick="selectDayTab('Tuesday')">Tue</button>
+  <button class="day-tab" data-day="Wednesday" onclick="selectDayTab('Wednesday')">Wed</button>
+  <button class="day-tab" data-day="Thursday" onclick="selectDayTab('Thursday')">Thu</button>
+  <button class="day-tab" data-day="Friday" onclick="selectDayTab('Friday')">Fri</button>
+</div>
+
+<!-- Calendar -->
+<div class="calendar-wrap">
+  <div class="calendar-container">
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading schedule...</p>
+    </div>
+    <div class="calendar-grid" id="calendarGrid" style="display:none"></div>
+  </div>
+</div>
+
+<script src="js/lab.js"></script>
+<script>
+// ── Config ──
+var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+var HOUR_START = 8;
+var HOUR_END = 18;
+var MEMBER_COLORS = [
+  { bg: '#e8f5e9', border: '#4caf50', text: '#1b5e20' },
+  { bg: '#e3f2fd', border: '#2196f3', text: '#0d47a1' },
+  { bg: '#fce4ec', border: '#e91e63', text: '#880e4f' },
+  { bg: '#fff3e0', border: '#ff9800', text: '#e65100' },
+  { bg: '#f3e5f5', border: '#9c27b0', text: '#4a148c' },
+  { bg: '#e0f2f1', border: '#009688', text: '#004d40' },
+  { bg: '#fff9c4', border: '#fbc02d', text: '#f57f17' },
+  { bg: '#efebe9', border: '#795548', text: '#3e2723' },
+  { bg: '#e8eaf6', border: '#3f51b5', text: '#1a237e' },
+  { bg: '#e0f7fa', border: '#00bcd4', text: '#006064' }
+];
+
+// ── State ──
+var schedule = [];
+var currentMonday = getMonday(new Date());
+var memberColorMap = {};
+
+// ── Utility ──
+function getMonday(d) {
+  var date = new Date(d);
+  var day = date.getDay();
+  var diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  date.setDate(diff);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+function formatDate(d) {
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate();
+}
+
+function formatWeekLabel(monday) {
+  var friday = new Date(monday);
+  friday.setDate(friday.getDate() + 4);
+  return formatDate(monday) + ' \u2013 ' + formatDate(friday) + ', ' + monday.getFullYear();
+}
+
+function isoDate(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function timeToMinutes(t) {
+  var parts = t.split(':');
+  return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+}
+
+function formatTime12(t) {
+  var parts = t.split(':');
+  var h = parseInt(parts[0]);
+  var m = parts[1];
+  var ampm = h >= 12 ? 'pm' : 'am';
+  if (h > 12) h -= 12;
+  if (h === 0) h = 12;
+  return h + ':' + m + ampm;
+}
+
+function esc(s) {
+  var el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
+}
+
+function addHour(timeStr) {
+  var parts = timeStr.split(':');
+  var h = parseInt(parts[0], 10) + 1;
+  if (h >= 24) h = 23;
+  return String(h).padStart(2, '0') + ':' + (parts[1] || '00');
+}
+
+// ── Week nav ──
+function changeWeek(dir) {
+  currentMonday.setDate(currentMonday.getDate() + dir * 7);
+  renderCalendar();
+}
+
+function goToday() {
+  currentMonday = getMonday(new Date());
+  renderCalendar();
+}
+
+function updateWeekLabel() {
+  document.getElementById('weekLabel').textContent = formatWeekLabel(currentMonday);
+}
+
+// ── Data loading ──
+async function loadSchedule() {
+  try {
+    var idx;
+    if (window.Lab && window.Lab.gh && window.Lab.gh.fetchObjectIndex) {
+      idx = await window.Lab.gh.fetchObjectIndex();
+    } else {
+      var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+      var resp = await fetch(BASE + 'object-index.json?' + Date.now());
+      idx = await resp.json();
+    }
+    schedule = idx
+      .filter(function(e) { return e.type === 'event'; })
+      .map(function(e) {
+        return {
+          title: e.title || '',
+          member: e.member || '',
+          date: e.date || '',
+          startTime: e.start_time || '09:00',
+          endTime: e.end_time || '10:00',
+          path: 'docs/' + e.path,
+        };
+      });
+  } catch(e) {
+    Lab.showToast('Failed to load events: ' + e.message, 'error');
+    schedule = [];
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('calendarGrid').style.display = '';
+  buildMemberColors();
+  populateMemberFilter();
+  renderCalendar();
+}
+
+// ── Member colors ──
+function extractMembers(s) {
+  if (!s) return [];
+  var out = [];
+  var re = /\[\[([^\]]+)\]\]/g;
+  var m;
+  while ((m = re.exec(s)) !== null) {
+    var name = m[1].split('|')[0].trim();
+    if (name && out.indexOf(name) === -1) out.push(name);
+  }
+  return out;
+}
+
+function buildMemberColors() {
+  var members = [];
+  schedule.forEach(function(b) {
+    extractMembers(b.member).forEach(function(u) {
+      if (members.indexOf(u) === -1) members.push(u);
+    });
+  });
+  members.sort();
+  memberColorMap = {};
+  members.forEach(function(m, i) {
+    memberColorMap[m] = MEMBER_COLORS[i % MEMBER_COLORS.length];
+  });
+}
+
+function populateMemberFilter() {
+  var sel = document.getElementById('filterMember');
+  var current = sel.value;
+  sel.innerHTML = '<option value="">All Members</option>';
+  var members = Object.keys(memberColorMap).sort();
+  members.forEach(function(m) {
+    var opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = m;
+    sel.appendChild(opt);
+  });
+  sel.value = current;
+
+  var legend = document.getElementById('legend');
+  legend.innerHTML = '';
+  members.forEach(function(m) {
+    var c = memberColorMap[m];
+    var item = document.createElement('span');
+    item.className = 'legend-item';
+    item.innerHTML = '<span class="legend-dot" style="background:' + c.border + '"></span>' + esc(m);
+    legend.appendChild(item);
+  });
+}
+
+// ── Filter ──
+function getVisibleBlocks() {
+  var mondayStr = isoDate(currentMonday);
+  var memberFilter = document.getElementById('filterMember').value;
+
+  return schedule.filter(function(b) {
+    if (memberFilter && extractMembers(b.member).indexOf(memberFilter) === -1) return false;
+    if (!b.date) return false;
+    var d = new Date(b.date + 'T00:00:00');
+    var dow = d.getDay();
+    if (dow < 1 || dow > 5) return false;
+    return isoDate(getMonday(d)) === mondayStr;
+  });
+}
+
+function dateToDayIndex(dateStr) {
+  var d = new Date(dateStr + 'T00:00:00');
+  return (d.getDay() + 6) % 7;
+}
+
+// ── Rendering ──
+function renderCalendar() {
+  updateWeekLabel();
+  var grid = document.getElementById('calendarGrid');
+  var blocks = getVisibleBlocks();
+  var html = '';
+
+  html += '<div class="cal-header time-col">Time</div>';
+  DAYS.forEach(function(day, di) {
+    var date = new Date(currentMonday);
+    date.setDate(date.getDate() + di);
+    html += '<div class="cal-header">' + day.substring(0, 3) + '<span class="day-date">' + formatDate(date) + '</span></div>';
+  });
+
+  for (var h = HOUR_START; h < HOUR_END; h++) {
+    var timeStr = formatTime12(String(h).padStart(2, '0') + ':00');
+    html += '<div class="time-label">' + timeStr + '</div>';
+    DAYS.forEach(function(day) {
+      html += '<div class="day-column" data-day="' + day + '" data-hour="' + h + '" onclick="cellClick(event, this)" title="Click to add an event"></div>';
+    });
+  }
+
+  grid.innerHTML = html;
+
+  var SHARED_COLOR = { bg: '#f5f5f5', border: '#9e9e9e', text: '#424242' };
+  DAYS.forEach(function(day, dayIdx) {
+    var dayBlocks = blocks.filter(function(b) { return dateToDayIndex(b.date) === dayIdx; });
+    var placed = layoutBlocks(dayBlocks);
+
+    placed.forEach(function(item) {
+      var b = item.block;
+      var startMin = timeToMinutes(b.startTime);
+      var endMin = timeToMinutes(b.endTime);
+      var startHour = Math.floor(startMin / 60);
+      if (startHour < HOUR_START) startHour = HOUR_START;
+      var cellTopMin = startHour * 60;
+      var topOffset = (startMin - cellTopMin) / 60 * 60;
+      var height = (endMin - startMin) / 60 * 60;
+
+      var users = extractMembers(b.member);
+      var color = users.length ? (memberColorMap[users[0]] || MEMBER_COLORS[0]) : SHARED_COLOR;
+
+      var widthPct = 100 / item.totalCols;
+      var leftPct = widthPct * item.col;
+
+      var card = document.createElement('div');
+      card.className = 'block-card';
+      card.style.cssText = 'top:' + topOffset + 'px;height:' + height + 'px;left:' + leftPct + '%;width:calc(' + widthPct + '% - 4px);background:' + color.bg + ';border-left-color:' + color.border + ';color:' + color.text + ';';
+      card.onclick = (function(block) { return function(e) {
+        e.stopPropagation();
+        Lab.editorModal.open(block.path);
+      }; })(b);
+      card.title = (b.title || '') + (b.member ? ' \u2022 ' + b.member : '');
+
+      var innerHtml = '';
+      if (b.title) innerHtml += '<div class="block-member">' + esc(b.title) + '</div>';
+      innerHtml += '<div class="block-time">' + formatTime12(b.startTime) + ' \u2013 ' + formatTime12(b.endTime) + '</div>';
+      if (b.member) {
+        var rendered = (window.Lab && window.Lab.richInput) ? window.Lab.richInput.renderText(b.member) : esc(b.member);
+        innerHtml += '<div class="block-activity">' + rendered + '</div>';
+      }
+      card.innerHTML = innerHtml;
+
+      var cols = grid.querySelectorAll('.day-column[data-day="' + day + '"][data-hour="' + startHour + '"]');
+      if (cols.length > 0) cols[0].appendChild(card);
+    });
+  });
+}
+
+// ── Layout overlapping blocks ──
+function layoutBlocks(dayBlocks) {
+  if (dayBlocks.length === 0) return [];
+  dayBlocks.sort(function(a, b) {
+    var diff = timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
+    if (diff !== 0) return diff;
+    return timeToMinutes(a.endTime) - timeToMinutes(b.endTime);
+  });
+
+  var groups = [];
+  dayBlocks.forEach(function(block) {
+    var startMin = timeToMinutes(block.startTime);
+    var endMin = timeToMinutes(block.endTime);
+    var placed = false;
+    for (var g = 0; g < groups.length; g++) {
+      var overlaps = false;
+      for (var i = 0; i < groups[g].length; i++) {
+        var eStart = timeToMinutes(groups[g][i].startTime);
+        var eEnd = timeToMinutes(groups[g][i].endTime);
+        if (startMin < eEnd && endMin > eStart) { overlaps = true; break; }
+      }
+      if (!overlaps) { groups[g].push(block); placed = true; break; }
+    }
+    if (!placed) groups.push([block]);
+  });
+
+  var totalCols = groups.length;
+  var result = [];
+  groups.forEach(function(group, col) {
+    group.forEach(function(block) {
+      result.push({ block: block, col: col, totalCols: totalCols });
+    });
+  });
+  return result;
+}
+
+// ── Click-to-create on grid cell ──
+function cellClick(evt, cellEl) {
+  if (evt && evt.target && evt.target.closest('.block-card')) return;
+  if (!cellEl) return;
+  var day = cellEl.getAttribute('data-day');
+  var hour = parseInt(cellEl.getAttribute('data-hour'), 10);
+  if (!day || isNaN(hour)) return;
+  var dayIdx = DAYS.indexOf(day);
+  if (dayIdx < 0) return;
+  var date = new Date(currentMonday);
+  date.setDate(date.getDate() + dayIdx);
+  var startTime = String(hour).padStart(2, '0') + ':00';
+  openAddEvent({ date: isoDate(date), startTime: startTime });
+}
+
+// ── Build time options for selects ──
+function buildTimeOptions() {
+  var opts = [];
+  for (var h = HOUR_START; h <= HOUR_END; h++) {
+    for (var m = 0; m < 60; m += 30) {
+      if (h === HOUR_END && m > 0) break;
+      var val = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+      opts.push({ value: val, label: formatTime12(val) });
+    }
+  }
+  return opts;
+}
+
+// ── Add Event (creation flow with repeat support) ──
+async function openAddEvent(prefill) {
+  prefill = prefill || {};
+  var gh = window.Lab && window.Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+
+  // Default date: next weekday
+  var dateStr = prefill.date;
+  if (!dateStr) {
+    var today = new Date();
+    if (today.getDay() === 0) today.setDate(today.getDate() + 1);
+    if (today.getDay() === 6) today.setDate(today.getDate() + 2);
+    dateStr = isoDate(today);
+  }
+
+  var defaultEnd = new Date(dateStr + 'T00:00:00');
+  defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
+
+  var timeOpts = buildTimeOptions();
+  var repeatOpts = [
+    { value: 'none', label: 'Does not repeat' },
+    { value: 'daily', label: 'Daily (Mon\u2013Fri)' },
+    { value: 'weekly', label: 'Weekly' }
+  ];
+
+  var result = await Lab.modal.form({
+    title: 'New Event',
+    fields: [
+      { key: 'title', label: 'Title', placeholder: 'e.g. DNA extraction, Lab meeting' },
+      { key: 'member', label: 'Member(s)', placeholder: '[[name]] \u2014 type [[ to autocomplete' },
+      { key: 'date', label: 'Date', type: 'date', default: dateStr },
+      { key: 'start_time', label: 'Start Time', type: 'select', options: timeOpts, default: prefill.startTime || '09:00' },
+      { key: 'end_time', label: 'End Time', type: 'select', options: timeOpts, default: prefill.startTime ? addHour(prefill.startTime) : '10:00' },
+      { key: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional \u2014 type [[ to link protocols, etc.' },
+      { key: 'repeat', label: 'Repeat', type: 'select', options: repeatOpts, default: 'none' },
+      { key: 'repeat_until', label: 'Repeat Until', type: 'date', default: isoDate(defaultEnd) },
+    ],
+    submitText: 'Create Event',
+  });
+
+  if (!result) return;
+  var title = (result.title || '').trim();
+  var member = (result.member || '').trim();
+  var date = result.date;
+  var startTime = result.start_time;
+  var endTime = result.end_time;
+  var notes = (result.notes || '').trim();
+  var repeat = result.repeat || 'none';
+  var repeatUntil = result.repeat_until;
+
+  if (!title && !member) { Lab.showToast('Add a title or member', 'error'); return; }
+  if (!date) { Lab.showToast('Date is required', 'error'); return; }
+  if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
+    Lab.showToast('End time must be after start time', 'error');
+    return;
+  }
+
+  // Expand dates for recurring events
+  var dates = [date];
+  if (repeat !== 'none' && repeatUntil) {
+    var until = new Date(repeatUntil + 'T00:00:00');
+    var step = repeat === 'daily' ? 1 : 7;
+    var cursor = new Date(date + 'T00:00:00');
+    cursor.setDate(cursor.getDate() + step);
+    while (cursor <= until) {
+      if (repeat === 'daily') {
+        var dow = cursor.getDay();
+        if (dow >= 1 && dow <= 5) dates.push(isoDate(cursor));
+      } else {
+        dates.push(isoDate(cursor));
+      }
+      cursor.setDate(cursor.getDate() + step);
+    }
+  }
+
+  // Save event file(s)
+  Lab.showToast('Creating ' + dates.length + ' event(s)...', 'info');
+  var user = gh.getUser() || {};
+  try {
+    for (var i = 0; i < dates.length; i++) {
+      var dt = dates[i];
+      var slug = eventSlug(title || member, dt);
+      var path = 'docs/events/' + slug + '.md';
+      var content = buildEventMarkdown(title, member, dt, startTime, endTime, notes, user);
+      await gh.saveFile(path, content, null, 'Add event: ' + (title || member) + ' on ' + dt);
+      schedule.push({ title: title, member: member, date: dt, startTime: startTime, endTime: endTime, path: path });
+    }
+    Lab.showToast(dates.length > 1 ? ('Created ' + dates.length + ' events') : 'Event created', 'success');
+  } catch(e) {
+    Lab.showToast('Save failed: ' + e.message, 'error');
+  }
+
+  gh.clearObjectIndexCache();
+  buildMemberColors();
+  populateMemberFilter();
+  renderCalendar();
+}
+
+// ── Build event markdown ──
+function buildEventMarkdown(title, member, date, startTime, endTime, notes, user) {
+  var fm = [
+    '---',
+    'type: event',
+    'title: "' + (title || 'Untitled').replace(/"/g, '\\"') + '"',
+    'date: "' + date + '"',
+    'start_time: "' + startTime + '"',
+    'end_time: "' + endTime + '"',
+  ];
+  if (member) fm.push('member: "' + member.replace(/"/g, '\\"') + '"');
+  fm.push('created_by: ' + ((user && user.login) || 'unknown'));
+  fm.push('---');
+  var body = '\n# ' + (title || 'Untitled') + '\n';
+  if (notes && notes.trim()) body += '\n' + notes.trim() + '\n';
+  return fm.join('\n') + body;
+}
+
+function eventSlug(title, date) {
+  var slug = (title || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50);
+  return date + '-' + slug;
+}
+
+// ── Refresh on editor-modal save/close ──
+window.addEventListener('lab-file-saved', function(e) {
+  if (!e.detail || !e.detail.meta || e.detail.meta.type !== 'event') return;
+  // Update in-memory schedule from the saved metadata
+  var path = e.detail.path;
+  var meta = e.detail.meta;
+  var existing = schedule.find(function(b) { return b.path === path; });
+  if (existing) {
+    existing.title = meta.title || '';
+    existing.member = meta.member || '';
+    existing.date = meta.date || '';
+    existing.startTime = meta.start_time || '09:00';
+    existing.endTime = meta.end_time || '10:00';
+  } else if (e.detail.isNew) {
+    schedule.push({
+      title: meta.title || '',
+      member: meta.member || '',
+      date: meta.date || '',
+      startTime: meta.start_time || '09:00',
+      endTime: meta.end_time || '10:00',
+      path: path,
+    });
+  }
+  buildMemberColors();
+  populateMemberFilter();
+  renderCalendar();
+});
+
+// ── Mobile day tabs ──
+var activeDayTab = null;
+
+function isMobile() { return window.innerWidth <= 768; }
+
+function getTodayDay() {
+  var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var today = dayNames[new Date().getDay()];
+  if (DAYS.indexOf(today) === -1) today = 'Monday';
+  return today;
+}
+
+function selectDayTab(day) {
+  activeDayTab = day;
+  document.querySelectorAll('.day-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.getAttribute('data-day') === day);
+  });
+  applyMobileDayFilter();
+}
+
+function applyMobileDayFilter() {
+  if (!isMobile() || !activeDayTab) return;
+  var grid = document.getElementById('calendarGrid');
+  if (!grid) return;
+  var headers = grid.querySelectorAll('.cal-header');
+  headers.forEach(function(h, i) {
+    if (i === 0) return;
+    if (DAYS[i - 1] === activeDayTab) h.classList.remove('mobile-hide');
+    else h.classList.add('mobile-hide');
+  });
+  grid.querySelectorAll('.day-column').forEach(function(col) {
+    if (col.getAttribute('data-day') === activeDayTab) col.classList.remove('mobile-hide');
+    else col.classList.add('mobile-hide');
+  });
+}
+
+var _origRenderCalendar = renderCalendar;
+renderCalendar = function() {
+  _origRenderCalendar();
+  if (isMobile()) {
+    if (!activeDayTab) selectDayTab(getTodayDay());
+    else applyMobileDayFilter();
+  }
+};
+
+window.addEventListener('resize', function() {
+  if (isMobile()) {
+    if (!activeDayTab) selectDayTab(getTodayDay());
+    else applyMobileDayFilter();
+  } else {
+    var grid = document.getElementById('calendarGrid');
+    if (grid) grid.querySelectorAll('.mobile-hide').forEach(function(el) { el.classList.remove('mobile-hide'); });
+  }
+});
+
+// ── Init ──
+loadSchedule();
+</script>
+</body>
+</html>

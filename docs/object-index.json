@@ -1793,21 +1793,27 @@
     "path": "stocks/bottle-agar-non-tc.md",
     "type": "bottle",
     "title": "Agar (non-TC)",
-    "quantity": 450,
+    "quantity": "450",
     "unit": "g",
-    "parent": "locations/cabinet-chemical",
+    "created_at": "2026-04-12T10:31:19.677Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:31:19.677Z",
+    "parent": "locations/bench-chemistry",
     "of": "resources/agar-non-tc",
-    "mtime": 1775927241
+    "mtime": 1775989880
   },
   {
     "path": "stocks/bottle-agar-plant-tc.md",
     "type": "bottle",
     "title": "Agar, Plant, TC",
-    "quantity": 25,
+    "quantity": "25",
     "unit": "g",
-    "parent": "locations/cabinet-chemical",
+    "created_at": "2026-04-12T10:27:48.137Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:27:48.137Z",
+    "parent": "locations/bench-chemistry",
     "of": "resources/agar-plant-tc",
-    "mtime": 1775927241
+    "mtime": 1775989668
   },
   {
     "path": "stocks/bottle-agarose.md",
@@ -2664,9 +2670,9 @@
     "title": "Microtube",
     "quantity": 10,
     "unit": "each",
-    "parent": "locations/freezer-minus80-a",
+    "parent": "locations/new-shelf-mnvm8z2m",
     "of": "resources/microtube",
-    "mtime": 1775927241
+    "mtime": 1775989467
   },
   {
     "path": "stocks/bottle-mineral-oil.md",
@@ -3365,6 +3371,15 @@
     "pi": "Grey Monroe"
   },
   {
+    "path": "projects/poplar-somatic-sequencing.md",
+    "type": "project",
+    "title": "Poplar Somatic Sequencing",
+    "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Grey Monroe",
+    "mtime": 1775988742
+  },
+  {
     "path": "projects/tudor-reader-fusions/index.md",
     "type": "project",
     "title": "Tudor Reader Fusion Proteins",
@@ -3996,7 +4011,7 @@
     "path": "notebooks/barb-m/1950-06-15.md",
     "type": "notebook",
     "title": "1950 06 15",
-    "mtime": 1775979151
+    "mtime": 1775992236
   },
   {
     "path": "notebooks/barb-m/2026-03-31.md",
@@ -4222,6 +4237,17 @@
     "mtime": 1775890429
   },
   {
+    "path": "locations/new-box-mnvmzdmc.md",
+    "type": "box",
+    "title": "New Box",
+    "created_at": "2026-04-12T10:44:21.085Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:44:33.654Z",
+    "parent": "locations/new-shelf-mnvm8z2m",
+    "grid": "10x10",
+    "mtime": 1775990674
+  },
+  {
     "path": "locations/new-container-mnubklee.md",
     "type": "Bay",
     "title": "Fume hood bay",
@@ -4231,6 +4257,37 @@
     "parent": "locations/room-robbins-0170",
     "label_1": "Bay: fume hood area",
     "mtime": 1775911264
+  },
+  {
+    "path": "locations/new-shelf-mnvm8z2m.md",
+    "type": "shelf",
+    "title": "Shelf 2",
+    "created_at": "2026-04-12T10:23:58.118Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:23:58.118Z",
+    "parent": "locations/freezer-minus80-a",
+    "mtime": 1775989438
+  },
+  {
+    "path": "locations/new-shelf-mnvm9dk4.md",
+    "type": "shelf",
+    "title": "Shelf 3",
+    "created_at": "2026-04-12T10:24:11.083Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:24:11.083Z",
+    "parent": "locations/freezer-minus80-a",
+    "mtime": 1775989451
+  },
+  {
+    "path": "locations/new-tube-mnvmzz02.md",
+    "type": "tube",
+    "title": "New Tube",
+    "created_at": "2026-04-12T10:44:51.771Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-12T10:44:51.771Z",
+    "parent": "locations/new-box-mnvmzdmc",
+    "position": "A1",
+    "mtime": 1775990692
   },
   {
     "path": "locations/room-asmundson-growth-chamber.md",
@@ -4361,6 +4418,17 @@
     "mtime": 1775970289
   },
   {
+    "path": "events/2026-04-08-dna-extraction-pistachio-leaf-samples.md",
+    "type": "event",
+    "title": "DNA extraction, pistachio leaf samples",
+    "date": "2026-04-08",
+    "created_by": "greymonroe",
+    "start_time": "08:00",
+    "end_time": "09:00",
+    "member": "Barb M",
+    "mtime": 1775993149
+  },
+  {
     "path": "events/2026-04-09-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4413,6 +4481,17 @@
     "end_time": "14:00",
     "member": "Jordan Patel",
     "mtime": 1775970289
+  },
+  {
+    "path": "events/2026-04-13-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-04-13",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992494
   },
   {
     "path": "events/2026-04-13-ms-plate-preparation-and-seed-sterilization.md",
@@ -4512,6 +4591,17 @@
     "mtime": 1775970289
   },
   {
+    "path": "events/2026-04-20-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-04-20",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992495
+  },
+  {
     "path": "events/2026-04-20-ms-plate-preparation-and-seed-sterilization.md",
     "type": "event",
     "title": "MS plate preparation and seed sterilization",
@@ -4607,6 +4697,17 @@
     "end_time": "14:00",
     "member": "Jordan Patel",
     "mtime": 1775970289
+  },
+  {
+    "path": "events/2026-04-27-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-04-27",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992496
   },
   {
     "path": "events/2026-04-27-ms-plate-preparation-and-seed-sterilization.md",
@@ -4706,6 +4807,17 @@
     "mtime": 1775970289
   },
   {
+    "path": "events/2026-05-04-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-05-04",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992497
+  },
+  {
     "path": "events/2026-05-04-ms-plate-preparation-and-seed-sterilization.md",
     "type": "event",
     "title": "MS plate preparation and seed sterilization",
@@ -4790,5 +4902,78 @@
     "end_time": "16:00",
     "member": "Jordan Patel",
     "mtime": 1775970289
+  },
+  {
+    "path": "events/2026-05-11-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-05-11",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992498
+  },
+  {
+    "path": "events/2026-05-18-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-05-18",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992499
+  },
+  {
+    "path": "events/2026-05-25-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-05-25",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992499
+  },
+  {
+    "path": "events/2026-06-01-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-06-01",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992500
+  },
+  {
+    "path": "events/2026-06-08-lab-meeting.md",
+    "type": "event",
+    "title": "Lab Meeting",
+    "date": "2026-06-08",
+    "created_by": "greymonroe",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "member": "all",
+    "mtime": 1775992501
+  },
+  {
+    "path": "plant-harvesting/poplar-leaf-collection.md",
+    "type": "protocol",
+    "title": "Collecting Poplar Leaves for Somatic Mutation Sequencing",
+    "mtime": 1775900674
+  },
+  {
+    "path": "shipping/aggieship-inbound-hazmat-label.md",
+    "type": "protocol",
+    "title": "AggieShip Inbound Hazmat Label (Lab Side)",
+    "mtime": 1775900674
+  },
+  {
+    "path": "shipping/shipping-samples-to-monroe-lab.md",
+    "type": "protocol",
+    "title": "Shipping Frozen Samples to the Monroe Lab (Collaborator Guide)",
+    "mtime": 1775900674
   }
 ]

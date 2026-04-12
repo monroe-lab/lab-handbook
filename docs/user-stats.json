@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-04-12T07:50:45.662892+00:00",
-  "total_commits": 1950,
+  "generated_at": "2026-04-12T12:06:46.387050+00:00",
+  "total_commits": 2014,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 1947,
+      "total_commits": 2011,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-12",
-      "protocols_authored": 160,
+      "protocols_authored": 161,
       "notebooks_authored": 82,
-      "inventory_edits": 1710,
-      "wiki_edits": 588,
+      "inventory_edits": 1714,
+      "wiki_edits": 611,
       "images_uploaded": 92,
-      "issue_attachments": 5,
+      "issue_attachments": 15,
       "issues_filed": 30,
-      "locations_created": 46,
-      "items_added": 571,
+      "locations_created": 52,
+      "items_added": 572,
       "bulletin_edits": 6,
       "calendar_edits": 39,
       "annotations": 55,
@@ -24,43 +24,43 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "5929fba",
-          "subject": "reset",
+          "sha": "d04562a",
+          "subject": "Add event: DNA extraction, pistachio leaf samples on 2026-04-08",
           "date": "2026-04-12"
         },
         {
-          "sha": "4869195",
-          "subject": "cleanup",
+          "sha": "3879500",
+          "subject": "Add calendar tutorial video to tutorials page",
           "date": "2026-04-12"
         },
         {
-          "sha": "04b88ef",
-          "subject": "cleanup",
+          "sha": "8bb7b24",
+          "subject": "Update lab map tutorial: voice narration, tube creation flow, flexible hierarchy",
           "date": "2026-04-12"
         },
         {
-          "sha": "9e3f4d3",
-          "subject": "Upload sample-gel.png",
+          "sha": "d96c491",
+          "subject": "Add tutorial: Managing Waste Containers",
           "date": "2026-04-12"
         },
         {
-          "sha": "c21a3aa",
-          "subject": "Annotate images/sample-gel-annotated.png",
+          "sha": "153d886",
+          "subject": "New folder: Barbara's Protocols",
           "date": "2026-04-12"
         },
         {
-          "sha": "d2c7b93",
-          "subject": "Update notebook notebooks/barb-m/1950-06-15",
+          "sha": "97e3560",
+          "subject": "New protocol: Transposon Mapping in Maize",
           "date": "2026-04-12"
         },
         {
-          "sha": "9143501",
-          "subject": "Add objects tutorial video, update skill with full selector reference",
+          "sha": "0058791",
+          "subject": "Update barbaras-protocols/transposon-mapping-in-maize",
           "date": "2026-04-12"
         },
         {
-          "sha": "ce388f8",
-          "subject": "Add ~45 concept objects, 3 locations, wire 290+ wikilinks across all protocols",
+          "sha": "38e6b3f",
+          "subject": "Fix #62 #63: copy link button, popup cards from people page",
           "date": "2026-04-12"
         }
       ],
