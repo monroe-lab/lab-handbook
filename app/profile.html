@@ -213,13 +213,15 @@
     { id: 'inventory',  icon: '📦', title: 'Inventory Keeper', field: 'inventory_edits',     thresholds: [10, 50, 100, 500, 1000] },
     { id: 'wiki',       icon: '📚', title: 'Wiki Builder',     field: 'wiki_edits',          thresholds: [10, 50, 100, 250, 500] },
     { id: 'photos',     icon: '📸', title: 'Photographer',     field: 'images_uploaded',     thresholds: [5, 25, 50, 100, 200] },
+    // Lab operations badges
+    { id: 'locations',  icon: '📍', title: 'Location Builder', field: 'locations_created',   thresholds: [1, 5, 10, 25, 50] },
+    { id: 'stockist',   icon: '🧴', title: 'Stockist',         field: 'items_added',         thresholds: [1, 10, 25, 50, 100] },
+    { id: 'annotator',  icon: '🏷️', title: 'Annotator',        field: 'annotations',         thresholds: [1, 5, 10, 25, 50] },
     // Community badges
     { id: 'bugs',       icon: '🐛', title: 'Bug Hunter',       field: 'issues_filed',        thresholds: [1, 5, 10, 25, 50] },
+    { id: 'announcer',  icon: '📢', title: 'Announcer',        field: 'bulletin_edits',      thresholds: [1, 5, 10, 25, 50] },
+    { id: 'scheduler',  icon: '📅', title: 'Scheduler',        field: 'calendar_edits',      thresholds: [1, 5, 10, 25, 50] },
     { id: 'veteran',    icon: '🗓️', title: 'Veteran',           field: 'days_active',         thresholds: [30, 90, 180, 365, 730] },
-    // Fun / personality badges
-    { id: 'nightowl',   icon: '🦉', title: 'Night Owl',        field: 'night_commits',       thresholds: [5, 25, 100, 250, 500] },
-    { id: 'earlybird',  icon: '🌅', title: 'Early Bird',       field: 'early_commits',       thresholds: [5, 25, 100, 250, 500] },
-    { id: 'weekender',  icon: '🏖️', title: 'Weekender',        field: 'weekend_commits',     thresholds: [5, 25, 50, 100, 250] },
   ];
 
   // Returns { tierIndex: 0-4 or -1 if none, current, nextThreshold, maxTier }

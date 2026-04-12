@@ -1,36 +1,28 @@
 {
-  "generated_at": "2026-04-12T04:33:42.329504+00:00",
-  "total_commits": 1882,
+  "generated_at": "2026-04-12T04:37:54.899490+00:00",
+  "total_commits": 1884,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 1879,
+      "total_commits": 1881,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-12",
       "protocols_authored": 128,
       "notebooks_authored": 81,
       "inventory_edits": 1668,
-      "wiki_edits": 629,
-      "images_uploaded": 145,
-      "issue_attachments": 2,
+      "wiki_edits": 515,
+      "images_uploaded": 91,
+      "issue_attachments": 3,
       "issues_filed": 30,
-      "night_commits": 979,
-      "early_commits": 1078,
-      "weekend_commits": 488,
+      "locations_created": 43,
+      "items_added": 529,
+      "bulletin_edits": 6,
+      "calendar_edits": 39,
+      "annotations": 54,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "fcf9330",
-          "subject": "R15 followup 2: reach Toast UI via editorInstance.editor, not the wrapper",
-          "date": "2026-04-11"
-        },
-        {
-          "sha": "1f93947",
-          "subject": "R16: full chemical catalog educational intros (#38)",
-          "date": "2026-04-11"
-        },
         {
           "sha": "af2cf4d",
           "subject": "Restore live media demos to protocol template",
@@ -60,6 +52,16 @@
           "sha": "d29a149",
           "subject": "Fix bulletin board image rendering on dashboard",
           "date": "2026-04-12"
+        },
+        {
+          "sha": "ebc7643",
+          "subject": "Issue reporter attachment: screenshot-2026-04-12-at-5.27.45-am.png",
+          "date": "2026-04-12"
+        },
+        {
+          "sha": "668ef26",
+          "subject": "Expand tiered badges: 11 categories, fun personality badges, Bug Hunter fix",
+          "date": "2026-04-12"
         }
       ],
       "days_active": 129
@@ -77,9 +79,11 @@
       "images_uploaded": 0,
       "issue_attachments": 0,
       "issues_filed": 0,
-      "night_commits": 0,
-      "early_commits": 0,
-      "weekend_commits": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
@@ -109,9 +113,11 @@
       "images_uploaded": 0,
       "issue_attachments": 0,
       "issues_filed": 0,
-      "night_commits": 1,
-      "early_commits": 0,
-      "weekend_commits": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [

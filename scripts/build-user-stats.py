@@ -73,6 +73,8 @@ def infer_login(name: str, email: str) -> str:
 
 def classify_path(path: str) -> str:
     """Return a bucket label for a file path, or '' if we don't count it."""
+    if path.startswith("docs/locations/"):
+        return "location"
     if path.startswith("docs/wet-lab/") or path.startswith("docs/lab-safety/"):
         return "protocol"
     if path.startswith("docs/notebooks/"):
@@ -81,6 +83,12 @@ def classify_path(path: str) -> str:
         return "inventory"
     if path == "docs/inventory-app/inventory.json":
         return "inventory"
+    if path == "docs/bulletin.md":
+        return "bulletin"
+    if path == "docs/calendar/schedule.json":
+        return "calendar"
+    if path.startswith("docs/images/") and path.endswith("-annotated.png"):
+        return "annotation"
     if path.startswith("docs/images/"):
         return "image"
     if path.startswith("issue-attachments/"):
@@ -183,25 +191,17 @@ def main():
             "images_uploaded": 0,
             "issue_attachments": 0,
             "issues_filed": 0,       # populated via gh CLI after git walk
-            "night_commits": 0,      # commits after 20:00 local
-            "early_commits": 0,      # commits before 08:00 local
-            "weekend_commits": 0,    # Saturday or Sunday
+            "locations_created": 0,  # files under docs/locations/ with status A
+            "items_added": 0,        # concept files (resources/stocks) created
+            "bulletin_edits": 0,     # commits touching docs/bulletin.md
+            "calendar_edits": 0,     # commits touching docs/calendar/schedule.json
+            "annotations": 0,        # -annotated.png files created
             "lines_added": 0,
             "lines_removed": 0,
             "recent_commits": [],
         })
         u["total_commits"] += 1
         date_iso = datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
-
-        # Fun badge stats: time-of-day and day-of-week from commit timestamp
-        commit_dt = datetime.fromtimestamp(ts, tz=timezone.utc)
-        hour = commit_dt.hour
-        if hour >= 20 or hour < 5:
-            u["night_commits"] += 1
-        if hour < 8:
-            u["early_commits"] += 1
-        if commit_dt.weekday() >= 5:  # Saturday=5, Sunday=6
-            u["weekend_commits"] += 1
         if u["first_commit"] is None:
             u["first_commit"] = date_iso
         u["last_commit"] = date_iso
@@ -214,19 +214,33 @@ def main():
             if not bucket:
                 continue
             is_new = status == "A"
-            if bucket == "protocol":
+            if bucket == "location":
+                if is_new and path not in first_author:
+                    first_author[path] = login
+                    u["locations_created"] += 1
+            elif bucket == "protocol":
                 if is_new and path not in first_author:
                     first_author[path] = login
                     u["protocols_authored"] += 1
-                # Every edit still counts as a wiki edit? No — protocols get
-                # their own authored tally; edits don't inflate any counter
-                # beyond total_commits.
             elif bucket == "notebook":
                 if is_new and path not in first_author:
                     first_author[path] = login
                     u["notebooks_authored"] += 1
             elif bucket == "inventory":
                 u["inventory_edits"] += 1
+                if is_new and path not in first_author:
+                    first_author[path] = login
+                    u["items_added"] += 1
+            elif bucket == "bulletin":
+                u["bulletin_edits"] += 1
+            elif bucket == "calendar":
+                u["calendar_edits"] += 1
+            elif bucket == "annotation":
+                if is_new and path not in first_author:
+                    first_author[path] = login
+                    u["annotations"] += 1
+                # annotations are also images, count both
+                u["images_uploaded"] = u.get("images_uploaded", 0)
             elif bucket == "wiki":
                 u["wiki_edits"] += 1
             elif bucket == "image":
