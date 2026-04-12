@@ -16,7 +16,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 ---
 
-## Current scores (2026-04-11)
+## Current scores (2026-04-12)
 
 | Section | Score | Status |
 |---------|-------|--------|
@@ -41,6 +41,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | R14 | 12/12 | ✅ (R14 tone samples for #38) hand-written educational intros for 5 common chemicals (ethanol-absolute, agarose, edta-trisodium-salt, tris-base, sodium-dodecyl-sulfate) establishing the "What it is / Why we use it / Callout" template for the full catalog rewrite. Scope is intentionally small — 5 cards done, remaining ~137 to be scaled up in a follow-up round |
 | R15 | 7/7 | ✅ (R15) mobile markdown format toolbar — new Aa toggle button in the mobile fab bar opens a compact strip with Bold / Italic / H2 / H3 / bullet / numbered / code / blockquote buttons that call Toast UI `editor.exec()`; each button refocuses the WYSIWYG ProseMirror first so exec lands in the right instance; toggling again closes the strip; desktop unaffected (still uses the native Toast UI toolbar) (#28) |
 | R16 | 9/9 | ✅ (R16) scaled R14 template to the full chemical catalog via 6 parallel subagents. 151 reagent/buffer/chemical/enzyme cards in `docs/resources/` now carry the 3-callout intro (ℹ️ Chemistry / 💡 Lab use / ⚠️ Safety), ≤6 sentences each. 4 skips: 1 freezer-slot placeholder + 3 test fixtures. 156/156 total coverage counting the 5 R14 tone samples (#38) |
+| R17+ | — | Shipped without formal labbot tests (visual verification via Playwright screenshots): tiered badge system (13 categories, Bronze→Diamond, #47), calendar migration from schedule.json to markdown files (#48 #49 #50), People page personal dashboard with connected items (#51), frontmatter metadata bar on all pages (#46), dashboard bulletin image rendering fix, dashboard profile embed with badges, sticky edit toolbar, protocol template media demos restored, test-person notebook removed (#53) |
 | Samples | 7/7 | ✅ Load, status filter, search, add sample, edit modal, delete sample |
 | Projects | 3/3 | ✅ Folder listing, open project, create project |
 | Waste | 2/2 | ✅ Loads, add container |
@@ -51,7 +52,9 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 248/248 (100%)** — R16 adds 9 new tests covering the full chemical catalog educational intro pass (#38): 7 spot-check slugs across diverse categories (ketones, antibiotics, detergents, density polymers, thiols, quaternary ammonium), catalog-wide coverage count (≥140 cards with all 3 callouts), and a rendered-page admonition class check. See Round 16 below for the full writeup.
+**Total: 248/248 automated tests (100%)** — plus R17+ features verified via Playwright screenshot evaluation but not yet wired into the automated labbot suite. The R17+ round covered: calendar migration to markdown (#48-50), tiered badge gamification with 13 categories (#47), People page personal dashboards (#51), frontmatter metadata bars (#46), dashboard bulletin image fix, sticky edit toolbars, and misc cleanup (#53). See Round 17+ notes below.
+
+**Open issues:** #52 (Molecular Plant Biology Training Curriculum) — substantial content project deferred to a dedicated session.
 
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
@@ -816,6 +819,47 @@ Accuracy held up across solvents, antibiotics, detergents, chelators, density po
 1. **Parallel subagents with no worktree isolation** — all 6 agents wrote directly into the main working tree concurrently. Safe because each batch file contained a non-overlapping slice of slugs, so no two agents ever touched the same file. If batches had overlapped, I would have needed `isolation: "worktree"` and merge steps.
 2. **Template-as-file beats template-as-prompt** — I wrote the tone rules + 5 reference samples to `/tmp/r16-template.md` once, and every subagent prompt just pointed at that file. Saved ~5k tokens of duplicated instructions across the 6 prompts, and made the template easy to revise in one place if the first batch needed tone fixes.
 3. **"Write accurate chemistry, don't invent lab uses" rule** — the biggest risk of parallel content generation is hallucinating specific protocols. I instructed each agent to write general-but-accurate framing when unsure of specific lab uses rather than invent pathways. Spot-checks confirm they followed this: obscure reagents like aristolochic acid I, 1,8-naphthalic anhydride, and trifluoromethyl-phenyl urea got correct chemistry + safety without fabricated protocols.
+
+---
+
+## Round 17+: Calendar migration, People dashboards, Badges, Polish (2026-04-12)
+
+A batch of features and fixes shipped without formal labbot test sections — verified via Playwright screenshot evaluation against the live site. Grouped here as "R17+" because they landed in quick succession during a single session.
+
+### What shipped
+
+- [x] **Calendar migration from schedule.json to markdown files (#48 #49 #50)** — 45 events migrated from `docs/calendar/schedule.json` to individual markdown files at `docs/events/<date>-<slug>.md`. New `event` type in types.js with fields for date, start_time, end_time, member, created_by. Calendar page rewritten to read from object-index instead of JSON blob. CRUD creates/edits/deletes markdown files via Lab.gh.saveFile/deleteFile. Duplicate sign-out button removed from calendar header (#49). Events carry created_by attribution (#49). Events are now first-class objects: searchable, wikilink-able, in the knowledge graph, counting toward the Scheduler badge.
+- [x] **Tiered badge system (#47)** — replaced flat binary badges with 13 activity categories, each with 5 tiers (Bronze→Silver→Gold→Platinum→Diamond). Categories: Contributor, Protocol Author, Chronicler, Inventory Keeper, Wiki Builder, Photographer, Location Builder, Stockist, Annotator, Bug Hunter (counts issues filed), Announcer, Scheduler, Veteran. Removed toxic time-based badges (Night Owl, Early Bird, Weekender) per Grey's feedback. Profile page badge cards enlarged with progress bars to next tier. Dashboard embed shows compact tier-dot row.
+- [x] **People page personal dashboards (#51)** — clicking a person card navigates to `?person=<slug>` showing a full view of everything connected to that person: notebooks (folder match), protocols (wikilink backlinks), calendar events (member field), inventory items (backlinks + created_by), locations, samples, projects. Summary stats bar with counts. All items clickable, navigating to the right page. Data computed from existing object-index + link-index.
+- [x] **Frontmatter metadata bar (#46)** — new `Lab.renderFrontmatterBar(meta)` in shared.js renders a compact row of pill-shaped field badges from parsed frontmatter. Wired into protocols, wiki, notebooks, and projects. Shows type badge with icon + color, then every non-empty frontmatter field as a label:value pill.
+- [x] **Dashboard bulletin image rendering** — the dashboard's simplified markdown renderer had no `![alt](src)` → `<img>` handling. Images were getting eaten by the link regex. Fixed by adding an image regex before the link regex with relative-path resolution.
+- [x] **Sticky edit toolbar** — Print/Edit/Duplicate toolbar is now `position: sticky; top: 0` on protocols, wiki, notebooks, and projects. Stays pinned as you scroll through long documents.
+- [x] **Protocol template media demos restored** — the R9 rewrite had replaced real working media examples (annotated screenshot, local videos, YouTube embeds, GIF) with descriptive text. Put the actual media back alongside the educational framing.
+- [x] **Dashboard profile embed** — compact profile card below the bulletin board showing avatar, 4 key stats, and tiered badge dots for the logged-in user.
+- [x] **User stats builder enhancements** — build-user-stats.py now tracks: issues_filed (via gh CLI), locations_created, items_added, bulletin_edits, calendar_edits, annotations, days_active. Removed night_commits/early_commits/weekend_commits.
+- [x] **test-person notebook removed (#53)** — empty .gitkeep placeholder from early testing.
+
+### What's NOT yet covered by automated labbot tests
+
+The following R17+ features were verified via Playwright screenshot evaluation but lack formal `--only=r17` test sections in labbot.mjs. They work (confirmed visually) but would benefit from automated regression coverage in a future pass:
+
+- Tiered badge rendering on profile.html (correct tier calculation, progress bars, tier dots)
+- Calendar loading events from object-index (was schedule.json)
+- Calendar CRUD creating/editing/deleting markdown files
+- People dashboard rendering sections for a given person slug
+- Frontmatter bar appearing on protocols/wiki/notebooks/projects
+- Dashboard bulletin image rendering
+- Dashboard profile embed loading user-stats.json
+
+### Bugs caught by screenshot evaluation
+
+1. **Event type definition outside TYPES object** — the `event: { ... }` block was placed AFTER the closing `};` of the TYPES object instead of inside it. This broke types.js from parsing entirely, making Lab.types undefined and crashing every page. Caught by Playwright screenshot of the People page showing an empty grid with console error `Cannot read properties of undefined (reading 'pillStyle')`.
+2. **"Alex Chen block" event titles** — the migration renamed the member field to `[[barb-m]]` but left the title as "Alex Chen block" on 10 event files. Caught by Playwright screenshot of Barb's people dashboard.
+3. **Password gate session key** — the screenshot script was using `lab_gate_ok` as the sessionStorage key but the actual gate checks `monroe-lab-auth`. First screenshot showed the password gate overlaying the page.
+
+### Open issues
+
+- **#52 Molecular Plant Biology Training Curriculum** — substantial content project for the undergrad training program. Deferred to a dedicated session. Not a code issue.
 
 ---
 
