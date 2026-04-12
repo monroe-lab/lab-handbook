@@ -917,16 +917,29 @@
     var typeShown = false;
     if (hasTypeField) {
       var currentType = meta.type || (type);
-      html += '<datalist id="em-types-list">';
-      discoveredTypes.forEach(function(t) {
-        html += '<option value="' + escHtml(t) + '"></option>';
-      });
-      html += '</datalist>';
       if (editable) {
-        html += '<div class="form-group"><label>Type</label>' +
-          '<input type="text" id="em-f-type" class="em-field-input" data-key="type" list="em-types-list" value="' + escHtml(currentType) + '" placeholder="pick or type">' +
-          '<div style="font-size:11px;color:var(--grey-500);margin-top:3px">Pick a known type or type a new one — new types are added automatically.</div>' +
-          '</div>';
+        // Build a visual type picker grouped by category — much more
+        // discoverable than a datalist that browsers hide behind a tiny arrow.
+        html += '<div class="form-group"><label>Type</label>';
+        html += '<input type="hidden" id="em-f-type" class="em-field-input" data-key="type" value="' + escHtml(currentType) + '">';
+        html += '<div id="em-type-picker" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px">';
+        var groups = Lab.types.GROUPS || {};
+        Object.keys(groups).forEach(function(gk) {
+          var g = groups[gk];
+          (g.types || []).forEach(function(t) {
+            var tc = Lab.types.get(t);
+            var sel = (t === currentType);
+            html += '<button type="button" data-type-pick="' + escHtml(t) + '"' +
+              ' style="' + Lab.types.pillStyle(t) +
+              ';cursor:pointer;border:2px solid ' + (sel ? tc.color || '#333' : 'transparent') +
+              ';opacity:' + (sel ? '1' : '0.6') +
+              ';font-size:11px;padding:3px 8px;border-radius:12px;transition:opacity .15s,border-color .15s' +
+              '">' + tc.icon + ' ' + escHtml(tc.label || t) + '</button>';
+          });
+        });
+        html += '</div>';
+        html += '<div style="font-size:11px;color:var(--grey-500)">Click to change type.</div>';
+        html += '</div>';
       } else {
         var tc = Lab.types.get(currentType);
         var style = Lab.types.pillStyle(currentType);
@@ -1053,6 +1066,24 @@
     if (row.length) html += '<div class="form-row">' + row.join('') + '</div>';
 
     fieldsEl.innerHTML = html;
+
+    // Wire type picker pill buttons (edit mode)
+    if (editable) {
+      fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var t = btn.getAttribute('data-type-pick');
+          var hidden = document.getElementById('em-f-type');
+          if (hidden) hidden.value = t;
+          // Update visual selection state
+          fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(b) {
+            var isSel = b.getAttribute('data-type-pick') === t;
+            var tc = Lab.types.get(b.getAttribute('data-type-pick'));
+            b.style.borderColor = isSel ? (tc.color || '#333') : 'transparent';
+            b.style.opacity = isSel ? '1' : '0.6';
+          });
+        });
+      });
+    }
 
     // R4 Phase 3: wire the parent field (edit mode only) to the wikilink
     // autocomplete restricted to location-group types. The dropdown lets the
