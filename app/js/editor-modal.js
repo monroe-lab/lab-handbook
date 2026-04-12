@@ -2102,10 +2102,10 @@
     // Load index
     window.Lab.gh.fetchObjectIndex().then(function(idx) {
       linkModalIndex = idx;
-      linkModalCategory = null;
+      linkModalCategory = '_all';
       renderLinkCategories();
       document.getElementById('em-link-search').value = '';
-      document.getElementById('em-link-list').innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">Select a category above</div>';
+      document.getElementById('em-link-list').innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">Type to search across all categories</div>';
       document.getElementById('em-link-create').style.display = 'none';
       linkModalEl.classList.add('open');
       setTimeout(function() { document.getElementById('em-link-search').focus(); }, 100);
@@ -2114,12 +2114,17 @@
 
   function renderLinkCategories() {
     var el = document.getElementById('em-link-cats');
-    el.innerHTML = Object.keys(getObjectTypes()).map(function(key) {
+    // "Search All" pseudo-tab first
+    var isAll = linkModalCategory === '_all';
+    var html = '<button style="display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid ' + (isAll ? '#333' : 'var(--grey-300)') + ';background:' + (isAll ? '#33315' : '#fff') + ';color:' + (isAll ? '#333' : 'var(--grey-700)') + ';font-size:13px;font-weight:500;cursor:pointer;font-family:inherit" onclick="Lab.editorModal._selectCat(\'_all\')">' +
+      '<span class="material-icons-outlined" style="font-size:16px">search</span>Search All</button>';
+    html += Object.keys(getObjectTypes()).map(function(key) {
       var cfg = getObjectTypes()[key];
       var isActive = linkModalCategory === key;
       return '<button style="display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid ' + (isActive ? cfg.color : 'var(--grey-300)') + ';background:' + (isActive ? cfg.color + '15' : '#fff') + ';color:' + (isActive ? cfg.color : 'var(--grey-700)') + ';font-size:13px;font-weight:500;cursor:pointer;font-family:inherit" onclick="Lab.editorModal._selectCat(\'' + key + '\')">' +
         '<span class="material-icons-outlined" style="font-size:16px">' + cfg.icon + '</span>' + cfg.label + '</button>';
     }).join('');
+    el.innerHTML = html;
   }
 
   // R6: when the user picks the Locations category we render a hierarchy
@@ -2143,6 +2148,45 @@
     if (!linkModalCategory || !linkModalIndex) return;
     var q = (document.getElementById('em-link-search').value || '').toLowerCase().trim();
     var cfg = getObjectTypes()[linkModalCategory];
+
+    // "Search All" — global search across every type
+    if (linkModalCategory === '_all') {
+      document.getElementById('em-link-create').style.display = 'none';
+      var list = document.getElementById('em-link-list');
+      if (!q) {
+        list.innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">Type to search across all categories</div>';
+        return;
+      }
+      // Score-based matching: split query into words, count matches per item
+      var words = q.split(/\s+/).filter(Boolean);
+      var scored = [];
+      linkModalIndex.forEach(function(obj) {
+        var haystack = ((obj.title || '') + ' ' + (obj.type || '') + ' ' + (obj.path || '') + ' ' + (obj.location || '')).toLowerCase();
+        var hits = 0;
+        words.forEach(function(w) { if (haystack.includes(w)) hits++; });
+        if (hits > 0) scored.push({ obj: obj, score: hits });
+      });
+      scored.sort(function(a, b) { return b.score - a.score; });
+      var items = scored.slice(0, 50);
+      if (!items.length) {
+        list.innerHTML = '<div style="color:var(--grey-500);padding:16px;text-align:center">No results for "' + window.Lab.escHtml(q) + '"</div>';
+        return;
+      }
+      var esc = window.Lab.escHtml;
+      list.innerHTML = items.map(function(s) {
+        var obj = s.obj;
+        var slug = obj.path.replace(/\.md$/, '');
+        var displaySlug = slug.split('/').pop();
+        var tc = window.Lab.types.get(obj.type || '');
+        var meta = [tc.label || obj.type || ''];
+        if (obj.location) meta.push(obj.location);
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--grey-100);cursor:pointer;border-radius:4px" onmouseover="this.style.background=\'var(--grey-50)\'" onmouseout="this.style.background=\'\'" onclick="Lab.editorModal._insertLink(\'' + esc(slug) + '\',\'' + esc(obj.title || displaySlug) + '\')">' +
+          '<span style="' + window.Lab.types.pillStyle(obj.type) + 'font-size:11px;padding:2px 6px;border-radius:8px">' + tc.icon + '</span>' +
+          '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">' + esc(obj.title || displaySlug) + '</div>' +
+          '<div style="font-size:12px;color:var(--grey-500)">' + meta.map(esc).join(' \u00B7 ') + '</div></div></div>';
+      }).join('');
+      return;
+    }
 
     // R6: Locations category renders a hierarchy tree picker, not a flat list.
     if (linkModalCategory === 'locations') {

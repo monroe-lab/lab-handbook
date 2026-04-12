@@ -468,8 +468,8 @@
       defaultType: 'event',
     },
     locations: {
-      label: 'Locations',
-      icon: 'location_on',
+      label: 'Lab Map',
+      icon: 'map',
       color: '#546e7a',
       types: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
       dir: 'locations',
