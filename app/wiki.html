@@ -1207,7 +1207,14 @@ function showWikiModal(opts) {
     document.addEventListener('keydown', onKey);
     document.getElementById('wmCancel').onclick = function() { close(null); };
     document.getElementById('wmOk').onclick = submit;
-    backdrop.onclick = function(e) { if (e.target === backdrop) close(null); };
+    // Only close when both mousedown and mouseup land on the backdrop — prevents
+    // accidental closes when dragging a text selection out of the modal.
+    var _mdTarget = null;
+    backdrop.addEventListener('mousedown', function(e) { _mdTarget = e.target; });
+    backdrop.addEventListener('click', function(e) {
+      if (e.target === backdrop && _mdTarget === backdrop) close(null);
+      _mdTarget = null;
+    });
   });
 }
 

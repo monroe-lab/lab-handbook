@@ -281,8 +281,13 @@
     textarea.focus();
 
     cancelBtn.addEventListener('click', closeModal);
+    // Only close when both mousedown and mouseup land on the overlay — prevents
+    // accidental closes when dragging a text selection out of the modal.
+    var _mdTarget = null;
+    overlay.addEventListener('mousedown', function(e) { _mdTarget = e.target; });
     overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) closeModal();
+      if (e.target === overlay && _mdTarget === overlay) closeModal();
+      _mdTarget = null;
     });
     submitBtn.addEventListener('click', function() { submitIssue(textarea.value, submitBtn); });
   }

@@ -2502,7 +2502,13 @@
     // Backdrop
     var backdrop = document.createElement('div');
     backdrop.style.cssText = 'position:fixed;inset:0;z-index:9997;background:rgba(0,0,0,.3);';
-    backdrop.onclick = function() { _mobileSheet.remove(); _mobileSheet = null; };
+    // Only close when both mousedown and mouseup land on the backdrop.
+    var _sheetMdTarget = null;
+    backdrop.addEventListener('mousedown', function(e) { _sheetMdTarget = e.target; });
+    backdrop.addEventListener('click', function(e) {
+      if (_sheetMdTarget === backdrop) { _mobileSheet.remove(); _mobileSheet = null; }
+      _sheetMdTarget = null;
+    });
 
     var wrapper = document.createElement('div');
     wrapper.appendChild(backdrop);
