@@ -1,5 +1,9 @@
 ---
 ---
+***
+
+***
+
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
 **Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab for CBI project. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
@@ -14,9 +18,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -117,54 +121,14 @@ The **shorthand** code goes on the tube label.
 | `XO72` | `PtrXBAT35-OE #72` | PtrXBAT35 overexpression, event 72 | Transgenic |
 | `717` | (border / spacer 717-1B4 from a guard row) | 717-1B4 | Untransformed spatial control |
 
-**Code convention:** First letter = gene (C = CHX20, D = DIR18, E = EXO70C2, X = PtrXBAT35). Second letter = K (knockout) or O (overexpression). Number = event ID.
-
 ***
 
-## Sample sheet (mock — fill in for your collection)
+## Preservation/Shipping
 
-Print this and bring it with you. **One row per tube**, so each tree contributes two rows. Cross-check tube labels against the table before packing.
-
-| sample\_id | site | block | row | position | tree\_tag | line\_short | line\_canonical | cluster | collection\_date | collector | notes |
-| --------- | ---- | ----- | --- | -------- | -------- | ---------- | -------------- | ------- | --------------- | --------- | ----- |
-| `DAV-B1R4P2-CK54-C1` | DAV | 1 | 4 | 2 | — | CK54 | `Chx20, KO # 54` | 1 | 2026-04-15 | ZY | sub-branch off SE side, 3 branching events deep |
-| `DAV-B1R4P2-CK54-C2` | DAV | 1 | 4 | 2 | — | CK54 | `Chx20, KO # 54` | 2 | 2026-04-15 | ZY | adjacent cluster, same shoot |
-| `DAV-B2R6P3-WT-C1` | DAV | 2 | 6 | 3 | — | WT | `WT717` | 1 | 2026-04-15 | ZY |  |
-| `DAV-B2R6P3-WT-C2` | DAV | 2 | 6 | 3 | — | WT | `WT717` | 2 | 2026-04-15 | ZY |  |
-| `MAR-T17-EO5-C1` | MAR | — | — | — | T17 | EO5 | `EXO70C2-OE_5` | 1 | 2026-04-16 | JK | tag faded, photographed for verification |
-| `MAR-T17-EO5-C2` | MAR | — | — | — | T17 | EO5 | `EXO70C2-OE_5` | 2 | 2026-04-16 | JK |  |
-| `ORE-T03-717-C1` | ORE | — | — | — | T03 | 717 | (border 717-1B4) | 1 | 2026-04-17 | BS | west edge border tree |
-| `ORE-T03-717-C2` | ORE | — | — | — | T03 | 717 | (border 717-1B4) | 2 | 2026-04-17 | BS |  |
-
-When you ship, **email a copy of the filled sheet to `gmonroe@ucdavis.edu`** (CSV or photo of the printed page is fine), and put a printed copy inside the box too.
-
-***
-
-## Preservation
-
-**Required: flash-freeze on-site.** Drop each tube into liquid nitrogen or directly onto dry ice **immediately** after the leaves go in. Transfer to a −80 °C freezer as soon as you're back from the field.
-
-> *No LN2 or dry ice available?* Stop and email Grey before improvising. We need flash-frozen tissue for the long-read library prep, and silica desiccation will not work for this round. We can ship you dry ice or work out an alternative.
+**Required: flash-freeze on-site.** Drop each tube into liquid nitrogen or directly onto dry ice immediately after the leaves go in. Transfer to a −80 °C freezer as soon as you're back from the field.
 
 Ship per [[shipping/shipping-samples-to-monroe-lab]] — frozen on dry ice, overnight, Monday through Wednesday only.
 
 ***
 
-## Troubleshooting
-
-> *The listed tree is dead, missing, or hard to reach.* Pick any other healthy tree of the same line. Record what you actually sampled in the sheet. Line ID is what matters.
-
-> *Can't find a branch with multiple branching events.* Pick the most-branched side branch you can find and note it in the `notes` column. Don't sample from the main trunk apex.
-
-> *Two adjacent clusters of the right age don't exist on the same shoot.* Pick the two closest clusters on the same branch and note the deviation.
-
-> *Tree tag is unreadable or missing.* Photograph what's there, photograph the surrounding area for context, and email Grey before collecting from that tree. Mis-identification is the single most damaging error in this experiment — better to skip a tree than guess.
-
-> *Sharpie label is rubbing off the frozen tube.* Use cryo labels if you have them. As backup, write the ID on lab tape and cover with clear tape, or write on the cap as well as the body.
-
-***
-
-## See also
-
-* [[shipping/shipping-samples-to-monroe-lab]] — packaging, dry ice, prepaid label workflow
-* Project-specific sampling assignments live in the project repo (`docs/experimental_design.md`), not here — this protocol is the generic "how", and the project doc is the specific "where" and "how many"
+## 
