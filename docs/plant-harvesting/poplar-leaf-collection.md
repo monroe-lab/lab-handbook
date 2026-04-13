@@ -18,9 +18,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
