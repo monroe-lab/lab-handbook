@@ -910,6 +910,7 @@ async function saveDoc() {
     // Render saved content directly (avoid GitHub API propagation delay)
     isEditing = false;
     window.removeEventListener('beforeunload', unsavedGuard);
+    document.body.classList.remove('editing-mode');
     editorInstance = null;
     var html = await Lab.editorModal.renderMarkdown(body);
     var contentEl = document.getElementById('protoContent');

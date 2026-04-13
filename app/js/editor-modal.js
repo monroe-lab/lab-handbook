@@ -1407,7 +1407,7 @@
           isInstance: true,
           quantity: entry.quantity,
           unit: entry.unit,
-          parent: entry.parent,
+          parent: entry.parent || entry.location,
         });
       }
       // Dedupe by slug + sort by title
@@ -1984,7 +1984,7 @@
     prepared = mediaToPlaceholders(prepared);
     prepared = loadImageSizes(prepared);
     prepared = await wikilinksToLinks(prepared);
-    prepared = resolveImagePaths(prepared);
+    prepared = resolveImagePaths(prepared, currentState ? currentState.path : null);
 
     currentEditor = new toastui.Editor({
       el: editorEl,
@@ -3462,25 +3462,35 @@
     return md;
   }
 
-  function resolveImagePaths(md) {
-    // ![alt](images/foo.jpg) → ![alt](/lab-handbook/images/foo.jpg)
+  function resolveImagePaths(md, docPath) {
+    // Compute the document's directory for relative path resolution.
+    // docPath e.g. "docs/plant-harvesting/poplar-leaf-collection.md"
+    // → docDir = "plant-harvesting/"
+    var docDir = '';
+    if (docPath) {
+      var parts = docPath.replace(/^docs\//, '').split('/');
+      parts.pop(); // remove filename
+      if (parts.length) docDir = parts.join('/') + '/';
+    }
+    // ![alt](images/foo.jpg) → ![alt](/lab-handbook/plant-harvesting/images/foo.jpg)
     md = md.replace(/(!\[[^\]]*\]\()(?!http|data:|\/)([^)]+\))/g, function(m, prefix, rest) {
-      return prefix + MEDIA_BASE + rest;
+      return prefix + MEDIA_BASE + docDir + rest;
     });
     // Also resolve src="images/..." in HTML tags (video, source, img)
     md = md.replace(/(src=["'])(?!http|data:|\/)([^"']+["'])/g, function(m, prefix, rest) {
-      return prefix + MEDIA_BASE + rest;
+      return prefix + MEDIA_BASE + docDir + rest;
     });
     return md;
   }
 
   function unresolveImagePaths(md) {
-    // ![alt](/lab-handbook/images/foo.jpg) → ![alt](images/foo.jpg)
-    var escaped = MEDIA_BASE.replace(/[/.]/g, '\\$&');
-    var re = new RegExp('(!\\[[^\\]]*\\]\\()' + escaped + '([^)]+\\))', 'g');
+    // ![alt](/lab-handbook/plant-harvesting/images/foo.jpg) → ![alt](images/foo.jpg)
+    // Strip the MEDIA_BASE prefix from all image/media paths.
+    // Use a simple approach: replace /lab-handbook/ prefix from all markdown image and src paths.
+    var base = MEDIA_BASE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp('(!\\[[^\\]]*\\]\\()' + base + '([^)]+\\))', 'g');
     md = md.replace(re, '$1$2');
-    // Also unresolve src="/lab-handbook/..." in HTML tags
-    var srcRe = new RegExp('(src=["\'])' + escaped + '([^"\']+["\'])', 'g');
+    var srcRe = new RegExp('(src=["\'])' + base + '([^"\']+["\'])', 'g');
     md = md.replace(srcRe, '$1$2');
     return md;
   }
@@ -3730,7 +3740,7 @@
     prepared = mediaToPlaceholders(prepared);
     prepared = loadImageSizes(prepared);
     prepared = await wikilinksToLinks(prepared);
-    prepared = resolveImagePaths(prepared);
+    prepared = resolveImagePaths(prepared, filePath);
 
     var editor = new toastui.Editor({
       el: containerEl,

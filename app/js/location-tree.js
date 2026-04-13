@@ -231,7 +231,7 @@
 
       var html = '<div class="lt-node tree-node' + (isExpanded ? ' is-expanded' : '') + '" data-slug="' + esc(slug) + '" data-depth="' + depth + '"' + dragAttr + '>';
       html += '<div class="lt-row tree-node-row' + (isLeaf ? ' is-leaf' : '') + '" data-act="open">';
-      html += '<span class="lt-toggle tw-toggle material-icons-outlined" data-act="toggle">chevron_right</span>';
+      html += '<span class="lt-toggle tw-toggle material-icons-outlined" data-act="toggle" style="width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--grey-500,#9e9e9e);font-size:16px;cursor:pointer;transition:transform .12s;border-radius:3px;' + (isLeaf ? 'visibility:hidden' : '') + (isExpanded ? ';transform:rotate(90deg)' : '') + '">chevron_right</span>';
       html += '<span class="lt-icon tw-icon">' + icon + '</span>';
       html += '<span class="lt-title tw-title" title="' + esc(slug) + '">' + esc(title) + '</span>';
       html += pos + grid + count + orphanBadge;
@@ -265,6 +265,9 @@
         if (expanded.has(slug)) expanded.delete(slug);
         else expanded.add(slug);
         nodeEl.classList.toggle('is-expanded');
+        // Update inline style on the toggle arrow (for pages without lab-map CSS)
+        var toggleEl = actEl.closest('.lt-toggle') || actEl;
+        toggleEl.style.transform = expanded.has(slug) ? 'rotate(90deg)' : '';
         return;
       }
       if (act === 'open') {

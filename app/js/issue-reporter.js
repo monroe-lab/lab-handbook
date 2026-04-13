@@ -37,8 +37,6 @@
     // R7 #34: on mobile the submit modal is bottom-anchored so the keyboard
     // doesn't cover the submit button.
     s.textContent =
-      'body.editing-mode #issue-reporter-btn,' +
-      'body.em-editing #issue-reporter-btn{display:none !important}' +
       '@media (max-width: 768px){' +
       '  #issue-reporter-overlay{align-items:flex-start !important;padding-top:12px !important}' +
       '  #issue-reporter-modal{margin-top:0 !important;padding:16px !important}' +
