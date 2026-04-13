@@ -736,9 +736,24 @@ function eventSlug(title, date) {
 
 // ── Refresh on editor-modal save/close ──
 window.addEventListener('lab-file-saved', function(e) {
-  if (!e.detail || !e.detail.meta || e.detail.meta.type !== 'event') return;
-  // Update in-memory schedule from the saved metadata
+  if (!e.detail || !e.detail.path) return;
   var path = e.detail.path;
+
+  // Deletion case: event dispatched with path but no meta
+  if (!e.detail.meta) {
+    var idx = schedule.findIndex(function(b) { return b.path === path; });
+    if (idx !== -1) {
+      schedule.splice(idx, 1);
+      buildMemberColors();
+      populateMemberFilter();
+      renderCalendar();
+    }
+    return;
+  }
+
+  if (e.detail.meta.type !== 'event') return;
+
+  // Update in-memory schedule from the saved metadata
   var meta = e.detail.meta;
   var existing = schedule.find(function(b) { return b.path === path; });
   if (existing) {

@@ -633,10 +633,6 @@
   },
   {
     "source": "people/barb-m",
-    "target": "notebooks/barb-m/pangenome-project"
-  },
-  {
-    "source": "people/barb-m",
     "target": "people/grey-monroe"
   },
   {
@@ -2237,7 +2233,7 @@
   },
   {
     "source": "waste/nib-buffer-bme-waste",
-    "target": "test-fodler-2/index"
+    "target": "waste/index"
   },
   {
     "source": "waste/paraquat-solid-waste",
@@ -2245,7 +2241,7 @@
   },
   {
     "source": "waste/paraquat-solid-waste",
-    "target": "test-fodler-2/index"
+    "target": "waste/index"
   },
   {
     "source": "waste/paraquat-wash-waste",
@@ -2253,7 +2249,7 @@
   },
   {
     "source": "waste/paraquat-wash-waste",
-    "target": "test-fodler-2/index"
+    "target": "waste/index"
   },
   {
     "source": "wet-lab/autoclave",

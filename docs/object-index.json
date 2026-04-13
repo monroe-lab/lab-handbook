@@ -3,8 +3,9 @@
     "path": "resources/1-8-naphthalic-anhydride.md",
     "type": "reagent",
     "title": "1,8-Naphthalic anhydride",
+    "status": "in_stock",
     "legacy_inventory_id": 12,
-    "mtime": 1775946810
+    "mtime": 1776056900
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
@@ -17,8 +18,9 @@
     "path": "resources/1-octanol.md",
     "type": "reagent",
     "title": "1-Octanol",
+    "status": "in_stock",
     "legacy_inventory_id": 14,
-    "mtime": 1775946810
+    "mtime": 1776056816
   },
   {
     "path": "resources/1m-tris-hcl-ph-8-8-5.md",
@@ -1438,12 +1440,12 @@
     "path": "resources/sqk-nbd114-24.md",
     "type": "kit",
     "title": "Native Barcoding Kit 24 V14 (SQK-NBD114.24)",
-    "status": "needed",
-    "need_more": true,
+    "status": "out_of_stock",
     "created_at": "2026-04-08T21:44:54.344Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-08T21:44:54.344Z",
-    "mtime": 1775895055
+    "updated_at": "2026-04-12T12:14:28.907Z",
+    "parent": "locations/cabinet-chemical",
+    "mtime": 1776054316
   },
   {
     "path": "resources/stir-plate.md",
@@ -1680,6 +1682,17 @@
     "mtime": 1775918766
   },
   {
+    "path": "stocks/bottle-1-8-naphthalic-anhydride-cr3w7sxt.md",
+    "type": "container",
+    "title": "1,8-Naphthalic anhydride",
+    "created_at": "2026-04-13T03:53:37.745Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-13T03:53:37.745Z",
+    "parent": "locations/box-minus80-a-1-a",
+    "of": "resources/1-8-naphthalic-anhydride",
+    "mtime": 1776052418
+  },
+  {
     "path": "stocks/bottle-1-8-naphthalic-anhydride.md",
     "type": "bottle",
     "title": "1,8-Naphthalic anhydride",
@@ -1688,6 +1701,13 @@
     "parent": "locations/cabinet-chemical",
     "of": "resources/1-8-naphthalic-anhydride",
     "mtime": 1775927241
+  },
+  {
+    "path": "stocks/bottle-1-hydroxy-3-3-trifluoromethylphenyl-urea-38ra4uwl.md",
+    "type": "bottle",
+    "title": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
+    "of": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea",
+    "mtime": 1776052825
   },
   {
     "path": "stocks/bottle-1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
@@ -1708,6 +1728,13 @@
     "parent": "locations/cabinet-flammable",
     "of": "resources/1-octanol",
     "mtime": 1775927241
+  },
+  {
+    "path": "stocks/bottle-1m-tris-hcl-ph-8-8-5-um6rzzde.md",
+    "type": "bottle",
+    "title": "1M Tris-HCL (pH 8-8.5)",
+    "of": "resources/1m-tris-hcl-ph-8-8-5",
+    "mtime": 1776054655
   },
   {
     "path": "stocks/bottle-1m-tris-hcl-ph-8-8-5.md",
@@ -3415,7 +3442,7 @@
     "path": "wet-lab/centrifuge-operation.md",
     "type": "protocol",
     "title": "Centrifuge Operation",
-    "mtime": 1775983797
+    "mtime": 1776032570
   },
   {
     "path": "wet-lab/clean-bench.md",
@@ -3778,7 +3805,7 @@
     "path": "wet-lab/mutagenesis/fast-neutron-treatment.md",
     "type": "protocol",
     "title": "[protocol][draft] Fast neutron treatment",
-    "mtime": 1775832918
+    "mtime": 1776055008
   },
   {
     "path": "wet-lab/mutagenesis/m2-forward-genetic-screening.md",
@@ -4034,10 +4061,10 @@
     "title": "2026-04-05"
   },
   {
-    "path": "notebooks/barb-m/pangenome-project.md",
+    "path": "notebooks/barb-m/2026-04-13.md",
     "type": "notebook",
-    "title": "Pangenome Project \u2014 Barb M.",
-    "mtime": 1775930982
+    "title": "2026-04-13 \u2014 Barb M",
+    "mtime": 1776051905
   },
   {
     "path": "notebooks/grey-monroe/2026-04-08.md",
@@ -4364,17 +4391,6 @@
     "mtime": 1775868762
   },
   {
-    "path": "events/2026-04-06-cut-tag-library-prep.md",
-    "type": "event",
-    "title": "CUT&Tag library prep",
-    "date": "2026-04-06",
-    "created_by": "greymonroe",
-    "start_time": "10:00",
-    "end_time": "14:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-04-06-ms-plate-preparation-and-seed-sterilization.md",
     "type": "event",
     "title": "MS plate preparation and seed sterilization",
@@ -4404,17 +4420,6 @@
     "start_time": "10:00",
     "end_time": "13:00",
     "member": "[[barb-m]]",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-08-bioinformatics-analysis.md",
-    "type": "event",
-    "title": "Bioinformatics analysis",
-    "date": "2026-04-08",
-    "created_by": "greymonroe",
-    "start_time": "09:00",
-    "end_time": "12:00",
-    "member": "Jordan Patel",
     "mtime": 1775970289
   },
   {
@@ -4461,28 +4466,6 @@
     "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-10-jordan-patel-block.md",
-    "type": "event",
-    "title": "Jordan Patel block",
-    "date": "2026-04-10",
-    "created_by": "greymonroe",
-    "start_time": "13:00",
-    "end_time": "16:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-13-cut-tag-library-prep.md",
-    "type": "event",
-    "title": "CUT&Tag library prep",
-    "date": "2026-04-13",
-    "created_by": "greymonroe",
-    "start_time": "10:00",
-    "end_time": "14:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-04-13-lab-meeting.md",
     "type": "event",
     "title": "Lab Meeting",
@@ -4526,17 +4509,6 @@
     "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-15-bioinformatics-analysis.md",
-    "type": "event",
-    "title": "Bioinformatics analysis",
-    "date": "2026-04-15",
-    "created_by": "greymonroe",
-    "start_time": "09:00",
-    "end_time": "12:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-04-16-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4566,28 +4538,6 @@
     "start_time": "10:00",
     "end_time": "12:00",
     "member": "[[barb-m]]",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-17-jordan-patel-block.md",
-    "type": "event",
-    "title": "Jordan Patel block",
-    "date": "2026-04-17",
-    "created_by": "greymonroe",
-    "start_time": "13:00",
-    "end_time": "16:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-20-cut-tag-library-prep.md",
-    "type": "event",
-    "title": "CUT&Tag library prep",
-    "date": "2026-04-20",
-    "created_by": "greymonroe",
-    "start_time": "10:00",
-    "end_time": "14:00",
-    "member": "Jordan Patel",
     "mtime": 1775970289
   },
   {
@@ -4634,17 +4584,6 @@
     "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-22-bioinformatics-analysis.md",
-    "type": "event",
-    "title": "Bioinformatics analysis",
-    "date": "2026-04-22",
-    "created_by": "greymonroe",
-    "start_time": "09:00",
-    "end_time": "12:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-04-23-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4674,28 +4613,6 @@
     "start_time": "10:00",
     "end_time": "12:00",
     "member": "[[barb-m]]",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-24-jordan-patel-block.md",
-    "type": "event",
-    "title": "Jordan Patel block",
-    "date": "2026-04-24",
-    "created_by": "greymonroe",
-    "start_time": "13:00",
-    "end_time": "16:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-04-27-cut-tag-library-prep.md",
-    "type": "event",
-    "title": "CUT&Tag library prep",
-    "date": "2026-04-27",
-    "created_by": "greymonroe",
-    "start_time": "10:00",
-    "end_time": "14:00",
-    "member": "Jordan Patel",
     "mtime": 1775970289
   },
   {
@@ -4742,17 +4659,6 @@
     "mtime": 1775970289
   },
   {
-    "path": "events/2026-04-29-bioinformatics-analysis.md",
-    "type": "event",
-    "title": "Bioinformatics analysis",
-    "date": "2026-04-29",
-    "created_by": "greymonroe",
-    "start_time": "09:00",
-    "end_time": "12:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-04-30-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4782,28 +4688,6 @@
     "start_time": "10:00",
     "end_time": "12:00",
     "member": "[[barb-m]]",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-05-01-jordan-patel-block.md",
-    "type": "event",
-    "title": "Jordan Patel block",
-    "date": "2026-05-01",
-    "created_by": "greymonroe",
-    "start_time": "13:00",
-    "end_time": "16:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-05-04-cut-tag-library-prep.md",
-    "type": "event",
-    "title": "CUT&Tag library prep",
-    "date": "2026-05-04",
-    "created_by": "greymonroe",
-    "start_time": "10:00",
-    "end_time": "14:00",
-    "member": "Jordan Patel",
     "mtime": 1775970289
   },
   {
@@ -4850,17 +4734,6 @@
     "mtime": 1775970289
   },
   {
-    "path": "events/2026-05-06-bioinformatics-analysis.md",
-    "type": "event",
-    "title": "Bioinformatics analysis",
-    "date": "2026-05-06",
-    "created_by": "greymonroe",
-    "start_time": "09:00",
-    "end_time": "12:00",
-    "member": "Jordan Patel",
-    "mtime": 1775970289
-  },
-  {
     "path": "events/2026-05-07-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4890,17 +4763,6 @@
     "start_time": "10:00",
     "end_time": "12:00",
     "member": "[[barb-m]]",
-    "mtime": 1775970289
-  },
-  {
-    "path": "events/2026-05-08-jordan-patel-block.md",
-    "type": "event",
-    "title": "Jordan Patel block",
-    "date": "2026-05-08",
-    "created_by": "greymonroe",
-    "start_time": "13:00",
-    "end_time": "16:00",
-    "member": "Jordan Patel",
     "mtime": 1775970289
   },
   {
@@ -4961,8 +4823,8 @@
   {
     "path": "plant-harvesting/poplar-leaf-collection.md",
     "type": "protocol",
-    "title": "Collecting Poplar Leaves for Somatic Mutation Sequencing",
-    "mtime": 1775900674
+    "title": "Poplar Leaf Collection",
+    "mtime": 1776056797
   },
   {
     "path": "shipping/aggieship-inbound-hazmat-label.md",
