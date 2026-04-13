@@ -101,6 +101,10 @@
   .people-grid { grid-template-columns: 1fr; }
   .person-dash-header { flex-direction: column; text-align: center; padding: 20px; }
 }
+@keyframes wizardSlideIn {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 </style>
 </head>
 <body>
@@ -112,6 +116,14 @@
     <p>Monroe Lab members</p>
   </div>
 
+  <!-- Join the Lab button -->
+  <div id="joinBtnWrap" style="margin-bottom:20px;">
+    <button id="joinLabBtn" onclick="openOnboardingWizard()" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(21,101,192,.3);transition:transform .15s,box-shadow .15s;">
+      <span class="material-icons-outlined" style="font-size:20px">person_add</span>
+      Join the Lab
+    </button>
+  </div>
+
   <div id="loadingState" style="text-align:center;padding:40px;color:var(--grey-400);">
     <div class="spinner"></div><p>Loading...</p>
   </div>
@@ -120,6 +132,13 @@
 
   <!-- Person dashboard (shown when ?person=<slug> is in the URL) -->
   <div id="personDashboard" style="display:none"></div>
+
+  <!-- Onboarding wizard overlay -->
+  <div id="wizardOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+    <div id="wizardModal" style="max-width:600px;margin:40px auto;background:#fff;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;animation:wizardSlideIn .3s ease-out;">
+      <!-- Wizard content injected by JS -->
+    </div>
+  </div>
 </div>
 
 <script>
@@ -467,17 +486,427 @@
   function route() {
     var params = new URLSearchParams(location.search);
     var person = params.get('person');
+    var joinWrap = document.getElementById('joinBtnWrap');
     if (person) {
       document.getElementById('peopleGrid').style.display = 'none';
+      if (joinWrap) joinWrap.style.display = 'none';
       renderPersonDashboard(person);
     } else {
       document.getElementById('personDashboard').style.display = 'none';
       document.getElementById('peopleGrid').style.display = '';
+      if (joinWrap) joinWrap.style.display = '';
       document.getElementById('pageHeader').innerHTML =
         '<h1>People</h1><p>Monroe Lab members</p>';
     }
   }
   window.addEventListener('popstate', route);
+
+  // ── Onboarding Wizard ──
+
+  var PROTOCOL_CATEGORIES = {
+    order: [
+      'wet-lab', 'wet-lab/extraction', 'wet-lab/library-prep', 'wet-lab/epigenomics', 'wet-lab/mutagenesis',
+      'lab-safety', 'lab-management', 'workflow-templates', 'bioinformatics',
+    ],
+    labels: {
+      'wet-lab':                'Wet Lab Basics',
+      'wet-lab/extraction':     'DNA Extraction',
+      'wet-lab/library-prep':   'Library Prep & Sequencing',
+      'wet-lab/epigenomics':    'Epigenomics',
+      'wet-lab/mutagenesis':    'Mutagenesis & Genetics',
+      'lab-management':         'Lab Management',
+      'lab-safety':             'Lab Safety',
+      'workflow-templates':     'Workflow Templates',
+      'bioinformatics':         'Bioinformatics',
+    }
+  };
+
+  var wizardState = { step: 1, name: '', role: '', email: '', protocols: [], projects: [] };
+  var wizardProtocols = [];
+  var wizardProjects = [];
+
+  window.openOnboardingWizard = function() {
+    wizardState = { step: 1, name: '', role: '', email: '', protocols: [], projects: [] };
+    document.getElementById('wizardOverlay').style.display = '';
+    document.body.style.overflow = 'hidden';
+    loadWizardData().then(function() { renderWizardStep(); });
+  };
+
+  function closeWizard() {
+    document.getElementById('wizardOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click (not modal body)
+  document.getElementById('wizardOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeWizard();
+  });
+
+  async function loadWizardData() {
+    try {
+      var idx = await Lab.gh.fetchObjectIndex();
+      wizardProtocols = idx.filter(function(o) { return o.type === 'protocol'; });
+      wizardProjects = idx.filter(function(o) { return o.type === 'project'; });
+    } catch(e) {
+      wizardProtocols = [];
+      wizardProjects = [];
+    }
+  }
+
+  function groupProtocolsByCategory(protocols) {
+    var groups = {};
+    protocols.forEach(function(p) {
+      var parts = p.path.replace(/\.md$/, '').split('/');
+      parts.pop();
+      var dir = parts.join('/');
+      if (!groups[dir]) groups[dir] = [];
+      groups[dir].push(p);
+    });
+
+    var ordered = [];
+    var used = {};
+    PROTOCOL_CATEGORIES.order.forEach(function(dir) {
+      if (groups[dir]) {
+        ordered.push({ dir: dir, label: PROTOCOL_CATEGORIES.labels[dir] || dir, items: groups[dir] });
+        used[dir] = true;
+      }
+    });
+    Object.keys(groups).sort().forEach(function(dir) {
+      if (!used[dir]) {
+        var last = dir.split('/').pop();
+        var label = last.split('-').map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+        ordered.push({ dir: dir, label: label, items: groups[dir] });
+      }
+    });
+    return ordered;
+  }
+
+  function wizardProgressBar(step, total) {
+    var pct = ((step - 1) / (total - 1)) * 100;
+    return '<div style="padding:20px 28px 0;">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">' +
+        '<span style="font-size:12px;font-weight:600;color:#1565c0;">Step ' + step + ' of ' + total + '</span>' +
+        '<button onclick="closeWizard()" style="background:none;border:none;cursor:pointer;padding:4px;color:#9e9e9e;font-size:20px;line-height:1;" title="Close">&times;</button>' +
+      '</div>' +
+      '<div style="height:4px;background:#e3f2fd;border-radius:2px;overflow:hidden;">' +
+        '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#1565c0,#42a5f5);border-radius:2px;transition:width .3s ease;"></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderWizardStep() {
+    var modal = document.getElementById('wizardModal');
+    var html = '';
+
+    if (wizardState.step === 1) {
+      html = wizardProgressBar(1, 4) +
+        '<div style="padding:28px 28px 8px;text-align:center;">' +
+          '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1565c0,#42a5f5);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">' +
+            '<span class="material-icons-outlined" style="font-size:32px;color:#fff;">waving_hand</span>' +
+          '</div>' +
+          '<h2 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1a1a1a;">Welcome to the Monroe Lab!</h2>' +
+          '<p style="margin:0 0 24px;font-size:14px;color:#666;line-height:1.5;">Let\'s get you set up. This takes about 2 minutes and creates your profile, notebook, and connects you to the protocols and projects you\'ll be working on.</p>' +
+        '</div>' +
+        '<div style="padding:0 28px 28px;">' +
+          '<div style="margin-bottom:16px;">' +
+            '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Full Name <span style="color:#e53935;">*</span></label>' +
+            '<input id="wizName" type="text" value="' + esc(wizardState.name) + '" placeholder="e.g. Jane Smith" style="width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .15s;" onfocus="this.style.borderColor=\'#1565c0\'" onblur="this.style.borderColor=\'#ddd\'">' +
+          '</div>' +
+          '<div style="margin-bottom:16px;">' +
+            '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Role</label>' +
+            '<select id="wizRole" style="width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;background:#fff;transition:border-color .15s;" onfocus="this.style.borderColor=\'#1565c0\'" onblur="this.style.borderColor=\'#ddd\'">' +
+              '<option value="">Select your role...</option>' +
+              '<option value="Graduate Student"' + (wizardState.role === 'Graduate Student' ? ' selected' : '') + '>Graduate Student</option>' +
+              '<option value="Postdoc"' + (wizardState.role === 'Postdoc' ? ' selected' : '') + '>Postdoc</option>' +
+              '<option value="Rotation Student"' + (wizardState.role === 'Rotation Student' ? ' selected' : '') + '>Rotation Student</option>' +
+              '<option value="Undergraduate"' + (wizardState.role === 'Undergraduate' ? ' selected' : '') + '>Undergraduate</option>' +
+              '<option value="Lab Technician"' + (wizardState.role === 'Lab Technician' ? ' selected' : '') + '>Lab Technician</option>' +
+              '<option value="Visiting Scholar"' + (wizardState.role === 'Visiting Scholar' ? ' selected' : '') + '>Visiting Scholar</option>' +
+              '<option value="PI"' + (wizardState.role === 'PI' ? ' selected' : '') + '>PI</option>' +
+            '</select>' +
+          '</div>' +
+          '<div style="margin-bottom:24px;">' +
+            '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Email</label>' +
+            '<input id="wizEmail" type="email" value="' + esc(wizardState.email) + '" placeholder="you@ucdavis.edu" style="width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .15s;" onfocus="this.style.borderColor=\'#1565c0\'" onblur="this.style.borderColor=\'#ddd\'">' +
+          '</div>' +
+          '<div style="display:flex;justify-content:flex-end;">' +
+            '<button onclick="wizardNext()" style="padding:10px 28px;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(21,101,192,.25);">Next <span class="material-icons-outlined" style="font-size:18px;">arrow_forward</span></button>' +
+          '</div>' +
+        '</div>';
+
+    } else if (wizardState.step === 2) {
+      var cats = groupProtocolsByCategory(wizardProtocols);
+      var selectedCount = wizardState.protocols.length;
+
+      html = wizardProgressBar(2, 4) +
+        '<div style="padding:24px 28px 8px;">' +
+          '<h2 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1a1a1a;">Pick Your Protocols</h2>' +
+          '<p style="margin:0 0 16px;font-size:13px;color:#666;line-height:1.5;">Which protocols will you be working on? This links them to your profile so you can find them quickly. You can always change this later.</p>' +
+          '<div id="wizProtoCount" style="font-size:12px;font-weight:600;color:#1565c0;margin-bottom:12px;">' + selectedCount + ' selected</div>' +
+        '</div>' +
+        '<div style="padding:0 28px;max-height:380px;overflow-y:auto;">';
+
+      cats.forEach(function(cat, ci) {
+        var catItems = cat.items;
+        html += '<div style="margin-bottom:12px;">' +
+          '<div onclick="toggleWizCategory(this)" style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;user-select:none;">' +
+            '<span class="material-icons-outlined" style="font-size:18px;color:#1565c0;transition:transform .2s;">expand_more</span>' +
+            '<span style="font-size:13px;font-weight:700;color:#333;">' + esc(cat.label) + '</span>' +
+            '<span style="font-size:11px;color:#999;">(' + catItems.length + ')</span>' +
+          '</div>' +
+          '<div class="wiz-cat-items" style="padding-left:26px;">';
+
+        catItems.forEach(function(p) {
+          var slug = p.path.replace(/\.md$/, '').split('/').pop();
+          var checked = wizardState.protocols.indexOf(slug) >= 0;
+          html += '<label style="display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px;color:#444;">' +
+            '<input type="checkbox" value="' + esc(slug) + '" data-wiz-proto ' + (checked ? 'checked' : '') +
+            ' onchange="updateWizProtoCount()" style="accent-color:#1565c0;width:16px;height:16px;cursor:pointer;">' +
+            esc(p.title || slug) +
+          '</label>';
+        });
+
+        html += '</div></div>';
+      });
+
+      html += '</div>' +
+        '<div style="padding:16px 28px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eee;margin-top:8px;">' +
+          '<button onclick="wizardBack()" style="padding:10px 20px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons-outlined" style="font-size:18px;">arrow_back</span> Back</button>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button onclick="wizardSkip()" style="padding:10px 20px;background:none;color:#999;border:none;font-size:13px;cursor:pointer;">Skip</button>' +
+            '<button onclick="wizardNext()" style="padding:10px 28px;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(21,101,192,.25);">Next <span class="material-icons-outlined" style="font-size:18px;">arrow_forward</span></button>' +
+          '</div>' +
+        '</div>';
+
+    } else if (wizardState.step === 3) {
+      var selectedProjCount = wizardState.projects.length;
+
+      html = wizardProgressBar(3, 4) +
+        '<div style="padding:24px 28px 8px;">' +
+          '<h2 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1a1a1a;">Pick Your Projects</h2>' +
+          '<p style="margin:0 0 16px;font-size:13px;color:#666;line-height:1.5;">Which lab projects are you involved in? This connects your profile to the project pages.</p>' +
+          '<div id="wizProjCount" style="font-size:12px;font-weight:600;color:#1565c0;margin-bottom:12px;">' + selectedProjCount + ' selected</div>' +
+        '</div>' +
+        '<div style="padding:0 28px;max-height:380px;overflow-y:auto;">';
+
+      if (wizardProjects.length === 0) {
+        html += '<div style="text-align:center;padding:20px;color:#999;font-size:13px;">No projects found yet. You can link projects to your profile later.</div>';
+      } else {
+        wizardProjects.forEach(function(p) {
+          var slug = p.path.replace(/\.md$/, '').split('/').pop();
+          var checked = wizardState.projects.indexOf(slug) >= 0;
+          html += '<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:1px solid #f5f5f5;">' +
+            '<input type="checkbox" value="' + esc(slug) + '" data-wiz-proj ' + (checked ? 'checked' : '') +
+            ' onchange="updateWizProjCount()" style="accent-color:#1565c0;width:16px;height:16px;cursor:pointer;flex-shrink:0;">' +
+            '<div>' +
+              '<div style="font-size:14px;font-weight:500;color:#333;">' + esc(p.title || slug) + '</div>' +
+            '</div>' +
+          '</label>';
+        });
+      }
+
+      html += '</div>' +
+        '<div style="padding:16px 28px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eee;margin-top:8px;">' +
+          '<button onclick="wizardBack()" style="padding:10px 20px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons-outlined" style="font-size:18px;">arrow_back</span> Back</button>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button onclick="wizardSkip()" style="padding:10px 20px;background:none;color:#999;border:none;font-size:13px;cursor:pointer;">Skip</button>' +
+            '<button onclick="wizardNext()" style="padding:10px 28px;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(21,101,192,.25);">Next <span class="material-icons-outlined" style="font-size:18px;">arrow_forward</span></button>' +
+          '</div>' +
+        '</div>';
+
+    } else if (wizardState.step === 4) {
+      html = wizardProgressBar(4, 4) +
+        '<div style="padding:28px 28px 8px;text-align:center;">' +
+          '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#43a047,#66bb6a);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">' +
+            '<span class="material-icons-outlined" style="font-size:32px;color:#fff;">check_circle</span>' +
+          '</div>' +
+          '<h2 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1a1a1a;">You\'re all set!</h2>' +
+          '<p style="margin:0 0 4px;font-size:14px;color:#666;">Creating your profile and notebook...</p>' +
+          '<div id="wizCreateStatus" style="font-size:13px;color:#999;margin-bottom:20px;"></div>' +
+        '</div>' +
+        '<div id="wizChecklist" style="display:none;padding:0 28px 28px;">' +
+          '<div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Next Steps</div>' +
+          '<div id="wizChecklistItems"></div>' +
+          '<div style="display:flex;justify-content:center;margin-top:20px;">' +
+            '<button id="wizGoProfile" style="padding:12px 32px;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(21,101,192,.25);">' +
+              '<span class="material-icons-outlined" style="font-size:20px;">person</span> Go to My Profile' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    modal.innerHTML = html;
+
+    // Auto-trigger creation on step 4
+    if (wizardState.step === 4) {
+      createPersonFiles();
+    }
+
+    // Focus name input on step 1
+    if (wizardState.step === 1) {
+      var nameInput = document.getElementById('wizName');
+      if (nameInput) setTimeout(function() { nameInput.focus(); }, 100);
+    }
+  }
+
+  window.toggleWizCategory = function(el) {
+    var icon = el.querySelector('.material-icons-outlined');
+    var items = el.nextElementSibling;
+    if (items.style.display === 'none') {
+      items.style.display = '';
+      icon.style.transform = '';
+    } else {
+      items.style.display = 'none';
+      icon.style.transform = 'rotate(-90deg)';
+    }
+  };
+
+  window.updateWizProtoCount = function() {
+    var boxes = document.querySelectorAll('[data-wiz-proto]');
+    var count = 0;
+    boxes.forEach(function(b) { if (b.checked) count++; });
+    var el = document.getElementById('wizProtoCount');
+    if (el) el.textContent = count + ' selected';
+  };
+
+  window.updateWizProjCount = function() {
+    var boxes = document.querySelectorAll('[data-wiz-proj]');
+    var count = 0;
+    boxes.forEach(function(b) { if (b.checked) count++; });
+    var el = document.getElementById('wizProjCount');
+    if (el) el.textContent = count + ' selected';
+  };
+
+  function collectSelections() {
+    if (wizardState.step === 2) {
+      wizardState.protocols = [];
+      document.querySelectorAll('[data-wiz-proto]:checked').forEach(function(b) {
+        wizardState.protocols.push(b.value);
+      });
+    } else if (wizardState.step === 3) {
+      wizardState.projects = [];
+      document.querySelectorAll('[data-wiz-proj]:checked').forEach(function(b) {
+        wizardState.projects.push(b.value);
+      });
+    }
+  }
+
+  window.wizardNext = function() {
+    if (wizardState.step === 1) {
+      var nameEl = document.getElementById('wizName');
+      var roleEl = document.getElementById('wizRole');
+      var emailEl = document.getElementById('wizEmail');
+      wizardState.name = (nameEl.value || '').trim();
+      wizardState.role = roleEl.value;
+      wizardState.email = (emailEl.value || '').trim();
+
+      if (!wizardState.name) {
+        nameEl.style.borderColor = '#e53935';
+        nameEl.focus();
+        return;
+      }
+    }
+    collectSelections();
+    wizardState.step++;
+    renderWizardStep();
+  };
+
+  window.wizardBack = function() {
+    collectSelections();
+    wizardState.step--;
+    renderWizardStep();
+  };
+
+  window.wizardSkip = function() {
+    // Don't collect selections when skipping (clear them)
+    if (wizardState.step === 2) wizardState.protocols = [];
+    if (wizardState.step === 3) wizardState.projects = [];
+    wizardState.step++;
+    renderWizardStep();
+  };
+
+  async function createPersonFiles() {
+    var statusEl = document.getElementById('wizCreateStatus');
+    var checklistEl = document.getElementById('wizChecklist');
+    var gh = Lab.gh;
+    var slug = Lab.slugify(wizardState.name);
+    var today = new Date().toISOString().slice(0, 10);
+
+    try {
+      // 1. Create person markdown
+      statusEl.textContent = 'Creating your profile...';
+      var meta = { type: 'person', title: wizardState.name };
+      if (wizardState.role) meta.role = wizardState.role;
+      if (wizardState.email) meta.email = wizardState.email;
+
+      var bodyLines = ['# ' + wizardState.name, ''];
+      if (wizardState.protocols.length) {
+        bodyLines.push('## Protocols');
+        wizardState.protocols.forEach(function(p) {
+          bodyLines.push('- [[' + p + ']]');
+        });
+        bodyLines.push('');
+      }
+      if (wizardState.projects.length) {
+        bodyLines.push('## Projects');
+        wizardState.projects.forEach(function(p) {
+          bodyLines.push('- [[' + p + ']]');
+        });
+        bodyLines.push('');
+      }
+
+      var personContent = Lab.buildFrontmatter(meta, bodyLines.join('\n'));
+      await gh.saveFile('docs/people/' + slug + '.md', personContent, null, 'New lab member: ' + wizardState.name);
+
+      // 2. Create notebook folder with .gitkeep
+      statusEl.textContent = 'Setting up your notebook...';
+      await gh.saveFile('docs/notebooks/' + slug + '/.gitkeep', '', null, 'Create notebook folder for ' + wizardState.name);
+
+      // 3. Create first notebook entry
+      var entryContent = '# ' + today + ' — ' + wizardState.name + '\n\n' +
+        '**Person:** ' + wizardState.name + '\n\n' +
+        '**Date:** ' + today + '\n\n' +
+        '## Plan for today\n\n' +
+        '## What I did\n\n' +
+        '## Results & observations\n\n' +
+        '## Next steps\n\n';
+      await gh.saveFile('docs/notebooks/' + slug + '/' + today + '.md', entryContent, null, 'First notebook entry for ' + wizardState.name);
+
+      // 4. Rebuild index cache
+      gh.clearObjectIndexCache();
+
+      // Show success checklist
+      statusEl.innerHTML = '<span style="color:#43a047;font-weight:600;">Done! All files created.</span>';
+      checklistEl.style.display = '';
+
+      var itemsHtml = '';
+      var checkItems = [
+        { icon: 'event', text: 'Add your schedule to the lab calendar', href: 'calendar.html' },
+        { icon: 'edit_note', text: 'Write your first lab notebook entry', href: 'notebooks.html?person=' + slug },
+        { icon: 'bug_report', text: 'Try the issue reporter (blue button, bottom right)', href: null },
+      ];
+      checkItems.forEach(function(item) {
+        itemsHtml += '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8fafb;border-radius:8px;margin-bottom:8px;">' +
+          '<span class="material-icons-outlined" style="font-size:20px;color:#1565c0;">' + item.icon + '</span>' +
+          '<span style="font-size:13px;color:#333;flex:1;">' + esc(item.text) + '</span>' +
+          (item.href ? '<a href="' + item.href + '" style="font-size:12px;color:#1565c0;text-decoration:none;font-weight:600;white-space:nowrap;">Go &rarr;</a>' : '<span style="font-size:11px;color:#999;">Look for the <span style="display:inline-block;width:14px;height:14px;background:#1565c0;border-radius:50%;vertical-align:middle;"></span> button</span>') +
+        '</div>';
+      });
+      document.getElementById('wizChecklistItems').innerHTML = itemsHtml;
+
+      document.getElementById('wizGoProfile').onclick = function() {
+        closeWizard();
+        openPerson(slug);
+        // Reload to pick up new person
+        Lab.gh.clearObjectIndexCache();
+        loadPeople();
+      };
+
+    } catch(e) {
+      statusEl.innerHTML = '<span style="color:#e53935;">Error: ' + esc(e.message) + '</span>';
+      console.error('Onboarding wizard error:', e);
+    }
+  }
 
   loadPeople().then(function() { route(); });
 })();
