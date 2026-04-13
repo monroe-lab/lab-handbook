@@ -4,6 +4,10 @@
 
 ***
 
+***
+
+***
+
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
 **Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
@@ -24,13 +28,13 @@ For each tree:
 
 That's it. Two tubes per tree. Don't worry about which goes to short-read vs. long-read sequencing — we figure that out in the lab.
 
-![Two adjacent leaf clusters on the same shoot, each going into its own tube](images/poplar-leaf-clusters.png)
+![Two adjacent leaf clusters on the same shoot, each going into its own tube](plant-harvesting/images/poplar-leaf-clusters.png)
 
 ***
 
 ## Why we sample this way (the very short version)
 
-We're trying to detect somatic mutations — changes that arose in a single cell during the tree's life and got passed down to all the cells that descended from it. The cleaner a mutation's "footprint" in the tissue we sequence, the easier it is to call from the data. Two design choices follow:
+We're trying to detect somatic mutations, that arose in a single cell during the tree's life and got passed down to all the cells that descended from it. The cleaner a mutation's "footprint" in the tissue we sequence, the easier it is to call from the data. Two design choices follow:
 
 * **Pick a branch several branching events out from the main trunk.** Each new axillary branch is founded by a small handful of cells from the parent meristem. That cellular bottleneck "fixes" any mutations from those founder cells across the whole new branch's lineage. The more bottlenecks between trunk and leaf, the more likely a somatic mutation is at high VAF (close to fixed) rather than chimeric (present in only some cells of the leaf). High-VAF mutations are much easier to call reliably from sequencing. So: deeper in the branching hierarchy = better signal.
 * **Two adjacent clusters on the same shoot.** Same branching history, so the two samples are nearly identical biologically. They serve as backup of each other and we can split them later between short-read and long-read library prep without confounding the comparison.
@@ -70,7 +74,7 @@ You will receive a list of lines to sample for your site (e.g., "1 tree per line
 
 On the tree, look for a **side branch with at least one — and ideally several — branching events between it and the main trunk.** In poplar this usually means: pick a sub-branch off a side branch off the main stem.
 
-![Doesn't have to be perfect, but finding the "most branched branch" (least apical) is the goal](images/branch-selection.png)
+![Doesn't have to be perfect, but finding the "most branched branch" (least apical) is the goal](plant-harvesting/images/branch-selection.png)
 
 Avoid:
 
