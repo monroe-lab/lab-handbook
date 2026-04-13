@@ -18,9 +18,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -98,29 +98,29 @@ Write the ID with permanent marker (or printed sticker) on the **tube body *and 
 
 The **shorthand** code goes on the tube label.
 
-| Shorthand | Canonical (field map) | Construct | Type |
-| --------- | --------------------- | --------- | ---- |
-| `WT` | `WT717` | 717-1B4 wild type | Untransformed control |
-| `EV` | `Empty Vector` | Empty vector (Cas9, no edit) | Tissue-culture control |
-| `CK45` | `Chx20, KO # 45` | CHX20 knockout, event 45 | Transgenic |
-| `CK54` | `Chx20, KO # 54` | CHX20 knockout, event 54 | Transgenic |
-| `CK107` | `Chx20, KO # 107` | CHX20 knockout, event 107 | Transgenic |
-| `CO61` | `Chx20, OE # 61` | CHX20 overexpression, event 61 | Transgenic |
-| `CO74` | `Chx20, OE # 74` | CHX20 overexpression, event 74 | Transgenic |
-| `CO78` | `Chx20, OE # 78` | CHX20 overexpression, event 78 | Transgenic |
-| `DO29` | `DIR18-OE_29` | DIR18 overexpression, event 29 | Transgenic |
-| `DO89` | `DIR18-OE_89` | DIR18 overexpression, event 89 | Transgenic |
-| `DO214` | `DIR18-OE_214` | DIR18 overexpression, event 214 | Transgenic |
-| `EO5` | `EXO70C2-OE_5` | EXO70C2 overexpression, event 5 | Transgenic |
-| `EO17` | `EXO70C2-OE_17` | EXO70C2 overexpression, event 17 | Transgenic |
-| `EO24` | `EXO70C2-OE_24` | EXO70C2 overexpression, event 24 | Transgenic |
-| `XK1` | `PtrXBAT35-KO #1` | PtrXBAT35 knockout, event 1 | Transgenic |
-| `XK15` | `PtrXBAT35-KO #15` | PtrXBAT35 knockout, event 15 | Transgenic |
-| `XK59` | `PtrXBAT35-KO #59` | PtrXBAT35 knockout, event 59 | Transgenic |
-| `XO22` | `PtrXBAT35-OE #22` | PtrXBAT35 overexpression, event 22 | Transgenic |
-| `XO60` | `PtrXBAT35-OE #60` | PtrXBAT35 overexpression, event 60 | Transgenic |
-| `XO72` | `PtrXBAT35-OE #72` | PtrXBAT35 overexpression, event 72 | Transgenic |
-| `717` | (border / spacer 717-1B4 from a guard row) | 717-1B4 | Untransformed spatial control |
+| Shorthand | Canonical | Type |
+| --------- | --------- | ---- |
+| `WT` | `WT717` | Untransformed control |
+| `EV` | `Empty Vector` | Tissue-culture control |
+| `CK45` | `Chx20, KO # 45` | Transgenic |
+| `CK54` | `Chx20, KO # 54` | Transgenic |
+| `CK107` | `Chx20, KO # 107` | Transgenic |
+| `CO61` | `Chx20, OE # 61` | Transgenic |
+| `CO74` | `Chx20, OE # 74` | Transgenic |
+| `CO78` | `Chx20, OE # 78` | Transgenic |
+| `DO29` | `DIR18-OE_29` | Transgenic |
+| `DO89` | `DIR18-OE_89` | Transgenic |
+| `DO214` | `DIR18-OE_214` | Transgenic |
+| `EO5` | `EXO70C2-OE_5` | Transgenic |
+| `EO17` | `EXO70C2-OE_17` | Transgenic |
+| `EO24` | `EXO70C2-OE_24` | Transgenic |
+| `XK1` | `PtrXBAT35-KO #1` | Transgenic |
+| `XK15` | `PtrXBAT35-KO #15` | Transgenic |
+| `XK59` | `PtrXBAT35-KO #59` | Transgenic |
+| `XO22` | `PtrXBAT35-OE #22` | Transgenic |
+| `XO60` | `PtrXBAT35-OE #60` | Transgenic |
+| `XO72` | `PtrXBAT35-OE #72` | Transgenic |
+| `717` | (border / spacer 717-1B4 from a guard row) | Untransformed spatial control |
 
 ***
 
