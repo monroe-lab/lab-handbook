@@ -1,24 +1,8 @@
 ---
 ---
-***
-
-***
-
-***
-
-***
-
-***
-
-***
-
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
-**Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
-
-**Project context:** Currently used for the Poplar Somatic Sequencing project (April 2026 collection round). It's also written as a generic reference for any future leaf-based somatic mutation sampling in poplar — feel free to point future collaborators here.
-
-***
+**Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab for CBI project. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
 
 ## Quick summary
 
@@ -30,10 +14,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
+<img src="plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
-
-<img src="images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -43,29 +26,12 @@ We're trying to detect somatic mutations, that arose before, during, and after t
 
 * **Pick a branch several branching events out from the main trunk.** Each new axillary branch is founded by a small handful of cells from the parent meristem. That cellular bottleneck "fixes" any mutations from those founder cells across the whole new branch's lineage in each cell layer. The more bottlenecks between trunk and leaf, the more likely a somatic mutation is at high VAF (close to fixed) rather than chimeric. High-VAF mutations are much easier to call reliably from sequencing.
 * **Two adjacent clusters on the same shoot.** Same branching history, so the two samples are nearly identical biologically. They serve as control for each other and we can split them later between short-read and long-read library prep without confounding the comparison.
-* **Young, fully-expanded leaves.** Best DNA yield, and lower polyphenol/polysaccharide load than older leaves.
-* **Leaves only, no stem or petiole.** Stem tissue is high in polyphenols and polysaccharides that inhibit DNA extraction.
-
-***
-
-## Materials
-
-You provide:
-
-* **Tubes or envelopes** — one per leaf cluster, two per tree. Any clean dry container works as long as it can take a label and survive freezing. 5 mL screw-cap tubes are great; small coin envelopes work too if you flash-freeze them.
-* **Permanent marker (Sharpie).** Pencil and ballpoint pen smear or fade — don't use them.
-* **Liquid nitrogen dewar OR dry ice in a cooler** — for immediate flash-freezing on-site
-* **Clean nitrile gloves**, scissors or secateurs, and 70% ethanol wipes for cleaning between trees
-* **Camera** (phone is fine) for tree-tag photos
-* **Sample sheet** — printed copy of the table below, one row per tube, on a clipboard
-
-Need any of this? Email Grey at `gmonroe@ucdavis.edu` and we'll arrange to get supplies to you.
-
-***
+* **Young, fully-expanded leaves.** Best DNA yield, and lower polyphenol/polysaccharide load than older leaves/stems.
 
 ## Procedure
 
-### 1\. Select the tree
+
+## 1\. Select the tree
 
 You will receive a list of lines to sample for your site (e.g., "1 tree per line + 1 border 717 spacer"). For each line on your list:
 
