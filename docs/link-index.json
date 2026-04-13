@@ -668,6 +668,18 @@
     "target": "lab-safety/chemical-inventory"
   },
   {
+    "source": "people/mr-freckles",
+    "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "people/mr-freckles",
+    "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "people/mr-freckles",
+    "target": "wet-lab/clean-bench"
+  },
+  {
     "source": "people/satoyo-oya",
     "target": "wet-lab/ms-media-recipe"
   },
@@ -4594,6 +4606,38 @@
   {
     "source": "wet-lab/making-an-agarose-gel",
     "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/make-tae-buffer"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/make-te-buffer"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/make-buffer-a"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/make-hifi-lysis-buffer"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/ms-media-recipe"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/ph-measurement"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/making-solutions",
+    "target": "wet-lab/pipette-school"
   },
   {
     "source": "wet-lab/ms-media-recipe",

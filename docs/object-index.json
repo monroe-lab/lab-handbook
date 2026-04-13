@@ -3341,6 +3341,14 @@
     "mtime": 1775207934
   },
   {
+    "path": "people/mr-freckles.md",
+    "type": "person",
+    "title": "Mr. Freckles",
+    "role": "PI",
+    "email": "freckles@ucdavis.edu",
+    "mtime": 1776059618
+  },
+  {
     "path": "people/satoyo-oya.md",
     "type": "person",
     "title": "Satoyo Oya",
@@ -3404,7 +3412,7 @@
     "status": "active",
     "pi": "Grey Monroe",
     "lead": "Grey Monroe",
-    "mtime": 1775988742
+    "mtime": 1776059308
   },
   {
     "path": "projects/tudor-reader-fusions/index.md",
@@ -3551,6 +3559,12 @@
     "type": "protocol",
     "title": "Making an Agarose Gel",
     "mtime": 1775983797
+  },
+  {
+    "path": "wet-lab/making-solutions.md",
+    "type": "protocol",
+    "title": "Making Solutions",
+    "mtime": 1776060130
   },
   {
     "path": "wet-lab/ms-media-recipe.md",
@@ -3804,8 +3818,8 @@
   {
     "path": "wet-lab/mutagenesis/fast-neutron-treatment.md",
     "type": "protocol",
-    "title": "[protocol][draft] Fast neutron treatment",
-    "mtime": 1776055008
+    "title": "Fast neutron treatment",
+    "mtime": 1776059179
   },
   {
     "path": "wet-lab/mutagenesis/m2-forward-genetic-screening.md",
@@ -4077,6 +4091,12 @@
     "type": "notebook",
     "title": "2026-04-08 \u2014 Ma Experiment",
     "mtime": 1775669516
+  },
+  {
+    "path": "notebooks/mr-freckles/2026-04-13.md",
+    "type": "notebook",
+    "title": "2026-04-13 \u2014 Mr. Freckles",
+    "mtime": 1776059620
   },
   {
     "path": "notebooks/template.md",

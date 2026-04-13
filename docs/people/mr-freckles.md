@@ -12,4 +12,3 @@ email: "freckles@ucdavis.edu"
 - [[clean-bench]]
 
 ## Projects
-- [[index]]

@@ -1,70 +1,70 @@
 {
-  "generated_at": "2026-04-12T12:06:46.387050+00:00",
-  "total_commits": 2014,
+  "generated_at": "2026-04-13T06:06:59.202939+00:00",
+  "total_commits": 2117,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 2011,
+      "total_commits": 2114,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-12",
-      "protocols_authored": 161,
-      "notebooks_authored": 82,
-      "inventory_edits": 1714,
-      "wiki_edits": 611,
-      "images_uploaded": 92,
-      "issue_attachments": 15,
+      "last_commit": "2026-04-13",
+      "protocols_authored": 162,
+      "notebooks_authored": 85,
+      "inventory_edits": 1740,
+      "wiki_edits": 653,
+      "images_uploaded": 94,
+      "issue_attachments": 44,
       "issues_filed": 30,
       "locations_created": 52,
-      "items_added": 572,
+      "items_added": 579,
       "bulletin_edits": 6,
-      "calendar_edits": 39,
+      "calendar_edits": 40,
       "annotations": 55,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "d04562a",
-          "subject": "Add event: DNA extraction, pistachio leaf samples on 2026-04-08",
-          "date": "2026-04-12"
+          "sha": "abc09de",
+          "subject": "Issue reporter attachment: screenshot-2026-04-13-at-6.54.06-am.png",
+          "date": "2026-04-13"
         },
         {
-          "sha": "3879500",
-          "subject": "Add calendar tutorial video to tutorials page",
-          "date": "2026-04-12"
+          "sha": "63477ce",
+          "subject": "Issue reporter attachment: screenshot-2026-04-13-at-6.53.35-am.png",
+          "date": "2026-04-13"
         },
         {
-          "sha": "8bb7b24",
-          "subject": "Update lab map tutorial: voice narration, tube creation flow, flexible hierarchy",
-          "date": "2026-04-12"
+          "sha": "03cb446",
+          "subject": "Issue reporter attachment: screenshot-2026-04-13-at-6.54.57-am.png",
+          "date": "2026-04-13"
         },
         {
-          "sha": "d96c491",
-          "subject": "Add tutorial: Managing Waste Containers",
-          "date": "2026-04-12"
+          "sha": "72acc1c",
+          "subject": "New instance of Acetone",
+          "date": "2026-04-13"
         },
         {
-          "sha": "153d886",
-          "subject": "New folder: Barbara's Protocols",
-          "date": "2026-04-12"
+          "sha": "ad1348c",
+          "subject": "Issue reporter attachment: screenshot-2026-04-13-at-6.56.44-am.png",
+          "date": "2026-04-13"
         },
         {
-          "sha": "97e3560",
-          "subject": "New protocol: Transposon Mapping in Maize",
-          "date": "2026-04-12"
+          "sha": "0ed8369",
+          "subject": "Delete docs/stocks/bottle-acetone-yav43rs5.md",
+          "date": "2026-04-13"
         },
         {
-          "sha": "0058791",
-          "subject": "Update barbaras-protocols/transposon-mapping-in-maize",
-          "date": "2026-04-12"
+          "sha": "49ddf60",
+          "subject": "Add stock solutions and dilution calculation guide to making-solutions protocol",
+          "date": "2026-04-13"
         },
         {
-          "sha": "38e6b3f",
-          "subject": "Fix #62 #63: copy link button, popup cards from people page",
-          "date": "2026-04-12"
+          "sha": "049ee65",
+          "subject": "Replace parent location picker with collapsible tree dropdown",
+          "date": "2026-04-13"
         }
       ],
-      "days_active": 129
+      "days_active": 130
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -98,7 +98,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 128
+      "days_active": 129
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -127,7 +127,7 @@
           "date": "2026-04-07"
         }
       ],
-      "days_active": 5
+      "days_active": 6
     }
   }
 }

@@ -178,11 +178,14 @@
       }
     }
 
-    // Build object lookup for pill styling
+    // Build object lookup for pill styling (mirrors wikilinks.js slug logic:
+    // for folder-style pages like projects/foo/index.md, use "foo" not "index")
     var objectLookup = {};
     objects.forEach(function(obj) {
-      var slug = obj.path.replace(/\.md$/, '').split('/').pop();
-      objectLookup[slug] = obj;
+      var parts = obj.path.replace(/\.md$/, '').split('/');
+      var last = parts[parts.length - 1];
+      var slug = (last === 'index' && parts.length > 1) ? parts[parts.length - 2] : last;
+      if (!objectLookup[slug]) objectLookup[slug] = obj;
     });
 
     var people = objects.filter(function(obj) { return obj.type === 'person'; });
@@ -546,7 +549,18 @@
     try {
       var idx = await Lab.gh.fetchObjectIndex();
       wizardProtocols = idx.filter(function(o) { return o.type === 'protocol'; });
-      wizardProjects = idx.filter(function(o) { return o.type === 'project'; });
+      // Only show top-level projects: index.md inside a project folder, or
+      // single-file projects directly under projects/ (not sub-documents like
+      // bill-of-materials.md inside a project folder).
+      wizardProjects = idx.filter(function(o) {
+        if (o.type !== 'project') return false;
+        var parts = o.path.replace(/\.md$/, '').split('/');
+        // projects/<slug>/index.md → top-level (folder project)
+        if (parts.length === 3 && parts[2] === 'index') return true;
+        // projects/<slug>.md → top-level (single-file project)
+        if (parts.length === 2) return true;
+        return false;
+      });
     } catch(e) {
       wizardProtocols = [];
       wizardProjects = [];
@@ -693,7 +707,9 @@
         html += '<div style="text-align:center;padding:20px;color:#999;font-size:13px;">No projects found yet. You can link projects to your profile later.</div>';
       } else {
         wizardProjects.forEach(function(p) {
-          var slug = p.path.replace(/\.md$/, '').split('/').pop();
+          var parts = p.path.replace(/\.md$/, '').split('/');
+          var last = parts[parts.length - 1];
+          var slug = (last === 'index' && parts.length > 1) ? parts[parts.length - 2] : last;
           var checked = wizardState.projects.indexOf(slug) >= 0;
           html += '<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:1px solid #f5f5f5;">' +
             '<input type="checkbox" value="' + esc(slug) + '" data-wiz-proj ' + (checked ? 'checked' : '') +
