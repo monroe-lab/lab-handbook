@@ -14,9 +14,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -30,10 +30,9 @@ We're trying to detect somatic mutations, that arose before, during, and after t
 
 ## Procedure
 
-
 ## 1\. Select the tree
 
-You will receive a list of lines to sample for your site (e.g., "1 tree per line + 1 border 717 spacer"). For each line on your list:
+For each line
 
 1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.**
 2. Record **block, row, position**
@@ -42,14 +41,11 @@ You will receive a list of lines to sample for your site (e.g., "1 tree per line
 
 On the tree, look for a **side branch with at least one — and ideally several — branching events between it and the main trunk.** In poplar this usually means: pick a sub-branch off a side branch off the main stem.
 
-<br>
 Avoid:
 
 * The main trunk's youngest growth at the apex
 * Branches with obvious stress, damage, or disease
 * Suckers from the very base of the trunk (often a different cell lineage)
-
-> *Why does branching depth matter?* Each branching event is a cellular bottleneck — see the "Why we sample this way" section above. Short version: deeper branches give higher-VAF mutations, which are easier to call.
 
 ### 3\. Pick the two leaf clusters
 
@@ -63,20 +59,17 @@ On your chosen branch, find **two adjacent leaf clusters** — two clumps of you
 
 For each cluster:
 
-1. **Strip the leaf blades from the petiole and stem.** Collect leaf blades only — leave the stems and petioles on the tree.
+1. **Strip the leaf blades from the petiole and stem.** Collect leaf blades only
 2. Drop the leaves directly into a labeled tube or envelope. No need to squash; just drop them in.
 3. Label per the section below.
-4. **Flash-freeze immediately** in liquid nitrogen or directly on dry ice. The DNA degrades fast at field temperatures, especially for long-read library prep.
+4. **Flash-freeze immediately** in liquid nitrogen or directly on dry ice please.
 
 Wipe scissors and gloves with 70% ethanol **between trees** (you don't need to clean between the two clusters of the same tree).
 
 ### 5\. Label the tubes
 
 Every tube gets a unique ID. Format:
-
-```
-{SITE}-{TreeRef}-{LineShort}-C{Cluster}
-```
+**`{SITE}-{TreeRef}-{LineShort}-C{Cluster}`**
 
 | Field | What it is | Example |
 | ----- | ---------- | ------- |
@@ -92,15 +85,13 @@ Every tube gets a unique ID. Format:
 * `DAV-B3R8P5-WT-C2` — Davis, Block 3 Row 8 Position 5, wild type 717, cluster 2
 * `ORE-T03-717-C1` — Oregon, tree tag T03, border 717 spacer, cluster 1
 
-Write the ID with permanent marker on the **tube body and the cap** (the cap label is your insurance against the body label fading). Also note the **collection date** and **collector initials** somewhere visible on the tube — they don't need to be in the ID itself, but they should be on each tube and in the sample sheet.
-
-> *Tip:* Pre-printed Avery cryo labels are far more reliable than Sharpie at LN2 temperatures. If you have them, use them.
+Write the ID with permanent marker (or printed sticker) on the **tube body *and the cap***. 
 
 ***
 
 ## Line ID lookup table
 
-The **shorthand** code goes on the tube label (it's much shorter and more readable). The **canonical name** is the original label from Jack Bailey-Bale's field design file — keep this in your sample sheet so we can always trace back to the field design.
+The **shorthand** code goes on the tube label. 
 
 | Shorthand | Canonical (field map) | Construct | Type |
 | --------- | --------------------- | --------- | ---- |
