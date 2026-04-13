@@ -14,9 +14,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -30,7 +30,7 @@ We're trying to detect somatic mutations, that arose before, during, and after t
 
 ## Procedure
 
-## 1\. Select the tree
+### 1\. Select the tree
 
 For each line
 
@@ -85,13 +85,13 @@ Every tube gets a unique ID. Format:
 * `DAV-B3R8P5-WT-C2` — Davis, Block 3 Row 8 Position 5, wild type 717, cluster 2
 * `ORE-T03-717-C1` — Oregon, tree tag T03, border 717 spacer, cluster 1
 
-Write the ID with permanent marker (or printed sticker) on the **tube body *and the cap***. 
+Write the ID with permanent marker (or printed sticker) on the **tube body *and the cap***.
 
 ***
 
 ## Line ID lookup table
 
-The **shorthand** code goes on the tube label. 
+The **shorthand** code goes on the tube label.
 
 | Shorthand | Canonical (field map) | Construct | Type |
 | --------- | --------------------- | --------- | ---- |
