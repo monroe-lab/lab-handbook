@@ -1117,6 +1117,13 @@
     });
     if (row.length) html += '<div class="form-row">' + row.join('') + '</div>';
 
+    // Add custom field button (edit mode only)
+    if (editable) {
+      html += '<div id="em-custom-fields"></div>';
+      html += '<button type="button" class="em-add-btn" id="em-add-field-btn" style="margin-top:8px">' +
+        '<span class="material-icons-outlined" style="font-size:14px">add</span> Add field</button>';
+    }
+
     fieldsEl.innerHTML = html;
 
     // Wire wikilink copy button
@@ -1132,6 +1139,35 @@
         });
       });
     });
+
+    // Wire "Add field" button (edit mode)
+    if (editable) {
+      var addFieldBtn = document.getElementById('em-add-field-btn');
+      if (addFieldBtn) {
+        addFieldBtn.addEventListener('click', async function() {
+          var result = await Lab.modal.form({
+            title: 'Add Custom Field',
+            fields: [
+              { key: 'fieldName', label: 'Field name', placeholder: 'e.g. volume, concentration, notes' },
+              { key: 'fieldValue', label: 'Value', placeholder: 'e.g. 100 mL, 50 mg/mL' },
+            ],
+            submitText: 'Add',
+          });
+          if (!result || !result.fieldName || !result.fieldName.trim()) return;
+          var key = result.fieldName.trim().toLowerCase().replace(/\s+/g, '_');
+          var val = result.fieldValue || '';
+          // Add to the custom fields area
+          var container = document.getElementById('em-custom-fields');
+          if (container) {
+            var id = 'em-f-custom-' + key;
+            container.insertAdjacentHTML('beforeend',
+              '<div class="form-group"><label>' + escHtml(result.fieldName.trim()) + '</label>' +
+              '<input type="text" id="' + id + '" class="em-field-input" data-key="' + escHtml(key) + '" value="' + escHtml(val) + '">' +
+              '</div>');
+          }
+        });
+      }
+    }
 
     // Wire status toggle (view mode) — cycles through in_stock → needs_more → out_of_stock
     if (!editable) {
@@ -1211,27 +1247,47 @@
         parentInput.parentNode.appendChild(browseBtn);
 
         browseBtn.addEventListener('click', function() {
-          // Toggle tree panel
+          // Toggle tree panel as a floating overlay
           var existing = document.getElementById('em-parent-tree-panel');
           if (existing) { existing.remove(); return; }
 
-          var panel = document.createElement('div');
-          panel.id = 'em-parent-tree-panel';
-          panel.style.cssText = 'border:1px solid var(--grey-200);border-radius:8px;background:#fff;max-height:300px;overflow:auto;margin-top:6px;box-shadow:0 2px 8px rgba(0,0,0,.1)';
-          parentInput.parentNode.appendChild(panel);
+          // Create a floating overlay with the tree
+          var overlay = document.createElement('div');
+          overlay.id = 'em-parent-tree-panel';
+          overlay.style.cssText = 'position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center';
 
-          Lab.locationTree.attach(panel, {
+          var panel = document.createElement('div');
+          panel.style.cssText = 'background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);width:500px;max-width:90vw;max-height:70vh;overflow:auto;padding:16px;font-family:inherit';
+
+          var header = document.createElement('div');
+          header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px';
+          header.innerHTML = '<h3 style="margin:0;font-size:16px;font-weight:700">Pick a Location</h3>' +
+            '<button type="button" style="border:none;background:none;cursor:pointer;padding:4px"><span class="material-icons-outlined" style="font-size:20px;color:var(--grey-500)">close</span></button>';
+          header.querySelector('button').onclick = function() { overlay.remove(); };
+          panel.appendChild(header);
+
+          var treeMount = document.createElement('div');
+          treeMount.style.cssText = 'max-height:50vh;overflow:auto';
+          panel.appendChild(treeMount);
+          overlay.appendChild(panel);
+
+          // Backdrop click closes
+          overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+
+          document.body.appendChild(overlay);
+
+          Lab.locationTree.attach(treeMount, {
             mode: 'picker',
             showSearch: true,
             showActions: false,
             draggable: false,
-            locationsOnly: true,
+            locationsOnly: false,
             initialDepth: 2,
             onPick: function(slug) {
               parentInput.value = slug;
               parentInput.dispatchEvent(new Event('input', { bubbles: true }));
-              panel.remove();
-              if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop(), 'success');
+              overlay.remove();
+              if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop().replace(/-/g, ' '), 'success');
             },
           });
         });
@@ -1905,7 +1961,7 @@
     renderFields(currentState.meta, true);
 
     // Switch button states
-    document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit_off</span> Done';
+    document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">close</span> Cancel';
     document.getElementById('em-save').style.display = '';
     document.getElementById('em-delete').style.display = 'none';
 
