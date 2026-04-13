@@ -1007,7 +1007,7 @@
       if (field.type === 'hidden') return;
       if (field.key === 'type' && typeShown) return;
 
-      var val = meta[field.key] !== undefined ? meta[field.key] : '';
+      var val = meta[field.key] !== undefined ? meta[field.key] : (field.default !== undefined ? field.default : '');
       var id = 'em-f-' + field.key;
 
       // Read-only audit metadata: shown in view mode and edit mode, never edited
