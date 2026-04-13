@@ -169,7 +169,7 @@
       // The `of:` frontmatter points at the concept slug; the body should also
       // contain a [[wikilink]] to the concept for prose readability.
       color: '#ef6c00',
-      icon: 'fa:fa-solid fa-prescription-bottle',
+      icon: 'fa:fa-solid fa-wine-bottle',
       label: 'Bottle',
       group: 'stocks',
       fields: [
