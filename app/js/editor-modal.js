@@ -476,7 +476,7 @@
         '</div>' +
         '<div class="em-modal-footer" id="em-footer">' +
           '<button class="btn btn-outline" id="em-cancel">Close</button>' +
-          '<button class="btn btn-outline" id="em-copy-link" title="Copy wikilink to clipboard"><span class="material-icons-outlined" style="font-size:16px">content_copy</span> Copy Link</button>' +
+          '<button class="btn btn-outline" id="em-delete" style="display:none;color:var(--red,#ef4444)" title="Delete this object"><span class="material-icons-outlined" style="font-size:16px">delete</span> Delete</button>' +
           '<button class="btn btn-outline" id="em-edit-toggle" style="display:none"><span class="material-icons-outlined" style="font-size:16px">edit</span> Edit</button>' +
           '<button class="btn btn-primary" id="em-save" style="display:none"><span class="material-icons-outlined" style="font-size:16px">save</span> Save</button>' +
         '</div>' +
@@ -503,23 +503,27 @@
       if (e.key === 'Escape' && overlayEl.classList.contains('open')) close();
     });
 
-    // Copy Link — copies [[slug]] wikilink to clipboard
-    document.getElementById('em-copy-link').onclick = function() {
+    // Delete — deletes the current object after confirmation
+    document.getElementById('em-delete').onclick = async function() {
       if (!currentState || !currentState.path) return;
-      var slug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
-      var wikilink = '[[' + slug + ']]';
-      navigator.clipboard.writeText(wikilink).then(function() {
-        if (window.Lab && Lab.showToast) Lab.showToast('Copied: ' + wikilink, 'success');
-      }).catch(function() {
-        // Fallback: select a temp input
-        var tmp = document.createElement('input');
-        tmp.value = wikilink;
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand('copy');
-        tmp.remove();
-        if (window.Lab && Lab.showToast) Lab.showToast('Copied: ' + wikilink, 'success');
+      var title = (currentState.meta && currentState.meta.title) || currentState.path.split('/').pop();
+      var confirmed = await Lab.modal.confirm({
+        title: 'Delete Object',
+        message: 'Delete "' + title + '"?\nThis cannot be undone.',
+        confirmText: 'Delete',
+        danger: true,
       });
+      if (!confirmed) return;
+      try {
+        await Lab.gh.deleteFile(currentState.path);
+        if (Lab.gh.removeFromObjectIndex) Lab.gh.removeFromObjectIndex(currentState.path);
+        if (Lab.hierarchy) Lab.hierarchy.invalidate();
+        if (Lab.showToast) Lab.showToast('Deleted: ' + title, 'success');
+        window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: currentState.path } }));
+        closeOrBack();
+      } catch(e) {
+        if (Lab.showToast) Lab.showToast('Delete failed: ' + e.message, 'error');
+      }
     };
 
     // Edit toggle
@@ -644,6 +648,7 @@
     // Render fields in edit mode immediately.
     renderFields(meta, true);
     document.getElementById('em-edit-toggle').style.display = 'none';
+    document.getElementById('em-delete').style.display = 'none';
     document.getElementById('em-save').style.display = '';
 
     // Clear cols 2 and 3 SYNCHRONOUSLY before awaiting Toast UI. Otherwise
@@ -712,6 +717,7 @@
     editToggleBtn.style.display = 'none';
     editToggleBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
     document.getElementById('em-save').style.display = 'none';
+    document.getElementById('em-delete').style.display = 'none';
     // R7 #23: openPopup always enters view mode, so the em-editing body
     // class must not leak from a previous popup's edit state.
     document.body.classList.remove('em-editing');
@@ -764,9 +770,10 @@
       var title = parsed.meta.title || filePath.split('/').pop().replace('.md', '');
       document.getElementById('em-title').textContent = title;
 
-      // Show edit toggle for logged-in users
+      // Show edit/delete for logged-in users
       if (gh.isLoggedIn()) {
         document.getElementById('em-edit-toggle').style.display = '';
+        document.getElementById('em-delete').style.display = '';
       }
 
       // Default to view mode — user clicks Edit to switch
@@ -971,6 +978,18 @@
       typeShown = true;
     }
 
+    // Wikilink field — always visible, read-only, with copy icon
+    if (currentState && currentState.path) {
+      var _wlSlug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
+      var _wl = '[[' + _wlSlug + ']]';
+      html += '<div style="display:flex;gap:8px;margin-bottom:8px;font-size:13px;align-items:center">' +
+        '<span style="color:var(--grey-400);min-width:80px">Link</span>' +
+        '<code class="em-wikilink-display" style="font-family:monospace;font-size:12px;background:var(--grey-100);padding:2px 8px;border-radius:4px;color:var(--grey-600);user-select:all">' + escHtml(_wl) + '</code>' +
+        '<button type="button" class="em-copy-wikilink" title="Copy wikilink" style="border:none;background:none;cursor:pointer;padding:2px;line-height:1">' +
+          '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400)">content_copy</span>' +
+        '</button></div>';
+    }
+
     // Group small fields into rows
     var row = [];
     schema.forEach(function(field) {
@@ -1100,6 +1119,20 @@
 
     fieldsEl.innerHTML = html;
 
+    // Wire wikilink copy button
+    fieldsEl.querySelectorAll('.em-copy-wikilink').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (!currentState || !currentState.path) return;
+        var slug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
+        var wl = '[[' + slug + ']]';
+        navigator.clipboard.writeText(wl).then(function() {
+          if (Lab.showToast) Lab.showToast('Copied: ' + wl, 'success');
+        }).catch(function() {
+          if (Lab.showToast) Lab.showToast('Copied: ' + wl, 'success');
+        });
+      });
+    });
+
     // Wire status toggle (view mode) — cycles through in_stock → needs_more → out_of_stock
     if (!editable) {
       var statusCycle = ['in_stock', 'needs_more', 'out_of_stock'];
@@ -1162,12 +1195,46 @@
       if (parentInput) {
         // Prevent Chrome autocomplete from covering our custom dropdown
         parentInput.setAttribute('autocomplete', 'off');
-        parentInput.setAttribute('placeholder', 'Search by name...');
+        parentInput.setAttribute('placeholder', 'Search or browse...');
         try {
           Lab.wikilinkAutocomplete.attachToInput(parentInput, {
             typeFilter: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
           });
         } catch(e) { /* non-fatal */ }
+
+        // Add a Browse button next to the parent input for tree navigation
+        var browseBtn = document.createElement('button');
+        browseBtn.type = 'button';
+        browseBtn.title = 'Browse lab map';
+        browseBtn.style.cssText = 'border:1px solid var(--grey-300);background:#fff;border-radius:4px;padding:6px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:12px;font-family:inherit;color:var(--grey-600);margin-top:4px';
+        browseBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">account_tree</span> Browse';
+        parentInput.parentNode.appendChild(browseBtn);
+
+        browseBtn.addEventListener('click', function() {
+          // Toggle tree panel
+          var existing = document.getElementById('em-parent-tree-panel');
+          if (existing) { existing.remove(); return; }
+
+          var panel = document.createElement('div');
+          panel.id = 'em-parent-tree-panel';
+          panel.style.cssText = 'border:1px solid var(--grey-200);border-radius:8px;background:#fff;max-height:300px;overflow:auto;margin-top:6px;box-shadow:0 2px 8px rgba(0,0,0,.1)';
+          parentInput.parentNode.appendChild(panel);
+
+          Lab.locationTree.attach(panel, {
+            mode: 'picker',
+            showSearch: true,
+            showActions: false,
+            draggable: false,
+            locationsOnly: true,
+            initialDepth: 2,
+            onPick: function(slug) {
+              parentInput.value = slug;
+              parentInput.dispatchEvent(new Event('input', { bubbles: true }));
+              panel.remove();
+              if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop(), 'success');
+            },
+          });
+        });
       }
     }
   }
@@ -1838,8 +1905,9 @@
     renderFields(currentState.meta, true);
 
     // Switch button states
-    document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">visibility</span> View';
+    document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit_off</span> Done';
     document.getElementById('em-save').style.display = '';
+    document.getElementById('em-delete').style.display = 'none';
 
     // Load Toast UI and init editor
     await loadToast();
@@ -1932,6 +2000,7 @@
     // Switch back to read mode
     document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
     document.getElementById('em-save').style.display = 'none';
+    document.getElementById('em-delete').style.display = '';
 
     renderFields(currentState.meta, false);
 
@@ -3689,13 +3758,22 @@
     }, '\n# ' + conceptTitle + '\n');
     try {
       var path = 'docs/' + slug + '.md';
-      await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
+      var saveResult = await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
       Lab.gh.patchObjectIndex(path, { type: 'bottle', title: conceptTitle, of: conceptSlug });
       if (Lab.hierarchy) Lab.hierarchy.invalidate();
-      // Open the new instance for editing
-      openPopup(path);
-      startEditing();
-      if (Lab.showToast) Lab.showToast('Created instance of ' + conceptTitle, 'success');
+      window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: path } }));
+      // Open the new instance directly in edit mode
+      await openPopup(path);
+      // Small delay to let the popup render, then enter edit mode
+      setTimeout(function() {
+        startEditing();
+        // Focus the parent field so the user knows to set a location
+        setTimeout(function() {
+          var parentInput = document.querySelector('.em-field-input[data-key="parent"]');
+          if (parentInput) parentInput.focus();
+        }, 500);
+      }, 300);
+      if (Lab.showToast) Lab.showToast('Created — set a location and quantity', 'success');
     } catch(e) {
       if (Lab.showToast) Lab.showToast('Failed: ' + e.message, 'error');
     }
