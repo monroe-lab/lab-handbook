@@ -226,15 +226,15 @@
   // Callouts are stored as blockquotes with emoji prefixes: > ⚠️ **Title**
   // Toast UI handles blockquotes natively. renderMarkdown() renders them as
   // colored collapsible callouts in the read view.
-  var ADM_ICONS = { variant: '\uD83D\uDD00', warning: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1' };
+  var ADM_ICONS = { variant: '\uD83D\uDD00', warning: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', danger: '\uD83D\uDEA8' };
 
   // Convert legacy ??? syntax to blockquote format (one-way migration on edit)
   function migrateAdmonitions(md) {
     // Clean up broken remnants from previous conversion attempts
     md = md.replace(/<!-- adm-sep -->/g, '');
-    md = md.replace(/\\> *(?:\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1)[^\n]*/gm, '');
+    md = md.replace(/\\> *(?:\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1|\uD83D\uDEA8)[^\n]*/gm, '');
     // Convert ??? blocks to blockquotes
-    return md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
+    md = md.replace(/^\?\?\?(\+?)\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, expanded, type, title, body) {
       var icon = ADM_ICONS[type] || '\u2139\uFE0F';
       var bodyLines = body.replace(/^    /gm, '').trimEnd();
       var lines = '> ' + icon + ' **' + title + '**';
@@ -243,6 +243,17 @@
       }
       return lines + '\n';
     });
+    // Convert !!! blocks to blockquotes
+    md = md.replace(/^!!!\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, type, title, body) {
+      var icon = ADM_ICONS[type] || '\u2139\uFE0F';
+      var bodyLines = body.replace(/^    /gm, '').trimEnd();
+      var lines = '> ' + icon + ' **' + title + '**';
+      if (bodyLines) {
+        lines += '\n' + bodyLines.split('\n').map(function(l) { return '> ' + l; }).join('\n');
+      }
+      return lines + '\n';
+    });
+    return md;
   }
 
   // Render markdown to HTML (with wikilink + admonition preprocessing)
@@ -252,6 +263,7 @@
     '\u26A0\uFE0F': 'warning',
     '\u2139\uFE0F': 'note',
     '\uD83D\uDCA1': 'tip',
+    '\uD83D\uDEA8': 'danger',
   };
   async function renderMarkdown(md) {
     await loadMarked();
@@ -271,9 +283,17 @@
       return placeholder + '\n\n';
     });
 
+    // Extract !!! blocks (MkDocs non-collapsible admonitions)
+    processed = processed.replace(/^!!!\s+(\w+)\s+"([^"]+)"\n((?:    .+\n|\n)*)/gm, function(match, type, title, body) {
+      var bodyMd = body.replace(/^    /gm, '');
+      var placeholder = '<!--admonition-' + admonitions.length + '-->';
+      admonitions.push({ type: type, title: title, bodyMd: bodyMd });
+      return placeholder + '\n\n';
+    });
+
     // Extract blockquote callouts: > 🔀/⚠️/ℹ️/💡 **Title** followed by > body lines
     // Only captures consecutive > lines (NOT blank lines — those separate blockquotes)
-    processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
+    processed = processed.replace(/^> *(\uD83D\uDD00|\u26A0\uFE0F|\u2139\uFE0F|\uD83D\uDCA1|\uD83D\uDEA8) \*\*([^*]+)\*\* *\n((?:>.*\n?)*)/gm, function(match, icon, title, bodyBlock) {
       var type = CALLOUT_COLORS[icon] || 'note';
       var bodyMd = bodyBlock.replace(/^>\s?/gm, '').trim();
       // Preserve line breaks — markdown collapses consecutive lines into one paragraph

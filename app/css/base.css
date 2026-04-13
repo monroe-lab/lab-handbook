@@ -382,6 +382,10 @@ tr:hover { background: var(--teal-50); }
 .admonition-tip summary { background: #e8f5e9; color: #2e7d32; }
 .admonition-tip summary::before { content: '\1F4A1'; }
 
+.admonition-danger { border-color: #d32f2f40; background: #ffebee; }
+.admonition-danger summary { background: #ffebee; color: #c62828; }
+.admonition-danger summary::before { content: '\1F6A8'; }
+
 /* Utility */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
