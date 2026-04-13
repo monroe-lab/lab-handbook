@@ -143,8 +143,7 @@
       if (isLast) {
         return '<span style="' + style + 'cursor:default;font-weight:600">' + icon + ' ' + escapeHTML(title) + '</span>';
       }
-      var href = base + 'app/wiki.html?doc=' + encodeURIComponent(s);
-      return '<a href="' + href + '" style="' + style + '">' + icon + ' ' + escapeHTML(title) + '</a>';
+      return '<a href="#" data-crumb-slug="' + escapeHTML(s) + '" style="' + style + 'text-decoration:none" onclick="event.preventDefault();if(window.Lab&&Lab.editorModal)Lab.editorModal.open(\'docs/' + escapeHTML(s) + '.md\')">' + icon + ' ' + escapeHTML(title) + '</a>';
     });
     return '<div class="lab-breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0;font-size:13px">' +
       parts.join('<span style="color:#90a4ae">/</span>') +
