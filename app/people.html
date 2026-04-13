@@ -394,7 +394,8 @@
 
     function itemRow(item, icon, color, onClick) {
       var typeConf = Lab.types.get(item.type);
-      var itemIcon = (typeConf && typeConf.icon) || icon || '📄';
+      var itemIconRaw = (typeConf && typeConf.icon) || icon || '📄';
+      var itemIcon = Lab.types.renderIcon(itemIconRaw);
       var itemColor = (typeConf && typeConf.color) || color || '#6b7280';
       var subtitle = [];
       if (item.type) subtitle.push(item.type);
@@ -402,7 +403,7 @@
       if (item.start_time && item.end_time) subtitle.push(item.start_time + '–' + item.end_time);
       if (item.member) subtitle.push(item.member.replace(/\[\[|\]\]/g, ''));
       return '<div class="person-dash-item" onclick="' + (onClick || '') + '">' +
-        '<span style="font-size:16px">' + itemIcon + '</span>' +
+        '<span style="font-size:16px;color:' + itemColor + '">' + itemIcon + '</span>' +
         '<div style="flex:1;min-width:0">' +
           '<div style="font-weight:500">' + esc(item.title || item.path.split('/').pop().replace('.md', '')) + '</div>' +
           (subtitle.length ? '<div style="font-size:11px;color:var(--grey-400)">' + esc(subtitle.join(' · ')) + '</div>' : '') +
