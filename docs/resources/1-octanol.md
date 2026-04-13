@@ -1,7 +1,8 @@
 ---
-type: reagent
-title: 1-Octanol
+type: "reagent"
+title: "1-Octanol"
 legacy_inventory_id: 14
+status: "needs_more"
 ---
 # 1-Octanol
 
