@@ -557,7 +557,8 @@
       if (!entry) continue; // leave as raw text if unresolved
       var type = entry.type || 'container';
       var style = window.Lab.types.pillStyle(type);
-      var icon = window.Lab.types.get(type).icon;
+      var rawIcon = window.Lab.types.get(type).icon;
+      var icon = window.Lab.types.renderIcon ? window.Lab.types.renderIcon(rawIcon) : rawIcon;
       var title = entry.title || norm.split('/').pop();
       var pill = document.createElement('a');
       pill.href = 'javascript:void(0)';
