@@ -2,7 +2,7 @@
 type: "reagent"
 title: "1-Octanol"
 legacy_inventory_id: 14
-status: "out_of_stock"
+status: "in_stock"
 ---
 # 1-Octanol
 
