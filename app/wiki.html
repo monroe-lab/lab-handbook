@@ -326,6 +326,8 @@ async function loadAll() {
     var rel = f.replace(/^docs\//, '');
     var slug = rel.replace(/\.md$/, '');
     var meta = INDEX_MAP[rel] || {};
+    // Skip folder placeholder index files
+    if (meta.type === 'index') return null;
     return {
       path: slug,                              // e.g. "protocols/pcr"
       relPath: rel,                            // e.g. "protocols/pcr.md"
@@ -334,7 +336,7 @@ async function loadAll() {
       type: meta.type || null,
       meta: meta,
     };
-  });
+  }).filter(Boolean);
 
   // Sort by title within
   ALL_DOCS.sort(function(a, b) { return a.title.localeCompare(b.title); });

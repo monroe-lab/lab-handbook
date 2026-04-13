@@ -8,7 +8,7 @@ need_more: true
 updated_at: "2026-04-12T12:14:28.907Z"
 created_at: "2026-04-08T21:44:54.344Z"
 created_by: "greymonroe"
-location: "Chemical Cabinet"
+parent: "locations/cabinet-chemical"
 ---
 # Native Barcoding Kit 24 V14 (SQK-NBD114.24)
 

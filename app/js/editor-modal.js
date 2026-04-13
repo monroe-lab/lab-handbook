@@ -951,9 +951,17 @@
         html += '<input type="hidden" id="em-f-type" class="em-field-input" data-key="type" value="' + escHtml(currentType) + '">';
         html += '<div id="em-type-picker" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px">';
         var groups = Lab.types.GROUPS || {};
+        // Contextual filtering: instances (has of: field) only show instance types,
+        // and vice versa — don't show protocol/person/project for a bottle.
+        var isInstance = !!meta.of;
+        var instanceTypes = { bottle: 1, tube: 1, container: 1 };
+        var hideFromInstances = { protocol: 1, person: 1, project: 1, notebook: 1, event: 1, guide: 1, waste_container: 1, sample: 1 };
         Object.keys(groups).forEach(function(gk) {
           var g = groups[gk];
           (g.types || []).forEach(function(t) {
+            // Filter types based on context
+            if (isInstance && hideFromInstances[t]) return;
+            if (!isInstance && instanceTypes[t]) return;
             var tc = Lab.types.get(t);
             var sel = (t === currentType);
             html += '<button type="button" data-type-pick="' + escHtml(t) + '"' +
