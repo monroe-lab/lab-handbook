@@ -1034,6 +1034,23 @@
 
       if (editable) {
         var input = '';
+        // Parent field: render a custom location-picker widget instead of text input
+        if (field.key === 'parent') {
+          var parentVal = window.Lab.escHtml(String(val));
+          var displayText = val ? String(val).split('/').pop().replace(/-/g, ' ') : 'Click to select location…';
+          input =
+            '<input type="hidden" id="' + id + '" class="em-field-input" data-key="parent" value="' + parentVal + '">' +
+            '<div id="em-parent-picker-trigger" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--grey-300,#d1d5db);border-radius:6px;cursor:pointer;background:#fff;min-height:38px;font-size:14px;font-family:inherit;transition:border-color .15s">' +
+              '<span class="material-icons-outlined" style="font-size:18px;color:var(--grey-400,#9ca3af);flex-shrink:0">account_tree</span>' +
+              '<span id="em-parent-picker-label" style="flex:1;color:' + (val ? 'var(--grey-800,#1f2937)' : 'var(--grey-400,#9ca3af)') + ';font-weight:' + (val ? '500' : '400') + '">' + escHtml(displayText) + '</span>' +
+              (val ? '<button type="button" id="em-parent-picker-clear" style="border:none;background:none;cursor:pointer;padding:2px;display:flex;align-items:center"><span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400)">close</span></button>' : '') +
+              '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400,#9ca3af);flex-shrink:0">expand_more</span>' +
+            '</div>' +
+            '<div id="em-parent-picker-dropdown" style="display:none;position:absolute;left:0;right:0;top:100%;z-index:12000;background:#fff;border:1px solid var(--grey-200,#e5e7eb);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:320px;overflow:auto;margin-top:4px"></div>';
+          if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
+          html += '<div class="form-group" style="position:relative"><label>' + field.label + '</label>' + input + '</div>';
+          return;
+        }
         if (field.type === 'select') {
           input = '<select id="' + id + '" class="em-field-input" data-key="' + field.key + '">';
           (field.options || []).forEach(function(opt) {
@@ -1231,75 +1248,147 @@
       });
     }
 
-    // R4 Phase 3: wire the parent field (edit mode only) to the wikilink
-    // autocomplete restricted to location-group types. The dropdown lets the
-    // user search by title/slug and pick a new parent without typing the
-    // exact slug. Detaches any previous attachment to avoid leaks.
-    if (editable && window.Lab.wikilinkAutocomplete) {
-      var parentInput = fieldsEl.querySelector('.em-field-input[data-key="parent"]');
-      if (parentInput) {
-        // Prevent Chrome autocomplete from covering our custom dropdown
-        parentInput.setAttribute('autocomplete', 'off');
-        parentInput.setAttribute('placeholder', 'Search or browse...');
-        try {
-          Lab.wikilinkAutocomplete.attachToInput(parentInput, {
-            typeFilter: ['room', 'freezer', 'fridge', 'shelf', 'box', 'tube', 'container'],
-          });
-        } catch(e) { /* non-fatal */ }
+    // R6: Wire the parent location picker tree dropdown (edit mode only).
+    // Replaces the old text-input + autocomplete + browse-modal pattern with
+    // a single click-to-open tree dropdown anchored below the trigger field.
+    if (editable) {
+      var parentHidden = fieldsEl.querySelector('.em-field-input[data-key="parent"]');
+      var trigger = document.getElementById('em-parent-picker-trigger');
+      var dropdown = document.getElementById('em-parent-picker-dropdown');
+      var label = document.getElementById('em-parent-picker-label');
+      var clearBtn = document.getElementById('em-parent-picker-clear');
+      var _parentTreeInstance = null;
+      var _parentDropdownOpen = false;
 
-        // Add a Browse button next to the parent input for tree navigation
-        var browseBtn = document.createElement('button');
-        browseBtn.type = 'button';
-        browseBtn.title = 'Browse lab map';
-        browseBtn.style.cssText = 'border:1px solid var(--grey-300);background:#fff;border-radius:4px;padding:6px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:12px;font-family:inherit;color:var(--grey-600);margin-top:4px';
-        browseBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:16px">account_tree</span> Browse';
-        parentInput.parentNode.appendChild(browseBtn);
+      // Helper: update the trigger display after a selection or clear
+      function updateParentDisplay(slug) {
+        if (!label || !trigger) return;
+        if (slug) {
+          var displayName = slug.split('/').pop().replace(/-/g, ' ');
+          label.textContent = displayName;
+          label.style.color = 'var(--grey-800,#1f2937)';
+          label.style.fontWeight = '500';
+          // Add clear button if missing
+          if (!document.getElementById('em-parent-picker-clear')) {
+            var cb = document.createElement('button');
+            cb.type = 'button';
+            cb.id = 'em-parent-picker-clear';
+            cb.style.cssText = 'border:none;background:none;cursor:pointer;padding:2px;display:flex;align-items:center';
+            cb.innerHTML = '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400)">close</span>';
+            cb.addEventListener('click', function(ev) {
+              ev.stopPropagation();
+              parentHidden.value = '';
+              parentHidden.dispatchEvent(new Event('input', { bubbles: true }));
+              updateParentDisplay('');
+            });
+            // Insert before the expand_more icon
+            var chevron = trigger.querySelector('[style*="expand_more"]') || trigger.lastElementChild;
+            trigger.insertBefore(cb, chevron);
+            clearBtn = cb;
+          }
+          // Build breadcrumb asynchronously
+          if (window.Lab && Lab.hierarchy) {
+            Lab.hierarchy.parentChain(slug).then(function(chain) {
+              if (!chain || chain.length <= 1) return;
+              Lab.hierarchy.build().then(function(g) {
+                var parts = chain.map(function(s) {
+                  var e = g[s];
+                  return (e && e.title) || s.split('/').pop().replace(/-/g, ' ');
+                });
+                label.textContent = parts.join(' > ');
+              });
+            });
+          }
+        } else {
+          label.textContent = 'Click to select location…';
+          label.style.color = 'var(--grey-400,#9ca3af)';
+          label.style.fontWeight = '400';
+          if (clearBtn) { clearBtn.remove(); clearBtn = null; }
+        }
+      }
 
-        browseBtn.addEventListener('click', function() {
-          // Toggle tree panel as a floating overlay
-          var existing = document.getElementById('em-parent-tree-panel');
-          if (existing) { existing.remove(); return; }
+      function closeParentDropdown() {
+        if (dropdown) dropdown.style.display = 'none';
+        _parentDropdownOpen = false;
+        if (_parentTreeInstance) {
+          _parentTreeInstance.destroy();
+          _parentTreeInstance = null;
+        }
+      }
 
-          // Create a floating overlay with the tree
-          var overlay = document.createElement('div');
-          overlay.id = 'em-parent-tree-panel';
-          overlay.style.cssText = 'position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center';
+      function openParentDropdown() {
+        if (!dropdown) return;
+        dropdown.style.display = 'block';
+        dropdown.innerHTML = '';
+        _parentDropdownOpen = true;
 
-          var panel = document.createElement('div');
-          panel.style.cssText = 'background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);width:500px;max-width:90vw;max-height:70vh;overflow:auto;padding:16px;font-family:inherit';
+        // Inject inline styles for the tree nodes inside the dropdown
+        var styleTag = document.createElement('style');
+        styleTag.textContent =
+          '#em-parent-picker-dropdown .lt-node { user-select:none; }' +
+          '#em-parent-picker-dropdown .lt-row { display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:4px;cursor:pointer;transition:background .1s; }' +
+          '#em-parent-picker-dropdown .lt-row:hover { background:var(--grey-50,#f9fafb); }' +
+          '#em-parent-picker-dropdown .lt-row.is-hit { background:var(--teal-light,#e0f2f1); }' +
+          '#em-parent-picker-dropdown .lt-icon { font-size:15px;flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-title { font-size:13px;font-weight:500;color:var(--grey-800,#1f2937);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }' +
+          '#em-parent-picker-dropdown .lt-count { font-size:11px;color:var(--grey-500,#6b7280);flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-pos { font-size:11px;color:var(--grey-500);padding:1px 6px;background:var(--grey-100,#f3f4f6);border-radius:10px;flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-children { padding-left:20px; }' +
+          '#em-parent-picker-dropdown .lt-node:not(.is-expanded) > .lt-children { display:none; }' +
+          '#em-parent-picker-dropdown .lt-node.is-expanded > .lt-children { display:block; }' +
+          '#em-parent-picker-dropdown .lt-toolbar { padding:0 8px 8px;border-bottom:1px solid var(--grey-100,#f3f4f6);margin-bottom:8px; }' +
+          '#em-parent-picker-dropdown .lt-tree { padding:4px 8px 8px; }';
+        dropdown.appendChild(styleTag);
 
-          var header = document.createElement('div');
-          header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px';
-          header.innerHTML = '<h3 style="margin:0;font-size:16px;font-weight:700">Pick a Location</h3>' +
-            '<button type="button" style="border:none;background:none;cursor:pointer;padding:4px"><span class="material-icons-outlined" style="font-size:20px;color:var(--grey-500)">close</span></button>';
-          header.querySelector('button').onclick = function() { overlay.remove(); };
-          panel.appendChild(header);
+        var treeWrap = document.createElement('div');
+        dropdown.appendChild(treeWrap);
 
-          var treeMount = document.createElement('div');
-          treeMount.style.cssText = 'max-height:50vh;overflow:auto';
-          panel.appendChild(treeMount);
-          overlay.appendChild(panel);
-
-          // Backdrop click closes
-          overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
-
-          document.body.appendChild(overlay);
-
-          Lab.locationTree.attach(treeMount, {
-            mode: 'picker',
-            showSearch: true,
-            showActions: false,
-            draggable: false,
-            locationsOnly: false,
-            initialDepth: 2,
-            onPick: function(slug) {
-              parentInput.value = slug;
-              parentInput.dispatchEvent(new Event('input', { bubbles: true }));
-              overlay.remove();
-              if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop().replace(/-/g, ' '), 'success');
-            },
-          });
+        _parentTreeInstance = Lab.locationTree.attach(treeWrap, {
+          mode: 'picker',
+          showSearch: true,
+          showActions: false,
+          draggable: false,
+          locationsOnly: true,
+          initialDepth: 1,
+          onPick: function(slug) {
+            parentHidden.value = slug;
+            parentHidden.dispatchEvent(new Event('input', { bubbles: true }));
+            updateParentDisplay(slug);
+            closeParentDropdown();
+            if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop().replace(/-/g, ' '), 'success');
+          },
         });
+      }
+
+      if (trigger) {
+        trigger.addEventListener('click', function(ev) {
+          // Don't toggle if clicking clear button
+          if (ev.target.closest('#em-parent-picker-clear')) return;
+          if (_parentDropdownOpen) closeParentDropdown();
+          else openParentDropdown();
+        });
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function(ev) {
+          ev.stopPropagation();
+          parentHidden.value = '';
+          parentHidden.dispatchEvent(new Event('input', { bubbles: true }));
+          updateParentDisplay('');
+        });
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function _parentOutsideClick(ev) {
+        if (!_parentDropdownOpen) return;
+        if (trigger && trigger.contains(ev.target)) return;
+        if (dropdown && dropdown.contains(ev.target)) return;
+        closeParentDropdown();
+      });
+
+      // Update display with breadcrumb for the initial value
+      if (parentHidden && parentHidden.value) {
+        updateParentDisplay(parentHidden.value);
       }
     }
   }
