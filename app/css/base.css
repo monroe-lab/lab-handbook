@@ -439,8 +439,15 @@ tr:hover { background: var(--teal-50); }
   .lab-rendered h1 { font-size: 18pt; border-bottom: 1px solid #999; }
   .lab-rendered h2 { font-size: 15pt; }
   .lab-rendered h3 { font-size: 13pt; }
-  .lab-rendered pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid #ccc; }
-  .lab-rendered table { page-break-inside: avoid; }
+  .lab-rendered pre { white-space: pre-wrap; word-wrap: break-word; border: 1px solid #ccc; page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered table { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered img { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered figure { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered p:has(img) { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered .admonition { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered blockquote { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered li:has(img) { page-break-inside: avoid; break-inside: avoid; }
+  .lab-rendered h1, .lab-rendered h2, .lab-rendered h3, .lab-rendered h4 { page-break-after: avoid; break-after: avoid; }
   .object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; }
   a { color: #000 !important; }
 }
