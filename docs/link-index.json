@@ -1088,6 +1088,30 @@
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "shipping/shipping-samples-to-monroe-lab"
+  },
+  {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "wet-lab/extraction/sorbitol-ctab-hifi-extraction"
+  },
+  {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "projects/poplar-somatic-sequencing",
+    "target": "lab-management/sample-tracker-guide"
+  },
+  {
     "source": "projects/tudor-reader-fusions/index",
     "target": "people/grey-monroe"
   },
