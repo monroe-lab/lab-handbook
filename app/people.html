@@ -285,7 +285,7 @@
   // instead of opening the editor-modal popup.
   window.openPerson = function(slug) {
     history.pushState(null, '', location.pathname + '?person=' + encodeURIComponent(slug));
-    renderPersonDashboard(slug);
+    route();
   };
 
   // ── Person dashboard (#51) ──
