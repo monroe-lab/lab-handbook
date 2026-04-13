@@ -28,20 +28,18 @@ For each tree:
 
 That's it. Two tubes per tree. Don't worry about which goes to short-read vs. long-read sequencing — we figure that out in the lab.
 
-![Two adjacent leaf clusters on the same shoot, each going into its own tube](plant-harvesting/images/poplar-leaf-clusters.png)
+![Two adjacent leaf clusters on the same shoot, each going into its own tube](plant-harvesting/plant-harvesting/images/poplar-leaf-clusters.png)
 
 ***
 
-## Why we sample this way (the very short version)
+## Logic of this sampling schema
 
-We're trying to detect somatic mutations, that arose in a single cell during the tree's life and got passed down to all the cells that descended from it. The cleaner a mutation's "footprint" in the tissue we sequence, the easier it is to call from the data. Two design choices follow:
+We're trying to detect somatic mutations, that arose before, during, and after tissue culture and now in the field. The cleaner a mutation's "footprint" in the tissue we sequence, the easier it is to call from the data. Two design choices follow:
 
-* **Pick a branch several branching events out from the main trunk.** Each new axillary branch is founded by a small handful of cells from the parent meristem. That cellular bottleneck "fixes" any mutations from those founder cells across the whole new branch's lineage. The more bottlenecks between trunk and leaf, the more likely a somatic mutation is at high VAF (close to fixed) rather than chimeric (present in only some cells of the leaf). High-VAF mutations are much easier to call reliably from sequencing. So: deeper in the branching hierarchy = better signal.
-* **Two adjacent clusters on the same shoot.** Same branching history, so the two samples are nearly identical biologically. They serve as backup of each other and we can split them later between short-read and long-read library prep without confounding the comparison.
+* **Pick a branch several branching events out from the main trunk.** Each new axillary branch is founded by a small handful of cells from the parent meristem. That cellular bottleneck "fixes" any mutations from those founder cells across the whole new branch's lineage in each cell layer. The more bottlenecks between trunk and leaf, the more likely a somatic mutation is at high VAF (close to fixed) rather than chimeric. High-VAF mutations are much easier to call reliably from sequencing.
+* **Two adjacent clusters on the same shoot.** Same branching history, so the two samples are nearly identical biologically. They serve as control for each other and we can split them later between short-read and long-read library prep without confounding the comparison.
 * **Young, fully-expanded leaves.** Best DNA yield, and lower polyphenol/polysaccharide load than older leaves.
 * **Leaves only, no stem or petiole.** Stem tissue is high in polyphenols and polysaccharides that inhibit DNA extraction.
-
-That's the whole biology. Everything below is logistics.
 
 ***
 
@@ -66,15 +64,14 @@ Need any of this? Email Grey at `gmonroe@ucdavis.edu` and we'll arrange to get s
 
 You will receive a list of lines to sample for your site (e.g., "1 tree per line + 1 border 717 spacer"). For each line on your list:
 
-1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.** Line ID is what matters, not tree position.
-2. Take **two photos** of the tree: one of the tag/label (so we can verify identity), one wider shot of the whole tree. Phone camera is fine.
-3. Record **block, row, position** from the field map if you have it; otherwise record the tree's physical tag number.
+1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.** 
+2. Record **block, row, position** 
 
 ### 2\. Select the branch
 
 On the tree, look for a **side branch with at least one — and ideally several — branching events between it and the main trunk.** In poplar this usually means: pick a sub-branch off a side branch off the main stem.
 
-![Doesn't have to be perfect, but finding the "most branched branch" (least apical) is the goal](plant-harvesting/images/branch-selection.png)
+![Doesn't have to be perfect, but finding the "most branched branch" (least apical) is the goal](plant-harvesting/plant-harvesting/images/branch-selection.png)
 
 Avoid:
 
