@@ -1,6 +1,6 @@
 ---
-type: protocol
-title: "[protocol][draft] Fast neutron treatment"
+type: "protocol"
+title: "Fast neutron treatment"
 ---
 
 # Fast neutron treatment
