@@ -1046,9 +1046,9 @@
               (val ? '<button type="button" id="em-parent-picker-clear" style="border:none;background:none;cursor:pointer;padding:2px;display:flex;align-items:center"><span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400)">close</span></button>' : '') +
               '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400,#9ca3af);flex-shrink:0">expand_more</span>' +
             '</div>' +
-            '<div id="em-parent-picker-dropdown" style="display:none;position:absolute;left:0;right:0;top:100%;z-index:12000;background:#fff;border:1px solid var(--grey-200,#e5e7eb);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:320px;overflow:auto;margin-top:4px"></div>';
+            '<div id="em-parent-picker-dropdown" style="display:none;position:fixed;z-index:12000;background:#fff;border:1px solid var(--grey-200,#e5e7eb);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:320px;overflow:auto"></div>';
           if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
-          html += '<div class="form-group" style="position:relative"><label>' + field.label + '</label>' + input + '</div>';
+          html += '<div class="form-group"><label>' + field.label + '</label>' + input + '</div>';
           return;
         }
         if (field.type === 'select') {
@@ -1264,6 +1264,7 @@
       function updateParentDisplay(slug) {
         if (!label || !trigger) return;
         if (slug) {
+          // Set a temporary slug-based name, then upgrade to real title via hierarchy
           var displayName = slug.split('/').pop().replace(/-/g, ' ');
           label.textContent = displayName;
           label.style.color = 'var(--grey-800,#1f2937)';
@@ -1286,10 +1287,10 @@
             trigger.insertBefore(cb, chevron);
             clearBtn = cb;
           }
-          // Build breadcrumb asynchronously
+          // Build breadcrumb asynchronously — always show proper title(s)
           if (window.Lab && Lab.hierarchy) {
             Lab.hierarchy.parentChain(slug).then(function(chain) {
-              if (!chain || chain.length <= 1) return;
+              if (!chain || !chain.length) return;
               Lab.hierarchy.build().then(function(g) {
                 var parts = chain.map(function(s) {
                   var e = g[s];
@@ -1317,8 +1318,17 @@
       }
 
       function openParentDropdown() {
-        if (!dropdown) return;
+        if (!dropdown || !trigger) return;
+        // Position the fixed dropdown below the trigger element
+        var rect = trigger.getBoundingClientRect();
+        var dropWidth = Math.max(rect.width, 320);
         dropdown.style.display = 'block';
+        dropdown.style.top = (rect.bottom + 4) + 'px';
+        dropdown.style.left = rect.left + 'px';
+        dropdown.style.width = dropWidth + 'px';
+        // If it would go off-screen bottom, cap the height
+        var maxH = window.innerHeight - rect.bottom - 16;
+        dropdown.style.maxHeight = Math.min(320, Math.max(180, maxH)) + 'px';
         dropdown.innerHTML = '';
         _parentDropdownOpen = true;
 
@@ -1385,6 +1395,14 @@
         if (dropdown && dropdown.contains(ev.target)) return;
         closeParentDropdown();
       });
+
+      // Close dropdown when the fields column scrolls (position:fixed won't follow)
+      var fieldsCol = trigger ? trigger.closest('.em-col') : null;
+      if (fieldsCol) {
+        fieldsCol.addEventListener('scroll', function() {
+          if (_parentDropdownOpen) closeParentDropdown();
+        });
+      }
 
       // Update display with breadcrumb for the initial value
       if (parentHidden && parentHidden.value) {
