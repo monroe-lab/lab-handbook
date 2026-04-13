@@ -1,5 +1,9 @@
 ---
 ---
+***
+
+***
+
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
 **Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
