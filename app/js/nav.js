@@ -19,6 +19,7 @@
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
     { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
     { label: 'Lab Map',  href: BASE + 'app/lab-map.html',    icon: 'map' },
+    { label: 'Apps',    href: BASE + 'app/apps.html',       icon: 'extension' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
@@ -38,6 +39,7 @@
     if (path.includes('/waste'))          return 'Waste';
     if (path.includes('/tutorials'))      return 'Tutorials';
     if (path.includes('/lab-map'))        return 'Lab Map';
+    if (path.includes('/apps') || path.includes('/solution-maker') || path.includes('/primer-designer') || path.includes('/plasmid-viewer')) return 'Apps';
     if (path.includes('/graph'))          return '';
     if (path.match(/\/app\/(index\.html)?$/)) return 'Home';
     return '';

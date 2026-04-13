@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apps - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.apps-page { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+.apps-header { margin-bottom: 28px; }
+.apps-header h1 {
+  font-size: 22px; display: flex; align-items: center; gap: 10px;
+  color: var(--teal-dark); margin-bottom: 4px;
+}
+.apps-header p { color: var(--grey-600); font-size: 14px; line-height: 1.5; }
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.app-card {
+  background: #fff; border-radius: 12px; overflow: hidden;
+  box-shadow: var(--shadow); transition: box-shadow .2s, transform .15s;
+  text-decoration: none; color: inherit; display: flex; flex-direction: column;
+}
+.app-card:hover {
+  box-shadow: var(--shadow-lg); transform: translateY(-2px);
+}
+
+.app-card-banner {
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.app-card-banner .material-icons-outlined {
+  font-size: 48px; color: rgba(255,255,255,.9);
+}
+.app-card-body { padding: 18px 20px; flex: 1; }
+.app-card-title {
+  font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--grey-900);
+}
+.app-card-desc {
+  font-size: 13px; color: var(--grey-600); line-height: 1.5; margin-bottom: 12px;
+}
+.app-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.app-tag {
+  padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;
+}
+
+/* Per-app color themes */
+.app-solution .app-card-banner { background: linear-gradient(135deg, #00796b, #26a69a); }
+.app-solution .app-tag { background: var(--teal-light); color: var(--teal-dark); }
+
+.app-primer .app-card-banner { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+.app-primer .app-tag { background: #e3f2fd; color: #1565c0; }
+
+.app-plasmid .app-card-banner { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+.app-plasmid .app-tag { background: #f3e5f5; color: #6a1b9a; }
+
+.apps-footer {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--grey-200);
+  text-align: center; color: var(--grey-500); font-size: 13px;
+}
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+<div class="apps-page">
+  <div class="apps-header">
+    <h1>
+      <span class="material-icons-outlined">extension</span>
+      Lab Apps
+    </h1>
+    <p>Interactive tools for everyday lab work. Calculate solutions, design primers, and visualize plasmids right in your browser.</p>
+  </div>
+
+  <div class="apps-grid">
+    <!-- Solution Maker -->
+    <a class="app-card app-solution" href="solution-maker.html">
+      <div class="app-card-banner">
+        <span class="material-icons-outlined">science</span>
+      </div>
+      <div class="app-card-body">
+        <div class="app-card-title">Solution Maker</div>
+        <div class="app-card-desc">
+          Build solutions step by step. Add ingredients from your inventory, specify amounts, and verify your recipe hits the target concentration using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>.
+        </div>
+        <div class="app-card-tags">
+          <span class="app-tag">Dilutions</span>
+          <span class="app-tag">Molarity</span>
+          <span class="app-tag">Inventory</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Primer Designer -->
+    <a class="app-card app-primer" href="primer-designer.html">
+      <div class="app-card-banner">
+        <span class="material-icons-outlined">biotech</span>
+      </div>
+      <div class="app-card-body">
+        <div class="app-card-title">Primer Designer</div>
+        <div class="app-card-desc">
+          Paste a DNA sequence and get primer pair suggestions with melting temperatures, GC content, self-dimer checks, and annotated sequence maps.
+        </div>
+        <div class="app-card-tags">
+          <span class="app-tag">PCR</span>
+          <span class="app-tag">Tm Calculator</span>
+          <span class="app-tag">GC%</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Plasmid Viewer -->
+    <a class="app-card app-plasmid" href="plasmid-viewer.html">
+      <div class="app-card-banner">
+        <span class="material-icons-outlined">donut_large</span>
+      </div>
+      <div class="app-card-body">
+        <div class="app-card-title">Plasmid Viewer</div>
+        <div class="app-card-desc">
+          Load GenBank files and visualize circular plasmid maps with color-coded feature annotations, sequence display, and interactive highlighting.
+        </div>
+        <div class="app-card-tags">
+          <span class="app-tag">GenBank</span>
+          <span class="app-tag">Circular Map</span>
+          <span class="app-tag">Features</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="apps-footer">
+    More apps coming soon. Have an idea? File an issue on GitHub.
+  </div>
+</div>
+</body>
+</html>

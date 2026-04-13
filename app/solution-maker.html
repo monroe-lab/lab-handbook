@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Maker - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.sm-page { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+.sm-header { margin-bottom: 24px; }
+.sm-header h1 {
+  font-size: 22px; display: flex; align-items: center; gap: 10px;
+  color: var(--teal-dark); margin-bottom: 4px;
+}
+.sm-header p { color: var(--grey-600); font-size: 14px; }
+
+/* Target solution card */
+.sm-target {
+  background: #fff; border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.sm-target h2 { font-size: 16px; margin-bottom: 14px; color: var(--grey-800); }
+.sm-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.sm-field { display: flex; flex-direction: column; gap: 4px; }
+.sm-field label { font-size: 12px; font-weight: 600; color: var(--grey-600); }
+.sm-field input, .sm-field select {
+  padding: 8px 10px; border: 1px solid var(--grey-300); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: inherit; outline: none; min-width: 120px;
+}
+.sm-field input:focus, .sm-field select:focus { border-color: var(--teal); }
+
+/* Ingredients list */
+.sm-ingredients {
+  background: #fff; border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.sm-ingredients h2 { font-size: 16px; margin-bottom: 14px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+
+.sm-ing-row {
+  display: flex; gap: 10px; align-items: center; padding: 10px 0;
+  border-bottom: 1px solid var(--grey-200); flex-wrap: wrap;
+}
+.sm-ing-row:last-of-type { border-bottom: none; }
+.sm-ing-name { font-weight: 600; font-size: 14px; min-width: 160px; flex-shrink: 0; }
+.sm-ing-detail { font-size: 13px; color: var(--grey-600); }
+.sm-ing-amount input {
+  width: 80px; padding: 6px 8px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; text-align: right;
+}
+.sm-ing-unit select {
+  padding: 6px 8px; border: 1px solid var(--grey-300); border-radius: var(--radius-sm);
+  font-size: 13px; font-family: inherit;
+}
+.sm-remove-btn {
+  background: none; border: none; color: var(--grey-400); cursor: pointer; font-size: 18px; padding: 4px;
+}
+.sm-remove-btn:hover { color: var(--red); }
+
+/* Add ingredient */
+.sm-add-area {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--grey-200);
+}
+.sm-add-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+
+/* Results panel */
+.sm-results {
+  background: #fff; border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.sm-results h2 { font-size: 16px; margin-bottom: 14px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+.sm-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) { .sm-result-grid { grid-template-columns: 1fr; } }
+
+.sm-result-card {
+  border: 1.5px solid var(--grey-200); border-radius: var(--radius); padding: 14px 16px;
+}
+.sm-result-card.good { border-color: #43a04780; background: #e8f5e9; }
+.sm-result-card.warn { border-color: #ff8f0080; background: #fff8e1; }
+.sm-result-card.bad  { border-color: #e5393580; background: #ffebee; }
+.sm-rc-label { font-size: 12px; font-weight: 600; color: var(--grey-600); margin-bottom: 4px; }
+.sm-rc-value { font-size: 20px; font-weight: 700; }
+.sm-rc-detail { font-size: 12px; color: var(--grey-600); margin-top: 4px; }
+
+/* Recipe table */
+.sm-recipe-table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+.sm-recipe-table th {
+  text-align: left; font-size: 12px; font-weight: 600; color: var(--grey-600);
+  padding: 8px 10px; border-bottom: 2px solid var(--grey-200);
+}
+.sm-recipe-table td {
+  padding: 8px 10px; font-size: 14px; border-bottom: 1px solid var(--grey-100);
+}
+.sm-recipe-table tr:last-child td { border-bottom: none; font-weight: 700; background: var(--grey-50); }
+
+/* Inventory link pill */
+.sm-inv-pill {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px;
+  background: var(--teal-light); color: var(--teal-dark); border-radius: 12px;
+  font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer;
+}
+.sm-inv-pill:hover { background: #b2dfdb; }
+
+/* Presets */
+.sm-presets { margin-bottom: 20px; }
+.sm-presets h3 { font-size: 13px; font-weight: 600; color: var(--grey-600); margin-bottom: 8px; }
+.sm-preset-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sm-preset-chip {
+  padding: 6px 14px; background: #fff; border: 1.5px solid var(--teal);
+  border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--teal-dark);
+  cursor: pointer; transition: all .15s;
+}
+.sm-preset-chip:hover { background: var(--teal); color: #fff; }
+
+/* Inventory search dropdown */
+.sm-search-wrap { position: relative; }
+.sm-search-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; max-height: 200px;
+  overflow-y: auto; background: #fff; border: 1px solid var(--grey-300);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-md); z-index: 10;
+  display: none;
+}
+.sm-search-dropdown.visible { display: block; }
+.sm-search-item {
+  padding: 8px 12px; cursor: pointer; font-size: 13px; border-bottom: 1px solid var(--grey-100);
+}
+.sm-search-item:hover { background: var(--teal-light); }
+.sm-search-item .sm-si-type { font-size: 11px; color: var(--grey-500); margin-left: 6px; }
+
+.sm-empty-state {
+  text-align: center; padding: 40px 20px; color: var(--grey-500); font-size: 14px;
+}
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+<div class="sm-page">
+  <div class="sm-header">
+    <h1>
+      <span class="material-icons-outlined">science</span>
+      Solution Maker
+    </h1>
+    <p>Build a solution step by step. Add ingredients, specify amounts, and verify your recipe hits the target concentration.</p>
+  </div>
+
+  <!-- Preset recipes -->
+  <div class="sm-presets">
+    <h3>Quick Start — Common Recipes</h3>
+    <div class="sm-preset-chips" id="presetChips"></div>
+  </div>
+
+  <!-- Target solution -->
+  <div class="sm-target">
+    <h2>Target Solution</h2>
+    <div class="sm-row">
+      <div class="sm-field">
+        <label>Solution Name</label>
+        <input type="text" id="targetName" placeholder="e.g. 1X TAE Buffer">
+      </div>
+      <div class="sm-field">
+        <label>Final Volume</label>
+        <input type="number" id="targetVolume" placeholder="500" min="0" step="any">
+      </div>
+      <div class="sm-field">
+        <label>Unit</label>
+        <select id="targetVolumeUnit">
+          <option value="mL">mL</option>
+          <option value="L">L</option>
+          <option value="uL">&micro;L</option>
+        </select>
+      </div>
+      <div class="sm-field">
+        <label>Target Conc.</label>
+        <input type="number" id="targetConc" placeholder="1" min="0" step="any">
+      </div>
+      <div class="sm-field">
+        <label>Conc. Unit</label>
+        <select id="targetConcUnit">
+          <option value="X">X (fold)</option>
+          <option value="M">M (molar)</option>
+          <option value="mM">mM</option>
+          <option value="uM">&micro;M</option>
+          <option value="nM">nM</option>
+          <option value="pct_wv">% w/v</option>
+          <option value="pct_vv">% v/v</option>
+          <option value="mg/mL">mg/mL</option>
+          <option value="ug/mL">&micro;g/mL</option>
+          <option value="ng/uL">ng/&micro;L</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingredients -->
+  <div class="sm-ingredients">
+    <h2>
+      <span class="material-icons-outlined" style="font-size:20px">playlist_add</span>
+      Ingredients
+    </h2>
+    <div id="ingredientsList"></div>
+
+    <div class="sm-add-area">
+      <div class="sm-add-row">
+        <div class="sm-field sm-search-wrap">
+          <label>Add Ingredient</label>
+          <input type="text" id="addIngName" placeholder="Search inventory or type name..." autocomplete="off">
+          <div class="sm-search-dropdown" id="ingSearchDropdown"></div>
+        </div>
+        <div class="sm-field">
+          <label>Stock Conc.</label>
+          <input type="number" id="addIngConc" placeholder="10" min="0" step="any">
+        </div>
+        <div class="sm-field">
+          <label>Unit</label>
+          <select id="addIngConcUnit">
+            <option value="X">X</option>
+            <option value="M">M</option>
+            <option value="mM">mM</option>
+            <option value="uM">&micro;M</option>
+            <option value="pct_wv">% w/v</option>
+            <option value="pct_vv">% v/v</option>
+            <option value="mg/mL">mg/mL</option>
+            <option value="solid_g">Solid (g, MW needed)</option>
+          </select>
+        </div>
+        <div class="sm-field" id="mwField" style="display:none">
+          <label>MW (g/mol)</label>
+          <input type="number" id="addIngMW" placeholder="58.44" min="0" step="any">
+        </div>
+        <button class="btn btn-primary" onclick="addIngredient()">
+          <span class="material-icons-outlined">add</span> Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="sm-results" id="resultsPanel" style="display:none">
+    <h2>
+      <span class="material-icons-outlined" style="font-size:20px">check_circle</span>
+      Recipe Calculation
+    </h2>
+    <div class="sm-result-grid" id="resultGrid"></div>
+    <table class="sm-recipe-table" id="recipeTable">
+      <thead><tr><th>Ingredient</th><th>Amount</th><th>Notes</th></tr></thead>
+      <tbody id="recipeBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── State ──
+  var ingredients = [];
+  var objectIndex = [];
+  var nextId = 1;
+
+  // ── Preset recipes ──
+  var PRESETS = [
+    {
+      name: '1X TAE Buffer (500 mL)',
+      targetName: '1X TAE Buffer', volume: 500, volUnit: 'mL', conc: 1, concUnit: 'X',
+      ingredients: [
+        { name: '50X TAE Stock', stockConc: 50, stockUnit: 'X', type: 'liquid' }
+      ]
+    },
+    {
+      name: '1M NaCl (500 mL)',
+      targetName: '1M NaCl', volume: 500, volUnit: 'mL', conc: 1, concUnit: 'M',
+      ingredients: [
+        { name: 'NaCl', stockConc: 0, stockUnit: 'solid_g', mw: 58.44, type: 'solid' }
+      ]
+    },
+    {
+      name: '70% Ethanol (1 L)',
+      targetName: '70% Ethanol', volume: 1000, volUnit: 'mL', conc: 70, concUnit: 'pct_vv',
+      ingredients: [
+        { name: '95% Ethanol', stockConc: 95, stockUnit: 'pct_vv', type: 'liquid' }
+      ]
+    },
+    {
+      name: '0.5M EDTA pH 8 (500 mL)',
+      targetName: '0.5M EDTA pH 8.0', volume: 500, volUnit: 'mL', conc: 0.5, concUnit: 'M',
+      ingredients: [
+        { name: 'EDTA disodium salt', stockConc: 0, stockUnit: 'solid_g', mw: 372.24, type: 'solid' }
+      ]
+    },
+    {
+      name: '10% SDS (100 mL)',
+      targetName: '10% SDS', volume: 100, volUnit: 'mL', conc: 10, concUnit: 'pct_wv',
+      ingredients: [
+        { name: 'SDS powder', stockConc: 0, stockUnit: 'solid_g', mw: 288.38, type: 'solid' }
+      ]
+    },
+    {
+      name: '1M Tris-HCl pH 8 (1 L)',
+      targetName: '1M Tris-HCl pH 8.0', volume: 1000, volUnit: 'mL', conc: 1, concUnit: 'M',
+      ingredients: [
+        { name: 'Tris base', stockConc: 0, stockUnit: 'solid_g', mw: 121.14, type: 'solid' }
+      ]
+    },
+  ];
+
+  // ── Load object index for inventory search ──
+  function loadIndex() {
+    var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+    fetch(base + 'object-index.json').then(function(r) { return r.json(); }).then(function(data) {
+      objectIndex = data;
+    }).catch(function() { objectIndex = []; });
+  }
+  loadIndex();
+
+  // ── Render presets ──
+  function renderPresets() {
+    var container = document.getElementById('presetChips');
+    PRESETS.forEach(function(p, i) {
+      var chip = document.createElement('button');
+      chip.className = 'sm-preset-chip';
+      chip.textContent = p.name;
+      chip.addEventListener('click', function() { loadPreset(i); });
+      container.appendChild(chip);
+    });
+  }
+  renderPresets();
+
+  function loadPreset(idx) {
+    var p = PRESETS[idx];
+    document.getElementById('targetName').value = p.targetName;
+    document.getElementById('targetVolume').value = p.volume;
+    document.getElementById('targetVolumeUnit').value = p.volUnit;
+    document.getElementById('targetConc').value = p.conc;
+    document.getElementById('targetConcUnit').value = p.concUnit;
+    ingredients = [];
+    p.ingredients.forEach(function(ing) {
+      ingredients.push({
+        id: nextId++,
+        name: ing.name,
+        stockConc: ing.stockConc,
+        stockUnit: ing.stockUnit,
+        mw: ing.mw || null,
+        objPath: null,
+      });
+    });
+    renderIngredients();
+    calculate();
+  }
+
+  // ── Inventory search ──
+  var searchInput = document.getElementById('addIngName');
+  var dropdown = document.getElementById('ingSearchDropdown');
+
+  searchInput.addEventListener('input', function() {
+    var q = searchInput.value.trim().toLowerCase();
+    if (q.length < 2) { dropdown.classList.remove('visible'); return; }
+    var matches = objectIndex.filter(function(o) {
+      return o.title && o.title.toLowerCase().indexOf(q) !== -1;
+    }).slice(0, 10);
+
+    if (matches.length === 0) { dropdown.classList.remove('visible'); return; }
+    dropdown.innerHTML = '';
+    matches.forEach(function(m) {
+      var div = document.createElement('div');
+      div.className = 'sm-search-item';
+      div.innerHTML = Lab.escHtml(m.title) + '<span class="sm-si-type">' + (m.type || '') + '</span>';
+      div.addEventListener('click', function() {
+        searchInput.value = m.title;
+        searchInput.dataset.objPath = m.path;
+        dropdown.classList.remove('visible');
+      });
+      dropdown.appendChild(div);
+    });
+    dropdown.classList.add('visible');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target) && e.target !== searchInput) {
+      dropdown.classList.remove('visible');
+    }
+  });
+
+  // Show/hide MW field
+  document.getElementById('addIngConcUnit').addEventListener('change', function() {
+    document.getElementById('mwField').style.display = this.value === 'solid_g' ? '' : 'none';
+  });
+
+  // ── Add ingredient ──
+  window.addIngredient = function() {
+    var name = document.getElementById('addIngName').value.trim();
+    if (!name) return;
+    var stockConc = parseFloat(document.getElementById('addIngConc').value) || 0;
+    var stockUnit = document.getElementById('addIngConcUnit').value;
+    var mw = parseFloat(document.getElementById('addIngMW').value) || null;
+    var objPath = searchInput.dataset.objPath || null;
+
+    ingredients.push({
+      id: nextId++,
+      name: name,
+      stockConc: stockConc,
+      stockUnit: stockUnit,
+      mw: mw,
+      objPath: objPath,
+    });
+
+    // Reset inputs
+    document.getElementById('addIngName').value = '';
+    document.getElementById('addIngConc').value = '';
+    document.getElementById('addIngMW').value = '';
+    searchInput.dataset.objPath = '';
+
+    renderIngredients();
+    calculate();
+  };
+
+  // ── Render ingredients ──
+  function renderIngredients() {
+    var container = document.getElementById('ingredientsList');
+    if (ingredients.length === 0) {
+      container.innerHTML = '<div class="sm-empty-state">No ingredients yet. Add one below or pick a preset recipe above.</div>';
+      return;
+    }
+    container.innerHTML = '';
+    ingredients.forEach(function(ing) {
+      var row = document.createElement('div');
+      row.className = 'sm-ing-row';
+
+      var nameSpan = document.createElement('span');
+      nameSpan.className = 'sm-ing-name';
+      if (ing.objPath) {
+        var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+        var pill = document.createElement('a');
+        pill.className = 'sm-inv-pill';
+        pill.href = base + ing.objPath.replace(/\.md$/, '/');
+        pill.innerHTML = '<span class="material-icons-outlined" style="font-size:14px">science</span> ' + Lab.escHtml(ing.name);
+        nameSpan.appendChild(pill);
+      } else {
+        nameSpan.textContent = ing.name;
+      }
+      row.appendChild(nameSpan);
+
+      var detail = document.createElement('span');
+      detail.className = 'sm-ing-detail';
+      if (ing.stockUnit === 'solid_g') {
+        detail.textContent = 'Solid' + (ing.mw ? ' (MW ' + ing.mw + ' g/mol)' : '');
+      } else {
+        detail.textContent = 'Stock: ' + ing.stockConc + ' ' + formatUnit(ing.stockUnit);
+      }
+      row.appendChild(detail);
+
+      var removeBtn = document.createElement('button');
+      removeBtn.className = 'sm-remove-btn';
+      removeBtn.innerHTML = '<span class="material-icons-outlined">close</span>';
+      removeBtn.addEventListener('click', function() {
+        ingredients = ingredients.filter(function(x) { return x.id !== ing.id; });
+        renderIngredients();
+        calculate();
+      });
+      row.appendChild(removeBtn);
+
+      container.appendChild(row);
+    });
+  }
+  renderIngredients();
+
+  // ── Unit helpers ──
+  function formatUnit(u) {
+    var map = { X: 'X', M: 'M', mM: 'mM', uM: '\u00b5M', nM: 'nM', pct_wv: '% w/v', pct_vv: '% v/v', 'mg/mL': 'mg/mL', 'ug/mL': '\u00b5g/mL', 'ng/uL': 'ng/\u00b5L', solid_g: 'g' };
+    return map[u] || u;
+  }
+
+  // Convert volume to mL
+  function toML(val, unit) {
+    if (unit === 'L') return val * 1000;
+    if (unit === 'uL') return val / 1000;
+    return val;
+  }
+
+  // Convert concentration to a common base for comparison
+  // Returns { value, baseUnit } normalized to the smallest meaningful unit
+  function normalizeConc(val, unit) {
+    // For fold dilutions (X), molar units, and percent, keep as-is since
+    // they only compare within the same unit type
+    return { value: val, unit: unit };
+  }
+
+  // ── Calculate ──
+  function calculate() {
+    var panel = document.getElementById('resultsPanel');
+    var targetVol = parseFloat(document.getElementById('targetVolume').value);
+    var targetVolUnit = document.getElementById('targetVolumeUnit').value;
+    var targetConc = parseFloat(document.getElementById('targetConc').value);
+    var targetConcUnit = document.getElementById('targetConcUnit').value;
+
+    if (!targetVol || ingredients.length === 0) {
+      panel.style.display = 'none';
+      return;
+    }
+    panel.style.display = '';
+
+    var finalVolML = toML(targetVol, targetVolUnit);
+    var results = [];
+    var totalSoluteVolML = 0;
+
+    ingredients.forEach(function(ing) {
+      var r = { name: ing.name, objPath: ing.objPath };
+
+      if (ing.stockUnit === 'solid_g') {
+        // Solid: calculate grams needed
+        if (targetConcUnit === 'M' || targetConcUnit === 'mM' || targetConcUnit === 'uM' || targetConcUnit === 'nM') {
+          // Molar solution from solid
+          var molarConc = targetConc;
+          if (targetConcUnit === 'mM') molarConc = targetConc / 1000;
+          if (targetConcUnit === 'uM') molarConc = targetConc / 1e6;
+          if (targetConcUnit === 'nM') molarConc = targetConc / 1e9;
+          var volL = finalVolML / 1000;
+          var grams = molarConc * volL * (ing.mw || 0);
+          r.amount = grams;
+          r.unit = 'g';
+          r.note = molarConc.toPrecision(4) + ' mol/L \u00d7 ' + volL + ' L \u00d7 ' + (ing.mw || '?') + ' g/mol';
+          r.valid = grams > 0;
+        } else if (targetConcUnit === 'pct_wv') {
+          // % w/v from solid
+          var grams = (targetConc / 100) * finalVolML;
+          r.amount = grams;
+          r.unit = 'g';
+          r.note = targetConc + '% w/v \u00d7 ' + finalVolML + ' mL / 100';
+          r.valid = grams > 0;
+        } else if (targetConcUnit === 'mg/mL') {
+          var grams = (targetConc * finalVolML) / 1000;
+          r.amount = grams;
+          r.unit = 'g';
+          r.note = targetConc + ' mg/mL \u00d7 ' + finalVolML + ' mL';
+          r.valid = grams > 0;
+        } else if (targetConcUnit === 'ug/mL') {
+          var grams = (targetConc * finalVolML) / 1e6;
+          r.amount = grams;
+          r.unit = 'g';
+          r.note = targetConc + ' \u00b5g/mL \u00d7 ' + finalVolML + ' mL';
+          r.valid = grams > 0;
+        } else {
+          r.amount = 0;
+          r.unit = 'g';
+          r.note = 'Cannot calculate: incompatible units for solid';
+          r.valid = false;
+        }
+      } else {
+        // Liquid stock: C1V1 = C2V2
+        // Need units to match
+        var c1 = ing.stockConc;
+        var c1unit = ing.stockUnit;
+        var c2 = targetConc;
+        var c2unit = targetConcUnit;
+
+        // Try to make units compatible
+        var ratio = getConcentrationRatio(c2, c2unit, c1, c1unit);
+        if (ratio !== null) {
+          var v1mL = ratio * finalVolML;
+          totalSoluteVolML += v1mL;
+          r.amount = formatVolume(v1mL);
+          r.unit = formatVolumeUnit(v1mL);
+          r.rawML = v1mL;
+          r.note = 'C\u2081V\u2081 = C\u2082V\u2082 \u2192 V\u2081 = (' + c2 + ' ' + formatUnit(c2unit) + ' \u00d7 ' + targetVol + ' ' + targetVolUnit + ') / ' + c1 + ' ' + formatUnit(c1unit);
+          r.valid = v1mL > 0 && v1mL <= finalVolML;
+          if (v1mL > finalVolML) {
+            r.note += ' \u26a0 Stock too dilute! Need more than final volume.';
+          }
+        } else {
+          r.amount = '?';
+          r.unit = '';
+          r.note = 'Cannot calculate: ' + formatUnit(c2unit) + ' target with ' + formatUnit(c1unit) + ' stock';
+          r.valid = false;
+        }
+      }
+      results.push(r);
+    });
+
+    // Water to fill
+    var waterML = finalVolML - totalSoluteVolML;
+
+    // Render results
+    renderResults(results, waterML, finalVolML, targetVol, targetVolUnit);
+  }
+
+  function getConcentrationRatio(c2, c2unit, c1, c1unit) {
+    // Convert both to the same base and return c2/c1
+    var base2 = toBaseConc(c2, c2unit);
+    var base1 = toBaseConc(c1, c1unit);
+    if (base2 === null || base1 === null) return null;
+    if (base2.type !== base1.type) return null;
+    if (base1.value === 0) return null;
+    return base2.value / base1.value;
+  }
+
+  function toBaseConc(val, unit) {
+    switch (unit) {
+      case 'X': return { value: val, type: 'fold' };
+      case 'M': return { value: val, type: 'molar' };
+      case 'mM': return { value: val / 1000, type: 'molar' };
+      case 'uM': return { value: val / 1e6, type: 'molar' };
+      case 'nM': return { value: val / 1e9, type: 'molar' };
+      case 'pct_wv': return { value: val, type: 'pct_wv' };
+      case 'pct_vv': return { value: val, type: 'pct_vv' };
+      case 'mg/mL': return { value: val, type: 'mass_vol' };
+      case 'ug/mL': return { value: val / 1000, type: 'mass_vol' };
+      case 'ng/uL': return { value: val / 1000, type: 'mass_vol' }; // 1 ng/uL = 1 ug/mL = 0.001 mg/mL
+      default: return null;
+    }
+  }
+
+  function formatVolume(mL) {
+    if (mL >= 1000) return (mL / 1000).toFixed(2);
+    if (mL >= 1) return mL.toFixed(2);
+    if (mL >= 0.001) return (mL * 1000).toFixed(1);
+    return (mL * 1e6).toFixed(1);
+  }
+  function formatVolumeUnit(mL) {
+    if (mL >= 1000) return 'L';
+    if (mL >= 1) return 'mL';
+    if (mL >= 0.001) return '\u00b5L';
+    return 'nL';
+  }
+
+  function renderResults(results, waterML, finalVolML, targetVol, targetVolUnit) {
+    var grid = document.getElementById('resultGrid');
+    var body = document.getElementById('recipeBody');
+    var allValid = results.every(function(r) { return r.valid; });
+
+    // Result cards
+    grid.innerHTML = '';
+
+    // Overall status card
+    var statusCard = document.createElement('div');
+    statusCard.className = 'sm-result-card ' + (allValid && waterML >= 0 ? 'good' : 'bad');
+    statusCard.innerHTML =
+      '<div class="sm-rc-label">Status</div>' +
+      '<div class="sm-rc-value">' + (allValid && waterML >= 0 ? '\u2705 Valid Recipe' : '\u274c Check Errors') + '</div>' +
+      '<div class="sm-rc-detail">' + results.length + ' ingredient' + (results.length !== 1 ? 's' : '') + '</div>';
+    grid.appendChild(statusCard);
+
+    // Solvent card
+    var waterCard = document.createElement('div');
+    waterCard.className = 'sm-result-card ' + (waterML >= 0 ? 'good' : 'bad');
+    var waterDisplay = waterML >= 0 ? formatVolume(waterML) + ' ' + formatVolumeUnit(waterML) : 'OVERFLOW';
+    waterCard.innerHTML =
+      '<div class="sm-rc-label">Solvent (Water) to Add</div>' +
+      '<div class="sm-rc-value">' + waterDisplay + '</div>' +
+      '<div class="sm-rc-detail">Brings total to ' + targetVol + ' ' + targetVolUnit + '</div>';
+    grid.appendChild(waterCard);
+
+    // Recipe table
+    body.innerHTML = '';
+    results.forEach(function(r) {
+      var tr = document.createElement('tr');
+      var nameCell = r.name;
+      if (r.objPath) {
+        var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+        nameCell = '<a class="sm-inv-pill" href="' + base + r.objPath.replace(/\.md$/, '/') + '"><span class="material-icons-outlined" style="font-size:14px">science</span> ' + Lab.escHtml(r.name) + '</a>';
+      }
+      tr.innerHTML = '<td>' + nameCell + '</td><td style="font-weight:600;' + (r.valid ? '' : 'color:var(--red)') + '">' + r.amount + ' ' + r.unit + '</td><td style="font-size:12px;color:var(--grey-600)">' + r.note + '</td>';
+      body.appendChild(tr);
+    });
+
+    // Water row
+    var waterRow = document.createElement('tr');
+    waterRow.innerHTML = '<td>Solvent (dH\u2082O)</td><td>' + waterDisplay + '</td><td style="font-size:12px;color:var(--grey-600)">Bring to final volume</td>';
+    body.appendChild(waterRow);
+  }
+
+  // Auto-recalculate on target changes
+  ['targetVolume', 'targetVolumeUnit', 'targetConc', 'targetConcUnit'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calculate);
+    document.getElementById(id).addEventListener('change', calculate);
+  });
+})();
+</script>
+</body>
+</html>

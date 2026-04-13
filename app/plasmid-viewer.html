@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plasmid Viewer - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.pv-page { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+.pv-header { margin-bottom: 24px; }
+.pv-header h1 {
+  font-size: 22px; display: flex; align-items: center; gap: 10px;
+  color: var(--teal-dark); margin-bottom: 4px;
+}
+.pv-header p { color: var(--grey-600); font-size: 14px; }
+
+.pv-card {
+  background: #fff; border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.pv-card h2 { font-size: 16px; margin-bottom: 14px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+
+/* File input */
+.pv-upload-area {
+  border: 2px dashed var(--grey-300); border-radius: var(--radius); padding: 40px 20px;
+  text-align: center; cursor: pointer; transition: all .15s; position: relative;
+}
+.pv-upload-area:hover { border-color: var(--teal); background: var(--teal-50); }
+.pv-upload-area.dragover { border-color: var(--teal); background: var(--teal-light); }
+.pv-upload-area input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+.pv-upload-icon { font-size: 36px; color: var(--grey-400); margin-bottom: 8px; }
+.pv-upload-text { font-size: 14px; color: var(--grey-600); }
+.pv-upload-hint { font-size: 12px; color: var(--grey-500); margin-top: 4px; }
+
+/* Examples */
+.pv-examples { margin-top: 16px; }
+.pv-examples h3 { font-size: 13px; font-weight: 600; color: var(--grey-600); margin-bottom: 8px; }
+.pv-example-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pv-example-chip {
+  padding: 6px 14px; background: #fff; border: 1.5px solid var(--teal);
+  border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--teal-dark);
+  cursor: pointer; transition: all .15s;
+}
+.pv-example-chip:hover { background: var(--teal); color: #fff; }
+
+/* Map container */
+.pv-map-wrap {
+  display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;
+}
+.pv-map-svg { flex: 1; min-width: 300px; }
+.pv-map-svg svg { width: 100%; height: auto; }
+
+/* Feature list */
+.pv-features { flex: 0 0 320px; min-width: 280px; max-height: 600px; overflow-y: auto; }
+@media (max-width: 768px) { .pv-features { flex: 1 1 100%; } }
+.pv-feat-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  border-radius: var(--radius-sm); cursor: pointer; transition: background .1s;
+  border-bottom: 1px solid var(--grey-100);
+}
+.pv-feat-item:hover { background: var(--grey-50); }
+.pv-feat-item.active { background: var(--teal-light); }
+.pv-feat-swatch {
+  width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0;
+}
+.pv-feat-info { flex: 1; min-width: 0; }
+.pv-feat-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pv-feat-meta { font-size: 11px; color: var(--grey-500); }
+.pv-feat-arrow { font-size: 14px; color: var(--grey-400); }
+
+/* Plasmid info bar */
+.pv-info-bar {
+  display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+  font-size: 13px; color: var(--grey-700);
+}
+.pv-info-bar span { font-weight: 600; color: var(--grey-900); }
+
+/* Sequence panel */
+.pv-seq-panel {
+  font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7;
+  background: var(--grey-50); padding: 16px; border-radius: var(--radius);
+  border: 1px solid var(--grey-200); max-height: 250px; overflow-y: auto;
+  word-break: break-all; white-space: pre-wrap;
+}
+.pv-seq-hl { padding: 1px 0; border-radius: 2px; }
+
+/* Tooltip */
+.pv-tooltip {
+  position: fixed; z-index: 1000; background: #333; color: #fff;
+  padding: 8px 12px; border-radius: 6px; font-size: 12px; max-width: 250px;
+  pointer-events: none; display: none; box-shadow: var(--shadow-md);
+}
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+<div class="pv-page">
+  <div class="pv-header">
+    <h1>
+      <span class="material-icons-outlined">donut_large</span>
+      Plasmid Viewer
+    </h1>
+    <p>Load a GenBank file to visualize circular plasmid maps with annotated features. Drag and drop or try an example.</p>
+  </div>
+
+  <!-- Upload -->
+  <div class="pv-card" id="uploadCard">
+    <h2><span class="material-icons-outlined" style="font-size:20px">upload_file</span> Load GenBank File</h2>
+    <div class="pv-upload-area" id="uploadArea">
+      <input type="file" id="fileInput" accept=".gb,.gbk,.genbank,.txt">
+      <div class="pv-upload-icon"><span class="material-icons-outlined" style="font-size:inherit">cloud_upload</span></div>
+      <div class="pv-upload-text">Drop a GenBank file here or click to browse</div>
+      <div class="pv-upload-hint">.gb, .gbk, or .genbank files</div>
+    </div>
+    <div class="pv-examples">
+      <h3>Or Try an Example</h3>
+      <div class="pv-example-chips" id="exampleChips"></div>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div class="pv-card" id="mapCard" style="display:none">
+    <h2><span class="material-icons-outlined" style="font-size:20px">donut_large</span> <span id="plasmidTitle">Plasmid Map</span></h2>
+    <div class="pv-info-bar" id="infoBar"></div>
+    <div class="pv-map-wrap">
+      <div class="pv-map-svg" id="mapSvg"></div>
+      <div class="pv-features" id="featureList"></div>
+    </div>
+  </div>
+
+  <!-- Sequence -->
+  <div class="pv-card" id="seqCard" style="display:none">
+    <h2><span class="material-icons-outlined" style="font-size:20px">code</span> Sequence</h2>
+    <div class="pv-seq-panel" id="seqPanel"></div>
+  </div>
+</div>
+<div class="pv-tooltip" id="tooltip"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Feature colors ──
+  var FEAT_COLORS = {
+    CDS: '#1565c0',
+    gene: '#2e7d32',
+    promoter: '#e65100',
+    terminator: '#c62828',
+    rep_origin: '#6a1b9a',
+    misc_feature: '#00838f',
+    primer_bind: '#f9a825',
+    regulatory: '#e65100',
+    sig_peptide: '#4527a0',
+    mat_peptide: '#283593',
+    source: '#78909c',
+    default: '#607d8b'
+  };
+  var usedColors = ['#1565c0','#2e7d32','#e65100','#c62828','#6a1b9a','#00838f','#f9a825','#ef6c00','#4527a0','#00695c','#ad1457','#283593'];
+  var colorIdx = 0;
+  function getColor(type) {
+    return FEAT_COLORS[type] || usedColors[(colorIdx++) % usedColors.length];
+  }
+
+  // ── Example plasmids (embedded GenBank) ──
+  var EXAMPLES = [
+    { name: 'pUC19 (2,686 bp)', id: 'puc19' },
+    { name: 'pBR322 (4,361 bp)', id: 'pbr322' },
+    { name: 'pET-28a (5,369 bp)', id: 'pet28a' },
+  ];
+
+  // Minimal embedded GenBank data for examples
+  var EXAMPLE_DATA = {
+    puc19: buildExampleGB('pUC19', 2686, [
+      { type: 'CDS', name: 'lacZ-alpha', start: 217, end: 579, strand: 1 },
+      { type: 'CDS', name: 'ampR', start: 1629, end: 2489, strand: -1 },
+      { type: 'promoter', name: 'lac promoter', start: 167, end: 217, strand: 1 },
+      { type: 'rep_origin', name: 'pMB1 ori', start: 928, end: 1546, strand: -1 },
+      { type: 'misc_feature', name: 'MCS', start: 396, end: 452, strand: 1 },
+      { type: 'promoter', name: 'AmpR promoter', start: 2490, end: 2594, strand: -1 },
+    ]),
+    pbr322: buildExampleGB('pBR322', 4361, [
+      { type: 'CDS', name: 'ampR', start: 3293, end: 4153, strand: -1 },
+      { type: 'CDS', name: 'tetR', start: 86, end: 1276, strand: 1 },
+      { type: 'rep_origin', name: 'pMB1 ori', start: 1915, end: 2533, strand: -1 },
+      { type: 'promoter', name: 'AmpR promoter', start: 4154, end: 4258, strand: -1 },
+      { type: 'misc_feature', name: 'BamHI site', start: 375, end: 381, strand: 1 },
+      { type: 'misc_feature', name: 'EcoRI site', start: 4359, end: 4361, strand: 1 },
+    ]),
+    pet28a: buildExampleGB('pET-28a(+)', 5369, [
+      { type: 'CDS', name: 'kanR', start: 3995, end: 4807, strand: -1 },
+      { type: 'CDS', name: 'lacI', start: 773, end: 1855, strand: -1 },
+      { type: 'promoter', name: 'T7 promoter', start: 5097, end: 5115, strand: 1 },
+      { type: 'misc_feature', name: 'T7 tag', start: 5143, end: 5176, strand: 1 },
+      { type: 'misc_feature', name: 'His-tag', start: 5176, end: 5194, strand: 1 },
+      { type: 'misc_feature', name: 'MCS', start: 5194, end: 5268, strand: 1 },
+      { type: 'misc_feature', name: 'His-tag (C-term)', start: 5268, end: 5286, strand: 1 },
+      { type: 'terminator', name: 'T7 terminator', start: 5320, end: 5369, strand: 1 },
+      { type: 'rep_origin', name: 'pBR322 ori', start: 3286, end: 3904, strand: -1 },
+      { type: 'promoter', name: 'lacI promoter', start: 1855, end: 1960, strand: -1 },
+      { type: 'misc_feature', name: 'f1 ori', start: 2444, end: 2900, strand: 1 },
+    ]),
+  };
+
+  function buildExampleGB(name, len, features) {
+    // Generate a random sequence for display
+    var bases = 'ACGT';
+    var seq = '';
+    for (var i = 0; i < len; i++) seq += bases.charAt(Math.floor(Math.random() * 4));
+    return { name: name, length: len, features: features, sequence: seq, isCircular: true };
+  }
+
+  // ── Render example chips ──
+  var exContainer = document.getElementById('exampleChips');
+  EXAMPLES.forEach(function(ex) {
+    var chip = document.createElement('button');
+    chip.className = 'pv-example-chip';
+    chip.textContent = ex.name;
+    chip.addEventListener('click', function() { loadPlasmid(EXAMPLE_DATA[ex.id]); });
+    exContainer.appendChild(chip);
+  });
+
+  // ── File input handling ──
+  var uploadArea = document.getElementById('uploadArea');
+  var fileInput = document.getElementById('fileInput');
+
+  uploadArea.addEventListener('dragover', function(e) { e.preventDefault(); uploadArea.classList.add('dragover'); });
+  uploadArea.addEventListener('dragleave', function() { uploadArea.classList.remove('dragover'); });
+  uploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length) handleFile(fileInput.files[0]);
+  });
+
+  function handleFile(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var gb = parseGenBank(e.target.result);
+      if (gb) loadPlasmid(gb);
+      else alert('Could not parse GenBank file. Make sure it is a valid GenBank format.');
+    };
+    reader.readAsText(file);
+  }
+
+  // ── GenBank parser ──
+  function parseGenBank(text) {
+    var lines = text.split('\n');
+    var plasmid = { name: '', length: 0, features: [], sequence: '', isCircular: false };
+
+    // Parse LOCUS line
+    var locusMatch = lines[0].match(/LOCUS\s+(\S+)\s+(\d+)\s+bp\s+.*?(circular|linear)?/i);
+    if (locusMatch) {
+      plasmid.name = locusMatch[1];
+      plasmid.length = parseInt(locusMatch[2]);
+      plasmid.isCircular = (locusMatch[3] || '').toLowerCase() === 'circular';
+    }
+
+    // Parse DEFINITION
+    for (var i = 0; i < Math.min(20, lines.length); i++) {
+      if (lines[i].match(/^DEFINITION/)) {
+        var def = lines[i].replace(/^DEFINITION\s+/, '').trim();
+        if (!plasmid.name || plasmid.name.length < def.length) plasmid.name = def.replace(/\.$/, '');
+        break;
+      }
+    }
+
+    // Parse FEATURES
+    var inFeatures = false;
+    var currentFeat = null;
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      if (line.match(/^FEATURES/)) { inFeatures = true; continue; }
+      if (line.match(/^ORIGIN/) || line.match(/^BASE COUNT/)) { inFeatures = false; }
+
+      if (inFeatures) {
+        // New feature line: starts at column 5 with a non-space
+        var featMatch = line.match(/^     (\S+)\s+(complement\()?(\d+)\.\.(\d+)\)?/);
+        if (featMatch) {
+          if (currentFeat && currentFeat.type !== 'source') plasmid.features.push(currentFeat);
+          currentFeat = {
+            type: featMatch[1],
+            start: parseInt(featMatch[3]),
+            end: parseInt(featMatch[4]),
+            strand: featMatch[2] ? -1 : 1,
+            name: '',
+          };
+          continue;
+        }
+        // Also handle join() locations (simplified: just take first range)
+        var joinMatch = line.match(/^     (\S+)\s+(complement\()?join\((\d+)\.\.(\d+)/);
+        if (joinMatch) {
+          if (currentFeat && currentFeat.type !== 'source') plasmid.features.push(currentFeat);
+          // For join, get the full span
+          var allNums = line.match(/\d+/g);
+          if (allNums && allNums.length >= 2) {
+            currentFeat = {
+              type: joinMatch[1],
+              start: parseInt(allNums[0]),
+              end: parseInt(allNums[allNums.length - 1]),
+              strand: joinMatch[2] ? -1 : 1,
+              name: '',
+            };
+          }
+          continue;
+        }
+        // Qualifier lines
+        if (currentFeat && line.match(/^\s+\//)) {
+          var labelMatch = line.match(/\/(?:gene|label|product|note)="([^"]+)"/);
+          if (labelMatch && !currentFeat.name) {
+            currentFeat.name = labelMatch[1];
+          }
+        }
+      }
+
+      // Parse ORIGIN (sequence)
+      if (line.match(/^ORIGIN/)) {
+        for (var j = i + 1; j < lines.length; j++) {
+          if (lines[j].match(/^\/\//)) break;
+          plasmid.sequence += lines[j].replace(/[\s\d]/g, '').toUpperCase();
+        }
+        break;
+      }
+    }
+    if (currentFeat && currentFeat.type !== 'source') plasmid.features.push(currentFeat);
+
+    if (plasmid.length === 0 && plasmid.sequence) plasmid.length = plasmid.sequence.length;
+    if (plasmid.features.length === 0 && plasmid.length === 0) return null;
+
+    return plasmid;
+  }
+
+  // ── Load and render plasmid ──
+  var currentPlasmid = null;
+  var highlightedFeat = null;
+
+  function loadPlasmid(plasmid) {
+    currentPlasmid = plasmid;
+    colorIdx = 0;
+
+    // Assign colors to features
+    plasmid.features.forEach(function(f) {
+      f.color = getColor(f.type);
+      if (!f.name) f.name = f.type;
+    });
+
+    document.getElementById('uploadCard').style.display = 'none';
+    document.getElementById('mapCard').style.display = '';
+    document.getElementById('seqCard').style.display = plasmid.sequence ? '' : 'none';
+    document.getElementById('plasmidTitle').textContent = plasmid.name;
+
+    // Info bar
+    var info = document.getElementById('infoBar');
+    info.innerHTML =
+      'Length: <span>' + plasmid.length.toLocaleString() + ' bp</span> &middot; ' +
+      'Topology: <span>' + (plasmid.isCircular ? 'Circular' : 'Linear') + '</span> &middot; ' +
+      'Features: <span>' + plasmid.features.length + '</span>' +
+      ' &nbsp; <button class="btn btn-sm btn-outline" onclick="resetViewer()"><span class="material-icons-outlined">refresh</span> Load Another</button>';
+
+    renderMap(plasmid);
+    renderFeatureList(plasmid);
+    if (plasmid.sequence) renderSequence(plasmid);
+  }
+
+  window.resetViewer = function() {
+    document.getElementById('uploadCard').style.display = '';
+    document.getElementById('mapCard').style.display = 'none';
+    document.getElementById('seqCard').style.display = 'none';
+    fileInput.value = '';
+  };
+
+  // ── Render circular map as SVG ──
+  function renderMap(plasmid) {
+    var container = document.getElementById('mapSvg');
+    var size = 500;
+    var cx = size / 2, cy = size / 2;
+    var radius = 180;
+    var featWidth = 24;
+    var labelRadius = radius + featWidth + 20;
+
+    var svg = '<svg viewBox="0 0 ' + size + ' ' + size + '" xmlns="http://www.w3.org/2000/svg" style="font-family:Inter,-apple-system,sans-serif">';
+
+    // Background circle (backbone)
+    svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + radius + '" fill="none" stroke="#bdbdbd" stroke-width="2"/>';
+
+    // Center text
+    svg += '<text x="' + cx + '" y="' + (cy - 12) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#424242">' + escSvg(plasmid.name) + '</text>';
+    svg += '<text x="' + cx + '" y="' + (cy + 8) + '" text-anchor="middle" font-size="12" fill="#757575">' + plasmid.length.toLocaleString() + ' bp</text>';
+    if (plasmid.isCircular) {
+      svg += '<text x="' + cx + '" y="' + (cy + 24) + '" text-anchor="middle" font-size="11" fill="#9e9e9e">circular</text>';
+    }
+
+    // Tick marks every N bases
+    var tickInterval = getTickInterval(plasmid.length);
+    for (var t = 0; t < plasmid.length; t += tickInterval) {
+      var angle = (t / plasmid.length) * 2 * Math.PI - Math.PI / 2;
+      var x1 = cx + (radius - 6) * Math.cos(angle);
+      var y1 = cy + (radius - 6) * Math.sin(angle);
+      var x2 = cx + (radius + 6) * Math.cos(angle);
+      var y2 = cy + (radius + 6) * Math.sin(angle);
+      svg += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#bdbdbd" stroke-width="1"/>';
+      // Label
+      var lx = cx + (radius - 18) * Math.cos(angle);
+      var ly = cy + (radius - 18) * Math.sin(angle);
+      var label = t === 0 ? '1' : (t >= 1000 ? (t / 1000) + 'k' : '' + t);
+      svg += '<text x="' + lx + '" y="' + (ly + 4) + '" text-anchor="middle" font-size="9" fill="#9e9e9e">' + label + '</text>';
+    }
+
+    // Feature arcs
+    plasmid.features.forEach(function(feat, idx) {
+      var startAngle = (feat.start / plasmid.length) * 360 - 90;
+      var endAngle = (feat.end / plasmid.length) * 360 - 90;
+      var spanDeg = endAngle - startAngle;
+      if (spanDeg < 0) spanDeg += 360;
+
+      // Determine ring offset (stagger overlapping features)
+      var ring = 0; // could add overlap detection
+      var r = radius + (ring * (featWidth + 4));
+
+      var arc = describeArc(cx, cy, r, startAngle, endAngle, featWidth);
+      var featureId = 'feat-' + idx;
+
+      svg += '<g class="pv-feat-arc" data-idx="' + idx + '" style="cursor:pointer">';
+      svg += '<path id="' + featureId + '" d="' + arc + '" fill="' + feat.color + '" fill-opacity="0.8" stroke="' + feat.color + '" stroke-width="1"';
+      svg += ' onmouseover="pvHighlight(' + idx + ',true)" onmouseout="pvHighlight(' + idx + ',false)"';
+      svg += '/>';
+
+      // Direction arrow
+      if (spanDeg > 8) {
+        var arrowAngle = feat.strand === 1 ? endAngle : startAngle;
+        var arrowRad = arrowAngle * Math.PI / 180;
+        var arrowX = cx + r * Math.cos(arrowRad);
+        var arrowY = cy + r * Math.sin(arrowRad);
+        var arrowDir = feat.strand === 1 ? arrowAngle : arrowAngle + 180;
+        svg += '<polygon points="-5,-4 5,0 -5,4" fill="#fff" fill-opacity="0.9" transform="translate(' + arrowX + ',' + arrowY + ') rotate(' + arrowDir + ')"/>';
+      }
+
+      // Label
+      var midAngle = startAngle + spanDeg / 2;
+      if (midAngle > 360) midAngle -= 360;
+      var midRad = midAngle * Math.PI / 180;
+      var lx = cx + labelRadius * Math.cos(midRad);
+      var ly = cy + labelRadius * Math.sin(midRad);
+      var anchor = (midAngle > -90 && midAngle < 90) || midAngle > 270 ? 'start' : 'end';
+      if (Math.abs(midAngle - 90) < 15 || Math.abs(midAngle + 90) < 15 || Math.abs(midAngle - 270) < 15) anchor = 'middle';
+
+      // Label line
+      var lineEndX = cx + (radius + featWidth + 6) * Math.cos(midRad);
+      var lineEndY = cy + (radius + featWidth + 6) * Math.sin(midRad);
+      svg += '<line x1="' + lineEndX + '" y1="' + lineEndY + '" x2="' + lx + '" y2="' + ly + '" stroke="' + feat.color + '" stroke-width="0.8" stroke-opacity="0.5"/>';
+      svg += '<text x="' + lx + '" y="' + (ly + 4) + '" text-anchor="' + anchor + '" font-size="10" font-weight="600" fill="' + feat.color + '">' + escSvg(feat.name) + '</text>';
+
+      svg += '</g>';
+    });
+
+    svg += '</svg>';
+    container.innerHTML = svg;
+  }
+
+  function describeArc(cx, cy, r, startAngle, endAngle, width) {
+    var innerR = r - width / 2;
+    var outerR = r + width / 2;
+    var startRad = startAngle * Math.PI / 180;
+    var endRad = endAngle * Math.PI / 180;
+    var spanDeg = endAngle - startAngle;
+    if (spanDeg < 0) spanDeg += 360;
+    var largeArc = spanDeg > 180 ? 1 : 0;
+
+    var outerStartX = cx + outerR * Math.cos(startRad);
+    var outerStartY = cy + outerR * Math.sin(startRad);
+    var outerEndX = cx + outerR * Math.cos(endRad);
+    var outerEndY = cy + outerR * Math.sin(endRad);
+    var innerStartX = cx + innerR * Math.cos(endRad);
+    var innerStartY = cy + innerR * Math.sin(endRad);
+    var innerEndX = cx + innerR * Math.cos(startRad);
+    var innerEndY = cy + innerR * Math.sin(startRad);
+
+    return 'M ' + outerStartX + ' ' + outerStartY +
+           ' A ' + outerR + ' ' + outerR + ' 0 ' + largeArc + ' 1 ' + outerEndX + ' ' + outerEndY +
+           ' L ' + innerStartX + ' ' + innerStartY +
+           ' A ' + innerR + ' ' + innerR + ' 0 ' + largeArc + ' 0 ' + innerEndX + ' ' + innerEndY +
+           ' Z';
+  }
+
+  function getTickInterval(len) {
+    if (len <= 1000) return 100;
+    if (len <= 5000) return 500;
+    if (len <= 10000) return 1000;
+    return 2000;
+  }
+
+  function escSvg(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ── Feature list ──
+  function renderFeatureList(plasmid) {
+    var container = document.getElementById('featureList');
+    container.innerHTML = '';
+    plasmid.features.forEach(function(feat, idx) {
+      var div = document.createElement('div');
+      div.className = 'pv-feat-item';
+      div.dataset.idx = idx;
+      div.innerHTML =
+        '<div class="pv-feat-swatch" style="background:' + feat.color + '"></div>' +
+        '<div class="pv-feat-info">' +
+          '<div class="pv-feat-name">' + Lab.escHtml(feat.name) + '</div>' +
+          '<div class="pv-feat-meta">' + feat.type + ' &middot; ' + feat.start + '..' + feat.end + ' &middot; ' + (feat.strand === 1 ? '\u2192' : '\u2190') + '</div>' +
+        '</div>' +
+        '<div class="pv-feat-arrow" style="color:' + feat.color + '">' + (feat.end - feat.start) + ' bp</div>';
+      div.addEventListener('mouseenter', function() { pvHighlight(idx, true); });
+      div.addEventListener('mouseleave', function() { pvHighlight(idx, false); });
+      div.addEventListener('click', function() { scrollToFeature(idx); });
+      container.appendChild(div);
+    });
+  }
+
+  // ── Highlight feature ──
+  window.pvHighlight = function(idx, on) {
+    // Highlight SVG arc
+    var arcs = document.querySelectorAll('.pv-feat-arc');
+    arcs.forEach(function(g) {
+      var path = g.querySelector('path');
+      if (!path) return;
+      if (parseInt(g.dataset.idx) === idx) {
+        path.setAttribute('fill-opacity', on ? '1' : '0.8');
+        path.setAttribute('stroke-width', on ? '3' : '1');
+      }
+    });
+
+    // Highlight list item
+    var items = document.querySelectorAll('.pv-feat-item');
+    items.forEach(function(item) {
+      if (parseInt(item.dataset.idx) === idx) {
+        item.classList.toggle('active', on);
+      }
+    });
+
+    // Tooltip
+    if (on && currentPlasmid) {
+      highlightedFeat = idx;
+    } else {
+      highlightedFeat = null;
+    }
+  };
+
+  function scrollToFeature(idx) {
+    if (!currentPlasmid || !currentPlasmid.sequence) return;
+    var feat = currentPlasmid.features[idx];
+    renderSequence(currentPlasmid, feat);
+    document.getElementById('seqCard').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── Render sequence ──
+  function renderSequence(plasmid, highlightFeat) {
+    var panel = document.getElementById('seqPanel');
+    var seq = plasmid.sequence;
+    if (!seq) { panel.textContent = 'No sequence data available.'; return; }
+
+    var html = '';
+    var lineLen = 60;
+    var startFrom = 0;
+    if (highlightFeat) {
+      startFrom = Math.max(0, highlightFeat.start - 60);
+      startFrom = startFrom - (startFrom % lineLen);
+    }
+    var endAt = highlightFeat ? Math.min(seq.length, highlightFeat.end + 120) : Math.min(seq.length, 600);
+
+    for (var i = startFrom; i < endAt; i += lineLen) {
+      var lineNum = (i + 1).toString();
+      while (lineNum.length < 6) lineNum = ' ' + lineNum;
+      html += '<span style="color:#9e9e9e;user-select:none">' + lineNum + ' </span>';
+      for (var j = i; j < Math.min(i + lineLen, endAt, seq.length); j++) {
+        var base = seq.charAt(j);
+        if (highlightFeat && j >= highlightFeat.start - 1 && j < highlightFeat.end) {
+          html += '<span class="pv-seq-hl" style="background:' + highlightFeat.color + '30;color:' + highlightFeat.color + ';font-weight:700">' + base + '</span>';
+        } else {
+          html += base;
+        }
+        if ((j - i + 1) % 10 === 0 && j < i + lineLen - 1) html += ' ';
+      }
+      html += '\n';
+    }
+
+    if (highlightFeat) {
+      html += '\n<span style="font-size:12px;color:' + highlightFeat.color + ';font-weight:600">\u25cf ' + Lab.escHtml(highlightFeat.name) + '</span>';
+      html += '<span style="font-size:11px;color:#757575"> (' + highlightFeat.type + ', ' + highlightFeat.start + '..' + highlightFeat.end + ', ' + (highlightFeat.end - highlightFeat.start) + ' bp)</span>';
+    }
+    if (endAt < seq.length && !highlightFeat) {
+      html += '\n<span style="color:#9e9e9e;font-size:11px">... showing first ' + endAt + ' of ' + seq.length.toLocaleString() + ' bp. Click a feature to jump to its location.</span>';
+    }
+
+    panel.innerHTML = html;
+  }
+})();
+</script>
+</body>
+</html>

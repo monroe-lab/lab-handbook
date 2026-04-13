@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primer Designer - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.pd-page { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+.pd-header { margin-bottom: 24px; }
+.pd-header h1 {
+  font-size: 22px; display: flex; align-items: center; gap: 10px;
+  color: var(--teal-dark); margin-bottom: 4px;
+}
+.pd-header p { color: var(--grey-600); font-size: 14px; }
+
+.pd-card {
+  background: #fff; border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.pd-card h2 { font-size: 16px; margin-bottom: 14px; color: var(--grey-800); display: flex; align-items: center; gap: 8px; }
+.pd-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.pd-field { display: flex; flex-direction: column; gap: 4px; }
+.pd-field label { font-size: 12px; font-weight: 600; color: var(--grey-600); }
+.pd-field input, .pd-field select {
+  padding: 8px 10px; border: 1px solid var(--grey-300); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: inherit; outline: none;
+}
+.pd-field input:focus { border-color: var(--teal); }
+
+/* Sequence input */
+.pd-seq-input {
+  width: 100%; min-height: 100px; padding: 12px; border: 1px solid var(--grey-300);
+  border-radius: var(--radius); font-family: 'Courier New', monospace; font-size: 14px;
+  line-height: 1.6; resize: vertical; outline: none; letter-spacing: 1px;
+}
+.pd-seq-input:focus { border-color: var(--teal); }
+.pd-seq-stats {
+  display: flex; gap: 16px; margin-top: 8px; font-size: 13px; color: var(--grey-600);
+}
+.pd-seq-stats span { font-weight: 600; color: var(--grey-800); }
+
+/* Sequence display with highlighted primers */
+.pd-seq-display {
+  font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8;
+  padding: 16px; background: var(--grey-50); border-radius: var(--radius);
+  border: 1px solid var(--grey-200); word-break: break-all; margin-top: 12px;
+  max-height: 300px; overflow-y: auto;
+}
+.pd-hl-fwd { background: #bbdefb; border-radius: 2px; padding: 1px 0; }
+.pd-hl-rev { background: #f8bbd0; border-radius: 2px; padding: 1px 0; }
+.pd-seq-ruler {
+  font-size: 11px; color: var(--grey-400); user-select: none;
+}
+
+/* Parameters */
+.pd-params { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+
+/* Primer results */
+.pd-primer-pair {
+  border: 1.5px solid var(--grey-200); border-radius: var(--radius); padding: 16px;
+  margin-bottom: 12px; transition: border-color .15s;
+}
+.pd-primer-pair:hover { border-color: var(--teal); }
+.pd-primer-pair.selected { border-color: var(--teal); background: var(--teal-50); }
+.pd-pair-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.pd-pair-rank {
+  font-size: 13px; font-weight: 700; color: var(--teal-dark);
+  background: var(--teal-light); padding: 3px 10px; border-radius: 12px;
+}
+.pd-pair-score { font-size: 12px; color: var(--grey-600); }
+
+.pd-primer-detail { margin-bottom: 8px; }
+.pd-primer-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+.pd-primer-label.fwd { color: #1565c0; }
+.pd-primer-label.rev { color: #c62828; }
+.pd-primer-seq {
+  font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 1px;
+  padding: 6px 10px; background: var(--grey-50); border-radius: var(--radius-sm);
+  word-break: break-all;
+}
+.pd-primer-stats {
+  display: flex; gap: 14px; margin-top: 4px; font-size: 12px; color: var(--grey-600);
+}
+
+.pd-product-info {
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--grey-200);
+  font-size: 13px; color: var(--grey-700);
+}
+
+.pd-no-results {
+  text-align: center; padding: 30px; color: var(--grey-500); font-size: 14px;
+}
+
+/* Copy button */
+.pd-copy-btn {
+  background: none; border: 1px solid var(--grey-300); border-radius: var(--radius-sm);
+  padding: 3px 8px; font-size: 11px; cursor: pointer; color: var(--grey-600);
+  font-family: inherit;
+}
+.pd-copy-btn:hover { background: var(--grey-100); }
+
+/* Example sequences */
+.pd-examples { margin-bottom: 20px; }
+.pd-examples h3 { font-size: 13px; font-weight: 600; color: var(--grey-600); margin-bottom: 8px; }
+.pd-example-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pd-example-chip {
+  padding: 6px 14px; background: #fff; border: 1.5px solid var(--teal);
+  border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--teal-dark);
+  cursor: pointer; transition: all .15s;
+}
+.pd-example-chip:hover { background: var(--teal); color: #fff; }
+</style>
+</head>
+<body>
+<script src="js/lab.js"></script>
+<div class="pd-page">
+  <div class="pd-header">
+    <h1>
+      <span class="material-icons-outlined">biotech</span>
+      Primer Designer
+    </h1>
+    <p>Paste a DNA sequence, set your parameters, and get primer pair suggestions with melting temperatures, GC content, and product sizes.</p>
+  </div>
+
+  <!-- Example sequences -->
+  <div class="pd-examples">
+    <h3>Try an Example</h3>
+    <div class="pd-example-chips" id="exampleChips"></div>
+  </div>
+
+  <!-- Sequence input -->
+  <div class="pd-card">
+    <h2><span class="material-icons-outlined" style="font-size:20px">dna</span> Template Sequence (5' → 3')</h2>
+    <textarea class="pd-seq-input" id="seqInput" placeholder="Paste your DNA sequence here... FASTA format or raw sequence accepted.&#10;&#10;Example: ATGCGATCGATCGATCG..."></textarea>
+    <div class="pd-seq-stats" id="seqStats"></div>
+  </div>
+
+  <!-- Parameters -->
+  <div class="pd-card">
+    <h2><span class="material-icons-outlined" style="font-size:20px">tune</span> Parameters</h2>
+    <div class="pd-params">
+      <div class="pd-field">
+        <label>Min Primer Length</label>
+        <input type="number" id="minLen" value="18" min="10" max="35">
+      </div>
+      <div class="pd-field">
+        <label>Max Primer Length</label>
+        <input type="number" id="maxLen" value="25" min="10" max="40">
+      </div>
+      <div class="pd-field">
+        <label>Optimal Tm (&deg;C)</label>
+        <input type="number" id="optTm" value="60" min="45" max="72" step="0.5">
+      </div>
+      <div class="pd-field">
+        <label>Max Tm Diff (&deg;C)</label>
+        <input type="number" id="maxTmDiff" value="3" min="0" max="10" step="0.5">
+      </div>
+      <div class="pd-field">
+        <label>Min GC%</label>
+        <input type="number" id="minGC" value="40" min="0" max="100">
+      </div>
+      <div class="pd-field">
+        <label>Max GC%</label>
+        <input type="number" id="maxGC" value="60" min="0" max="100">
+      </div>
+      <div class="pd-field">
+        <label>Min Product (bp)</label>
+        <input type="number" id="minProduct" value="100" min="50">
+      </div>
+      <div class="pd-field">
+        <label>Max Product (bp)</label>
+        <input type="number" id="maxProduct" value="1000" min="50">
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <button class="btn btn-primary" onclick="designPrimers()">
+        <span class="material-icons-outlined">play_arrow</span> Design Primers
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="pd-card" id="resultsCard" style="display:none">
+    <h2><span class="material-icons-outlined" style="font-size:20px">format_list_numbered</span> Primer Pairs</h2>
+    <div id="primerResults"></div>
+  </div>
+
+  <!-- Sequence visualization -->
+  <div class="pd-card" id="seqVizCard" style="display:none">
+    <h2><span class="material-icons-outlined" style="font-size:20px">visibility</span> Sequence Map</h2>
+    <div class="pd-seq-display" id="seqDisplay"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Example sequences ──
+  var EXAMPLES = [
+    {
+      name: 'GFP (720 bp)',
+      seq: 'ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCACCCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAA'
+    },
+    {
+      name: 'Cas9 target (200 bp)',
+      seq: 'ATGGACTATAAGGACCACGACGGAGACTACAAGGATCATGATATTGATTACAAAGACGATGACGATAAGATGGCCCCAAAGAAGAAGCGGAAGGTCGGTATCCACGGAGTCCCAGCAGCCGACAAGAAGTACAGCATCGGCCTGGACATCGGCACCAACTCTGTGGGCTGGGCCGTGATCACCGACGAG'
+    },
+    {
+      name: 'Arabidopsis GAPDH (short)',
+      seq: 'ATGGCTGACAAGAAGATTAGCTTGAAGGCAAATGCTGCTATTAAGGCTCTTGGTGAAAAGGTTGGTATCAACGGTTTCGGTCGCATCGGACGTAACGCTTCTGCAGCACACATTCAGAAGGTCGAAGACGTTGCTGTTCTCAACGATAAGTTTGGTATCACTGAAGGTCTGATGACTACCGTCCACGCTACTACTGCCACCCAGAAGACTGTTGATGGTCCGTCAG'
+    },
+  ];
+
+  var exContainer = document.getElementById('exampleChips');
+  EXAMPLES.forEach(function(ex) {
+    var chip = document.createElement('button');
+    chip.className = 'pd-example-chip';
+    chip.textContent = ex.name;
+    chip.addEventListener('click', function() {
+      document.getElementById('seqInput').value = ex.seq;
+      updateSeqStats();
+    });
+    exContainer.appendChild(chip);
+  });
+
+  // ── Sequence parsing ──
+  function parseSequence(raw) {
+    // Strip FASTA header
+    var lines = raw.split('\n');
+    var seq = '';
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (line.charAt(0) === '>') continue;
+      seq += line;
+    }
+    // Remove non-ACGT characters
+    return seq.replace(/[^ACGTacgt]/g, '').toUpperCase();
+  }
+
+  function complement(base) {
+    var map = { A: 'T', T: 'A', C: 'G', G: 'C' };
+    return map[base] || 'N';
+  }
+
+  function reverseComplement(seq) {
+    return seq.split('').reverse().map(complement).join('');
+  }
+
+  // ── Tm calculation (nearest-neighbor, SantaLucia 1998) ──
+  // Simplified nearest-neighbor with salt correction
+  var NN_DH = {
+    'AA': -7.9, 'AT': -7.2, 'AC': -8.4, 'AG': -7.8,
+    'TA': -7.2, 'TT': -7.9, 'TC': -8.2, 'TG': -8.5,
+    'CA': -8.5, 'CT': -7.8, 'CC': -8.0, 'CG': -10.6,
+    'GA': -8.2, 'GT': -8.4, 'GC': -9.8, 'GG': -8.0,
+  };
+  var NN_DS = {
+    'AA': -22.2, 'AT': -20.4, 'AC': -22.4, 'AG': -21.0,
+    'TA': -21.3, 'TT': -22.2, 'TC': -22.2, 'TG': -22.7,
+    'CA': -22.7, 'CT': -21.0, 'CC': -19.9, 'CG': -27.2,
+    'GA': -22.2, 'GT': -22.4, 'GC': -24.4, 'GG': -19.9,
+  };
+
+  function calcTm(seq) {
+    if (seq.length < 2) return 0;
+
+    // Nearest-neighbor calculation
+    var dH = 0; // kcal/mol (initiation)
+    var dS = 0; // cal/(mol·K)
+
+    // Initiation parameters
+    if (seq.charAt(0) === 'G' || seq.charAt(0) === 'C') { dH += 0.1; dS += -2.8; }
+    else { dH += 2.3; dS += 4.1; }
+    if (seq.charAt(seq.length - 1) === 'G' || seq.charAt(seq.length - 1) === 'C') { dH += 0.1; dS += -2.8; }
+    else { dH += 2.3; dS += 4.1; }
+
+    for (var i = 0; i < seq.length - 1; i++) {
+      var pair = seq.charAt(i) + seq.charAt(i + 1);
+      dH += (NN_DH[pair] || -7.9);
+      dS += (NN_DS[pair] || -22.2);
+    }
+
+    // Tm = dH * 1000 / (dS + R * ln(C/4)) - 273.15
+    // Using primer concentration of 250 nM
+    var R = 1.987; // cal/(mol·K)
+    var primerConc = 250e-9; // 250 nM
+    var Na = 0.05; // 50 mM Na+
+    var tm = (dH * 1000) / (dS + R * Math.log(primerConc / 4)) - 273.15;
+
+    // Salt correction (Owczarzy 2004 simplified)
+    tm += 16.6 * Math.log10(Na);
+
+    return Math.round(tm * 10) / 10;
+  }
+
+  function calcGC(seq) {
+    var gc = 0;
+    for (var i = 0; i < seq.length; i++) {
+      if (seq.charAt(i) === 'G' || seq.charAt(i) === 'C') gc++;
+    }
+    return Math.round((gc / seq.length) * 1000) / 10;
+  }
+
+  // ── Primer scoring ──
+  function scorePrimer(seq, optTm) {
+    var tm = calcTm(seq);
+    var gc = calcGC(seq);
+    var score = 100;
+
+    // Tm penalty
+    score -= Math.abs(tm - optTm) * 5;
+
+    // GC penalty (ideal 50%)
+    score -= Math.abs(gc - 50) * 0.5;
+
+    // 3' end: prefer G or C (GC clamp) but not runs of 3+
+    var last3 = seq.slice(-3);
+    var gcLast3 = 0;
+    for (var i = 0; i < 3; i++) { if (last3[i] === 'G' || last3[i] === 'C') gcLast3++; }
+    if (gcLast3 === 0) score -= 10; // no GC at 3' end
+    if (gcLast3 === 3) score -= 5;  // too many
+
+    // Penalize homopolymers (runs of 4+)
+    if (/(.)\1{3,}/.test(seq)) score -= 15;
+
+    // Self-complementarity check (simple: 3' end dimer)
+    var rc = reverseComplement(seq);
+    var dimLen = 0;
+    for (var i = 0; i < Math.min(6, seq.length); i++) {
+      if (seq.charAt(seq.length - 1 - i) === rc.charAt(rc.length - 1 - i)) dimLen++;
+      else break;
+    }
+    if (dimLen >= 3) score -= dimLen * 5;
+
+    return Math.max(0, Math.round(score));
+  }
+
+  // ── Update sequence stats ──
+  function updateSeqStats() {
+    var seq = parseSequence(document.getElementById('seqInput').value);
+    var stats = document.getElementById('seqStats');
+    if (!seq) { stats.innerHTML = ''; return; }
+    var gc = calcGC(seq);
+    stats.innerHTML = 'Length: <span>' + seq.length + ' bp</span> &nbsp;&middot;&nbsp; GC: <span>' + gc + '%</span>';
+  }
+  document.getElementById('seqInput').addEventListener('input', updateSeqStats);
+
+  // ── Design primers ──
+  window.designPrimers = function() {
+    var seq = parseSequence(document.getElementById('seqInput').value);
+    if (seq.length < 50) {
+      alert('Sequence must be at least 50 bp.');
+      return;
+    }
+
+    var minLen = parseInt(document.getElementById('minLen').value) || 18;
+    var maxLen = parseInt(document.getElementById('maxLen').value) || 25;
+    var optTm = parseFloat(document.getElementById('optTm').value) || 60;
+    var maxTmDiff = parseFloat(document.getElementById('maxTmDiff').value) || 3;
+    var minGC = parseFloat(document.getElementById('minGC').value) || 40;
+    var maxGC = parseFloat(document.getElementById('maxGC').value) || 60;
+    var minProduct = parseInt(document.getElementById('minProduct').value) || 100;
+    var maxProduct = parseInt(document.getElementById('maxProduct').value) || 1000;
+
+    // Generate candidate forward primers (from the 5' end region)
+    var fwdCandidates = [];
+    var searchRegion = Math.min(seq.length / 2, 200);
+    for (var start = 0; start < searchRegion; start++) {
+      for (var len = minLen; len <= maxLen; len++) {
+        if (start + len > seq.length) break;
+        var primer = seq.substring(start, start + len);
+        var gc = calcGC(primer);
+        if (gc < minGC || gc > maxGC) continue;
+        var tm = calcTm(primer);
+        if (Math.abs(tm - optTm) > 8) continue; // loose filter
+        fwdCandidates.push({
+          seq: primer, start: start, end: start + len,
+          tm: tm, gc: gc, score: scorePrimer(primer, optTm), dir: 'fwd'
+        });
+      }
+    }
+
+    // Generate candidate reverse primers (from the 3' end region)
+    var revCandidates = [];
+    var revStart = Math.max(seq.length / 2, seq.length - 200);
+    for (var end = seq.length; end > revStart; end--) {
+      for (var len = minLen; len <= maxLen; len++) {
+        if (end - len < 0) break;
+        var template = seq.substring(end - len, end);
+        var primer = reverseComplement(template);
+        var gc = calcGC(primer);
+        if (gc < minGC || gc > maxGC) continue;
+        var tm = calcTm(primer);
+        if (Math.abs(tm - optTm) > 8) continue;
+        revCandidates.push({
+          seq: primer, start: end - len, end: end,
+          tm: tm, gc: gc, score: scorePrimer(primer, optTm), dir: 'rev',
+          templateSeq: template
+        });
+      }
+    }
+
+    // Sort by score
+    fwdCandidates.sort(function(a, b) { return b.score - a.score; });
+    revCandidates.sort(function(a, b) { return b.score - a.score; });
+
+    // Find best pairs
+    var pairs = [];
+    var topFwd = fwdCandidates.slice(0, 30);
+    var topRev = revCandidates.slice(0, 30);
+
+    for (var fi = 0; fi < topFwd.length; fi++) {
+      for (var ri = 0; ri < topRev.length; ri++) {
+        var f = topFwd[fi], r = topRev[ri];
+        var productSize = r.end - f.start;
+        if (productSize < minProduct || productSize > maxProduct) continue;
+        var tmDiff = Math.abs(f.tm - r.tm);
+        if (tmDiff > maxTmDiff) continue;
+
+        var pairScore = f.score + r.score - tmDiff * 10;
+        // Bonus for product size near 200-500 bp
+        if (productSize >= 200 && productSize <= 500) pairScore += 10;
+
+        pairs.push({
+          fwd: f, rev: r, product: productSize,
+          tmDiff: tmDiff, score: Math.max(0, Math.round(pairScore))
+        });
+      }
+    }
+
+    pairs.sort(function(a, b) { return b.score - a.score; });
+    pairs = pairs.slice(0, 10); // Top 10
+
+    renderResults(pairs, seq);
+  };
+
+  // ── Render results ──
+  function renderResults(pairs, seq) {
+    var container = document.getElementById('primerResults');
+    var resultsCard = document.getElementById('resultsCard');
+    var vizCard = document.getElementById('seqVizCard');
+    resultsCard.style.display = '';
+
+    if (pairs.length === 0) {
+      container.innerHTML = '<div class="pd-no-results"><span class="material-icons-outlined" style="font-size:36px;display:block;margin-bottom:8px">search_off</span>No valid primer pairs found. Try relaxing your parameters.</div>';
+      vizCard.style.display = 'none';
+      return;
+    }
+
+    container.innerHTML = '';
+    pairs.forEach(function(pair, i) {
+      var div = document.createElement('div');
+      div.className = 'pd-primer-pair' + (i === 0 ? ' selected' : '');
+      div.innerHTML =
+        '<div class="pd-pair-header">' +
+          '<span class="pd-pair-rank">#' + (i + 1) + '</span>' +
+          '<span class="pd-pair-score">Score: ' + pair.score + ' &middot; Product: ' + pair.product + ' bp</span>' +
+        '</div>' +
+        '<div class="pd-primer-detail">' +
+          '<div class="pd-primer-label fwd">Forward Primer (5\' → 3\')</div>' +
+          '<div class="pd-primer-seq">' + pair.fwd.seq +
+            ' <button class="pd-copy-btn" onclick="copySeq(\'' + pair.fwd.seq + '\', this)">Copy</button>' +
+          '</div>' +
+          '<div class="pd-primer-stats">' +
+            '<span>Tm: ' + pair.fwd.tm + '&deg;C</span>' +
+            '<span>GC: ' + pair.fwd.gc + '%</span>' +
+            '<span>Length: ' + pair.fwd.seq.length + ' nt</span>' +
+            '<span>Pos: ' + (pair.fwd.start + 1) + '-' + pair.fwd.end + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pd-primer-detail">' +
+          '<div class="pd-primer-label rev">Reverse Primer (5\' → 3\')</div>' +
+          '<div class="pd-primer-seq">' + pair.rev.seq +
+            ' <button class="pd-copy-btn" onclick="copySeq(\'' + pair.rev.seq + '\', this)">Copy</button>' +
+          '</div>' +
+          '<div class="pd-primer-stats">' +
+            '<span>Tm: ' + pair.rev.tm + '&deg;C</span>' +
+            '<span>GC: ' + pair.rev.gc + '%</span>' +
+            '<span>Length: ' + pair.rev.seq.length + ' nt</span>' +
+            '<span>Pos: ' + (pair.rev.start + 1) + '-' + pair.rev.end + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pd-product-info">' +
+          '\u0394Tm: ' + pair.tmDiff.toFixed(1) + '&deg;C &middot; ' +
+          'Product: ' + pair.product + ' bp &middot; ' +
+          'Avg Tm: ' + ((pair.fwd.tm + pair.rev.tm) / 2).toFixed(1) + '&deg;C (anneal at ~' + (((pair.fwd.tm + pair.rev.tm) / 2) - 5).toFixed(0) + '&deg;C)' +
+        '</div>';
+
+      div.addEventListener('click', function() {
+        document.querySelectorAll('.pd-primer-pair').forEach(function(el) { el.classList.remove('selected'); });
+        div.classList.add('selected');
+        renderSeqViz(seq, pair);
+      });
+      container.appendChild(div);
+    });
+
+    // Show sequence visualization for top pair
+    renderSeqViz(seq, pairs[0]);
+  }
+
+  function renderSeqViz(seq, pair) {
+    var vizCard = document.getElementById('seqVizCard');
+    var display = document.getElementById('seqDisplay');
+    vizCard.style.display = '';
+
+    var html = '';
+    var lineLen = 60;
+    for (var i = 0; i < seq.length; i += lineLen) {
+      // Line number
+      html += '<span class="pd-seq-ruler">' + padNum(i + 1, 6) + ' </span>';
+      for (var j = i; j < Math.min(i + lineLen, seq.length); j++) {
+        var base = seq.charAt(j);
+        if (j >= pair.fwd.start && j < pair.fwd.end) {
+          html += '<span class="pd-hl-fwd">' + base + '</span>';
+        } else if (j >= pair.rev.start && j < pair.rev.end) {
+          html += '<span class="pd-hl-rev">' + base + '</span>';
+        } else {
+          html += base;
+        }
+        // Space every 10 bases
+        if ((j - i + 1) % 10 === 0 && j < i + lineLen - 1) html += ' ';
+      }
+      html += '\n';
+    }
+    html += '\n<span style="font-size:12px">' +
+      '<span class="pd-hl-fwd" style="padding:2px 8px">&nbsp;</span> Forward &nbsp; ' +
+      '<span class="pd-hl-rev" style="padding:2px 8px">&nbsp;</span> Reverse</span>';
+    display.innerHTML = html;
+  }
+
+  function padNum(n, len) {
+    var s = '' + n;
+    while (s.length < len) s = ' ' + s;
+    return s;
+  }
+
+  window.copySeq = function(seq, btn) {
+    navigator.clipboard.writeText(seq).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = orig; }, 1500);
+    });
+  };
+})();
+</script>
+</body>
+</html>
