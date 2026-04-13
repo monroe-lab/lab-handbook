@@ -18,9 +18,9 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
 
-<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
+<img src="plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/plant-harvesting/images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -68,7 +68,8 @@ For each cluster:
 3. Label per the section below.
 4. **Flash-freeze immediately** in liquid nitrogen or directly on dry ice please.
 
-Wipe scissors and gloves with 70% ethanol **between trees** (you don't need to clean between the two clusters of the same tree).
+> ⚠️ **Warning: avoid cross contamination between trees**
+> e.g. if using scissors, clean with 70% ethanol between trees.
 
 ### 5\. Label the tubes
 
