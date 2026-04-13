@@ -354,7 +354,8 @@
     var typeConfig = (window.Lab && window.Lab.types && window.Lab.types.get)
       ? window.Lab.types.get(meta.type) : null;
     var typeColor = (typeConfig && typeConfig.color) || '#6b7280';
-    var typeIcon = (typeConfig && typeConfig.icon) || '';
+    var rawIcon = (typeConfig && typeConfig.icon) || '';
+    var typeIcon = (window.Lab.types && window.Lab.types.renderIcon) ? window.Lab.types.renderIcon(rawIcon) : rawIcon;
     var typeLabel = (typeConfig && typeConfig.label) || meta.type || '';
 
     var pills = [];

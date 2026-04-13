@@ -218,7 +218,7 @@
       var isExpanded = expanded.has(slug);
       var type = e.type || 'container';
       var typeConfig = (window.Lab && Lab.types) ? Lab.types.get(type) : { icon: '📄', color: '#999' };
-      var icon = typeConfig.icon || '📄';
+      var icon = (Lab.types.renderIcon ? Lab.types.renderIcon(typeConfig.icon) : typeConfig.icon) || '📄';
       var title = e.title || slug.split('/').pop();
       // R6: emit both new lt-* and legacy tree-*/tw-* classnames so the
       // lab-map page's existing CSS + labbot's existing test selectors keep

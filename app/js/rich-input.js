@@ -175,7 +175,7 @@
         var meta = [conf.label];
         if (obj.location) meta.push(obj.location);
         return '<div class="ri-item' + (i === 0 ? ' selected' : '') + '" data-slug="' + slug + '" data-title="' + (window.Lab.escHtml ? window.Lab.escHtml(obj.title || slug) : slug) + '">' +
-          '<span class="ri-item-icon" style="color:' + conf.color + '">' + conf.icon + '</span>' +
+          '<span class="ri-item-icon" style="color:' + conf.color + '">' + (Lab.types.renderIcon ? Lab.types.renderIcon(conf.icon) : conf.icon) + '</span>' +
           '<div class="ri-item-info"><div class="ri-item-name">' + (window.Lab.escHtml ? window.Lab.escHtml(obj.title || slug) : slug) + '</div>' +
           '<div class="ri-item-meta">' + meta.join(' \u00B7 ') + '</div></div></div>';
       }).join('');
@@ -241,7 +241,7 @@
       }
       var title = obj ? (obj.title || slug) : slug;
       var style = window.Lab.types ? window.Lab.types.pillStyle(obj ? obj.type : '_unknown') : 'background:' + conf.color + ';color:#fff;padding:1px 8px;border-radius:16px;font-size:13px;font-weight:500;';
-      return '<span class="ri-pill" style="' + style + '" title="' + esc(conf.label) + '">' + (window.Lab.types ? window.Lab.types.pillContent(obj ? obj.type : '_unknown', title) : conf.icon + ' ' + esc(title)) + '</span>';
+      return '<span class="ri-pill" style="' + style + '" title="' + esc(conf.label) + '">' + (window.Lab.types ? window.Lab.types.pillContent(obj ? obj.type : '_unknown', title) : (Lab.types.renderIcon ? Lab.types.renderIcon(conf.icon) : conf.icon) + ' ' + esc(title)) + '</span>';
     });
   }
 

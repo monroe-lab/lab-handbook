@@ -969,7 +969,7 @@
               ';cursor:pointer;border:2px solid ' + (sel ? tc.color || '#333' : 'transparent') +
               ';opacity:' + (sel ? '1' : '0.6') +
               ';font-size:11px;padding:3px 8px;border-radius:12px;transition:opacity .15s,border-color .15s' +
-              '">' + tc.icon + ' ' + escHtml(tc.label || t) + '</button>';
+              '">' + Lab.types.renderIcon(tc.icon) + ' ' + escHtml(tc.label || t) + '</button>';
           });
         });
         html += '</div>';
@@ -980,7 +980,7 @@
         var style = Lab.types.pillStyle(currentType);
         html += '<div style="display:flex;gap:8px;margin-bottom:10px;font-size:14px;align-items:center">' +
           '<span style="color:var(--grey-500);min-width:80px">Type</span>' +
-          '<span style="' + style + '">' + tc.icon + ' ' + escHtml(tc.label || currentType) + '</span>' +
+          '<span style="' + style + '">' + Lab.types.renderIcon(tc.icon) + ' ' + escHtml(tc.label || currentType) + '</span>' +
           '</div>';
       }
       typeShown = true;
@@ -1442,7 +1442,7 @@
         if (b.quantity && b.unit) meta.push(b.quantity + ' ' + b.unit);
         if (b.parent) meta.push(b.parent.split('/').pop().replace(/-/g, ' '));
         html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
-          '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
+          '<span style="font-size:14px;flex-shrink:0">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
             '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
             (meta.length ? '<div style="font-size:11px;color:var(--grey-500)">' + escHtml(meta.join(' \u00B7 ')) + '</div>' : '') +
@@ -1467,7 +1467,7 @@
       others.forEach(function(b) {
         var tc = Lab.types.get(b.type || 'container');
         html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
-          '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
+          '<span style="font-size:14px;flex-shrink:0">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
             '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
             '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
@@ -1583,7 +1583,7 @@
           // grid cells in the same box. Drop is handled in bindGridHandlers.
           html += '<div class="em-grid-cell occupied' + collClass + '" data-cell="' + key + '" data-slug="' + escHtml(first.slug) + '" draggable="true" title="' + escHtml(first.title || '') + '" style="background:' + bg + ';border:1px solid ' + border + ';color:' + tc.color + '">' +
             collideBadge +
-            '<span class="gc-icon">' + tc.icon + '</span>' +
+            '<span class="gc-icon">' + Lab.types.renderIcon(tc.icon) + '</span>' +
             '<span class="gc-label">' + escHtml(String(label2).substring(0, 24)) + '</span>' +
           '</div>';
         } else {
@@ -1769,7 +1769,7 @@
         var s = scored[i];
         var tc = Lab.types.get(s.entry.type || 'container');
         html += '<div class="em-place-result" data-slug="' + escHtml(s.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:4px;cursor:pointer">' +
-          '<span style="font-size:14px">' + tc.icon + '</span>' +
+          '<span style="font-size:14px">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
             '<div style="font-weight:600;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(s.entry.title || s.slug) + '</div>' +
             '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
@@ -1915,7 +1915,7 @@
     var tc = Lab.types.get(type);
     var pos = entry.position ? '<span class="ec-pos">' + escHtml(entry.position) + '</span>' : '';
     return '<div class="em-child-row" data-slug="' + escHtml(entry.slug || '') + '">' +
-      '<span class="ec-icon">' + tc.icon + '</span>' +
+      '<span class="ec-icon">' + Lab.types.renderIcon(tc.icon) + '</span>' +
       '<span class="ec-title" title="' + escHtml(entry.slug || '') + '">' + escHtml(entry.title || entry.slug || '') + '</span>' +
       pos +
       '</div>';
@@ -2406,7 +2406,7 @@
         var meta = [tc.label || obj.type || ''];
         if (obj.location) meta.push(obj.location);
         return '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--grey-100);cursor:pointer;border-radius:4px" onmouseover="this.style.background=\'var(--grey-50)\'" onmouseout="this.style.background=\'\'" onclick="Lab.editorModal._insertLink(\'' + esc(slug) + '\',\'' + esc(obj.title || displaySlug) + '\')">' +
-          '<span style="' + window.Lab.types.pillStyle(obj.type) + 'font-size:11px;padding:2px 6px;border-radius:8px">' + tc.icon + '</span>' +
+          '<span style="' + window.Lab.types.pillStyle(obj.type) + 'font-size:11px;padding:2px 6px;border-radius:8px">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">' + esc(obj.title || displaySlug) + '</div>' +
           '<div style="font-size:12px;color:var(--grey-500)">' + meta.map(esc).join(' \u00B7 ') + '</div></div></div>';
       }).join('');

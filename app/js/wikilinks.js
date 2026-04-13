@@ -178,7 +178,7 @@
 
     p.innerHTML =
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">' +
-        '<div style="font-size:18px;font-weight:600;color:#212121;">' + conf.icon + ' ' + esc(obj.title || '') + '</div>' +
+        '<div style="font-size:18px;font-weight:600;color:#212121;">' + (Lab.types.renderIcon ? Lab.types.renderIcon(conf.icon) : conf.icon) + ' ' + esc(obj.title || '') + '</div>' +
         '<button onclick="document.getElementById(\'obj-popup\').style.display=\'none\'" style="background:none;border:none;font-size:20px;cursor:pointer;color:#9e9e9e;padding:0 0 0 8px;">&times;</button>' +
       '</div>' +
       '<div style="margin-bottom:12px;">' +

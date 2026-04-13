@@ -15,7 +15,7 @@
   var TYPES = {
     reagent: {
       color: '#009688',
-      icon: '\uD83E\uDDEA',
+      icon: 'fa:fa-solid fa-flask',
       label: 'Reagent',
       group: 'resources',
       fields: [
@@ -38,7 +38,7 @@
     },
     buffer: {
       color: '#e65100',
-      icon: '\uD83E\uDDEA',
+      icon: 'fa:fa-solid fa-flask-vial',
       label: 'Buffer/Solution',
       group: 'resources',
       fields: null, // inherits from reagent
@@ -47,7 +47,7 @@
     },
     consumable: {
       color: '#1565c0',
-      icon: '\uD83D\uDCE6',
+      icon: 'fa:fa-solid fa-boxes-stacked',
       label: 'Consumable',
       group: 'resources',
       fields: null,
@@ -56,7 +56,7 @@
     },
     equipment: {
       color: '#455a64',
-      icon: '\u2699\uFE0F',
+      icon: 'fa:fa-solid fa-screwdriver-wrench',
       label: 'Equipment',
       group: 'resources',
       fields: [
@@ -69,7 +69,7 @@
     },
     kit: {
       color: '#00838f',
-      icon: '\uD83E\uDDF0',
+      icon: 'fa:fa-solid fa-kit-medical',
       label: 'Kit',
       group: 'resources',
       fields: null,
@@ -78,7 +78,7 @@
     },
     chemical: {
       color: '#009688',
-      icon: '\uD83E\uDDEA',
+      icon: 'fa:fa-solid fa-atom',
       label: 'Chemical',
       group: 'resources',
       fields: null,
@@ -87,7 +87,7 @@
     },
     enzyme: {
       color: '#2e7d32',
-      icon: '\uD83E\uDDEC',
+      icon: 'fa:fa-solid fa-dna',
       label: 'Enzyme',
       group: 'resources',
       fields: null,
@@ -96,7 +96,7 @@
     },
     solution: {
       color: '#e65100',
-      icon: '\uD83E\uDDEA',
+      icon: 'fa:fa-solid fa-bottle-droplet',
       label: 'Solution',
       group: 'resources',
       fields: null,
@@ -105,7 +105,7 @@
     },
     seed: {
       color: '#558b2f',
-      icon: '\uD83C\uDF31',
+      icon: 'fa:fa-solid fa-seedling',
       label: 'Seed Stock',
       group: 'stocks',
       fields: [
@@ -121,7 +121,7 @@
     },
     glycerol_stock: {
       color: '#4527a0',
-      icon: '\u2744\uFE0F',
+      icon: 'fa:fa-solid fa-snowflake',
       label: 'Glycerol Stock',
       group: 'stocks',
       fields: [
@@ -137,7 +137,7 @@
     },
     plasmid: {
       color: '#ad1457',
-      icon: '\uD83E\uDDEC',
+      icon: 'fa:fa-solid fa-circle-nodes',
       label: 'Plasmid',
       group: 'stocks',
       fields: null, // inherits from seed
@@ -146,7 +146,7 @@
     },
     agro_strain: {
       color: '#558b2f',
-      icon: '\uD83E\uDDA0',
+      icon: 'fa:fa-solid fa-bacterium',
       label: 'Agro Strain',
       group: 'stocks',
       fields: null,
@@ -155,7 +155,7 @@
     },
     dna_prep: {
       color: '#0277bd',
-      icon: '\uD83E\uDDEC',
+      icon: 'fa:fa-solid fa-dna',
       label: 'DNA Prep',
       group: 'stocks',
       fields: null,
@@ -169,7 +169,7 @@
       // The `of:` frontmatter points at the concept slug; the body should also
       // contain a [[wikilink]] to the concept for prose readability.
       color: '#ef6c00',
-      icon: '\uD83E\uDDF4',
+      icon: 'fa:fa-solid fa-prescription-bottle',
       label: 'Bottle',
       group: 'stocks',
       fields: [
@@ -190,7 +190,7 @@
     },
     person: {
       color: '#1565c0',
-      icon: '\uD83D\uDC64',
+      icon: 'fa:fa-solid fa-user',
       label: 'Person',
       group: 'people',
       fields: [
@@ -204,7 +204,7 @@
     },
     project: {
       color: '#e65100',
-      icon: '\uD83D\uDCC1',
+      icon: 'fa:fa-solid fa-diagram-project',
       label: 'Project',
       group: 'projects',
       fields: [
@@ -218,7 +218,7 @@
     },
     protocol: {
       color: '#6a1b9a',
-      icon: '\uD83D\uDCD6',
+      icon: 'fa:fa-solid fa-book-open',
       label: 'Protocol',
       group: 'protocols',
       fields: [
@@ -230,7 +230,7 @@
     },
     notebook: {
       color: '#795548',
-      icon: '\uD83D\uDCD3',
+      icon: 'fa:fa-solid fa-book',
       label: 'Notebook',
       group: 'notebooks',
       fields: [],
@@ -239,7 +239,7 @@
     },
     waste_container: {
       color: '#c62828',
-      icon: '\u2622\uFE0F',
+      icon: 'fa:fa-solid fa-biohazard',
       label: 'Waste Container',
       group: 'waste',
       fields: [
@@ -259,7 +259,7 @@
     },
     sample: {
       color: '#7c3aed',
-      icon: '\uD83E\uDDEC',
+      icon: 'fa:fa-solid fa-vial',
       label: 'Sample',
       group: 'lab',
       fields: [
@@ -278,7 +278,7 @@
     },
     guide: {
       color: '#0277bd',
-      icon: '\uD83D\uDCDA',
+      icon: 'fa:fa-solid fa-graduation-cap',
       label: 'Guide',
       group: 'guides',
       fields: [
@@ -295,7 +295,7 @@
     // and breadcrumb renderer. Containers with a `grid` field render as grid views.
     room: {
       color: '#37474f',
-      icon: '\uD83C\uDFE2',
+      icon: 'fa:fa-solid fa-door-open',
       label: 'Room',
       group: 'locations',
       fields: [
@@ -310,7 +310,7 @@
     },
     freezer: {
       color: '#0277bd',
-      icon: '\u2744\uFE0F',
+      icon: 'fa:fa-solid fa-temperature-low',
       label: 'Freezer',
       group: 'locations',
       fields: [
@@ -330,7 +330,7 @@
     },
     fridge: {
       color: '#0288d1',
-      icon: '\uD83E\uDDCA',
+      icon: 'fa:fa-regular fa-snowflake',
       label: 'Fridge',
       group: 'locations',
       fields: null, // inherits from freezer
@@ -339,7 +339,7 @@
     },
     shelf: {
       color: '#546e7a',
-      icon: '\uD83D\uDDC4\uFE0F',
+      icon: 'fa:fa-solid fa-layer-group',
       label: 'Shelf',
       group: 'locations',
       fields: null,
@@ -348,7 +348,7 @@
     },
     box: {
       color: '#8d6e63',
-      icon: '\uD83D\uDCE6',
+      icon: 'fa:fa-solid fa-box',
       label: 'Box',
       group: 'locations',
       fields: null,
@@ -357,7 +357,7 @@
     },
     tube: {
       color: '#00897b',
-      icon: '\uD83E\uDDEB',
+      icon: 'fa:fa-solid fa-vial',
       label: 'Tube',
       group: 'locations',
       fields: null,
@@ -366,7 +366,7 @@
     },
     container: {
       color: '#616161',
-      icon: '\uD83D\uDCCB',
+      icon: 'fa:fa-solid fa-cube',
       label: 'Container',
       group: 'locations',
       fields: null,
@@ -380,7 +380,7 @@
     // for notes, wikilinks, instructions, etc.
     event: {
       color: '#0288d1',
-      icon: '\uD83D\uDCC5', // 📅
+      icon: 'fa:fa-regular fa-calendar',
       label: 'Event',
       group: 'calendar',
       fields: [
@@ -398,7 +398,7 @@
     },
   };
 
-  var DEFAULT_TYPE = { color: '#616161', icon: '\uD83D\uDD17', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };
+  var DEFAULT_TYPE = { color: '#616161', icon: 'fa:fa-solid fa-link', label: 'Link', group: 'other', fields: [], displayFields: [], tableColumns: [] };
 
   // ── Category Groupings ──
   // Used by insert-link modal, inventory filters, dashboard stats
@@ -592,10 +592,19 @@
       'text-decoration:none;cursor:pointer;vertical-align:middle;white-space:nowrap;';
   }
 
+  // Render an icon — Font Awesome icons start with 'fa:', emoji are plain strings
+  function renderIcon(iconStr) {
+    if (!iconStr) return '';
+    if (iconStr.startsWith('fa:')) {
+      return '<i class="' + iconStr.slice(3) + '" style="font-size:inherit;width:1em;text-align:center"></i>';
+    }
+    return iconStr;
+  }
+
   // Returns the icon + title HTML for a pill
   function pillContent(typeName, title) {
     var t = TYPES[typeName] || DEFAULT_TYPE;
-    return t.icon + ' ' + title;
+    return renderIcon(t.icon) + ' ' + title;
   }
 
   // ── Exports ──
@@ -613,6 +622,7 @@
     isConceptType: isConceptType,
     getTypeConfig: getTypeConfig,
     pillStyle: pillStyle,
+    renderIcon: renderIcon,
     pillContent: pillContent,
   };
 })();
