@@ -1077,6 +1077,19 @@
           return;
         }
 
+        // Status field: render as a clickable toggle badge in view mode
+        if (field.key === 'status' && field.options) {
+          var statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
+          var statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
+          var sColor = statusColors[val] || '#999';
+          var sLabel = statusLabels[val] || String(val);
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
+            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
+            '<span class="em-status-toggle" data-status="' + escHtml(val) + '" style="display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:600;background:' + sColor + '18;color:' + sColor + ';border:1.5px solid ' + sColor + '40;cursor:pointer" title="Click to change status">' + escHtml(sLabel) + '</span>' +
+            '</div>';
+          return;
+        }
+
         html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
           '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
           '<span style="font-weight:500">' + window.Lab.escHtml(String(val)) + '</span>' +
@@ -1086,6 +1099,41 @@
     if (row.length) html += '<div class="form-row">' + row.join('') + '</div>';
 
     fieldsEl.innerHTML = html;
+
+    // Wire status toggle (view mode) — cycles through in_stock → needs_more → out_of_stock
+    if (!editable) {
+      var statusCycle = ['in_stock', 'needs_more', 'out_of_stock'];
+      var statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444' };
+      var statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock' };
+      fieldsEl.querySelectorAll('.em-status-toggle').forEach(function(badge) {
+        badge.addEventListener('click', async function() {
+          if (!currentState || !currentState.path) return;
+          var cur = badge.getAttribute('data-status');
+          var idx = statusCycle.indexOf(cur);
+          var next = statusCycle[(idx + 1) % statusCycle.length];
+          try {
+            var file = await Lab.gh.fetchFile(currentState.path);
+            var parsed = Lab.parseFrontmatter(file.content);
+            parsed.meta.status = next;
+            delete parsed.meta.need_more;
+            var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
+            await Lab.gh.saveFile(currentState.path, content, file.sha, 'Status: ' + next);
+            Lab.gh.patchObjectIndex(currentState.path, parsed.meta);
+            currentState.meta.status = next;
+            // Update badge visually
+            badge.setAttribute('data-status', next);
+            badge.textContent = statusLabels[next] || next;
+            var c = statusColors[next] || '#999';
+            badge.style.background = c + '18';
+            badge.style.color = c;
+            badge.style.borderColor = c + '40';
+            if (Lab.showToast) Lab.showToast((currentState.meta.title || '') + ': ' + (statusLabels[next] || next), 'success');
+          } catch(e) {
+            if (Lab.showToast) Lab.showToast('Failed: ' + e.message, 'error');
+          }
+        });
+      });
+    }
 
     // Wire type picker pill buttons (edit mode)
     if (editable) {
@@ -1225,6 +1273,10 @@
           slug: entrySlug,
           title: entry.title || entrySlug.split('/').pop(),
           type: entry.type || 'bottle',
+          isInstance: true,
+          quantity: entry.quantity,
+          unit: entry.unit,
+          parent: entry.parent,
         });
       }
       // Dedupe by slug + sort by title
@@ -1244,20 +1296,61 @@
   }
 
   function renderBacklinksPane(backlinks) {
-    var html = '<div style="font-size:11px;color:var(--grey-500);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px">' +
-      backlinks.length + ' reference' + (backlinks.length === 1 ? '' : 's') + '</div>';
-    backlinks.forEach(function(b) {
-      var tc = Lab.types.get(b.type || 'container');
-      html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
-        '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
-        '<span style="flex:1;min-width:0;overflow:hidden">' +
-          '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
-          '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
-            '<span style="color:' + tc.color + '">' + escHtml(tc.label || b.type) + '</span>' +
-          '</div>' +
-        '</span>' +
-      '</div>';
-    });
+    // Split instances (bottles/tubes/containers with of: matching this concept) from other backlinks
+    var instances = backlinks.filter(function(b) { return b.type === 'bottle' || b.isInstance; });
+    var others = backlinks.filter(function(b) { return b.type !== 'bottle' && !b.isInstance; });
+
+    var html = '';
+
+    // Instances section (show first — "where is this?")
+    if (instances.length) {
+      html += '<div style="font-size:11px;color:var(--grey-500);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px">' +
+        instances.length + ' instance' + (instances.length === 1 ? '' : 's') + ' in lab</div>';
+      instances.forEach(function(b) {
+        var tc = Lab.types.get(b.type || 'bottle');
+        var meta = [];
+        if (b.quantity && b.unit) meta.push(b.quantity + ' ' + b.unit);
+        if (b.parent) meta.push(b.parent.split('/').pop().replace(/-/g, ' '));
+        html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
+          '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
+          '<span style="flex:1;min-width:0;overflow:hidden">' +
+            '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
+            (meta.length ? '<div style="font-size:11px;color:var(--grey-500)">' + escHtml(meta.join(' \u00B7 ')) + '</div>' : '') +
+          '</span></div>';
+      });
+    }
+
+    // Add Instance button for concept items
+    if (currentState && currentState.meta) {
+      var curType = currentState.meta.type || '';
+      if (Lab.types.isConceptType && Lab.types.isConceptType(curType) && curType !== 'protocol' && curType !== 'project' && curType !== 'person') {
+        var conceptSlug = (currentState.path || '').replace(/^docs\//, '').replace(/\.md$/, '');
+        html += '<button type="button" class="em-add-btn" onclick="Lab.editorModal._addInstance(\'' + escHtml(conceptSlug) + '\')" style="margin:6px 0">' +
+          '<span class="material-icons-outlined" style="font-size:14px">add</span> Add instance</button>';
+      }
+    }
+
+    // Other references
+    if (others.length) {
+      html += '<div style="font-size:11px;color:var(--grey-500);margin:' + (instances.length ? '12px' : '0') + ' 0 4px;text-transform:uppercase;letter-spacing:0.4px">' +
+        others.length + ' reference' + (others.length === 1 ? '' : 's') + '</div>';
+      others.forEach(function(b) {
+        var tc = Lab.types.get(b.type || 'container');
+        html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
+          '<span style="font-size:14px;flex-shrink:0">' + tc.icon + '</span>' +
+          '<span style="flex:1;min-width:0;overflow:hidden">' +
+            '<div style="font-size:13px;font-weight:500;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(b.title) + '</div>' +
+            '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
+              '<span style="color:' + tc.color + '">' + escHtml(tc.label || b.type) + '</span>' +
+            '</div>' +
+          '</span></div>';
+      });
+    }
+
+    if (!instances.length && !others.length) {
+      html += '<div style="color:var(--grey-500);padding:8px;font-size:13px">No references yet</div>';
+    }
+
     return html;
   }
 
@@ -3573,5 +3666,38 @@
     _openLinkForTextarea: openLinkForTextarea,
     _addContainer: addContainerRow,
     _removeContainer: removeContainerRow,
+    _addInstance: addInstanceFromConcept,
   };
+
+  // Create a new bottle/instance from a concept item.
+  // Pre-fills `of:` with the concept slug and opens the new object in the editor.
+  async function addInstanceFromConcept(conceptSlug) {
+    if (!conceptSlug) return;
+    var conceptEntry = null;
+    var idx = Lab.gh._getCachedIndex ? Lab.gh._getCachedIndex() : null;
+    if (idx) {
+      conceptEntry = idx.find(function(e) {
+        return e.path.replace(/\.md$/, '') === conceptSlug;
+      });
+    }
+    var conceptTitle = (conceptEntry && conceptEntry.title) || conceptSlug.split('/').pop();
+    var slug = 'stocks/bottle-' + conceptSlug.split('/').pop() + '-' + Math.random().toString(36).slice(2, 10);
+    var content = Lab.buildFrontmatter({
+      type: 'bottle',
+      title: conceptTitle,
+      of: conceptSlug,
+    }, '\n# ' + conceptTitle + '\n');
+    try {
+      var path = 'docs/' + slug + '.md';
+      await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
+      Lab.gh.patchObjectIndex(path, { type: 'bottle', title: conceptTitle, of: conceptSlug });
+      if (Lab.hierarchy) Lab.hierarchy.invalidate();
+      // Open the new instance for editing
+      openPopup(path);
+      startEditing();
+      if (Lab.showToast) Lab.showToast('Created instance of ' + conceptTitle, 'success');
+    } catch(e) {
+      if (Lab.showToast) Lab.showToast('Failed: ' + e.message, 'error');
+    }
+  }
 })();
