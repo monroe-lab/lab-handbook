@@ -139,7 +139,7 @@
       var isLast = i === chain.length - 1;
       var type = (e && e.type) || 'container';
       var style = Lab.types.pillStyle(type);
-      var icon = Lab.types.get(type).icon;
+      var icon = Lab.types.renderIcon ? Lab.types.renderIcon(Lab.types.get(type).icon) : Lab.types.get(type).icon;
       if (isLast) {
         return '<span style="' + style + 'cursor:default;font-weight:600">' + icon + ' ' + escapeHTML(title) + '</span>';
       }
