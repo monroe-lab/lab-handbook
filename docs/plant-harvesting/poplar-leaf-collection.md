@@ -8,6 +8,10 @@
 
 ***
 
+***
+
+***
+
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
 **Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
@@ -26,9 +30,10 @@ For each tree:
 4. **Flash-freeze immediately** if possible (liquid nitrogen or directly on dry ice)
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
-That's it. Two tubes per tree. Don't worry about which goes to short-read vs. long-read sequencing — we figure that out in the lab.
 
-![Two adjacent leaf clusters on the same shoot, each going into its own tube](plant-harvesting/plant-harvesting/images/poplar-leaf-clusters.png)
+<img src="images/screenshot-2026-04-13-at-5.46.08-am.png" alt="screenshot-2026-04-13-at-5.46.08-am" style="max-width:50%">
+
+<img src="images/screenshot-2026-04-13-at-5.46.22-am.png" alt="screenshot-2026-04-13-at-5.46.22-am" style="max-width:25%">
 
 ***
 
@@ -64,15 +69,14 @@ Need any of this? Email Grey at `gmonroe@ucdavis.edu` and we'll arrange to get s
 
 You will receive a list of lines to sample for your site (e.g., "1 tree per line + 1 border 717 spacer"). For each line on your list:
 
-1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.** 
-2. Record **block, row, position** 
+1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.**
+2. Record **block, row, position**
 
 ### 2\. Select the branch
 
 On the tree, look for a **side branch with at least one — and ideally several — branching events between it and the main trunk.** In poplar this usually means: pick a sub-branch off a side branch off the main stem.
 
-![Doesn't have to be perfect, but finding the "most branched branch" (least apical) is the goal](plant-harvesting/plant-harvesting/images/branch-selection.png)
-
+<br>
 Avoid:
 
 * The main trunk's youngest growth at the apex
