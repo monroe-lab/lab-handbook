@@ -75,7 +75,7 @@
       var conf = getConf(obj.type);
       link.classList.add('object-pill');
       link.style.cssText = window.Lab.types.pillStyle(obj.type);
-      link.textContent = window.Lab.types.pillContent(obj.type, obj.title || target);
+      link.innerHTML = window.Lab.types.pillContent(obj.type, obj.title || target);
 
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -113,7 +113,7 @@
 
       link.classList.add('object-pill');
       link.style.cssText = window.Lab.types.pillStyle(obj.type);
-      link.textContent = window.Lab.types.pillContent(obj.type, obj.title || 'Item #' + id);
+      link.innerHTML = window.Lab.types.pillContent(obj.type, obj.title || 'Item #' + id);
       link.addEventListener('click', function(e) {
         e.preventDefault();
         showPopup(obj, link);
