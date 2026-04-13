@@ -1,10 +1,9 @@
 ---
 type: "kit"
 title: "Native Barcoding Kit 24 V14 (SQK-NBD114.24)"
-status: "needs_more"
+status: "out_of_stock"
 vendor: "Oxford Nanopore"
 catalog_number: "SQK-NBD114.24"
-need_more: true
 updated_at: "2026-04-12T12:14:28.907Z"
 created_at: "2026-04-08T21:44:54.344Z"
 created_by: "greymonroe"
