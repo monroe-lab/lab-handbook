@@ -2,7 +2,7 @@
 ---
 # Shipping Frozen Samples to the Monroe Lab (Collaborator Guide)
 
-**Purpose:** How to package and ship frozen biological samples on dry ice to the Monroe Lab at UC Davis using a prepaid shipping label that our lab generates for you. 
+**Purpose:** How to package and ship frozen biological samples on dry ice to the Monroe Lab at UC Davis using a prepaid shipping label that our lab generates for you.
 
 ***
 
@@ -44,7 +44,7 @@ If it's easier for you to use your own institution's carrier account and bill us
 * **Plain cardboard outer box.** This is important: hazmat shipping regulations forbid FedEx, UPS, or DHL branded boxes and envelopes. Any unbranded sturdy cardboard box works.
 * **Insulating cooler** (styrofoam shipper) sized to fit inside the cardboard outer box with room for dry ice
 * **Dry ice.** Roughly 2 to 5 kg (5 to 10 lb) is typical for an overnight shipment; size up if your routing is longer or your local FedEx pickup time is early. Aim for enough dry ice to last 2× the actual transit time as a safety margin.
-* **Watertight outer bag** (large Ziploc) for secondary containment 
+* **Watertight outer bag** (large Ziploc) for secondary containment
 * **Absorbent material** (paper towels or absorbent pads) to go inside the secondary bag with the tubes
 * **Permanent marker** with waterproof ink
 * **Clear packing tape**
@@ -132,7 +132,7 @@ The prepaid label from AggieShip will include the **UN 1845 dry ice hazmat diamo
 
 > *The label arrived but I can't ship until next week.* The label has a "Promised Date" on it. As long as you ship within a few days of that date the label is valid. If the delay is longer, email Grey so we can re-issue the label with an updated date.
 
-> *Carrier rejected the package at the counter.* Email Grey with what they said and we will figure it out. 
+> *Carrier rejected the package at the counter.* Email Grey with what they said and we will figure it out.
 
 > *I want to ship myself with my own institution's carrier.* That's fine! Email Grey the tracking number on ship day.
 
@@ -148,9 +148,4 @@ Grey Monroe — `gmonroe@ucdavis.edu` — 279-222-8881
 **For UC Davis-side AggieShip questions:** `aggieship@ucdavis.edu`
 **For UC Davis hazardous shipping questions:** `hazshipping@ucdavis.edu`
 
-***
-
-## See also
-
-* [[shipping/aggieship-inbound-hazmat-label]] — internal lab protocol for generating the prepaid label in AggieShip
-* [[plant-harvesting/poplar-leaf-collection]] — leaf collection and labeling protocol for the poplar somatic mutation project
+* 
