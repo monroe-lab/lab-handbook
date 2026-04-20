@@ -978,12 +978,38 @@ function togglePrintPreview(btn) {
   }
   if (active) {
     showPrintPreview(rendered);
+    mountPrintFab();
   } else {
     // Remove the iframe overlay
     var iframe = document.getElementById('print-preview-frame');
     if (iframe) iframe.remove();
     rendered.style.display = '';
+    var fab = document.getElementById('print-preview-fab');
+    if (fab) fab.remove();
   }
+}
+
+// Floating Print button pinned to the browser viewport (NOT inside the iframe,
+// where position:fixed anchors to the iframe's own thousands-of-pixels-tall
+// content area and ends up scrolled off-screen).
+function mountPrintFab() {
+  if (document.getElementById('print-preview-fab')) return;
+  var fab = document.createElement('button');
+  fab.id = 'print-preview-fab';
+  fab.type = 'button';
+  fab.innerHTML = '<span class="material-icons-outlined" style="vertical-align:middle">print</span> Print';
+  fab.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:10000;' +
+    'background:#009688;color:#fff;border:none;border-radius:28px;' +
+    'padding:12px 22px;font-size:14px;font-weight:600;cursor:pointer;' +
+    'box-shadow:0 2px 10px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;' +
+    'font-family:inherit';
+  fab.addEventListener('mouseenter', function() { fab.style.background = '#00796b'; });
+  fab.addEventListener('mouseleave', function() { fab.style.background = '#009688'; });
+  fab.addEventListener('click', function() {
+    var iframe = document.getElementById('print-preview-frame');
+    if (iframe && iframe.contentWindow) iframe.contentWindow.print();
+  });
+  document.body.appendChild(fab);
 }
 
 function showPrintPreview(rendered) {
@@ -1181,13 +1207,6 @@ function showPrintPreview(rendered) {
 
     idoc.body.innerHTML = '';
     idoc.body.appendChild(pagesDiv);
-
-    // Add a floating Print button inside the preview
-    var printFab = idoc.createElement('button');
-    printFab.className = 'print-fab';
-    printFab.innerHTML = '&#x1F5A8; Print';
-    printFab.addEventListener('click', function() { idoc.defaultView.print(); });
-    idoc.body.appendChild(printFab);
 
     // Resize iframe to fit content
     iframe.style.height = (idoc.body.scrollHeight + 48) + 'px';
