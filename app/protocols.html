@@ -1046,9 +1046,16 @@ function showPrintPreview(rendered) {
       '}';
     idoc.head.appendChild(style);
 
-    // Create measuring container with the rendered HTML
+    // Create measuring container with the rendered HTML. It MUST match the
+    // per-page content width (8.5in − 2×1in = 6.5in) so that offsetHeight
+    // reflects the height blocks will have once placed into a .page, not the
+    // much wider iframe body. Without this, images over-measured (leaving
+    // huge blank space on each page) and text under-measured (overflowed).
     var content = idoc.createElement('div');
     content.className = 'content';
+    content.style.width = '6.5in';
+    content.style.maxWidth = '6.5in';
+    content.style.margin = '0 auto';
     // Include frontmatter bar in print preview if available
     var fmBar = rendered.parentNode.querySelector('.frontmatter-bar');
     if (fmBar) content.innerHTML = fmBar.outerHTML + rendered.innerHTML;
