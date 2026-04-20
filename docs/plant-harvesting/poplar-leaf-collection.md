@@ -17,8 +17,7 @@ For each tree:
 5. Record block / row / position (or tree tag) and the line ID in the sample sheet
 
 
-<br>
-![screenshot-2026-04-20-at-8.43.30-am](images/screenshot-2026-04-20-at-8.43.30-am.png)
+![screenshot-2026-04-20-at-8.43.30-am](plant-harvesting/images/screenshot-2026-04-20-at-8.43.30-am.png)
 
 <br>
 ***
@@ -128,7 +127,3 @@ The **shorthand** code goes on the tube label.
 **Required: flash-freeze on-site.** Drop each tube into liquid nitrogen or directly onto dry ice immediately after the leaves go in. Transfer to a −80 °C freezer as soon as you're back from the field.
 
 Ship per [[shipping/shipping-samples-to-monroe-lab]] — frozen on dry ice, overnight, Monday through Wednesday only.
-
-***
-
-## 
