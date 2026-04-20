@@ -52,7 +52,7 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 | Special chars | 2/2 | ✅ Create with quotes/ampersands/tags, content preserved |
 | Mobile | 7/7 | ✅ All 7 pages: no overflow, bottom nav present |
 
-**Total: 248/248 automated tests (100%)** — plus R17+ features verified via Playwright screenshot evaluation but not yet wired into the automated labbot suite. The R17+ round covered: calendar migration to markdown (#48-50), tiered badge gamification with 13 categories (#47), People page personal dashboards (#51), frontmatter metadata bars (#46), dashboard bulletin image fix, sticky edit toolbars, and misc cleanup (#53). See Round 17+ notes below.
+**Total: 248/248 automated tests (100%)** — plus R17+ features verified via Playwright screenshot evaluation but not yet wired into the automated labbot suite. The R17+ round covered: calendar migration to markdown (#48-50), tiered badge gamification with 13 categories (#47), People page personal dashboards (#51), frontmatter metadata bars (#46), dashboard bulletin image fix, sticky edit toolbars, misc cleanup (#53), and print-preview image pagination fix (#93 — await image loads before measuring, cap max-height at 8in, page-break-after on each .page, keep headings with their image).
 
 **Open issues:** #52 (Molecular Plant Biology Training Curriculum) — substantial content project deferred to a dedicated session.
 
