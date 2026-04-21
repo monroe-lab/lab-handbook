@@ -18,7 +18,7 @@ SITE_URL="https://monroe-lab.github.io/lab-handbook"
 STATE_FILE="tests/qa-state.json"
 LOG_FILE="tests/qa-loop.log"
 SCREENSHOT_DIR="/tmp/qa-screenshots"
-MAX_CYCLES=30
+MAX_CYCLES=25
 PAUSE_FILE="tests/qa-pause"
 
 cd "$PROJECT_DIR"
@@ -41,80 +41,10 @@ for i in $(seq 1 $MAX_CYCLES); do
     echo "  ▶  Resumed." | tee -a "$LOG_FILE"
   fi
 
-  # Run one Claude Code QA cycle
-  claude -p "$(cat <<'PROMPT'
-You are an autonomous QA agent for the Monroe Lab Handbook web application.
-
-## Context
-- Live site: https://monroe-lab.github.io/lab-handbook
-- Repo: monroe-lab/lab-handbook
-- Auth: `gh auth token` injected via Playwright `context.addInitScript`
-- State file: tests/qa-state.json (read it FIRST to understand progress)
-- Screenshots go to: /tmp/qa-screenshots/
-- Existing test patterns: read tests/labbot.mjs for Playwright auth setup and helpers
-
-## Your task this cycle
-1. Read tests/qa-state.json to see what phase you're in and what's been done
-2. RANDOMIZE your approach for this cycle:
-   a. Pick a RANDOM persona (use JS Math.random or cycle number modulo)
-   b. Pick a RANDOM behavior modifier from the list (rushed, careful, confused, etc.)
-   c. Pick a RANDOM task from that persona's task list OR a random scenario card
-   d. The combination should be DIFFERENT from previous cycles (check workflows_tested)
-3. Write a focused Playwright script (save to /tmp/qa-cycle-{N}.mjs), run it
-4. Take screenshots at EVERY step — view mode, edit mode, after save, after navigate
-5. READ every screenshot with the Read tool and evaluate: Does it look right? Is content visible? Any stale views? Missing data? Broken layout?
-6. Log bugs with descriptions and screenshot paths
-7. If you find a bug you can fix: read the source, fix it, re-test
-8. Update tests/qa-state.json with everything you did, found, and fixed
-9. Git commit changes (NOT test artifacts) with message "qa-cycle-{N}: {summary}"
-
-## Randomization is critical
-The state file contains:
-- **personas[].tasks[]** — 10 specific tasks per persona (40 total)
-- **behavior_modifiers[]** — 8 different "moods" that change HOW you interact
-- **scenario_cards[]** — 15 multi-step scenarios that cross multiple pages
-
-Each cycle, log what combination you used in workflows_tested so you don't repeat:
-  { "cycle": N, "persona": "Vianney Ahn", "modifier": "rushed", "task": "Upload gel image...", "bugs": [] }
-
-VARY the combination every cycle. Don't just go persona-by-persona in order.
-Early cycles: normal modifiers (careful, thorough). Later cycles: adversarial modifiers (confused, impatient, adversarial).
-
-## Phases (advance as coverage grows)
-- **exploration**: Spider all routes, take baseline screenshots, catalog pages
-- **functional**: Test CRUD on every page as each persona, verify save/render (use careful/thorough modifiers)
-- **edge_cases**: Special chars, empty states, long content, mobile, rapid clicks (use adversarial/confused/impatient)
-- **fixing**: Fix open bugs, re-test, mark resolved
-- **polish**: UX improvements, consistency, accessibility
-- **complete**: All clear, no new bugs found for 2 cycles
-
-## Rules
-- CRITICAL: You may ONLY read and write files under /Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab/ and /tmp/. Do NOT touch ANY files outside this directory. No parent directories, no other repos, no home directory files.
-- NEVER modify: mkdocs.yml, .github/, requirements.txt, overrides/
-- All file changes (fixes) go to app/ or docs/ only
-- Take screenshots CONSTANTLY — they are your evidence
-- READ screenshots and evaluate them — don't just take them blindly
-- Clean up test artifacts (files created on GitHub) at the end of each cycle
-- If you find no new bugs for 2 cycles, set phase to "complete"
-- Increment cycle counter in state file
-- ALWAYS clean up files you create on GitHub (delete via gh CLI)
-- Stay in the lab/ directory. Do not cd elsewhere. Do not read or write files in Obsidian_ProfessorHQ/ parent or siblings.
-
-## Key patterns from existing tests
-```javascript
-import { chromium } from 'playwright';
-import { execSync } from 'child_process';
-const BASE = 'https://monroe-lab.github.io/lab-handbook';
-const GH_TOKEN = execSync('gh auth token').toString().trim();
-// Auth setup:
-await context.addInitScript((token) => {
-  sessionStorage.setItem('monroe-lab-auth', 'true');
-  localStorage.setItem('gh_lab_token', token);
-  localStorage.setItem('gh_lab_user', JSON.stringify({ login: 'greymonroe', avatar: '' }));
-}, GH_TOKEN);
-```
-PROMPT
-  )" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep" 2>&1 | tee -a "$LOG_FILE"
+  # Run one Claude Code QA cycle. Prompt lives in tests/qa-prompt.md so bash doesn't
+  # have to parse its body (apostrophes + backticks were breaking a nested heredoc).
+  PROMPT_TEXT="$(cat tests/qa-prompt.md)"
+  claude -p "$PROMPT_TEXT" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep" 2>&1 | tee -a "$LOG_FILE" || echo "  ⚠️  Cycle $i claude call exited non-zero; continuing." | tee -a "$LOG_FILE"
 
   # Health check — verify site is still up
   echo "  Health check..." | tee -a "$LOG_FILE"
