@@ -344,10 +344,22 @@ function renderNode(node, depth, q) {
   var pad = 16 + depth * 14;
   var headerStyle = 'padding-left:' + pad + 'px';
   var dirAttr = Lab.escHtml(node.dir);
+  // Issue #110: discoverable "+ New entry in this folder" affordance inside
+  // each folder header. Shown only when logged in so the click doesn't lead
+  // to a "sign in first" toast. Stop propagation so clicking the button
+  // doesn't also toggle the folder collapse.
+  var folderBtnHtml = loggedIn
+    ? '<button class="nb-folder-new-entry" title="New entry in ' + dirAttr + '"' +
+        ' onclick="event.stopPropagation();createNewEntryInFolder(\'' + dirAttr + '\')"' +
+        ' style="margin-left:auto;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border:none;background:none;color:var(--grey-500);cursor:pointer;border-radius:4px;font-family:inherit;font-size:11px;font-weight:500">' +
+        '<span class="material-icons-outlined" style="font-size:15px">add</span>' +
+      '</button>'
+    : '';
   var html = '<div class="nb-folder' + collapsed + '" style="' + headerStyle + '" onclick="toggleFolder(this)">' +
     '<span class="material-icons-outlined">expand_more</span>' +
     '<span>' + Lab.escHtml(node.label) + '</span>' +
-    '<span class="nb-folder-count">' + countDeep(node) + '</span>';
+    '<span class="nb-folder-count">' + countDeep(node) + '</span>' +
+    folderBtnHtml;
   html += '</div><div class="nb-items' + hidden + '">';
 
   // Subfolders first
@@ -360,8 +372,39 @@ function renderNode(node, depth, q) {
     html += '<div class="nb-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
   });
 
+  // Issue #110: prominent "+ New entry in this folder" row beneath the
+  // item list so there is a clear action when the user expands a folder.
+  // Only shown for leaf-ish folders (no subfolders) to avoid visual clutter
+  // in the tree's upper levels, and only when signed in.
+  if (loggedIn && node.children.length === 0) {
+    var addPad = 24 + depth * 14;
+    html += '<div class="nb-folder-add-entry" ' +
+      'onclick="createNewEntryInFolder(\'' + dirAttr + '\')" ' +
+      'style="padding:6px 16px 8px ' + addPad + 'px;font-size:12px;color:var(--grey-500);cursor:pointer;display:flex;align-items:center;gap:4px;border-radius:0 4px 4px 0" ' +
+      'onmouseover="this.style.background=\'#efebe9\';this.style.color=\'#795548\'" ' +
+      'onmouseout="this.style.background=\'\';this.style.color=\'var(--grey-500)\'">' +
+      '<span class="material-icons-outlined" style="font-size:15px">add</span>' +
+      '<span>New entry in this folder</span></div>';
+  }
+
   html += '</div>';
   return html;
+}
+
+// Issue #110: open the new-entry modal with the folder pre-selected.
+// Reuses the existing createNewEntry() flow via a short-lived global
+// to avoid duplicating the modal + save logic.
+async function createNewEntryInFolder(dir) {
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+  var allDirs = getAllDirs();
+  if (allDirs.indexOf(dir) < 0) { Lab.showToast('Folder not found', 'error'); return; }
+  window._forcedNewEntryDir = dir;
+  try {
+    await createNewEntry();
+  } finally {
+    window._forcedNewEntryDir = null;
+  }
 }
 
 // R8 #39: return a normalised key derived from the logged-in GitHub user
@@ -507,9 +550,11 @@ async function createNewEntry() {
   var allDirs = getAllDirs();
   if (!allDirs.length) { Lab.showToast('Create a folder first', 'error'); return; }
 
-  // Default folder: current doc's, else first
+  // Default folder: forced via createNewEntryInFolder(), else current doc's, else first
   var defaultDir = allDirs[0];
-  if (currentDoc) {
+  if (window._forcedNewEntryDir && allDirs.indexOf(window._forcedNewEntryDir) >= 0) {
+    defaultDir = window._forcedNewEntryDir;
+  } else if (currentDoc) {
     var p = currentDoc.replace(/^notebooks\//, '').split('/');
     p.pop();
     var d = p.join('/');
