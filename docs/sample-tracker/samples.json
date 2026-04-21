@@ -146,10 +146,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencingType": "HiFi",
-    "status": "Shearing",
+    "status": "Sequencing in progress",
     "priority": "",
     "currentBlocker": "At Genome Center for QC and shearing",
-    "lastUpdated": "2026-03-24",
+    "lastUpdated": "2026-04-21",
     "notes": "Total DNA: 6.4 µg. Previously needed extraction, now extracted.",
     "detailSheetLink": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE"
   },
