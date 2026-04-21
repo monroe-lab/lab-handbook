@@ -573,7 +573,32 @@ async function loadDoc(docPath) {
 
   try {
     var filePath = 'docs/' + docPath + '.md';
-    var result = await Lab.gh.fetchFile(filePath);
+    // Cache-lag 404 fallback: a freshly-created doc may 404 on GitHub's
+    // contents API for a few seconds after save. The editor-modal primes
+    // `lab_file_cache` on save for exactly this race — use it if fetchFile
+    // fails or the cached content is newer than the API response.
+    var cached = null;
+    try {
+      var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+      if (fileCache[filePath]) cached = fileCache[filePath];
+    } catch(e) {}
+    var result = null, fetchError = null;
+    try {
+      result = await Lab.gh.fetchFile(filePath);
+    } catch(fetchErr) {
+      fetchError = fetchErr;
+    }
+    if (!result) {
+      if (cached && cached.content) {
+        result = { content: cached.content, sha: cached.sha || null, path: filePath };
+      } else {
+        throw fetchError || new Error('Failed to load ' + filePath);
+      }
+    } else if (cached && cached.savedAt && cached.content && (Date.now() - cached.savedAt) < 60000) {
+      // Within 60s of a local save, prefer cached content + sha — the API can
+      // return a stale blob for up to ~30s after a commit.
+      result = { content: cached.content, sha: cached.sha || result.sha, path: filePath };
+    }
     currentSha = result.sha;
     var html = await Lab.editorModal.renderMarkdown(result.content);
 
