@@ -1,16 +1,14 @@
 ---
-type: protocol
+type: "protocol"
 title: "MS Media Recipe"
 ---
-
 # MS Media Recipe
-
 
 ## Resources
 
 **Equipment:** [[autoclave-sterilizer]], [[clean-bench-laminar-flow]], [[ph-meter]]
 
-**Reagents:** [[3-methylbutanol]], [[aceto-orcein-solution-2]], [[activated-charcoal]], [[agar-non-tc]], [[agar-plant-tc]], [[alpha-d-glucose]], [[ammonium-chloride]], [[ammonium-nitrate]], [[ammonium-phosphate-monobasic]], [[basic-fuchsin]], [[boric-acid]], [[calcium-carbonate]], [[calcium-chloride]], [[calcium-nitrate-tetrahydrate]], [[carbon-activated]], [[casein-hydrolysate]], [[cefotaxime-sodium-salt]], [[citric-acid]], [[d-glucose]], [[d-mannitol]], [[d-sorbitol]], [[disodium-ethylenediamine-tetraacetate]], [[dkw-medium-with-vitamins]], [[ethyl-alcohol-absolute]], [[ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt]], [[glycerin]], [[iohexol]], [[iron-iii-chloride]], [[l-glutamine]], [[l-lysine-monohydrochloride]], [[lithium-acetate-dihydrate]], [[lithium-hydroxide-monohydrate]], [[magnesium-acetate-tetrahydrate]], [[magnesium-chloride]], [[magnesium-sulfate-heptahydrate]], [[manganese-ii-chloride]], [[mes-buffer]], [[mineral-oil]], [[ms-basal-salt-mixture]], [[phenol-nitroprusside-solution]], [[potassium-chloride]], [[potassium-hydroxide]], [[potassium-nitrate]], [[potassium-phosphate-dibasic]], [[potassium-phosphate-monobasic]], [[reagent-alcohol-100-200-proof-denatured]], [[sodium-bisulfite]], [[sodium-citrate]], [[sodium-hydroxide]], [[sodium-hydroxide-2]], [[sodium-hydroxide-10n-aqueous-solution]], [[sodium-hydroxide-10-0-normal]], [[sodium-phosphate-dibasic]], [[sodium-sulfite]], [[sodium-tetraborate]], [[sodium-thiosulfate-pentahydrate]], [[sucrose]], [[tc-agar-a175]], [[triton-x-100]]
+**Reagents:** [[mes-buffer]], [[mineral-oil]], [[ms-basal-salt-mixture]], [[phenol-nitroprusside-solution]], [[potassium-chloride]], [[potassium-hydroxide]], [[potassium-nitrate]], [[potassium-phosphate-dibasic]], [[potassium-phosphate-monobasic]], [[reagent-alcohol-100-200-proof-denatured]], [[sodium-bisulfite]], [[sodium-citrate]], [[sodium-hydroxide]], [[sodium-hydroxide-2]], [[sodium-hydroxide-10n-aqueous-solution]], [[sodium-hydroxide-10-0-normal]], [[sodium-phosphate-dibasic]], [[sodium-sulfite]], [[sodium-tetraborate]], [[sodium-thiosulfate-pentahydrate]], [[sucrose]], [[tc-agar-a175]], [[triton-x-100]]
 
 **Related Protocols:** [[autoclave]], [[clean-bench]], [[planting-arabidopsis-on-ms-plates]], [[seed-sterilization]], [[how-to-use-the-scale]], [[ph-measurement]]
 
@@ -22,7 +20,9 @@ title: "MS Media Recipe"
 
 **Source:** [[satoyo-oya]]'s lab recipe; also in [Recipes doc](https://docs.google.com/document/d/1um8iG9L81WxicA_Ez5yNWPw1V0Uhwa0yoWsYKIMmloY)
 
-***
+## Time estimate
+
+**Wall time:** Overnight\| **Hands-on:** \~40 min
 
 ## Background
 
@@ -51,12 +51,8 @@ title: "MS Media Recipe"
 * **Half-MS:** Some protocols use 2.2 g/L MS salt (half-strength). Common for root growth assays where full-strength nitrogen can inhibit lateral root formation. Not needed for basic germination.
 * **No-sucrose:** Forces seedlings to photosynthesize. Used for some physiological assays. Slower growth.
 
-***
 
-## Time estimate
-
-**Wall time:** \~2 hours \| **Hands-on:** \~40 min
-
+<br>
 ***
 
 ## Standard Recipe (1 L)
@@ -116,14 +112,16 @@ title: "MS Media Recipe"
 
 ## Reagent locations
 
-* MS salt: check [[Chemical Inventory]] — **currently not listed, may need to order**
-* MES: check [[Chemical Inventory]] — 50 g in Chemical Cabinet
-* TC Agar (A175): check [[Chemical Inventory]] — only 25 g TC grade; 450 g regular agar also available
-* KOH stocks: check [[Chemical Inventory]] — only 400 mg solid listed, need pre-made solutions
+* MS salt: check [[Chemical Inventory) — **currently not listed, may need to order**
+* MES: check [Chemical Inventory](https://obj.link/Chemical Inventory) — 50 g in Chemical Cabinet
+* TC Agar (A175): check [Chemical Inventory](https://obj.link/Chemical Inventory) — only 25 g TC grade; 450 g regular agar also available
+* KOH stocks: check [Chemical Inventory](https://obj.link/Chemical Inventory) — only 400 mg solid listed, need pre-made solutions
 
 ## See also
 
 * [[planting-arabidopsis-on-ms-plates]]
 * [[autoclave]]
 * [[clean-bench]]
-* [[Chemical Inventory]]
+* [Chemical Inventory](https://obj.link/Chemical Inventory]]
+
+
