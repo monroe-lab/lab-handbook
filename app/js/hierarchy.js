@@ -74,10 +74,19 @@
     });
 
     // Resolve + normalize parent refs, build children map.
+    // Concept-type objects (reagent, chemical, buffer, etc.) are logical
+    // descriptions of a substance, not physical items — only their bottle
+    // INSTANCES live in the location tree. Earlier LabBot fixtures + legacy
+    // auto-migrations stamped `parent:` on concept frontmatter, which polluted
+    // parent Contents lists and gave the concept popup a misleading physical
+    // breadcrumb (cycle 8 CONCEPT-HAS-PARENT-BREADCRUMB). We ignore the
+    // `parent:` field for any object whose type is a concept — the file can
+    // keep the legacy frontmatter but it no longer surfaces in the hierarchy.
+    var CONCEPT_TYPES = { reagent: 1, chemical: 1, buffer: 1, solution: 1, consumable: 1, kit: 1, enzyme: 1, primer: 1 };
     var children = {};
     Object.keys(g).forEach(function(slug) {
       var e = g[slug];
-      if (e.parent) {
+      if (e.parent && !CONCEPT_TYPES[e.type]) {
         var resolved = resolveParentSlug(e.parent, g);
         if (resolved) {
           e.parentResolved = resolved;
