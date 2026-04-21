@@ -1,7 +1,7 @@
 ---
 type: "equipment"
 title: "Analytical Balance"
-status: "needs_more"
+status: in_stock
 ---
 # Analytical Balance
 
