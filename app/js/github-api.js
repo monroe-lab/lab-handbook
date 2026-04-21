@@ -405,6 +405,12 @@
     if (window.Lab && window.Lab.wikilinks && window.Lab.wikilinks.clearLookup) {
       window.Lab.wikilinks.clearLookup();
     }
+    // Drop hierarchy cache so childrenOf / parentChain / breadcrumb re-build
+    // with the new entry. Without this a just-saved object is missing from
+    // the parent's children list until a full page reload.
+    if (window.Lab && window.Lab.hierarchy && window.Lab.hierarchy.invalidate) {
+      window.Lab.hierarchy.invalidate();
+    }
   }
 
   function removeFromObjectIndex(filePath) {
@@ -415,6 +421,9 @@
     var patches = getLocalPatches();
     patches[relPath] = { _deleted: true };
     try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+    if (window.Lab && window.Lab.hierarchy && window.Lab.hierarchy.invalidate) {
+      window.Lab.hierarchy.invalidate();
+    }
   }
 
   // Recent commits
