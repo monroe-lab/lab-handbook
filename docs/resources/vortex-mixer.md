@@ -1,6 +1,7 @@
 ---
-type: equipment
+type: "equipment"
 title: "Vortex Mixer"
+status: "needs_more"
 ---
 # Vortex Mixer
 
