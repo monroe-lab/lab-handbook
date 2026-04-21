@@ -71,12 +71,11 @@
       var a = document.createElement('a');
       var isActive = t.label === active;
       a.href = t.href;
-      // Padding shrunk from 12px 14px to 12px 10px so all 12 tabs fit at
-      // 1440-wide without the rightmost label clipping to "A..." / "Lab M".
-      // overflow-x:auto on the wrap remains as a safety net for narrower
-      // desktop widths.
+      // Padding tightened to 12px 8px (gap 4px) so all 12 tabs fit at 1440px
+      // including the rightmost "Wiki" tab. overflow-x:auto on the wrap remains
+      // as a safety net for narrower desktop widths.
       a.className = 'lab-nav-tab';
-      a.style.cssText = 'display:flex;align-items:center;gap:5px;padding:12px 10px;color:' + (isActive ? '#fff' : 'rgba(255,255,255,.7)') + ';text-decoration:none;font-size:13px;font-weight:' + (isActive ? '600' : '400') + ';white-space:nowrap;border-bottom:2px solid ' + (isActive ? '#fff' : 'transparent') + ';transition:color .15s,border-color .15s;flex-shrink:0;';
+      a.style.cssText = 'display:flex;align-items:center;gap:4px;padding:12px 8px;color:' + (isActive ? '#fff' : 'rgba(255,255,255,.7)') + ';text-decoration:none;font-size:13px;font-weight:' + (isActive ? '600' : '400') + ';white-space:nowrap;border-bottom:2px solid ' + (isActive ? '#fff' : 'transparent') + ';transition:color .15s,border-color .15s;flex-shrink:0;';
       a.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">' + t.icon + '</span><span>' + t.label + '</span>';
       a.addEventListener('mouseenter', function() { if (!isActive) a.style.color = 'rgba(255,255,255,.9)'; });
       a.addEventListener('mouseleave', function() { if (!isActive) a.style.color = 'rgba(255,255,255,.7)'; });
@@ -107,7 +106,7 @@
       // Below ~1280 the full 12-tab row still cuts off; shrink padding
       // further before relying on the overflow-x scrollbar.
       '@media(min-width:769px) and (max-width:1280px){' +
-        '#lab-nav .lab-nav-tab{padding:12px 7px!important;gap:4px!important}' +
+        '#lab-nav .lab-nav-tab{padding:12px 6px!important;gap:3px!important}' +
       '}';
     document.head.appendChild(style);
   }

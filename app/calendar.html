@@ -423,6 +423,19 @@ function extractMembers(s) {
   return out;
 }
 
+// Stable string hash so each member maps to the same palette slot regardless
+// of who else is in the schedule. Without this an alphabetical assignment
+// shuffles every existing member's color the moment a new member shows up
+// (cycle 9 MEMBER-COLOR-SHUFFLE).
+function hashStringToInt(s) {
+  var h = 5381;
+  var str = String(s || '');
+  for (var i = 0; i < str.length; i++) {
+    h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h);
+}
+
 function buildMemberColors() {
   var members = [];
   schedule.forEach(function(b) {
@@ -432,8 +445,8 @@ function buildMemberColors() {
   });
   members.sort();
   memberColorMap = {};
-  members.forEach(function(m, i) {
-    memberColorMap[m] = MEMBER_COLORS[i % MEMBER_COLORS.length];
+  members.forEach(function(m) {
+    memberColorMap[m] = MEMBER_COLORS[hashStringToInt(m) % MEMBER_COLORS.length];
   });
 }
 

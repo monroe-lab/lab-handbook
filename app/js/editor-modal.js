@@ -653,22 +653,45 @@
     return overlayEl;
   }
 
-  // After renderFields writes a `<span data-parent-pill="slug">` or
-  // `<span data-of-pill="slug">` placeholder, this replaces the placeholder
-  // with a proper object pill that navigates when clicked. If the slug
-  // can't be resolved in the index, the placeholder stays as raw text.
+  // After renderFields writes a `<span data-parent-pill="slug">`,
+  // `<span data-of-pill="slug">`, or `<span data-member-pill="slug">`
+  // placeholder, this replaces the placeholder with a proper object pill
+  // that navigates when clicked. If the slug can't be resolved in the
+  // index, the placeholder stays as raw text.
   async function upgradeParentField() {
-    var pills = document.querySelectorAll('[data-parent-pill], [data-of-pill]');
+    var pills = document.querySelectorAll('[data-parent-pill], [data-of-pill], [data-member-pill]');
     if (!pills.length || !window.Lab.hierarchy) return;
     for (var i = 0; i < pills.length; i++) {
       var span = pills[i];
-      var raw = span.getAttribute('data-parent-pill') || span.getAttribute('data-of-pill') || '';
-      // For `of`, slugs are usually bare (e.g. "resources/ethanol-absolute")
-      // and don't need parent-path normalization. normalizeParent handles
-      // already-normalized slugs safely, so reuse it for both fields.
+      var raw = span.getAttribute('data-parent-pill') ||
+                span.getAttribute('data-of-pill') ||
+                span.getAttribute('data-member-pill') || '';
+      // For `of`/`member`, slugs are usually bare (e.g. "resources/ethanol-absolute"
+      // or just a person name). normalizeParent handles already-normalized
+      // slugs safely, so reuse it for all three fields.
       var norm = window.Lab.hierarchy.normalizeParent(raw);
       if (!norm) continue;
       var entry = await window.Lab.hierarchy.get(norm);
+      // Member field wikilinks often use a display name like "Dr. Monroe"
+      // rather than the file slug "people/dr-monroe". If the direct lookup
+      // fails, fall back to searching the cached index for a person whose
+      // title matches the raw display name (case-insensitive).
+      if (!entry && span.hasAttribute('data-member-pill')) {
+        try {
+          var idx = window.Lab.gh && window.Lab.gh._getCachedIndex && window.Lab.gh._getCachedIndex();
+          if (idx && idx.length) {
+            var rawLower = String(raw).toLowerCase();
+            var match = idx.find(function(e) {
+              if (e.type !== 'person') return false;
+              return String(e.title || '').toLowerCase() === rawLower;
+            });
+            if (match) {
+              norm = String(match.path).replace(/\.md$/, '');
+              entry = await window.Lab.hierarchy.get(norm);
+            }
+          }
+        } catch(e) { /* non-fatal */ }
+      }
       if (!entry) continue; // leave as raw text if unresolved
       var type = entry.type || 'container';
       var style = window.Lab.types.pillStyle(type);
@@ -1257,6 +1280,38 @@
           html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;min-width:0">' +
             '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
             '<span data-of-pill="' + ofSlug + '" style="font-weight:500;min-width:0;flex:1 1 auto;overflow:hidden">' + ofSlug + '</span>' +
+            '</div>';
+          return;
+        }
+
+        // Member field (events): the value is a free-text string that may
+        // contain one or more `[[wikilinks]]` to people. Render each wikilink
+        // as a placeholder pill so upgradeParentField can swap it for a real
+        // person pill. Plain text outside the wikilinks is preserved verbatim.
+        if (field.key === 'member') {
+          var raw = String(val);
+          var pieces = [];
+          var re = /\[\[([^\]]+)\]\]/g;
+          var lastIdx = 0;
+          var m;
+          while ((m = re.exec(raw)) !== null) {
+            if (m.index > lastIdx) pieces.push({ kind: 'text', text: raw.slice(lastIdx, m.index) });
+            var slug = m[1].split('|')[0].trim();
+            pieces.push({ kind: 'pill', slug: slug });
+            lastIdx = m.index + m[0].length;
+          }
+          if (lastIdx < raw.length) pieces.push({ kind: 'text', text: raw.slice(lastIdx) });
+          if (!pieces.length) pieces.push({ kind: 'text', text: raw });
+          var inner = pieces.map(function(p) {
+            if (p.kind === 'pill') {
+              var s = window.Lab.escHtml(p.slug);
+              return '<span data-member-pill="' + s + '" style="font-weight:500">' + s + '</span>';
+            }
+            return window.Lab.escHtml(p.text);
+          }).join(' ');
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;min-width:0;flex-wrap:wrap">' +
+            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
+            '<span style="font-weight:500;min-width:0;flex:1 1 auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center">' + inner + '</span>' +
             '</div>';
           return;
         }
