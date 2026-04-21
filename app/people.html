@@ -609,9 +609,44 @@
     '</div>';
   }
 
+  // UC lab title vocabulary used by the onboarding wizard's role dropdown.
+  // Organized by UC academic appointment series: Specialist series (Jr/Asst/Assoc/Full),
+  // Project Scientist series, Postdoc, Staff Research Associate (SRA I/II/III), faculty,
+  // students, and visitor/collaborator roles. Free-form legacy values on existing
+  // person cards (e.g. "Lab Manager & Safety Coordinator") still display fine —
+  // the card's role field accepts any string; this dropdown only supplies suggestions.
+  var ROLE_GROUPS = [
+    { label: 'Students', options: ['Undergraduate', 'Undergraduate Researcher', 'Rotation Student', 'Graduate Student', 'Graduate Student Researcher', 'High School Student'] },
+    { label: 'Postdocs', options: ['Postdoc', 'Postdoctoral Scholar', 'Postdoctoral Researcher'] },
+    { label: 'Specialist series', options: ['Junior Specialist', 'Assistant Specialist', 'Associate Specialist', 'Specialist'] },
+    { label: 'Project Scientist series', options: ['Assistant Project Scientist', 'Associate Project Scientist', 'Project Scientist'] },
+    { label: 'Research staff', options: ['Staff Research Associate I', 'Staff Research Associate II', 'Staff Research Associate III', 'Lab Technician', 'Lab Manager', 'Lab Assistant'] },
+    { label: 'Faculty', options: ['Assistant Professor', 'Associate Professor', 'Professor', 'Adjunct Professor', 'Lecturer', 'PI', 'Principal Investigator'] },
+    { label: 'Visitors & collaborators', options: ['Visiting Scholar', 'Visiting Researcher', 'Collaborator', 'Affiliate'] }
+  ];
+
   function renderWizardStep() {
     var modal = document.getElementById('wizardModal');
     var html = '';
+
+    // Pre-build role optgroup HTML so the inline wizard template stays readable.
+    // If the saved role isn't in any group (e.g. a legacy string), inject it as a
+    // standalone selected option at the top so the value survives a round trip.
+    var roleOptionsHtml = '<option value="">Select your role...</option>';
+    var allListed = [];
+    ROLE_GROUPS.forEach(function(g) { g.options.forEach(function(o) { allListed.push(o); }); });
+    var legacy = wizardState.role && allListed.indexOf(wizardState.role) === -1 ? wizardState.role : null;
+    if (legacy) {
+      roleOptionsHtml += '<option value="' + legacy + '" selected>' + legacy + '</option>';
+    }
+    ROLE_GROUPS.forEach(function(g) {
+      roleOptionsHtml += '<optgroup label="' + g.label + '">';
+      g.options.forEach(function(opt) {
+        var sel = (wizardState.role === opt) ? ' selected' : '';
+        roleOptionsHtml += '<option value="' + opt + '"' + sel + '>' + opt + '</option>';
+      });
+      roleOptionsHtml += '</optgroup>';
+    });
 
     if (wizardState.step === 1) {
       html = wizardProgressBar(1, 4) +
@@ -630,14 +665,7 @@
           '<div style="margin-bottom:16px;">' +
             '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Role</label>' +
             '<select id="wizRole" style="width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;background:#fff;transition:border-color .15s;" onfocus="this.style.borderColor=\'#1565c0\'" onblur="this.style.borderColor=\'#ddd\'">' +
-              '<option value="">Select your role...</option>' +
-              '<option value="Graduate Student"' + (wizardState.role === 'Graduate Student' ? ' selected' : '') + '>Graduate Student</option>' +
-              '<option value="Postdoc"' + (wizardState.role === 'Postdoc' ? ' selected' : '') + '>Postdoc</option>' +
-              '<option value="Rotation Student"' + (wizardState.role === 'Rotation Student' ? ' selected' : '') + '>Rotation Student</option>' +
-              '<option value="Undergraduate"' + (wizardState.role === 'Undergraduate' ? ' selected' : '') + '>Undergraduate</option>' +
-              '<option value="Lab Technician"' + (wizardState.role === 'Lab Technician' ? ' selected' : '') + '>Lab Technician</option>' +
-              '<option value="Visiting Scholar"' + (wizardState.role === 'Visiting Scholar' ? ' selected' : '') + '>Visiting Scholar</option>' +
-              '<option value="PI"' + (wizardState.role === 'PI' ? ' selected' : '') + '>PI</option>' +
+              roleOptionsHtml +
             '</select>' +
           '</div>' +
           '<div style="margin-bottom:24px;">' +
