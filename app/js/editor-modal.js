@@ -911,12 +911,17 @@
       var contentEl = document.getElementById('em-content');
 
       // Breadcrumb for any object in the location hierarchy (parent ref chain).
-      // Renders nothing for objects with no resolvable parent chain.
+      // Renders nothing for objects with no resolvable parent chain or for
+      // root objects (chain length 1) where the breadcrumb would just repeat
+      // the H1 title below it.
       var crumbHTML = '';
       try {
         if (window.Lab.hierarchy) {
           var slug = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
-          crumbHTML = await window.Lab.hierarchy.breadcrumbHTML(slug);
+          var chain = await window.Lab.hierarchy.parentChain(slug);
+          if (chain && chain.length > 1) {
+            crumbHTML = await window.Lab.hierarchy.breadcrumbHTML(slug);
+          }
         }
       } catch(e) { /* non-fatal */ }
 
@@ -2361,13 +2366,17 @@
     var html = await renderMarkdown(currentState.body);
     var contentEl = document.getElementById('em-content');
 
-    // Re-render breadcrumb (post-edit the parent may have changed)
+    // Re-render breadcrumb (post-edit the parent may have changed). Skip for
+    // root objects — same rationale as openPopup.
     var crumbHTML = '';
     try {
       if (window.Lab.hierarchy && currentState.path) {
         Lab.hierarchy.invalidate();
         var slug = currentState.path.replace(/^docs\//, '').replace(/\.md$/, '');
-        crumbHTML = await Lab.hierarchy.breadcrumbHTML(slug);
+        var chain = await Lab.hierarchy.parentChain(slug);
+        if (chain && chain.length > 1) {
+          crumbHTML = await Lab.hierarchy.breadcrumbHTML(slug);
+        }
       }
     } catch(e) {}
 
