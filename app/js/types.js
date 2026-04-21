@@ -63,9 +63,14 @@
         { key: 'title',    label: 'Name',     type: 'text', required: true },
         { key: 'type',     label: 'Type',     type: 'hidden', value: 'equipment' },
         { key: 'location', label: 'Location', type: 'text' },
+        // Status lets users toggle "Needs More" / "Out of Stock" on equipment
+        // just like reagents. editor-modal's view-mode status badge cycles
+        // through the states on click, and dashboard "Needs Ordering" picks
+        // these up automatically.
+        { key: 'status',   label: 'Status',   type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
       ],
-      displayFields: ['location', 'notes'],
-      tableColumns: ['name', 'type', 'location', 'notes'],
+      displayFields: ['status', 'location', 'notes'],
+      tableColumns: ['name', 'type', 'status', 'location', 'notes'],
     },
     kit: {
       color: '#00838f',
@@ -131,9 +136,10 @@
         { key: 'stock_type', label: 'Stock Type', type: 'hidden', value: 'glycerol_stock' },
         { key: 'location',   label: 'Location', type: 'text' },
         { key: 'source',     label: 'Source',    type: 'text' },
+        { key: 'status',     label: 'Status',    type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
       ],
-      displayFields: ['organism', 'location', 'source', 'notes'],
-      tableColumns: ['name', 'type', 'location', 'notes'],
+      displayFields: ['status', 'organism', 'location', 'source', 'notes'],
+      tableColumns: ['name', 'type', 'status', 'location', 'notes'],
     },
     plasmid: {
       color: '#ad1457',
@@ -184,9 +190,12 @@
         { key: 'expiration', label: 'Expiration',          type: 'text', placeholder: 'YYYY-MM-DD' },
         { key: 'acquired',   label: 'Acquired',            type: 'text', placeholder: 'YYYY-MM-DD' },
         { key: 'level',      label: 'Level',               type: 'text', placeholder: 'e.g. full, 3/4, empty' },
+        // Physical bottle can be marked "needs more" (time to open a new one)
+        // or "out of stock" (bottle is empty / gone). Click-cycles in popup.
+        { key: 'status',     label: 'Status',              type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
       ],
-      displayFields: ['of', 'parent', 'position', 'quantity', 'unit', 'lot', 'expiration', 'acquired', 'level'],
-      tableColumns: ['name', 'of', 'parent', 'quantity', 'unit', 'expiration'],
+      displayFields: ['status', 'of', 'parent', 'position', 'quantity', 'unit', 'lot', 'expiration', 'acquired', 'level'],
+      tableColumns: ['name', 'of', 'parent', 'quantity', 'unit', 'status', 'expiration'],
     },
     person: {
       color: '#1565c0',
