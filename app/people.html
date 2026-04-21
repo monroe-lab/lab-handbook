@@ -870,12 +870,44 @@
     renderWizardStep();
   };
 
+  // Upsert helper: PUT fails with 422 "sha wasn't supplied" when the path
+  // already exists and no sha is passed. When that happens, fetch the existing
+  // file's sha and retry the save. Also: if the file already exists with the
+  // exact same content (common for empty .gitkeep placeholders), skip.
+  async function upsertFile(path, content, message, opts) {
+    opts = opts || {};
+    try {
+      return await Lab.gh.saveFile(path, content, null, message);
+    } catch(e) {
+      var msg = (e && e.message) || '';
+      // GitHub returns: "Invalid request.\n\n\"sha\" wasn't supplied." when
+      // the path exists and no sha is included.
+      var shaRequired = /sha.{0,3}(wasn't|was not|isn't|is not)\s*supplied/i.test(msg) ||
+                        /sha.*required/i.test(msg) ||
+                        /already exists/i.test(msg);
+      if (!shaRequired) throw e;
+
+      // Fetch existing sha and decide whether to skip or retry.
+      var existing;
+      try {
+        existing = await Lab.gh.fetchFile(path);
+      } catch(fetchErr) {
+        // If the file really isn't there, surface the original error.
+        throw e;
+      }
+      if (opts.skipIfExists) return { sha: existing.sha, skipped: true };
+      if (existing.content === content) return { sha: existing.sha, skipped: true };
+      return await Lab.gh.saveFile(path, content, existing.sha, message);
+    }
+  }
+
   async function createPersonFiles() {
     var statusEl = document.getElementById('wizCreateStatus');
     var checklistEl = document.getElementById('wizChecklist');
     var gh = Lab.gh;
     var slug = Lab.slugify(wizardState.name);
     var today = new Date().toISOString().slice(0, 10);
+    var personPath = 'docs/people/' + slug + '.md';
 
     try {
       // 1. Create person markdown
@@ -900,14 +932,17 @@
         bodyLines.push('');
       }
 
-      var personContent = Lab.buildFrontmatter(meta, bodyLines.join('\n'));
-      await gh.saveFile('docs/people/' + slug + '.md', personContent, null, 'New lab member: ' + wizardState.name);
+      var personBody = bodyLines.join('\n');
+      var personContent = Lab.buildFrontmatter(meta, personBody);
+      await upsertFile(personPath, personContent, 'New lab member: ' + wizardState.name);
 
-      // 2. Create notebook folder with .gitkeep
+      // 2. Create notebook folder with .gitkeep (skip if it already exists —
+      //    an empty placeholder is an empty placeholder).
       statusEl.textContent = 'Setting up your notebook...';
-      await gh.saveFile('docs/notebooks/' + slug + '/.gitkeep', '', null, 'Create notebook folder for ' + wizardState.name);
+      await upsertFile('docs/notebooks/' + slug + '/.gitkeep', '', 'Create notebook folder for ' + wizardState.name, { skipIfExists: true });
 
-      // 3. Create first notebook entry
+      // 3. Create first notebook entry (don't clobber an existing entry for
+      //    today — skip if present).
       var entryContent = '# ' + today + ' — ' + wizardState.name + '\n\n' +
         '**Person:** ' + wizardState.name + '\n\n' +
         '**Date:** ' + today + '\n\n' +
@@ -915,10 +950,18 @@
         '## What I did\n\n' +
         '## Results & observations\n\n' +
         '## Next steps\n\n';
-      await gh.saveFile('docs/notebooks/' + slug + '/' + today + '.md', entryContent, null, 'First notebook entry for ' + wizardState.name);
+      await upsertFile('docs/notebooks/' + slug + '/' + today + '.md', entryContent, 'First notebook entry for ' + wizardState.name, { skipIfExists: true });
 
-      // 4. Rebuild index cache
-      gh.clearObjectIndexCache();
+      // 4. Live-patch the object-index and link-index so the new person
+      //    appears immediately on the People grid without waiting for the
+      //    GitHub Actions rebuild (~40s). Without this, loadPeople() re-fetches
+      //    the deployed object-index.json that doesn't include the new entry.
+      if (gh.patchObjectIndex) {
+        gh.patchObjectIndex(personPath, meta);
+      }
+      if (gh.patchLinkIndex) {
+        gh.patchLinkIndex(personPath, personBody);
+      }
 
       // Show success checklist
       statusEl.innerHTML = '<span style="color:#43a047;font-weight:600;">Done! All files created.</span>';
@@ -939,12 +982,15 @@
       });
       document.getElementById('wizChecklistItems').innerHTML = itemsHtml;
 
+      // Re-render the People grid right now so the new card is visible behind
+      // the wizard and on close — the object-index has already been patched
+      // above, so we do NOT want to clearObjectIndexCache here (that would
+      // drop the in-memory patch overlay and leave the new entry out).
+      try { await loadPeople(); } catch(e) {}
+
       document.getElementById('wizGoProfile').onclick = function() {
         closeWizard();
         openPerson(slug);
-        // Reload to pick up new person
-        Lab.gh.clearObjectIndexCache();
-        loadPeople();
       };
 
     } catch(e) {
