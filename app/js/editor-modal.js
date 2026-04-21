@@ -581,10 +581,44 @@
       if (e.key === 'Escape' && overlayEl.classList.contains('open')) close();
     });
 
-    // Delete — deletes the current object after confirmation
+    // Delete — deletes the current object after confirmation.
+    // Issue #104: events with a recurrence_id (members of a recurring series)
+    // get a 3-button choice: this occurrence, entire series, or cancel.
     document.getElementById('em-delete').onclick = async function() {
       if (!currentState || !currentState.path) return;
       var title = (currentState.meta && currentState.meta.title) || currentState.path.split('/').pop();
+      var meta = currentState.meta || {};
+      var isRecurringEvent = meta.type === 'event' && meta.recurrence_id;
+
+      if (isRecurringEvent) {
+        // Custom 3-button modal (this/series/cancel) since Lab.modal.confirm is binary.
+        var choice = await window.Lab.calendarDelete && window.Lab.calendarDelete.confirmRecurring
+          ? await window.Lab.calendarDelete.confirmRecurring(title)
+          : null;
+        if (!choice || choice === 'cancel') return;
+        try {
+          if (choice === 'series') {
+            var deleted = await window.Lab.calendarDelete.deleteSeries(meta.recurrence_id);
+            if (Lab.hierarchy) Lab.hierarchy.invalidate();
+            if (Lab.showToast) Lab.showToast('Deleted ' + deleted + ' events in series', 'success');
+            // Dispatch one event per deleted path so the calendar refreshes
+            // (the calendar's lab-file-saved listener removes by path).
+            // The deleteSeries helper already cleans up the in-memory schedule.
+          } else {
+            // Single occurrence
+            await Lab.gh.deleteFile(currentState.path);
+            if (Lab.gh.removeFromObjectIndex) Lab.gh.removeFromObjectIndex(currentState.path);
+            if (Lab.hierarchy) Lab.hierarchy.invalidate();
+            if (Lab.showToast) Lab.showToast('Deleted: ' + title, 'success');
+            window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: currentState.path } }));
+          }
+          closeOrBack();
+        } catch(e) {
+          if (Lab.showToast) Lab.showToast('Delete failed: ' + e.message, 'error');
+        }
+        return;
+      }
+
       var confirmed = await Lab.modal.confirm({
         title: 'Delete Object',
         message: 'Delete "' + title + '"?\nThis cannot be undone.',
@@ -1035,15 +1069,28 @@
         var groups = Lab.types.GROUPS || {};
         // Contextual filtering: instances (has of: field) only show instance types,
         // and vice versa — don't show protocol/person/project for a bottle.
+        // Issue #102: the currentType is ALWAYS included regardless of filter,
+        // otherwise a freshly-created tube hides itself from its own picker and
+        // the user sees no way to change or confirm the type.
         var isInstance = !!meta.of;
         var instanceTypes = { bottle: 1, tube: 1, container: 1 };
         var hideFromInstances = { protocol: 1, person: 1, project: 1, notebook: 1, event: 1, guide: 1, waste_container: 1, sample: 1 };
+        // If the current object is itself a location/container (box, freezer,
+        // tube, etc.) we're in "lab-map territory" — surface the instance
+        // types (bottle/tube/container) so the user can reclassify or switch
+        // without having to first set an `of:` field.
+        var currentTypeMeta = Lab.types.get(currentType);
+        var currentIsLocation = currentTypeMeta && currentTypeMeta.group === 'locations';
         Object.keys(groups).forEach(function(gk) {
           var g = groups[gk];
           (g.types || []).forEach(function(t) {
-            // Filter types based on context
-            if (isInstance && hideFromInstances[t]) return;
-            if (!isInstance && instanceTypes[t]) return;
+            // Always show the current type, even if the filter below would drop it.
+            if (t !== currentType) {
+              // Filter types based on context
+              if (isInstance && hideFromInstances[t]) return;
+              // Hide instance types in generic (non-location, non-instance) contexts.
+              if (!isInstance && !currentIsLocation && instanceTypes[t]) return;
+            }
             var tc = Lab.types.get(t);
             var sel = (t === currentType);
             html += '<button type="button" data-type-pick="' + escHtml(t) + '"' +
