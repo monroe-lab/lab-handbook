@@ -60,9 +60,7 @@ If you aren't sure how to read the display, ask before pipetting.
 
 ## Tips
 
-![Pipette tips in boxes](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg/600px-Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg)
-
-*Image: [Disposable Pipette Tips in Laboratory Tip Boxes 02.jpg](https://commons.wikimedia.org/wiki/File:Disposable_Pipette_Tips_in_Laboratory_Tip_Boxes_02.jpg) — Wikimedia Commons, CC BY-SA 4.0*
+![Pipette tips in boxes](../images/pipette-tips-in-boxes.jpg)
 
 - **Always use the correct tip size** for your pipette. Tips are not interchangeable.
 - **Use [[filter-tips-p200|filter tips]]** when working with DNA, RNA, or anything you don't want to contaminate the pipette barrel with. For training exercises with water, unfiltered tips are fine.
