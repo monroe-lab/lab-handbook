@@ -6,7 +6,7 @@ title: "Quantifying DNA: NanoDrop"
 
 ## Resources
 
-**Equipment:** [[nanodrop]] (**needs ordering; not yet in the lab**)
+**Equipment:** [[nanodrop]] 
 
 **Reagents:** [[nuclease-free-water]] or [[tris-edta-te-buffer-solution]] (for blanking)
 
@@ -25,7 +25,7 @@ title: "Quantifying DNA: NanoDrop"
 ## When to Use NanoDrop vs. Qubit
 
 |  | [[nanodrop]] | [[qubit-fluorometer]] |
-| --- | -------- | --------------- |
+| --- | -------- | ----------------- |
 | **Measures** | Total UV-absorbing material at 260 nm | dsDNA specifically (fluorescent dye) |
 | **Accuracy** | Overestimates if RNA, protein, or phenol present | Accurate for dsDNA regardless of contaminants |
 | **Purity info** | Yes (260/280 and 260/230 ratios) | No |
