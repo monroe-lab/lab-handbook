@@ -644,6 +644,17 @@ async function createNewEntry() {
     } catch(e) {}
 
     await gh.saveFile(filePath, content, null, 'New notebook entry: ' + dir + '/' + slug);
+    // Mirror the build-time object + link indexes so the new entry registers
+    // immediately (without these patches the dashboard, hierarchy, and
+    // backlinks panels would lag until the next site deploy).
+    try {
+      var parsedNew = Lab.parseFrontmatter ? Lab.parseFrontmatter(content) : { meta: {}, body: content };
+      var metaNew = parsedNew.meta || {};
+      if (!metaNew.title) metaNew.title = slug;
+      if (!metaNew.type) metaNew.type = 'notebook';
+      if (gh.patchObjectIndex) gh.patchObjectIndex(filePath, metaNew);
+      if (gh.patchLinkIndex) gh.patchLinkIndex(filePath, parsedNew.body || content);
+    } catch(e) {}
 
     // Inject into TREE
     var node = ensureNode(TREE, dir.split('/'));
@@ -768,6 +779,22 @@ async function saveDoc() {
     var filePath = 'docs/' + currentDoc + '.md';
     var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update notebook ' + currentDoc);
     currentSha = result.sha;
+    // Keep the link-index patch overlay in sync so wikilinks added or removed
+    // in this edit show up as backlinks on their targets immediately. Also
+    // patch the object index so the entry's frontmatter (title, type, person
+    // folder) is reflected in the sidebar, hierarchy, and search without a
+    // full deploy round-trip.
+    try {
+      var parsedSave = Lab.parseFrontmatter ? Lab.parseFrontmatter(md) : { meta: {}, body: md };
+      var metaSave = parsedSave.meta || {};
+      if (!metaSave.title) metaSave.title = currentDoc.split('/').pop();
+      if (!metaSave.type) metaSave.type = 'notebook';
+      if (Lab.gh.patchObjectIndex) Lab.gh.patchObjectIndex(filePath, metaSave);
+      if (Lab.gh.patchLinkIndex) Lab.gh.patchLinkIndex(filePath, parsedSave.body || md);
+    } catch(e) {
+      // Non-fatal — the file is saved, just the local overlays are out of sync
+      // until the next deploy.
+    }
     Lab.showToast('Saved', 'success');
 
     isEditing = false;
@@ -821,6 +848,8 @@ async function deleteDoc() {
   try {
     var filePath = 'docs/' + currentDoc + '.md';
     await gh.deleteFile(filePath, null, 'Delete notebook entry: ' + name);
+    if (gh.removeFromObjectIndex) gh.removeFromObjectIndex(filePath);
+    if (gh.removeFromLinkIndex) gh.removeFromLinkIndex(filePath);
     (function strip(node) {
       node.items = node.items.filter(function(i) { return i.path !== currentDoc; });
       node.children.forEach(strip);

@@ -191,6 +191,7 @@
       throw new Error(msg);
     }
     var result = await resp.json();
+    recordTreeChange(path, 'added');
     return { sha: result.content.sha };
   }
 
@@ -220,6 +221,34 @@
       var err = await delResp.json().catch(function() { return {}; });
       throw new Error(err.message || 'Delete failed');
     }
+    recordTreeChange(path, 'deleted');
+  }
+
+  // GitHub's git/trees endpoint lags a few seconds after a commit, so the
+  // sidebar count for the folder we just saved into would revert to its pre-
+  // save value after a reload until the cache catches up. Track recent
+  // saves/deletes in localStorage and reconcile them into the tree.
+  var TREE_PATCH_KEY = 'lab_tree_patches';
+  // Auto-prune entries older than this — GitHub's tree cache catches up well
+  // within a minute. Five minutes is a comfortable margin.
+  var TREE_PATCH_TTL_MS = 5 * 60 * 1000;
+  function getTreePatches() {
+    try {
+      var raw = localStorage.getItem(TREE_PATCH_KEY);
+      var p = raw ? JSON.parse(raw) : {};
+      var now = Date.now();
+      var changed = false;
+      Object.keys(p).forEach(function(k) {
+        if (!p[k] || (now - (p[k].at || 0)) > TREE_PATCH_TTL_MS) { delete p[k]; changed = true; }
+      });
+      if (changed) { try { localStorage.setItem(TREE_PATCH_KEY, JSON.stringify(p)); } catch(e) {} }
+      return p;
+    } catch(e) { return {}; }
+  }
+  function recordTreeChange(filePath, kind) {
+    var patches = getTreePatches();
+    patches[filePath] = { kind: kind, at: Date.now() };
+    try { localStorage.setItem(TREE_PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
   }
 
   async function fetchTree(path) {
@@ -230,6 +259,14 @@
     }
     var data = await resp.json();
     var files = data.tree.filter(function(t) { return t.type === 'blob'; }).map(function(t) { return t.path; });
+    var patches = getTreePatches();
+    var seen = {};
+    files.forEach(function(f) { seen[f] = true; });
+    Object.keys(patches).forEach(function(p) {
+      var kind = patches[p].kind;
+      if (kind === 'added' && !seen[p]) { files.push(p); seen[p] = true; }
+      else if (kind === 'deleted' && seen[p]) { files = files.filter(function(f) { return f !== p; }); }
+    });
     if (path) {
       files = files.filter(function(f) { return f.startsWith(path); });
     }
