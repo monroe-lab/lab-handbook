@@ -3971,12 +3971,17 @@
     Object.keys(_imgSizes).forEach(function(src) {
       var w = _imgSizes[src];
       var escaped = src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      // Replace ![alt](src) with <img> tag
+      // Replace ![alt](src) with <img> tag. Wrap with blank lines so the tag
+      // is its own block — otherwise a preceding heading (## Foo\n![img]) fuses
+      // the <img> into the heading when rendered, since ProseMirror can emit
+      // heading + image as adjacent lines without a blank-line separator.
       var re = new RegExp('!\\[([^\\]]*)\\]\\(([^)]*' + escaped + '[^)]*)\\)');
       md = md.replace(re, function(m, alt, fullSrc) {
-        return '<img src="' + fullSrc + '" alt="' + alt + '" style="max-width:' + w + '">';
+        return '\n\n<img src="' + fullSrc + '" alt="' + alt + '" style="max-width:' + w + '">\n\n';
       });
     });
+    // Collapse runs of 3+ newlines back to a single blank line.
+    md = md.replace(/\n{3,}/g, '\n\n');
     return md;
   }
 
