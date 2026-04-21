@@ -2,7 +2,7 @@
 type: "reagent"
 title: "1,8-Naphthalic anhydride"
 legacy_inventory_id: 12
-status: "needs_more"
+status: in_stock
 ---
 # 1,8-Naphthalic anhydride
 
