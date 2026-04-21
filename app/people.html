@@ -80,6 +80,10 @@
   margin: 0 0 10px; display: flex; align-items: center; gap: 6px;
 }
 .person-dash-section h3 .material-icons-outlined { font-size: 18px; }
+/* #119: rotate caret when the details is open */
+details.person-dash-section[open] > summary .person-dash-caret { transform: rotate(90deg); }
+details.person-dash-section > summary::-webkit-details-marker { display: none; } /* hide native disclosure */
+details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
 .person-dash-list {
   background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
   padding: 4px 0;
@@ -413,14 +417,24 @@
       '<h1>' + esc(title) + '</h1>' +
       (role ? '<p>' + esc(role) + '</p>' : '');
 
+    // #119: sections render as <details> so they can be collapsed. Default
+    // closed for every section — keeps the person page tight on load and lets
+    // the Frequently Used (favorites) row at the top stay the primary focus.
+    // The native <details> element remembers open/closed during the session
+    // without any JS; we just style the summary for a cleaner caret.
     function renderSection(icon, label, items, renderItem) {
       if (!items.length) return '';
-      var html = '<div class="person-dash-section">' +
-        '<h3><span class="material-icons-outlined">' + icon + '</span> ' + esc(label) +
-        ' <span style="font-weight:400;color:var(--grey-400)">(' + items.length + ')</span></h3>' +
-        '<div class="person-dash-list">';
+      var html = '<details class="person-dash-section">' +
+        '<summary style="cursor:pointer;list-style:none;padding:0;margin:0;">' +
+          '<h3 style="display:flex;align-items:center;gap:6px;margin:0;">' +
+            '<span class="material-icons-outlined person-dash-caret" style="font-size:18px;color:var(--grey-400);transition:transform .15s">chevron_right</span>' +
+            '<span class="material-icons-outlined">' + icon + '</span> ' + esc(label) +
+            ' <span style="font-weight:400;color:var(--grey-400)">(' + items.length + ')</span>' +
+          '</h3>' +
+        '</summary>' +
+        '<div class="person-dash-list" style="margin-top:10px">';
       items.forEach(function(item) { html += renderItem(item); });
-      html += '</div></div>';
+      html += '</div></details>';
       return html;
     }
 
@@ -560,27 +574,31 @@
       '</div>';
     }
 
-    // Sections
+    // Sections — #118: every section is pinnable so favorites can be any
+    // type (notebook, protocol, event, inventory, location, sample, project),
+    // not just protocols/inventory. The star button on each row adds/removes
+    // from the person's `favorites:` frontmatter list. The Frequently Used
+    // rollup at the top renders whatever has been pinned regardless of type.
     dashHtml += renderSection('edit_note', 'Lab Notebooks', notebooks, function(item) {
-      return itemRow(item, '📓', '#795548', navTo(item));
+      return itemRow(item, '📓', '#795548', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('science', 'Protocols', protocols, function(item) {
       return itemRow(item, '🧪', '#6a1b9a', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('event', 'Calendar Events', events, function(item) {
-      return itemRow(item, '📅', '#0288d1', navTo(item));
+      return itemRow(item, '📅', '#0288d1', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('inventory_2', 'Inventory Items', inventoryBacklinks, function(item) {
       return itemRow(item, '📦', '#009688', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('location_on', 'Locations', locationBacklinks, function(item) {
-      return itemRow(item, '📍', '#546e7a', navTo(item));
+      return itemRow(item, '📍', '#546e7a', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('biotech', 'Samples', sampleBacklinks, function(item) {
-      return itemRow(item, '🧬', '#7c3aed', navTo(item));
+      return itemRow(item, '🧬', '#7c3aed', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('folder_special', 'Projects', projects, function(item) {
-      return itemRow(item, '📁', '#e65100', navTo(item));
+      return itemRow(item, '📁', '#e65100', navTo(item), { pinnable: true });
     });
 
     if (!notebooks.length && !protocols.length && !events.length &&
