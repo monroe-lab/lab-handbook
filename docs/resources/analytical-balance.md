@@ -1,6 +1,7 @@
 ---
-type: equipment
+type: "equipment"
 title: "Analytical Balance"
+status: "needs_more"
 ---
 # Analytical Balance
 
