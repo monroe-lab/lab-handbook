@@ -293,6 +293,12 @@
   // calendar events, inventory items, projects. Data comes from the
   // object-index (folder matching + created_by) and link-index (backlinks
   // from any object that wikilinks to [[people/<slug>]]).
+  //
+  // #101: Person frontmatter may include a `favorites:` list (list-of-mappings
+  // YAML, since shared.js parseFrontmatter only supports scalars and that
+  // shape) describing protocols/materials the person uses often. Rendered as
+  // pinned pills at the top of the dashboard. Pin/unpin buttons appear on
+  // each protocol/inventory row.
   async function renderPersonDashboard(slug) {
     document.getElementById('peopleGrid').style.display = 'none';
     var dash = document.getElementById('personDashboard');
@@ -317,6 +323,32 @@
 
     var title = personMeta.title || slug;
     var role = personMeta.role || '';
+
+    // #101: Pull the full markdown so we can read the `favorites:` frontmatter.
+    // The object-index doesn't carry this field. Cache the sha so togglePin
+    // doesn't have to re-fetch just to find it.
+    var personPath = 'docs/people/' + slug + '.md';
+    var personFile = null;
+    var favorites = [];
+    try {
+      personFile = await Lab.gh.fetchFile(personPath);
+      var parsed = (Lab.parseFrontmatter && personFile) ? Lab.parseFrontmatter(personFile.content) : { meta: {} };
+      var rawFavs = parsed.meta && parsed.meta.favorites;
+      if (Array.isArray(rawFavs)) {
+        favorites = rawFavs.filter(function(f) { return f && f.slug; });
+      }
+    } catch(e) { /* offline / signed out: just hide pin UI */ }
+    var pinnedSet = {};
+    favorites.forEach(function(f) { pinnedSet[f.slug] = true; });
+    // Stash for togglePinFavorite() to read without another fetch
+    window._personFavoritesState = {
+      slug: slug,
+      personPath: personPath,
+      sha: personFile ? personFile.sha : null,
+      content: personFile ? personFile.content : null,
+      favorites: favorites,
+      canEdit: !!(personFile && Lab.gh.isLoggedIn && Lab.gh.isLoggedIn()),
+    };
 
     // ── Gather connected items ──
 
@@ -392,7 +424,16 @@
       return html;
     }
 
-    function itemRow(item, icon, color, onClick) {
+    // Compute the slug an item is referenced by in `favorites:` (folder-style
+    // index.md → parent dir, otherwise the basename minus .md).
+    function itemSlug(item) {
+      var parts = item.path.replace(/\.md$/, '').split('/');
+      var last = parts[parts.length - 1];
+      return (last === 'index' && parts.length > 1) ? parts[parts.length - 2] : last;
+    }
+
+    function itemRow(item, icon, color, onClick, opts) {
+      opts = opts || {};
       var typeConf = Lab.types.get(item.type);
       var itemIconRaw = (typeConf && typeConf.icon) || icon || '📄';
       var itemIcon = Lab.types.renderIcon(itemIconRaw);
@@ -402,12 +443,32 @@
       if (item.date) subtitle.push(item.date);
       if (item.start_time && item.end_time) subtitle.push(item.start_time + '–' + item.end_time);
       if (item.member) subtitle.push(item.member.replace(/\[\[|\]\]/g, ''));
+
+      // #101: Pin button for protocol/inventory rows. Only render when we have
+      // an editable person file (signed in + file fetched). event.stopPropagation
+      // keeps the row's navigation onClick from firing when the star is clicked.
+      var pinHtml = '';
+      if (opts.pinnable && window._personFavoritesState && window._personFavoritesState.canEdit) {
+        var thisSlug = itemSlug(item);
+        var pinned = !!pinnedSet[thisSlug];
+        var pinTitle = pinned ? 'Unpin from frequently used' : 'Pin to frequently used';
+        var pinIcon = pinned ? 'star' : 'star_outline';
+        var pinColor = pinned ? '#f9a825' : '#bdbdbd';
+        pinHtml = '<button onclick="event.stopPropagation();togglePinFavorite(\'' +
+          esc(thisSlug) + '\', \'' + esc(item.type || '') + '\')" ' +
+          'title="' + pinTitle + '" ' +
+          'style="background:none;border:none;cursor:pointer;padding:4px;color:' + pinColor + ';line-height:0;">' +
+          '<span class="material-icons-outlined" style="font-size:18px;">' + pinIcon + '</span>' +
+        '</button>';
+      }
+
       return '<div class="person-dash-item" onclick="' + (onClick || '') + '">' +
         '<span style="font-size:16px;color:' + itemColor + '">' + itemIcon + '</span>' +
         '<div style="flex:1;min-width:0">' +
           '<div style="font-weight:500">' + esc(item.title || item.path.split('/').pop().replace('.md', '')) + '</div>' +
           (subtitle.length ? '<div style="font-size:11px;color:var(--grey-400)">' + esc(subtitle.join(' · ')) + '</div>' : '') +
         '</div>' +
+        pinHtml +
         '<span class="material-icons-outlined" style="font-size:14px;color:var(--grey-300)">chevron_right</span>' +
       '</div>';
     }
@@ -453,18 +514,64 @@
     });
     dashHtml += '</div>';
 
+    // #101: Frequently used (favorites). Pinned protocols/inventory items
+    // surfaced as pills so the person can jump to the things they use most
+    // without scrolling through the full backlinks list.
+    if (favorites.length) {
+      var favPills = favorites.map(function(f) {
+        var obj = idx.find(function(e) { return itemSlug(e) === f.slug; });
+        var typeName = (obj && obj.type) || f.type || 'unknown';
+        var label = (obj && obj.title) || f.slug;
+        var style = Lab.types.pillStyle(typeName);
+        var content = Lab.types.pillContent(typeName, esc(label));
+        var href = obj ? (
+          (typeName === 'protocol' || typeName === 'guide')
+            ? 'protocols.html?doc=' + encodeURIComponent(obj.path.replace(/\.md$/, ''))
+            : "javascript:Lab.editorModal.open('docs/" + obj.path + "')"
+        ) : '#';
+        var unpinBtn = (window._personFavoritesState && window._personFavoritesState.canEdit)
+          ? '<button onclick="event.preventDefault();event.stopPropagation();togglePinFavorite(\'' +
+              esc(f.slug) + '\', \'' + esc(typeName) + '\')" ' +
+              'title="Unpin" style="background:none;border:none;cursor:pointer;padding:0 0 0 4px;color:#9e9e9e;line-height:0;vertical-align:middle;">' +
+              '<span class="material-icons-outlined" style="font-size:14px;">close</span>' +
+            '</button>'
+          : '';
+        return '<span style="display:inline-flex;align-items:center;margin:0 6px 6px 0;">' +
+          '<a href="' + href + '" style="' + style + '">' + content + '</a>' +
+          unpinBtn +
+        '</span>';
+      }).join('');
+      dashHtml += '<div class="person-dash-section">' +
+        '<h3><span class="material-icons-outlined" style="color:#f9a825">star</span> Frequently used' +
+          ' <span style="font-weight:400;color:var(--grey-400)">(' + favorites.length + ')</span></h3>' +
+        '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px 8px;">' +
+          favPills +
+        '</div>' +
+      '</div>';
+    } else if (window._personFavoritesState && window._personFavoritesState.canEdit) {
+      // Empty hint — only when the viewer can actually pin things.
+      dashHtml += '<div class="person-dash-section">' +
+        '<h3><span class="material-icons-outlined" style="color:#f9a825">star_outline</span> Frequently used</h3>' +
+        '<div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;color:var(--grey-500);font-size:13px;">' +
+          'Pin protocols or inventory items below using the ' +
+          '<span class="material-icons-outlined" style="font-size:16px;vertical-align:middle;color:#bdbdbd">star_outline</span>' +
+          ' button to surface them here.' +
+        '</div>' +
+      '</div>';
+    }
+
     // Sections
     dashHtml += renderSection('edit_note', 'Lab Notebooks', notebooks, function(item) {
       return itemRow(item, '📓', '#795548', navTo(item));
     });
     dashHtml += renderSection('science', 'Protocols', protocols, function(item) {
-      return itemRow(item, '🧪', '#6a1b9a', navTo(item));
+      return itemRow(item, '🧪', '#6a1b9a', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('event', 'Calendar Events', events, function(item) {
       return itemRow(item, '📅', '#0288d1', navTo(item));
     });
     dashHtml += renderSection('inventory_2', 'Inventory Items', inventoryBacklinks, function(item) {
-      return itemRow(item, '📦', '#009688', navTo(item));
+      return itemRow(item, '📦', '#009688', navTo(item), { pinnable: true });
     });
     dashHtml += renderSection('location_on', 'Locations', locationBacklinks, function(item) {
       return itemRow(item, '📍', '#546e7a', navTo(item));
@@ -485,6 +592,54 @@
 
     dash.innerHTML = dashHtml;
   }
+
+  // ── #101: Pin / unpin a protocol or inventory item to a person's favorites ──
+  // Stored in the person card's frontmatter as a list-of-mappings:
+  //   favorites:
+  //     - slug: dneasy-plant
+  //       type: protocol
+  //     - slug: nanodrop-spectrophotometer
+  //       type: equipment
+  // The list-of-mappings shape is the only nested structure shared.js
+  // parseFrontmatter / buildFrontmatter currently support, so we use it.
+  // Toggling re-fetches a fresh sha right before saving (the cached one in
+  // _personFavoritesState may be stale if Pages just rebuilt) and re-renders
+  // the dashboard on success.
+  window.togglePinFavorite = async function(slug, type) {
+    var state = window._personFavoritesState;
+    if (!state || !state.canEdit) return;
+    var gh = Lab.gh;
+    if (!gh || !gh.isLoggedIn()) { Lab.showToast && Lab.showToast('Sign in to pin items', 'error'); return; }
+
+    try {
+      // Always fetch fresh — sha may be stale.
+      var fresh = await gh.fetchFile(state.personPath);
+      var parsed = Lab.parseFrontmatter(fresh.content);
+      var meta = parsed.meta || {};
+      var favs = Array.isArray(meta.favorites) ? meta.favorites.slice() : [];
+
+      var existing = favs.findIndex(function(f) { return f && f.slug === slug; });
+      if (existing >= 0) {
+        favs.splice(existing, 1);
+      } else {
+        var entry = { slug: slug };
+        if (type) entry.type = type;
+        favs.push(entry);
+      }
+      meta.favorites = favs;
+
+      var newContent = Lab.buildFrontmatter(meta, parsed.body);
+      await gh.saveFile(state.personPath, newContent, fresh.sha,
+        (existing >= 0 ? 'Unpin' : 'Pin') + ' ' + slug + ' for ' + state.slug);
+
+      Lab.showToast && Lab.showToast(existing >= 0 ? 'Unpinned' : 'Pinned to favorites', 'success');
+      // Re-render the dashboard so the Frequently used section + star icons update.
+      renderPersonDashboard(state.slug);
+    } catch(e) {
+      console.error('togglePinFavorite failed', e);
+      Lab.showToast && Lab.showToast('Could not save: ' + e.message, 'error');
+    }
+  };
 
   // ── URL routing ──
   function route() {
