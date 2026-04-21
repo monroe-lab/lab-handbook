@@ -713,6 +713,56 @@ async function updateWikilinksAfterMove(oldDocPath, newDocPath) {
   }
 }
 
+// After a slug rename, rewrite inbound wikilinks in every other .md file so
+// [[old-slug]] and [[dir/old-slug]] point to [[new-slug]]. Without this, the
+// rename leaves dangling references that render as grey "unknown" pills on
+// every consuming surface (notebooks, wiki, other protocols, etc.).
+// QA13 scenario — see qa-state.json.
+async function updateWikilinksAfterRename(newDocPath, oldSlug, newSlug, dir) {
+  var gh = Lab.gh;
+  var oldDocPath = dir + '/' + oldSlug;
+  var escapeRe = function(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+  // Match bare `[[old-slug]]` + optional `|label` OR path-qualified
+  // `[[dir/old-slug]]` + optional `|label`. Both rewrite to `[[new-slug]]`
+  // (prefer short form — same convention as updateWikilinksAfterMove).
+  var pattern = new RegExp(
+    '\\[\\[(?:' + escapeRe(oldDocPath) + '|' + escapeRe(oldSlug) + ')(\\|[^\\]]*)?\\]\\]',
+    'g'
+  );
+
+  var allFiles = await gh.fetchTree('docs');
+  var mdFiles = allFiles.filter(function(f) { return f.endsWith('.md'); });
+
+  var updated = 0;
+  var touched = [];
+  for (var i = 0; i < mdFiles.length; i++) {
+    var filePath = mdFiles[i];
+    // Skip the renamed file itself (both old path — already deleted — and new)
+    if (filePath === 'docs/' + oldDocPath + '.md' || filePath === 'docs/' + newDocPath + '.md') continue;
+
+    try {
+      var file = await gh.fetchFile(filePath);
+      var newContent = file.content.replace(pattern, function(match, label) {
+        return '[[' + newSlug + (label || '') + ']]';
+      });
+      if (newContent === file.content) continue;
+
+      await gh.saveFile(filePath, newContent, file.sha, 'Update wikilinks: ' + oldSlug + ' → ' + newSlug);
+      // Keep link-index overlay in sync so the rewritten pills resolve without
+      // waiting for the static link-index.json to rebuild on next deploy.
+      try { gh.patchLinkIndex(filePath, newContent); } catch(_) {}
+      updated++;
+      touched.push(filePath);
+    } catch(e) {
+      // Skip files we can't read/write — do not abort the whole sweep.
+    }
+  }
+  if (updated > 0) {
+    Lab.showToast('Updated links in ' + updated + ' file' + (updated > 1 ? 's' : ''), 'success');
+  }
+  return { updated: updated, touched: touched };
+}
+
 // ── Load Document ──
 // ── Post-process rendered HTML ──
 // 1. Wrap h2 sections in collapsible <details> elements
@@ -1475,6 +1525,14 @@ async function renameDoc() {
       cachedBody = newBody;
       isEditing = false;
       window.removeEventListener('beforeunload', unsavedGuard);
+
+      // QA13: rewrite inbound wikilinks in other files so [[old-slug]] and
+      // [[dir/old-slug]] continue to resolve to the renamed protocol. Runs in
+      // the background so the rename toast fires promptly.
+      updateWikilinksAfterRename(currentDoc, oldSlug, newSlug, dir).catch(function(e) {
+        console.warn('Wikilink rewrite after rename failed', e);
+        Lab.showToast('Links to old slug not fully updated: ' + e.message, 'warning', 6000);
+      });
     } else {
       // Same slug, just update title in file
       var saveResult = await gh.saveFile(filePath, newContent, result.sha, 'Rename: ' + oldTitle + ' → ' + newTitle);
