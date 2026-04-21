@@ -64,7 +64,27 @@
 .nb-main { flex: 1; overflow-y: auto; background: var(--grey-100); }
 .nb-content { max-width: 900px; margin: 0 auto; padding: 32px 40px; }
 
-/* Rendered markdown: uses .lab-rendered.theme-brown from base.css */
+/* Rendered markdown: uses .lab-rendered.theme-brown from base.css.
+   Notebook entries read like a written journal, so the body text uses a
+   serif stack. Scope is intentionally narrow — only the rendered body of
+   notebook entries, not edit chrome, sidebar, toolbar, or code blocks. */
+.nb-content .lab-rendered,
+.nb-content .lab-rendered p,
+.nb-content .lab-rendered li,
+.nb-content .lab-rendered blockquote,
+.nb-content .lab-rendered h1,
+.nb-content .lab-rendered h2,
+.nb-content .lab-rendered h3,
+.nb-content .lab-rendered h4 {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+}
+.nb-content .lab-rendered code,
+.nb-content .lab-rendered pre,
+.nb-content .lab-rendered kbd,
+.nb-content .lab-rendered samp {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
 
 .nb-edit-bar {
   display: flex; align-items: center; justify-content: space-between;
