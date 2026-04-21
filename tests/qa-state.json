@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 5,
+  "cycle": 6,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -319,6 +319,57 @@
         "Wiki viewer 404s for newly-created files until the next deploy even when the user is authenticated. Could fall back to Lab.gh.fetchFile for a live read from GitHub.",
         "tests/qa-cycle-5-verify.mjs kept as a regression harness: asserts contents / state='Solid' / days='0 d' / filter + search / reload all survive a freshly-created waste container."
       ]
+    },
+    {
+      "cycle": 6,
+      "persona": "Vianney Ahn",
+      "modifier": "rushed",
+      "scenario": "Lab notebook full day",
+      "task": "Created a blank notebook entry under vianney-ahn via the New Entry modal. Pasted markdown via editor.setMarkdown for: H1 + Person/Date metadata + 2 H2 sections + 7-row results table (NanoDrop A260/280, A260/230, ng/uL, volume) + an admonition (Watch Out callout) + 4 wikilinks ([[qiagen-dneasy-extraction]], [[box-pistachio-dna]], [[shelf-minus80-a-1]], [[sample-pistachio-4]]) + 3-item task list. Generated PNG data URLs for plant + gel images, uploaded both via Lab.editorModal.uploadImageBlob, inserted markdown image refs. Rushed double-clicked Save. Reloaded; confirmed all rich elements re-render including image data URLs via the GitHub-API live fallback. Clicked the QIAGEN DNeasy pill — successfully navigated to the protocol page.",
+      "screenshots": [
+        { "path": "/tmp/qa-screenshots/cycle6/01-notebooks-baseline.png", "shows": "Notebooks page baseline — sidebar with Grey Monroe (2), Barb M (6), Mr Freckles (1), Test User (0), Vianney Ahn (6); right pane Lab Notebooks header + Recent Entries list + bulb FAB", "evaluation": "Layout clean. Top nav fits but cuts off the last item with 'A...' on the right edge.", "issues_found": ["LEFTOVER-QA6-ENTRIES (housekeeping): three prior aborted qa6-notebook-full-day-* entries from earlier QA attempts visible in Recent Entries — cleaned up at end of cycle", "SEARCH-PLACEHOLDER-CLIPPED (cosmetic): sidebar search input placeholder 'Search notebook' truncates to 'Search noteboo|'", "TOPNAV-LAST-ITEM-CLIPPED (cosmetic): the rightmost top-nav tab ('Apps') gets cut to 'A...' on a 1440-wide viewport"] },
+        { "path": "/tmp/qa-screenshots/cycle6/03-new-entry-modal-opened.png", "shows": "New Entry modal — Entry Type dropdown defaulting to 'Daily entry (dated, with template)', Folder dropdown 'barb-m', Filename/Title field '2026-04-21'", "evaluation": "Modal centered with clear field labels in uppercase small caps and a subtle backdrop dim. Cancel + Create entry buttons.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/04-new-entry-modal-filled.png", "shows": "Modal filled programmatically — Type=Blank document (custom title), Folder=vianney-ahn, Title=qa6-notebook-full-day-mo9253fk", "evaluation": "Label correctly switches from 'FILENAME / TITLE' to 'TITLE' when type changes to Blank.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/06-after-create-doc-loaded.png", "shows": "After Create — VIANNEY AHN expanded with new entry highlighted (count 7), right pane shows the seed body (H1 + Person + Date), Print/Delete/Edit action bar, green 'Entry created' toast", "evaluation": "Sidebar count correctly incremented from 6 to 7 because createDoc patches the in-memory TREE. Highlighting + breadcrumb 'vianney-ahn/qa6-notebook-full-day-mo9253fk' render cleanly.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/08-editor-opened.png", "shows": "Edit mode — top pill rows for Insert (Resources/Stocks/People/Protocols/Projects/Samples/Waste) + Media (Image/GIF, YouTube, Video file), then a Toast UI toolbar (H, B, I, S, hr, quote, callout glyphs, code, ul/ol/task, table, link, code-block)", "evaluation": "Two-row insert palette is discoverable and color-coded by type. Toolbar consistent with other editors.", "issues_found": ["TOAST-LINGERS (minor ux): the 'Entry created' toast is still visible in this screenshot taken several seconds after creation — could fade after ~3s instead of staying for ~10s+"] },
+        { "path": "/tmp/qa-screenshots/cycle6/09-editor-after-setmarkdown.png", "shows": "Editor after editor.setMarkdown with a rich body — table rendered with headers, NTC row uses em-dashes, callout 'Watch Out' renders, three [[wikilinks]] visible as raw [[slug]] text", "evaluation": "Tables, headings, callout all render in WYSIWYG. The raw [[wikilink]] syntax visible in the editor is a script artifact (setMarkdown bypasses Lab.editorModal.wikilinksToLinks). On save the markdown ships as-is and renders fine downstream.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/12-after-save-rendered.png", "shows": "After save — view mode showing H1 + Person/Date + Plan/What I did sections + clickable purple 'QIAGEN DNeasy Plant Extraction' Protocol pill + 7-row table with uppercase column headers + start of 'Results & observations' + green 'Saved' toast", "evaluation": "Save round-trip works. QIAGEN DNeasy wikilink rendered as a properly-styled Protocol pill with book icon. Table column headers in uppercase grey 12px caps look polished.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/14-after-reload-rendered.png", "shows": "After full page reload — same rendered content but sidebar VIANNEY AHN reverted to count 6 (was 7 just before reload) and the folder is collapsed, losing our entry highlight", "evaluation": "Body content persisted correctly through GitHub. BUT sidebar regressed: the new entry is missing from the count even though we're currently viewing it.", "issues_found": ["SIDEBAR-FOLDER-COUNT-STALE (functional, fixed this cycle): VIANNEY AHN count goes 6→7 on creation but reverts to 6 after reload because fetchTree returns GitHub's git/trees API view which lags a few seconds behind the just-committed file"] },
+        { "path": "/tmp/qa-screenshots/cycle6/15-after-reload-image-area.png", "shows": "Scrolled to images section after reload — 'Watch Out' callout (peach background, divider, body), wikilinks rendered as type-colored pills (📦 brown 'Pistachio DNA Box', grey-blue 'Shelf 1', purple 'Pistachio Tree #4'), 3-item task list with checkboxes, 'Images' H2, then the actual green plant square (120x120) and dark grey gel rectangle (160x80)", "evaluation": "All wikilinks resolve correctly to type-colored pills with the right icon. The pre-deploy image fallback works: data URLs captured during save are used to render the imgs even though the static path won't exist on GitHub Pages until the next deploy. End-to-end rich rendering works.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/17-after-reload-callout-area.png", "shows": "Scrolled to callout — Watch Out admonition with peach divider + body, wikilinks below, Next steps task list including 'Update [Pistachio Tree #4] notes' with the wikilink rendered as a purple pill inside the task item", "evaluation": "Wikilinks resolve correctly inside task items. Task checkboxes render unchecked. One column header in the table above (VOLUME (ML)) renders in teal — likely a hover/focus highlight from scrollIntoView landing the cursor over that column.", "issues_found": ["TABLE-HEADER-HOVER-COLOR (cosmetic, minor): when the cursor lands over a table column header (e.g. via scrollIntoView landing point), only that header switches to a teal text color while siblings stay black — looks visually inconsistent if a user accidentally rests the mouse there"] },
+        { "path": "/tmp/qa-screenshots/cycle6/18-sidebar-with-new-entry.png", "shows": "Same as 14 — sidebar still shows VIANNEY AHN (6) collapsed, our entry not visible without manual expansion", "evaluation": "Confirms the sidebar bug.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6/20-after-wikilink-click.png", "shows": "After clicking the 'QIAGEN DNeasy Plant Extraction' pill — protocol page loaded showing Resources / Reagents (Centrifuge, Heat Block, etc.) / Equipment / Related Protocols / Prerequisites sections", "evaluation": "Cross-surface wikilink click works end-to-end: notebook → protocol page. The route changed and the protocol body loaded with its own wikilinks resolved.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle6-verify/03-after-reload.png", "shows": "POST-FIX verify — after creating a new notebook entry with [[sample-pistachio-4]] and [[qiagen-dneasy-extraction]] wikilinks and reloading", "evaluation": "Verified by Lab.gh.fetchTree returning sawIt:true and lab_tree_patches['docs/notebooks/.../qa6v-...md'].kind='added'. Lab.gh.fetchLinkIndex returned 1 hit from our source for both wikilink targets. Lab.gh.fetchObjectIndex includes our entry with type=notebook,title set. Both fixes confirmed deployed and working.", "issues_found": [] }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "Sidebar folder count regresses after reload — VIANNEY AHN goes 6→7 on creation but back to 6 after reload because fetchTree returns GitHub's git/trees API view which lags the just-committed file by a few seconds",
+          "evidence": "screenshots/cycle6/14-after-reload-rendered.png and 18-sidebar-with-new-entry.png both show count 6 even though we're actively viewing the just-created entry. fetchTree was called fresh on reload and returned a stale list.",
+          "root_cause": "fetchTree() in app/js/github-api.js read GitHub's git/trees recursive endpoint with no overlay layer. saveFile and deleteFile did not record their changes anywhere fetchTree could see, so any caller (notebooks.html sidebar, wiki.html, protocols.html) would render a stale tree until the API caught up.",
+          "status": "fixed"
+        },
+        {
+          "severity": "functional",
+          "summary": "Notebook entries saved via notebooks.html did not appear in the link-index overlay — wikilinks pointing to sample-pistachio-4, qiagen-dneasy-extraction, etc. did not surface as backlinks on those targets until the next deploy",
+          "evidence": "Initial cycle 6 script output 'backlink index hits: {}' — fetchLinkIndex returned no entries from the new doc to its known wikilink targets. notebooks.html saveDoc only called Lab.gh.saveFile, never patchObjectIndex or patchLinkIndex.",
+          "root_cause": "The cycle-1 patchLinkIndex fix was wired into editor-modal.js's save flow but notebooks.html's saveDoc / createDoc / deleteDoc did not call any of patchObjectIndex / patchLinkIndex / removeFrom*, so notebook saves bypassed the overlay machinery that pages like editor-modal popups depend on.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": [
+        "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) — saveFile and deleteFile now record their path changes; fetchTree merges them into the API response so any caller (notebooks/wiki/protocols sidebars) sees the just-saved file immediately (app/js/github-api.js, commit e0a0f44)",
+        "notebooks.html saveDoc / createDoc / deleteDoc now apply patchObjectIndex + patchLinkIndex (and removeFrom* on delete) so the new entry shows up in the hierarchy + backlink panels of every wikilink target without waiting for a deploy (app/notebooks.html, commit e0a0f44)"
+      ],
+      "observations": [
+        "Notebooks Add Entry modal works cleanly — the field label adapts ('FILENAME / TITLE' vs 'TITLE') based on the entry type dropdown.",
+        "Editor's Insert/Media pill rows are a discoverable way to insert typed pills + media without typing markdown manually.",
+        "All rich elements (table, callout, task list, wikilink pills, images) round-trip correctly through save/reload — image fallback via data URLs works pre-deploy.",
+        "Wikilinks render as type-colored pills with correct icons even when nested in task items — `[[sample-pistachio-4]]` inside a `- [ ]` becomes a clickable purple Sample pill.",
+        "Cross-surface wikilink click from notebook to protocol page works end-to-end via the obj:// URI scheme.",
+        "Toast notifications linger ~10s before fading — could be tightened to ~3s (one of the 'editor-opened' screenshots still shows the 'Entry created' toast from several actions earlier).",
+        "tests/qa-cycle-6-verify.mjs kept as a regression harness — creates a notebook entry, reloads, asserts fetchTree.sawIt and link-index hit counts > 0 for both wikilink targets."
+      ]
     }
   ],
   "bugs_found": [
@@ -327,6 +378,12 @@
     "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay — counts + alerts lagged until site redeploy",
     "OF-FIELD-NOT-CLICKABLE (functional, fixed in cycle 4): the `of` field on bottle/tube popups rendered as plain slug text while the `parent` field was a clickable object pill — cross_linker could not navigate instance → concept from the fields column",
     "WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed in cycle 5): client INDEX_KEYS did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or sample-tracker fields (sample_id, species, lead, sequencing_type) that the server-side EXTRACT_KEYS has, so patchObjectIndex dropped them — new waste containers showed blank Contents/State/Days Held until the next deploy and filters excluded them",
+    "FETCHTREE-NO-OVERLAY (functional, fixed in cycle 6): fetchTree returned GitHub's git/trees view directly with no localStorage overlay, so the notebooks/wiki/protocols sidebars showed pre-save folder counts after a reload until the API caught up (~30s)",
+    "NOTEBOOKS-SAVE-NO-PATCH (functional, fixed in cycle 6): notebooks.html saveDoc/createDoc/deleteDoc never called patchObjectIndex / patchLinkIndex / removeFrom*, so notebook saves bypassed the overlays — backlinks on wikilink targets did not include the new entry until the next deploy",
+    "TABLE-HEADER-HOVER-COLOR (cosmetic, open from cycle 6): a single table column header switches to teal text on hover/focus while siblings stay black, looking visually inconsistent",
+    "TOAST-LINGERS (cosmetic, open from cycle 6): success toasts (Entry created / Saved) stay visible for ~10s+ — could fade after ~3s",
+    "TOPNAV-LAST-ITEM-CLIPPED (cosmetic, open from cycle 6): the rightmost top-nav tab gets cut off (e.g. 'Apps' → 'A...') on a 1440-wide viewport",
+    "SEARCH-PLACEHOLDER-CLIPPED (cosmetic, open from cycle 6): notebook sidebar search input placeholder 'Search notebook' truncates to 'Search noteboo|' due to too-narrow input width",
     "STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' as raw slug text; the waste table formats the same value as 'In Accumulation' amber pill",
     "WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file",
     "NAV-TRUNCATION (cosmetic, open): top nav 'Lab Map' tab label appears truncated to 'Lab M' on 1440-wide viewport",
@@ -343,7 +400,9 @@
     "Hierarchy cache invalidation on patchObjectIndex / removeFromObjectIndex (app/js/github-api.js, commit 3d94ff8)",
     "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)",
     "`of` field renders a clickable object pill matching the `parent` field treatment — new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)",
-    "INDEX_KEYS now mirrors EXTRACT_KEYS — client-side localStorage overlay preserves waste-container + sample-tracker fields so freshly-saved rows render complete (app/js/github-api.js, commit 5c01bed)"
+    "INDEX_KEYS now mirrors EXTRACT_KEYS — client-side localStorage overlay preserves waste-container + sample-tracker fields so freshly-saved rows render complete (app/js/github-api.js, commit 5c01bed)",
+    "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) — saveFile/deleteFile record path changes, fetchTree merges them so notebooks/wiki/protocols sidebars reflect just-committed files immediately (app/js/github-api.js, commit e0a0f44)",
+    "notebooks.html save/create/delete now call patchObjectIndex + patchLinkIndex (and removeFrom* on delete) so new notebook entries register as backlink sources on their wikilink targets without waiting for a deploy (app/notebooks.html, commit e0a0f44)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -359,7 +418,9 @@
     "/tmp/qa-screenshots/cycle4/ — 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
     "/tmp/qa-screenshots/cycle4-verify/ — 2 verification screenshots confirming the `of` pill upgrade",
     "/tmp/qa-screenshots/cycle5/ — 30 screenshots + _log.json, full waste-container create flow with table/filter/search/reload/wiki/lab-map/dashboard states",
-    "/tmp/qa-screenshots/cycle5-verify/ — 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)"
+    "/tmp/qa-screenshots/cycle5-verify/ — 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)",
+    "/tmp/qa-screenshots/cycle6/ — 21 screenshots + _log.json, full notebook-create-edit-save-reload-wikilinkclick flow with table/callout/wikilinks/images all rendered + evaluated",
+    "/tmp/qa-screenshots/cycle6-verify/ — 3 verification screenshots confirming both fetchTree overlay and notebook-save patch overlays"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -369,6 +430,7 @@
     "Cycle 3: Dr. Monroe + ui_critic + Reorder day. Toggled 3 items to needs_more, verified inventory stat cards and dashboard alert list. Caught a stale-dashboard-index bug (dashboard raw-fetched object-index.json, bypassing patch overlay). Fixed in commit 763ad51, verified via tests/qa-cycle-3-verify.mjs (kept as regression harness). All items restored to in_stock.",
     "Cycle 4: Kayla Torres (undergrad) + cross_linker + Cross-page wikilink crawl. Read-only walk: Dashboard → QIAGEN DNeasy protocol → Ethanol Absolute reagent (popup) → ethanol-absolute bottle (popup with breadcrumb) → Flammable Cabinet (cabinet popup, 16 bottles) → Robbins Hall 0170 (room popup, 9 children). Found OF-FIELD-NOT-CLICKABLE bug: the `of` field on a bottle popup was plain text while `parent` was a clickable pill. Fix (commit b0da836) adds a parallel `data-of-pill` placeholder and extends upgradeParentField to handle both. Verified via tests/qa-cycle-4-verify.mjs — kept as regression harness.",
     "Cycle 5: Kayla Torres (undergrad) + thorough + Waste container. Thorough-filled the waste.html Add Container form (long contents paragraph, Solid state, compound location). Found WASTE-FIELDS-NOT-IN-INDEX-KEYS bug: the table row showed blank Contents, blank State, '—' Days Held, and the state filter + content search excluded it because the client INDEX_KEYS whitelist dropped waste fields during patchObjectIndex. Fix (commit 5c01bed) syncs INDEX_KEYS with the server's EXTRACT_KEYS so contents/physical_state/started/etc. (plus sample-tracker fields) flow through the localStorage overlay. Verified via tests/qa-cycle-5-verify.mjs — both QA5 test files cleaned up via gh API.",
+    "Cycle 6: Vianney Ahn (grad student) + rushed + Lab notebook full day. Created a blank notebook entry with H1, two H2 sections, a 7-row NanoDrop results table, a callout, 4 wikilinks, a task list, and 2 small generated PNGs uploaded via Lab.editorModal.uploadImageBlob. Rushed double-saved. Reloaded; all rich elements re-rendered correctly including image data URLs via the GitHub-API live fallback. Found two bugs: FETCHTREE-NO-OVERLAY (sidebar folder count regresses after reload because GitHub's git/trees endpoint lags) and NOTEBOOKS-SAVE-NO-PATCH (notebooks.html bypasses patchObjectIndex/patchLinkIndex so backlink panels miss the new entry until next deploy). Both fixed in commit e0a0f44: fetchTree gets a TREE_PATCH_KEY localStorage overlay (5-min TTL) populated by saveFile/deleteFile, and notebooks.html save/create/delete now call patchObjectIndex+patchLinkIndex (or removeFrom*). Post-deploy verify (tests/qa-cycle-6-verify.mjs, kept as harness) confirmed fetchTree.sawIt=true and link-index hit count=1 for both wikilink targets. All cycle-6 test artifacts (4 notebook entries + 4 uploaded images + 1 verify entry) cleaned up via gh API.",
     "Phase remains 'functional'."
   ]
 }
