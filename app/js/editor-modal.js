@@ -561,16 +561,19 @@
     return overlayEl;
   }
 
-  // After renderFields writes a `<span data-parent-pill="slug">` placeholder
-  // for the `parent` field, this replaces the placeholder content with a
-  // proper object pill that navigates to the parent when clicked. If the slug
+  // After renderFields writes a `<span data-parent-pill="slug">` or
+  // `<span data-of-pill="slug">` placeholder, this replaces the placeholder
+  // with a proper object pill that navigates when clicked. If the slug
   // can't be resolved in the index, the placeholder stays as raw text.
   async function upgradeParentField() {
-    var pills = document.querySelectorAll('[data-parent-pill]');
+    var pills = document.querySelectorAll('[data-parent-pill], [data-of-pill]');
     if (!pills.length || !window.Lab.hierarchy) return;
     for (var i = 0; i < pills.length; i++) {
       var span = pills[i];
-      var raw = span.getAttribute('data-parent-pill') || '';
+      var raw = span.getAttribute('data-parent-pill') || span.getAttribute('data-of-pill') || '';
+      // For `of`, slugs are usually bare (e.g. "resources/ethanol-absolute")
+      // and don't need parent-path normalization. normalizeParent handles
+      // already-normalized slugs safely, so reuse it for both fields.
       var norm = window.Lab.hierarchy.normalizeParent(raw);
       if (!norm) continue;
       var entry = await window.Lab.hierarchy.get(norm);
@@ -1127,6 +1130,18 @@
           html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
             '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
             '<span data-parent-pill="' + parentSlug + '" style="font-weight:500">' + parentSlug + '</span>' +
+            '</div>';
+          return;
+        }
+
+        // Of field: same treatment as parent — a slug that points at another
+        // object (a concept, for instances like bottle/tube). Upgraded to a
+        // clickable pill so the fields column can traverse instance → concept.
+        if (field.key === 'of') {
+          var ofSlug = window.Lab.escHtml(String(val));
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
+            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
+            '<span data-of-pill="' + ofSlug + '" style="font-weight:500">' + ofSlug + '</span>' +
             '</div>';
           return;
         }
