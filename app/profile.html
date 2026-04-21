@@ -400,7 +400,7 @@
     if (Object.keys(allUsers).length > 1) {
       var options = Object.keys(allUsers).map(function(l) {
         var selected = l === user.login ? ' selected' : '';
-        return '<option value="' + esc(l) + '"' + selected + '">' + esc(allUsers[l].display_name || l) + '</option>';
+        return '<option value="' + esc(l) + '"' + selected + '>' + esc(allUsers[l].display_name || l) + '</option>';
       }).join('');
       picker = '<div class="profile-user-picker">Viewing: <select id="userPicker">' + options + '</select></div>';
     }

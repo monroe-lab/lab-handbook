@@ -52,6 +52,17 @@ OUTPUT = ROOT / "docs" / "user-stats.json"
 # to their GitHub login here. Add entries when onboarding new lab members.
 EMAIL_LOGIN_MAP = {
     "greymonroe@gmail.com": "greymonroe",
+    "a.vianney221@gmail.com": "vianneyahn",
+}
+
+# Known GitHub logins for the lab (from collaborator list). When the commit
+# `name` field exactly matches one of these (case-insensitive), we trust it as
+# the GitHub login. This catches the common case where someone configures
+# `git config user.name "their-github-login"` but uses a personal email.
+KNOWN_LOGINS = {
+    "greymonroe", "alicepierce", "mariele-lensink", "satoyo08", "kehanzhao",
+    "chaeheelee", "matthewwdavis", "katyagilmore", "luna-san-2911",
+    "vianneyahn", "ijdemarco-sys",
 }
 
 NOREPLY_RE = re.compile(r"^(\d+\+)?([a-zA-Z0-9][\w-]+)@users\.noreply\.github\.com$")
@@ -66,6 +77,10 @@ def infer_login(name: str, email: str) -> str:
     m = NOREPLY_RE.match(email_l)
     if m:
         return m.group(2)
+    # If the commit name field matches a known lab GitHub login, use it.
+    name_l = (name or "").lower().strip()
+    if name_l in KNOWN_LOGINS:
+        return name_l
     # Last resort: use the email local-part lowercased
     local = email_l.split("@", 1)[0]
     return local or name.lower().replace(" ", "-")
