@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 4,
+  "cycle": 5,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -276,6 +276,49 @@
         "The issue-reporter FAB at fixed bottom-left overlaps the first data column of wide tables (inventory) — a row at y≈797 has its first ~40px hidden behind the blue button.",
         "Lab-map filter uses case-insensitive substring match; 'ethanol' matches 'methanol' and '2-mercaptoethanol'."
       ]
+    },
+    {
+      "cycle": 5,
+      "persona": "Kayla Torres",
+      "modifier": "thorough",
+      "scenario": "Waste container",
+      "task": "Created a hazardous waste container thoroughly (name, contents paragraph, Solid state, compound location 'Robbins Hall 0170 / Flammable Cabinet') via the waste.html Add Container modal. Verified the editor popup rendered every frontmatter field. Inspected the table row, filter by Solid state, search by contents keyword, reload for persistence, wiki page fetch, lab-map filter, and dashboard count.",
+      "screenshots": [
+        { "path": "/tmp/qa-screenshots/cycle5/01-dashboard-baseline.png", "shows": "Dashboard baseline (Inventory 480 / Protocols 108 / People 7 / Projects 9 / Notebooks 9). Inventory Status card 226 In Stock / 1 Out of Stock. Recent Updates list of cycle-3 cleanup commits. Bulletin board with quilt image.", "evaluation": "Clean, consistent with cycle 4. 'Lab M' truncation still present in top nav (known).", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/03-waste-page-baseline.png", "shows": "Waste page with 3 existing containers (NIB Buffer + BME Waste, Paraquat Solid Waste, Paraquat Wash Waste). Stat cards 3/0/0. Red 'Hazardous Waste' header with delete icon, three red policy link pills.", "evaluation": "Rows show full Contents / State / Location / Status / Days Held populated for existing containers (39d, 203d, 203d). Amber 'In Accumulation' status pills consistent.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/05-add-modal-opened.png", "shows": "New Waste Container modal with Name (required), Contents, Physical State (dropdown), Location fields.", "evaluation": "Form layout clean, sensible placeholders (e.g. 'Phenol Chloroform Waste'). Note: Grey/lighter form styling than the red header — consistent with the rest of the editor modals.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/06-add-modal-filled.png", "shows": "Form filled: Name='QA5 Ethanol-Contaminated Gloves mo8w9bvb', Contents='Nitrile gloves contaminated with 100% ethanol absolute; also kimwi...' (truncated), State=Solid, Location='Hall 0170 / Flammable Cabinet' (truncated on the right).", "evaluation": "Fields accept long strings. Contents input truncates visibly but full value is preserved. Location field is the only one that fits comfortably.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/08-after-create-editor-open.png", "shows": "Editor popup auto-opens after Create. Type=Waste Container pill with skull icon, Link wikilink (with copy button), Name, Contents (full 4-line paragraph rendered), Physical State=Solid, Location, Status=in_accumulation, Started=2026-04-21. Body renders H1 + Notes / Related sections. Green toast 'Created: QA5 …' bottom-right.", "evaluation": "Every frontmatter field surfaced in the popup's FIELDS column. Status displays the RAW slug 'in_accumulation' — should be 'In Accumulation' with amber pill to match the waste table treatment. Notes body is just '-' placeholder (correct). Behind the modal the table row count incremented 3→4.", "issues_found": ["STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' raw slug text; the waste table formats the same value as 'In Accumulation' pill"] },
+        { "path": "/tmp/qa-screenshots/cycle5/13-table-with-new-row.png", "shows": "BUG: New QA5 row rendered with EMPTY Contents, EMPTY State column, '—' (em dash) in Days Held. Location, Status pill, name all correct. Row has a light teal highlight (recently-created).", "evaluation": "Functional bug caught. The patch-overlay write dropped the contents / physical_state / started fields because INDEX_KEYS in github-api.js didn't include them; daysSince(undefined)=null → em dash; the state filter can't match and the content search can't match.", "issues_found": ["WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed this cycle): new waste containers show blank Contents/State and '—' Days Held until the next deploy"] },
+        { "path": "/tmp/qa-screenshots/cycle5/15-after-filter-solid.png", "shows": "Filter=Solid collapses table to 1 row (Paraquat Solid Waste) — our QA5 row, which IS Solid, is missing. Stat cards unchanged (4 active).", "evaluation": "Direct consequence of the bug: physical_state='' in the overlay cannot match the 'Solid' filter.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/17-after-search-ethanol.png", "shows": "Search 'ethanol-contaminated' + In Accumulation + Solid filters → empty state with big search_off icon and 'No waste containers match your filters.'", "evaluation": "The QA5 row's contents literally contain the search string but is hidden because contents='' in the overlay. Empty-state illustration + message render cleanly.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/21-row-clicked-editor-open.png", "shows": "Row click re-opens the same editor popup — still shows the full Contents / Physical State / Started fields from the actual file.", "evaluation": "Popup reads from the file directly (via Lab.gh.fetchFile), so its data is complete even though the table row is not. Confirms the bug is strictly in the INDEX patch path.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/25-after-reload-waste.png", "shows": "Page reload — the QA5 row reappears with same bug profile (empty Contents / State / Days Held). Highlight ring persisted via localStorage.", "evaluation": "The localStorage overlay survives reload but still missing the fields — confirms the bug is in INDEX_KEYS filtering during patchObjectIndex, not in a volatile runtime cache.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5/27-wiki-view-container.png", "shows": "Wiki page for the new container: sidebar shows Waste category with count 5 (4 containers + index). Right pane: '! Failed to load: Failed to load docs/waste/qa5-ethanol-gloves-mo8w9bvb.md (HTTP 404)'.", "evaluation": "Expected pre-deploy — the wiki page fetches from the raw static site. Could be improved to fall back to Lab.gh.fetchFile when logged in so newly-created files render immediately.", "issues_found": ["WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file"] },
+        { "path": "/tmp/qa-screenshots/cycle5/28-lab-map-baseline.png", "shows": "Lab Map tree — waste containers do NOT appear because they use `location:` as a free-text string, not a `parent:` slug. Rooms (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 0170) listed, with Robbins expanded to show freezer/fridge children.", "evaluation": "Design observation, not a bug: waste containers live in a separate surface (waste.html). They could optionally adopt the `parent:` hierarchy field to appear on the lab map, but that would require frontmatter migration for existing containers.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5-verify/03-row-post-fix.png", "shows": "POST-FIX verification run (after the INDEX_KEYS commit deployed). Table shows BOTH QA5 rows with full Contents ('Nitrile gloves contaminated with…'), State='Solid', Days Held='0 d'. Location / Status / Days Held all populated. Green toast 'Created: QA5V …' bottom right.", "evaluation": "Fix verified. Row is complete during the overlay window. Days Held correctly reads '0 d' — daysSince(today)=0 — matching the stat card.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5-verify/04-filter-solid-includes-qa5.png", "shows": "Filter=Solid. Shows Paraquat Solid Waste + both QA5 rows — 3 matches. Stat cards unchanged.", "evaluation": "Confirmed filter now matches on the post-fix overlay.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5-verify/05-search-contents-includes-qa5.png", "shows": "Search='ethanol-contaminated' + Solid filter → both QA5 rows present.", "evaluation": "Content-field search works now that the overlay preserves the contents string.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle5-verify/06-reload-overlay-kept.png", "shows": "After reload without filters — both QA5 rows with full data (Contents, State=Solid, 0 d) persist.", "evaluation": "localStorage overlay correctly persists the expanded field set across reloads.", "issues_found": [] }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "Newly-created waste containers (and by extension sample-tracker entries) showed blank Contents, blank Physical State, and '—' for Days Held in the waste table until the next site deploy. Filters by state and searches against contents excluded the row.",
+          "evidence": "cycle5/13-table-with-new-row.png shows the QA5 row with empty Contents + empty State + '—' Days Held; cycle5/15-after-filter-solid.png hides the row when filtering by Solid; cycle5/17-after-search-ethanol.png returns the empty-state when searching for the contents keyword.",
+          "root_cause": "patchObjectIndex in app/js/github-api.js whitelists fields against INDEX_KEYS. That list did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or the sample-tracker fields (sample_id, species, lead, sequencing_type) even though the server-side scripts/build-object-index.py has them in EXTRACT_KEYS. Every save via patchObjectIndex therefore dropped these fields from the localStorage overlay, so pages that read them rendered blanks during the window between save and next deploy.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": ["Added waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) and sample-tracker fields (sample_id, species, lead, sequencing_type) to INDEX_KEYS in app/js/github-api.js so the client list mirrors EXTRACT_KEYS in scripts/build-object-index.py (commit 5c01bed)."],
+      "observations": [
+        "waste.html Add Container modal keeps things minimal — only Name (required), Contents, Physical State, Location. Other fields (hazard_class, waste_tag, status, started) are either auto-filled or edited later via the popup.",
+        "Editor popup for a waste container surfaces the full frontmatter including a Type='Waste Container' pill with skull icon — the icon is a nice touch for hazardous items.",
+        "Status in the popup field column renders as raw slug 'in_accumulation'; the waste table uses 'In Accumulation' with an amber pill. Minor asymmetry worth a future fix.",
+        "Waste containers use `location:` as a free-text string rather than a `parent:` slug, so they do NOT appear in the lab-map hierarchy tree. They're a separate surface on waste.html.",
+        "Wiki viewer 404s for newly-created files until the next deploy even when the user is authenticated. Could fall back to Lab.gh.fetchFile for a live read from GitHub.",
+        "tests/qa-cycle-5-verify.mjs kept as a regression harness: asserts contents / state='Solid' / days='0 d' / filter + search / reload all survive a freshly-created waste container."
+      ]
     }
   ],
   "bugs_found": [
@@ -283,6 +326,9 @@
     "HIERARCHY-CACHE-STALE (functional, fixed in cycle 2): after a save the Lab.hierarchy cache retained its pre-save snapshot, so parent CONTENTS + child breadcrumbs were missing for new objects until reload",
     "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay — counts + alerts lagged until site redeploy",
     "OF-FIELD-NOT-CLICKABLE (functional, fixed in cycle 4): the `of` field on bottle/tube popups rendered as plain slug text while the `parent` field was a clickable object pill — cross_linker could not navigate instance → concept from the fields column",
+    "WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed in cycle 5): client INDEX_KEYS did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or sample-tracker fields (sample_id, species, lead, sequencing_type) that the server-side EXTRACT_KEYS has, so patchObjectIndex dropped them — new waste containers showed blank Contents/State/Days Held until the next deploy and filters excluded them",
+    "STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' as raw slug text; the waste table formats the same value as 'In Accumulation' amber pill",
+    "WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file",
     "NAV-TRUNCATION (cosmetic, open): top nav 'Lab Map' tab label appears truncated to 'Lab M' on 1440-wide viewport",
     "MAP-PLACEHOLDER-OVERLAP (cosmetic, open): SVG placeholder for the floor-plan has overlapping text labels",
     "BREADCRUMB-DANGLING-SLASH (cosmetic, open): popup breadcrumb wraps to two lines and leaves a trailing '/' with nothing after on deep chains",
@@ -296,7 +342,8 @@
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
     "Hierarchy cache invalidation on patchObjectIndex / removeFromObjectIndex (app/js/github-api.js, commit 3d94ff8)",
     "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)",
-    "`of` field renders a clickable object pill matching the `parent` field treatment — new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)"
+    "`of` field renders a clickable object pill matching the `parent` field treatment — new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)",
+    "INDEX_KEYS now mirrors EXTRACT_KEYS — client-side localStorage overlay preserves waste-container + sample-tracker fields so freshly-saved rows render complete (app/js/github-api.js, commit 5c01bed)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -310,7 +357,9 @@
     "/tmp/qa-screenshots/cycle3/ — 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
     "/tmp/qa-screenshots/cycle3-verify/ — 3 verification screenshots confirming the dashboard fix",
     "/tmp/qa-screenshots/cycle4/ — 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
-    "/tmp/qa-screenshots/cycle4-verify/ — 2 verification screenshots confirming the `of` pill upgrade"
+    "/tmp/qa-screenshots/cycle4-verify/ — 2 verification screenshots confirming the `of` pill upgrade",
+    "/tmp/qa-screenshots/cycle5/ — 30 screenshots + _log.json, full waste-container create flow with table/filter/search/reload/wiki/lab-map/dashboard states",
+    "/tmp/qa-screenshots/cycle5-verify/ — 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -319,6 +368,7 @@
     "Cycle 2: Alex Chen + cross_linker + Ethanol bottle day. Created bottle-ethanol-absolute-qa2-* pointing to the ethanol-absolute concept, placed on Chemistry Bench Area, then moved to Flammable Cabinet. All artifacts cleaned up. Hierarchy cache bug found and fixed (children + breadcrumbs now refresh immediately after save).",
     "Cycle 3: Dr. Monroe + ui_critic + Reorder day. Toggled 3 items to needs_more, verified inventory stat cards and dashboard alert list. Caught a stale-dashboard-index bug (dashboard raw-fetched object-index.json, bypassing patch overlay). Fixed in commit 763ad51, verified via tests/qa-cycle-3-verify.mjs (kept as regression harness). All items restored to in_stock.",
     "Cycle 4: Kayla Torres (undergrad) + cross_linker + Cross-page wikilink crawl. Read-only walk: Dashboard → QIAGEN DNeasy protocol → Ethanol Absolute reagent (popup) → ethanol-absolute bottle (popup with breadcrumb) → Flammable Cabinet (cabinet popup, 16 bottles) → Robbins Hall 0170 (room popup, 9 children). Found OF-FIELD-NOT-CLICKABLE bug: the `of` field on a bottle popup was plain text while `parent` was a clickable pill. Fix (commit b0da836) adds a parallel `data-of-pill` placeholder and extends upgradeParentField to handle both. Verified via tests/qa-cycle-4-verify.mjs — kept as regression harness.",
+    "Cycle 5: Kayla Torres (undergrad) + thorough + Waste container. Thorough-filled the waste.html Add Container form (long contents paragraph, Solid state, compound location). Found WASTE-FIELDS-NOT-IN-INDEX-KEYS bug: the table row showed blank Contents, blank State, '—' Days Held, and the state filter + content search excluded it because the client INDEX_KEYS whitelist dropped waste fields during patchObjectIndex. Fix (commit 5c01bed) syncs INDEX_KEYS with the server's EXTRACT_KEYS so contents/physical_state/started/etc. (plus sample-tracker fields) flow through the localStorage overlay. Verified via tests/qa-cycle-5-verify.mjs — both QA5 test files cleaned up via gh API.",
     "Phase remains 'functional'."
   ]
 }
