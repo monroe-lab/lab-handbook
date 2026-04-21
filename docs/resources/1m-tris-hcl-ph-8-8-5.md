@@ -1,7 +1,8 @@
 ---
-type: buffer
-title: 1M Tris-HCL (pH 8-8.5)
+type: "buffer"
+title: "1M Tris-HCL (pH 8-8.5)"
 legacy_inventory_id: 15
+status: "needs_more"
 ---
 # 1M Tris-HCL (pH 8-8.5)
 
