@@ -1,7 +1,8 @@
 ---
-type: reagent
-title: 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA
+type: "reagent"
+title: "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA"
 legacy_inventory_id: 13
+status: "needs_more"
 ---
 # 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA
 
