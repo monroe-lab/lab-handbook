@@ -20,9 +20,30 @@ Students work through protocols in order. Each protocol produces a concrete outp
 
 Protocols are organized into tiers. Within a tier, protocols can be done in any order unless a specific dependency is noted. The capstone (Tier 11) reuses protocols from every prior tier.
 
-### Tier 1 — Foundations (Week 1)
+**Guiding principle: safety first, plants second.** Students complete all Tier 0 safety material *before* touching anything. Seeds go in the ground Day 1–2 of Week 1 because Arabidopsis needs ~3 weeks for harvestable tissue and ~10 weeks for mature seed — the program cannot wait on plant growth to start in Week 3.
 
-Day 1 skills. No prerequisites except showing up.
+### Tier 0 — Safety Essentials (Day 1, before anything else)
+
+Non-negotiable prerequisites. No one touches a pipette, a reagent, or the growth chamber before completing this tier. Total time \~3 hours, ideally in one block on Day 1.
+
+| Protocol | Time | Description |
+| -------- | ---- | ----------- |
+| [[lab-safety-orientation]] | 1 hr | PPE (gloves, goggles, lab coat), emergency exits, eye-wash stations, safety shower locations, fire extinguishers, evacuation routes, who to call |
+| [[how-to-read-an-sds]] | 0.5 hr | Finding an SDS, what sections matter (hazards, first aid, spill response), where lab copies live |
+| [[spill-response]] | 0.5 hr | Decision tree: identify chemical, consult SDS, spill kit location, cleanup, when to notify EH\&S |
+| [[breakage-response]] | 0.25 hr | Broken glass cleanup, equipment failure reporting |
+| [[sharps-handling]] | 0.25 hr | What counts as a sharp, container locations, disposal rules |
+| [[waste-disposal-quick-reference]] | 0.5 hr | Chemical, biological, sharps, glass, regular trash. Which bin, where, labeling |
+
+**Tier total: \~3 hours**
+
+Additional safety modules (liquid nitrogen, fume hood, etc.) are introduced at the point-of-need in later tiers, but the generalizable fundamentals above are covered before any hands-on work.
+
+### Tier 1 — Foundations + Plant Start (Week 1)
+
+Day 1–2 hands-on after safety. This tier has two parallel jobs: (a) teach the core bench skills that gate everything downstream, and (b) get seeds in the ground immediately so plants are ready by Week 4–5.
+
+**Bench skills (Week 1, any order):**
 
 | Protocol | Time | Description |
 | -------- | ---- | ----------- |
@@ -32,7 +53,18 @@ Day 1 skills. No prerequisites except showing up.
 | [[tube-and-sample-labeling]] | 0.5 hr | Labeling conventions, what survives ethanol/-80C/autoclave, when to use printed vs. hand-written labels |
 | [[bench-cleanup]] | 0.5 hr | Post-experiment cleanup checklist. What gets wiped, with what, when |
 
-**Tier total: \~6 hours**
+**Plant start (Week 1, Day 2 — supervised first use of clean bench counts here):**
+
+| Protocol | Time | Prereqs | Description |
+| -------- | ---- | ------- | ----------- |
+| [[seed-sterilization]] | 0.25 / 0.5 hr | Tier 0 | Ethanol method for routine use. First supervised clean-bench work |
+| [[stratification]] | 0.1 / 48 hr wait | Seed Sterilization | 2 days at 4C to break dormancy — seeds can stratify over the weekend between Week 1 and Week 2 |
+| [[growth-chamber-operation]] | 0.5 hr | Lab Orientation | Temperature, lighting schedules, chamber locations (Asmussen Hall). Before students plant, so they know where plants will live |
+| [[planting-arabidopsis-on-ms-plates]] | 0.5 hr | MS Plates (see note), Stratification, 0.1% Agar | Planting seeds onto plates using pipette and agar suspension |
+
+MS plates and 0.1% agar are normally made in Tier 2/Tier 3. For Week 1 planting, students use **pre-made MS plates and agar stock from the shared prep shelf** (Grey or the lab manager keeps these topped up). Students make their own MS plates in Tier 2 once they've been through autoclave and clean-bench formal training — those plates are used for the Week 3 SALK-line planting round.
+
+**Tier total: \~7 hours (bench skills) + \~1 hour (plant start) = \~8 hours**
 
 ### Tier 2 — Basic Lab Operations (Weeks 1-2)
 
@@ -65,18 +97,11 @@ Additional buffer protocols (Buffer A, lysis buffers, CTAB buffers) are written 
 
 **Tier total: \~5 hours**
 
-### Tier 4 — Plant Growth (Weeks 3-4, then ongoing care)
+### Tier 4 — Plant Care (Weeks 1–10, ongoing after Tier 1 plant start)
 
-Two parallel tracks converge. Plants started in Week 3 provide tissue for extraction in Weeks 6-7 and seed by Week 10+.
+Tier 1 already started seeds on plates. This tier picks up from there: soil transfers, ongoing care, and eventual seed bulking. Running in parallel with bench skill development so tissue is ready when students reach DNA extraction.
 
-**Track A: Plates**
-
-| Protocol | Time | Prereqs | Description |
-| -------- | ---- | ------- | ----------- |
-| [[seed-sterilization]] | 0.25 / 0.5 hr | Clean Bench | Ethanol method for routine use |
-| [[stratification]] | 0.1 / 48 hr wait | Seed Sterilization | 2 days at 4C to break dormancy |
-| [[planting-arabidopsis-on-ms-plates]] | 0.5 hr | MS Plates, Stratification, 0.1% Agar | Planting seeds onto plates using pipette and agar suspension |
-| [[growth-chamber-operation]] | 0.5 hr | Lab Orientation | Temperature, lighting schedules, chamber locations (Asmussen Hall) |
+**Track A recap (completed in Tier 1):** seed-sterilization → stratification → planting on plates → growth chamber operation. See Tier 1 for the protocols.
 
 **Track B: Soil**
 
@@ -103,19 +128,17 @@ Two parallel tracks converge. Plants started in Week 3 provide tissue for extrac
 
 **Tier total: \~2 hours**
 
-### Tier 6 — Safety Quick-Reference (Weeks 3-4, interleaved)
+### Tier 6 — Point-of-Need Safety Modules (interleaved across the program)
 
-Short action guides. Not full SOPs (those already exist) but the TL;DR for immediate situations.
+The generalizable safety fundamentals (PPE, SDS, spill/breakage/sharps/waste) are all covered up front in **Tier 0** — students do them on Day 1 before touching anything. This tier collects the specialized safety modules that are introduced at their first point of need in the curriculum:
 
-| Protocol | Time | Description |
-| -------- | ---- | ----------- |
-| [[spill-response]] | 0.5 hr | Decision tree: identify chemical, consult SDS, spill kit, cleanup, notify |
-| [[breakage-response]] | 0.5 hr | Broken glass cleanup, equipment failure reporting |
-| [[sharps-handling]] | 0.25 hr | What counts as a sharp, container locations, disposal |
-| [[how-to-read-an-sds]] | 0.5 hr | Finding an SDS, what sections matter, where copies are |
-| [[waste-disposal-quick-reference]] | 0.5 hr | Chemical, biological, sharps, glass, regular trash. Which bin, where |
+| Module | Introduced in | Covered in |
+| ------ | ------------- | ---------- |
+| [[liquid-nitrogen-safety]] | Tier 5 (Tissue Handling) | Frostbite first aid, dewar handling, pouring, PPE |
+| [[fume-hood-safety]] | Tier 7 (HiFi Extraction — BME, PVP) | When to use, airflow check, storage rules |
+| [[uv-transilluminator-safety]] | Tier 8 (Gel Imaging) | UV PPE, short-exposure vs. photo-only modes |
 
-**Tier total: \~2.25 hours**
+Students revisit [[spill-response]], [[how-to-read-an-sds]], [[sharps-handling]], and [[waste-disposal-quick-reference]] from Tier 0 any time they encounter a new hazard class. Treat Tier 0 as always in force.
 
 ### Tier 7 — DNA Extraction (Weeks 5-7)
 
@@ -186,11 +209,11 @@ Plant growth is the critical path. Arabidopsis needs \~3 weeks to produce harves
 
 | Week | Lab hours | What happens |
 | ---- | --------- | ------------ |
-| **1** | 10 | Tier 1 (foundations). Start Tier 2 (autoclave, clean bench, centrifuge, heat block, vortexer) |
-| **2** | 10 | Finish Tier 2 (pH, make MS plates). Sterilize + stratify Col-0 practice seeds |
-| **3** | 10 | Tier 3 (make TAE, TE, 0.1% agar, SPRI beads). Plant Col-0 on plates and in soil. Tier 6 (safety quick-refs). Sterilize + stratify assigned SALK line seeds |
-| **4** | 10 | Plant SALK line in soil. Growth chamber setup. Tier 4 (plant care, watering). Transferring seedlings. Start reading Tier 7 protocols |
-| **5** | 10 | Tier 5 (LN2 safety, harvest Col-0 leaf tissue). Tier 7 begins (quick extraction + Buffer A on Col-0, Qubit). Make extraction buffers |
+| **1** | 10 | **Day 1**: Tier 0 (safety essentials) completed before any hands-on work. **Day 2+**: Tier 1 (foundations + plant start — sterilize, stratify, plant Col-0 + assigned SALK line on pre-made MS plates). Begin Tier 2 (autoclave, centrifuge, heat block, vortexer) |
+| **2** | 10 | Finish Tier 2 (pH, clean bench formal training, make MS plates). Tier 3 begins (TAE, TE, 0.1% agar, SPRI beads). Plants from Week 1 already germinating |
+| **3** | 10 | Finish Tier 3 reagent prep. Plant germinated Col-0 + SALK line seedlings in soil (Tier 4 Track B). Start reading Tier 7 protocols |
+| **4** | 10 | Tier 4 ongoing: watering, plant care, transferring any plate-borne seedlings that need more space |
+| **5** | 10 | Tier 5 (LN2 safety, harvest Col-0 leaf tissue — plants are \~4 weeks old and ready). Tier 7 begins (quick extraction + Buffer A on Col-0, Qubit). Make extraction buffers |
 | **6** | 10 | Tier 7 continues (DNeasy kit extraction, practice HiFi DNA Extraction on Col-0). Tier 8 begins (make agarose gel, practice PCR with known Col-0 primers, run gel, image) |
 | **7** | 10 | Harvest SALK line tissue. Primer design for SALK insertion site. Genotype confirmation PCR + gel. HiFi DNA Extraction on SALK line |
 | **8** | 10 | QC SALK HMW DNA (Qubit). Troubleshoot and re-extract if needed. Begin Tier 9 (nanopore rapid library prep) |
@@ -199,8 +222,10 @@ Plant growth is the critical path. Arabidopsis needs \~3 weeks to produce harves
 
 **Key scheduling notes:**
 
-* Col-0 (wild-type) is the practice organism for Weeks 3-6. Students learn every technique on Col-0 before touching their assigned mutant line.
-* SALK line seeds go in Week 3-4. By Week 7, plants have true leaves ready for tissue harvest and genotyping.
+* **Safety first**: Tier 0 is completed Day 1, before any bench work. No exceptions.
+* **Plants in Week 1**: Col-0 and the assigned SALK line both go in the ground (on pre-made MS plates) in Week 1, Day 2. Arabidopsis needs \~3 weeks for harvestable tissue and \~10 weeks for seed bulking — delayed planting would push the capstone past Week 10.
+* Col-0 (wild-type) is the practice organism for Weeks 5–6. Students learn every technique on Col-0 before the SALK-line work.
+* By Week 5, Col-0 plants are \~4 weeks old and ready for first tissue harvest. By Week 7, the SALK line has true leaves ready for genotyping.
 * Seed bulking may extend beyond Week 10. That's fine. The genome assembly is the capstone deliverable, not the seed stock. Students can harvest seed on their own schedule after the program.
 * Week 8 has deliberate slack for troubleshooting. HMW extraction doesn't always work on the first try.
 
@@ -214,12 +239,13 @@ Students check off each protocol as they complete it. "Complete" means: the prot
 
 | Tier | Protocols | Check |
 | ---- | --------- | ----- |
-| 1\. Foundations | Lab Orientation, Pipette School, Scale, Labeling, Bench Cleanup |  |
+| 0\. Safety Essentials | Lab Safety Orientation, Read an SDS, Spill Response, Breakage, Sharps, Waste Disposal |  |
+| 1\. Foundations + Plant Start | Lab Orientation, Pipette School, Scale, Labeling, Bench Cleanup, Seed Sterilization, Stratification, Growth Chamber, Planting on Plates |  |
 | 2\. Basic Ops | Autoclave, Clean Bench, Centrifuge, Water Bath, Vortexer, pH, MS Plates |  |
 | 3\. Reagents | TAE, TE, 0.1% Agar, SPRI Beads |  |
-| 4\. Plant Growth | Seed Sterilization, Stratification, Planting on Plates, Growth Chamber, Planting in Soil, Transferring, Watering, Bulking Seed |  |
+| 4\. Plant Care | Planting in Soil, Transferring Seedlings, Watering, Bulking Seed |  |
 | 5\. Tissue Handling | LN2 Safety, Harvesting Leaf Tissue |  |
-| 6\. Safety | Spill Response, Breakage, Sharps, Read an SDS, Waste Disposal |  |
+| 6\. Point-of-Need Safety | LN2 Safety (reinforced), Fume Hood, UV Transilluminator |  |
 | 7\. DNA Extraction | Quick Extraction, Buffer A, Qubit, NanoDrop, DNeasy, HiFi Lysis Buffer, HiFi DNA Extraction |  |
 | 8\. PCR / Gel | Agarose Gel, Gel Electrophoresis, Gel Imaging, PCR, Primer Design, Sanger Sequencing |  |
 | 9\. Nanopore | Rapid Library Prep, Loading MinION, Data Retrieval |  |
