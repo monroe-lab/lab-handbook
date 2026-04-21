@@ -2168,21 +2168,43 @@
         var tb = (b.title || b.slug || '').toLowerCase();
         return ta < tb ? -1 : ta > tb ? 1 : 0;
       });
-      children.forEach(function(c) { html += renderChildRow(c); });
+      // Find titles that collide among siblings so we can disambiguate with a
+      // subtitle (lot/expiration/slug tail). Only shown for colliders.
+      var titleCounts = {};
+      children.forEach(function(c) {
+        var t = (c.title || c.slug || '').toLowerCase();
+        titleCounts[t] = (titleCounts[t] || 0) + 1;
+      });
+      children.forEach(function(c) {
+        var t = (c.title || c.slug || '').toLowerCase();
+        var subtitle = '';
+        if (titleCounts[t] > 1) {
+          var bits = [];
+          if (c.lot) bits.push('lot ' + c.lot);
+          if (c.expiration) bits.push('exp ' + c.expiration);
+          if (!bits.length && c.slug) bits.push(c.slug.split('/').pop());
+          subtitle = bits.join(' · ');
+        }
+        html += renderChildRow(c, subtitle);
+      });
     }
     html += '<button type="button" class="em-add-btn" data-em-add="1">' +
       '<span class="material-icons-outlined" style="font-size:16px">add</span> Add item</button>';
     return html;
   }
 
-  function renderChildRow(entry) {
+  function renderChildRow(entry, subtitle) {
     if (!entry) return '';
     var type = entry.type || 'container';
     var tc = Lab.types.get(type);
     var pos = entry.position ? '<span class="ec-pos">' + escHtml(entry.position) + '</span>' : '';
+    var titleHTML = escHtml(entry.title || entry.slug || '');
+    if (subtitle) {
+      titleHTML += '<span style="color:var(--grey-500);font-weight:400;font-size:11px;margin-left:6px">' + escHtml(subtitle) + '</span>';
+    }
     return '<div class="em-child-row" data-slug="' + escHtml(entry.slug || '') + '">' +
       '<span class="ec-icon">' + Lab.types.renderIcon(tc.icon) + '</span>' +
-      '<span class="ec-title" title="' + escHtml(entry.slug || '') + '">' + escHtml(entry.title || entry.slug || '') + '</span>' +
+      '<span class="ec-title" title="' + escHtml(entry.slug || '') + '">' + titleHTML + '</span>' +
       pos +
       '</div>';
   }
