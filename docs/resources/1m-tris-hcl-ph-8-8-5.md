@@ -2,7 +2,7 @@
 type: "buffer"
 title: "1M Tris-HCL (pH 8-8.5)"
 legacy_inventory_id: 15
-status: "needs_more"
+status: in_stock
 ---
 # 1M Tris-HCL (pH 8-8.5)
 
