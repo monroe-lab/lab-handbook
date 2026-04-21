@@ -1267,15 +1267,28 @@
           return;
         }
 
-        // Status field: render as a clickable toggle badge in view mode
+        // Status field: render as a pill in view mode. Reagent statuses cycle
+        // on click (in_stock → needs_more → out_of_stock); waste and other
+        // statuses render as read-only pills. Unknown slugs get title-cased so
+        // a raw 'in_accumulation' never appears in the popup.
         if (field.key === 'status' && field.options) {
-          var statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
-          var statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
-          var sColor = statusColors[val] || '#999';
-          var sLabel = statusLabels[val] || String(val);
+          var statusColors = {
+            in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6',
+            in_accumulation: '#f59e0b', ready_for_pickup: '#f9a825', picked_up: '#6b7280',
+          };
+          var statusLabels = {
+            in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External',
+            in_accumulation: 'In Accumulation', ready_for_pickup: 'Ready for Pickup', picked_up: 'Picked Up',
+          };
+          var isCycleable = ['in_stock','needs_more','out_of_stock','external'].indexOf(val) !== -1;
+          var sColor = statusColors[val] || '#6b7280';
+          var sLabel = statusLabels[val] || String(val).replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+          var cls = isCycleable ? 'em-status-toggle' : 'em-status-pill';
+          var cursor = isCycleable ? 'pointer' : 'default';
+          var titleAttr = isCycleable ? ' title="Click to change status"' : '';
           html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
             '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
-            '<span class="em-status-toggle" data-status="' + escHtml(val) + '" style="display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:600;background:' + sColor + '18;color:' + sColor + ';border:1.5px solid ' + sColor + '40;cursor:pointer" title="Click to change status">' + escHtml(sLabel) + '</span>' +
+            '<span class="' + cls + '" data-status="' + escHtml(val) + '" style="display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:600;background:' + sColor + '18;color:' + sColor + ';border:1.5px solid ' + sColor + '40;cursor:' + cursor + '"' + titleAttr + '>' + escHtml(sLabel) + '</span>' +
             '</div>';
           return;
         }
