@@ -140,13 +140,19 @@
       var type = (e && e.type) || 'container';
       var style = Lab.types.pillStyle(type);
       var icon = Lab.types.renderIcon ? Lab.types.renderIcon(Lab.types.get(type).icon) : Lab.types.get(type).icon;
+      var pill;
       if (isLast) {
-        return '<span style="' + style + 'cursor:default;font-weight:600">' + icon + ' ' + escapeHTML(title) + '</span>';
+        pill = '<span style="' + style + 'cursor:default;font-weight:600">' + icon + ' ' + escapeHTML(title) + '</span>';
+      } else {
+        pill = '<a href="#" data-crumb-slug="' + escapeHTML(s) + '" style="' + style + 'text-decoration:none" onclick="event.preventDefault();if(window.Lab&&Lab.editorModal)Lab.editorModal.open(\'docs/' + escapeHTML(s) + '.md\')">' + icon + ' ' + escapeHTML(title) + '</a>';
       }
-      return '<a href="#" data-crumb-slug="' + escapeHTML(s) + '" style="' + style + 'text-decoration:none" onclick="event.preventDefault();if(window.Lab&&Lab.editorModal)Lab.editorModal.open(\'docs/' + escapeHTML(s) + '.md\')">' + icon + ' ' + escapeHTML(title) + '</a>';
+      var sep = (i === 0) ? '' : '<span style="color:#90a4ae">/</span>';
+      // Group each separator with its following pill so the separator never
+      // ends up orphaned at a wrapped line boundary.
+      return '<span style="display:inline-flex;align-items:center;gap:6px">' + sep + pill + '</span>';
     });
     return '<div class="lab-breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0;font-size:13px">' +
-      parts.join('<span style="color:#90a4ae">/</span>') +
+      parts.join('') +
       '</div>';
   }
 
