@@ -20,4 +20,3 @@ If a large volume of waste accumulates, you can instead bring it to the [Orchard
 They seem to lock the gates after 5pm on weekdays and on weekends, but you can also access the greenhouses using the gate lock code 5184.
 
 Reach out to the greenhouse manager Rosie Gluck at [rlgluck@ucdavis.edu](mailto:rlgluck@ucdavis.edu) for more information.
-
