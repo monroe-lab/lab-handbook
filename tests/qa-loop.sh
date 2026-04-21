@@ -44,7 +44,22 @@ for i in $(seq 1 $MAX_CYCLES); do
   # Run one Claude Code QA cycle. Prompt lives in tests/qa-prompt.md so bash doesn't
   # have to parse its body (apostrophes + backticks were breaking a nested heredoc).
   PROMPT_TEXT="$(cat tests/qa-prompt.md)"
-  claude -p "$PROMPT_TEXT" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep" 2>&1 | tee -a "$LOG_FILE" || echo "  ⚠️  Cycle $i claude call exited non-zero; continuing." | tee -a "$LOG_FILE"
+  # Hard wall-clock per cycle. A cycle that can't finish in 15 minutes has gone
+  # off the rails (previous run saw a cycle hang for 2h+ on a stuck selector).
+  # Perl with setpgrp + alarm kills the whole process group on timeout; macOS
+  # has no `timeout` command and this is portable. Exit 124 follows GNU convention.
+  CYCLE_TIMEOUT=900
+  (
+    perl -e 'setpgrp; $SIG{ALRM}=sub{kill "TERM",-$$; sleep 3; kill "KILL",-$$; exit 124}; alarm shift; exec @ARGV' \
+      "$CYCLE_TIMEOUT" \
+      claude -p "$PROMPT_TEXT" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep"
+  ) 2>&1 | tee -a "$LOG_FILE"
+  EXIT=${PIPESTATUS[0]}
+  if [ "$EXIT" = "124" ]; then
+    echo "  ⏱  Cycle $i hit ${CYCLE_TIMEOUT}s wall-clock timeout and was killed; continuing." | tee -a "$LOG_FILE"
+  elif [ "$EXIT" != "0" ]; then
+    echo "  ⚠️  Cycle $i claude call exited non-zero (exit=$EXIT); continuing." | tee -a "$LOG_FILE"
+  fi
 
   # Health check — verify site is still up
   echo "  Health check..." | tee -a "$LOG_FILE"
