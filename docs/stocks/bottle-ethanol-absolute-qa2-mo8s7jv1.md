@@ -2,7 +2,7 @@
 type: "bottle"
 title: "Ethanol Absolute (QA cycle 2)"
 of: "resources/ethanol-absolute"
-parent: "locations/bench-chemistry"
+parent: "locations/cabinet-flammable"
 quantity: 1
 unit: "L"
 lot: "QA2-MO8S7JV1"
