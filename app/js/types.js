@@ -475,6 +475,18 @@
       dir: 'locations',
       defaultType: 'box',
     },
+    // Issue #103: surface lab notebook entries as an Insert-toolbar category
+    // so users can link to an existing lab notebook entry (or create a new
+    // notebook-ish stub) from inside any editor surface, especially from
+    // lab-map location popups where Vianney first asked for it.
+    notebooks: {
+      label: 'Notebooks',
+      icon: 'edit_note',
+      color: '#795548',
+      types: ['notebook'],
+      dir: 'notebooks',
+      defaultType: 'notebook',
+    },
   };
 
   // ── Helpers ──
