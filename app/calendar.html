@@ -395,6 +395,7 @@ async function loadSchedule() {
           startTime: e.start_time || '09:00',
           endTime: e.end_time || '10:00',
           path: 'docs/' + e.path,
+          recurrenceId: e.recurrence_id || '',
         };
       });
   } catch(e) {
@@ -628,9 +629,6 @@ async function openAddEvent(prefill) {
     dateStr = isoDate(today);
   }
 
-  var defaultEnd = new Date(dateStr + 'T00:00:00');
-  defaultEnd.setDate(defaultEnd.getDate() + 7 * 13);
-
   var timeOpts = buildTimeOptions();
   var repeatOpts = [
     { value: 'none', label: 'Does not repeat' },
@@ -647,8 +645,11 @@ async function openAddEvent(prefill) {
       { key: 'start_time', label: 'Start Time', type: 'select', options: timeOpts, default: prefill.startTime || '09:00' },
       { key: 'end_time', label: 'End Time', type: 'select', options: timeOpts, default: prefill.startTime ? addHour(prefill.startTime) : '10:00' },
       { key: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional \u2014 type [[ to link protocols, etc.' },
+      // Default 'none' \u2014 single event. Issue #106/#107: never repeat unless the
+      // user explicitly picks daily/weekly. \"Repeat Until\" is hidden via show_when
+      // until the user picks daily/weekly, so no stale date sits in the form.
       { key: 'repeat', label: 'Repeat', type: 'select', options: repeatOpts, default: 'none' },
-      { key: 'repeat_until', label: 'Repeat Until', type: 'date', default: isoDate(defaultEnd) },
+      { key: 'repeat_until', label: 'Repeat Until', type: 'date', default: '', show_when: { key: 'repeat', value: 'daily,weekly' } },
     ],
     submitText: 'Create Event',
   });
@@ -667,6 +668,14 @@ async function openAddEvent(prefill) {
   if (!date) { Lab.showToast('Date is required', 'error'); return; }
   if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
     Lab.showToast('End time must be after start time', 'error');
+    return;
+  }
+  // Issue #107: belt-and-suspenders. The form hides repeat_until when repeat is
+  // 'none' and the OK handler nulls out hidden field values, but if anything
+  // upstream changes, fail closed: a missing repeat_until means a single event,
+  // never a stale-default series.
+  if (repeat !== 'none' && !repeatUntil) {
+    Lab.showToast('Pick an end date for the repeating series', 'error');
     return;
   }
 
@@ -688,6 +697,11 @@ async function openAddEvent(prefill) {
     }
   }
 
+  // Issue #104: every occurrence in a recurring series gets the same
+  // recurrence_id so the editor can offer "Delete entire series" later.
+  // Single events get no recurrence_id at all.
+  var recurrenceId = (dates.length > 1) ? ('rec-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8)) : '';
+
   // Save event file(s)
   Lab.showToast('Creating ' + dates.length + ' event(s)...', 'info');
   var user = gh.getUser() || {};
@@ -696,7 +710,7 @@ async function openAddEvent(prefill) {
       var dt = dates[i];
       var slug = eventSlug(title || member, dt);
       var path = 'docs/events/' + slug + '.md';
-      var content = buildEventMarkdown(title, member, dt, startTime, endTime, notes, user);
+      var content = buildEventMarkdown(title, member, dt, startTime, endTime, notes, user, recurrenceId);
       await gh.saveFile(path, content, null, 'Add event: ' + (title || member) + ' on ' + dt);
       schedule.push({ title: title, member: member, date: dt, startTime: startTime, endTime: endTime, path: path });
     }
@@ -712,7 +726,7 @@ async function openAddEvent(prefill) {
 }
 
 // ── Build event markdown ──
-function buildEventMarkdown(title, member, date, startTime, endTime, notes, user) {
+function buildEventMarkdown(title, member, date, startTime, endTime, notes, user, recurrenceId) {
   var fm = [
     '---',
     'type: event',
@@ -722,6 +736,9 @@ function buildEventMarkdown(title, member, date, startTime, endTime, notes, user
     'end_time: "' + endTime + '"',
   ];
   if (member) fm.push('member: "' + member.replace(/"/g, '\\"') + '"');
+  // Only stamp recurrence_id when the event was created as part of a series
+  // (length > 1). Single events stay plain — see issue #104.
+  if (recurrenceId) fm.push('recurrence_id: "' + recurrenceId + '"');
   fm.push('created_by: ' + ((user && user.login) || 'unknown'));
   fm.push('---');
   var body = '\n# ' + (title || 'Untitled') + '\n';
@@ -762,6 +779,7 @@ window.addEventListener('lab-file-saved', function(e) {
     existing.date = meta.date || '';
     existing.startTime = meta.start_time || '09:00';
     existing.endTime = meta.end_time || '10:00';
+    existing.recurrenceId = meta.recurrence_id || existing.recurrenceId || '';
   } else if (e.detail.isNew) {
     schedule.push({
       title: meta.title || '',
@@ -770,12 +788,88 @@ window.addEventListener('lab-file-saved', function(e) {
       startTime: meta.start_time || '09:00',
       endTime: meta.end_time || '10:00',
       path: path,
+      recurrenceId: meta.recurrence_id || '',
     });
   }
   buildMemberColors();
   populateMemberFilter();
   renderCalendar();
 });
+
+// ── Recurring-series delete (issue #104) ──
+// Exposed as Lab.calendarDelete so the editor-modal delete button can offer
+// a "delete entire series" option without coupling editor-modal.js to event
+// internals. confirmRecurring shows a 3-button modal; deleteSeries iterates
+// over every event in the in-memory schedule that shares the same recurrence_id
+// and deletes each via the GitHub API.
+window.Lab = window.Lab || {};
+window.Lab.calendarDelete = {
+  confirmRecurring: function(title) {
+    // Build a custom modal with three buttons.
+    return new Promise(function(resolve) {
+      var overlay = document.createElement('div');
+      overlay.className = 'lab-modal-overlay open';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:10001';
+      overlay.innerHTML =
+        '<div class="lab-modal" style="background:#fff;border-radius:8px;padding:20px;max-width:440px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.2)">' +
+          '<h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:#1a1a1a">Delete Recurring Event</h3>' +
+          '<p style="margin:0 0 20px;font-size:14px;color:#4b5563;line-height:1.5">' +
+            '"' + (Lab.escHtml ? Lab.escHtml(title) : title) + '" is part of a repeating series.<br>What do you want to delete?' +
+          '</p>' +
+          '<div style="display:flex;flex-direction:column;gap:8px">' +
+            '<button data-choice="this" style="padding:8px 14px;background:#fff;border:1px solid #d1d5db;border-radius:6px;font-size:14px;cursor:pointer;text-align:left">Just this one occurrence</button>' +
+            '<button data-choice="series" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;font-weight:600;text-align:left">Delete entire series (all occurrences)</button>' +
+            '<button data-choice="cancel" style="padding:8px 14px;background:transparent;border:none;color:#6b7280;font-size:14px;cursor:pointer;text-align:left">Cancel</button>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(overlay);
+      function pick(choice) {
+        document.body.removeChild(overlay);
+        resolve(choice);
+      }
+      overlay.querySelectorAll('button[data-choice]').forEach(function(btn) {
+        btn.onclick = function() { pick(btn.getAttribute('data-choice')); };
+      });
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) pick('cancel'); });
+      var onKey = function(e) { if (e.key === 'Escape') { document.removeEventListener('keydown', onKey); pick('cancel'); } };
+      document.addEventListener('keydown', onKey);
+    });
+  },
+
+  deleteSeries: async function(recurrenceId) {
+    if (!recurrenceId) throw new Error('Missing recurrence_id');
+    var gh = window.Lab && window.Lab.gh;
+    if (!gh) throw new Error('GitHub API unavailable');
+    var siblings = schedule.filter(function(b) { return b.recurrenceId === recurrenceId; });
+    if (!siblings.length) throw new Error('No events found in this series');
+    Lab.showToast('Deleting ' + siblings.length + ' events...', 'info');
+    var deleted = 0;
+    var failures = [];
+    for (var i = 0; i < siblings.length; i++) {
+      var path = siblings[i].path;
+      try {
+        await gh.deleteFile(path);
+        if (gh.removeFromObjectIndex) gh.removeFromObjectIndex(path);
+        deleted++;
+        // Remove from in-memory schedule and dispatch a delete event so any
+        // other listeners (and our own renderCalendar) update.
+        var idx = schedule.findIndex(function(b) { return b.path === path; });
+        if (idx !== -1) schedule.splice(idx, 1);
+      } catch(err) {
+        failures.push(path + ': ' + (err && err.message ? err.message : 'unknown'));
+      }
+    }
+    if (gh.clearObjectIndexCache) gh.clearObjectIndexCache();
+    buildMemberColors();
+    populateMemberFilter();
+    renderCalendar();
+    if (failures.length) {
+      // Surface partial-failure detail so the user knows what's left.
+      Lab.showToast('Deleted ' + deleted + ', failed ' + failures.length + ': ' + failures[0], 'error');
+    }
+    return deleted;
+  }
+};
 
 // ── Mobile day tabs ──
 var activeDayTab = null;

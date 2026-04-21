@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-21T18:50:38.482288+00:00",
-  "total_commits": 2323,
+  "generated_at": "2026-04-21T18:56:59.139694+00:00",
+  "total_commits": 2328,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 2223,
+      "total_commits": 2228,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-21",
       "protocols_authored": 162,
       "notebooks_authored": 92,
       "inventory_edits": 1757,
-      "wiki_edits": 679,
+      "wiki_edits": 681,
       "images_uploaded": 97,
       "issue_attachments": 45,
       "issues_filed": 30,
@@ -23,31 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "6b3dd68",
-          "subject": "Cleanup QA wizard reuse mo8yvj60",
-          "date": "2026-04-21"
-        },
-        {
-          "sha": "be246d3",
-          "subject": "Cleanup QA wizard reuse mo8yvj60",
-          "date": "2026-04-21"
-        },
-        {
-          "sha": "507fef0",
-          "subject": "annotate-test seed",
-          "date": "2026-04-21"
-        },
-        {
-          "sha": "3fd0523",
-          "subject": "annotate-test cleanup",
-          "date": "2026-04-21"
-        },
-        {
-          "sha": "aab773e",
-          "subject": "annotate-test seed",
-          "date": "2026-04-21"
-        },
         {
           "sha": "2440873",
           "subject": "Upload test-paste-1776796788345.png",
@@ -61,6 +36,31 @@
         {
           "sha": "70df559",
           "subject": "annotate-test cleanup",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "e3cf9db",
+          "subject": "Fix #111 #112: map vianneyahn email to GitHub login, regen user stats",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "b990de3",
+          "subject": "Fix #109: samples tab issue-reporter FAB",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "a041dd3",
+          "subject": "Fix #110: new-entry-in-folder button for notebooks",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "f26250b",
+          "subject": "Fix #102: ensure tube appears in lab-map type picker",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "730d250",
+          "subject": "Fix #103: insert lab notebook entry from lab-map popup",
           "date": "2026-04-21"
         }
       ],

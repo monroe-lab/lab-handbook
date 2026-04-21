@@ -5,14 +5,15 @@
     "title": "1,8-Naphthalic anhydride",
     "status": "in_stock",
     "legacy_inventory_id": 12,
-    "mtime": 1776056900
+    "mtime": 1776790736
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
     "type": "reagent",
     "title": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
+    "status": "in_stock",
     "legacy_inventory_id": 13,
-    "mtime": 1775946810
+    "mtime": 1776790736
   },
   {
     "path": "resources/1-octanol.md",
@@ -26,8 +27,9 @@
     "path": "resources/1m-tris-hcl-ph-8-8-5.md",
     "type": "buffer",
     "title": "1M Tris-HCL (pH 8-8.5)",
+    "status": "in_stock",
     "legacy_inventory_id": 15,
-    "mtime": 1775946810
+    "mtime": 1776790440
   },
   {
     "path": "resources/2-mercaptoethanol.md",
@@ -145,7 +147,8 @@
     "path": "resources/analytical-balance.md",
     "type": "equipment",
     "title": "Analytical Balance",
-    "mtime": 1775980234
+    "status": "in_stock",
+    "mtime": 1776790441
   },
   {
     "path": "resources/aristolochic-acid-i.md",
@@ -1048,6 +1051,17 @@
     "title": "NEBNext Ultra II End Repair / dA-Tailing Module (E7546S)",
     "status": "needed",
     "mtime": 1775684016
+  },
+  {
+    "path": "resources/new-container-mo8yg0j0.md",
+    "type": "equipment",
+    "title": "Standing Centrifuge",
+    "created_at": "2026-04-21T18:26:45.570Z",
+    "created_by": "vianneyahn",
+    "updated_at": "2026-04-21T18:26:45.570Z",
+    "parent": "locations/room-robbins-0170",
+    "position": "Next to clean bench ",
+    "mtime": 1776796006
   },
   {
     "path": "resources/nitrile-gloves.md",
@@ -3346,7 +3360,7 @@
     "title": "Mr. Freckles",
     "role": "PI",
     "email": "freckles@ucdavis.edu",
-    "mtime": 1776059618
+    "mtime": 1776060440
   },
   {
     "path": "people/satoyo-oya.md",
@@ -3355,6 +3369,21 @@
     "role": "Postdoctoral Researcher",
     "email": "soya@ucdavis.edu",
     "mtime": 1775207934
+  },
+  {
+    "path": "people/test-user.md",
+    "type": "person",
+    "title": "Test User",
+    "role": "Graduate Student",
+    "mtime": 1776061707
+  },
+  {
+    "path": "people/vianney-ahn.md",
+    "type": "person",
+    "title": "Vianney Ahn",
+    "role": "Lab Technician",
+    "email": "a.vianney221@gmail.com",
+    "mtime": 1776794418
   },
   {
     "path": "projects/alfalfa-pangenome/index.md",
@@ -3403,7 +3432,8 @@
     "type": "project",
     "title": "Pistachio Pangenome",
     "status": "active",
-    "pi": "Grey Monroe"
+    "pi": "Grey Monroe",
+    "mtime": 1776795569
   },
   {
     "path": "projects/poplar-somatic-sequencing.md",
@@ -3690,7 +3720,7 @@
     "path": "wet-lab/water-bath-and-heat-block.md",
     "type": "protocol",
     "title": "Water Bath and Heat Block",
-    "mtime": 1775983797
+    "mtime": 1776797327
   },
   {
     "path": "wet-lab/watering-and-plant-care.md",
@@ -4105,6 +4135,35 @@
     "mtime": 1775196429
   },
   {
+    "path": "notebooks/vianney-ahn/2026-04-21.md",
+    "type": "notebook",
+    "title": "2026-04-21 \u2014 Vianney Ahn",
+    "mtime": 1776794891
+  },
+  {
+    "path": "notebooks/vianney-ahn/fiberseq/2026-04-21.md",
+    "type": "notebook",
+    "title": "2026-04-21 \u2014 Fiberseq",
+    "mtime": 1776796697
+  },
+  {
+    "path": "notebooks/vianney-ahn/fiberseq/MN.md",
+    "type": "notebook",
+    "title": "MN",
+    "mtime": 1776796738
+  },
+  {
+    "path": "waste/bme-chloroform-phenol-waste.md",
+    "type": "waste_container",
+    "title": "BME, Chloroform, Phenol Waste",
+    "location": "Robbins Hall 0170",
+    "status": "in_accumulation",
+    "contents": "BME, Chloroform, Phenol",
+    "physical_state": "Liquid",
+    "started": "2026-04-21",
+    "mtime": 1776796159
+  },
+  {
     "path": "waste/index.md",
     "type": "guide",
     "title": "Hazardous Waste Guide",
@@ -4115,26 +4174,32 @@
     "type": "waste_container",
     "title": "NIB Buffer + BME Waste",
     "location": "Robbins Hall 0170, bay 170U (fume hood)",
-    "status": "in_accumulation",
+    "status": "picked_up",
     "contents": "NIB buffer, BME (beta-mercaptoethanol)",
     "physical_state": "Liquid",
     "hazard_class": "Toxic, Stench",
     "started": "2026-03-13",
     "waste_tag": "11014840",
-    "mtime": 1775713873
+    "created_at": "2026-04-21T18:28:47.560Z",
+    "created_by": "vianneyahn",
+    "updated_at": "2026-04-21T18:28:47.560Z",
+    "mtime": 1776796128
   },
   {
     "path": "waste/paraquat-solid-waste.md",
     "type": "waste_container",
     "title": "Paraquat Solid Waste",
     "location": "Robbins Hall 0170",
-    "status": "in_accumulation",
+    "status": "picked_up",
     "contents": "Paraquat-contaminated solids (gloves, tips, tubes)",
     "physical_state": "Solid",
     "hazard_class": "Toxic",
     "started": "2025-09-30",
     "waste_tag": "10548386",
-    "mtime": 1775713873
+    "created_at": "2026-04-21T18:28:29.031Z",
+    "created_by": "vianneyahn",
+    "updated_at": "2026-04-21T18:28:29.031Z",
+    "mtime": 1776796109
   },
   {
     "path": "waste/paraquat-wash-waste.md",
@@ -4149,6 +4214,19 @@
     "started": "2025-09-30",
     "waste_tag": "10496910",
     "mtime": 1775713873
+  },
+  {
+    "path": "samples/new-tube-mo8yb345.md",
+    "type": "sample",
+    "title": "J1",
+    "status": "active",
+    "created_at": "2026-04-21T18:23:26.524Z",
+    "created_by": "vianneyahn",
+    "updated_at": "2026-04-21T18:24:08.701Z",
+    "sequencing_type": "Illumina",
+    "parent": "locations/new-shelf-mo8ya0v2",
+    "position": "A1",
+    "mtime": 1776795849
   },
   {
     "path": "samples/sample-pistachio-4.md",
@@ -4324,6 +4402,17 @@
     "updated_at": "2026-04-12T10:24:11.083Z",
     "parent": "locations/freezer-minus80-a",
     "mtime": 1775989451
+  },
+  {
+    "path": "locations/new-shelf-mo8ya0v2.md",
+    "type": "box",
+    "title": "Pistachio Kerman ",
+    "created_at": "2026-04-21T18:22:04.184Z",
+    "created_by": "vianneyahn",
+    "updated_at": "2026-04-21T18:22:04.184Z",
+    "parent": "locations/freezer-minus20",
+    "grid": "8x8",
+    "mtime": 1776795724
   },
   {
     "path": "locations/new-tube-mnvmzz02.md",
@@ -4604,6 +4693,16 @@
     "mtime": 1775970289
   },
   {
+    "path": "events/2026-04-21-test.md",
+    "type": "event",
+    "title": "Test",
+    "date": "2026-04-21",
+    "created_by": "vianneyahn",
+    "start_time": "09:00",
+    "end_time": "10:00",
+    "mtime": 1776796357
+  },
+  {
     "path": "events/2026-04-23-barb-m-block.md",
     "type": "event",
     "title": "Barb M. block",
@@ -4843,8 +4942,14 @@
   {
     "path": "plant-harvesting/poplar-leaf-collection.md",
     "type": "protocol",
-    "title": "Poplar Leaf Collection",
-    "mtime": 1776056797
+    "title": "Collecting Poplar Leaves for Somatic Mutation Sequencing",
+    "mtime": 1776692660
+  },
+  {
+    "path": "plant-harvesting/transgenic-waste.md",
+    "type": "protocol",
+    "title": "Transgenic Waste",
+    "mtime": 1776795263
   },
   {
     "path": "shipping/aggieship-inbound-hazmat-label.md",
@@ -4856,6 +4961,6 @@
     "path": "shipping/shipping-samples-to-monroe-lab.md",
     "type": "protocol",
     "title": "Shipping Frozen Samples to the Monroe Lab (Collaborator Guide)",
-    "mtime": 1775900674
+    "mtime": 1776694182
   }
 ]

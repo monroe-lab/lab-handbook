@@ -522,7 +522,11 @@
       if (message) html += '<p style="margin:0 0 12px;font-size:13px;color:#6b7280;line-height:1.4">' + escHtml(message) + '</p>';
 
       fields.forEach(function(f) {
-        html += '<div style="margin-bottom:12px">';
+        var fieldId = 'lab-modal-field-' + escHtml(f.key);
+        var hideStyle = f.show_when ? 'display:none;' : '';
+        html += '<div id="' + fieldId + '" data-modal-field="' + escHtml(f.key) + '"' +
+          (f.show_when ? ' data-show-when-key="' + escHtml(f.show_when.key) + '" data-show-when-value="' + escHtml(f.show_when.value) + '"' : '') +
+          ' style="margin-bottom:12px;' + hideStyle + '">';
         html += '<label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:4px">' + escHtml(f.label || f.key) + '</label>';
         if (f.type === 'select' && f.options) {
           html += '<select data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '">';
@@ -533,6 +537,9 @@
           html += '</select>';
         } else if (f.type === 'textarea') {
           html += '<textarea data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + 'min-height:60px;resize:vertical" placeholder="' + escHtml(f.placeholder || '') + '">' + escHtml(f.default || '') + '</textarea>';
+        } else if (f.type === 'date') {
+          html += '<input type="date" data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '" ' +
+            'value="' + escHtml(f.default || '') + '">';
         } else {
           html += '<input type="text" data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '" ' +
             'placeholder="' + escHtml(f.placeholder || '') + '" value="' + escHtml(f.default || '') + '">';
@@ -581,6 +588,12 @@
             if (formFields.length) {
               var result = {};
               formFields.forEach(function(f) {
+                // Skip values from fields hidden by show_when — they're irrelevant
+                var wrapper = f.closest('[data-modal-field]');
+                if (wrapper && wrapper.style.display === 'none') {
+                  result[f.getAttribute('data-modal-key')] = '';
+                  return;
+                }
                 result[f.getAttribute('data-modal-key')] = f.value;
               });
               cleanup(result);
@@ -604,6 +617,38 @@
           el.addEventListener('focus', function() { el.style.borderColor = '#009688'; });
           el.addEventListener('blur', function() { el.style.borderColor = '#ddd'; });
         });
+
+        // Conditional visibility: a field with data-show-when-key/value is shown
+        // only when the controlling field's value matches. Used by the calendar
+        // form to hide "Repeat Until" when "Does not repeat" is selected.
+        var conditionals = m.querySelectorAll('[data-show-when-key]');
+        if (conditionals.length) {
+          var applyConditionals = function() {
+            conditionals.forEach(function(div) {
+              var ctlKey = div.getAttribute('data-show-when-key');
+              var want = div.getAttribute('data-show-when-value');
+              var ctl = m.querySelector('[data-modal-key="' + ctlKey + '"]');
+              if (!ctl) return;
+              // show_when_value can be a comma-separated list ("daily,weekly")
+              var wants = want.split(',').map(function(s) { return s.trim(); });
+              var match = wants.indexOf(ctl.value) !== -1;
+              // Negation: prefix with ! to invert
+              var negated = wants.length === 1 && wants[0].charAt(0) === '!';
+              if (negated) match = ctl.value !== wants[0].slice(1);
+              div.style.display = match ? '' : 'none';
+            });
+          };
+          // Watch all controls referenced by show_when
+          var ctlKeys = {};
+          conditionals.forEach(function(div) {
+            ctlKeys[div.getAttribute('data-show-when-key')] = true;
+          });
+          Object.keys(ctlKeys).forEach(function(k) {
+            var ctl = m.querySelector('[data-modal-key="' + k + '"]');
+            if (ctl) ctl.addEventListener('change', applyConditionals);
+          });
+          applyConditionals();
+        }
       }, 0);
     });
   };

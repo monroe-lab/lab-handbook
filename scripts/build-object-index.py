@@ -62,6 +62,10 @@ EXTRACT_KEYS = [
     "of", "lot", "expiration", "acquired", "level",
     # Calendar event fields (R17 migration from schedule.json to markdown)
     "date", "start_time", "end_time", "member",
+    # Recurrence grouping for events created as a series (issue #104). All
+    # occurrences share the same recurrence_id so the editor can offer a
+    # "delete entire series" option.
+    "recurrence_id",
 ]
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)

@@ -151,10 +151,44 @@
       headers: { ...authHeaders(), 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
+
+    // Issue #105: GitHub's "is at X but expected Y" SHA-mismatch error fires
+    // when our cached sha is stale (someone — or the same user in another tab,
+    // or the build pipeline — committed since we loaded). Auto-recover by
+    // refetching the latest sha and retrying once with the new content. This
+    // turns a confusing red toast into a successful save in the common case.
+    if (resp.status === 409 || (resp.status === 422 && sha)) {
+      try {
+        var headResp = await offlineAwareFetch(
+          API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(),
+          { headers: authHeaders(), cache: 'no-store' }
+        );
+        if (headResp.ok) {
+          var meta = await headResp.json();
+          var retryBody = { message: body.message, content: encoded, branch: BRANCH, sha: meta.sha };
+          var retryResp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path, {
+            method: 'PUT',
+            headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(retryBody)
+          });
+          if (retryResp.ok) {
+            var rResult = await retryResp.json();
+            return { sha: rResult.content.sha };
+          }
+          resp = retryResp;
+        }
+      } catch(_) { /* fall through to original error */ }
+    }
+
     if (!resp.ok) {
       handleAuthError(resp);
       var err = await resp.json().catch(function() { return {}; });
-      throw new Error(err.message || 'Save failed (HTTP ' + resp.status + ')');
+      var msg = err.message || 'Save failed (HTTP ' + resp.status + ')';
+      // Friendlier copy for the SHA-mismatch case if the retry above failed.
+      if (/is at .* but expected/i.test(msg)) {
+        msg = 'This file changed elsewhere. Reload the page and try again.';
+      }
+      throw new Error(msg);
     }
     var result = await resp.json();
     return { sha: result.content.sha };

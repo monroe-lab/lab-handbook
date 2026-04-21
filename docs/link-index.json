@@ -616,6 +616,10 @@
     "target": "stocks/col-0-wild-type"
   },
   {
+    "source": "notebooks/vianney-ahn/2026-04-21",
+    "target": "locations/room-asmundson-growth-chamber"
+  },
+  {
     "source": "people/barb-m",
     "target": "notebooks/barb-m/2026-03-31"
   },
@@ -1089,6 +1093,10 @@
   },
   {
     "source": "projects/pistachio-pangenome/index",
+    "target": "people/vianney-ahn"
+  },
+  {
+    "source": "projects/pistachio-pangenome/index",
     "target": "wet-lab/extraction/pistachio-dna-extraction"
   },
   {
@@ -1126,6 +1134,10 @@
   {
     "source": "projects/tudor-reader-fusions/index",
     "target": "people/grey-monroe"
+  },
+  {
+    "source": "projects/tudor-reader-fusions/index",
+    "target": "people/vianney-ahn"
   },
   {
     "source": "projects/tudor-reader-fusions/index",
@@ -1586,14 +1598,6 @@
   {
     "source": "samples/sample-pistachio-4",
     "target": "locations/tube-pistachio-dna-extract-1"
-  },
-  {
-    "source": "shipping/shipping-samples-to-monroe-lab",
-    "target": "shipping/aggieship-inbound-hazmat-label"
-  },
-  {
-    "source": "shipping/shipping-samples-to-monroe-lab",
-    "target": "plant-harvesting/poplar-leaf-collection"
   },
   {
     "source": "stocks/bl21-de3-competent-cells",
@@ -2254,6 +2258,10 @@
   {
     "source": "stocks/col-0-wild-type",
     "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "waste/bme-chloroform-phenol-waste",
+    "target": "waste/index"
   },
   {
     "source": "waste/index",
