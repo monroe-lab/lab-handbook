@@ -9,10 +9,13 @@
   var ctx = null;
   var baseImage = null;       // original Image object
   var annotations = [];       // [{text, x, y, color, size, rotation}]
+  var shapes = [];            // [{type:'line'|'arrow'|'rect'|'ellipse', x1,y1,x2,y2, color, size}]
   var selectedIdx = -1;
   var dragging = false;
   var dragOffX = 0, dragOffY = 0;
-  var currentTool = { color: '#ffffff', size: 3, rotation: 0 }; // size is % of image width
+  // mode: 'text' (default — click to add label, drag to move), 'line', 'arrow', 'rect', 'ellipse'
+  var currentTool = { color: '#ffffff', size: 3, rotation: 0, mode: 'text' };
+  var shapeDrawing = null;    // live in-progress shape during drag: {type, x1, y1, x2, y2, color, size}
   var cropMode = false;
   var cropStart = null;
   var cropRect = null; // {x, y, w, h} in canvas coords
@@ -31,7 +34,11 @@
     createOverlay();
     overlay.style.display = 'flex';
     annotations = [];
+    shapes = [];
+    shapeDrawing = null;
     selectedIdx = -1;
+    currentTool.mode = 'text';
+    updateToolButtons();
 
     // Load image fresh — no previous annotations loaded
     baseImage = new Image();
@@ -51,6 +58,8 @@
   function close() {
     if (overlay) overlay.style.display = 'none';
     annotations = [];
+    shapes = [];
+    shapeDrawing = null;
     selectedIdx = -1;
     baseImage = null;
   }
@@ -77,6 +86,47 @@
     row1.appendChild(textInput);
 
     toolbarWrap.appendChild(row1);
+
+    // Row 1.5: tool picker (text / line / arrow / rect / ellipse)
+    var toolRow = document.createElement('div');
+    toolRow.style.cssText = 'display:flex;align-items:center;gap:4px;padding:6px 12px;background:rgba(255,255,255,.08);border-radius:10px;width:fit-content;';
+    var toolLabel = document.createElement('span');
+    toolLabel.textContent = 'Tool:';
+    toolLabel.style.cssText = 'color:rgba(255,255,255,.6);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-right:6px;';
+    toolRow.appendChild(toolLabel);
+
+    // Inline SVG icons for each tool (stroke currentColor so they follow button color).
+    var ICONS = {
+      text: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2"/><path d="M12 5v14"/><path d="M9 19h6"/></svg>',
+      line: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="19" x2="19" y2="5"/></svg>',
+      arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="11 5 19 5 19 13"/></svg>',
+      rect: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="14" rx="1"/></svg>',
+      ellipse: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="8" ry="6"/></svg>'
+    };
+    var TOOLS = [
+      { mode: 'text', label: 'Text label' },
+      { mode: 'line', label: 'Line' },
+      { mode: 'arrow', label: 'Arrow' },
+      { mode: 'rect', label: 'Rectangle' },
+      { mode: 'ellipse', label: 'Ellipse' }
+    ];
+    TOOLS.forEach(function(t) {
+      var tb = document.createElement('button');
+      tb.type = 'button';
+      tb.title = t.label;
+      tb.dataset.tool = t.mode;
+      tb.innerHTML = ICONS[t.mode];
+      tb.style.cssText = 'padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;';
+      tb.onclick = function() {
+        currentTool.mode = t.mode;
+        // Leaving text mode? deselect any active annotation so its handle doesn't lure clicks.
+        if (t.mode !== 'text') selectedIdx = -1;
+        updateToolButtons();
+        draw();
+      };
+      toolRow.appendChild(tb);
+    });
+    toolbarWrap.appendChild(toolRow);
 
     // Row 2: colors, sizes, rotate, delete
     var toolbar = document.createElement('div');
@@ -252,6 +302,35 @@
     });
   }
 
+  function updateToolButtons() {
+    if (!overlay) return;
+    var btns = overlay.querySelectorAll('[data-tool]');
+    btns.forEach(function(b) {
+      if (b.dataset.tool === currentTool.mode) {
+        b.style.background = 'rgba(77,182,172,.3)';
+        b.style.borderColor = '#4db6ac';
+        b.style.color = '#4db6ac';
+      } else {
+        b.style.background = 'transparent';
+        b.style.borderColor = 'rgba(255,255,255,.25)';
+        b.style.color = '#fff';
+      }
+    });
+    // Swap the label input visibility / placeholder so the toolbar communicates mode.
+    var ti = document.getElementById('annot-text');
+    if (ti) {
+      if (currentTool.mode === 'text') {
+        ti.disabled = false;
+        ti.placeholder = 'Label text...';
+        ti.style.opacity = '1';
+      } else {
+        ti.disabled = true;
+        ti.placeholder = 'Drag on image to draw ' + currentTool.mode + '...';
+        ti.style.opacity = '.5';
+      }
+    }
+  }
+
   function touchToMouse(e) {
     var touch = e.touches[0] || e.changedTouches[0];
     return { offsetX: touch.clientX - canvas.getBoundingClientRect().left, offsetY: touch.clientY - canvas.getBoundingClientRect().top };
@@ -269,10 +348,68 @@
   }
 
   // ── Drawing ──
+  // Shape stroke width scales with the "size" %: line tool defaults to the
+  // same S/M/L/XL slider as text, but the pixel width is smaller so shapes
+  // look proportional next to typography. Multiplier chosen empirically.
+  function shapeStrokePx(sizePct) {
+    var pct = (sizePct != null ? sizePct : 3);
+    // Text at size 3 (M) ≈ 3% of width for font size; shape stroke at ~25% of that
+    // feels right: crisp but not cartoonish. Clamp to >=2px on tiny images.
+    return Math.max(2, Math.round(canvas.width * pct / 100 * 0.25));
+  }
+
+  function drawShape(s) {
+    ctx.save();
+    ctx.strokeStyle = s.color || '#ffffff';
+    ctx.fillStyle = s.color || '#ffffff';
+    ctx.lineWidth = shapeStrokePx(s.size);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    if (s.type === 'line' || s.type === 'arrow') {
+      ctx.beginPath();
+      ctx.moveTo(s.x1, s.y1);
+      ctx.lineTo(s.x2, s.y2);
+      ctx.stroke();
+      if (s.type === 'arrow') {
+        // Arrowhead: two short strokes from endpoint angled back along the line.
+        var dx = s.x2 - s.x1, dy = s.y2 - s.y1;
+        var len = Math.sqrt(dx * dx + dy * dy);
+        if (len > 1) {
+          var headLen = Math.max(ctx.lineWidth * 3.5, Math.min(len * 0.25, 40));
+          var angle = Math.atan2(dy, dx);
+          var ha = Math.PI / 7; // ~25° — classic arrow look
+          ctx.beginPath();
+          ctx.moveTo(s.x2, s.y2);
+          ctx.lineTo(s.x2 - headLen * Math.cos(angle - ha), s.y2 - headLen * Math.sin(angle - ha));
+          ctx.moveTo(s.x2, s.y2);
+          ctx.lineTo(s.x2 - headLen * Math.cos(angle + ha), s.y2 - headLen * Math.sin(angle + ha));
+          ctx.stroke();
+        }
+      }
+    } else if (s.type === 'rect') {
+      var rx = Math.min(s.x1, s.x2), ry = Math.min(s.y1, s.y2);
+      var rw = Math.abs(s.x2 - s.x1), rh = Math.abs(s.y2 - s.y1);
+      ctx.strokeRect(rx, ry, rw, rh);
+    } else if (s.type === 'ellipse') {
+      var cx = (s.x1 + s.x2) / 2, cy = (s.y1 + s.y2) / 2;
+      var rxr = Math.abs(s.x2 - s.x1) / 2, ryr = Math.abs(s.y2 - s.y1) / 2;
+      if (rxr > 0 && ryr > 0) {
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rxr, ryr, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
   function draw() {
     if (!ctx || !baseImage) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(baseImage, 0, 0);
+
+    // Shapes first, so text labels sit on top.
+    shapes.forEach(drawShape);
+    if (shapeDrawing) drawShape(shapeDrawing);
 
     annotations.forEach(function(a, i) {
       ctx.save();
@@ -359,6 +496,18 @@
       a.rotation = (a.rotation || 0) + deg;
     });
 
+    // Transform shape endpoints the same way.
+    shapes.forEach(function(s) {
+      var p1x = s.x1, p1y = s.y1, p2x = s.x2, p2y = s.y2;
+      if (deg === 90) {
+        s.x1 = canvas.height - p1y; s.y1 = p1x;
+        s.x2 = canvas.height - p2y; s.y2 = p2x;
+      } else if (deg === -90) {
+        s.x1 = p1y; s.y1 = canvas.width - p1x;
+        s.x2 = p2y; s.y2 = canvas.width - p2x;
+      }
+    });
+
     // Replace baseImage
     var newImg = new Image();
     newImg.onload = function() {
@@ -393,6 +542,17 @@
     // Remove annotations outside crop area
     annotations = annotations.filter(function(a) {
       return a.x >= -50 && a.x <= w + 50 && a.y >= -50 && a.y <= h + 50;
+    });
+
+    // Shift shapes too, then drop ones that ended up entirely outside.
+    shapes.forEach(function(s) {
+      s.x1 -= x; s.y1 -= y;
+      s.x2 -= x; s.y2 -= y;
+    });
+    shapes = shapes.filter(function(s) {
+      var inX = Math.max(s.x1, s.x2) >= -20 && Math.min(s.x1, s.x2) <= w + 20;
+      var inY = Math.max(s.y1, s.y2) >= -20 && Math.min(s.y1, s.y2) <= h + 20;
+      return inX && inY;
     });
 
     var newImg = new Image();
@@ -454,6 +614,19 @@
       return;
     }
 
+    // Shape tools: start a new shape, preview during drag, commit on up.
+    if (currentTool.mode !== 'text') {
+      shapeDrawing = {
+        type: currentTool.mode,
+        x1: p.x, y1: p.y, x2: p.x, y2: p.y,
+        color: currentTool.color,
+        size: currentTool.size
+      };
+      selectedIdx = -1;
+      draw();
+      return;
+    }
+
     var hit = hitTest(p.x, p.y);
 
     if (hit >= 0) {
@@ -494,6 +667,13 @@
       draw();
       return;
     }
+    if (shapeDrawing) {
+      var p = canvasXY(e);
+      shapeDrawing.x2 = p.x;
+      shapeDrawing.y2 = p.y;
+      draw();
+      return;
+    }
     if (!dragging || selectedIdx < 0) return;
     var p = canvasXY(e);
     annotations[selectedIdx].x = p.x - dragOffX;
@@ -503,6 +683,16 @@
 
   function onPointerUp() {
     dragging = false;
+    if (shapeDrawing) {
+      // Commit the shape if it has meaningful extent — filters out stray clicks.
+      var dx = shapeDrawing.x2 - shapeDrawing.x1;
+      var dy = shapeDrawing.y2 - shapeDrawing.y1;
+      if (Math.sqrt(dx * dx + dy * dy) >= 4) {
+        shapes.push(shapeDrawing);
+      }
+      shapeDrawing = null;
+      draw();
+    }
     if (cropMode && cropRect && cropRect.w > 10 && cropRect.h > 10) {
       var applyBtn = document.getElementById('annot-apply-crop');
       if (applyBtn) applyBtn.style.display = 'inline-flex';
@@ -521,7 +711,7 @@
 
   // ── Save ──
   async function saveAnnotations() {
-    if (!baseImage || !annotations.length) { close(); return; }
+    if (!baseImage || (!annotations.length && !shapes.length)) { close(); return; }
     if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to save', 'error'); return; }
 
     window.Lab.showToast('Saving annotations...', 'info');
