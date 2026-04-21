@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 1,
+  "cycle": 3,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -173,16 +173,85 @@
         "Cosmetic issue: top nav 'Lab Map' is truncated to 'Lab M' (likely a label-width issue with the user menu)",
         "Cosmetic issue: Map design placeholder has overlapping text labels"
       ]
+    },
+    {
+      "cycle": 2,
+      "persona": "Alex Chen",
+      "modifier": "cross_linker",
+      "scenario": "Ethanol bottle day",
+      "task": "Created a new bottle instance (bottle-ethanol-absolute-qa2-*) pointing at resources/ethanol-absolute via `of:`, placed it on Chemistry Bench Area. Verified concept popup instance count incremented from 4 to 5. Moved the bottle to cabinet-flammable, verified the cabinet's Contents pane picked up the bottle post-fix.",
+      "screenshots": [
+        { "path": "/tmp/qa-screenshots/cycle2/step06-after-concept-popup-after-bottle.png", "shows": "Ethanol Absolute concept popup with updated instances column 3 (5 bottles including new QA2 instance)", "evaluation": "Concept popup renders three-column layout: fields (kogen, Chemical), body (description with inventory:// link), CONTENTS column now includes the new bottle. patchLinkIndex immediately reflected the new wikilink target.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle2/step08-after-bottle-popup-breadcrumb.png", "shows": "New bottle popup at creation time — fields show Type=Bottle, Of=resources/ethanol-absolute, Parent=Chemistry Bench Area, Lot/Expiration", "evaluation": "Popup fields render correctly. BUT: no breadcrumb pills at top of body (unlike the well-formed breadcrumb seen in cycle 1 tube popups). Contents panel says 'No references to this object yet.' which is expected for a leaf object.", "issues_found": ["BREADCRUMB-MISSING-ON-NEW-OBJECT: freshly created bottle popup shows no breadcrumb pills even though parent is set. Root cause: hierarchy cache stale after save."] },
+        { "path": "/tmp/qa-screenshots/cycle2/step15-after-cabinet-popup-post-move.png", "shows": "Flammable Cabinet popup after the bottle was moved from bench to cabinet; CONTENTS lists many bottles (1-Octanol, 3-Methylbutanol, Ethanol Absolute, Ethyl Alcohol Absolute, etc.)", "evaluation": "Cabinet popup renders correctly with breadcrumb Robbins Hall 0170 / Flammable Cabinet, Type=Container pill, fields panel, and a scrollable CONTENTS list of 16+ bottles.", "issues_found": ["Initial run (pre-fix) did NOT show the moved bottle in the contents list because the hierarchy cache was not invalidated after patchObjectIndex. Post-fix verification (cycle2-verify/03-cabinet-after-move.png) confirms the moved bottle appears as expected."] },
+        { "path": "/tmp/qa-screenshots/cycle2-verify/03-cabinet-after-move.png", "shows": "Verify run of Flammable Cabinet popup after moving a test bottle, CONTENTS includes 'Ethanol Absolute (verify)' entry", "evaluation": "Fix verified. Cabinet contents pane correctly lists the newly-moved bottle immediately after the save flow completes, no deploy required. Hierarchy cache invalidation works.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle2/step17-after-labmap-search-qa2.png", "shows": "Lab Map tree filtered by 'qa2' showing the bottle under its new cabinet parent", "evaluation": "Filter walks down the hierarchy from the room to the cabinet to the specific bottle. Tree reflects the patched-index state correctly.", "issues_found": [] }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "Children lists and breadcrumbs rendered from Lab.hierarchy._graph went stale after a save via patchObjectIndex — a new bottle/tube/box did not appear in its parent's CONTENTS until full reload and the child's own popup had no breadcrumb",
+          "evidence": "step07 bench popup did not list the new bottle; step08 bottle popup missing breadcrumb; step15 cabinet-after-move did not list the bottle (log flag hasBottle=false)",
+          "root_cause": "Lab.hierarchy built a derived cache (children map + parent chain) from the index once and never invalidated it when patchObjectIndex / removeFromObjectIndex mutated the underlying store.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": ["Invalidate Lab.hierarchy cache from patchObjectIndex / removeFromObjectIndex so children-lists and breadcrumbs reflect newly-saved objects immediately (app/js/github-api.js, commit 3d94ff8)"],
+      "observations": [
+        "Concept -> instance relationship works: a new bottle with `of: resources/ethanol-absolute` shows up in the concept's CONTENTS/backlinks immediately via patchLinkIndex from cycle 1.",
+        "Parent relationship previously lagged until hierarchy cache was invalidated — fixed in cycle 2.",
+        "Move-between-parents (bench -> cabinet) works by saving the file with the new `parent:` frontmatter; both the old and new parents reflect the change after the cache-invalidation fix.",
+        "Inventory page renders the new bottle as a row in the ethanol-grouped section; concept grouping hides individual bottles under the concept pill."
+      ]
+    },
+    {
+      "cycle": 3,
+      "persona": "Dr. Monroe",
+      "modifier": "ui_critic",
+      "scenario": "Reorder day",
+      "task": "Toggled 3 in_stock inventory items (1,8-Naphthalic anhydride, 1M Tris-HCL, Analytical Balance) to needs_more via the status pill (cycleStatus), verified inventory stat cards update correctly, checked dashboard Inventory Status, then cycled one item back through out_of_stock → in_stock to verify decrement. Cleanup via direct API for remaining 2 items.",
+      "screenshots": [
+        { "path": "/tmp/qa-screenshots/cycle3/step01-dashboard-baseline.png", "shows": "Dashboard baseline — Inventory Status card shows 226 In Stock / 1 Out of Stock / 1 alert row (Native Barcoding Kit 24 V14, Out of Stock)", "evaluation": "Card header 'INVENTORY STATUS' uppercase small caps with orange shopping_cart icon. Counts row compact with icons + numbers + labels inline. Single alert row has red cancel icon + item title + 'Out of Stock' red pill.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle3/step02-inventory-baseline.png", "shows": "Inventory page baseline — 4 stat cards (250 TOTAL / 228 IN STOCK / 0 NEEDS MORE / 1 OUT OF STOCK) + scrollable table with name/type/status/qty/location columns", "evaluation": "Stat card layout clean. Status column shows green 'In Stock' pills for all visible rows. Table sorted by name. Typography consistent. Search + filter bar visible at top.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle3/step07-after-inventory-stats-after-3-toggles.png", "shows": "Inventory page after 3 cycleStatus toggles — stat cards now 250/225/3/1; rows for 1,8-Naphthalic anhydride and 1M Tris-HCL show amber 'Needs More' pills with left amber border highlight; green toast at bottom right: 'Analytical Balance: Needs More'", "evaluation": "Stat counts update in real time as each cycleStatus call completes. Amber row highlight (4px left border + light amber background) is a tasteful alert treatment. Toast appears in bottom-right with correct status label. No layout shift.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle3/step08-after-filter-needs-more.png", "shows": "Inventory page filtered to needs_more — table collapses to the 3 toggled rows (1,8-Naphthalic anhydride / 1M Tris-HCL / Analytical Balance), each with amber Needs More pill and amber left-border highlight", "evaluation": "Filter dropdown shows 'Needs More'. Only matching rows remain. Stat cards unchanged (they show totals, not filtered counts). Amber styling consistent across all three alert rows.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle3/step09-after-dashboard-after-3-toggles.png", "shows": "Dashboard after 3 toggles (BEFORE FIX) — STILL shows 226 In Stock / 1 Out of Stock / 1 alert, identical to baseline. None of the 3 toggled items appear in the alert list.", "evaluation": "BUG: dashboard did not reflect the 3 toggled items. Counts did not change, alerts list is stale. Cause: dashboard.html init() called raw `fetch(BASE + 'object-index.json')` rather than Lab.gh.fetchObjectIndex, bypassing the localStorage patch overlay.", "issues_found": ["STALE-DASHBOARD-INDEX functional bug — dashboard stats + alerts out of sync with inventory page after status toggles"] },
+        { "path": "/tmp/qa-screenshots/cycle3/step12-after-cycle-pick1-back-to-in-stock.png", "shows": "Inventory after 2 additional toggles on pick[0] (needs_more → out_of_stock → in_stock): stats now 250/226/2/1; 1,8-Naphthalic anhydride row back to green In Stock; 1M Tris-HCL still amber; green toast '1,8-Naphthalic anhydride: In Stock'", "evaluation": "STATUS_CYCLE traversal works correctly — three consecutive cycleStatus calls move item through in_stock → needs_more → out_of_stock → in_stock. Stat cards decrement immediately. Pill color matches status.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle3-verify/02-dashboard-after-fix.png", "shows": "POST-FIX verification — Dashboard Inventory Status now shows 224 In Stock / 2 Needs More / 1 Out of Stock and the alert list includes the 2 toggled items (1,8-Naphthalic anhydride + 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA, both with amber Needs More pills) plus the pre-existing Native Barcoding Kit (red Out of Stock)", "evaluation": "FIX CONFIRMED. Dashboard now applies the localStorage patch overlay via Lab.gh.fetchObjectIndex. Counts match expected values. Alert list correctly includes newly-toggled items with correct amber/red badges and material icons (warning_amber triangle, cancel X). Recent Updates column on the right shows the cycle-3 cleanup commits. Layout and typography consistent with the rest of the dashboard.", "issues_found": [] }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "Dashboard Inventory Status card showed stale counts and alert list after inventory items had their status toggled on the inventory page",
+          "evidence": "step09-after-dashboard-after-3-toggles.png is identical to step01 baseline despite 3 items being toggled to needs_more; programmatic check returned picksFound:[false,false,false] and alertCount unchanged",
+          "root_cause": "dashboard.html init() called `fetch(BASE + 'object-index.json')` directly instead of going through Lab.gh.fetchObjectIndex, which applies the localStorage patch overlay populated by patchObjectIndex. The static object-index.json is only rebuilt on deploy, so between an inventory edit and the next deploy the dashboard rendered stale data.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": ["dashboard.html init() now prefers Lab.gh.fetchObjectIndex (with its localStorage overlay) and falls back to raw fetch only if Lab.gh is unavailable (commit 763ad51)"],
+      "observations": [
+        "cycleStatus correctly walks the STATUS_CYCLE ring (in_stock → needs_more → out_of_stock → in_stock) and commits each step to GitHub.",
+        "Inventory page stat cards (In Stock / Needs More / Out of Stock) are immediately correct after each toggle — they read from the in-memory inventory array updated by cycleStatus.",
+        "Alert rows on the inventory table get a 4px amber/red left border and a light tint — consistent with the status pill color.",
+        "The Inventory Status card on the dashboard is fed from the same object-index, so once the overlay was applied the alert list auto-populated with no other changes.",
+        "Dashboard top-stat 'INVENTORY 480' is the raw total of *all* stock+resource objects (including externals), whereas the status counts (224/2/1) only sum tracked statuses — so they don't add up to 480. That is intentional but could confuse a lab member.",
+        "Verification file: tests/qa-cycle-3-verify.mjs toggles 2 items, navigates to dashboard, asserts picksFound:[true,true] — kept in the repo as a regression harness for the fix."
+      ]
     }
   ],
   "bugs_found": [
     "BACKLINKS-LAG (functional, fixed in cycle 1): newly-created or freshly-edited files were missing from the backlinks panel of every wikilink target until the next deploy",
+    "HIERARCHY-CACHE-STALE (functional, fixed in cycle 2): after a save the Lab.hierarchy cache retained its pre-save snapshot, so parent CONTENTS + child breadcrumbs were missing for new objects until reload",
+    "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay — counts + alerts lagged until site redeploy",
     "NAV-TRUNCATION (cosmetic, open): top nav 'Lab Map' tab label appears truncated to 'Lab M' on 1440-wide viewport",
     "MAP-PLACEHOLDER-OVERLAP (cosmetic, open): SVG placeholder for the floor-plan has overlapping text labels",
-    "BREADCRUMB-DANGLING-SLASH (cosmetic, open): popup breadcrumb wraps to two lines and leaves a trailing '/' with nothing after on deep chains"
+    "BREADCRUMB-DANGLING-SLASH (cosmetic, open): popup breadcrumb wraps to two lines and leaves a trailing '/' with nothing after on deep chains",
+    "DASHBOARD-TOTAL-VS-STATUS-MISMATCH (cosmetic/ux, open): dashboard top card 'INVENTORY 480' counts all resource+stock objects while the Inventory Status counts (e.g. 226/0/1 = 227) only sum tracked statuses — the two numbers don't relate, which may confuse lab members"
   ],
   "fixes_applied": [
-    "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)"
+    "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
+    "Hierarchy cache invalidation on patchObjectIndex / removeFromObjectIndex (app/js/github-api.js, commit 3d94ff8)",
+    "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -190,12 +259,18 @@
   ],
   "edge_cases_tested": [],
   "screenshots_taken": [
-    "/tmp/qa-screenshots/cycle1/ — 23 screenshots, all read and evaluated"
+    "/tmp/qa-screenshots/cycle1/ — 23 screenshots, all read and evaluated",
+    "/tmp/qa-screenshots/cycle2/ — 33 screenshots + _log.json, evaluated before/after each action",
+    "/tmp/qa-screenshots/cycle2-verify/ — 5 verification screenshots post-fix",
+    "/tmp/qa-screenshots/cycle3/ — 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
+    "/tmp/qa-screenshots/cycle3-verify/ — 3 verification screenshots confirming the dashboard fix"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
     "Cycle 1: Vianney + ui_critic + Aliquot day. Created box-pistachio-aliquots-* (9x9) on shelf-minus80-a-1, then 6 tubes at A1-A6. All artifacts cleaned up at end of cycle. Backlinks bug found and fixed; deployed; re-verified.",
+    "Cycle 2: Alex Chen + cross_linker + Ethanol bottle day. Created bottle-ethanol-absolute-qa2-* pointing to the ethanol-absolute concept, placed on Chemistry Bench Area, then moved to Flammable Cabinet. All artifacts cleaned up. Hierarchy cache bug found and fixed (children + breadcrumbs now refresh immediately after save).",
+    "Cycle 3: Dr. Monroe + ui_critic + Reorder day. Toggled 3 items to needs_more, verified inventory stat cards and dashboard alert list. Caught a stale-dashboard-index bug (dashboard raw-fetched object-index.json, bypassing patch overlay). Fixed in commit 763ad51, verified via tests/qa-cycle-3-verify.mjs (kept as regression harness). All items restored to in_stock.",
     "Phase advanced to 'functional' from 'exploration' because cycle 1 was a full day-to-day CRUD scenario."
   ]
 }
