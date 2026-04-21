@@ -208,12 +208,18 @@
 /* Print styles */
 @media print {
   #lab-nav, #lab-bottom-nav, .proto-sidebar, .sidebar-backdrop, .proto-hamburger,
-  .proto-edit-bar, #password-gate { display: none !important; }
+  .proto-edit-bar, #password-gate, #print-preview-fab, #issue-reporter-btn { display: none !important; }
   .protocols-layout { display: block !important; }
   .proto-main { overflow: visible !important; }
   .proto-content { max-width: 100% !important; padding: 0 !important; }
   body { background: #fff; }
+  /* Iframe embeds its own copy of the frontmatter bar, so hide the parent's */
+  .proto-content > .frontmatter-bar { display: none !important; }
 }
+
+/* Print preview overlay: parent's frontmatter bar is duplicated inside the iframe,
+   hide the parent's so we only see one (#bug DOUBLE-FRONTMATTER-BAR cycle 11). */
+body.print-preview-active .proto-content > .frontmatter-bar { display: none !important; }
 
 @media (max-width: 768px) {
   .proto-sidebar {
