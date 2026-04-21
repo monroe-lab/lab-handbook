@@ -308,21 +308,23 @@
 
   // ── Init ──
   function init() {
-    fetch(BASE + 'object-index.json')
-      .then(function(r) { return r.json(); })
-      .then(function(objects) {
-        loadStats(objects);
-        loadInventoryStatus(objects);
-      })
-      .catch(function() {
-        // Fallback: try via GitHub API
-        fetch('https://api.github.com/repos/' + REPO + '/contents/docs/object-index.json', { headers: authHeaders() })
-          .then(function(r) { return r.json(); })
-          .then(function(json) {
-            var objects = JSON.parse(atob(json.content));
-            loadStats(objects); loadInventoryStatus(objects);
-          });
-      });
+    // Use Lab.gh.fetchObjectIndex so the localStorage patch overlay is
+    // applied — this is what keeps stats + alerts in sync after a user
+    // edits/creates/deletes an item on another page before the site
+    // redeploys its static object-index.json.
+    if (window.Lab && Lab.gh && Lab.gh.fetchObjectIndex) {
+      Lab.gh.fetchObjectIndex()
+        .then(function(objects) { loadStats(objects); loadInventoryStatus(objects); })
+        .catch(function() {
+          fetch(BASE + 'object-index.json')
+            .then(function(r) { return r.json(); })
+            .then(function(objects) { loadStats(objects); loadInventoryStatus(objects); });
+        });
+    } else {
+      fetch(BASE + 'object-index.json')
+        .then(function(r) { return r.json(); })
+        .then(function(objects) { loadStats(objects); loadInventoryStatus(objects); });
+    }
     loadRecentUpdates();
     loadBulletin();
   }
