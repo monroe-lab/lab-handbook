@@ -1,6 +1,3 @@
-# qa6v-fix-verify-mo92le0n
+# QA6 verify
 
-**Person:** Vianney Ahn
-
-**Date:** 2026-04-21
-
+Backlink to [[sample-pistachio-4]] and [[qiagen-dneasy-extraction]].
