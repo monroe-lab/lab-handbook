@@ -216,15 +216,13 @@
     if (_linkIndex) return _linkIndex;
     if (_linkIndexPromise) return _linkIndexPromise;
     _linkIndexPromise = (async function() {
+      var raw = [];
       var base = window.Lab ? window.Lab.BASE : '/lab-handbook/';
       try {
         var resp = await fetch(base + 'link-index.json?_=' + Date.now());
-        if (resp.ok) {
-          _linkIndex = await resp.json();
-          return _linkIndex;
-        }
+        if (resp.ok) raw = await resp.json();
       } catch(e) {}
-      _linkIndex = [];
+      _linkIndex = applyLinkPatches(raw);
       return _linkIndex;
     })();
     return _linkIndexPromise;
@@ -233,6 +231,77 @@
   function clearLinkIndexCache() {
     _linkIndex = null;
     _linkIndexPromise = null;
+  }
+
+  // Live link-index patches: keep the build-time link-index in sync with
+  // edits made in this browser session, so backlinks for newly-created or
+  // freshly-edited files appear immediately instead of after the next deploy.
+  // Mirrors the object-index patch layer.
+  var LINK_PATCH_KEY = 'lab_link_index_patches';
+
+  function getLinkPatches() {
+    try { return JSON.parse(localStorage.getItem(LINK_PATCH_KEY)) || {}; } catch(e) { return {}; }
+  }
+
+  function applyLinkPatches(edges) {
+    var patches = getLinkPatches();
+    var sources = Object.keys(patches);
+    if (!sources.length) return edges.slice();
+    // Drop every build-time edge whose source is patched (we replace with patch),
+    // then append the patch edges. _deleted patches contribute no edges.
+    var patchedSources = {};
+    sources.forEach(function(s) { patchedSources[s] = true; });
+    var result = edges.filter(function(e) { return !patchedSources[e.source]; });
+    sources.forEach(function(source) {
+      var p = patches[source];
+      if (p && Array.isArray(p.targets)) {
+        p.targets.forEach(function(t) { result.push({ source: source, target: t }); });
+      }
+    });
+    return result;
+  }
+
+  // Extract wikilink targets from a markdown body, normalize to slug form.
+  // Matches both `[[slug]]` and `[[slug|alias]]`. Returns a deduped array.
+  function extractWikilinkTargets(body) {
+    if (!body) return [];
+    var seen = {};
+    var out = [];
+    var re = /\[\[([^\]\n|#]+)(?:\|[^\]\n]*)?(?:#[^\]\n]*)?\]\]/g;
+    var m;
+    while ((m = re.exec(body)) !== null) {
+      var t = m[1].trim().replace(/^\.\//, '').replace(/\.md$/, '');
+      if (!t || seen[t]) continue;
+      seen[t] = true;
+      out.push(t);
+    }
+    return out;
+  }
+
+  // Patch the link-index for a file we just saved. Source = path without
+  // .md, targets = wikilink slugs from the body. Replaces any prior patch
+  // entry for this source.
+  function patchLinkIndex(filePath, body) {
+    var source = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
+    var targets = extractWikilinkTargets(body);
+    var patches = getLinkPatches();
+    patches[source] = { targets: targets };
+    try { localStorage.setItem(LINK_PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+    // Update in-memory cache: drop existing edges from this source, then add new.
+    if (_linkIndex) {
+      _linkIndex = _linkIndex.filter(function(e) { return e.source !== source; });
+      targets.forEach(function(t) { _linkIndex.push({ source: source, target: t }); });
+    }
+  }
+
+  function removeFromLinkIndex(filePath) {
+    var source = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
+    var patches = getLinkPatches();
+    patches[source] = { targets: [] };
+    try { localStorage.setItem(LINK_PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+    if (_linkIndex) {
+      _linkIndex = _linkIndex.filter(function(e) { return e.source !== source; });
+    }
   }
 
   // ── localStorage patch layer ──
@@ -386,6 +455,8 @@
     _getCachedLinkIndex: function() { return _linkIndex; },
     fetchLinkIndex: fetchLinkIndex,
     clearLinkIndexCache: clearLinkIndexCache,
+    patchLinkIndex: patchLinkIndex,
+    removeFromLinkIndex: removeFromLinkIndex,
     REPO: REPO,
     BRANCH: BRANCH
   };

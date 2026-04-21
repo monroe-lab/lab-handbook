@@ -2333,6 +2333,10 @@
 
       // Update object index in-memory + localStorage (survives refresh without waiting for deploy)
       gh.patchObjectIndex(currentState.path, currentState.meta);
+      // Mirror the body's wikilinks into the link-index so backlinks for
+      // newly-edited or freshly-created files appear immediately in the
+      // referenced object's popup, instead of waiting for the next deploy.
+      if (gh.patchLinkIndex) gh.patchLinkIndex(currentState.path, currentState.body || '');
       if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
 
       // Fire custom event so parent app can refresh
