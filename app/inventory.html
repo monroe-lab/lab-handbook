@@ -31,6 +31,10 @@
 /* Table wrap */
 .inv-table-wrap { padding: 0 24px 24px; }
 
+/* Scope the teal hover to sortable columns only. The Actions column has no
+   onclick and shouldn't pick up the teal hover affordance its siblings get. */
+#invTable th:not([onclick]):hover { color: var(--grey-700); cursor: default; }
+
 /* Low stock highlight */
 tr.low-stock td:first-child { position: relative; }
 tr.low-stock td:first-child::before {
