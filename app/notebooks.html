@@ -392,11 +392,13 @@ function renderNode(node, depth, q) {
     html += '<div class="nb-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
   });
 
-  // Issue #110: prominent "+ New entry in this folder" row beneath the
-  // item list so there is a clear action when the user expands a folder.
-  // Only shown for leaf-ish folders (no subfolders) to avoid visual clutter
-  // in the tree's upper levels, and only when signed in.
-  if (loggedIn && node.children.length === 0) {
+  // Issue #110 + #120: prominent "+ New entry in this folder" row beneath
+  // the item list so there is a clear action on every folder, including
+  // base/user folders that contain sub-folders. Grey's #120 feedback:
+  // "you cant add new entry to use base directory with simple one, like
+  // you can for sub folders in there" — the earlier leaf-only restriction
+  // hid the affordance on user-level folders.
+  if (loggedIn) {
     var addPad = 24 + depth * 14;
     html += '<div class="nb-folder-add-entry" ' +
       'onclick="createNewEntryInFolder(\'' + dirAttr + '\')" ' +
