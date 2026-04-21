@@ -8,7 +8,7 @@
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
   var TABS = [
-    { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
+    { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
     { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
     { label: 'People',    href: BASE + 'app/people.html',      icon: 'people' },
@@ -17,9 +17,9 @@
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'app/calendar.html',    icon: 'calendar_month' },
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
-    { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
-    { label: 'Lab Map',  href: BASE + 'app/lab-map.html',    icon: 'map' },
-    { label: 'Apps',    href: BASE + 'app/apps.html',       icon: 'extension' },
+    { label: 'Lab Map',   href: BASE + 'app/lab-map.html',     icon: 'map' },
+    { label: 'Apps',      href: BASE + 'app/apps.html',        icon: 'extension' },
+    { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
