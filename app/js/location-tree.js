@@ -373,12 +373,27 @@
         });
         return;
       }
+      // Word-boundary-aware: prefer hits where the query sits on a word
+      // boundary (space, hyphen, underscore, slash, or string start) so
+      // "ethanol" doesn't match inside "methanol" / "2-mercaptoethanol".
+      // We still fall back to substring matches when nothing else hits —
+      // otherwise typing a partial prefix (e.g. "eth") would show zero
+      // results until the user finishes the word.
       var hits = new Set();
+      var wbHits = new Set();
+      var qEsc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var wbRe = new RegExp('(^|[\\s\\-_/])' + qEsc);
       Object.keys(graph).forEach(function(slug) {
         var e = graph[slug];
         var hay = (slug + ' ' + (e.title || '') + ' ' + (e.type || '')).toLowerCase();
-        if (hay.indexOf(q) !== -1) hits.add(slug);
+        if (hay.indexOf(q) !== -1) {
+          hits.add(slug);
+          if (wbRe.test(hay)) wbHits.add(slug);
+        }
       });
+      // If any word-boundary hits exist, narrow to those. Otherwise keep the
+      // substring matches so partial-prefix searches still return something.
+      if (wbHits.size) hits = wbHits;
       var show = new Set();
       hits.forEach(function(slug) {
         var cur = slug;
