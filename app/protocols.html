@@ -598,6 +598,16 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
 
   var srcFilePath = 'docs/' + srcDocPath + '.md';
   var dstFilePath = 'docs/' + targetDir + '/' + slug + '.md';
+  var newDocPath = targetDir + '/' + slug;
+
+  // Show an in-flight toast so it's obvious something is happening even on
+  // slow networks. Issue #114: users reported "dragging protocols between
+  // folders either doesnt work or doesnt render instantly so yyou cant tell
+  // if it worked" — the sidebar was waiting on updateWikilinksAfterMove
+  // (which fetches the whole tree and rewrites every referencing file) before
+  // re-rendering. Any unhandled error in that pass would also silently block
+  // the sidebar update, hence the "doesnt work" part.
+  Lab.showToast('Moving to ' + targetLabel + '…', 'info', 2000);
 
   try {
     // Fetch source file content and SHA
@@ -609,13 +619,28 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
     // Delete from old location
     await gh.deleteFile(srcFilePath, result.sha, 'Moved ' + slug + ' from ' + srcDir);
 
-    gh.clearObjectIndexCache();
+    // ── Live-patch indices so the sidebar (and every other surface that
+    // reads object-index / link-index) reflects the move instantly, without
+    // waiting ~40s for Pages to redeploy. Same pattern as #94/#95/#96 and
+    // #16/#17 backlinks. Do NOT call clearObjectIndexCache here — it would
+    // drop the in-memory patch overlay we just set.
+    try {
+      var parsed = Lab.parseFrontmatter(result.content);
+      var meta = parsed.meta || {};
+      // Ensure type survives the round-trip even if frontmatter is sparse.
+      if (!meta.type) meta.type = 'protocol';
+      if (!meta.title) meta.title = title;
+      gh.removeFromObjectIndex(srcFilePath);
+      gh.patchObjectIndex(dstFilePath, meta);
+      gh.removeFromLinkIndex(srcFilePath);
+      gh.patchLinkIndex(dstFilePath, parsed.body || '');
+    } catch(patchErr) {
+      // Patch failures must never block the sidebar re-render.
+      console.warn('Index patch after move failed', patchErr);
+    }
 
-    // Update wikilinks in other files that reference the old path
-    await updateWikilinksAfterMove(srcDocPath, targetDir + '/' + slug);
-
-    // Update local NAV
-    var newDocPath = targetDir + '/' + slug;
+    // Update local NAV synchronously so the sidebar re-render below reflects
+    // the new folder immediately.
     NAV.forEach(function(cat) {
       cat.items = cat.items.filter(function(i) { return i.path !== srcDocPath; });
     });
@@ -630,6 +655,15 @@ async function moveProtocol(srcDocPath, title, targetDir, targetLabel) {
     if (currentDoc === srcDocPath) {
       loadDoc(newDocPath);
     }
+
+    // Wikilink rewrite runs in the background — it fetches the whole tree
+    // and potentially rewrites many files, which can take tens of seconds.
+    // Detaching it keeps the sidebar snappy. Errors surface via toast but
+    // do not revert the move.
+    updateWikilinksAfterMove(srcDocPath, newDocPath).catch(function(e) {
+      console.warn('Wikilink rewrite after move failed', e);
+      Lab.showToast('Links to old path not updated: ' + e.message, 'warning', 6000);
+    });
   } catch(e) {
     Lab.showToast('Move failed: ' + e.message, 'error');
   }
