@@ -105,8 +105,19 @@
     el.className = 'toast' + (type ? ' ' + type : '');
     var icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
     el.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">' + icon + '</span> ' + escHtml(msg);
+    // Click-to-dismiss for impatient users; errors also dismiss on click.
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function() {
+      el.style.opacity = '0';
+      setTimeout(function() { el.remove(); }, 300);
+    });
     container.appendChild(el);
-    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, duration || 4000);
+    // Success toasts fade after 3s; errors linger 6s so Grey can read them;
+    // info defaults to 4s. Explicit duration argument still overrides.
+    if (duration == null) {
+      duration = type === 'error' ? 6000 : type === 'success' ? 3000 : 4000;
+    }
+    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, duration);
   }
 
   // ── Utility Functions ──
