@@ -307,12 +307,20 @@
   // ── localStorage patch layer ──
   // Saves edits locally so they survive refresh without waiting for deploy
   var PATCH_KEY = 'lab_index_patches';
+  // Must mirror EXTRACT_KEYS in scripts/build-object-index.py — otherwise a
+  // patched object survives a reload with fewer fields than a rebuilt one and
+  // pages that read those fields (waste table state/contents/days_held, sample
+  // tracker, etc.) render blanks during the overlay window.
   var INDEX_KEYS = [
     'type', 'title', 'location', 'location_detail', 'quantity', 'unit', 'low_stock_threshold',
     'category', 'cas', 'notes', 'role', 'email', 'organism', 'stock_type',
     'source', 'genotype', 'status', 'pi', 'funding', 'date', 'author',
     'legacy_inventory_id', 'containers',
     'created_at', 'created_by', 'updated_at', 'need_more',
+    // Waste container fields (waste.html)
+    'contents', 'physical_state', 'container', 'hazard_class', 'started', 'waste_tag',
+    // Sample tracker fields
+    'sample_id', 'species', 'lead', 'sequencing_type',
     // Location hierarchy (R1, Issue #18): parent is a slug (or [[wikilink]]),
     // position is a grid cell label, grid declares a container with rows x cols,
     // label_1 / label_2 are display labels (label_2 used in compact grid cells).
