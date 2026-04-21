@@ -678,8 +678,13 @@
       var pill = document.createElement('a');
       pill.href = 'javascript:void(0)';
       pill.className = 'object-pill';
-      pill.setAttribute('style', style);
-      pill.innerHTML = icon + ' ' + escHtml(title);
+      // Fields column is narrow (300px - 80px label = ~200px for value). Long
+      // titles must truncate with ellipsis so the pill stays inside the column
+      // instead of overflowing into the body. Icon stays visible; only the
+      // title text shrinks + ellipsis.
+      pill.setAttribute('style', style + 'max-width:100%;min-width:0;');
+      pill.setAttribute('title', title);
+      pill.innerHTML = icon + ' <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + escHtml(title) + '</span>';
       pill.addEventListener('click', function(slug) {
         return function(e) {
           e.preventDefault();
@@ -1232,9 +1237,9 @@
         // If the parent slug can't be resolved later, the placeholder stays as raw text.
         if (field.key === 'parent') {
           var parentSlug = window.Lab.escHtml(String(val));
-          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
-            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
-            '<span data-parent-pill="' + parentSlug + '" style="font-weight:500">' + parentSlug + '</span>' +
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;min-width:0">' +
+            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
+            '<span data-parent-pill="' + parentSlug + '" style="font-weight:500;min-width:0;flex:1 1 auto;overflow:hidden">' + parentSlug + '</span>' +
             '</div>';
           return;
         }
@@ -1244,9 +1249,9 @@
         // clickable pill so the fields column can traverse instance → concept.
         if (field.key === 'of') {
           var ofSlug = window.Lab.escHtml(String(val));
-          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
-            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
-            '<span data-of-pill="' + ofSlug + '" style="font-weight:500">' + ofSlug + '</span>' +
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;min-width:0">' +
+            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
+            '<span data-of-pill="' + ofSlug + '" style="font-weight:500;min-width:0;flex:1 1 auto;overflow:hidden">' + ofSlug + '</span>' +
             '</div>';
           return;
         }
