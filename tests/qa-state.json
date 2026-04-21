@@ -80,16 +80,46 @@
     }
   ],
   "behavior_modifiers": [
-    { "name": "rushed", "description": "Types fast, doesn't wait for saves, clicks away quickly. Tests race conditions and unsaved state." },
-    { "name": "careful", "description": "Reads every page, verifies rendered output after every save, checks content via GitHub API. Catches stale render bugs." },
-    { "name": "confused", "description": "Clicks wrong buttons, uses search with typos, tries to save without required fields. Tests error handling." },
-    { "name": "thorough", "description": "Fills every optional field, uploads multiple images, creates deeply nested content with many wikilinks. Tests limits." },
-    { "name": "mobile", "description": "Uses 375x812 viewport throughout. Tests responsive layout, touch targets, bottom nav, image upload on mobile." },
-    { "name": "adversarial", "description": "HTML/script injection, 500+ char strings, emoji-heavy names, Unicode edge cases. Tests input sanitization." },
-    { "name": "impatient", "description": "Double-clicks save, refreshes mid-save, back-button after submit. Tests interruption handling." },
-    { "name": "explorer", "description": "URL manipulation (?doc=nonexistent), opens pages in unexpected order, deep-links to deleted items. Tests error states." },
-    { "name": "ui_critic", "description": "Focuses on visual coherence -- does the pill color match the type? Is the breadcrumb correct? Is the grid cell rendering the right child? Is spacing consistent? Screenshot-heavy." },
-    { "name": "cross_linker", "description": "Obsessed with links -- follows every wikilink, verifies bidirectional backlinks, checks that object pills render with correct icon+title, tests [[ autocomplete everywhere." }
+    {
+      "name": "rushed",
+      "description": "Types fast, doesn't wait for saves, clicks away quickly. Tests race conditions and unsaved state."
+    },
+    {
+      "name": "careful",
+      "description": "Reads every page, verifies rendered output after every save, checks content via GitHub API. Catches stale render bugs."
+    },
+    {
+      "name": "confused",
+      "description": "Clicks wrong buttons, uses search with typos, tries to save without required fields. Tests error handling."
+    },
+    {
+      "name": "thorough",
+      "description": "Fills every optional field, uploads multiple images, creates deeply nested content with many wikilinks. Tests limits."
+    },
+    {
+      "name": "mobile",
+      "description": "Uses 375x812 viewport throughout. Tests responsive layout, touch targets, bottom nav, image upload on mobile."
+    },
+    {
+      "name": "adversarial",
+      "description": "HTML/script injection, 500+ char strings, emoji-heavy names, Unicode edge cases. Tests input sanitization."
+    },
+    {
+      "name": "impatient",
+      "description": "Double-clicks save, refreshes mid-save, back-button after submit. Tests interruption handling."
+    },
+    {
+      "name": "explorer",
+      "description": "URL manipulation (?doc=nonexistent), opens pages in unexpected order, deep-links to deleted items. Tests error states."
+    },
+    {
+      "name": "ui_critic",
+      "description": "Focuses on visual coherence -- does the pill color match the type? Is the breadcrumb correct? Is the grid cell rendering the right child? Is spacing consistent? Screenshot-heavy."
+    },
+    {
+      "name": "cross_linker",
+      "description": "Obsessed with links -- follows every wikilink, verifies bidirectional backlinks, checks that object pills render with correct icon+title, tests [[ autocomplete everywhere."
+    }
   ],
   "scenario_cards": [
     "Ethanol bottle day: Inventory -> Add new bottle of Ethanol Absolute (from ethanol-absolute concept). Give it a lot number, expiration, assign location to lab-bench. Save. Verify it appears in the concept's 'physical bottles' list. Open the lab bench location -- verify the new bottle is a child. Screenshot every step.",
@@ -120,22 +150,98 @@
     "rule_6": "If a screenshot reveals a visual issue (even a cosmetic one), log it as a bug with severity: visual. Attempt a fix if in scope (app/ or docs/ only)."
   },
   "routes_discovered": [
-    { "name": "dashboard", "path": "/app/dashboard.html", "status": 200, "notes": "Stats cards, needs ordering, recent updates, bulletin board, knowledge graph mini" },
-    { "name": "protocols", "path": "/app/protocols.html", "status": 200, "notes": "Sidebar with categories (8 groups, 77 total), search, create button" },
-    { "name": "wiki", "path": "/app/wiki.html", "status": 200, "notes": "308 documents, 556 links, type filter pills, interactive graph, folder tree sidebar" },
-    { "name": "notebooks", "path": "/app/notebooks.html", "status": 200, "notes": "Folder-per-person, New Entry button, recent entries" },
-    { "name": "inventory", "path": "/app/inventory.html", "status": 200, "notes": "Full table, 200+ items, search, filters, add button, need-more flag" },
-    { "name": "projects", "path": "/app/projects.html", "status": 200, "notes": "4 projects; project pages with content + wikilinks" },
-    { "name": "lab-map", "path": "/app/lab-map.html", "status": 200, "notes": "Hierarchical location tree, room->freezer->shelf->box->tube, filter + expand/collapse, inline edit/delete" },
-    { "name": "waste", "path": "/app/waste.html", "status": 200, "notes": "3 active containers, days held tracking, status badges, waste tag numbers" },
-    { "name": "graph", "path": "/app/graph.html", "status": 200, "notes": "Full knowledge graph, 293+ objects, type-colored legend" },
-    { "name": "samples", "path": "/sample-tracker/", "status": 200, "notes": "Sample tracker table, MkDocs-based page" },
-    { "name": "calendar", "path": "/calendar/", "status": 200, "notes": "Weekly view, member filter, Add Block button, click-to-create per hour cell" },
-    { "name": "mkdocs-home", "path": "/", "status": 200, "notes": "Redirects to dashboard" },
-    { "name": "people", "path": "/app/people.html", "status": 200, "notes": "Personal dashboards with connected items (R17+)" },
-    { "name": "profile", "path": "/app/profile.html", "status": 200, "notes": "Per-user stats + tiered badges (R12/R17+)" }
+    {
+      "name": "dashboard",
+      "path": "/app/dashboard.html",
+      "status": 200,
+      "notes": "Stats cards, needs ordering, recent updates, bulletin board, knowledge graph mini"
+    },
+    {
+      "name": "protocols",
+      "path": "/app/protocols.html",
+      "status": 200,
+      "notes": "Sidebar with categories (8 groups, 77 total), search, create button"
+    },
+    {
+      "name": "wiki",
+      "path": "/app/wiki.html",
+      "status": 200,
+      "notes": "308 documents, 556 links, type filter pills, interactive graph, folder tree sidebar"
+    },
+    {
+      "name": "notebooks",
+      "path": "/app/notebooks.html",
+      "status": 200,
+      "notes": "Folder-per-person, New Entry button, recent entries"
+    },
+    {
+      "name": "inventory",
+      "path": "/app/inventory.html",
+      "status": 200,
+      "notes": "Full table, 200+ items, search, filters, add button, need-more flag"
+    },
+    {
+      "name": "projects",
+      "path": "/app/projects.html",
+      "status": 200,
+      "notes": "4 projects; project pages with content + wikilinks"
+    },
+    {
+      "name": "lab-map",
+      "path": "/app/lab-map.html",
+      "status": 200,
+      "notes": "Hierarchical location tree, room->freezer->shelf->box->tube, filter + expand/collapse, inline edit/delete"
+    },
+    {
+      "name": "waste",
+      "path": "/app/waste.html",
+      "status": 200,
+      "notes": "3 active containers, days held tracking, status badges, waste tag numbers"
+    },
+    {
+      "name": "graph",
+      "path": "/app/graph.html",
+      "status": 200,
+      "notes": "Full knowledge graph, 293+ objects, type-colored legend"
+    },
+    {
+      "name": "samples",
+      "path": "/sample-tracker/",
+      "status": 200,
+      "notes": "Sample tracker table, MkDocs-based page"
+    },
+    {
+      "name": "calendar",
+      "path": "/calendar/",
+      "status": 200,
+      "notes": "Weekly view, member filter, Add Block button, click-to-create per hour cell"
+    },
+    {
+      "name": "mkdocs-home",
+      "path": "/",
+      "status": 200,
+      "notes": "Redirects to dashboard"
+    },
+    {
+      "name": "people",
+      "path": "/app/people.html",
+      "status": 200,
+      "notes": "Personal dashboards with connected items (R17+)"
+    },
+    {
+      "name": "profile",
+      "path": "/app/profile.html",
+      "status": 200,
+      "notes": "Per-user stats + tiered badges (R12/R17+)"
+    }
   ],
-  "routes_tested": ["lab-map", "dashboard", "protocols", "inventory", "wiki"],
+  "routes_tested": [
+    "lab-map",
+    "dashboard",
+    "protocols",
+    "inventory",
+    "wiki"
+  ],
   "workflows_tested": [
     {
       "cycle": 1,
@@ -144,16 +250,73 @@
       "scenario": "Aliquot day",
       "task": "Created new 9x9 box-pistachio-aliquots on shelf-minus80-a-1, then 6 aliquot tubes (A1-A6) referencing sample-pistachio-4 via wikilinks. Verified breadcrumbs, grid placement, hierarchy tree, and backlinks from sample popup.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle1/step01-lab-map-initial-load.png", "shows": "Lab Map page with Locations tree expanded to room/freezer/shelf level", "evaluation": "Tree renders cleanly. Robbins Hall 0170 expanded; -80C Freezer A shows 3 items; Shelf 1 (2 items), Shelf 2 (2 items), Shelf 3, 4C Fridge (14 items)." , "issues_found": ["Top nav 'Lab Map' label is truncated to 'Lab M' under the user menu — minor visual issue but consistent across all screenshots", "The 'Map design in progress' SVG placeholder has overlapping text where 'Map design' overlays 'Bench 1' and 'in progress' overlays 'Bench 2' — looks awkward"] },
-        { "path": "/tmp/qa-screenshots/cycle1/step02-after-open-sample-popup.png", "shows": "Pistachio Tree #4 sample popup with fields panel, body, and 3 references in col 3", "evaluation": "Three-column layout renders correctly. Fields show Name/Sample ID/Species/Project/Lead/Sequencing Type/Status. Body has correctly-colored wikilink pills (Pistachio Leaf 1/2 in teal=Tube, Pistachio Tree #4 in purple=Sample). Right column lists 3 REFERENCES (DNA Extract 1, Leaf 1, Leaf 2).", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step03-after-shelf-popup-existing-children.png", "shows": "Shelf 1 popup with breadcrumb and contents (Box A, Pistachio DNA Box)", "evaluation": "Breadcrumb chain Robbins Hall 0170 / -80C Freezer A / Shelf 1 renders correctly with type-colored pills. Contents pane lists 2 child boxes plus Add item button. Fields panel shows Type=Shelf, Parent=-80C Freezer A.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step05-lab-map-after-box-create.png", "shows": "Lab map after creating new box; Shelf 1 child count incremented from 2 to 3 items", "evaluation": "patchObjectIndex correctly updates the tree counter without a deploy. Tree still has the same items expanded.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step06-empty-9x9-box-popup.png", "shows": "New empty 9x9 box popup with 81 dashed empty cells labeled A1-I9", "evaluation": "Grid renders correctly with column headers 1-9 and row headers A-I. All 81 cells dashed (empty state). Header reads '9 × 9 · 0 items'. Body wikilinks render correctly: Pistachio Tree #4 (purple Sample pill), Shelf 1 (grey-blue Shelf pill).", "issues_found": ["Breadcrumb wraps to two lines and ends with a dangling trailing slash ('Pistachio Aliquots Box /' with nothing after). Cosmetic but odd."] },
-        { "path": "/tmp/qa-screenshots/cycle1/step08-box-popup-with-6-tubes.png", "shows": "Same box popup after creating 6 tubes; row A cells 1-6 occupied (teal), 7-9 empty", "evaluation": "Header now reads '9 × 9 · 6 items'. Row A shows 6 teal-filled cells with 'P4-' label fragments visible. Cells A7-A9 stay empty. Other rows untouched. Grid correctly reflects new children via patched object index.", "issues_found": ["Cell labels are truncated to 'P4-' — the second line of label_2 ('4/21') is hidden. Acceptable given the small cell size, but worth noting for label-design choices."] },
-        { "path": "/tmp/qa-screenshots/cycle1/step09-tube-A3-popup-breadcrumb.png", "shows": "Tube popup with full 5-level breadcrumb chain", "evaluation": "Breadcrumb chain wraps cleanly: Robbins Hall 0170 / -80C Freezer A / Shelf 1 / Pistachio Aliquots Box / Pistachio 4 Aliquot 3. All pill colors match type system. Position field shows A3, label_2 shows 'P4-A3 / 4/21'. Body wikilinks render correctly.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step10-sample-popup-with-new-backlinks.png", "shows": "Sample popup AFTER fix: now shows 10 REFERENCES instead of 3 — all 6 new aliquots + the new box + the 3 original tubes", "evaluation": "Fix verified. patchLinkIndex correctly mirrors the body's outbound wikilinks into a localStorage overlay so backlinks appear immediately without waiting for a redeploy. References now: Aliquot 1-6 (Tube), Pistachio Aliquots Box (Box), DNA Extract 1, Leaf 1, Leaf 2.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step11-shelf-popup-with-new-box-child.png", "shows": "Shelf 1 popup now lists 3 children including the new Pistachio Aliquots Box", "evaluation": "Parent->children relationship via the patched object index works correctly. Box A, Pistachio Aliquots Box, Pistachio DNA Box all listed.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle1/step12-final-tree-aliquot-search.png", "shows": "Filtered lab-map tree showing the full hierarchy from Robbins Hall down to all 6 aliquot tubes with grid positions", "evaluation": "Showcase view: tree filter 'aliquot' walks down Room -> Freezer -> Shelf -> Box -> 6 Tubes, each tube row shows its grid position (A1-A6) on the right. Box shows '9x9' grid label and '6 items' count.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step01-lab-map-initial-load.png",
+          "shows": "Lab Map page with Locations tree expanded to room/freezer/shelf level",
+          "evaluation": "Tree renders cleanly. Robbins Hall 0170 expanded; -80C Freezer A shows 3 items; Shelf 1 (2 items), Shelf 2 (2 items), Shelf 3, 4C Fridge (14 items).",
+          "issues_found": [
+            "Top nav 'Lab Map' label is truncated to 'Lab M' under the user menu \u2014 minor visual issue but consistent across all screenshots",
+            "The 'Map design in progress' SVG placeholder has overlapping text where 'Map design' overlays 'Bench 1' and 'in progress' overlays 'Bench 2' \u2014 looks awkward"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step02-after-open-sample-popup.png",
+          "shows": "Pistachio Tree #4 sample popup with fields panel, body, and 3 references in col 3",
+          "evaluation": "Three-column layout renders correctly. Fields show Name/Sample ID/Species/Project/Lead/Sequencing Type/Status. Body has correctly-colored wikilink pills (Pistachio Leaf 1/2 in teal=Tube, Pistachio Tree #4 in purple=Sample). Right column lists 3 REFERENCES (DNA Extract 1, Leaf 1, Leaf 2).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step03-after-shelf-popup-existing-children.png",
+          "shows": "Shelf 1 popup with breadcrumb and contents (Box A, Pistachio DNA Box)",
+          "evaluation": "Breadcrumb chain Robbins Hall 0170 / -80C Freezer A / Shelf 1 renders correctly with type-colored pills. Contents pane lists 2 child boxes plus Add item button. Fields panel shows Type=Shelf, Parent=-80C Freezer A.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step05-lab-map-after-box-create.png",
+          "shows": "Lab map after creating new box; Shelf 1 child count incremented from 2 to 3 items",
+          "evaluation": "patchObjectIndex correctly updates the tree counter without a deploy. Tree still has the same items expanded.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step06-empty-9x9-box-popup.png",
+          "shows": "New empty 9x9 box popup with 81 dashed empty cells labeled A1-I9",
+          "evaluation": "Grid renders correctly with column headers 1-9 and row headers A-I. All 81 cells dashed (empty state). Header reads '9 \u00d7 9 \u00b7 0 items'. Body wikilinks render correctly: Pistachio Tree #4 (purple Sample pill), Shelf 1 (grey-blue Shelf pill).",
+          "issues_found": [
+            "Breadcrumb wraps to two lines and ends with a dangling trailing slash ('Pistachio Aliquots Box /' with nothing after). Cosmetic but odd."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step08-box-popup-with-6-tubes.png",
+          "shows": "Same box popup after creating 6 tubes; row A cells 1-6 occupied (teal), 7-9 empty",
+          "evaluation": "Header now reads '9 \u00d7 9 \u00b7 6 items'. Row A shows 6 teal-filled cells with 'P4-' label fragments visible. Cells A7-A9 stay empty. Other rows untouched. Grid correctly reflects new children via patched object index.",
+          "issues_found": [
+            "Cell labels are truncated to 'P4-' \u2014 the second line of label_2 ('4/21') is hidden. Acceptable given the small cell size, but worth noting for label-design choices."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step09-tube-A3-popup-breadcrumb.png",
+          "shows": "Tube popup with full 5-level breadcrumb chain",
+          "evaluation": "Breadcrumb chain wraps cleanly: Robbins Hall 0170 / -80C Freezer A / Shelf 1 / Pistachio Aliquots Box / Pistachio 4 Aliquot 3. All pill colors match type system. Position field shows A3, label_2 shows 'P4-A3 / 4/21'. Body wikilinks render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step10-sample-popup-with-new-backlinks.png",
+          "shows": "Sample popup AFTER fix: now shows 10 REFERENCES instead of 3 \u2014 all 6 new aliquots + the new box + the 3 original tubes",
+          "evaluation": "Fix verified. patchLinkIndex correctly mirrors the body's outbound wikilinks into a localStorage overlay so backlinks appear immediately without waiting for a redeploy. References now: Aliquot 1-6 (Tube), Pistachio Aliquots Box (Box), DNA Extract 1, Leaf 1, Leaf 2.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step11-shelf-popup-with-new-box-child.png",
+          "shows": "Shelf 1 popup now lists 3 children including the new Pistachio Aliquots Box",
+          "evaluation": "Parent->children relationship via the patched object index works correctly. Box A, Pistachio Aliquots Box, Pistachio DNA Box all listed.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle1/step12-final-tree-aliquot-search.png",
+          "shows": "Filtered lab-map tree showing the full hierarchy from Robbins Hall down to all 6 aliquot tubes with grid positions",
+          "evaluation": "Showcase view: tree filter 'aliquot' walks down Room -> Freezer -> Shelf -> Box -> 6 Tubes, each tube row shows its grid position (A1-A6) on the right. Box shows '9x9' grid label and '6 items' count.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
@@ -164,7 +327,9 @@
           "status": "fixed"
         }
       ],
-      "fixes": ["Added patchLinkIndex / removeFromLinkIndex / extractWikilinkTargets in app/js/github-api.js with a localStorage overlay applied in fetchLinkIndex; wired patchLinkIndex into the editor save flow in app/js/editor-modal.js"],
+      "fixes": [
+        "Added patchLinkIndex / removeFromLinkIndex / extractWikilinkTargets in app/js/github-api.js with a localStorage overlay applied in fetchLinkIndex; wired patchLinkIndex into the editor save flow in app/js/editor-modal.js"
+      ],
       "observations": [
         "5-level breadcrumb (Room/Freezer/Shelf/Box/Tube) renders cleanly with type-colored pills",
         "Object-index patches cascade correctly to tree counters and Contents lists without redeploy",
@@ -181,25 +346,56 @@
       "scenario": "Ethanol bottle day",
       "task": "Created a new bottle instance (bottle-ethanol-absolute-qa2-*) pointing at resources/ethanol-absolute via `of:`, placed it on Chemistry Bench Area. Verified concept popup instance count incremented from 4 to 5. Moved the bottle to cabinet-flammable, verified the cabinet's Contents pane picked up the bottle post-fix.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle2/step06-after-concept-popup-after-bottle.png", "shows": "Ethanol Absolute concept popup with updated instances column 3 (5 bottles including new QA2 instance)", "evaluation": "Concept popup renders three-column layout: fields (kogen, Chemical), body (description with inventory:// link), CONTENTS column now includes the new bottle. patchLinkIndex immediately reflected the new wikilink target.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle2/step08-after-bottle-popup-breadcrumb.png", "shows": "New bottle popup at creation time — fields show Type=Bottle, Of=resources/ethanol-absolute, Parent=Chemistry Bench Area, Lot/Expiration", "evaluation": "Popup fields render correctly. BUT: no breadcrumb pills at top of body (unlike the well-formed breadcrumb seen in cycle 1 tube popups). Contents panel says 'No references to this object yet.' which is expected for a leaf object.", "issues_found": ["BREADCRUMB-MISSING-ON-NEW-OBJECT: freshly created bottle popup shows no breadcrumb pills even though parent is set. Root cause: hierarchy cache stale after save."] },
-        { "path": "/tmp/qa-screenshots/cycle2/step15-after-cabinet-popup-post-move.png", "shows": "Flammable Cabinet popup after the bottle was moved from bench to cabinet; CONTENTS lists many bottles (1-Octanol, 3-Methylbutanol, Ethanol Absolute, Ethyl Alcohol Absolute, etc.)", "evaluation": "Cabinet popup renders correctly with breadcrumb Robbins Hall 0170 / Flammable Cabinet, Type=Container pill, fields panel, and a scrollable CONTENTS list of 16+ bottles.", "issues_found": ["Initial run (pre-fix) did NOT show the moved bottle in the contents list because the hierarchy cache was not invalidated after patchObjectIndex. Post-fix verification (cycle2-verify/03-cabinet-after-move.png) confirms the moved bottle appears as expected."] },
-        { "path": "/tmp/qa-screenshots/cycle2-verify/03-cabinet-after-move.png", "shows": "Verify run of Flammable Cabinet popup after moving a test bottle, CONTENTS includes 'Ethanol Absolute (verify)' entry", "evaluation": "Fix verified. Cabinet contents pane correctly lists the newly-moved bottle immediately after the save flow completes, no deploy required. Hierarchy cache invalidation works.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle2/step17-after-labmap-search-qa2.png", "shows": "Lab Map tree filtered by 'qa2' showing the bottle under its new cabinet parent", "evaluation": "Filter walks down the hierarchy from the room to the cabinet to the specific bottle. Tree reflects the patched-index state correctly.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle2/step06-after-concept-popup-after-bottle.png",
+          "shows": "Ethanol Absolute concept popup with updated instances column 3 (5 bottles including new QA2 instance)",
+          "evaluation": "Concept popup renders three-column layout: fields (kogen, Chemical), body (description with inventory:// link), CONTENTS column now includes the new bottle. patchLinkIndex immediately reflected the new wikilink target.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle2/step08-after-bottle-popup-breadcrumb.png",
+          "shows": "New bottle popup at creation time \u2014 fields show Type=Bottle, Of=resources/ethanol-absolute, Parent=Chemistry Bench Area, Lot/Expiration",
+          "evaluation": "Popup fields render correctly. BUT: no breadcrumb pills at top of body (unlike the well-formed breadcrumb seen in cycle 1 tube popups). Contents panel says 'No references to this object yet.' which is expected for a leaf object.",
+          "issues_found": [
+            "BREADCRUMB-MISSING-ON-NEW-OBJECT: freshly created bottle popup shows no breadcrumb pills even though parent is set. Root cause: hierarchy cache stale after save."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle2/step15-after-cabinet-popup-post-move.png",
+          "shows": "Flammable Cabinet popup after the bottle was moved from bench to cabinet; CONTENTS lists many bottles (1-Octanol, 3-Methylbutanol, Ethanol Absolute, Ethyl Alcohol Absolute, etc.)",
+          "evaluation": "Cabinet popup renders correctly with breadcrumb Robbins Hall 0170 / Flammable Cabinet, Type=Container pill, fields panel, and a scrollable CONTENTS list of 16+ bottles.",
+          "issues_found": [
+            "Initial run (pre-fix) did NOT show the moved bottle in the contents list because the hierarchy cache was not invalidated after patchObjectIndex. Post-fix verification (cycle2-verify/03-cabinet-after-move.png) confirms the moved bottle appears as expected."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle2-verify/03-cabinet-after-move.png",
+          "shows": "Verify run of Flammable Cabinet popup after moving a test bottle, CONTENTS includes 'Ethanol Absolute (verify)' entry",
+          "evaluation": "Fix verified. Cabinet contents pane correctly lists the newly-moved bottle immediately after the save flow completes, no deploy required. Hierarchy cache invalidation works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle2/step17-after-labmap-search-qa2.png",
+          "shows": "Lab Map tree filtered by 'qa2' showing the bottle under its new cabinet parent",
+          "evaluation": "Filter walks down the hierarchy from the room to the cabinet to the specific bottle. Tree reflects the patched-index state correctly.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
           "severity": "functional",
-          "summary": "Children lists and breadcrumbs rendered from Lab.hierarchy._graph went stale after a save via patchObjectIndex — a new bottle/tube/box did not appear in its parent's CONTENTS until full reload and the child's own popup had no breadcrumb",
+          "summary": "Children lists and breadcrumbs rendered from Lab.hierarchy._graph went stale after a save via patchObjectIndex \u2014 a new bottle/tube/box did not appear in its parent's CONTENTS until full reload and the child's own popup had no breadcrumb",
           "evidence": "step07 bench popup did not list the new bottle; step08 bottle popup missing breadcrumb; step15 cabinet-after-move did not list the bottle (log flag hasBottle=false)",
           "root_cause": "Lab.hierarchy built a derived cache (children map + parent chain) from the index once and never invalidated it when patchObjectIndex / removeFromObjectIndex mutated the underlying store.",
           "status": "fixed"
         }
       ],
-      "fixes": ["Invalidate Lab.hierarchy cache from patchObjectIndex / removeFromObjectIndex so children-lists and breadcrumbs reflect newly-saved objects immediately (app/js/github-api.js, commit 3d94ff8)"],
+      "fixes": [
+        "Invalidate Lab.hierarchy cache from patchObjectIndex / removeFromObjectIndex so children-lists and breadcrumbs reflect newly-saved objects immediately (app/js/github-api.js, commit 3d94ff8)"
+      ],
       "observations": [
         "Concept -> instance relationship works: a new bottle with `of: resources/ethanol-absolute` shows up in the concept's CONTENTS/backlinks immediately via patchLinkIndex from cycle 1.",
-        "Parent relationship previously lagged until hierarchy cache was invalidated — fixed in cycle 2.",
+        "Parent relationship previously lagged until hierarchy cache was invalidated \u2014 fixed in cycle 2.",
         "Move-between-parents (bench -> cabinet) works by saving the file with the new `parent:` frontmatter; both the old and new parents reflect the change after the cache-invalidation fix.",
         "Inventory page renders the new bottle as a row in the ethanol-grouped section; concept grouping hides individual bottles under the concept pill."
       ]
@@ -209,15 +405,52 @@
       "persona": "Dr. Monroe",
       "modifier": "ui_critic",
       "scenario": "Reorder day",
-      "task": "Toggled 3 in_stock inventory items (1,8-Naphthalic anhydride, 1M Tris-HCL, Analytical Balance) to needs_more via the status pill (cycleStatus), verified inventory stat cards update correctly, checked dashboard Inventory Status, then cycled one item back through out_of_stock → in_stock to verify decrement. Cleanup via direct API for remaining 2 items.",
+      "task": "Toggled 3 in_stock inventory items (1,8-Naphthalic anhydride, 1M Tris-HCL, Analytical Balance) to needs_more via the status pill (cycleStatus), verified inventory stat cards update correctly, checked dashboard Inventory Status, then cycled one item back through out_of_stock \u2192 in_stock to verify decrement. Cleanup via direct API for remaining 2 items.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle3/step01-dashboard-baseline.png", "shows": "Dashboard baseline — Inventory Status card shows 226 In Stock / 1 Out of Stock / 1 alert row (Native Barcoding Kit 24 V14, Out of Stock)", "evaluation": "Card header 'INVENTORY STATUS' uppercase small caps with orange shopping_cart icon. Counts row compact with icons + numbers + labels inline. Single alert row has red cancel icon + item title + 'Out of Stock' red pill.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle3/step02-inventory-baseline.png", "shows": "Inventory page baseline — 4 stat cards (250 TOTAL / 228 IN STOCK / 0 NEEDS MORE / 1 OUT OF STOCK) + scrollable table with name/type/status/qty/location columns", "evaluation": "Stat card layout clean. Status column shows green 'In Stock' pills for all visible rows. Table sorted by name. Typography consistent. Search + filter bar visible at top.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle3/step07-after-inventory-stats-after-3-toggles.png", "shows": "Inventory page after 3 cycleStatus toggles — stat cards now 250/225/3/1; rows for 1,8-Naphthalic anhydride and 1M Tris-HCL show amber 'Needs More' pills with left amber border highlight; green toast at bottom right: 'Analytical Balance: Needs More'", "evaluation": "Stat counts update in real time as each cycleStatus call completes. Amber row highlight (4px left border + light amber background) is a tasteful alert treatment. Toast appears in bottom-right with correct status label. No layout shift.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle3/step08-after-filter-needs-more.png", "shows": "Inventory page filtered to needs_more — table collapses to the 3 toggled rows (1,8-Naphthalic anhydride / 1M Tris-HCL / Analytical Balance), each with amber Needs More pill and amber left-border highlight", "evaluation": "Filter dropdown shows 'Needs More'. Only matching rows remain. Stat cards unchanged (they show totals, not filtered counts). Amber styling consistent across all three alert rows.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle3/step09-after-dashboard-after-3-toggles.png", "shows": "Dashboard after 3 toggles (BEFORE FIX) — STILL shows 226 In Stock / 1 Out of Stock / 1 alert, identical to baseline. None of the 3 toggled items appear in the alert list.", "evaluation": "BUG: dashboard did not reflect the 3 toggled items. Counts did not change, alerts list is stale. Cause: dashboard.html init() called raw `fetch(BASE + 'object-index.json')` rather than Lab.gh.fetchObjectIndex, bypassing the localStorage patch overlay.", "issues_found": ["STALE-DASHBOARD-INDEX functional bug — dashboard stats + alerts out of sync with inventory page after status toggles"] },
-        { "path": "/tmp/qa-screenshots/cycle3/step12-after-cycle-pick1-back-to-in-stock.png", "shows": "Inventory after 2 additional toggles on pick[0] (needs_more → out_of_stock → in_stock): stats now 250/226/2/1; 1,8-Naphthalic anhydride row back to green In Stock; 1M Tris-HCL still amber; green toast '1,8-Naphthalic anhydride: In Stock'", "evaluation": "STATUS_CYCLE traversal works correctly — three consecutive cycleStatus calls move item through in_stock → needs_more → out_of_stock → in_stock. Stat cards decrement immediately. Pill color matches status.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle3-verify/02-dashboard-after-fix.png", "shows": "POST-FIX verification — Dashboard Inventory Status now shows 224 In Stock / 2 Needs More / 1 Out of Stock and the alert list includes the 2 toggled items (1,8-Naphthalic anhydride + 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA, both with amber Needs More pills) plus the pre-existing Native Barcoding Kit (red Out of Stock)", "evaluation": "FIX CONFIRMED. Dashboard now applies the localStorage patch overlay via Lab.gh.fetchObjectIndex. Counts match expected values. Alert list correctly includes newly-toggled items with correct amber/red badges and material icons (warning_amber triangle, cancel X). Recent Updates column on the right shows the cycle-3 cleanup commits. Layout and typography consistent with the rest of the dashboard.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step01-dashboard-baseline.png",
+          "shows": "Dashboard baseline \u2014 Inventory Status card shows 226 In Stock / 1 Out of Stock / 1 alert row (Native Barcoding Kit 24 V14, Out of Stock)",
+          "evaluation": "Card header 'INVENTORY STATUS' uppercase small caps with orange shopping_cart icon. Counts row compact with icons + numbers + labels inline. Single alert row has red cancel icon + item title + 'Out of Stock' red pill.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step02-inventory-baseline.png",
+          "shows": "Inventory page baseline \u2014 4 stat cards (250 TOTAL / 228 IN STOCK / 0 NEEDS MORE / 1 OUT OF STOCK) + scrollable table with name/type/status/qty/location columns",
+          "evaluation": "Stat card layout clean. Status column shows green 'In Stock' pills for all visible rows. Table sorted by name. Typography consistent. Search + filter bar visible at top.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step07-after-inventory-stats-after-3-toggles.png",
+          "shows": "Inventory page after 3 cycleStatus toggles \u2014 stat cards now 250/225/3/1; rows for 1,8-Naphthalic anhydride and 1M Tris-HCL show amber 'Needs More' pills with left amber border highlight; green toast at bottom right: 'Analytical Balance: Needs More'",
+          "evaluation": "Stat counts update in real time as each cycleStatus call completes. Amber row highlight (4px left border + light amber background) is a tasteful alert treatment. Toast appears in bottom-right with correct status label. No layout shift.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step08-after-filter-needs-more.png",
+          "shows": "Inventory page filtered to needs_more \u2014 table collapses to the 3 toggled rows (1,8-Naphthalic anhydride / 1M Tris-HCL / Analytical Balance), each with amber Needs More pill and amber left-border highlight",
+          "evaluation": "Filter dropdown shows 'Needs More'. Only matching rows remain. Stat cards unchanged (they show totals, not filtered counts). Amber styling consistent across all three alert rows.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step09-after-dashboard-after-3-toggles.png",
+          "shows": "Dashboard after 3 toggles (BEFORE FIX) \u2014 STILL shows 226 In Stock / 1 Out of Stock / 1 alert, identical to baseline. None of the 3 toggled items appear in the alert list.",
+          "evaluation": "BUG: dashboard did not reflect the 3 toggled items. Counts did not change, alerts list is stale. Cause: dashboard.html init() called raw `fetch(BASE + 'object-index.json')` rather than Lab.gh.fetchObjectIndex, bypassing the localStorage patch overlay.",
+          "issues_found": [
+            "STALE-DASHBOARD-INDEX functional bug \u2014 dashboard stats + alerts out of sync with inventory page after status toggles"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3/step12-after-cycle-pick1-back-to-in-stock.png",
+          "shows": "Inventory after 2 additional toggles on pick[0] (needs_more \u2192 out_of_stock \u2192 in_stock): stats now 250/226/2/1; 1,8-Naphthalic anhydride row back to green In Stock; 1M Tris-HCL still amber; green toast '1,8-Naphthalic anhydride: In Stock'",
+          "evaluation": "STATUS_CYCLE traversal works correctly \u2014 three consecutive cycleStatus calls move item through in_stock \u2192 needs_more \u2192 out_of_stock \u2192 in_stock. Stat cards decrement immediately. Pill color matches status.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle3-verify/02-dashboard-after-fix.png",
+          "shows": "POST-FIX verification \u2014 Dashboard Inventory Status now shows 224 In Stock / 2 Needs More / 1 Out of Stock and the alert list includes the 2 toggled items (1,8-Naphthalic anhydride + 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA, both with amber Needs More pills) plus the pre-existing Native Barcoding Kit (red Out of Stock)",
+          "evaluation": "FIX CONFIRMED. Dashboard now applies the localStorage patch overlay via Lab.gh.fetchObjectIndex. Counts match expected values. Alert list correctly includes newly-toggled items with correct amber/red badges and material icons (warning_amber triangle, cancel X). Recent Updates column on the right shows the cycle-3 cleanup commits. Layout and typography consistent with the rest of the dashboard.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
@@ -228,14 +461,16 @@
           "status": "fixed"
         }
       ],
-      "fixes": ["dashboard.html init() now prefers Lab.gh.fetchObjectIndex (with its localStorage overlay) and falls back to raw fetch only if Lab.gh is unavailable (commit 763ad51)"],
+      "fixes": [
+        "dashboard.html init() now prefers Lab.gh.fetchObjectIndex (with its localStorage overlay) and falls back to raw fetch only if Lab.gh is unavailable (commit 763ad51)"
+      ],
       "observations": [
-        "cycleStatus correctly walks the STATUS_CYCLE ring (in_stock → needs_more → out_of_stock → in_stock) and commits each step to GitHub.",
-        "Inventory page stat cards (In Stock / Needs More / Out of Stock) are immediately correct after each toggle — they read from the in-memory inventory array updated by cycleStatus.",
-        "Alert rows on the inventory table get a 4px amber/red left border and a light tint — consistent with the status pill color.",
+        "cycleStatus correctly walks the STATUS_CYCLE ring (in_stock \u2192 needs_more \u2192 out_of_stock \u2192 in_stock) and commits each step to GitHub.",
+        "Inventory page stat cards (In Stock / Needs More / Out of Stock) are immediately correct after each toggle \u2014 they read from the in-memory inventory array updated by cycleStatus.",
+        "Alert rows on the inventory table get a 4px amber/red left border and a light tint \u2014 consistent with the status pill color.",
         "The Inventory Status card on the dashboard is fed from the same object-index, so once the overlay was applied the alert list auto-populated with no other changes.",
-        "Dashboard top-stat 'INVENTORY 480' is the raw total of *all* stock+resource objects (including externals), whereas the status counts (224/2/1) only sum tracked statuses — so they don't add up to 480. That is intentional but could confuse a lab member.",
-        "Verification file: tests/qa-cycle-3-verify.mjs toggles 2 items, navigates to dashboard, asserts picksFound:[true,true] — kept in the repo as a regression harness for the fix."
+        "Dashboard top-stat 'INVENTORY 480' is the raw total of *all* stock+resource objects (including externals), whereas the status counts (224/2/1) only sum tracked statuses \u2014 so they don't add up to 480. That is intentional but could confuse a lab member.",
+        "Verification file: tests/qa-cycle-3-verify.mjs toggles 2 items, navigates to dashboard, asserts picksFound:[true,true] \u2014 kept in the repo as a regression harness for the fix."
       ]
     },
     {
@@ -243,37 +478,101 @@
       "persona": "Kayla Torres",
       "modifier": "cross_linker",
       "scenario": "Cross-page wikilink crawl",
-      "task": "Walked the full chain: Dashboard → Protocols → QIAGEN DNeasy Plant Extraction → click Ethanol Absolute wikilink (obj://ethanol-absolute) → reagent popup → click bottle instance in Contents → bottle popup (breadcrumb + parent pill) → click Flammable Cabinet parent pill → cabinet popup (16 bottles in Contents) → click Robbins Hall 0170 parent pill → room popup (9 locations). Also Lab Map filters (ethanol, flammable), inventory search, wiki search.",
+      "task": "Walked the full chain: Dashboard \u2192 Protocols \u2192 QIAGEN DNeasy Plant Extraction \u2192 click Ethanol Absolute wikilink (obj://ethanol-absolute) \u2192 reagent popup \u2192 click bottle instance in Contents \u2192 bottle popup (breadcrumb + parent pill) \u2192 click Flammable Cabinet parent pill \u2192 cabinet popup (16 bottles in Contents) \u2192 click Robbins Hall 0170 parent pill \u2192 room popup (9 locations). Also Lab Map filters (ethanol, flammable), inventory search, wiki search.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle4/01-dashboard-baseline.png", "shows": "Dashboard baseline: 480 Inventory / 108 Protocols / 7 People / 9 Projects / 9 Notebooks stat cards. Inventory Status shows 226 In Stock / 1 Out of Stock with Native Barcoding Kit V14 alert. Recent Updates column lists cycle-3 cleanup commits. Bulletin Board with quilt image.", "evaluation": "Clean layout. Stat card typography consistent. Status row only shows non-zero counts (no 0 Needs More row) — differs from inventory page which shows all four. Top-nav 'Lab M' truncation still present.", "issues_found": ["NAV-TRUNCATION (known, open): 'Lab Map' → 'Lab M' on 1440-wide viewport"] },
-        { "path": "/tmp/qa-screenshots/cycle4/03-protocol-qiagen-loaded.png", "shows": "QIAGEN DNeasy Plant Extraction protocol page with body, Resources/Reagents/Consumables/Related Protocols/Prerequisites sections, wikilink pills (Centrifuge, Heat Block, Water Bath, Vortex Mixer, DNeasy plant mini, RNase aliquot, Microtube, Ethanol Absolute, …)", "evaluation": "Protocol renders with correct section headings, type-colored pills for reagents (teal Buffer, orange Reagent), equipment (dark pill) and protocols. Print Preview / Rename / Duplicate / Delete / Edit button row. Sidebar with protocol tree.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle4/05-reagent-popup-opened.png", "shows": "Ethanol Absolute reagent popup — three-column layout: FIELDS (Type=Reagent, Link, Name, Status=In Stock), body (What it is / Why we use it), CONTENTS (1 INSTANCE IN LAB → Ethanol Absolute 1 each · cabinet flammable with bottle icon; 3 REFERENCES → How to Read an SDS, Protocol Template, QIAGEN DNeasy Plant Extraction)", "evaluation": "Popup renders correctly. Pills colored correctly (Reagent=purple, In Stock=green). Bottle icon in the instance row, document icon in protocol references. 'Add instance' button visible.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle4/07-bottle-popup-opened.png", "shows": "Bottle popup (stocks/bottle-ethanol-absolute) with breadcrumb Robbins Hall 0170 / Flammable Cabinet / Ethanol Absolute and fields: Type=Bottle, Link, Name, Of (concept slug)=resources/ethanol-absolute (PLAIN TEXT), Parent=Flammable Cabinet (clickable pill), Quantity=1, Unit=each", "evaluation": "BUG FOUND: 'Of (concept slug)' field rendered as plain text 'resources/ethanol-absolute' while 'Parent' is a clickable pill. Inconsistent — cross_linker cannot navigate bottle → concept from the fields column. Breadcrumb renders correctly with 3-pill chain.", "issues_found": ["OF-FIELD-NOT-CLICKABLE (functional, fixed): `of` field in bottle popup was plain text; should mirror `parent` field which is a clickable object pill"] },
-        { "path": "/tmp/qa-screenshots/cycle4/09-cabinet-popup-opened.png", "shows": "Flammable Cabinet popup with breadcrumb Robbins Hall 0170 / Flammable Cabinet, fields (Type=Container, Link, Name, Parent=Robbins Hall 0170 pill, Label 1=Flammable Cabinet), body text about auto-migration, and CONTENTS list of 16 bottles (1-Octanol, 3-Methylbutanol, Aceto-Orcein Solution 2%, Acetone, Activated charcoal, Dimethyl sulfoxide, Ethanol Absolute, Ethyl Alcohol Absolute, Glacial Acetic Acid, Glacial Acetic Acid, Isopropyl alcohol, Isopropyl alcohol, Isopropyl alcohol 70% in water, Isopropyl alcohol 70% in water, Methanol, Reagent Alcohol 100%)", "evaluation": "Parent→children hierarchy correct (cabinet is child of room, 16 bottles are children of cabinet). Parent pill is clickable. But contents rows lack a subtitle — reagent popup showed '1 each · cabinet flammable' secondary line per row; cabinet popup shows only the title. Two 'Glacial Acetic Acid' rows and two 'Isopropyl alcohol' rows render identically without differentiator.", "issues_found": ["DUPLICATE-TITLE-IN-CONTENTS (cosmetic, open): cabinet Contents list renders objects with identical titles identically — no lot / slug / expiration subtitle to disambiguate"] },
-        { "path": "/tmp/qa-screenshots/cycle4/11-room-popup-opened.png", "shows": "Robbins Hall 0170 room popup with single-pill breadcrumb (Robbins Hall 0170), fields (Type=Room, Link, Name, Label 1 (full)=Monroe Lab), body describing the wet lab, and CONTENTS list of 9 children (-80C Freezer A, 4C Fridge (Main), Bench, Chemical Cabinet, Chemistry Bench Area, Corrosive Cabinet, Flammable Cabinet, Freezer (-20C), Fume hood bay)", "evaluation": "Navigation from cabinet→room via parent pill works. Contents column correctly lists all 9 direct children of the room, each with its type icon. Single-pill breadcrumb is arguably redundant with the big title right below it.", "issues_found": ["ROOM-BREADCRUMB-REDUNDANT (cosmetic, minor): for top-of-hierarchy rooms the breadcrumb shows just the self pill, duplicating the H1 title"] },
-        { "path": "/tmp/qa-screenshots/cycle4/15-lab-map-filter-ethanol.png", "shows": "Lab Map tree filtered to 'ethanol': Robbins Hall 0170 → Bench (Ethanol 70% ×2) + Chemical Cabinet (Formaldehyde match via 'methanol') + Corrosive Cabinet (2-Mercaptoethanol) + Flammable Cabinet (Ethanol Absolute, Methanol)", "evaluation": "Filter does substring-match against titles, which surfaces 'methanol' / '2-mercaptoethanol' / 'formaldehyde (16% methanol free)' as false-positives for an 'ethanol' search. Acceptable but not word-boundary. Tree expansion + highlighted result rows render with light teal background.", "issues_found": ["FILTER-SUBSTRING-ONLY (minor): the lab-map filter uses substring match, so 'ethanol' matches 'methanol'"] },
-        { "path": "/tmp/qa-screenshots/cycle4/17-inventory-landing.png", "shows": "Inventory page with 4 stat cards (250/228/0/1), filter row, and full inventory table — Name, Type, Status, Qty, Location, Updated, Actions columns", "evaluation": "Layout clean. Type and Status pills colored consistently. BUT: the blue issue-reporter FAB at bottom-left covers the first column of the table row at y≈797 — the 'Agar (non-TC)' row displays as 'r (non-TC)' because 'Aga' is hidden behind the FAB.", "issues_found": ["FAB-OVERLAPS-TABLE (visual, open): issue-reporter FAB at fixed bottom-left overlaps the first data column of long tables (inventory, waste) making row text partially unreadable"] },
-        { "path": "/tmp/qa-screenshots/cycle4-verify/01-bottle-popup-of-is-pill.png", "shows": "POST-FIX bottle popup — 'Of (concept slug)' field now shows a clickable teal Reagent pill 'Ethanol Absolute' (flask icon). Parent pill still renders Flammable Cabinet. Both fields are now symmetric: clickable object pills.", "evaluation": "Fix verified visually. The `of` field placeholder `<span data-of-pill>` is upgraded to a real object pill with the concept's type color + icon + click handler, identical to how the parent field has always worked.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle4-verify/02-after-click-of-navigates-to-concept.png", "shows": "After clicking the new Of pill — reagent popup for Ethanol Absolute opens (title matches, contents column lists the bottle instance + 3 protocol references).", "evaluation": "Navigation works end-to-end: bottle popup → click Of pill → concept popup. Round-trip confirmed cross_linker-complete.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle4/01-dashboard-baseline.png",
+          "shows": "Dashboard baseline: 480 Inventory / 108 Protocols / 7 People / 9 Projects / 9 Notebooks stat cards. Inventory Status shows 226 In Stock / 1 Out of Stock with Native Barcoding Kit V14 alert. Recent Updates column lists cycle-3 cleanup commits. Bulletin Board with quilt image.",
+          "evaluation": "Clean layout. Stat card typography consistent. Status row only shows non-zero counts (no 0 Needs More row) \u2014 differs from inventory page which shows all four. Top-nav 'Lab M' truncation still present.",
+          "issues_found": [
+            "NAV-TRUNCATION (known, open): 'Lab Map' \u2192 'Lab M' on 1440-wide viewport"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/03-protocol-qiagen-loaded.png",
+          "shows": "QIAGEN DNeasy Plant Extraction protocol page with body, Resources/Reagents/Consumables/Related Protocols/Prerequisites sections, wikilink pills (Centrifuge, Heat Block, Water Bath, Vortex Mixer, DNeasy plant mini, RNase aliquot, Microtube, Ethanol Absolute, \u2026)",
+          "evaluation": "Protocol renders with correct section headings, type-colored pills for reagents (teal Buffer, orange Reagent), equipment (dark pill) and protocols. Print Preview / Rename / Duplicate / Delete / Edit button row. Sidebar with protocol tree.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/05-reagent-popup-opened.png",
+          "shows": "Ethanol Absolute reagent popup \u2014 three-column layout: FIELDS (Type=Reagent, Link, Name, Status=In Stock), body (What it is / Why we use it), CONTENTS (1 INSTANCE IN LAB \u2192 Ethanol Absolute 1 each \u00b7 cabinet flammable with bottle icon; 3 REFERENCES \u2192 How to Read an SDS, Protocol Template, QIAGEN DNeasy Plant Extraction)",
+          "evaluation": "Popup renders correctly. Pills colored correctly (Reagent=purple, In Stock=green). Bottle icon in the instance row, document icon in protocol references. 'Add instance' button visible.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/07-bottle-popup-opened.png",
+          "shows": "Bottle popup (stocks/bottle-ethanol-absolute) with breadcrumb Robbins Hall 0170 / Flammable Cabinet / Ethanol Absolute and fields: Type=Bottle, Link, Name, Of (concept slug)=resources/ethanol-absolute (PLAIN TEXT), Parent=Flammable Cabinet (clickable pill), Quantity=1, Unit=each",
+          "evaluation": "BUG FOUND: 'Of (concept slug)' field rendered as plain text 'resources/ethanol-absolute' while 'Parent' is a clickable pill. Inconsistent \u2014 cross_linker cannot navigate bottle \u2192 concept from the fields column. Breadcrumb renders correctly with 3-pill chain.",
+          "issues_found": [
+            "OF-FIELD-NOT-CLICKABLE (functional, fixed): `of` field in bottle popup was plain text; should mirror `parent` field which is a clickable object pill"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/09-cabinet-popup-opened.png",
+          "shows": "Flammable Cabinet popup with breadcrumb Robbins Hall 0170 / Flammable Cabinet, fields (Type=Container, Link, Name, Parent=Robbins Hall 0170 pill, Label 1=Flammable Cabinet), body text about auto-migration, and CONTENTS list of 16 bottles (1-Octanol, 3-Methylbutanol, Aceto-Orcein Solution 2%, Acetone, Activated charcoal, Dimethyl sulfoxide, Ethanol Absolute, Ethyl Alcohol Absolute, Glacial Acetic Acid, Glacial Acetic Acid, Isopropyl alcohol, Isopropyl alcohol, Isopropyl alcohol 70% in water, Isopropyl alcohol 70% in water, Methanol, Reagent Alcohol 100%)",
+          "evaluation": "Parent\u2192children hierarchy correct (cabinet is child of room, 16 bottles are children of cabinet). Parent pill is clickable. But contents rows lack a subtitle \u2014 reagent popup showed '1 each \u00b7 cabinet flammable' secondary line per row; cabinet popup shows only the title. Two 'Glacial Acetic Acid' rows and two 'Isopropyl alcohol' rows render identically without differentiator.",
+          "issues_found": [
+            "DUPLICATE-TITLE-IN-CONTENTS (cosmetic, open): cabinet Contents list renders objects with identical titles identically \u2014 no lot / slug / expiration subtitle to disambiguate"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/11-room-popup-opened.png",
+          "shows": "Robbins Hall 0170 room popup with single-pill breadcrumb (Robbins Hall 0170), fields (Type=Room, Link, Name, Label 1 (full)=Monroe Lab), body describing the wet lab, and CONTENTS list of 9 children (-80C Freezer A, 4C Fridge (Main), Bench, Chemical Cabinet, Chemistry Bench Area, Corrosive Cabinet, Flammable Cabinet, Freezer (-20C), Fume hood bay)",
+          "evaluation": "Navigation from cabinet\u2192room via parent pill works. Contents column correctly lists all 9 direct children of the room, each with its type icon. Single-pill breadcrumb is arguably redundant with the big title right below it.",
+          "issues_found": [
+            "ROOM-BREADCRUMB-REDUNDANT (cosmetic, minor): for top-of-hierarchy rooms the breadcrumb shows just the self pill, duplicating the H1 title"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/15-lab-map-filter-ethanol.png",
+          "shows": "Lab Map tree filtered to 'ethanol': Robbins Hall 0170 \u2192 Bench (Ethanol 70% \u00d72) + Chemical Cabinet (Formaldehyde match via 'methanol') + Corrosive Cabinet (2-Mercaptoethanol) + Flammable Cabinet (Ethanol Absolute, Methanol)",
+          "evaluation": "Filter does substring-match against titles, which surfaces 'methanol' / '2-mercaptoethanol' / 'formaldehyde (16% methanol free)' as false-positives for an 'ethanol' search. Acceptable but not word-boundary. Tree expansion + highlighted result rows render with light teal background.",
+          "issues_found": [
+            "FILTER-SUBSTRING-ONLY (minor): the lab-map filter uses substring match, so 'ethanol' matches 'methanol'"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4/17-inventory-landing.png",
+          "shows": "Inventory page with 4 stat cards (250/228/0/1), filter row, and full inventory table \u2014 Name, Type, Status, Qty, Location, Updated, Actions columns",
+          "evaluation": "Layout clean. Type and Status pills colored consistently. BUT: the blue issue-reporter FAB at bottom-left covers the first column of the table row at y\u2248797 \u2014 the 'Agar (non-TC)' row displays as 'r (non-TC)' because 'Aga' is hidden behind the FAB.",
+          "issues_found": [
+            "FAB-OVERLAPS-TABLE (visual, open): issue-reporter FAB at fixed bottom-left overlaps the first data column of long tables (inventory, waste) making row text partially unreadable"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4-verify/01-bottle-popup-of-is-pill.png",
+          "shows": "POST-FIX bottle popup \u2014 'Of (concept slug)' field now shows a clickable teal Reagent pill 'Ethanol Absolute' (flask icon). Parent pill still renders Flammable Cabinet. Both fields are now symmetric: clickable object pills.",
+          "evaluation": "Fix verified visually. The `of` field placeholder `<span data-of-pill>` is upgraded to a real object pill with the concept's type color + icon + click handler, identical to how the parent field has always worked.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle4-verify/02-after-click-of-navigates-to-concept.png",
+          "shows": "After clicking the new Of pill \u2014 reagent popup for Ethanol Absolute opens (title matches, contents column lists the bottle instance + 3 protocol references).",
+          "evaluation": "Navigation works end-to-end: bottle popup \u2192 click Of pill \u2192 concept popup. Round-trip confirmed cross_linker-complete.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
           "severity": "functional",
-          "summary": "`of` field in instance popups (bottle/tube) rendered as plain slug text, not as a clickable object pill — unlike `parent` which has always rendered as a pill.",
+          "summary": "`of` field in instance popups (bottle/tube) rendered as plain slug text, not as a clickable object pill \u2014 unlike `parent` which has always rendered as a pill.",
           "evidence": "screenshots/cycle4/07-bottle-popup-opened.png shows 'resources/ethanol-absolute' as raw grey text in the Of field row while the Parent row on the same popup shows a clickable 'Flammable Cabinet' pill",
           "root_cause": "renderFields() in app/js/editor-modal.js had a special case for `field.key === 'parent'` that emitted a <span data-parent-pill> placeholder for upgradeParentField() to replace with a proper pill. No equivalent case existed for `field.key === 'of'`, so it fell through to the generic text renderer.",
           "status": "fixed"
         }
       ],
-      "fixes": ["Added an 'of' field branch in renderFields that emits a <span data-of-pill> placeholder parallel to the parent-pill placeholder, and extended upgradeParentField to also upgrade `[data-of-pill]` placeholders (app/js/editor-modal.js, commit b0da836)"],
+      "fixes": [
+        "Added an 'of' field branch in renderFields that emits a <span data-of-pill> placeholder parallel to the parent-pill placeholder, and extended upgradeParentField to also upgrade `[data-of-pill]` placeholders (app/js/editor-modal.js, commit b0da836)"
+      ],
       "observations": [
-        "Four-step wikilink crawl (protocol → reagent → bottle → cabinet → room) works end-to-end via the editor-modal popup stack. Escape walks the nav stack back.",
+        "Four-step wikilink crawl (protocol \u2192 reagent \u2192 bottle \u2192 cabinet \u2192 room) works end-to-end via the editor-modal popup stack. Escape walks the nav stack back.",
         "Object pills render with correct type color + icon at every level (Reagent=purple flask, Bottle=orange wine-bottle, Container=grey-blue cube, Room=grey-blue door).",
         "Breadcrumb chain is rendered at the top of the body column as type-colored pills; shows full ancestor chain + self for non-root objects, just self for rooms.",
-        "Parent→children relationship is correctly reflected in the Contents column at every level — no caching lag (cache invalidation fix from cycle 2 is holding).",
-        "Instance→concept relationship works via CONTENTS column (`1 INSTANCE IN LAB` section on the concept popup) and now ALSO via the Of pill in the bottle popup's fields column after the cycle-4 fix.",
-        "Contents rows for siblings with identical titles (e.g., two `Glacial Acetic Acid` bottles) are indistinguishable in the cabinet popup — no lot/slug/expiration subtitle.",
-        "The issue-reporter FAB at fixed bottom-left overlaps the first data column of wide tables (inventory) — a row at y≈797 has its first ~40px hidden behind the blue button.",
+        "Parent\u2192children relationship is correctly reflected in the Contents column at every level \u2014 no caching lag (cache invalidation fix from cycle 2 is holding).",
+        "Instance\u2192concept relationship works via CONTENTS column (`1 INSTANCE IN LAB` section on the concept popup) and now ALSO via the Of pill in the bottle popup's fields column after the cycle-4 fix.",
+        "Contents rows for siblings with identical titles (e.g., two `Glacial Acetic Acid` bottles) are indistinguishable in the cabinet popup \u2014 no lot/slug/expiration subtitle.",
+        "The issue-reporter FAB at fixed bottom-left overlaps the first data column of wide tables (inventory) \u2014 a row at y\u2248797 has its first ~40px hidden behind the blue button.",
         "Lab-map filter uses case-insensitive substring match; 'ethanol' matches 'methanol' and '2-mercaptoethanol'."
       ]
     },
@@ -284,36 +583,124 @@
       "scenario": "Waste container",
       "task": "Created a hazardous waste container thoroughly (name, contents paragraph, Solid state, compound location 'Robbins Hall 0170 / Flammable Cabinet') via the waste.html Add Container modal. Verified the editor popup rendered every frontmatter field. Inspected the table row, filter by Solid state, search by contents keyword, reload for persistence, wiki page fetch, lab-map filter, and dashboard count.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle5/01-dashboard-baseline.png", "shows": "Dashboard baseline (Inventory 480 / Protocols 108 / People 7 / Projects 9 / Notebooks 9). Inventory Status card 226 In Stock / 1 Out of Stock. Recent Updates list of cycle-3 cleanup commits. Bulletin board with quilt image.", "evaluation": "Clean, consistent with cycle 4. 'Lab M' truncation still present in top nav (known).", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/03-waste-page-baseline.png", "shows": "Waste page with 3 existing containers (NIB Buffer + BME Waste, Paraquat Solid Waste, Paraquat Wash Waste). Stat cards 3/0/0. Red 'Hazardous Waste' header with delete icon, three red policy link pills.", "evaluation": "Rows show full Contents / State / Location / Status / Days Held populated for existing containers (39d, 203d, 203d). Amber 'In Accumulation' status pills consistent.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/05-add-modal-opened.png", "shows": "New Waste Container modal with Name (required), Contents, Physical State (dropdown), Location fields.", "evaluation": "Form layout clean, sensible placeholders (e.g. 'Phenol Chloroform Waste'). Note: Grey/lighter form styling than the red header — consistent with the rest of the editor modals.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/06-add-modal-filled.png", "shows": "Form filled: Name='QA5 Ethanol-Contaminated Gloves mo8w9bvb', Contents='Nitrile gloves contaminated with 100% ethanol absolute; also kimwi...' (truncated), State=Solid, Location='Hall 0170 / Flammable Cabinet' (truncated on the right).", "evaluation": "Fields accept long strings. Contents input truncates visibly but full value is preserved. Location field is the only one that fits comfortably.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/08-after-create-editor-open.png", "shows": "Editor popup auto-opens after Create. Type=Waste Container pill with skull icon, Link wikilink (with copy button), Name, Contents (full 4-line paragraph rendered), Physical State=Solid, Location, Status=in_accumulation, Started=2026-04-21. Body renders H1 + Notes / Related sections. Green toast 'Created: QA5 …' bottom-right.", "evaluation": "Every frontmatter field surfaced in the popup's FIELDS column. Status displays the RAW slug 'in_accumulation' — should be 'In Accumulation' with amber pill to match the waste table treatment. Notes body is just '-' placeholder (correct). Behind the modal the table row count incremented 3→4.", "issues_found": ["STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' raw slug text; the waste table formats the same value as 'In Accumulation' pill"] },
-        { "path": "/tmp/qa-screenshots/cycle5/13-table-with-new-row.png", "shows": "BUG: New QA5 row rendered with EMPTY Contents, EMPTY State column, '—' (em dash) in Days Held. Location, Status pill, name all correct. Row has a light teal highlight (recently-created).", "evaluation": "Functional bug caught. The patch-overlay write dropped the contents / physical_state / started fields because INDEX_KEYS in github-api.js didn't include them; daysSince(undefined)=null → em dash; the state filter can't match and the content search can't match.", "issues_found": ["WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed this cycle): new waste containers show blank Contents/State and '—' Days Held until the next deploy"] },
-        { "path": "/tmp/qa-screenshots/cycle5/15-after-filter-solid.png", "shows": "Filter=Solid collapses table to 1 row (Paraquat Solid Waste) — our QA5 row, which IS Solid, is missing. Stat cards unchanged (4 active).", "evaluation": "Direct consequence of the bug: physical_state='' in the overlay cannot match the 'Solid' filter.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/17-after-search-ethanol.png", "shows": "Search 'ethanol-contaminated' + In Accumulation + Solid filters → empty state with big search_off icon and 'No waste containers match your filters.'", "evaluation": "The QA5 row's contents literally contain the search string but is hidden because contents='' in the overlay. Empty-state illustration + message render cleanly.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/21-row-clicked-editor-open.png", "shows": "Row click re-opens the same editor popup — still shows the full Contents / Physical State / Started fields from the actual file.", "evaluation": "Popup reads from the file directly (via Lab.gh.fetchFile), so its data is complete even though the table row is not. Confirms the bug is strictly in the INDEX patch path.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/25-after-reload-waste.png", "shows": "Page reload — the QA5 row reappears with same bug profile (empty Contents / State / Days Held). Highlight ring persisted via localStorage.", "evaluation": "The localStorage overlay survives reload but still missing the fields — confirms the bug is in INDEX_KEYS filtering during patchObjectIndex, not in a volatile runtime cache.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5/27-wiki-view-container.png", "shows": "Wiki page for the new container: sidebar shows Waste category with count 5 (4 containers + index). Right pane: '! Failed to load: Failed to load docs/waste/qa5-ethanol-gloves-mo8w9bvb.md (HTTP 404)'.", "evaluation": "Expected pre-deploy — the wiki page fetches from the raw static site. Could be improved to fall back to Lab.gh.fetchFile when logged in so newly-created files render immediately.", "issues_found": ["WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file"] },
-        { "path": "/tmp/qa-screenshots/cycle5/28-lab-map-baseline.png", "shows": "Lab Map tree — waste containers do NOT appear because they use `location:` as a free-text string, not a `parent:` slug. Rooms (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 0170) listed, with Robbins expanded to show freezer/fridge children.", "evaluation": "Design observation, not a bug: waste containers live in a separate surface (waste.html). They could optionally adopt the `parent:` hierarchy field to appear on the lab map, but that would require frontmatter migration for existing containers.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5-verify/03-row-post-fix.png", "shows": "POST-FIX verification run (after the INDEX_KEYS commit deployed). Table shows BOTH QA5 rows with full Contents ('Nitrile gloves contaminated with…'), State='Solid', Days Held='0 d'. Location / Status / Days Held all populated. Green toast 'Created: QA5V …' bottom right.", "evaluation": "Fix verified. Row is complete during the overlay window. Days Held correctly reads '0 d' — daysSince(today)=0 — matching the stat card.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5-verify/04-filter-solid-includes-qa5.png", "shows": "Filter=Solid. Shows Paraquat Solid Waste + both QA5 rows — 3 matches. Stat cards unchanged.", "evaluation": "Confirmed filter now matches on the post-fix overlay.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5-verify/05-search-contents-includes-qa5.png", "shows": "Search='ethanol-contaminated' + Solid filter → both QA5 rows present.", "evaluation": "Content-field search works now that the overlay preserves the contents string.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle5-verify/06-reload-overlay-kept.png", "shows": "After reload without filters — both QA5 rows with full data (Contents, State=Solid, 0 d) persist.", "evaluation": "localStorage overlay correctly persists the expanded field set across reloads.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle5/01-dashboard-baseline.png",
+          "shows": "Dashboard baseline (Inventory 480 / Protocols 108 / People 7 / Projects 9 / Notebooks 9). Inventory Status card 226 In Stock / 1 Out of Stock. Recent Updates list of cycle-3 cleanup commits. Bulletin board with quilt image.",
+          "evaluation": "Clean, consistent with cycle 4. 'Lab M' truncation still present in top nav (known).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/03-waste-page-baseline.png",
+          "shows": "Waste page with 3 existing containers (NIB Buffer + BME Waste, Paraquat Solid Waste, Paraquat Wash Waste). Stat cards 3/0/0. Red 'Hazardous Waste' header with delete icon, three red policy link pills.",
+          "evaluation": "Rows show full Contents / State / Location / Status / Days Held populated for existing containers (39d, 203d, 203d). Amber 'In Accumulation' status pills consistent.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/05-add-modal-opened.png",
+          "shows": "New Waste Container modal with Name (required), Contents, Physical State (dropdown), Location fields.",
+          "evaluation": "Form layout clean, sensible placeholders (e.g. 'Phenol Chloroform Waste'). Note: Grey/lighter form styling than the red header \u2014 consistent with the rest of the editor modals.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/06-add-modal-filled.png",
+          "shows": "Form filled: Name='QA5 Ethanol-Contaminated Gloves mo8w9bvb', Contents='Nitrile gloves contaminated with 100% ethanol absolute; also kimwi...' (truncated), State=Solid, Location='Hall 0170 / Flammable Cabinet' (truncated on the right).",
+          "evaluation": "Fields accept long strings. Contents input truncates visibly but full value is preserved. Location field is the only one that fits comfortably.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/08-after-create-editor-open.png",
+          "shows": "Editor popup auto-opens after Create. Type=Waste Container pill with skull icon, Link wikilink (with copy button), Name, Contents (full 4-line paragraph rendered), Physical State=Solid, Location, Status=in_accumulation, Started=2026-04-21. Body renders H1 + Notes / Related sections. Green toast 'Created: QA5 \u2026' bottom-right.",
+          "evaluation": "Every frontmatter field surfaced in the popup's FIELDS column. Status displays the RAW slug 'in_accumulation' \u2014 should be 'In Accumulation' with amber pill to match the waste table treatment. Notes body is just '-' placeholder (correct). Behind the modal the table row count incremented 3\u21924.",
+          "issues_found": [
+            "STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' raw slug text; the waste table formats the same value as 'In Accumulation' pill"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/13-table-with-new-row.png",
+          "shows": "BUG: New QA5 row rendered with EMPTY Contents, EMPTY State column, '\u2014' (em dash) in Days Held. Location, Status pill, name all correct. Row has a light teal highlight (recently-created).",
+          "evaluation": "Functional bug caught. The patch-overlay write dropped the contents / physical_state / started fields because INDEX_KEYS in github-api.js didn't include them; daysSince(undefined)=null \u2192 em dash; the state filter can't match and the content search can't match.",
+          "issues_found": [
+            "WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed this cycle): new waste containers show blank Contents/State and '\u2014' Days Held until the next deploy"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/15-after-filter-solid.png",
+          "shows": "Filter=Solid collapses table to 1 row (Paraquat Solid Waste) \u2014 our QA5 row, which IS Solid, is missing. Stat cards unchanged (4 active).",
+          "evaluation": "Direct consequence of the bug: physical_state='' in the overlay cannot match the 'Solid' filter.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/17-after-search-ethanol.png",
+          "shows": "Search 'ethanol-contaminated' + In Accumulation + Solid filters \u2192 empty state with big search_off icon and 'No waste containers match your filters.'",
+          "evaluation": "The QA5 row's contents literally contain the search string but is hidden because contents='' in the overlay. Empty-state illustration + message render cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/21-row-clicked-editor-open.png",
+          "shows": "Row click re-opens the same editor popup \u2014 still shows the full Contents / Physical State / Started fields from the actual file.",
+          "evaluation": "Popup reads from the file directly (via Lab.gh.fetchFile), so its data is complete even though the table row is not. Confirms the bug is strictly in the INDEX patch path.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/25-after-reload-waste.png",
+          "shows": "Page reload \u2014 the QA5 row reappears with same bug profile (empty Contents / State / Days Held). Highlight ring persisted via localStorage.",
+          "evaluation": "The localStorage overlay survives reload but still missing the fields \u2014 confirms the bug is in INDEX_KEYS filtering during patchObjectIndex, not in a volatile runtime cache.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/27-wiki-view-container.png",
+          "shows": "Wiki page for the new container: sidebar shows Waste category with count 5 (4 containers + index). Right pane: '! Failed to load: Failed to load docs/waste/qa5-ethanol-gloves-mo8w9bvb.md (HTTP 404)'.",
+          "evaluation": "Expected pre-deploy \u2014 the wiki page fetches from the raw static site. Could be improved to fall back to Lab.gh.fetchFile when logged in so newly-created files render immediately.",
+          "issues_found": [
+            "WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5/28-lab-map-baseline.png",
+          "shows": "Lab Map tree \u2014 waste containers do NOT appear because they use `location:` as a free-text string, not a `parent:` slug. Rooms (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 0170) listed, with Robbins expanded to show freezer/fridge children.",
+          "evaluation": "Design observation, not a bug: waste containers live in a separate surface (waste.html). They could optionally adopt the `parent:` hierarchy field to appear on the lab map, but that would require frontmatter migration for existing containers.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5-verify/03-row-post-fix.png",
+          "shows": "POST-FIX verification run (after the INDEX_KEYS commit deployed). Table shows BOTH QA5 rows with full Contents ('Nitrile gloves contaminated with\u2026'), State='Solid', Days Held='0 d'. Location / Status / Days Held all populated. Green toast 'Created: QA5V \u2026' bottom right.",
+          "evaluation": "Fix verified. Row is complete during the overlay window. Days Held correctly reads '0 d' \u2014 daysSince(today)=0 \u2014 matching the stat card.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5-verify/04-filter-solid-includes-qa5.png",
+          "shows": "Filter=Solid. Shows Paraquat Solid Waste + both QA5 rows \u2014 3 matches. Stat cards unchanged.",
+          "evaluation": "Confirmed filter now matches on the post-fix overlay.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5-verify/05-search-contents-includes-qa5.png",
+          "shows": "Search='ethanol-contaminated' + Solid filter \u2192 both QA5 rows present.",
+          "evaluation": "Content-field search works now that the overlay preserves the contents string.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle5-verify/06-reload-overlay-kept.png",
+          "shows": "After reload without filters \u2014 both QA5 rows with full data (Contents, State=Solid, 0 d) persist.",
+          "evaluation": "localStorage overlay correctly persists the expanded field set across reloads.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
           "severity": "functional",
-          "summary": "Newly-created waste containers (and by extension sample-tracker entries) showed blank Contents, blank Physical State, and '—' for Days Held in the waste table until the next site deploy. Filters by state and searches against contents excluded the row.",
-          "evidence": "cycle5/13-table-with-new-row.png shows the QA5 row with empty Contents + empty State + '—' Days Held; cycle5/15-after-filter-solid.png hides the row when filtering by Solid; cycle5/17-after-search-ethanol.png returns the empty-state when searching for the contents keyword.",
+          "summary": "Newly-created waste containers (and by extension sample-tracker entries) showed blank Contents, blank Physical State, and '\u2014' for Days Held in the waste table until the next site deploy. Filters by state and searches against contents excluded the row.",
+          "evidence": "cycle5/13-table-with-new-row.png shows the QA5 row with empty Contents + empty State + '\u2014' Days Held; cycle5/15-after-filter-solid.png hides the row when filtering by Solid; cycle5/17-after-search-ethanol.png returns the empty-state when searching for the contents keyword.",
           "root_cause": "patchObjectIndex in app/js/github-api.js whitelists fields against INDEX_KEYS. That list did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or the sample-tracker fields (sample_id, species, lead, sequencing_type) even though the server-side scripts/build-object-index.py has them in EXTRACT_KEYS. Every save via patchObjectIndex therefore dropped these fields from the localStorage overlay, so pages that read them rendered blanks during the window between save and next deploy.",
           "status": "fixed"
         }
       ],
-      "fixes": ["Added waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) and sample-tracker fields (sample_id, species, lead, sequencing_type) to INDEX_KEYS in app/js/github-api.js so the client list mirrors EXTRACT_KEYS in scripts/build-object-index.py (commit 5c01bed)."],
+      "fixes": [
+        "Added waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) and sample-tracker fields (sample_id, species, lead, sequencing_type) to INDEX_KEYS in app/js/github-api.js so the client list mirrors EXTRACT_KEYS in scripts/build-object-index.py (commit 5c01bed)."
+      ],
       "observations": [
-        "waste.html Add Container modal keeps things minimal — only Name (required), Contents, Physical State, Location. Other fields (hazard_class, waste_tag, status, started) are either auto-filled or edited later via the popup.",
-        "Editor popup for a waste container surfaces the full frontmatter including a Type='Waste Container' pill with skull icon — the icon is a nice touch for hazardous items.",
+        "waste.html Add Container modal keeps things minimal \u2014 only Name (required), Contents, Physical State, Location. Other fields (hazard_class, waste_tag, status, started) are either auto-filled or edited later via the popup.",
+        "Editor popup for a waste container surfaces the full frontmatter including a Type='Waste Container' pill with skull icon \u2014 the icon is a nice touch for hazardous items.",
         "Status in the popup field column renders as raw slug 'in_accumulation'; the waste table uses 'In Accumulation' with an amber pill. Minor asymmetry worth a future fix.",
         "Waste containers use `location:` as a free-text string rather than a `parent:` slug, so they do NOT appear in the lab-map hierarchy tree. They're a separate surface on waste.html.",
         "Wiki viewer 404s for newly-created files until the next deploy even when the user is authenticated. Could fall back to Lab.gh.fetchFile for a live read from GitHub.",
@@ -325,50 +712,125 @@
       "persona": "Vianney Ahn",
       "modifier": "rushed",
       "scenario": "Lab notebook full day",
-      "task": "Created a blank notebook entry under vianney-ahn via the New Entry modal. Pasted markdown via editor.setMarkdown for: H1 + Person/Date metadata + 2 H2 sections + 7-row results table (NanoDrop A260/280, A260/230, ng/uL, volume) + an admonition (Watch Out callout) + 4 wikilinks ([[qiagen-dneasy-extraction]], [[box-pistachio-dna]], [[shelf-minus80-a-1]], [[sample-pistachio-4]]) + 3-item task list. Generated PNG data URLs for plant + gel images, uploaded both via Lab.editorModal.uploadImageBlob, inserted markdown image refs. Rushed double-clicked Save. Reloaded; confirmed all rich elements re-render including image data URLs via the GitHub-API live fallback. Clicked the QIAGEN DNeasy pill — successfully navigated to the protocol page.",
+      "task": "Created a blank notebook entry under vianney-ahn via the New Entry modal. Pasted markdown via editor.setMarkdown for: H1 + Person/Date metadata + 2 H2 sections + 7-row results table (NanoDrop A260/280, A260/230, ng/uL, volume) + an admonition (Watch Out callout) + 4 wikilinks ([[qiagen-dneasy-extraction]], [[box-pistachio-dna]], [[shelf-minus80-a-1]], [[sample-pistachio-4]]) + 3-item task list. Generated PNG data URLs for plant + gel images, uploaded both via Lab.editorModal.uploadImageBlob, inserted markdown image refs. Rushed double-clicked Save. Reloaded; confirmed all rich elements re-render including image data URLs via the GitHub-API live fallback. Clicked the QIAGEN DNeasy pill \u2014 successfully navigated to the protocol page.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle6/01-notebooks-baseline.png", "shows": "Notebooks page baseline — sidebar with Grey Monroe (2), Barb M (6), Mr Freckles (1), Test User (0), Vianney Ahn (6); right pane Lab Notebooks header + Recent Entries list + bulb FAB", "evaluation": "Layout clean. Top nav fits but cuts off the last item with 'A...' on the right edge.", "issues_found": ["LEFTOVER-QA6-ENTRIES (housekeeping): three prior aborted qa6-notebook-full-day-* entries from earlier QA attempts visible in Recent Entries — cleaned up at end of cycle", "SEARCH-PLACEHOLDER-CLIPPED (cosmetic): sidebar search input placeholder 'Search notebook' truncates to 'Search noteboo|'", "TOPNAV-LAST-ITEM-CLIPPED (cosmetic): the rightmost top-nav tab ('Apps') gets cut to 'A...' on a 1440-wide viewport"] },
-        { "path": "/tmp/qa-screenshots/cycle6/03-new-entry-modal-opened.png", "shows": "New Entry modal — Entry Type dropdown defaulting to 'Daily entry (dated, with template)', Folder dropdown 'barb-m', Filename/Title field '2026-04-21'", "evaluation": "Modal centered with clear field labels in uppercase small caps and a subtle backdrop dim. Cancel + Create entry buttons.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/04-new-entry-modal-filled.png", "shows": "Modal filled programmatically — Type=Blank document (custom title), Folder=vianney-ahn, Title=qa6-notebook-full-day-mo9253fk", "evaluation": "Label correctly switches from 'FILENAME / TITLE' to 'TITLE' when type changes to Blank.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/06-after-create-doc-loaded.png", "shows": "After Create — VIANNEY AHN expanded with new entry highlighted (count 7), right pane shows the seed body (H1 + Person + Date), Print/Delete/Edit action bar, green 'Entry created' toast", "evaluation": "Sidebar count correctly incremented from 6 to 7 because createDoc patches the in-memory TREE. Highlighting + breadcrumb 'vianney-ahn/qa6-notebook-full-day-mo9253fk' render cleanly.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/08-editor-opened.png", "shows": "Edit mode — top pill rows for Insert (Resources/Stocks/People/Protocols/Projects/Samples/Waste) + Media (Image/GIF, YouTube, Video file), then a Toast UI toolbar (H, B, I, S, hr, quote, callout glyphs, code, ul/ol/task, table, link, code-block)", "evaluation": "Two-row insert palette is discoverable and color-coded by type. Toolbar consistent with other editors.", "issues_found": ["TOAST-LINGERS (minor ux): the 'Entry created' toast is still visible in this screenshot taken several seconds after creation — could fade after ~3s instead of staying for ~10s+"] },
-        { "path": "/tmp/qa-screenshots/cycle6/09-editor-after-setmarkdown.png", "shows": "Editor after editor.setMarkdown with a rich body — table rendered with headers, NTC row uses em-dashes, callout 'Watch Out' renders, three [[wikilinks]] visible as raw [[slug]] text", "evaluation": "Tables, headings, callout all render in WYSIWYG. The raw [[wikilink]] syntax visible in the editor is a script artifact (setMarkdown bypasses Lab.editorModal.wikilinksToLinks). On save the markdown ships as-is and renders fine downstream.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/12-after-save-rendered.png", "shows": "After save — view mode showing H1 + Person/Date + Plan/What I did sections + clickable purple 'QIAGEN DNeasy Plant Extraction' Protocol pill + 7-row table with uppercase column headers + start of 'Results & observations' + green 'Saved' toast", "evaluation": "Save round-trip works. QIAGEN DNeasy wikilink rendered as a properly-styled Protocol pill with book icon. Table column headers in uppercase grey 12px caps look polished.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/14-after-reload-rendered.png", "shows": "After full page reload — same rendered content but sidebar VIANNEY AHN reverted to count 6 (was 7 just before reload) and the folder is collapsed, losing our entry highlight", "evaluation": "Body content persisted correctly through GitHub. BUT sidebar regressed: the new entry is missing from the count even though we're currently viewing it.", "issues_found": ["SIDEBAR-FOLDER-COUNT-STALE (functional, fixed this cycle): VIANNEY AHN count goes 6→7 on creation but reverts to 6 after reload because fetchTree returns GitHub's git/trees API view which lags a few seconds behind the just-committed file"] },
-        { "path": "/tmp/qa-screenshots/cycle6/15-after-reload-image-area.png", "shows": "Scrolled to images section after reload — 'Watch Out' callout (peach background, divider, body), wikilinks rendered as type-colored pills (📦 brown 'Pistachio DNA Box', grey-blue 'Shelf 1', purple 'Pistachio Tree #4'), 3-item task list with checkboxes, 'Images' H2, then the actual green plant square (120x120) and dark grey gel rectangle (160x80)", "evaluation": "All wikilinks resolve correctly to type-colored pills with the right icon. The pre-deploy image fallback works: data URLs captured during save are used to render the imgs even though the static path won't exist on GitHub Pages until the next deploy. End-to-end rich rendering works.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/17-after-reload-callout-area.png", "shows": "Scrolled to callout — Watch Out admonition with peach divider + body, wikilinks below, Next steps task list including 'Update [Pistachio Tree #4] notes' with the wikilink rendered as a purple pill inside the task item", "evaluation": "Wikilinks resolve correctly inside task items. Task checkboxes render unchecked. One column header in the table above (VOLUME (ML)) renders in teal — likely a hover/focus highlight from scrollIntoView landing the cursor over that column.", "issues_found": ["TABLE-HEADER-HOVER-COLOR (cosmetic, minor): when the cursor lands over a table column header (e.g. via scrollIntoView landing point), only that header switches to a teal text color while siblings stay black — looks visually inconsistent if a user accidentally rests the mouse there"] },
-        { "path": "/tmp/qa-screenshots/cycle6/18-sidebar-with-new-entry.png", "shows": "Same as 14 — sidebar still shows VIANNEY AHN (6) collapsed, our entry not visible without manual expansion", "evaluation": "Confirms the sidebar bug.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6/20-after-wikilink-click.png", "shows": "After clicking the 'QIAGEN DNeasy Plant Extraction' pill — protocol page loaded showing Resources / Reagents (Centrifuge, Heat Block, etc.) / Equipment / Related Protocols / Prerequisites sections", "evaluation": "Cross-surface wikilink click works end-to-end: notebook → protocol page. The route changed and the protocol body loaded with its own wikilinks resolved.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle6-verify/03-after-reload.png", "shows": "POST-FIX verify — after creating a new notebook entry with [[sample-pistachio-4]] and [[qiagen-dneasy-extraction]] wikilinks and reloading", "evaluation": "Verified by Lab.gh.fetchTree returning sawIt:true and lab_tree_patches['docs/notebooks/.../qa6v-...md'].kind='added'. Lab.gh.fetchLinkIndex returned 1 hit from our source for both wikilink targets. Lab.gh.fetchObjectIndex includes our entry with type=notebook,title set. Both fixes confirmed deployed and working.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle6/01-notebooks-baseline.png",
+          "shows": "Notebooks page baseline \u2014 sidebar with Grey Monroe (2), Barb M (6), Mr Freckles (1), Test User (0), Vianney Ahn (6); right pane Lab Notebooks header + Recent Entries list + bulb FAB",
+          "evaluation": "Layout clean. Top nav fits but cuts off the last item with 'A...' on the right edge.",
+          "issues_found": [
+            "LEFTOVER-QA6-ENTRIES (housekeeping): three prior aborted qa6-notebook-full-day-* entries from earlier QA attempts visible in Recent Entries \u2014 cleaned up at end of cycle",
+            "SEARCH-PLACEHOLDER-CLIPPED (cosmetic): sidebar search input placeholder 'Search notebook' truncates to 'Search noteboo|'",
+            "TOPNAV-LAST-ITEM-CLIPPED (cosmetic): the rightmost top-nav tab ('Apps') gets cut to 'A...' on a 1440-wide viewport"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/03-new-entry-modal-opened.png",
+          "shows": "New Entry modal \u2014 Entry Type dropdown defaulting to 'Daily entry (dated, with template)', Folder dropdown 'barb-m', Filename/Title field '2026-04-21'",
+          "evaluation": "Modal centered with clear field labels in uppercase small caps and a subtle backdrop dim. Cancel + Create entry buttons.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/04-new-entry-modal-filled.png",
+          "shows": "Modal filled programmatically \u2014 Type=Blank document (custom title), Folder=vianney-ahn, Title=qa6-notebook-full-day-mo9253fk",
+          "evaluation": "Label correctly switches from 'FILENAME / TITLE' to 'TITLE' when type changes to Blank.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/06-after-create-doc-loaded.png",
+          "shows": "After Create \u2014 VIANNEY AHN expanded with new entry highlighted (count 7), right pane shows the seed body (H1 + Person + Date), Print/Delete/Edit action bar, green 'Entry created' toast",
+          "evaluation": "Sidebar count correctly incremented from 6 to 7 because createDoc patches the in-memory TREE. Highlighting + breadcrumb 'vianney-ahn/qa6-notebook-full-day-mo9253fk' render cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/08-editor-opened.png",
+          "shows": "Edit mode \u2014 top pill rows for Insert (Resources/Stocks/People/Protocols/Projects/Samples/Waste) + Media (Image/GIF, YouTube, Video file), then a Toast UI toolbar (H, B, I, S, hr, quote, callout glyphs, code, ul/ol/task, table, link, code-block)",
+          "evaluation": "Two-row insert palette is discoverable and color-coded by type. Toolbar consistent with other editors.",
+          "issues_found": [
+            "TOAST-LINGERS (minor ux): the 'Entry created' toast is still visible in this screenshot taken several seconds after creation \u2014 could fade after ~3s instead of staying for ~10s+"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/09-editor-after-setmarkdown.png",
+          "shows": "Editor after editor.setMarkdown with a rich body \u2014 table rendered with headers, NTC row uses em-dashes, callout 'Watch Out' renders, three [[wikilinks]] visible as raw [[slug]] text",
+          "evaluation": "Tables, headings, callout all render in WYSIWYG. The raw [[wikilink]] syntax visible in the editor is a script artifact (setMarkdown bypasses Lab.editorModal.wikilinksToLinks). On save the markdown ships as-is and renders fine downstream.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/12-after-save-rendered.png",
+          "shows": "After save \u2014 view mode showing H1 + Person/Date + Plan/What I did sections + clickable purple 'QIAGEN DNeasy Plant Extraction' Protocol pill + 7-row table with uppercase column headers + start of 'Results & observations' + green 'Saved' toast",
+          "evaluation": "Save round-trip works. QIAGEN DNeasy wikilink rendered as a properly-styled Protocol pill with book icon. Table column headers in uppercase grey 12px caps look polished.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/14-after-reload-rendered.png",
+          "shows": "After full page reload \u2014 same rendered content but sidebar VIANNEY AHN reverted to count 6 (was 7 just before reload) and the folder is collapsed, losing our entry highlight",
+          "evaluation": "Body content persisted correctly through GitHub. BUT sidebar regressed: the new entry is missing from the count even though we're currently viewing it.",
+          "issues_found": [
+            "SIDEBAR-FOLDER-COUNT-STALE (functional, fixed this cycle): VIANNEY AHN count goes 6\u21927 on creation but reverts to 6 after reload because fetchTree returns GitHub's git/trees API view which lags a few seconds behind the just-committed file"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/15-after-reload-image-area.png",
+          "shows": "Scrolled to images section after reload \u2014 'Watch Out' callout (peach background, divider, body), wikilinks rendered as type-colored pills (\ud83d\udce6 brown 'Pistachio DNA Box', grey-blue 'Shelf 1', purple 'Pistachio Tree #4'), 3-item task list with checkboxes, 'Images' H2, then the actual green plant square (120x120) and dark grey gel rectangle (160x80)",
+          "evaluation": "All wikilinks resolve correctly to type-colored pills with the right icon. The pre-deploy image fallback works: data URLs captured during save are used to render the imgs even though the static path won't exist on GitHub Pages until the next deploy. End-to-end rich rendering works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/17-after-reload-callout-area.png",
+          "shows": "Scrolled to callout \u2014 Watch Out admonition with peach divider + body, wikilinks below, Next steps task list including 'Update [Pistachio Tree #4] notes' with the wikilink rendered as a purple pill inside the task item",
+          "evaluation": "Wikilinks resolve correctly inside task items. Task checkboxes render unchecked. One column header in the table above (VOLUME (ML)) renders in teal \u2014 likely a hover/focus highlight from scrollIntoView landing the cursor over that column.",
+          "issues_found": [
+            "TABLE-HEADER-HOVER-COLOR (cosmetic, minor): when the cursor lands over a table column header (e.g. via scrollIntoView landing point), only that header switches to a teal text color while siblings stay black \u2014 looks visually inconsistent if a user accidentally rests the mouse there"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/18-sidebar-with-new-entry.png",
+          "shows": "Same as 14 \u2014 sidebar still shows VIANNEY AHN (6) collapsed, our entry not visible without manual expansion",
+          "evaluation": "Confirms the sidebar bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6/20-after-wikilink-click.png",
+          "shows": "After clicking the 'QIAGEN DNeasy Plant Extraction' pill \u2014 protocol page loaded showing Resources / Reagents (Centrifuge, Heat Block, etc.) / Equipment / Related Protocols / Prerequisites sections",
+          "evaluation": "Cross-surface wikilink click works end-to-end: notebook \u2192 protocol page. The route changed and the protocol body loaded with its own wikilinks resolved.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle6-verify/03-after-reload.png",
+          "shows": "POST-FIX verify \u2014 after creating a new notebook entry with [[sample-pistachio-4]] and [[qiagen-dneasy-extraction]] wikilinks and reloading",
+          "evaluation": "Verified by Lab.gh.fetchTree returning sawIt:true and lab_tree_patches['docs/notebooks/.../qa6v-...md'].kind='added'. Lab.gh.fetchLinkIndex returned 1 hit from our source for both wikilink targets. Lab.gh.fetchObjectIndex includes our entry with type=notebook,title set. Both fixes confirmed deployed and working.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
           "severity": "functional",
-          "summary": "Sidebar folder count regresses after reload — VIANNEY AHN goes 6→7 on creation but back to 6 after reload because fetchTree returns GitHub's git/trees API view which lags the just-committed file by a few seconds",
+          "summary": "Sidebar folder count regresses after reload \u2014 VIANNEY AHN goes 6\u21927 on creation but back to 6 after reload because fetchTree returns GitHub's git/trees API view which lags the just-committed file by a few seconds",
           "evidence": "screenshots/cycle6/14-after-reload-rendered.png and 18-sidebar-with-new-entry.png both show count 6 even though we're actively viewing the just-created entry. fetchTree was called fresh on reload and returned a stale list.",
           "root_cause": "fetchTree() in app/js/github-api.js read GitHub's git/trees recursive endpoint with no overlay layer. saveFile and deleteFile did not record their changes anywhere fetchTree could see, so any caller (notebooks.html sidebar, wiki.html, protocols.html) would render a stale tree until the API caught up.",
           "status": "fixed"
         },
         {
           "severity": "functional",
-          "summary": "Notebook entries saved via notebooks.html did not appear in the link-index overlay — wikilinks pointing to sample-pistachio-4, qiagen-dneasy-extraction, etc. did not surface as backlinks on those targets until the next deploy",
-          "evidence": "Initial cycle 6 script output 'backlink index hits: {}' — fetchLinkIndex returned no entries from the new doc to its known wikilink targets. notebooks.html saveDoc only called Lab.gh.saveFile, never patchObjectIndex or patchLinkIndex.",
+          "summary": "Notebook entries saved via notebooks.html did not appear in the link-index overlay \u2014 wikilinks pointing to sample-pistachio-4, qiagen-dneasy-extraction, etc. did not surface as backlinks on those targets until the next deploy",
+          "evidence": "Initial cycle 6 script output 'backlink index hits: {}' \u2014 fetchLinkIndex returned no entries from the new doc to its known wikilink targets. notebooks.html saveDoc only called Lab.gh.saveFile, never patchObjectIndex or patchLinkIndex.",
           "root_cause": "The cycle-1 patchLinkIndex fix was wired into editor-modal.js's save flow but notebooks.html's saveDoc / createDoc / deleteDoc did not call any of patchObjectIndex / patchLinkIndex / removeFrom*, so notebook saves bypassed the overlay machinery that pages like editor-modal popups depend on.",
           "status": "fixed"
         }
       ],
       "fixes": [
-        "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) — saveFile and deleteFile now record their path changes; fetchTree merges them into the API response so any caller (notebooks/wiki/protocols sidebars) sees the just-saved file immediately (app/js/github-api.js, commit e0a0f44)",
+        "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) \u2014 saveFile and deleteFile now record their path changes; fetchTree merges them into the API response so any caller (notebooks/wiki/protocols sidebars) sees the just-saved file immediately (app/js/github-api.js, commit e0a0f44)",
         "notebooks.html saveDoc / createDoc / deleteDoc now apply patchObjectIndex + patchLinkIndex (and removeFrom* on delete) so the new entry shows up in the hierarchy + backlink panels of every wikilink target without waiting for a deploy (app/notebooks.html, commit e0a0f44)"
       ],
       "observations": [
-        "Notebooks Add Entry modal works cleanly — the field label adapts ('FILENAME / TITLE' vs 'TITLE') based on the entry type dropdown.",
+        "Notebooks Add Entry modal works cleanly \u2014 the field label adapts ('FILENAME / TITLE' vs 'TITLE') based on the entry type dropdown.",
         "Editor's Insert/Media pill rows are a discoverable way to insert typed pills + media without typing markdown manually.",
-        "All rich elements (table, callout, task list, wikilink pills, images) round-trip correctly through save/reload — image fallback via data URLs works pre-deploy.",
-        "Wikilinks render as type-colored pills with correct icons even when nested in task items — `[[sample-pistachio-4]]` inside a `- [ ]` becomes a clickable purple Sample pill.",
+        "All rich elements (table, callout, task list, wikilink pills, images) round-trip correctly through save/reload \u2014 image fallback via data URLs works pre-deploy.",
+        "Wikilinks render as type-colored pills with correct icons even when nested in task items \u2014 `[[sample-pistachio-4]]` inside a `- [ ]` becomes a clickable purple Sample pill.",
         "Cross-surface wikilink click from notebook to protocol page works end-to-end via the obj:// URI scheme.",
-        "Toast notifications linger ~10s before fading — could be tightened to ~3s (one of the 'editor-opened' screenshots still shows the 'Entry created' toast from several actions earlier).",
-        "tests/qa-cycle-6-verify.mjs kept as a regression harness — creates a notebook entry, reloads, asserts fetchTree.sawIt and link-index hit counts > 0 for both wikilink targets."
+        "Toast notifications linger ~10s before fading \u2014 could be tightened to ~3s (one of the 'editor-opened' screenshots still shows the 'Entry created' toast from several actions earlier).",
+        "tests/qa-cycle-6-verify.mjs kept as a regression harness \u2014 creates a notebook entry, reloads, asserts fetchTree.sawIt and link-index hit counts > 0 for both wikilink targets."
       ]
     },
     {
@@ -376,33 +838,82 @@
       "persona": "Alex Chen",
       "modifier": "ui_critic",
       "scenario": "New freezer box day",
-      "task": "Created a new 10x10 box 'Library Prep Kit Storage' on shelf-minus80-a-1, then added 3 tubes at non-adjacent grid positions A1 (top-left corner), C5 (middle), and J10 (bottom-right corner) to stress grid rendering at all four grid boundaries. Verified: (1) the shelf popup shows the new box as a child, (2) the empty box popup renders all 100 dashed cells with correct A-J row labels and 1-10 column labels, (3) the filled box popup renders exactly 3 occupied teal-filled cells with correct label_2 fragments (KAPA at A1, NEB at C5, TWST at J10), (4) each tube popup shows the full 5-level breadcrumb (Room/Freezer/Shelf/Box/Tube) with type-colored pills, (5) navigation from box → shelf via the Parent pill works. Also audited the top-nav for the NAV-TRUNCATION bug from cycle 4.",
+      "task": "Created a new 10x10 box 'Library Prep Kit Storage' on shelf-minus80-a-1, then added 3 tubes at non-adjacent grid positions A1 (top-left corner), C5 (middle), and J10 (bottom-right corner) to stress grid rendering at all four grid boundaries. Verified: (1) the shelf popup shows the new box as a child, (2) the empty box popup renders all 100 dashed cells with correct A-J row labels and 1-10 column labels, (3) the filled box popup renders exactly 3 occupied teal-filled cells with correct label_2 fragments (KAPA at A1, NEB at C5, TWST at J10), (4) each tube popup shows the full 5-level breadcrumb (Room/Freezer/Shelf/Box/Tube) with type-colored pills, (5) navigation from box \u2192 shelf via the Parent pill works. Also audited the top-nav for the NAV-TRUNCATION bug from cycle 4.",
       "screenshots": [
-        { "path": "/tmp/qa-screenshots/cycle7/01-lab-map-baseline.png", "shows": "Lab Map page baseline, locations tree expanded to Robbins Hall 0170 / -80C Freezer A / Shelf 1/2/3 and 4C Fridge (Main) with 15 items", "evaluation": "Tree renders cleanly. Top-nav shows full labels for all visible tabs (Tutorials, Protocols, Inventory, People, Projects, Samples, Notebooks, Calendar, Waste, Lab Map) — 'Lab Map' is NOT truncated on this 1440-wide viewport, contrary to the NAV-TRUNCATION note from earlier cycles. Only a small 'A' is clipped at the far right (likely an 'Apps' tab after Lab Map).", "issues_found": ["MAP-PLACEHOLDER-OVERLAP (carried, cosmetic, open): floor-plan SVG placeholder still has overlapping 'Map design in progress' label overlapping 'Bench 1' and 'Bench 2'"] },
-        { "path": "/tmp/qa-screenshots/cycle7/02-shelf-popup-baseline.png", "shows": "Shelf 1 popup with breadcrumb Robbins Hall 0170 / -80C Freezer A / Shelf 1, fields (Type=Shelf, Parent=-80C Freezer A), and CONTENTS with 2 children (Box A, Pistachio DNA Box)", "evaluation": "Three-column popup layout clean. Parent pill clickable. Breadcrumb renders as 3 type-colored pills with '/' separators. No issues.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle7/06-lab-map-search-libprep.png", "shows": "Lab map tree filtered by 'library prep' — Robbins Hall 0170 → -80C Freezer A → Shelf 1 (now shows 3 items, was 2 at baseline) → Library Prep Kit Storage (10×10 label)", "evaluation": "patchObjectIndex overlay correctly increments Shelf 1's item count from 2 to 3 and surfaces the new box as a child. Tree shows the grid size '10×10' as a badge on the right. Cycle-2 hierarchy-cache-invalidation fix is still holding.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle7/08-empty-10x10-box-popup.png", "shows": "New empty 10x10 box popup with all 100 dashed empty cells (A1-J10), header '10 × 10 · 0 items', body has wikilinks resolving to Pistachio Tree #4 (purple Sample pill), Shelf 1 (grey-blue Shelf pill), -80C Freezer A (light-blue Freezer pill), QIAGEN DNeasy Plant Extraction (purple Protocol pill), dna-quantification-qubit (plain teal — type not inferred)", "evaluation": "Empty grid correct at 10 rows (A-J) x 10 cols (1-10). All dashed cells. Fields panel shows Type=Box (brown box pill), Parent=Shelf 1 (clickable), Grid=10×10, Label 1, Label 2. Breadcrumb wraps to two lines and shows BREADCRUMB-DANGLING-SLASH bug on line 1 ('Shelf 1 /' wraps with trailing slash). dna-quantification-qubit pill renders plain teal without a type icon — may indicate type lookup failed for this slug.", "issues_found": ["BREADCRUMB-DANGLING-SLASH (cosmetic, fixed this cycle): breadcrumb wraps to two lines and line 1 ends with a standalone '/' separator because each crumb + separator was an independent flex child", "DNA-QUANTIFICATION-PILL-UNTYPED (minor, open): wikilink to 'dna-quantification-qubit' renders as plain teal pill without a type icon, unlike other protocol links — possibly a slug that doesn't resolve in the object index"] },
-        { "path": "/tmp/qa-screenshots/cycle7-reshoot/01-box-popup-with-3-tubes.png", "shows": "Box popup after 3 tubes created — grid now has 3 occupied teal cells at A1 (label 'KAPA'), C5 (label 'NEB'), J10 (label 'TWST'). Header '10 × 10 · 3 items'. Cells are positioned correctly at the exact grid coordinates.", "evaluation": "Grid rendering works correctly at all four boundaries: top-left (A1), middle (C5), and bottom-right (J10). Occupied cells get teal fill + a tiny label_2 fragment. Empty cells stay dashed. Breadcrumb wraps 2 lines — still shows the dangling-slash bug in this pre-fix screenshot.", "issues_found": ["BREADCRUMB-DANGLING-SLASH still visible here in the pre-fix screenshot"] },
-        { "path": "/tmp/qa-screenshots/cycle7-reshoot/02-tube-c5-popup.png", "shows": "Tube C5 popup with 5-level breadcrumb 'Robbins Hall 0170 / -80C Freezer A / Shelf 1 / Library Prep Kit Storage v2 / NEBNext Ultra II Tube', fields panel (Type=Tube teal flask pill, Parent=Library Prep Kit Storage v2 brown box pill clickable, Position in parent=C5, Label 1/2), body 'In [Library Prep Kit Storage v2] at C5.'", "evaluation": "5-level breadcrumb wraps correctly. All pill colors match the type system (dark Room pill, light-blue Freezer, grey-blue Shelf, brown Box, teal Tube). Parent pill is clickable. Position field shows C5. Contents column says 'No children yet' — correct for a leaf tube.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle7-verify/w1440-tube-popup.png", "shows": "POST-FIX verify at 1440px — tube popup with 5-level breadcrumb wrapping to 2 lines: line 1 'Robbins Hall 0170 / -80C Freezer A / Shelf 1', line 2 '/ Library Prep Kit Storage (verify) / NEBNext Ultra II Tube (verify)'", "evaluation": "FIX CONFIRMED. Line 1 now ends cleanly with the 'Shelf 1' pill — no trailing slash. The separator moved from between-pills (independent flex child) to prefix-of-next-pill (grouped inside an inline-flex pair), so when flex-wrap kicks in only complete separator+pill pairs move to the next line. programmatic line scan returned endsWithOrphanSlash:false for all lines.", "issues_found": [] },
-        { "path": "/tmp/qa-screenshots/cycle7-verify/w520-tube-popup.png", "shows": "POST-FIX verify at 520px (mobile width) — tube popup with 5-level breadcrumb wrapping to 2 lines at narrower width; line 1 'Robbins Hall 0170 / -80C Freezer A / Shelf 1', line 2 '/ Library Prep Kit Storage (verify) / NEBNext Ultra II Tube (verify)'", "evaluation": "Fix also holds at mobile 520px width. Same clean wrap: line 1 ends at 'Shelf 1' pill, line 2 begins with the grouped '/ Library Prep Kit Storage (verify)' pair and ends with '/ NEBNext Ultra II Tube (verify)'. Separator stays with its following pill; no orphan slashes.", "issues_found": [] }
+        {
+          "path": "/tmp/qa-screenshots/cycle7/01-lab-map-baseline.png",
+          "shows": "Lab Map page baseline, locations tree expanded to Robbins Hall 0170 / -80C Freezer A / Shelf 1/2/3 and 4C Fridge (Main) with 15 items",
+          "evaluation": "Tree renders cleanly. Top-nav shows full labels for all visible tabs (Tutorials, Protocols, Inventory, People, Projects, Samples, Notebooks, Calendar, Waste, Lab Map) \u2014 'Lab Map' is NOT truncated on this 1440-wide viewport, contrary to the NAV-TRUNCATION note from earlier cycles. Only a small 'A' is clipped at the far right (likely an 'Apps' tab after Lab Map).",
+          "issues_found": [
+            "MAP-PLACEHOLDER-OVERLAP (carried, cosmetic, open): floor-plan SVG placeholder still has overlapping 'Map design in progress' label overlapping 'Bench 1' and 'Bench 2'"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7/02-shelf-popup-baseline.png",
+          "shows": "Shelf 1 popup with breadcrumb Robbins Hall 0170 / -80C Freezer A / Shelf 1, fields (Type=Shelf, Parent=-80C Freezer A), and CONTENTS with 2 children (Box A, Pistachio DNA Box)",
+          "evaluation": "Three-column popup layout clean. Parent pill clickable. Breadcrumb renders as 3 type-colored pills with '/' separators. No issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7/06-lab-map-search-libprep.png",
+          "shows": "Lab map tree filtered by 'library prep' \u2014 Robbins Hall 0170 \u2192 -80C Freezer A \u2192 Shelf 1 (now shows 3 items, was 2 at baseline) \u2192 Library Prep Kit Storage (10\u00d710 label)",
+          "evaluation": "patchObjectIndex overlay correctly increments Shelf 1's item count from 2 to 3 and surfaces the new box as a child. Tree shows the grid size '10\u00d710' as a badge on the right. Cycle-2 hierarchy-cache-invalidation fix is still holding.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7/08-empty-10x10-box-popup.png",
+          "shows": "New empty 10x10 box popup with all 100 dashed empty cells (A1-J10), header '10 \u00d7 10 \u00b7 0 items', body has wikilinks resolving to Pistachio Tree #4 (purple Sample pill), Shelf 1 (grey-blue Shelf pill), -80C Freezer A (light-blue Freezer pill), QIAGEN DNeasy Plant Extraction (purple Protocol pill), dna-quantification-qubit (plain teal \u2014 type not inferred)",
+          "evaluation": "Empty grid correct at 10 rows (A-J) x 10 cols (1-10). All dashed cells. Fields panel shows Type=Box (brown box pill), Parent=Shelf 1 (clickable), Grid=10\u00d710, Label 1, Label 2. Breadcrumb wraps to two lines and shows BREADCRUMB-DANGLING-SLASH bug on line 1 ('Shelf 1 /' wraps with trailing slash). dna-quantification-qubit pill renders plain teal without a type icon \u2014 may indicate type lookup failed for this slug.",
+          "issues_found": [
+            "BREADCRUMB-DANGLING-SLASH (cosmetic, fixed this cycle): breadcrumb wraps to two lines and line 1 ends with a standalone '/' separator because each crumb + separator was an independent flex child",
+            "DNA-QUANTIFICATION-PILL-UNTYPED (minor, open): wikilink to 'dna-quantification-qubit' renders as plain teal pill without a type icon, unlike other protocol links \u2014 possibly a slug that doesn't resolve in the object index"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7-reshoot/01-box-popup-with-3-tubes.png",
+          "shows": "Box popup after 3 tubes created \u2014 grid now has 3 occupied teal cells at A1 (label 'KAPA'), C5 (label 'NEB'), J10 (label 'TWST'). Header '10 \u00d7 10 \u00b7 3 items'. Cells are positioned correctly at the exact grid coordinates.",
+          "evaluation": "Grid rendering works correctly at all four boundaries: top-left (A1), middle (C5), and bottom-right (J10). Occupied cells get teal fill + a tiny label_2 fragment. Empty cells stay dashed. Breadcrumb wraps 2 lines \u2014 still shows the dangling-slash bug in this pre-fix screenshot.",
+          "issues_found": [
+            "BREADCRUMB-DANGLING-SLASH still visible here in the pre-fix screenshot"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7-reshoot/02-tube-c5-popup.png",
+          "shows": "Tube C5 popup with 5-level breadcrumb 'Robbins Hall 0170 / -80C Freezer A / Shelf 1 / Library Prep Kit Storage v2 / NEBNext Ultra II Tube', fields panel (Type=Tube teal flask pill, Parent=Library Prep Kit Storage v2 brown box pill clickable, Position in parent=C5, Label 1/2), body 'In [Library Prep Kit Storage v2] at C5.'",
+          "evaluation": "5-level breadcrumb wraps correctly. All pill colors match the type system (dark Room pill, light-blue Freezer, grey-blue Shelf, brown Box, teal Tube). Parent pill is clickable. Position field shows C5. Contents column says 'No children yet' \u2014 correct for a leaf tube.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7-verify/w1440-tube-popup.png",
+          "shows": "POST-FIX verify at 1440px \u2014 tube popup with 5-level breadcrumb wrapping to 2 lines: line 1 'Robbins Hall 0170 / -80C Freezer A / Shelf 1', line 2 '/ Library Prep Kit Storage (verify) / NEBNext Ultra II Tube (verify)'",
+          "evaluation": "FIX CONFIRMED. Line 1 now ends cleanly with the 'Shelf 1' pill \u2014 no trailing slash. The separator moved from between-pills (independent flex child) to prefix-of-next-pill (grouped inside an inline-flex pair), so when flex-wrap kicks in only complete separator+pill pairs move to the next line. programmatic line scan returned endsWithOrphanSlash:false for all lines.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle7-verify/w520-tube-popup.png",
+          "shows": "POST-FIX verify at 520px (mobile width) \u2014 tube popup with 5-level breadcrumb wrapping to 2 lines at narrower width; line 1 'Robbins Hall 0170 / -80C Freezer A / Shelf 1', line 2 '/ Library Prep Kit Storage (verify) / NEBNext Ultra II Tube (verify)'",
+          "evaluation": "Fix also holds at mobile 520px width. Same clean wrap: line 1 ends at 'Shelf 1' pill, line 2 begins with the grouped '/ Library Prep Kit Storage (verify)' pair and ends with '/ NEBNext Ultra II Tube (verify)'. Separator stays with its following pill; no orphan slashes.",
+          "issues_found": []
+        }
       ],
       "bugs": [
         {
           "severity": "cosmetic",
-          "summary": "BREADCRUMB-DANGLING-SLASH — popup breadcrumb wrapped to two lines and left a standalone '/' separator at the end of line 1 with no following pill, looking like a dangling trailing slash. Visible on any popup with 4+ ancestor levels.",
-          "evidence": "cycle1/step06-empty-9x9-box-popup.png, cycle7/08-empty-10x10-box-popup.png, cycle7-reshoot/01-box-popup-with-3-tubes.png — line 1 ends with 'Shelf 1 /' and the next pill ('Library Prep Kit Storage') wraps to line 2 alone",
+          "summary": "BREADCRUMB-DANGLING-SLASH \u2014 popup breadcrumb wrapped to two lines and left a standalone '/' separator at the end of line 1 with no following pill, looking like a dangling trailing slash. Visible on any popup with 4+ ancestor levels.",
+          "evidence": "cycle1/step06-empty-9x9-box-popup.png, cycle7/08-empty-10x10-box-popup.png, cycle7-reshoot/01-box-popup-with-3-tubes.png \u2014 line 1 ends with 'Shelf 1 /' and the next pill ('Library Prep Kit Storage') wraps to line 2 alone",
           "root_cause": "In app/js/hierarchy.js breadcrumbHTML, each crumb pill and each '/' separator was rendered as an independent flex child of a flex-wrap container, so when the total width exceeded the container any flex item (including a bare separator) could be the last item on a wrapped line.",
           "status": "fixed"
         }
       ],
-      "fixes": ["breadcrumbHTML now groups each separator with its following pill inside an inline-flex span so separator+pill wrap together as one atomic unit. The outer flex still wraps, but can only break between groups, never inside a group — so a '/' can no longer end up orphaned at a wrapped line boundary (app/js/hierarchy.js, commit 25c4999). Verified across 3 viewport widths (1440 / 900 / 520) via tests/qa-cycle-7-verify.mjs; endsWithOrphanSlash:false for all lines at all widths."],
+      "fixes": [
+        "breadcrumbHTML now groups each separator with its following pill inside an inline-flex span so separator+pill wrap together as one atomic unit. The outer flex still wraps, but can only break between groups, never inside a group \u2014 so a '/' can no longer end up orphaned at a wrapped line boundary (app/js/hierarchy.js, commit 25c4999). Verified across 3 viewport widths (1440 / 900 / 520) via tests/qa-cycle-7-verify.mjs; endsWithOrphanSlash:false for all lines at all widths."
+      ],
       "observations": [
-        "10x10 box grid renders 100 cells cleanly with A-J row labels and 1-10 column labels; occupied cells at all four boundary positions (A1 top-left, C5 middle, J10 bottom-right) render correctly — no edge-case rendering issues for corner cells.",
-        "The cycle-2 hierarchy cache invalidation is still holding — a new box shows up as a child of its parent shelf immediately on reopen, and the shelf's tree item-count increments without a redeploy.",
-        "Type system is consistent across 5-level chains: dark Room → light-blue Freezer → grey-blue Shelf → brown Box → teal Tube. Colors, icons, and pill shapes match across breadcrumb, fields column, parent pill, and contents list.",
-        "Top-nav NAV-TRUNCATION issue from earlier cycles is NOT reproducible at 1440px on the current deploy — all tab labels including 'Lab Map' fit fully. Only the far-right 'Apps' tab gets clipped (shows just 'A'). Either the menu was tightened since cycle 4 or the layout breakpoint changed.",
-        "Observed a minor NEW issue: the wikilink '[[dna-quantification-qubit]]' in the box popup body renders as a plain teal pill without a type icon, unlike sibling links to QIAGEN DNeasy Plant Extraction that get the purple book icon. Likely the target slug doesn't resolve in the object index — possibly a typo or an out-of-date link.",
+        "10x10 box grid renders 100 cells cleanly with A-J row labels and 1-10 column labels; occupied cells at all four boundary positions (A1 top-left, C5 middle, J10 bottom-right) render correctly \u2014 no edge-case rendering issues for corner cells.",
+        "The cycle-2 hierarchy cache invalidation is still holding \u2014 a new box shows up as a child of its parent shelf immediately on reopen, and the shelf's tree item-count increments without a redeploy.",
+        "Type system is consistent across 5-level chains: dark Room \u2192 light-blue Freezer \u2192 grey-blue Shelf \u2192 brown Box \u2192 teal Tube. Colors, icons, and pill shapes match across breadcrumb, fields column, parent pill, and contents list.",
+        "Top-nav NAV-TRUNCATION issue from earlier cycles is NOT reproducible at 1440px on the current deploy \u2014 all tab labels including 'Lab Map' fit fully. Only the far-right 'Apps' tab gets clipped (shows just 'A'). Either the menu was tightened since cycle 4 or the layout breakpoint changed.",
+        "Observed a minor NEW issue: the wikilink '[[dna-quantification-qubit]]' in the box popup body renders as a plain teal pill without a type icon, unlike sibling links to QIAGEN DNeasy Plant Extraction that get the purple book icon. Likely the target slug doesn't resolve in the object index \u2014 possibly a typo or an out-of-date link.",
         "tests/qa-cycle-7.mjs, tests/qa-cycle-7-reshoot.mjs, and tests/qa-cycle-7-verify.mjs kept as harnesses: the verify script specifically asserts no orphan separators at viewport widths 1440 / 900 / 520."
       ]
     }
@@ -410,36 +921,36 @@
   "bugs_found": [
     "BACKLINKS-LAG (functional, fixed in cycle 1): newly-created or freshly-edited files were missing from the backlinks panel of every wikilink target until the next deploy",
     "HIERARCHY-CACHE-STALE (functional, fixed in cycle 2): after a save the Lab.hierarchy cache retained its pre-save snapshot, so parent CONTENTS + child breadcrumbs were missing for new objects until reload",
-    "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay — counts + alerts lagged until site redeploy",
-    "OF-FIELD-NOT-CLICKABLE (functional, fixed in cycle 4): the `of` field on bottle/tube popups rendered as plain slug text while the `parent` field was a clickable object pill — cross_linker could not navigate instance → concept from the fields column",
-    "WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed in cycle 5): client INDEX_KEYS did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or sample-tracker fields (sample_id, species, lead, sequencing_type) that the server-side EXTRACT_KEYS has, so patchObjectIndex dropped them — new waste containers showed blank Contents/State/Days Held until the next deploy and filters excluded them",
+    "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay \u2014 counts + alerts lagged until site redeploy",
+    "OF-FIELD-NOT-CLICKABLE (functional, fixed in cycle 4): the `of` field on bottle/tube popups rendered as plain slug text while the `parent` field was a clickable object pill \u2014 cross_linker could not navigate instance \u2192 concept from the fields column",
+    "WASTE-FIELDS-NOT-IN-INDEX-KEYS (functional, fixed in cycle 5): client INDEX_KEYS did not include the waste-container fields (contents, physical_state, container, hazard_class, started, waste_tag) or sample-tracker fields (sample_id, species, lead, sequencing_type) that the server-side EXTRACT_KEYS has, so patchObjectIndex dropped them \u2014 new waste containers showed blank Contents/State/Days Held until the next deploy and filters excluded them",
     "FETCHTREE-NO-OVERLAY (functional, fixed in cycle 6): fetchTree returned GitHub's git/trees view directly with no localStorage overlay, so the notebooks/wiki/protocols sidebars showed pre-save folder counts after a reload until the API caught up (~30s)",
-    "NOTEBOOKS-SAVE-NO-PATCH (functional, fixed in cycle 6): notebooks.html saveDoc/createDoc/deleteDoc never called patchObjectIndex / patchLinkIndex / removeFrom*, so notebook saves bypassed the overlays — backlinks on wikilink targets did not include the new entry until the next deploy",
+    "NOTEBOOKS-SAVE-NO-PATCH (functional, fixed in cycle 6): notebooks.html saveDoc/createDoc/deleteDoc never called patchObjectIndex / patchLinkIndex / removeFrom*, so notebook saves bypassed the overlays \u2014 backlinks on wikilink targets did not include the new entry until the next deploy",
     "TABLE-HEADER-HOVER-COLOR (cosmetic, open from cycle 6): a single table column header switches to teal text on hover/focus while siblings stay black, looking visually inconsistent",
-    "TOAST-LINGERS (cosmetic, fixed in cycle 8, commit be436a0): success toasts faded after 3s, errors after 6s, all toasts click-to-dismiss — Lab.showToast now picks duration by type",
-    "TOPNAV-LAST-ITEM-CLIPPED (cosmetic, fixed in cycle 8, commit ed22c7c): top-nav tab padding tightened from 12px 14px to 12px 10px (and 12px 7px below 1280px) so all 12 tabs fit at 1440-wide without clipping — nav.js",
-    "SEARCH-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 8, commit dc5bf39): notebook sidebar search placeholder shortened from 'Search notebooks...' to 'Search...' — notebooks.html",
-    "STATUS-RAW-SLUG-IN-POPUP (cosmetic, open): editor popup for a waste container shows Status='in_accumulation' as raw slug text; the waste table formats the same value as 'In Accumulation' amber pill",
+    "TOAST-LINGERS (cosmetic, fixed in cycle 8, commit be436a0): success toasts faded after 3s, errors after 6s, all toasts click-to-dismiss \u2014 Lab.showToast now picks duration by type",
+    "TOPNAV-LAST-ITEM-CLIPPED (cosmetic, fixed in cycle 8, commit ed22c7c): top-nav tab padding tightened from 12px 14px to 12px 10px (and 12px 7px below 1280px) so all 12 tabs fit at 1440-wide without clipping \u2014 nav.js",
+    "SEARCH-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 8, commit dc5bf39): notebook sidebar search placeholder shortened from 'Search notebooks...' to 'Search...' \u2014 notebooks.html",
+    "STATUS-RAW-SLUG-IN-POPUP (cosmetic, closed): editor popup for a waste container shows Status='in_accumulation' as raw slug text; the waste table formats the same value as 'In Accumulation' amber pill (CLOSED in 879fb98)",
     "WIKI-404-FOR-UNSAVED-DEPLOY (ux, open): newly-created wiki docs 404 in the wiki viewer until the next deploy, even though the user is authenticated and Lab.gh.fetchFile could return the live file",
-    "NAV-TRUNCATION (cosmetic, fixed in cycle 8, commit ed22c7c): same fix as TOPNAV-LAST-ITEM-CLIPPED — tab padding tightened in nav.js so 'Lab Map' fits fully",
+    "NAV-TRUNCATION (cosmetic, fixed in cycle 8, commit ed22c7c): same fix as TOPNAV-LAST-ITEM-CLIPPED \u2014 tab padding tightened in nav.js so 'Lab Map' fits fully",
     "MAP-PLACEHOLDER-OVERLAP (cosmetic, open): SVG placeholder for the floor-plan has overlapping text labels",
-    "BREADCRUMB-DANGLING-SLASH (cosmetic, fixed in cycle 7): popup breadcrumb wrapped to two lines and left a standalone '/' at line-end because each separator was an independent flex child — fix groups separator+pill inside inline-flex so the pair wraps together",
-    "DNA-QUANTIFICATION-PILL-UNTYPED (minor, open from cycle 7): wikilink to 'dna-quantification-qubit' in the libprep box body renders as a plain teal pill without a type icon — likely slug doesn't resolve in the object index or type inference failed",
-    "DASHBOARD-TOTAL-VS-STATUS-MISMATCH (cosmetic/ux, open): dashboard top card 'INVENTORY 480' counts all resource+stock objects while the Inventory Status counts (e.g. 226/0/1 = 227) only sum tracked statuses — the two numbers don't relate, which may confuse lab members",
-    "DUPLICATE-TITLE-IN-CONTENTS (cosmetic, open): contents column of a location popup lists children with identical titles identically — two `Glacial Acetic Acid` bottles, two `Isopropyl alcohol` bottles, etc. render the same with no lot/slug/expiration subtitle to disambiguate",
-    "FAB-OVERLAPS-TABLE (visual, fixed in cycle 8, commit 5f2e1ff): moved issue-reporter FAB from bottom-left to bottom-right at 80px — clears the leftmost inventory/waste column, sits above the toast container so neither covers the other",
-    "ROOM-BREADCRUMB-REDUNDANT (cosmetic, minor): for root locations (rooms) the breadcrumb shows only the self-pill, duplicating the H1 title right below",
-    "FILTER-SUBSTRING-ONLY (minor): lab-map filter matches substrings without word boundaries — searching 'ethanol' matches 'methanol' and '2-mercaptoethanol'"
+    "BREADCRUMB-DANGLING-SLASH (cosmetic, fixed in cycle 7): popup breadcrumb wrapped to two lines and left a standalone '/' at line-end because each separator was an independent flex child \u2014 fix groups separator+pill inside inline-flex so the pair wraps together",
+    "DNA-QUANTIFICATION-PILL-UNTYPED (minor, open from cycle 7): wikilink to 'dna-quantification-qubit' in the libprep box body renders as a plain teal pill without a type icon \u2014 likely slug doesn't resolve in the object index or type inference failed",
+    "DASHBOARD-TOTAL-VS-STATUS-MISMATCH (cosmetic/ux, open): dashboard top card 'INVENTORY 480' counts all resource+stock objects while the Inventory Status counts (e.g. 226/0/1 = 227) only sum tracked statuses \u2014 the two numbers don't relate, which may confuse lab members",
+    "DUPLICATE-TITLE-IN-CONTENTS (cosmetic, closed): contents column of a location popup lists children with identical titles identically \u2014 two `Glacial Acetic Acid` bottles, two `Isopropyl alcohol` bottles, etc. render the same with no lot/slug/expiration subtitle to disambiguate (CLOSED in 377d51f)",
+    "FAB-OVERLAPS-TABLE (visual, fixed in cycle 8, commit 5f2e1ff): moved issue-reporter FAB from bottom-left to bottom-right at 80px \u2014 clears the leftmost inventory/waste column, sits above the toast container so neither covers the other",
+    "ROOM-BREADCRUMB-REDUNDANT (cosmetic, closed): for root locations (rooms) the breadcrumb shows only the self-pill, duplicating the H1 title right below (CLOSED in e0fe8cb)",
+    "FILTER-SUBSTRING-ONLY (minor): lab-map filter matches substrings without word boundaries \u2014 searching 'ethanol' matches 'methanol' and '2-mercaptoethanol'"
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
     "Hierarchy cache invalidation on patchObjectIndex / removeFromObjectIndex (app/js/github-api.js, commit 3d94ff8)",
     "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)",
-    "`of` field renders a clickable object pill matching the `parent` field treatment — new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)",
-    "INDEX_KEYS now mirrors EXTRACT_KEYS — client-side localStorage overlay preserves waste-container + sample-tracker fields so freshly-saved rows render complete (app/js/github-api.js, commit 5c01bed)",
-    "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) — saveFile/deleteFile record path changes, fetchTree merges them so notebooks/wiki/protocols sidebars reflect just-committed files immediately (app/js/github-api.js, commit e0a0f44)",
+    "`of` field renders a clickable object pill matching the `parent` field treatment \u2014 new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)",
+    "INDEX_KEYS now mirrors EXTRACT_KEYS \u2014 client-side localStorage overlay preserves waste-container + sample-tracker fields so freshly-saved rows render complete (app/js/github-api.js, commit 5c01bed)",
+    "fetchTree localStorage overlay (TREE_PATCH_KEY, 5-min TTL) \u2014 saveFile/deleteFile record path changes, fetchTree merges them so notebooks/wiki/protocols sidebars reflect just-committed files immediately (app/js/github-api.js, commit e0a0f44)",
     "notebooks.html save/create/delete now call patchObjectIndex + patchLinkIndex (and removeFrom* on delete) so new notebook entries register as backlink sources on their wikilink targets without waiting for a deploy (app/notebooks.html, commit e0a0f44)",
-    "Breadcrumb separator-pill grouping in hierarchy.breadcrumbHTML — separators are now inside an inline-flex span together with the following pill so flex-wrap can't orphan a '/' at a wrapped line boundary (app/js/hierarchy.js, commit 25c4999)"
+    "Breadcrumb separator-pill grouping in hierarchy.breadcrumbHTML \u2014 separators are now inside an inline-flex span together with the following pill so flex-wrap can't orphan a '/' at a wrapped line boundary (app/js/hierarchy.js, commit 25c4999)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -447,20 +958,20 @@
   ],
   "edge_cases_tested": [],
   "screenshots_taken": [
-    "/tmp/qa-screenshots/cycle1/ — 23 screenshots, all read and evaluated",
-    "/tmp/qa-screenshots/cycle2/ — 33 screenshots + _log.json, evaluated before/after each action",
-    "/tmp/qa-screenshots/cycle2-verify/ — 5 verification screenshots post-fix",
-    "/tmp/qa-screenshots/cycle3/ — 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
-    "/tmp/qa-screenshots/cycle3-verify/ — 3 verification screenshots confirming the dashboard fix",
-    "/tmp/qa-screenshots/cycle4/ — 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
-    "/tmp/qa-screenshots/cycle4-verify/ — 2 verification screenshots confirming the `of` pill upgrade",
-    "/tmp/qa-screenshots/cycle5/ — 30 screenshots + _log.json, full waste-container create flow with table/filter/search/reload/wiki/lab-map/dashboard states",
-    "/tmp/qa-screenshots/cycle5-verify/ — 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)",
-    "/tmp/qa-screenshots/cycle6/ — 21 screenshots + _log.json, full notebook-create-edit-save-reload-wikilinkclick flow with table/callout/wikilinks/images all rendered + evaluated",
-    "/tmp/qa-screenshots/cycle6-verify/ — 3 verification screenshots confirming both fetchTree overlay and notebook-save patch overlays",
-    "/tmp/qa-screenshots/cycle7/ — 24 screenshots + _log.json covering the box-create, 3-tube-create, grid-render, breadcrumb, and parent-pill-nav flow",
-    "/tmp/qa-screenshots/cycle7-reshoot/ — 5 viewport-sized re-shoots of box+tube popups after the original fullPage captures rendered too small to inspect",
-    "/tmp/qa-screenshots/cycle7-verify/ — 3 screenshots (1440/900/520 viewport widths) confirming the breadcrumb-dangling-slash fix at every wrap point"
+    "/tmp/qa-screenshots/cycle1/ \u2014 23 screenshots, all read and evaluated",
+    "/tmp/qa-screenshots/cycle2/ \u2014 33 screenshots + _log.json, evaluated before/after each action",
+    "/tmp/qa-screenshots/cycle2-verify/ \u2014 5 verification screenshots post-fix",
+    "/tmp/qa-screenshots/cycle3/ \u2014 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
+    "/tmp/qa-screenshots/cycle3-verify/ \u2014 3 verification screenshots confirming the dashboard fix",
+    "/tmp/qa-screenshots/cycle4/ \u2014 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
+    "/tmp/qa-screenshots/cycle4-verify/ \u2014 2 verification screenshots confirming the `of` pill upgrade",
+    "/tmp/qa-screenshots/cycle5/ \u2014 30 screenshots + _log.json, full waste-container create flow with table/filter/search/reload/wiki/lab-map/dashboard states",
+    "/tmp/qa-screenshots/cycle5-verify/ \u2014 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)",
+    "/tmp/qa-screenshots/cycle6/ \u2014 21 screenshots + _log.json, full notebook-create-edit-save-reload-wikilinkclick flow with table/callout/wikilinks/images all rendered + evaluated",
+    "/tmp/qa-screenshots/cycle6-verify/ \u2014 3 verification screenshots confirming both fetchTree overlay and notebook-save patch overlays",
+    "/tmp/qa-screenshots/cycle7/ \u2014 24 screenshots + _log.json covering the box-create, 3-tube-create, grid-render, breadcrumb, and parent-pill-nav flow",
+    "/tmp/qa-screenshots/cycle7-reshoot/ \u2014 5 viewport-sized re-shoots of box+tube popups after the original fullPage captures rendered too small to inspect",
+    "/tmp/qa-screenshots/cycle7-verify/ \u2014 3 screenshots (1440/900/520 viewport widths) confirming the breadcrumb-dangling-slash fix at every wrap point"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -468,10 +979,10 @@
     "Cycle 1: Vianney + ui_critic + Aliquot day. Created box-pistachio-aliquots-* (9x9) on shelf-minus80-a-1, then 6 tubes at A1-A6. All artifacts cleaned up at end of cycle. Backlinks bug found and fixed; deployed; re-verified.",
     "Cycle 2: Alex Chen + cross_linker + Ethanol bottle day. Created bottle-ethanol-absolute-qa2-* pointing to the ethanol-absolute concept, placed on Chemistry Bench Area, then moved to Flammable Cabinet. All artifacts cleaned up. Hierarchy cache bug found and fixed (children + breadcrumbs now refresh immediately after save).",
     "Cycle 3: Dr. Monroe + ui_critic + Reorder day. Toggled 3 items to needs_more, verified inventory stat cards and dashboard alert list. Caught a stale-dashboard-index bug (dashboard raw-fetched object-index.json, bypassing patch overlay). Fixed in commit 763ad51, verified via tests/qa-cycle-3-verify.mjs (kept as regression harness). All items restored to in_stock.",
-    "Cycle 4: Kayla Torres (undergrad) + cross_linker + Cross-page wikilink crawl. Read-only walk: Dashboard → QIAGEN DNeasy protocol → Ethanol Absolute reagent (popup) → ethanol-absolute bottle (popup with breadcrumb) → Flammable Cabinet (cabinet popup, 16 bottles) → Robbins Hall 0170 (room popup, 9 children). Found OF-FIELD-NOT-CLICKABLE bug: the `of` field on a bottle popup was plain text while `parent` was a clickable pill. Fix (commit b0da836) adds a parallel `data-of-pill` placeholder and extends upgradeParentField to handle both. Verified via tests/qa-cycle-4-verify.mjs — kept as regression harness.",
-    "Cycle 5: Kayla Torres (undergrad) + thorough + Waste container. Thorough-filled the waste.html Add Container form (long contents paragraph, Solid state, compound location). Found WASTE-FIELDS-NOT-IN-INDEX-KEYS bug: the table row showed blank Contents, blank State, '—' Days Held, and the state filter + content search excluded it because the client INDEX_KEYS whitelist dropped waste fields during patchObjectIndex. Fix (commit 5c01bed) syncs INDEX_KEYS with the server's EXTRACT_KEYS so contents/physical_state/started/etc. (plus sample-tracker fields) flow through the localStorage overlay. Verified via tests/qa-cycle-5-verify.mjs — both QA5 test files cleaned up via gh API.",
+    "Cycle 4: Kayla Torres (undergrad) + cross_linker + Cross-page wikilink crawl. Read-only walk: Dashboard \u2192 QIAGEN DNeasy protocol \u2192 Ethanol Absolute reagent (popup) \u2192 ethanol-absolute bottle (popup with breadcrumb) \u2192 Flammable Cabinet (cabinet popup, 16 bottles) \u2192 Robbins Hall 0170 (room popup, 9 children). Found OF-FIELD-NOT-CLICKABLE bug: the `of` field on a bottle popup was plain text while `parent` was a clickable pill. Fix (commit b0da836) adds a parallel `data-of-pill` placeholder and extends upgradeParentField to handle both. Verified via tests/qa-cycle-4-verify.mjs \u2014 kept as regression harness.",
+    "Cycle 5: Kayla Torres (undergrad) + thorough + Waste container. Thorough-filled the waste.html Add Container form (long contents paragraph, Solid state, compound location). Found WASTE-FIELDS-NOT-IN-INDEX-KEYS bug: the table row showed blank Contents, blank State, '\u2014' Days Held, and the state filter + content search excluded it because the client INDEX_KEYS whitelist dropped waste fields during patchObjectIndex. Fix (commit 5c01bed) syncs INDEX_KEYS with the server's EXTRACT_KEYS so contents/physical_state/started/etc. (plus sample-tracker fields) flow through the localStorage overlay. Verified via tests/qa-cycle-5-verify.mjs \u2014 both QA5 test files cleaned up via gh API.",
     "Cycle 6: Vianney Ahn (grad student) + rushed + Lab notebook full day. Created a blank notebook entry with H1, two H2 sections, a 7-row NanoDrop results table, a callout, 4 wikilinks, a task list, and 2 small generated PNGs uploaded via Lab.editorModal.uploadImageBlob. Rushed double-saved. Reloaded; all rich elements re-rendered correctly including image data URLs via the GitHub-API live fallback. Found two bugs: FETCHTREE-NO-OVERLAY (sidebar folder count regresses after reload because GitHub's git/trees endpoint lags) and NOTEBOOKS-SAVE-NO-PATCH (notebooks.html bypasses patchObjectIndex/patchLinkIndex so backlink panels miss the new entry until next deploy). Both fixed in commit e0a0f44: fetchTree gets a TREE_PATCH_KEY localStorage overlay (5-min TTL) populated by saveFile/deleteFile, and notebooks.html save/create/delete now call patchObjectIndex+patchLinkIndex (or removeFrom*). Post-deploy verify (tests/qa-cycle-6-verify.mjs, kept as harness) confirmed fetchTree.sawIt=true and link-index hit count=1 for both wikilink targets. All cycle-6 test artifacts (4 notebook entries + 4 uploaded images + 1 verify entry) cleaned up via gh API.",
-    "Cycle 7: Alex Chen (postdoc) + ui_critic + New freezer box day. Created a new 10x10 box 'Library Prep Kit Storage' on shelf-minus80-a-1 plus 3 tubes at A1 / C5 / J10 to stress grid rendering at top-left, middle, and bottom-right corners. Verified the shelf now lists the box as a child, the empty grid renders 100 cells, the filled grid correctly places the 3 tubes with teal fill + label fragments, and each tube's 5-level breadcrumb renders with all correct type-colored pills. Found and fixed the cycle-1-logged BREADCRUMB-DANGLING-SLASH cosmetic bug: hierarchy.breadcrumbHTML was rendering each separator as an independent flex-wrap child, so a bare '/' could end up orphaned at a wrapped line boundary. Fix groups separator+following-pill inside an inline-flex span so wrap can only break between groups (commit 25c4999). Verified post-deploy at 3 viewport widths (1440/900/520) via tests/qa-cycle-7-verify.mjs — endsWithOrphanSlash:false for every line. All cycle-7 test artifacts cleaned up via gh API. Also noted a minor new issue (DNA-QUANTIFICATION-PILL-UNTYPED) for follow-up. NAV-TRUNCATION is no longer reproducible at 1440 — the 'Lab Map' tab now fits fully; only a far-right tab gets clipped.",
+    "Cycle 7: Alex Chen (postdoc) + ui_critic + New freezer box day. Created a new 10x10 box 'Library Prep Kit Storage' on shelf-minus80-a-1 plus 3 tubes at A1 / C5 / J10 to stress grid rendering at top-left, middle, and bottom-right corners. Verified the shelf now lists the box as a child, the empty grid renders 100 cells, the filled grid correctly places the 3 tubes with teal fill + label fragments, and each tube's 5-level breadcrumb renders with all correct type-colored pills. Found and fixed the cycle-1-logged BREADCRUMB-DANGLING-SLASH cosmetic bug: hierarchy.breadcrumbHTML was rendering each separator as an independent flex-wrap child, so a bare '/' could end up orphaned at a wrapped line boundary. Fix groups separator+following-pill inside an inline-flex span so wrap can only break between groups (commit 25c4999). Verified post-deploy at 3 viewport widths (1440/900/520) via tests/qa-cycle-7-verify.mjs \u2014 endsWithOrphanSlash:false for every line. All cycle-7 test artifacts cleaned up via gh API. Also noted a minor new issue (DNA-QUANTIFICATION-PILL-UNTYPED) for follow-up. NAV-TRUNCATION is no longer reproducible at 1440 \u2014 the 'Lab Map' tab now fits fully; only a far-right tab gets clipped.",
     "Phase remains 'functional'."
   ]
 }
