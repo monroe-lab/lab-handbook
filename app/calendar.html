@@ -712,7 +712,27 @@ async function openAddEvent(prefill) {
       var path = 'docs/events/' + slug + '.md';
       var content = buildEventMarkdown(title, member, dt, startTime, endTime, notes, user, recurrenceId);
       await gh.saveFile(path, content, null, 'Add event: ' + (title || member) + ' on ' + dt);
-      schedule.push({ title: title, member: member, date: dt, startTime: startTime, endTime: endTime, path: path });
+      // Patch the object-index overlay so fetchObjectIndex sees the new event
+      // on the next reload (before the static object-index.json rebuilds on
+      // deploy). Without this, loadSchedule on reload would drop the event.
+      if (gh.patchObjectIndex) {
+        gh.patchObjectIndex(path, {
+          type: 'event',
+          title: title || 'Untitled',
+          date: dt,
+          start_time: startTime,
+          end_time: endTime,
+          member: member || '',
+          recurrence_id: recurrenceId || '',
+          created_by: (user && user.login) || 'unknown',
+        });
+      }
+      // Patch the link-index overlay so any [[wikilinks]] in notes/member
+      // register as backlinks on their targets without waiting for a deploy.
+      if (gh.patchLinkIndex) {
+        gh.patchLinkIndex(path, (member || '') + '\n' + (notes || ''));
+      }
+      schedule.push({ title: title, member: member, date: dt, startTime: startTime, endTime: endTime, path: path, recurrenceId: recurrenceId });
     }
     Lab.showToast(dates.length > 1 ? ('Created ' + dates.length + ' events') : 'Event created', 'success');
   } catch(e) {

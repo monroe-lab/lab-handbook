@@ -401,7 +401,11 @@
     // R7 #27: git mtime (unix timestamp) for recency ranking in inventory.
     'mtime',
     // Calendar event fields (R17 migration from schedule.json to markdown)
-    'date', 'start_time', 'end_time', 'member'
+    'date', 'start_time', 'end_time', 'member',
+    // Recurrence grouping for events created as a series (issue #104). Mirrors
+    // EXTRACT_KEYS in build-object-index.py — without it a freshly-created
+    // recurring event loses its series linkage during the overlay window.
+    'recurrence_id'
   ];
 
   function getLocalPatches() {
