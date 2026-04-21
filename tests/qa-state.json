@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 3,
+  "cycle": 4,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -135,7 +135,7 @@
     { "name": "people", "path": "/app/people.html", "status": 200, "notes": "Personal dashboards with connected items (R17+)" },
     { "name": "profile", "path": "/app/profile.html", "status": 200, "notes": "Per-user stats + tiered badges (R12/R17+)" }
   ],
-  "routes_tested": ["lab-map"],
+  "routes_tested": ["lab-map", "dashboard", "protocols", "inventory", "wiki"],
   "workflows_tested": [
     {
       "cycle": 1,
@@ -237,21 +237,66 @@
         "Dashboard top-stat 'INVENTORY 480' is the raw total of *all* stock+resource objects (including externals), whereas the status counts (224/2/1) only sum tracked statuses — so they don't add up to 480. That is intentional but could confuse a lab member.",
         "Verification file: tests/qa-cycle-3-verify.mjs toggles 2 items, navigates to dashboard, asserts picksFound:[true,true] — kept in the repo as a regression harness for the fix."
       ]
+    },
+    {
+      "cycle": 4,
+      "persona": "Kayla Torres",
+      "modifier": "cross_linker",
+      "scenario": "Cross-page wikilink crawl",
+      "task": "Walked the full chain: Dashboard → Protocols → QIAGEN DNeasy Plant Extraction → click Ethanol Absolute wikilink (obj://ethanol-absolute) → reagent popup → click bottle instance in Contents → bottle popup (breadcrumb + parent pill) → click Flammable Cabinet parent pill → cabinet popup (16 bottles in Contents) → click Robbins Hall 0170 parent pill → room popup (9 locations). Also Lab Map filters (ethanol, flammable), inventory search, wiki search.",
+      "screenshots": [
+        { "path": "/tmp/qa-screenshots/cycle4/01-dashboard-baseline.png", "shows": "Dashboard baseline: 480 Inventory / 108 Protocols / 7 People / 9 Projects / 9 Notebooks stat cards. Inventory Status shows 226 In Stock / 1 Out of Stock with Native Barcoding Kit V14 alert. Recent Updates column lists cycle-3 cleanup commits. Bulletin Board with quilt image.", "evaluation": "Clean layout. Stat card typography consistent. Status row only shows non-zero counts (no 0 Needs More row) — differs from inventory page which shows all four. Top-nav 'Lab M' truncation still present.", "issues_found": ["NAV-TRUNCATION (known, open): 'Lab Map' → 'Lab M' on 1440-wide viewport"] },
+        { "path": "/tmp/qa-screenshots/cycle4/03-protocol-qiagen-loaded.png", "shows": "QIAGEN DNeasy Plant Extraction protocol page with body, Resources/Reagents/Consumables/Related Protocols/Prerequisites sections, wikilink pills (Centrifuge, Heat Block, Water Bath, Vortex Mixer, DNeasy plant mini, RNase aliquot, Microtube, Ethanol Absolute, …)", "evaluation": "Protocol renders with correct section headings, type-colored pills for reagents (teal Buffer, orange Reagent), equipment (dark pill) and protocols. Print Preview / Rename / Duplicate / Delete / Edit button row. Sidebar with protocol tree.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle4/05-reagent-popup-opened.png", "shows": "Ethanol Absolute reagent popup — three-column layout: FIELDS (Type=Reagent, Link, Name, Status=In Stock), body (What it is / Why we use it), CONTENTS (1 INSTANCE IN LAB → Ethanol Absolute 1 each · cabinet flammable with bottle icon; 3 REFERENCES → How to Read an SDS, Protocol Template, QIAGEN DNeasy Plant Extraction)", "evaluation": "Popup renders correctly. Pills colored correctly (Reagent=purple, In Stock=green). Bottle icon in the instance row, document icon in protocol references. 'Add instance' button visible.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle4/07-bottle-popup-opened.png", "shows": "Bottle popup (stocks/bottle-ethanol-absolute) with breadcrumb Robbins Hall 0170 / Flammable Cabinet / Ethanol Absolute and fields: Type=Bottle, Link, Name, Of (concept slug)=resources/ethanol-absolute (PLAIN TEXT), Parent=Flammable Cabinet (clickable pill), Quantity=1, Unit=each", "evaluation": "BUG FOUND: 'Of (concept slug)' field rendered as plain text 'resources/ethanol-absolute' while 'Parent' is a clickable pill. Inconsistent — cross_linker cannot navigate bottle → concept from the fields column. Breadcrumb renders correctly with 3-pill chain.", "issues_found": ["OF-FIELD-NOT-CLICKABLE (functional, fixed): `of` field in bottle popup was plain text; should mirror `parent` field which is a clickable object pill"] },
+        { "path": "/tmp/qa-screenshots/cycle4/09-cabinet-popup-opened.png", "shows": "Flammable Cabinet popup with breadcrumb Robbins Hall 0170 / Flammable Cabinet, fields (Type=Container, Link, Name, Parent=Robbins Hall 0170 pill, Label 1=Flammable Cabinet), body text about auto-migration, and CONTENTS list of 16 bottles (1-Octanol, 3-Methylbutanol, Aceto-Orcein Solution 2%, Acetone, Activated charcoal, Dimethyl sulfoxide, Ethanol Absolute, Ethyl Alcohol Absolute, Glacial Acetic Acid, Glacial Acetic Acid, Isopropyl alcohol, Isopropyl alcohol, Isopropyl alcohol 70% in water, Isopropyl alcohol 70% in water, Methanol, Reagent Alcohol 100%)", "evaluation": "Parent→children hierarchy correct (cabinet is child of room, 16 bottles are children of cabinet). Parent pill is clickable. But contents rows lack a subtitle — reagent popup showed '1 each · cabinet flammable' secondary line per row; cabinet popup shows only the title. Two 'Glacial Acetic Acid' rows and two 'Isopropyl alcohol' rows render identically without differentiator.", "issues_found": ["DUPLICATE-TITLE-IN-CONTENTS (cosmetic, open): cabinet Contents list renders objects with identical titles identically — no lot / slug / expiration subtitle to disambiguate"] },
+        { "path": "/tmp/qa-screenshots/cycle4/11-room-popup-opened.png", "shows": "Robbins Hall 0170 room popup with single-pill breadcrumb (Robbins Hall 0170), fields (Type=Room, Link, Name, Label 1 (full)=Monroe Lab), body describing the wet lab, and CONTENTS list of 9 children (-80C Freezer A, 4C Fridge (Main), Bench, Chemical Cabinet, Chemistry Bench Area, Corrosive Cabinet, Flammable Cabinet, Freezer (-20C), Fume hood bay)", "evaluation": "Navigation from cabinet→room via parent pill works. Contents column correctly lists all 9 direct children of the room, each with its type icon. Single-pill breadcrumb is arguably redundant with the big title right below it.", "issues_found": ["ROOM-BREADCRUMB-REDUNDANT (cosmetic, minor): for top-of-hierarchy rooms the breadcrumb shows just the self pill, duplicating the H1 title"] },
+        { "path": "/tmp/qa-screenshots/cycle4/15-lab-map-filter-ethanol.png", "shows": "Lab Map tree filtered to 'ethanol': Robbins Hall 0170 → Bench (Ethanol 70% ×2) + Chemical Cabinet (Formaldehyde match via 'methanol') + Corrosive Cabinet (2-Mercaptoethanol) + Flammable Cabinet (Ethanol Absolute, Methanol)", "evaluation": "Filter does substring-match against titles, which surfaces 'methanol' / '2-mercaptoethanol' / 'formaldehyde (16% methanol free)' as false-positives for an 'ethanol' search. Acceptable but not word-boundary. Tree expansion + highlighted result rows render with light teal background.", "issues_found": ["FILTER-SUBSTRING-ONLY (minor): the lab-map filter uses substring match, so 'ethanol' matches 'methanol'"] },
+        { "path": "/tmp/qa-screenshots/cycle4/17-inventory-landing.png", "shows": "Inventory page with 4 stat cards (250/228/0/1), filter row, and full inventory table — Name, Type, Status, Qty, Location, Updated, Actions columns", "evaluation": "Layout clean. Type and Status pills colored consistently. BUT: the blue issue-reporter FAB at bottom-left covers the first column of the table row at y≈797 — the 'Agar (non-TC)' row displays as 'r (non-TC)' because 'Aga' is hidden behind the FAB.", "issues_found": ["FAB-OVERLAPS-TABLE (visual, open): issue-reporter FAB at fixed bottom-left overlaps the first data column of long tables (inventory, waste) making row text partially unreadable"] },
+        { "path": "/tmp/qa-screenshots/cycle4-verify/01-bottle-popup-of-is-pill.png", "shows": "POST-FIX bottle popup — 'Of (concept slug)' field now shows a clickable teal Reagent pill 'Ethanol Absolute' (flask icon). Parent pill still renders Flammable Cabinet. Both fields are now symmetric: clickable object pills.", "evaluation": "Fix verified visually. The `of` field placeholder `<span data-of-pill>` is upgraded to a real object pill with the concept's type color + icon + click handler, identical to how the parent field has always worked.", "issues_found": [] },
+        { "path": "/tmp/qa-screenshots/cycle4-verify/02-after-click-of-navigates-to-concept.png", "shows": "After clicking the new Of pill — reagent popup for Ethanol Absolute opens (title matches, contents column lists the bottle instance + 3 protocol references).", "evaluation": "Navigation works end-to-end: bottle popup → click Of pill → concept popup. Round-trip confirmed cross_linker-complete.", "issues_found": [] }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "`of` field in instance popups (bottle/tube) rendered as plain slug text, not as a clickable object pill — unlike `parent` which has always rendered as a pill.",
+          "evidence": "screenshots/cycle4/07-bottle-popup-opened.png shows 'resources/ethanol-absolute' as raw grey text in the Of field row while the Parent row on the same popup shows a clickable 'Flammable Cabinet' pill",
+          "root_cause": "renderFields() in app/js/editor-modal.js had a special case for `field.key === 'parent'` that emitted a <span data-parent-pill> placeholder for upgradeParentField() to replace with a proper pill. No equivalent case existed for `field.key === 'of'`, so it fell through to the generic text renderer.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": ["Added an 'of' field branch in renderFields that emits a <span data-of-pill> placeholder parallel to the parent-pill placeholder, and extended upgradeParentField to also upgrade `[data-of-pill]` placeholders (app/js/editor-modal.js, commit b0da836)"],
+      "observations": [
+        "Four-step wikilink crawl (protocol → reagent → bottle → cabinet → room) works end-to-end via the editor-modal popup stack. Escape walks the nav stack back.",
+        "Object pills render with correct type color + icon at every level (Reagent=purple flask, Bottle=orange wine-bottle, Container=grey-blue cube, Room=grey-blue door).",
+        "Breadcrumb chain is rendered at the top of the body column as type-colored pills; shows full ancestor chain + self for non-root objects, just self for rooms.",
+        "Parent→children relationship is correctly reflected in the Contents column at every level — no caching lag (cache invalidation fix from cycle 2 is holding).",
+        "Instance→concept relationship works via CONTENTS column (`1 INSTANCE IN LAB` section on the concept popup) and now ALSO via the Of pill in the bottle popup's fields column after the cycle-4 fix.",
+        "Contents rows for siblings with identical titles (e.g., two `Glacial Acetic Acid` bottles) are indistinguishable in the cabinet popup — no lot/slug/expiration subtitle.",
+        "The issue-reporter FAB at fixed bottom-left overlaps the first data column of wide tables (inventory) — a row at y≈797 has its first ~40px hidden behind the blue button.",
+        "Lab-map filter uses case-insensitive substring match; 'ethanol' matches 'methanol' and '2-mercaptoethanol'."
+      ]
     }
   ],
   "bugs_found": [
     "BACKLINKS-LAG (functional, fixed in cycle 1): newly-created or freshly-edited files were missing from the backlinks panel of every wikilink target until the next deploy",
     "HIERARCHY-CACHE-STALE (functional, fixed in cycle 2): after a save the Lab.hierarchy cache retained its pre-save snapshot, so parent CONTENTS + child breadcrumbs were missing for new objects until reload",
     "STALE-DASHBOARD-INDEX (functional, fixed in cycle 3): dashboard Inventory Status card did raw fetch of object-index.json, bypassing the localStorage patch overlay — counts + alerts lagged until site redeploy",
+    "OF-FIELD-NOT-CLICKABLE (functional, fixed in cycle 4): the `of` field on bottle/tube popups rendered as plain slug text while the `parent` field was a clickable object pill — cross_linker could not navigate instance → concept from the fields column",
     "NAV-TRUNCATION (cosmetic, open): top nav 'Lab Map' tab label appears truncated to 'Lab M' on 1440-wide viewport",
     "MAP-PLACEHOLDER-OVERLAP (cosmetic, open): SVG placeholder for the floor-plan has overlapping text labels",
     "BREADCRUMB-DANGLING-SLASH (cosmetic, open): popup breadcrumb wraps to two lines and leaves a trailing '/' with nothing after on deep chains",
-    "DASHBOARD-TOTAL-VS-STATUS-MISMATCH (cosmetic/ux, open): dashboard top card 'INVENTORY 480' counts all resource+stock objects while the Inventory Status counts (e.g. 226/0/1 = 227) only sum tracked statuses — the two numbers don't relate, which may confuse lab members"
+    "DASHBOARD-TOTAL-VS-STATUS-MISMATCH (cosmetic/ux, open): dashboard top card 'INVENTORY 480' counts all resource+stock objects while the Inventory Status counts (e.g. 226/0/1 = 227) only sum tracked statuses — the two numbers don't relate, which may confuse lab members",
+    "DUPLICATE-TITLE-IN-CONTENTS (cosmetic, open): contents column of a location popup lists children with identical titles identically — two `Glacial Acetic Acid` bottles, two `Isopropyl alcohol` bottles, etc. render the same with no lot/slug/expiration subtitle to disambiguate",
+    "FAB-OVERLAPS-TABLE (visual, open): fixed-position issue-reporter FAB at bottom-left covers the first data column of long tables (inventory, waste) at y≈797, making row text partially unreadable",
+    "ROOM-BREADCRUMB-REDUNDANT (cosmetic, minor): for root locations (rooms) the breadcrumb shows only the self-pill, duplicating the H1 title right below",
+    "FILTER-SUBSTRING-ONLY (minor): lab-map filter matches substrings without word boundaries — searching 'ethanol' matches 'methanol' and '2-mercaptoethanol'"
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
     "Hierarchy cache invalidation on patchObjectIndex / removeFromObjectIndex (app/js/github-api.js, commit 3d94ff8)",
-    "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)"
+    "Dashboard uses Lab.gh.fetchObjectIndex so the localStorage patch overlay flows through (app/dashboard.html, commit 763ad51)",
+    "`of` field renders a clickable object pill matching the `parent` field treatment — new data-of-pill placeholder + extended upgradeParentField (app/js/editor-modal.js, commit b0da836)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -263,7 +308,9 @@
     "/tmp/qa-screenshots/cycle2/ — 33 screenshots + _log.json, evaluated before/after each action",
     "/tmp/qa-screenshots/cycle2-verify/ — 5 verification screenshots post-fix",
     "/tmp/qa-screenshots/cycle3/ — 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
-    "/tmp/qa-screenshots/cycle3-verify/ — 3 verification screenshots confirming the dashboard fix"
+    "/tmp/qa-screenshots/cycle3-verify/ — 3 verification screenshots confirming the dashboard fix",
+    "/tmp/qa-screenshots/cycle4/ — 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
+    "/tmp/qa-screenshots/cycle4-verify/ — 2 verification screenshots confirming the `of` pill upgrade"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -271,6 +318,7 @@
     "Cycle 1: Vianney + ui_critic + Aliquot day. Created box-pistachio-aliquots-* (9x9) on shelf-minus80-a-1, then 6 tubes at A1-A6. All artifacts cleaned up at end of cycle. Backlinks bug found and fixed; deployed; re-verified.",
     "Cycle 2: Alex Chen + cross_linker + Ethanol bottle day. Created bottle-ethanol-absolute-qa2-* pointing to the ethanol-absolute concept, placed on Chemistry Bench Area, then moved to Flammable Cabinet. All artifacts cleaned up. Hierarchy cache bug found and fixed (children + breadcrumbs now refresh immediately after save).",
     "Cycle 3: Dr. Monroe + ui_critic + Reorder day. Toggled 3 items to needs_more, verified inventory stat cards and dashboard alert list. Caught a stale-dashboard-index bug (dashboard raw-fetched object-index.json, bypassing patch overlay). Fixed in commit 763ad51, verified via tests/qa-cycle-3-verify.mjs (kept as regression harness). All items restored to in_stock.",
-    "Phase advanced to 'functional' from 'exploration' because cycle 1 was a full day-to-day CRUD scenario."
+    "Cycle 4: Kayla Torres (undergrad) + cross_linker + Cross-page wikilink crawl. Read-only walk: Dashboard → QIAGEN DNeasy protocol → Ethanol Absolute reagent (popup) → ethanol-absolute bottle (popup with breadcrumb) → Flammable Cabinet (cabinet popup, 16 bottles) → Robbins Hall 0170 (room popup, 9 children). Found OF-FIELD-NOT-CLICKABLE bug: the `of` field on a bottle popup was plain text while `parent` was a clickable pill. Fix (commit b0da836) adds a parallel `data-of-pill` placeholder and extends upgradeParentField to handle both. Verified via tests/qa-cycle-4-verify.mjs — kept as regression harness.",
+    "Phase remains 'functional'."
   ]
 }
