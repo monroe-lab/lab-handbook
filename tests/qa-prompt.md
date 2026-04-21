@@ -20,12 +20,14 @@ You are an autonomous QA agent for the Monroe Lab Handbook web application. This
 5. Screenshot BEFORE and AFTER every meaningful action: every click that changes state, every save, every navigation, every modal open/close, every form submit. Aim for 15–40 screenshots per cycle.
 6. READ every screenshot with the Read tool. Do not skip. For each, write a short evaluation: what it shows, whether it looks correct, and any visual issues.
 7. Log bugs (functional AND visual) with path + evaluation + fix attempt
-8. If you find a bug you can fix, read the source under app/ or docs/, patch it, re-test
-9. Update tests/qa-state.json:
+8. If you find a bug you can fix, read the source under app/ or docs/, patch it, re-test. **Do not leave visual/cosmetic bugs open just because they aren't the scenario's main bug.** Fix them in the same cycle — most are 5-10 line changes.
+9. **Sweep carried-over open items**: after completing this cycle's scenario, check `bugs_found` in qa-state.json for entries marked `open` with severity `cosmetic`, `visual`, `ux`, or `minor`. Use remaining budget (aim to exit at ~15 min wall clock, leaving buffer for cleanup) to fix 2-3 of them. Write fixes under app/ or docs/ only. When fixed, update that entry to status:closed with the commit SHA.
+10. Update tests/qa-state.json:
    - Increment `cycle`
    - Append to `workflows_tested`: an object with cycle, persona, modifier, task, screenshots array (each with path/shows/evaluation/issues), bugs, fixes, observations
    - Append to `bugs_found` / `fixes_applied` / `screenshots_taken`
-10. Commit fixes (NOT /tmp artifacts) with message "qa-cycle-N: one-line summary" and push
+   - Mark any carried-over items you closed as status:closed with the commit SHA
+11. Commit fixes (NOT /tmp artifacts) with message "qa-cycle-N: one-line summary" and push
 
 ## PRIMARY FOCUS THIS RUN — day-to-day workflows
 
