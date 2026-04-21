@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="css/base.css">
 <style>
 .tutorials-page {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 32px 24px 64px;
 }
 .tutorials-header {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 .tutorials-header h1 {
   font-size: 24px;
@@ -24,97 +24,70 @@
   font-size: 14px;
   color: var(--grey-600);
   line-height: 1.5;
+  max-width: 680px;
 }
 
-/* Section */
-.tutorial-section {
-  margin-bottom: 40px;
-}
-.tutorial-section h2 {
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  color: var(--grey-600);
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--grey-200);
-}
-
-/* Card grid */
 .tutorial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 20px;
-}
-@media (max-width: 480px) {
-  .tutorial-grid { grid-template-columns: 1fr; }
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
 }
 
-/* Video card */
 .tutorial-card {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: var(--radius);
   border: 1px solid var(--grey-200);
-  overflow: hidden;
-  transition: box-shadow .15s;
+  padding: 18px 18px 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .15s, transform .15s, border-color .15s;
 }
 .tutorial-card:hover {
   box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  border-color: var(--teal);
 }
-.tutorial-card .video-wrap {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  background: #000;
+.tutorial-card .card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--teal-light, #e0f2f1);
+  color: var(--teal-dark, #00695c);
+  margin-bottom: 12px;
 }
-.tutorial-card .video-wrap iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: none;
-}
-.tutorial-card .card-body {
-  padding: 16px;
+.tutorial-card .card-icon .material-icons-outlined {
+  font-size: 22px;
 }
 .tutorial-card .card-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--grey-900);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .tutorial-card .card-desc {
   font-size: 13px;
   color: var(--grey-600);
   line-height: 1.5;
+  flex: 1;
 }
-.tutorial-card .card-tags {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.tutorial-card .card-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 10px;
+.tutorial-card .card-meta {
+  margin-top: 12px;
   font-size: 11px;
   font-weight: 500;
-  background: var(--teal-light);
-  color: var(--teal-dark);
-}
-
-/* Empty state */
-.tutorial-empty {
-  text-align: center;
-  padding: 48px 24px;
   color: var(--grey-500);
-  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-.tutorial-empty .material-icons-outlined {
-  font-size: 48px;
-  color: var(--grey-300);
-  margin-bottom: 12px;
-  display: block;
+.tutorial-card .card-meta .material-icons-outlined {
+  font-size: 14px;
 }
 </style>
 </head>
@@ -124,158 +97,55 @@
 
 <div class="tutorials-page">
   <div class="tutorials-header">
-    <h1>Video Tutorials</h1>
-    <p>Short walkthroughs for using the lab wiki, inventory system, notebooks, and wet lab protocols.</p>
+    <h1>Tutorials</h1>
+    <p>Six short written guides covering the core workflows: joining the lab, daily notebooks, inventory, protocols, freezer placement, and image annotation. Each is a 3-5 minute read with screenshots.</p>
   </div>
 
-  <!-- Using Our Wiki -->
-  <div class="tutorial-section">
-    <h2>Using Our Wiki</h2>
-    <div class="tutorial-grid">
+  <div class="tutorial-grid">
 
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/kZTacoqB88I" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">How to Share Feedback</div>
-          <div class="card-desc">We're building this system together. Use the lightbulb on any page to share ideas, flag issues, or suggest improvements. It takes five seconds and your input makes a real difference.</div>
-          <div class="card-tags">
-            <span class="card-tag">feedback</span>
-            <span class="card-tag">getting started</span>
-          </div>
-        </div>
-      </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Fgetting-started">
+      <div class="card-icon"><span class="material-icons-outlined">login</span></div>
+      <div class="card-title">Getting Started</div>
+      <div class="card-desc">Your first 5 minutes: password, GitHub sign-in, and how to find your way around the dashboard.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 3 min</div>
+    </a>
 
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/BsIp0dFn0LU" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">How to Annotate a Gel Image</div>
-          <div class="card-desc">Walk-through of uploading a gel photo to the lab handbook, annotating lanes and bands, and saving it to your notebook entry.</div>
-          <div class="card-tags">
-            <span class="card-tag">gel electrophoresis</span>
-            <span class="card-tag">documentation</span>
-          </div>
-        </div>
-      </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Flab-notebooks">
+      <div class="card-icon"><span class="material-icons-outlined">edit_note</span></div>
+      <div class="card-title">Lab Notebooks</div>
+      <div class="card-desc">Create a daily entry in your folder, add tables, images, wikilinks, and callouts. Paste images directly from the clipboard.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 4 min</div>
+    </a>
 
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/kffEaM-6qVg" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Navigating the Lab Map</div>
-          <div class="card-desc">Browse the location hierarchy, expand rooms and freezers, search for items, and open box detail cards.</div>
-          <div class="card-tags">
-            <span class="card-tag">lab map</span>
-            <span class="card-tag">locations</span>
-            <span class="card-tag">navigation</span>
-          </div>
-        </div>
-      </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Finventory">
+      <div class="card-icon"><span class="material-icons-outlined">science</span></div>
+      <div class="card-title">Inventory &amp; Reordering</div>
+      <div class="card-desc">Search for a reagent, toggle Needs More, add a new bottle to a shelf or lab bench, and surface orders on the dashboard.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 4 min</div>
+    </a>
 
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/mXZIVDO2jVc" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Understanding Objects in the Lab Map</div>
-          <div class="card-desc">Deep dive into the three-panel object card: metadata fields, markdown content, grid layouts for boxes, parent-child hierarchy, breadcrumb navigation, and edit mode.</div>
-          <div class="card-tags">
-            <span class="card-tag">lab map</span>
-            <span class="card-tag">objects</span>
-            <span class="card-tag">grid</span>
-            <span class="card-tag">editing</span>
-          </div>
-        </div>
-      </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Fprotocols">
+      <div class="card-icon"><span class="material-icons-outlined">menu_book</span></div>
+      <div class="card-title">Protocols</div>
+      <div class="card-desc">Find a protocol, follow wikilinks to reagents, print a paper copy for the hood, edit or duplicate to start a new one.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 3 min</div>
+    </a>
 
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/nKAtxbl6swI" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Complete Guide to the Lab Map</div>
-          <div class="card-desc">Full walkthrough: the location hierarchy, three-panel object cards, grid layouts, creating new boxes, editing objects, search, and how every item in the lab connects.</div>
-          <div class="card-tags">
-            <span class="card-tag">lab map</span>
-            <span class="card-tag">objects</span>
-            <span class="card-tag">grid</span>
-            <span class="card-tag">editing</span>
-            <span class="card-tag">creating items</span>
-          </div>
-        </div>
-      </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Ffreezer-placement">
+      <div class="card-icon"><span class="material-icons-outlined">ac_unit</span></div>
+      <div class="card-title">Freezer Placement</div>
+      <div class="card-desc">Store a sample: create a tube from a sample card, place it in a 9×9 freezer box grid cell, verify the breadcrumb.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 4 min</div>
+    </a>
 
-    </div>
+    <a class="tutorial-card" href="wiki.html?doc=tutorials%2Fimage-annotation">
+      <div class="card-icon"><span class="material-icons-outlined">brush</span></div>
+      <div class="card-title">Image Annotation</div>
+      <div class="card-desc">Label gel lanes, draw lines, arrows, and shapes on any image in a notebook or protocol, then save the annotated version.</div>
+      <div class="card-meta"><span class="material-icons-outlined">schedule</span> 3 min</div>
+    </a>
+
   </div>
-
-  <!-- Planning & Scheduling -->
-  <div class="tutorial-section">
-    <h2>Planning & Scheduling</h2>
-    <div class="tutorial-grid">
-
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/YOYxjYFh7f0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">How to Use the Lab Calendar</div>
-          <div class="card-desc">Plan your week and keep your advisor in the loop. Create events, set up recurring blocks, add notes and details, and build a schedule for your lab workflow.</div>
-          <div class="card-tags">
-            <span class="card-tag">calendar</span>
-            <span class="card-tag">scheduling</span>
-            <span class="card-tag">recurring events</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Lab Safety -->
-  <div class="tutorial-section">
-    <h2>Lab Safety</h2>
-    <div class="tutorial-grid">
-
-      <div class="tutorial-card">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/o1TzDyaegUk" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Managing Waste Containers</div>
-          <div class="card-desc">How to view waste container details, check what's allowed in a container, change its status to Ready for Pickup when it's full, and filter containers by status.</div>
-          <div class="card-tags">
-            <span class="card-tag">waste</span>
-            <span class="card-tag">safety</span>
-            <span class="card-tag">EH&S</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Placeholder sections for future videos -->
-  <!--
-  <div class="tutorial-section">
-    <h2>Lab Notebooks</h2>
-    <div class="tutorial-grid"></div>
-  </div>
-
-  <div class="tutorial-section">
-    <h2>Inventory System</h2>
-    <div class="tutorial-grid"></div>
-  </div>
-
-  <div class="tutorial-section">
-    <h2>Protocols</h2>
-    <div class="tutorial-grid"></div>
-  </div>
-  -->
-
 </div>
 
 </body>
