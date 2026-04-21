@@ -1,8 +1,7 @@
 ---
-type: protocol
+type: "protocol"
 title: "Water Bath and Heat Block"
 ---
-
 # Water Bath and Heat Block
 
 ## Resources
@@ -17,16 +16,16 @@ title: "Water Bath and Heat Block"
 
 ## Time estimate
 
-**Wall time:** ~30 min | **Hands-on:** 30 min
+**Wall time:** \~30 min \| **Hands-on:** 30 min
 
----
+***
 
 ## Water Bath vs. Heat Block
 
 Both heat samples to a target temperature. The difference is heat transfer.
 
-| | Water Bath | Heat Block |
-|---|-----------|------------|
+|  | Water Bath | Heat Block |
+| --- | ---------- | ---------- |
 | **How it works** | Tubes sit in heated water | Tubes sit in metal wells |
 | **Heat transfer** | Excellent (water contacts entire tube) | Good but slower (metal-to-plastic contact) |
 | **Temperature uniformity** | Very even | Can have slight gradients |
@@ -49,6 +48,8 @@ Both heat samples to a target temperature. The difference is heat transfer.
 6. **Set a timer.** Do not walk away without a timer.
 7. **Remove tubes.** Wipe the outside of tubes dry before opening to prevent water from dripping into your sample.
 
+\*Make sure to use DI water to prevent buildup
+
 ### Heat Block
 
 <!-- PHOTO: Our heat block with different tube inserts -->
@@ -61,9 +62,9 @@ Both heat samples to a target temperature. The difference is heat transfer.
 
 ### After use
 
-- If you changed the water bath temperature, set it back to the default (ask Grey or check the label on the unit).
-- Turn off the heat block if no one else needs it.
-- Do not leave the water bath running indefinitely unless it's kept at a standard temperature for shared use.
+* If you changed the water bath temperature, set it back to the default (ask Grey or check the label on the unit).
+* Turn off the heat block if no one else needs it.
+* Do not leave the water bath running indefinitely unless it's kept at a standard temperature for shared use.
 
 ## Documentation
 
