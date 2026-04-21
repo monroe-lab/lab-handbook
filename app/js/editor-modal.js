@@ -65,6 +65,64 @@
     });
   }
 
+  // Shared blob→GitHub uploader used by the toolbar "Image" button, the
+  // mobile camera button, the clipboard paste handler, and annotate.js.
+  // Uploads to docs/images/<slug>; returns { slug, path, dataUrl, base64 }.
+  // `path` is the markdown-ready relative path ("images/<slug>").
+  // filenameHint is optional — if omitted, a timestamp-based slug is generated
+  // from the blob's mime type.
+  async function uploadImageBlob(blob, filenameHint) {
+    if (!window.Lab.gh.isLoggedIn()) throw new Error('Not signed in');
+    // Ensure we have a File so resizeImage() works (it reads .type and .size)
+    var name = filenameHint;
+    if (!name) {
+      var ext = (blob.type && blob.type.split('/')[1]) || 'png';
+      // Strip codec/parameters ("svg+xml" → "svg", "jpeg; charset=..." → "jpeg")
+      ext = ext.split(';')[0].split('+')[0].replace(/[^a-z0-9]/gi, '') || 'png';
+      if (ext === 'jpeg') ext = 'jpg';
+      name = 'pasted-' + Date.now() + '.' + ext;
+    }
+    var file = (blob instanceof File) ? blob : new File([blob], name, { type: blob.type || 'image/png' });
+    var slug = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-').replace(/-+/g, '-');
+    if (slug.match(/\.(heic|heif)$/) || !slug.includes('.')) {
+      slug = slug.replace(/\.[^.]*$/, '') + '.jpg';
+    }
+    var resized = await resizeImage(file);
+    var token = window.Lab.gh.getToken();
+    var repoPath = 'docs/images/' + slug;
+    var existingSha = null;
+    try {
+      var check = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + repoPath + '?ref=' + window.Lab.gh.BRANCH, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (check.ok) existingSha = (await check.json()).sha;
+    } catch(e) {}
+    var putBody = { message: 'Upload ' + slug, content: resized.base64, branch: window.Lab.gh.BRANCH };
+    if (existingSha) putBody.sha = existingSha;
+    var resp = await fetch('https://api.github.com/repos/' + window.Lab.gh.REPO + '/contents/' + repoPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(putBody)
+    });
+    if (!resp.ok) {
+      var err = await resp.json().catch(function() { return {}; });
+      throw new Error(err.message || 'Upload failed (HTTP ' + resp.status + ')');
+    }
+    return { slug: slug, path: 'images/' + slug, dataUrl: resized.dataUrl, base64: resized.base64 };
+  }
+
+  // Convert a data:image/...;base64,AAAA URL to a Blob so it can be uploaded.
+  function dataUrlToBlob(dataUrl) {
+    var m = /^data:([^;,]+)(?:;([^,]+))?,(.*)$/.exec(dataUrl || '');
+    if (!m) return null;
+    var mime = m[1] || 'image/png';
+    var isBase64 = (m[2] || '').split(';').indexOf('base64') >= 0;
+    var raw = isBase64 ? atob(m[3]) : decodeURIComponent(m[3]);
+    var bytes = new Uint8Array(raw.length);
+    for (var i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+    return new Blob([bytes], { type: mime });
+  }
+
   var TOAST_CSS = 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
   var TOAST_JS = 'https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js';
   var toastLoaded = false;
@@ -3285,6 +3343,77 @@
     // Insert media bar after the category pills bar
     insertBar.parentNode.insertBefore(mediaBar, insertBar.nextSibling);
 
+    // ── Clipboard paste: intercept image data and upload to docs/images/ ──
+    // Toast UI's default paste handler inserts images as inline base64 data URLs
+    // in the markdown. That bloats the file (a 2MB photo becomes a 2.6MB markdown
+    // blob in git) AND breaks image annotation: annotate.js constructs the
+    // annotated file path by string-manipulating the src, which explodes when
+    // the src is a 2MB data URL ("Failed to fetch"). Fix: snatch the image blob
+    // off the clipboard before Toast UI sees it, upload via the GitHub API, and
+    // insert a normal `![slug](images/slug)` reference — identical to what the
+    // toolbar Image button produces. (#97 #98 #99)
+    setTimeout(function() {
+      var pasteTarget = containerEl.querySelector('.toastui-editor-ww-container') ||
+                        containerEl.querySelector('.ProseMirror') ||
+                        containerEl;
+      if (!pasteTarget || pasteTarget._pasteHandlerSetup) return;
+      pasteTarget._pasteHandlerSetup = true;
+      pasteTarget.addEventListener('paste', function(e) {
+        var cd = e.clipboardData;
+        if (!cd) return;
+        // Find the first image item; skip text-only pastes.
+        var imgFile = null;
+        if (cd.files && cd.files.length) {
+          for (var i = 0; i < cd.files.length; i++) {
+            if (cd.files[i].type && cd.files[i].type.startsWith('image/')) { imgFile = cd.files[i]; break; }
+          }
+        }
+        if (!imgFile && cd.items) {
+          for (var j = 0; j < cd.items.length; j++) {
+            if (cd.items[j].kind === 'file' && cd.items[j].type && cd.items[j].type.startsWith('image/')) {
+              imgFile = cd.items[j].getAsFile(); break;
+            }
+          }
+        }
+        if (!imgFile) return; // Let Toast UI handle non-image pastes normally.
+        e.preventDefault();
+        e.stopPropagation();
+        if (!window.Lab.gh.isLoggedIn()) { window.Lab.showToast('Sign in to paste images', 'error'); return; }
+        window.Lab.showToast('Uploading pasted image...', 'info');
+        // Build a stable-ish filename so multiple pastes don't collide.
+        var ext = (imgFile.type && imgFile.type.split('/')[1]) || 'png';
+        ext = ext.split(';')[0].split('+')[0].replace(/[^a-z0-9]/gi, '') || 'png';
+        if (ext === 'jpeg') ext = 'jpg';
+        var base = (imgFile.name && imgFile.name !== 'image.png' ? imgFile.name.replace(/\.[^.]+$/, '') : 'pasted');
+        var hint = base + '-' + Date.now() + '.' + ext;
+        uploadImageBlob(imgFile, hint).then(function(res) {
+          var slug = res.slug;
+          var dataUrl = res.dataUrl;
+          editor.changeMode('markdown');
+          editor.replaceSelection('\n\n![' + slug.replace(/\.[^.]+$/, '') + '](' + res.path + ')\n\n');
+          editor.changeMode('wysiwyg');
+          // Default new images to 50% width (matches toolbar Image button behavior).
+          _imgSizes[res.path] = '50%';
+          // Show instant preview via data URL until the Pages redeploy completes.
+          setTimeout(function() {
+            var ww = containerEl.querySelector('.toastui-editor-ww-container') || containerEl;
+            ww.querySelectorAll('img').forEach(function(img) {
+              var src = img.getAttribute('src') || '';
+              if (src.includes(slug) && (!img.complete || img.naturalWidth === 0)) {
+                img.dataset.realSrc = src;
+                img.src = dataUrl;
+                img.style.setProperty('max-width', '50%', 'important');
+              }
+            });
+          }, 300);
+          window.Lab.showToast('Pasted image uploaded', 'success');
+        }).catch(function(err) {
+          console.error('paste upload failed:', err);
+          window.Lab.showToast('Paste upload failed: ' + (err && err.message || err), 'error');
+        });
+      }, true); // capture phase — run before Toast UI's own listener
+    }, 400);
+
     // ── Image annotation: double-click an image in editor to annotate ──
     if (window.Lab && window.Lab.annotate) {
       setTimeout(function() {
@@ -3948,6 +4077,8 @@
     loadMarked: loadMarked,
     renderMarkdown: renderMarkdown,
     getSchema: getSchema,
+    uploadImageBlob: uploadImageBlob,
+    dataUrlToBlob: dataUrlToBlob,
     // Expose for onclick handlers in link modal HTML
     _selectCat: selectLinkCategory,
     _insertLink: insertLink,

@@ -536,8 +536,31 @@
       var blob = await new Promise(function(resolve) { canvas.toBlob(resolve, 'image/png'); });
       var base64 = await blobToBase64(blob);
 
-      // 2. Determine file paths — annotated version saved alongside original
+      // 2. Determine file paths — annotated version saved alongside original.
+      // SAFETY NET for copy/paste images (#97 #98 #99): if the image was pasted
+      // into the editor, origSrc is a "data:image/...;base64,AAAA..." URL rather
+      // than a repo-relative path. String-manipulating a 2MB data URL into a
+      // GitHub Contents API path produces a malformed fetch URL and throws
+      // "Failed to fetch". Fix: detect data-URL srcs up front, upload the base
+      // image to docs/images/<pasted-…> first, then compute the annotated path
+      // from the new repo-relative path.
       var origRelative = origSrc; // e.g. "images/gel-photo.jpg"
+      if (origRelative && origRelative.startsWith('data:')) {
+        var em = window.Lab && window.Lab.editorModal;
+        if (em && em.uploadImageBlob && em.dataUrlToBlob) {
+          window.Lab.showToast('Uploading pasted image first...', 'info');
+          var origBlob = em.dataUrlToBlob(origRelative);
+          if (!origBlob) throw new Error('Could not decode pasted image');
+          var uploaded = await em.uploadImageBlob(origBlob);
+          // Use the new repo path as the canonical origSrc. Also leave a
+          // _dataUrlToPath breadcrumb via the editor module so getMarkdownClean
+          // can rewrite any remaining inline data URLs in the markdown.
+          origRelative = uploaded.path; // "images/<slug>"
+          origSrc = uploaded.path;
+        } else {
+          throw new Error('Editor module unavailable — reload the page');
+        }
+      }
       var cleanBase = origRelative.replace(/-annotated\.[^.]+$/, '').replace(/\.[^.]+$/, '');
       var annotatedPath = cleanBase + '-annotated.png';
 
