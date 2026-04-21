@@ -3,7 +3,7 @@ type: "room"
 title: "Asmundson Growth Chamber"
 label_1: "Shared growth facility"
 notes: "Shared plant growth chamber facility, UC Davis Asmundson Hall. Ask the building manager for access."
-updated_at: "2026-04-21T21:30:41.828Z"
+updated_at: "2026-04-21T21:30:49.511Z"
 created_at: "2026-04-21T21:30:41.828Z"
 created_by: "greymonroe"
 ---
