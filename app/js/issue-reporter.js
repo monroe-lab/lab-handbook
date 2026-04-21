@@ -52,8 +52,12 @@
     btn.textContent = '\uD83D\uDCA1';
     Object.assign(btn.style, {
       position: 'fixed',
+      // Moved from bottom-left to bottom-right so the FAB doesn't cover
+      // the leftmost data column of long inventory/waste tables. Stays
+      // above the toast container (bottom:24px right:24px) so neither
+      // obscures the other.
       bottom: '80px',
-      left: '18px',
+      right: '18px',
       // R7 #33: raise above editor-modal overlay (z:10000) so the button
       // stays reachable while looking at an item card inside a protocol.
       zIndex: '10001',
