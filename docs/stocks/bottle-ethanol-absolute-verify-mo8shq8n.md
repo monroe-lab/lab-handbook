@@ -2,7 +2,7 @@
 type: "bottle"
 title: "Ethanol Absolute (verify)"
 of: "resources/ethanol-absolute"
-parent: "locations/bench-chemistry"
+parent: "locations/cabinet-flammable"
 quantity: 1
 unit: "L"
 lot: "V2-MO8SHQ8N"
