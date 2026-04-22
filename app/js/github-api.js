@@ -411,6 +411,12 @@
     'contents', 'physical_state', 'container', 'hazard_class', 'started', 'waste_tag',
     // Sample tracker fields
     'sample_id', 'species', 'lead', 'sequencing_type',
+    // Accession tracker fields (R19: samples.json migrated to docs/accessions/*.md)
+    'accession_id', 'priority', 'current_blocker', 'detail_sheet_link', 'last_updated',
+    // Instance (sample / extraction / library / pool) fields
+    'tissue_type', 'collection_date', 'collected_by',
+    'extraction_type', 'extraction_method', 'concentration', 'volume', 'quality_score',
+    'prep_kit', 'insert_size', 'molarity', 'pool_date',
     // Location hierarchy (R1, Issue #18): parent is a slug (or [[wikilink]]),
     // position is a grid cell label, grid declares a container with rows x cols,
     // label_1 / label_2 are display labels (label_2 used in compact grid cells).

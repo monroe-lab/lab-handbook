@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessions - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+/*
+  R19 Accessions tracker.
+  ────────────────────────
+  An accession is the CONCEPT (a tree, a genotype, an MA line). Physical
+  records (samples, extractions, libraries, pools) attach as instances via
+  `of: [[accessions/<slug>]]`. The tracker table is a filtered view over
+  the object-index — one row per accession — with the pipeline `status`
+  rendered as an inline editable pill.
+
+  Styling mirrors inventory.html so the Add tile and the row density feel
+  consistent with the rest of the object-oriented pages (#138 feedback).
+*/
+.acc-page { padding: 0; }
+
+.acc-toolbar {
+  background: #fff;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+}
+
+.acc-stats {
+  display: flex;
+  gap: 12px;
+  padding: 12px 24px;
+  flex-wrap: wrap;
+}
+.acc-stats .stat-card {
+  padding: 10px 14px;
+  min-width: 140px;
+  gap: 10px;
+}
+.acc-stats .stat-card .material-icons-outlined { font-size: 22px; }
+.acc-stats .stat-value { font-size: 20px; font-weight: 700; line-height: 1.1; }
+.acc-stats .stat-label { font-size: 11px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .4px; }
+.acc-stats button.stat-card {
+  border: 1px solid transparent;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, box-shadow .15s, transform .1s;
+  background: #fff;
+}
+.acc-stats button.stat-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
+.acc-stats button.stat-card:active { transform: translateY(1px); }
+
+.acc-table-wrap { padding: 0 24px 16px; }
+.acc-table-wrap td { padding: 4px 10px; font-size: 13px; vertical-align: middle; }
+.acc-table-wrap th { padding: 6px 10px; font-size: 11px; }
+.acc-table-wrap .inst-count {
+  display: inline-block;
+  background: var(--grey-100);
+  color: var(--grey-700);
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-left: 6px;
+}
+
+/* Status pill — one class per status color bucket, same vocabulary as R18
+   sample-tracker and the new `accession` type definition. */
+.status-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.status-pill.green  { background: var(--green-light); color: var(--green-dark); }
+.status-pill.yellow { background: var(--yellow-light); color: var(--yellow-dark); }
+.status-pill.purple { background: var(--purple-light); color: var(--purple); }
+.status-pill.red    { background: var(--red-light); color: var(--red); }
+.status-pill.grey   { background: var(--grey-200); color: var(--grey-700); }
+
+/* Priority / blocker */
+.priority-mark { font-size: 14px; }
+.blocker-text  { font-size: 12px; color: var(--amber); max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.row-actions { display: flex; gap: 4px; }
+.row-actions button {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--grey-500);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.row-actions button:hover { color: var(--teal); background: var(--teal-light); }
+.row-actions button.del:hover { color: var(--red); background: var(--red-light); }
+
+/* Mobile cards (matches inventory.html pattern) */
+.acc-cards { display: none; padding: 0 16px 16px; }
+.acc-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.acc-card:hover { box-shadow: var(--shadow-md); }
+.acc-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.acc-card-name { font-weight: 600; font-size: 15px; }
+.acc-card-meta { font-size: 12px; color: var(--grey-600); margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 768px) {
+  .acc-toolbar { padding: 12px 12px; flex-direction: column; align-items: stretch; gap: 8px; }
+  .acc-toolbar .search-box { width: 100%; }
+  .acc-toolbar .filter-row { display: flex; gap: 8px; }
+  .acc-toolbar .filter-row .filter-select { flex: 1; min-width: 0; font-size: 13px; padding: 8px 6px; }
+  .acc-stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .acc-stats .stat-card { min-width: 0; }
+  .acc-table-wrap { display: none; }
+  .acc-cards { display: block; }
+}
+</style>
+</head>
+<body>
+<div class="acc-page">
+
+  <div class="acc-toolbar">
+    <div class="search-box">
+      <span class="material-icons-outlined">search</span>
+      <input type="text" id="searchInput" placeholder="Search accessions…">
+    </div>
+    <div class="filter-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <select class="filter-select" id="filterProject"><option value="">All Projects</option></select>
+      <select class="filter-select" id="filterStatus"><option value="">All Statuses</option></select>
+      <select class="filter-select" id="filterSeqType"><option value="">All Seq Types</option></select>
+      <select class="filter-select" id="filterLead"><option value="">All Leads</option></select>
+    </div>
+  </div>
+
+  <div class="acc-stats">
+    <button type="button" class="stat-card" id="addBtn" style="display:none" onclick="addAccession()" title="Add a new accession">
+      <span class="material-icons-outlined" style="color:#fff;background:var(--teal);border-radius:50%;padding:4px;font-size:22px">add</span>
+      <div>
+        <div class="stat-value" style="color:var(--teal-dark);font-size:18px;line-height:1.1">Add Accession</div>
+        <div class="stat-label">Register a new tree, line, or genotype</div>
+      </div>
+    </button>
+    <div class="stat-card">
+      <span class="material-icons-outlined" style="color:#7c3aed">fingerprint</span>
+      <div><div class="stat-value" id="statTotal">-</div><div class="stat-label">Accessions</div></div>
+    </div>
+    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('Complete')">
+      <span class="material-icons-outlined" style="color:#22c55e">check_circle</span>
+      <div><div class="stat-value" id="statComplete" style="color:#22c55e">-</div><div class="stat-label">Complete</div></div>
+    </div>
+    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('__in_progress__')">
+      <span class="material-icons-outlined" style="color:#f59e0b">pending</span>
+      <div><div class="stat-value" id="statInProgress" style="color:#f59e0b">-</div><div class="stat-label">In Progress</div></div>
+    </div>
+    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('On hold')">
+      <span class="material-icons-outlined" style="color:#ef4444">pause_circle</span>
+      <div><div class="stat-value" id="statOnHold" style="color:#ef4444">-</div><div class="stat-label">On Hold</div></div>
+    </div>
+  </div>
+
+  <div class="acc-table-wrap">
+    <div class="table-container">
+      <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Loading accessions…</p></div>
+      <table id="accTable" style="display:none">
+        <thead>
+          <tr>
+            <th onclick="setSort('accession_id')">ID <span class="sort-arrow" id="sort-accession_id"></span></th>
+            <th onclick="setSort('species')">Species <span class="sort-arrow" id="sort-species"></span></th>
+            <th onclick="setSort('project')">Project <span class="sort-arrow" id="sort-project"></span></th>
+            <th onclick="setSort('lead')">Lead <span class="sort-arrow" id="sort-lead"></span></th>
+            <th onclick="setSort('sequencing_type')">Seq Type <span class="sort-arrow" id="sort-sequencing_type"></span></th>
+            <th onclick="setSort('status')">Status <span class="sort-arrow" id="sort-status"></span></th>
+            <th onclick="setSort('current_blocker')" class="hide-mobile">Blocker</th>
+            <th onclick="setSort('last_updated')" class="hide-mobile">Updated <span class="sort-arrow" id="sort-last_updated"></span></th>
+            <th style="width:72px">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none">
+        <span class="material-icons-outlined">search_off</span><p>No accessions match your filters.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc-cards" id="cardView"></div>
+
+</div>
+
+<!-- Add accession modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <h2>New Accession</h2>
+      <button class="modal-close" onclick="closeAddModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Accession ID *</label>
+        <input type="text" id="addAccessionId" placeholder="e.g. R2_B4_C1, PIST-4, MA-1-G7">
+        <div id="addSlugPreview" style="font-size:12px;color:#888;margin-top:4px;font-family:monospace;min-height:16px"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Species</label>
+          <input type="text" id="addSpecies" placeholder="e.g. Pistacia vera">
+        </div>
+        <div class="form-group">
+          <label>Project</label>
+          <input type="text" id="addProject" placeholder="e.g. PBTS, MA Lines">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Lead</label>
+          <input type="text" id="addLead" placeholder="e.g. Vianney Ahn">
+        </div>
+        <div class="form-group">
+          <label>Sequencing Type</label>
+          <select id="addSeqType">
+            <option>HiFi</option><option>WGS</option><option>RNA-seq</option>
+            <option>EM-seq</option><option>Hi-C</option><option>Illumina WGS</option>
+            <option>CUT&amp;Tag</option><option>CUT&amp;RUN</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="addStatus">
+            <option>Not yet received</option><option>Tissue available</option>
+            <option>Tissue collected</option><option>DNA extracted</option>
+            <option>Needs QC</option><option>QC passed</option><option>Shearing</option>
+            <option>Library prep</option><option>Ready to submit</option>
+            <option>Submitted</option><option>Sequencing in progress</option>
+            <option>Data received</option><option>Complete</option><option>On hold</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="addPriority">
+            <option value="">(none)</option>
+            <option value="⭐">⭐ Priority</option>
+            <option value="🌾">🌾 Lots</option>
+            <option value="💎">💎 Rare</option>
+          </select>
+        </div>
+      </div>
+      <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0;line-height:1.5">
+        After creating, open the accession to add physical instances (samples, extractions, libraries, pools) and flesh out the markdown description.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-primary" id="addConfirmBtn" onclick="confirmAdd()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h2>Delete Accession</h2>
+      <button class="modal-close" onclick="closeDeleteModal()"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <p>Delete <strong id="deleteName"></strong>?</p>
+      <p style="font-size:12px;color:var(--grey-500);margin-top:8px">Physical instances (samples, extractions, libraries, pools) that point at this accession via <code>of:</code> will become orphaned. This cannot be undone from the UI.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/lab.js"></script>
+<script>
+// Shape each object-index row into a tracker-ready shape.
+function toAccessionRow(obj) {
+  var slug = obj.path.replace(/\.md$/, '').split('/').pop();
+  return {
+    slug: slug,
+    path: obj.path,
+    title: obj.title || slug,
+    accession_id: obj.accession_id || '',
+    species: obj.species || '',
+    project: obj.project || '',
+    lead: obj.lead || '',
+    sequencing_type: obj.sequencing_type || '',
+    status: obj.status || 'Not yet received',
+    priority: obj.priority || '',
+    current_blocker: obj.current_blocker || '',
+    last_updated: obj.last_updated || obj.updated_at || '',
+    mtime: obj.mtime || 0,
+  };
+}
+
+// Status pill palette — matches the old sample-tracker vocabulary so badges
+// stay recognizable for anyone who memorized the color-coding. Anything not
+// listed lands in the neutral grey bucket.
+var STATUS_COLORS = {
+  'Complete': 'green',
+  'Data received': 'green',
+  'Submitted': 'green',
+  'Ready to submit': 'green',
+  'Sequencing in progress': 'green',
+  'Library prep': 'yellow',
+  'Shearing': 'yellow',
+  'QC passed': 'yellow',
+  'Needs QC': 'yellow',
+  'DNA extracted': 'purple',
+  'Tissue collected': 'purple',
+  'Tissue available': 'purple',
+  'On hold': 'red',
+  'Not yet received': 'grey',
+};
+var ALL_STATUSES = Object.keys(STATUS_COLORS).concat([]); // preserves order from the palette
+// Issue #104-style "in progress" bucket: not complete, not done, not idle.
+var IN_PROGRESS_STATUSES = new Set([
+  'Tissue available', 'Tissue collected', 'DNA extracted', 'Needs QC',
+  'QC passed', 'Shearing', 'Library prep', 'Ready to submit', 'Submitted',
+  'Sequencing in progress', 'Data received',
+]);
+
+var accessions = [];
+// Map path→instance count to render the "· N instances" badge next to each
+// accession name in the table. Built once per loadAccessions() pass.
+var instanceCountByPath = {};
+var sortCol = 'last_updated';
+var sortDir = -1;
+var deletingItem = null;
+var pendingCommits = Promise.resolve();
+
+async function loadAccessions() {
+  try {
+    var index = await Lab.gh.fetchObjectIndex();
+    accessions = index
+      .filter(function(o) { return o.type === 'accession'; })
+      .map(toAccessionRow);
+
+    // Count instances per accession by scanning `of:` refs. The heavy join
+    // against link-index would be more thorough (it picks up body wikilinks
+    // too) but this is fast and matches what the editor-modal's instance
+    // column does for reagents. Good-enough for a table column badge.
+    instanceCountByPath = {};
+    var INSTANCE_TYPES = { sample: 1, extraction: 1, library: 1, pool: 1, tube: 1 };
+    index.forEach(function(o) {
+      if (!INSTANCE_TYPES[o.type] || !o.of) return;
+      var ofSlug = String(o.of).replace(/^\[\[/, '').replace(/\]\]$/, '').replace(/\.md$/, '').replace(/^\.\//, '');
+      // Only count when the `of:` points at an accession. Tubes that point
+      // at a reagent (e.g. an ethanol bottle tube) would otherwise inflate
+      // here — skip those.
+      if (!ofSlug.startsWith('accessions/')) return;
+      instanceCountByPath[ofSlug] = (instanceCountByPath[ofSlug] || 0) + 1;
+    });
+  } catch (e) {
+    Lab.showToast('Failed to load accessions: ' + e.message, 'error');
+    accessions = [];
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('accTable').style.display = '';
+  if (Lab.gh.isLoggedIn()) document.getElementById('addBtn').style.display = '';
+  populateFilters();
+  renderTable();
+}
+
+function populateFilters() {
+  var projects = new Set(), leads = new Set(), seqTypes = new Set();
+  accessions.forEach(function(a) {
+    if (a.project) projects.add(a.project);
+    if (a.lead) leads.add(a.lead);
+    if (a.sequencing_type) seqTypes.add(a.sequencing_type);
+  });
+  fillSelect('filterProject', projects);
+  fillSelect('filterLead', leads);
+  fillSelect('filterSeqType', seqTypes);
+  // Status filter gets the full canonical vocabulary, not just what happens
+  // to be present — otherwise a status with zero rows would disappear from
+  // the menu and you'd lose the ability to filter to it.
+  fillSelect('filterStatus', new Set(ALL_STATUSES));
+}
+
+function fillSelect(id, values) {
+  var sel = document.getElementById(id);
+  var cur = sel.value;
+  // Preserve the "All" row then rebuild.
+  sel.innerHTML = sel.options[0].outerHTML +
+    Array.from(values).sort().map(function(v) {
+      return '<option value="' + Lab.escHtml(v) + '">' + Lab.escHtml(v) + '</option>';
+    }).join('');
+  if (cur) sel.value = cur;
+}
+
+function getFiltered() {
+  var q       = document.getElementById('searchInput').value.toLowerCase().trim();
+  var project = document.getElementById('filterProject').value;
+  var status  = document.getElementById('filterStatus').value;
+  var seqType = document.getElementById('filterSeqType').value;
+  var lead    = document.getElementById('filterLead').value;
+
+  var rows = accessions.filter(function(a) {
+    if (project && a.project !== project) return false;
+    if (lead && a.lead !== lead) return false;
+    if (seqType && a.sequencing_type !== seqType) return false;
+    if (status === '__in_progress__') {
+      if (!IN_PROGRESS_STATUSES.has(a.status)) return false;
+    } else if (status && a.status !== status) {
+      return false;
+    }
+    if (q) {
+      var hay = [a.title, a.accession_id, a.species, a.project, a.lead, a.sequencing_type, a.status, a.current_blocker].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  rows.sort(function(a, b) {
+    var va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'mtime') return ((va || 0) - (vb || 0)) * sortDir;
+    va = String(va || '').toLowerCase();
+    vb = String(vb || '').toLowerCase();
+    return va < vb ? -sortDir : va > vb ? sortDir : 0;
+  });
+  return rows;
+}
+
+function statusPillHtml(status, slug) {
+  var color = STATUS_COLORS[status] || 'grey';
+  if (!slug || !Lab.gh.isLoggedIn()) {
+    return '<span class="status-pill ' + color + '">' + Lab.escHtml(status || '—') + '</span>';
+  }
+  // Writable inline <select>. Using the pill classes for consistent color.
+  var opts = ALL_STATUSES.map(function(s) {
+    var sel = s === status ? ' selected' : '';
+    return '<option value="' + Lab.escHtml(s) + '"' + sel + '>' + Lab.escHtml(s) + '</option>';
+  }).join('');
+  return '<select class="status-pill ' + color + '" ' +
+    'style="appearance:none;-webkit-appearance:none;border:none;font-family:inherit;cursor:pointer;padding-right:18px;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 10px) 50%,calc(100% - 6px) 50%;background-size:4px 4px,4px 4px;background-repeat:no-repeat" ' +
+    'onclick="event.stopPropagation()" ' +
+    'onchange="event.stopPropagation();setStatus(\'' + Lab.escHtml(slug) + '\',this.value)">' + opts + '</select>';
+}
+
+function setStatusFilter(val) {
+  document.getElementById('filterStatus').value = (val === '__in_progress__') ? '__in_progress__' : val;
+  // __in_progress__ is a synthetic value the <select> doesn't actually own;
+  // set it anyway so the filter logic picks it up via .value. It'll render
+  // as "All Statuses" until the user picks a real one.
+  renderTable();
+}
+
+// Queue status commits so concurrent pill changes don't race on the file SHA.
+async function setStatus(slug, newStatus) {
+  var item = accessions.find(function(a) { return a.slug === slug; });
+  if (!item || item.status === newStatus) return;
+  pendingCommits = pendingCommits.then(function() {
+    return commitStatus(item, newStatus).catch(function(e) {
+      Lab.showToast('Status update failed: ' + e.message, 'error');
+      renderTable();
+    });
+  });
+}
+
+async function commitStatus(item, newStatus) {
+  var filePath = 'docs/' + item.path;
+  var file = await Lab.gh.fetchFile(filePath);
+  var parsed = Lab.parseFrontmatter(file.content);
+  parsed.meta.status = newStatus;
+  parsed.meta.last_updated = new Date().toISOString().slice(0, 10);
+  var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
+  await Lab.gh.saveFile(filePath, content, file.sha, 'Accession ' + (item.accession_id || item.slug) + ' → ' + newStatus);
+  Lab.gh.patchObjectIndex(filePath, parsed.meta);
+  item.status = newStatus;
+  item.last_updated = parsed.meta.last_updated;
+  Lab.showToast((item.accession_id || item.title) + ': ' + newStatus, 'success');
+  renderTable();
+}
+
+function renderTable() {
+  var rows = getFiltered();
+
+  // Stats
+  var counts = { total: accessions.length, complete: 0, inProgress: 0, onHold: 0 };
+  accessions.forEach(function(a) {
+    if (a.status === 'Complete') counts.complete++;
+    else if (a.status === 'On hold') counts.onHold++;
+    else if (IN_PROGRESS_STATUSES.has(a.status)) counts.inProgress++;
+  });
+  document.getElementById('statTotal').textContent = counts.total;
+  document.getElementById('statComplete').textContent = counts.complete;
+  document.getElementById('statInProgress').textContent = counts.inProgress;
+  document.getElementById('statOnHold').textContent = counts.onHold;
+
+  // Sort arrows
+  document.querySelectorAll('.sort-arrow').forEach(function(el) { el.textContent = ''; });
+  var arrow = document.getElementById('sort-' + sortCol);
+  if (arrow) arrow.textContent = sortDir === 1 ? ' ▲' : ' ▼';
+
+  var tbody = document.getElementById('tableBody');
+  if (!rows.length) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    document.getElementById('accTable').style.display = 'none';
+    document.getElementById('cardView').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">search_off</span><p>No accessions match</p></div>';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('accTable').style.display = '';
+
+  tbody.innerHTML = rows.map(function(r) {
+    var pathNoExt = r.path.replace(/\.md$/, '');
+    var instCount = instanceCountByPath[pathNoExt] || 0;
+    var instBadge = instCount ? '<span class="inst-count" title="' + instCount + ' physical instance' + (instCount === 1 ? '' : 's') + '">' + instCount + '</span>' : '';
+    var priorityCell = r.priority ? '<span class="priority-mark" title="Priority">' + Lab.escHtml(r.priority) + '</span> ' : '';
+    return '<tr style="cursor:pointer" onclick="openAccession(\'' + Lab.escHtml(r.slug) + '\')">' +
+      '<td>' + priorityCell + '<strong>' + Lab.escHtml(r.accession_id || r.title) + '</strong>' + instBadge + '</td>' +
+      '<td><em>' + Lab.escHtml(r.species) + '</em></td>' +
+      '<td>' + Lab.escHtml(r.project) + '</td>' +
+      '<td>' + Lab.escHtml(r.lead) + '</td>' +
+      '<td>' + Lab.escHtml(r.sequencing_type) + '</td>' +
+      '<td>' + statusPillHtml(r.status, r.slug) + '</td>' +
+      '<td class="hide-mobile"><span class="blocker-text" title="' + Lab.escHtml(r.current_blocker) + '">' + Lab.escHtml(r.current_blocker) + '</span></td>' +
+      '<td class="hide-mobile" style="font-size:12px;color:var(--grey-500);white-space:nowrap">' + Lab.escHtml(r.last_updated) + '</td>' +
+      '<td><div class="row-actions">' +
+        '<button onclick="event.stopPropagation();openAccession(\'' + Lab.escHtml(r.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button>' +
+        '<button class="del" onclick="event.stopPropagation();openDeleteModal(\'' + Lab.escHtml(r.slug) + '\')" title="Delete"><span class="material-icons-outlined">delete</span></button>' +
+      '</div></td></tr>';
+  }).join('');
+
+  // Mobile cards
+  var cards = document.getElementById('cardView');
+  cards.innerHTML = rows.map(function(r) {
+    return '<div class="acc-card" onclick="openAccession(\'' + Lab.escHtml(r.slug) + '\')">' +
+      '<div class="acc-card-top"><span class="acc-card-name">' + Lab.escHtml(r.accession_id || r.title) + '</span>' +
+      statusPillHtml(r.status, r.slug) + '</div>' +
+      '<div class="acc-card-meta"><span>' + Lab.escHtml(r.species || '—') + '</span>' +
+      '<span>' + Lab.escHtml(r.project || '—') + '</span>' +
+      '<span>' + Lab.escHtml(r.sequencing_type || '—') + '</span></div>' +
+      '</div>';
+  }).join('');
+}
+
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = col === 'last_updated' ? -1 : 1; }
+  renderTable();
+}
+
+function openAccession(slug) {
+  Lab.editorModal.open('docs/accessions/' + slug + '.md');
+}
+
+// Add flow — minimal required fields upfront; the editor modal picks up
+// where this leaves off for full markdown description + instance registration.
+function updateSlugPreview() {
+  var val = document.getElementById('addAccessionId').value.trim();
+  document.getElementById('addSlugPreview').textContent = val ? 'File: docs/accessions/' + Lab.slugify(val) + '.md' : '';
+}
+function addAccession() {
+  ['addAccessionId','addSpecies','addProject','addLead'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('addSeqType').value = 'HiFi';
+  document.getElementById('addStatus').value = 'Not yet received';
+  document.getElementById('addPriority').value = '';
+  document.getElementById('addSlugPreview').textContent = '';
+  document.getElementById('addModal').classList.add('open');
+  var idInput = document.getElementById('addAccessionId');
+  idInput.removeEventListener('input', updateSlugPreview);
+  idInput.addEventListener('input', updateSlugPreview);
+  setTimeout(function() { idInput.focus(); }, 50);
+}
+function closeAddModal() { document.getElementById('addModal').classList.remove('open'); }
+
+async function confirmAdd() {
+  var accId = document.getElementById('addAccessionId').value.trim();
+  if (!accId) { Lab.showToast('Accession ID is required', 'error'); return; }
+  var btn = document.getElementById('addConfirmBtn');
+  btn.disabled = true; btn.textContent = 'Creating…';
+
+  var slug = Lab.slugify(accId);
+  var path = 'docs/accessions/' + slug + '.md';
+  var nowIso = new Date().toISOString();
+  var user = Lab.gh.getUser && Lab.gh.getUser();
+  var meta = {
+    type: 'accession',
+    title: accId,
+    accession_id: accId,
+    species: document.getElementById('addSpecies').value.trim(),
+    project: document.getElementById('addProject').value.trim(),
+    lead: document.getElementById('addLead').value.trim(),
+    sequencing_type: document.getElementById('addSeqType').value,
+    status: document.getElementById('addStatus').value,
+    priority: document.getElementById('addPriority').value,
+    last_updated: nowIso.slice(0, 10),
+    created_at: nowIso,
+    updated_at: nowIso,
+    created_by: user && user.login ? user.login : '',
+  };
+  // Strip empty values so the frontmatter doesn't carry "priority: " lines
+  // that later readers treat as the literal empty string.
+  Object.keys(meta).forEach(function(k) { if (meta[k] === '') delete meta[k]; });
+  var content = Lab.buildFrontmatter(meta, '\n# ' + accId + '\n');
+
+  try {
+    var saved = await Lab.gh.saveFile(path, content, null, 'Add accession: ' + accId);
+    Lab.showToast('Created: ' + accId, 'success');
+    Lab.gh.patchObjectIndex(path, meta);
+    // Prime the editor-modal file cache so openPopup doesn't race the
+    // GitHub Contents API right after a fresh create (same trick inventory
+    // uses — see app/inventory.html#confirmAdd).
+    try {
+      var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+      fileCache[path] = { content: content, sha: (saved && saved.sha) || null, savedAt: Date.now() };
+      localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+    } catch (e) {}
+    closeAddModal();
+    btn.disabled = false; btn.textContent = 'Create';
+    Lab.editorModal.open(path);
+    loadAccessions();
+  } catch (e) {
+    Lab.showToast('Failed: ' + e.message, 'error');
+    btn.disabled = false; btn.textContent = 'Create';
+  }
+}
+
+// Delete flow
+function openDeleteModal(slug) {
+  deletingItem = accessions.find(function(a) { return a.slug === slug; });
+  if (!deletingItem) return;
+  document.getElementById('deleteName').textContent = deletingItem.accession_id || deletingItem.title;
+  document.getElementById('deleteModal').classList.add('open');
+}
+function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('open'); }
+async function confirmDelete() {
+  if (!deletingItem) return;
+  try {
+    await Lab.gh.deleteFile('docs/' + deletingItem.path, null, 'Remove accession: ' + (deletingItem.accession_id || deletingItem.slug));
+    accessions = accessions.filter(function(a) { return a.slug !== deletingItem.slug; });
+    Lab.showToast('Deleted: ' + (deletingItem.accession_id || deletingItem.title), 'success');
+    Lab.gh.removeFromObjectIndex('docs/' + deletingItem.path);
+  } catch (e) {
+    Lab.showToast('Delete failed: ' + e.message, 'error');
+  }
+  closeDeleteModal();
+  renderTable();
+}
+
+// Wire events
+['searchInput','filterProject','filterStatus','filterSeqType','filterLead'].forEach(function(id) {
+  document.getElementById(id).addEventListener(id === 'searchInput' ? 'input' : 'change', renderTable);
+});
+document.querySelectorAll('.modal-overlay').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+});
+
+// When the editor-modal saves or deletes an accession, update the row
+// locally instead of re-fetching the whole index.
+window.addEventListener('lab-file-saved', function(e) {
+  if (!e.detail || !e.detail.path) return;
+  var path = e.detail.path;
+  if (!e.detail.meta) {
+    // Deletion from editor modal
+    accessions = accessions.filter(function(a) { return 'docs/' + a.path !== path && a.path !== path; });
+    populateFilters();
+    renderTable();
+    return;
+  }
+  if (e.detail.meta.type !== 'accession') { loadAccessions(); return; }
+  var relPath = path.replace(/^docs\//, '');
+  var slug = relPath.replace(/\.md$/, '').split('/').pop();
+  var updated = toAccessionRow(Object.assign({ path: relPath }, e.detail.meta));
+  var existing = accessions.find(function(a) { return a.slug === slug; });
+  if (existing) Object.assign(existing, updated);
+  else accessions.push(updated);
+  populateFilters();
+  renderTable();
+});
+
+loadAccessions();
+</script>
+</body>
+</html>

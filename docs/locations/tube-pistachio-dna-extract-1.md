@@ -10,7 +10,7 @@ notes: "HMW DNA, nanodrop 85 ng/uL, 260/280 ~1.85, 260/230 ~2.1."
 
 # Pistachio DNA Extract 1
 
-DNA extract of [[samples/sample-pistachio-4]], extracted from
+DNA extract of [[accessions/pistachio-4]], extracted from
 [[locations/tube-pistachio-leaf-1]] on 2026-04-02 by J. Freckles using the
 CTAB protocol.
 

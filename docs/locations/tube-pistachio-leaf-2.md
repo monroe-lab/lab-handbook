@@ -10,7 +10,7 @@ notes: "Backup leaf tissue punch, same tree and collection date."
 
 # Pistachio Leaf 2
 
-Backup leaf tissue from [[samples/sample-pistachio-4]].
+Backup leaf tissue from [[accessions/pistachio-4]].
 
 Same collection as [[locations/tube-pistachio-leaf-1]] but kept as a second
 punch in case the first is consumed.

@@ -36,6 +36,7 @@ OBJECT_DIRS = [
     "notebooks",
     "waste",
     "samples",
+    "accessions",
     "locations",
     "events",
     "plant-harvesting",
@@ -51,6 +52,12 @@ EXTRACT_KEYS = [
     "contents", "physical_state", "container", "hazard_class", "started", "waste_tag",
     "created_at", "created_by", "updated_at",
     "sample_id", "species", "lead", "sequencing_type",
+    # Accession tracker fields (R18: samples.json migrated to docs/accessions/*.md)
+    "accession_id", "priority", "current_blocker", "detail_sheet_link", "last_updated",
+    # Instance (sample/extraction/library/pool) fields
+    "tissue_type", "collection_date", "collected_by",
+    "extraction_type", "extraction_method", "concentration", "volume", "quality_score",
+    "prep_kit", "insert_size", "molarity", "pool_date",
     # Hierarchy fields — every object may declare where it sits in the location tree.
     # `parent` is a slug (or [[wikilink]] — brackets stripped client-side).
     # `position` is a grid cell label (e.g. "A1", "3,5") meaningful when the parent has a `grid`.
@@ -197,8 +204,17 @@ def build_index():
                         entry["mtime"] = mt
                     index.append(entry)
 
+    # PyYAML parses unquoted YYYY-MM-DD values as datetime.date (and
+    # likewise for times). Coerce to ISO strings so json.dump doesn't
+    # blow up on migrated frontmatter that omits quotes around dates.
+    def _json_default(o):
+        from datetime import date, datetime, time
+        if isinstance(o, (datetime, date, time)):
+            return o.isoformat()
+        raise TypeError(f"Object of type {o.__class__.__name__} is not JSON serializable")
+
     with open(OUTPUT, "w") as f:
-        json.dump(index, f, indent=2)
+        json.dump(index, f, indent=2, default=_json_default)
 
     print(f"Built object index: {len(index)} entries -> {OUTPUT.relative_to(ROOT)}")
 
@@ -276,8 +292,14 @@ def build_link_index():
             seen_pairs.add(pair)
             edges.append({"source": source_slug, "target": target_slug})
 
+    def _json_default(o):
+        from datetime import date, datetime, time
+        if isinstance(o, (datetime, date, time)):
+            return o.isoformat()
+        raise TypeError(f"Object of type {o.__class__.__name__} is not JSON serializable")
+
     with open(LINK_OUTPUT, "w") as f:
-        json.dump(edges, f, indent=2)
+        json.dump(edges, f, indent=2, default=_json_default)
     print(f"Built link index: {len(edges)} edges -> {LINK_OUTPUT.relative_to(ROOT)}")
 
 

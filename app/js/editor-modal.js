@@ -1802,9 +1802,16 @@
   }
 
   function renderBacklinksPane(backlinks) {
-    // Split instances (bottles/tubes/containers with of: matching this concept) from other backlinks
-    var instances = backlinks.filter(function(b) { return b.type === 'bottle' || b.isInstance; });
-    var others = backlinks.filter(function(b) { return b.type !== 'bottle' && !b.isInstance; });
+    // Split instances from other references. An entry is an "instance":
+    //   • bottle (R5 reagent/stock physical record), OR
+    //   • carried `of:` pointing at this concept (isInstance flag), OR
+    //   • R19: sample / extraction / library / pool / tube (physical records
+    //     under an accession — these often link via body wikilinks rather
+    //     than `of:`, especially the legacy tubes that predate the `of:`
+    //     convention, so we classify them by type too).
+    var INSTANCE_TYPES = { bottle: 1, sample: 1, extraction: 1, library: 1, pool: 1, tube: 1 };
+    var instances = backlinks.filter(function(b) { return INSTANCE_TYPES[b.type] || b.isInstance; });
+    var others    = backlinks.filter(function(b) { return !INSTANCE_TYPES[b.type] && !b.isInstance; });
 
     var html = '';
 
@@ -4334,8 +4341,18 @@
     _addInstance: addInstanceFromConcept,
   };
 
-  // Create a new bottle/instance from a concept item.
-  // Pre-fills `of:` with the concept slug and opens the new object in the editor.
+  // Create a new instance record from a concept item.
+  //
+  // Concept → default instance type mapping:
+  //   • reagent / chemical / buffer / consumable / …  → bottle   (R5)
+  //   • accession                                      → sample   (R19)  but
+  //     prompt for sample/extraction/library/pool so the user can pick the
+  //     right physical record — all four are legal children of an accession.
+  //
+  // The new file lands alongside its concept's group (bottles under
+  // docs/stocks/, accession instances under docs/accessions/) and gets
+  // `of:` pre-filled so it shows up in the concept's instance pane on
+  // next open.
   async function addInstanceFromConcept(conceptSlug) {
     if (!conceptSlug) return;
     var conceptEntry = null;
@@ -4346,30 +4363,56 @@
       });
     }
     var conceptTitle = (conceptEntry && conceptEntry.title) || conceptSlug.split('/').pop();
-    var slug = 'stocks/bottle-' + conceptSlug.split('/').pop() + '-' + Math.random().toString(36).slice(2, 10);
+    var conceptType  = conceptEntry && conceptEntry.type;
+
+    var instanceType = 'bottle';
+    var instanceDir = 'stocks';
+    var filePrefix = 'bottle-';
+
+    if (conceptType === 'accession') {
+      // Ask which kind of physical record. Default to 'sample' since a leaf
+      // collection is the earliest point in the pipeline.
+      var pick = await Lab.modal.form({
+        title: 'New instance of ' + conceptTitle,
+        message: 'Pick the kind of physical record to create under this accession.',
+        fields: [
+          { key: 'kind', label: 'Kind', type: 'select', default: 'sample', options: [
+            { value: 'sample',     label: '🌿  Sample (leaf / tissue / seed collection)' },
+            { value: 'extraction', label: '🧪  Extraction (DNA / RNA)' },
+            { value: 'library',    label: '📖  Library (sequencing prep)' },
+            { value: 'pool',       label: '🔀  Pool (multiplexed libraries)' },
+          ] },
+        ],
+        submitText: 'Create',
+      });
+      if (!pick) return;
+      instanceType = pick.kind;
+      instanceDir = 'accessions';
+      filePrefix = pick.kind + '-';
+    }
+
+    var shortConcept = conceptSlug.split('/').pop();
+    var slug = instanceDir + '/' + filePrefix + shortConcept + '-' + Math.random().toString(36).slice(2, 8);
+    var path = 'docs/' + slug + '.md';
     var content = Lab.buildFrontmatter({
-      type: 'bottle',
+      type: instanceType,
       title: conceptTitle,
       of: conceptSlug,
     }, '\n# ' + conceptTitle + '\n');
     try {
-      var path = 'docs/' + slug + '.md';
-      var saveResult = await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
-      Lab.gh.patchObjectIndex(path, { type: 'bottle', title: conceptTitle, of: conceptSlug });
+      await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
+      Lab.gh.patchObjectIndex(path, { type: instanceType, title: conceptTitle, of: conceptSlug });
       if (Lab.hierarchy) Lab.hierarchy.invalidate();
       window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: path } }));
-      // Open the new instance directly in edit mode
       await openPopup(path);
-      // Small delay to let the popup render, then enter edit mode
       setTimeout(function() {
         startEditing();
-        // Focus the parent field so the user knows to set a location
         setTimeout(function() {
           var parentInput = document.querySelector('.em-field-input[data-key="parent"]');
           if (parentInput) parentInput.focus();
         }, 500);
       }, 300);
-      if (Lab.showToast) Lab.showToast('Created — set a location and quantity', 'success');
+      if (Lab.showToast) Lab.showToast('Created — fill in the details', 'success');
     } catch(e) {
       if (Lab.showToast) Lab.showToast('Failed: ' + e.message, 'error');
     }

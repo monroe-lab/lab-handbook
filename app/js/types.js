@@ -266,24 +266,131 @@
       displayFields: ['contents', 'physical_state', 'location', 'hazard_class', 'status', 'started', 'waste_tag'],
       tableColumns: ['name', 'contents', 'location', 'status', 'started'],
     },
-    sample: {
+    // R19 schema overhaul: samples.json migrated to first-class `accession`
+    // markdown objects. An accession is the CONCEPT (a tree, an MA line, a
+    // genotype) — the tracker row. Physical records attach as instances via
+    // `of: [[accessions/<slug>]]`:
+    //   • `sample`     — a tissue collection (leaf, seed packet, root)
+    //   • `extraction` — DNA/RNA extraction from the accession
+    //   • `library`    — prepped sequencing library
+    //   • `pool`       — multiplexed pool of libraries
+    //   • `tube`       — stays generic, may point `of:` at an accession
+    // Status stays on the accession (rolled-up pipeline state); instances
+    // are lightweight physical snapshots without their own pipeline vocab.
+    accession: {
       color: '#7c3aed',
-      icon: 'fa:fa-solid fa-vial',
-      label: 'Sample',
-      group: 'lab',
+      icon: 'fa:fa-solid fa-fingerprint',
+      label: 'Accession',
+      group: 'accessions',
       fields: [
-        { key: 'title',           label: 'Name',            type: 'text', required: true },
-        { key: 'type',            label: 'Type',            type: 'hidden', value: 'sample' },
-        { key: 'sample_id',       label: 'Sample ID',       type: 'text' },
-        { key: 'species',         label: 'Species',         type: 'text' },
-        { key: 'project',         label: 'Project',         type: 'text' },
-        { key: 'lead',            label: 'Lead',            type: 'text' },
-        { key: 'sequencing_type', label: 'Sequencing Type', type: 'select', options: ['HiFi','Illumina','Nanopore','Other'] },
-        { key: 'status',          label: 'Status',          type: 'select', options: ['active','sequenced','extracted','archived'] },
-        // Notes removed (R3 feedback) — markdown body is the freeform area.
+        { key: 'title',              label: 'Name',              type: 'text', required: true },
+        { key: 'type',               label: 'Type',              type: 'hidden', value: 'accession' },
+        { key: 'accession_id',       label: 'Accession ID',      type: 'text', placeholder: 'e.g. R2_B4_C1, PIST-4, MA-1-G7' },
+        { key: 'species',            label: 'Species',           type: 'text' },
+        { key: 'project',            label: 'Project',           type: 'text' },
+        { key: 'lead',               label: 'Lead',              type: 'text' },
+        { key: 'sequencing_type',    label: 'Sequencing Type',   type: 'select', options: ['HiFi','WGS','RNA-seq','EM-seq','Hi-C','Illumina WGS','CUT&Tag','CUT&RUN','Other'] },
+        { key: 'status',             label: 'Status',            type: 'select', options: ['Not yet received','Tissue available','Tissue collected','DNA extracted','Needs QC','QC passed','Shearing','Library prep','Ready to submit','Submitted','Sequencing in progress','Data received','Complete','On hold'] },
+        { key: 'priority',           label: 'Priority',          type: 'select', options: ['','⭐','🌾','💎'] },
+        { key: 'current_blocker',    label: 'Current Blocker',   type: 'text', placeholder: 'e.g. Waiting for QC results' },
+        { key: 'detail_sheet_link',  label: 'Detail Sheet Link', type: 'text', placeholder: 'https://docs.google.com/…' },
+        { key: 'last_updated',       label: 'Last Updated',      type: 'text', placeholder: 'YYYY-MM-DD' },
       ],
-      displayFields: ['sample_id', 'species', 'project', 'lead', 'sequencing_type', 'status'],
-      tableColumns: ['name', 'sample_id', 'species', 'status', 'project'],
+      displayFields: ['accession_id', 'species', 'project', 'lead', 'sequencing_type', 'status', 'priority', 'current_blocker'],
+      tableColumns: ['name', 'accession_id', 'species', 'project', 'status', 'last_updated'],
+    },
+    sample: {
+      // A tissue collection — the physical leaf/root/seed material, distinct
+      // from the tube it's stored in. Points at its accession via `of:`.
+      color: '#43a047',
+      icon: 'fa:fa-solid fa-leaf',
+      label: 'Sample',
+      group: 'accessions',
+      fields: [
+        { key: 'title',            label: 'Name',                 type: 'text', required: true },
+        { key: 'type',             label: 'Type',                 type: 'hidden', value: 'sample' },
+        { key: 'of',               label: 'Of (accession slug)',  type: 'text', placeholder: 'e.g. accessions/pistachio-4' },
+        { key: 'tissue_type',      label: 'Tissue Type',          type: 'select', options: ['leaf','root','seed','stem','flower','fruit','shoot','callus','other'] },
+        { key: 'collection_date',  label: 'Collection Date',      type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'collected_by',     label: 'Collected By',         type: 'text' },
+        { key: 'parent',           label: 'Parent',               type: 'text', placeholder: 'slug of parent location' },
+        { key: 'position',         label: 'Position in parent',   type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
+        { key: 'label_1',          label: 'Label 1 (full)',       type: 'textarea' },
+        { key: 'label_2',          label: 'Label 2 (grid cell)',  type: 'textarea' },
+      ],
+      displayFields: ['of', 'tissue_type', 'collection_date', 'collected_by', 'parent'],
+      tableColumns: ['name', 'of', 'tissue_type', 'collection_date', 'parent'],
+    },
+    extraction: {
+      // A DNA or RNA extraction from an accession. Tracks yield/quality so
+      // the accession row can surface which extractions are usable.
+      color: '#fb8c00',
+      icon: 'fa:fa-solid fa-flask-vial',
+      label: 'Extraction',
+      group: 'accessions',
+      fields: [
+        { key: 'title',              label: 'Name',                 type: 'text', required: true },
+        { key: 'type',               label: 'Type',                 type: 'hidden', value: 'extraction' },
+        { key: 'of',                 label: 'Of (accession slug)',  type: 'text', placeholder: 'e.g. accessions/pistachio-4' },
+        { key: 'extraction_type',    label: 'Extraction Type',      type: 'select', options: ['DNA','RNA','DNA+RNA','protein','other'] },
+        { key: 'extraction_method',  label: 'Method',               type: 'text', placeholder: 'e.g. CTAB, Qiagen DNeasy, Sorbitol/CTAB HiFi' },
+        { key: 'date',               label: 'Date',                 type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'concentration',      label: 'Concentration',        type: 'text', placeholder: 'e.g. 85 ng/µL' },
+        { key: 'volume',             label: 'Volume',               type: 'text', placeholder: 'e.g. 50 µL' },
+        { key: 'quality_score',      label: 'Quality',              type: 'text', placeholder: 'e.g. GQN 8.9, 260/280 = 1.85' },
+        { key: 'parent',             label: 'Parent',               type: 'text' },
+        { key: 'position',           label: 'Position in parent',   type: 'text' },
+        { key: 'label_1',            label: 'Label 1 (full)',       type: 'textarea' },
+        { key: 'label_2',            label: 'Label 2 (grid cell)',  type: 'textarea' },
+      ],
+      displayFields: ['of', 'extraction_type', 'extraction_method', 'date', 'concentration', 'volume', 'quality_score', 'parent'],
+      tableColumns: ['name', 'of', 'extraction_type', 'date', 'concentration', 'parent'],
+    },
+    library: {
+      // Sequencing library prepped from an extraction (or from the accession
+      // directly if the prep skips a separate extraction record). Tracks
+      // insert size and molarity for pooling decisions.
+      color: '#00897b',
+      icon: 'fa:fa-solid fa-book',
+      label: 'Library',
+      group: 'accessions',
+      fields: [
+        { key: 'title',          label: 'Name',                 type: 'text', required: true },
+        { key: 'type',           label: 'Type',                 type: 'hidden', value: 'library' },
+        { key: 'of',             label: 'Of (accession slug)',  type: 'text', placeholder: 'e.g. accessions/pistachio-4' },
+        { key: 'prep_kit',       label: 'Prep Kit',             type: 'text', placeholder: 'e.g. SMRTbell prep kit 3.0' },
+        { key: 'date',           label: 'Date',                 type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'insert_size',    label: 'Insert Size',          type: 'text', placeholder: 'e.g. 15 kb' },
+        { key: 'molarity',       label: 'Molarity',             type: 'text', placeholder: 'e.g. 20 nM' },
+        { key: 'parent',         label: 'Parent',               type: 'text' },
+        { key: 'position',       label: 'Position in parent',   type: 'text' },
+        { key: 'label_1',        label: 'Label 1 (full)',       type: 'textarea' },
+        { key: 'label_2',        label: 'Label 2 (grid cell)',  type: 'textarea' },
+      ],
+      displayFields: ['of', 'prep_kit', 'date', 'insert_size', 'molarity', 'parent'],
+      tableColumns: ['name', 'of', 'prep_kit', 'date', 'insert_size', 'parent'],
+    },
+    pool: {
+      // Multiplexed pool of libraries. `of` may point at an accession (the
+      // common case — one accession being sequenced across a pool) or be
+      // left blank for cross-accession pools (plate-level multiplex).
+      color: '#3949ab',
+      icon: 'fa:fa-solid fa-diagram-project',
+      label: 'Pool',
+      group: 'accessions',
+      fields: [
+        { key: 'title',      label: 'Name',                 type: 'text', required: true },
+        { key: 'type',       label: 'Type',                 type: 'hidden', value: 'pool' },
+        { key: 'of',         label: 'Of (accession slug)',  type: 'text', placeholder: 'e.g. accessions/pistachio-4' },
+        { key: 'pool_date',  label: 'Pool Date',            type: 'text', placeholder: 'YYYY-MM-DD' },
+        { key: 'molarity',   label: 'Molarity',             type: 'text', placeholder: 'e.g. 10 nM' },
+        { key: 'parent',     label: 'Parent',               type: 'text' },
+        { key: 'position',   label: 'Position in parent',   type: 'text' },
+        { key: 'label_1',    label: 'Label 1 (full)',       type: 'textarea' },
+        { key: 'label_2',    label: 'Label 2 (grid cell)',  type: 'textarea' },
+      ],
+      displayFields: ['of', 'pool_date', 'molarity', 'parent'],
+      tableColumns: ['name', 'of', 'pool_date', 'molarity', 'parent'],
     },
     guide: {
       color: '#0277bd',
@@ -375,7 +482,7 @@
       fields: [
         { key: 'title',    label: 'Name',                        type: 'text', required: true },
         { key: 'type',     label: 'Type',                        type: 'hidden', value: 'tube' },
-        { key: 'of',       label: 'Of (concept slug)',           type: 'text', placeholder: 'e.g. samples/mcclintock-leaf-a' },
+        { key: 'of',       label: 'Of (concept slug)',           type: 'text', placeholder: 'e.g. accessions/pistachio-4 or resources/ethanol-absolute' },
         { key: 'parent',   label: 'Parent',                      type: 'text' },
         { key: 'position', label: 'Position in parent',          type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
         { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
@@ -464,13 +571,13 @@
       dir: 'projects',
       defaultType: 'project',
     },
-    lab: {
-      label: 'Samples',
-      icon: 'biotech',
+    accessions: {
+      label: 'Accessions',
+      icon: 'fingerprint',
       color: '#7c3aed',
-      types: ['sample'],
-      dir: 'samples',
-      defaultType: 'sample',
+      types: ['accession', 'sample', 'extraction', 'library', 'pool'],
+      dir: 'accessions',
+      defaultType: 'accession',
     },
     waste: {
       label: 'Waste',
@@ -583,6 +690,10 @@
     if (t.group === 'locations') return false;
     // R5 bottles are explicit instances.
     if (typeName === 'bottle') return false;
+    // R19: sample / extraction / library / pool are physical records under
+    // an accession. They live in the 'accessions' group alongside the
+    // concept type `accession` itself, but they are instances, not concepts.
+    if (typeName === 'sample' || typeName === 'extraction' || typeName === 'library' || typeName === 'pool') return false;
     // Stock types (seed, plasmid, etc.) historically represented physical
     // instances; do not enforce concept uniqueness on them. (When/if we
     // promote them to a concept/instance split like R5 did for reagents,

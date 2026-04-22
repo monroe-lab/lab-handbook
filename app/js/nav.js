@@ -13,7 +13,7 @@
     { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
     { label: 'People',    href: BASE + 'app/people.html',      icon: 'people' },
     { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
-    { label: 'Samples',   href: BASE + 'sample-tracker/',      icon: 'biotech' },
+    { label: 'Accessions', href: BASE + 'app/accessions.html', icon: 'fingerprint' },
     { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
     { label: 'Calendar',  href: BASE + 'app/calendar.html',    icon: 'calendar_month' },
     { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
@@ -29,7 +29,7 @@
     var path = location.pathname;
     if (path.includes('/dashboard'))      return 'Home';
     if (path.includes('/projects'))       return 'Projects';
-    if (path.includes('/sample-tracker')) return 'Samples';
+    if (path.includes('/accessions') || path.includes('/sample-tracker')) return 'Accessions';
     if (path.includes('/notebook'))       return 'Notebooks';
     if (path.includes('/calendar'))       return 'Calendar';
     if (path.includes('/protocols'))      return 'Protocols';

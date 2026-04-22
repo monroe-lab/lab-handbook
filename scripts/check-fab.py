@@ -24,6 +24,8 @@ EXEMPT = {
     Path('app/index.html'),
     Path('docs/calendar/index.html'),
     Path('docs/notebook-app/index.html'),
+    # R19: old /sample-tracker/ is now a redirect to /app/accessions.html.
+    Path('docs/sample-tracker/index.html'),
 }
 
 

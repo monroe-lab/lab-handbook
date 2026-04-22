@@ -10,7 +10,7 @@ notes: "Leaf tissue, flash-frozen in liquid N2 at collection."
 
 # Pistachio Leaf 1
 
-Frozen leaf tissue from [[samples/sample-pistachio-4]], collected 2026-04-01.
+Frozen leaf tissue from [[accessions/pistachio-4]], collected 2026-04-01.
 
 Stored in [[locations/box-pistachio-dna]] position A1. DNA extracted from this
 tube lives in [[locations/tube-pistachio-dna-extract-1]] (a fridge box across
