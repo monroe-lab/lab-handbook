@@ -56,6 +56,24 @@
 .acc-stats button.stat-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
 .acc-stats button.stat-card:active { transform: translateY(1px); }
 
+/* #169: Orientation banner so new lab members understand what an
+   accession is before they try to use the tracker. */
+.framework-banner {
+  margin: 12px 24px 0;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid var(--grey-200);
+  border-left: 3px solid #7c3aed;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--grey-700);
+  line-height: 1.55;
+}
+.framework-banner strong { color: var(--grey-900); }
+.framework-banner .instance-icons { color: var(--grey-600); white-space: nowrap; }
+.framework-banner a { color: #7c3aed; text-decoration: none; font-weight: 500; }
+.framework-banner a:hover { text-decoration: underline; }
+
 .acc-table-wrap { padding: 0 24px 16px; }
 .acc-table-wrap td { padding: 4px 10px; font-size: 13px; vertical-align: middle; }
 .acc-table-wrap th { padding: 6px 10px; font-size: 11px; }
@@ -132,6 +150,10 @@
 </head>
 <body>
 <div class="acc-page">
+
+  <div class="framework-banner">
+    <strong>What's an accession?</strong> The general concept of a thing — a particular tree, a genotype, a cell line, an MA line. Accessions have physical <strong>instances</strong>: <span class="instance-icons">🌿 samples (tissue collections), 🧪 extractions, 📖 libraries, 🔀 pools</span> — each with its own storage location. Track the concept here; link it from notebooks and protocols. For "where is this physically stored?" use the <a href="lab-map.html">Lab Map</a>.
+  </div>
 
   <div class="acc-toolbar">
     <div class="search-box">
