@@ -2,14 +2,16 @@
 type: accession
 title: pt_short_71
 accession_id: pt_short_71
-species: Pistacia
 project: Pistachio Short-Read WGS
-lead: Grey Monroe
+people: Grey Monroe
+species: Pistacia
+status: waiting
+status_note: Not yet received
+priority: '1'
 sequencing_type: Illumina WGS
-status: Not yet received
-priority: 🌾
 legacy_sample_tracker_id: 77
 ---
+
 # pt_short_71
 
 Planned collection March 2026. Davis field site.

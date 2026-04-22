@@ -1,11 +1,12 @@
 ---
-type: chemical
+type: reagent
 title: Sucrose
-need_more: false
-updated_at: '2026-04-07T16:55:31.489Z'
 created_at: '2026-04-07T16:55:31.489Z'
+updated_at: '2026-04-07T16:55:31.489Z'
 created_by: greymonroe
+need_more: false
 ---
+
 # Sucrose
 
 > ℹ️ **Chemistry**

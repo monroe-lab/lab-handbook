@@ -1,6 +1,6 @@
 ---
 type: reagent
-title: RNase aliquot
+title: RNase
 ---
 
 # RNase aliquot

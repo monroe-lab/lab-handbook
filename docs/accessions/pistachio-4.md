@@ -1,13 +1,15 @@
 ---
 type: accession
-title: "Pistachio Tree #4"
-accession_id: "PIST-4"
-species: "Pistacia vera"
-project: "Pistachio Genomics"
-lead: "J. Freckles"
-sequencing_type: "HiFi"
-status: "extracted"
-notes: "Wild pistachio, site X cultivar Y, selected for HiFi sequencing 2026."
+title: 'Pistachio Tree #4'
+accession_id: PIST-4
+project: Pistachio Genomics
+people: J. Freckles
+species: Pistacia vera
+status: active
+status_note: extracted
+priority: '0'
+sequencing_type: HiFi
+notes: Wild pistachio, site X cultivar Y, selected for HiFi sequencing 2026.
 ---
 
 # Pistachio Tree #4

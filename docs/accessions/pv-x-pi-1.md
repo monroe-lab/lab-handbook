@@ -2,13 +2,16 @@
 type: accession
 title: Pv_x_Pi_1
 accession_id: Pv_x_Pi_1
-species: Pistacia vera x integerrima
 project: Pistachio Hybrids
-lead: Grey Monroe
+people: Grey Monroe
+species: Pistacia vera x integerrima
+status: waiting
+status_note: Not yet received
+priority: '0'
 sequencing_type: Illumina WGS
-status: Not yet received
 legacy_sample_tracker_id: 41
 ---
+
 # Pv_x_Pi_1
 
 Low chill hybrid. Bakersfield.

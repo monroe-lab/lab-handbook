@@ -108,53 +108,46 @@
       displayFields: null,
       tableColumns: null,
     },
+    // R20 (#157, #161): seed/plasmid/glycerol_stock/agro_strain/dna_prep
+    // retained as DEPRECATED aliases so legacy files keep rendering during
+    // the migration window. Their `group` is now 'accessions' so the
+    // inventory page filter excludes them. `scripts/migrate-accession-
+    // schema.py --apply` converts existing files to `type: accession`
+    // with the old type preserved as `legacy_stock_type` in frontmatter.
+    // Once migration is run on the live repo, these definitions can be
+    // deleted outright.
     seed: {
       color: '#558b2f',
       icon: 'fa:fa-solid fa-seedling',
-      label: 'Seed Stock',
-      group: 'stocks',
-      fields: [
-        { key: 'title',      label: 'Name',     type: 'text', required: true },
-        { key: 'type',       label: 'Type',     type: 'hidden', value: 'seed' },
-        { key: 'organism',   label: 'Organism',  type: 'text' },
-        { key: 'stock_type', label: 'Stock Type', type: 'hidden', value: 'seed' },
-        { key: 'location',   label: 'Location', type: 'text' },
-        { key: 'source',     label: 'Source',    type: 'text' },
-      ],
-      displayFields: ['organism', 'location', 'source', 'notes'],
-      tableColumns: ['name', 'type', 'location', 'notes'],
+      label: 'Seed Stock (legacy)',
+      group: 'accessions',
+      fields: null, // inherits from accession
+      displayFields: null,
+      tableColumns: null,
     },
     glycerol_stock: {
       color: '#4527a0',
       icon: 'fa:fa-solid fa-snowflake',
-      label: 'Glycerol Stock',
-      group: 'stocks',
-      fields: [
-        { key: 'title',      label: 'Name',     type: 'text', required: true },
-        { key: 'type',       label: 'Type',     type: 'hidden', value: 'glycerol_stock' },
-        { key: 'organism',   label: 'Organism',  type: 'text' },
-        { key: 'stock_type', label: 'Stock Type', type: 'hidden', value: 'glycerol_stock' },
-        { key: 'location',   label: 'Location', type: 'text' },
-        { key: 'source',     label: 'Source',    type: 'text' },
-        { key: 'status',     label: 'Status',    type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
-      ],
-      displayFields: ['status', 'organism', 'location', 'source', 'notes'],
-      tableColumns: ['name', 'type', 'status', 'location', 'notes'],
+      label: 'Glycerol Stock (legacy)',
+      group: 'accessions',
+      fields: null,
+      displayFields: null,
+      tableColumns: null,
     },
     plasmid: {
       color: '#ad1457',
       icon: 'fa:fa-solid fa-circle-nodes',
-      label: 'Plasmid',
-      group: 'stocks',
-      fields: null, // inherits from seed
+      label: 'Plasmid (legacy)',
+      group: 'accessions',
+      fields: null,
       displayFields: null,
       tableColumns: null,
     },
     agro_strain: {
       color: '#558b2f',
       icon: 'fa:fa-solid fa-bacterium',
-      label: 'Agro Strain',
-      group: 'stocks',
+      label: 'Agro Strain (legacy)',
+      group: 'accessions',
       fields: null,
       displayFields: null,
       tableColumns: null,
@@ -162,8 +155,8 @@
     dna_prep: {
       color: '#0277bd',
       icon: 'fa:fa-solid fa-dna',
-      label: 'DNA Prep',
-      group: 'stocks',
+      label: 'DNA Prep (legacy)',
+      group: 'accessions',
       fields: null,
       displayFields: null,
       tableColumns: null,
@@ -278,6 +271,15 @@
     // Status stays on the accession (rolled-up pipeline state); instances
     // are lightweight physical snapshots without their own pipeline vocab.
     accession: {
+      // R20 (#160, #161): generalized schema. An accession is any tracked
+      // biological concept — sequencing sample, mutation accumulation line,
+      // seed stock, plasmid, glycerol stock, Col-0 wild type, a specific tree.
+      // Species is optional (some things aren't species-keyed). `people` is a
+      // wikilink-taggable multi-person field (was `lead`). Sequencing type
+      // stays as an optional meta tag, not a primary column. Status is four
+      // broad buckets + a free-text status_note for specifics. Priority is
+      // 0-3 stars instead of emoji — see migrate-accession-schema.py for
+      // the data migration.
       color: '#7c3aed',
       icon: 'fa:fa-solid fa-fingerprint',
       label: 'Accession',
@@ -285,19 +287,19 @@
       fields: [
         { key: 'title',              label: 'Name',              type: 'text', required: true },
         { key: 'type',               label: 'Type',              type: 'hidden', value: 'accession' },
-        { key: 'accession_id',       label: 'Accession ID',      type: 'text', placeholder: 'e.g. R2_B4_C1, PIST-4, MA-1-G7' },
-        { key: 'species',            label: 'Species',           type: 'text' },
-        { key: 'project',            label: 'Project',           type: 'text' },
-        { key: 'lead',               label: 'Lead',              type: 'text' },
-        { key: 'sequencing_type',    label: 'Sequencing Type',   type: 'select', options: ['HiFi','WGS','RNA-seq','EM-seq','Hi-C','Illumina WGS','CUT&Tag','CUT&RUN','Other'] },
-        { key: 'status',             label: 'Status',            type: 'select', options: ['Not yet received','Tissue available','Tissue collected','DNA extracted','Needs QC','QC passed','Shearing','Library prep','Ready to submit','Submitted','Sequencing in progress','Data received','Complete','On hold'] },
-        { key: 'priority',           label: 'Priority',          type: 'select', options: ['','⭐','🌾','💎'] },
-        { key: 'current_blocker',    label: 'Current Blocker',   type: 'text', placeholder: 'e.g. Waiting for QC results' },
+        { key: 'accession_id',       label: 'Accession ID',      type: 'text', placeholder: 'e.g. R2_B4_C1, PIST-4, MA-1-G7, Col-0' },
+        { key: 'project',            label: 'Project',           type: 'text', placeholder: 'e.g. PBTS, MA Lines (autocompletes from existing projects)' },
+        { key: 'people',             label: 'People',            type: 'text', placeholder: '[[name1]], [[name2]] — wikilinks to person cards' },
+        { key: 'species',            label: 'Species',           type: 'text', placeholder: 'Optional' },
+        { key: 'status',             label: 'Status',            type: 'select', options: ['active','waiting','completed','archived'], default: 'active' },
+        { key: 'status_note',        label: 'Status note',       type: 'text', placeholder: 'e.g. Waiting on QC at Genome Center; Planted 2026-03-24' },
+        { key: 'priority',           label: 'Priority (stars)',  type: 'select', options: ['0','1','2','3'], default: '0' },
+        { key: 'sequencing_type',    label: 'Sequencing Type',   type: 'text', placeholder: 'Optional — HiFi, Illumina WGS, RNA-seq, etc.' },
         { key: 'detail_sheet_link',  label: 'Detail Sheet Link', type: 'text', placeholder: 'https://docs.google.com/…' },
         { key: 'last_updated',       label: 'Last Updated',      type: 'text', placeholder: 'YYYY-MM-DD' },
       ],
-      displayFields: ['accession_id', 'species', 'project', 'lead', 'sequencing_type', 'status', 'priority', 'current_blocker'],
-      tableColumns: ['name', 'accession_id', 'species', 'project', 'status', 'last_updated'],
+      displayFields: ['accession_id', 'project', 'people', 'species', 'status', 'status_note', 'priority', 'sequencing_type'],
+      tableColumns: ['name', 'accession_id', 'project', 'people', 'status', 'priority', 'last_updated'],
     },
     sample: {
       // A tissue collection — the physical leaf/root/seed material, distinct
@@ -634,8 +636,11 @@
     // Inherit from reagent for resource types, seed for stock types,
     // freezer for location types (all location types share the same schema).
     if (t.group === 'resources') return TYPES.reagent.fields;
-    if (t.group === 'stocks') return TYPES.seed.fields;
+    if (t.group === 'stocks') return TYPES.bottle.fields;
     if (t.group === 'locations') return TYPES.freezer.fields;
+    // R20: legacy stock types (seed/plasmid/etc.) now inherit the accession
+    // schema so edits show the right fields while we migrate file types.
+    if (t.group === 'accessions') return TYPES.accession.fields;
     return [];
   }
 
@@ -645,8 +650,9 @@
     if (!t) return [];
     if (t.displayFields) return t.displayFields;
     if (t.group === 'resources') return TYPES.reagent.displayFields;
-    if (t.group === 'stocks') return TYPES.seed.displayFields;
+    if (t.group === 'stocks') return TYPES.bottle.displayFields;
     if (t.group === 'locations') return TYPES.freezer.displayFields;
+    if (t.group === 'accessions') return TYPES.accession.displayFields;
     return [];
   }
 

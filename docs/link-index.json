@@ -1,5 +1,41 @@
 [
   {
+    "source": "accessions/bl21-de3-competent-cells",
+    "target": "wet-lab/mutagenesis/protein-induction-bl21"
+  },
+  {
+    "source": "accessions/bl21-de3-competent-cells",
+    "target": "resources/kanamycin-sulfate"
+  },
+  {
+    "source": "accessions/bl21-de3-competent-cells",
+    "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/planting-in-soil"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "accessions/col-0-wild-type",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
     "source": "accessions/pistachio-4",
     "target": "locations/tube-pistachio-leaf-1"
   },
@@ -429,11 +465,11 @@
   },
   {
     "source": "lab-safety/protocol-template",
-    "target": "stocks/col-0-wild-type"
+    "target": "accessions/col-0-wild-type"
   },
   {
     "source": "lab-safety/protocol-template",
-    "target": "stocks/bl21-de3-competent-cells"
+    "target": "accessions/bl21-de3-competent-cells"
   },
   {
     "source": "lab-safety/protocol-template",
@@ -682,10 +718,6 @@
   {
     "source": "notebooks/barb-m/1950-06-15",
     "target": "locations/tube-pistachio-leaf-1"
-  },
-  {
-    "source": "notebooks/grey-monroe/ma-experiment/2026-04-08",
-    "target": "stocks/col-0-wild-type"
   },
   {
     "source": "notebooks/vianney-ahn/2026-04-21",
@@ -973,10 +1005,6 @@
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
-    "target": "resources/rnase-aliquot"
-  },
-  {
-    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
     "target": "resources/sigma-proteinase-k"
   },
   {
@@ -1117,7 +1145,7 @@
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
-    "target": "stocks/bl21-de3-competent-cells"
+    "target": "accessions/bl21-de3-competent-cells"
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
@@ -1237,7 +1265,7 @@
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/index",
-    "target": "stocks/bl21-de3-competent-cells"
+    "target": "accessions/bl21-de3-competent-cells"
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/index",
@@ -1992,18 +2020,6 @@
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "stocks/bl21-de3-competent-cells",
-    "target": "wet-lab/mutagenesis/protein-induction-bl21"
-  },
-  {
-    "source": "stocks/bl21-de3-competent-cells",
-    "target": "resources/kanamycin-sulfate"
-  },
-  {
-    "source": "stocks/bl21-de3-competent-cells",
-    "target": "resources/chloramphenicol"
-  },
-  {
     "source": "stocks/bottle-1-8-naphthalic-anhydride",
     "target": "resources/1-8-naphthalic-anhydride"
   },
@@ -2209,10 +2225,6 @@
   },
   {
     "source": "stocks/bottle-ethanol-70-1",
-    "target": "resources/ethanol-70"
-  },
-  {
-    "source": "stocks/bottle-ethanol-70-2",
     "target": "resources/ethanol-70"
   },
   {
@@ -2572,14 +2584,6 @@
     "target": "resources/tc-agar-a175"
   },
   {
-    "source": "stocks/bottle-test-item-mobile",
-    "target": "resources/test-item-mobile"
-  },
-  {
-    "source": "stocks/bottle-test-item",
-    "target": "resources/test-item"
-  },
-  {
     "source": "stocks/bottle-tetracycline-hydrochloride",
     "target": "resources/tetracycline-hydrochloride"
   },
@@ -2626,30 +2630,6 @@
   {
     "source": "stocks/bottle-zeocin",
     "target": "resources/zeocin"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/seed-sterilization"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/stratification"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/planting-in-soil"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/quick-dna-extraction"
-  },
-  {
-    "source": "stocks/col-0-wild-type",
-    "target": "wet-lab/pcr-genotyping"
   },
   {
     "source": "waste/bme-chloroform-phenol-waste",
@@ -2969,10 +2949,6 @@
   },
   {
     "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/rnase-aliquot"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
     "target": "resources/sodium-chloride"
   },
   {
@@ -3102,10 +3078,6 @@
   {
     "source": "wet-lab/epigenomics/chip-seq",
     "target": "resources/pipes-dipotassium-salt"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq",
-    "target": "resources/rnase-aliquot"
   },
   {
     "source": "wet-lab/epigenomics/chip-seq",
@@ -3354,10 +3326,6 @@
   {
     "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
     "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
-    "target": "resources/rnase-aliquot"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
@@ -3818,10 +3786,6 @@
   {
     "source": "wet-lab/extraction/qiagen-dneasy-extraction",
     "target": "resources/dneasy-plant-mini"
-  },
-  {
-    "source": "wet-lab/extraction/qiagen-dneasy-extraction",
-    "target": "resources/rnase-aliquot"
   },
   {
     "source": "wet-lab/extraction/qiagen-dneasy-extraction",

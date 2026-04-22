@@ -1,10 +1,16 @@
 ---
-type: seed
+type: accession
 title: Col-0 Wild Type
+accession_id: Col-0 Wild Type
+species: Arabidopsis thaliana
 organism: Arabidopsis thaliana
+status: active
+priority: '0'
+legacy_stock_type: seed
 stock_type: seed
 source: ABRC
 ---
+
 # Col-0 Wild Type
 
 Standard Columbia-0 wild type reference accession for Arabidopsis thaliana.

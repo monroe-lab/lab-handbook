@@ -413,6 +413,9 @@
     'sample_id', 'species', 'lead', 'sequencing_type', 'project',
     // Accession tracker fields (R19: samples.json migrated to docs/accessions/*.md)
     'accession_id', 'priority', 'current_blocker', 'detail_sheet_link', 'last_updated',
+    // R20: broad status buckets + free-text note, multi-person field,
+    // legacy breadcrumb for promoted biological stocks.
+    'status_note', 'people', 'legacy_stock_type',
     // Instance (sample / extraction / library / pool) fields
     'tissue_type', 'collection_date', 'collected_by',
     'extraction_type', 'extraction_method', 'concentration', 'volume', 'quality_score',
