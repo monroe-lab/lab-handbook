@@ -179,7 +179,7 @@
     "type": "kit",
     "title": "AMPure XP Beads",
     "status": "owned",
-    "mtime": 1775946810
+    "mtime": 1776886031
   },
   {
     "path": "resources/analytical-balance.md",
@@ -229,14 +229,14 @@
     "type": "enzyme",
     "title": "Benzonase Nuclease",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/bio-rad-laemmli-sample-buffer-2x.md",
     "type": "kit",
     "title": "Laemmli Sample Buffer, 2\u00d7",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/bio-rad-mini-protean-tgx-4-20.md",
@@ -257,14 +257,14 @@
     "type": "kit",
     "title": "Precision Plus Protein Standards",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/bio-rad-sds-page-running-buffer.md",
     "type": "kit",
     "title": "SDS-PAGE Running Buffer (Tris/Glycine/SDS)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/bioruptor.md",
@@ -295,14 +295,14 @@
     "type": "kit",
     "title": "Bovine Serum Albumin (50 mg/mL)",
     "status": "needed",
-    "mtime": 1775946810
+    "mtime": 1776886031
   },
   {
     "path": "resources/bradford-reagent.md",
     "type": "kit",
     "title": "Bradford Reagent (Coomassie G-250)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/bromophenol-blue.md",
@@ -490,7 +490,7 @@
     "type": "kit",
     "title": "Sera-Mag SpeedBead Carboxylate-Modified Magnetic Beads",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/d-glucose.md",
@@ -533,7 +533,7 @@
     "type": "enzyme",
     "title": "Diagenode Tagmentase (ME-A/B loaded)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/diethyl-pyrocarbonate.md",
@@ -558,7 +558,7 @@
     "type": "chemical",
     "title": "N,N-Dimethylformamide (DMF), Anhydrous",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/disodium-ethylenediamine-tetraacetate.md",
@@ -574,7 +574,7 @@
     "type": "chemical",
     "title": "DTT (Dithiothreitol)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/dkw-medium-with-vitamins.md",
@@ -589,7 +589,7 @@
     "path": "resources/dna-ladder-1kb-plus.md",
     "type": "kit",
     "title": "1 kb+ Fast DNA Ladder",
-    "mtime": 1775980234
+    "mtime": 1776886031
   },
   {
     "path": "resources/dna-lobind-tubes.md",
@@ -602,7 +602,7 @@
     "path": "resources/dnase.md",
     "type": "enzyme",
     "title": "DNAse",
-    "mtime": 1775946810
+    "mtime": 1776886031
   },
   {
     "path": "resources/dneasy-plant-mini.md",
@@ -667,13 +667,6 @@
     "cas": "64-17-5",
     "legacy_inventory_id": 5,
     "mtime": 1776885361
-  },
-  {
-    "path": "resources/ethyl-alcohol-absolute.md",
-    "type": "reagent",
-    "title": "Ethyl Alcohol Absolute",
-    "legacy_inventory_id": 55,
-    "mtime": 1775946810
   },
   {
     "path": "resources/ethyl-methanesulfonate.md",
@@ -966,7 +959,7 @@
     "type": "chemical",
     "title": "Hydrogen Peroxide 30%",
     "legacy_inventory_id": 7,
-    "mtime": 1775946810
+    "mtime": 1776886031
   },
   {
     "path": "resources/hydroxylamine-hydrochloride.md",
@@ -1019,7 +1012,7 @@
     "type": "enzyme",
     "title": "Illumina Tagment DNA Enzyme (TDE1)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/imidazole-hydrochloride.md",
@@ -1044,7 +1037,7 @@
     "type": "chemical",
     "title": "IPTG (Isopropyl \u03b2-D-1-thiogalactopyranoside)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/iron-iii-chloride.md",
@@ -1130,7 +1123,7 @@
     "type": "kit",
     "title": "Lambda DNA Standard",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/liquid-nitrogen-dewar.md",
@@ -1330,7 +1323,7 @@
     "type": "chemical",
     "title": "MS Basal Salt Mixture",
     "legacy_inventory_id": 1,
-    "mtime": 1775946810
+    "mtime": 1776886031
   },
   {
     "path": "resources/multichannel-pipette.md",
@@ -1369,7 +1362,7 @@
     "type": "enzyme",
     "title": "NEB Q5 HotStart High-Fidelity Polymerase",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/nebnext-companion-module-ont.md",
@@ -1563,7 +1556,7 @@
     "type": "chemical",
     "title": "Polyvinylpolypyrrolidone (PVPP)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/polyvinylpyrrolidone.md",
@@ -1698,14 +1691,15 @@
   {
     "path": "resources/rnase.md",
     "type": "enzyme",
-    "title": "RNase"
+    "title": "RNase",
+    "mtime": 1776886031
   },
   {
     "path": "resources/roche-kapa-hifi-hotstart-readymix.md",
     "type": "kit",
     "title": "KAPA HiFi HotStart ReadyMix",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/roche-kapa-library-quant-kit-qpcr.md",
@@ -1719,14 +1713,14 @@
     "type": "kit",
     "title": "Roche cOmplete Protease Inhibitor Cocktail, EDTA-free",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/sigma-proteinase-k.md",
     "type": "enzyme",
     "title": "Proteinase K (Sigma P2308)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/silwet-l-77.md",
@@ -1931,13 +1925,13 @@
     "created_at": "2026-04-07T16:55:31.489Z",
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:55:31.489Z",
-    "mtime": 1776884182
+    "mtime": 1776886031
   },
   {
     "path": "resources/sybr-gold.md",
     "type": "kit",
     "title": "SYBR Gold",
-    "mtime": 1775980234
+    "mtime": 1776886031
   },
   {
     "path": "resources/syringe-filter-0-2um.md",
@@ -2000,7 +1994,7 @@
     "type": "enzyme",
     "title": "DNase I, RNase-free (Thermo EN0521)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/thermo-pcr-plate-foil-seals.md",
@@ -2033,7 +2027,7 @@
     "type": "enzyme",
     "title": "Unloaded (Blank) Tn5 Transposase",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/top-loading-balance.md",
@@ -2098,7 +2092,7 @@
     "type": "chemical",
     "title": "Tween 20 (Polysorbate 20)",
     "status": "needed",
-    "mtime": 1776870495
+    "mtime": 1776886031
   },
   {
     "path": "resources/tween-80.md",

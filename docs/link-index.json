@@ -373,6 +373,10 @@
   },
   {
     "source": "lab-safety/flammable-liquids-sop",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "lab-safety/flammable-liquids-sop",
     "target": "resources/isopropyl-alcohol"
   },
   {
@@ -381,7 +385,7 @@
   },
   {
     "source": "lab-safety/flammable-liquids-sop",
-    "target": "resources/ethyl-alcohol-absolute"
+    "target": "resources/reagent-alcohol-100-200-proof-denatured"
   },
   {
     "source": "lab-safety/flammable-liquids-sop",
@@ -2262,10 +2266,6 @@
   {
     "source": "stocks/bottle-ethanol-absolute",
     "target": "resources/ethanol-absolute"
-  },
-  {
-    "source": "stocks/bottle-ethyl-alcohol-absolute",
-    "target": "resources/ethyl-alcohol-absolute"
   },
   {
     "source": "stocks/bottle-ethyl-methanesulfonate",

@@ -36,7 +36,7 @@ The classification of flammable liquids impacts the Maximum Allowable Quantity (
 
 Our Lab contains:
 
-**H225** Ethanol, [[isopropyl-alcohol]], [[methanol]], Acetone, [[ethyl-alcohol-absolute]], Reagent Alcohol
+**H225** [[ethanol-absolute|Ethanol]], [[isopropyl-alcohol]], [[methanol]], [[acetone]], [[reagent-alcohol-100-200-proof-denatured|Reagent Alcohol]]
 
 **H226** [[glacial-acetic-acid]], [[3-methylbutanol]], Aceto-Orcein Solution 2%
 
