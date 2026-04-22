@@ -7,6 +7,10 @@
 3. Tell Grey what's open and ask what to tackle, unless he's already told you.
 4. **Don't start coding until the plan is clear.** If Grey filed a specific issue, that's clear. If it's ambiguous, ask.
 
+## Asking Grey questions
+
+Grey strongly prefers multi-choice questions via the `AskUserQuestion` tool UI over prose asks — it's materially faster for him to click than to read and type. Whenever you need to make a decision mid-task and can enumerate 2–4 plausible options, reach for `AskUserQuestion` instead of a bullet-list question. Lead with a "Recommended" option when you have a clear default. Batch up to 4 related questions in a single call so he answers the set at once. Free-text "Other" is auto-provided by the tool. Only fall back to prose questions for genuinely open-ended asks (naming, spec text, narrative).
+
 ## Build & Deploy
 
 - **Always commit and push** every change so the live site matches local. Tests run against the deployed site, not local.
