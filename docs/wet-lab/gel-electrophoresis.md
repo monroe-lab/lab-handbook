@@ -41,9 +41,7 @@ For most genotyping, **1.5% agarose** is the default.
 
 > **Video:** [Gel Electrophoresis (LabXchange, Harvard)](https://www.labxchange.org/library/items/lb:LabXchange:31f14b62:video:1) — Free educational video on gel electrophoresis
 
-![Annotated gel electrophoresis diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Agarose_gel_electrophoresis_of_DNA_with_annotation.png/600px-Agarose_gel_electrophoresis_of_DNA_with_annotation.png)
-
-*Image: [Agarose gel electrophoresis of DNA with annotation.png](https://commons.wikimedia.org/wiki/File:Agarose_gel_electrophoresis_of_DNA_with_annotation.png) — Wikimedia Commons, CC BY-SA 4.0*
+<!-- PHOTO: Annotated gel — lanes labeled with samples, ladder position, migration direction — TODO add -->
 
 **Why SYBR Gold instead of ethidium bromide?** SYBR Gold is more sensitive (~25x) and less hazardous. EtBr is a suspected mutagen that requires special waste disposal. SYBR Gold degrades in light and is much safer, though you should still minimize skin contact.
 
@@ -91,9 +89,7 @@ For most genotyping, **1.5% agarose** is the default.
 
 <!-- PHOTO: Our UV transilluminator with a stained gel -->
 
-![Agarose gel with DNA bands under UV](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg/600px-Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg)
-
-*Image: [Agarose gel with DNA ladders on a UV transilluminator.jpg](https://commons.wikimedia.org/wiki/File:Agarose_gel_with_DNA_ladders_on_a_UV_transilluminator.jpg) — Wikimedia Commons, CC BY-SA 4.0*
+<!-- PHOTO: Our UV transilluminator with a freshly-stained gel showing clean ladder + sample bands — TODO add -->
 
 > *No bands at all (not even the ladder):* SYBR Gold is expired. Make a fresh stain solution from the -30 C freezer stock.
 
