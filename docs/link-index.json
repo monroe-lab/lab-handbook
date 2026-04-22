@@ -580,8 +580,60 @@
     "target": "locations/room-robbins-0170"
   },
   {
+    "source": "locations/rack-3-1",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-3-2",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-3-3",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-3-4",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-3-5",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-3-6",
+    "target": "locations/new-shelf-mnvm9dk4"
+  },
+  {
+    "source": "locations/rack-4-1",
+    "target": "locations/shelf-4-top"
+  },
+  {
+    "source": "locations/rack-4-2",
+    "target": "locations/shelf-4-top"
+  },
+  {
+    "source": "locations/rack-4-3",
+    "target": "locations/shelf-4-top"
+  },
+  {
+    "source": "locations/rack-4-4",
+    "target": "locations/shelf-4-top"
+  },
+  {
+    "source": "locations/rack-4-5",
+    "target": "locations/shelf-4-top"
+  },
+  {
+    "source": "locations/rack-4-6",
+    "target": "locations/shelf-4-top"
+  },
+  {
     "source": "locations/room-robbins-262",
     "target": "locations/room-robbins-0170"
+  },
+  {
+    "source": "locations/shelf-4-top",
+    "target": "locations/freezer-minus80-a"
   },
   {
     "source": "locations/shelf-minus80-a-1",
