@@ -7,16 +7,18 @@
 
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
-  // #145: ordering per Grey's spec. Primary nav follows the 10-tab list he
-  // called out; secondary items (Protocols, Waste) land in the "+" overflow
-  // popover. The overflow popover is available on all widths — when the
-  // browser is narrow enough that not every primary tab fits, the trailing
-  // ones fall into the popover as well (see updateOverflow below).
+  // #163: Grey's final ordering. All 12 tabs primary — Protocols sits right
+  // after Notebooks, Waste right after Inventory, Accessions before Inventory.
+  // SECONDARY_TABS is now empty: the "+" More button only appears when the
+  // viewport is actually too narrow for every tab to fit, and we move the
+  // trailing ones into the popover dynamically via updateOverflow().
   var TABS = [
     { label: 'Tutorials',  href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
     { label: 'Notebooks',  href: BASE + 'app/notebooks.html',  icon: 'edit_note' },
-    { label: 'Inventory',  href: BASE + 'app/inventory.html',  icon: 'science' },
+    { label: 'Protocols',  href: BASE + 'app/protocols.html',  icon: 'menu_book' },
     { label: 'Accessions', href: BASE + 'app/accessions.html', icon: 'fingerprint' },
+    { label: 'Inventory',  href: BASE + 'app/inventory.html',  icon: 'science' },
+    { label: 'Waste',      href: BASE + 'app/waste.html',      icon: 'delete' },
     { label: 'Projects',   href: BASE + 'app/projects.html',   icon: 'folder_special' },
     { label: 'People',     href: BASE + 'app/people.html',     icon: 'people' },
     { label: 'Calendar',   href: BASE + 'app/calendar.html',   icon: 'calendar_month' },
@@ -24,16 +26,10 @@
     { label: 'Apps',       href: BASE + 'app/apps.html',       icon: 'extension' },
     { label: 'Wiki',       href: BASE + 'app/wiki.html',       icon: 'hub' },
   ];
-  // Always-overflow: secondary tabs that live in the "+" popover only. Keep
-  // Protocols discoverable but out of the primary bar so the 10 preferred
-  // tabs breathe.
-  var SECONDARY_TABS = [
-    { label: 'Protocols',  href: BASE + 'app/protocols.html',  icon: 'menu_book' },
-    { label: 'Waste',      href: BASE + 'app/waste.html',      icon: 'delete' },
-  ];
+  var SECONDARY_TABS = [];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
-  var BOTTOM_TABS = ['Wiki', 'Notebooks', 'Inventory', 'Accessions'];
+  var BOTTOM_TABS = ['Wiki', 'Notebooks', 'Accessions', 'Inventory'];
 
   function getActiveTab() {
     var path = location.pathname;
@@ -93,16 +89,14 @@
     });
     nav.appendChild(tabWrap);
 
-    // Desktop "+" overflow button — always present. Shows SECONDARY_TABS
-    // (Protocols, Waste) plus any primary tab the width pushed off-screen.
-    // If the currently active page lives under an overflow tab, style the
-    // button as active so the nav still communicates location.
-    var isOverflowActive = SECONDARY_TABS.some(function(t) { return t.label === active; });
+    // #163: desktop "+" overflow button is hidden by default and only shown
+    // when updateOverflow() detects that at least one primary tab didn't fit.
+    // No more permanent "+" cluttering the bar at full width.
     var moreBtn = document.createElement('button');
     moreBtn.id = 'nav-desktop-more';
     moreBtn.type = 'button';
-    moreBtn.title = 'More';
-    moreBtn.style.cssText = 'display:flex;align-items:center;gap:4px;padding:12px 10px;color:' + (isOverflowActive ? '#fff' : 'rgba(255,255,255,.85)') + ';background:transparent;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:' + (isOverflowActive ? '600' : '500') + ';flex-shrink:0;border-bottom:2px solid ' + (isOverflowActive ? '#fff' : 'transparent') + ';';
+    moreBtn.title = 'More tabs';
+    moreBtn.style.cssText = 'display:none;align-items:center;gap:4px;padding:12px 10px;color:rgba(255,255,255,.85);background:transparent;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;flex-shrink:0;border-bottom:2px solid transparent;';
     moreBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">add</span><span class="hide-mobile">More</span>';
     moreBtn.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -146,24 +140,31 @@
 
   // Hide trailing primary tabs when they don't fit, preserving the active
   // tab's visibility so the bar always shows where the user is. Hidden tabs
-  // surface in the "+" popover alongside SECONDARY_TABS.
+  // surface in the "+" popover. The popover button itself only appears when
+  // at least one tab was pushed off (#163).
   function updateOverflow() {
     var tabWrap = document.getElementById('nav-tabs');
+    var moreBtn = document.getElementById('nav-desktop-more');
     if (!tabWrap) return;
     var tabs = Array.prototype.slice.call(tabWrap.querySelectorAll('.lab-nav-tab'));
-    // Reset.
     tabs.forEach(function(el) { el.classList.remove('nav-hidden-tab'); });
 
-    // Nothing to hide if everything already fits.
-    if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) return;
+    var hiddenCount = 0;
+    if (tabWrap.scrollWidth > tabWrap.clientWidth + 1) {
+      var active = getActiveTab();
+      for (var i = tabs.length - 1; i >= 0; i--) {
+        if (tabs[i].dataset.label === active) continue;
+        tabs[i].classList.add('nav-hidden-tab');
+        hiddenCount++;
+        if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) break;
+      }
+    }
 
-    var active = getActiveTab();
-    // Hide from the right, but always keep the currently active tab visible
-    // — skip over it if it happens to be at the trailing position.
-    for (var i = tabs.length - 1; i >= 0; i--) {
-      if (tabs[i].dataset.label === active) continue;
-      tabs[i].classList.add('nav-hidden-tab');
-      if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) return;
+    // #163: show the "+" More button only if something overflowed OR an
+    // always-overflow secondary tab exists. Otherwise hide entirely.
+    if (moreBtn) {
+      var shouldShow = hiddenCount > 0 || SECONDARY_TABS.length > 0;
+      moreBtn.style.display = shouldShow ? 'flex' : 'none';
     }
   }
 

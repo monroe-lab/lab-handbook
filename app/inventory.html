@@ -295,8 +295,8 @@ tr.low-stock td:first-child::before {
         <button type="button" class="add-kind-card" onclick="chooseAddKind('concept')">
           <span class="material-icons-outlined" style="color:#00796b">add_circle</span>
           <div>
-            <div class="add-kind-title">A new chemical we haven't had before</div>
-            <div class="add-kind-desc">Create the concept card first. You can add bottles of it afterward.</div>
+            <div class="add-kind-title">A new reagent, chemical, kit, equipment, buffer, or solution</div>
+            <div class="add-kind-desc">Create the concept card first for anything the lab hasn't registered yet. You can add bottles of it afterward.</div>
           </div>
           <span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span>
         </button>
@@ -722,7 +722,7 @@ function chooseAddKind(kind) {
   } else {
     document.getElementById('addStepConcept').style.display = '';
     document.getElementById('addConceptConfirmBtn').style.display = '';
-    document.getElementById('addModalTitle').textContent = 'New chemical concept';
+    document.getElementById('addModalTitle').textContent = 'New reagent / chemical / kit / equipment';
     var nameInput = document.getElementById('addName');
     nameInput.removeEventListener('input', updateSlugPreview);
     nameInput.addEventListener('input', updateSlugPreview);

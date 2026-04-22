@@ -1267,19 +1267,27 @@
           return;
         }
         // Of field: text input with datalist autocomplete over concept slugs.
-        // For tubes we bias toward samples; for bottles toward resources/stocks.
-        // The datalist is advisory — users can still type anything.
+        // R20 (#165): accessions must be in the picker for sample/extraction/
+        // library/pool (and tubes, which can also point at an accession when
+        // they're storing tissue or extract). For bottles, `of:` still
+        // points at a reagent/stock concept, not an accession.
         if (field.key === 'of') {
           var ofVal = window.Lab.escHtml(String(val));
           var listId = 'em-of-datalist';
           var ofType = meta.type || type;
           var conceptDirs;
-          if (ofType === 'tube') {
-            conceptDirs = { samples: 1, resources: 1, stocks: 1 };
-          } else if (ofType === 'bottle') {
+          if (ofType === 'bottle') {
+            // Bottles belong to reagents/stocks only.
             conceptDirs = { resources: 1, stocks: 1 };
+          } else if (ofType === 'sample' || ofType === 'extraction' || ofType === 'library' || ofType === 'pool') {
+            // Biological-instance types: the parent concept is always an accession.
+            conceptDirs = { accessions: 1 };
+          } else if (ofType === 'tube') {
+            // Tubes are generic containers — they can hold reagents, stock
+            // aliquots, or tissue/DNA for an accession.
+            conceptDirs = { accessions: 1, samples: 1, resources: 1, stocks: 1 };
           } else {
-            conceptDirs = { samples: 1, resources: 1, stocks: 1 };
+            conceptDirs = { accessions: 1, samples: 1, resources: 1, stocks: 1 };
           }
           var cachedOfIdx = (window.Lab.gh && window.Lab.gh._getCachedIndex && window.Lab.gh._getCachedIndex()) || [];
           var ofOptions = [];

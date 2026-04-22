@@ -676,8 +676,17 @@ body.wizard-open #issue-reporter-btn { display: none !important; }
     var gh = Lab.gh;
     if (!gh || !gh.isLoggedIn()) { Lab.showToast && Lab.showToast('Sign in to pin items', 'error'); return; }
 
+    // #162: remember which <details> sections are currently open so they stay
+    // open across the renderPersonDashboard() refresh below. Previously every
+    // pin click collapsed every section.
+    var openSections = [];
+    document.querySelectorAll('#personDashboard details[open]').forEach(function(d) {
+      var label = (d.querySelector('summary h3') || {}).textContent;
+      if (label) openSections.push(label.trim());
+    });
+    var scrollY = window.scrollY;
+
     try {
-      // Always fetch fresh — sha may be stale.
       var fresh = await gh.fetchFile(state.personPath);
       var parsed = Lab.parseFrontmatter(fresh.content);
       var meta = parsed.meta || {};
@@ -698,8 +707,16 @@ body.wizard-open #issue-reporter-btn { display: none !important; }
         (existing >= 0 ? 'Unpin' : 'Pin') + ' ' + slug + ' for ' + state.slug);
 
       Lab.showToast && Lab.showToast(existing >= 0 ? 'Unpinned' : 'Pinned to favorites', 'success');
-      // Re-render the dashboard so the Frequently used section + star icons update.
-      renderPersonDashboard(state.slug);
+
+      await renderPersonDashboard(state.slug);
+
+      // Restore collapse state — match summary header text against the stashed
+      // labels. Approximate, but resilient to count changes.
+      document.querySelectorAll('#personDashboard details').forEach(function(d) {
+        var label = (d.querySelector('summary h3') || {}).textContent;
+        if (label && openSections.indexOf(label.trim()) >= 0) d.open = true;
+      });
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
     } catch(e) {
       console.error('togglePinFavorite failed', e);
       Lab.showToast && Lab.showToast('Could not save: ' + e.message, 'error');

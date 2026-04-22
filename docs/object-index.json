@@ -1692,7 +1692,7 @@
     "created_at": "2026-04-07T16:55:31.489Z",
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:55:31.489Z",
-    "mtime": 1775946810
+    "mtime": 1776884182
   },
   {
     "path": "resources/sybr-gold.md",
@@ -3202,7 +3202,7 @@
     "type": "bottle",
     "title": "RNase aliquot",
     "of": "resources/rnase",
-    "mtime": 1776879332
+    "mtime": 1776884182
   },
   {
     "path": "stocks/bottle-silwet-l-77.md",
@@ -3594,7 +3594,7 @@
     "title": "Grey Monroe",
     "role": "Principal Investigator",
     "email": "gmonroe@ucdavis.edu",
-    "mtime": 1776883006
+    "mtime": 1776883318
   },
   {
     "path": "people/kehan-zhao.md",
@@ -4380,12 +4380,6 @@
     "mtime": 1776806724
   },
   {
-    "path": "notebooks/grey-monroe/2026-04-22-test.md",
-    "type": "notebook",
-    "title": "2026-04-22 \u2014 Grey Monroe",
-    "mtime": 1776883056
-  },
-  {
     "path": "notebooks/mr-freckles/2026-04-13.md",
     "type": "notebook",
     "title": "2026-04-13 \u2014 Mr. Freckles",
@@ -4498,7 +4492,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a1-t1-w-2.md",
@@ -4512,7 +4506,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a1-t1-w.md",
@@ -4528,7 +4522,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a1-t2-e.md",
@@ -4544,7 +4538,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a1-t2-w.md",
@@ -4560,7 +4554,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a2-t1-e.md",
@@ -4576,7 +4570,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a2-t1-w-2.md",
@@ -4590,7 +4584,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a2-t1-w.md",
@@ -4606,7 +4600,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a2-t2-e.md",
@@ -4622,7 +4616,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a2-t2-w.md",
@@ -4638,7 +4632,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a3-t1-n-2.md",
@@ -4652,7 +4646,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a3-t1-n.md",
@@ -4668,7 +4662,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a3-t1-s.md",
@@ -4684,7 +4678,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a3-t2-e.md",
@@ -4700,7 +4694,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a3-t2-w.md",
@@ -4716,7 +4710,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a4-t1-e.md",
@@ -4732,7 +4726,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a4-t1-w-2.md",
@@ -4747,7 +4741,7 @@
     "last_updated": "2026-04-22",
     "status_note": "DNA extracted \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a4-t1-w.md",
@@ -4763,7 +4757,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a4-t2-e.md",
@@ -4779,7 +4773,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/a4-t2-w.md",
@@ -4795,7 +4789,7 @@
     "last_updated": "2026-03-31",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/bl21-de3-competent-cells.md",
@@ -4810,7 +4804,8 @@
     "priority": "0",
     "legacy_stock_type": "glycerol_stock",
     "parent": "locations/box-minus80-a-1-a",
-    "position": "D3"
+    "position": "D3",
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-1-hifi.md",
@@ -4825,7 +4820,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-1.md",
@@ -4840,7 +4835,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-10-hifi.md",
@@ -4855,7 +4850,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-10.md",
@@ -4870,7 +4865,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-11.md",
@@ -4885,7 +4880,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-12.md",
@@ -4900,7 +4895,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-13.md",
@@ -4915,7 +4910,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-14.md",
@@ -4930,7 +4925,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-15.md",
@@ -4945,7 +4940,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-16.md",
@@ -4960,7 +4955,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-17.md",
@@ -4975,7 +4970,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-18.md",
@@ -4990,7 +4985,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-19.md",
@@ -5005,7 +5000,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-2-hifi.md",
@@ -5020,7 +5015,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-2.md",
@@ -5035,7 +5030,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-20.md",
@@ -5050,7 +5045,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-21.md",
@@ -5065,7 +5060,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-22.md",
@@ -5080,7 +5075,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-23.md",
@@ -5095,7 +5090,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-24.md",
@@ -5110,7 +5105,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-25.md",
@@ -5125,7 +5120,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-26.md",
@@ -5140,7 +5135,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-27.md",
@@ -5155,7 +5150,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-28.md",
@@ -5170,7 +5165,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-29.md",
@@ -5185,7 +5180,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-3-hifi.md",
@@ -5200,7 +5195,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-3.md",
@@ -5215,7 +5210,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-30.md",
@@ -5230,7 +5225,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-31.md",
@@ -5245,7 +5240,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-32.md",
@@ -5260,7 +5255,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-33.md",
@@ -5275,7 +5270,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-34.md",
@@ -5290,7 +5285,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-35.md",
@@ -5305,7 +5300,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-36.md",
@@ -5320,7 +5315,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-37.md",
@@ -5335,7 +5330,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-38.md",
@@ -5350,7 +5345,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-39.md",
@@ -5365,7 +5360,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-4-hifi.md",
@@ -5380,7 +5375,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-4.md",
@@ -5395,7 +5390,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-40.md",
@@ -5410,7 +5405,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-41.md",
@@ -5425,7 +5420,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-5-hifi.md",
@@ -5440,7 +5435,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-5.md",
@@ -5455,7 +5450,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-6-hifi.md",
@@ -5470,7 +5465,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-6.md",
@@ -5485,7 +5480,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-7-hifi.md",
@@ -5500,7 +5495,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-7.md",
@@ -5515,7 +5510,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-8-hifi.md",
@@ -5530,7 +5525,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-8.md",
@@ -5545,7 +5540,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-9-hifi.md",
@@ -5560,7 +5555,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/c127-9.md",
@@ -5575,7 +5570,7 @@
     "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
     "status_note": "Not yet received \u2014 Samples at CIAT, Colombia",
     "people": "Grey Monroe / Kehan Zhao",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/col-0-wild-type.md",
@@ -5604,7 +5599,7 @@
     "last_updated": "2025-10-07",
     "status_note": "DNA extracted \u2014 QC data in tracking sheet",
     "people": "Percy Singson",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis128-p-afghanistania.md",
@@ -5620,7 +5615,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis184-p-chinensis.md",
@@ -5636,7 +5631,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis190-p-lentiscus.md",
@@ -5652,7 +5647,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis195-p-palaestina.md",
@@ -5668,7 +5663,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis2001-p-atlantica.md",
@@ -5684,7 +5679,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis29-p-weinmanifolia.md",
@@ -5700,7 +5695,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis295-p-mexicana-texana.md",
@@ -5716,7 +5711,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis356-p-integerrima.md",
@@ -5732,7 +5727,7 @@
     "last_updated": "2024-09-10",
     "status_note": "Tissue available",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis360-p-khinjuk.md",
@@ -5748,7 +5743,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/dpis93-p-terebinthus.md",
@@ -5764,7 +5759,7 @@
     "last_updated": "2023-04-27",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-1.md",
@@ -5778,7 +5773,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-2.md",
@@ -5792,7 +5787,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-3.md",
@@ -5806,7 +5801,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-4.md",
@@ -5820,7 +5815,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-5.md",
@@ -5834,7 +5829,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-6.md",
@@ -5848,7 +5843,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/endeavor-7.md",
@@ -5862,7 +5857,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/golden-hills-p-vera.md",
@@ -5878,7 +5873,7 @@
     "last_updated": "2023-05-25",
     "status_note": "Complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/gumdrop-p-vera.md",
@@ -5894,7 +5889,7 @@
     "last_updated": "2023-05-25",
     "status_note": "DNA extracted",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j1-t1-n-2.md",
@@ -5908,7 +5903,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j1-t1-n.md",
@@ -5924,7 +5919,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j1-t1-s.md",
@@ -5940,7 +5935,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j1-t2-n.md",
@@ -5956,7 +5951,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j1-t2-s.md",
@@ -5972,7 +5967,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j2-t1-e.md",
@@ -5988,7 +5983,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j2-t1-w-2.md",
@@ -6002,7 +5997,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j2-t1-w.md",
@@ -6018,7 +6013,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j2-t2-e.md",
@@ -6034,7 +6029,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j2-t2-n.md",
@@ -6050,7 +6045,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t1-e.md",
@@ -6066,7 +6061,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t1-w-2.md",
@@ -6080,7 +6075,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t1-w.md",
@@ -6096,7 +6091,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t2-e.md",
@@ -6112,7 +6107,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t2-w-2.md",
@@ -6128,7 +6123,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j3-t2-w.md",
@@ -6142,7 +6137,7 @@
     "priority": "1",
     "status_note": "On hold \u2014 Previous extraction failed",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t1-5-kerman.md",
@@ -6158,7 +6153,7 @@
     "last_updated": "2026-02-12",
     "status_note": "QC passed",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t1-n-2.md",
@@ -6172,7 +6167,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t1-n.md",
@@ -6188,7 +6183,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t1-s.md",
@@ -6204,7 +6199,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t2-e-2.md",
@@ -6220,7 +6215,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t2-e.md",
@@ -6234,7 +6229,7 @@
     "priority": "1",
     "status_note": "On hold \u2014 Previous extraction failed",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t2-w-2.md",
@@ -6250,7 +6245,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j4-t2-w.md",
@@ -6264,7 +6259,7 @@
     "priority": "1",
     "status_note": "On hold \u2014 Previous extraction failed",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t1-e.md",
@@ -6280,7 +6275,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t1-w-2.md",
@@ -6294,7 +6289,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t1-w.md",
@@ -6310,7 +6305,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t2-e-2.md",
@@ -6326,7 +6321,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t2-e.md",
@@ -6340,7 +6335,7 @@
     "priority": "1",
     "status_note": "On hold \u2014 Previous extraction failed",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/j5-t2-w.md",
@@ -6356,7 +6351,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/kalanchoe.md",
@@ -6370,7 +6365,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs tissue collection",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/labbot-mntijn0d.md",
@@ -6384,7 +6379,7 @@
     "priority": "0",
     "last_updated": "2026-04-10",
     "status_note": "Not yet received",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/lost-hills-p-vera.md",
@@ -6400,7 +6395,7 @@
     "last_updated": "2024-09-10",
     "status_note": "Tissue available",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-1.md",
@@ -6414,7 +6409,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-10.md",
@@ -6428,7 +6423,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-11.md",
@@ -6442,7 +6437,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-12.md",
@@ -6456,7 +6451,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-13.md",
@@ -6470,7 +6465,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-2.md",
@@ -6484,7 +6479,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-3.md",
@@ -6498,7 +6493,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-4.md",
@@ -6512,7 +6507,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-5.md",
@@ -6526,7 +6521,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-6.md",
@@ -6540,7 +6535,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-7.md",
@@ -6554,7 +6549,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-8.md",
@@ -6568,7 +6563,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/ma-founder-9.md",
@@ -6582,7 +6577,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pgmd-2-8.md",
@@ -6598,7 +6593,7 @@
     "last_updated": "2026-04-21",
     "status_note": "Sequencing in progress \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pistachio-4.md",
@@ -6612,7 +6607,8 @@
     "accession_id": "PIST-4",
     "priority": "0",
     "status_note": "extracted",
-    "people": "J. Freckles"
+    "people": "J. Freckles",
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-bushy-2.md",
@@ -6628,7 +6624,7 @@
     "last_updated": "2026-04-21",
     "status_note": "Sequencing in progress \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-67.md",
@@ -6642,7 +6638,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-68.md",
@@ -6656,7 +6652,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-69.md",
@@ -6670,7 +6666,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-70.md",
@@ -6684,7 +6680,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-71.md",
@@ -6698,7 +6694,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-72.md",
@@ -6712,7 +6708,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-73.md",
@@ -6726,7 +6722,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-74.md",
@@ -6740,7 +6736,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-75.md",
@@ -6754,7 +6750,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-76.md",
@@ -6768,7 +6764,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-77.md",
@@ -6782,7 +6778,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-78.md",
@@ -6796,7 +6792,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-79.md",
@@ -6810,7 +6806,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-80.md",
@@ -6824,7 +6820,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-81.md",
@@ -6838,7 +6834,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-82.md",
@@ -6852,7 +6848,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-83.md",
@@ -6866,7 +6862,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-84.md",
@@ -6880,7 +6876,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-85.md",
@@ -6894,7 +6890,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-86.md",
@@ -6908,7 +6904,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-87.md",
@@ -6922,7 +6918,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-88.md",
@@ -6936,7 +6932,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-89.md",
@@ -6950,7 +6946,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-90.md",
@@ -6964,7 +6960,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-91.md",
@@ -6978,7 +6974,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-92.md",
@@ -6992,7 +6988,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-93.md",
@@ -7006,7 +7002,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-94.md",
@@ -7020,7 +7016,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-95.md",
@@ -7034,7 +7030,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pt-short-96.md",
@@ -7048,7 +7044,7 @@
     "priority": "1",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-1.md",
@@ -7062,7 +7058,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-10.md",
@@ -7076,7 +7072,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-2.md",
@@ -7090,7 +7086,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-3.md",
@@ -7104,7 +7100,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-4.md",
@@ -7118,7 +7114,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-5.md",
@@ -7132,7 +7128,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-6.md",
@@ -7146,7 +7142,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-7.md",
@@ -7160,7 +7156,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-8.md",
@@ -7174,7 +7170,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/pv-x-pi-9.md",
@@ -7188,7 +7184,7 @@
     "priority": "0",
     "status_note": "Not yet received",
     "people": "Grey Monroe",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-b1-c7.md",
@@ -7204,7 +7200,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-b2-c6.md",
@@ -7220,7 +7216,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-b2-c9.md",
@@ -7236,7 +7232,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-b3-c5.md",
@@ -7252,7 +7248,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-b3-c8.md",
@@ -7268,7 +7264,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-p4-e.md",
@@ -7284,7 +7280,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Ready for HMW",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-p4-w.md",
@@ -7300,7 +7296,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Ready for HMW",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t1-e.md",
@@ -7316,7 +7312,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t1-w-2.md",
@@ -7330,7 +7326,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t1-w.md",
@@ -7346,7 +7342,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t2-e.md",
@@ -7362,7 +7358,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t2-w.md",
@@ -7378,7 +7374,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-t7-rxl.md",
@@ -7394,7 +7390,7 @@
     "last_updated": "2026-03-29",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r1-weep.md",
@@ -7410,7 +7406,7 @@
     "last_updated": "2026-03-29",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r15-b1-n.md",
@@ -7426,7 +7422,7 @@
     "last_updated": "2026-03-29",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r15-b1-w.md",
@@ -7442,7 +7438,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b1-n.md",
@@ -7458,7 +7454,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b1-w.md",
@@ -7474,7 +7470,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b2-n.md",
@@ -7490,7 +7486,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b2-w.md",
@@ -7506,7 +7502,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b3-n.md",
@@ -7522,7 +7518,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r16-b3-w.md",
@@ -7538,7 +7534,7 @@
     "last_updated": "2026-04-22",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-b2-c3.md",
@@ -7554,7 +7550,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-b2-c4.md",
@@ -7570,7 +7566,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-b3-c2.md",
@@ -7586,7 +7582,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-b4-c1.md",
@@ -7602,7 +7598,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-b4-c10.md",
@@ -7618,7 +7614,7 @@
     "last_updated": "2026-03-24",
     "status_note": "Shearing \u2014 At Genome Center for QC and shearing",
     "people": "Vianney Ahn / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-p4-e.md",
@@ -7634,7 +7630,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Ready for HMW",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-p4-w.md",
@@ -7650,7 +7646,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r2-weep.md",
@@ -7666,7 +7662,7 @@
     "last_updated": "2026-03-29",
     "status_note": "Tissue collected \u2014 to be completed after the Kerman Somatic project is complete",
     "people": "Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r3-p24-e.md",
@@ -7682,7 +7678,7 @@
     "last_updated": "2026-03-31",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r4-p24-e.md",
@@ -7698,7 +7694,7 @@
     "last_updated": "2026-03-31",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r4-p24-w.md",
@@ -7714,7 +7710,7 @@
     "last_updated": "2026-03-31",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r7-p13-e.md",
@@ -7730,7 +7726,7 @@
     "last_updated": "2026-04-01",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r7-p13-w.md",
@@ -7746,7 +7742,7 @@
     "last_updated": "2026-03-31",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r8-p13-n.md",
@@ -7762,7 +7758,7 @@
     "last_updated": "2026-04-01",
     "status_note": "DNA extracted",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/r8-p13-s.md",
@@ -7778,7 +7774,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Ready for HMW",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/redwood-dna-sample-b-mnsinxli.md",
@@ -7819,7 +7815,7 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY",
     "status_note": "On hold \u2014 Kit delays. 3 NovoGene HiFi lanes reserved (K30APSM781)",
     "people": "Satoyo Oya",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-1.md",
@@ -7833,7 +7829,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-10.md",
@@ -7847,7 +7843,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-11.md",
@@ -7861,7 +7857,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-12.md",
@@ -7875,7 +7871,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-13.md",
@@ -7889,7 +7885,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-14.md",
@@ -7903,7 +7899,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-2.md",
@@ -7917,7 +7913,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-3.md",
@@ -7931,7 +7927,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-7.md",
@@ -7945,7 +7941,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-8.md",
@@ -7959,7 +7955,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "accessions/va-9.md",
@@ -7973,7 +7969,7 @@
     "priority": "0",
     "status_note": "Complete",
     "people": "Vianney Ahn",
-    "mtime": 1776874728
+    "mtime": 1776884182
   },
   {
     "path": "locations/autoclave-room.md",
