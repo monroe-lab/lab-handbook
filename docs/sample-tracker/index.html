@@ -180,6 +180,19 @@ body {
 .stat-card.stat-red .material-icons-outlined { color: var(--red); }
 .stat-value { font-size: 24px; font-weight: 700; }
 .stat-label { font-size: 12px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .5px; }
+/* #126: Add Sample and Duplicate are stat-card-shaped buttons */
+button.stat-card {
+  border: 1px solid transparent;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, box-shadow .15s, transform .1s;
+}
+button.stat-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
+button.stat-card:active { transform: translateY(1px); }
+button.stat-card.stat-duplicate:hover { border-color: var(--purple); }
+button.stat-card:disabled { opacity: .5; cursor: not-allowed; }
+button.stat-card:disabled:hover { border-color: transparent; box-shadow: var(--shadow); }
 
 /* Table */
 .table-wrap {
@@ -198,10 +211,10 @@ table {
 }
 thead { background: var(--grey-50); }
 th {
-  padding: 12px 16px;
+  padding: 8px 10px;
   text-align: left;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .5px;
   color: var(--grey-700);
@@ -213,12 +226,114 @@ th {
 th:hover { color: var(--teal); }
 th .sort-arrow { font-size: 14px; vertical-align: middle; margin-left: 2px; }
 td {
-  padding: 12px 16px;
+  padding: 4px 10px;
   border-bottom: 1px solid var(--grey-200);
   vertical-align: middle;
+  font-size: 13px;
 }
 tr:last-child td { border-bottom: none; }
 tr:hover { background: var(--teal-50); }
+tr.is-selected { background: var(--teal-light); }
+tr.is-selected:hover { background: var(--teal-light); }
+
+/* #122: inline-editable cells. Inputs/selects render flush to the cell,
+   no border unless focused — acts like a real spreadsheet. */
+.inline-input, .inline-select {
+  width: 100%;
+  min-width: 60px;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  transition: border-color .1s, background .1s;
+}
+.inline-input:hover, .inline-select:hover { border-color: var(--grey-200); }
+.inline-input:focus, .inline-select:focus { border-color: var(--teal); background: #fff; }
+.inline-input.is-saving, .inline-select.is-saving {
+  background: var(--yellow-light);
+}
+.inline-input.is-error, .inline-select.is-error {
+  border-color: var(--red);
+  background: var(--red-light);
+}
+.inline-select.status-select {
+  font-weight: 600;
+  font-size: 12px;
+  padding: 3px 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-size: 8px 8px;
+  background-repeat: no-repeat;
+  padding-right: 18px;
+  background-position: calc(100% - 6px) 50%;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M1 2l3 4 3-4' stroke='%23333' stroke-width='1.2' fill='none'/></svg>");
+}
+
+/* Row checkbox column */
+.row-check { width: 28px; text-align: center; }
+.row-check input { cursor: pointer; width: 16px; height: 16px; }
+
+/* Bulk actions bar: appears above the table when any rows are selected. */
+.bulk-bar {
+  background: var(--teal-dark);
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.bulk-bar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.bulk-bar select option { color: var(--grey-900); }
+.bulk-bar input[type=number] {
+  width: 70px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+}
+.bulk-bar .bulk-btn {
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 6px;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.bulk-bar .bulk-btn:hover { background: rgba(255,255,255,.3); }
+.bulk-bar .bulk-btn.danger { background: var(--red); border-color: var(--red); }
+.bulk-bar .bulk-btn.danger:hover { background: #c62828; }
+.bulk-bar .bulk-spacer { flex: 1; }
+.bulk-bar .bulk-count { font-weight: 700; }
+
+/* Status-color aware select backgrounds. Matches the old .badge-* colors. */
+.inline-select.status-select.color-green  { background-color: var(--green-light); color: var(--green-dark); }
+.inline-select.status-select.color-yellow { background-color: var(--yellow-light); color: var(--yellow-dark); }
+.inline-select.status-select.color-purple { background-color: var(--purple-light); color: var(--purple); }
+.inline-select.status-select.color-red    { background-color: var(--red-light); color: var(--red); }
+.inline-select.status-select.color-grey   { background-color: var(--grey-200); color: var(--grey-700); }
 
 /* Status badges */
 .badge {
@@ -462,10 +577,6 @@ if (window.self !== window.top) {
       <span class="material-icons-outlined">link</span>
       Sign in
     </button>
-    <button class="btn btn-primary" onclick="openAddModal()">
-      <span class="material-icons-outlined">add</span>
-      Add Sample
-    </button>
   </div>
 </div>
 
@@ -494,6 +605,13 @@ if (window.self !== window.top) {
 
 <!-- Stats -->
 <div class="stats">
+  <button type="button" class="stat-card stat-add" onclick="openAddModal()" title="Add a new sample">
+    <span class="material-icons-outlined" style="color:#fff;background:var(--teal);border-radius:50%;padding:4px;font-size:22px">add</span>
+    <div>
+      <div class="stat-value" style="color:var(--teal-dark);font-size:20px;line-height:1.1">Add Sample</div>
+      <div class="stat-label">Log a new sample</div>
+    </div>
+  </button>
   <div class="stat-card">
     <span class="material-icons-outlined">science</span>
     <div>
@@ -526,6 +644,19 @@ if (window.self !== window.top) {
 
 <!-- Table -->
 <div class="table-wrap">
+  <!-- Bulk actions bar: visible when any rows are selected. -->
+  <div class="bulk-bar" id="bulkBar" style="display:none">
+    <span><span class="bulk-count" id="bulkCount">0</span> selected</span>
+    <select id="bulkStatus" title="Change status of selected rows">
+      <option value="">Change status…</option>
+    </select>
+    <button class="bulk-btn" onclick="applyBulkStatus()">Apply</button>
+    <span class="bulk-spacer"></span>
+    <label>Duplicate each <input type="number" id="bulkDupCount" min="1" max="96" value="1"> times</label>
+    <button class="bulk-btn" onclick="applyBulkDuplicate()">Duplicate</button>
+    <button class="bulk-btn danger" onclick="applyBulkDelete()">Delete</button>
+    <button class="bulk-btn" onclick="clearSelection()">Clear</button>
+  </div>
   <div class="table-container">
     <div class="loading" id="loadingState">
       <div class="spinner"></div>
@@ -534,6 +665,7 @@ if (window.self !== window.top) {
     <table id="sampleTable" style="display:none">
       <thead>
         <tr>
+          <th class="row-check"><input type="checkbox" id="headerCheck" onchange="toggleSelectAll(this.checked)" title="Select all visible"></th>
           <th onclick="setSort('sampleId')">Sample ID <span class="sort-arrow" id="sort-sampleId"></span></th>
           <th onclick="setSort('project')">Project <span class="sort-arrow" id="sort-project"></span></th>
           <th onclick="setSort('species')" class="hide-mobile">Species <span class="sort-arrow" id="sort-species"></span></th>
@@ -722,6 +854,25 @@ let editingId = null;
 let deletingId = null;
 let sortCol = 'sampleId';
 let sortDir = 1;
+// #122: multi-select for bulk status/duplicate/delete
+let selectedIds = new Set();
+// #122: when an inline edit is in-flight we queue further edits so we don't
+// collide on the file SHA.
+let pendingCommits = Promise.resolve();
+
+// All known statuses, used for status dropdown + bulk actions.
+const ALL_STATUSES = [
+  'Not yet received', 'Tissue available', 'Tissue collected', 'DNA extracted',
+  'Needs QC', 'QC passed', 'Shearing', 'Library prep', 'Ready to submit',
+  'Submitted', 'Sequencing in progress', 'Data received', 'Complete', 'On hold',
+];
+const ALL_SEQ_TYPES = ['HiFi', 'WGS', 'RNA-seq', 'EM-seq', 'Hi-C', 'Illumina WGS', 'CUT&Tag', 'CUT&RUN'];
+const PRIORITY_OPTIONS = [
+  { value: '', label: '—' },
+  { value: '⭐', label: '⭐ Priority' },
+  { value: '🌾', label: '🌾 Lots' },
+  { value: '💎', label: '💎 Rare' },
+];
 
 // --- Auth (shared via Lab.gh) ---
 function getToken() { return (window.Lab && window.Lab.gh) ? window.Lab.gh.getToken() : ''; }
@@ -911,40 +1062,298 @@ function renderTable() {
   document.getElementById('emptyState').style.display = 'none';
   document.getElementById('sampleTable').style.display = '';
 
-  tbody.innerHTML = items.map(item => {
-    const statusColor = STATUS_COLORS[item.status] || 'grey';
-    const priorityHtml = item.priority ? '<span class="priority">' + esc(item.priority) + '</span>' : '';
-    const detailHtml = item.detailSheetLink
-      ? '<a class="detail-link" href="' + esc(item.detailSheetLink) + '" target="_blank" title="Detail sheet"><span class="material-icons-outlined">open_in_new</span></a>'
-      : '';
-    const blockerHtml = item.currentBlocker
-      ? '<span class="blocker-text" title="' + esc(item.currentBlocker) + '">' + esc(item.currentBlocker) + '</span>'
-      : '';
+  tbody.innerHTML = items.map(item => renderRow(item)).join('');
+  updateBulkBar();
+  // Restore the "header checkbox reflects all-visible" behavior.
+  const headerCheck = document.getElementById('headerCheck');
+  if (headerCheck) {
+    const allSelected = items.length > 0 && items.every(i => selectedIds.has(i.id));
+    const anySelected = items.some(i => selectedIds.has(i.id));
+    headerCheck.checked = allSelected;
+    headerCheck.indeterminate = !allSelected && anySelected;
+  }
+}
 
-    return `
-      <tr>
-        <td><strong>${esc(item.sampleId)}</strong></td>
-        <td><span class="badge badge-project">${esc(item.project)}</span></td>
-        <td class="hide-mobile"><em>${esc(item.species)}</em></td>
-        <td class="hide-mobile">${esc(item.lead)}</td>
-        <td class="hide-mobile">${esc(item.sequencingType)}</td>
-        <td><span class="badge badge-${statusColor}">${esc(item.status)}</span></td>
-        <td>${priorityHtml}</td>
-        <td class="hide-mobile">${blockerHtml}</td>
-        <td class="hide-mobile notes-cell" title="${esc(item.notes || '')}">${esc(item.notes || '')}</td>
-        <td class="hide-mobile">${detailHtml}</td>
-        <td>
-          <div class="row-actions">
-            <button class="btn" title="Edit" onclick="openEditModal(${item.id})">
-              <span class="material-icons-outlined">edit</span>
-            </button>
-            <button class="btn del" title="Delete" onclick="openDeleteModal(${item.id})">
-              <span class="material-icons-outlined">delete</span>
-            </button>
-          </div>
-        </td>
-      </tr>`;
-  }).join('');
+// #122: render a single table row with inline-editable controls.
+// Each field control is a plain <input> or <select> whose onchange/onblur
+// calls saveField(id, field, value). Status has color-coded background.
+function renderRow(item) {
+  const statusColor = STATUS_COLORS[item.status] || 'grey';
+  const isSelected = selectedIds.has(item.id);
+  const detailHtml = item.detailSheetLink
+    ? `<a class="detail-link" href="${esc(item.detailSheetLink)}" target="_blank" title="Detail sheet"><span class="material-icons-outlined">open_in_new</span></a>`
+    : '';
+  const statusOpts = ALL_STATUSES.map(s =>
+    `<option value="${esc(s)}"${s === item.status ? ' selected' : ''}>${esc(s)}</option>`
+  ).join('');
+  const seqOpts = ALL_SEQ_TYPES.map(s =>
+    `<option value="${esc(s)}"${s === item.sequencingType ? ' selected' : ''}>${esc(s)}</option>`
+  ).join('');
+  const prioOpts = PRIORITY_OPTIONS.map(o =>
+    `<option value="${esc(o.value)}"${o.value === (item.priority || '') ? ' selected' : ''}>${esc(o.label)}</option>`
+  ).join('');
+
+  return `
+    <tr class="${isSelected ? 'is-selected' : ''}" data-id="${item.id}">
+      <td class="row-check"><input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleSelectRow(${item.id}, this.checked)"></td>
+      <td>
+        <a href="javascript:void(0)" onclick="openSampleCard(${item.id})" style="font-weight:700;color:var(--teal-dark);text-decoration:none" title="Open sample card">
+          ${esc(item.sampleId || '')}
+        </a>
+      </td>
+      <td><input class="inline-input" value="${esc(item.project || '')}" onchange="saveField(${item.id}, 'project', this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td class="hide-mobile"><input class="inline-input" value="${esc(item.species || '')}" onchange="saveField(${item.id}, 'species', this.value)" onkeydown="if(event.key==='Enter')this.blur()" style="font-style:italic"></td>
+      <td class="hide-mobile"><input class="inline-input" value="${esc(item.lead || '')}" onchange="saveField(${item.id}, 'lead', this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td class="hide-mobile"><select class="inline-select" onchange="saveField(${item.id}, 'sequencingType', this.value)">${seqOpts}</select></td>
+      <td><select class="inline-select status-select color-${statusColor}" onchange="saveField(${item.id}, 'status', this.value)">${statusOpts}</select></td>
+      <td><select class="inline-select" style="min-width:70px" onchange="saveField(${item.id}, 'priority', this.value)">${prioOpts}</select></td>
+      <td class="hide-mobile"><input class="inline-input" value="${esc(item.currentBlocker || '')}" onchange="saveField(${item.id}, 'currentBlocker', this.value)" onkeydown="if(event.key==='Enter')this.blur()" placeholder="—"></td>
+      <td class="hide-mobile notes-cell"><input class="inline-input" value="${esc(item.notes || '')}" onchange="saveField(${item.id}, 'notes', this.value)" onkeydown="if(event.key==='Enter')this.blur()" placeholder="—"></td>
+      <td class="hide-mobile">${detailHtml}</td>
+      <td>
+        <div class="row-actions">
+          <button class="btn" title="Edit full form" onclick="openEditModal(${item.id})"><span class="material-icons-outlined">edit</span></button>
+          <button class="btn del" title="Delete" onclick="openDeleteModal(${item.id})"><span class="material-icons-outlined">delete</span></button>
+        </div>
+      </td>
+    </tr>`;
+}
+
+// #122: save a single field change for one sample. Queued so concurrent
+// onchange events don't race on the file SHA.
+function saveField(id, field, value) {
+  const item = samples.find(i => i.id === id);
+  if (!item) return;
+  if ((item[field] || '') === (value || '')) return; // no-op, don't commit
+  const old = item[field];
+  item[field] = value;
+  item.lastUpdated = new Date().toISOString().slice(0, 10);
+  // Mark the cell as saving visually.
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  let cell = null;
+  if (row) {
+    cell = row.querySelector(`[onchange*="'${field}'"]`);
+    if (cell) cell.classList.add('is-saving');
+  }
+  pendingCommits = pendingCommits.then(async () => {
+    const ok = await commitSamples(`Sample ${item.sampleId}: ${field} → ${value || '(empty)'}`);
+    if (cell) cell.classList.remove('is-saving');
+    if (!ok) {
+      item[field] = old;
+      if (cell) {
+        cell.classList.add('is-error');
+        setTimeout(() => cell.classList.remove('is-error'), 1500);
+      }
+      renderTable();
+    } else {
+      // Status changed → row color must update, and stats/filters may shift.
+      if (field === 'status') {
+        populateFilters();
+        renderTable();
+      } else {
+        document.getElementById('statTotal').textContent = samples.length;
+      }
+    }
+  });
+}
+
+// #122: multi-select
+function toggleSelectRow(id, checked) {
+  if (checked) selectedIds.add(id); else selectedIds.delete(id);
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  if (row) row.classList.toggle('is-selected', checked);
+  updateBulkBar();
+  const headerCheck = document.getElementById('headerCheck');
+  if (headerCheck) {
+    const visible = getFilteredSorted();
+    const allSelected = visible.length > 0 && visible.every(i => selectedIds.has(i.id));
+    const anySelected = visible.some(i => selectedIds.has(i.id));
+    headerCheck.checked = allSelected;
+    headerCheck.indeterminate = !allSelected && anySelected;
+  }
+}
+function toggleSelectAll(checked) {
+  const visible = getFilteredSorted();
+  if (checked) visible.forEach(i => selectedIds.add(i.id));
+  else visible.forEach(i => selectedIds.delete(i.id));
+  renderTable();
+}
+function clearSelection() {
+  selectedIds.clear();
+  renderTable();
+}
+function updateBulkBar() {
+  const bar = document.getElementById('bulkBar');
+  const count = selectedIds.size;
+  bar.style.display = count > 0 ? '' : 'none';
+  document.getElementById('bulkCount').textContent = count;
+  // Fill bulk status dropdown once (it's static).
+  const sel = document.getElementById('bulkStatus');
+  if (sel && !sel.dataset.filled) {
+    ALL_STATUSES.forEach(s => {
+      const o = document.createElement('option');
+      o.value = s; o.textContent = s;
+      sel.appendChild(o);
+    });
+    sel.dataset.filled = '1';
+  }
+}
+// Return the samples in the order and filter state currently visible.
+function getFilteredSorted() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const projFilter = document.getElementById('filterProject').value;
+  const statusFilter = document.getElementById('filterStatus').value;
+  const seqFilter = document.getElementById('filterSeqType').value;
+  const leadFilter = document.getElementById('filterLead').value;
+  return samples.filter(item => {
+    if (projFilter && item.project !== projFilter) return false;
+    if (statusFilter && item.status !== statusFilter) return false;
+    if (seqFilter && item.sequencingType !== seqFilter) return false;
+    if (leadFilter && item.lead !== leadFilter) return false;
+    if (search) {
+      const hay = [item.sampleId || '', item.project || '', item.species || '', item.lead || '', item.sequencingType || '', item.status || '', item.notes || '', item.currentBlocker || ''].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+async function applyBulkStatus() {
+  const newStatus = document.getElementById('bulkStatus').value;
+  if (!newStatus) { toast('Pick a status first', 'error'); return; }
+  if (selectedIds.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  let changed = 0;
+  samples.forEach(s => {
+    if (selectedIds.has(s.id) && s.status !== newStatus) {
+      s.status = newStatus;
+      s.lastUpdated = today;
+      changed++;
+    }
+  });
+  if (!changed) { toast('Selected samples already have that status', 'success'); return; }
+  renderTable();
+  const ok = await commitSamples(`Bulk status → ${newStatus} (${changed} samples)`);
+  if (ok) {
+    toast(`Updated ${changed} samples`, 'success');
+    populateFilters();
+    renderTable();
+  }
+}
+
+async function applyBulkDuplicate() {
+  const n = parseInt(document.getElementById('bulkDupCount').value, 10) || 1;
+  if (n < 1) { toast('Enter a count ≥ 1', 'error'); return; }
+  if (selectedIds.size === 0) return;
+  if (n > 96) { toast('Max 96 duplicates at a time', 'error'); return; }
+  const today = new Date().toISOString().slice(0, 10);
+  let maxId = samples.reduce((m, i) => Math.max(m, i.id), 0);
+  const created = [];
+  selectedIds.forEach(id => {
+    const src = samples.find(i => i.id === id);
+    if (!src) return;
+    for (let k = 1; k <= n; k++) {
+      maxId++;
+      const copy = { ...src, id: maxId, sampleId: `${src.sampleId}_COPY${k}`, lastUpdated: today };
+      samples.push(copy);
+      created.push(copy);
+    }
+  });
+  if (!created.length) { toast('Nothing to duplicate', 'error'); return; }
+  renderTable();
+  const ok = await commitSamples(`Duplicate ${created.length} sample${created.length === 1 ? '' : 's'}`);
+  if (ok) {
+    toast(`Created ${created.length} sample${created.length === 1 ? '' : 's'}`, 'success');
+    populateFilters();
+    renderTable();
+  } else {
+    // Roll back locally
+    created.forEach(c => {
+      const idx = samples.indexOf(c);
+      if (idx >= 0) samples.splice(idx, 1);
+    });
+    renderTable();
+  }
+}
+
+async function applyBulkDelete() {
+  const n = selectedIds.size;
+  if (n === 0) return;
+  if (!confirm(`Delete ${n} sample${n === 1 ? '' : 's'}?`)) return;
+  const removed = samples.filter(s => selectedIds.has(s.id));
+  samples = samples.filter(s => !selectedIds.has(s.id));
+  selectedIds.clear();
+  renderTable();
+  const ok = await commitSamples(`Delete ${n} sample${n === 1 ? '' : 's'}`);
+  if (ok) {
+    toast(`Deleted ${n} sample${n === 1 ? '' : 's'}`, 'success');
+    populateFilters();
+    renderTable();
+  } else {
+    samples.push(...removed);
+    renderTable();
+  }
+}
+
+// #123: basic Sample card popup — opens a side modal with the sample's data
+// plus a "Referenced by" section (best-effort: searches samples.json for other
+// rows that mention this sample ID in their notes, and links to the Google
+// Sheet if one is attached). This is the quick-look card; clicking Edit in
+// the card still opens the full form.
+function openSampleCard(id) {
+  const item = samples.find(i => i.id === id);
+  if (!item) return;
+  const statusColor = STATUS_COLORS[item.status] || 'grey';
+  const refs = samples.filter(s => s.id !== id && (s.notes || '').includes(item.sampleId));
+  const refHtml = refs.length
+    ? `<ul style="margin:4px 0 0 18px;padding:0">${refs.map(r => `<li style="margin:2px 0"><a href="javascript:void(0)" onclick="openSampleCard(${r.id})">${esc(r.sampleId)}</a> <span style="color:var(--grey-500);font-size:12px">${esc(r.project || '')}</span></li>`).join('')}</ul>`
+    : '<span style="color:var(--grey-500);font-style:italic">No other samples reference this ID.</span>';
+  const rows = [
+    ['Sample ID', esc(item.sampleId || '')],
+    ['Project', `<span class="badge badge-project">${esc(item.project || '')}</span>`],
+    ['Species', `<em>${esc(item.species || '—')}</em>`],
+    ['Lead', esc(item.lead || '—')],
+    ['Sequencing', esc(item.sequencingType || '—')],
+    ['Status', `<span class="badge badge-${statusColor}">${esc(item.status || '—')}</span>`],
+    ['Priority', esc(item.priority || '—')],
+    ['Blocker', esc(item.currentBlocker || '—')],
+    ['Last updated', esc(item.lastUpdated || '—')],
+    ['Detail sheet', item.detailSheetLink ? `<a href="${esc(item.detailSheetLink)}" target="_blank">Open ↗</a>` : '—'],
+  ];
+  const rowHtml = rows.map(([k, v]) => `<div style="display:grid;grid-template-columns:120px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--grey-200);font-size:13px"><div style="color:var(--grey-500);font-weight:600">${k}</div><div>${v}</div></div>`).join('');
+  const notesHtml = item.notes ? `<div style="margin-top:12px;padding:10px;background:var(--grey-50);border-radius:6px;font-size:13px;white-space:pre-wrap">${esc(item.notes)}</div>` : '';
+
+  const body = `
+    <div class="modal-body" style="padding:20px 24px">
+      ${rowHtml}
+      ${notesHtml}
+      <h3 style="margin:18px 0 4px;font-size:14px;color:var(--grey-700)">Referenced by</h3>
+      ${refHtml}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('sampleCardModal').classList.remove('open')">Close</button>
+      <button class="btn btn-teal" onclick="document.getElementById('sampleCardModal').classList.remove('open');openEditModal(${id})">Edit full form</button>
+    </div>`;
+
+  let modal = document.getElementById('sampleCardModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'sampleCardModal';
+    modal.className = 'modal-overlay';
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+    document.body.appendChild(modal);
+  }
+  modal.innerHTML = `
+    <div class="modal" style="max-width:560px">
+      <div class="modal-header">
+        <h2><span class="material-icons-outlined" style="vertical-align:-4px;color:var(--teal)">science</span> ${esc(item.sampleId)}</h2>
+        <button class="modal-close" onclick="document.getElementById('sampleCardModal').classList.remove('open')"><span class="material-icons-outlined">close</span></button>
+      </div>
+      ${body}
+    </div>`;
+  modal.classList.add('open');
 }
 
 function setSort(col) {
