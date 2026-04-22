@@ -109,6 +109,7 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
   from { opacity: 0; transform: translateY(24px) scale(.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+body.wizard-open #issue-reporter-btn { display: none !important; }
 </style>
 </head>
 <body>
@@ -752,12 +753,14 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
     wizardState = { step: 1, name: '', role: '', email: '', protocols: [], projects: [] };
     document.getElementById('wizardOverlay').style.display = '';
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('wizard-open');
     loadWizardData().then(function() { renderWizardStep(); });
   };
 
   function closeWizard() {
     document.getElementById('wizardOverlay').style.display = 'none';
     document.body.style.overflow = '';
+    document.body.classList.remove('wizard-open');
   }
 
   // Close on overlay click (not modal body)

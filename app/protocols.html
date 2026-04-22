@@ -425,7 +425,7 @@ function renderSidebar(filter) {
     html += '</div>';
   });
 
-  tree.innerHTML = html || '<div class="empty-state"><p>No protocols match</p></div>';
+  tree.innerHTML = html || '<div class="empty-state"><span class="material-icons-outlined">search_off</span><p>No protocols match</p></div>';
 
   // Wire up drag events
   if (loggedIn) initDragDrop();

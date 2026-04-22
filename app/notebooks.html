@@ -478,7 +478,9 @@ function renderSidebar(filter) {
   }
 
   if (!view.children.length) {
-    treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No notebooks' + (q ? ' match' : ' yet') + (loggedIn && !q ? '.<br>Click <strong>+</strong> above to create one.' : '') + '</div>';
+    var emptyMsg = q ? 'No notebooks match' : 'No notebooks yet';
+    var emptyHint = (loggedIn && !q) ? '<p style="font-size:12px;margin-top:-4px">Click <strong>+</strong> above to create one.</p>' : '';
+    treeEl.innerHTML = '<div class="empty-state" style="padding:40px 16px"><span class="material-icons-outlined">search_off</span><p>' + emptyMsg + '</p>' + emptyHint + '</div>';
     return;
   }
 
@@ -941,9 +943,20 @@ window.addEventListener('popstate', function() {
     document.getElementById('newEntryBtn').style.display = '';
   }
   await loadTree();
-  renderSidebar();
 
   var params = new URLSearchParams(location.search);
+  // Honor ?person=<slug> by pre-filtering the sidebar to that person's folder.
+  // The onboarding wizard's success checklist links here with the slug so a
+  // newly-onboarded user lands on their own notebook instead of the generic list.
+  var person = params.get('person');
+  if (person) {
+    var search = document.getElementById('nbSearch');
+    if (search) search.value = prettify(person);
+    renderSidebar(prettify(person));
+  } else {
+    renderSidebar();
+  }
+
   var doc = params.get('doc');
   if (doc) loadDoc(doc);
   else showWelcome();
