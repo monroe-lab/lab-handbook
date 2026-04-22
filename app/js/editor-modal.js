@@ -1769,6 +1769,8 @@
           quantity: entry.quantity,
           unit: entry.unit,
           parent: entry.parent || entry.location,
+          lot: entry.lot,
+          expiration: entry.expiration,
         });
       }
       // 2. Body wikilinks pointing at this slug.
