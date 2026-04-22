@@ -8,6 +8,8 @@ favorites:
     type: "notebook"
   - slug: "liquid-nitrogen-refill"
     type: "protocol"
+  - slug: "new-box-mnvmzdmc"
+    type: "box"
 ---
 
 # Grey Monroe
