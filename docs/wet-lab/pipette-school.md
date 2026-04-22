@@ -7,7 +7,7 @@ title: "Pipette School"
 
 ## Resources
 
-**Equipment:** [[micropipette-p10]], [[micropipette-p20]], [[micropipette-p200]], [[micropipette-p1000]], [[multichannel-pipette]]
+**Equipment:** [[micropipette-p10]], [[micropipette-p20]], [[micropipette-p200]], [[micropipette-p1000]]
 
 **Consumables:** [[pipette-tips-p10]], [[pipette-tips-p20]], [[pipette-tips-p200]], [[pipette-tips-p1000]], [[filter-tips-p10]], [[filter-tips-p20]], [[filter-tips-p200]], [[filter-tips-p1000]], [[microtube]], [[pcr-strip-tubes-0-2ml]], [[parafilm]]
 
@@ -31,11 +31,7 @@ A micropipette is a precision instrument for transferring small liquid volumes (
 
 ## The Pipettes
 
-<!-- PHOTO: Our Fisher Elite pipette set on the bench, showing P10/P20/P200/P1000 -->
-
-![Micropipettes on a stand](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Micropipettes_on_a_pipette_stand_01.jpg/600px-Micropipettes_on_a_pipette_stand_01.jpg)
-
-*Image: [Micropipettes on a pipette stand 01.jpg](https://commons.wikimedia.org/wiki/File:Micropipettes_on_a_pipette_stand_01.jpg) — Wikimedia Commons, CC BY-SA 4.0*
+<!-- PHOTO: Our Fisher Elite pipette set on the bench, showing P10/P20/P200/P1000 — TODO add -->
 
 The lab has several micropipettes. Each covers a specific volume range. **Never dial a pipette outside its stated range** — this damages the calibration.
 
@@ -63,7 +59,7 @@ If you aren't sure how to read the display, ask before pipetting.
 ![Pipette tips in boxes](../images/pipette-tips-in-boxes.jpg)
 
 - **Always use the correct tip size** for your pipette. Tips are not interchangeable.
-- **Use [[filter-tips-p200|filter tips]]** when working with DNA, RNA, or anything you don't want to contaminate the pipette barrel with. For training exercises with water, unfiltered tips are fine.
+- **Filter tips** (available for all pipette sizes — [[filter-tips-p10|P10]], [[filter-tips-p20|P20]], [[filter-tips-p200|P200]], [[filter-tips-p1000|P1000]]) sit inside the tip and catch aerosols before they reach the pipette barrel. Use them when cross-contamination would wreck the experiment: PCR master mix, low-copy templates, sensitive amplicon work, RNA handling. Don't default to filter tips for everything — they cost more per tip, and for routine transfers (most DNA pipetting, buffers, water, training exercises) regular tips are fine. Pick based on what you're actually doing.
 - **Tip ejection:** Use the ejector button to drop the tip into the waste. Never pull a tip off by hand.
 
 ## Technique
@@ -72,13 +68,11 @@ If you aren't sure how to read the display, ask before pipetting.
 
 This is the technique you will use 99% of the time.
 
-> **Video:** [How to Pipette in 5 Simple Steps (Eppendorf)](https://www.youtube.com/watch?v=Wx8clzD-CO4) — 5-minute walkthrough of proper forward pipetting technique
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Wx8clzD-CO4" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
 
-> **Video:** [Eppendorf Video Guide to Perfecting Your Pipetting Technique](https://www.eppendorf.com/us-en/lab-academy/topics-methods-technology/pipetting-dispensing/the-eppendorf-video-guide-to-perfecting-your-pipetting-technique/) — Full video series from Eppendorf on pipetting best practices
+*Video: How to Pipette in 5 Simple Steps (Eppendorf) — 5-minute walkthrough of proper forward pipetting technique.*
 
-![Forward pipetting instruction](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Forward_pipetting_instruction.jpg/600px-Forward_pipetting_instruction.jpg)
-
-*Image: [Forward pipetting instruction.jpg](https://commons.wikimedia.org/wiki/File:Forward_pipetting_instruction.jpg) — Wikimedia Commons, CC BY-SA 4.0*
+See also the [Eppendorf Video Guide to Perfecting Your Pipetting Technique](https://www.eppendorf.com/us-en/lab-academy/topics-methods-technology/pipetting-dispensing/the-eppendorf-video-guide-to-perfecting-your-pipetting-technique/) for the full series.
 
 1. **Set the volume** by turning the dial. Never force the dial past the pipette's range.
 2. **Attach a tip** by pressing the pipette firmly into the tip box. One firm push. Don't hammer it.
@@ -106,7 +100,9 @@ This is the technique you will use 99% of the time.
 
 ## Exercises
 
-> **Video:** [Micropipetting Tutorial Series (miniPCR)](https://www.youtube.com/playlist?list=PLCKY0OHNBaBnoeWPIuWhL-rPeTrAZ9cFy) — 4-video series covering pipette selection, technique, and practice exercises
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLCKY0OHNBaBnoeWPIuWhL-rPeTrAZ9cFy" frameborder="0" allowfullscreen style="max-width:100%;border-radius:8px;margin:12px 0"></iframe>
+
+*Video: Micropipetting Tutorial Series (miniPCR) — 4-video series covering pipette selection, technique, and practice exercises.*
 
 Do all of these. They are not optional.
 
@@ -142,12 +138,38 @@ Do all of these. They are not optional.
 
 This is a 1:10 serial dilution. Each tube is 10x more dilute than the previous. You will use serial dilutions when preparing DNA standards, diluting primers, and setting up Qubit assays.
 
-### Exercise 5: Multichannel pipette (if available)
+### Exercise 5: Mock PCR reaction (dyes instead of reagents)
 
-1. Using a [[multichannel-pipette|multichannel P200]], set to 100 uL.
-2. Aspirate from a reagent reservoir.
-3. Dispense into a row of a 96-well plate.
-4. All wells should have the same volume. Check visually.
+Before setting up a real PCR, practice the motions with colored water. It builds muscle memory for small precise volumes and catches technique problems before you waste enzyme.
+
+Set up (per trainee):
+
+- 4 microcentrifuge tubes of colored water as "stock" reagents. Use food coloring for each:
+  - **Blue** = DNA template
+  - **Red** = primer mix
+  - **Green** = enzyme mix
+  - **Yellow** = 2x buffer
+- 1 microcentrifuge tube of clear distilled water labeled "dH2O blank"
+- A strip of PCR tubes (0.2 mL, 8-well)
+
+Then:
+
+1. **Aliquot.** Use a P20 to transfer 20 uL of each colored stock into a fresh microcentrifuge tube — simulating how you'd pull a working aliquot from a shared lab stock.
+2. **Assemble 4 reactions**, one per PCR tube. Each gets:
+  - 10 uL blue (DNA)
+  - 2 uL red (primers)
+  - 0.5 uL green (enzyme)
+  - 7.5 uL yellow (buffer)
+  - Total: 20 uL per tube
+3. **Run it twice.** First round: do all 4 reactions without changing tips between colors. Second round: fresh tip every transfer. Compare the tubes — the first round will look muddy where cross-contaminated, the second round will show clean layered color. This is the visual argument for changing tips.
+4. **Set up a blank.** One extra PCR tube with 20 uL of dH2O and nothing else. That's your negative control. Clear vs. colored.
+
+Targets:
+
+- All 4 real reactions should have the same total volume and the same color intensity.
+- The blank should stay clear.
+
+If one tube ends up off-color or off-volume, you can usually identify which step went wrong by which color is short or extra.
 
 ## When you are done
 
