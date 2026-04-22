@@ -9,10 +9,17 @@
   var ctx = null;
   var baseImage = null;       // original Image object
   var annotations = [];       // [{text, x, y, color, size, rotation}]
-  var shapes = [];            // [{type:'line'|'arrow'|'rect'|'ellipse', x1,y1,x2,y2, color, size}]
+  var shapes = [];            // [{type:'line'|'arrow'|'rect'|'ellipse', x1,y1,x2,y2, color, size, rotation?}]
   var selectedIdx = -1;
+  var selectedShapeIdx = -1;
   var dragging = false;
   var dragOffX = 0, dragOffY = 0;
+  // Shape-edit drag state. mode: 'move' offsets whole shape; 'handle' moves one
+  // endpoint/corner; 'rotate-move' is a rotation-aware rect/ellipse move where we
+  // store the offset from the shape center so rotation origin stays put.
+  var shapeDragMode = null;
+  var shapeDragHandle = -1;
+  var shapeDragOff = { x: 0, y: 0 };
   // mode: 'text' (default — click to add label, drag to move), 'line', 'arrow', 'rect', 'ellipse'
   var currentTool = { color: '#ffffff', size: 3, rotation: 0, mode: 'text' };
   var shapeDrawing = null;    // live in-progress shape during drag: {type, x1, y1, x2, y2, color, size}
@@ -37,6 +44,8 @@
     shapes = [];
     shapeDrawing = null;
     selectedIdx = -1;
+    selectedShapeIdx = -1;
+    shapeDragMode = null;
     currentTool.mode = 'text';
     updateToolButtons();
 
@@ -61,6 +70,8 @@
     shapes = [];
     shapeDrawing = null;
     selectedIdx = -1;
+    selectedShapeIdx = -1;
+    shapeDragMode = null;
     baseImage = null;
   }
 
@@ -119,8 +130,8 @@
       tb.style.cssText = 'padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;';
       tb.onclick = function() {
         currentTool.mode = t.mode;
-        // Leaving text mode? deselect any active annotation so its handle doesn't lure clicks.
-        if (t.mode !== 'text') selectedIdx = -1;
+        // Leaving text mode? deselect any active annotation/shape so its handles don't lure clicks.
+        if (t.mode !== 'text') { selectedIdx = -1; selectedShapeIdx = -1; }
         updateToolButtons();
         draw();
       };
@@ -151,6 +162,7 @@
         toolbar.querySelectorAll('[data-color]').forEach(function(b) { b.style.borderColor = 'rgba(255,255,255,.3)'; });
         cb.style.borderColor = '#fff';
         if (selectedIdx >= 0) { annotations[selectedIdx].color = c.hex; draw(); }
+        else if (selectedShapeIdx >= 0) { shapes[selectedShapeIdx].color = c.hex; draw(); }
       };
       if (c.hex === currentTool.color) cb.style.borderColor = '#fff';
       toolbar.appendChild(cb);
@@ -171,6 +183,7 @@
         sizeGroup.querySelectorAll('button').forEach(function(b) { b.style.background = 'transparent'; });
         sb.style.background = 'rgba(255,255,255,.25)';
         if (selectedIdx >= 0) { annotations[selectedIdx].size = s.val; draw(); }
+        else if (selectedShapeIdx >= 0) { shapes[selectedShapeIdx].size = s.val; draw(); }
       };
       sizeGroup.appendChild(sb);
     });
@@ -190,6 +203,9 @@
           annotations[selectedIdx].rotation = (annotations[selectedIdx].rotation || 0) + r.deg;
           currentTool.rotation = annotations[selectedIdx].rotation;
           draw();
+        } else if (selectedShapeIdx >= 0) {
+          rotateShape(shapes[selectedShapeIdx], r.deg);
+          draw();
         }
       };
       rotGroup.appendChild(rb);
@@ -204,6 +220,7 @@
     delBtn.style.cssText = 'padding:4px 8px;border-radius:4px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#ff5252;cursor:pointer;display:flex;align-items:center;margin-left:4px;';
     delBtn.onclick = function() {
       if (selectedIdx >= 0) { annotations.splice(selectedIdx, 1); selectedIdx = -1; draw(); }
+      else if (selectedShapeIdx >= 0) { shapes.splice(selectedShapeIdx, 1); selectedShapeIdx = -1; draw(); }
     };
     toolbar.appendChild(delBtn);
 
@@ -295,9 +312,9 @@
     document.addEventListener('keydown', function(e) {
       if (overlay.style.display === 'none') return;
       if (e.key === 'Escape') close();
-      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedIdx >= 0 && document.activeElement !== textInput) {
-        annotations.splice(selectedIdx, 1); selectedIdx = -1; draw();
-        e.preventDefault();
+      if ((e.key === 'Delete' || e.key === 'Backspace') && document.activeElement !== textInput) {
+        if (selectedIdx >= 0) { annotations.splice(selectedIdx, 1); selectedIdx = -1; draw(); e.preventDefault(); }
+        else if (selectedShapeIdx >= 0) { shapes.splice(selectedShapeIdx, 1); selectedShapeIdx = -1; draw(); e.preventDefault(); }
       }
     });
   }
@@ -365,6 +382,17 @@
     ctx.lineWidth = shapeStrokePx(s.size);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
+    // Rotation is stored in degrees around the shape midpoint. For line/arrow
+    // we rotate the endpoints directly (see rotateShape) so this branch only
+    // applies to rect/ellipse — the canvas transform keeps the coords
+    // axis-aligned in storage and avoids per-point trig in hit tests.
+    var rot = (s.type === 'rect' || s.type === 'ellipse') ? (s.rotation || 0) : 0;
+    if (rot) {
+      var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+      ctx.translate(mx, my);
+      ctx.rotate(rot * Math.PI / 180);
+      ctx.translate(-mx, -my);
+    }
     if (s.type === 'line' || s.type === 'arrow') {
       ctx.beginPath();
       ctx.moveTo(s.x1, s.y1);
@@ -402,6 +430,130 @@
     ctx.restore();
   }
 
+  // Handle positions for a selected shape in canvas coords (after rotation).
+  // Line/arrow: 2 endpoint handles. Rect/ellipse: 4 corners of the bounding box,
+  // rotated around the midpoint if the shape has a rotation field.
+  function shapeHandles(s) {
+    if (s.type === 'line' || s.type === 'arrow') {
+      return [ { x: s.x1, y: s.y1 }, { x: s.x2, y: s.y2 } ];
+    }
+    var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+    var rot = (s.rotation || 0) * Math.PI / 180;
+    var cos = Math.cos(rot), sin = Math.sin(rot);
+    var corners = [
+      { x: s.x1, y: s.y1 }, // TL (as stored)
+      { x: s.x2, y: s.y1 }, // TR
+      { x: s.x2, y: s.y2 }, // BR
+      { x: s.x1, y: s.y2 }  // BL
+    ];
+    return corners.map(function(c) {
+      var dx = c.x - mx, dy = c.y - my;
+      return { x: mx + dx * cos - dy * sin, y: my + dx * sin + dy * cos };
+    });
+  }
+
+  function handleSizePx() {
+    // Scale handles with display so they stay thumb-sized regardless of zoom.
+    return Math.max(6, Math.round(8 / scale));
+  }
+
+  function hitTestShapeHandle(s, px, py) {
+    var handles = shapeHandles(s);
+    var r = handleSizePx() * 1.5; // generous hit radius
+    for (var i = 0; i < handles.length; i++) {
+      var dx = px - handles[i].x, dy = py - handles[i].y;
+      if (dx * dx + dy * dy <= r * r) return i;
+    }
+    return -1;
+  }
+
+  function hitTestShape(px, py) {
+    for (var i = shapes.length - 1; i >= 0; i--) {
+      var s = shapes[i];
+      // Rotate the click back into the shape's local (pre-rotation) frame,
+      // then do an axis-aligned test. This works for all four shape types.
+      var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+      var rot = (s.type === 'rect' || s.type === 'ellipse') ? -(s.rotation || 0) * Math.PI / 180 : 0;
+      var cos = Math.cos(rot), sin = Math.sin(rot);
+      var lx = mx + (px - mx) * cos - (py - my) * sin;
+      var ly = my + (px - mx) * sin + (py - my) * cos;
+      var tol = Math.max(6, shapeStrokePx(s.size));
+      if (s.type === 'line' || s.type === 'arrow') {
+        if (pointToSegmentDist(lx, ly, s.x1, s.y1, s.x2, s.y2) <= tol) return i;
+      } else {
+        var minX = Math.min(s.x1, s.x2), maxX = Math.max(s.x1, s.x2);
+        var minY = Math.min(s.y1, s.y2), maxY = Math.max(s.y1, s.y2);
+        if (lx >= minX - tol && lx <= maxX + tol && ly >= minY - tol && ly <= maxY + tol) return i;
+      }
+    }
+    return -1;
+  }
+
+  function pointToSegmentDist(px, py, x1, y1, x2, y2) {
+    var dx = x2 - x1, dy = y2 - y1;
+    var len2 = dx * dx + dy * dy;
+    if (len2 === 0) return Math.hypot(px - x1, py - y1);
+    var t = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / len2));
+    return Math.hypot(px - (x1 + t * dx), py - (y1 + t * dy));
+  }
+
+  // Rotate a shape around its midpoint. Line/arrow endpoints are rotated
+  // directly so their stored coords reflect the new orientation. Rect/ellipse
+  // stash the angle in `rotation` and keep their axis-aligned x1/y1/x2/y2 —
+  // drawShape and hit tests account for it.
+  function rotateShape(s, deg) {
+    if (s.type === 'line' || s.type === 'arrow') {
+      var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+      var rad = deg * Math.PI / 180;
+      var cos = Math.cos(rad), sin = Math.sin(rad);
+      var rx1 = mx + (s.x1 - mx) * cos - (s.y1 - my) * sin;
+      var ry1 = my + (s.x1 - mx) * sin + (s.y1 - my) * cos;
+      var rx2 = mx + (s.x2 - mx) * cos - (s.y2 - my) * sin;
+      var ry2 = my + (s.x2 - mx) * sin + (s.y2 - my) * cos;
+      s.x1 = rx1; s.y1 = ry1; s.x2 = rx2; s.y2 = ry2;
+    } else {
+      s.rotation = (s.rotation || 0) + deg;
+    }
+  }
+
+  function drawShapeSelection(s) {
+    ctx.save();
+    // Light dashed outline around the shape's bounding geometry.
+    ctx.strokeStyle = '#00e5ff';
+    ctx.lineWidth = Math.max(1, 2 / scale);
+    ctx.setLineDash([6 / scale, 4 / scale]);
+    if (s.type === 'line' || s.type === 'arrow') {
+      ctx.beginPath();
+      ctx.moveTo(s.x1, s.y1);
+      ctx.lineTo(s.x2, s.y2);
+      ctx.stroke();
+    } else {
+      var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+      var rot = (s.rotation || 0) * Math.PI / 180;
+      ctx.translate(mx, my);
+      ctx.rotate(rot);
+      ctx.translate(-mx, -my);
+      var rx = Math.min(s.x1, s.x2), ry = Math.min(s.y1, s.y2);
+      var rw = Math.abs(s.x2 - s.x1), rh = Math.abs(s.y2 - s.y1);
+      ctx.strokeRect(rx, ry, rw, rh);
+    }
+    ctx.restore();
+
+    // Handles on top, drawn in canvas coords (no rotation transform so they're
+    // always screen-aligned squares).
+    ctx.save();
+    var handles = shapeHandles(s);
+    var hs = handleSizePx();
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#00e5ff';
+    ctx.lineWidth = Math.max(1, 2 / scale);
+    handles.forEach(function(h) {
+      ctx.fillRect(h.x - hs / 2, h.y - hs / 2, hs, hs);
+      ctx.strokeRect(h.x - hs / 2, h.y - hs / 2, hs, hs);
+    });
+    ctx.restore();
+  }
+
   function draw() {
     if (!ctx || !baseImage) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -410,6 +562,7 @@
     // Shapes first, so text labels sit on top.
     shapes.forEach(drawShape);
     if (shapeDrawing) drawShape(shapeDrawing);
+    if (selectedShapeIdx >= 0 && shapes[selectedShapeIdx]) drawShapeSelection(shapes[selectedShapeIdx]);
 
     annotations.forEach(function(a, i) {
       ctx.save();
@@ -623,8 +776,22 @@
         size: currentTool.size
       };
       selectedIdx = -1;
+      selectedShapeIdx = -1;
       draw();
       return;
+    }
+
+    // Text mode: first check for a handle on the currently selected shape —
+    // handles sit on top of other hit targets, so they take priority.
+    if (selectedShapeIdx >= 0 && shapes[selectedShapeIdx]) {
+      var h = hitTestShapeHandle(shapes[selectedShapeIdx], p.x, p.y);
+      if (h >= 0) {
+        shapeDragMode = 'handle';
+        shapeDragHandle = h;
+        dragging = true;
+        canvas.style.cursor = 'grabbing';
+        return;
+      }
     }
 
     var hit = hitTest(p.x, p.y);
@@ -632,27 +799,48 @@
     if (hit >= 0) {
       // Clicked on existing annotation → select and drag
       selectAnnotation(hit);
+      selectedShapeIdx = -1;
       dragging = true;
       dragOffX = p.x - annotations[hit].x;
       dragOffY = p.y - annotations[hit].y;
       canvas.style.cursor = 'grabbing';
-    } else {
-      // Clicked empty space → add new annotation (blank, inherits last settings)
-      annotations.push({
-        text: '',
-        x: p.x,
-        y: p.y,
-        color: currentTool.color,
-        size: currentTool.size,
-        rotation: currentTool.rotation
-      });
-      selectedIdx = annotations.length - 1;
-      var ti = document.getElementById('annot-text');
-      ti.value = '';
       draw();
-      // setTimeout so focus works after canvas mousedown
-      setTimeout(function() { ti.focus(); }, 50);
+      return;
     }
+
+    var shapeHit = hitTestShape(p.x, p.y);
+    if (shapeHit >= 0) {
+      selectedShapeIdx = shapeHit;
+      selectedIdx = -1;
+      shapeDragMode = 'move';
+      dragging = true;
+      var s = shapes[shapeHit];
+      shapeDragOff.x = p.x - s.x1;
+      shapeDragOff.y = p.y - s.y1;
+      // Inherit color/size so toolbar reflects the selection.
+      currentTool.color = s.color || currentTool.color;
+      currentTool.size = s.size || currentTool.size;
+      canvas.style.cursor = 'grabbing';
+      draw();
+      return;
+    }
+
+    // Clicked empty space → add new annotation (blank, inherits last settings)
+    selectedShapeIdx = -1;
+    annotations.push({
+      text: '',
+      x: p.x,
+      y: p.y,
+      color: currentTool.color,
+      size: currentTool.size,
+      rotation: currentTool.rotation
+    });
+    selectedIdx = annotations.length - 1;
+    var ti = document.getElementById('annot-text');
+    ti.value = '';
+    draw();
+    // setTimeout so focus works after canvas mousedown
+    setTimeout(function() { ti.focus(); }, 50);
   }
 
   function onPointerMove(e) {
@@ -674,6 +862,39 @@
       draw();
       return;
     }
+    if (dragging && shapeDragMode && selectedShapeIdx >= 0) {
+      var p2 = canvasXY(e);
+      var s = shapes[selectedShapeIdx];
+      if (shapeDragMode === 'move') {
+        // Offset all points by the same delta so the whole shape translates.
+        var nx = p2.x - shapeDragOff.x;
+        var ny = p2.y - shapeDragOff.y;
+        var ddx = nx - s.x1, ddy = ny - s.y1;
+        s.x1 += ddx; s.y1 += ddy;
+        s.x2 += ddx; s.y2 += ddy;
+      } else if (shapeDragMode === 'handle') {
+        if (s.type === 'line' || s.type === 'arrow') {
+          if (shapeDragHandle === 0) { s.x1 = p2.x; s.y1 = p2.y; }
+          else { s.x2 = p2.x; s.y2 = p2.y; }
+        } else {
+          // Rect/ellipse: corners are rotated on screen, but x1/y1/x2/y2 stay
+          // axis-aligned in storage. Map the pointer back into the shape's
+          // local frame, then update the chosen corner's component.
+          var mx = (s.x1 + s.x2) / 2, my = (s.y1 + s.y2) / 2;
+          var rot = -(s.rotation || 0) * Math.PI / 180;
+          var cos = Math.cos(rot), sin = Math.sin(rot);
+          var lx = mx + (p2.x - mx) * cos - (p2.y - my) * sin;
+          var ly = my + (p2.x - mx) * sin + (p2.y - my) * cos;
+          // Handle order from shapeHandles: TL, TR, BR, BL (on the stored rect).
+          if (shapeDragHandle === 0) { s.x1 = lx; s.y1 = ly; }
+          else if (shapeDragHandle === 1) { s.x2 = lx; s.y1 = ly; }
+          else if (shapeDragHandle === 2) { s.x2 = lx; s.y2 = ly; }
+          else if (shapeDragHandle === 3) { s.x1 = lx; s.y2 = ly; }
+        }
+      }
+      draw();
+      return;
+    }
     if (!dragging || selectedIdx < 0) return;
     var p = canvasXY(e);
     annotations[selectedIdx].x = p.x - dragOffX;
@@ -683,6 +904,8 @@
 
   function onPointerUp() {
     dragging = false;
+    shapeDragMode = null;
+    shapeDragHandle = -1;
     if (shapeDrawing) {
       // Commit the shape if it has meaningful extent — filters out stray clicks.
       var dx = shapeDrawing.x2 - shapeDrawing.x1;
@@ -720,6 +943,7 @@
       // Remove empty annotations and deselect before flattening
       annotations = annotations.filter(function(a) { return a.text && a.text.trim(); });
       selectedIdx = -1;
+      selectedShapeIdx = -1;
       draw();
 
       // 1. Flatten canvas to PNG blob
