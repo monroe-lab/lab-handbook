@@ -49,7 +49,7 @@ Three parallel Tn5 sources so we have something well-characterized no matter wha
 
 ## Chart string
 
-TBD — pick from startup (FPAPLS5424-STUDO1 / STUDPT / STUDOC, all expire 06/30/2026) or another eligible source. See [[Accounts Overview]] and confirm with [[Alice Jungwirth]].
+TBD — pick an eligible startup or grant account. Grey confirms with Alice Jungwirth before orders are submitted; account strings stay in the private vault, not here.
 
 ## Sub-pages
 
