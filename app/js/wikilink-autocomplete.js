@@ -546,6 +546,129 @@
     inputState = null;
   }
 
+  // attachTextInput: `[[` trigger autocomplete on a plain <input> or <textarea>.
+  //
+  // Like attach() but works on non-contentEditable fields using selectionStart /
+  // selectionEnd. Users can type `[[que` anywhere in the value, pick a slug,
+  // and the `[[que` range is replaced with `[[slug]]`. Supports multiple
+  // wikilinks per field (different from attachToInput which treats the whole
+  // value as a single slug).
+  // ─────────────────────────────────────────────────────────────
+  var textInputStates = []; // multiple concurrent attachments supported
+  function attachTextInput(el, opts) {
+    if (!el) return;
+    ensureDropdown();
+    opts = opts || {};
+
+    var st = { el: el, triggerStart: -1, triggerEnd: -1, query: '', items: [], selectedIdx: 0 };
+
+    function findTextTrigger() {
+      // Look backward from caret for `[[` without an intervening `]]` or newline.
+      if (typeof el.selectionStart !== 'number') return null;
+      var caret = el.selectionStart;
+      if (caret !== el.selectionEnd) return null;
+      var text = el.value || '';
+      var slice = text.substring(0, caret);
+      var openIdx = slice.lastIndexOf('[[');
+      if (openIdx < 0) return null;
+      var between = slice.substring(openIdx);
+      if (between.indexOf(']]') >= 0) return null;
+      if (between.indexOf('\n') >= 0) return null;
+      var query = between.slice(2);
+      if (query.length > 80) return null;
+      return { start: openIdx, end: caret, query: query };
+    }
+
+    function positionAtCaret() {
+      var rect = el.getBoundingClientRect();
+      // Good-enough positioning: just below the field. For a textarea the
+      // dropdown won't follow the caret line-by-line, but this matches the
+      // attachToInput behavior and keeps the implementation tiny.
+      dropdown.style.left = rect.left + 'px';
+      dropdown.style.top = (rect.bottom + 4) + 'px';
+      dropdown.style.minWidth = Math.max(rect.width, 360) + 'px';
+      dropdown.style.display = 'block';
+      dropdown.setAttribute('data-wla-owner', 'text');
+    }
+
+    function applyTextSelection(idx) {
+      if (!st.items || idx < 0 || idx >= st.items.length) return;
+      var slug = st.items[idx].slug;
+      var val = el.value || '';
+      var before = val.substring(0, st.triggerStart);
+      var after = val.substring(st.triggerEnd);
+      var insert = '[[' + slug + ']]';
+      el.value = before + insert + after;
+      var newCaret = before.length + insert.length;
+      try { el.setSelectionRange(newCaret, newCaret); } catch (e) {}
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      hide('text');
+      el.focus();
+    }
+
+    async function onInputEvt() {
+      var t = findTextTrigger();
+      if (!t) { hide('text'); return; }
+      st.triggerStart = t.start;
+      st.triggerEnd = t.end;
+      st.query = t.query;
+      st.items = await filterEntries(t.query);
+      st.selectedIdx = 0;
+      await renderItems(st.items, st.selectedIdx, applyTextSelection);
+      positionAtCaret();
+    }
+    function onKeydownEvt(e) {
+      if (!dropdown || dropdown.style.display === 'none') return;
+      if (dropdown.getAttribute('data-wla-owner') !== 'text') return;
+      if (!st.items || !st.items.length) {
+        if (e.key === 'Escape') { e.preventDefault(); hide('text'); }
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        st.selectedIdx = (st.selectedIdx + 1) % st.items.length;
+        renderItems(st.items, st.selectedIdx, applyTextSelection);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        st.selectedIdx = (st.selectedIdx - 1 + st.items.length) % st.items.length;
+        renderItems(st.items, st.selectedIdx, applyTextSelection);
+      } else if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault();
+        e.stopPropagation();
+        applyTextSelection(st.selectedIdx);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        hide('text');
+      }
+    }
+    function onBlur() { setTimeout(function() { hide('text'); }, 200); }
+
+    st._onInput = onInputEvt;
+    st._onKeydown = onKeydownEvt;
+    st._onBlur = onBlur;
+    el.addEventListener('input', onInputEvt);
+    el.addEventListener('keydown', onKeydownEvt);
+    el.addEventListener('blur', onBlur);
+    textInputStates.push(st);
+  }
+
+  function detachTextInput(el) {
+    for (var i = textInputStates.length - 1; i >= 0; i--) {
+      var st = textInputStates[i];
+      if (el && st.el !== el) continue;
+      try {
+        st.el.removeEventListener('input', st._onInput);
+        st.el.removeEventListener('keydown', st._onKeydown);
+        st.el.removeEventListener('blur', st._onBlur);
+      } catch (e) {}
+      textInputStates.splice(i, 1);
+    }
+    if (dropdown && dropdown.getAttribute('data-wla-owner') === 'text') {
+      dropdown.style.display = 'none';
+      dropdown.removeAttribute('data-wla-owner');
+    }
+  }
+
   // ── Exports ──
   window.Lab = window.Lab || {};
   window.Lab.wikilinkAutocomplete = {
@@ -553,6 +676,8 @@
     detach: detach,
     attachToInput: attachToInput,
     detachInput: detachInput,
+    attachTextInput: attachTextInput,
+    detachTextInput: detachTextInput,
     // Exposed for tests
     _findTrigger: findTrigger,
     _filter: filterEntries,

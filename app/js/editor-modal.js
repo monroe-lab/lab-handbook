@@ -800,7 +800,7 @@
     // Toast UI bundle downloads, which looks like the previous object is
     // still open even though the title and fields have already updated.
     var contentEl = document.getElementById('em-content');
-    contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"><div class="loading-state" style="padding:40px;text-align:center;color:var(--grey-500)"><div class="spinner"></div><p>Loading editor…</p></div></div>';
+    contentEl.innerHTML = '<div class="em-surface" style="min-height:500px"><div class="loading-state" style="padding:40px;text-align:center;color:var(--grey-500)"><div class="spinner"></div><p>Loading editor…</p></div></div>';
     var contentsMount = document.getElementById('em-contents');
     if (contentsMount) contentsMount.innerHTML = '<div class="em-col-empty">This item has no contents yet. Save it first, then add children.</div>';
 
@@ -809,14 +809,15 @@
     // Re-query the surface — user may have closed the modal while we were loading.
     var editorSurface = document.getElementById('em-content');
     if (!editorSurface || !overlayEl.classList.contains('open')) return;
-    editorSurface.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
+    editorSurface.innerHTML = '<div class="em-surface" style="min-height:500px"></div>';
     var editorEl = editorSurface.querySelector('.em-surface');
     currentEditor = new toastui.Editor({
       el: editorEl,
       initialEditType: 'wysiwyg',
       hideModeSwitch: true,
       previewStyle: 'vertical',
-      height: '300px',
+      height: 'auto',
+      minHeight: '500px',
       initialValue: '',
       usageStatistics: false,
       toolbarItems: isMobile() ? [] :
@@ -2388,7 +2389,7 @@
     // Load Toast UI and init editor
     await loadToast();
     var contentEl = document.getElementById('em-content');
-    contentEl.innerHTML = '<div class="em-surface" style="min-height:200px"></div>';
+    contentEl.innerHTML = '<div class="em-surface" style="min-height:500px"></div>';
     var editorEl = contentEl.querySelector('.em-surface');
 
     // Convert [[wikilinks]] to standard links, resolve paths, and placeholder media before feeding to Toast UI
@@ -2403,7 +2404,8 @@
       initialEditType: 'wysiwyg',
       hideModeSwitch: true,
       previewStyle: 'vertical',
-      height: '300px',
+      height: 'auto',
+      minHeight: '500px',
       initialValue: prepared,
       usageStatistics: false,
       toolbarItems: isMobile() ? [] :

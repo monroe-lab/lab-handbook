@@ -27,6 +27,9 @@ jobs:
       - name: Install build deps
         run: pip install pyyaml
 
+      - name: Check issue-reporter FAB on every page
+        run: python scripts/check-fab.py
+
       - name: Build object index
         run: python scripts/build-object-index.py
 

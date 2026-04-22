@@ -547,12 +547,19 @@
           });
           html += '</select>';
         } else if (f.type === 'textarea') {
-          html += '<textarea data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + 'min-height:60px;resize:vertical" placeholder="' + escHtml(f.placeholder || '') + '">' + escHtml(f.default || '') + '</textarea>';
+          var taAttr = f.wikilinkAutocomplete ? ' data-wikilink-autocomplete="1"' : '';
+          var minH = f.minHeight || '60px';
+          // Monospace only when markdown-flavored (wikilinkAutocomplete implies body text).
+          var taExtra = f.wikilinkAutocomplete
+            ? 'font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.5;'
+            : '';
+          html += '<textarea data-modal-key="' + escHtml(f.key) + '"' + taAttr + ' style="' + _inputStyle + 'min-height:' + minH + ';resize:vertical;' + taExtra + '" placeholder="' + escHtml(f.placeholder || '') + '">' + escHtml(f.default || '') + '</textarea>';
         } else if (f.type === 'date') {
           html += '<input type="date" data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '" ' +
             'value="' + escHtml(f.default || '') + '">';
         } else {
-          html += '<input type="text" data-modal-key="' + escHtml(f.key) + '" style="' + _inputStyle + '" ' +
+          var inAttr = f.wikilinkAutocomplete ? ' data-wikilink-autocomplete="1"' : '';
+          html += '<input type="text" data-modal-key="' + escHtml(f.key) + '"' + inAttr + ' style="' + _inputStyle + '" ' +
             'placeholder="' + escHtml(f.placeholder || '') + '" value="' + escHtml(f.default || '') + '">';
         }
         html += '</div>';
@@ -628,6 +635,21 @@
           el.addEventListener('focus', function() { el.style.borderColor = '#009688'; });
           el.addEventListener('blur', function() { el.style.borderColor = '#ddd'; });
         });
+
+        // Wire wikilink [[ autocomplete on any field marked with
+        // data-wikilink-autocomplete. Detach on modal cleanup so we don't
+        // leak listeners onto elements that are about to be removed.
+        if (window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.attachTextInput) {
+          var wlaFields = m.querySelectorAll('[data-wikilink-autocomplete]');
+          wlaFields.forEach(function(el) { Lab.wikilinkAutocomplete.attachTextInput(el); });
+          if (wlaFields.length) {
+            var origCleanup = m._cleanup;
+            m._cleanup = function(v) {
+              wlaFields.forEach(function(el) { Lab.wikilinkAutocomplete.detachTextInput(el); });
+              origCleanup(v);
+            };
+          }
+        }
 
         // Conditional visibility: a field with data-show-when-key/value is shown
         // only when the controlling field's value matches. Used by the calendar

@@ -768,8 +768,12 @@ if (window.self !== window.top) {
         <input type="text" id="fBlocker" placeholder="e.g. Waiting for QC results">
       </div>
       <div class="form-group">
-        <label>Notes</label>
-        <textarea id="fNotes" placeholder="Optional notes..."></textarea>
+        <label>Description (markdown)</label>
+        <textarea id="fNotes" style="min-height:240px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.5" placeholder="Describe the sample. Provide tissue type, source notes, phenotype, QC readings, extraction yields, anything worth remembering. Type [[ to link a protocol, person, location, tube, or other sample."></textarea>
+      </div>
+      <div class="form-group" id="instancesGroup" style="display:none">
+        <label>Physical instances <span style="color:var(--grey-500);font-weight:400;font-size:11px;margin-left:4px">tubes, boxes, or other objects referencing this sample</span></label>
+        <div id="instancesList" style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;background:var(--grey-50);border-radius:8px;padding:8px"></div>
       </div>
       <div class="form-group">
         <label>Detail Sheet Link</label>
@@ -807,6 +811,8 @@ if (window.self !== window.top) {
 <script src="../app/js/github-api.js"></script>
 <script src="../app/js/nav.js"></script>
 <script src="../app/js/rich-input.js"></script>
+<script src="../app/js/wikilinks.js"></script>
+<script src="../app/js/wikilink-autocomplete.js"></script>
 <script src="../app/js/issue-reporter.js"></script>
 
 <!-- Toast container -->
@@ -1401,8 +1407,10 @@ function openAddModal() {
   document.getElementById('fBlocker').value = '';
   document.getElementById('fNotes').value = '';
   document.getElementById('fDetailLink').value = '';
+  document.getElementById('instancesGroup').style.display = 'none';
   document.getElementById('itemModal').classList.add('open');
   document.getElementById('fSampleId').focus();
+  wireNotesAutocomplete();
 }
 
 function openEditModal(id) {
@@ -1422,10 +1430,126 @@ function openEditModal(id) {
   document.getElementById('fDetailLink').value = item.detailSheetLink;
   document.getElementById('itemModal').classList.add('open');
   document.getElementById('fSampleId').focus();
+  wireNotesAutocomplete();
+  populateInstances(item);
+}
+
+// Wire [[ autocomplete on the notes textarea. Safe to call repeatedly —
+// attachTextInput detaches any previous binding via detachTextInput on close.
+function wireNotesAutocomplete() {
+  if (!window.Lab || !Lab.wikilinkAutocomplete || !Lab.wikilinkAutocomplete.attachTextInput) return;
+  var ta = document.getElementById('fNotes');
+  if (!ta) return;
+  Lab.wikilinkAutocomplete.detachTextInput(ta);
+  Lab.wikilinkAutocomplete.attachTextInput(ta);
+}
+
+// #137: list physical instances (tubes, boxes, containers) that reference
+// this sample. Matches on:
+//   1. frontmatter `of:` pointing at a sample slug derived from the sampleId
+//   2. any occurrence of the sampleId string in the object's title, slug,
+//      parent, or label — a cheap proxy for "references this sample" without
+//      having to parse every object's body.
+// Clicking a row opens the object in the shared editor-modal (loaded lazily
+// on first click to keep the sample-tracker page lean).
+async function populateInstances(sample) {
+  var mount = document.getElementById('instancesList');
+  var group = document.getElementById('instancesGroup');
+  if (!mount || !group) return;
+  mount.innerHTML = '<div style="color:var(--grey-500);font-size:12px;padding:6px">Looking for tubes and containers that reference this sample…</div>';
+  group.style.display = '';
+
+  var sampleId = (sample.sampleId || '').trim();
+  if (!sampleId) { group.style.display = 'none'; return; }
+
+  // Normalize sampleId for slug comparison ("R2_B4_C1" → "r2-b4-c1").
+  var sampleIdLower = sampleId.toLowerCase();
+  var sampleIdSlug = sampleIdLower.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  var matches = [];
+  try {
+    if (!window.Lab || !Lab.gh || !Lab.gh.fetchObjectIndex) {
+      mount.innerHTML = '<div style="color:var(--grey-500);font-size:12px;padding:6px">Object index unavailable.</div>';
+      return;
+    }
+    var index = await Lab.gh.fetchObjectIndex();
+    index.forEach(function(entry) {
+      var type = entry.type || '';
+      // Only surface instance-flavored objects. Don't list every protocol/
+      // notebook that happens to mention the sample ID — that's noise.
+      var INSTANCE_TYPES = { tube: 1, box: 1, container: 1, bottle: 1, freezer: 1, fridge: 1, shelf: 1 };
+      if (!INSTANCE_TYPES[type]) return;
+
+      var haystack = [
+        entry.title || '',
+        entry.path || '',
+        entry.of || '',
+        entry.parent || '',
+        entry.label_1 || '',
+        entry.label_2 || '',
+      ].join(' ').toLowerCase();
+      var hit = haystack.indexOf(sampleIdLower) >= 0 || haystack.indexOf(sampleIdSlug) >= 0;
+      if (hit) matches.push(entry);
+    });
+  } catch (e) {
+    mount.innerHTML = '<div style="color:var(--red);font-size:12px;padding:6px">Failed to load object index: ' + Lab.escHtml(e.message) + '</div>';
+    return;
+  }
+
+  if (!matches.length) {
+    mount.innerHTML = '<div style="color:var(--grey-500);font-size:12px;padding:6px;line-height:1.5">' +
+      'No physical instances found yet. When you place this sample in a tube or box — e.g. create a tube whose <code>of:</code> field is <code>[[samples/' + Lab.escHtml(sampleIdSlug) + ']]</code> — it will show up here.' +
+    '</div>';
+    return;
+  }
+
+  var ICON_BY_TYPE = { tube: 'science', box: 'all_inbox', container: 'inventory_2', bottle: 'medication', freezer: 'ac_unit', fridge: 'kitchen', shelf: 'view_day' };
+  mount.innerHTML = matches.map(function(entry) {
+    var typeLabel = (window.Lab && Lab.types && Lab.types.get) ? (Lab.types.get(entry.type).label || entry.type) : entry.type;
+    var icon = ICON_BY_TYPE[entry.type] || 'label';
+    var title = entry.title || (entry.path || '').replace(/\.md$/, '').split('/').pop();
+    var path = entry.path || '';
+    return '<a href="#" data-inst-path="' + Lab.escHtml(path) + '" ' +
+      'style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#fff;border:1px solid var(--grey-200);border-radius:6px;text-decoration:none;color:inherit">' +
+      '<span class="material-icons-outlined" style="font-size:18px;color:var(--teal)">' + Lab.escHtml(icon) + '</span>' +
+      '<span style="flex:1;font-size:13px;font-weight:500">' + Lab.escHtml(title) + '</span>' +
+      '<span style="font-size:11px;color:var(--grey-500);text-transform:uppercase;letter-spacing:.4px">' + Lab.escHtml(typeLabel) + '</span>' +
+      '</a>';
+  }).join('');
+
+  // Lazy-load editor-modal on first click so we don't pay the Toast UI cost
+  // up-front for samples that never get opened.
+  mount.querySelectorAll('[data-inst-path]').forEach(function(a) {
+    a.addEventListener('click', function(ev) {
+      ev.preventDefault();
+      var path = a.getAttribute('data-inst-path');
+      openInstance(path);
+    });
+  });
+}
+
+var _editorModalLoaded = false;
+function openInstance(path) {
+  if (!path) return;
+  function doOpen() {
+    if (window.Lab && Lab.editorModal && Lab.editorModal.open) {
+      Lab.editorModal.open('docs/' + path.replace(/^docs\//, ''));
+    }
+  }
+  if (_editorModalLoaded || (window.Lab && window.Lab.editorModal)) { doOpen(); return; }
+  _editorModalLoaded = true;
+  var s = document.createElement('script');
+  s.src = '../app/js/editor-modal.js';
+  s.onload = doOpen;
+  document.head.appendChild(s);
 }
 
 function closeModal() {
   document.getElementById('itemModal').classList.remove('open');
+  if (window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.detachTextInput) {
+    var ta = document.getElementById('fNotes');
+    if (ta) Lab.wikilinkAutocomplete.detachTextInput(ta);
+  }
 }
 
 async function saveItem() {

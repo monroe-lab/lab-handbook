@@ -653,11 +653,11 @@ async function openAddEvent(prefill) {
     title: 'New Event',
     fields: [
       { key: 'title', label: 'Title', placeholder: 'e.g. DNA extraction, Lab meeting' },
-      { key: 'member', label: 'Member(s)', placeholder: '[[name]] \u2014 type [[ to autocomplete' },
+      { key: 'member', label: 'Member(s)', placeholder: '[[name]] \u2014 type [[ to autocomplete', wikilinkAutocomplete: true },
       { key: 'date', label: 'Date', type: 'date', default: dateStr },
       { key: 'start_time', label: 'Start Time', type: 'select', options: timeOpts, default: prefill.startTime || '09:00' },
       { key: 'end_time', label: 'End Time', type: 'select', options: timeOpts, default: prefill.startTime ? addHour(prefill.startTime) : '10:00' },
-      { key: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional \u2014 type [[ to link protocols, etc.' },
+      { key: 'notes', label: 'Body (markdown)', type: 'textarea', minHeight: '180px', placeholder: 'Becomes the body of the event page. Type [[ to link a protocol, person, sample, etc.', wikilinkAutocomplete: true },
       // Default 'none' \u2014 single event. Issue #106/#107: never repeat unless the
       // user explicitly picks daily/weekly. \"Repeat Until\" is hidden via show_when
       // until the user picks daily/weekly, so no stale date sits in the form.
