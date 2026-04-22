@@ -58,13 +58,34 @@ for i in $(seq 1 $MAX_CYCLES); do
     echo "  ⚠️  Cycle $i claude call exited non-zero (exit=$EXIT); continuing." | tee -a "$LOG_FILE"
   fi
 
-  # Health check — verify site is still up
+  # Health check — verify site is still up. First confirm we actually have
+  # internet by hitting api.github.com; if THAT fails the laptop is offline,
+  # not the site, so we skip health enforcement (and the revert) and wait
+  # for the connection to come back. This prevents the "wandering laptop"
+  # footgun where losing wifi made us revert a perfectly good commit.
   echo "  Health check..." | tee -a "$LOG_FILE"
-  if ! curl -sf "$SITE_URL" > /dev/null 2>&1; then
+  if ! curl -sf -m 10 https://api.github.com > /dev/null 2>&1; then
+    echo "  📶  No internet (api.github.com unreachable). Waiting for network..." | tee -a "$LOG_FILE"
+    # Wait up to 30 min for connection; otherwise skip this cycle's health check.
+    for _ in $(seq 1 180); do
+      sleep 10
+      if curl -sf -m 10 https://api.github.com > /dev/null 2>&1; then
+        echo "  📶  Network restored." | tee -a "$LOG_FILE"
+        break
+      fi
+    done
+    if ! curl -sf -m 10 https://api.github.com > /dev/null 2>&1; then
+      echo "  📶  Still offline after 30 min. Skipping site health check for this cycle (no revert)." | tee -a "$LOG_FILE"
+      sleep 5
+      continue
+    fi
+  fi
+  # Only now — with confirmed internet — test the actual site.
+  if ! curl -sf -m 15 "$SITE_URL" > /dev/null 2>&1; then
     echo "  ⚠️  Site not responding (may be rebuilding). Waiting 60s..." | tee -a "$LOG_FILE"
     sleep 60
-    if ! curl -sf "$SITE_URL" > /dev/null 2>&1; then
-      echo "  ❌  Site still down. Reverting last commit." | tee -a "$LOG_FILE"
+    if ! curl -sf -m 15 "$SITE_URL" > /dev/null 2>&1; then
+      echo "  ❌  Site still down while internet is up. Reverting last commit." | tee -a "$LOG_FILE"
       git revert HEAD --no-edit 2>/dev/null || true
       git push 2>/dev/null || true
       echo "  Reverted. Stopping." | tee -a "$LOG_FILE"
