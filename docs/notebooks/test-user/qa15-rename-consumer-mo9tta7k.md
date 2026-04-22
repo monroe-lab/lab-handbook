@@ -10,11 +10,11 @@ type: "note"
 
 ## Protocol used
 
-Ran [[qa15-initial-proto-mo9tta7k]] on 3 samples today.
+Ran [[qa15-renamed-proto-mo9tta7k]] on 3 samples today.
 
 ## Also referenced (path-qualified form)
 
-The same protocol, cited as [[wet-lab/qa15-initial-proto-mo9tta7k]] for clarity.
+The same protocol, cited as [[qa15-renamed-proto-mo9tta7k]] for clarity.
 
 ## Results
 
