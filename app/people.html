@@ -268,7 +268,15 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
           var typeName = obj ? obj.type : null;
           var style = Lab.types.pillStyle(typeName || 'unknown');
           var content = Lab.types.pillContent(typeName || 'unknown', wl.label);
-          return '<a href="' + esc(getPageForType(typeName)) + '?doc=' + esc(wl.slug) + '" style="' + style + '" onclick="event.stopPropagation()">' + content + '</a>';
+          // When the slug resolves, build the href from the object's full
+          // path (e.g. "wet-lab/autoclave" for docs/wet-lab/autoclave.md).
+          // loadDoc in protocols.html expects the directory-qualified path;
+          // the bare slug 404s for anything living in a subfolder. Strip
+          // /index for folder-style pages (projects/<slug>/index.md).
+          var docRef = obj
+            ? obj.path.replace(/\.md$/, '').replace(/\/index$/, '')
+            : wl.slug;
+          return '<a href="' + esc(getPageForType(typeName)) + '?doc=' + esc(docRef) + '" style="' + style + '" onclick="event.stopPropagation()">' + content + '</a>';
         }).join('');
         linksHtml = '<div class="person-links"><div class="person-links-label">Connected</div><div class="person-pill-list">' + pills + '</div></div>';
       }
@@ -372,6 +380,44 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
     var backlinkedItems = idx.filter(function(e) {
       var s = e.path.replace(/\.md$/, '');
       return backlinkSources[s];
+    });
+
+    // Also include the person's OWN forward links. The onboarding wizard
+    // and later edits write [[protocol]] / [[project]] lines into the person's
+    // body; those are declarations of "I work on these," so they belong in
+    // the dashboard sections alongside inbound backlinks. Without this the
+    // dashboard stays 0-across-the-board right after onboarding.
+    var forwardSlugs = {};
+    (linkIdx || []).forEach(function(edge) {
+      if (edge.source === personTarget && edge.target) {
+        forwardSlugs[edge.target] = true;
+      }
+    });
+    // Fallback: the link-index overlay may lag; parse the person's body too.
+    if (personFile && personFile.content) {
+      var parsedBody = Lab.parseFrontmatter
+        ? (Lab.parseFrontmatter(personFile.content).body || '')
+        : '';
+      var wlRe = /\[\[([^\]|]+?)(?:\|[^\]]+?)?\]\]/g;
+      var wm;
+      while ((wm = wlRe.exec(parsedBody)) !== null) {
+        forwardSlugs[wm[1].split('/').pop()] = true;
+      }
+    }
+    var forwardItems = idx.filter(function(e) {
+      var parts = e.path.replace(/\.md$/, '').split('/');
+      var last = parts[parts.length - 1];
+      var slugKey = (last === 'index' && parts.length > 1) ? parts[parts.length - 2] : last;
+      var relPath = e.path.replace(/\.md$/, '');
+      return forwardSlugs[slugKey] || forwardSlugs[relPath];
+    });
+    var seenPaths = {};
+    backlinkedItems.forEach(function(e) { seenPaths[e.path] = true; });
+    forwardItems.forEach(function(e) {
+      if (!seenPaths[e.path]) {
+        backlinkedItems.push(e);
+        seenPaths[e.path] = true;
+      }
     });
 
     // 3. Calendar events where member mentions this person
@@ -1124,7 +1170,8 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
         '## What I did\n\n' +
         '## Results & observations\n\n' +
         '## Next steps\n\n';
-      await upsertFile('docs/notebooks/' + slug + '/' + today + '.md', entryContent, 'First notebook entry for ' + wizardState.name, { skipIfExists: true });
+      var entryPath = 'docs/notebooks/' + slug + '/' + today + '.md';
+      await upsertFile(entryPath, entryContent, 'First notebook entry for ' + wizardState.name, { skipIfExists: true });
 
       // 4. Live-patch the object-index and link-index so the new person
       //    appears immediately on the People grid without waiting for the
@@ -1132,6 +1179,9 @@ details.person-dash-section > summary:hover h3 { color: var(--grey-800); }
       //    the deployed object-index.json that doesn't include the new entry.
       if (gh.patchObjectIndex) {
         gh.patchObjectIndex(personPath, meta);
+        // Notebook entry too, so the person's dashboard shows 1 Notebook
+        // immediately instead of 0 until the next deploy.
+        gh.patchObjectIndex(entryPath, { type: 'notebook', title: today + ' — ' + wizardState.name });
       }
       if (gh.patchLinkIndex) {
         gh.patchLinkIndex(personPath, personBody);
