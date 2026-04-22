@@ -5,7 +5,7 @@ created_at: "2026-04-07T16:48:44.166Z"
 created_by: "greymonroe"
 updated_at: "2026-04-07T16:48:44.166Z"
 unit: "g"
-status: "needs_more"
+status: "out_of_stock"
 ---
 # Ethanol 70%
 
