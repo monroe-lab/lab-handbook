@@ -1,11 +1,13 @@
 ---
 type: "room"
-title: "Robbins Hall 0170"
+title: "Robbins Hall 170"
 label_1: "Monroe Lab"
 notes: "Primary wet lab space, UC Davis Robbins Hall ground floor."
+updated_at: "2026-04-22T06:20:05.276Z"
+created_at: "2026-04-22T06:20:05.276Z"
+created_by: "greymonroe"
 ---
-
-# Robbins Hall 0170
+# Robbins Hall 170
 
 The main Monroe Lab wet lab space.
 
