@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 15,
+  "cycle": 17,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2007,6 +2007,167 @@
         "All 3 test files cleaned up via gh API DELETE at end of cycle.",
         "tests/qa-cycle-15.mjs kept as regression harness; verify script run against the deployed fixes confirmed rename_failed_toast_present:false, friendly_err:true, placeholder_clean:true."
       ]
+    },
+    {
+      "cycle": 17,
+      "persona": "Vianney Ahn",
+      "modifier": "careful",
+      "scenario": "Bulk sample tracker",
+      "task": "Grad student adds 10 samples in rapid succession via the Add Sample modal on /sample-tracker/ with varying status (Tissue collected, DNA extracted, Needs QC, QC passed, Shearing, Library prep, Submitted, Sequencing in progress, Complete, On hold) and varying priority (⭐/🌾/💎/none). Careful mode: after every add, verifies stats counters (Total/In Progress/Complete/On Hold) change by the expected delta. Filters by status (Shearing, Complete, On hold) and verifies row counts. Opens the Sample card popup and the Edit full form modal. Bulk-selects 3 rows, applies bulk status change to 'Ready to submit', and verifies on GitHub contents API. Bulk-selects all 10 QA17 rows via the header checkbox (filter search=QA17), bulk-deletes, and verifies zero left on both UI and GitHub. All functional deltas matched expectations; initial Total=228 and final Total=228 confirm clean cleanup.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle17/01-dashboard-for-nav.png",
+          "shows": "Dashboard baseline at 1440x900: inventory 499, protocols 108, people 9, projects 9, notebooks 14. Top nav shows Tutorials | Protocols | Inventory | People | Projects | Samples | Notebooks | Calendar | Waste | Lab Map | Apps | Wiki — no clipping. Inventory Status card lists 223 In Stock / 2 Needs More / 1 Out of Stock / 248 Untracked, with Microcentrifuge and Vortex Mixer shown as 'Needs More' and Native Barcoding Kit 24 V14 shown as 'Out of Stock'. Bulletin board visible below.",
+          "evaluation": "Clean layout. Topnav tabs all fit at 1440px (cycle-10 cycle-8 fixes hold). Bulletin board Edit button placed top-right of bulletin card. No visual issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/02-tracker-baseline.png",
+          "shows": "Sample Tracker page loaded with 228 total samples, 98 in progress, 12 complete, 5 on hold. Table of 10 visible rows with status pills (various colors), priority, blocker, notes, link, and actions columns. Top nav shows 'Samples' tab underlined (active). 'Signed in as greymonroe' indicator visible top-right.",
+          "evaluation": "Clean baseline. Stats cards with color-coded icons (teal/amber/green/red) match their status buckets. Priority column shows emoji + word.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/03-add-modal-open.png",
+          "shows": "Add Sample modal open, form fields: Sample ID *, Project * / Species, Lead / Sequencing Type *, Status * / Priority, Current Blocker, Notes, Detail Sheet Link. Cancel + Save Sample buttons bottom right.",
+          "evaluation": "Modal form well-organized. Required fields marked with *. Priority dropdown shows '(none)' as empty option — noted inconsistency with inline row dropdown which uses '—' for the empty label, but not visually disruptive. No bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/04-after-add-01-A1.png",
+          "shows": "After adding first sample QA17-moa4ajpr-A1: stats bumped 228→229 total, 98→99 in progress. 'Sample added' toast bottom right.",
+          "evaluation": "Optimistic + authoritative render: stat delta matches. Toast renders cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/05-after-add-05-A5.png",
+          "shows": "After adding sample #5 (A5, Shearing): total 233, in progress 103. Two 'Sample added' toasts visible stacked bottom-right (from a prior add still fading).",
+          "evaluation": "Toast stacking is acceptable since each add fires ~1s apart; the older one is mid-fade. Not a bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/06-after-add-10-AA.png",
+          "shows": "After adding sample #10 (AA, On hold): 238 total, 106 in progress, 13 complete, 6 on hold. Two toasts again (latest + fading prior).",
+          "evaluation": "Deltas exactly match expectations: +10 total, +8 in_progress, +1 complete, +1 on_hold. Status color coding visible in the status column (teal/green/orange/yellow/purple/red).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/07-tracker-after-all-adds.png",
+          "shows": "Tracker settled with 238 total/106 in progress/13 complete/6 on hold. All 10 QA17 samples successfully added.",
+          "evaluation": "Careful-mode functional check passed: deltas correct (total +10, in_progress +8, complete +1, on_hold +1).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/08-search-QA17-all-rows.png",
+          "shows": "Search filter 'QA17' shows all 10 rows with correct status pills and priorities: Tissue collected (purple), DNA extracted (green), Needs QC (yellow), QC passed (green), Shearing (yellow), Library prep (yellow), Submitted (green), Sequencing in progress (amber), Complete (green), On hold (red). 'Sample added' toast still visible.",
+          "evaluation": "Search + filter working correctly. Priority emojis render (⭐/💎/🌾/—).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/09-search-QA17-filter-shearing.png",
+          "shows": "Combined search QA17 + status=Shearing filter yields exactly 1 row (A5). Status pill yellow with 'Shearing'. Priority ⭐.",
+          "evaluation": "Filter combining works. Layout clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/10-search-QA17-filter-complete.png",
+          "shows": "QA17 + Complete → 1 row (A9, Medicago sativa, WGS). Green status pill.",
+          "evaluation": "Correct filter result.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/11-search-QA17-filter-onhold.png",
+          "shows": "QA17 + On hold → 1 row (AA, Medicago sativa, WGS). Red status pill, 'Insufficient tissue' in Blocker column.",
+          "evaluation": "Correct filter result. Blocker column renders text on On-hold row.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/12-search-QA17-after-clear-filter.png",
+          "shows": "QA17 search with status filter cleared: all 10 rows visible with varied statuses/priorities/blockers.",
+          "evaluation": "VISUAL BUG spotted: 'Sequencing in progress' status pill on row A8 shows as 'Sequencing in pr' — text clipped inside the <select> because the status-select had no min-width and the column was too narrow. Fixed this cycle by setting min-width: 168px on .inline-select.status-select so the longest status fits without clipping.",
+          "issues_found": [
+            "STATUS-SELECT-CLIPS-LONG-LABEL (visual, fixed this cycle): 'Sequencing in progress' status pill clipped to 'Sequencing in pr' inside the inline <select> at 1440px viewport. Root cause: .inline-select.status-select had no min-width; column sized to average content. Fix: set min-width: 168px on .inline-select.status-select so the longest status label fits the select's visible area, leaving room for the 8x8 chevron indicator."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/13-sample-card-popup.png",
+          "shows": "Sample card popup for QA17-moa4ajpr-A1 showing Sample ID, Project pill, Species (italic), Lead, Sequencing, Status (Tissue collected purple pill), Priority ⭐, Blocker —, Last updated 2026-04-22, Detail sheet —, Notes block, 'Referenced by' section reads 'No other samples reference this ID.'",
+          "evaluation": "Popup renders cleanly with grid-aligned rows. Close + Edit full form buttons at bottom.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/14-edit-modal-populated.png",
+          "shows": "Edit Sample modal pre-populated with A1's values (sampleId, project QA17-bulk, species Arabidopsis thaliana, Lead Vianney Ahn, HiFi, Tissue collected, ⭐ Priority, notes, etc.).",
+          "evaluation": "Edit modal populates correctly from the row data. No visual issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/15-bulk-3-selected.png",
+          "shows": "Three rows (A5/A6/A7) selected via row checkboxes. Bulk action bar visible at top with teal background: '3 selected | Change status… [dropdown] Apply | Duplicate each 1 times Duplicate | Delete | Clear'.",
+          "evaluation": "Bulk bar activates correctly. Selected rows have teal left-border indicator.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/16-bulk-bar-status-selected.png",
+          "shows": "Bulk bar shows 'Ready to submit' chosen in the status dropdown. Apply button ready.",
+          "evaluation": "Dropdown populated with all 14 statuses. Clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/17-after-bulk-status-apply.png",
+          "shows": "After Apply, 3 rows updated to 'Ready to submit' (green pill). 'Updated 3 samples' toast. Rows remain selected (teal border persists) so user can apply more.",
+          "evaluation": "Bulk change commits and re-renders. Retaining selection after apply is reasonable UX.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/18-cleanup-all-QA17-visible.png",
+          "shows": "Search QA17 active, 10 rows visible, bulk bar still showing '3 selected' from prior step (previous selections retained).",
+          "evaluation": "Selections persist across filter changes — OK.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/19-cleanup-all-QA17-selected.png",
+          "shows": "Header checkbox clicked → all 10 visible rows selected. Bulk bar shows '10 selected'.",
+          "evaluation": "Select-all works. Row teal borders on all 10.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/20-after-bulk-delete.png",
+          "shows": "After bulk delete confirmed via dialog: empty-state 'No samples match your search.' shown. Stats correctly decremented to 228/98/12/5 (matching pre-add baseline). BUT the bulk action bar still shows '10 selected | Ready to submit | Apply | Duplicate | Delete | Clear' — stale.",
+          "evaluation": "FUNCTIONAL BUG: stats and data correctly updated, but bulk-action bar remained visible with stale '10 selected' text even after selectedIds.clear(). Root cause: renderTable() early-returns when the filtered items list is empty, skipping the updateBulkBar() call, so the bar keeps its last-rendered state. Fixed this cycle by calling updateBulkBar() in both the empty and non-empty branches of renderTable.",
+          "issues_found": [
+            "BULK-BAR-STALE-AFTER-EMPTY-RENDER (visual/ux, fixed this cycle): After bulk-delete of all filtered rows, the bulk action bar stayed visible with stale '10 selected' text and the previously-chosen status dropdown. Root cause: renderTable's `if (items.length === 0) { ...; return }` early return skipped the updateBulkBar() call. Fix: invoke updateBulkBar() in the empty branch too so the bar reflects the now-empty selectedIds Set."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/21-cleanup-confirmed-empty.png",
+          "shows": "Same empty-state view after re-filling search with 'QA17'. Same stale bulk bar still visible.",
+          "evaluation": "Second confirmation of the BULK-BAR-STALE-AFTER-EMPTY-RENDER bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle17/22-tracker-final-state.png",
+          "shows": "Search cleared → table restored with 228 samples, original non-QA17 rows visible again. Stats match initial baseline.",
+          "evaluation": "Careful-mode final sanity: total=228 same as initial, confirming zero QA17 residue locally and on GitHub (verified via gh api).",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "BULK-BAR-STALE-AFTER-EMPTY-RENDER (visual/ux, fixed this cycle): bulk action bar stayed visible with stale '10 selected' text after bulk-delete removed all filtered rows. Fix: docs/sample-tracker/index.html renderTable() now calls updateBulkBar() in the empty-items branch too.",
+        "STATUS-SELECT-CLIPS-LONG-LABEL (visual, fixed this cycle): 'Sequencing in progress' status pill rendered as 'Sequencing in pr' inside the inline <select>. Fix: set min-width: 168px on .inline-select.status-select so the longest status fits."
+      ],
+      "fixes": [
+        "docs/sample-tracker/index.html renderTable(): call updateBulkBar() in the empty-items branch before returning, so the bar's visibility reflects selectedIds even when the filtered items list is 0.",
+        "docs/sample-tracker/index.html .inline-select.status-select: add min-width: 168px so 'Sequencing in progress' (longest label) fits without text clipping."
+      ],
+      "observations": [
+        "Stats deltas after 10 adds: +10 total, +8 in_progress, +1 complete, +1 on_hold — all exact.",
+        "Filter combinations (search + status) behave correctly: 1 row each for Shearing / Complete / On hold under QA17.",
+        "Bulk-change status → Ready to submit: updated all 3 selected rows and verified via GitHub contents API (A5 status='Ready to submit' priority='⭐').",
+        "Bulk-delete 10 rows: samples.json on GitHub went from 238 back to 228 with zero QA17 entries.",
+        "Priority emoji inconsistency: inline row dropdown uses '—' for the empty option; Add Sample modal uses '(none)'. Minor — noted but not fixed this cycle.",
+        "Toast stacking (2 visible during rapid adds) is cosmetic and self-resolves as older toasts fade."
+      ]
     }
   ],
   "bugs_found": [
@@ -2048,7 +2209,9 @@
     "FAB-COVERS-MOBILE-SHEET (visual, fixed in cycle 14, commit 932aa37): the mobile Insert bottom sheet used z-index:9998 with a 9997 backdrop, but the issue-reporter lightbulb FAB sits at 10001 (raised above editor-modal per R7 #33). At 375px the FAB punched through the sheet and covered the Calendar action row. Fix bumps sheet to 10050 and backdrop to 10049 in editor-modal.js so the sheet paints above the FAB and the backdrop dims it while open.",
     "RENAME-DOUBLE-CLICK-FAILURE-TOAST (functional/ux, fixed in cycle 15, commit c3fb6b6): double-clicking the Rename button on a protocol fires a spurious 'Rename failed: Not Found' red toast even though the first click succeeded (new title + new URL both applied). Cause: renameDoc had no re-entry guard; both synchronous clicks entered the function before the first await, and the second call's fetchFile 404s because the first click already deleted the old file. Fix: renameInFlight flag set before the first await and cleared in a finally block (app/protocols.html).",
     "DOUBLE-LOAD-ERROR-PREFIX (cosmetic/ux, fixed in cycle 15, commit c3fb6b6): loadDoc error UI in protocols/wiki/projects/notebooks rendered 'Failed to load: Failed to load docs/<path>.md (HTTP 404)' — duplicated 'Failed to load' prefix (UI wrapper + thrown error message), raw file path leak, and exposed HTTP status. Fix: new Lab.formatLoadError(err) helper in app/js/shared.js strips the prefix and maps 404s to 'Document not found. It may have been renamed or deleted.'; applied across all four pages.",
-    "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 15, commit c3fb6b6): protocols sidebar search placeholder 'Search protocols...' was clipped to 'Search protocol' because the input competes with two adjacent icon buttons for horizontal space. Shortened to 'Search...' (mirrors cycle-8 notebooks fix)."
+    "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 15, commit c3fb6b6): protocols sidebar search placeholder 'Search protocols...' was clipped to 'Search protocol' because the input competes with two adjacent icon buttons for horizontal space. Shortened to 'Search...' (mirrors cycle-8 notebooks fix).",
+    "BULK-BAR-STALE-AFTER-EMPTY-RENDER (visual/ux, fixed in cycle 17): after bulk-delete of all filtered rows on /sample-tracker/, the bulk action bar remained visible with stale '10 selected' text. Root cause: renderTable's early return for empty items skipped updateBulkBar(). Fix: call updateBulkBar() in both branches.",
+    "STATUS-SELECT-CLIPS-LONG-LABEL (visual, fixed in cycle 17): 'Sequencing in progress' status pill clipped to 'Sequencing in pr' inside the inline <select> on /sample-tracker/. Fix: min-width: 168px on .inline-select.status-select so the longest status fits."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -2074,7 +2237,9 @@
     "cycle 14 FAB-COVERS-MOBILE-SHEET: mobile Insert sheet z-index 9998→10050, backdrop 9997→10049, so both sit above the issue-reporter FAB at 10001 (commit 932aa37)",
     "cycle 15 RENAME-DOUBLE-CLICK-FAILURE-TOAST: renameDoc re-entry guard (renameInFlight flag set before first await, released in finally) — app/protocols.html commit c3fb6b6",
     "cycle 15 DOUBLE-LOAD-ERROR-PREFIX: Lab.formatLoadError(err) helper in app/js/shared.js maps 404→'Document not found. It may have been renamed or deleted.' and strips redundant 'Failed to load' prefix; applied in protocols/wiki/projects/notebooks loadDoc error UI — commit c3fb6b6",
-    "cycle 15 SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED: app/protocols.html placeholder 'Search protocols...' → 'Search...' — commit c3fb6b6"
+    "cycle 15 SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED: app/protocols.html placeholder 'Search protocols...' → 'Search...' — commit c3fb6b6",
+    "cycle 17 BULK-BAR-STALE-AFTER-EMPTY-RENDER: docs/sample-tracker/index.html renderTable() — call updateBulkBar() before the early return in the empty-items branch.",
+    "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html — add min-width: 168px to .inline-select.status-select."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2122,7 +2287,8 @@
     "/tmp/qa-screenshots/cycle14/ — 29 cycle screenshots + _log.json covering the full mobile notebook flow (baseline, hamburger, new-entry modal, create, edit, format bar, Insert sheet, image upload via DataTransfer, save, rendered scroll, reload, sidebar refresh). Every screenshot read and evaluated.",
     "/tmp/qa-screenshots/cycle14-verify/ — 4 verification screenshots + log confirming both fixes live post-deploy (navs hidden, sheet above FAB at 10050 vs 10001).",
     "/tmp/qa-screenshots/cycle15/ — 23 screenshots covering the full rename + relink flow (protocols baseline, load initial protocol, notebook with both bare + path-qualified wikilinks pre-rename, rename via double-click with prompt stub, post-rename title/URL/sidebar, old-slug deep-link showing double-prefix error, notebook reload with rewritten pills, click-through from rewritten pill, wiki old/new slug deep-links, lab-map filter, back button).",
-    "/tmp/qa-screenshots/cycle15-verify/ — 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'"
+    "/tmp/qa-screenshots/cycle15-verify/ — 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'",
+    "/tmp/qa-screenshots/cycle17/ — 22 screenshots, all read and evaluated. Every before/after pair captured for add-sample, filter, bulk-select, bulk-status-apply, and bulk-delete actions."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",

@@ -271,6 +271,8 @@ tr.is-selected:hover { background: var(--teal-light); }
   padding-right: 18px;
   background-position: calc(100% - 6px) 50%;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M1 2l3 4 3-4' stroke='%23333' stroke-width='1.2' fill='none'/></svg>");
+  /* QA-cycle-17: ensure longest status ("Sequencing in progress") fits without clipping */
+  min-width: 168px;
 }
 
 /* Row checkbox column */
@@ -1078,6 +1080,7 @@ function renderTable() {
     tbody.innerHTML = '';
     document.getElementById('emptyState').style.display = '';
     document.getElementById('sampleTable').style.display = 'none';
+    updateBulkBar();
     return;
   }
 
