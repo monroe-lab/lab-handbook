@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Diagenode Tagmentase (ME-A/B loaded)"
+title: Diagenode Tagmentase (ME-A/B loaded)
+type: enzyme
 status: needed
-vendor: "Diagenode"
-catalog_number: "C01070012"
+vendor: Diagenode
+catalog_number: C01070012
 ---
-
 # Diagenode Tagmentase (ME-A/B loaded)
 
 > ℹ️ **Chemistry**

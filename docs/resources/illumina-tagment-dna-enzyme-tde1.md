@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Illumina Tagment DNA Enzyme (TDE1)"
+title: Illumina Tagment DNA Enzyme (TDE1)
+type: enzyme
 status: needed
-vendor: "Illumina"
-catalog_number: "15027865"
+vendor: Illumina
+catalog_number: '15027865'
 ---
-
 # Illumina Tagment DNA Enzyme (TDE1)
 
 > ℹ️ **Chemistry**

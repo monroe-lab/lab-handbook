@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Precision Plus Protein Standards"
+title: Precision Plus Protein Standards
+type: kit
 status: needed
-vendor: "Bio-Rad"
-catalog_number: "1610374"
+vendor: Bio-Rad
+catalog_number: '1610374'
 ---
-
 # Precision Plus Protein Standards
 
 > ℹ️ **Chemistry**

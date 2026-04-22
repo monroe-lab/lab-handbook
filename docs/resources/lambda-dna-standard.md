@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Lambda DNA Standard"
+title: Lambda DNA Standard
+type: kit
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "D1501"
+vendor: Millipore Sigma
+catalog_number: D1501
 ---
-
 # Lambda DNA Standard
 
 > ℹ️ **Chemistry**

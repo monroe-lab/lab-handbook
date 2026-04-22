@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Proteinase K (Sigma P2308)"
+title: Proteinase K (Sigma P2308)
+type: enzyme
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "P2308"
+vendor: Millipore Sigma
+catalog_number: P2308
 ---
-
 # Proteinase K (Sigma P2308)
 
 > ℹ️ **Chemistry**

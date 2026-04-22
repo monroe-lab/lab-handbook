@@ -1,8 +1,7 @@
 ---
-type: reagent
 title: DNAse
+type: enzyme
 ---
-
 # DNAse
 
 > ℹ️ **Chemistry**

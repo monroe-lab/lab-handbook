@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Unloaded (Blank) Tn5 Transposase"
+title: Unloaded (Blank) Tn5 Transposase
+type: enzyme
 status: needed
-vendor: "NEB or Diagenode"
-catalog_number: "TBD"
+vendor: NEB or Diagenode
+catalog_number: TBD
 ---
-
 # Unloaded (Blank) Tn5 Transposase
 
 > ℹ️ **Chemistry**

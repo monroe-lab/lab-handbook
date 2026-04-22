@@ -1,6 +1,6 @@
 ---
-type: reagent
 title: MS Basal Salt Mixture
+type: chemical
 legacy_inventory_id: 1
 ---
 # MS Basal Salt Mixture

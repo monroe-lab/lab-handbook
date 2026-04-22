@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "DNase I, RNase-free (Thermo EN0521)"
+title: DNase I, RNase-free (Thermo EN0521)
+type: enzyme
 status: needed
-vendor: "Thermo"
-catalog_number: "EN0521"
+vendor: Thermo
+catalog_number: EN0521
 ---
-
 # DNase I, RNase-free (Thermo EN0521)
 
 > ℹ️ **Chemistry**

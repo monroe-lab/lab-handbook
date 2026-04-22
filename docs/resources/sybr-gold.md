@@ -1,6 +1,6 @@
 ---
-type: reagent
-title: "SYBR Gold"
+title: SYBR Gold
+type: kit
 ---
 # SYBR Gold
 

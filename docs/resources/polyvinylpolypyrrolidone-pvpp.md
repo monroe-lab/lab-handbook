@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Polyvinylpolypyrrolidone (PVPP)"
+title: Polyvinylpolypyrrolidone (PVPP)
+type: chemical
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "P6755"
+vendor: Millipore Sigma
+catalog_number: P6755
 ---
-
 # Polyvinylpolypyrrolidone (PVPP)
 
 > ℹ️ **Chemistry**

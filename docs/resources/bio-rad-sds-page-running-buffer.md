@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "SDS-PAGE Running Buffer (Tris/Glycine/SDS)"
+title: SDS-PAGE Running Buffer (Tris/Glycine/SDS)
+type: kit
 status: needed
-vendor: "Bio-Rad"
-catalog_number: "1610772"
+vendor: Bio-Rad
+catalog_number: '1610772'
 ---
-
 # SDS-PAGE Running Buffer (Tris/Glycine/SDS)
 
 > ℹ️ **Chemistry**

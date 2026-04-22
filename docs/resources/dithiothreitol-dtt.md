@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "DTT (Dithiothreitol)"
+title: DTT (Dithiothreitol)
+type: chemical
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "D0632"
+vendor: Millipore Sigma
+catalog_number: D0632
 ---
-
 # DTT (Dithiothreitol)
 
 > ℹ️ **Chemistry**

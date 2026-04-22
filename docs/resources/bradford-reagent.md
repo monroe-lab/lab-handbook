@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Bradford Reagent (Coomassie G-250)"
+title: Bradford Reagent (Coomassie G-250)
+type: kit
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "B6916"
+vendor: Millipore Sigma
+catalog_number: B6916
 ---
-
 # Bradford Reagent (Coomassie G-250)
 
 > ℹ️ **Chemistry**

@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "IPTG (Isopropyl β-D-1-thiogalactopyranoside)"
+title: IPTG (Isopropyl β-D-1-thiogalactopyranoside)
+type: chemical
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "I6758"
+vendor: Millipore Sigma
+catalog_number: I6758
 ---
-
 # IPTG (Isopropyl β-D-1-thiogalactopyranoside)
 
 > ℹ️ **Chemistry**

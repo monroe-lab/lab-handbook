@@ -1,11 +1,10 @@
 ---
-type: reagent
 title: Bovine Serum Albumin (50 mg/mL)
+type: kit
 status: needed
 vendor: Invitrogen
 catalog_number: AM2616
 ---
-
 # Bovine Serum Albumin (50 mg/mL)
 
 > ℹ️ **Chemistry**

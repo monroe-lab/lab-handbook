@@ -52,6 +52,38 @@
     "target": "bioinformatics/slurm_basics"
   },
   {
+    "source": "bulletin",
+    "target": "resources/sucrose"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/dithiothreitol-dtt"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/tween-20"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/dimethylformamide-anhydrous"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/iptg"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/polyvinylpolypyrrolidone-pvpp"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/ms-basal-salt-mixture"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/hydrogen-peroxide-30"
+  },
+  {
     "source": "lab-management/farm-resources-cpus-and-storage",
     "target": "bioinformatics/cluster-access"
   },

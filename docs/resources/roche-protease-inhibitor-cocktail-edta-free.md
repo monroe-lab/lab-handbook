@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Roche cOmplete Protease Inhibitor Cocktail, EDTA-free"
+title: Roche cOmplete Protease Inhibitor Cocktail, EDTA-free
+type: kit
 status: needed
-vendor: "Roche (via Millipore Sigma)"
-catalog_number: "11873580001"
+vendor: Roche (via Millipore Sigma)
+catalog_number: '11873580001'
 ---
-
 # Roche cOmplete Protease Inhibitor Cocktail, EDTA-free
 
 > ℹ️ **Chemistry**

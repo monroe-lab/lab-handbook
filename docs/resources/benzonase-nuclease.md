@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Benzonase Nuclease"
+title: Benzonase Nuclease
+type: enzyme
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "E1014"
+vendor: Millipore Sigma
+catalog_number: E1014
 ---
-
 # Benzonase Nuclease
 
 > ℹ️ **Chemistry**

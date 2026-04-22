@@ -1,11 +1,10 @@
 ---
-type: reagent
 title: AMPure XP Beads
+type: kit
 status: owned
 vendor: Beckman Coulter
 catalog_number: A63881
 ---
-
 # AMPure XP Beads
 
 > ℹ️ **Chemistry**

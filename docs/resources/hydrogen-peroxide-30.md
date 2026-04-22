@@ -1,6 +1,6 @@
 ---
-type: reagent
 title: Hydrogen Peroxide 30%
+type: chemical
 legacy_inventory_id: 7
 ---
 # Hydrogen Peroxide 30%

@@ -1,8 +1,7 @@
 ---
-type: reagent
 title: RNase
+type: enzyme
 ---
-
 # RNase aliquot
 
 > ℹ️ **Chemistry**

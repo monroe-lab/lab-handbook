@@ -1,6 +1,6 @@
 ---
-type: reagent
-title: "1 kb+ Fast DNA Ladder"
+title: 1 kb+ Fast DNA Ladder
+type: kit
 ---
 # 1 kb+ Fast DNA Ladder
 

@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Laemmli Sample Buffer, 2×"
+title: Laemmli Sample Buffer, 2×
+type: kit
 status: needed
-vendor: "Bio-Rad"
-catalog_number: "1610737"
+vendor: Bio-Rad
+catalog_number: '1610737'
 ---
-
 # Laemmli Sample Buffer, 2×
 
 > ℹ️ **Chemistry**

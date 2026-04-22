@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "N,N-Dimethylformamide (DMF), Anhydrous"
+title: N,N-Dimethylformamide (DMF), Anhydrous
+type: chemical
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "227056"
+vendor: Millipore Sigma
+catalog_number: '227056'
 ---
-
 # N,N-Dimethylformamide (DMF), Anhydrous
 
 > ℹ️ **Chemistry**

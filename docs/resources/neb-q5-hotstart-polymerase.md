@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "NEB Q5 HotStart High-Fidelity Polymerase"
+title: NEB Q5 HotStart High-Fidelity Polymerase
+type: enzyme
 status: needed
-vendor: "NEB"
-catalog_number: "M0493"
+vendor: NEB
+catalog_number: M0493
 ---
-
 # NEB Q5 HotStart High-Fidelity Polymerase
 
 > ℹ️ **Chemistry**

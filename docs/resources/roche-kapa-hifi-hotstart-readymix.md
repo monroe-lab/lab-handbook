@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "KAPA HiFi HotStart ReadyMix"
+title: KAPA HiFi HotStart ReadyMix
+type: kit
 status: needed
-vendor: "Roche (KAPA Biosystems)"
-catalog_number: "KK2602"
+vendor: Roche (KAPA Biosystems)
+catalog_number: KK2602
 ---
-
 # KAPA HiFi HotStart ReadyMix
 
 > ℹ️ **Chemistry**

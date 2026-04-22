@@ -1,11 +1,10 @@
 ---
-type: reagent
-title: "Tween 20 (Polysorbate 20)"
+title: Tween 20 (Polysorbate 20)
+type: chemical
 status: needed
-vendor: "Millipore Sigma"
-catalog_number: "P9416"
+vendor: Millipore Sigma
+catalog_number: P9416
 ---
-
 # Tween 20 (Polysorbate 20)
 
 > ℹ️ **Chemistry**

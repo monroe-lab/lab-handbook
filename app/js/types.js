@@ -82,7 +82,10 @@
       tableColumns: null,
     },
     chemical: {
-      color: '#009688',
+      // Distinct purple to set EHS-registered chemicals apart from the
+      // generic teal reagent pill — otherwise the only signal of hazmat
+      // registration was the type string in frontmatter.
+      color: '#6a1b9a',
       icon: 'fa:fa-solid fa-atom',
       label: 'Chemical',
       group: 'resources',
