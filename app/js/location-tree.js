@@ -231,7 +231,11 @@
 
       var html = '<div class="lt-node tree-node' + (isExpanded ? ' is-expanded' : '') + '" data-slug="' + esc(slug) + '" data-depth="' + depth + '"' + dragAttr + '>';
       html += '<div class="lt-row tree-node-row' + (isLeaf ? ' is-leaf' : '') + '" data-act="open">';
-      html += '<span class="lt-toggle tw-toggle material-icons-outlined" data-act="toggle" style="width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--grey-500,#9e9e9e);font-size:16px;cursor:pointer;transition:transform .12s;border-radius:3px;' + (isLeaf ? 'visibility:hidden' : '') + (isExpanded ? ';transform:rotate(90deg)' : '') + '">chevron_right</span>';
+      // #148: larger, higher-contrast chevron with a hover background so it
+      // reads as a real click target. Previously a pale 16px glyph that users
+      // missed entirely — they'd click the row instead and wonder why the
+      // popup opened instead of expanding the tree.
+      html += '<span class="lt-toggle tw-toggle material-icons-outlined" data-act="toggle" style="width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--grey-700,#424242);background:var(--grey-100,#f5f5f5);border:1px solid var(--grey-300,#cfd8dc);font-size:20px;font-weight:600;cursor:pointer;transition:transform .15s,background .12s,border-color .12s;border-radius:6px;' + (isLeaf ? 'visibility:hidden' : '') + (isExpanded ? ';transform:rotate(90deg);background:var(--teal-light,#e0f2f1);border-color:var(--teal,#009688);color:var(--teal-dark,#00695c)' : '') + '" title="Click to ' + (isExpanded ? 'collapse' : 'expand') + '">chevron_right</span>';
       html += '<span class="lt-icon tw-icon">' + icon + '</span>';
       html += '<span class="lt-title tw-title" title="' + esc(slug) + '">' + esc(title) + '</span>';
       html += pos + grid + count + orphanBadge;

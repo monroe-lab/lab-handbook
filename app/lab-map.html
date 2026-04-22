@@ -91,15 +91,17 @@
 }
 .tree-node-row:hover { background: var(--grey-50); }
 .tree-node-row.is-hit { background: var(--teal-light); }
-.tree-node-row .tw-toggle {
-  width: 18px; height: 18px; flex-shrink: 0; display: flex;
-  align-items: center; justify-content: center; color: var(--grey-500);
-  font-size: 16px; transition: transform .12s;
-  border-radius: 3px;
+/* #148: the chevron is a first-class click target. Big enough to hit, with a
+   clear filled background and hover state that emphasizes it's the thing to
+   click to expand. Location-tree.js sets inline sizing/colors; these rules
+   layer the :hover behavior on top. */
+.tree-node-row .tw-toggle:hover {
+  background: var(--teal, #009688) !important;
+  color: #fff !important;
+  border-color: var(--teal, #009688) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
 }
-.tree-node-row .tw-toggle:hover { background: var(--grey-200); }
 .tree-node-row.is-leaf .tw-toggle { visibility: hidden; }
-.tree-node.is-expanded > .tree-node-row .tw-toggle { transform: rotate(90deg); }
 .tree-node-row .tw-icon { font-size: 15px; flex-shrink: 0; }
 .tree-node-row .tw-title { font-size: 14px; font-weight: 500; color: var(--grey-800); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tree-node-row .tw-pos   { font-size: 11px; color: var(--grey-500); padding: 1px 6px; background: var(--grey-100); border-radius: 10px; flex-shrink: 0; }

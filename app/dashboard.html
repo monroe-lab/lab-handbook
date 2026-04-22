@@ -7,15 +7,29 @@
 <link rel="stylesheet" href="css/base.css">
 <style>
 .dash-page { max-width: 960px; margin: 0 auto; padding: 24px 20px calc(var(--bottom-nav-height) + 24px); }
-.dash-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-.dash-stat {
-  display: flex; align-items: center; gap: 10px; padding: 12px 18px;
-  border-radius: var(--radius); background: #fff; box-shadow: var(--shadow);
-  text-decoration: none; color: inherit; flex: 1; min-width: 120px; transition: box-shadow .15s;
+/* #147: stat shortcuts are a comprehensive grid matching the primary nav,
+   not an arbitrary mix of five sections. Every nav destination gets a card
+   with its count so the dashboard reads as a launchpad ("here's the lab
+   at a glance") instead of a partial scoreboard. */
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
 }
-.dash-stat:hover { box-shadow: var(--shadow-md); }
-.dash-stat .stat-num { font-size: 20px; font-weight: 700; }
-.dash-stat .stat-label { font-size: 11px; color: var(--grey-500); }
+.dash-stat {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: #fff; box-shadow: var(--shadow);
+  text-decoration: none; color: inherit; min-width: 0;
+  transition: box-shadow .15s, transform .1s, border-color .15s;
+  border: 1px solid transparent;
+}
+.dash-stat:hover { box-shadow: var(--shadow-md); border-color: var(--grey-200); transform: translateY(-1px); }
+.dash-stat:active { transform: translateY(0); }
+.dash-stat .stat-num { font-size: 20px; font-weight: 700; line-height: 1.1; }
+.dash-stat .stat-num.muted { color: var(--grey-400); font-weight: 500; }
+.dash-stat .stat-label { font-size: 11px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .3px; margin-top: 2px; }
+.dash-stat .material-icons-outlined { font-size: 24px; flex-shrink: 0; }
 
 .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .dash-card {
@@ -134,46 +148,81 @@
   }
 
   // ── Stats row ──
+  //
+  // #147: every primary nav destination gets a card, not just the five we
+  // happened to instrument. Each card acts as a shortcut with a count so
+  // the dashboard doubles as a launchpad ("here's the lab at a glance").
+  // The section order tracks the nav bar so muscle memory lines up.
+  //
+  // Counts are derived from the object-index, classified by type. Sections
+  // without a countable collection (Tutorials, Apps, Wiki) get a muted
+  // placeholder — the card still works as a shortcut.
+  var INV_TYPES = { reagent:1, buffer:1, consumable:1, equipment:1, kit:1, chemical:1, enzyme:1, solution:1,
+                    seed:1, glycerol_stock:1, plasmid:1, agro_strain:1, dna_prep:1 };
+  var LOC_TYPES = { room:1, freezer:1, fridge:1, shelf:1, box:1, tube:1, container:1, bay:1 };
+
   function loadStats(objects) {
     var el = document.getElementById('dashStats');
     if (!el) return;
-    var counts = {};
+
+    var counts = {
+      inventory: 0, accession: 0, project: 0, person: 0, event: 0,
+      location: 0, notebook: 0, protocol: 0,
+    };
     objects.forEach(function(obj) {
-      var conf = TYPE_CONFIG[obj.type];
-      var group = conf ? conf.group : 'resource';
-      counts[group] = (counts[group] || 0) + 1;
+      var t = obj.type || '';
+      if (INV_TYPES[t])    counts.inventory++;
+      if (t === 'accession') counts.accession++;
+      if (t === 'project') counts.project++;
+      if (t === 'person')  counts.person++;
+      if (t === 'event')   counts.event++;
+      if (LOC_TYPES[t])    counts.location++;
+      if (t === 'notebook') counts.notebook++;
+      if (t === 'protocol') counts.protocol++;
     });
 
-    // Notebook entries lack frontmatter so they're not in object-index.
-    // Fetch actual count from GitHub Trees API.
+    // Notebook entries sometimes live without frontmatter so the index
+    // undercounts them — fetch the folder directly for a truer total.
     fetch('https://api.github.com/repos/' + REPO + '/git/trees/main:docs/notebooks?recursive=1', { headers: authHeaders() })
       .then(function(r) { return r.json(); })
       .then(function(tree) {
         if (tree && tree.tree) {
-          counts['notebook'] = tree.tree.filter(function(f) {
+          counts.notebook = tree.tree.filter(function(f) {
             return f.type === 'blob' && f.path.endsWith('.md') && f.path !== 'template.md';
           }).length;
         }
-        renderStatCards(el, counts);
+        renderStatCards(el, counts, objects.length);
       })
-      .catch(function() { renderStatCards(el, counts); });
+      .catch(function() { renderStatCards(el, counts, objects.length); });
   }
 
-  function renderStatCards(el, counts) {
-    // Single inventory count (resources + stocks combined)
-    var inventoryCount = (counts['resource'] || 0) + (counts['stock'] || 0);
+  function renderStatCards(el, counts, totalDocs) {
+    // Card list follows the primary nav order (R19b): Tutorials, Notebooks,
+    // Inventory, Accessions, Projects, People, Calendar, Lab Map, Apps, Wiki.
     var cards = [
-      { color: '#009688', label: 'Inventory', icon: 'inventory_2', href: BASE + 'app/inventory.html', count: inventoryCount },
+      { label: 'Tutorials',  icon: 'play_circle',   color: '#5e35b1', href: BASE + 'app/tutorials.html',  count: null, muted: 'Watch' },
+      { label: 'Notebooks',  icon: 'edit_note',     color: '#795548', href: BASE + 'app/notebooks.html',  count: counts.notebook },
+      { label: 'Inventory',  icon: 'inventory_2',   color: '#009688', href: BASE + 'app/inventory.html',  count: counts.inventory },
+      { label: 'Accessions', icon: 'fingerprint',   color: '#7c3aed', href: BASE + 'app/accessions.html', count: counts.accession },
+      { label: 'Projects',   icon: 'folder_special',color: '#e65100', href: BASE + 'app/projects.html',   count: counts.project },
+      { label: 'People',     icon: 'people',        color: '#1565c0', href: BASE + 'app/people.html',     count: counts.person },
+      { label: 'Calendar',   icon: 'calendar_month',color: '#0288d1', href: BASE + 'app/calendar.html',   count: counts.event },
+      { label: 'Lab Map',    icon: 'map',           color: '#546e7a', href: BASE + 'app/lab-map.html',    count: counts.location },
+      { label: 'Apps',       icon: 'extension',     color: '#558b2f', href: BASE + 'app/apps.html',       count: null, muted: 'Tools' },
+      { label: 'Wiki',       icon: 'hub',           color: '#455a64', href: BASE + 'app/wiki.html',       count: totalDocs || null, suffix: totalDocs ? 'docs' : null },
     ];
-    var order = ['protocol', 'people', 'project', 'notebook'];
-    order.forEach(function(gk) {
-      var gc = GROUP_CONFIG[gk];
-      cards.push({ color: gc.color, label: gc.label, icon: gc.icon, href: gc.href, count: counts[gk] || 0 });
-    });
     el.innerHTML = cards.map(function(c) {
-      return '<a href="' + c.href + '" class="dash-stat">' +
-        '<span class="material-icons-outlined" style="color:' + c.color + ';font-size:22px;">' + c.icon + '</span>' +
-        '<div><div class="stat-num" style="color:' + c.color + ';">' + c.count + '</div>' +
+      var numHtml;
+      if (c.count === null) {
+        numHtml = '<div class="stat-num muted">' + (c.muted || '—') + '</div>';
+      } else {
+        numHtml = '<div class="stat-num" style="color:' + c.color + '">' + c.count +
+          (c.suffix ? '<span style="font-size:11px;color:var(--grey-500);font-weight:500;margin-left:4px">' + c.suffix + '</span>' : '') +
+          '</div>';
+      }
+      return '<a href="' + c.href + '" class="dash-stat" title="' + c.label + '">' +
+        '<span class="material-icons-outlined" style="color:' + c.color + '">' + c.icon + '</span>' +
+        '<div style="min-width:0">' + numHtml +
         '<div class="stat-label">' + c.label + '</div></div></a>';
     }).join('');
   }
