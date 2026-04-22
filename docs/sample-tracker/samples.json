@@ -3190,5 +3190,19 @@
     "lastUpdated": "2026-04-10",
     "notes": "",
     "detailSheetLink": ""
+  },
+  {
+    "id": 229,
+    "sampleId": "QA17-moa4ajpr-A1",
+    "project": "QA17-bulk",
+    "species": "Arabidopsis thaliana",
+    "lead": "Vianney Ahn",
+    "sequencingType": "HiFi",
+    "status": "Tissue collected",
+    "priority": "⭐",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-22",
+    "notes": "bulk tracker QA: sample 1 (careful persona)",
+    "detailSheetLink": ""
   }
 ]
