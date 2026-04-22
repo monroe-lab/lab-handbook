@@ -1608,22 +1608,6 @@
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
-    "source": "samples/mcclintock-maize-leaf-a-mcb1776833637",
-    "target": "people/barb-m"
-  },
-  {
-    "source": "samples/mcclintock-maize-leaf-a-mcb1776833637",
-    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
-  },
-  {
-    "source": "samples/mcclintock-maize-leaf-b-mcb1776833637",
-    "target": "people/barb-m"
-  },
-  {
-    "source": "samples/mcclintock-maize-leaf-b-mcb1776833637",
-    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
-  },
-  {
     "source": "samples/sample-pistachio-4",
     "target": "locations/tube-pistachio-leaf-1"
   },

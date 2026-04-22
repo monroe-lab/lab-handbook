@@ -4269,38 +4269,24 @@
     "type": "sample",
     "title": "McClintock Maize Leaf A mca1776833907",
     "status": "active",
-    "created_at": "2026-04-22T05:03:00.342Z",
+    "created_at": "2026-04-22T05:14:37.151Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-22T05:03:00.342Z",
-    "species": "Zea maysLeaf punch from McClintock maize cross, collected 2026-04-22.",
+    "updated_at": "2026-04-22T05:14:37.151Z",
+    "species": "Zea mays",
     "sequencing_type": "HiFi",
-    "mtime": 1776834180
-  },
-  {
-    "path": "samples/mcclintock-maize-leaf-a-mcb1776833637.md",
-    "type": "sample",
-    "title": "McClintock Maize Leaf A",
-    "parent": "people/barb-m",
-    "mtime": 1776833875
+    "mtime": 1776834877
   },
   {
     "path": "samples/mcclintock-maize-leaf-b-mca1776833907.md",
     "type": "sample",
     "title": "McClintock Maize Leaf B mca1776833907",
     "status": "active",
-    "created_at": "2026-04-22T05:03:28.198Z",
+    "created_at": "2026-04-22T05:15:09.324Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-22T05:03:28.198Z",
-    "species": "Zea maysPaired leaf B from the same plant, reserved as a backup for extraction.",
+    "updated_at": "2026-04-22T05:15:09.324Z",
+    "species": "Zea mays",
     "sequencing_type": "HiFi",
-    "mtime": 1776834208
-  },
-  {
-    "path": "samples/mcclintock-maize-leaf-b-mcb1776833637.md",
-    "type": "sample",
-    "title": "McClintock Maize Leaf B",
-    "parent": "people/barb-m",
-    "mtime": 1776833876
+    "mtime": 1776834909
   },
   {
     "path": "samples/new-tube-mo8yb345.md",
@@ -4449,32 +4435,15 @@
     "mtime": 1775890429
   },
   {
-    "path": "locations/mcclintock-dna-archive-2026-04-22-mcb1776833637.md",
+    "path": "locations/mcclintock-leaf-samples-2026-04-22-mca1776833907.md",
     "type": "box",
-    "title": "McClintock DNA Archive \u2014 2026-04-22 mcb1776833637",
-    "created_at": "2026-04-22T05:02:49.690Z",
+    "title": "McClintock Leaf Samples 2026-04-22 mca1776833907",
+    "created_at": "2026-04-22T05:17:42.214Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-22T05:02:49.690Z",
+    "updated_at": "2026-04-22T05:17:42.214Z",
     "parent": "locations/shelf-minus80-a-1",
     "grid": "9x9",
-    "mtime": 1776834170
-  },
-  {
-    "path": "locations/mcclintock-tissue-box-mcb1776833637.md",
-    "type": "box",
-    "title": "McClintock Tissue Box mcb1776833637",
-    "parent": "locations/shelf-minus80-a-1",
-    "grid": "9x9",
-    "mtime": 1776833877
-  },
-  {
-    "path": "locations/mcclintock-tissue-falcon-a1-mcb1776833637.md",
-    "type": "tube",
-    "title": "Tissue A1 \u2014 Leaf A",
-    "parent": "locations/mcclintock-tissue-box-mcb1776833637",
-    "position": "A1",
-    "of": "samples/mcclintock-maize-leaf-a-mcb1776833637",
-    "mtime": 1776833878
+    "mtime": 1776835062
   },
   {
     "path": "locations/new-box-mnvmzdmc.md",
