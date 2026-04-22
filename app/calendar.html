@@ -16,23 +16,28 @@
   border-bottom: 1px solid var(--grey-200);
   box-shadow: var(--shadow);
 }
+/* #153: beefier prev/next week buttons so clicks feel deliberate.
+   Previously a small outlined chevron that looked like decoration. */
 .week-nav .btn-nav {
-  background: none;
+  background: #fff;
   border: 1px solid var(--grey-300);
-  border-radius: var(--radius);
+  border-radius: 10px;
   cursor: pointer;
-  padding: 6px 10px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  color: var(--grey-700);
-  transition: all .15s;
+  color: var(--grey-800);
+  transition: background .15s, border-color .15s, transform .1s, box-shadow .15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
 }
-.week-nav .btn-nav:hover { background: var(--teal-light); color: var(--teal-dark); }
+.week-nav .btn-nav .material-icons-outlined { font-size: 24px; }
+.week-nav .btn-nav:hover { background: var(--teal); border-color: var(--teal); color: #fff; box-shadow: 0 2px 6px rgba(0,150,136,.2); }
+.week-nav .btn-nav:active { transform: translateY(1px); }
 .week-label {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--grey-900);
-  min-width: 200px;
+  min-width: 220px;
   text-align: center;
 }
 .cal-toolbar {
@@ -94,8 +99,10 @@
 }
 .calendar-grid {
   display: grid;
-  grid-template-columns: 60px repeat(5, 1fr);
-  min-width: 700px;
+  /* #151: 7 day columns now (Mon–Sun). Min-width bumped so columns stay
+     wide enough to read event blocks even when the window is narrow. */
+  grid-template-columns: 60px repeat(7, 1fr);
+  min-width: 900px;
 }
 .cal-header {
   background: var(--grey-50);
@@ -262,13 +269,15 @@
   <div class="legend" id="legend"></div>
 </div>
 
-<!-- Day tabs (mobile) -->
+<!-- Day tabs (mobile) — includes weekends per #151 -->
 <div class="day-tabs" id="dayTabs">
   <button class="day-tab" data-day="Monday" onclick="selectDayTab('Monday')">Mon</button>
   <button class="day-tab" data-day="Tuesday" onclick="selectDayTab('Tuesday')">Tue</button>
   <button class="day-tab" data-day="Wednesday" onclick="selectDayTab('Wednesday')">Wed</button>
   <button class="day-tab" data-day="Thursday" onclick="selectDayTab('Thursday')">Thu</button>
   <button class="day-tab" data-day="Friday" onclick="selectDayTab('Friday')">Fri</button>
+  <button class="day-tab" data-day="Saturday" onclick="selectDayTab('Saturday')">Sat</button>
+  <button class="day-tab" data-day="Sunday" onclick="selectDayTab('Sunday')">Sun</button>
 </div>
 
 <!-- Calendar -->
@@ -285,9 +294,13 @@
 <script src="js/lab.js"></script>
 <script>
 // ── Config ──
-var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-var HOUR_START = 8;
-var HOUR_END = 18;
+// #151: weekends are in (some of us work Saturday-morning seminar cleanup,
+// Sunday planting days, etc). #152: hours run 7am → 10pm so evening-owl lab
+// members can block their time too. Keep the range capped at 15 hours so one
+// week still fits on one screen without infinite scroll.
+var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+var HOUR_START = 7;
+var HOUR_END = 22;
 var MEMBER_COLORS = [
   { bg: '#e8f5e9', border: '#4caf50', text: '#1b5e20' },
   { bg: '#e3f2fd', border: '#2196f3', text: '#0d47a1' },
@@ -483,8 +496,8 @@ function getVisibleBlocks() {
     if (memberFilter && extractMembers(b.member).indexOf(memberFilter) === -1) return false;
     if (!b.date) return false;
     var d = new Date(b.date + 'T00:00:00');
-    var dow = d.getDay();
-    if (dow < 1 || dow > 5) return false;
+    // #151: weekends are in — previously `dow < 1 || dow > 5` dropped Saturday
+    // and Sunday blocks even if they existed.
     return isoDate(getMonday(d)) === mondayStr;
   });
 }
