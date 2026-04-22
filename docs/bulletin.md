@@ -6,8 +6,9 @@ created_at: "2026-04-07T17:00:02.580Z"
 created_by: "greymonroe"
 ---
 
-## Protocol requests
+## Requests
 
+Trashcans! 
 
 ## Announcements
 
