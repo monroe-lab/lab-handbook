@@ -713,10 +713,12 @@ async function updateWikilinksAfterMove(oldDocPath, newDocPath) {
   }
 }
 
-// After a slug rename, rewrite inbound wikilinks in every other .md file so
-// [[old-slug]] and [[dir/old-slug]] point to [[new-slug]]. Without this, the
-// rename leaves dangling references that render as grey "unknown" pills on
-// every consuming surface (notebooks, wiki, other protocols, etc.).
+// After a slug rename, rewrite inbound wikilinks so [[old-slug]] and
+// [[dir/old-slug]] point to [[new-slug]]. Without this, the rename leaves
+// dangling references that render as grey "unknown" pills on every consuming
+// surface (notebooks, wiki, other protocols). Scoped via the link-index so we
+// only fetch the handful of source files that actually reference the renamed
+// target — fetching the whole tree (~300 files) would take ~60 seconds.
 // QA13 scenario — see qa-state.json.
 async function updateWikilinksAfterRename(newDocPath, oldSlug, newSlug, dir) {
   var gh = Lab.gh;
@@ -730,16 +732,20 @@ async function updateWikilinksAfterRename(newDocPath, oldSlug, newSlug, dir) {
     'g'
   );
 
-  var allFiles = await gh.fetchTree('docs');
-  var mdFiles = allFiles.filter(function(f) { return f.endsWith('.md'); });
+  var linkIndex = await gh.fetchLinkIndex();
+  var candidates = {};
+  linkIndex.forEach(function(e) {
+    if (e.target === oldSlug || e.target === oldDocPath) candidates[e.source] = true;
+  });
+  var sources = Object.keys(candidates).filter(function(s) {
+    return s !== oldDocPath && s !== newDocPath;
+  });
+  if (!sources.length) return { updated: 0, touched: [] };
 
   var updated = 0;
   var touched = [];
-  for (var i = 0; i < mdFiles.length; i++) {
-    var filePath = mdFiles[i];
-    // Skip the renamed file itself (both old path — already deleted — and new)
-    if (filePath === 'docs/' + oldDocPath + '.md' || filePath === 'docs/' + newDocPath + '.md') continue;
-
+  for (var i = 0; i < sources.length; i++) {
+    var filePath = 'docs/' + sources[i] + '.md';
     try {
       var file = await gh.fetchFile(filePath);
       var newContent = file.content.replace(pattern, function(match, label) {
