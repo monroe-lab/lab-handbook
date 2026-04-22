@@ -72,9 +72,9 @@
     <div class="dash-card dash-full">
       <h3>
         <span class="material-icons-outlined" style="color:#795548;">assignment</span> Bulletin Board
-        <a href="wiki.html?doc=bulletin&from=dashboard" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:var(--teal);color:#fff;text-decoration:none;font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;">
+        <button type="button" id="bulletinEditBtn" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;background:var(--teal);color:#fff;border:none;cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;">
           <span class="material-icons-outlined" style="font-size:14px;">edit</span> Edit
-        </a>
+        </button>
       </h3>
       <div id="bulletinBoard" class="bulletin-content" style="font-size:13px;color:var(--grey-600);">Loading...</div>
     </div>
@@ -344,6 +344,32 @@
     }
     loadRecentUpdates();
     loadBulletin();
+    wireBulletinEdit();
+  }
+
+  // #128: bulletin Edit button opens the editor modal inline instead of
+  // navigating away to the wiki page. Save -> re-render the bulletin in place.
+  function wireBulletinEdit() {
+    var btn = document.getElementById('bulletinEditBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (!(window.Lab && Lab.editorModal && Lab.editorModal.open)) {
+        // Fallback to the wiki page if the modal module hasn't loaded.
+        window.location.href = 'wiki.html?doc=bulletin&from=dashboard';
+        return;
+      }
+      Lab.editorModal.open('docs/bulletin.md').then(function() {
+        setTimeout(function() {
+          var toggle = document.getElementById('em-edit-toggle');
+          if (toggle) toggle.click();
+        }, 300);
+      });
+    });
+    window.addEventListener('lab-file-saved', function(ev) {
+      var path = ev && ev.detail && ev.detail.path;
+      if (!path || path.indexOf('bulletin.md') >= 0) loadBulletin();
+    });
   }
 
   init();

@@ -8,8 +8,8 @@ created_by: "greymonroe"
 
 ## Requests
 
-Trashcans!
-Gel rig
+* Trashcans!
+* Gel rig
 
 ## Announcements
 
