@@ -376,8 +376,20 @@
   }
 
   // ── localStorage patch layer ──
-  // Saves edits locally so they survive refresh without waiting for deploy
+  // Saves edits locally so they survive refresh without waiting for deploy.
+  //
+  // Each patch carries an `_at` (Date.now() ms) recording when it was written.
+  // applyLocalPatches() drops a patch once the build-time index proves the
+  // deploy has caught up: index entry's mtime (unix seconds) × 1000 >= _at.
+  // That preserves the live-edit feel (patch wins during the ~40s deploy
+  // window) but keeps stale patches from haunting old objects forever.
+  //
+  // PATCH_TTL_MS is a safety net for patches that never reconcile against the
+  // index (e.g. _deleted patches whose file is already gone, or legacy patches
+  // written before _at existed — those are treated as ancient and pruned next
+  // time getLocalPatches runs).
   var PATCH_KEY = 'lab_index_patches';
+  var PATCH_TTL_MS = 60 * 60 * 1000;
   // Must mirror EXTRACT_KEYS in scripts/build-object-index.py — otherwise a
   // patched object survives a reload with fewer fields than a rebuilt one and
   // pages that read those fields (waste table state/contents/days_held, sample
@@ -409,7 +421,28 @@
   ];
 
   function getLocalPatches() {
-    try { return JSON.parse(localStorage.getItem(PATCH_KEY)) || {}; } catch(e) { return {}; }
+    try {
+      var raw = localStorage.getItem(PATCH_KEY);
+      var p = raw ? JSON.parse(raw) : {};
+      var now = Date.now();
+      var changed = false;
+      // Safety TTL — drop anything older than PATCH_TTL_MS regardless of
+      // index state. Legacy patches without _at are treated as ancient (0)
+      // so they get pruned immediately on first load after this ships.
+      Object.keys(p).forEach(function(k) {
+        var at = (p[k] && p[k]._at) || 0;
+        if (now - at > PATCH_TTL_MS) { delete p[k]; changed = true; }
+      });
+      if (changed) { try { localStorage.setItem(PATCH_KEY, JSON.stringify(p)); } catch(e) {} }
+      return p;
+    } catch(e) { return {}; }
+  }
+
+  // Strip internal fields (_at) before merging a patch into the visible index.
+  function _patchEntryFields(patch) {
+    var clone = {};
+    Object.keys(patch).forEach(function(k) { if (k !== '_at') clone[k] = patch[k]; });
+    return clone;
   }
 
   function applyLocalPatches(index) {
@@ -418,19 +451,35 @@
     if (!paths.length) return index;
 
     var result = index.slice();
+    var pruned = false;
     paths.forEach(function(relPath) {
       var patch = patches[relPath];
-      if (patch._deleted) {
-        result = result.filter(function(e) { return e.path !== relPath; });
+      var idx = result.findIndex(function(e) { return e.path === relPath; });
+
+      // Freshness check: if the build-time index entry is at least as new as
+      // this patch, the deploy has caught up — drop the patch and use the
+      // index value. mtime is git commit unix seconds.
+      if (idx >= 0 && patch._at && result[idx].mtime &&
+          result[idx].mtime * 1000 >= patch._at) {
+        delete patches[relPath];
+        pruned = true;
         return;
       }
-      var idx = result.findIndex(function(e) { return e.path === relPath; });
+
+      if (patch._deleted) {
+        if (idx >= 0) result.splice(idx, 1);
+        return;
+      }
+      var fields = _patchEntryFields(patch);
       if (idx >= 0) {
-        result[idx] = Object.assign({}, result[idx], patch);
+        result[idx] = Object.assign({}, result[idx], fields);
       } else {
-        result.push(patch);
+        result.push(fields);
       }
     });
+    if (pruned) {
+      try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
+    }
     return result;
   }
 
@@ -473,15 +522,16 @@
     var entry = { path: relPath };
     INDEX_KEYS.forEach(function(k) { if (meta[k] != null) entry[k] = meta[k]; });
 
-    // Update in-memory cache immediately
+    // Update in-memory cache immediately (no _at — that's a patch-only field)
     if (_objectIndex) {
       var idx = _objectIndex.findIndex(function(e) { return e.path === relPath; });
       if (idx >= 0) _objectIndex[idx] = entry; else _objectIndex.push(entry);
     }
 
-    // Persist to localStorage so it survives refresh
+    // Persist to localStorage with timestamp so applyLocalPatches can drop
+    // it once the deployed index catches up (mtime >= _at).
     var patches = getLocalPatches();
-    patches[relPath] = entry;
+    patches[relPath] = Object.assign({ _at: Date.now() }, entry);
     try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
 
     // Clear wikilink lookup so it rebuilds with the new entry
@@ -502,7 +552,7 @@
       _objectIndex = _objectIndex.filter(function(e) { return e.path !== relPath; });
     }
     var patches = getLocalPatches();
-    patches[relPath] = { _deleted: true };
+    patches[relPath] = { _deleted: true, _at: Date.now() };
     try { localStorage.setItem(PATCH_KEY, JSON.stringify(patches)); } catch(e) {}
     if (window.Lab && window.Lab.hierarchy && window.Lab.hierarchy.invalidate) {
       window.Lab.hierarchy.invalidate();
