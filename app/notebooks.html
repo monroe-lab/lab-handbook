@@ -112,11 +112,14 @@
   .nb-edit-bar .breadcrumb { display: none; }
   .nb-edit-bar .btn { padding: 6px 8px; }
   .btn-label { display: none; }
-  body.editing-mode #lab-nav { display: none; }
-  body.editing-mode #lab-bottom-nav { display: none; }
+  /* nav.js sets #lab-nav display:flex inline and #lab-bottom-nav display:flex!important
+     via its own @media rule, so our editing-mode overrides need !important to win. */
+  body.editing-mode #lab-nav { display: none !important; }
+  body.editing-mode #lab-bottom-nav { display: none !important; }
   body.editing-mode .nb-sidebar { display: none; }
   body.editing-mode .nb-hamburger { display: none; }
-  body.editing-mode .nb-layout { height: 100vh; }
+  body.editing-mode .nb-layout { height: 100vh; padding-bottom: 0 !important; }
+  body.editing-mode { padding-bottom: 0 !important; }
   body.editing-mode .nb-edit-bar { display: none; }
 }
 

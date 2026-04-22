@@ -3178,7 +3178,9 @@
 
     var sheet = document.createElement('div');
     sheet.className = 'mobile-sheet';
-    sheet.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9998;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.15);padding:16px 16px 24px;max-height:60vh;overflow-y:auto;';
+    // z-index must sit above the issue-reporter FAB (10001) so the sheet
+    // doesn't get occluded by the floating lightbulb button at bottom-right.
+    sheet.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:10050;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.15);padding:16px 16px 24px;max-height:60vh;overflow-y:auto;';
 
     // Header
     var header = document.createElement('div');
@@ -3247,7 +3249,7 @@
 
     // Backdrop
     var backdrop = document.createElement('div');
-    backdrop.style.cssText = 'position:fixed;inset:0;z-index:9997;background:rgba(0,0,0,.3);';
+    backdrop.style.cssText = 'position:fixed;inset:0;z-index:10049;background:rgba(0,0,0,.3);';
     // Only close when both mousedown and mouseup land on the backdrop.
     var _sheetMdTarget = null;
     backdrop.addEventListener('mousedown', function(e) { _sheetMdTarget = e.target; });
