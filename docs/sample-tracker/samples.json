@@ -3208,7 +3208,7 @@
   {
     "id": 230,
     "sampleId": "QA13Vmo9rnfo7_1",
-    "project": "QA13-Pangenome",
+    "project": "QA13-PangenomeEdited",
     "species": "Pistacia vera",
     "lead": "Vianney Ahn",
     "sequencingType": "HiFi",
