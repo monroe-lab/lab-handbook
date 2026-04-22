@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 12,
+  "cycle": 13,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -1672,6 +1672,123 @@
         "Known behavior (not a bug): images render as broken icons in the WYSIWYG edit view because their relative paths don't resolve from the app page; render correctly in view mode after save.",
         "PROTOCOL-IMAGES-BROKEN: partial progress (1 of 5 Wikimedia URLs swapped). Remaining 4 still need real photos \u2014 docs/images/ currently has 1.9KB HTML error-page stubs which would be worse than the 429-prone hotlinks. Stubs are untracked in git and harmless on the live site."
       ]
+    },
+    {
+      "cycle": 13,
+      "persona": "Dr. Monroe",
+      "modifier": "cross_linker",
+      "scenario": "Backlinks sanity",
+      "task": "PI audits link integrity across the vault. Opened popups for 3 objects with known inbound references: ethanol-70 concept (24 backlinks, 2 bottles), box-pistachio-dna (10x10 grid with PL1/PL2 tubes at A1/A2), gel-electrophoresis (16 backlinks). Verified concept column 3 shows typed bottle instances; clicked through instance -> bottle popup, grid cell -> tube popup (full breadcrumb room->freezer->shelf->box->tube), backlink row -> source popup (dna-ladder-1kb-plus). Verified rendered wikilinks are typed object pills on both popups and the wiki page. Inspected inventory table rows for ethanol filter.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/01-dashboard-baseline.png",
+          "shows": "Dashboard stats (499 inv, 108 proto, 9 people/proj, 14 nb), inventory status (223 in-stock, 2 needs-more, 1 out, 248 untracked), recent updates, bulletin board peek",
+          "evaluation": "Clean layout. Top-nav tabs fit. No clipping. Recent-updates icons match types.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/02-ethanol70-popup-open.png",
+          "shows": "ethanol-70 concept popup, 3-col layout: left fields (Reagent pill, In Stock), center rendered body with 3 colored callouts (Chemistry/Lab use/Safety), right CONTENTS with 2 instances (both titled 'Ethanol 70% / bench') and 22 References list",
+          "evaluation": "Pills colored correctly, callouts render cleanly. Two instances share the same displayed title because bottle.title === concept.title; only parent differentiates. Minor UX: bottles on SAME parent (both 'bench') are indistinguishable at a glance \u2014 would need lot/label for disambiguation. Not blocking; log as minor observation.",
+          "issues_found": [
+            "INSTANCE-TITLES-AMBIGUOUS (minor): when N bottles of a concept live at the same parent location, the instances list shows N rows with identical title+subtitle. Unique id/lot in subtitle would help."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/03-ethanol70-popup-scrolled-backlinks.png",
+          "shows": "Same as 02; scroll command targeted em-modal-body but right panel scrolls independently \u2014 harmless",
+          "evaluation": "No issue.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/05-bottle-ethanol70-1-popup-open.png",
+          "shows": "bottle-ethanol-70-1 popup: breadcrumb Robbins Hall 170/Bench/Ethanol 70%, fields (Bottle, Of (concept slug)=Ethanol 70% teal pill, Parent=Bench, Qty=1, Expiration=2026-04-07, In Stock), body 'Bottle of [Ethanol 70%]'",
+          "evaluation": "Of pill links back to concept; breadcrumb complete and clickable. Clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/08-box-pistachio-dna-popup-open.png",
+          "shows": "Pistachio DNA Box popup: breadcrumb 4-deep (Robbins Hall 170 / -80C Freezer A / Shelf 1 / Pistachio DNA Box), grid 10x10 with A1=PL1 and A2=PL2 highlighted teal, remaining cells show A3..J10 placeholder labels",
+          "evaluation": "Grid renders correctly. Breadcrumb wraps to 2 lines gracefully. Occupied cells visually distinct from empty. No clipping.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/10-tube-popup-open-after-grid-click.png",
+          "shows": "Pistachio Leaf 1 tube popup, full breadcrumb room->freezer->shelf->box->tube, body with nested wikilinks to Pistachio Tree #4 (sample), Pistachio DNA Box, Pistachio DNA Extract 1",
+          "evaluation": "Click-through from grid cell works. Breadcrumb wraps cleanly. Inline wikilinks render as typed pills with correct color per type.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/11-gel-electrophoresis-popup-open.png",
+          "shows": "Gel Electrophoresis protocol popup (full-width) with Resources section showing Equipment+Reagent+Related Protocols pills, CONTENTS panel with 16 References on right",
+          "evaluation": "All pills colored per type; References list is complete. Layout dense but readable.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/13-source-popup-after-backlink-click.png",
+          "shows": "dna-ladder-1kb-plus popup opened by clicking first backlink row in gel popup. Body contains 'Used in [Gel Electrophoresis], [PCR Genotyping], [Gel Imaging and Annotation]' as purple protocol pills",
+          "evaluation": "Bidirectional link verified: gel's backlinks list dna-ladder, and dna-ladder's body pills link back. REFERENCES panel shows 1 inbound (Gel Imaging & Annotation) \u2014 this matches link-index.json (only that doc wikilinks TO dna-ladder; the other three are OUTbound from dna-ladder).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/15-seed-sterilization-wiki-page.png",
+          "shows": "seed-sterilization wiki page with Resources section: Equipment, Reagents (incl. Ethanol 70% teal pill), Related Protocols, Contacts; Background text + Why these chemicals work section; floating Connections overlay bottom right",
+          "evaluation": "Ethanol 70% wikilink renders as typed teal reagent pill. class='object-pill' with teal background. Backlinks from wiki page work.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/18-inventory-page-baseline.png",
+          "shows": "Inventory full table, first 13 items. LOCATION column shows raw slugs like 'locations/cabinet-chemical', 'locations/cabinet-flammable', 'locations/cabinet-corrosive', 'locations/bench-chemistry' inside grey badges",
+          "evaluation": "BUG: Location column bypasses the type system \u2014 it renders the raw slug instead of the typed pill with resolved title/icon. Every other object surface (popups, breadcrumbs, body wikilinks) resolves these slugs to 'Chemical Cabinet' / 'Bench' / etc. Inventory table is the sole exception. Logged + fixed in this cycle.",
+          "issues_found": [
+            "INVENTORY-LOCATION-RAW-SLUG"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/19-inventory-search-ethanol.png",
+          "shows": "Inventory filtered to 'ethanol' (5 rows). Each row's LOCATION cell shows raw slug 'locations/cabinet-corrosive', 'locations/bench', 'locations/cabinet-flammable', 'locations/cabinet-chemical'",
+          "evaluation": "Same raw-slug rendering as 18. Fix landed in this cycle.",
+          "issues_found": [
+            "INVENTORY-LOCATION-RAW-SLUG"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/20-lab-map-baseline.png",
+          "shows": "Lab Map page with locations tree: Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 170 (expanded) -> -80C Freezer A -> Shelf 1, 3, 2, 4 bottom, 4C Fridge (Main), with item counts and grid dims (4x1, 1x6, 8x12, etc.)",
+          "evaluation": "Tree renders cleanly with icons per type. Expand/collapse chevrons + item counts in muted grey. No overlaps.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/21-lab-map-filter-pistachio.png",
+          "shows": "Lab Map filtered to 'pistachio': Robbins Hall 170 -> -80C Freezer A -> Shelf 1 -> Pistachio DNA Box (10x10, 2 items) -> Pistachio Leaf 1 (A1), Pistachio Leaf 2 (A2); plus Robbins Hall 170 -> 4C Fridge -> DNA Extracts Box -> Pistachio DNA Extract 1 (A1); plus Freezer (-20C) -> Pistachio Kerman",
+          "evaluation": "Filter matches beyond just the box \u2014 shows every tube with 'pistachio' in the title and keeps full hierarchy. Teal highlight on matched rows. A1 position badges render.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle13b/22-inventory-search-ethanol-FIXED.png",
+          "shows": "Same ethanol search as 19 BUT with the fix injected client-side. LOCATION column now shows 'Corrosive Cabinet', 'Bench', 'Flammable Cabinet', 'Chemical Cabinet' as proper typed pills with container icon",
+          "evaluation": "Fix verified visually. Pills resolve raw slugs to titles via the object-index lookup. Container type pills are grey which is correct per Lab.types.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "INVENTORY-LOCATION-RAW-SLUG (visual, fixed in cycle 13): Inventory table LOCATION column rendered raw slugs like 'locations/cabinet-flammable' inside plain grey badges. Every other object surface (popups, breadcrumbs, body wikilinks, lab-map tree) resolves the same slug to a typed pill with the resolved title and icon. Fix: loadInventory builds a locationsBySlug lookup from the object-index; new locationCell(loc) helper renders the cell as a typed object pill (Lab.types.pillStyle + pillContent) when the slug resolves, falls back to a plain grey badge for free-text, multi-location aggregates ('N locations'), or unresolved slugs. Applied to both the desktop table and the mobile card view.",
+        "INSTANCE-TITLES-AMBIGUOUS (minor, logged, not fixed): On a concept popup, the CONTENTS->instances list shows each bottle as title+subtitle (parent). When N bottles share a concept AND live at the same parent (e.g. two Ethanol 70% bottles both on 'bench'), the rows are visually indistinguishable. A better disambiguator would be lot number, created date, or the bottle's slug tail. Low priority \u2014 most real cases differ by parent."
+      ],
+      "fixes": [
+        "INVENTORY-LOCATION-RAW-SLUG \u2192 app/inventory.html: new locationCell(loc) + locationsBySlug; table + mobile card use typed pill when slug resolves"
+      ],
+      "observations": [
+        "Scenario: PI Friday link-integrity audit. 21 on-site screenshots + 1 verification screenshot.",
+        "All 4 backlink-heavy popups rendered correctly: ethanol-70 (24 refs), gel-electrophoresis (16 refs), dna-ladder-1kb-plus (1 ref), Pistachio Leaf 1 (0 refs).",
+        "Bidirectional wikilinks confirmed end-to-end: gel-electrophoresis's backlinks include dna-ladder-1kb-plus, and dna-ladder's body renders [[gel-electrophoresis]] as a clickable purple protocol pill.",
+        "Breadcrumb chains render correctly up to 5 levels (room / freezer / shelf / box / tube), wrapping to 2 lines as needed.",
+        "Freezer box grid rendered both occupied (teal A1/A2) and empty cells with the right labels. Grid click-through opens tube popup with full breadcrumb.",
+        "Lab-map filter for 'pistachio' matched deeply nested descendants and preserved hierarchy \u2014 excellent UX.",
+        "Seed-sterilization wiki page renders [[ethanol-70]] as class='object-pill' with teal background rgba(0,150,136,0.07). Consistent with popup pills.",
+        "Inventory search 'ethanol' returned 5 concept rows (2-Mercaptoethanol, Ethanol 70%, Ethanol Absolute, Formaldehyde PFA, Methanol); bottles were correctly rolled up under Ethanol 70% row ('2 bottles') \u2014 no bottle leaks to the top-level list.",
+        "During this run, an abandoned earlier cycle-13 attempt (rename+relink + bulk-sample-tracker hybrid) left cleanup commits and a stale /tmp/qa-cycle-13.mjs script \u2014 that run never made it into state. Screenshots for this cycle were saved under /tmp/qa-screenshots/cycle13b/ to avoid collision."
+      ]
     }
   ],
   "bugs_found": [
@@ -1706,7 +1823,9 @@
     "DOUBLE-FRONTMATTER-BAR (cosmetic, fixed in cycle 11): print-preview overlay showed two 'Protocol' pills because togglePrintPreview hid #renderedDoc but left .proto-content > .frontmatter-bar visible above the iframe, while showPrintPreview deliberately copies the parent's frontmatter bar HTML into the iframe so it gets paginated. Added body.print-preview-active rule + extended @media print rule in app/protocols.html to hide .proto-content > .frontmatter-bar so only the iframe's copy remains.",
     "FAB-NOT-HIDDEN-IN-PRINT (visual, fixed in cycle 11): #print-preview-fab and #issue-reporter-btn were not in the parent's @media print { display:none } list, so a Cmd+P from the parent would print both FABs on every page. Added both ids to the existing @media print rule in app/protocols.html.",
     "PROTOCOL-IMAGES-BROKEN (cosmetic, PARTIALLY FIXED in cycle 12, commit 908cf5d \u2014 1 of 5 swapped): pipette-tips Wikimedia hotlink replaced with real local 170KB JPEG in docs/images/pipette-tips-in-boxes.jpg. Remaining 4 Wikimedia thumbnails (gel-electrophoresis annotated, gel UV transilluminator, micropipettes on stand, forward pipetting instruction) still hotlink to upload.wikimedia.org and will 429 intermittently. Local stubs in docs/images/ are 1.9KB HTML error pages \u2014 untracked, don't ship. Needs a lab member to drop real photos for the remaining 4.",
-    "HEADING-EATS-IMAGE (visual+functional, fixed in cycle 12, commit e7d8ea5): resized images inserted after an H2 heading got fused into the heading in saved markdown. applyImageSizes now wraps the <img> replacement with blank lines and collapses excess newlines."
+    "HEADING-EATS-IMAGE (visual+functional, fixed in cycle 12, commit e7d8ea5): resized images inserted after an H2 heading got fused into the heading in saved markdown. applyImageSizes now wraps the <img> replacement with blank lines and collapses excess newlines.",
+    "INVENTORY-LOCATION-RAW-SLUG (visual, fixed in cycle 13): Inventory table LOCATION column rendered raw slugs like 'locations/cabinet-flammable' inside plain grey badges instead of typed pills with resolved title+icon. Fix: app/inventory.html now builds a locationsBySlug lookup at load time and renders each cell via a new locationCell(loc) helper that uses Lab.types.pillStyle + pillContent when the slug resolves, falling back to a plain grey badge for free-text, multi-location aggregates, or unresolved slugs. Applied to both the desktop table and mobile card view.",
+    "INSTANCE-TITLES-AMBIGUOUS (minor, logged in cycle 13, NOT fixed): on a concept popup the CONTENTS -> instances list shows each bottle as title+subtitle(parent). When multiple bottles share a concept AND the same parent (e.g. two Ethanol 70% bottles both on 'bench'), rows look identical. Lot number or slug tail in subtitle would help; low priority."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -1726,7 +1845,8 @@
     "calendar.html: MEMBER_COLORS assignment now uses a djb2 hash of the member name modulo palette size instead of alphabetical index, so each member maps to a stable color and new members no longer reshuffle existing event colors (app/calendar.html, commit d8c96cc)",
     "protocols.html: extended @media print { display:none } to cover #print-preview-fab + #issue-reporter-btn + .proto-content > .frontmatter-bar, and added a body.print-preview-active rule that hides .proto-content > .frontmatter-bar so the print preview overlay no longer duplicates the frontmatter pill (app/protocols.html, cycle 11)",
     "cycle 12 \u2014 app/js/editor-modal.js commit e7d8ea5: HEADING-EATS-IMAGE fix in applyImageSizes (wrap <img> replacement in blank lines)",
-    "cycle 12 \u2014 docs/wet-lab/pipette-school.md + docs/images/pipette-tips-in-boxes.jpg commit 908cf5d: swap 1 Wikimedia hotlink for local 170KB real photo"
+    "cycle 12 \u2014 docs/wet-lab/pipette-school.md + docs/images/pipette-tips-in-boxes.jpg commit 908cf5d: swap 1 Wikimedia hotlink for local 170KB real photo",
+    "cycle 13 \u2014 app/inventory.html (INVENTORY-LOCATION-RAW-SLUG): build locationsBySlug from object-index in loadInventory; new locationCell(loc) helper renders typed pill via Lab.types.pillStyle + pillContent; applied to desktop table + mobile card view."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -1756,7 +1876,21 @@
     "/tmp/qa-screenshots/cycle10-verify/ \u2014 4 screenshots (1440 dashboard topnav, calendar baseline, event popup member pill, calendar after color test) confirming all three cycle-10 carry-over fixes: full 'Wiki' label at 1440, Member(s) field rendered as Person pill, existing event colors stable under new-member addition",
     "/tmp/qa-screenshots/cycle11/ \u2014 21 screenshots covering the full print-preview flow on 3 protocols (pipette-school w/ 3 images + 6-page pagination, gel-electrophoresis w/ 2 images + 5-page pagination, autoclave text-only + 4-page pagination), each before+after every state change (load, scroll, print preview click, page-2 scroll, last-page scroll, FAB locate, print media emulate, exit). Every screenshot Read and visually evaluated.",
     "/tmp/qa-screenshots/cycle11-verify/ \u2014 5 screenshots + _log.json confirming both DOUBLE-FRONTMATTER-BAR and FAB-NOT-HIDDEN-IN-PRINT fixes are live post-deploy. parentFmBar.display=none in print preview (FIX1 verified), printFab + issueFab both display=none under emulated @media print (FIX2 verified), parent fm bar restores to display=flex after Exit Preview (no regression).",
-    "/tmp/qa-screenshots/cycle12/ \u2014 27 cycle screenshots + 1 full-page + 3 verify screenshots, all read and evaluated"
+    "/tmp/qa-screenshots/cycle12/ \u2014 27 cycle screenshots + 1 full-page + 3 verify screenshots, all read and evaluated",
+    "/tmp/qa-screenshots/cycle13b/01-dashboard-baseline.png",
+    "/tmp/qa-screenshots/cycle13b/02-ethanol70-popup-open.png",
+    "/tmp/qa-screenshots/cycle13b/03-ethanol70-popup-scrolled-backlinks.png",
+    "/tmp/qa-screenshots/cycle13b/05-bottle-ethanol70-1-popup-open.png",
+    "/tmp/qa-screenshots/cycle13b/08-box-pistachio-dna-popup-open.png",
+    "/tmp/qa-screenshots/cycle13b/10-tube-popup-open-after-grid-click.png",
+    "/tmp/qa-screenshots/cycle13b/11-gel-electrophoresis-popup-open.png",
+    "/tmp/qa-screenshots/cycle13b/13-source-popup-after-backlink-click.png",
+    "/tmp/qa-screenshots/cycle13b/15-seed-sterilization-wiki-page.png",
+    "/tmp/qa-screenshots/cycle13b/18-inventory-page-baseline.png",
+    "/tmp/qa-screenshots/cycle13b/19-inventory-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle13b/20-lab-map-baseline.png",
+    "/tmp/qa-screenshots/cycle13b/21-lab-map-filter-pistachio.png",
+    "/tmp/qa-screenshots/cycle13b/22-inventory-search-ethanol-FIXED.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
