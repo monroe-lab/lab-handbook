@@ -7,23 +7,33 @@
 
   var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
 
+  // #145: ordering per Grey's spec. Primary nav follows the 10-tab list he
+  // called out; secondary items (Protocols, Waste) land in the "+" overflow
+  // popover. The overflow popover is available on all widths — when the
+  // browser is narrow enough that not every primary tab fits, the trailing
+  // ones fall into the popover as well (see updateOverflow below).
   var TABS = [
-    { label: 'Tutorials', href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
-    { label: 'Protocols', href: BASE + 'app/protocols.html',   icon: 'menu_book' },
-    { label: 'Inventory', href: BASE + 'app/inventory.html',   icon: 'science' },
-    { label: 'People',    href: BASE + 'app/people.html',      icon: 'people' },
-    { label: 'Projects',  href: BASE + 'app/projects.html',    icon: 'folder_special' },
+    { label: 'Tutorials',  href: BASE + 'app/tutorials.html',  icon: 'play_circle' },
+    { label: 'Notebooks',  href: BASE + 'app/notebooks.html',  icon: 'edit_note' },
+    { label: 'Inventory',  href: BASE + 'app/inventory.html',  icon: 'science' },
     { label: 'Accessions', href: BASE + 'app/accessions.html', icon: 'fingerprint' },
-    { label: 'Notebooks', href: BASE + 'app/notebooks.html',   icon: 'edit_note' },
-    { label: 'Calendar',  href: BASE + 'app/calendar.html',    icon: 'calendar_month' },
-    { label: 'Waste',     href: BASE + 'app/waste.html',       icon: 'delete' },
-    { label: 'Lab Map',   href: BASE + 'app/lab-map.html',     icon: 'map' },
-    { label: 'Apps',      href: BASE + 'app/apps.html',        icon: 'extension' },
-    { label: 'Wiki',      href: BASE + 'app/wiki.html',        icon: 'hub' },
+    { label: 'Projects',   href: BASE + 'app/projects.html',   icon: 'folder_special' },
+    { label: 'People',     href: BASE + 'app/people.html',     icon: 'people' },
+    { label: 'Calendar',   href: BASE + 'app/calendar.html',   icon: 'calendar_month' },
+    { label: 'Lab Map',    href: BASE + 'app/lab-map.html',    icon: 'map' },
+    { label: 'Apps',       href: BASE + 'app/apps.html',       icon: 'extension' },
+    { label: 'Wiki',       href: BASE + 'app/wiki.html',       icon: 'hub' },
+  ];
+  // Always-overflow: secondary tabs that live in the "+" popover only. Keep
+  // Protocols discoverable but out of the primary bar so the 10 preferred
+  // tabs breathe.
+  var SECONDARY_TABS = [
+    { label: 'Protocols',  href: BASE + 'app/protocols.html',  icon: 'menu_book' },
+    { label: 'Waste',      href: BASE + 'app/waste.html',      icon: 'delete' },
   ];
 
   // Bottom bar shows these tabs; the rest go in the "More" popover
-  var BOTTOM_TABS = ['Wiki', 'Protocols', 'Notebooks', 'Inventory'];
+  var BOTTOM_TABS = ['Wiki', 'Notebooks', 'Inventory', 'Accessions'];
 
   function getActiveTab() {
     var path = location.pathname;
@@ -62,19 +72,19 @@
     logo.innerHTML = '<span class="material-icons-outlined" style="font-size:22px">science</span><span>Monroe Lab</span>';
     nav.appendChild(logo);
 
-    // Desktop tab row (hidden on mobile via CSS)
+    // Desktop tab row. `overflow:hidden` (not auto) — if tabs don't fit we
+    // measure and hide trailing ones, surfacing them in the "+" popover.
+    // No horizontal scrollbar, per #145.
     var tabWrap = document.createElement('div');
     tabWrap.id = 'nav-tabs';
-    tabWrap.style.cssText = 'display:flex;align-items:center;gap:0;flex:1;overflow-x:auto;-webkit-overflow-scrolling:touch;';
+    tabWrap.style.cssText = 'display:flex;align-items:center;gap:0;flex:1;min-width:0;overflow:hidden;';
 
     TABS.forEach(function(t) {
       var a = document.createElement('a');
       var isActive = t.label === active;
       a.href = t.href;
-      // Padding tightened to 12px 8px (gap 4px) so all 12 tabs fit at 1440px
-      // including the rightmost "Wiki" tab. overflow-x:auto on the wrap remains
-      // as a safety net for narrower desktop widths.
       a.className = 'lab-nav-tab';
+      a.dataset.label = t.label;
       a.style.cssText = 'display:flex;align-items:center;gap:4px;padding:12px 8px;color:' + (isActive ? '#fff' : 'rgba(255,255,255,.7)') + ';text-decoration:none;font-size:13px;font-weight:' + (isActive ? '600' : '400') + ';white-space:nowrap;border-bottom:2px solid ' + (isActive ? '#fff' : 'transparent') + ';transition:color .15s,border-color .15s;flex-shrink:0;';
       a.innerHTML = '<span class="material-icons-outlined" style="font-size:18px">' + t.icon + '</span><span>' + t.label + '</span>';
       a.addEventListener('mouseenter', function() { if (!isActive) a.style.color = 'rgba(255,255,255,.9)'; });
@@ -82,6 +92,23 @@
       tabWrap.appendChild(a);
     });
     nav.appendChild(tabWrap);
+
+    // Desktop "+" overflow button — always present. Shows SECONDARY_TABS
+    // (Protocols, Waste) plus any primary tab the width pushed off-screen.
+    // If the currently active page lives under an overflow tab, style the
+    // button as active so the nav still communicates location.
+    var isOverflowActive = SECONDARY_TABS.some(function(t) { return t.label === active; });
+    var moreBtn = document.createElement('button');
+    moreBtn.id = 'nav-desktop-more';
+    moreBtn.type = 'button';
+    moreBtn.title = 'More';
+    moreBtn.style.cssText = 'display:flex;align-items:center;gap:4px;padding:12px 10px;color:' + (isOverflowActive ? '#fff' : 'rgba(255,255,255,.85)') + ';background:transparent;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:' + (isOverflowActive ? '600' : '500') + ';flex-shrink:0;border-bottom:2px solid ' + (isOverflowActive ? '#fff' : 'transparent') + ';';
+    moreBtn.innerHTML = '<span class="material-icons-outlined" style="font-size:20px">add</span><span class="hide-mobile">More</span>';
+    moreBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleDesktopMorePopover();
+    });
+    nav.appendChild(moreBtn);
 
     // Auth area
     var authArea = document.createElement('div');
@@ -100,15 +127,102 @@
     style.textContent =
       '@media(max-width:768px){' +
         '#nav-tabs{display:none!important}' +
+        '#nav-desktop-more{display:none!important}' +
         '#lab-bottom-nav{display:flex!important}' +
         'body{padding-bottom:var(--bottom-nav-height)}' +
       '}' +
-      // Below ~1280 the full 12-tab row still cuts off; shrink padding
-      // further before relying on the overflow-x scrollbar.
       '@media(min-width:769px) and (max-width:1280px){' +
         '#lab-nav .lab-nav-tab{padding:12px 6px!important;gap:3px!important}' +
-      '}';
+      '}' +
+      '.nav-hidden-tab{display:none!important}';
     document.head.appendChild(style);
+
+    // Measure once the initial layout settles, then on every resize. #145:
+    // as the viewport narrows, trailing tabs are pushed into the overflow
+    // popover so nothing truncates or scrolls.
+    setTimeout(updateOverflow, 0);
+    window.addEventListener('resize', debounce(updateOverflow, 80));
+  }
+
+  // Hide trailing primary tabs when they don't fit, preserving the active
+  // tab's visibility so the bar always shows where the user is. Hidden tabs
+  // surface in the "+" popover alongside SECONDARY_TABS.
+  function updateOverflow() {
+    var tabWrap = document.getElementById('nav-tabs');
+    if (!tabWrap) return;
+    var tabs = Array.prototype.slice.call(tabWrap.querySelectorAll('.lab-nav-tab'));
+    // Reset.
+    tabs.forEach(function(el) { el.classList.remove('nav-hidden-tab'); });
+
+    // Nothing to hide if everything already fits.
+    if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) return;
+
+    var active = getActiveTab();
+    // Hide from the right, but always keep the currently active tab visible
+    // — skip over it if it happens to be at the trailing position.
+    for (var i = tabs.length - 1; i >= 0; i--) {
+      if (tabs[i].dataset.label === active) continue;
+      tabs[i].classList.add('nav-hidden-tab');
+      if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) return;
+    }
+  }
+
+  function debounce(fn, ms) {
+    var t = null;
+    return function() {
+      clearTimeout(t);
+      t = setTimeout(fn, ms);
+    };
+  }
+
+  function toggleDesktopMorePopover() {
+    var existing = document.getElementById('nav-desktop-more-popover');
+    if (existing) { existing.remove(); return; }
+
+    var active = getActiveTab();
+    var tabWrap = document.getElementById('nav-tabs');
+    var hiddenPrimary = [];
+    if (tabWrap) {
+      Array.prototype.forEach.call(tabWrap.querySelectorAll('.lab-nav-tab.nav-hidden-tab'), function(a) {
+        var label = a.dataset.label;
+        var tab = TABS.find(function(t) { return t.label === label; });
+        if (tab) hiddenPrimary.push(tab);
+      });
+    }
+    var allOverflow = hiddenPrimary.concat(SECONDARY_TABS);
+
+    var anchor = document.getElementById('nav-desktop-more');
+    var rect = anchor ? anchor.getBoundingClientRect() : { right: 24, bottom: 48 };
+
+    var popover = document.createElement('div');
+    popover.id = 'nav-desktop-more-popover';
+    popover.style.cssText = 'position:fixed;top:' + rect.bottom + 'px;right:' + Math.max(8, (window.innerWidth - rect.right - 4)) + 'px;background:#fff;border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,.22);z-index:600;min-width:200px;padding:6px 0;font-family:Inter,-apple-system,sans-serif;';
+
+    if (!allOverflow.length) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'padding:10px 16px;font-size:13px;color:#9e9e9e;font-style:italic';
+      empty.textContent = 'No additional tabs.';
+      popover.appendChild(empty);
+    } else {
+      allOverflow.forEach(function(t) {
+        var isActive = t.label === active;
+        var a = document.createElement('a');
+        a.href = t.href;
+        a.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 18px;text-decoration:none;color:' + (isActive ? '#00796b' : '#424242') + ';font-size:14px;font-weight:' + (isActive ? '600' : '400') + ';';
+        a.innerHTML = '<span class="material-icons-outlined" style="font-size:20px;color:' + (isActive ? '#00796b' : '#757575') + '">' + t.icon + '</span>' + t.label;
+        popover.appendChild(a);
+      });
+    }
+
+    document.body.appendChild(popover);
+
+    function close(e) {
+      if (!popover.contains(e.target) && e.target !== anchor) {
+        popover.remove();
+        document.removeEventListener('click', close);
+      }
+    }
+    setTimeout(function() { document.addEventListener('click', close); }, 0);
   }
 
   // ── Bottom Nav ──
@@ -155,7 +269,9 @@
     if (existing) { existing.remove(); return; }
 
     var active = getActiveTab();
-    var overflowTabs = TABS.filter(function(t) { return !BOTTOM_TABS.includes(t.label); });
+    // Mobile "More" includes every primary tab not in the bottom bar, plus
+    // the always-overflow secondary tabs (Protocols, Waste).
+    var overflowTabs = TABS.filter(function(t) { return !BOTTOM_TABS.includes(t.label); }).concat(SECONDARY_TABS);
 
     var popover = document.createElement('div');
     popover.id = 'nav-more-popover';

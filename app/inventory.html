@@ -52,6 +52,46 @@
 .inv-table-wrap td { padding: 4px 10px; font-size: 13px; }
 .inv-table-wrap th { padding: 6px 10px; font-size: 11px; }
 
+/* #144: add-kind picker tiles in the Add modal */
+.add-kind-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid var(--grey-200);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 10px;
+  transition: border-color .15s, box-shadow .15s, transform .1s;
+}
+.add-kind-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
+.add-kind-card:active { transform: translateY(1px); }
+.add-kind-card > .material-icons-outlined:first-child { font-size: 28px; flex-shrink: 0; }
+.add-kind-card > div { flex: 1; min-width: 0; }
+.add-kind-title { font-size: 14px; font-weight: 600; color: var(--grey-900); margin-bottom: 4px; }
+.add-kind-desc  { font-size: 12px; color: var(--grey-600); line-height: 1.5; }
+
+/* #144: bottle-of-existing search result rows */
+.bottle-pick-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--grey-200);
+  cursor: pointer;
+  transition: background .08s;
+}
+.bottle-pick-row:hover { background: var(--teal-light); }
+.bottle-pick-row:last-child { border-bottom: none; }
+.bottle-pick-row .bp-icon { font-size: 18px; color: var(--teal-dark); flex-shrink: 0; }
+.bottle-pick-row .bp-title { flex: 1; font-size: 13px; font-weight: 500; color: var(--grey-900); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bottle-pick-row .bp-type { font-size: 11px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .3px; flex-shrink: 0; }
+.bottle-pick-row .bp-count { font-size: 11px; background: var(--grey-100); color: var(--grey-700); padding: 1px 7px; border-radius: 10px; flex-shrink: 0; }
+
 /* Scope the teal hover to sortable columns only. The Actions column has no
    onclick and shouldn't pick up the teal hover affordance its siblings get. */
 #invTable th:not([onclick]):hover { color: var(--grey-700); cursor: default; }
@@ -226,64 +266,110 @@ tr.low-stock td:first-child::before {
 
 </div>
 
-<!-- Add item modal -->
+<!-- Add item modal — #144: two-step flow to keep concept vs instance distinct.
+     Step 1 asks what you're adding (new bottle of existing, or a brand-new
+     chemical concept). Step 2 either searches existing concepts and hands
+     off to Lab.editorModal._addInstance, or shows the concept-creation form.
+-->
 <div class="modal-overlay" id="addModal">
   <div class="modal" style="max-width:560px">
     <div class="modal-header">
-      <h2>New Inventory Item</h2>
+      <h2 id="addModalTitle">Add to Inventory</h2>
       <button class="modal-close" onclick="closeAddModal()"><span class="material-icons-outlined">close</span></button>
     </div>
     <div class="modal-body">
-      <div class="form-group">
-        <label>Name *</label>
-        <input type="text" id="addName" placeholder="e.g. Qiagen DNeasy Plant Kit">
-        <div id="addSlugPreview" style="font-size:12px;color:#888;margin-top:4px;font-family:monospace;min-height:16px"></div>
+
+      <!-- Step 1: kind picker -->
+      <div id="addStepChoice">
+        <p style="color:var(--grey-600);font-size:13px;margin:0 0 14px;line-height:1.5">
+          Inventory items come in two flavors: a <strong>concept</strong> (the idea of Ethanol Absolute) and <strong>bottles</strong> (the actual jars, each in a specific location with a lot and expiration). Pick what you're adding:
+        </p>
+        <button type="button" class="add-kind-card" onclick="chooseAddKind('bottle')">
+          <span class="material-icons-outlined" style="color:#00796b">science</span>
+          <div>
+            <div class="add-kind-title">A new bottle of something we already have</div>
+            <div class="add-kind-desc">Pick an existing chemical/reagent/stock, then register this bottle with its own lot, expiration, and shelf.</div>
+          </div>
+          <span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span>
+        </button>
+        <button type="button" class="add-kind-card" onclick="chooseAddKind('concept')">
+          <span class="material-icons-outlined" style="color:#00796b">add_circle</span>
+          <div>
+            <div class="add-kind-title">A new chemical we haven't had before</div>
+            <div class="add-kind-desc">Create the concept card first. You can add bottles of it afterward.</div>
+          </div>
+          <span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span>
+        </button>
       </div>
-      <div class="form-row">
+
+      <!-- Step 2a: pick existing concept for a new bottle -->
+      <div id="addStepBottle" style="display:none">
         <div class="form-group">
-          <label>Type</label>
-          <select id="addType">
-            <optgroup label="Resources">
-              <option value="reagent">Reagent</option>
-              <option value="buffer">Buffer/Solution</option>
-              <option value="consumable">Consumable</option>
-              <option value="kit">Kit</option>
-              <option value="enzyme">Enzyme</option>
-              <option value="chemical">Chemical</option>
-              <option value="equipment">Equipment</option>
-              <option value="solution">Solution</option>
-            </optgroup>
-            <optgroup label="Stocks">
-              <option value="seed">Seed Stock</option>
-              <option value="glycerol_stock">Glycerol Stock</option>
-              <option value="plasmid">Plasmid</option>
-              <option value="agro_strain">Agro Strain</option>
-              <option value="dna_prep">DNA Prep</option>
-            </optgroup>
-          </select>
+          <label>Find the chemical</label>
+          <input type="text" id="bottleSearch" placeholder="Type to search existing chemicals, stocks, kits…" autocomplete="off">
         </div>
-        <div class="form-group">
-          <label>Location</label>
-          <select id="addLocation">
-            <option>Chemical Cabinet</option>
-            <option>Corrosive Cabinet</option>
-            <option>Flammable Cabinet</option>
-            <option>Hazardous Cabinet</option>
-            <option>Refrigerator</option>
-            <option>Freezer -20C</option>
-            <option>Freezer -80C</option>
-            <option>Bench</option>
-            <option>Other</option>
-          </select>
-        </div>
+        <div id="bottleResults" style="max-height:320px;overflow-y:auto;border:1px solid var(--grey-200);border-radius:8px;background:var(--grey-50)"></div>
+        <p style="color:var(--grey-500);font-size:12px;margin:10px 0 0;line-height:1.5">
+          Pick a concept and we'll create a fresh bottle linked to it, then open the bottle's editor so you can fill in parent location, lot, expiration, etc.
+        </p>
       </div>
-      <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0">
-        After creating, open the item to add containers (individual bottles/boxes with their own location, lot, and expiration).
-      </p>
+
+      <!-- Step 2b: create new concept -->
+      <div id="addStepConcept" style="display:none">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="addName" placeholder="e.g. Qiagen DNeasy Plant Kit">
+          <div id="addSlugPreview" style="font-size:12px;color:#888;margin-top:4px;font-family:monospace;min-height:16px"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="addType">
+              <optgroup label="Resources">
+                <option value="reagent">Reagent</option>
+                <option value="buffer">Buffer/Solution</option>
+                <option value="consumable">Consumable</option>
+                <option value="kit">Kit</option>
+                <option value="enzyme">Enzyme</option>
+                <option value="chemical">Chemical</option>
+                <option value="equipment">Equipment</option>
+                <option value="solution">Solution</option>
+              </optgroup>
+              <optgroup label="Stocks">
+                <option value="seed">Seed Stock</option>
+                <option value="glycerol_stock">Glycerol Stock</option>
+                <option value="plasmid">Plasmid</option>
+                <option value="agro_strain">Agro Strain</option>
+                <option value="dna_prep">DNA Prep</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Default Location</label>
+            <select id="addLocation">
+              <option>Chemical Cabinet</option>
+              <option>Corrosive Cabinet</option>
+              <option>Flammable Cabinet</option>
+              <option>Hazardous Cabinet</option>
+              <option>Refrigerator</option>
+              <option>Freezer -20C</option>
+              <option>Freezer -80C</option>
+              <option>Bench</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0">
+          After creating, open the concept card and add bottles (individual physical containers with their own location, lot, and expiration).
+        </p>
+      </div>
+
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" id="addModalFooter">
+      <!-- Buttons swapped per step -->
       <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmAdd()">Create</button>
+      <button type="button" class="btn btn-outline" id="addBackBtn" style="display:none" onclick="backToAddChoice()">← Back</button>
+      <button type="button" class="btn btn-primary" id="addConceptConfirmBtn" style="display:none" onclick="confirmAdd()">Create Concept</button>
     </div>
   </div>
 </div>
@@ -592,25 +678,109 @@ function openItem(slug) {
   Lab.editorModal.open('docs/' + item.path);
 }
 
-// ── Add new item ──
+// ── Add new item (#144: two-step concept-vs-bottle flow) ──
 function updateSlugPreview() {
   var val = document.getElementById('addName').value.trim();
   var el = document.getElementById('addSlugPreview');
   el.textContent = val ? 'File: ' + Lab.slugify(val) + '.md' : '';
 }
-function addItem() {
+
+function resetAddModal() {
+  document.getElementById('addStepChoice').style.display = '';
+  document.getElementById('addStepBottle').style.display = 'none';
+  document.getElementById('addStepConcept').style.display = 'none';
+  document.getElementById('addBackBtn').style.display = 'none';
+  document.getElementById('addConceptConfirmBtn').style.display = 'none';
+  document.getElementById('addModalTitle').textContent = 'Add to Inventory';
   document.getElementById('addName').value = '';
   document.getElementById('addSlugPreview').textContent = '';
   document.getElementById('addType').value = 'reagent';
   document.getElementById('addLocation').value = 'Chemical Cabinet';
-  document.getElementById('addModal').classList.add('open');
-  var nameInput = document.getElementById('addName');
-  nameInput.removeEventListener('input', updateSlugPreview);
-  nameInput.addEventListener('input', updateSlugPreview);
-  setTimeout(function() { nameInput.focus(); }, 50);
+  document.getElementById('bottleSearch').value = '';
+  document.getElementById('bottleResults').innerHTML = '';
 }
+
+function addItem() {
+  resetAddModal();
+  document.getElementById('addModal').classList.add('open');
+}
+
 function closeAddModal() {
   document.getElementById('addModal').classList.remove('open');
+}
+
+// Step 1 → Step 2a/b: user picked a flavor. 'bottle' searches existing
+// concepts; 'concept' shows the create-new-chemical form.
+function chooseAddKind(kind) {
+  document.getElementById('addStepChoice').style.display = 'none';
+  document.getElementById('addBackBtn').style.display = '';
+  if (kind === 'bottle') {
+    document.getElementById('addStepBottle').style.display = '';
+    document.getElementById('addModalTitle').textContent = 'New bottle · pick the chemical';
+    renderBottleResults('');
+    setTimeout(function() { document.getElementById('bottleSearch').focus(); }, 50);
+  } else {
+    document.getElementById('addStepConcept').style.display = '';
+    document.getElementById('addConceptConfirmBtn').style.display = '';
+    document.getElementById('addModalTitle').textContent = 'New chemical concept';
+    var nameInput = document.getElementById('addName');
+    nameInput.removeEventListener('input', updateSlugPreview);
+    nameInput.addEventListener('input', updateSlugPreview);
+    setTimeout(function() { nameInput.focus(); }, 50);
+  }
+}
+
+function backToAddChoice() {
+  resetAddModal();
+}
+
+// Filter and render the list of existing inventory concepts for the
+// bottle-of-existing picker. We already have `inventory` in memory (the
+// flat list rendered in the main table) so we don't need another fetch.
+function renderBottleResults(query) {
+  var q = (query || '').toLowerCase().trim();
+  var rows = inventory.filter(function(r) {
+    if (!q) return true;
+    return (r.name + ' ' + (r.typeLabel || '') + ' ' + (r.slug || '')).toLowerCase().indexOf(q) >= 0;
+  });
+  rows.sort(function(a, b) { return (a.name || '').toLowerCase() < (b.name || '').toLowerCase() ? -1 : 1; });
+  rows = rows.slice(0, 40);
+  var mount = document.getElementById('bottleResults');
+  if (!rows.length) {
+    mount.innerHTML = '<div style="padding:14px 16px;color:var(--grey-500);font-size:13px">' +
+      (q ? 'No matches. Go back and create this as a new concept instead.' : 'No inventory items yet. Go back and create a new concept first.') +
+      '</div>';
+    return;
+  }
+  mount.innerHTML = rows.map(function(r) {
+    var instCount = r.containerCount ? ('<span class="bp-count" title="' + r.containerCount + ' existing ' + r.instanceLabel + '">' + r.containerCount + '</span>') : '';
+    return '<div class="bottle-pick-row" data-slug="' + Lab.escHtml(r.path ? r.path.replace(/\.md$/, '') : '') + '">' +
+      '<span class="material-icons-outlined bp-icon">science</span>' +
+      '<span class="bp-title">' + Lab.escHtml(r.name) + '</span>' +
+      '<span class="bp-type">' + Lab.escHtml(r.typeLabel || r.type || '') + '</span>' +
+      instCount +
+      '</div>';
+  }).join('');
+  mount.querySelectorAll('.bottle-pick-row').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var conceptSlug = el.getAttribute('data-slug');
+      if (!conceptSlug) return;
+      pickConceptForBottle(conceptSlug);
+    });
+  });
+}
+
+// Hand off to editor-modal's add-instance flow, which creates the bottle
+// file, patches the index, and opens the new bottle in edit mode focused
+// on the parent/location field. Same machinery the concept popup's "Add
+// instance" button uses — we just invoke it without going through the popup.
+function pickConceptForBottle(conceptSlug) {
+  if (!Lab.editorModal || !Lab.editorModal._addInstance) {
+    Lab.showToast('Editor not loaded yet — try again', 'error');
+    return;
+  }
+  closeAddModal();
+  Lab.editorModal._addInstance(conceptSlug);
 }
 function confirmAdd() {
   var name = document.getElementById('addName').value.trim();
@@ -687,6 +857,9 @@ document.getElementById('searchInput').addEventListener('input', renderTable);
 document.getElementById('filterType').addEventListener('change', renderTable);
 document.getElementById('filterLocation').addEventListener('change', renderTable);
 document.getElementById('filterStatus').addEventListener('change', renderTable);
+document.getElementById('bottleSearch').addEventListener('input', function(e) {
+  renderBottleResults(e.target.value);
+});
 document.querySelectorAll('.modal-overlay').forEach(function(o) {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });
