@@ -286,6 +286,32 @@
   // colored collapsible callouts in the read view.
   var ADM_ICONS = { variant: '\uD83D\uDD00', warning: '\u26A0\uFE0F', note: '\u2139\uFE0F', tip: '\uD83D\uDCA1', danger: '\uD83D\uDEA8' };
 
+  // #154: make sure there's a paragraph (even empty) after the leading H1
+  // so the cursor can land somewhere that isn't the title. Applies to every
+  // object opened in edit mode. The returned string is safe to serialize
+  // back to markdown without permanent damage: the " " (single-space
+  // paragraph) round-trips through Toast UI as a blank <p> and getMarkdown
+  // re-emits it, so saving doesn't strip the padding on subsequent opens.
+  function ensureParagraphAfterHeading(md) {
+    if (!md || typeof md !== 'string') return md || '';
+    // Strip any trailing whitespace just so our append is predictable.
+    var trimmed = md.replace(/\s+$/, '');
+    // If the body ends with a heading line (nothing substantive after), tack
+    // on a blank paragraph. The regex matches the final non-empty line and
+    // inspects whether it's a heading.
+    var lines = trimmed.split('\n');
+    var lastNonEmpty = '';
+    for (var i = lines.length - 1; i >= 0; i--) {
+      if (lines[i].trim()) { lastNonEmpty = lines[i]; break; }
+    }
+    if (/^#{1,6}\s/.test(lastNonEmpty)) {
+      return trimmed + '\n\n \n';
+    }
+    // If there's any body after the heading, leave as-is — user already has
+    // a real paragraph to click into.
+    return md;
+  }
+
   // Convert legacy ??? syntax to blockquote format (one-way migration on edit)
   function migrateAdmonitions(md) {
     // Clean up broken remnants from previous conversion attempts
@@ -2499,6 +2525,11 @@
     prepared = loadImageSizes(prepared);
     prepared = await wikilinksToLinks(prepared);
     prepared = resolveImagePaths(prepared, currentState ? currentState.path : null);
+    // #154: if the body is just `# Title` with nothing after, give the user
+    // a blank paragraph to type into instead of cornering them inside the H1.
+    // Matches the daily-notebook template fix (#143) but applies to every
+    // object type that opens into edit mode.
+    prepared = ensureParagraphAfterHeading(prepared);
 
     currentEditor = new toastui.Editor({
       el: editorEl,
