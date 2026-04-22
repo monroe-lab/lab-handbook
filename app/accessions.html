@@ -85,6 +85,7 @@
 .status-pill.purple { background: var(--purple-light); color: var(--purple); }
 .status-pill.red    { background: var(--red-light); color: var(--red); }
 .status-pill.grey   { background: var(--grey-200); color: var(--grey-700); }
+.status-pill.blue   { background: #dbeafe; color: #1e40af; }
 
 /* Priority / blocker */
 .priority-mark { font-size: 14px; }
@@ -164,6 +165,10 @@
       <span class="material-icons-outlined" style="color:#6366f1">hourglass_empty</span>
       <div><div class="stat-value" id="statWaiting" style="color:#6366f1">-</div><div class="stat-label">Waiting</div></div>
     </div>
+    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('storage')">
+      <span class="material-icons-outlined" style="color:#3b82f6">inventory_2</span>
+      <div><div class="stat-value" id="statStorage" style="color:#3b82f6">-</div><div class="stat-label">Storage</div></div>
+    </div>
     <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('completed')">
       <span class="material-icons-outlined" style="color:#22c55e">check_circle</span>
       <div><div class="stat-value" id="statCompleted" style="color:#22c55e">-</div><div class="stat-label">Completed</div></div>
@@ -242,6 +247,7 @@
           <select id="addStatus">
             <option value="active">Active (action needed)</option>
             <option value="waiting">Waiting (on someone/something)</option>
+            <option value="storage">Storage (in stock, resting)</option>
             <option value="completed">Completed</option>
             <option value="archived">Archived</option>
           </select>
@@ -321,13 +327,15 @@ function toAccessionRow(obj) {
 var STATUS_COLORS = {
   'active':    'yellow',   // action needed — same color as mid-pipeline used to be
   'waiting':   'purple',   // on someone/something else
+  'storage':   'blue',     // #168: seeds, cell lines, etc. in stock, not on pipeline
   'completed': 'green',
   'archived':  'grey',
 };
-var ALL_STATUSES = ['active', 'waiting', 'completed', 'archived'];
+var ALL_STATUSES = ['active', 'waiting', 'storage', 'completed', 'archived'];
 var STATUS_LABELS = {
   'active':    'Active',
   'waiting':   'Waiting',
+  'storage':   'Storage',
   'completed': 'Completed',
   'archived':  'Archived',
 };
@@ -557,13 +565,14 @@ function renderTable() {
   var rows = getFiltered();
 
   // Stats
-  var counts = { total: accessions.length, active: 0, waiting: 0, completed: 0, archived: 0 };
+  var counts = { total: accessions.length, active: 0, waiting: 0, storage: 0, completed: 0, archived: 0 };
   accessions.forEach(function(a) {
     if (counts[a.status] !== undefined) counts[a.status]++;
   });
   document.getElementById('statTotal').textContent = counts.total;
   document.getElementById('statActive').textContent = counts.active;
   document.getElementById('statWaiting').textContent = counts.waiting;
+  document.getElementById('statStorage').textContent = counts.storage;
   document.getElementById('statCompleted').textContent = counts.completed;
   document.getElementById('statArchived').textContent = counts.archived;
 

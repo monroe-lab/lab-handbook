@@ -294,7 +294,7 @@
         { key: 'project',            label: 'Project',           type: 'text', placeholder: 'e.g. PBTS, MA Lines (autocompletes from existing projects)' },
         { key: 'people',             label: 'People',            type: 'text', placeholder: '[[name1]], [[name2]] — wikilinks to person cards' },
         { key: 'species',            label: 'Species',           type: 'text', placeholder: 'Optional' },
-        { key: 'status',             label: 'Status',            type: 'select', options: ['active','waiting','completed','archived'], default: 'active' },
+        { key: 'status',             label: 'Status',            type: 'select', options: ['active','waiting','storage','completed','archived'], default: 'active' },
         { key: 'status_note',        label: 'Status note',       type: 'text', placeholder: 'e.g. Waiting on QC at Genome Center; Planted 2026-03-24' },
         { key: 'priority',           label: 'Priority (stars)',  type: 'select', options: ['0','1','2','3'], default: '0' },
         { key: 'sequencing_type',    label: 'Sequencing Type',   type: 'text', placeholder: 'Optional — HiFi, Illumina WGS, RNA-seq, etc.' },
