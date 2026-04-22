@@ -632,7 +632,7 @@ async function loadDoc(docPath) {
     document.getElementById('docMain').scrollTop = 0;
     showMiniGraph(docPath);
   } catch(e) {
-    contentEl.innerHTML = '<div class="doc-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+    contentEl.innerHTML = '<div class="doc-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(Lab.formatLoadError(e)) + '</p></div></div>';
   }
 }
 

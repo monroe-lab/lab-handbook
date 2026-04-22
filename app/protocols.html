@@ -261,7 +261,7 @@ body.print-preview-active .proto-content > .frontmatter-bar { display: none !imp
     <div class="proto-sidebar-header" style="position:relative;display:flex;gap:6px;align-items:center">
       <div style="position:relative;flex:1">
         <span class="material-icons-outlined search-icon">search</span>
-        <input type="text" id="protoSearch" placeholder="Search protocols...">
+        <input type="text" id="protoSearch" placeholder="Search...">
       </div>
       <button id="newFolderBtn" class="btn btn-sm" style="display:none;padding:6px 10px;white-space:nowrap;background:none;border:1px solid var(--grey-300);color:var(--grey-600)" onclick="createNewFolder()" title="New folder">
         <span class="material-icons-outlined" style="font-size:18px">create_new_folder</span>
@@ -902,7 +902,7 @@ async function loadDoc(docPath) {
     // Scroll to top
     document.getElementById('protoMain').scrollTop = 0;
   } catch(e) {
-    contentEl.innerHTML = '<div class="proto-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+    contentEl.innerHTML = '<div class="proto-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(Lab.formatLoadError(e)) + '</p></div></div>';
   }
 }
 
@@ -1469,8 +1469,16 @@ async function deleteDoc() {
   }
 }
 
+var renameInFlight = false;
 async function renameDoc() {
   if (!currentDoc) return;
+  // Guard against impatient double-clicks — the first click deletes the old
+  // file, so a second click with the stale sha would 404 and fire a spurious
+  // "Rename failed: Not Found" toast even though the rename actually succeeded.
+  // Set before the first await so both synchronous clicks can't pass the check.
+  if (renameInFlight) return;
+  renameInFlight = true;
+  try {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
@@ -1591,6 +1599,9 @@ async function renameDoc() {
     Lab.showToast('Renamed to: ' + newTitle, 'success');
   } catch(e) {
     Lab.showToast('Rename failed: ' + e.message, 'error');
+  }
+  } finally {
+    renameInFlight = false;
   }
 }
 

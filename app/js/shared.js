@@ -664,6 +664,19 @@
     });
   };
 
+  // Turn a raw fetch/loadDoc error into a user-facing message.
+  // - 404s say the document is missing (likely renamed/deleted) instead of
+  //   exposing the full "docs/.../foo.md (HTTP 404)" path.
+  // - Strips a redundant "Failed to load" prefix so callers can safely wrap
+  //   the result in "Failed to load: …" without doubling up.
+  function formatLoadError(err) {
+    var raw = (err && err.message) ? err.message : String(err || '');
+    if (/HTTP 404|\(404\)/.test(raw)) {
+      return 'Document not found. It may have been renamed or deleted.';
+    }
+    return raw.replace(/^Failed to load\s+/i, '');
+  }
+
   // ── Exports ──
   window.Lab = window.Lab || {};
   window.Lab.BASE = BASE;
@@ -677,5 +690,6 @@
   window.Lab.buildFrontmatter = buildFrontmatter;
   window.Lab.postProcessImages = postProcessImages;
   window.Lab.renderFrontmatterBar = renderFrontmatterBar;
+  window.Lab.formatLoadError = formatLoadError;
   window.Lab.modal = modal;
 })();

@@ -717,7 +717,7 @@ async function loadDoc(docPath) {
     Lab.postProcessImages(renderedEl);
     document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
-    contentEl.innerHTML = '<div class="nb-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>Failed to load: ' + Lab.escHtml(e.message) + '</p></div></div>';
+    contentEl.innerHTML = '<div class="nb-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(Lab.formatLoadError(e)) + '</p></div></div>';
   }
 }
 
