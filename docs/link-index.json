@@ -3644,34 +3644,6 @@
     "target": "people/grey-monroe"
   },
   {
-    "source": "wet-lab/extraction/test-new",
-    "target": "wet-lab/clean-bench"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "resources/1-8-naphthalic-anhydride"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "wet-lab/gel-electrophoresis"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "resources/1-octanol"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "resources/clean-bench-laminar-flow"
-  },
-  {
-    "source": "wet-lab/extraction/test-new",
-    "target": "stocks/col-0-wild-type"
-  },
-  {
     "source": "wet-lab/gel-electrophoresis",
     "target": "resources/gel-electrophoresis-tank"
   },

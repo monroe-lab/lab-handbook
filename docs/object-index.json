@@ -5,7 +5,7 @@
     "title": "1,8-Naphthalic anhydride",
     "status": "in_stock",
     "legacy_inventory_id": 12,
-    "mtime": 1776790736
+    "mtime": 1776840517
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
@@ -3350,16 +3350,6 @@
     "mtime": 1775895711
   },
   {
-    "path": "stocks/test-seed-entry.md",
-    "type": "seed",
-    "title": "test seed entry",
-    "created_at": "2026-04-09T08:13:28.226Z",
-    "created_by": "greymonroe",
-    "parent": "locations/box-minus80-a-1-a",
-    "position": "A2",
-    "mtime": 1775895711
-  },
-  {
     "path": "people/barb-m.md",
     "type": "person",
     "title": "Barb M.",
@@ -3800,15 +3790,6 @@
     "type": "protocol",
     "title": "Sorbitol/CTAB HiFi Extraction",
     "mtime": 1775858916
-  },
-  {
-    "path": "wet-lab/extraction/test-new.md",
-    "type": "protocol",
-    "title": "test new",
-    "location": "Freezer -80C",
-    "parent": "locations/box-minus80-a-1-a",
-    "position": "A2",
-    "mtime": 1775868762
   },
   {
     "path": "wet-lab/library-prep/in-house-vs-genome-center-decision.md",
@@ -4265,30 +4246,6 @@
     "mtime": 1775713873
   },
   {
-    "path": "samples/mcclintock-maize-leaf-a.md",
-    "type": "sample",
-    "title": "McClintock Maize Leaf A",
-    "status": "active",
-    "created_at": "2026-04-22T06:01:13.066Z",
-    "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:01:13.066Z",
-    "species": "Zea mays",
-    "sequencing_type": "HiFi",
-    "mtime": 1776837673
-  },
-  {
-    "path": "samples/mcclintock-maize-leaf-b.md",
-    "type": "sample",
-    "title": "McClintock Maize Leaf B",
-    "status": "active",
-    "created_at": "2026-04-22T06:01:47.772Z",
-    "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:01:47.772Z",
-    "species": "Zea mays",
-    "sequencing_type": "HiFi",
-    "mtime": 1776837708
-  },
-  {
     "path": "samples/new-tube-mo8yb345.md",
     "type": "sample",
     "title": "J1",
@@ -4403,30 +4360,6 @@
     "mtime": 1775895055
   },
   {
-    "path": "locations/falcon-a1-leaf-a.md",
-    "type": "tube",
-    "title": "Falcon A1 \u2014 Leaf A",
-    "created_at": "2026-04-22T06:16:26.282Z",
-    "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:16:26.282Z",
-    "parent": "locations/mcclintock-leaf-samples-2026-04-22",
-    "position": "A1",
-    "of": "samples/mcclintock-maize-leaf-a",
-    "mtime": 1776838586
-  },
-  {
-    "path": "locations/falcon-a2-leaf-b.md",
-    "type": "tube",
-    "title": "Falcon A2 \u2014 Leaf B",
-    "created_at": "2026-04-22T06:16:58.139Z",
-    "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:16:58.139Z",
-    "parent": "locations/mcclintock-leaf-samples-2026-04-22",
-    "position": "A2",
-    "of": "samples/mcclintock-maize-leaf-b",
-    "mtime": 1776838618
-  },
-  {
     "path": "locations/freezer-minus20.md",
     "type": "freezer",
     "title": "Freezer (-20C)",
@@ -4461,17 +4394,6 @@
     "title": "Unsorted (review)",
     "label_1": "Unsorted (review)",
     "mtime": 1775890429
-  },
-  {
-    "path": "locations/mcclintock-leaf-samples-2026-04-22.md",
-    "type": "box",
-    "title": "McClintock Leaf Samples \u2014 2026-04-22",
-    "created_at": "2026-04-22T06:04:33.050Z",
-    "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:04:33.050Z",
-    "parent": "locations/shelf-minus80-a-1",
-    "grid": "9x9",
-    "mtime": 1776837873
   },
   {
     "path": "locations/new-box-mnvmzdmc.md",
@@ -4512,11 +4434,11 @@
     "title": "Shelf 3",
     "created_at": "2026-04-12T10:24:11.083Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-22T06:09:49.916Z",
+    "updated_at": "2026-04-22T06:39:39.671Z",
     "parent": "locations/freezer-minus80-a",
     "position": "B1",
     "grid": "1x6",
-    "mtime": 1776838190
+    "mtime": 1776839979
   },
   {
     "path": "locations/new-shelf-mo8ya0v2.md",
@@ -4552,7 +4474,7 @@
     "position": "A1",
     "grid": "6x4",
     "label_1": "Rack 3.1",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-3-2.md",
@@ -4566,7 +4488,7 @@
     "position": "A2",
     "grid": "6x4",
     "label_1": "Rack 3.2",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-3-3.md",
@@ -4580,7 +4502,7 @@
     "position": "A3",
     "grid": "6x4",
     "label_1": "Rack 3.3",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-3-4.md",
@@ -4594,7 +4516,7 @@
     "position": "A4",
     "grid": "6x4",
     "label_1": "Rack 3.4",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-3-5.md",
@@ -4608,7 +4530,7 @@
     "position": "A5",
     "grid": "6x4",
     "label_1": "Rack 3.5",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-3-6.md",
@@ -4622,7 +4544,7 @@
     "position": "A6",
     "grid": "6x4",
     "label_1": "Rack 3.6",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-1.md",
@@ -4636,7 +4558,7 @@
     "position": "A1",
     "grid": "6x4",
     "label_1": "Rack 4.1",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-2.md",
@@ -4650,7 +4572,7 @@
     "position": "A2",
     "grid": "6x4",
     "label_1": "Rack 4.2",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-3.md",
@@ -4664,7 +4586,7 @@
     "position": "A3",
     "grid": "6x4",
     "label_1": "Rack 4.3",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-4.md",
@@ -4678,7 +4600,7 @@
     "position": "A4",
     "grid": "6x4",
     "label_1": "Rack 4.4",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-5.md",
@@ -4692,7 +4614,7 @@
     "position": "A5",
     "grid": "6x4",
     "label_1": "Rack 4.5",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/rack-4-6.md",
@@ -4706,7 +4628,7 @@
     "position": "A6",
     "grid": "6x4",
     "label_1": "Rack 4.6",
-    "mtime": 1776838775
+    "mtime": 1776839144
   },
   {
     "path": "locations/room-asmundson-growth-chamber.md",
@@ -4730,10 +4652,13 @@
   {
     "path": "locations/room-robbins-0170.md",
     "type": "room",
-    "title": "Robbins Hall 0170",
+    "title": "Robbins Hall 170",
     "notes": "Primary wet lab space, UC Davis Robbins Hall ground floor.",
+    "created_at": "2026-04-22T06:20:05.276Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-22T06:20:05.276Z",
     "label_1": "Monroe Lab",
-    "mtime": 1775868762
+    "mtime": 1776838805
   },
   {
     "path": "locations/room-robbins-262.md",
