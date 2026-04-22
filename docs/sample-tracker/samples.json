@@ -3192,20 +3192,6 @@
     "detailSheetLink": ""
   },
   {
-    "id": 229,
-    "sampleId": "QA13Vmo9rsz1q_1",
-    "project": "QA13-PangenomeEdited",
-    "species": "Pistacia vera",
-    "lead": "Vianney Ahn",
-    "sequencingType": "HiFi",
-    "status": "QC passed",
-    "priority": "💎",
-    "currentBlocker": "Waiting on shipment",
-    "lastUpdated": "2026-04-22",
-    "notes": "QA cycle 13 test sample. tag=QA13Vmo9rsz1q",
-    "detailSheetLink": ""
-  },
-  {
     "id": 230,
     "sampleId": "QA13Vmo9rsz1q_2",
     "project": "QA13-Pangenome",
