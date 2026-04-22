@@ -960,10 +960,13 @@ async function commitSamples(message) {
     return false;
   }
 
-  // Re-fetch SHA to avoid conflicts
+  // Re-fetch SHA to avoid conflicts. cache:'no-store' + cache-buster query
+  // param: without these the browser HTTP cache can return a stale SHA after a
+  // back-to-back commit, producing a 409 on the follow-up PUT and (for
+  // saveField) a silent local revert of the user's inline edit.
   try {
     const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
-    const getResp = await fetch(REPO_API + '?ref=' + BRANCH, { headers });
+    const getResp = await fetch(REPO_API + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers, cache: 'no-store' });
     if (getResp.ok) {
       const getData = await getResp.json();
       fileSha = getData.sha;
@@ -980,8 +983,12 @@ async function commitSamples(message) {
   };
   if (fileSha) body.sha = fileSha;
 
-  try {
-    const resp = await fetch(REPO_API, {
+  // One retry on 409: when GitHub's replication is briefly behind our last
+  // commit, the pre-fetched SHA above can still come back stale. Refresh and
+  // PUT again; only surface an error toast if the retry also fails.
+  async function putOnce(shaOverride) {
+    if (shaOverride) body.sha = shaOverride;
+    return fetch(REPO_API, {
       method: 'PUT',
       headers: {
         'Authorization': 'token ' + token,
@@ -990,6 +997,21 @@ async function commitSamples(message) {
       },
       body: JSON.stringify(body),
     });
+  }
+
+  try {
+    let resp = await putOnce();
+    if (resp.status === 409) {
+      try {
+        const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' };
+        const refresh = await fetch(REPO_API + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers, cache: 'no-store' });
+        if (refresh.ok) {
+          const refreshed = await refresh.json();
+          fileSha = refreshed.sha;
+          resp = await putOnce(fileSha);
+        }
+      } catch (_) { /* fall through to error handling */ }
+    }
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
