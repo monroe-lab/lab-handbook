@@ -467,11 +467,11 @@
     "type": "reagent",
     "title": "Ethanol 70%",
     "unit": "g",
-    "need_more": false,
+    "status": "in_stock",
     "created_at": "2026-04-07T16:48:44.166Z",
     "created_by": "greymonroe",
     "updated_at": "2026-04-07T16:48:44.166Z",
-    "mtime": 1775946810
+    "mtime": 1776817597
   },
   {
     "path": "resources/ethanol-absolute.md",
@@ -830,16 +830,6 @@
     "mtime": 1775946810
   },
   {
-    "path": "resources/labbot-freezer-item-mnthp11v.md",
-    "type": "reagent",
-    "title": "LabBot Freezer Item mnthp11v",
-    "created_at": "2026-04-10T22:44:21.260Z",
-    "created_by": "greymonroe",
-    "parent": "locations/box-minus80-a-1-a",
-    "position": "B6",
-    "mtime": 1775918749
-  },
-  {
     "path": "resources/liquid-nitrogen-dewar.md",
     "type": "equipment",
     "title": "Liquid Nitrogen Dewar",
@@ -926,6 +916,17 @@
     "title": "Methyl methanesulfonate",
     "legacy_inventory_id": 95,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/microcentrifuge.md",
+    "type": "equipment",
+    "title": "Microcentrifuge",
+    "location": "Bench",
+    "status": "needs_more",
+    "created_at": "2026-04-21T19:25:39.023Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-21T20:30:30.161Z",
+    "mtime": 1776803430
   },
   {
     "path": "resources/micropipette-p10.md",
@@ -1603,16 +1604,6 @@
     "mtime": 1775946810
   },
   {
-    "path": "resources/tube-item.md",
-    "type": "reagent",
-    "title": "tube item",
-    "created_at": "2026-04-09T07:58:18.233Z",
-    "created_by": "greymonroe",
-    "parent": "locations/box-minus80-a-1-a",
-    "position": "A2",
-    "mtime": 1775895055
-  },
-  {
     "path": "resources/tube-rotator.md",
     "type": "equipment",
     "title": "Tube Rotator",
@@ -1642,7 +1633,8 @@
     "path": "resources/vortex-mixer.md",
     "type": "equipment",
     "title": "Vortex Mixer",
-    "mtime": 1775980234
+    "status": "needs_more",
+    "mtime": 1776815619
   },
   {
     "path": "resources/water-bath.md",
@@ -2195,6 +2187,49 @@
     "parent": "locations/cabinet-chemical",
     "of": "resources/dkw-medium-with-vitamins",
     "mtime": 1775927241
+  },
+  {
+    "path": "stocks/bottle-dnase-2wsck2mn.md",
+    "type": "bottle",
+    "title": "DNAse",
+    "quantity": "25",
+    "unit": "mL",
+    "status": "in_stock",
+    "created_at": "2026-04-21T20:07:34.826Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-21T20:07:34.826Z",
+    "parent": "locations/bench-chemistry",
+    "of": "resources/dnase",
+    "lot": "LOT-A-2026",
+    "expiration": "2027-04-21",
+    "acquired": "2026-04-21",
+    "level": "full",
+    "mtime": 1776802055
+  },
+  {
+    "path": "stocks/bottle-dnase-rz5evsdm.md",
+    "type": "bottle",
+    "title": "DNAse",
+    "quantity": "10",
+    "unit": "mL",
+    "status": "in_stock",
+    "created_at": "2026-04-21T20:07:45.520Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-21T20:07:45.520Z",
+    "parent": "locations/fridge-4c-main",
+    "of": "resources/dnase",
+    "lot": "LOT-B-2026",
+    "expiration": "2027-06-30",
+    "acquired": "2026-04-21",
+    "level": "3/4",
+    "mtime": 1776802065
+  },
+  {
+    "path": "stocks/bottle-dnase-vv3os854.md",
+    "type": "bottle",
+    "title": "DNAse",
+    "of": "resources/dnase",
+    "mtime": 1776801984
   },
   {
     "path": "stocks/bottle-dneasy-plant-mini.md",
@@ -3383,7 +3418,15 @@
     "title": "Vianney Ahn",
     "role": "Lab Technician",
     "email": "a.vianney221@gmail.com",
-    "mtime": 1776794418
+    "mtime": 1776799106
+  },
+  {
+    "path": "people/zi-ye.md",
+    "type": "person",
+    "title": "Zi Ye",
+    "role": "Undergraduate Researcher",
+    "email": "levye@ucdavis.edu",
+    "mtime": 1776817151
   },
   {
     "path": "projects/alfalfa-pangenome/index.md",
@@ -3418,7 +3461,7 @@
     "title": "Molecular Biology Training Curriculum",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1776058510
+    "mtime": 1776799459
   },
   {
     "path": "projects/mutation-accumulation/index.md",
@@ -3597,12 +3640,6 @@
     "mtime": 1776060130
   },
   {
-    "path": "wet-lab/ms-media-recipe.md",
-    "type": "protocol",
-    "title": "MS Media Recipe",
-    "mtime": 1775982373
-  },
-  {
     "path": "wet-lab/nanopore-data-retrieval.md",
     "type": "protocol",
     "title": "Nanopore Data Retrieval",
@@ -3630,7 +3667,7 @@
     "path": "wet-lab/pipette-school.md",
     "type": "protocol",
     "title": "Pipette School",
-    "mtime": 1775983797
+    "mtime": 1776814884
   },
   {
     "path": "wet-lab/planting-arabidopsis-on-ms-plates.md",
@@ -3654,7 +3691,7 @@
     "path": "wet-lab/quantifying-dna-nanodrop.md",
     "type": "protocol",
     "title": "Quantifying DNA: NanoDrop",
-    "mtime": 1775980234
+    "mtime": 1776798370
   },
   {
     "path": "wet-lab/quantifying-dna-qubit.md",
@@ -3778,6 +3815,12 @@
     "type": "protocol",
     "title": "In-House vs Genome Center: HiFi Shearing and QC Decision",
     "mtime": 1775844741
+  },
+  {
+    "path": "wet-lab/library-prep/operating-the-ot2-copy.md",
+    "type": "protocol",
+    "title": "Operating the Opentrons OT-2 (Copy)",
+    "mtime": 1776798152
   },
   {
     "path": "wet-lab/library-prep/operating-the-ot2.md",
@@ -4020,18 +4063,6 @@
     "mtime": 1775835649
   },
   {
-    "path": "lab-safety/flammable-solids-sop.md",
-    "type": "protocol",
-    "title": "Flammable Solids SOP",
-    "mtime": 1775835649
-  },
-  {
-    "path": "lab-safety/hazardous-drug-sop.md",
-    "type": "protocol",
-    "title": "Hazardous Drug SOP (Paraquat)",
-    "mtime": 1775835649
-  },
-  {
     "path": "lab-safety/hydrofluoric-acid-producing-sop.md",
     "type": "protocol",
     "title": "Hydrofluoric Acid Producing Chemicals SOP",
@@ -4041,6 +4072,12 @@
     "path": "lab-safety/lab-safety-requirements.md",
     "type": "protocol",
     "title": "Lab Safety Requirements"
+  },
+  {
+    "path": "lab-safety/protocol-template.md",
+    "type": "protocol",
+    "title": "Protocol Template",
+    "mtime": 1776798204
   },
   {
     "path": "lab-safety/reproductive-toxins-sop.md",
@@ -4061,16 +4098,16 @@
     "mtime": 1775173244
   },
   {
+    "path": "workflow-templates/hazardous-drug-sop.md",
+    "type": "protocol",
+    "title": "Hazardous Drug SOP (Paraquat)",
+    "mtime": 1776798182
+  },
+  {
     "path": "workflow-templates/hifi-pipeline.md",
     "type": "guide",
     "title": "HiFi Pipeline Scripts (/home/gmonroe/scripts/hifi_pipeline)",
     "mtime": 1775173244
-  },
-  {
-    "path": "workflow-templates/protocol-template.md",
-    "type": "protocol",
-    "title": "Protocol Template",
-    "mtime": 1775966802
   },
   {
     "path": "workflow-templates/strelka2.md",
@@ -4109,6 +4146,12 @@
     "type": "notebook",
     "title": "2026-04-13 \u2014 Barb M",
     "mtime": 1776051905
+  },
+  {
+    "path": "notebooks/erik-spaulding/2026-04-21.md",
+    "type": "notebook",
+    "title": "2026-04-21 \u2014 Erik Spaulding",
+    "mtime": 1776806724
   },
   {
     "path": "notebooks/grey-monroe/2026-04-08.md",
@@ -4150,7 +4193,13 @@
     "path": "notebooks/vianney-ahn/fiberseq/MN.md",
     "type": "notebook",
     "title": "MN",
-    "mtime": 1776796738
+    "mtime": 1776799153
+  },
+  {
+    "path": "notebooks/zi-ye/2026-04-22.md",
+    "type": "notebook",
+    "title": "2026-04-22 \u2014 Zi Ye",
+    "mtime": 1776817153
   },
   {
     "path": "waste/bme-chloroform-phenol-waste.md",
@@ -4216,6 +4265,20 @@
     "mtime": 1775713873
   },
   {
+    "path": "samples/mcclintock-maize-leaf-a-mcb1776833637.md",
+    "type": "sample",
+    "title": "McClintock Maize Leaf A",
+    "parent": "people/barb-m",
+    "mtime": 1776833875
+  },
+  {
+    "path": "samples/mcclintock-maize-leaf-b-mcb1776833637.md",
+    "type": "sample",
+    "title": "McClintock Maize Leaf B",
+    "parent": "people/barb-m",
+    "mtime": 1776833876
+  },
+  {
     "path": "samples/new-tube-mo8yb345.md",
     "type": "sample",
     "title": "J1",
@@ -4238,7 +4301,7 @@
     "species": "Pistacia vera",
     "lead": "J. Freckles",
     "sequencing_type": "HiFi",
-    "mtime": 1775868762
+    "mtime": 1776825560
   },
   {
     "path": "samples/test-sample.md",
@@ -4362,6 +4425,23 @@
     "mtime": 1775890429
   },
   {
+    "path": "locations/mcclintock-tissue-box-mcb1776833637.md",
+    "type": "box",
+    "title": "McClintock Tissue Box mcb1776833637",
+    "parent": "locations/shelf-minus80-a-1",
+    "grid": "9x9",
+    "mtime": 1776833877
+  },
+  {
+    "path": "locations/mcclintock-tissue-falcon-a1-mcb1776833637.md",
+    "type": "tube",
+    "title": "Tissue A1 \u2014 Leaf A",
+    "parent": "locations/mcclintock-tissue-box-mcb1776833637",
+    "position": "A1",
+    "of": "samples/mcclintock-maize-leaf-a-mcb1776833637",
+    "mtime": 1776833878
+  },
+  {
     "path": "locations/new-box-mnvmzdmc.md",
     "type": "box",
     "title": "New Box",
@@ -4430,8 +4510,11 @@
     "type": "room",
     "title": "Asmundson Growth Chamber",
     "notes": "Shared plant growth chamber facility, UC Davis Asmundson Hall. Ask the building manager for access.",
+    "created_at": "2026-04-21T21:30:41.828Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-21T21:30:57.217Z",
     "label_1": "Shared growth facility",
-    "mtime": 1775927241
+    "mtime": 1776807057
   },
   {
     "path": "locations/room-genome-center.md",
@@ -4938,6 +5021,12 @@
     "end_time": "11:00",
     "member": "all",
     "mtime": 1775992501
+  },
+  {
+    "path": "plant-harvesting/flammable-solids-sop.md",
+    "type": "protocol",
+    "title": "Flammable Solids SOP",
+    "mtime": 1776798195
   },
   {
     "path": "plant-harvesting/poplar-leaf-collection.md",

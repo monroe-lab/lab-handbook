@@ -145,10 +145,6 @@
   },
   {
     "source": "lab-safety/chemical-inventory",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "lab-safety/chemical-inventory",
     "target": "wet-lab/seed-sterilization"
   },
   {
@@ -352,54 +348,6 @@
     "target": "wet-lab/clean-bench"
   },
   {
-    "source": "lab-safety/flammable-solids-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-safety/flammable-solids-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-safety/flammable-solids-sop",
-    "target": "resources/sodium-dodecyl-sulfate"
-  },
-  {
-    "source": "lab-safety/flammable-solids-sop",
-    "target": "resources/activated-charcoal"
-  },
-  {
-    "source": "lab-safety/flammable-solids-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "people/kehan-zhao"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "resources/chloramphenicol"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "resources/mitomycin-c"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "resources/cis-diamineplatinum-ii-dichloride"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "resources/fume-hood"
-  },
-  {
-    "source": "lab-safety/hazardous-drug-sop",
-    "target": "resources/isopropyl-alcohol"
-  },
-  {
     "source": "lab-safety/hydrofluoric-acid-producing-sop",
     "target": "people/grey-monroe"
   },
@@ -426,6 +374,66 @@
   {
     "source": "lab-safety/lab-safety-requirements",
     "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "resources/fume-hood"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/liquid-nitrogen-refill"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "lab-safety/cryogens-sop"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "resources/tube-rotator"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "stocks/col-0-wild-type"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "stocks/bl21-de3-competent-cells"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "lab-safety/protocol-template",
+    "target": "wet-lab/gel-electrophoresis"
   },
   {
     "source": "lab-safety/reproductive-toxins-sop",
@@ -661,7 +669,7 @@
   },
   {
     "source": "people/kehan-zhao",
-    "target": "lab-safety/hazardous-drug-sop"
+    "target": "workflow-templates/hazardous-drug-sop"
   },
   {
     "source": "people/kehan-zhao",
@@ -685,10 +693,6 @@
   },
   {
     "source": "people/satoyo-oya",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "people/satoyo-oya",
     "target": "wet-lab/planting-arabidopsis-on-ms-plates"
   },
   {
@@ -702,6 +706,26 @@
   {
     "source": "people/satoyo-oya",
     "target": "wet-lab/epigenomics/cut-and-tag"
+  },
+  {
+    "source": "plant-harvesting/flammable-solids-sop",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "plant-harvesting/flammable-solids-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "plant-harvesting/flammable-solids-sop",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "plant-harvesting/flammable-solids-sop",
+    "target": "resources/activated-charcoal"
+  },
+  {
+    "source": "plant-harvesting/flammable-solids-sop",
+    "target": "resources/fume-hood"
   },
   {
     "source": "plant-harvesting/poplar-leaf-collection",
@@ -865,6 +889,26 @@
   },
   {
     "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/how-to-read-an-sds"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/spill-response"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/breakage-response"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/sharps-handling"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/lab-orientation"
   },
   {
@@ -882,6 +926,22 @@
   {
     "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/bench-cleanup"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/seed-sterilization"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/stratification"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/growth-chamber-operation"
+  },
+  {
+    "source": "projects/molecular-biology-training/index",
+    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
   },
   {
     "source": "projects/molecular-biology-training/index",
@@ -909,10 +969,6 @@
   },
   {
     "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/make-tae-buffer"
   },
   {
@@ -926,22 +982,6 @@
   {
     "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/library-prep/spri-beads-preparation"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/seed-sterilization"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/stratification"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/growth-chamber-operation"
   },
   {
     "source": "projects/molecular-biology-training/index",
@@ -962,26 +1002,6 @@
   {
     "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/harvesting-leaf-tissue"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/spill-response"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/breakage-response"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/sharps-handling"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/how-to-read-an-sds"
-  },
-  {
-    "source": "projects/molecular-biology-training/index",
-    "target": "wet-lab/waste-disposal-quick-reference"
   },
   {
     "source": "projects/molecular-biology-training/index",
@@ -1586,6 +1606,22 @@
   {
     "source": "resources/wide-bore-filter-tips-p200",
     "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "samples/mcclintock-maize-leaf-a-mcb1776833637",
+    "target": "people/barb-m"
+  },
+  {
+    "source": "samples/mcclintock-maize-leaf-a-mcb1776833637",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "samples/mcclintock-maize-leaf-b-mcb1776833637",
+    "target": "people/barb-m"
+  },
+  {
+    "source": "samples/mcclintock-maize-leaf-b-mcb1776833637",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
   },
   {
     "source": "samples/sample-pistachio-4",
@@ -2317,10 +2353,6 @@
   },
   {
     "source": "wet-lab/autoclave",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "wet-lab/autoclave",
     "target": "wet-lab/clean-bench"
   },
   {
@@ -2498,10 +2530,6 @@
   {
     "source": "wet-lab/clean-bench",
     "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "wet-lab/clean-bench",
-    "target": "wet-lab/ms-media-recipe"
   },
   {
     "source": "wet-lab/clean-bench",
@@ -3849,10 +3877,6 @@
   },
   {
     "source": "wet-lab/how-to-use-the-scale",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "wet-lab/how-to-use-the-scale",
     "target": "wet-lab/make-tae-buffer"
   },
   {
@@ -4046,6 +4070,50 @@
   {
     "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "wet-lab/library-prep/operating-the-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/ot2-magnetic-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/ot2-temperature-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/ot2-thermocycler-module"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/library-prep/operating-the-ot2-copy",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
   },
   {
     "source": "wet-lab/library-prep/operating-the-ot2",
@@ -4633,10 +4701,6 @@
   },
   {
     "source": "wet-lab/making-solutions",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "wet-lab/making-solutions",
     "target": "wet-lab/ph-measurement"
   },
   {
@@ -4646,286 +4710,6 @@
   {
     "source": "wet-lab/making-solutions",
     "target": "wet-lab/pipette-school"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/autoclave-sterilizer"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/clean-bench-laminar-flow"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ph-meter"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/3-methylbutanol"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/aceto-orcein-solution-2"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/activated-charcoal"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/agar-non-tc"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/agar-plant-tc"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/alpha-d-glucose"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ammonium-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ammonium-nitrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ammonium-phosphate-monobasic"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/basic-fuchsin"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/boric-acid"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/calcium-carbonate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/calcium-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/calcium-nitrate-tetrahydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/carbon-activated"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/casein-hydrolysate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/cefotaxime-sodium-salt"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/citric-acid"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/d-glucose"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/d-mannitol"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/d-sorbitol"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/disodium-ethylenediamine-tetraacetate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/dkw-medium-with-vitamins"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ethyl-alcohol-absolute"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/glycerin"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/iohexol"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/iron-iii-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/l-glutamine"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/l-lysine-monohydrochloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/lithium-acetate-dihydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/lithium-hydroxide-monohydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/magnesium-acetate-tetrahydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/magnesium-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/magnesium-sulfate-heptahydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/manganese-ii-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/mineral-oil"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/ms-basal-salt-mixture"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/phenol-nitroprusside-solution"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/potassium-chloride"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/potassium-hydroxide"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/potassium-nitrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/potassium-phosphate-dibasic"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/potassium-phosphate-monobasic"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/reagent-alcohol-100-200-proof-denatured"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-bisulfite"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-citrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-hydroxide"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-hydroxide-2"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-hydroxide-10n-aqueous-solution"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-hydroxide-10-0-normal"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-phosphate-dibasic"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-sulfite"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-tetraborate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sodium-thiosulfate-pentahydrate"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/sucrose"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/tc-agar-a175"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/autoclave"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/clean-bench"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/seed-sterilization"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/how-to-use-the-scale"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "wet-lab/ph-measurement"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "people/satoyo-oya"
-  },
-  {
-    "source": "wet-lab/ms-media-recipe",
-    "target": "people/grey-monroe"
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
@@ -5345,10 +5129,6 @@
   },
   {
     "source": "wet-lab/ph-measurement",
-    "target": "wet-lab/ms-media-recipe"
-  },
-  {
-    "source": "wet-lab/ph-measurement",
     "target": "wet-lab/make-tae-buffer"
   },
   {
@@ -5470,10 +5250,6 @@
   {
     "source": "wet-lab/planting-arabidopsis-on-ms-plates",
     "target": "resources/tc-agar-a175"
-  },
-  {
-    "source": "wet-lab/planting-arabidopsis-on-ms-plates",
-    "target": "wet-lab/ms-media-recipe"
   },
   {
     "source": "wet-lab/planting-arabidopsis-on-ms-plates",
@@ -5980,63 +5756,31 @@
     "target": "wet-lab/bulking-seed"
   },
   {
-    "source": "workflow-templates/protocol-template",
+    "source": "workflow-templates/hazardous-drug-sop",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "workflow-templates/hazardous-drug-sop",
     "target": "people/grey-monroe"
   },
   {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/seed-sterilization"
+    "source": "workflow-templates/hazardous-drug-sop",
+    "target": "resources/chloramphenicol"
   },
   {
-    "source": "workflow-templates/protocol-template",
+    "source": "workflow-templates/hazardous-drug-sop",
+    "target": "resources/mitomycin-c"
+  },
+  {
+    "source": "workflow-templates/hazardous-drug-sop",
+    "target": "resources/cis-diamineplatinum-ii-dichloride"
+  },
+  {
+    "source": "workflow-templates/hazardous-drug-sop",
     "target": "resources/fume-hood"
   },
   {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/liquid-nitrogen-refill"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "lab-safety/cryogens-sop"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "resources/ethanol-absolute"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "resources/agarose"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/clean-bench"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "resources/tube-rotator"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "stocks/col-0-wild-type"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "stocks/bl21-de3-competent-cells"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/planting-arabidopsis-on-ms-plates"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/pcr-genotyping"
-  },
-  {
-    "source": "workflow-templates/protocol-template",
-    "target": "wet-lab/gel-electrophoresis"
+    "source": "workflow-templates/hazardous-drug-sop",
+    "target": "resources/isopropyl-alcohol"
   }
 ]
