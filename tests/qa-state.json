@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 18,
+  "cycle": 19,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2360,6 +2360,163 @@
         "tests/qa-cycle-18.mjs and tests/qa-cycle-18-verify.mjs kept as harnesses. Verify asserts pill hrefs contain 'wet-lab/' and fresh-user dashboard counts are 1 Notebook / 2 Protocols / 1 Project.",
         "All cycle-18 test artifacts (1 cycle person + entry + gitkeep, 1 verify person + entry + gitkeep) cleaned up via gh API DELETE."
       ]
+    },
+    {
+      "cycle": 19,
+      "persona": "Kayla Torres",
+      "modifier": "confused",
+      "scenario": "Search every surface",
+      "task": "Undergrad in confused-mode stress-tests search inputs across inventory, protocols, notebooks, wiki, and waste. On each surface: a real query (DNeasy, PCR, vianney, ethanol, paraquat), a typo that should 0-match (DNeazy, Pcer, XX-NO-MATCH-XX, ethnaol, paraqat), and weird input (💎 emoji, <script>alert(1)</script>, em-dash). Also probes the dashboard for a global search (none exists), and at 375px mobile opens the onboarding wizard to reproduce cycle-18's FAB-NEAR-WIZARD-NEXT-MOBILE carry-over. Finally opens notebooks.html?person=vianney-ahn to reproduce NOTEBOOKS-PERSON-PARAM-IGNORED. 28 screenshots captured, all read and evaluated.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step02-inventory-search-dneasy.png",
+          "shows": "Inventory table filtered to 1 row (DNeasy plant mini, Kit, In Stock, 1 box, Fume hood bay) by the real DNeasy query.",
+          "evaluation": "Search works correctly; single matching kit surfaced with all columns populated; stat cards unchanged (counts are totals, not filtered).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step03-inventory-search-typo.png",
+          "shows": "Inventory after typo query 'DNeazy' — nicely-styled empty state with search_off icon + 'No items match your filters.'",
+          "evaluation": "Canonical empty state: centered 48px icon + grey text. Sets the bar the other pages should match.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step05-inventory-search-xss.png",
+          "shows": "Inventory search with literal '<script>alert(1)</script>' text. Empty results, no alert fires, tag rendered as plain text.",
+          "evaluation": "XSS input is properly escaped — the search value shows in the input as literal text, no script execution. invXssAlert=false confirmed programmatically.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step09-protocols-search-typo.png",
+          "shows": "Protocols sidebar with typo 'Pcer' — shows plain text 'No protocols match' with no icon. Much more minimal than inventory's empty state.",
+          "evaluation": "Inconsistent empty state vs inventory. Fixed this cycle by swapping in a .empty-state div with search_off icon.",
+          "issues_found": [
+            "PROTOCOLS-EMPTY-STATE-MINIMAL (cosmetic, fixed this cycle): protocols sidebar 0-result state was plain '<p>No protocols match</p>' whereas inventory/waste use the styled .empty-state class with the search_off icon. Swapped to the standard pattern."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step12-protocols-autoclave-loaded.png",
+          "shows": "After searching 'autoclave' and clicking the matching result — autoclave protocol page loaded with Resources section (Autoclave, Clean Bench, Magnetic Rack equipment pills + Reagent Alcohol + TWEEN 80 reagent pills + 4 related protocol pills + Satoyo Oya contact pill + Lab Orientation prerequisite pill).",
+          "evaluation": "End-to-end search-to-load flow works. Pills typed and colored correctly. Breadcrumb reads wet-lab/autoclave.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step15-notebooks-search-nomatch.png",
+          "shows": "Notebooks sidebar empty with 'No notebooks match' plain text after XX-NO-MATCH-XX query; the right pane Recent Entries list remains full — the sidebar search doesn't cross-filter the right pane.",
+          "evaluation": "Same cosmetic inconsistency as protocols — plain-text empty state. Also minor UX note: Recent Entries on the right pane is independent of the sidebar search, which may confuse a user who types into the search expecting global filtering. Log as observation. Fixed the cosmetic inconsistency this cycle; deferred the right-pane-filtering question.",
+          "issues_found": [
+            "NOTEBOOKS-EMPTY-STATE-MINIMAL (cosmetic, fixed this cycle): swapped plain-text empty state for the styled .empty-state div with search_off icon, matching inventory/protocols.",
+            "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, logged, NOT fixed this cycle): sidebar search filters the folder tree but leaves the right-pane Recent Entries list unchanged, creating a mismatch when the sidebar shows 'No notebooks match' while the right pane lists 10+ entries. Debatable — Recent Entries is globally recent by design, so changing it may be wrong. Leaving as an observation, not a bug."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step19-wiki-search-typo.png",
+          "shows": "Wiki sidebar shows 'No documents match' text; the main pane knowledge graph still displays all ~300 nodes at full intensity, unfiltered.",
+          "evaluation": "BUG: wiki search is sidebar-only. The main knowledge graph does not dim, fade, or filter nodes when the sidebar search matches 0 docs. A confused user would see 'No documents match' yet still see a full graph and wonder what's going on. Deferred this cycle — graph filtering is a larger change.",
+          "issues_found": [
+            "WIKI-GRAPH-NOT-FILTERED (ux, NOT fixed this cycle): wiki.html sidebar search filters the folder tree but leaves the knowledge graph in the main pane completely unchanged, even when sidebar says 'No documents match'. Graph should either be filtered or non-matching nodes dimmed. Larger change — logged for a follow-up cycle."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step23-waste-search-typo.png",
+          "shows": "Waste page with typo 'paraqat' — nicely styled empty state 'No waste containers match your filters.' with search_off icon.",
+          "evaluation": "Waste already has the styled empty state — matches inventory. Confirms protocols + notebooks were the outliers.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step24-dashboard-baseline.png",
+          "shows": "Dashboard at 1440px — stat cards (499 Inventory / 108 Protocols / 9 People / 9 Projects / 14 Notebooks), Inventory Status (223 In Stock / 2 Needs More / 1 Out of Stock / 248 Untracked), Recent Updates, Bulletin Board. No global search input.",
+          "evaluation": "Confirmed: dashboard has no site-wide search. Each surface owns its own filter. dashboardHasSearch=false programmatically.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step26-people-wizard-open-mobile.png",
+          "shows": "At 375px mobile, wizard step 1 open. Blue lightbulb issue-reporter FAB visually OVERLAPS the right edge of the blue Next button — both buttons blue, the FAB (circular) eats the right ~30px of the Next button.",
+          "evaluation": "BUG REPRODUCED with harder severity than cycle 18 had measured. Programmatic bounding-rect check: FAB {x:313, right:357}, Next {left:236, right:347} — overlap=true (FAB overlaps Next by ~34px horizontally). Fixed this cycle by toggling body.wizard-open and hiding #issue-reporter-btn via CSS.",
+          "issues_found": [
+            "FAB-OVERLAPS-WIZARD-NEXT-MOBILE (visual, fixed this cycle): issue-reporter FAB overlaps the wizard Next button at 375px, not just 'sits near' it as cycle-18 described. Fix adds body.wizard-open toggle to hide the FAB while the overlay is visible."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19/step28-notebooks-person-param.png",
+          "shows": "notebooks.html?person=vianney-ahn opened — sidebar shows the full list (Grey Monroe / Barb M / Erik / Mr Freckles / Test User / Vianney Ahn / Zi Ye); all folders collapsed. URL param had zero effect.",
+          "evaluation": "BUG REPRODUCED (NOTEBOOKS-PERSON-PARAM-IGNORED, logged in cycle 18). Fixed this cycle: init reads ?person= and pre-fills the sidebar search with the prettified slug so filterTree reduces the tree to just that person's folder.",
+          "issues_found": [
+            "NOTEBOOKS-PERSON-PARAM-IGNORED (carry-over from cycle 18, fixed this cycle)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19-verify/01-notebooks-person-vianney.png",
+          "shows": "POST-FIX — notebooks.html?person=vianney-ahn opens with #nbSearch pre-filled 'Vianney Ahn' and sidebar showing ONLY the Vianney Ahn folder expanded with its Fiberseq subfolder + 3 entries.",
+          "evaluation": "FIX CONFIRMED. Programmatic: searchValue='Vianney Ahn', showsVianney=true, showsOtherFolders=false. The onboarding wizard's success checklist link now lands a new user on their own folder instead of the generic list.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19-verify/03-wizard-open-fab-hidden.png",
+          "shows": "POST-FIX — wizard open at 375px, #issue-reporter-btn is GONE. Next button is the only blue element in the lower-right, no overlap.",
+          "evaluation": "FIX CONFIRMED. Programmatic: #issue-reporter-btn display:none, body.classList has 'wizard-open'. Clean mobile wizard UX, no visual competition with the FAB.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19-verify/04-protocols-empty-state.png",
+          "shows": "POST-FIX — protocols sidebar with 'XXNOMATCHXX' typo: styled .empty-state block with 48px search_off icon + 'No protocols match' grey text, centered in the sidebar column.",
+          "evaluation": "FIX CONFIRMED. Matches inventory's empty state pattern exactly. iconText='search_off', text='search_offNo protocols match'.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle19-verify/05-notebooks-empty-state.png",
+          "shows": "POST-FIX — notebooks sidebar with typo: same styled .empty-state with search_off icon + 'No notebooks match' + subtle '+' hint to create one.",
+          "evaluation": "FIX CONFIRMED. Consistent with protocols/inventory/waste. Slightly smaller padding (40px) than inventory's 60px because the sidebar column is narrower.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "severity": "visual",
+          "summary": "FAB-OVERLAPS-WIZARD-NEXT-MOBILE — at 375px mobile viewport, #issue-reporter-btn (bottom-right, 44×44, z-index 10001) overlapped the wizard's Next button by ~34px horizontally. Cycle 18 flagged this as 'FAB near wizard Next' but the geometry measurement in cycle 19 shows actual overlap, not just proximity.",
+          "evidence": "cycle19/step26-people-wizard-open-mobile.png — two blue shapes, Next button partially hidden behind FAB. Bounding rects: FAB {x:313, right:357, y:688, bottom:732}, Next {left:236, right:347, top:663, bottom:701}. overlap:true.",
+          "root_cause": "No z-index or visibility interaction between wizard overlay and the fixed-positioned issue-reporter FAB. The FAB sits at fixed bottom-right across the whole app and does not listen for any app-specific modal state.",
+          "status": "fixed"
+        },
+        {
+          "severity": "ux",
+          "summary": "NOTEBOOKS-PERSON-PARAM-IGNORED — ?person=<slug> URL param had no effect on notebooks.html sidebar. A newly-onboarded user clicking 'Write your first lab notebook entry' from the wizard checklist landed on the full unfiltered list instead of their own folder.",
+          "evidence": "cycle19/step28-notebooks-person-param.png — all 7 lab-member folders visible, all collapsed, no indication that ?person=vianney-ahn was meaningful. Programmatic: searchValue='', showsVianney=true, showsOtherFolders=true.",
+          "root_cause": "init() in notebooks.html only read the 'doc' URL param; 'person' was silently dropped. Logged as a known bug in cycle 18.",
+          "status": "fixed"
+        },
+        {
+          "severity": "cosmetic",
+          "summary": "PROTOCOLS-EMPTY-STATE-MINIMAL + NOTEBOOKS-EMPTY-STATE-MINIMAL — two sidebar 0-result states rendered plain-text 'No protocols match' / 'No notebooks match' instead of the styled .empty-state with the search_off icon used on inventory/waste.",
+          "evidence": "cycle19/step09-protocols-search-typo.png + cycle19/step15-notebooks-search-nomatch.png",
+          "root_cause": "protocols.html line 428 and notebooks.html line 481 used ad-hoc inline markup instead of the shared .empty-state class.",
+          "status": "fixed"
+        },
+        {
+          "severity": "ux",
+          "summary": "WIKI-GRAPH-NOT-FILTERED — wiki.html sidebar search (#docSearch) filters the folder tree, but the knowledge graph in the main pane stays at full 300+ nodes regardless of the search. When the sidebar reads 'No documents match', the main view is contradictory.",
+          "evidence": "cycle19/step19-wiki-search-typo.png — sidebar shows 'No documents match' tiny text, graph still shows all nodes at full opacity.",
+          "root_cause": "docSearch event handler only calls renderSidebar; never communicates to the graph renderer. Graph has no filter/dim path for a sidebar query.",
+          "status": "open"
+        }
+      ],
+      "fixes": [
+        "app/people.html: added body.wizard-open class toggle on openOnboardingWizard/closeWizard + CSS rule 'body.wizard-open #issue-reporter-btn { display: none !important; }'. The issue-reporter FAB is now fully hidden during the wizard overlay at all viewport widths.",
+        "app/notebooks.html: init() now reads ?person=<slug> param; when present, pre-fills #nbSearch with the prettified slug (e.g. 'Vianney Ahn' for 'vianney-ahn') and renders the sidebar filtered to only that folder. Onboarding wizard's success checklist link now lands users on their own folder.",
+        "app/protocols.html: 0-result sidebar empty state now uses the styled .empty-state div with a 48px search_off icon, matching inventory/waste.",
+        "app/notebooks.html: same empty-state consistency treatment for the sidebar 0-result state, with a smaller 40px padding to fit the sidebar column."
+      ],
+      "observations": [
+        "Search works correctly on all 5 page-level search inputs (inventory, protocols, notebooks, wiki, waste) — no functional bugs, only styling + carry-over items.",
+        "XSS input ('<script>alert(1)</script>') is properly escaped in the search box — no alert fires, no DOM injection (invXssAlert=false).",
+        "Emoji input (💎) and em-dash (—) render correctly as Unicode in the input and in the empty state.",
+        "Typo queries produce correct 0-result empty states on every page after this cycle's cosmetic unification.",
+        "Dashboard has no global/site-wide search — confirmed. Each surface owns its own filter. Potential future R-slot to add cross-surface search.",
+        "Notebooks Recent Entries (right pane) is independent of the sidebar search — typing into the sidebar does NOT filter Recent Entries. Logged as an observation rather than a bug; the behavior is arguably correct (Recent Entries is globally recent by design).",
+        "Wiki sidebar search leaves the main knowledge graph unfiltered even at 0 sidebar matches — bigger change, logged WIKI-GRAPH-NOT-FILTERED as OPEN for a future cycle.",
+        "Cycle-19 test artifacts: none created. Verify kept at tests/qa-cycle-19-verify.mjs as a regression harness for all 3 fixes.",
+        "No test files need to be deleted from GitHub."
+      ]
     }
   ],
   "bugs_found": [
@@ -2407,8 +2564,12 @@
     "PEOPLE-CARD-PILLS-BARE-SLUG (functional, fixed in cycle 18, commit 52fcfd3): every connected pill on every person card used ?doc=<bare-slug>, so any protocol or project living in a subfolder (wet-lab/autoclave, library-prep/*, epigenomics/*, etc.) 404'd with 'Document not found' on click. Fix resolves wl.slug against the cached object-index and uses obj.path (minus .md, minus /index) for the href. Verified at cycle18-verify/02 — clicking the autoclave pill on a pre-existing person card now loads the full autoclave protocol.",
     "PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux, fixed in cycle 18, commit 52fcfd3): the person dashboard aggregated INBOUND backlinks only (items wikilinking TO people/<slug>). The onboarding wizard writes OUTBOUND wikilinks (person body -> protocols/projects), so newly-onboarded users landed on a 0-across-the-board dashboard. Fix merges outbound edges from the link-index plus a fallback body-parse into backlinkedItems before categorizing into sections. Verified: fresh-user dashboard now shows 1 Notebook / 2 Protocols / 1 Project with expandable section rows.",
     "NOTEBOOK-ENTRY-NOT-PATCHED (functional, fixed in cycle 18, commit 52fcfd3): wizard's createPersonFiles patchObjectIndex'd only the person card, not the first notebook entry, so the dashboard's Lab Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next site deploy. Fix also patches the entry path with {type:'notebook', title:'<date> — <name>'}. Verified with notebookCount=1 immediately after onboarding.",
-    "NOTEBOOKS-PERSON-PARAM-IGNORED (ux, minor, OPEN): the onboarding wizard's success checklist links to notebooks.html?person=<slug> but notebooks.html ignores the query param — user lands on the unfiltered list instead of their own folder. Logged cycle 18; out of scope this cycle.",
-    "FAB-NEAR-WIZARD-NEXT-MOBILE (cosmetic, minor, OPEN): at 375px viewport the issue-reporter lightbulb FAB sits right next to the wizard's Next button, visually competing with it. Logged cycle 18; out of scope. Could be addressed by hiding #issue-reporter-btn while #wizardOverlay is visible."
+    "NOTEBOOKS-PERSON-PARAM-IGNORED (ux, closed in cycle 19, commit 1e90ba8): notebooks.html init() now reads ?person=<slug> and pre-fills #nbSearch with the prettified slug so the sidebar renders only that person's folder. Onboarding wizard's 'Write your first lab notebook entry' checklist link now lands users on their own folder. Verified via tests/qa-cycle-19-verify.mjs — showsVianney=true, showsOtherFolders=false.",
+    "FAB-NEAR-WIZARD-NEXT-MOBILE / FAB-OVERLAPS-WIZARD-NEXT-MOBILE (visual, closed in cycle 19, commit 1e90ba8): cycle 19 measurement confirmed actual overlap (not just proximity) — FAB {right:357} over Next {right:347} at 375px. Fix: people.html toggles body.wizard-open on openOnboardingWizard/closeWizard, and a new 'body.wizard-open #issue-reporter-btn { display: none !important; }' CSS rule hides the FAB while the overlay is open. Verified: FAB display=none, body has wizard-open class.",
+    "PROTOCOLS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): protocols sidebar 0-result state was plain '<p>No protocols match</p>'; swapped to '.empty-state' div with the search_off icon, matching inventory/waste.",
+    "NOTEBOOKS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): notebooks sidebar 0-result state used inline ad-hoc styling; swapped to the standard .empty-state block with the search_off icon plus a '+' hint to create one.",
+    "WIKI-GRAPH-NOT-FILTERED (ux, OPEN from cycle 19): wiki.html sidebar search (#docSearch) filters the folder tree but the knowledge graph in the main pane stays unchanged even when the sidebar reads 'No documents match'. Larger change — logged for a future cycle. Options: filter graph nodes to match the sidebar, dim non-matching nodes, or hide the graph placeholder message when no results.",
+    "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, OPEN from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional — Recent Entries is globally recent by design — but a confused user might expect filtering. Logged as an observation rather than a bug."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -2437,7 +2598,8 @@
     "cycle 15 SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED: app/protocols.html placeholder 'Search protocols...' → 'Search...' — commit c3fb6b6",
     "cycle 17 BULK-BAR-STALE-AFTER-EMPTY-RENDER: docs/sample-tracker/index.html renderTable() — call updateBulkBar() before the early return in the empty-items branch.",
     "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html — add min-width: 168px to .inline-select.status-select.",
-    "cycle 18 PEOPLE-CARD-PILLS-BARE-SLUG + PERSON-DASHBOARD-IGNORES-FORWARD-LINKS + NOTEBOOK-ENTRY-NOT-PATCHED (commit 52fcfd3): app/people.html loadPeople() now uses obj.path (minus .md, minus /index) for connected-pill hrefs; renderPersonDashboard now merges forward-link edges from link-index + a body-parse fallback into backlinkedItems so outbound [[protocol]] / [[project]] wikilinks surface in Protocols/Projects sections; createPersonFiles patchObjectIndex'es the first notebook entry too so Notebooks counter reads 1 immediately after onboarding. Verified end-to-end via tests/qa-cycle-18-verify.mjs — pill click lands on real protocol, fresh-user dashboard shows 1/2/0/0/0/1 counts."
+    "cycle 18 PEOPLE-CARD-PILLS-BARE-SLUG + PERSON-DASHBOARD-IGNORES-FORWARD-LINKS + NOTEBOOK-ENTRY-NOT-PATCHED (commit 52fcfd3): app/people.html loadPeople() now uses obj.path (minus .md, minus /index) for connected-pill hrefs; renderPersonDashboard now merges forward-link edges from link-index + a body-parse fallback into backlinkedItems so outbound [[protocol]] / [[project]] wikilinks surface in Protocols/Projects sections; createPersonFiles patchObjectIndex'es the first notebook entry too so Notebooks counter reads 1 immediately after onboarding. Verified end-to-end via tests/qa-cycle-18-verify.mjs — pill click lands on real protocol, fresh-user dashboard shows 1/2/0/0/0/1 counts.",
+    "cycle 19 FAB-OVERLAPS-WIZARD-NEXT-MOBILE + NOTEBOOKS-PERSON-PARAM-IGNORED + PROTOCOLS/NOTEBOOKS-EMPTY-STATE-MINIMAL (commit 1e90ba8): app/people.html toggles body.wizard-open on openOnboardingWizard/closeWizard plus a CSS rule that hides #issue-reporter-btn while the class is set; app/notebooks.html init() reads ?person=<slug> and pre-fills #nbSearch with the prettified slug so the sidebar filters to only that person's folder; app/protocols.html + app/notebooks.html 0-result sidebar empty states now use the styled .empty-state div with search_off icon matching inventory/waste. Verified via tests/qa-cycle-19-verify.mjs at 1440x900 and 375x812: FAB display=none during wizard, personParam yields showsOtherFolders=false, both empty states report iconText='search_off'."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2488,7 +2650,9 @@
     "/tmp/qa-screenshots/cycle15-verify/ — 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'",
     "/tmp/qa-screenshots/cycle17/ — 22 screenshots, all read and evaluated. Every before/after pair captured for add-sample, filter, bulk-select, bulk-status-apply, and bulk-delete actions.",
     "/tmp/qa-screenshots/cycle18/ — 19 screenshots covering the full onboarding-wizard flow (dashboard + people baseline, wizard step 1/2/3/4, post-onboarding grid, new-card zoom, empty person-dashboard showing the bugs, notebooks baseline, ?person= filter, profile empty-state, protocol page 404, mobile pass of grid + step 1). Every screenshot Read and evaluated.",
-    "/tmp/qa-screenshots/cycle18-verify/ — 8 screenshots confirming all three fixes live post-deploy: (a) existing-person autoclave pill loads docs/wet-lab/autoclave, (b) fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project, (c) sections expand to show correctly-iconed rows. _results.json captures the programmatic assertions."
+    "/tmp/qa-screenshots/cycle18-verify/ — 8 screenshots confirming all three fixes live post-deploy: (a) existing-person autoclave pill loads docs/wet-lab/autoclave, (b) fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project, (c) sections expand to show correctly-iconed rows. _results.json captures the programmatic assertions.",
+    "/tmp/qa-screenshots/cycle19/ — 28 screenshots covering search on inventory/protocols/notebooks/wiki/waste (real query + typo + emoji + XSS + clear), dashboard baseline, people mobile + wizard open reproducing FAB overlap, and notebooks?person= reproducing the param-ignored bug. All read and evaluated.",
+    "/tmp/qa-screenshots/cycle19-verify/ — 5 screenshots + _results.json confirming all 3 fixes live post-deploy: notebooks.html?person= filters sidebar to one folder, wizard hides FAB at mobile, protocols + notebooks empty states show search_off icon. Kept as regression harness."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -2505,6 +2669,7 @@
     "Cycle 15: Alex Chen (postdoc) + impatient + Rename + relink day. Fresh combination (impatient modifier never used before, scenario never logged — earlier cycle-13 attempt rolled up into Backlinks sanity instead). Flow: create disposable protocol qa15-initial-proto-* in wet-lab with type:protocol frontmatter, then a notebook entry qa15-rename-consumer-* under test-user/ that wikilinks to it both as bare [[slug]] and as path-qualified [[wet-lab/slug]]. Baseline pre-rename: both pills render as purple Protocol pills with book icon (screenshot 03). Rename: stub Lab.modal.prompt to return NEW_TITLE, then DOUBLE-CLICK the Rename button. First click succeeds: new file created, old file deleted, NAV updated, breadcrumb + H1 reflect new title, Wet Lab Basics sidebar count bumps 45→46, history.pushState to new URL, success toast fires. Second click races: it enters renameDoc synchronously before the first await, both pass through renameInFlight check (unset at the time), and the second's fetchFile on the stale path 404s → red 'Rename failed: Not Found' toast. Classic impatient-modifier race. IMPATIENT-RENAME bug logged + fixed in-cycle via renameInFlight guard set BEFORE the first await (commit c3fb6b6). Then exercised old-slug deep-link behavior (DOUBLE-LOAD-ERROR-PREFIX — 'Failed to load: Failed to load docs/.../foo.md (HTTP 404)' on protocols/wiki/projects/notebooks) — fixed with a shared Lab.formatLoadError helper that maps 404s to 'Document not found. It may have been renamed or deleted.' and strips the redundant prefix. Also shortened 'Search protocols...' placeholder to 'Search...' to stop the trailing-s clipping in the narrow protocols sidebar input. Post-rename reload of the notebook entry confirmed updateWikilinksAfterRename (QA13 plumbing, landed in a prior run) correctly rewrote BOTH bare [[slug]] and path-qualified [[dir/slug]] wikilinks to the new slug — hasOldSlug=false, hasNewSlug=true in the live markdown, and both pills render as purple Protocol pills with icon and navigate to the renamed protocol on click. Verify run (qa-cycle-15-verify.mjs): triple-clicked Rename → rename_failed_toast_present:false; nonexistent-slug deep-links on protocols + wiki + notebooks all show 'Document not found. It may have been renamed or deleted.'; placeholder 'Search...' renders complete with no clipping. All 3 test files cleaned up via gh API DELETE.",
     "Cycle 9: Dr. Monroe (PI) + careful + Calendar add/delete. First exercise of the calendar route across all 9 cycles. Full flow: week nav (prev/next/this-week), click-to-create at Wed 14:00 (modal prefilled from cell coords), fill title + [[Dr. Monroe]] member + notes with [[qiagen-dneasy-extraction]] wikilink, submit, event lands in correct grid cell with green Dr. Monroe pill, GH API confirms file save, click block opens editor-modal popup (type=event pill, fields, body w/ clickable QIAGEN DNeasy pill, contents), close via Escape, filter-by-Dr.-Monroe shows only our event, reload. FUNCTIONAL BUG FOUND: CALENDAR-NO-INDEX-PATCH — the event disappears after reload because openAddEvent didn't call patchObjectIndex/patchLinkIndex (same pattern as cycle-6 NOTEBOOKS-SAVE-NO-PATCH). Fix (commit 8a679ba): after gh.saveFile, call gh.patchObjectIndex with all event frontmatter + gh.patchLinkIndex against member+notes for wikilinks. Also adds 'recurrence_id' to INDEX_KEYS to mirror EXTRACT_KEYS (cycle-5 pattern). Verified via tests/qa-cycle-9-verify.mjs — afterReload.landed=true with correct day/hour, localStorage overlay keys present, link targets=['Dr. Monroe', 'qiagen-dneasy-extraction']. Also exercised: delete via Lab.gh.deleteFile (works, persists), mobile 375px (day-tab row + single-column grid), weekly recurring series (4 occurrences Apr 21→May 12 all sharing recurrence_id, navigation shows occurrence next week). Swept 2 carried-over items: (1) CONCEPT-HAS-PARENT-BREADCRUMB CLOSED via app/js/hierarchy.js CONCEPT_TYPES guard (skip parent handling for reagent/chemical/buffer/solution/consumable/kit/enzyme/primer) commit a92e314 + deletion of the 2 remaining stale LabBot fixtures (labbot-freezer-item-mnthp11v, tube-item) commit f7cfe1f; (2) DNA-QUANTIFICATION-PILL-UNTYPED CLOSED as not-a-bug after investigation (the slug was a cycle-7 test typo; an unresolved slug correctly renders as a plain teal pill). Logged 3 new open cosmetic/ux items: TOPNAV-WIKI-CLIPPED (Wiki tab clips to 'Wik' at 1440), MEMBER-FIELD-RAW-WIKILINK (event popup member field not pill-upgraded like parent/of), MEMBER-COLOR-SHUFFLE (alphabetical index causes existing events to recolor when a new member joins). All cycle-9 test event files (1 single + 4 recurring + 1 verify) cleaned up via gh API.",
     "Phase remains 'functional'.",
+    "Cycle 19: Kayla Torres (undergrad) + confused + Search every surface. Fresh combo — confused modifier never used before, scenario never tested. Kayla searches on 5 surfaces (inventory/protocols/notebooks/wiki/waste) with a real query, a typo, weird input (emoji + em-dash + <script> XSS), and empty. Finding: XSS is properly escaped (invXssAlert=false), all 5 per-page searches work functionally, but protocols + notebooks had minimal plain-text 0-result empty states while inventory/waste used the styled .empty-state with search_off icon — fixed in this cycle. Also confirmed: dashboard has no global search (no cross-surface search exists); wiki sidebar search filters the folder tree but leaves the knowledge graph in the main pane completely unfiltered even at 0 matches (logged WIKI-GRAPH-NOT-FILTERED as OPEN for a future cycle). Swept 2 cycle-18 carry-over items to closed: (1) FAB-NEAR-WIZARD-NEXT-MOBILE — actually OVERLAPS Next button by ~34px horizontally, not just 'near' as cycle 18 described. Fixed with body.wizard-open class toggle + CSS rule hiding #issue-reporter-btn. (2) NOTEBOOKS-PERSON-PARAM-IGNORED — fixed by reading ?person=<slug> on notebooks init and pre-filling #nbSearch with the prettified slug, so the sidebar filters to just that person's folder. Onboarding wizard's success checklist 'Write your first lab notebook entry' link now correctly lands new users on their own folder. All fixes verified live post-deploy via tests/qa-cycle-19-verify.mjs — FAB display=none during wizard, personParam showsOtherFolders=false, both empty states iconText='search_off'. 28 screenshots captured in cycle19/, 5 verify screenshots. No test artifacts created on GitHub, nothing to clean up.",
     "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs — all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) — every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) — the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) — the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE."
   ]
 }
