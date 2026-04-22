@@ -122,3 +122,6 @@ A good template directory usually has:
 - Take code you already use → clean it a bit → generalize paths → add a small README and environment info → drop it under `templates/` and commit via the web UI.
 
 Over time, this becomes the “grab-and-go” library for new and existing lab members.
+
+
+<!-- Fix #165 -->
