@@ -51,7 +51,7 @@ EXTRACT_KEYS = [
     "legacy_inventory_id", "containers", "need_more",
     "contents", "physical_state", "container", "hazard_class", "started", "waste_tag",
     "created_at", "created_by", "updated_at",
-    "sample_id", "species", "lead", "sequencing_type",
+    "sample_id", "species", "lead", "sequencing_type", "project",
     # Accession tracker fields (R18: samples.json migrated to docs/accessions/*.md)
     "accession_id", "priority", "current_blocker", "detail_sheet_link", "last_updated",
     # Instance (sample/extraction/library/pool) fields

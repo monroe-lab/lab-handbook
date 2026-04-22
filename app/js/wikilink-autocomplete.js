@@ -366,12 +366,24 @@
     // Round-trip the Toast UI mode so the just-inserted [[slug]] text is
     // parsed and rendered as an object pill. This mirrors the pattern used by
     // insertLink() in editor-modal.js for the "Insert link" modal.
+    //
+    // Bug #143: the naive markdown→wysiwyg round-trip could strip the blank
+    // line before the NEXT heading in the document, converting a real `##
+    // Heading` into the trailing run of a paragraph and losing the heading
+    // style. The sanitize step below ensures every ATX heading (`# ` through
+    // `###### `) has a blank line above it before we reparse.
     try {
       if (state && state.editor && state.editor.changeMode) {
         var ed = state.editor;
         setTimeout(function() {
           try {
             ed.changeMode('markdown');
+            var md = ed.getMarkdown();
+            // Insert a blank line before any heading that is directly preceded
+            // by a non-blank, non-heading line. Preserves an existing blank
+            // line because the regex demands a non-newline char in group 1.
+            var fixed = md.replace(/([^\n])\n(#{1,6}[ \t])/g, '$1\n\n$2');
+            if (fixed !== md) ed.setMarkdown(fixed);
             ed.changeMode('wysiwyg');
           } catch(e) { /* ignore */ }
         }, 20);

@@ -4539,11 +4539,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A1-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a1-t1-w-2.md",
@@ -4553,8 +4555,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "A1_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a1-t1-w.md",
@@ -4564,11 +4568,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A1-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a1-t2-e.md",
@@ -4578,11 +4584,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A1-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a1-t2-w.md",
@@ -4592,11 +4600,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A1-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a2-t1-e.md",
@@ -4606,11 +4616,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A2-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a2-t1-w-2.md",
@@ -4620,8 +4632,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "A2_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a2-t1-w.md",
@@ -4631,11 +4645,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A2-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a2-t2-e.md",
@@ -4645,11 +4661,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A2-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a2-t2-w.md",
@@ -4659,11 +4677,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A2-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a3-t1-n-2.md",
@@ -4673,8 +4693,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "A3_T1_N",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a3-t1-n.md",
@@ -4684,11 +4706,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A3-T1-N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a3-t1-s.md",
@@ -4698,11 +4722,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A3-T1-S",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a3-t2-e.md",
@@ -4712,11 +4738,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A3-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a3-t2-w.md",
@@ -4726,11 +4754,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A3-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a4-t1-e.md",
@@ -4740,11 +4770,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A4-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a4-t1-w-2.md",
@@ -4754,9 +4786,11 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "A4_T1_W",
     "current_blocker": "Needs extraction",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a4-t1-w.md",
@@ -4766,11 +4800,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A4-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a4-t2-e.md",
@@ -4780,11 +4816,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A4-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/a4-t2-w.md",
@@ -4794,11 +4832,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "A4-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-31"
+    "last_updated": "2026-03-31",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-1-hifi.md",
@@ -4808,10 +4848,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_1_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-1.md",
@@ -4821,10 +4863,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_1",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-10-hifi.md",
@@ -4834,10 +4878,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_10_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-10.md",
@@ -4847,10 +4893,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_10",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-11.md",
@@ -4860,10 +4908,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_11",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-12.md",
@@ -4873,10 +4923,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_12",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-13.md",
@@ -4886,10 +4938,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_13",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-14.md",
@@ -4899,10 +4953,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_14",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-15.md",
@@ -4912,10 +4968,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_15",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-16.md",
@@ -4925,10 +4983,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_16",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-17.md",
@@ -4938,10 +4998,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_17",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-18.md",
@@ -4951,10 +5013,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_18",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-19.md",
@@ -4964,10 +5028,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_19",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-2-hifi.md",
@@ -4977,10 +5043,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_2_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-2.md",
@@ -4990,10 +5058,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_2",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-20.md",
@@ -5003,10 +5073,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_20",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-21.md",
@@ -5016,10 +5088,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_21",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-22.md",
@@ -5029,10 +5103,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_22",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-23.md",
@@ -5042,10 +5118,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_23",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-24.md",
@@ -5055,10 +5133,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_24",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-25.md",
@@ -5068,10 +5148,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_25",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-26.md",
@@ -5081,10 +5163,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_26",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-27.md",
@@ -5094,10 +5178,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_27",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-28.md",
@@ -5107,10 +5193,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_28",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-29.md",
@@ -5120,10 +5208,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_29",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-3-hifi.md",
@@ -5133,10 +5223,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_3_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-3.md",
@@ -5146,10 +5238,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_3",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-30.md",
@@ -5159,10 +5253,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_30",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-31.md",
@@ -5172,10 +5268,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_31",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-32.md",
@@ -5185,10 +5283,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_32",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-33.md",
@@ -5198,10 +5298,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_33",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-34.md",
@@ -5211,10 +5313,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_34",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-35.md",
@@ -5224,10 +5328,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_35",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-36.md",
@@ -5237,10 +5343,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_36",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-37.md",
@@ -5250,10 +5358,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_37",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-38.md",
@@ -5263,10 +5373,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_38",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-39.md",
@@ -5276,10 +5388,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_39",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-4-hifi.md",
@@ -5289,10 +5403,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_4_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-4.md",
@@ -5302,10 +5418,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_4",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-40.md",
@@ -5315,10 +5433,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_40",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-41.md",
@@ -5328,10 +5448,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_41",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-5-hifi.md",
@@ -5341,10 +5463,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_5_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-5.md",
@@ -5354,10 +5478,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_5",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-6-hifi.md",
@@ -5367,10 +5493,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_6_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-6.md",
@@ -5380,10 +5508,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_6",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-7-hifi.md",
@@ -5393,10 +5523,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_7_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-7.md",
@@ -5406,10 +5538,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_7",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-8-hifi.md",
@@ -5419,10 +5553,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_8_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-8.md",
@@ -5432,10 +5568,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_8",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-9-hifi.md",
@@ -5445,10 +5583,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "HiFi",
+    "project": "Cassava C127",
     "accession_id": "C127_9_hifi",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/c127-9.md",
@@ -5458,10 +5598,12 @@
     "species": "Manihot esculenta",
     "lead": "Grey Monroe / Kehan Zhao",
     "sequencing_type": "Illumina WGS",
+    "project": "Cassava C127",
     "accession_id": "C127_9",
     "priority": "\ud83d\udc8e",
     "current_blocker": "Samples at CIAT, Colombia",
-    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o"
+    "detail_sheet_link": "https://docs.google.com/document/d/1Ctwr02JKkNhsmypxFea0K2EYDTKbWSB6VpRqbPpi74o",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/cs72761-batch.md",
@@ -5471,10 +5613,12 @@
     "species": "Arabidopsis thaliana",
     "lead": "Percy Singson",
     "sequencing_type": "HiFi",
+    "project": "Methyltransferase Mutants",
     "accession_id": "CS72761 (batch)",
     "current_blocker": "QC data in tracking sheet",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/18ymHE9XJJbDWru7pgwtYOdLT879aedtSVajSTCjRyuw",
-    "last_updated": "2025-10-07"
+    "last_updated": "2025-10-07",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis128-p-afghanistania.md",
@@ -5484,9 +5628,11 @@
     "species": "Pistacia afghanica",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS128 (P. afghanistania)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis184-p-chinensis.md",
@@ -5496,9 +5642,11 @@
     "species": "Pistacia chinensis",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS184 (P. chinensis)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis190-p-lentiscus.md",
@@ -5508,9 +5656,11 @@
     "species": "Pistacia lentiscus",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS190 (P. lentiscus)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis195-p-palaestina.md",
@@ -5520,9 +5670,11 @@
     "species": "Pistacia palaestina",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS195 (P. palaestina)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis2001-p-atlantica.md",
@@ -5532,9 +5684,11 @@
     "species": "Pistacia atlantica",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS2001 (P. atlantica)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis29-p-weinmanifolia.md",
@@ -5544,9 +5698,11 @@
     "species": "Pistacia weinmanniifolia",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS29 (P. weinmanifolia)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis295-p-mexicana-texana.md",
@@ -5556,9 +5712,11 @@
     "species": "Pistacia texana",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS295 (P. mexicana/texana)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis356-p-integerrima.md",
@@ -5568,9 +5726,11 @@
     "species": "Pistacia integerrima",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS356 (P. integerrima)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2024-09-10"
+    "last_updated": "2024-09-10",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis360-p-khinjuk.md",
@@ -5580,9 +5740,11 @@
     "species": "Pistacia khinjuk",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS360 (P. khinjuk)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/dpis93-p-terebinthus.md",
@@ -5592,9 +5754,11 @@
     "species": "Pistacia terebinthus",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "DPIS93 (P. terebinthus)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-04-27"
+    "last_updated": "2023-04-27",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-1.md",
@@ -5604,7 +5768,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
-    "accession_id": "Endeavor_1"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_1",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-2.md",
@@ -5614,7 +5780,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_2"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_2",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-3.md",
@@ -5624,7 +5792,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_3"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_3",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-4.md",
@@ -5634,7 +5804,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_4"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_4",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-5.md",
@@ -5644,7 +5816,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_5"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_5",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-6.md",
@@ -5654,7 +5828,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_6"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_6",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/endeavor-7.md",
@@ -5664,7 +5840,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Endeavor_7"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Endeavor_7",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/golden-hills-p-vera.md",
@@ -5674,9 +5852,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "Golden Hills (P. vera)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-05-25"
+    "last_updated": "2023-05-25",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/gumdrop-p-vera.md",
@@ -5686,9 +5866,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "GumDrop (P. vera)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2023-05-25"
+    "last_updated": "2023-05-25",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j1-t1-n-2.md",
@@ -5698,8 +5880,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "J1_T1_N",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j1-t1-n.md",
@@ -5709,11 +5893,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J1-T1-N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j1-t1-s.md",
@@ -5723,11 +5909,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J1-T1-S",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j1-t2-n.md",
@@ -5737,11 +5925,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J1-T2-N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j1-t2-s.md",
@@ -5751,11 +5941,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J1-T2-S",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j2-t1-e.md",
@@ -5765,11 +5957,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J2-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j2-t1-w-2.md",
@@ -5779,8 +5973,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "J2_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j2-t1-w.md",
@@ -5790,11 +5986,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J2-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j2-t2-e.md",
@@ -5804,11 +6002,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J2-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j2-t2-n.md",
@@ -5818,11 +6018,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J2-T2-N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t1-e.md",
@@ -5832,11 +6034,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J3-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t1-w-2.md",
@@ -5846,8 +6050,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "J3_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t1-w.md",
@@ -5857,11 +6063,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J3-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t2-e.md",
@@ -5871,11 +6079,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J3-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t2-w-2.md",
@@ -5885,11 +6095,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J3-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j3-t2-w.md",
@@ -5899,9 +6111,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J3_T2_W",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Previous extraction failed"
+    "current_blocker": "Previous extraction failed",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t1-5-kerman.md",
@@ -5911,10 +6125,12 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "J4_T1_5 (Kerman)",
     "priority": "\u2b50",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-02-12"
+    "last_updated": "2026-02-12",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t1-n-2.md",
@@ -5924,8 +6140,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "J4_T1_N",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t1-n.md",
@@ -5935,11 +6153,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4-T1-N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t1-s.md",
@@ -5949,11 +6169,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4-T1-S",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t2-e-2.md",
@@ -5963,11 +6185,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t2-e.md",
@@ -5977,9 +6201,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4_T2_E",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Previous extraction failed"
+    "current_blocker": "Previous extraction failed",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t2-w-2.md",
@@ -5989,11 +6215,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j4-t2-w.md",
@@ -6003,9 +6231,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J4_T2_W",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Previous extraction failed"
+    "current_blocker": "Previous extraction failed",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t1-e.md",
@@ -6015,11 +6245,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J5-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t1-w-2.md",
@@ -6029,8 +6261,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "J5_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t1-w.md",
@@ -6040,11 +6274,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J5-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t2-e-2.md",
@@ -6054,11 +6290,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J5-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t2-e.md",
@@ -6068,9 +6306,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J5_T2_E",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Previous extraction failed"
+    "current_blocker": "Previous extraction failed",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/j5-t2-w.md",
@@ -6080,11 +6320,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "J5-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/kalanchoe.md",
@@ -6094,9 +6336,11 @@
     "species": "Kalanchoe",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
+    "project": "Kalanchoe Reference",
     "accession_id": "kalanchoe",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs tissue collection"
+    "current_blocker": "Needs tissue collection",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/labbot-mntijn0d.md",
@@ -6105,8 +6349,10 @@
     "status": "Not yet received",
     "species": "Testus boticus",
     "sequencing_type": "HiFi",
+    "project": "LabBot Test Project",
     "accession_id": "LABBOT-mntijn0d",
-    "last_updated": "2026-04-10"
+    "last_updated": "2026-04-10",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/lost-hills-p-vera.md",
@@ -6116,9 +6362,11 @@
     "species": "Pistacia vera",
     "lead": "Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Pangenome",
     "accession_id": "Lost Hills (P. vera)",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/14xF7lk1SeH1H9Befon-9qhcSFWIbjwEqxli8YyxzmHw",
-    "last_updated": "2024-09-10"
+    "last_updated": "2024-09-10",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-1.md",
@@ -6128,9 +6376,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_1",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-10.md",
@@ -6140,9 +6390,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_10",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-11.md",
@@ -6152,9 +6404,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_11",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-12.md",
@@ -6164,9 +6418,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_12",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-13.md",
@@ -6176,9 +6432,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_13",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-2.md",
@@ -6188,9 +6446,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_2",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-3.md",
@@ -6200,9 +6460,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_3",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-4.md",
@@ -6212,9 +6474,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_4",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-5.md",
@@ -6224,9 +6488,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_5",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-6.md",
@@ -6236,9 +6502,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_6",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-7.md",
@@ -6248,9 +6516,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_7",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-8.md",
@@ -6260,9 +6530,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_8",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/ma-founder-9.md",
@@ -6272,9 +6544,11 @@
     "species": "Arabidopsis thaliana",
     "lead": "Grey Monroe",
     "sequencing_type": "HiFi",
+    "project": "MA Lines",
     "accession_id": "MA_founder_9",
     "priority": "\ud83c\udf3e",
-    "current_blocker": "Needs planting"
+    "current_blocker": "Needs planting",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/maize-leaf-1.md",
@@ -6296,10 +6570,12 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "PGMD_2_8",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-04-21"
+    "last_updated": "2026-04-21",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pistachio-4.md",
@@ -6310,6 +6586,7 @@
     "species": "Pistacia vera",
     "lead": "J. Freckles",
     "sequencing_type": "HiFi",
+    "project": "Pistachio Genomics",
     "accession_id": "PIST-4"
   },
   {
@@ -6320,10 +6597,12 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "Pt_Bushy_2",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-04-21"
+    "last_updated": "2026-04-21",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-67.md",
@@ -6333,8 +6612,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_67",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-68.md",
@@ -6344,8 +6625,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_68",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-69.md",
@@ -6355,8 +6638,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_69",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-70.md",
@@ -6366,8 +6651,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_70",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-71.md",
@@ -6377,8 +6664,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_71",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-72.md",
@@ -6388,8 +6677,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_72",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-73.md",
@@ -6399,8 +6690,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_73",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-74.md",
@@ -6410,8 +6703,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_74",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-75.md",
@@ -6421,8 +6716,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_75",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-76.md",
@@ -6432,8 +6729,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_76",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-77.md",
@@ -6443,8 +6742,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_77",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-78.md",
@@ -6454,8 +6755,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_78",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-79.md",
@@ -6465,8 +6768,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_79",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-80.md",
@@ -6476,8 +6781,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_80",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-81.md",
@@ -6487,8 +6794,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_81",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-82.md",
@@ -6498,8 +6807,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_82",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-83.md",
@@ -6509,8 +6820,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_83",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-84.md",
@@ -6520,8 +6833,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_84",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-85.md",
@@ -6531,8 +6846,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_85",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-86.md",
@@ -6542,8 +6859,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_86",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-87.md",
@@ -6553,8 +6872,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_87",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-88.md",
@@ -6564,8 +6885,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_88",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-89.md",
@@ -6575,8 +6898,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_89",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-90.md",
@@ -6586,8 +6911,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_90",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-91.md",
@@ -6597,8 +6924,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_91",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-92.md",
@@ -6608,8 +6937,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_92",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-93.md",
@@ -6619,8 +6950,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_93",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-94.md",
@@ -6630,8 +6963,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_94",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-95.md",
@@ -6641,8 +6976,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_95",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pt-short-96.md",
@@ -6652,8 +6989,10 @@
     "species": "Pistacia",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
+    "project": "Pistachio Short-Read WGS",
     "accession_id": "pt_short_96",
-    "priority": "\ud83c\udf3e"
+    "priority": "\ud83c\udf3e",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-1.md",
@@ -6663,7 +7002,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_1"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_1",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-10.md",
@@ -6673,7 +7014,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_10"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_10",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-2.md",
@@ -6683,7 +7026,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_2"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_2",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-3.md",
@@ -6693,7 +7038,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_3"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_3",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-4.md",
@@ -6703,7 +7050,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_4"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_4",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-5.md",
@@ -6713,7 +7062,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_5"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_5",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-6.md",
@@ -6723,7 +7074,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_6"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_6",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-7.md",
@@ -6733,7 +7086,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_7"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_7",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-8.md",
@@ -6743,7 +7098,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_8"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_8",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/pv-x-pi-9.md",
@@ -6753,7 +7110,9 @@
     "species": "Pistacia vera x integerrima",
     "lead": "Grey Monroe",
     "sequencing_type": "Illumina WGS",
-    "accession_id": "Pv_x_Pi_9"
+    "project": "Pistachio Hybrids",
+    "accession_id": "Pv_x_Pi_9",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-b1-c7.md",
@@ -6763,11 +7122,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R1_B1_C7",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-b2-c6.md",
@@ -6777,11 +7138,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R1_B2_C6",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-b2-c9.md",
@@ -6791,11 +7154,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R1_B2_C9",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-b3-c5.md",
@@ -6805,10 +7170,12 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R1_B3_C5",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-b3-c8.md",
@@ -6818,11 +7185,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R1_B3_C8",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-p4-e.md",
@@ -6832,11 +7201,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-P4-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Ready for HMW",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-p4-w.md",
@@ -6846,11 +7217,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-P4-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Ready for HMW",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t1-e.md",
@@ -6860,11 +7233,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-T1-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t1-w-2.md",
@@ -6874,8 +7249,10 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Zi Ye / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "Kerman Somatic",
     "accession_id": "R1_T1_W",
-    "current_blocker": "Needs extraction"
+    "current_blocker": "Needs extraction",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t1-w.md",
@@ -6885,11 +7262,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-T1-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t2-e.md",
@@ -6899,11 +7278,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-T2-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t2-w.md",
@@ -6913,11 +7294,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R1-T2-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-t7-rxl.md",
@@ -6927,11 +7310,13 @@
     "species": "Juglans regia x laciniata",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut cut leaf",
     "accession_id": "R1_T7_RxL",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-03-29"
+    "last_updated": "2026-03-29",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r1-weep.md",
@@ -6941,11 +7326,13 @@
     "species": "Juglans regia",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut weeping phenotype",
     "accession_id": "R1_Weep",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-03-29"
+    "last_updated": "2026-03-29",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r15-b1-n.md",
@@ -6955,11 +7342,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R15_B1_N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-03-29"
+    "last_updated": "2026-03-29",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r15-b1-w.md",
@@ -6969,11 +7358,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R15_B1_W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b1-n.md",
@@ -6983,11 +7374,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B1_N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b1-w.md",
@@ -6997,11 +7390,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B1_W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b2-n.md",
@@ -7011,11 +7406,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B2_N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b2-w.md",
@@ -7025,11 +7422,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B2_W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b3-n.md",
@@ -7039,11 +7438,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B3_N",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r16-b3-w.md",
@@ -7053,11 +7454,13 @@
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut VX211",
     "accession_id": "R16_B3_W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-04-22"
+    "last_updated": "2026-04-22",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-b2-c3.md",
@@ -7067,10 +7470,12 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R2_B2_C3",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-b2-c4.md",
@@ -7080,11 +7485,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R2_B2_C4",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-b3-c2.md",
@@ -7094,11 +7501,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R2_B3_C2",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-b4-c1.md",
@@ -7108,11 +7517,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R2_B4_C1",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-b4-c10.md",
@@ -7122,11 +7533,13 @@
     "species": "Pistacia vera",
     "lead": "Vianney Ahn / Matt Davis",
     "sequencing_type": "HiFi",
+    "project": "PBTS",
     "accession_id": "R2_B4_C10",
     "priority": "\u2b50",
     "current_blocker": "At Genome Center for QC and shearing",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE",
-    "last_updated": "2026-03-24"
+    "last_updated": "2026-03-24",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-p4-e.md",
@@ -7136,11 +7549,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R2-P4-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Ready for HMW",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-p4-w.md",
@@ -7150,11 +7565,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R2-P4-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r2-weep.md",
@@ -7164,11 +7581,13 @@
     "species": "Juglans regia",
     "lead": "Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Walnut weeping phenotype",
     "accession_id": "R2_Weep",
     "priority": "\ud83c\udf3e",
     "current_blocker": "to be completed after the Kerman Somatic project is complete",
     "detail_sheet_link": "Please create a sheet when you begin",
-    "last_updated": "2026-03-29"
+    "last_updated": "2026-03-29",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r3-p24-e.md",
@@ -7178,11 +7597,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R3-P24-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-31"
+    "last_updated": "2026-03-31",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r4-p24-e.md",
@@ -7192,11 +7613,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R4-P24-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-31"
+    "last_updated": "2026-03-31",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r4-p24-w.md",
@@ -7206,11 +7629,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R4-P24-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-31"
+    "last_updated": "2026-03-31",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r7-p13-e.md",
@@ -7220,11 +7645,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R7-P13-E",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-04-01"
+    "last_updated": "2026-04-01",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r7-p13-w.md",
@@ -7234,11 +7661,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R7-P13-W",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Needs Clean-up",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-31"
+    "last_updated": "2026-03-31",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r8-p13-n.md",
@@ -7248,10 +7677,12 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R8-P13-N",
     "priority": "\ud83c\udf3e",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-04-01"
+    "last_updated": "2026-04-01",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/r8-p13-s.md",
@@ -7261,11 +7692,13 @@
     "species": "Pistacia vera",
     "lead": "Zi Ye / Matt Davis",
     "sequencing_type": "Illumina WGS",
+    "project": "Kerman Somatic",
     "accession_id": "R8-P13-S",
     "priority": "\ud83c\udf3e",
     "current_blocker": "Ready for HMW",
     "detail_sheet_link": "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit",
-    "last_updated": "2026-03-30"
+    "last_updated": "2026-03-30",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/satoyo-x-ray-dsb-hifi.md",
@@ -7275,10 +7708,12 @@
     "species": "Arabidopsis thaliana",
     "lead": "Satoyo Oya",
     "sequencing_type": "HiFi",
+    "project": "DNA Repair Mutants",
     "accession_id": "Satoyo X-ray/DSB HiFi",
     "priority": "\u2b50",
     "current_blocker": "Kit delays. 3 NovoGene HiFi lanes reserved (K30APSM781)",
-    "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY"
+    "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-1.md",
@@ -7288,7 +7723,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_1"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_1",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-10.md",
@@ -7298,7 +7735,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_10"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_10",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-11.md",
@@ -7308,7 +7747,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_11"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_11",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-12.md",
@@ -7318,7 +7759,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_12"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_12",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-13.md",
@@ -7328,7 +7771,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_13"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_13",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-14.md",
@@ -7338,7 +7783,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_14"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_14",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-2.md",
@@ -7348,7 +7795,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_2"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_2",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-3.md",
@@ -7358,7 +7807,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_3"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_3",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-7.md",
@@ -7368,7 +7819,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_7"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_7",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-8.md",
@@ -7378,7 +7831,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_8"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_8",
+    "mtime": 1776874728
   },
   {
     "path": "accessions/va-9.md",
@@ -7388,7 +7843,9 @@
     "species": "Arabidopsis thaliana",
     "lead": "Vianney Ahn",
     "sequencing_type": "HiFi",
-    "accession_id": "VA_9"
+    "project": "Col-0 Plus",
+    "accession_id": "VA_9",
+    "mtime": 1776874728
   },
   {
     "path": "locations/autoclave-room.md",
@@ -7812,7 +8269,7 @@
     "position": "A1",
     "label_1": "Pistachio #4\nDNA extract\n85 ng/uL",
     "label_2": "P4-DNA\n85",
-    "mtime": 1775868762
+    "mtime": 1776874728
   },
   {
     "path": "locations/tube-pistachio-leaf-1.md",
@@ -7823,7 +8280,7 @@
     "position": "A1",
     "label_1": "Pistachio Tree #4\nleaf, 2026-04-01",
     "label_2": "PL1\n4/01",
-    "mtime": 1775868762
+    "mtime": 1776874728
   },
   {
     "path": "locations/tube-pistachio-leaf-2.md",
@@ -7834,7 +8291,7 @@
     "position": "A2",
     "label_1": "Pistachio Tree #4\nleaf, 2026-04-01\n(backup)",
     "label_2": "PL2\n4/01",
-    "mtime": 1775868762
+    "mtime": 1776874728
   },
   {
     "path": "events/2026-04-06-ms-plate-preparation-and-seed-sterilization.md",

@@ -410,7 +410,7 @@
     // Waste container fields (waste.html)
     'contents', 'physical_state', 'container', 'hazard_class', 'started', 'waste_tag',
     // Sample tracker fields
-    'sample_id', 'species', 'lead', 'sequencing_type',
+    'sample_id', 'species', 'lead', 'sequencing_type', 'project',
     // Accession tracker fields (R19: samples.json migrated to docs/accessions/*.md)
     'accession_id', 'priority', 'current_blocker', 'detail_sheet_link', 'last_updated',
     // Instance (sample / extraction / library / pool) fields

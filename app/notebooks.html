@@ -554,14 +554,26 @@ async function createNewFolder() {
 }
 
 // ── New entry ──
+// #143: each section gets an explicit empty paragraph (" ") so the
+// WYSIWYG editor renders a clickable blank line between headings instead
+// of stacking them. Results & observations ships with a starter 3-column
+// table so you don't have to build one from scratch every time — just
+// fill in rows (or delete the table if it's not useful that day).
 function getDailyTemplate(personLabel, dateStr) {
   return '# ' + dateStr + ' — ' + personLabel + '\n\n' +
     '**Person:** ' + personLabel + '\n\n' +
     '**Date:** ' + dateStr + '\n\n' +
     '## Plan for today\n\n' +
+    ' \n\n' +
     '## What I did\n\n' +
+    ' \n\n' +
     '## Results & observations\n\n' +
-    '## Next steps\n\n';
+    '| Metric | Value | Notes |\n' +
+    '| --- | --- | --- |\n' +
+    '|   |   |   |\n\n' +
+    ' \n\n' +
+    '## Next steps\n\n' +
+    ' \n\n';
 }
 
 function getBlankTemplate(title, personLabel, dateStr) {
