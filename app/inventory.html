@@ -422,42 +422,53 @@ function getFiltered() {
 
 var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
 var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
+var STATUS_OPTIONS = ['in_stock', 'needs_more', 'out_of_stock', 'external'];
 
+// #124: status pill is a real <select> so each change is a single commit
+// (the old click-to-cycle burned a GitHub Actions run on every intermediate
+// value). Styled to match the pill look. `external` is a valid option but
+// stays hidden from the dropdown unless the item is already external.
 function statusBadge(status, slug) {
-  var label = STATUS_LABELS[status] || STATUS_LABELS.in_stock;
-  var color = STATUS_COLORS[status] || STATUS_COLORS.in_stock;
-  var clickAttr = slug ? ' onclick="event.stopPropagation();cycleStatus(\'' + Lab.escHtml(slug) + '\')" title="Click to change status" style="cursor:pointer;display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '18;color:' + color + ';border:1.5px solid ' + color + '40;"'
-    : ' style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '18;color:' + color + ';border:1.5px solid ' + color + '40;"';
-  return '<span' + clickAttr + '>' + label + '</span>';
+  var cur = status || 'in_stock';
+  var label = STATUS_LABELS[cur] || STATUS_LABELS.in_stock;
+  var color = STATUS_COLORS[cur] || STATUS_COLORS.in_stock;
+  var baseStyle = 'display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '18;color:' + color + ';border:1.5px solid ' + color + '40;';
+  if (!slug) {
+    return '<span style="' + baseStyle + '">' + label + '</span>';
+  }
+  var selectStyle = baseStyle + 'cursor:pointer;appearance:none;-webkit-appearance:none;padding-right:22px;background-image:linear-gradient(45deg,transparent 50%,' + color + ' 50%),linear-gradient(135deg,' + color + ' 50%,transparent 50%);background-position:calc(100% - 10px) 50%,calc(100% - 6px) 50%;background-size:4px 4px,4px 4px;background-repeat:no-repeat;font-family:inherit;';
+  var opts = STATUS_OPTIONS
+    .filter(function(s) { return s !== 'external' || cur === 'external'; })
+    .map(function(s) {
+      var sel = (s === cur) ? ' selected' : '';
+      return '<option value="' + s + '"' + sel + '>' + (STATUS_LABELS[s] || s) + '</option>';
+    }).join('');
+  return '<select onchange="event.stopPropagation();setStatus(\'' + Lab.escHtml(slug) + '\', this.value)" onclick="event.stopPropagation()" title="Set stock status" style="' + selectStyle + '">' + opts + '</select>';
 }
 
-var STATUS_CYCLE = ['in_stock', 'needs_more', 'out_of_stock'];
-
-async function cycleStatus(slug) {
+async function setStatus(slug, newStatus) {
   var item = inventory.find(function(i) { return i.slug === slug; });
   if (!item) return;
+  if (item.status === newStatus) return; // no-op, don't burn a commit
   var gh = Lab.gh;
-  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in to change status', 'error'); return; }
-
-  var curIdx = STATUS_CYCLE.indexOf(item.status);
-  var nextStatus = STATUS_CYCLE[(curIdx + 1) % STATUS_CYCLE.length];
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in to change status', 'error'); renderTable(); return; }
 
   try {
     var filePath = 'docs/' + item.path;
     var file = await gh.fetchFile(filePath);
     var parsed = Lab.parseFrontmatter(file.content);
-    parsed.meta.status = nextStatus;
+    parsed.meta.status = newStatus;
     delete parsed.meta.need_more; // clear legacy field
     var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
-    await gh.saveFile(filePath, content, file.sha, 'Status: ' + nextStatus + ' — ' + (item.name || slug));
+    await gh.saveFile(filePath, content, file.sha, 'Status: ' + newStatus + ' — ' + (item.name || slug));
     gh.patchObjectIndex(filePath, parsed.meta);
 
-    // Update local inventory
-    item.status = nextStatus;
+    item.status = newStatus;
     renderTable();
-    Lab.showToast(item.name + ': ' + (STATUS_LABELS[nextStatus] || nextStatus), 'success');
+    Lab.showToast(item.name + ': ' + (STATUS_LABELS[newStatus] || newStatus), 'success');
   } catch(e) {
     Lab.showToast('Failed to update status: ' + e.message, 'error');
+    renderTable(); // restore the select to the old value
   }
 }
 
