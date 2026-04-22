@@ -1212,6 +1212,46 @@
           html += '<div class="form-group"><label>' + field.label + '</label>' + input + '</div>';
           return;
         }
+        // Of field: text input with datalist autocomplete over concept slugs.
+        // For tubes we bias toward samples; for bottles toward resources/stocks.
+        // The datalist is advisory — users can still type anything.
+        if (field.key === 'of') {
+          var ofVal = window.Lab.escHtml(String(val));
+          var listId = 'em-of-datalist';
+          var ofType = meta.type || type;
+          var conceptDirs;
+          if (ofType === 'tube') {
+            conceptDirs = { samples: 1, resources: 1, stocks: 1 };
+          } else if (ofType === 'bottle') {
+            conceptDirs = { resources: 1, stocks: 1 };
+          } else {
+            conceptDirs = { samples: 1, resources: 1, stocks: 1 };
+          }
+          var cachedOfIdx = (window.Lab.gh && window.Lab.gh._getCachedIndex && window.Lab.gh._getCachedIndex()) || [];
+          var ofOptions = [];
+          var seenOf = {};
+          cachedOfIdx.forEach(function(e) {
+            if (!e || !e.path) return;
+            var firstDir = e.path.split('/')[0];
+            if (!conceptDirs[firstDir]) return;
+            var slug = e.path.replace(/\.md$/, '');
+            if (seenOf[slug]) return;
+            seenOf[slug] = 1;
+            ofOptions.push({ slug: slug, title: e.title || '' });
+          });
+          var datalistHtml = '<datalist id="' + listId + '">' +
+            ofOptions.map(function(o) {
+              return '<option value="' + window.Lab.escHtml(o.slug) + '">' +
+                window.Lab.escHtml(o.title) + '</option>';
+            }).join('') + '</datalist>';
+          input = '<input type="text" id="' + id + '" class="em-field-input" data-key="of"' +
+            ' list="' + listId + '" value="' + ofVal + '"' +
+            (field.placeholder ? ' placeholder="' + window.Lab.escHtml(field.placeholder) + '"' : '') +
+            ' autocomplete="off">' + datalistHtml;
+          if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
+          html += '<div class="form-group"><label>' + field.label + '</label>' + input + '</div>';
+          return;
+        }
         if (field.type === 'select') {
           input = '<select id="' + id + '" class="em-field-input" data-key="' + field.key + '">';
           (field.options || []).forEach(function(opt) {
@@ -2501,11 +2541,31 @@
     // user's chosen type. openNew picked an initial dir from the defaultType,
     // but the datalist input may have moved the user to a different type —
     // in which case the file should land in that group's dir instead.
+    //
+    // Also derive the slug from meta.title so wikilinks like [[foo-bar-baz]]
+    // are predictable. Falls back to new-<type>-<timestamp> only when title
+    // is empty. Collisions against the cached object-index get -2, -3, etc.
     if (isNew) {
       var grp = Lab.types.get(currentState.meta.type || 'container').group;
       var newDir = (Lab.types.GROUPS[grp] && Lab.types.GROUPS[grp].dir) || 'locations';
-      var slugPart = currentState.path.split('/').pop();
-      currentState.path = 'docs/' + newDir + '/' + slugPart;
+      var titleForSlug = (currentState.meta.title || '').trim();
+      var baseSlug = titleForSlug ? Lab.slugify(titleForSlug) : '';
+      if (!baseSlug) {
+        baseSlug = 'new-' + (currentState.meta.type || 'item') + '-' + Date.now().toString(36);
+      }
+      // Resolve collisions via the cached object-index (sync, no round-trip).
+      var cachedIdxForSlug = (gh._getCachedIndex && gh._getCachedIndex()) || [];
+      var takenPaths = {};
+      cachedIdxForSlug.forEach(function(e) { if (e && e.path) takenPaths[e.path] = 1; });
+      var candidate = baseSlug;
+      var targetRel = newDir + '/' + candidate + '.md';
+      var suffix = 2;
+      while (takenPaths[targetRel]) {
+        candidate = baseSlug + '-' + suffix;
+        targetRel = newDir + '/' + candidate + '.md';
+        suffix++;
+      }
+      currentState.path = 'docs/' + targetRel;
     }
 
     // R6.5: Scoped title uniqueness check for concept types.

@@ -369,9 +369,21 @@
       icon: 'fa:fa-solid fa-vial',
       label: 'Tube',
       group: 'locations',
-      fields: null,
-      displayFields: null,
-      tableColumns: null,
+      // Tubes are physical instances that wrap a sample (or sometimes a
+      // reagent/stock). Expose `of:` so users can link the tube back to its
+      // concept; otherwise the concept→instance graph breaks for tubes.
+      fields: [
+        { key: 'title',    label: 'Name',                        type: 'text', required: true },
+        { key: 'type',     label: 'Type',                        type: 'hidden', value: 'tube' },
+        { key: 'of',       label: 'Of (concept slug)',           type: 'text', placeholder: 'e.g. samples/mcclintock-leaf-a' },
+        { key: 'parent',   label: 'Parent',                      type: 'text' },
+        { key: 'position', label: 'Position in parent',          type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
+        { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
+        { key: 'label_1',  label: 'Label 1 (full)',              type: 'textarea' },
+        { key: 'label_2',  label: 'Label 2 (grid cell)',         type: 'textarea' },
+      ],
+      displayFields: ['of', 'parent', 'grid'],
+      tableColumns: ['name', 'of', 'type', 'parent'],
     },
     container: {
       color: '#616161',
