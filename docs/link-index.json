@@ -940,6 +940,322 @@
     "target": "resources/sqk-nbd114-24"
   },
   {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/cetrimonium-bromide"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/2-mercaptoethanol"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/chloroform"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/isopropyl-alcohol"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/rnase-aliquot"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/sigma-proteinase-k"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/polyvinylpyrrolidone"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/polyvinylpolypyrrolidone-pvpp"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/taps"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/magnesium-chloride"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/polyethylene-glycol-solid"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/dimethylformamide-anhydrous"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "wet-lab/library-prep/tn5-loading-library-prep"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/sodium-dodecyl-sulfate"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/tween-20"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/hepes"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/sodium-chloride"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/glycerol-50-aqueous-solution"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/iptg"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/dithiothreitol-dtt"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/roche-protease-inhibitor-cocktail-edta-free"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/benzonase-nuclease"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/lambda-dna-standard"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bradford-reagent"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/qiagen-dneasy-96-plant-kit"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/qubit-dsdna-hs-assay-kit"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/quant-it-picogreen-dsdna-kit"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/greiner-black-96-well-fluorescence-plate"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/thermo-slide-a-lyzer-g2-10k-mwco-cassettes"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/thermo-dnase-i-rnase-free"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/thermo-96-well-pcr-plate-semi-skirted"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/thermo-pcr-plate-foil-seals"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/filter-tips-p10"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/filter-tips-p200"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/filter-tips-p1000"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/ampure-xp-beads"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/roche-kapa-hifi-hotstart-readymix"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/roche-kapa-library-quant-kit-qpcr"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "stocks/bl21-de3-competent-cells"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/cytiva-sera-mag-speedbead-carboxyl"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bio-rad-poly-prep-gravity-flow-columns"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bio-rad-mini-protean-tgx-4-20"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bio-rad-sds-page-running-buffer"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bio-rad-laemmli-sample-buffer-2x"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/bio-rad-precision-plus-protein-standards"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/idt-tn5merev-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/idt-tn5me-a-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/idt-tn5me-b-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/idt-xgen-udi-primers-384"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/addgene-ptxb1-tn5-plasmid"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/diagenode-tagmentase-loaded"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/tn5-unloaded-blank"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/illumina-tagment-dna-enzyme-tde1"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/neb-chitin-resin"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/neb-q5-hotstart-polymerase"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/chrome-steel-grinding-balls-5-32"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/automill"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/epoch-96-well-silica-filter-plate"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/vacuum-manifold-96-well"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/addgene-ptxb1-tn5-plasmid"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/diagenode-tagmentase-loaded"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/illumina-tagment-dna-enzyme-tde1"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/tn5-unloaded-blank"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/idt-tn5merev-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/idt-tn5me-a-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/idt-tn5me-b-oligo"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "stocks/bl21-de3-competent-cells"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/neb-chitin-resin"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "wet-lab/library-prep/tn5-loading-library-prep"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/automill"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "resources/vacuum-manifold-96-well"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "projects/in-house-hifi-shearing/bill-of-materials"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/index",
+    "target": "wet-lab/mutagenesis/protein-induction-bl21"
+  },
+  {
     "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/how-to-read-an-sds"
   },
@@ -1254,6 +1570,10 @@
   {
     "source": "resources/buffer-a-quick-extraction",
     "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "resources/chrome-steel-grinding-balls-5-32",
+    "target": "resources/automill"
   },
   {
     "source": "resources/cryo-labels",
@@ -5165,7 +5485,7 @@
   },
   {
     "source": "wet-lab/pipette-school",
-    "target": "resources/multichannel-pipette"
+    "target": "resources/analytical-balance"
   },
   {
     "source": "wet-lab/pipette-school",
@@ -5214,6 +5534,18 @@
   {
     "source": "wet-lab/pipette-school",
     "target": "wet-lab/tube-and-sample-labeling"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "wet-lab/how-to-use-the-scale"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "wet-lab/pipette-school",
+    "target": "wet-lab/pcr-genotyping"
   },
   {
     "source": "wet-lab/planting-arabidopsis-on-ms-plates",

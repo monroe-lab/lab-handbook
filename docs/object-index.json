@@ -81,6 +81,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/addgene-ptxb1-tn5-plasmid.md",
+    "type": "reagent",
+    "title": "pTXB1-Tn5 Plasmid (Addgene 60240)",
+    "status": "needed"
+  },
+  {
     "path": "resources/agar-non-tc.md",
     "type": "reagent",
     "title": "Agar (non-TC)",
@@ -183,6 +189,42 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/benzonase-nuclease.md",
+    "type": "reagent",
+    "title": "Benzonase Nuclease",
+    "status": "needed"
+  },
+  {
+    "path": "resources/bio-rad-laemmli-sample-buffer-2x.md",
+    "type": "reagent",
+    "title": "Laemmli Sample Buffer, 2\u00d7",
+    "status": "needed"
+  },
+  {
+    "path": "resources/bio-rad-mini-protean-tgx-4-20.md",
+    "type": "consumable",
+    "title": "Mini-PROTEAN TGX Precast Gels, 4-20%",
+    "status": "needed"
+  },
+  {
+    "path": "resources/bio-rad-poly-prep-gravity-flow-columns.md",
+    "type": "consumable",
+    "title": "Poly-Prep Gravity-Flow Chromatography Columns",
+    "status": "needed"
+  },
+  {
+    "path": "resources/bio-rad-precision-plus-protein-standards.md",
+    "type": "reagent",
+    "title": "Precision Plus Protein Standards",
+    "status": "needed"
+  },
+  {
+    "path": "resources/bio-rad-sds-page-running-buffer.md",
+    "type": "reagent",
+    "title": "SDS-PAGE Running Buffer (Tris/Glycine/SDS)",
+    "status": "needed"
+  },
+  {
     "path": "resources/bioruptor.md",
     "type": "equipment",
     "title": "Bioruptor",
@@ -208,6 +250,12 @@
     "title": "Bovine Serum Albumin (50 mg/mL)",
     "status": "needed",
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/bradford-reagent.md",
+    "type": "reagent",
+    "title": "Bradford Reagent (Coomassie G-250)",
+    "status": "needed"
   },
   {
     "path": "resources/bromophenol-blue.md",
@@ -319,6 +367,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/chrome-steel-grinding-balls-5-32.md",
+    "type": "consumable",
+    "title": "Chrome Steel Grinding Balls, 5/32 inch",
+    "status": "needed"
+  },
+  {
     "path": "resources/cis-diamineplatinum-ii-dichloride.md",
     "type": "reagent",
     "title": "cis-Diamineplatinum(II) dichloride",
@@ -355,6 +409,12 @@
     "mtime": 1775980234
   },
   {
+    "path": "resources/cytiva-sera-mag-speedbead-carboxyl.md",
+    "type": "reagent",
+    "title": "Sera-Mag SpeedBead Carboxylate-Modified Magnetic Beads",
+    "status": "needed"
+  },
+  {
     "path": "resources/d-glucose.md",
     "type": "reagent",
     "title": "D-(+)-Glucose",
@@ -383,6 +443,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/diagenode-tagmentase-loaded.md",
+    "type": "reagent",
+    "title": "Diagenode Tagmentase (ME-A/B loaded)",
+    "status": "needed"
+  },
+  {
     "path": "resources/diethyl-pyrocarbonate.md",
     "type": "reagent",
     "title": "Diethyl pyrocarbonate",
@@ -397,11 +463,23 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/dimethylformamide-anhydrous.md",
+    "type": "reagent",
+    "title": "N,N-Dimethylformamide (DMF), Anhydrous",
+    "status": "needed"
+  },
+  {
     "path": "resources/disodium-ethylenediamine-tetraacetate.md",
     "type": "reagent",
     "title": "Disodium Ethylenediamine Tetraacetate",
     "legacy_inventory_id": 51,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/dithiothreitol-dtt.md",
+    "type": "reagent",
+    "title": "DTT (Dithiothreitol)",
+    "status": "needed"
   },
   {
     "path": "resources/dkw-medium-with-vitamins.md",
@@ -461,6 +539,12 @@
     "type": "kit",
     "title": "Emerald Amp MAX PCR Master Mix",
     "mtime": 1775980234
+  },
+  {
+    "path": "resources/epoch-96-well-silica-filter-plate.md",
+    "type": "consumable",
+    "title": "96-well Silica Filter Plates",
+    "status": "needed"
   },
   {
     "path": "resources/ethanol-70.md",
@@ -667,6 +751,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/greiner-black-96-well-fluorescence-plate.md",
+    "type": "consumable",
+    "title": "Black 96-well Fluorescence Plates",
+    "status": "needed"
+  },
+  {
     "path": "resources/growth-chamber.md",
     "type": "equipment",
     "title": "Growth Chamber",
@@ -746,11 +836,41 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/idt-tn5me-a-oligo.md",
+    "type": "reagent",
+    "title": "IDT Tn5ME-A Oligo",
+    "status": "needed"
+  },
+  {
+    "path": "resources/idt-tn5me-b-oligo.md",
+    "type": "reagent",
+    "title": "IDT Tn5ME-B Oligo",
+    "status": "needed"
+  },
+  {
+    "path": "resources/idt-tn5merev-oligo.md",
+    "type": "reagent",
+    "title": "IDT Tn5MErev Oligo (5' phosphate)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/idt-xgen-udi-primers-384.md",
+    "type": "consumable",
+    "title": "IDT xGen / Custom 384 UDI Primer Set",
+    "status": "needed"
+  },
+  {
     "path": "resources/igepal-ca-630.md",
     "type": "reagent",
     "title": "IGEPAL CA-630",
     "legacy_inventory_id": 77,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/illumina-tagment-dna-enzyme-tde1.md",
+    "type": "reagent",
+    "title": "Illumina Tagment DNA Enzyme (TDE1)",
+    "status": "needed"
   },
   {
     "path": "resources/imidazole-hydrochloride.md",
@@ -765,6 +885,12 @@
     "title": "Iohexol",
     "legacy_inventory_id": 79,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/iptg.md",
+    "type": "reagent",
+    "title": "IPTG (Isopropyl \u03b2-D-1-thiogalactopyranoside)",
+    "status": "needed"
   },
   {
     "path": "resources/iron-iii-chloride.md",
@@ -828,6 +954,12 @@
     "title": "L-Lysine monohydrochloride",
     "legacy_inventory_id": 86,
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/lambda-dna-standard.md",
+    "type": "reagent",
+    "title": "Lambda DNA Standard",
+    "status": "needed"
   },
   {
     "path": "resources/liquid-nitrogen-dewar.md",
@@ -1033,6 +1165,18 @@
     "mtime": 1775684016
   },
   {
+    "path": "resources/neb-chitin-resin.md",
+    "type": "consumable",
+    "title": "NEB Chitin Resin",
+    "status": "needed"
+  },
+  {
+    "path": "resources/neb-q5-hotstart-polymerase.md",
+    "type": "reagent",
+    "title": "NEB Q5 HotStart High-Fidelity Polymerase",
+    "status": "needed"
+  },
+  {
     "path": "resources/nebnext-companion-module-ont.md",
     "type": "kit",
     "title": "NEBNext Companion Module for Oxford Nanopore Ligation Sequencing (E7180S)",
@@ -1210,6 +1354,12 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/polyvinylpolypyrrolidone-pvpp.md",
+    "type": "reagent",
+    "title": "Polyvinylpolypyrrolidone (PVPP)",
+    "status": "needed"
+  },
+  {
     "path": "resources/polyvinylpyrrolidone.md",
     "type": "reagent",
     "title": "Polyvinylpyrrolidone",
@@ -1273,6 +1423,18 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/qiagen-dneasy-96-plant-kit.md",
+    "type": "kit",
+    "title": "Qiagen DNeasy 96 Plant Kit",
+    "status": "needed"
+  },
+  {
+    "path": "resources/quant-it-picogreen-dsdna-kit.md",
+    "type": "kit",
+    "title": "Quant-iT PicoGreen dsDNA Assay Kit",
+    "status": "needed"
+  },
+  {
     "path": "resources/qubit-assay-tubes.md",
     "type": "consumable",
     "title": "Qubit Assay Tubes",
@@ -1310,6 +1472,30 @@
     "type": "reagent",
     "title": "RNase aliquot",
     "mtime": 1775946810
+  },
+  {
+    "path": "resources/roche-kapa-hifi-hotstart-readymix.md",
+    "type": "reagent",
+    "title": "KAPA HiFi HotStart ReadyMix",
+    "status": "needed"
+  },
+  {
+    "path": "resources/roche-kapa-library-quant-kit-qpcr.md",
+    "type": "kit",
+    "title": "KAPA Library Quantification Kit (Illumina, qPCR)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/roche-protease-inhibitor-cocktail-edta-free.md",
+    "type": "reagent",
+    "title": "Roche cOmplete Protease Inhibitor Cocktail, EDTA-free",
+    "status": "needed"
+  },
+  {
+    "path": "resources/sigma-proteinase-k.md",
+    "type": "reagent",
+    "title": "Proteinase K (Sigma P2308)",
+    "status": "needed"
   },
   {
     "path": "resources/silwet-l-77.md",
@@ -1544,6 +1730,30 @@
     "mtime": 1775946810
   },
   {
+    "path": "resources/thermo-96-well-pcr-plate-semi-skirted.md",
+    "type": "consumable",
+    "title": "96-well PCR Plates, Semi-skirted (Thermo AB0900)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/thermo-dnase-i-rnase-free.md",
+    "type": "reagent",
+    "title": "DNase I, RNase-free (Thermo EN0521)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/thermo-pcr-plate-foil-seals.md",
+    "type": "consumable",
+    "title": "Foil Seals for PCR Plates (Thermo AB0626)",
+    "status": "needed"
+  },
+  {
+    "path": "resources/thermo-slide-a-lyzer-g2-10k-mwco-cassettes.md",
+    "type": "consumable",
+    "title": "Slide-A-Lyzer G2 10K MWCO Dialysis Cassettes",
+    "status": "needed"
+  },
+  {
     "path": "resources/thermocycler.md",
     "type": "equipment",
     "title": "Thermocycler",
@@ -1554,6 +1764,12 @@
     "type": "equipment",
     "title": "Thermomixer",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/tn5-unloaded-blank.md",
+    "type": "reagent",
+    "title": "Unloaded (Blank) Tn5 Transposase",
+    "status": "needed"
   },
   {
     "path": "resources/top-loading-balance.md",
@@ -1610,6 +1826,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/tween-20.md",
+    "type": "reagent",
+    "title": "Tween 20 (Polysorbate 20)",
+    "status": "needed"
+  },
+  {
     "path": "resources/tween-80.md",
     "type": "reagent",
     "title": "TWEEN 80",
@@ -1628,6 +1850,12 @@
     "type": "equipment",
     "title": "UV Transilluminator",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/vacuum-manifold-96-well.md",
+    "type": "equipment",
+    "title": "Vacuum Manifold, 96-well",
+    "status": "needed"
   },
   {
     "path": "resources/vortex-mixer.md",
@@ -3446,6 +3674,18 @@
     "mtime": 1775684016
   },
   {
+    "path": "projects/low-pass-1000-sample-sequencing/bill-of-materials.md",
+    "type": "project",
+    "title": "Bill of Materials \u2014 Low-Pass 1000-Sample Sequencing"
+  },
+  {
+    "path": "projects/low-pass-1000-sample-sequencing/index.md",
+    "type": "project",
+    "title": "Low-Pass 1000-Sample Sequencing",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
     "path": "projects/molecular-biology-training/index.md",
     "type": "project",
     "title": "Molecular Biology Training Curriculum",
@@ -3525,7 +3765,7 @@
     "path": "wet-lab/gel-electrophoresis.md",
     "type": "protocol",
     "title": "Gel Electrophoresis",
-    "mtime": 1775983797
+    "mtime": 1776845819
   },
   {
     "path": "wet-lab/gel-imaging-and-annotation.md",
@@ -3657,7 +3897,7 @@
     "path": "wet-lab/pipette-school.md",
     "type": "protocol",
     "title": "Pipette School",
-    "mtime": 1776814884
+    "mtime": 1776845520
   },
   {
     "path": "wet-lab/planting-arabidopsis-on-ms-plates.md",
