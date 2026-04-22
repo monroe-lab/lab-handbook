@@ -1102,34 +1102,39 @@
     if (hasTypeField) {
       var currentType = meta.type || (type);
       if (editable) {
-        // Build a visual type picker grouped by category — much more
-        // discoverable than a datalist that browsers hide behind a tiny arrow.
+        // #149: the old "flat grid of 25 pills" was overwhelming. Default to
+        // showing the current type alone, with a "Change type" link that
+        // expands the full picker on demand. The expanded picker keeps the
+        // same context filter (instance vs concept, location vs generic)
+        // and also exposes a free-text input for ad-hoc types — type any
+        // string, click "Use", and it's saved as this object's type.
+        var currentTc = Lab.types.get(currentType);
+        var currentStyle = Lab.types.pillStyle(currentType);
         html += '<div class="form-group"><label>Type</label>';
         html += '<input type="hidden" id="em-f-type" class="em-field-input" data-key="type" value="' + escHtml(currentType) + '">';
-        html += '<div id="em-type-picker" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px">';
+        html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">';
+        html +=   '<span id="em-type-current" style="' + currentStyle + ';font-size:12px;padding:4px 10px;border-radius:12px;font-weight:500;display:inline-flex;align-items:center;gap:5px">' +
+                    Lab.types.renderIcon(currentTc.icon) + ' ' + escHtml(currentTc.label || currentType) +
+                  '</span>';
+        html +=   '<button type="button" id="em-type-toggle" style="border:none;background:transparent;color:var(--teal-dark,#00695c);cursor:pointer;font-family:inherit;font-size:12px;padding:2px 6px;border-radius:4px;display:inline-flex;align-items:center;gap:2px">' +
+                    'Change type <span class="material-icons-outlined" style="font-size:14px" id="em-type-toggle-icon">expand_more</span>' +
+                  '</button>';
+        html += '</div>';
+
+        // Expanded picker — hidden until "Change type" is clicked.
+        html += '<div id="em-type-picker-expand" style="display:none;margin-top:8px;padding:10px;border:1px solid var(--grey-200,#e5e7eb);border-radius:8px;background:var(--grey-50,#fafafa)">';
+        html +=   '<div id="em-type-picker" style="display:flex;flex-wrap:wrap;gap:4px">';
         var groups = Lab.types.GROUPS || {};
-        // Contextual filtering: instances (has of: field) only show instance types,
-        // and vice versa — don't show protocol/person/project for a bottle.
-        // Issue #102: the currentType is ALWAYS included regardless of filter,
-        // otherwise a freshly-created tube hides itself from its own picker and
-        // the user sees no way to change or confirm the type.
         var isInstance = !!meta.of;
-        var instanceTypes = { bottle: 1, tube: 1, container: 1 };
-        var hideFromInstances = { protocol: 1, person: 1, project: 1, notebook: 1, event: 1, guide: 1, waste_container: 1, sample: 1 };
-        // If the current object is itself a location/container (box, freezer,
-        // tube, etc.) we're in "lab-map territory" — surface the instance
-        // types (bottle/tube/container) so the user can reclassify or switch
-        // without having to first set an `of:` field.
+        var instanceTypes = { bottle: 1, tube: 1, container: 1, sample: 1, extraction: 1, library: 1, pool: 1 };
+        var hideFromInstances = { protocol: 1, person: 1, project: 1, notebook: 1, event: 1, guide: 1, waste_container: 1 };
         var currentTypeMeta = Lab.types.get(currentType);
         var currentIsLocation = currentTypeMeta && currentTypeMeta.group === 'locations';
         Object.keys(groups).forEach(function(gk) {
           var g = groups[gk];
           (g.types || []).forEach(function(t) {
-            // Always show the current type, even if the filter below would drop it.
             if (t !== currentType) {
-              // Filter types based on context
               if (isInstance && hideFromInstances[t]) return;
-              // Hide instance types in generic (non-location, non-instance) contexts.
               if (!isInstance && !currentIsLocation && instanceTypes[t]) return;
             }
             var tc = Lab.types.get(t);
@@ -1143,7 +1148,19 @@
           });
         });
         html += '</div>';
-        html += '<div style="font-size:11px;color:var(--grey-500)">Click to change type.</div>';
+        // Ad-hoc type row: free-text input + "Use" button so users can
+        // save any string as the type. The object-index will carry it and
+        // future datalists will surface it via collectDiscoveredTypes,
+        // which is how it "becomes permanent" (matches #149 ask).
+        html += '<div style="display:flex;gap:6px;margin-top:10px;align-items:center">' +
+                  '<span style="font-size:11px;color:var(--grey-500);flex-shrink:0">Custom:</span>' +
+                  '<input type="text" id="em-type-custom" placeholder="type anything, then Use" autocomplete="off" ' +
+                    'style="flex:1;padding:5px 8px;border:1px solid var(--grey-300,#d1d5db);border-radius:4px;font-size:12px;font-family:inherit;outline:none">' +
+                  '<button type="button" id="em-type-custom-apply" ' +
+                    'style="padding:5px 10px;font-size:11px;background:var(--teal,#009688);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-weight:600">Use</button>' +
+                '</div>';
+        html += '<div style="font-size:10px;color:var(--grey-500);margin-top:6px">Custom types are saved on the object and become available on other items via type autocomplete.</div>';
+        html += '</div>';
         html += '</div>';
       } else {
         var tc = Lab.types.get(currentType);
@@ -1215,7 +1232,10 @@
               (val ? '<button type="button" id="em-parent-picker-clear" style="border:none;background:none;cursor:pointer;padding:2px;display:flex;align-items:center"><span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400)">close</span></button>' : '') +
               '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400,#9ca3af);flex-shrink:0">expand_more</span>' +
             '</div>' +
-            '<div id="em-parent-picker-dropdown" style="display:none;position:fixed;z-index:12000;background:#fff;border:1px solid var(--grey-200,#e5e7eb);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:320px;overflow:auto"></div>';
+            // #150: big, easy-to-scan popover. Actual width/height set in
+            // openParentDropdown so it can react to viewport; the inline
+            // style here is just a visible fallback if sizing JS fails.
+            '<div id="em-parent-picker-dropdown" style="display:none;position:fixed;z-index:12000;background:#fff;border:1px solid var(--grey-200,#e5e7eb);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.22);width:620px;max-height:70vh;overflow:hidden;display:none;flex-direction:column"></div>';
           if (row.length) { html += '<div class="form-row">' + row.join('') + '</div>'; row = []; }
           html += '<div class="form-group"><label>' + field.label + '</label>' + input + '</div>';
           return;
@@ -1498,19 +1518,66 @@
 
     // Wire type picker pill buttons (edit mode)
     if (editable) {
-      fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var t = btn.getAttribute('data-type-pick');
-          var hidden = document.getElementById('em-f-type');
-          if (hidden) hidden.value = t;
-          // Update visual selection state
-          fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(b) {
-            var isSel = b.getAttribute('data-type-pick') === t;
-            var tc = Lab.types.get(b.getAttribute('data-type-pick'));
-            b.style.borderColor = isSel ? (tc.color || '#333') : 'transparent';
-            b.style.opacity = isSel ? '1' : '0.6';
-          });
+      // Apply a selected type: update the hidden input, refresh the summary
+      // pill at the top of the form, and re-highlight the corresponding
+      // option in the expanded picker. Shared by built-in pills and the
+      // ad-hoc custom-type input below.
+      function applyPickedType(t) {
+        if (!t) return;
+        var hidden = document.getElementById('em-f-type');
+        if (hidden) hidden.value = t;
+        // Update the summary pill
+        var cur = document.getElementById('em-type-current');
+        if (cur) {
+          var tc = Lab.types.get(t);
+          cur.style.cssText = Lab.types.pillStyle(t) + ';font-size:12px;padding:4px 10px;border-radius:12px;font-weight:500;display:inline-flex;align-items:center;gap:5px';
+          cur.innerHTML = Lab.types.renderIcon(tc.icon) + ' ' + escHtml(tc.label || t);
+        }
+        // Refresh pill highlights
+        fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(b) {
+          var isSel = b.getAttribute('data-type-pick') === t;
+          var btc = Lab.types.get(b.getAttribute('data-type-pick'));
+          b.style.borderColor = isSel ? (btc.color || '#333') : 'transparent';
+          b.style.opacity = isSel ? '1' : '0.6';
         });
+      }
+      fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(btn) {
+        btn.addEventListener('click', function() { applyPickedType(btn.getAttribute('data-type-pick')); });
+      });
+
+      // #149 collapse/expand toggle for the full picker
+      var typeToggle = document.getElementById('em-type-toggle');
+      if (typeToggle) {
+        typeToggle.addEventListener('click', function() {
+          var panel = document.getElementById('em-type-picker-expand');
+          var icon = document.getElementById('em-type-toggle-icon');
+          if (!panel) return;
+          var willOpen = panel.style.display === 'none';
+          panel.style.display = willOpen ? 'block' : 'none';
+          if (icon) icon.textContent = willOpen ? 'expand_less' : 'expand_more';
+        });
+      }
+
+      // #149 ad-hoc custom type. Any non-empty string gets saved as the
+      // object's type. Because `collectDiscoveredTypes` in this module
+      // unions the registered TYPES with every type string observed in the
+      // object index, saving a custom type here makes it show up in future
+      // pickers/datalists — effectively creating a new type on the fly.
+      var customInput = document.getElementById('em-type-custom');
+      var customApply = document.getElementById('em-type-custom-apply');
+      function commitCustomType() {
+        var v = (customInput && customInput.value || '').trim();
+        if (!v) return;
+        // Normalize to lowercase_underscore so it plays nicely with the
+        // rest of the type machinery (getType, isConceptType, etc).
+        var norm = v.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+        if (!norm) return;
+        applyPickedType(norm);
+        if (Lab.showToast) Lab.showToast('Type set to "' + norm + '" — will be saved on next Save', 'success');
+      }
+      if (customApply) customApply.addEventListener('click', commitCustomType);
+      if (customInput) customInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); commitCustomType(); }
       });
     }
 
@@ -1585,38 +1652,65 @@
 
       function openParentDropdown() {
         if (!dropdown || !trigger) return;
-        // Position the fixed dropdown below the trigger element
+        // #150: big popover. Fixed at 620px wide (or 92vw if narrower
+        // viewport), ~70vh tall, always shown as a flex-column so the tree
+        // body scrolls independently of the toolbar/search input. Anchors
+        // below-left of the trigger when it fits, flips to above or shifts
+        // right to stay in the viewport otherwise.
         var rect = trigger.getBoundingClientRect();
-        var dropWidth = Math.max(rect.width, 320);
-        dropdown.style.display = 'block';
-        dropdown.style.top = (rect.bottom + 4) + 'px';
-        dropdown.style.left = rect.left + 'px';
+        var dropWidth = Math.min(620, Math.floor(window.innerWidth * 0.92));
+        var dropHeight = Math.min(Math.floor(window.innerHeight * 0.7), 640);
+
+        var left = rect.left;
+        if (left + dropWidth > window.innerWidth - 16) {
+          left = Math.max(8, window.innerWidth - dropWidth - 16);
+        }
+        var top = rect.bottom + 6;
+        var spaceBelow = window.innerHeight - rect.bottom - 12;
+        var spaceAbove = rect.top - 12;
+        // If not enough below AND more above, flip it.
+        if (spaceBelow < 280 && spaceAbove > spaceBelow) {
+          top = Math.max(8, rect.top - dropHeight - 6);
+        } else if (spaceBelow < dropHeight) {
+          dropHeight = Math.max(300, spaceBelow);
+        }
+
+        dropdown.style.display = 'flex';
+        dropdown.style.flexDirection = 'column';
+        dropdown.style.top = top + 'px';
+        dropdown.style.left = left + 'px';
         dropdown.style.width = dropWidth + 'px';
-        // If it would go off-screen bottom, cap the height
-        var maxH = window.innerHeight - rect.bottom - 16;
-        dropdown.style.maxHeight = Math.min(320, Math.max(180, maxH)) + 'px';
+        dropdown.style.height = dropHeight + 'px';
+        dropdown.style.maxHeight = dropHeight + 'px';
         dropdown.innerHTML = '';
         _parentDropdownOpen = true;
 
-        // Inject inline styles for the tree nodes inside the dropdown
         var styleTag = document.createElement('style');
         styleTag.textContent =
           '#em-parent-picker-dropdown .lt-node { user-select:none; }' +
-          '#em-parent-picker-dropdown .lt-row { display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:4px;cursor:pointer;transition:background .1s; }' +
+          '#em-parent-picker-dropdown .lt-row { display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:background .1s; }' +
           '#em-parent-picker-dropdown .lt-row:hover { background:var(--grey-50,#f9fafb); }' +
           '#em-parent-picker-dropdown .lt-row.is-hit { background:var(--teal-light,#e0f2f1); }' +
-          '#em-parent-picker-dropdown .lt-icon { font-size:15px;flex-shrink:0; }' +
-          '#em-parent-picker-dropdown .lt-title { font-size:13px;font-weight:500;color:var(--grey-800,#1f2937);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }' +
+          '#em-parent-picker-dropdown .lt-toggle { width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:var(--grey-700,#424242);background:var(--grey-100,#f5f5f5);border:1px solid var(--grey-300,#cfd8dc);border-radius:4px;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .12s; }' +
+          '#em-parent-picker-dropdown .lt-toggle:hover { background:var(--teal,#009688);color:#fff;border-color:var(--teal,#009688); }' +
+          '#em-parent-picker-dropdown .lt-node.is-expanded > .lt-row .lt-toggle { transform:rotate(90deg); }' +
+          '#em-parent-picker-dropdown .lt-icon { font-size:17px;flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-title { font-size:14px;font-weight:500;color:var(--grey-800,#1f2937);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }' +
           '#em-parent-picker-dropdown .lt-count { font-size:11px;color:var(--grey-500,#6b7280);flex-shrink:0; }' +
-          '#em-parent-picker-dropdown .lt-pos { font-size:11px;color:var(--grey-500);padding:1px 6px;background:var(--grey-100,#f3f4f6);border-radius:10px;flex-shrink:0; }' +
-          '#em-parent-picker-dropdown .lt-children { padding-left:20px; }' +
+          '#em-parent-picker-dropdown .lt-pos { font-size:11px;color:var(--grey-600);padding:1px 7px;background:var(--grey-100,#f3f4f6);border-radius:10px;flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-children { padding-left:26px; }' +
           '#em-parent-picker-dropdown .lt-node:not(.is-expanded) > .lt-children { display:none; }' +
           '#em-parent-picker-dropdown .lt-node.is-expanded > .lt-children { display:block; }' +
-          '#em-parent-picker-dropdown .lt-toolbar { padding:0 8px 8px;border-bottom:1px solid var(--grey-100,#f3f4f6);margin-bottom:8px; }' +
-          '#em-parent-picker-dropdown .lt-tree { padding:4px 8px 8px; }';
+          '#em-parent-picker-dropdown .lt-toolbar { padding:10px 14px;border-bottom:1px solid var(--grey-200,#e5e7eb);background:var(--grey-50,#f9fafb);display:flex;gap:8px;align-items:center;flex-shrink:0; }' +
+          '#em-parent-picker-dropdown .lt-toolbar input { flex:1;padding:8px 12px;border:1px solid var(--grey-300,#d1d5db);border-radius:6px;font-size:13px;font-family:inherit;outline:none; }' +
+          '#em-parent-picker-dropdown .lt-toolbar input:focus { border-color:var(--teal,#009688); }' +
+          '#em-parent-picker-dropdown .lt-toolbar button { padding:6px 10px;font-size:12px;border:1px solid var(--grey-300,#d1d5db);background:#fff;border-radius:6px;cursor:pointer;font-family:inherit;color:var(--grey-700,#374151); }' +
+          '#em-parent-picker-dropdown .lt-toolbar button:hover { background:var(--grey-100,#f3f4f6); }' +
+          '#em-parent-picker-dropdown .lt-tree { flex:1;overflow-y:auto;padding:6px 10px 10px; }';
         dropdown.appendChild(styleTag);
 
         var treeWrap = document.createElement('div');
+        treeWrap.style.cssText = 'flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden';
         dropdown.appendChild(treeWrap);
 
         _parentTreeInstance = Lab.locationTree.attach(treeWrap, {
