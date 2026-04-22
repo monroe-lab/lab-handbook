@@ -8,6 +8,8 @@ lead: "J. Freckles"
 sequencing_type: "HiFi"
 status: "extracted"
 notes: "Wild pistachio, site X cultivar Y, selected for HiFi sequencing 2026."
+parent: "locations/box-pistachio-dna"
+position: "A3"
 ---
 
 # Pistachio Tree #4
