@@ -3260,5 +3260,19 @@
     "lastUpdated": "2026-04-22",
     "notes": "bulk tracker QA: sample 5",
     "detailSheetLink": ""
+  },
+  {
+    "id": 234,
+    "sampleId": "QA17-moa4ajpr-A6",
+    "project": "QA17-bulk",
+    "species": "Pistacia vera",
+    "lead": "Vianney Ahn",
+    "sequencingType": "HiFi",
+    "status": "Library prep",
+    "priority": "",
+    "currentBlocker": "Waiting for kit",
+    "lastUpdated": "2026-04-22",
+    "notes": "bulk tracker QA: sample 6",
+    "detailSheetLink": ""
   }
 ]
