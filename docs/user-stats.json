@@ -1,82 +1,82 @@
 {
-  "generated_at": "2026-04-21T18:56:59.139694+00:00",
-  "total_commits": 2328,
+  "generated_at": "2026-04-22T06:24:16.654787+00:00",
+  "total_commits": 2800,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 2228,
+      "total_commits": 2681,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-21",
-      "protocols_authored": 162,
-      "notebooks_authored": 92,
-      "inventory_edits": 1757,
-      "wiki_edits": 681,
-      "images_uploaded": 97,
-      "issue_attachments": 45,
+      "last_commit": "2026-04-22",
+      "protocols_authored": 172,
+      "notebooks_authored": 121,
+      "inventory_edits": 1798,
+      "wiki_edits": 896,
+      "images_uploaded": 112,
+      "issue_attachments": 47,
       "issues_filed": 30,
-      "locations_created": 66,
-      "items_added": 581,
-      "bulletin_edits": 6,
+      "locations_created": 135,
+      "items_added": 597,
+      "bulletin_edits": 7,
       "calendar_edits": 40,
       "annotations": 57,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "2440873",
-          "subject": "Upload test-paste-1776796788345.png",
-          "date": "2026-04-21"
+          "sha": "4db7046",
+          "subject": "Update locations/new-shelf-mnvm9dk4.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "a2dd54a",
-          "subject": "Annotate images/test-paste-1776796788345-annotated.png",
-          "date": "2026-04-21"
+          "sha": "215ede2",
+          "subject": "Update locations/new-shelf-mnvm9dk4.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "70df559",
-          "subject": "annotate-test cleanup",
-          "date": "2026-04-21"
+          "sha": "36fb735",
+          "subject": "Create locations/rack-3-1.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "e3cf9db",
-          "subject": "Fix #111 #112: map vianneyahn email to GitHub login, regen user stats",
-          "date": "2026-04-21"
+          "sha": "fe99abf",
+          "subject": "Create locations/falcon-a1-leaf-a.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "b990de3",
-          "subject": "Fix #109: samples tab issue-reporter FAB",
-          "date": "2026-04-21"
+          "sha": "78e64a8",
+          "subject": "cleanup",
+          "date": "2026-04-22"
         },
         {
-          "sha": "a041dd3",
-          "subject": "Fix #110: new-entry-in-folder button for notebooks",
-          "date": "2026-04-21"
+          "sha": "9c85c8c",
+          "subject": "Create locations/falcon-a1-leaf-a.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "f26250b",
-          "subject": "Fix #102: ensure tube appears in lab-map type picker",
-          "date": "2026-04-21"
+          "sha": "a117d28",
+          "subject": "Create locations/falcon-a2-leaf-b.md",
+          "date": "2026-04-22"
         },
         {
-          "sha": "730d250",
-          "subject": "Fix #103: insert lab notebook entry from lab-map popup",
-          "date": "2026-04-21"
+          "sha": "127f664",
+          "subject": "-80 Freezer A: 12 side-access racks (Shelves 3 and 4), 6x4 grid each",
+          "date": "2026-04-22"
         }
       ],
-      "days_active": 138
+      "days_active": 139
     },
     "vianneyahn": {
       "login": "vianneyahn",
       "display_name": "vianneyahn",
-      "total_commits": 97,
+      "total_commits": 111,
       "first_commit": "2026-04-21",
       "last_commit": "2026-04-21",
-      "protocols_authored": 0,
+      "protocols_authored": 2,
       "notebooks_authored": 6,
       "inventory_edits": 1,
-      "wiki_edits": 78,
-      "images_uploaded": 0,
+      "wiki_edits": 81,
+      "images_uploaded": 1,
       "issue_attachments": 6,
       "issues_filed": 12,
       "locations_created": 1,
@@ -88,47 +88,120 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "b9c6366",
-          "subject": "Update sample: Pt_Bushy_2",
+          "sha": "0ce48e6",
+          "subject": "Moved flammable-solids-sop from lab-safety",
           "date": "2026-04-21"
         },
         {
-          "sha": "aa32664",
-          "subject": "New notebook entry: vianney-ahn/CUT-TAG-RUN",
+          "sha": "b1b31c7",
+          "subject": "Move protocol-template to lab-safety",
           "date": "2026-04-21"
         },
         {
-          "sha": "748e806",
-          "subject": "New notebook folder: vianney-ahn/fiberseq",
+          "sha": "1deeeb1",
+          "subject": "Moved protocol-template from workflow-templates",
           "date": "2026-04-21"
         },
         {
-          "sha": "8dd4333",
-          "subject": "New notebook entry: vianney-ahn/fiberseq/2026-04-21",
+          "sha": "6433517",
+          "subject": "Update plant-harvesting/transgenic-waste",
           "date": "2026-04-21"
         },
         {
-          "sha": "0d19cf4",
-          "subject": "New notebook entry: vianney-ahn/fiberseq/MN",
+          "sha": "3f52960",
+          "subject": "Update wet-lab/quantifying-dna-nanodrop",
           "date": "2026-04-21"
         },
         {
-          "sha": "ab71db3",
-          "subject": "Delete notebook entry: CUT-TAG-RUN",
+          "sha": "c75fceb",
+          "subject": "Update wet-lab/quantifying-dna-nanodrop",
           "date": "2026-04-21"
         },
         {
-          "sha": "7d0c305",
-          "subject": "Issue reporter attachment: screenshot-2026-04-21-at-11.44.31-am.png",
+          "sha": "54c43fa",
+          "subject": "Upload 17767991406126834312397088505298.jpg",
           "date": "2026-04-21"
         },
         {
-          "sha": "16494d7",
-          "subject": "Update wet-lab/water-bath-and-heat-block",
+          "sha": "e49c122",
+          "subject": "Update notebook notebooks/vianney-ahn/fiberseq/MN",
           "date": "2026-04-21"
         }
       ],
+      "days_active": 1
+    },
+    "yeleaf20030520": {
+      "login": "yeleaf20030520",
+      "display_name": "w1shyoubest",
+      "total_commits": 3,
+      "first_commit": "2026-04-22",
+      "last_commit": "2026-04-22",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "d591cab",
+          "subject": "New lab member: Zi Ye",
+          "date": "2026-04-22"
+        },
+        {
+          "sha": "31d2a00",
+          "subject": "Create notebook folder for Zi Ye",
+          "date": "2026-04-22"
+        },
+        {
+          "sha": "a16d6f6",
+          "subject": "First notebook entry for Zi Ye",
+          "date": "2026-04-22"
+        }
+      ],
       "days_active": 0
+    },
+    "egspaulding": {
+      "login": "egspaulding",
+      "display_name": "egspaulding",
+      "total_commits": 2,
+      "first_commit": "2026-04-21",
+      "last_commit": "2026-04-21",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 0,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "6bd2544",
+          "subject": "New notebook folder: erik-spaulding",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "d7ee362",
+          "subject": "New notebook entry: erik-spaulding/2026-04-21",
+          "date": "2026-04-21"
+        }
+      ],
+      "days_active": 1
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -162,7 +235,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 137
+      "days_active": 138
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -191,7 +264,7 @@
           "date": "2026-04-07"
         }
       ],
-      "days_active": 14
+      "days_active": 15
     }
   }
 }
