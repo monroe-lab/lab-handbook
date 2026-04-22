@@ -3190,5 +3190,19 @@
     "lastUpdated": "2026-04-10",
     "notes": "",
     "detailSheetLink": ""
+  },
+  {
+    "id": 229,
+    "sampleId": "QA13Vmo9rgupe_1",
+    "project": "QA13-Pangenome",
+    "species": "Pistacia vera",
+    "lead": "Vianney Ahn",
+    "sequencingType": "HiFi",
+    "status": "Tissue collected",
+    "priority": "⭐",
+    "currentBlocker": "Waiting on shipment",
+    "lastUpdated": "2026-04-22",
+    "notes": "QA cycle 13 test sample. tag=QA13Vmo9rgupe",
+    "detailSheetLink": ""
   }
 ]
