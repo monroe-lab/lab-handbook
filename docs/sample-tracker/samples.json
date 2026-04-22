@@ -3288,5 +3288,19 @@
     "lastUpdated": "2026-04-22",
     "notes": "bulk tracker QA: sample 7",
     "detailSheetLink": ""
+  },
+  {
+    "id": 236,
+    "sampleId": "QA17-moa4ajpr-A8",
+    "project": "QA17-bulk",
+    "species": "Medicago sativa",
+    "lead": "Vianney Ahn",
+    "sequencingType": "RNA-seq",
+    "status": "Sequencing in progress",
+    "priority": "",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-22",
+    "notes": "bulk tracker QA: sample 8",
+    "detailSheetLink": ""
   }
 ]
