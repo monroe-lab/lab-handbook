@@ -3218,5 +3218,19 @@
     "lastUpdated": "2026-04-22",
     "notes": "bulk tracker QA: sample 2",
     "detailSheetLink": ""
+  },
+  {
+    "id": 231,
+    "sampleId": "QA17-moa4ajpr-A3",
+    "project": "QA17-bulk",
+    "species": "Arabidopsis thaliana",
+    "lead": "Vianney Ahn",
+    "sequencingType": "WGS",
+    "status": "Needs QC",
+    "priority": "💎",
+    "currentBlocker": "",
+    "lastUpdated": "2026-04-22",
+    "notes": "bulk tracker QA: sample 3",
+    "detailSheetLink": ""
   }
 ]
