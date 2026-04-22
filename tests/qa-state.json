@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 14,
+  "cycle": 15,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -1895,6 +1895,118 @@
         "FAB-COVERS-MOBILE-SHEET"
       ],
       "observations": "Mobile viewport (375x812) exercised end-to-end for the first time in the autonomous QA loop. Notebooks flow works: sidebar off-canvas open, new-entry modal sized correctly, editor mobile-FAB bar + Aa format row + Insert bottom sheet all render. Wikilinks + image upload persist through save/reload. Two mobile-only visual/UX bugs found and both fixed in-cycle (commit 932aa37). Image upload via DataTransfer into the hidden Image/GIF input works on mobile viewport — the isMobile+hasTouch context doesn't block the file.change dispatch path. Test PNG was 16x16 so barely visible in the rendered doc; real phone photos (which hit resizeImage) should display normally."
+    },
+    {
+      "cycle": 15,
+      "persona": "Alex Chen",
+      "modifier": "impatient",
+      "scenario": "Rename + relink day",
+      "task": "Postdoc creates a disposable protocol (qa15-initial-proto-*) in wet-lab, creates a referencing notebook entry under test-user/ with both bare [[slug]] and path-qualified [[wet-lab/slug]] wikilink forms, then renames the protocol (slug changes). IMPATIENT twist: double-clicks the Rename button in rapid succession. Then stress-tests URL behavior by deep-linking to the old slug on protocols.html, wiki.html?doc=<old-slug>, and ?doc=<new-slug>, clicking through the rewritten pill from the notebook, opening the editor-modal popup, hitting the browser back button from the renamed page. Cleans up all 3 test files via gh API.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle15/01-protocols-baseline.png",
+          "shows": "Protocols page baseline at 1440x900 — sidebar with 9 categories (Wet Lab Basics 45, DNA Extraction 6, Library Prep & Sequencing 8, Epigenomics 4, Mutagenesis & Genetics 4, Lab Safety 11, Workflow Templates 1, Plant Harvesting 3, Shipping 2). Full top nav including Wiki label fits cleanly.",
+          "evaluation": "Clean layout. Noticed sidebar search input renders placeholder 'Search protocol' with the trailing 's' clipped — input width constrained by two adjacent buttons. Fixed in this cycle.",
+          "issues_found": [
+            "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed this cycle): protocols sidebar search placeholder 'Search protocols...' clipped to 'Search protocol' — shortened to 'Search...' matching the notebooks pattern from cycle 8."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/02-protocol-loaded-initial.png",
+          "shows": "QA15 Initial Proto mo9tta7k loaded with breadcrumb, Protocol pill, H1, italic note, and collapsible Purpose/Time estimate/Steps h2 sections.",
+          "evaluation": "patchObjectIndex picked up the new file live — Wet Lab Basics count bumped from 45→46. Edit bar with Print Preview/Rename/Duplicate/Delete/Edit buttons. No issues on the loaded view. Two leftover LabBot Test Protocol fixtures (mnthp11v, mntzkf4h) visible in sidebar — cycle-9 stale concept deletion missed these protocol fixtures; observation only.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/03-nb-loaded-pre-rename.png",
+          "shows": "Notebook entry qa15-rename-consumer-mo9tta7k under TEST USER (count 0→1). Both [[qa15-initial-proto-mo9tta7k]] (bare form) and [[wet-lab/qa15-initial-proto-mo9tta7k]] (path form) wikilinks rendered as proper purple Protocol pills with book icon + title.",
+          "evaluation": "End-to-end setup good: both wikilink forms resolve to the same Protocol pill with icon. Side sidebar correctly reflects new entry.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/08-proto-after-rename.png",
+          "shows": "Post-rename — title 'QA15 Renamed Proto mo9tta7k', breadcrumb wet-lab/qa15-renamed-proto-mo9tta7k, URL updated via history.pushState. RED TOAST bottom-right: 'Rename failed: Not Found'.",
+          "evaluation": "IMPATIENT BUG FOUND: the rename itself SUCCEEDED (new title, new URL, sidebar category bumped to 46) but a red 'Rename failed: Not Found' toast fires from the second click. The first click had already deleted the old file and created the new one; the second click's fetchFile on the old path hit a 404. Fixed in this cycle with a re-entry guard set before the first await.",
+          "issues_found": [
+            "RENAME-DOUBLE-CLICK-FAILURE-TOAST (ux/functional, fixed this cycle): double-clicking Rename triggers two concurrent renameDoc runs — the first succeeds, the second 404s on the now-deleted old sha and shows a red error toast even though nothing actually broke."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/10-proto-old-slug-deeplink.png",
+          "shows": "Protocols page with ?doc=wet-lab/qa15-initial-proto-mo9tta7k (the OLD slug after rename). Error text: 'Failed to load: Failed to load docs/wet-lab/qa15-initial-proto-mo9tta7k.md (HTTP 404)'",
+          "evaluation": "DOUBLE-LOAD-ERROR-PREFIX visible: the UI wraps the error with 'Failed to load: ' and github-api.js throws 'Failed to load <path> (HTTP 404)'. Message duplication + exposed internal docs/…/foo.md path. Unfriendly to the user who just renamed the doc. Fixed in this cycle.",
+          "issues_found": [
+            "DOUBLE-LOAD-ERROR-PREFIX (cosmetic/ux, fixed this cycle): loadDoc error UI in protocols/wiki/projects/notebooks all rendered 'Failed to load: Failed to load docs/foo.md (HTTP 404)' because the caller prefix duplicated the thrown prefix. Also exposed raw file paths. Fixed via Lab.formatLoadError helper that strips the prefix and maps 404s to 'Document not found. It may have been renamed or deleted.'"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/11-nb-loaded-post-rename.png",
+          "shows": "Notebook reloaded after rename — both Protocol pills now display 'QA15 Renamed Proto mo9tta7k' (updated from 'QA15 Initial Proto'), still in purple with book icon.",
+          "evaluation": "updateWikilinksAfterRename (QA13 plumbing) WORKED end-to-end: fetched the file via link-index overlay, replaced `[[qa15-initial-proto-*]]` and `[[wet-lab/qa15-initial-proto-*]]` with `[[qa15-renamed-proto-*]]`, saved via gh.saveFile, and the reloaded pill resolves to the new concept with the right type color + icon. Programmatic check confirmed hasOldSlug=false, hasNewSlug=true in the live markdown.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/15-after-click-first-pill.png",
+          "shows": "After clicking the rewritten pill from the notebook — navigated to protocols.html?doc=wet-lab/qa15-renamed-proto-mo9tta7k, protocol body renders.",
+          "evaluation": "End-to-end cross-surface wikilink click works: notebook pill → protocol page. obj:// href was updated by updateWikilinksAfterRename + patchLinkIndex. No broken pill.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/18-wiki-old-slug-deeplink.png",
+          "shows": "wiki.html?doc=<old-slug> — same 'Failed to load: Failed to load docs/qa15-initial-proto-mo9tta7k.md (HTTP 404)' double-prefix error (pre-fix).",
+          "evaluation": "Same bug reproduces across wiki.html — covered by the shared fix.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15/21-lab-map-filter-qa15.png",
+          "shows": "Lab Map filter 'qa15' — tree collapses to empty (expected: our test files live under wet-lab/ + notebooks/, not locations/).",
+          "evaluation": "MAP-PLACEHOLDER-OVERLAP carried-fix still holding — floor-plan placeholder label no longer overlaps bench rows.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15-verify/01-protocols-baseline.png",
+          "shows": "POST-FIX verify at 1440x900 — protocols sidebar search input placeholder now 'Search...' with no clipping, full text visible.",
+          "evaluation": "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED fix verified.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15-verify/03-proto-after-triple-click-rename.png",
+          "shows": "POST-FIX verify — TRIPLE-click on the Rename button with a stubbed prompt. Title 'QA15v Renamed mo9u6b55' rendered, URL updated, Wet Lab Basics bumped to 47. NO red 'Rename failed' toast anywhere; toast container is empty.",
+          "evaluation": "RENAME-DOUBLE-CLICK-FAILURE-TOAST fix verified. renameInFlight guard synchronously blocks re-entry before the first await. Programmatic rename_failed_toast_present:false.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15-verify/04-proto-old-slug-after-rename.png",
+          "shows": "POST-FIX verify — protocols.html?doc=<old-slug> now shows 'Document not found. It may have been renamed or deleted.' in the empty-state panel.",
+          "evaluation": "DOUBLE-LOAD-ERROR-PREFIX fix verified for protocols. Clean single-line message, no path leak.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle15-verify/05-wiki-nonexistent-slug.png",
+          "shows": "POST-FIX verify — wiki.html?doc=<missing-slug> shows the same 'Document not found. It may have been renamed or deleted.' message.",
+          "evaluation": "DOUBLE-LOAD-ERROR-PREFIX fix verified for wiki and notebooks (notebooks confirmed programmatically via nb_err assertion).",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "RENAME-DOUBLE-CLICK-FAILURE-TOAST (functional/ux, fixed in cycle 15, commit c3fb6b6): double-clicking the Rename button fires a spurious 'Rename failed: Not Found' red toast even though the first click already succeeded in renaming the file. Cause: no re-entry guard in renameDoc — both clicks synchronously entered the function before the first `await Lab.modal.prompt`, and the second call's fetchFile on the old path 404s. Fix: a renameInFlight flag set BEFORE the first await and cleared in a finally block, so the synchronous second click returns at the guard.",
+        "DOUBLE-LOAD-ERROR-PREFIX (cosmetic/ux, fixed in cycle 15, commit c3fb6b6): loadDoc error UI in protocols.html / wiki.html / projects.html / notebooks.html rendered 'Failed to load: Failed to load docs/<path> (HTTP 404)' — the UI wrapper prefix duplicated the thrown error's prefix, and the raw file path + HTTP status leaked out. Fix: added Lab.formatLoadError(err) helper in shared.js that strips the redundant 'Failed to load ' prefix and maps any 'HTTP 404'/'(404)' to a single friendly line: 'Document not found. It may have been renamed or deleted.'. Applied across all four load-error renderings.",
+        "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 15, commit c3fb6b6): protocols sidebar search input placeholder 'Search protocols...' clipped to 'Search protocol' because the input width is constrained by two adjacent icon buttons. Shortened to 'Search...' matching the cycle-8 notebooks fix."
+      ],
+      "fixes": [
+        "app/protocols.html renameDoc: renameInFlight guard set before the first await and released in a finally block — double/triple-click Rename is now idempotent, no spurious failure toast (commit c3fb6b6)",
+        "app/js/shared.js: new Lab.formatLoadError(err) helper that maps 404 responses to 'Document not found. It may have been renamed or deleted.' and strips the redundant 'Failed to load ' prefix from other errors (commit c3fb6b6)",
+        "app/protocols.html + app/wiki.html + app/projects.html + app/notebooks.html: loadDoc error UI now uses Lab.formatLoadError so the user sees a clean single-line message instead of 'Failed to load: Failed to load docs/foo.md (HTTP 404)' (commit c3fb6b6)",
+        "app/protocols.html: sidebar search placeholder 'Search protocols...' → 'Search...' (commit c3fb6b6)"
+      ],
+      "observations": [
+        "Rename + relink scenario validated end-to-end: create protocol, create notebook with both [[slug]] + [[dir/slug]] wikilinks, rename protocol, reload notebook, both pills rewrite to new slug and render with the right type color + icon. The QA13 updateWikilinksAfterRename plumbing is doing its job; this cycle confirms it in a formal run and logs it.",
+        "Impatient double-click was the star bug of this cycle — silent success but visible error toast is the worst kind of UI confusion. Fixed with a simple re-entry flag.",
+        "The 404 error UX improvement applies broadly: any deep-link to a deleted/renamed/moved file now says 'Document not found' instead of exposing the internal docs/.../foo.md path and a raw HTTP status.",
+        "Two leftover LabBot Test Protocol fixtures (mnthp11v, mntzkf4h in Wet Lab Basics) visible in protocol sidebar; cycle-9 stale-LabBot-fixture cleanup covered the reagent concepts but not these protocol stubs. Logged as observation — deleting them should be a small vault housekeeping sweep.",
+        "All 3 test files cleaned up via gh API DELETE at end of cycle.",
+        "tests/qa-cycle-15.mjs kept as regression harness; verify script run against the deployed fixes confirmed rename_failed_toast_present:false, friendly_err:true, placeholder_clean:true."
+      ]
     }
   ],
   "bugs_found": [
@@ -1933,7 +2045,10 @@
     "INVENTORY-LOCATION-RAW-SLUG (visual, fixed in cycle 13): Inventory table LOCATION column rendered raw slugs like 'locations/cabinet-flammable' inside plain grey badges instead of typed pills with resolved title+icon. Fix: app/inventory.html now builds a locationsBySlug lookup at load time and renders each cell via a new locationCell(loc) helper that uses Lab.types.pillStyle + pillContent when the slug resolves, falling back to a plain grey badge for free-text, multi-location aggregates, or unresolved slugs. Applied to both the desktop table and mobile card view.",
     "INSTANCE-TITLES-AMBIGUOUS (minor, logged in cycle 13, NOT fixed): on a concept popup the CONTENTS -> instances list shows each bottle as title+subtitle(parent). When multiple bottles share a concept AND the same parent (e.g. two Ethanol 70% bottles both on 'bench'), rows look identical. Lot number or slug tail in subtitle would help; low priority.",
     "NAV-NOT-HIDDEN-IN-MOBILE-EDIT (ux/visual, fixed in cycle 14, commit 932aa37): at mobile viewport (≤768px) the notebook editing-mode CSS rules for #lab-nav and #lab-bottom-nav lacked !important, so inline display:flex from nav.js (and the @media display:flex!important on #lab-bottom-nav) won. Edit mode left both nav bars visible, shrinking the editor to roughly 70% of the screen. Fix adds !important to both display:none rules in notebooks.html and also zeros the body padding-bottom that nav.js injects on mobile so the editor reclaims the full viewport.",
-    "FAB-COVERS-MOBILE-SHEET (visual, fixed in cycle 14, commit 932aa37): the mobile Insert bottom sheet used z-index:9998 with a 9997 backdrop, but the issue-reporter lightbulb FAB sits at 10001 (raised above editor-modal per R7 #33). At 375px the FAB punched through the sheet and covered the Calendar action row. Fix bumps sheet to 10050 and backdrop to 10049 in editor-modal.js so the sheet paints above the FAB and the backdrop dims it while open."
+    "FAB-COVERS-MOBILE-SHEET (visual, fixed in cycle 14, commit 932aa37): the mobile Insert bottom sheet used z-index:9998 with a 9997 backdrop, but the issue-reporter lightbulb FAB sits at 10001 (raised above editor-modal per R7 #33). At 375px the FAB punched through the sheet and covered the Calendar action row. Fix bumps sheet to 10050 and backdrop to 10049 in editor-modal.js so the sheet paints above the FAB and the backdrop dims it while open.",
+    "RENAME-DOUBLE-CLICK-FAILURE-TOAST (functional/ux, fixed in cycle 15, commit c3fb6b6): double-clicking the Rename button on a protocol fires a spurious 'Rename failed: Not Found' red toast even though the first click succeeded (new title + new URL both applied). Cause: renameDoc had no re-entry guard; both synchronous clicks entered the function before the first await, and the second call's fetchFile 404s because the first click already deleted the old file. Fix: renameInFlight flag set before the first await and cleared in a finally block (app/protocols.html).",
+    "DOUBLE-LOAD-ERROR-PREFIX (cosmetic/ux, fixed in cycle 15, commit c3fb6b6): loadDoc error UI in protocols/wiki/projects/notebooks rendered 'Failed to load: Failed to load docs/<path>.md (HTTP 404)' — duplicated 'Failed to load' prefix (UI wrapper + thrown error message), raw file path leak, and exposed HTTP status. Fix: new Lab.formatLoadError(err) helper in app/js/shared.js strips the prefix and maps 404s to 'Document not found. It may have been renamed or deleted.'; applied across all four pages.",
+    "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 15, commit c3fb6b6): protocols sidebar search placeholder 'Search protocols...' was clipped to 'Search protocol' because the input competes with two adjacent icon buttons for horizontal space. Shortened to 'Search...' (mirrors cycle-8 notebooks fix)."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -1956,7 +2071,10 @@
     "cycle 12 — docs/wet-lab/pipette-school.md + docs/images/pipette-tips-in-boxes.jpg commit 908cf5d: swap 1 Wikimedia hotlink for local 170KB real photo",
     "cycle 13 — app/inventory.html (INVENTORY-LOCATION-RAW-SLUG): build locationsBySlug from object-index in loadInventory; new locationCell(loc) helper renders typed pill via Lab.types.pillStyle + pillContent; applied to desktop table + mobile card view.",
     "cycle 14 NAV-NOT-HIDDEN-IN-MOBILE-EDIT: notebooks.html body.editing-mode rules for #lab-nav + #lab-bottom-nav now use !important; body padding-bottom:0 added so editor reaches the bottom of the viewport (commit 932aa37)",
-    "cycle 14 FAB-COVERS-MOBILE-SHEET: mobile Insert sheet z-index 9998→10050, backdrop 9997→10049, so both sit above the issue-reporter FAB at 10001 (commit 932aa37)"
+    "cycle 14 FAB-COVERS-MOBILE-SHEET: mobile Insert sheet z-index 9998→10050, backdrop 9997→10049, so both sit above the issue-reporter FAB at 10001 (commit 932aa37)",
+    "cycle 15 RENAME-DOUBLE-CLICK-FAILURE-TOAST: renameDoc re-entry guard (renameInFlight flag set before first await, released in finally) — app/protocols.html commit c3fb6b6",
+    "cycle 15 DOUBLE-LOAD-ERROR-PREFIX: Lab.formatLoadError(err) helper in app/js/shared.js maps 404→'Document not found. It may have been renamed or deleted.' and strips redundant 'Failed to load' prefix; applied in protocols/wiki/projects/notebooks loadDoc error UI — commit c3fb6b6",
+    "cycle 15 SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED: app/protocols.html placeholder 'Search protocols...' → 'Search...' — commit c3fb6b6"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2002,7 +2120,9 @@
     "/tmp/qa-screenshots/cycle13b/21-lab-map-filter-pistachio.png",
     "/tmp/qa-screenshots/cycle13b/22-inventory-search-ethanol-FIXED.png",
     "/tmp/qa-screenshots/cycle14/ — 29 cycle screenshots + _log.json covering the full mobile notebook flow (baseline, hamburger, new-entry modal, create, edit, format bar, Insert sheet, image upload via DataTransfer, save, rendered scroll, reload, sidebar refresh). Every screenshot read and evaluated.",
-    "/tmp/qa-screenshots/cycle14-verify/ — 4 verification screenshots + log confirming both fixes live post-deploy (navs hidden, sheet above FAB at 10050 vs 10001)."
+    "/tmp/qa-screenshots/cycle14-verify/ — 4 verification screenshots + log confirming both fixes live post-deploy (navs hidden, sheet above FAB at 10050 vs 10001).",
+    "/tmp/qa-screenshots/cycle15/ — 23 screenshots covering the full rename + relink flow (protocols baseline, load initial protocol, notebook with both bare + path-qualified wikilinks pre-rename, rename via double-click with prompt stub, post-rename title/URL/sidebar, old-slug deep-link showing double-prefix error, notebook reload with rewritten pills, click-through from rewritten pill, wiki old/new slug deep-links, lab-map filter, back button).",
+    "/tmp/qa-screenshots/cycle15-verify/ — 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -2016,6 +2136,7 @@
     "Cycle 7: Alex Chen (postdoc) + ui_critic + New freezer box day. Created a new 10x10 box 'Library Prep Kit Storage' on shelf-minus80-a-1 plus 3 tubes at A1 / C5 / J10 to stress grid rendering at top-left, middle, and bottom-right corners. Verified the shelf now lists the box as a child, the empty grid renders 100 cells, the filled grid correctly places the 3 tubes with teal fill + label fragments, and each tube's 5-level breadcrumb renders with all correct type-colored pills. Found and fixed the cycle-1-logged BREADCRUMB-DANGLING-SLASH cosmetic bug: hierarchy.breadcrumbHTML was rendering each separator as an independent flex-wrap child, so a bare '/' could end up orphaned at a wrapped line boundary. Fix groups separator+following-pill inside an inline-flex span so wrap can only break between groups (commit 25c4999). Verified post-deploy at 3 viewport widths (1440/900/520) via tests/qa-cycle-7-verify.mjs — endsWithOrphanSlash:false for every line. All cycle-7 test artifacts cleaned up via gh API. Also noted a minor new issue (DNA-QUANTIFICATION-PILL-UNTYPED) for follow-up. NAV-TRUNCATION is no longer reproducible at 1440 — the 'Lab Map' tab now fits fully; only a far-right tab gets clipped.",
     "Cycle 8: Vianney Ahn (grad student) + cross_linker + Concept+instance linking. Picked a reagent concept with 0 existing physical bottles (LabBot Freezer Item mnthp11v — one of 15 zero-instance candidates out of ~170 reagents; 156 already had bottles via `of:`). Created 2 bottles with distinct lots/expirations/quantities, both placed on cabinet-chemical. Verified: concept CONTENTS column now shows 2 INSTANCES IN LAB immediately with per-bottle subtitles (500 mL/250 mL · cabinet-chemical); inventory collapses them under a single concept row with '750 mL (2 bottles)' aggregate badge; 3-level bottle breadcrumb renders cleanly; clickable Of pill round-trips to concept; clickable Parent pill opens cabinet popup; cabinet's children count bumps 107→109; lab-map 'QA8' filter shows both bottles under Chemical Cabinet. Found OF-PILL-TRUNCATED-NO-ELLIPSIS: Of/Parent pills in the 300px fields column clipped long titles mid-word with no ellipsis because the pill anchor had white-space:nowrap and no max-width, and wrapping span lacked min-width:0+flex:1. Fix (commit 0088518) constrains the placeholder with min-width:0+flex:1+overflow:hidden, sets max-width:100%+min-width:0 on the upgraded anchor, and wraps the title in a child span with text-overflow:ellipsis; icon stays visible; title=\"\" attribute for hover tooltip. Post-deploy verify at 1440 and 520 widths via tests/qa-cycle-8-verify.mjs — pillInsideCol:true, textEllipsis:true, titleAttr='LabBot Freezer Item mnthp11v'. Also surfaced CONCEPT-HAS-PARENT-BREADCRUMB as a data-quality issue (LabBot test artifacts in production have `parent:` set on concept frontmatter, placing them as physical-location children — left open). All cycle-8 test artifacts cleaned up via gh API.",
     "Cycle 10: Alex Chen (postdoc) + ui_critic + Equipment move day. Created 3 QA test bottles (qa10movepecs-a/b/c, each pointing to resources/ethanol-absolute via `of:`) under cabinet-flammable, then used the editor's locations picker to move all 3 to cabinet-corrosive. Verified: (a) each bottle's own popup breadcrumb and parent pill updated live to the new chain (no redeploy), (b) flammable cabinet Contents list stayed at 16 baseline (bottles pruned), (c) corrosive cabinet Contents went 15 → 18, (d) lab-map tree filter 'qa10movepecs' shows all 3 grouped under Corrosive Cabinet, (e) inventory search shows the new location in the LOCATION column. Swept 3 carry-over cycle-9 cosmetic/ux bugs in the same cycle: (1) TOPNAV-WIKI-CLIPPED CLOSED — tightened desktop tab padding to 12px 8px with 4px gap so the full 'Wiki' label fits at 1440px (mirrored trim below 1280px); (2) MEMBER-FIELD-RAW-WIKILINK CLOSED — added a member-field branch to renderFields in editor-modal.js that emits data-member-pill placeholders, upgradeParentField swaps them for real Person pills with a title-match fallback for display-name wikilinks like [[Dr. Monroe]]; (3) MEMBER-COLOR-SHUFFLE CLOSED — replaced alphabetical-index MEMBER_COLORS lookup with djb2 hash modulo palette size so each member maps to the same color regardless of schedule additions. All fixes in commit d8c96cc. Verified post-deploy via cycle10-verify screenshots: full Wiki label at 1440, event popup shows Grey Monroe as a clickable Person pill, existing barb-m events stay green after adding a new Dr. Monroe event. All cycle-10 test artifacts (3 bottles + 2 verify events) cleaned up via gh API DELETE before commit.",
+    "Cycle 15: Alex Chen (postdoc) + impatient + Rename + relink day. Fresh combination (impatient modifier never used before, scenario never logged — earlier cycle-13 attempt rolled up into Backlinks sanity instead). Flow: create disposable protocol qa15-initial-proto-* in wet-lab with type:protocol frontmatter, then a notebook entry qa15-rename-consumer-* under test-user/ that wikilinks to it both as bare [[slug]] and as path-qualified [[wet-lab/slug]]. Baseline pre-rename: both pills render as purple Protocol pills with book icon (screenshot 03). Rename: stub Lab.modal.prompt to return NEW_TITLE, then DOUBLE-CLICK the Rename button. First click succeeds: new file created, old file deleted, NAV updated, breadcrumb + H1 reflect new title, Wet Lab Basics sidebar count bumps 45→46, history.pushState to new URL, success toast fires. Second click races: it enters renameDoc synchronously before the first await, both pass through renameInFlight check (unset at the time), and the second's fetchFile on the stale path 404s → red 'Rename failed: Not Found' toast. Classic impatient-modifier race. IMPATIENT-RENAME bug logged + fixed in-cycle via renameInFlight guard set BEFORE the first await (commit c3fb6b6). Then exercised old-slug deep-link behavior (DOUBLE-LOAD-ERROR-PREFIX — 'Failed to load: Failed to load docs/.../foo.md (HTTP 404)' on protocols/wiki/projects/notebooks) — fixed with a shared Lab.formatLoadError helper that maps 404s to 'Document not found. It may have been renamed or deleted.' and strips the redundant prefix. Also shortened 'Search protocols...' placeholder to 'Search...' to stop the trailing-s clipping in the narrow protocols sidebar input. Post-rename reload of the notebook entry confirmed updateWikilinksAfterRename (QA13 plumbing, landed in a prior run) correctly rewrote BOTH bare [[slug]] and path-qualified [[dir/slug]] wikilinks to the new slug — hasOldSlug=false, hasNewSlug=true in the live markdown, and both pills render as purple Protocol pills with icon and navigate to the renamed protocol on click. Verify run (qa-cycle-15-verify.mjs): triple-clicked Rename → rename_failed_toast_present:false; nonexistent-slug deep-links on protocols + wiki + notebooks all show 'Document not found. It may have been renamed or deleted.'; placeholder 'Search...' renders complete with no clipping. All 3 test files cleaned up via gh API DELETE.",
     "Cycle 9: Dr. Monroe (PI) + careful + Calendar add/delete. First exercise of the calendar route across all 9 cycles. Full flow: week nav (prev/next/this-week), click-to-create at Wed 14:00 (modal prefilled from cell coords), fill title + [[Dr. Monroe]] member + notes with [[qiagen-dneasy-extraction]] wikilink, submit, event lands in correct grid cell with green Dr. Monroe pill, GH API confirms file save, click block opens editor-modal popup (type=event pill, fields, body w/ clickable QIAGEN DNeasy pill, contents), close via Escape, filter-by-Dr.-Monroe shows only our event, reload. FUNCTIONAL BUG FOUND: CALENDAR-NO-INDEX-PATCH — the event disappears after reload because openAddEvent didn't call patchObjectIndex/patchLinkIndex (same pattern as cycle-6 NOTEBOOKS-SAVE-NO-PATCH). Fix (commit 8a679ba): after gh.saveFile, call gh.patchObjectIndex with all event frontmatter + gh.patchLinkIndex against member+notes for wikilinks. Also adds 'recurrence_id' to INDEX_KEYS to mirror EXTRACT_KEYS (cycle-5 pattern). Verified via tests/qa-cycle-9-verify.mjs — afterReload.landed=true with correct day/hour, localStorage overlay keys present, link targets=['Dr. Monroe', 'qiagen-dneasy-extraction']. Also exercised: delete via Lab.gh.deleteFile (works, persists), mobile 375px (day-tab row + single-column grid), weekly recurring series (4 occurrences Apr 21→May 12 all sharing recurrence_id, navigation shows occurrence next week). Swept 2 carried-over items: (1) CONCEPT-HAS-PARENT-BREADCRUMB CLOSED via app/js/hierarchy.js CONCEPT_TYPES guard (skip parent handling for reagent/chemical/buffer/solution/consumable/kit/enzyme/primer) commit a92e314 + deletion of the 2 remaining stale LabBot fixtures (labbot-freezer-item-mnthp11v, tube-item) commit f7cfe1f; (2) DNA-QUANTIFICATION-PILL-UNTYPED CLOSED as not-a-bug after investigation (the slug was a cycle-7 test typo; an unresolved slug correctly renders as a plain teal pill). Logged 3 new open cosmetic/ux items: TOPNAV-WIKI-CLIPPED (Wiki tab clips to 'Wik' at 1440), MEMBER-FIELD-RAW-WIKILINK (event popup member field not pill-upgraded like parent/of), MEMBER-COLOR-SHUFFLE (alphabetical index causes existing events to recolor when a new member joins). All cycle-9 test event files (1 single + 4 recurring + 1 verify) cleaned up via gh API.",
     "Phase remains 'functional'."
   ]
