@@ -126,6 +126,13 @@
 
   // ── File Operations ──
   async function fetchFile(path) {
+    // Reject `..` segments before they escape the contents URL prefix and
+    // surface as an opaque CORS-blocked preflight (which offlineAwareFetch
+    // would then mislabel as "Network error"). Treat path traversal as a
+    // missing document — that's the user-visible truth.
+    if (/(^|\/)\.\.(\/|$)/.test(path)) {
+      throw new Error('Failed to load ' + path + ' (HTTP 404)');
+    }
     var resp = await offlineAwareFetch(API + '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
     if (!resp.ok) {
       handleAuthError(resp);

@@ -1809,11 +1809,27 @@
     if (instances.length) {
       html += '<div style="font-size:11px;color:var(--grey-500);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px">' +
         instances.length + ' instance' + (instances.length === 1 ? '' : 's') + ' in lab</div>';
+      // Detect title+parent collisions so siblings on the same shelf with
+      // identical titles (e.g. two Ethanol 70% bottles both on `bench`) get
+      // a disambiguator instead of looking like duplicate rows.
+      var instanceCollisionCounts = {};
+      instances.forEach(function(b) {
+        var key = (b.title || '') + '|' + (b.parent || '');
+        instanceCollisionCounts[key] = (instanceCollisionCounts[key] || 0) + 1;
+      });
+
       instances.forEach(function(b) {
         var tc = Lab.types.get(b.type || 'bottle');
         var meta = [];
         if (b.quantity && b.unit) meta.push(b.quantity + ' ' + b.unit);
         if (b.parent) meta.push(b.parent.split('/').pop().replace(/-/g, ' '));
+        var collisionKey = (b.title || '') + '|' + (b.parent || '');
+        if (instanceCollisionCounts[collisionKey] > 1) {
+          var disamb = b.lot ? ('lot ' + b.lot) :
+            b.expiration ? ('exp ' + b.expiration) :
+            b.slug ? ('#' + b.slug.split('/').pop().split('-').pop()) : '';
+          if (disamb) meta.push(disamb);
+        }
         html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
           '<span style="font-size:14px;flex-shrink:0">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
