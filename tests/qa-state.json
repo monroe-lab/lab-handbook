@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 17,
+  "cycle": 18,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -243,7 +243,9 @@
     "wiki",
     "notebooks",
     "waste",
-    "calendar"
+    "calendar",
+    "people",
+    "profile"
   ],
   "workflows_tested": [
     {
@@ -2168,6 +2170,196 @@
         "Priority emoji inconsistency: inline row dropdown uses '—' for the empty option; Add Sample modal uses '(none)'. Minor — noted but not fixed this cycle.",
         "Toast stacking (2 visible during rapid adds) is cosmetic and self-resolves as older toasts fade."
       ]
+    },
+    {
+      "cycle": 18,
+      "persona": "Alex Chen",
+      "modifier": "thorough",
+      "scenario": "New user onboarding",
+      "task": "Postdoc opens /app/people.html and clicks 'Join the Lab'. Thorough-fills step 1 (full name, role dropdown=Postdoctoral Scholar, email), advances to step 2 and picks 2 Wet Lab Basics protocols (autoclave, bench-cleanup — picker only matched within first category because of querySelector traversal, but enough to exercise the flow), step 3 picks 2 projects (alfalfa-pangenome, in-house-hifi-shearing), step 4 auto-creates person md + notebook folder + first entry. Verifies: (1) new card appears on people grid with QT avatar initials, Postdoctoral Scholar role, email mailto link, 4 connected pills; (2) opens the person dashboard via card click, sees URL ?person=<slug>, inspects all 6 stat counters + sections; (3) tries to click a protocol link from the dashboard; (4) notebooks.html shows new folder in sidebar + first entry in Recent Entries; (5) notebooks.html?person=<slug> ignored; (6) profile.html?user=<slug> shows no-activity placeholder (expected pre-build-user-stats); (7) opens one of the picked protocols to check for backlinks from the new person; (8) mobile 375px viewport pass of the People grid + wizard step 1.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle18/01-dashboard-baseline.png",
+          "shows": "Dashboard at 1440x900: 499 Inventory / 108 Protocols / 9 People / 9 Projects / 14 Notebooks. Inventory Status 223 In Stock / 2 Needs More / 1 Out of Stock / 248 Untracked. Top nav Tutorials | Protocols | Inventory | People | Projects | Samples | Notebooks | Calendar | Waste | Lab Map | Apps | Wiki — all labels fully visible.",
+          "evaluation": "Clean baseline; cycle-10 nav padding fix + cycle-8 nav trim still holding.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/02-people-grid-baseline.png",
+          "shows": "People grid baseline: 9 cards — Barb M, Daniela Quiroz, Grey Monroe, Kehan Zhao, Mr Freckles, Satoyo Oya, Test User, Vianney Ahn, Zi Ye. Blue 'Join the Lab' button prominent under page header.",
+          "evaluation": "3-column responsive grid. Each card has avatar initials, name, role, email/phone/location fields, Connected pills. Mr Freckles card shows autoclave/bench-cleanup/clean-bench pills (teal Protocol color) — these were the cycle-18 broken hrefs I'll prove below.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/03-wizard-step1-empty.png",
+          "shows": "Onboarding wizard Step 1 of 4 opened. Progress bar, wave hand icon in blue circle, 'Welcome to the Monroe Lab!' heading, Full Name (required), Role (select), Email, Next button.",
+          "evaluation": "Modal clean, focused on name input. Step counter correct. Close button upper-right.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/04-wizard-step1-filled.png",
+          "shows": "Step 1 filled: name 'QA18 Thorough Alex a4yu9l', role 'Postdoctoral Scholar' (Postdocs group), email 'alex.qa18@example.com'.",
+          "evaluation": "Inputs accept values. Role dropdown optgroup works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/05-wizard-step2-baseline.png",
+          "shows": "Step 2 of 4 Pick Your Protocols, Wet Lab Basics group expanded (45 protocols), 0 selected, Back/Skip/Next buttons.",
+          "evaluation": "Category grouping renders with caret + count. Scrollable list.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/06-wizard-step2-6-selected.png",
+          "shows": "Step 2 with 2 protocols checked (Autoclave, Bench Cleanup Protocol) — '2 selected' counter updated.",
+          "evaluation": "Picker works; per-checkbox change handler updates the counter.",
+          "issues_found": [
+            "TEST-PICKER-TRAVERSAL: my querySelector-based test helper only reached the first category before falling out — got 2 protocols instead of 6. Not an app bug; revise selector in future tests."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/07-wizard-step3-baseline.png",
+          "shows": "Step 3 of 4 Pick Your Projects — 7 projects (Alfalfa Pangenome, In-House Flongle Diagnostic Pipeline, Molecular Biology Training Curriculum, Mutation Accumulation, Pistachio Pangenome, Poplar Somatic Sequencing, Tudor Reader Fusion Proteins).",
+          "evaluation": "Flat checkbox list (no categories). Clean spacing.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/08-wizard-step3-selected.png",
+          "shows": "Step 3 with 2 projects checked (Alfalfa Pangenome, In-House Flongle Diagnostic Pipeline).",
+          "evaluation": "Multi-select works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/09-wizard-step4-creation-complete.png",
+          "shows": "Step 4 of 4 — 'You're all set!' with green check, 'Done! All files created.' confirmation, Next Steps checklist (Add to calendar, Write first notebook entry, Try issue reporter), 'Go to My Profile' button.",
+          "evaluation": "Auto-creation succeeded. Checklist renders clearly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/10-people-grid-post-onboarding.png",
+          "shows": "People grid after onboarding + page reload — 10 cards total (delta +1 from baseline 9).",
+          "evaluation": "New card visible at grid bottom (shown in next screenshot). Existing cards unchanged.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/11-people-grid-new-card-zoomed.png",
+          "shows": "Zoomed view of new 'QA18 Thorough Alex a4yu9l' card — QT avatar initials, Postdoctoral Scholar role, email pill, and 4 Connected pills: autoclave (teal Protocol), bench-cleanup (teal Protocol), alfalfa-pangenome (orange Project), in-house-hifi-shearing (orange Project).",
+          "evaluation": "Card renders all frontmatter + parsed body wikilinks as connected pills with correct per-type colors + icons. Initials logic gives 'QT' (Q from 'QA18', T from 'Thorough') — acceptable since name starts with test tag.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/12-person-dashboard-top.png",
+          "shows": "Person dashboard after clicking new card — URL ?person=<slug>. Header blue banner with QT avatar + name + role + 'View card' button. Stats row: 0 Notebooks / 0 Protocols / 0 Events / 0 Inventory / 0 Locations / 0 Projects. Empty state 'No connected items yet. Link this person via [[qa18-thorough-alex-a4yu9l]]...'",
+          "evaluation": "BUG FOUND: despite the person body having [[autoclave]] [[bench-cleanup]] [[alfalfa-pangenome]] [[in-house-hifi-shearing]] wikilinks, the dashboard Protocols/Projects sections show 0 items. Also: notebook entry auto-created by the wizard doesn't count either (0 Notebooks). Root cause: renderPersonDashboard only aggregates INBOUND backlinks (items wikilinking TO people/<slug>); the wizard creates OUTBOUND edges from the person. Plus the notebook entry wasn't patchObjectIndex'd, so the Notebooks folder-path filter finds 0. Fixed this cycle — see PERSON-DASHBOARD-IGNORES-FORWARD-LINKS below.",
+          "issues_found": [
+            "PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (ux/functional, fixed this cycle): person's own forward wikilinks not counted",
+            "NOTEBOOK-ENTRY-NOT-PATCHED (functional, fixed this cycle): wizard-created notebook entry missing from object-index overlay"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/13-person-dashboard-protocols-section.png",
+          "shows": "Same empty-dashboard state after scrolling — confirms no Protocols or Projects section renders; only the 'Frequently used' stub is present.",
+          "evaluation": "Confirms the PERSON-DASHBOARD-IGNORES-FORWARD-LINKS scope: every section is 0 because nothing wikilinks TO the fresh person. Pre-fix behavior.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/14-notebooks-baseline.png",
+          "shows": "Notebooks page sidebar — 'QA18 THOROUGH ALEX A4YU9L' folder appears with count 1. Recent Entries list includes 'Qa18 Thorough Alex A4yu9l / 2026-04-22'. Grey Monroe shown under 'YOUR NOTEBOOK' section.",
+          "evaluation": "Sidebar folder list works post-fix (cycle-6 fetchTree overlay holding). My test's detection used the wrong selector — the folder IS visible. Not a bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/15-notebooks-filtered-by-person.png",
+          "shows": "Same as baseline — the ?person=<slug> query param was ignored. Recent Entries unfiltered.",
+          "evaluation": "MINOR UX GAP: the onboarding wizard's 'Write your first lab notebook entry' checklist link is 'notebooks.html?person=<slug>' but notebooks.html doesn't honor the param. A user clicking from the wizard should land on their own folder, not the full list. Out of scope this cycle; noted as a follow-up.",
+          "issues_found": [
+            "NOTEBOOKS-PERSON-PARAM-IGNORED (ux, minor, open): notebooks.html ignores ?person=<slug> filter; wizard checklist link lands on generic notebooks index"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/16-profile-page-for-new-user.png",
+          "shows": "profile.html?user=<slug> renders 'No activity recorded for @qa18-thorough-alex-a4yu9l yet. Push a commit and re-run scripts/build-user-stats.py to see stats here.'",
+          "evaluation": "Expected empty-state for a brand-new user — no commits yet. Friendly CTA. Not a bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/17-protocol-with-new-person-backlink.png",
+          "shows": "protocols.html?doc=autoclave (bare slug) shows 'Document not found. It may have been renamed or deleted.' Sidebar protocol tree loads normally.",
+          "evaluation": "BUG FOUND: clicking a connected pill on a person card takes you to `?doc=<bare-slug>`, but protocols.html loadDoc expects `?doc=<path-relative-to-docs>`. For autoclave the file lives at docs/wet-lab/autoclave.md, so bare ?doc=autoclave fetches docs/autoclave.md → 404 → friendly error. Affected every connected pill on every person card (not just the new one). Fixed this cycle — see PEOPLE-CARD-PILLS-BARE-SLUG below.",
+          "issues_found": [
+            "PEOPLE-CARD-PILLS-BARE-SLUG (functional, fixed this cycle): connected pills on person cards used ?doc=<bare-slug>, 404ing for any protocol/project in a subfolder"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/18-people-grid-mobile.png",
+          "shows": "People grid at 375x812 mobile viewport: single-column card stack, top nav collapses to logo + avatar + Sign out, bottom nav (Wiki/Protocols/Notebooks/Inventory/More). Issue-reporter FAB bottom-right.",
+          "evaluation": "Responsive layout holds. Cards full-width. Join-the-Lab button spans full width. Good touch-target sizes.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18/19-wizard-step1-mobile.png",
+          "shows": "Wizard step 1 at 375px viewport — centered modal, fields stacked, Next button bottom-right. Issue-reporter FAB overlaps the Next button's lower-right corner slightly.",
+          "evaluation": "Fields adapt. Minor visual: the blue lightbulb FAB sits right next to (not over) the Next button on this viewport, visually competing with it. Not blocking — could be addressed by hiding the FAB while the wizard overlay is visible.",
+          "issues_found": [
+            "FAB-NEAR-WIZARD-NEXT-MOBILE (cosmetic, open): issue-reporter FAB renders next to wizard Next button at 375px viewport"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18-verify/02-autoclave-loaded-from-pill.png",
+          "shows": "POST-FIX — clicked the Autoclave connected pill on a person card; autoclave protocol page loads correctly at ?doc=wet-lab%2Fautoclave with full content (Resources: Equipment Autoclave/Clean Bench pills, Reagents, Related Protocols/Consumables/Contacts/Prerequisites, Time estimate, Background section). No 'Document not found' error.",
+          "evaluation": "FIX1 CONFIRMED. Pill href now resolved via obj.path (wet-lab/autoclave) and loadDoc can fetch docs/wet-lab/autoclave.md. Title 'Autoclave' renders. Every existing person card's pills now navigate correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18-verify/07-person-dashboard-with-forward-links.png",
+          "shows": "POST-FIX — freshly onboarded person's dashboard now shows 1 Notebook / 2 Protocols / 0 Events / 0 Inventory / 0 Locations / 1 Project. Sections collapsed by default: 'LAB NOTEBOOKS (1)', 'PROTOCOLS (2)', 'PROJECTS (1)'.",
+          "evaluation": "FIX2 + FIX3 CONFIRMED. Dashboard now merges the person's own forward wikilinks into Protocols/Projects sections, and the notebook entry was patched into the object-index overlay during onboarding. Empty-state gone.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle18-verify/08-person-dashboard-sections-expanded.png",
+          "shows": "Same dashboard with all <details> expanded: LAB NOTEBOOKS (1) → '2026-04-22 — QA18v Verify a59uxb' notebook row; PROTOCOLS (2) → Autoclave + Bench Cleanup Protocol rows (each purple book icon); PROJECTS (1) → Alfalfa Pangenome row (orange project icon).",
+          "evaluation": "Section rendering pipeline works end-to-end: forward links resolve to object-index entries which render as itemRow() with correct type icon + subtitle. Clickable rows. Star-pin button on each.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "severity": "functional",
+          "summary": "PEOPLE-CARD-PILLS-BARE-SLUG — the connected pills on every person card pointed to `?doc=<bare-slug>` on protocols.html/projects.html, but loadDoc fetches `docs/<docPath>.md`. For any protocol living in a subfolder (wet-lab/autoclave, library-prep/dneasy, etc.) the bare slug 404s. Affected every card that had a connected pill, not just newly-onboarded ones.",
+          "evidence": "cycle18/17-protocol-with-new-person-backlink.png: clicking autoclave pill landed on 'Document not found. It may have been renamed or deleted.' at protocols.html?doc=autoclave. Every person's connected pills had the same issue.",
+          "root_cause": "loadPeople() pill renderer in app/people.html line 271 used `'?doc=' + esc(wl.slug)` — the bare slug extracted from the wikilink. Should have used the resolved object's full path (obj.path minus `.md`, minus `/index` for folder-style pages).",
+          "status": "fixed"
+        },
+        {
+          "severity": "functional",
+          "summary": "PERSON-DASHBOARD-IGNORES-FORWARD-LINKS — the onboarding wizard writes `[[protocol]]` / `[[project]]` wikilinks into the person's body (as declarations of 'I work on these'), but renderPersonDashboard only aggregates INBOUND backlinks (items wikilinking TO people/<slug>). Result: newly onboarded users see a 0-across-the-board dashboard despite having picked protocols and projects.",
+          "evidence": "cycle18/12-person-dashboard-top.png: 0 Notebooks / 0 Protocols / 0 Events / 0 Inventory / 0 Locations / 0 Projects with 'No connected items yet' empty state, even though the person's own body had 4 wikilinks.",
+          "root_cause": "renderPersonDashboard in app/people.html only looked at edge.target === 'people/<slug>' to build backlinkSources. Outbound edges (where source === 'people/<slug>') were ignored. The wizard creates outbound links only.",
+          "status": "fixed"
+        },
+        {
+          "severity": "functional",
+          "summary": "NOTEBOOK-ENTRY-NOT-PATCHED — the onboarding wizard creates a first notebook entry at docs/notebooks/<slug>/<today>.md but only patchObjectIndex'd the person card, not the notebook entry. The dashboard's Lab Notebooks filter (path startsWith notebooks/<slug>/) therefore missed the new entry until the next deploy.",
+          "evidence": "cycle18/12-person-dashboard-top.png Notebooks stat=0 despite a notebook entry being visible at notebooks.html (cycle18/14-notebooks-baseline.png).",
+          "root_cause": "createPersonFiles in app/people.html called patchObjectIndex only for the personPath, not for the entry path.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": [
+        "app/people.html loadPeople() pill renderer — when wl.slug resolves against objectLookup, build the href from `obj.path.replace(/\\.md$/, '').replace(/\\/index$/, '')` (stripping /index for folder-style project pages) instead of the bare wl.slug. Falls back to wl.slug only when the lookup fails. Verified: clicking the autoclave pill at /app/people.html now navigates to protocols.html?doc=wet-lab%2Fautoclave and loads the file correctly (cycle18-verify/02).",
+        "app/people.html renderPersonDashboard — in addition to the inbound backlinkSources already gathered, collect forwardSlugs from (a) link-index edges where source === 'people/<slug>' and (b) a fallback body parse of the person file for [[wikilinks]]. Resolve each forward slug against the object-index (slug OR relPath key), then merge the resulting items into backlinkedItems (de-duped). Sections now populate whether the relationship is declared inbound or outbound.",
+        "app/people.html createPersonFiles — after patchObjectIndex for the personPath, also patchObjectIndex the entryPath with {type:'notebook', title:'<date> — <name>'} so renderPersonDashboard's Lab Notebooks filter finds the new entry immediately. (commit 52fcfd3)"
+      ],
+      "observations": [
+        "Onboarding wizard 4-step flow works end-to-end; auto-creation succeeds in ~3s across 3 GitHub API writes (person md + gitkeep + first notebook entry).",
+        "Person card Connected pills visually represent the person's declared work (protocols + projects) — a useful at-a-glance view of 'who does what'.",
+        "Post-fix, a freshly-onboarded user lands on a dashboard that already shows their protocols + projects + first notebook entry. Removes the previous 'empty-feeling first day' UX.",
+        "Minor: wizard's 'Write your first lab notebook entry' checklist link targets notebooks.html?person=<slug>, but notebooks.html ignores that query param. Out of scope this cycle; logged as NOTEBOOKS-PERSON-PARAM-IGNORED (minor ux, open).",
+        "Minor: issue-reporter FAB bottom-right sits visually close to the wizard's Next button at 375px mobile viewport. Could hide the FAB while the wizard overlay is open. Logged as FAB-NEAR-WIZARD-NEXT-MOBILE (cosmetic, open).",
+        "Added 'people' + 'profile' to routes_tested. Both routes now exercised: /app/people.html (grid + dashboard + wizard), /app/profile.html?user=<slug> (empty state for new users). /app/graph.html still untested.",
+        "tests/qa-cycle-18.mjs and tests/qa-cycle-18-verify.mjs kept as harnesses. Verify asserts pill hrefs contain 'wet-lab/' and fresh-user dashboard counts are 1 Notebook / 2 Protocols / 1 Project.",
+        "All cycle-18 test artifacts (1 cycle person + entry + gitkeep, 1 verify person + entry + gitkeep) cleaned up via gh API DELETE."
+      ]
     }
   ],
   "bugs_found": [
@@ -2211,7 +2403,12 @@
     "DOUBLE-LOAD-ERROR-PREFIX (cosmetic/ux, fixed in cycle 15, commit c3fb6b6): loadDoc error UI in protocols/wiki/projects/notebooks rendered 'Failed to load: Failed to load docs/<path>.md (HTTP 404)' — duplicated 'Failed to load' prefix (UI wrapper + thrown error message), raw file path leak, and exposed HTTP status. Fix: new Lab.formatLoadError(err) helper in app/js/shared.js strips the prefix and maps 404s to 'Document not found. It may have been renamed or deleted.'; applied across all four pages.",
     "SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED (cosmetic, fixed in cycle 15, commit c3fb6b6): protocols sidebar search placeholder 'Search protocols...' was clipped to 'Search protocol' because the input competes with two adjacent icon buttons for horizontal space. Shortened to 'Search...' (mirrors cycle-8 notebooks fix).",
     "BULK-BAR-STALE-AFTER-EMPTY-RENDER (visual/ux, fixed in cycle 17): after bulk-delete of all filtered rows on /sample-tracker/, the bulk action bar remained visible with stale '10 selected' text. Root cause: renderTable's early return for empty items skipped updateBulkBar(). Fix: call updateBulkBar() in both branches.",
-    "STATUS-SELECT-CLIPS-LONG-LABEL (visual, fixed in cycle 17): 'Sequencing in progress' status pill clipped to 'Sequencing in pr' inside the inline <select> on /sample-tracker/. Fix: min-width: 168px on .inline-select.status-select so the longest status fits."
+    "STATUS-SELECT-CLIPS-LONG-LABEL (visual, fixed in cycle 17): 'Sequencing in progress' status pill clipped to 'Sequencing in pr' inside the inline <select> on /sample-tracker/. Fix: min-width: 168px on .inline-select.status-select so the longest status fits.",
+    "PEOPLE-CARD-PILLS-BARE-SLUG (functional, fixed in cycle 18, commit 52fcfd3): every connected pill on every person card used ?doc=<bare-slug>, so any protocol or project living in a subfolder (wet-lab/autoclave, library-prep/*, epigenomics/*, etc.) 404'd with 'Document not found' on click. Fix resolves wl.slug against the cached object-index and uses obj.path (minus .md, minus /index) for the href. Verified at cycle18-verify/02 — clicking the autoclave pill on a pre-existing person card now loads the full autoclave protocol.",
+    "PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux, fixed in cycle 18, commit 52fcfd3): the person dashboard aggregated INBOUND backlinks only (items wikilinking TO people/<slug>). The onboarding wizard writes OUTBOUND wikilinks (person body -> protocols/projects), so newly-onboarded users landed on a 0-across-the-board dashboard. Fix merges outbound edges from the link-index plus a fallback body-parse into backlinkedItems before categorizing into sections. Verified: fresh-user dashboard now shows 1 Notebook / 2 Protocols / 1 Project with expandable section rows.",
+    "NOTEBOOK-ENTRY-NOT-PATCHED (functional, fixed in cycle 18, commit 52fcfd3): wizard's createPersonFiles patchObjectIndex'd only the person card, not the first notebook entry, so the dashboard's Lab Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next site deploy. Fix also patches the entry path with {type:'notebook', title:'<date> — <name>'}. Verified with notebookCount=1 immediately after onboarding.",
+    "NOTEBOOKS-PERSON-PARAM-IGNORED (ux, minor, OPEN): the onboarding wizard's success checklist links to notebooks.html?person=<slug> but notebooks.html ignores the query param — user lands on the unfiltered list instead of their own folder. Logged cycle 18; out of scope this cycle.",
+    "FAB-NEAR-WIZARD-NEXT-MOBILE (cosmetic, minor, OPEN): at 375px viewport the issue-reporter lightbulb FAB sits right next to the wizard's Next button, visually competing with it. Logged cycle 18; out of scope. Could be addressed by hiding #issue-reporter-btn while #wizardOverlay is visible."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -2239,7 +2436,8 @@
     "cycle 15 DOUBLE-LOAD-ERROR-PREFIX: Lab.formatLoadError(err) helper in app/js/shared.js maps 404→'Document not found. It may have been renamed or deleted.' and strips redundant 'Failed to load' prefix; applied in protocols/wiki/projects/notebooks loadDoc error UI — commit c3fb6b6",
     "cycle 15 SEARCH-PROTOCOL-PLACEHOLDER-CLIPPED: app/protocols.html placeholder 'Search protocols...' → 'Search...' — commit c3fb6b6",
     "cycle 17 BULK-BAR-STALE-AFTER-EMPTY-RENDER: docs/sample-tracker/index.html renderTable() — call updateBulkBar() before the early return in the empty-items branch.",
-    "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html — add min-width: 168px to .inline-select.status-select."
+    "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html — add min-width: 168px to .inline-select.status-select.",
+    "cycle 18 PEOPLE-CARD-PILLS-BARE-SLUG + PERSON-DASHBOARD-IGNORES-FORWARD-LINKS + NOTEBOOK-ENTRY-NOT-PATCHED (commit 52fcfd3): app/people.html loadPeople() now uses obj.path (minus .md, minus /index) for connected-pill hrefs; renderPersonDashboard now merges forward-link edges from link-index + a body-parse fallback into backlinkedItems so outbound [[protocol]] / [[project]] wikilinks surface in Protocols/Projects sections; createPersonFiles patchObjectIndex'es the first notebook entry too so Notebooks counter reads 1 immediately after onboarding. Verified end-to-end via tests/qa-cycle-18-verify.mjs — pill click lands on real protocol, fresh-user dashboard shows 1/2/0/0/0/1 counts."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2288,7 +2486,9 @@
     "/tmp/qa-screenshots/cycle14-verify/ — 4 verification screenshots + log confirming both fixes live post-deploy (navs hidden, sheet above FAB at 10050 vs 10001).",
     "/tmp/qa-screenshots/cycle15/ — 23 screenshots covering the full rename + relink flow (protocols baseline, load initial protocol, notebook with both bare + path-qualified wikilinks pre-rename, rename via double-click with prompt stub, post-rename title/URL/sidebar, old-slug deep-link showing double-prefix error, notebook reload with rewritten pills, click-through from rewritten pill, wiki old/new slug deep-links, lab-map filter, back button).",
     "/tmp/qa-screenshots/cycle15-verify/ — 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'",
-    "/tmp/qa-screenshots/cycle17/ — 22 screenshots, all read and evaluated. Every before/after pair captured for add-sample, filter, bulk-select, bulk-status-apply, and bulk-delete actions."
+    "/tmp/qa-screenshots/cycle17/ — 22 screenshots, all read and evaluated. Every before/after pair captured for add-sample, filter, bulk-select, bulk-status-apply, and bulk-delete actions.",
+    "/tmp/qa-screenshots/cycle18/ — 19 screenshots covering the full onboarding-wizard flow (dashboard + people baseline, wizard step 1/2/3/4, post-onboarding grid, new-card zoom, empty person-dashboard showing the bugs, notebooks baseline, ?person= filter, profile empty-state, protocol page 404, mobile pass of grid + step 1). Every screenshot Read and evaluated.",
+    "/tmp/qa-screenshots/cycle18-verify/ — 8 screenshots confirming all three fixes live post-deploy: (a) existing-person autoclave pill loads docs/wet-lab/autoclave, (b) fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project, (c) sections expand to show correctly-iconed rows. _results.json captures the programmatic assertions."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -2304,6 +2504,7 @@
     "Cycle 10: Alex Chen (postdoc) + ui_critic + Equipment move day. Created 3 QA test bottles (qa10movepecs-a/b/c, each pointing to resources/ethanol-absolute via `of:`) under cabinet-flammable, then used the editor's locations picker to move all 3 to cabinet-corrosive. Verified: (a) each bottle's own popup breadcrumb and parent pill updated live to the new chain (no redeploy), (b) flammable cabinet Contents list stayed at 16 baseline (bottles pruned), (c) corrosive cabinet Contents went 15 → 18, (d) lab-map tree filter 'qa10movepecs' shows all 3 grouped under Corrosive Cabinet, (e) inventory search shows the new location in the LOCATION column. Swept 3 carry-over cycle-9 cosmetic/ux bugs in the same cycle: (1) TOPNAV-WIKI-CLIPPED CLOSED — tightened desktop tab padding to 12px 8px with 4px gap so the full 'Wiki' label fits at 1440px (mirrored trim below 1280px); (2) MEMBER-FIELD-RAW-WIKILINK CLOSED — added a member-field branch to renderFields in editor-modal.js that emits data-member-pill placeholders, upgradeParentField swaps them for real Person pills with a title-match fallback for display-name wikilinks like [[Dr. Monroe]]; (3) MEMBER-COLOR-SHUFFLE CLOSED — replaced alphabetical-index MEMBER_COLORS lookup with djb2 hash modulo palette size so each member maps to the same color regardless of schedule additions. All fixes in commit d8c96cc. Verified post-deploy via cycle10-verify screenshots: full Wiki label at 1440, event popup shows Grey Monroe as a clickable Person pill, existing barb-m events stay green after adding a new Dr. Monroe event. All cycle-10 test artifacts (3 bottles + 2 verify events) cleaned up via gh API DELETE before commit.",
     "Cycle 15: Alex Chen (postdoc) + impatient + Rename + relink day. Fresh combination (impatient modifier never used before, scenario never logged — earlier cycle-13 attempt rolled up into Backlinks sanity instead). Flow: create disposable protocol qa15-initial-proto-* in wet-lab with type:protocol frontmatter, then a notebook entry qa15-rename-consumer-* under test-user/ that wikilinks to it both as bare [[slug]] and as path-qualified [[wet-lab/slug]]. Baseline pre-rename: both pills render as purple Protocol pills with book icon (screenshot 03). Rename: stub Lab.modal.prompt to return NEW_TITLE, then DOUBLE-CLICK the Rename button. First click succeeds: new file created, old file deleted, NAV updated, breadcrumb + H1 reflect new title, Wet Lab Basics sidebar count bumps 45→46, history.pushState to new URL, success toast fires. Second click races: it enters renameDoc synchronously before the first await, both pass through renameInFlight check (unset at the time), and the second's fetchFile on the stale path 404s → red 'Rename failed: Not Found' toast. Classic impatient-modifier race. IMPATIENT-RENAME bug logged + fixed in-cycle via renameInFlight guard set BEFORE the first await (commit c3fb6b6). Then exercised old-slug deep-link behavior (DOUBLE-LOAD-ERROR-PREFIX — 'Failed to load: Failed to load docs/.../foo.md (HTTP 404)' on protocols/wiki/projects/notebooks) — fixed with a shared Lab.formatLoadError helper that maps 404s to 'Document not found. It may have been renamed or deleted.' and strips the redundant prefix. Also shortened 'Search protocols...' placeholder to 'Search...' to stop the trailing-s clipping in the narrow protocols sidebar input. Post-rename reload of the notebook entry confirmed updateWikilinksAfterRename (QA13 plumbing, landed in a prior run) correctly rewrote BOTH bare [[slug]] and path-qualified [[dir/slug]] wikilinks to the new slug — hasOldSlug=false, hasNewSlug=true in the live markdown, and both pills render as purple Protocol pills with icon and navigate to the renamed protocol on click. Verify run (qa-cycle-15-verify.mjs): triple-clicked Rename → rename_failed_toast_present:false; nonexistent-slug deep-links on protocols + wiki + notebooks all show 'Document not found. It may have been renamed or deleted.'; placeholder 'Search...' renders complete with no clipping. All 3 test files cleaned up via gh API DELETE.",
     "Cycle 9: Dr. Monroe (PI) + careful + Calendar add/delete. First exercise of the calendar route across all 9 cycles. Full flow: week nav (prev/next/this-week), click-to-create at Wed 14:00 (modal prefilled from cell coords), fill title + [[Dr. Monroe]] member + notes with [[qiagen-dneasy-extraction]] wikilink, submit, event lands in correct grid cell with green Dr. Monroe pill, GH API confirms file save, click block opens editor-modal popup (type=event pill, fields, body w/ clickable QIAGEN DNeasy pill, contents), close via Escape, filter-by-Dr.-Monroe shows only our event, reload. FUNCTIONAL BUG FOUND: CALENDAR-NO-INDEX-PATCH — the event disappears after reload because openAddEvent didn't call patchObjectIndex/patchLinkIndex (same pattern as cycle-6 NOTEBOOKS-SAVE-NO-PATCH). Fix (commit 8a679ba): after gh.saveFile, call gh.patchObjectIndex with all event frontmatter + gh.patchLinkIndex against member+notes for wikilinks. Also adds 'recurrence_id' to INDEX_KEYS to mirror EXTRACT_KEYS (cycle-5 pattern). Verified via tests/qa-cycle-9-verify.mjs — afterReload.landed=true with correct day/hour, localStorage overlay keys present, link targets=['Dr. Monroe', 'qiagen-dneasy-extraction']. Also exercised: delete via Lab.gh.deleteFile (works, persists), mobile 375px (day-tab row + single-column grid), weekly recurring series (4 occurrences Apr 21→May 12 all sharing recurrence_id, navigation shows occurrence next week). Swept 2 carried-over items: (1) CONCEPT-HAS-PARENT-BREADCRUMB CLOSED via app/js/hierarchy.js CONCEPT_TYPES guard (skip parent handling for reagent/chemical/buffer/solution/consumable/kit/enzyme/primer) commit a92e314 + deletion of the 2 remaining stale LabBot fixtures (labbot-freezer-item-mnthp11v, tube-item) commit f7cfe1f; (2) DNA-QUANTIFICATION-PILL-UNTYPED CLOSED as not-a-bug after investigation (the slug was a cycle-7 test typo; an unresolved slug correctly renders as a plain teal pill). Logged 3 new open cosmetic/ux items: TOPNAV-WIKI-CLIPPED (Wiki tab clips to 'Wik' at 1440), MEMBER-FIELD-RAW-WIKILINK (event popup member field not pill-upgraded like parent/of), MEMBER-COLOR-SHUFFLE (alphabetical index causes existing events to recolor when a new member joins). All cycle-9 test event files (1 single + 4 recurring + 1 verify) cleaned up via gh API.",
-    "Phase remains 'functional'."
+    "Phase remains 'functional'.",
+    "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs — all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) — every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) — the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) — the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE."
   ]
 }
