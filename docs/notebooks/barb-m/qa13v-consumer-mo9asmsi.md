@@ -8,8 +8,8 @@ type: "note"
 
 ## Protocol used
 
-Short-form: [[qa13v-verify-target-mo9asmsi]]
+Short-form: [[qa13v-verify-renamed-mo9asmsi]]
 
-Path-qualified: [[wet-lab/qa13v-verify-target-mo9asmsi]]
+Path-qualified: [[qa13v-verify-renamed-mo9asmsi]]
 
-Labeled short: [[qa13v-verify-target-mo9asmsi|the target protocol]]
+Labeled short: [[qa13v-verify-renamed-mo9asmsi|the target protocol]]
