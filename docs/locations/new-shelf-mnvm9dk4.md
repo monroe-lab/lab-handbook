@@ -1,8 +1,8 @@
 ---
 type: "shelf"
-title: "Shelf 3"
+title: "Shelf 3 (-80)"
 parent: "locations/freezer-minus80-a"
-updated_at: "2026-04-22T06:09:49.916Z"
+updated_at: "2026-04-22T06:39:23.639Z"
 created_at: "2026-04-12T10:24:11.083Z"
 created_by: "greymonroe"
 position: "B1"
