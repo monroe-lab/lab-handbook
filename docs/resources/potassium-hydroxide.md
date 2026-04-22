@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Potassium hydroxide
+type: chemical
+cas: 1310-58-3
+location: Chemical Cabinet
 legacy_inventory_id: 107
 ---
 # Potassium hydroxide

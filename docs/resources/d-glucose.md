@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: D-(+)-Glucose
+type: chemical
+cas: 50-99-7
+location: Chemical Cabinet
 legacy_inventory_id: 44
 ---
 # D-(+)-Glucose

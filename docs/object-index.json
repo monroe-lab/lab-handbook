@@ -1,24 +1,30 @@
 [
   {
     "path": "resources/1-8-naphthalic-anhydride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "1,8-Naphthalic anhydride",
+    "location": "Chemical Cabinet",
+    "cas": "81-84-5",
     "status": "in_stock",
     "legacy_inventory_id": 12,
     "mtime": 1776840517
   },
   {
     "path": "resources/1-hydroxy-3-3-trifluoromethylphenyl-urea.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA",
+    "location": "Chemical Cabinet",
+    "cas": "110923-13-2",
     "status": "in_stock",
     "legacy_inventory_id": 13,
     "mtime": 1776790736
   },
   {
     "path": "resources/1-octanol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "1-Octanol",
+    "location": "Flammable Cabinet",
+    "cas": "111-87-5",
     "status": "in_stock",
     "legacy_inventory_id": 14,
     "mtime": 1776056816
@@ -33,15 +39,19 @@
   },
   {
     "path": "resources/2-mercaptoethanol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "2-Mercaptoethanol",
+    "location": "Corrosive Cabinet",
+    "cas": "60-24-2",
     "legacy_inventory_id": 16,
     "mtime": 1775946810
   },
   {
     "path": "resources/3-methylbutanol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "3-Methylbutanol",
+    "location": "Flammable Cabinet",
+    "cas": "123-51-3",
     "legacy_inventory_id": 17,
     "mtime": 1775946810
   },
@@ -61,22 +71,28 @@
   },
   {
     "path": "resources/acetone.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Acetone",
+    "location": "Flammable Cabinet",
+    "cas": "67-64-1",
     "legacy_inventory_id": 20,
     "mtime": 1775946810
   },
   {
     "path": "resources/acrylamide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Acrylamide",
+    "location": "Chemical Cabinet",
+    "cas": "79-06-1",
     "legacy_inventory_id": 21,
     "mtime": 1775946810
   },
   {
     "path": "resources/activated-charcoal.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Activated charcoal",
+    "location": "Flammable Cabinet",
+    "cas": "7440-44-0",
     "legacy_inventory_id": 22,
     "mtime": 1775946810
   },
@@ -89,57 +105,72 @@
   },
   {
     "path": "resources/agar-non-tc.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Agar (non-TC)",
+    "location": "Chemical Cabinet",
+    "cas": "9002-18-0",
     "legacy_inventory_id": 150,
     "mtime": 1775946810
   },
   {
     "path": "resources/agar-plant-tc.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Agar, Plant, TC",
+    "location": "Chemical Cabinet",
     "legacy_inventory_id": 23,
     "mtime": 1775946810
   },
   {
     "path": "resources/agarose.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Agarose",
+    "location": "Chemical Cabinet",
+    "cas": "9012-36-6",
     "legacy_inventory_id": 10,
     "mtime": 1775939805
   },
   {
     "path": "resources/alpha-d-glucose.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "alpha-D-Glucose",
+    "location": "Chemical Cabinet",
+    "cas": "492-62-6",
     "legacy_inventory_id": 146,
     "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-acetate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ammonium acetate",
+    "location": "Chemical Cabinet",
+    "cas": "631-61-8",
     "legacy_inventory_id": 24,
     "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ammonium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "12125-02-9",
     "legacy_inventory_id": 25,
     "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-nitrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ammonium nitrate",
+    "location": "Chemical Cabinet",
+    "cas": "6484-52-2",
     "legacy_inventory_id": 26,
     "mtime": 1775946810
   },
   {
     "path": "resources/ammonium-phosphate-monobasic.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ammonium phosphate monobasic",
+    "location": "Chemical Cabinet",
+    "cas": "7722-76-1",
     "legacy_inventory_id": 27,
     "mtime": 1775946810
   },
@@ -159,8 +190,10 @@
   },
   {
     "path": "resources/aristolochic-acid-i.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Aristolochic acid I",
+    "location": "Chemical Cabinet",
+    "cas": "313-67-7",
     "legacy_inventory_id": 28,
     "mtime": 1775946810
   },
@@ -184,8 +217,10 @@
   },
   {
     "path": "resources/basic-fuchsin.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Basic Fuchsin",
+    "location": "Chemical Cabinet",
+    "cas": "569-61-9",
     "legacy_inventory_id": 29,
     "mtime": 1775946810
   },
@@ -239,15 +274,19 @@
   },
   {
     "path": "resources/bis-n-n-methylene-bis-acrylamide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Bis (N,N'-Methylene-bis-acrylamide)",
+    "location": "Chemical Cabinet",
+    "cas": "110-26-9",
     "legacy_inventory_id": 30,
     "mtime": 1775946810
   },
   {
     "path": "resources/boric-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Boric acid",
+    "location": "Chemical Cabinet",
+    "cas": "10043-35-3",
     "legacy_inventory_id": 31,
     "mtime": 1775946810
   },
@@ -267,8 +306,10 @@
   },
   {
     "path": "resources/bromophenol-blue.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Bromophenol Blue",
+    "location": "Chemical Cabinet",
+    "cas": "115-39-9",
     "legacy_inventory_id": 32,
     "mtime": 1775946810
   },
@@ -280,50 +321,63 @@
   },
   {
     "path": "resources/calcium-carbonate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Calcium carbonate",
+    "location": "Chemical Cabinet",
+    "cas": "471-34-1",
     "legacy_inventory_id": 33,
     "mtime": 1775946810
   },
   {
     "path": "resources/calcium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Calcium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "10043-52-4",
     "legacy_inventory_id": 34,
     "mtime": 1775946810
   },
   {
     "path": "resources/calcium-nitrate-tetrahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Calcium nitrate tetrahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "13477-34-4",
     "legacy_inventory_id": 35,
     "mtime": 1775946810
   },
   {
     "path": "resources/carbenicillin-disodium-salt.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Carbenicillin disodium salt",
+    "location": "Refrigerator",
+    "cas": "4800-94-6",
     "legacy_inventory_id": 36,
     "mtime": 1775946810
   },
   {
     "path": "resources/carbon-activated.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Carbon, activated",
+    "location": "Chemical Cabinet",
+    "cas": "7440-44-0",
     "legacy_inventory_id": 37,
     "mtime": 1775946810
   },
   {
     "path": "resources/casein-hydrolysate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Casein Hydrolysate",
+    "location": "Chemical Cabinet",
     "legacy_inventory_id": 38,
     "mtime": 1775946810
   },
   {
     "path": "resources/cefotaxime-sodium-salt.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Cefotaxime sodium salt",
+    "location": "Refrigerator",
+    "cas": "64485-93-4",
     "legacy_inventory_id": 39,
     "mtime": 1775946810
   },
@@ -341,36 +395,46 @@
   },
   {
     "path": "resources/cesium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Cesium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7647-17-8",
     "legacy_inventory_id": 40,
     "mtime": 1775946810
   },
   {
     "path": "resources/cetrimonium-bromide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Cetrimonium bromide",
+    "location": "Chemical Cabinet",
+    "cas": "57-09-0",
     "legacy_inventory_id": 41,
     "mtime": 1775946810
   },
   {
     "path": "resources/chloramphenicol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Chloramphenicol",
+    "location": "Chemical Cabinet",
+    "cas": "56-75-7",
     "legacy_inventory_id": 42,
     "mtime": 1775946810
   },
   {
     "path": "resources/chloroform-isoamyl-alcohol-24-1.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Chloroform:Isoamyl alcohol 24:1",
+    "location": "Chemical Cabinet",
+    "cas": "67-66-3, 64-17-5, 123-51-3",
     "legacy_inventory_id": 148,
     "mtime": 1775946810
   },
   {
     "path": "resources/chloroform.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Chloroform",
+    "location": "Corrosive Cabinet",
+    "cas": "67-66-3",
     "legacy_inventory_id": 9,
     "mtime": 1775946810
   },
@@ -383,15 +447,19 @@
   },
   {
     "path": "resources/cis-diamineplatinum-ii-dichloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "cis-Diamineplatinum(II) dichloride",
+    "location": "Refrigerator",
+    "cas": "15663-27-1",
     "legacy_inventory_id": 147,
     "mtime": 1775946810
   },
   {
     "path": "resources/citric-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Citric acid",
+    "location": "Chemical Cabinet",
+    "cas": "77-92-9",
     "legacy_inventory_id": 43,
     "mtime": 1775946810
   },
@@ -426,29 +494,37 @@
   },
   {
     "path": "resources/d-glucose.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "D-(+)-Glucose",
+    "location": "Chemical Cabinet",
+    "cas": "50-99-7",
     "legacy_inventory_id": 44,
     "mtime": 1775946810
   },
   {
     "path": "resources/d-mannitol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "D-Mannitol",
+    "location": "Chemical Cabinet",
+    "cas": "69-65-8",
     "legacy_inventory_id": 45,
     "mtime": 1775946810
   },
   {
     "path": "resources/d-sorbitol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "D-Sorbitol",
+    "location": "Chemical Cabinet",
+    "cas": "50-70-4",
     "legacy_inventory_id": 46,
     "mtime": 1775946810
   },
   {
     "path": "resources/dextran.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Dextran",
+    "location": "Chemical Cabinet",
+    "cas": "9004-54-0",
     "legacy_inventory_id": 48,
     "mtime": 1775946810
   },
@@ -461,15 +537,19 @@
   },
   {
     "path": "resources/diethyl-pyrocarbonate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Diethyl pyrocarbonate",
+    "location": "Refrigerator",
+    "cas": "1609-47-8",
     "legacy_inventory_id": 49,
     "mtime": 1775946810
   },
   {
     "path": "resources/dimethyl-sulfoxide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Dimethyl sulfoxide",
+    "location": "Flammable Cabinet",
+    "cas": "67-68-5",
     "legacy_inventory_id": 50,
     "mtime": 1775946810
   },
@@ -482,8 +562,10 @@
   },
   {
     "path": "resources/disodium-ethylenediamine-tetraacetate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Disodium Ethylenediamine Tetraacetate",
+    "location": "Chemical Cabinet",
+    "cas": "139-33-3",
     "legacy_inventory_id": 51,
     "mtime": 1775946810
   },
@@ -496,8 +578,10 @@
   },
   {
     "path": "resources/dkw-medium-with-vitamins.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "DKW Medium with Vitamins",
+    "location": "Chemical Cabinet",
+    "cas": "6484-52-2, 6381-92-6, 10196-18-6, 10124-37-5, 7758-99-8, 7782-63-0, 10102-40-6, 10034-96-5, 10101-97-0, 10043-35-3",
     "legacy_inventory_id": 47,
     "mtime": 1775946810
   },
@@ -528,8 +612,10 @@
   },
   {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "EDTA tetrasodium salt dihydrate",
+    "location": "Chemical Cabinet",
+    "cas": "10378-23-1",
     "legacy_inventory_id": 52,
     "mtime": 1775946810
   },
@@ -542,8 +628,10 @@
   },
   {
     "path": "resources/egta.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "EGTA",
+    "location": "Refrigerator",
+    "cas": "67-42-5",
     "legacy_inventory_id": 54,
     "mtime": 1775946810
   },
@@ -573,8 +661,10 @@
   },
   {
     "path": "resources/ethanol-absolute.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ethanol Absolute",
+    "location": "Flammable Cabinet",
+    "cas": "64-17-5",
     "legacy_inventory_id": 5,
     "mtime": 1775939873
   },
@@ -587,22 +677,28 @@
   },
   {
     "path": "resources/ethyl-methanesulfonate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ethyl methanesulfonate",
+    "location": "Chemical Cabinet",
+    "cas": "62-50-0",
     "legacy_inventory_id": 56,
     "mtime": 1775946810
   },
   {
     "path": "resources/ethylene-glycol-bis-beta-aminoethyl-ether-n-n-n-n-tetraacetic-acid-tetrasodium-salt.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt",
+    "location": "Chemical Cabinet",
+    "cas": "13368-13-3",
     "legacy_inventory_id": 57,
     "mtime": 1775946810
   },
   {
     "path": "resources/ethylenediaminetetraacetic-acid-gmp.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ethylenediaminetetraacetic acid, GMP",
+    "location": "Chemical Cabinet",
+    "cas": "60-00-4",
     "legacy_inventory_id": 58,
     "mtime": 1775946810
   },
@@ -632,8 +728,10 @@
   },
   {
     "path": "resources/ficoll-400.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ficoll 400",
+    "location": "Chemical Cabinet",
+    "cas": "26873-85-8",
     "legacy_inventory_id": 59,
     "mtime": 1775946810
   },
@@ -677,22 +775,28 @@
   },
   {
     "path": "resources/formaldehyde-16-methanol-free-pfa.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Formaldehyde (16% methanol free) PFA",
+    "location": "Chemical Cabinet",
+    "cas": "50-00-0",
     "legacy_inventory_id": 60,
     "mtime": 1775946810
   },
   {
     "path": "resources/formamide-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Formamide",
+    "location": "Chemical Cabinet",
+    "cas": "75-12-7",
     "legacy_inventory_id": 62,
     "mtime": 1775946810
   },
   {
     "path": "resources/formamide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Formamide",
+    "location": "Chemical Cabinet",
+    "cas": "75-12-7",
     "legacy_inventory_id": 61,
     "mtime": 1775946810
   },
@@ -704,8 +808,10 @@
   },
   {
     "path": "resources/gaseous-hydrochloric-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Gaseous hydrochloric acid",
+    "location": "Corrosive Cabinet",
+    "cas": "7647-01-0",
     "legacy_inventory_id": 63,
     "mtime": 1775946810
   },
@@ -717,36 +823,46 @@
   },
   {
     "path": "resources/gentamicin-sulfate-salt.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Gentamicin sulfate salt",
+    "location": "Chemical Cabinet",
+    "cas": "1405-41-0",
     "legacy_inventory_id": 64,
     "mtime": 1775946810
   },
   {
     "path": "resources/glacial-acetic-acid-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Glacial Acetic Acid",
+    "location": "Flammable Cabinet",
+    "cas": "64-19-7",
     "legacy_inventory_id": 66,
     "mtime": 1775946810
   },
   {
     "path": "resources/glacial-acetic-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Glacial Acetic Acid",
+    "location": "Flammable Cabinet",
+    "cas": "64-19-7",
     "legacy_inventory_id": 65,
     "mtime": 1775946810
   },
   {
     "path": "resources/glufosinate-ammonium.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Glufosinate-ammonium",
+    "location": "Refrigerator",
+    "cas": "77182-82-2",
     "legacy_inventory_id": 67,
     "mtime": 1775946810
   },
   {
     "path": "resources/glycerin.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Glycerin",
+    "location": "Chemical Cabinet",
+    "cas": "56-81-5",
     "legacy_inventory_id": 68,
     "mtime": 1775946810
   },
@@ -759,8 +875,10 @@
   },
   {
     "path": "resources/glycine.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Glycine",
+    "location": "Chemical Cabinet",
+    "cas": "56-40-6",
     "legacy_inventory_id": 70,
     "mtime": 1775946810
   },
@@ -779,15 +897,19 @@
   },
   {
     "path": "resources/guanidine-thiocyanate-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Guanidine thiocyanate",
+    "location": "Chemical Cabinet",
+    "cas": "593-84-0",
     "legacy_inventory_id": 72,
     "mtime": 1775946810
   },
   {
     "path": "resources/guanidine-thiocyanate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Guanidine thiocyanate",
+    "location": "Chemical Cabinet",
+    "cas": "593-84-0",
     "legacy_inventory_id": 71,
     "mtime": 1775946810
   },
@@ -806,8 +928,9 @@
   },
   {
     "path": "resources/hexadecyltrimethyl-ammonium-bromide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Hexadecyltrimethyl-ammonium bromide",
+    "location": "Chemical Cabinet",
     "legacy_inventory_id": 74,
     "mtime": 1775946810
   },
@@ -831,8 +954,10 @@
   },
   {
     "path": "resources/hydrogen-peroxide-20-to-35-in-water.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Hydrogen peroxide,  20 to  35 % in water",
+    "location": "Corrosive Cabinet",
+    "cas": "7722-84-1",
     "legacy_inventory_id": 75,
     "mtime": 1775946810
   },
@@ -845,8 +970,10 @@
   },
   {
     "path": "resources/hydroxylamine-hydrochloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Hydroxylamine hydrochloride",
+    "location": "Corrosive Cabinet",
+    "cas": "5470-11-1",
     "legacy_inventory_id": 76,
     "mtime": 1775946810
   },
@@ -880,8 +1007,10 @@
   },
   {
     "path": "resources/igepal-ca-630.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "IGEPAL CA-630",
+    "location": "Corrosive Cabinet",
+    "cas": "9002-93-1",
     "legacy_inventory_id": 77,
     "mtime": 1775946810
   },
@@ -894,15 +1023,19 @@
   },
   {
     "path": "resources/imidazole-hydrochloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Imidazole hydrochloride",
+    "location": "Chemical Cabinet",
+    "cas": "1467-16-9",
     "legacy_inventory_id": 78,
     "mtime": 1775946810
   },
   {
     "path": "resources/iohexol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Iohexol",
+    "location": "Chemical Cabinet",
+    "cas": "66108-95-0",
     "legacy_inventory_id": 79,
     "mtime": 1775946810
   },
@@ -915,43 +1048,55 @@
   },
   {
     "path": "resources/iron-iii-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Iron(III) chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7705-08-0",
     "legacy_inventory_id": 80,
     "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Isopropyl alcohol",
+    "location": "Flammable Cabinet",
+    "cas": "67-63-0",
     "legacy_inventory_id": 82,
     "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Isopropyl alcohol, 70% in water",
+    "location": "Flammable Cabinet",
+    "cas": "67-63-0",
     "legacy_inventory_id": 84,
     "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol-70-in-water.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Isopropyl alcohol, 70% in water",
+    "location": "Flammable Cabinet",
+    "cas": "67-63-0",
     "legacy_inventory_id": 83,
     "mtime": 1775946810
   },
   {
     "path": "resources/isopropyl-alcohol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Isopropyl alcohol",
+    "location": "Flammable Cabinet",
+    "cas": "67-63-0",
     "legacy_inventory_id": 81,
     "mtime": 1775946810
   },
   {
     "path": "resources/kanamycin-sulfate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Kanamycin Sulfate",
+    "location": "Chemical Cabinet",
+    "cas": "25389-94-0",
     "legacy_inventory_id": 6,
     "mtime": 1775946810
   },
@@ -964,15 +1109,19 @@
   },
   {
     "path": "resources/l-glutamine.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "L-Glutamine",
+    "location": "Chemical Cabinet",
+    "cas": "56-85-9",
     "legacy_inventory_id": 85,
     "mtime": 1775946810
   },
   {
     "path": "resources/l-lysine-monohydrochloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "L-Lysine monohydrochloride",
+    "location": "Chemical Cabinet",
+    "cas": "657-27-2",
     "legacy_inventory_id": 86,
     "mtime": 1775946810
   },
@@ -997,43 +1146,55 @@
   },
   {
     "path": "resources/lithium-acetate-dihydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Lithium acetate dihydrate",
+    "location": "Corrosive Cabinet",
+    "cas": "6108-17-4",
     "legacy_inventory_id": 87,
     "mtime": 1775946810
   },
   {
     "path": "resources/lithium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Lithium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7447-41-8",
     "legacy_inventory_id": 88,
     "mtime": 1775946810
   },
   {
     "path": "resources/lithium-hydroxide-monohydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Lithium hydroxide monohydrate",
+    "location": "Chemical Cabinet",
+    "cas": "1310-66-3",
     "legacy_inventory_id": 89,
     "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Magnesium acetate tetrahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "16674-78-5",
     "legacy_inventory_id": 90,
     "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Magnesium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7786-30-3",
     "legacy_inventory_id": 91,
     "mtime": 1775946810
   },
   {
     "path": "resources/magnesium-sulfate-heptahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Magnesium sulfate heptahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "10034-99-8",
     "legacy_inventory_id": 92,
     "mtime": 1775946810
   },
@@ -1045,8 +1206,10 @@
   },
   {
     "path": "resources/manganese-ii-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Manganese(II) chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7773-01-5",
     "legacy_inventory_id": 93,
     "mtime": 1775946810
   },
@@ -1059,15 +1222,19 @@
   },
   {
     "path": "resources/methanol.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Methanol",
+    "location": "Flammable Cabinet",
+    "cas": "67-56-1",
     "legacy_inventory_id": 94,
     "mtime": 1775946810
   },
   {
     "path": "resources/methyl-methanesulfonate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Methyl methanesulfonate",
+    "location": "Chemical Cabinet",
+    "cas": "66-27-3",
     "legacy_inventory_id": 95,
     "mtime": 1775946810
   },
@@ -1123,8 +1290,10 @@
   },
   {
     "path": "resources/mineral-oil.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Mineral oil",
+    "location": "Chemical Cabinet",
+    "cas": "8042-47-5",
     "legacy_inventory_id": 96,
     "mtime": 1775946810
   },
@@ -1143,8 +1312,10 @@
   },
   {
     "path": "resources/mitomycin-c.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Mitomycin C",
+    "location": "Refrigerator",
+    "cas": "50-07-7",
     "legacy_inventory_id": 8,
     "mtime": 1775946810
   },
@@ -1288,8 +1459,10 @@
   },
   {
     "path": "resources/peptones-casein-tryptone.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Peptones, casein (Tryptone)",
+    "location": "Chemical Cabinet",
+    "cas": "91079-40-2",
     "legacy_inventory_id": 98,
     "mtime": 1775946810
   },
@@ -1313,8 +1486,10 @@
   },
   {
     "path": "resources/phenol-chloroform-isoamyl-alcohol-25-24-1.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Phenol-Chloroform-Isoamyl alcohol 25:24:1",
+    "location": "Refrigerator",
+    "cas": "136112-00-0",
     "legacy_inventory_id": 149,
     "mtime": 1775946810
   },
@@ -1327,15 +1502,19 @@
   },
   {
     "path": "resources/phenylmethanesulfonyl-fluoride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Phenylmethanesulfonyl fluoride",
+    "location": "Corrosive Cabinet",
+    "cas": "329-98-6",
     "legacy_inventory_id": 100,
     "mtime": 1775946810
   },
   {
     "path": "resources/piperazine-1-4-bis-2-ethanesulfonic-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Piperazine-1,4-bis(2-ethanesulfonic acid)",
+    "location": "Chemical Cabinet",
+    "cas": "5625-37-6",
     "legacy_inventory_id": 101,
     "mtime": 1775946810
   },
@@ -1372,8 +1551,10 @@
   },
   {
     "path": "resources/polyethylene-glycol-solid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Polyethylene glycol (solid)",
+    "location": "Chemical Cabinet",
+    "cas": "25322-68-3",
     "legacy_inventory_id": 102,
     "mtime": 1775946810
   },
@@ -1386,64 +1567,82 @@
   },
   {
     "path": "resources/polyvinylpyrrolidone.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Polyvinylpyrrolidone",
+    "location": "Chemical Cabinet",
+    "cas": "9003-39-8",
     "legacy_inventory_id": 103,
     "mtime": 1775946810
   },
   {
     "path": "resources/ponceau-s.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Ponceau S",
+    "location": "Chemical Cabinet",
+    "cas": "6226-79-5",
     "legacy_inventory_id": 104,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-acetate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium acetate",
+    "location": "Chemical Cabinet",
+    "cas": "127-08-2",
     "legacy_inventory_id": 105,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7447-40-7",
     "legacy_inventory_id": 106,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-hydroxide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium hydroxide",
+    "location": "Chemical Cabinet",
+    "cas": "1310-58-3",
     "legacy_inventory_id": 107,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-nitrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium nitrate",
+    "location": "Chemical Cabinet",
+    "cas": "7757-79-1",
     "legacy_inventory_id": 108,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-permanganate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium permanganate",
+    "location": "Chemical Cabinet",
+    "cas": "7722-64-7",
     "legacy_inventory_id": 109,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-phosphate-dibasic.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium phosphate dibasic",
+    "location": "Chemical Cabinet",
+    "cas": "7758-11-4",
     "legacy_inventory_id": 110,
     "mtime": 1775946810
   },
   {
     "path": "resources/potassium-phosphate-monobasic.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Potassium phosphate monobasic",
+    "location": "Chemical Cabinet",
+    "cas": "7778-77-0",
     "legacy_inventory_id": 111,
     "mtime": 1775946810
   },
@@ -1489,8 +1688,10 @@
   },
   {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Reagent Alcohol 100% (200 proof, Denatured)",
+    "location": "Flammable Cabinet",
+    "cas": "64-17-5",
     "legacy_inventory_id": 112,
     "mtime": 1775946810
   },
@@ -1529,64 +1730,82 @@
   },
   {
     "path": "resources/silwet-l-77.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Silwet L-77",
+    "location": "Chemical Cabinet",
+    "cas": "27306-78-1",
     "legacy_inventory_id": 113,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-acetate-anhydrous.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium Acetate, Anhydrous",
+    "location": "Chemical Cabinet",
+    "cas": "127-09-3",
     "legacy_inventory_id": 114,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-arsenate-dibasic-heptahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium arsenate dibasic heptahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "10048-95-0",
     "legacy_inventory_id": 116,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-bicarbonate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium bicarbonate",
+    "location": "Chemical Cabinet",
+    "cas": "144-55-8",
     "legacy_inventory_id": 117,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-bisulfite.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium bisulfite",
+    "location": "Chemical Cabinet",
+    "cas": "7631-90-5",
     "legacy_inventory_id": 118,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-chloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium chloride",
+    "location": "Chemical Cabinet",
+    "cas": "7647-14-5",
     "legacy_inventory_id": 119,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-citrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium citrate",
+    "location": "Chemical Cabinet",
+    "cas": "68-04-2",
     "legacy_inventory_id": 120,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-dodecyl-sulfate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium dodecyl sulfate",
+    "location": "Chemical Cabinet",
+    "cas": "151-21-3",
     "legacy_inventory_id": 121,
     "mtime": 1775939805
   },
   {
     "path": "resources/sodium-hydroxide-10-0-normal.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium Hydroxide, 10.0 Normal",
+    "location": "Corrosive Cabinet",
+    "cas": "1310-73-2",
     "legacy_inventory_id": 115,
     "mtime": 1775946810
   },
@@ -1599,71 +1818,91 @@
   },
   {
     "path": "resources/sodium-hydroxide-2.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium hydroxide",
+    "location": "Chemical Cabinet",
+    "cas": "1310-73-2",
     "legacy_inventory_id": 123,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-hydroxide.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium hydroxide",
+    "location": "Chemical Cabinet",
+    "cas": "1310-73-2",
     "legacy_inventory_id": 122,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-metabisulfite.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium metabisulfite",
+    "location": "Chemical Cabinet",
+    "cas": "7681-57-4",
     "legacy_inventory_id": 125,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-phosphate-dibasic.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium phosphate dibasic",
+    "location": "Chemical Cabinet",
+    "cas": "7558-79-4",
     "legacy_inventory_id": 126,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-pyrophosphate-decahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium pyrophosphate decahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "13472-36-1",
     "legacy_inventory_id": 127,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-sulfite.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium sulfite",
+    "location": "Chemical Cabinet",
+    "cas": "7757-83-7",
     "legacy_inventory_id": 128,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-tetraborate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium tetraborate",
+    "location": "Chemical Cabinet",
+    "cas": "1330-43-4",
     "legacy_inventory_id": 129,
     "mtime": 1775946810
   },
   {
     "path": "resources/sodium-thiosulfate-pentahydrate.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Sodium thiosulfate pentahydrate",
+    "location": "Chemical Cabinet",
+    "cas": "10102-17-7",
     "legacy_inventory_id": 130,
     "mtime": 1775946810
   },
   {
     "path": "resources/spermidine.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Spermidine",
+    "location": "Corrosive Cabinet",
+    "cas": "124-20-9",
     "legacy_inventory_id": 131,
     "mtime": 1775946810
   },
   {
     "path": "resources/spermine.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Spermine",
+    "location": "Refrigerator",
+    "cas": "71-44-3",
     "legacy_inventory_id": 132,
     "mtime": 1775946810
   },
@@ -1735,8 +1974,10 @@
   },
   {
     "path": "resources/tetracycline-hydrochloride.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Tetracycline hydrochloride",
+    "location": "Chemical Cabinet",
+    "cas": "64-75-5",
     "legacy_inventory_id": 136,
     "mtime": 1775946810
   },
@@ -1802,8 +2043,10 @@
   },
   {
     "path": "resources/trichloroacetic-acid.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Trichloroacetic acid",
+    "location": "Chemical Cabinet",
+    "cas": "76-03-9",
     "legacy_inventory_id": 138,
     "mtime": 1775946810
   },
@@ -1830,8 +2073,10 @@
   },
   {
     "path": "resources/triton-x-100.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Triton X-100",
+    "location": "Corrosive Cabinet",
+    "cas": "9002-93-1",
     "legacy_inventory_id": 4,
     "mtime": 1775946810
   },
@@ -1857,15 +2102,19 @@
   },
   {
     "path": "resources/tween-80.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "TWEEN 80",
+    "location": "Chemical Cabinet",
+    "cas": "9005-65-6",
     "legacy_inventory_id": 135,
     "mtime": 1775946810
   },
   {
     "path": "resources/urea.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Urea",
+    "location": "Chemical Cabinet",
+    "cas": "57-13-6",
     "legacy_inventory_id": 143,
     "mtime": 1775946810
   },
@@ -1917,15 +2166,19 @@
   },
   {
     "path": "resources/yeast-extract.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Yeast extract",
+    "location": "Chemical Cabinet",
+    "cas": "8013-01-2",
     "legacy_inventory_id": 144,
     "mtime": 1775946810
   },
   {
     "path": "resources/zeocin.md",
-    "type": "reagent",
+    "type": "chemical",
     "title": "Zeocin",
+    "location": "Refrigerator",
+    "cas": "11031-11-1",
     "legacy_inventory_id": 145,
     "mtime": 1775946810
   },

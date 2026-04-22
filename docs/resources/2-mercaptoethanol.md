@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: 2-Mercaptoethanol
+type: chemical
+cas: 60-24-2
+location: Corrosive Cabinet
 legacy_inventory_id: 16
 ---
 # 2-Mercaptoethanol

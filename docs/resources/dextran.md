@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Dextran
+type: chemical
+cas: 9004-54-0
+location: Chemical Cabinet
 legacy_inventory_id: 48
 ---
 # Dextran

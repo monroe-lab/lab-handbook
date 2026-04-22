@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Hydrogen peroxide,  20 to  35 % in water
+type: chemical
+cas: 7722-84-1
+location: Corrosive Cabinet
 legacy_inventory_id: 75
 ---
 # Hydrogen peroxide,  20 to  35 % in water

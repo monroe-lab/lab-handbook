@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ammonium nitrate
+type: chemical
+cas: 6484-52-2
+location: Chemical Cabinet
 legacy_inventory_id: 26
 ---
 # Ammonium nitrate

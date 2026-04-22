@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Glacial Acetic Acid
+type: chemical
+cas: 64-19-7
+location: Flammable Cabinet
 legacy_inventory_id: 66
 ---
 # Glacial Acetic Acid

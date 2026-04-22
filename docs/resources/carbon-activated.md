@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Carbon, activated
+type: chemical
+cas: 7440-44-0
+location: Chemical Cabinet
 legacy_inventory_id: 37
 ---
 # Carbon, activated

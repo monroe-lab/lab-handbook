@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Urea
+type: chemical
+cas: 57-13-6
+location: Chemical Cabinet
 legacy_inventory_id: 143
 ---
 # Urea

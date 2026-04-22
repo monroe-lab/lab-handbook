@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Piperazine-1,4-bis(2-ethanesulfonic acid)
+type: chemical
+cas: 5625-37-6
+location: Chemical Cabinet
 legacy_inventory_id: 101
 ---
 # Piperazine-1,4-bis(2-ethanesulfonic acid)

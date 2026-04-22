@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Iron(III) chloride
+type: chemical
+cas: 7705-08-0
+location: Chemical Cabinet
 legacy_inventory_id: 80
 ---
 # Iron(III) chloride

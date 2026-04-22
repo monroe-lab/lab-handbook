@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Disodium Ethylenediamine Tetraacetate
+type: chemical
+cas: 139-33-3
+location: Chemical Cabinet
 legacy_inventory_id: 51
 ---
 # Disodium Ethylenediamine Tetraacetate

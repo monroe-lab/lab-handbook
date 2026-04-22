@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Methanol
+type: chemical
+cas: 67-56-1
+location: Flammable Cabinet
 legacy_inventory_id: 94
 ---
 # Methanol

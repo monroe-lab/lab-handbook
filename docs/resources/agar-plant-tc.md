@@ -1,6 +1,7 @@
 ---
-type: reagent
 title: Agar, Plant, TC
+type: chemical
+location: Chemical Cabinet
 legacy_inventory_id: 23
 ---
 # Agar, Plant, TC

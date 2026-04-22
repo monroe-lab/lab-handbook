@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Boric acid
+type: chemical
+cas: 10043-35-3
+location: Chemical Cabinet
 legacy_inventory_id: 31
 ---
 # Boric acid

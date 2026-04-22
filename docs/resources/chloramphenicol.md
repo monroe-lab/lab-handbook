@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Chloramphenicol
+type: chemical
+cas: 56-75-7
+location: Chemical Cabinet
 legacy_inventory_id: 42
 ---
 # Chloramphenicol

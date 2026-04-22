@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Diethyl pyrocarbonate
+type: chemical
+cas: 1609-47-8
+location: Refrigerator
 legacy_inventory_id: 49
 ---
 # Diethyl pyrocarbonate

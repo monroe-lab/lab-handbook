@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Glycine
+type: chemical
+cas: 56-40-6
+location: Chemical Cabinet
 legacy_inventory_id: 70
 ---
 # Glycine

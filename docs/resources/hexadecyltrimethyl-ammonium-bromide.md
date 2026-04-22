@@ -1,6 +1,7 @@
 ---
-type: reagent
 title: Hexadecyltrimethyl-ammonium bromide
+type: chemical
+location: Chemical Cabinet
 legacy_inventory_id: 74
 ---
 # Hexadecyltrimethyl-ammonium bromide

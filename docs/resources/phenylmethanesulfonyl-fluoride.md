@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Phenylmethanesulfonyl fluoride
+type: chemical
+cas: 329-98-6
+location: Corrosive Cabinet
 legacy_inventory_id: 100
 ---
 # Phenylmethanesulfonyl fluoride

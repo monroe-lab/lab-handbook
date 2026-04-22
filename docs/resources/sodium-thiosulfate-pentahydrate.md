@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium thiosulfate pentahydrate
+type: chemical
+cas: 10102-17-7
+location: Chemical Cabinet
 legacy_inventory_id: 130
 ---
 # Sodium thiosulfate pentahydrate

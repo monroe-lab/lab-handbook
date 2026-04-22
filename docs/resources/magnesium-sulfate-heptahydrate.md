@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Magnesium sulfate heptahydrate
+type: chemical
+cas: 10034-99-8
+location: Chemical Cabinet
 legacy_inventory_id: 92
 ---
 # Magnesium sulfate heptahydrate

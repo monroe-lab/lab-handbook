@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Potassium chloride
+type: chemical
+cas: 7447-40-7
+location: Chemical Cabinet
 legacy_inventory_id: 106
 ---
 # Potassium chloride

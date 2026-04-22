@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium arsenate dibasic heptahydrate
+type: chemical
+cas: 10048-95-0
+location: Chemical Cabinet
 legacy_inventory_id: 116
 ---
 # Sodium arsenate dibasic heptahydrate

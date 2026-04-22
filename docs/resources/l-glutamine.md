@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: L-Glutamine
+type: chemical
+cas: 56-85-9
+location: Chemical Cabinet
 legacy_inventory_id: 85
 ---
 # L-Glutamine

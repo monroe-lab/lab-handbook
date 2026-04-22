@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Chloroform:Isoamyl alcohol 24:1
+type: chemical
+cas: 67-66-3, 64-17-5, 123-51-3
+location: Chemical Cabinet
 legacy_inventory_id: 148
 ---
 # Chloroform:Isoamyl alcohol 24:1

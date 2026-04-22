@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Kanamycin Sulfate
+type: chemical
+cas: 25389-94-0
+location: Chemical Cabinet
 legacy_inventory_id: 6
 ---
 # Kanamycin Sulfate

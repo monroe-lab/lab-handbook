@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: IGEPAL CA-630
+type: chemical
+cas: 9002-93-1
+location: Corrosive Cabinet
 legacy_inventory_id: 77
 ---
 # IGEPAL CA-630

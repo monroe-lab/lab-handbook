@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: L-Lysine monohydrochloride
+type: chemical
+cas: 657-27-2
+location: Chemical Cabinet
 legacy_inventory_id: 86
 ---
 # L-Lysine monohydrochloride

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Gentamicin sulfate salt
+type: chemical
+cas: 1405-41-0
+location: Chemical Cabinet
 legacy_inventory_id: 64
 ---
 # Gentamicin sulfate salt

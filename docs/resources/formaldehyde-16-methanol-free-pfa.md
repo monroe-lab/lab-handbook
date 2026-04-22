@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Formaldehyde (16% methanol free) PFA
+type: chemical
+cas: 50-00-0
+location: Chemical Cabinet
 legacy_inventory_id: 60
 ---
 # Formaldehyde (16% methanol free) PFA

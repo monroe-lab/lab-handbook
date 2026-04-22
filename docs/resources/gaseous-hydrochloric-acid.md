@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Gaseous hydrochloric acid
+type: chemical
+cas: 7647-01-0
+location: Corrosive Cabinet
 legacy_inventory_id: 63
 ---
 # Gaseous hydrochloric acid

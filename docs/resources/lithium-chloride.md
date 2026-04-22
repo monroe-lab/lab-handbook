@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Lithium chloride
+type: chemical
+cas: 7447-41-8
+location: Chemical Cabinet
 legacy_inventory_id: 88
 ---
 # Lithium chloride

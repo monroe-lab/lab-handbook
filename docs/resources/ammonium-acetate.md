@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ammonium acetate
+type: chemical
+cas: 631-61-8
+location: Chemical Cabinet
 legacy_inventory_id: 24
 ---
 # Ammonium acetate

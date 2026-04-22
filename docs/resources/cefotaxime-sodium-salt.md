@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Cefotaxime sodium salt
+type: chemical
+cas: 64485-93-4
+location: Refrigerator
 legacy_inventory_id: 39
 ---
 # Cefotaxime sodium salt

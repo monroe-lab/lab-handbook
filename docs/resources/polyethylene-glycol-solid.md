@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Polyethylene glycol (solid)
+type: chemical
+cas: 25322-68-3
+location: Chemical Cabinet
 legacy_inventory_id: 102
 ---
 # Polyethylene glycol (solid)

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Iohexol
+type: chemical
+cas: 66108-95-0
+location: Chemical Cabinet
 legacy_inventory_id: 79
 ---
 # Iohexol

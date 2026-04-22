@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ethylenediaminetetraacetic acid, GMP
+type: chemical
+cas: 60-00-4
+location: Chemical Cabinet
 legacy_inventory_id: 58
 ---
 # Ethylenediaminetetraacetic acid, GMP

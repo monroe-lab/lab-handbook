@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ethyl methanesulfonate
+type: chemical
+cas: 62-50-0
+location: Chemical Cabinet
 legacy_inventory_id: 56
 ---
 # Ethyl methanesulfonate

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium hydroxide
+type: chemical
+cas: 1310-73-2
+location: Chemical Cabinet
 legacy_inventory_id: 122
 ---
 # Sodium hydroxide

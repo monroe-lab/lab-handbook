@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Glufosinate-ammonium
+type: chemical
+cas: 77182-82-2
+location: Refrigerator
 legacy_inventory_id: 67
 ---
 # Glufosinate-ammonium

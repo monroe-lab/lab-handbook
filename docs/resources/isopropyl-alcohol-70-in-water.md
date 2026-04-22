@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Isopropyl alcohol, 70% in water
+type: chemical
+cas: 67-63-0
+location: Flammable Cabinet
 legacy_inventory_id: 83
 ---
 # Isopropyl alcohol, 70% in water

@@ -1,8 +1,10 @@
 ---
-type: "reagent"
-title: "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA"
-legacy_inventory_id: 13
+title: 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA
+type: chemical
+cas: 110923-13-2
+location: Chemical Cabinet
 status: in_stock
+legacy_inventory_id: 13
 ---
 # 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA
 

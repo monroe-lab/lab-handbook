@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Potassium permanganate
+type: chemical
+cas: 7722-64-7
+location: Chemical Cabinet
 legacy_inventory_id: 109
 ---
 # Potassium permanganate

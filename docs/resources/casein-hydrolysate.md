@@ -1,6 +1,7 @@
 ---
-type: reagent
 title: Casein Hydrolysate
+type: chemical
+location: Chemical Cabinet
 legacy_inventory_id: 38
 ---
 # Casein Hydrolysate

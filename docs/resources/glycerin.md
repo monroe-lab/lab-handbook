@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Glycerin
+type: chemical
+cas: 56-81-5
+location: Chemical Cabinet
 legacy_inventory_id: 68
 ---
 # Glycerin

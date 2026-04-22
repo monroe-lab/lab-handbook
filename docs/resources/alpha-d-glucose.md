@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: alpha-D-Glucose
+type: chemical
+cas: 492-62-6
+location: Chemical Cabinet
 legacy_inventory_id: 146
 ---
 # alpha-D-Glucose

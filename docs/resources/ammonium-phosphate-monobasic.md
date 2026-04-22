@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ammonium phosphate monobasic
+type: chemical
+cas: 7722-76-1
+location: Chemical Cabinet
 legacy_inventory_id: 27
 ---
 # Ammonium phosphate monobasic

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Magnesium acetate tetrahydrate
+type: chemical
+cas: 16674-78-5
+location: Chemical Cabinet
 legacy_inventory_id: 90
 ---
 # Magnesium acetate tetrahydrate

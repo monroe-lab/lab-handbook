@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Acrylamide
+type: chemical
+cas: 79-06-1
+location: Chemical Cabinet
 legacy_inventory_id: 21
 ---
 # Acrylamide

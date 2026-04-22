@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Chloroform
+type: chemical
+cas: 67-66-3
+location: Corrosive Cabinet
 legacy_inventory_id: 9
 ---
 # Chloroform

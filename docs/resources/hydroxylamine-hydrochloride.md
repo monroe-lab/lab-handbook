@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Hydroxylamine hydrochloride
+type: chemical
+cas: 5470-11-1
+location: Corrosive Cabinet
 legacy_inventory_id: 76
 ---
 # Hydroxylamine hydrochloride

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Methyl methanesulfonate
+type: chemical
+cas: 66-27-3
+location: Chemical Cabinet
 legacy_inventory_id: 95
 ---
 # Methyl methanesulfonate

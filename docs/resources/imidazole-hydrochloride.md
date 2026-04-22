@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Imidazole hydrochloride
+type: chemical
+cas: 1467-16-9
+location: Chemical Cabinet
 legacy_inventory_id: 78
 ---
 # Imidazole hydrochloride

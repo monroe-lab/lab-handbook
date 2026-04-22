@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Agarose
+type: chemical
+cas: 9012-36-6
+location: Chemical Cabinet
 legacy_inventory_id: 10
 ---
 # Agarose

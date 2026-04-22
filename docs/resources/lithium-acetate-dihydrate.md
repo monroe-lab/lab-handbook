@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Lithium acetate dihydrate
+type: chemical
+cas: 6108-17-4
+location: Corrosive Cabinet
 legacy_inventory_id: 87
 ---
 # Lithium acetate dihydrate

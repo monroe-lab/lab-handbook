@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Reagent Alcohol 100% (200 proof, Denatured)
+type: chemical
+cas: 64-17-5
+location: Flammable Cabinet
 legacy_inventory_id: 112
 ---
 # Reagent Alcohol 100% (200 proof, Denatured)

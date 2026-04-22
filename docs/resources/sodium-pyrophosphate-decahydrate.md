@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium pyrophosphate decahydrate
+type: chemical
+cas: 13472-36-1
+location: Chemical Cabinet
 legacy_inventory_id: 127
 ---
 # Sodium pyrophosphate decahydrate

@@ -1,8 +1,10 @@
 ---
-type: "reagent"
-title: "1-Octanol"
+title: 1-Octanol
+type: chemical
+cas: 111-87-5
+location: Flammable Cabinet
+status: in_stock
 legacy_inventory_id: 14
-status: "in_stock"
 ---
 # 1-Octanol
 

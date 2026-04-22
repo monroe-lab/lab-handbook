@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Guanidine thiocyanate
+type: chemical
+cas: 593-84-0
+location: Chemical Cabinet
 legacy_inventory_id: 71
 ---
 # Guanidine thiocyanate

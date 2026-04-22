@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Lithium hydroxide monohydrate
+type: chemical
+cas: 1310-66-3
+location: Chemical Cabinet
 legacy_inventory_id: 89
 ---
 # Lithium hydroxide monohydrate

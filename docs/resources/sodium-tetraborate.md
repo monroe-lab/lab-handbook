@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium tetraborate
+type: chemical
+cas: 1330-43-4
+location: Chemical Cabinet
 legacy_inventory_id: 129
 ---
 # Sodium tetraborate

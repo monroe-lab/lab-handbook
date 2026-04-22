@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Citric acid
+type: chemical
+cas: 77-92-9
+location: Chemical Cabinet
 legacy_inventory_id: 43
 ---
 # Citric acid

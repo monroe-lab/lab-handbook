@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Tetracycline hydrochloride
+type: chemical
+cas: 64-75-5
+location: Chemical Cabinet
 legacy_inventory_id: 136
 ---
 # Tetracycline hydrochloride

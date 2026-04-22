@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Triton X-100
+type: chemical
+cas: 9002-93-1
+location: Corrosive Cabinet
 legacy_inventory_id: 4
 ---
 # Triton X-100

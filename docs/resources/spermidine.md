@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Spermidine
+type: chemical
+cas: 124-20-9
+location: Corrosive Cabinet
 legacy_inventory_id: 131
 ---
 # Spermidine

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium phosphate dibasic
+type: chemical
+cas: 7558-79-4
+location: Chemical Cabinet
 legacy_inventory_id: 126
 ---
 # Sodium phosphate dibasic

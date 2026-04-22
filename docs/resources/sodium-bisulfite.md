@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium bisulfite
+type: chemical
+cas: 7631-90-5
+location: Chemical Cabinet
 legacy_inventory_id: 118
 ---
 # Sodium bisulfite

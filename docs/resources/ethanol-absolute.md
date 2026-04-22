@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ethanol Absolute
+type: chemical
+cas: 64-17-5
+location: Flammable Cabinet
 legacy_inventory_id: 5
 ---
 # Ethanol Absolute

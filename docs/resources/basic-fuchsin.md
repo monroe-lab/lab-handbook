@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Basic Fuchsin
+type: chemical
+cas: 569-61-9
+location: Chemical Cabinet
 legacy_inventory_id: 29
 ---
 # Basic Fuchsin

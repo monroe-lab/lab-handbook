@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Magnesium chloride
+type: chemical
+cas: 7786-30-3
+location: Chemical Cabinet
 legacy_inventory_id: 91
 ---
 # Magnesium chloride

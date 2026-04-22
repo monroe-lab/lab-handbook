@@ -1,7 +1,8 @@
 ---
-type: reagent
-title: Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium
-  salt
+title: Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt
+type: chemical
+cas: 13368-13-3
+location: Chemical Cabinet
 legacy_inventory_id: 57
 ---
 # Ethylene glycol-bis(beta-aminoethyl ether)-N,N,N',N'-tetraacetic acid tetrasodium salt

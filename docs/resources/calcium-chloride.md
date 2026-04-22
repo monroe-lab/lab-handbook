@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Calcium chloride
+type: chemical
+cas: 10043-52-4
+location: Chemical Cabinet
 legacy_inventory_id: 34
 ---
 # Calcium chloride

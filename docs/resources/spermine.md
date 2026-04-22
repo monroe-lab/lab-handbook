@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Spermine
+type: chemical
+cas: 71-44-3
+location: Refrigerator
 legacy_inventory_id: 132
 ---
 # Spermine

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Zeocin
+type: chemical
+cas: 11031-11-1
+location: Refrigerator
 legacy_inventory_id: 145
 ---
 # Zeocin

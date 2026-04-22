@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Polyvinylpyrrolidone
+type: chemical
+cas: 9003-39-8
+location: Chemical Cabinet
 legacy_inventory_id: 103
 ---
 # Polyvinylpyrrolidone

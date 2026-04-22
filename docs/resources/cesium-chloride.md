@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Cesium chloride
+type: chemical
+cas: 7647-17-8
+location: Chemical Cabinet
 legacy_inventory_id: 40
 ---
 # Cesium chloride

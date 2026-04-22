@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Carbenicillin disodium salt
+type: chemical
+cas: 4800-94-6
+location: Refrigerator
 legacy_inventory_id: 36
 ---
 # Carbenicillin disodium salt

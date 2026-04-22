@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Isopropyl alcohol
+type: chemical
+cas: 67-63-0
+location: Flammable Cabinet
 legacy_inventory_id: 81
 ---
 # Isopropyl alcohol

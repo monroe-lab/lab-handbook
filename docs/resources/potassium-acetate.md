@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Potassium acetate
+type: chemical
+cas: 127-08-2
+location: Chemical Cabinet
 legacy_inventory_id: 105
 ---
 # Potassium acetate

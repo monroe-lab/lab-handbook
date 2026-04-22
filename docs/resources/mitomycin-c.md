@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Mitomycin C
+type: chemical
+cas: 50-07-7
+location: Refrigerator
 legacy_inventory_id: 8
 ---
 # Mitomycin C

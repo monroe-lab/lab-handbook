@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Manganese(II) chloride
+type: chemical
+cas: 7773-01-5
+location: Chemical Cabinet
 legacy_inventory_id: 93
 ---
 # Manganese(II) chloride

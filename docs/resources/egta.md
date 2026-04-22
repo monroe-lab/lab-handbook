@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: EGTA
+type: chemical
+cas: 67-42-5
+location: Refrigerator
 legacy_inventory_id: 54
 ---
 # EGTA

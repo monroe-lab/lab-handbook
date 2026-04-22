@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Sodium metabisulfite
+type: chemical
+cas: 7681-57-4
+location: Chemical Cabinet
 legacy_inventory_id: 125
 ---
 # Sodium metabisulfite

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Ammonium chloride
+type: chemical
+cas: 12125-02-9
+location: Chemical Cabinet
 legacy_inventory_id: 25
 ---
 # Ammonium chloride

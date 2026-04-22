@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Potassium nitrate
+type: chemical
+cas: 7757-79-1
+location: Chemical Cabinet
 legacy_inventory_id: 108
 ---
 # Potassium nitrate

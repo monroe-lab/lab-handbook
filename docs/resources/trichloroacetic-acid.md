@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Trichloroacetic acid
+type: chemical
+cas: 76-03-9
+location: Chemical Cabinet
 legacy_inventory_id: 138
 ---
 # Trichloroacetic acid

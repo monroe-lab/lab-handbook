@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Calcium carbonate
+type: chemical
+cas: 471-34-1
+location: Chemical Cabinet
 legacy_inventory_id: 33
 ---
 # Calcium carbonate

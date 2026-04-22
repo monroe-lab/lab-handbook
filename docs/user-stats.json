@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-04-22T15:04:54.048004+00:00",
-  "total_commits": 2930,
+  "generated_at": "2026-04-22T19:15:35.501584+00:00",
+  "total_commits": 3065,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 2811,
+      "total_commits": 2946,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-22",
       "protocols_authored": 176,
-      "notebooks_authored": 129,
-      "inventory_edits": 1802,
-      "wiki_edits": 949,
-      "images_uploaded": 113,
-      "issue_attachments": 56,
+      "notebooks_authored": 136,
+      "inventory_edits": 1850,
+      "wiki_edits": 1447,
+      "images_uploaded": 138,
+      "issue_attachments": 80,
       "issues_filed": 30,
       "locations_created": 138,
-      "items_added": 597,
+      "items_added": 637,
       "bulletin_edits": 12,
       "calendar_edits": 40,
       "annotations": 57,
@@ -24,43 +24,43 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "6b781c5",
-          "subject": "Create notebook folder for QA18v Verify a59uxb",
+          "sha": "4875877",
+          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.38.31-am.png",
           "date": "2026-04-22"
         },
         {
-          "sha": "494ae7e",
-          "subject": "First notebook entry for QA18v Verify a59uxb",
+          "sha": "d1779ce",
+          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.39.47-am.png",
           "date": "2026-04-22"
         },
         {
-          "sha": "0539994",
-          "subject": "cycle-18 verify cleanup",
+          "sha": "f35daeb",
+          "subject": "Pin new-box-mnvmzdmc for grey-monroe",
           "date": "2026-04-22"
         },
         {
-          "sha": "ee52837",
-          "subject": "cycle-18 verify cleanup",
+          "sha": "4d4e9c9",
+          "subject": "Pin new-box-mnvmzdmc for grey-monroe",
           "date": "2026-04-22"
         },
         {
-          "sha": "183769e",
-          "subject": "cycle-18 verify cleanup",
+          "sha": "6d49ca5",
+          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.43.18-am.png",
           "date": "2026-04-22"
         },
         {
-          "sha": "c1e85ef",
-          "subject": "qa-cycle-18: state update + harness scripts for onboarding-wizard QA pass",
+          "sha": "6c2759c",
+          "subject": "r20: accession schema overhaul \u2014 broad status buckets, stars, people wikilinks, promote biological stocks (#155-#161)",
           "date": "2026-04-22"
         },
         {
-          "sha": "1e90ba8",
-          "subject": "qa-cycle-19: honor ?person= in notebooks, hide FAB during wizard, icon empty-states",
+          "sha": "0c727fc",
+          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.55.25-am.png",
           "date": "2026-04-22"
         },
         {
-          "sha": "0155c50",
-          "subject": "qa-cycle-19: state update + verify harness for Search every surface pass",
+          "sha": "26a6f96",
+          "subject": "feedback round: nav reorder, of: picker, pin state, test notebooks, Add wording (#162-#167)",
           "date": "2026-04-22"
         }
       ],

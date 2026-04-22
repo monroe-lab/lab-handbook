@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Activated charcoal
+type: chemical
+cas: 7440-44-0
+location: Flammable Cabinet
 legacy_inventory_id: 22
 ---
 # Activated charcoal

@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Aristolochic acid I
+type: chemical
+cas: 313-67-7
+location: Chemical Cabinet
 legacy_inventory_id: 28
 ---
 # Aristolochic acid I

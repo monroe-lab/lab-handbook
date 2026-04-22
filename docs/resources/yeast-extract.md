@@ -1,6 +1,8 @@
 ---
-type: reagent
 title: Yeast extract
+type: chemical
+cas: 8013-01-2
+location: Chemical Cabinet
 legacy_inventory_id: 144
 ---
 # Yeast extract
