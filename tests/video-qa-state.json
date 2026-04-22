@@ -1,0 +1,41 @@
+{
+  "description": "Video tutorial QA — per-video review of recorded handbook tutorials. Each cycle reviews one video: extracts frames + audio transcript, cross-references against the config's step narration, scores the video, and flags any issues.",
+  "videos_dir": "/Users/greymonroe/Dropbox/myapps/webtutorial/examples",
+  "frames_dir": "/tmp/video-qa",
+  "reports_dir": "tests/video-qa-reports",
+  "cycle": 0,
+  "queue": [
+    { "slug": "lab-mcc-01-samples",     "title": "McClintock 1 — Making sample records",            "status": "pending" },
+    { "slug": "lab-mcc-02-tissue-box",  "title": "McClintock 2 — Creating a tissue storage box",    "status": "pending" },
+    { "slug": "lab-mcc-03-tubes",       "title": "McClintock 3 — Putting samples in Falcon tubes",  "status": "pending" },
+    { "slug": "lab-mcc-04-dna-box",     "title": "McClintock 4 — Creating a DNA archive box",       "status": "pending" },
+    { "slug": "lab-mcc-05-notebook",    "title": "McClintock 5 — The lab notebook entry",           "status": "pending" },
+    { "slug": "lab-mcc-06-dna-tubes",   "title": "McClintock 6 — Placing DNA aliquots",             "status": "pending" },
+    { "slug": "lab-mcclintock-gel",     "title": "McClintock — Gel imaging + annotation",           "status": "pending" },
+    { "slug": "lab-notebooks-tour",     "title": "Lab Notebooks tour",                              "status": "pending" },
+    { "slug": "lab-protocols-tour",     "title": "Protocols tour",                                  "status": "pending" },
+    { "slug": "lab-image-annotation",   "title": "Image Annotation tour",                           "status": "pending" },
+    { "slug": "lab-getting-started",    "title": "Getting Started (published)",                     "status": "pending" },
+    { "slug": "lab-inventory-tour",     "title": "Inventory & Reordering (published)",              "status": "pending" },
+    { "slug": "lab-freezer-placement",  "title": "Freezer Placement (published)",                   "status": "pending" }
+  ],
+  "reviewed": [],
+  "scoring_rubric": {
+    "max_score": 100,
+    "dimensions": [
+      { "name": "visual_clarity",       "weight": 20, "desc": "UI visible, no covering modals, no cursor off-screen, no stale state from previous step" },
+      { "name": "narration_visual_sync", "weight": 25, "desc": "Subtitle/narration at time T describes what is visibly happening at time T (or about to)" },
+      { "name": "subtitle_legibility",  "weight": 10, "desc": "Subtitle bar never clipped, readable contrast, no overlap with page content" },
+      { "name": "pacing",               "weight": 15, "desc": "No long dead air, no steps rushed before the UI responds, cursor moves at a followable speed" },
+      { "name": "cursor_guidance",      "weight": 10, "desc": "Cursor points at the thing being discussed before the click; click targets are visible" },
+      { "name": "correctness",          "weight": 15, "desc": "The tutorial actually accomplishes what the title says; final state matches the intended outcome" },
+      { "name": "polish",               "weight":  5, "desc": "Intro/outro clean, no obvious glitches, overlay elements rendered properly" }
+    ]
+  },
+  "issue_severity": {
+    "blocker":  "Re-record required — viewer won't be able to follow along",
+    "major":    "Meaningful usability hit — consider re-record or edit",
+    "minor":    "Polish item — ship as-is, fix in next round",
+    "nitpick":  "Would notice only on careful review"
+  }
+}
