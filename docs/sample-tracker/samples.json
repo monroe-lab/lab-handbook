@@ -3124,14 +3124,14 @@
   {
     "id": 224,
     "sampleId": "R16_B3_W",
-    "project": "Walnut VX218",
+    "project": "Walnut VX211",
     "species": "Juglans hybrid",
     "lead": "Matt Davis",
     "sequencingType": "Illumina WGS",
     "status": "Tissue collected",
     "priority": "🌾",
     "currentBlocker": "to be completed after the Kerman Somatic project is complete",
-    "lastUpdated": "2026-03-29",
+    "lastUpdated": "2026-04-22",
     "notes": "Runcie -80, top of our two shelves. Behind the 50mL tubes in a bag",
     "detailSheetLink": "Please create a sheet when you begin"
   },
