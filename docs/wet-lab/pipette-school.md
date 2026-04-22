@@ -74,7 +74,7 @@ Every trainee gets their own set of tip boxes — one per pipette size (P10, P20
 
 **When the shared stock is low.** If you pulled the last (or close to last) box of any size, flag it in the [inventory app](../inventory-app/) as needs-ordering. Don't assume someone else noticed. You do not order supplies yourself — flagging in inventory is the signal to Grey or your mentor to reorder.
 
-**Empty boxes.** Don't throw them out. Empty tip boxes get refilled from bulk tips and autoclaved for reuse — see [[autoclave]]. **Stack empty boxes by the trashcans at the bench ends.** Lids stay with boxes. If it's empty, it goes on the stack, not in the trash.
+**Empty boxes.** Empty tip boxes get **recycled**, not trashed. **Stack them by the trashcans at the bench ends** — the stack is the recycling pile. Lids stay with the boxes. Don't put empty tip boxes in the regular trash.
 
 ## Technique
 
