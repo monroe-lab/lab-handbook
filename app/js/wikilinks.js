@@ -173,8 +173,11 @@
       buttons += '<a href="' + sdsUrl + '" target="_blank" style="flex:1;text-align:center;padding:8px;border-radius:6px;background:#fff3e0;color:#e65100;text-decoration:none;font-size:13px;font-weight:500;">View SDS</a>';
     }
 
-    // Edit button
-    buttons += '<button onclick="if(window.Lab&&window.Lab.editorModal){window.Lab.editorModal.open(\'docs/' + obj.path + '\');document.getElementById(\'obj-popup\').style.display=\'none\';}" style="flex:1;text-align:center;padding:8px;border-radius:6px;background:#e0f2f1;color:#00796b;border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit">Edit</button>';
+    // Edit button — path goes through data-attribute + addEventListener below,
+    // NOT an inline onclick string. obj.path is sourced from the GitHub-indexed
+    // file paths in a public repo; a collaborator could commit a file whose
+    // name contains a quote and break out of the inline JS string (DOM XSS).
+    buttons += '<button data-wl-action="edit" data-wl-path="docs/' + esc(obj.path || '') + '" style="flex:1;text-align:center;padding:8px;border-radius:6px;background:#e0f2f1;color:#00796b;border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit">Edit</button>';
 
     p.innerHTML =
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">' +
@@ -187,6 +190,19 @@
       '</div>' +
       (details ? '<div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;margin-bottom:16px;">' + details + '</div>' : '') +
       '<div style="display:flex;gap:8px;">' + buttons + '</div>';
+
+    // Wire the Edit button. Using addEventListener + data-attr avoids
+    // injecting the path into an inline onclick string.
+    var editBtn = p.querySelector('[data-wl-action="edit"]');
+    if (editBtn) {
+      editBtn.addEventListener('click', function() {
+        var path = editBtn.getAttribute('data-wl-path');
+        if (window.Lab && window.Lab.editorModal && path) {
+          window.Lab.editorModal.open(path);
+          p.style.display = 'none';
+        }
+      });
+    }
 
     var rect = anchorEl.getBoundingClientRect();
     var top = rect.bottom + 8;

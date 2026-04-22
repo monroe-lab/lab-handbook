@@ -6,7 +6,7 @@ project: DNA Repair Mutants
 people: Satoyo Oya
 species: Arabidopsis thaliana
 status: waiting
-status_note: On hold — Kit delays. 3 NovoGene HiFi lanes reserved (K30APSM781)
+status_note: On hold — Kit delays. 3 NovoGene HiFi lanes reserved (chart string in private vault)
 priority: '3'
 sequencing_type: HiFi
 detail_sheet_link: https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY

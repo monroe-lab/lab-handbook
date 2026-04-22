@@ -33,7 +33,7 @@ Both with matched 3A binding-pocket-knockout negative controls for specificity e
 
 ## Equipment and reagents needed
 
-This section is the single source of truth for ordering on the project. Grey derives purchase requests from the items below and submits them through [[susan-hendrickson]] on the NSF EAGER chart string `K30APSFC22-TASK01-APLS002-522201` (expires 2026-05-31, so orders must be placed before the end of the month).
+This section is the single source of truth for ordering on the project. Grey derives purchase requests from the items below and submits them through [[susan-hendrickson]] on the project's NSF EAGER chart string (see [[Accounts Overview]] in the private vault; expires 2026-05-31, so orders must be placed before the end of the month).
 
 ### Tier 1: required for the first experiments (order ASAP)
 
