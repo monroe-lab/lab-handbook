@@ -131,7 +131,7 @@ Each tree contributes **two adjacent leaf clusters** from a side branch with mul
 - [[sorbitol-ctab-hifi-extraction]] -- Sorbitol/CTAB extraction protocol for high-molecular-weight DNA
 - [[quantifying-dna-qubit]] -- DNA quantification with Qubit
 - [[tube-and-sample-labeling]] -- Lab tube and sample labeling conventions
-- [[sample-tracker-guide]] -- How we track samples through the pipeline
+- [[accession-tracker-guide]] -- How we track accessions (and their physical samples/extractions/libraries) through the pipeline
 
 ---
 

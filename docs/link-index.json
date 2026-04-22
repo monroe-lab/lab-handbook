@@ -1529,7 +1529,7 @@
   },
   {
     "source": "projects/poplar-somatic-sequencing",
-    "target": "lab-management/sample-tracker-guide"
+    "target": "lab-management/accession-tracker-guide"
   },
   {
     "source": "projects/tudor-reader-fusions/index",

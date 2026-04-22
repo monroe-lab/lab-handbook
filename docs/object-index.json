@@ -3643,7 +3643,7 @@
     "title": "Kehan Zhao",
     "role": "Lab Manager & Safety Coordinator",
     "email": "kehzhao@ucdavis.edu",
-    "mtime": 1775207934
+    "mtime": 1776875553
   },
   {
     "path": "people/mr-freckles.md",
@@ -4252,6 +4252,11 @@
     "mtime": 1775707792
   },
   {
+    "path": "lab-management/accession-tracker-guide.md",
+    "type": "guide",
+    "title": "Monroe Lab Accession Tracker: How to Use It"
+  },
+  {
     "path": "lab-management/farm-resources-cpus-and-storage.md",
     "type": "guide",
     "title": "Farm resources, CPUs, and storage",
@@ -4273,12 +4278,6 @@
     "path": "lab-management/new-member-checklist.md",
     "type": "guide",
     "title": "Welcome! Checklist for new lab members",
-    "mtime": 1775707792
-  },
-  {
-    "path": "lab-management/sample-tracker-guide.md",
-    "type": "guide",
-    "title": "Monroe Lab Sample Tracker: How to Use It",
     "mtime": 1775707792
   },
   {
