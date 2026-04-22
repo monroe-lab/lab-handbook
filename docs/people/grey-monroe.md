@@ -6,6 +6,8 @@ email: "gmonroe@ucdavis.edu"
 favorites:
   - slug: "2026-04-08"
     type: "notebook"
+  - slug: "liquid-nitrogen-refill"
+    type: "protocol"
 ---
 
 # Grey Monroe
