@@ -1,8 +1,11 @@
 ---
-type: person
+type: "person"
 title: "Grey Monroe"
 role: "Principal Investigator"
 email: "gmonroe@ucdavis.edu"
+favorites:
+  - slug: "2026-04-08"
+    type: "notebook"
 ---
 
 # Grey Monroe
