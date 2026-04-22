@@ -1745,7 +1745,10 @@
           showActions: false,
           draggable: false,
           locationsOnly: true,
-          initialDepth: 1,
+          // #158: start fully collapsed so the user sees top-level rooms
+          // without any children pre-expanded. They can drill down or use
+          // filter/expand-all to get further.
+          initialDepth: 0,
           onPick: function(slug) {
             parentHidden.value = slug;
             parentHidden.dispatchEvent(new Event('input', { bubbles: true }));
