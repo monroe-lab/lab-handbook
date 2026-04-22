@@ -1,11 +1,11 @@
 ---
-type: reagent
-title: Ethanol 70%
-need_more: false
-created_at: '2026-04-07T16:48:44.166Z'
-created_by: greymonroe
-updated_at: '2026-04-07T16:48:44.166Z'
-unit: g
+type: "reagent"
+title: "Ethanol 70%"
+created_at: "2026-04-07T16:48:44.166Z"
+created_by: "greymonroe"
+updated_at: "2026-04-07T16:48:44.166Z"
+unit: "g"
+status: "needs_more"
 ---
 # Ethanol 70%
 
