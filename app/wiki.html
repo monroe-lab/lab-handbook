@@ -29,7 +29,12 @@
 .doc-meta-row .clear-link { background: none; border: none; color: #3f51b5; cursor: pointer; font-size: 11px; padding: 0; font-family: inherit; }
 .doc-meta-row .clear-link:hover { text-decoration: underline; }
 
-.doc-type-filter { padding: 10px 12px 4px; border-bottom: 1px solid var(--grey-200); display: flex; flex-wrap: wrap; gap: 4px; max-height: 110px; overflow-y: auto; }
+/* #146: expand the pill filter to show every type. The old `max-height:
+   110px; overflow-y:auto` cap truncated trailing pills (Project, Person,
+   Sample, Pool, …) so you couldn't see what filters were available without
+   scrolling a nested scroll area. Now wraps freely; the whole sidebar
+   scrolls. */
+.doc-type-filter { padding: 10px 12px 8px; border-bottom: 1px solid var(--grey-200); display: flex; flex-wrap: wrap; gap: 4px; }
 .doc-type-chip {
   display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px;
   border-radius: 12px; font-size: 11px; font-weight: 500; cursor: pointer; user-select: none;
