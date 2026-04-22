@@ -948,7 +948,14 @@
         }
       } catch(e) { /* non-fatal */ }
 
-      contentEl.innerHTML = crumbHTML + '<div class="lab-rendered em-rendered">' + html + '</div>';
+      // #125: plain location cards often have no body content, which rendered
+      // as empty whitespace under the title. Show an italic placeholder so the
+      // reader knows the area is a description area that they can fill in.
+      var bodyTextLen = (parsed.body || '').replace(/\s+/g, '').length;
+      var bodyBlockHTML = bodyTextLen
+        ? '<div class="lab-rendered em-rendered">' + html + '</div>'
+        : '<div class="em-empty-body" style="color:var(--grey-500);font-style:italic;font-size:14px;padding:8px 0">No description yet. Click Edit to add notes, images, or links.</div>';
+      contentEl.innerHTML = crumbHTML + bodyBlockHTML;
       if (window.Lab.wikilinks) {
         await window.Lab.wikilinks.processRendered(contentEl);
       }
