@@ -1,0 +1,8 @@
+name: sniffles-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - sniffles
+  - cutesv
+prefix: /home/soya/.conda/envs/sniffles-env

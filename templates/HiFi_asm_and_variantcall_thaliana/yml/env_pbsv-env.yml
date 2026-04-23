@@ -1,0 +1,11 @@
+name: pbsv-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - pbsv
+  - picard
+  - pbmm2
+  - bioconda::pbbam
+  - pysam
+prefix: /home/soya/.conda/envs/pbsv-env

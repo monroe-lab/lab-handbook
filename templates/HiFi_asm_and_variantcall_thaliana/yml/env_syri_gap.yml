@@ -1,0 +1,9 @@
+name: syri_gap
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - gcc=13
+  - pandas
+prefix: /home/soya/.conda/envs/syri_gap
