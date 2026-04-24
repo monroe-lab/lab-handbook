@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 20,
+  "cycle": 21,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2673,6 +2673,181 @@
         "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE: right after addInstanceFromConcept + save, the new bottle briefly appears as its own inventory row instead of rolling up under its concept. Reloading the page fixes it \u2014 suggesting renderTable runs before bottlesByConcept is rebuilt when the lab-file-saved event fires. Not fixing this cycle; low severity (transient).",
         "End-to-end workflow solid: Add \u2192 pick concept \u2192 editor \u2192 fill fields \u2192 save \u2192 read-only popup \u2192 concept popup lists new bottle \u2192 location popup lists new bottle. Full object-graph round-trip works as designed."
       ]
+    },
+    {
+      "cycle": 21,
+      "persona": "Dr. Monroe",
+      "modifier": "explorer",
+      "task": "Accession status overhaul + URL edge cases. PI opens the Accessions tracker, cycles through all 5 status filter buckets (active/waiting/storage/completed/archived) verifying stat-card counts match visible row counts, inline-changes one accession from active -> storage via the pill dropdown, cycles priority 0 -> 3 via star clicks (each click commits), and verifies persistence via the GitHub Contents API. Then explorer mode: deep-link ?doc=accessions/this-slug-does-not-exist, ?doc=<script>alert(1)</script>, ?doc=../../etc/passwd, empty ?doc=, and a real restored slug. Verifies nav overflow at 1024px and the mobile bottom bar at 375x812.",
+      "timestamp": "2026-04-24T16:12:20",
+      "scenario_card": "Accession status overhaul",
+      "phase": "functional",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle21/01-accessions-initial.png",
+          "shows": "Accessions page initial state at 1440x900",
+          "evaluation": "Purple framework banner present. 12-tab nav shows all tabs at wide viewport. Stats: 232 total / 101 active / 119 waiting / 0 storage / 12 completed / 0 archived. Counts sum to total. All priority stars grey initially.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/02-1-after-active.png",
+          "shows": "Active filter applied via setStatusFilter",
+          "evaluation": "Yellow Active pills visible in STATUS column. Stat card Active=101 matches 101 visible rows.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/02-3-after-storage.png",
+          "shows": "Storage filter \u2014 0 rows match",
+          "evaluation": "Empty state renders \"No accessions match your filters.\" with search_off icon. Stats Storage=0 matches.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/03-after-pri-sort.png",
+          "shows": "Clicked star priority header to sort",
+          "evaluation": "Sort arrow rises on priority column \u2014 ASCENDING. With 0-star rows at top, a 3-star row would end up at the bottom, not the top. Counterintuitive for a priority column.",
+          "issues_found": [
+            "PRIORITY-SORT-ASCENDING"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/04-after-modal-filled.png",
+          "shows": "Add Accession modal with both species inputs filled to distinct values",
+          "evaluation": "Modal clearly shows a \"Species\" field in row 1 (holds \"TYPED-INTO-BUG-FIELD\") AND a \"Species (optional)\" field in row 2 (holds \"TYPED-INTO-REAL-FIELD\"). Two input fields labelled Species; only the second is persisted by confirmAdd.",
+          "issues_found": [
+            "DUP-SPECIES-FIELD-IN-ADD-MODAL"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/05-after-editor-open.png",
+          "shows": "Editor modal for A1_T1_W accession (slug a1-t1-w-2)",
+          "evaluation": "Fields panel shows Type=Accession purple pill with fingerprint icon (correct color). Accession ID / Project Kerman Somatic / People Vianney Ahn / Zi Ye / Matt Davis / Species Pistacia vera / Status Active teal pill / Status note \"Tissue collected \u2014 Needs extraction\" / Priority (stars) 0 / Sequencing Type HiFi. Contents panel \"No references to this object yet.\"",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/06-after-status-pill.png",
+          "shows": "Inline status pill dropdown changed active -> storage",
+          "evaluation": "Green success toast \"A1_T1_W: Storage\" bottom-right. Active stat card decremented 101->100. Row removed from the Active filter view. API re-read confirms file now has status: storage.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/07-after-pri-click3.png",
+          "shows": "After cycling priority stars 3x \u2014 accession now at 3 stars",
+          "evaluation": "Storage filter shows exactly 1 row: A1_T1_W, 3 gold stars, blue Storage pill, People rendered as 3 teal pills (Vianney Ahn, Zi Ye, Matt Davis), Pistacia vera italic, status_note orange, updated 2026-04-24. Stat Storage=1. Clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/09a-nonexistent-accession.png",
+          "shows": "Deep link ?doc=accessions/this-slug-does-not-exist-qa21",
+          "evaluation": "Friendly \"Document not found. It may have been renamed or deleted.\" with exclamation icon. Sidebar type-pill facets render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/09b-html-in-doc-param.png",
+          "shows": "Deep link with XSS payload in doc param",
+          "evaluation": "No alert popup. \"Document not found\" state. URL param is URL-decoded but never injected as DOM. Input sanitization OK.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/09c-path-traversal.png",
+          "shows": "Deep link ../../etc/passwd",
+          "evaluation": "Same \"Document not found\" state. Static-site routing treats this as a normal slug miss. No path traversal.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/09d-real-accession-wiki.png",
+          "shows": "Wiki page for the restored accession accessions/a1-t1-w-2",
+          "evaluation": "Accession purple pill at top, frontmatter chips below (status active restored, accession_id A1_T1_W, project Kerman Somatic, people, species, status note, priority 0). CONNECTIONS panel empty \u2014 normal for this isolated accession.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/09e-empty-doc.png",
+          "shows": "Empty doc param",
+          "evaluation": "Wiki graph overview renders. Graceful fallback when doc is missing.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/10a-nav-1024.png",
+          "shows": "Dashboard at 1024x800 top nav",
+          "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, then the tab label truncates to \"Proj\" \u2014 Projects tab partially clipped by tabWrap overflow:hidden after the \"+ More\" button was shown and shrunk the container. Visual bug.",
+          "issues_found": [
+            "NAV-MORE-BTN-CLIPS-LAST-TAB"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/10b-nav-overflow-open.png",
+          "shows": "More overflow popover at 1024x800",
+          "evaluation": "Popover shows People, Calendar, Lab Map, Apps, Wiki as overflow. Functionally OK; the \"Proj\" truncation is still visible on the main bar.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21/11-mobile-bottom-bar.png",
+          "shows": "Mobile 375x812 dashboard with bottom bar",
+          "evaluation": "Bottom bar shows Wiki / Notebooks / Accessions / Inventory / More \u2014 matches spec. Top bar slim. Dashboard cards stack well. Issue-reporter FAB slightly overlaps the \"Out of Stock\" pill in the inventory status panel \u2014 minor.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21-verify/01-add-modal.png",
+          "shows": "Post-fix Add modal",
+          "evaluation": "Single \"Species (optional)\" label \u2014 duplicate Species input removed. Clean form: Accession ID, Project + Species (optional), Status + Priority, People.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21-verify/02-after-sort.png",
+          "shows": "Post-fix \u2605 priority header click",
+          "evaluation": "Sort arrow now descends on priority column. Top 5 visible rows all show 3 gold stars \u2014 descending correctly floats high-priority rows to the top.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle21-verify/03-nav-1024.png",
+          "shows": "Post-fix nav at 1024x800",
+          "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste cleanly \u2014 no truncation. \"+ More\" button then avatar + Sign out. Projects moved to the overflow popover. Trailing-tab clip gone.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "DUP-SPECIES-FIELD-IN-ADD-MODAL",
+          "severity": "functional",
+          "summary": "Add Accession modal rendered two Species inputs (addSpecies + addSpeciesField). Only addSpeciesField was read by confirmAdd, so typing into the visually prominent first Species field silently dropped the value on save.",
+          "status": "closed",
+          "commit": "3fca3873"
+        },
+        {
+          "id": "PRIORITY-SORT-ASCENDING",
+          "severity": "ux",
+          "summary": "setSort('priority') defaulted to ascending; clicking the star header put 0-star rows at the top instead of floating 3-star rows up.",
+          "status": "closed",
+          "commit": "3fca3873"
+        },
+        {
+          "id": "NAV-MORE-BTN-CLIPS-LAST-TAB",
+          "severity": "visual",
+          "summary": "At 1024x800 the last visible nav tab was partially clipped (Projects -> Proj) because updateOverflow() hid trailing tabs then showed the \"+ More\" button, which shrank tabWrap further without a second hide pass.",
+          "status": "closed",
+          "commit": "3fca3873"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "DUP-SPECIES-FIELD-IN-ADD-MODAL",
+          "file": "app/accessions.html",
+          "what": "Removed the dead #addSpecies input from the first form-row, leaving #addSpeciesField as the sole Species input. Reordered rows so Project + Species live on one row and People spans the next row alone.",
+          "commit": "3fca3873"
+        },
+        {
+          "id": "PRIORITY-SORT-ASCENDING",
+          "file": "app/accessions.html",
+          "what": "setSort() now treats priority and mtime like last_updated \u2014 numeric/recency columns default to descending on first click so the highest-priority rows float to the top.",
+          "commit": "3fca3873"
+        },
+        {
+          "id": "NAV-MORE-BTN-CLIPS-LAST-TAB",
+          "file": "app/js/nav.js",
+          "what": "Refactored updateOverflow() to run the hide-trailing-tabs loop a second time after toggling the \"+ More\" button visible, so the shrunken tabWrap no longer leaves a partially-clipped trailing tab.",
+          "commit": "3fca3873"
+        }
+      ],
+      "observations": "Fix 3 is the most subtle \u2014 you only see it when the viewport is tight enough that hiding N trailing tabs leaves the container just barely oversized once the \"+ More\" button claims its ~70px of horizontal space. A second pass of the same loop is sufficient. Verify run confirmed 6 tabs visible cleanly at 1024px with Projects moved into the popover. Also confirmed XSS payload and path traversal in ?doc= are safely handled \u2014 no alert, no escape, friendly not-found view."
     }
   ],
   "bugs_found": [
@@ -2727,7 +2902,28 @@
     "WIKI-GRAPH-NOT-FILTERED (ux, OPEN from cycle 19): wiki.html sidebar search (#docSearch) filters the folder tree but the knowledge graph in the main pane stays unchanged even when the sidebar reads 'No documents match'. Larger change \u2014 logged for a future cycle. Options: filter graph nodes to match the sidebar, dim non-matching nodes, or hide the graph placeholder message when no results.",
     "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, OPEN from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional \u2014 Recent Entries is globally recent by design \u2014 but a confused user might expect filtering. Logged as an observation rather than a bug.",
     "INV-TYPE-BADGE-HARDCODED-TEAL (visual, closed in cycle 20, commit 3f1c5a30): every row in the Inventory table rendered its Type column badge in teal regardless of type, so Chemical / Reagent / Kit / Enzyme / Equipment / Consumable / Buffer-Solution were visually indistinguishable. Fix: replaced hardcoded 'badge badge-teal' class with inline Lab.types.pillStyle(type, 'badge') in app/inventory.html renderTable. Post-fix: 7 types render 7 distinct colors.",
-    "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE (ux, OPEN from cycle 20, low severity): right after addInstanceFromConcept saves a new bottle, it appears as its own Inventory row instead of rolling up under the concept's bottle count. Reloading the page fixes it \u2014 suggests the 'lab-file-saved' listener updates the individual row instead of rebuilding bottlesByConcept. Not fixed this cycle; transient."
+    "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE (ux, OPEN from cycle 20, low severity): right after addInstanceFromConcept saves a new bottle, it appears as its own Inventory row instead of rolling up under the concept's bottle count. Reloading the page fixes it \u2014 suggests the 'lab-file-saved' listener updates the individual row instead of rebuilding bottlesByConcept. Not fixed this cycle; transient.",
+    {
+      "id": "DUP-SPECIES-FIELD-IN-ADD-MODAL",
+      "severity": "functional",
+      "summary": "Add Accession modal rendered two Species inputs (addSpecies + addSpeciesField). Only addSpeciesField was read by confirmAdd, so typing into the visually prominent first Species field silently dropped the value on save.",
+      "status": "closed",
+      "commit": "3fca3873"
+    },
+    {
+      "id": "PRIORITY-SORT-ASCENDING",
+      "severity": "ux",
+      "summary": "setSort('priority') defaulted to ascending; clicking the star header put 0-star rows at the top instead of floating 3-star rows up.",
+      "status": "closed",
+      "commit": "3fca3873"
+    },
+    {
+      "id": "NAV-MORE-BTN-CLIPS-LAST-TAB",
+      "severity": "visual",
+      "summary": "At 1024x800 the last visible nav tab was partially clipped (Projects -> Proj) because updateOverflow() hid trailing tabs then showed the \"+ More\" button, which shrank tabWrap further without a second hide pass.",
+      "status": "closed",
+      "commit": "3fca3873"
+    }
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -2758,7 +2954,25 @@
     "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html \u2014 add min-width: 168px to .inline-select.status-select.",
     "cycle 18 PEOPLE-CARD-PILLS-BARE-SLUG + PERSON-DASHBOARD-IGNORES-FORWARD-LINKS + NOTEBOOK-ENTRY-NOT-PATCHED (commit 52fcfd3): app/people.html loadPeople() now uses obj.path (minus .md, minus /index) for connected-pill hrefs; renderPersonDashboard now merges forward-link edges from link-index + a body-parse fallback into backlinkedItems so outbound [[protocol]] / [[project]] wikilinks surface in Protocols/Projects sections; createPersonFiles patchObjectIndex'es the first notebook entry too so Notebooks counter reads 1 immediately after onboarding. Verified end-to-end via tests/qa-cycle-18-verify.mjs \u2014 pill click lands on real protocol, fresh-user dashboard shows 1/2/0/0/0/1 counts.",
     "cycle 19 FAB-OVERLAPS-WIZARD-NEXT-MOBILE + NOTEBOOKS-PERSON-PARAM-IGNORED + PROTOCOLS/NOTEBOOKS-EMPTY-STATE-MINIMAL (commit 1e90ba8): app/people.html toggles body.wizard-open on openOnboardingWizard/closeWizard plus a CSS rule that hides #issue-reporter-btn while the class is set; app/notebooks.html init() reads ?person=<slug> and pre-fills #nbSearch with the prettified slug so the sidebar filters to only that person's folder; app/protocols.html + app/notebooks.html 0-result sidebar empty states now use the styled .empty-state div with search_off icon matching inventory/waste. Verified via tests/qa-cycle-19-verify.mjs at 1440x900 and 375x812: FAB display=none during wizard, personParam yields showsOtherFolders=false, both empty states report iconText='search_off'.",
-    "cycle 20 commit 3f1c5a30: color inventory type badge by type instead of hardcoded teal"
+    "cycle 20 commit 3f1c5a30: color inventory type badge by type instead of hardcoded teal",
+    {
+      "id": "DUP-SPECIES-FIELD-IN-ADD-MODAL",
+      "file": "app/accessions.html",
+      "what": "Removed the dead #addSpecies input from the first form-row, leaving #addSpeciesField as the sole Species input. Reordered rows so Project + Species live on one row and People spans the next row alone.",
+      "commit": "3fca3873"
+    },
+    {
+      "id": "PRIORITY-SORT-ASCENDING",
+      "file": "app/accessions.html",
+      "what": "setSort() now treats priority and mtime like last_updated \u2014 numeric/recency columns default to descending on first click so the highest-priority rows float to the top.",
+      "commit": "3fca3873"
+    },
+    {
+      "id": "NAV-MORE-BTN-CLIPS-LAST-TAB",
+      "file": "app/js/nav.js",
+      "what": "Refactored updateOverflow() to run the hide-trailing-tabs loop a second time after toggling the \"+ More\" button visible, so the shrunken tabWrap no longer leaves a partially-clipped trailing tab.",
+      "commit": "3fca3873"
+    }
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2831,7 +3045,127 @@
     "/tmp/qa-screenshots/cycle20/step17-concept-popup-scrolled.png",
     "/tmp/qa-screenshots/cycle20/step18-cabinet-flammable-popup.png",
     "/tmp/qa-screenshots/cycle20-verify/step01-inventory-after-fix.png",
-    "/tmp/qa-screenshots/cycle20-verify/step03-search-ethanol.png"
+    "/tmp/qa-screenshots/cycle20-verify/step03-search-ethanol.png",
+    {
+      "path": "/tmp/qa-screenshots/cycle21/01-accessions-initial.png",
+      "shows": "Accessions page initial state at 1440x900",
+      "evaluation": "Purple framework banner present. 12-tab nav shows all tabs at wide viewport. Stats: 232 total / 101 active / 119 waiting / 0 storage / 12 completed / 0 archived. Counts sum to total. All priority stars grey initially.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/02-1-after-active.png",
+      "shows": "Active filter applied via setStatusFilter",
+      "evaluation": "Yellow Active pills visible in STATUS column. Stat card Active=101 matches 101 visible rows.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/02-3-after-storage.png",
+      "shows": "Storage filter \u2014 0 rows match",
+      "evaluation": "Empty state renders \"No accessions match your filters.\" with search_off icon. Stats Storage=0 matches.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/03-after-pri-sort.png",
+      "shows": "Clicked star priority header to sort",
+      "evaluation": "Sort arrow rises on priority column \u2014 ASCENDING. With 0-star rows at top, a 3-star row would end up at the bottom, not the top. Counterintuitive for a priority column.",
+      "issues_found": [
+        "PRIORITY-SORT-ASCENDING"
+      ]
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/04-after-modal-filled.png",
+      "shows": "Add Accession modal with both species inputs filled to distinct values",
+      "evaluation": "Modal clearly shows a \"Species\" field in row 1 (holds \"TYPED-INTO-BUG-FIELD\") AND a \"Species (optional)\" field in row 2 (holds \"TYPED-INTO-REAL-FIELD\"). Two input fields labelled Species; only the second is persisted by confirmAdd.",
+      "issues_found": [
+        "DUP-SPECIES-FIELD-IN-ADD-MODAL"
+      ]
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/05-after-editor-open.png",
+      "shows": "Editor modal for A1_T1_W accession (slug a1-t1-w-2)",
+      "evaluation": "Fields panel shows Type=Accession purple pill with fingerprint icon (correct color). Accession ID / Project Kerman Somatic / People Vianney Ahn / Zi Ye / Matt Davis / Species Pistacia vera / Status Active teal pill / Status note \"Tissue collected \u2014 Needs extraction\" / Priority (stars) 0 / Sequencing Type HiFi. Contents panel \"No references to this object yet.\"",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/06-after-status-pill.png",
+      "shows": "Inline status pill dropdown changed active -> storage",
+      "evaluation": "Green success toast \"A1_T1_W: Storage\" bottom-right. Active stat card decremented 101->100. Row removed from the Active filter view. API re-read confirms file now has status: storage.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/07-after-pri-click3.png",
+      "shows": "After cycling priority stars 3x \u2014 accession now at 3 stars",
+      "evaluation": "Storage filter shows exactly 1 row: A1_T1_W, 3 gold stars, blue Storage pill, People rendered as 3 teal pills (Vianney Ahn, Zi Ye, Matt Davis), Pistacia vera italic, status_note orange, updated 2026-04-24. Stat Storage=1. Clean.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/09a-nonexistent-accession.png",
+      "shows": "Deep link ?doc=accessions/this-slug-does-not-exist-qa21",
+      "evaluation": "Friendly \"Document not found. It may have been renamed or deleted.\" with exclamation icon. Sidebar type-pill facets render correctly.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/09b-html-in-doc-param.png",
+      "shows": "Deep link with XSS payload in doc param",
+      "evaluation": "No alert popup. \"Document not found\" state. URL param is URL-decoded but never injected as DOM. Input sanitization OK.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/09c-path-traversal.png",
+      "shows": "Deep link ../../etc/passwd",
+      "evaluation": "Same \"Document not found\" state. Static-site routing treats this as a normal slug miss. No path traversal.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/09d-real-accession-wiki.png",
+      "shows": "Wiki page for the restored accession accessions/a1-t1-w-2",
+      "evaluation": "Accession purple pill at top, frontmatter chips below (status active restored, accession_id A1_T1_W, project Kerman Somatic, people, species, status note, priority 0). CONNECTIONS panel empty \u2014 normal for this isolated accession.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/09e-empty-doc.png",
+      "shows": "Empty doc param",
+      "evaluation": "Wiki graph overview renders. Graceful fallback when doc is missing.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/10a-nav-1024.png",
+      "shows": "Dashboard at 1024x800 top nav",
+      "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, then the tab label truncates to \"Proj\" \u2014 Projects tab partially clipped by tabWrap overflow:hidden after the \"+ More\" button was shown and shrunk the container. Visual bug.",
+      "issues_found": [
+        "NAV-MORE-BTN-CLIPS-LAST-TAB"
+      ]
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/10b-nav-overflow-open.png",
+      "shows": "More overflow popover at 1024x800",
+      "evaluation": "Popover shows People, Calendar, Lab Map, Apps, Wiki as overflow. Functionally OK; the \"Proj\" truncation is still visible on the main bar.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21/11-mobile-bottom-bar.png",
+      "shows": "Mobile 375x812 dashboard with bottom bar",
+      "evaluation": "Bottom bar shows Wiki / Notebooks / Accessions / Inventory / More \u2014 matches spec. Top bar slim. Dashboard cards stack well. Issue-reporter FAB slightly overlaps the \"Out of Stock\" pill in the inventory status panel \u2014 minor.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21-verify/01-add-modal.png",
+      "shows": "Post-fix Add modal",
+      "evaluation": "Single \"Species (optional)\" label \u2014 duplicate Species input removed. Clean form: Accession ID, Project + Species (optional), Status + Priority, People.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21-verify/02-after-sort.png",
+      "shows": "Post-fix \u2605 priority header click",
+      "evaluation": "Sort arrow now descends on priority column. Top 5 visible rows all show 3 gold stars \u2014 descending correctly floats high-priority rows to the top.",
+      "issues_found": []
+    },
+    {
+      "path": "/tmp/qa-screenshots/cycle21-verify/03-nav-1024.png",
+      "shows": "Post-fix nav at 1024x800",
+      "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste cleanly \u2014 no truncation. \"+ More\" button then avatar + Sign out. Projects moved to the overflow popover. Trailing-tab clip gone.",
+      "issues_found": []
+    }
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
