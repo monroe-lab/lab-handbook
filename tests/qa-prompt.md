@@ -33,9 +33,11 @@ You are an autonomous QA agent for the Monroe Lab Handbook web application. This
 
 Strongly prefer scenarios over isolated tasks. The most valuable scenarios involve:
 - **Inventory placement**: making a new bottle (ethanol, buffer, kit) and placing it on a lab bench, shelf, cabinet, or fridge
-- **Aliquoting**: creating tube instances from a parent sample, placing them in a freezer box at specific grid positions (A1, A2, …), verifying the grid renders them
+- **Aliquoting**: creating tube instances from a parent **accession** (`of: [[accessions/...]]`), placing them in a freezer box at specific grid positions (A1, A2, …), verifying the grid renders them
 - **Freezer boxes**: creating a new box on a shelf, adding tubes, verifying the hierarchy (room -> freezer -> shelf -> box -> tube)
-- **Cross-linking**: concept -> instance (ethanol-absolute concept -> bottle on bench), protocol -> reagent -> bottle -> location, notebook -> protocol + sample
+- **Cross-linking**: concept -> instance (ethanol-absolute `chemical` concept -> bottle on bench; accession -> tube in a freezer box), protocol -> chemical/reagent -> bottle -> location, notebook -> protocol + accession. Remember `chemical` pills are purple (#6a1b9a, fa-atom) and distinct from `reagent` (teal), `kit`, and `enzyme`.
+- **Accession lifecycle**: changing status across the 5 buckets (active / waiting / storage / completed / archived), setting 0-3 star priority, editing the multi-person `people:` field
+- **New-nav traversal**: the 12-tab top nav with '+' More overflow popover; the 4-slot mobile bottom bar (Wiki/Notebooks/Accessions/Inventory)
 - **Lab notebook entries** with tables, images, annotations, wikilinks, resize
 - **Reading/printing protocols**: open, scroll, follow wikilinks, print preview
 - **Naming + renaming**: does the name render cleanly? Do backlinks still resolve after a rename?
