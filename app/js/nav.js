@@ -158,6 +158,10 @@
     if (!tabWrap) return;
     var tabs = Array.prototype.slice.call(tabWrap.querySelectorAll('.lab-nav-tab'));
     tabs.forEach(function(el) { el.classList.remove('nav-hidden-tab'); });
+    // qa-cycle-23: hide moreBtn before measuring so its 76px doesn't eat
+    // into tabWrap's available width. The hideLoop below re-shows it (and
+    // runs a second pass) only if overflow is actually detected.
+    if (moreBtn) moreBtn.style.display = 'none';
 
     var hiddenCount = 0;
     function hideLoop() {
