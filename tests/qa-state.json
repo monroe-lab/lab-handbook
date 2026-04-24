@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 22,
+  "cycle": 23,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2952,6 +2952,109 @@
         "Accession backlinks correctly classify the new QA22 tubes as instances-in-lab via `of: accessions/pistachio-4` (R5 frontmatter-pointer resolver). Sorted alphabetically; no duplicates. The patchObjectIndex write fully covers this path.",
         "wiki.html doc header, pre-fix, was a single surface that skipped the frontmatter title. editor-modal popups have always shown the title prominently. With the fix the two are now visually consistent."
       ]
+    },
+    {
+      "cycle": 23,
+      "persona": "Kayla Torres",
+      "modifier": "ui_critic",
+      "task": "Cross-page wikilink crawl scenario. Undergrad in ui_critic mode walks the full object graph: dashboard baseline, Protocols page + search 'DNeasy', open QIAGEN DNeasy protocol via wiki.html, click [[ethanol-absolute]] (purple chemical pill with fa-atom) to open the chemical popup, click the bottle-ethanol-absolute backlink row to open the bottle popup (orange type pill, 3-level breadcrumb Robbins Hall 170 / Flammable Cabinet / Ethanol Absolute, Of field rendered as a purple chemical pill, Parent as a grey container pill, Status In Stock green), click Flammable Cabinet parent pill to open the cabinet popup (container grey, lists all bottles inside + Add Item button), click Robbins Hall 170 parent pill to open the room popup (dark blue-grey #37474f room pill, no breadcrumb since top-level, Contents shows all freezers/fridges/benches/cabinets in the room). Then verify the orientation banners on /app/inventory.html (teal left border) and /app/accessions.html (purple left border). Finally 12-tab nav overflow at 1024px and mobile bottom-bar at 375x812.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step01-dashboard.png",
+          "shows": "Dashboard at 1440x900",
+          "evaluation": "12 stat cards (Tutorials, 13 Notebooks, 280 Inventory, 232 Accessions, 11 Projects, 9 People, 41 Calendar, 40 Lab Map, Tools, 903 Wiki) in a clean grid. Inventory Status panel + Recent Updates (cycle-22 entries). Top nav shows Monroe Lab + 6 tabs + '+ More' + greymonroe \u2014 this was WRONG: on first-ever page load the font-race bug permanently hid 6 of 12 tabs. Bug filed + fixed this cycle.",
+          "issues_found": [
+            "NAV-OVERFLOW-FONT-RACE"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step02-protocols.png",
+          "shows": "Protocols page with left sidebar categories",
+          "evaluation": "9 category groups (Wet Lab Basics 45, DNA Extraction 6, Library Prep & Sequencing 8, Epigenomics 4, Mutagenesis & Genetics 4, Lab Safety 11, Workflow Templates 1, Plant Harvesting 3, Shipping 2). 'Select a protocol from the sidebar' empty state. Top nav shows all 12 tabs because fonts cached from prior dashboard visit.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step02b-protocols-search-dneasy.png",
+          "shows": "Sidebar filtered to 'DNeasy' search",
+          "evaluation": "Search input = 'DNeasy', sidebar collapses to just DNA EXTRACTION (1) with QIAGEN DNeasy Plant Extraction listed. Clean filter result.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step03-dneasy-protocol.png",
+          "shows": "QIAGEN DNeasy protocol loaded via wiki.html?doc=wet-lab/extraction/qiagen-dneasy-extraction",
+          "evaluation": "Protocol pill purple with fa-book-open at top. H1 title. Resources section with colored pills: Equipment (teal reagent color for Centrifuge, Heat Block, Vortex Mixer), Reagents (teal: Buffers AP1/P3/AW1/AW2/AE; Qiashredder; DNeasy columns; RNase A), Consumables (blue consumable for microtube; PURPLE for Ethanol Absolute \u2014 correctly typed as chemical), Related Protocols (purple protocol pills), Prerequisites, Time estimate, Before You Start. Connections graph widget floating bottom-right. Clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step04b-chemical-popup.png",
+          "shows": "Ethanol Absolute chemical popup opened by clicking [[ethanol-absolute]] in the protocol body",
+          "evaluation": "3-col popup. Fields: Type=Chemical (purple pill with fa-atom \u2713), Link=[[resources/ethanol-absolute]] (copy icon), Name=Ethanol Absolute, Default Location=Flammable Cabinet, Status=In Stock green. Body: 'What it is' section with chemistry prose, 'Why we use it' with an inline Ethanol 70% teal pill wikilink, 'Flammability matters' orange callout. Contents pane: Ethanol Absolute (bottle orange pill), Bill of Materials notebook entry, Flammable Cabinet (grey container), QIAGEN DNeasy Plant Extraction (purple protocol), Safety SOP. Every pill color matches types.js spec.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step05b-bottle-popup.png",
+          "shows": "Ethanol Absolute bottle popup opened from chemical Contents pane",
+          "evaluation": "3-level breadcrumb Robbins Hall 170 / Flammable Cabinet / Ethanol Absolute (each a clickable object pill). Fields: Type=Bottle (orange #ef6c00 \u2713), Link=[[stocks/bottle-ethanol-absolute]], Name=Ethanol Absolute, Of (concept slug)=Ethanol Abso... (purple chemical pill, truncated with ellipsis and title attr), Parent=Flammable Cabinet (grey pill), Quantity=1, Unit=each, Status=In Stock green. Body shows 'Bottle of Ethanol Absolute' (purple chemical pill inline). Contents pane empty ('No references to this object yet') \u2014 expected.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step06b-cabinet-popup.png",
+          "shows": "Flammable Cabinet container popup opened from bottle parent pill",
+          "evaluation": "Breadcrumb Robbins Hall 170 / Flammable Cabinet (correct 2-level, room is top-level). Fields: Type=Container (grey #616161), Link=[[locations/cabinet-flammable]], Parent=Robbins Hall 170 (room dark blue-grey pill), Label 1=Flammable Cabinet. Body placeholder prose from migration. Contents pane long alphabetized list of 12+ bottles (1-Octanol, 2-Mercaptoethanol, Acetic Acid, Acetone, Activated charcoal, Aluminum foil, Dimethyl sulfoxide, Ethanol Absolute, Ethanol, Isopropyl alcohol, Methanol, Reagent Alcohol 100% IPA) plus +Add Item button. Each bottle renders with orange pill + wine-bottle icon.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step07b-room-popup.png",
+          "shows": "Robbins Hall 170 room popup opened from cabinet parent pill",
+          "evaluation": "Title 'Robbins Hall 170'. Fields: Type=Room (dark blue-grey #37474f with fa-door-open \u2713), Link=[[locations/room-robbins-0170]], Name=Robbins Hall 170, Label 1=Monroe Lab. Body 'The main Monroe Lab wet lab space.' Contents pane shows the full child list: -80C Freezer A, 4C Fridge (Main), Bench, Chemical Cabinet, Chemistry Bench Area, Corrosive Cabinet, Flammable Cabinet, Freezer (-20C), Fume hood bay, Standing Centrifuge (with sub-label 'Next to clean bench'), +Add item. Icons match each child type (freezer, fridge, container, etc). No breadcrumb rendered since room is top-level \u2014 correct per editor-modal.js guard 'chain.length > 1'.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step08a-inventory.png",
+          "shows": "Inventory page with orientation banner + concept list",
+          "evaluation": "Teal-left-bordered banner 'Concepts vs containers...' at top explaining the concept/instance framework. Stats: 280 all / 218 in stock / 2 needs more / 1 out of stock. Filter dropdowns (All Types, All Locations, All Statuses). Table with rows: each concept gets its TYPE-correct pill color (Chemical purple for 1,8-Naphthalic anhydride, 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA, 1-Octanol, 2-Mercaptoethanol, 3-Methylbutanol, Acetone, Acrylamide, Activated charcoal; Buffer/Solution orange for 1M Tris-HCl pH 8.8.5, 4-Morpholineethanesulfonic acid, Acetic acids; Reagent teal for Ager non-TC and Ager TC). Status column shows 'In Stock' green pills. Clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step10a-accessions-banner.png",
+          "shows": "Accessions page banner + filtered-to-active list",
+          "evaluation": "Purple-left-bordered banner 'What''s an accession?...' at top. Stats: 232 total / 101 Active (highlighted since active filter was the prior cycle''s default) / 119 Waiting / 12 Storage / 0 Completed / 0 Archived. Add Accession button + search + filter dropdowns. Table rows show priority stars column (some 3-gold-stars, some 0), project, people tag pills, species italic, status pill, status_note, updated. All 12 tabs visible in top nav (fonts cached).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step11a-nav-1024.png",
+          "shows": "Dashboard at 1024x800",
+          "evaluation": "Overflow behavior: 6 primary tabs visible (Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste) + '+ More' overflow button + greymonroe + Sign out. This is the correct behavior at 1024px \u2014 the remaining 6 tabs (Projects, People, Calendar, Lab Map, Apps, Wiki) sit in the + More popover. Compare this to the pre-fix dashboard.html at 1440px which ALSO showed 6+More due to the font-race bug \u2014 now fixed.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step12a-mobile-dashboard.png",
+          "shows": "Dashboard at mobile 375x812",
+          "evaluation": "Slim top bar (Monroe Lab logo + avatar + Sign out, all primary tabs hidden). 2-column stat card grid. Inventory Status card with 3 low-stock items. Bottom tab bar fixed at bottom: Wiki, Notebooks, Accessions, Inventory, More \u2014 matches BOTTOM_TABS spec. Issue-reporter FAB bottom-right.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step12b-mobile-protocol.png",
+          "shows": "QIAGEN DNeasy protocol at 375x812",
+          "evaluation": "Title renders fine, Resources pills wrap cleanly. Bottom tab bar visible. BUT: the 25 CONNECTIONS graph widget (floating bottom-right card) covers ~40% of the viewport width on mobile, obscuring the Prerequisites row. It has an X to close, but default-open on mobile feels aggressive. Minor UX concern \u2014 not blocking, user can close it.",
+          "issues_found": [
+            "MOBILE-CONNECTIONS-OVERLAY-TOO-LARGE"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle23/step01b-dashboard-AFTER-FIX2.png",
+          "shows": "Dashboard at 1440x900 AFTER the nav-overflow font-race fix (post-deploy re-test)",
+          "evaluation": "All 12 tabs visible: Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, Projects, People, Calendar, Lab Map, Apps, Wiki. No '+ More' button. greymonroe + Sign out on the right. Confirms the 2-part fix: (a) re-run updateOverflow on document.fonts.ready so post-font widths are correct, (b) reset moreBtn to display:none at the top of updateOverflow so its 76px doesn''t pre-consume tabWrap''s flex space.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "NAV-OVERFLOW-FONT-RACE"
+      ],
+      "fixes": [
+        "NAV-OVERFLOW-FONT-RACE"
+      ],
+      "observations": "Full cross-page wikilink crawl verified pill/icon/breadcrumb rendering at every hop. Chemical (purple #6a1b9a fa-atom) vs Bottle (orange #ef6c00 fa-wine-bottle) vs Container (grey #616161 fa-cube) vs Room (dark blue-grey #37474f fa-door-open) all match types.js. Object-pill class applied consistently, each with inline style carrying the correct RGB. The 3-col popup layout (Fields/Body/Contents) is stable across all 4 popup types. Carried-over observation: protocol pages and wiki pages share the same editor-modal behavior via clicks on obj:// anchors converted from [[wikilinks]]. New bug found + fixed: nav overflow font-race (a first-page-load issue where scrollWidth was measured before Material Icons font loaded, causing 6 of 12 tabs to be permanently pushed into the + More popover at 1440px). Minor open observation: the floating 25 CONNECTIONS graph widget is oversized on 375px mobile \u2014 not a priority but worth noting for a future polish cycle."
     }
   ],
   "bugs_found": [
@@ -3034,6 +3137,13 @@
       "summary": "wiki.html ?doc= page rendered '<Type pill> <slug>' in the edit-bar breadcrumb instead of the frontmatter title. For objects created via the popup editor (body-empty, frontmatter-only) the slug was the only thing visible next to the type pill \u2014 e.g. a new box showed 'Box locations/qa22-libprep-kit-storage-modji38x' instead of 'Box QA22 LibPrep Kit Storage modji38x'. Most action-agent popups resolve by type+title, so this inconsistency stood out.",
       "status": "closed",
       "commit": "28d2ee5a"
+    },
+    {
+      "id": "NAV-OVERFLOW-FONT-RACE",
+      "severity": "visual",
+      "summary": "On a fresh browser (no cached fonts), nav.js ran updateOverflow via setTimeout(0) before the Material Icons Outlined font loaded. During that measurement, each icon <span> rendered its raw ligature text ('play_circle', 'edit_note', 'menu_book', \u2026) in the fallback font, inflating each tab by ~90px. scrollWidth hit ~1600px, tripping the overflow branch and pushing 6 of 12 top-nav tabs into the '+' More popover at a 1440px viewport. Once detected, the hidden state persisted because no further re-measurement was triggered. Visually obvious on dashboard.html but affected any page on first-ever load. Fix (commits 35fdfdb0, 8e680d52): listen for document.fonts.ready to re-run updateOverflow once glyphs are available, AND reset moreBtn.style.display='none' at the top of updateOverflow so its 76px doesn't pre-consume tabWrap's flex width on the re-measurement.",
+      "status": "closed",
+      "commit": "8e680d52"
     }
   ],
   "fixes_applied": [
@@ -3089,7 +3199,8 @@
       "file": "app/wiki.html",
       "what": "loadDoc() was already parsing frontmatter but only used `typeBadge + Lab.escHtml(docPath)` for the breadcrumb. Updated to prefer `meta.title` as the primary bold label and demote the slug to smaller secondary grey text (`breadcrumbLabel` ternary). Falls back to raw slug when frontmatter has no title.",
       "commit": "28d2ee5a"
-    }
+    },
+    "cycle 23: NAV-OVERFLOW-FONT-RACE (app/js/nav.js) \u2014 run updateOverflow again on document.fonts.ready and reset moreBtn display:none before measurement. commits 35fdfdb0 + 8e680d52."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -3294,7 +3405,8 @@
     "/tmp/qa-screenshots/cycle22/step08-01-accession-pistachio4-popup.png",
     "/tmp/qa-screenshots/cycle22/step09-02-lab-map-tree-search-cleared.png",
     "/tmp/qa-screenshots/cycle22/step10-01-wiki-deeplink-to-new-box-no-modal.png",
-    "/tmp/qa-screenshots/cycle22/step11-02-place-here-popover-open.png"
+    "/tmp/qa-screenshots/cycle22/step11-02-place-here-popover-open.png",
+    "/tmp/qa-screenshots/cycle23/ \u2014 18 cycle screenshots (dashboard, protocols list, protocol search, DNeasy protocol, chemical/bottle/cabinet/room popups with before/after pairs, inventory, accessions, 1024px nav, 1024px overflow-open, mobile dashboard, mobile protocol) + 2 post-fix verification screenshots (1440 AFTER FIX showing all 12 tabs, 1024 AFTER FIX still showing overflow as expected). All read and evaluated."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
