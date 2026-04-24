@@ -245,22 +245,18 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Species</label>
-          <input type="text" id="addSpecies" placeholder="e.g. Pistacia vera">
-        </div>
-        <div class="form-group">
           <label>Project</label>
           <input type="text" id="addProject" placeholder="e.g. PBTS, MA Lines">
+        </div>
+        <div class="form-group">
+          <label>Species <span style="color:var(--grey-500);font-weight:400;font-size:11px">(optional)</span></label>
+          <input type="text" id="addSpeciesField" placeholder="e.g. Pistacia vera">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>People</label>
           <input type="text" id="addPeople" placeholder="[[name1]], [[name2]] — wikilinks autocomplete">
-        </div>
-        <div class="form-group">
-          <label>Species <span style="color:var(--grey-500);font-weight:400;font-size:11px">(optional)</span></label>
-          <input type="text" id="addSpeciesField" placeholder="e.g. Pistacia vera">
         </div>
       </div>
       <div class="form-row">
@@ -657,7 +653,9 @@ function renderTable() {
 
 function setSort(col) {
   if (sortCol === col) sortDir *= -1;
-  else { sortCol = col; sortDir = col === 'last_updated' ? -1 : 1; }
+  // Numeric recency/priority columns default to descending so the newest /
+  // highest-priority rows float to the top on first click.
+  else { sortCol = col; sortDir = (col === 'last_updated' || col === 'priority' || col === 'mtime') ? -1 : 1; }
   renderTable();
 }
 
@@ -672,7 +670,7 @@ function updateSlugPreview() {
   document.getElementById('addSlugPreview').textContent = val ? 'File: docs/accessions/' + Lab.slugify(val) + '.md' : '';
 }
 function addAccession() {
-  ['addAccessionId','addSpeciesField','addProject','addPeople'].forEach(function(id) {
+  ['addAccessionId','addProject','addSpeciesField','addPeople'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('addStatus').value = 'active';

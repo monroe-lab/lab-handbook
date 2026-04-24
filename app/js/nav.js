@@ -150,21 +150,29 @@
     tabs.forEach(function(el) { el.classList.remove('nav-hidden-tab'); });
 
     var hiddenCount = 0;
-    if (tabWrap.scrollWidth > tabWrap.clientWidth + 1) {
+    function hideLoop() {
+      if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) return;
       var active = getActiveTab();
       for (var i = tabs.length - 1; i >= 0; i--) {
+        if (tabs[i].classList.contains('nav-hidden-tab')) continue;
         if (tabs[i].dataset.label === active) continue;
         tabs[i].classList.add('nav-hidden-tab');
         hiddenCount++;
         if (tabWrap.scrollWidth <= tabWrap.clientWidth + 1) break;
       }
     }
+    hideLoop();
 
     // #163: show the "+" More button only if something overflowed OR an
     // always-overflow secondary tab exists. Otherwise hide entirely.
     if (moreBtn) {
       var shouldShow = hiddenCount > 0 || SECONDARY_TABS.length > 0;
       moreBtn.style.display = shouldShow ? 'flex' : 'none';
+      // Making the More button visible shrinks tabWrap's available space;
+      // run the hide loop once more so the trailing visible tab doesn't get
+      // partially clipped by the container's `overflow:hidden` (see
+      // qa-cycle-21: "Proj" truncation at 1024px).
+      if (shouldShow) hideLoop();
     }
   }
 
