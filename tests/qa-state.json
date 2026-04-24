@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 19,
+  "cycle": 20,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2523,6 +2523,156 @@
         "Cycle-19 test artifacts: none created. Verify kept at tests/qa-cycle-19-verify.mjs as a regression harness for all 3 fixes.",
         "No test files need to be deleted from GitHub."
       ]
+    },
+    {
+      "cycle": 20,
+      "persona": "Jordan Park",
+      "modifier": "ui_critic",
+      "task": "Ethanol bottle day scenario: add a new bottle of the ethanol-absolute (chemical, purple pill) concept, assign lot/expiration/location (cabinet-flammable), verify the concept popup lists it as an instance, and visually audit the chemical pill color vs. other types.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step01-inventory-initial.png",
+          "shows": "Inventory landing page, full table visible, all type badges render TEAL",
+          "evaluation": "Layout correct; orientation banner visible top with teal border; stats row shows 280/218/2/1. But every Type badge (Chemical, Buffer/Solution, Reagent, etc.) is identical teal \u2014 chemical should be purple.",
+          "issues_found": [
+            "INV-TYPE-BADGE-HARDCODED-TEAL: every type renders identical teal pill, no visual distinction"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step02-inventory-banner.png",
+          "shows": "Same as step01, scrolled to top",
+          "evaluation": "Banner reads correctly: 'Concepts vs containers. The inventory lists the general things...'; teal left border consistent with the inventory color.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step03-inventory-search-ethanol.png",
+          "shows": "Inventory filtered to 'ethanol absolute' \u2014 single concept row",
+          "evaluation": "Row shows Ethanol Absolute / Chemical / In Stock / 4 bottles / Flammable Cabinet. 'Chemical' badge is teal \u2014 should be purple per types.js #6a1b9a.",
+          "issues_found": [
+            "INV-TYPE-BADGE-HARDCODED-TEAL confirmed on isolated Chemical row"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step04-add-btn-visible.png",
+          "shows": "Inventory in authenticated state, Add Item button visible",
+          "evaluation": "Add Item button (teal plus) is present in stats row once gh.isLoggedIn() returns true.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step05-add-modal-choice.png",
+          "shows": "Add modal Step 1 \u2014 choice between 'new bottle of existing' and 'new concept'",
+          "evaluation": "Two choice cards render cleanly; titles and descriptions readable; modal has a Cancel button.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step06-bottle-search-empty.png",
+          "shows": "Add modal Step 2a \u2014 concept search box with full concept list below",
+          "evaluation": "Title switches to 'New bottle \u00b7 pick the chemical'. Concept rows show science icon, name, type label (uppercase gray), and if applicable a bottle count pill.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step07-bottle-search-ethanol-results.png",
+          "shows": "Concept search filtered to 'ethanol absolute'",
+          "evaluation": "Single matching row appears with CHEMICAL label. Hover state not captured but row is clickable.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step08-editor-opened-new-bottle.png",
+          "shows": "Editor modal opened for a freshly-created bottle under the ethanol-absolute concept",
+          "evaluation": "Fields column: Type=Bottle (orange pill w/ wine-bottle icon), Link=[[stocks/bottle-ethanol-absolute-93qmqc]], Name pre-filled 'Ethanol Absolute', Of (concept slug)=resources/ethanol-absolute, Parent=Click to select location.... Body shows # Ethanol Absolute. Category pills + Media pills in middle column. Contents column empty ('No references to this object yet').",
+          "issues_found": [
+            "COPY-NIT: Field label 'Of (concept slug)' could read 'Of' since the value is pre-filled. Not critical."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step09-parent-picker-open.png",
+          "shows": "Parent picker dropdown open with top-level locations",
+          "evaluation": "Dropdown shows Asmundsen Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 170 (expandable, 8 items), Robbins Hall 262, Unsorted (review). Filter + Expand all + Collapse buttons visible.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step10-parent-picker-search.png",
+          "shows": "Parent picker filtered to 'flammable'",
+          "evaluation": "Filter narrows to Robbins Hall 170 > Flammable Cabinet (highlighted teal). Title field now reads 'Ethanol Absolute (qa20-qp2gm)'.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step11-parent-picked.png",
+          "shows": "After picking Flammable Cabinet as parent",
+          "evaluation": "Parent pill now reads 'Robbins Hall 170 > Flammable Cabinet' with X clear button. Toast bottom-right: 'Location: cabinet flammable'. Position/Quantity fields ready for input.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step12-fields-filled.png",
+          "shows": "All bottle fields filled: quantity=1, unit=gallon, lot=QA20-LOT-I7PM1, expiration=2027-12-31, acquired=2026-04-24, level=full",
+          "evaluation": "Every expected field accepted input; editor body still shows the concept template # Ethanol Absolute. Layout clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step13-after-save.png",
+          "shows": "Editor returned to read-only popup after save",
+          "evaluation": "Breadcrumb at top: Robbins Hall 170 > Flammable Cabinet > Ethanol Absolute (qa20-qp2gm). Fields column shows Type=Bottle (orange), Link, Name, Of (concept slug)=Ethanol Absol... (PURPLE pill \u2014 correct chemical color), Parent=Flammable Cabinet, Quantity=1, Unit=gallon, Lot, Expiration, Acquired, Level=full, Status=In Stock. Close / Delete / Edit buttons at bottom right. Good round-trip; purple chemical pill renders correctly in the popup \u2014 only the inventory-TABLE badge was hardcoded teal.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step14-modal-closed.png",
+          "shows": "Back on inventory, modal dismissed",
+          "evaluation": "Table returns to standard state; count may have ticked up by 1 (to 281) once the save propagates.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step15-inventory-search-after-save.png",
+          "shows": "Inventory search 'ethanol absolute' now shows 2 rows: the concept (5 bottles) and the new bottle (qa20-qp2gm)",
+          "evaluation": "Ethanol Absolute concept row has badge 'Chemical' teal (should be purple). New bottle row has badge 'Bottle' teal (should be orange). Both types render identical colors \u2014 confirms the hardcoded-teal bug is user-visible. Also: the new bottle is not rolled up under its concept (appears as its own row), likely a client-side cache issue because patchObjectIndex + renderTable ran before bottlesByConcept was rebuilt. A hard reload should fix it.",
+          "issues_found": [
+            "INV-TYPE-BADGE-HARDCODED-TEAL clearly visible on two side-by-side rows",
+            "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE: bottle shows as its own inventory row right after create; probably transient until loadInventory() re-runs."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step16-concept-popup-open.png",
+          "shows": "Concept popup for ethanol-absolute chemical",
+          "evaluation": "Header pill 'Chemical' renders purple (rgb(106,27,154)) \u2014 type system works in the popup. Of (concept slug) pill is grey. Status 'In Stock' is green. Instances column lists the new 'Ethanol Absolute (qa20-qp2gm) 1 gallon' alongside existing bottles.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step17-concept-popup-scrolled.png",
+          "shows": "Same popup scrolled",
+          "evaluation": "No visual regression. Wikilink to resources/ethanol-absolute rendered grey; instance pane intact.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20/step18-cabinet-flammable-popup.png",
+          "shows": "Flammable Cabinet location popup",
+          "evaluation": "Fields show Type=Container, Link=[[locations/cabinet-flammable]], Parent=Robbins Hall 170 (blue room pill). Contents column lists all bottles in this cabinet \u2014 including 'Ethanol Absolute (qa20-qp2gm)'. End-to-end save \u2192 parent \u2192 instance relation confirmed.",
+          "issues_found": []
+        }
+      ],
+      "verify_screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle20-verify/step01-inventory-after-fix.png",
+          "shows": "Inventory table after badge-color fix deployed",
+          "evaluation": "Each row's Type badge now uses the type's canonical color. Chemical purple, Buffer/Solution orange, Reagent teal, and so on. Distinctions are now obvious at a glance.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle20-verify/step03-search-ethanol.png",
+          "shows": "Post-fix: ethanol search shows 5 rows with mixed types",
+          "evaluation": "2-Mercaptoethanol / Chemical (purple), Ethanol 70% / Reagent (teal), Ethanol Absolute / Chemical (purple), Formaldehyde / Chemical (purple), Methanol / Chemical (purple). Purple vs. teal is immediately readable.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "INV-TYPE-BADGE-HARDCODED-TEAL: every row in the Inventory table rendered its Type column badge in teal regardless of type, making Chemical/Reagent/Kit/Enzyme/Equipment visually indistinguishable. Fixed by switching app/inventory.html line ~653 from '<span class=\"badge badge-teal\">' + typeLabel + '</span>' to inline style from Lab.types.pillStyle(type, 'badge'). Verified post-fix: Chemical=#6A1B9A purple, Reagent=#009688 teal, Kit=#00838F cyan, Enzyme=#2E7D32 green, Consumable=#1565C0 blue, Equipment=#455A64 slate, Buffer/Solution=#E65100 orange \u2014 all seven distinct colors."
+      ],
+      "fixes": [
+        "Commit 3f1c5a30: color inventory type badge by type instead of hardcoded teal"
+      ],
+      "observations": [
+        "The purple chemical pill already rendered correctly in object popups (popup header + of-field + breadcrumb) \u2014 the bug was only on the Inventory table. This fits the pattern where the canonical type system in types.js is authoritative and local hardcoded classes drift.",
+        "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE: right after addInstanceFromConcept + save, the new bottle briefly appears as its own inventory row instead of rolling up under its concept. Reloading the page fixes it \u2014 suggesting renderTable runs before bottlesByConcept is rebuilt when the lab-file-saved event fires. Not fixing this cycle; low severity (transient).",
+        "End-to-end workflow solid: Add \u2192 pick concept \u2192 editor \u2192 fill fields \u2192 save \u2192 read-only popup \u2192 concept popup lists new bottle \u2192 location popup lists new bottle. Full object-graph round-trip works as designed."
+      ]
     }
   ],
   "bugs_found": [
@@ -2575,7 +2725,9 @@
     "PROTOCOLS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): protocols sidebar 0-result state was plain '<p>No protocols match</p>'; swapped to '.empty-state' div with the search_off icon, matching inventory/waste.",
     "NOTEBOOKS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): notebooks sidebar 0-result state used inline ad-hoc styling; swapped to the standard .empty-state block with the search_off icon plus a '+' hint to create one.",
     "WIKI-GRAPH-NOT-FILTERED (ux, OPEN from cycle 19): wiki.html sidebar search (#docSearch) filters the folder tree but the knowledge graph in the main pane stays unchanged even when the sidebar reads 'No documents match'. Larger change \u2014 logged for a future cycle. Options: filter graph nodes to match the sidebar, dim non-matching nodes, or hide the graph placeholder message when no results.",
-    "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, OPEN from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional \u2014 Recent Entries is globally recent by design \u2014 but a confused user might expect filtering. Logged as an observation rather than a bug."
+    "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, OPEN from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional \u2014 Recent Entries is globally recent by design \u2014 but a confused user might expect filtering. Logged as an observation rather than a bug.",
+    "INV-TYPE-BADGE-HARDCODED-TEAL (visual, closed in cycle 20, commit 3f1c5a30): every row in the Inventory table rendered its Type column badge in teal regardless of type, so Chemical / Reagent / Kit / Enzyme / Equipment / Consumable / Buffer-Solution were visually indistinguishable. Fix: replaced hardcoded 'badge badge-teal' class with inline Lab.types.pillStyle(type, 'badge') in app/inventory.html renderTable. Post-fix: 7 types render 7 distinct colors.",
+    "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE (ux, OPEN from cycle 20, low severity): right after addInstanceFromConcept saves a new bottle, it appears as its own Inventory row instead of rolling up under the concept's bottle count. Reloading the page fixes it \u2014 suggests the 'lab-file-saved' listener updates the individual row instead of rebuilding bottlesByConcept. Not fixed this cycle; transient."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -2605,7 +2757,8 @@
     "cycle 17 BULK-BAR-STALE-AFTER-EMPTY-RENDER: docs/sample-tracker/index.html renderTable() \u2014 call updateBulkBar() before the early return in the empty-items branch.",
     "cycle 17 STATUS-SELECT-CLIPS-LONG-LABEL: docs/sample-tracker/index.html \u2014 add min-width: 168px to .inline-select.status-select.",
     "cycle 18 PEOPLE-CARD-PILLS-BARE-SLUG + PERSON-DASHBOARD-IGNORES-FORWARD-LINKS + NOTEBOOK-ENTRY-NOT-PATCHED (commit 52fcfd3): app/people.html loadPeople() now uses obj.path (minus .md, minus /index) for connected-pill hrefs; renderPersonDashboard now merges forward-link edges from link-index + a body-parse fallback into backlinkedItems so outbound [[protocol]] / [[project]] wikilinks surface in Protocols/Projects sections; createPersonFiles patchObjectIndex'es the first notebook entry too so Notebooks counter reads 1 immediately after onboarding. Verified end-to-end via tests/qa-cycle-18-verify.mjs \u2014 pill click lands on real protocol, fresh-user dashboard shows 1/2/0/0/0/1 counts.",
-    "cycle 19 FAB-OVERLAPS-WIZARD-NEXT-MOBILE + NOTEBOOKS-PERSON-PARAM-IGNORED + PROTOCOLS/NOTEBOOKS-EMPTY-STATE-MINIMAL (commit 1e90ba8): app/people.html toggles body.wizard-open on openOnboardingWizard/closeWizard plus a CSS rule that hides #issue-reporter-btn while the class is set; app/notebooks.html init() reads ?person=<slug> and pre-fills #nbSearch with the prettified slug so the sidebar filters to only that person's folder; app/protocols.html + app/notebooks.html 0-result sidebar empty states now use the styled .empty-state div with search_off icon matching inventory/waste. Verified via tests/qa-cycle-19-verify.mjs at 1440x900 and 375x812: FAB display=none during wizard, personParam yields showsOtherFolders=false, both empty states report iconText='search_off'."
+    "cycle 19 FAB-OVERLAPS-WIZARD-NEXT-MOBILE + NOTEBOOKS-PERSON-PARAM-IGNORED + PROTOCOLS/NOTEBOOKS-EMPTY-STATE-MINIMAL (commit 1e90ba8): app/people.html toggles body.wizard-open on openOnboardingWizard/closeWizard plus a CSS rule that hides #issue-reporter-btn while the class is set; app/notebooks.html init() reads ?person=<slug> and pre-fills #nbSearch with the prettified slug so the sidebar filters to only that person's folder; app/protocols.html + app/notebooks.html 0-result sidebar empty states now use the styled .empty-state div with search_off icon matching inventory/waste. Verified via tests/qa-cycle-19-verify.mjs at 1440x900 and 375x812: FAB display=none during wizard, personParam yields showsOtherFolders=false, both empty states report iconText='search_off'.",
+    "cycle 20 commit 3f1c5a30: color inventory type badge by type instead of hardcoded teal"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -2658,7 +2811,27 @@
     "/tmp/qa-screenshots/cycle18/ \u2014 19 screenshots covering the full onboarding-wizard flow (dashboard + people baseline, wizard step 1/2/3/4, post-onboarding grid, new-card zoom, empty person-dashboard showing the bugs, notebooks baseline, ?person= filter, profile empty-state, protocol page 404, mobile pass of grid + step 1). Every screenshot Read and evaluated.",
     "/tmp/qa-screenshots/cycle18-verify/ \u2014 8 screenshots confirming all three fixes live post-deploy: (a) existing-person autoclave pill loads docs/wet-lab/autoclave, (b) fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project, (c) sections expand to show correctly-iconed rows. _results.json captures the programmatic assertions.",
     "/tmp/qa-screenshots/cycle19/ \u2014 28 screenshots covering search on inventory/protocols/notebooks/wiki/waste (real query + typo + emoji + XSS + clear), dashboard baseline, people mobile + wizard open reproducing FAB overlap, and notebooks?person= reproducing the param-ignored bug. All read and evaluated.",
-    "/tmp/qa-screenshots/cycle19-verify/ \u2014 5 screenshots + _results.json confirming all 3 fixes live post-deploy: notebooks.html?person= filters sidebar to one folder, wizard hides FAB at mobile, protocols + notebooks empty states show search_off icon. Kept as regression harness."
+    "/tmp/qa-screenshots/cycle19-verify/ \u2014 5 screenshots + _results.json confirming all 3 fixes live post-deploy: notebooks.html?person= filters sidebar to one folder, wizard hides FAB at mobile, protocols + notebooks empty states show search_off icon. Kept as regression harness.",
+    "/tmp/qa-screenshots/cycle20/step01-inventory-initial.png",
+    "/tmp/qa-screenshots/cycle20/step02-inventory-banner.png",
+    "/tmp/qa-screenshots/cycle20/step03-inventory-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle20/step04-add-btn-visible.png",
+    "/tmp/qa-screenshots/cycle20/step05-add-modal-choice.png",
+    "/tmp/qa-screenshots/cycle20/step06-bottle-search-empty.png",
+    "/tmp/qa-screenshots/cycle20/step07-bottle-search-ethanol-results.png",
+    "/tmp/qa-screenshots/cycle20/step08-editor-opened-new-bottle.png",
+    "/tmp/qa-screenshots/cycle20/step09-parent-picker-open.png",
+    "/tmp/qa-screenshots/cycle20/step10-parent-picker-search.png",
+    "/tmp/qa-screenshots/cycle20/step11-parent-picked.png",
+    "/tmp/qa-screenshots/cycle20/step12-fields-filled.png",
+    "/tmp/qa-screenshots/cycle20/step13-after-save.png",
+    "/tmp/qa-screenshots/cycle20/step14-modal-closed.png",
+    "/tmp/qa-screenshots/cycle20/step15-inventory-search-after-save.png",
+    "/tmp/qa-screenshots/cycle20/step16-concept-popup-open.png",
+    "/tmp/qa-screenshots/cycle20/step17-concept-popup-scrolled.png",
+    "/tmp/qa-screenshots/cycle20/step18-cabinet-flammable-popup.png",
+    "/tmp/qa-screenshots/cycle20-verify/step01-inventory-after-fix.png",
+    "/tmp/qa-screenshots/cycle20-verify/step03-search-ethanol.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
