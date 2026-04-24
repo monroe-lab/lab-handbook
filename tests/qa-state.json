@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 21,
+  "cycle": 22,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -2848,6 +2848,110 @@
         }
       ],
       "observations": "Fix 3 is the most subtle \u2014 you only see it when the viewport is tight enough that hiding N trailing tabs leaves the container just barely oversized once the \"+ More\" button claims its ~70px of horizontal space. A second pass of the same loop is sufficient. Verify run confirmed 6 tabs visible cleanly at 1024px with Projects moved into the popover. Also confirmed XSS payload and path traversal in ?doc= are safely handled \u2014 no alert, no escape, friendly not-found view."
+    },
+    {
+      "cycle": 22,
+      "persona": "Jordan Park",
+      "modifier": "cross_linker",
+      "task": "New freezer box day scenario: create a 10x10 box 'QA22 LibPrep Kit Storage' on shelf-minus80-a-1 via the Lab Map shelf popup +Add flow. Verify slug is regenerated from the final title at save time. Then create 3 tube instances of accession pistachio-4 at grid cells A1/A3/B2 (ghPut + in-browser patchObjectIndex to simulate UI saves). Reopen the box, screenshot the 10x10 grid with 3 occupied cells. Drill into A1 cell -> tube popup shows 5-level breadcrumb (Robbins Hall 170 / -80C Freezer A / Shelf 1 / QA22 box / QA22 tube). Follow tube -> accession pistachio-4 popup verifies backlinks pane now shows 6 INSTANCES IN LAB (was 3, now +3 new QA22 tubes). Verify Lab Map hierarchy tree shows the new box under Shelf 1 with '3 items' badge. Deep-link to wiki.html?doc=locations/<box-slug> to inspect the page header. Finally exercise the empty-cell place-here popover on F5 (search + 12 results + Create new here button).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step01-01-lab-map-baseline.png",
+          "shows": "Lab Map page baseline, static placeholder + hierarchical tree (203 toggles)",
+          "evaluation": "Clean layout, type pills (freezer, shelf, box), grid-size badges, item counts, chevron toggles visible",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step02-02-shelf-popup-open.png",
+          "shows": "Shelf 1 popup 3-column layout: fields (Type Shelf / Link / Name / Parent -80C Freezer A / Position A1 / Label 1), body, contents (Box A, Pistachio DNA Box, +Add item button)",
+          "evaluation": "Breadcrumb correct: Robbins Hall 170 / -80C Freezer A / Shelf 1. Children listed, +Add button teal-dashed, clear visual hierarchy.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step03-02-add-new-box-blank-form.png",
+          "shows": "openNew() pre-seeded for box creation with parent=shelf-minus80-a-1, type=Box. Insert pills (Resources/Stocks/People/Protocols/Projects/Accessions/Waste/Calendar/Lab Map/Notebooks) and Media row rendered above Toast UI editor.",
+          "evaluation": "Parent field renders as breadcrumb pill 'Robbins Hall 170 > -80C Freezer A > Shelf 1' \u2014 good. Grid field labelled '5x1'. Contents col says 'Save it first'. No visual issues.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step03-03-add-new-box-filled.png",
+          "shows": "Same form with Name=QA22 LibPrep Kit Storage, Grid=10x10, Label 2=LibPrep\\nKit Box.",
+          "evaluation": "Link field still shows the seeded slug (locations/new-box-<stamp>) \u2014 it regenerates on save. Grid input auto-visualizes 10x10 as '10\u00d710' (display only; md stores 10x10). Link-staleness minor, but correct behavior.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step03-04-after-save-returned.png",
+          "shows": "After save, popup returned to Shelf 1 with child list now Box A / Pistachio DNA Box / QA22 LibPrep Kit Storage. Tree below also updated shelf count A1 3 items.",
+          "evaluation": "Save flow correctly returns to parent popup via returnTo. Children list and tree count both reflect the new child immediately.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step04-01-shelf-popup-after-add.png",
+          "shows": "Shelf popup re-opened to confirm persistence.",
+          "evaluation": "Same three children listed; no duplicate, no staleness.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step06-02-new-box-grid-occupied.png",
+          "shows": "QA22 LibPrep Kit Storage popup with 10x10 grid: A1/A3/B2 rendered teal/occupied with P4- label_2 text, 97 cells empty, contents header '10 \u00d7 10 \u00b7 3 items'.",
+          "evaluation": "Grid layout clean, occupied cells use correct tube color + label_2 (P4-A1/P4-A3/P4-B2 though truncated due to cell size \u2014 expected). Breadcrumb 4 levels deep correct.",
+          "issues_found": "Minor: label_2 text 'P4-A1' truncated to 'P4-' in tiny cells. Acceptable given cell size."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step07-02-after-click-a1-cell.png",
+          "shows": "Drilled into A1 cell -> QA22 tube pist4 A1 popup. Breadcrumb: Robbins Hall 170 / -80C Freezer A / Shelf 1 / QA22 LibPrep Kit Storage / QA22 tube pist4 A1.",
+          "evaluation": "Full 5-level breadcrumb renders correctly with type pills for each level. Fields col shows Type Tube, Of Pistachio Tree #4 (purple accession pill), Parent QA22 LibPrep Kit Storage pill, Position A1, label_1 and label_2 multi-line rendered.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step08-01-accession-pistachio4-popup.png",
+          "shows": "Pistachio Tree #4 accession popup. Backlinks pane (CONTENTS) shows '6 INSTANCES IN LAB' (3 old + 3 new QA22 tubes), sorted alphabetically.",
+          "evaluation": "Backlinks pane correctly includes the newly-created QA22 tubes (thanks to in-browser patchObjectIndex). Accession pill purple (#6a1b9a) with fa-atom icon. Fields col shows Status Active, Priority 0, etc.",
+          "issues_found": "Minor: in plaintext view the Priority field shows '0' instead of star glyphs; the Accessions tracker row renders it as stars. Consistent within the popup (plaintext), acceptable."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step09-02-lab-map-tree-search-cleared.png",
+          "shows": "Lab Map tree with QA22 LibPrep Kit Storage as a child of Shelf 1, grid badge 10\u00d710, '3 items' count, and tube A1 starting to render below.",
+          "evaluation": "Tree hierarchy matches the new object graph: Robbins Hall 170 > -80C Freezer A > Shelf 1 > QA22 LibPrep Kit Storage > QA22 tube pist4 A1. No visual glitches.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step10-01-wiki-deeplink-to-new-box-no-modal.png",
+          "shows": "wiki.html?doc=locations/<new-box-slug> page header after fix. Shows 'Box' type pill + **QA22 LibPrep Kit Storage modjnru6** (bold title) + locations/qa22-libprep-kit-storage-modjnru6 (secondary grey slug).",
+          "evaluation": "Fix verified \u2014 title from frontmatter now primary, slug secondary. Pre-fix this read 'Box locations/qa22-libprep-kit-storage-modjnru6' with no title visible. Metadata bar below is clean (parent / grid / label_2 / timestamps).",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle22/step11-02-place-here-popover-open.png",
+          "shows": "Click empty F5 cell -> place-here popover anchored to cell. Shows 'PLACE AT F5' header, search input, 12 result rows with type pills, 'Create new here' teal-dashed button at bottom.",
+          "evaluation": "Popover positioning correct (anchored to cell), results render with color-coded type pills (Chemical purple, Buffer/Solution teal). Accessible touch target for Create new here.",
+          "issues_found": "none"
+        }
+      ],
+      "bugs": [
+        {
+          "id": "WIKI-DOC-HEADER-SHOWS-SLUG-NOT-TITLE",
+          "severity": "visual",
+          "summary": "wiki.html ?doc= page rendered '<Type pill> <slug>' in the edit-bar breadcrumb instead of the frontmatter title. For objects created via the popup editor (body-empty, frontmatter-only) the slug was the only thing visible next to the type pill \u2014 e.g. a new box showed 'Box locations/qa22-libprep-kit-storage-modji38x' instead of 'Box QA22 LibPrep Kit Storage modji38x'. Most action-agent popups resolve by type+title, so this inconsistency stood out.",
+          "status": "closed",
+          "commit": "28d2ee5a"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "WIKI-DOC-HEADER-SHOWS-SLUG-NOT-TITLE",
+          "file": "app/wiki.html",
+          "what": "loadDoc() was already parsing frontmatter but only used `typeBadge + Lab.escHtml(docPath)` for the breadcrumb. Updated to prefer `meta.title` as the primary bold label and demote the slug to smaller secondary grey text (`breadcrumbLabel` ternary). Falls back to raw slug when frontmatter has no title.",
+          "commit": "28d2ee5a"
+        }
+      ],
+      "observations": [
+        "Box creation flow is tight end-to-end: shelf popup -> +Add -> openNew pre-seeds parent+type+grid, save regenerates the slug from the final title, returnTo flips back to the parent popup. The user never has to touch parent/type. Good UX \u2014 only two fields (Name + Grid) typed by hand for a standard box.",
+        "patchObjectIndex() is the critical piece that lets freshly-created objects appear immediately in grids, backlinks panes, and tree counts. Without it (the ghPut-only path) there's a ~40s deploy gap where the UI shows empty state. The UI save path already calls it; automated tests that bypass it must call it explicitly to mirror real-user behavior.",
+        "The grid cell label_2 text gets truncated in 10x10 tiny cells \u2014 'P4-A1' becomes 'P4-' because only 2 short lines fit. Acceptable; the full label is visible in the tube popup. Would be nice to have a tooltip on hover showing the full label_2, but not critical.",
+        "Accession backlinks correctly classify the new QA22 tubes as instances-in-lab via `of: accessions/pistachio-4` (R5 frontmatter-pointer resolver). Sorted alphabetically; no duplicates. The patchObjectIndex write fully covers this path.",
+        "wiki.html doc header, pre-fix, was a single surface that skipped the frontmatter title. editor-modal popups have always shown the title prominently. With the fix the two are now visually consistent."
+      ]
     }
   ],
   "bugs_found": [
@@ -2923,6 +3027,13 @@
       "summary": "At 1024x800 the last visible nav tab was partially clipped (Projects -> Proj) because updateOverflow() hid trailing tabs then showed the \"+ More\" button, which shrank tabWrap further without a second hide pass.",
       "status": "closed",
       "commit": "3fca3873"
+    },
+    {
+      "id": "WIKI-DOC-HEADER-SHOWS-SLUG-NOT-TITLE",
+      "severity": "visual",
+      "summary": "wiki.html ?doc= page rendered '<Type pill> <slug>' in the edit-bar breadcrumb instead of the frontmatter title. For objects created via the popup editor (body-empty, frontmatter-only) the slug was the only thing visible next to the type pill \u2014 e.g. a new box showed 'Box locations/qa22-libprep-kit-storage-modji38x' instead of 'Box QA22 LibPrep Kit Storage modji38x'. Most action-agent popups resolve by type+title, so this inconsistency stood out.",
+      "status": "closed",
+      "commit": "28d2ee5a"
     }
   ],
   "fixes_applied": [
@@ -2972,6 +3083,12 @@
       "file": "app/js/nav.js",
       "what": "Refactored updateOverflow() to run the hide-trailing-tabs loop a second time after toggling the \"+ More\" button visible, so the shrunken tabWrap no longer leaves a partially-clipped trailing tab.",
       "commit": "3fca3873"
+    },
+    {
+      "id": "WIKI-DOC-HEADER-SHOWS-SLUG-NOT-TITLE",
+      "file": "app/wiki.html",
+      "what": "loadDoc() was already parsing frontmatter but only used `typeBadge + Lab.escHtml(docPath)` for the breadcrumb. Updated to prefer `meta.title` as the primary bold label and demote the slug to smaller secondary grey text (`breadcrumbLabel` ternary). Falls back to raw slug when frontmatter has no title.",
+      "commit": "28d2ee5a"
     }
   ],
   "improvements_proposed": [
@@ -3165,7 +3282,19 @@
       "shows": "Post-fix nav at 1024x800",
       "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste cleanly \u2014 no truncation. \"+ More\" button then avatar + Sign out. Projects moved to the overflow popover. Trailing-tab clip gone.",
       "issues_found": []
-    }
+    },
+    "/tmp/qa-screenshots/cycle22/step01-01-lab-map-baseline.png",
+    "/tmp/qa-screenshots/cycle22/step02-02-shelf-popup-open.png",
+    "/tmp/qa-screenshots/cycle22/step03-02-add-new-box-blank-form.png",
+    "/tmp/qa-screenshots/cycle22/step03-03-add-new-box-filled.png",
+    "/tmp/qa-screenshots/cycle22/step03-04-after-save-returned.png",
+    "/tmp/qa-screenshots/cycle22/step04-01-shelf-popup-after-add.png",
+    "/tmp/qa-screenshots/cycle22/step06-02-new-box-grid-occupied.png",
+    "/tmp/qa-screenshots/cycle22/step07-02-after-click-a1-cell.png",
+    "/tmp/qa-screenshots/cycle22/step08-01-accession-pistachio4-popup.png",
+    "/tmp/qa-screenshots/cycle22/step09-02-lab-map-tree-search-cleared.png",
+    "/tmp/qa-screenshots/cycle22/step10-01-wiki-deeplink-to-new-box-no-modal.png",
+    "/tmp/qa-screenshots/cycle22/step11-02-place-here-popover-open.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
