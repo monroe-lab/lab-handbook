@@ -134,7 +134,17 @@
     // Measure once the initial layout settles, then on every resize. #145:
     // as the viewport narrows, trailing tabs are pushed into the overflow
     // popover so nothing truncates or scrolls.
+    //
+    // qa-cycle-23: re-run after web fonts (Material Icons Outlined) finish
+    // loading. Before the icon font is cached, icon spans render their
+    // placeholder ligature text ("play_circle", "edit_note", etc) in the
+    // fallback font, which inflates tab widths to ~1600px and permanently
+    // pushes 6 tabs into the "+" popover at a 1440px viewport. Running once
+    // on fonts.ready fixes the stale measurement after the glyphs arrive.
     setTimeout(updateOverflow, 0);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(updateOverflow);
+    }
     window.addEventListener('resize', debounce(updateOverflow, 80));
   }
 
