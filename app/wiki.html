@@ -616,11 +616,23 @@ async function loadDoc(docPath) {
       var color = (t && t.color) || GENERIC_PILL.color;
       typeBadge = '<span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:' + color + '20;color:' + color + ';border:1px solid ' + color + '50;margin-right:8px">' + Lab.escHtml((t && t.label) || meta.type) + '</span>';
     }
+    // Prefer frontmatter title as the primary breadcrumb label, with the slug
+    // rendered as secondary metadata. Objects created via the popup editor
+    // (new box/tube) often have an empty body — without the title here the
+    // page header would show only the raw slug next to the type pill.
+    var breadcrumbLabel = '';
+    if (meta.title) {
+      breadcrumbLabel =
+        '<span style="font-weight:600;color:var(--grey-800)">' + Lab.escHtml(meta.title) + '</span>' +
+        '<span style="font-size:11px;color:var(--grey-500);margin-left:8px;font-weight:400">' + Lab.escHtml(docPath) + '</span>';
+    } else {
+      breadcrumbLabel = Lab.escHtml(docPath);
+    }
 
     contentEl.innerHTML =
       '<div class="doc-content">' +
         '<div class="doc-edit-bar">' +
-          '<div class="breadcrumb">' + typeBadge + Lab.escHtml(docPath) + '</div>' +
+          '<div class="breadcrumb">' + typeBadge + breadcrumbLabel + '</div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
             (loggedIn ?
