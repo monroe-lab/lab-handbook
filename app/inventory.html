@@ -648,9 +648,10 @@ function renderTable() {
     var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
     var qtyHtml = Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') +
       (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' ' + item.instanceLabel + ')</span>' : '');
+    var typeBadgeStyle = Lab.types.pillStyle(item.type, 'badge');
     return '<tr class="' + (isAlert ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
       '<td><strong>' + Lab.escHtml(item.name) + '</strong></td>' +
-      '<td><span class="badge badge-teal">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
+      '<td><span class="badge" style="' + typeBadgeStyle + '">' + Lab.escHtml(item.typeLabel) + '</span></td>' +
       '<td>' + statusBadge(item.status, item.slug) + '</td>' +
       '<td>' + qtyHtml + '</td>' +
       '<td>' + locationCell(item.location) + '</td>' +
