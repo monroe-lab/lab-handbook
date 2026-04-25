@@ -676,10 +676,14 @@ function renderTable() {
   var cardView = document.getElementById('cardView');
   cardView.innerHTML = items.map(function(item) {
     var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
+    // qa-cycle-43: render the type as a colored pill (chemical=purple,
+    // reagent=teal, etc.) so mobile users can tell concept types apart at a
+    // glance — same affordance the desktop table gives via the badge column.
+    var typeBadgeStyle = Lab.types.pillStyle(item.type, 'badge');
     return '<div class="inv-card' + (isAlert ? ' low-stock' : '') + '" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
       '<div class="inv-card-top"><span class="inv-card-name">' + Lab.escHtml(item.name) + ' ' + statusBadge(item.status, item.slug) + '</span>' +
       '<span class="inv-card-qty">' + item.quantity + (item.unit ? ' ' + item.unit : '') + '</span></div>' +
-      '<div class="inv-card-meta"><span>' + Lab.escHtml(item.typeLabel) + '</span><span>' + locationCell(item.location) + '</span></div></div>';
+      '<div class="inv-card-meta"><span class="badge" style="' + typeBadgeStyle + '">' + Lab.escHtml(item.typeLabel) + '</span><span>' + locationCell(item.location) + '</span></div></div>';
   }).join('');
 }
 

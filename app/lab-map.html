@@ -138,6 +138,17 @@
 }
 .tree-node[draggable="true"] > .tree-node-row { cursor: grab; }
 .tree-node[draggable="true"] > .tree-node-row:active { cursor: grabbing; }
+
+/* qa-cycle-43: stack the floor-plan placeholder vertically on narrow viewports
+   so the .mp-info column stops being squeezed to ~7px and clipping its text.
+   Below 640px the SVG goes full-width on top, info underneath. */
+@media (max-width: 640px) {
+  .map-canvas { padding: 16px; }
+  .map-placeholder { flex-direction: column; gap: 14px; padding: 16px; }
+  .map-placeholder .mp-svg { flex: 0 0 auto; width: 100%; min-height: 140px; }
+  .map-placeholder .mp-svg svg { max-width: 100%; }
+  .map-placeholder .mp-info { width: 100%; }
+}
 </style>
 </head>
 <body>
