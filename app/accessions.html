@@ -154,6 +154,10 @@
   .acc-toolbar .filter-row .filter-select { flex: 1; min-width: 0; font-size: 13px; padding: 8px 6px; }
   .acc-stats { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .acc-stats .stat-card { min-width: 0; }
+  /* When the Add tile is visible there are 7 cards in a 2-col grid, leaving
+     the last (Archived) card alone on its own row. Span it across both
+     columns so it reads as a footer rather than an orphaned tile. */
+  .acc-stats.has-add-tile .stat-card:last-child { grid-column: 1 / -1; }
   .acc-table-wrap { display: none; }
   .acc-cards { display: block; }
 }
@@ -407,7 +411,13 @@ async function loadAccessions() {
 
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('accTable').style.display = '';
-  if (Lab.gh.isLoggedIn()) document.getElementById('addBtn').style.display = '';
+  if (Lab.gh.isLoggedIn()) {
+    document.getElementById('addBtn').style.display = '';
+    // With Add Accession visible we have 7 cards in the stats grid; on mobile
+    // (2-col) that leaves the last card stranded on its own row. Tag the
+    // container so the CSS below can span the orphan across both columns.
+    document.querySelector('.acc-stats').classList.add('has-add-tile');
+  }
   populateFilters();
   renderTable();
 }
@@ -675,8 +685,11 @@ function renderTable() {
       '</div>';
   }).join('');
 
-  // Wire priority star clicks (delegated per render to avoid stale closures)
-  tbody.querySelectorAll('.pri-stars').forEach(function(el) {
+  // Wire priority star clicks (delegated per render to avoid stale closures).
+  // Both views render `.pri-stars`; on mobile the stars live inside a card whose
+  // wrapper has its own onclick (openAccession), so without stopPropagation the
+  // tap would walk up and open the editor instead of cycling priority.
+  document.querySelectorAll('#tableBody .pri-stars, #cardView .pri-stars').forEach(function(el) {
     el.addEventListener('click', function(ev) {
       ev.stopPropagation();
       cyclePriority(el.getAttribute('data-slug'));
