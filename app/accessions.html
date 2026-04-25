@@ -883,6 +883,21 @@ window.addEventListener('lab-file-saved', function(e) {
 });
 
 loadAccessions();
+
+// Deeplink: open popup for ?doc=docs/<slug>.md so external links land on the
+// right accession. Mirrors wiki / protocols / projects / notebooks.
+(function openDeeplinkDoc() {
+  var doc = new URLSearchParams(location.search).get('doc');
+  if (!doc) return;
+  var path = doc.replace(/^\/+/, '');
+  if (path.indexOf('docs/') !== 0) path = 'docs/' + path.replace(/^docs\//, '');
+  if (!/\.md$/.test(path)) path += '.md';
+  if (window.Lab && Lab.editorModal && Lab.editorModal.open) {
+    Lab.editorModal.open(path).catch(function(e) {
+      if (Lab.showToast) Lab.showToast('Could not open ' + path + ': ' + e.message, 'error');
+    });
+  }
+})();
 </script>
 </body>
 </html>
