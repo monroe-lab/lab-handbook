@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 45,
+  "cycle": 46,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -6183,6 +6183,100 @@
         "Wiki @media print path successfully hides nav/sidebar/action bar (whole-page chrome). Issue reporter widget remains visible — minor, not fixed this cycle.",
         "Pagination keep-together correctly avoids splitting tables, callouts, and images. Headings + immediate images share a page via protocols.html:1277."
       ]
+    },
+    {
+      "cycle": 46,
+      "persona": "Vianney Ahn",
+      "modifier": "confused",
+      "task": "Aliquot day with confused grad student. Vianney lands on Accessions tracker, fumbles the filter (Archived stuck on while searching 'pistacio' typo and 'A2-T1-W'), tries to deeplink to the box and accession popups via ?doc= and discovers they silently no-op. Then creates 6 tube aliquots (`of: accessions/a2-t1-w`, type: tube) in a fresh 9x9 box on shelf-minus80-a-1 at A1, A2, A3, B1, B2, C1 — verifies all 6 render as backlinks on the accession popup with 'instances-in-lab' classification, the box grid renders them in correct cells, and the breadcrumb is complete (room → freezer → shelf → box → tube).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step01-accessions-fresh-load.png",
+          "shows": "Initial Accessions tracker with 232 accessions, 6 stat cards and the purple-bordered orientation banner.",
+          "evaluation": "Page loads cleanly. Stat-card layout correct. Banner visible with 'instances' bold. Filters at default 'All Statuses'. No layout issues at 1366x900.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step02-accessions-archived-filter.png",
+          "shows": "After archived filter set — table empty.",
+          "evaluation": "Filter dropdown reads 'Archived'. Empty-state icon and message render correctly.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step03-accessions-typo-search.png",
+          "shows": "Typo'd search 'pistacio' with archived filter still on.",
+          "evaluation": "Search box highlights blue, empty-state shows correctly. Confused user is now stuck in archived+typo limbo.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step04-accessions-found-a2-t1-w.png",
+          "shows": "Search 'A2-T1-W' with Archived filter still set — 0 results.",
+          "evaluation": "User is confused why their search returns nothing. Real UX takeaway: when both a search term and a stale dropdown filter are set, no-results message gives no hint about which filter is excluding rows.",
+          "issues": "Script issue (locator missed Active stat card), not a product bug. But: empty-state could mention which filters are active to help confused users."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step09-lab-map-after-box-create.png",
+          "shows": "Lab Map page — top-level locations tree.",
+          "evaluation": "Tree renders correctly. Map design in progress card with floor-plan placeholder is visible.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step11-accession-popup-via-deeplink.png",
+          "shows": "After navigating to ?doc=docs/accessions/a2-t1-w.md — page loads but NO popup opens.",
+          "evaluation": "Deeplink ?doc= silently no-ops. Real UX gap.",
+          "issues": "BUG: ?doc= deeplink not supported on accessions/inventory/lab-map."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step101-verify-accession-deeplink-popup.png",
+          "shows": "After fix: A2-T1-W popup opens with all 6 QA46 instances listed in references column.",
+          "evaluation": "Excellent — fields complete, all 6 backlinks classified as instances-in-lab, '+ Add instance' button visible. Pill colors correct (Accession=purple).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step103-verify-box-deeplink-popup.png",
+          "shows": "Box popup opens via lab-map.html?doc=. 9x9 grid with A1/A2/A3/B1/B2/C1 filled in teal.",
+          "evaluation": "Grid renders correctly. CONTENTS '9 × 9 · 6 items'. Breadcrumb complete (Robbins Hall 170 / -80C Freezer A / Shelf 1 / box). Cell labels truncate.",
+          "issues": "MINOR VISUAL: grid cell label truncation hides position info when label_2 is longer than ~5 chars."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step105-verify-tube-deeplink-popup.png",
+          "shows": "Tube QA46 Aliquot A1 popup. Type=Tube, Of=A2-T1-W (purple accession pill), 5-deep breadcrumb.",
+          "evaluation": "All pill colors correct. Body wikilinks render as inline pills. CONTENTS pane shows 'No children yet'.",
+          "issues": "MINOR: Label 1 displays with literal leading double-quote — multi-line YAML quirk in test data."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle46/step106-verify-inventory-deeplink-ethanol.png",
+          "shows": "Deliberately-wrong path docs/chemicals/ethanol-absolute.md. Error icon + 'Failed to load ... (HTTP 404)' message.",
+          "evaluation": "Error path body is correct, but modal title stays 'Loading...' indefinitely.",
+          "issues": "BUG: modal title stays 'Loading...' on load error. Fixed in-cycle."
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE46-DEEPLINK-MISSING-3PAGES",
+          "severity": "ux",
+          "status": "closed",
+          "commit": "5103c4bd",
+          "description": "?doc=docs/<slug>.md deeplinks open popups on wiki/protocols/projects/notebooks/profile/people pages but were silently ignored on accessions.html, inventory.html, and lab-map.html. Fixed by adding init-time handler that calls Lab.editorModal.open(path) when ?doc= is present."
+        },
+        {
+          "id": "CYCLE46-LOAD-ERROR-TITLE-STUCK",
+          "severity": "visual",
+          "status": "closed",
+          "commit": "ff072f58",
+          "description": "When Lab.editorModal.open() fails to load a file (e.g. 404), body shows error card but title stays 'Loading...'. Fixed by writing slug into em-title in the catch block."
+        }
+      ],
+      "fixes": [
+        "5103c4bd qa-cycle-46: ?doc= deeplink support on accessions/inventory/lab-map",
+        "ff072f58 qa-cycle-46: error-state title, dedupe Glacial Acetic Acid concept"
+      ],
+      "observations": [
+        "Confused-mode surfaced two real UX gaps: ?doc= deeplinks broken on 3 high-traffic pages, and load-error title stuck at 'Loading...'.",
+        "Box-popup grid cells truncate label_2 to ~5-6 chars. Real tubes use 'P4-DNA' (6 chars) so it's at the edge. Worth a longer-term layout review.",
+        "Accession popup's instances-in-lab pane scales well — 6 tubes don't crowd the references column.",
+        "All 6 tubes resolved their `of: accessions/a2-t1-w` ref end-to-end: cached object index counted them, accession popup listed them as instances, box popup grid placed them in correct cells, breadcrumb traversed room → freezer → shelf → box → tube cleanly."
+      ]
     }
   ],
   "bugs_found": [
@@ -6507,8 +6601,24 @@
     {
       "id": "CYCLE45-DUPLICATE-CHEMICAL-PILL",
       "severity": "data",
-      "status": "open",
-      "description": "Gel Electrophoresis protocol Resources section displays two 'Glacial Acetic Acid' pills (likely two distinct concept entries with the same title — different slugs). Not a code bug; suggests a content audit of the chemical concept catalog could merge duplicates."
+      "status": "closed",
+      "description": "Gel Electrophoresis protocol Resources section displays two 'Glacial Acetic Acid' pills (likely two distinct concept entries with the same title — different slugs). Not a code bug; suggests a content audit of the chemical concept catalog could merge duplicates.",
+      "commit": "ff072f58",
+      "close_note": "Merged resources/glacial-acetic-acid-2 (legacy_inventory_id 66) into the canonical resources/glacial-acetic-acid (id 65). Bottle now points at canonical concept; gel-electrophoresis Reagents line and corrosives-sop H314 list deduped. Object/link indices rebuilt."
+    },
+    {
+      "id": "CYCLE46-DEEPLINK-MISSING-3PAGES",
+      "severity": "ux",
+      "status": "closed",
+      "commit": "5103c4bd",
+      "description": "?doc=docs/<slug>.md deeplinks open popups on wiki/protocols/projects/notebooks/profile/people pages but were silently ignored on accessions.html, inventory.html, and lab-map.html. Fixed by adding init-time handler that calls Lab.editorModal.open(path) when ?doc= is present."
+    },
+    {
+      "id": "CYCLE46-LOAD-ERROR-TITLE-STUCK",
+      "severity": "visual",
+      "status": "closed",
+      "commit": "ff072f58",
+      "description": "When Lab.editorModal.open() fails to load a file (e.g. 404), body shows error card but title stays 'Loading...'. Fixed by writing slug into em-title in the catch block."
     }
   ],
   "fixes_applied": [
@@ -6742,7 +6852,9 @@
       "commit": "b7f30039",
       "file": "app/css/base.css and app/protocols.html",
       "summary": "CYCLE45-PRINT-PILL-NOT-FLATTENED — wikilink .object-pill print styles now flatten correctly: !important on border, border-radius, box-shadow, text-decoration; gap forced to 0; nested <i>/material-icons hidden. Verified post-deploy with computed-style probe and visual screenshot."
-    }
+    },
+    "5103c4bd qa-cycle-46: ?doc= deeplink support on accessions/inventory/lab-map",
+    "ff072f58 qa-cycle-46: error-state title, dedupe Glacial Acetic Acid concept"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -7132,7 +7244,17 @@
     "/tmp/qa-screenshots/cycle45/27-after-final-close.png",
     "/tmp/qa-screenshots/cycle45/v1-pcr-print-preview-after-fix.png",
     "/tmp/qa-screenshots/cycle45/v1b-pcr-print-preview-after-fix-full.png",
-    "/tmp/qa-screenshots/cycle45/v2-wiki-print-media-after-fix.png"
+    "/tmp/qa-screenshots/cycle45/v2-wiki-print-media-after-fix.png",
+    "/tmp/qa-screenshots/cycle46/step01-accessions-fresh-load.png",
+    "/tmp/qa-screenshots/cycle46/step02-accessions-archived-filter.png",
+    "/tmp/qa-screenshots/cycle46/step03-accessions-typo-search.png",
+    "/tmp/qa-screenshots/cycle46/step04-accessions-found-a2-t1-w.png",
+    "/tmp/qa-screenshots/cycle46/step09-lab-map-after-box-create.png",
+    "/tmp/qa-screenshots/cycle46/step11-accession-popup-via-deeplink.png",
+    "/tmp/qa-screenshots/cycle46/step101-verify-accession-deeplink-popup.png",
+    "/tmp/qa-screenshots/cycle46/step103-verify-box-deeplink-popup.png",
+    "/tmp/qa-screenshots/cycle46/step105-verify-tube-deeplink-popup.png",
+    "/tmp/qa-screenshots/cycle46/step106-verify-inventory-deeplink-ethanol.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
