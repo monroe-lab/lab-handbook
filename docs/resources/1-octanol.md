@@ -1,9 +1,9 @@
 ---
-title: 1-Octanol
-type: chemical
-cas: 111-87-5
-location: Flammable Cabinet
-status: in_stock
+title: "1-Octanol"
+type: "chemical"
+cas: "111-87-5"
+location: "Flammable Cabinet"
+status: "needs_more"
 legacy_inventory_id: 14
 ---
 # 1-Octanol
