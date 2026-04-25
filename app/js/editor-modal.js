@@ -2143,6 +2143,16 @@
             b.slug ? ('#' + b.slug.split('/').pop().split('-').pop()) : '';
           if (disamb) meta.push(disamb);
         }
+        // qa-cycle-44: an instance freshly created via "Add instance" has no
+        // qty / parent / lot yet, so meta would be empty and the row would
+        // render with just a title — visually indistinguishable from any
+        // other bottle of the same concept and breaking the row's expected
+        // two-line layout. Surface the slug suffix as a fallback so each
+        // row stays distinct and the user sees a hint that details are
+        // still missing.
+        if (!meta.length && b.slug) {
+          meta.push('#' + b.slug.split('/').pop().split('-').pop() + ' · no location set');
+        }
         html += '<div class="em-backlink-row" data-slug="' + escHtml(b.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:background .08s">' +
           '<span style="font-size:14px;flex-shrink:0">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
