@@ -922,6 +922,10 @@
     document.getElementById('em-fields').style.display = 'none';
     document.getElementById('em-fields').innerHTML = '';
     document.getElementById('em-content').innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading...</p></div>';
+    // Reset the Contents/References column heading so it doesn't leak from
+    // the previously-rendered object (a concept popup leaves it as
+    // "References", which would be wrong if the next popup is a box/location).
+    setContentsHeading('Contents', 'inventory_2');
     // R7 #30: reset the Edit/View toggle to "Edit" on every open. Without this,
     // if the user edits item A then opens item B directly (without first
     // clicking View to stop editing), the button still reads "View" while the
@@ -1950,6 +1954,7 @@
     // Container list (resources/stocks) — existing repeating-rows UI
     var containerListField = schema.find ? schema.find(function(f) { return f.type === 'container_list'; }) : null;
     if (containerListField) {
+      setContentsHeading('Contents', 'inventory_2');
       mount.innerHTML = renderContainerListPane(containerListField, meta, editable);
       return;
     }
@@ -1966,6 +1971,7 @@
     }
 
     if (hasGrid) {
+      setContentsHeading('Contents', 'inventory_2');
       mount.innerHTML = renderGridPane(meta, children, slug);
       bindGridHandlers(slug, meta);
       return;
@@ -1973,6 +1979,7 @@
 
     var isLocationType = Lab.types.get(type).group === 'locations';
     if (isLocationType || children.length) {
+      setContentsHeading('Contents', 'inventory_2');
       mount.innerHTML = renderChildrenListPane(children, slug, type);
       bindChildrenListHandlers(slug, type);
       return;
@@ -1981,6 +1988,10 @@
     // R4 Phase 7: backlinks pane for non-location, non-container types.
     // Shows everything that wikilinks to this object (from link-index.json).
     // Covers the "Ethanol is referenced from many protocols" case.
+    // Heading switches to "References" because for a concept (accession,
+    // chemical, protocol) this column lists what *points at* this object,
+    // not what it physically contains.
+    setContentsHeading('References', 'link');
     var backlinks = await fetchBacklinksFor(slug);
     if (backlinks.length) {
       mount.innerHTML = renderBacklinksPane(backlinks);
@@ -1989,6 +2000,15 @@
     }
 
     mount.innerHTML = '<div class="em-col-empty">No references to this object yet.</div>';
+  }
+
+  function setContentsHeading(text, iconName) {
+    var col = document.getElementById('em-col-contents');
+    if (!col) return;
+    var heading = col.querySelector('.em-col-heading');
+    if (!heading) return;
+    heading.innerHTML = '<span class="material-icons-outlined" style="font-size:13px">' +
+      (iconName || 'inventory_2') + '</span> ' + text;
   }
 
   // ── Backlinks (R4 Phase 7) ──
@@ -2031,14 +2051,34 @@
         });
       }
       // 2. Body wikilinks pointing at this slug.
+      // INSTANCE_TYPE_PREFIXES lets us classify a backlink whose source isn't
+      // in the prebuilt object-index yet (newly-committed file, index not yet
+      // rebuilt by scripts/build-object-index.py). Without this fallback, fresh
+      // tubes/bottles/etc. show up as "Container" with the literal slug as the
+      // title in the references pane, instead of being grouped under
+      // "instances in lab" with the right pill color and icon.
+      var INSTANCE_PREFIX_TYPES = {
+        'tube':       'tube',
+        'bottle':     'bottle',
+        'sample':     'sample',
+        'extraction': 'extraction',
+        'library':    'library',
+        'pool':       'pool',
+      };
       for (var i = 0; i < edges.length; i++) {
         var edge = edges[i];
         if (edge.target !== slug) continue;
         var source = byPath[edge.source];
+        var leaf = edge.source.split('/').pop();
+        var inferredType = INSTANCE_PREFIX_TYPES[leaf.split('-')[0]] || null;
+        var resolvedType = (source && source.type) || inferredType || 'container';
+        var humanTitle = (source && source.title) ||
+          leaf.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
         results.push({
           slug: edge.source,
-          title: (source && source.title) || edge.source.split('/').pop(),
-          type: (source && source.type) || 'container',
+          title: humanTitle,
+          type: resolvedType,
+          isInstance: !!inferredType && !source,
         });
       }
       // Dedupe by slug + sort by title
