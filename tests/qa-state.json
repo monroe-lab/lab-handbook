@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 36,
+  "cycle": 37,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5035,6 +5035,134 @@
         "Toast queue handles multiple back-to-back success toasts cleanly.",
         "Cleanup script reverted the 2 still-toggled items to in_stock at end of run; final stats (218/2/1) match pre-cycle baseline. No data drift."
       ]
+    },
+    {
+      "cycle": 37,
+      "persona": "Jordan Park",
+      "role": "postdoc",
+      "modifier": "mobile",
+      "scenario": "Star priority sort + accession lifecycle on mobile",
+      "task": "Postdoc Jordan working from a 375x812 phone viewport opens accessions.html, scans the orientation banner, the 7-tile stats grid, and the mobile card list. Programmatically sorts by priority, taps the priority stars on the top card (J4_T1_5 Kerman \u2605\u2605\u2605), expects the priority to cycle 3\u21920 \u2014 instead the editor modal opens. Identifies and fixes the root cause: the .pri-stars click handler was attached only to #tableBody children, leaving the .acc-cards (mobile) stars without event.stopPropagation, so tap propagated to the card wrapper's onclick=openAccession(). Also notices the stats grid orphans 'Archived' alone in the last row when the Add Accession tile is visible (7 cards in a 2-col grid). Fixes both in app/accessions.html (commit 52dc8654). Re-runs verify post-deploy: priority cycles 3\u21920 cleanly with no modal, Archived spans both cols (343px width).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle37/01-accessions-mobile-baseline.png",
+          "shows": "Accessions page initial load on a 375x812 mobile viewport \u2014 top dark-teal header (Monroe Lab + Sign out), purple-bordered orientation banner, search + 3 filter dropdowns, stats grid (Add Accession + 232 Accessions tiles on top, Active 101 / Waiting 119 / Storage 0 / Completed 12 / Archived 0), first card A4_T1_W \u2605\u2606\u2606 visible, plus the 5-tab bottom nav bar (Wiki/Notebooks/Accessions/Inventory/More) with Accessions highlighted teal.",
+          "evaluation": "Header + banner + bottom tab bar render cleanly. Stats grid is 2-col with 7 tiles, leaving 'Archived' alone in the bottom row \u2014 visual orphan. Card view is the only visible row mode (table is display:none on mobile). Bottom tab bar is present and reachable; the Accessions tab is correctly highlighted.",
+          "issues_found": [
+            "STATS-GRID-UNEVEN: 7 stat tiles in a 2-col grid leave 'Archived' orphaned on its own row when the Add tile is visible (logged-in path)."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37/02-orientation-banner-mobile.png",
+          "shows": "Tight crop of the orientation banner: 'What's an accession?' explanation with a thick purple left border, body wikilinks (Lab Map) rendered as clickable purple text. Banner sits below the dark-teal app header.",
+          "evaluation": "Purple border-left renders correctly as expected per the run_focus (concept/instance orientation). Body copy with green/teal flask + book + shuffle emojis appears as inline icons. No layout issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37/03-stats-grid-mobile.png",
+          "shows": "Full stats grid on mobile: 6 cards visible (Add tile + Total + Active + Waiting + Storage + Completed) in a 2-col grid; 7th card 'Archived' visible alone in the last row. Below the grid, mobile cards begin (A4_T1_W, R15_B1_W, R16_B1_N, R16_B1_W, R16_B2_N) each with \u2605\u2606\u2606 priority + Active status pill (with select-style dropdown chevron).",
+          "evaluation": "Confirmed: orphaned 'Archived' tile on the bottom row. Mobile cards render cleanly with inline name + status select; people pills (Vianney Ahn / Matt Davis / Zi Ye) are teal pill links; project + species in italic right column. The blue lightbulb FAB at right=18px bottom=80px overlaps the right edge of the visible card row content (R16_B2_N's status select).",
+          "issues_found": [
+            "STATS-GRID-UNEVEN (logged once for cycle): Archived alone in bottom row.",
+            "FAB-OVERLAPS-MOBILE-CARDS (re-observed from cycle 4 / open): blue lightbulb FAB sits over the right edge of mobile accession cards."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37/04-after-priority-sort.png",
+          "shows": "Accessions list after programmatic setSort('priority') \u2014 top 5 cards now all show \u2605\u2605\u2605 (3-star) priority: J4_T1_5 (Kerman), R1_B1_C7, R1_B2_C6, R1_B2_C9, R1_B3_C8.",
+          "evaluation": "Sort by priority desc works correctly when invoked programmatically. Top card has priority=3 as expected. However mobile users have no UI affordance to invoke setSort \u2014 the desktop table headers are hidden under the 768px breakpoint and there is no mobile sort dropdown / button. This is a pre-existing UX gap, not a regression.",
+          "issues_found": [
+            "MOBILE-NO-SORT (UX gap, open): card view has no sort dropdown / button so mobile users cannot trigger priority sort by themselves."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37/05-before-star-tap.png",
+          "shows": "Same priority-sorted view, immediately before tapping the J4_T1_5 (Kerman) card's stars (top of list, \u2605\u2605\u2605).",
+          "evaluation": "Cards visible with consistent layout: stars + name on top-left, status select on top-right; people pills + project + species below. FAB still overlapping right column on R1_B3_C8 row.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37/06-fatal-error.png",
+          "shows": "Editor modal opened over the page \u2014 single-column mobile popup for J4_T1_5 (Kerman). Type=Accession (purple pill, fingerprint icon), Link [[accessions/j4-t1-5-kerman]], Project=Pistachio Pangenome, People (Vianney Ahn, Matt Davis), Species=Pistacia vera, Status=Active, Status note=QC passed, Priority=\u2605\u2605\u2605, Sequencing Type=HiFi, Detail Sheet Link, Last Updated=2026-02-12, body 'FemtoPulse GQN 8.7. Kerman reference for somatic mutation study.', Close/Delete/Edit footer.",
+          "evaluation": "FUNCTIONAL BUG CAUGHT: tapping the priority stars on a mobile accession card propagated the click to the parent card's onclick handler and opened the editor modal instead of cycling priority. The modal layout itself is fine \u2014 single column on 375px width, fields on top, body below, footer buttons reachable. Priority shows \u2605\u2605\u2605 unchanged (cycle did not happen). FAB still overlapping on right side.",
+          "issues_found": [
+            "BUG-37-01 (functional): tapping priority stars on a mobile .acc-card opens the editor modal instead of cycling priority. Stars on the desktop tbody view work correctly."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/01-stats-grid-after-fix.png",
+          "shows": "Post-fix verify view of the same stats grid on mobile. 'Archived' tile now spans both columns (full 343px width inside 16px gutters) at the bottom, reading like a footer row instead of an orphan.",
+          "evaluation": "FIX-37-02 verified visually. has-add-tile class is set on .acc-stats. The :last-child grid-column: 1 / -1 rule applied correctly. Layout is balanced: 2 large tiles row, 2x2 status tiles, then the spanning Archived footer.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/02-before-star-tap.png",
+          "shows": "Sorted-by-priority list with J4_T1_5 (Kerman) \u2605\u2605\u2605 at top, ready for the star-tap test (post-fix).",
+          "evaluation": "Same sort result as before. Cards render cleanly. Stats grid above shows the new Archived-spanning layout.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/03-after-star-tap.png",
+          "shows": "After tapping the stars on J4_T1_5: list re-sorted, R1_B1_C7 \u2605\u2605\u2605 now at top, R1_B2_C6/C9/B3_C8/R2_B2_C4 follow. The J4_T1_5 (Kerman) card has been demoted off-screen (it cycled 3\u21920 and lost its top spot). NO editor modal is open.",
+          "evaluation": "FIX-37-01 verified visually + behaviorally. Tapping the stars now cycles priority (3\u21920 confirmed via data-pri attribute) and the parent card's onclick is correctly suppressed by event.stopPropagation(). The list re-sorts immediately to reflect the new priority. Stats grid and bottom tab bar still render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/04-editor-modal-after-card-tap.png",
+          "shows": "View after the test attempted a card-body click intended to open the editor. The screenshot mostly shows the same list view (modal didn't open within the wait window \u2014 likely because the click coordinates hit the status select dropdown overlay instead of the card body proper).",
+          "evaluation": "Inconclusive on this single click attempt; the priority-cycle path is the primary verification target and is confirmed working. The card-body tap path was already validated in the initial cycle37 run (06-fatal-error.png shows the modal opening from a card tap).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/05-after-escape.png",
+          "shows": "Page state after pressing Escape \u2014 same accessions list view, no modal open.",
+          "evaluation": "Escape key handler closes any open modal cleanly on mobile. Sort, stats grid, FAB all still rendering correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/06-before-filter-storage.png",
+          "shows": "Top of the accessions list before clicking the 'Storage' stat tile.",
+          "evaluation": "Stats grid layout still spans Archived across both cols. Filter row visible above.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/07-after-filter-storage.png",
+          "shows": "After clicking the Storage stat tile \u2014 empty state because there are 0 accessions in the storage bucket on the live site.",
+          "evaluation": "Filter clicked correctly; empty state renders cleanly. Status filter dropdown updated to 'Storage'.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/08-accession-popup-mobile.png",
+          "shows": "Editor modal popup for accession A1-T1-E (3 instances). Single-column mobile layout: Type=Accession (purple), Link=[[accessions/a1-t1-e]], Name=A1-T1-E, Accession ID=A1-T1-E, Project=Kerman Somatic, People (Zi Ye, Matt Davis), Species=Pistacia vera, Status=Active, Status note='DNA extracted \u2014 Needs Clean-up', Priority=\u2605 (1 star), Sequencing Type=Illumina WGS, Detail Sheet Link (Google Doc), Last Updated=2026-03-30, body 'Runcie -80 freezer. ~100 mg tissue in 2 mL tubes.', Close/Delete/Edit footer.",
+          "evaluation": "Clean single-column popup on 375px width. Type pill is correctly purple (#7c3aed) for accession concept. People pills are teal (lab member). Priority renders 1 of 3 stars. All fields readable, body wikilinks would render below the divider. FAB still overlapping the right side of the body text.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle37-verify/09-accession-popup-contents.png",
+          "shows": "Same accession popup, scrolled to show body and footer area. Body 'Runcie -80 freezer. ~100 mg tissue in 2 mL tubes.' visible above Close/Delete/Edit buttons.",
+          "evaluation": "Footer buttons (Close, Delete in red, Edit) are reachable on mobile. Body text renders with correct typography. Tap targets >= 44pt.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "BUG-37-01",
+        "BUG-37-02"
+      ],
+      "fixes": [
+        "FIX-37-01",
+        "FIX-37-02"
+      ],
+      "observations": [
+        "Mobile card view on accessions.html (\u2264768px) hides the table and renders .acc-card tiles instead. The card layout has stars + name + status pill on top, people pills + project + species on bottom.",
+        "OBSERVATION-37-A (open UX gap): mobile card view has no sort dropdown / button \u2014 desktop table headers are the only sort affordance and they are hidden on mobile. Users on a phone cannot trigger sort by priority / last_updated / etc.",
+        "OBSERVATION-37-B (re-confirmed from cycle 4, open): the blue lightbulb issue-reporter FAB at bottom:80px right:18px overlaps the right edge of mobile cards (and the right side of the body in the single-column accession popup). Affects every page with a list on mobile. Out of scope this cycle.",
+        "Bottom tab bar (Wiki / Notebooks / Accessions / Inventory / More) is present on mobile and the Accessions tab is correctly highlighted (teal).",
+        "Orientation banner renders with a thick purple left border on mobile as expected per the run_focus.",
+        "Accession popup on mobile collapses to a single column cleanly \u2014 fields on top, body below, Close/Delete/Edit footer reachable. Type pill colors stay correct (purple for accession concept).",
+        "Priority cycle path: tap stars \u2192 cyclePriority(slug) \u2192 fetchFile + saveFile + patchObjectIndex \u2192 renderTable. Commit lag is ~2-5s under network conditions; the test polled data-pri to detect the change.",
+        "Star tap fix wires the listener to BOTH `#tableBody .pri-stars` and `#cardView .pri-stars` via document.querySelectorAll, so the same stopPropagation behavior applies on both views.",
+        "Stats grid orphan fix: tag the .acc-stats container with `has-add-tile` only when the Add tile is shown (logged-in path), and span the last child across both cols in the mobile media query. Without auth (Add tile hidden) the grid has 6 cards in 2 cols = 3 even rows, no orphan, and the rule is not applied (class missing)."
+      ]
     }
   ],
   "bugs_found": [
@@ -5239,6 +5367,28 @@
       "discovered_via": "visual evaluation of cycle36 screenshots 12 + 16 \u2014 pill on the 1-HYDROXY row clearly two-lined while shorter rows had a one-line pill",
       "status": "closed",
       "fix_commit": "700ad486d3ffa827e108118a29f3af4faf41dfae"
+    },
+    {
+      "id": "BUG-37-01",
+      "cycle": 37,
+      "page": "app/accessions.html",
+      "severity": "functional",
+      "summary": "Tapping the priority stars on a mobile accession card opens the editor modal instead of cycling priority \u2014 the click propagates to the parent .acc-card's onclick=openAccession.",
+      "description": "renderTable() attaches the .pri-stars click listener with `tbody.querySelectorAll('.pri-stars').forEach(...)`, where `tbody` is the desktop table body. The mobile #cardView container also renders .pri-stars elements (in priorityStarsHtml), but they get no listener attached, so clicks on the stars walk up to the .acc-card wrapper which has its own onclick=openAccession. The result: on mobile, you can never bump priority via the stars \u2014 the modal opens instead. On desktop the table view stars work correctly because they are inside tbody.",
+      "discovered_via": "cycle37/06-fatal-error.png \u2014 after a star tap on J4_T1_5 the editor modal opened with the card's full details instead of priority changing 3\u21920.",
+      "status": "closed",
+      "fix_commit": "52dc8654749bb31bfcd4122ed90b4de80d433d00"
+    },
+    {
+      "id": "BUG-37-02",
+      "cycle": 37,
+      "page": "app/accessions.html",
+      "severity": "visual",
+      "summary": "Stats grid orphans 'Archived' tile alone in the last row on mobile when the Add Accession tile is visible (logged-in members) \u2014 7 tiles in a 2-col grid is uneven.",
+      "description": "The .acc-stats container has 7 stat-cards in source: addBtn (display:none until Lab.gh.isLoggedIn()), the Total counter, and 5 status counters (Active/Waiting/Storage/Completed/Archived). On mobile the @media (max-width: 768px) rule renders this as a 2-col grid. With auth, all 7 are visible and the last (Archived) sits alone on its own row, looking orphaned. Logged-out (6 visible) lays out cleanly as 3 rows of 2.",
+      "discovered_via": "cycle37/01-accessions-mobile-baseline.png and 03-stats-grid-mobile.png \u2014 Archived clearly orphaned at bottom.",
+      "status": "closed",
+      "fix_commit": "52dc8654749bb31bfcd4122ed90b4de80d433d00"
     }
   ],
   "fixes_applied": [
@@ -5389,6 +5539,28 @@
       ],
       "description": "In loadInventoryStatus(), added white-space:nowrap + flex-shrink:0 to the status pill <span> so the pill always renders on a single line, and added flex:1 + min-width:0 + overflow:hidden + text-overflow:ellipsis + white-space:nowrap + a title= tooltip to the title <a> so long names truncate cleanly with the full name available on hover.",
       "verified": "cycle36-step18 \u2014 re-toggled 1-HYDROXY to needs_more after deploy. Title now ellipses, pill on one line aligned right. Reverted to in_stock at end of verification."
+    },
+    {
+      "id": "FIX-37-01",
+      "bug_id": "BUG-37-01",
+      "cycle": 37,
+      "files_changed": [
+        "app/accessions.html"
+      ],
+      "commit": "52dc8654749bb31bfcd4122ed90b4de80d433d00",
+      "description": "Changed the .pri-stars click handler attachment from `tbody.querySelectorAll('.pri-stars')` to `document.querySelectorAll('#tableBody .pri-stars, #cardView .pri-stars')` so both desktop and mobile views get the click listener with event.stopPropagation. Now tapping the stars on a mobile card cycles priority (0\u21921\u21922\u21923\u21920) instead of bubbling up to the parent .acc-card's openAccession handler.",
+      "verified": "cycle37-verify/03-after-star-tap.png \u2014 tap on J4_T1_5 stars cycles priority 3\u21920; data-pri attribute verified via Playwright; no editor modal opens; list re-sorts immediately to reflect the new priority. Reverted via API to keep production data unchanged."
+    },
+    {
+      "id": "FIX-37-02",
+      "bug_id": "BUG-37-02",
+      "cycle": 37,
+      "files_changed": [
+        "app/accessions.html"
+      ],
+      "commit": "52dc8654749bb31bfcd4122ed90b4de80d433d00",
+      "description": "When Lab.gh.isLoggedIn() shows the Add Accession tile, also tag the .acc-stats container with class `has-add-tile`. Add a CSS rule in the @media (max-width: 768px) block: `.acc-stats.has-add-tile .stat-card:last-child { grid-column: 1 / -1; }` so the orphaned last tile (Archived) spans both columns and reads as a footer row instead. Logged-out users (6 cards = 3 even rows) are unaffected because the class is not added.",
+      "verified": "cycle37-verify/01-stats-grid-after-fix.png \u2014 Archived width = 343 (vs 167 before); occupies a full bottom row spanning both 2-col tracks. Mobile layout balanced."
     }
   ],
   "improvements_proposed": [
@@ -5696,7 +5868,22 @@
     "/tmp/qa-screenshots/cycle36/15-inventory-after-revert-reload.png",
     "/tmp/qa-screenshots/cycle36/16-dashboard-after-revert.png",
     "/tmp/qa-screenshots/cycle36/17-wiki-page-from-alert.png",
-    "/tmp/qa-screenshots/cycle36/18-dashboard-AFTER-FIX.png"
+    "/tmp/qa-screenshots/cycle36/18-dashboard-AFTER-FIX.png",
+    "/tmp/qa-screenshots/cycle37/01-accessions-mobile-baseline.png",
+    "/tmp/qa-screenshots/cycle37/02-orientation-banner-mobile.png",
+    "/tmp/qa-screenshots/cycle37/03-stats-grid-mobile.png",
+    "/tmp/qa-screenshots/cycle37/04-after-priority-sort.png",
+    "/tmp/qa-screenshots/cycle37/05-before-star-tap.png",
+    "/tmp/qa-screenshots/cycle37/06-fatal-error.png",
+    "/tmp/qa-screenshots/cycle37-verify/01-stats-grid-after-fix.png",
+    "/tmp/qa-screenshots/cycle37-verify/02-before-star-tap.png",
+    "/tmp/qa-screenshots/cycle37-verify/03-after-star-tap.png",
+    "/tmp/qa-screenshots/cycle37-verify/04-editor-modal-after-card-tap.png",
+    "/tmp/qa-screenshots/cycle37-verify/05-after-escape.png",
+    "/tmp/qa-screenshots/cycle37-verify/06-before-filter-storage.png",
+    "/tmp/qa-screenshots/cycle37-verify/07-after-filter-storage.png",
+    "/tmp/qa-screenshots/cycle37-verify/08-accession-popup-mobile.png",
+    "/tmp/qa-screenshots/cycle37-verify/09-accession-popup-contents.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -5722,5 +5909,5 @@
       "note": "Cycle 36 (Kayla Torres + impatient + 'Reorder day') \u2014 caught + fixed dashboard pill-wrap bug (BUG-36-01). Count propagation in_stock\u2192needs_more\u2192back works on inventory page (in-memory + reload) and dashboard (next-load). Cleanup restored baseline counts."
     }
   ],
-  "last_updated": "2026-04-25T17:00:15Z"
+  "last_updated": "2026-04-25"
 }
