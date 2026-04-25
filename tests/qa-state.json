@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 35,
+  "cycle": 36,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4905,6 +4905,136 @@
         "FIX-35-01"
       ],
       "observations": "Per-page search surfaces are independent (no global cross-page search). Inventory/accessions/protocols/notebooks all auto-expand or surface hits inline; wiki was the lone outlier where filtered categories rendered collapsed and required an extra click per category. Comment in wiki renderNode claimed \"Auto-expand top level (depth 0) when there is an active filter\" but the code never honored it \u2014 fixed. Pill colors correct end-to-end across pages: chemical purple, reagent teal, buffer/solution orange, kit teal, equipment green, protocol purple, accession purple, person grey-blue. Stat cards on inventory/accessions stay populated under active filter (intended). Notebook search appears title-only (does not match body content like NanoDrop in qa34 mobile entry) \u2014 consistent with protocols search behavior, not flagged as bug."
+    },
+    {
+      "cycle": 36,
+      "persona": "Kayla Torres",
+      "role": "undergrad",
+      "modifier": "impatient",
+      "task": "Reorder day scenario. Undergrad in a hurry checks inventory on the live site, picks the first 3 in_stock items (1,8-Naphthalic anhydride, 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA, 1-Octanol \u2014 all `chemical` purple-pill items in chemical/flammable cabinets), rapid-fires status changes via the Lab.setStatus() inline select on each row (no UI delay between toggles, just enough wait for each GitHub commit), reloads to verify in-memory stat counts vs reload counts, hops over to the dashboard to confirm Inventory Status needs_more count goes from 2 \u2192 5, then reverts ONE item (1,8-Naphthalic) back to in_stock and verifies count decrements to 4 on both inventory page and dashboard. Cleaned up the remaining 2 toggled items at end of run. Caught one visible bug on the dashboard alert list (long-name pill wrap), fixed and verified.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle36/01-dashboard-baseline.png",
+          "what_it_shows": "PI dashboard baseline (cycle36 starts here)",
+          "evaluation": "Inventory Status panel: 218 In Stock / 2 Needs More / 1 Out of Stock / 475 Untracked. Three alert items listed: Microcentrifuge (Needs More), Native Barcoding Kit V14 (Out of Stock), Vortex Mixer (Needs More). Recent Updates and Bulletin Board both still spinning. Top nav: 9 visible tabs + '+ More' overflow + greymonroe avatar.",
+          "issues_found": "none \u2014 baseline"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/02-inventory-baseline.png",
+          "what_it_shows": "Inventory page first paint",
+          "evaluation": "Teal-bordered orientation banner at top ('Concepts vs containers...'). Stats: 280 / 218 / 2 / 1. Add Item button visible. Visible rows show purple Chemical pill + green In Stock pill + Chemical/Flammable Cabinet location pill.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/03-inventory-filtered-in-stock.png",
+          "what_it_shows": "Inventory filtered to in_stock only",
+          "evaluation": "Filter pill 'In Stock'. All visible rows have green In Stock pill. Stats unchanged.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/04-before-toggle-1-1-8-naphthalic-anhydride.png",
+          "what_it_shows": "Before toggle 1 \u2014 1,8-Naphthalic anhydride still In Stock",
+          "evaluation": "First row shows In Stock pill. Stats: 218 / 2.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/05-after-toggle-1-1-8-naphthalic-anhydride.png",
+          "what_it_shows": "After toggle 1 \u2014 1,8-Naphthalic now needs_more",
+          "evaluation": "Filter still in_stock so 1,8-Naphthalic hidden from table. Stats: 217. Toast at bottom-right: '1,8-Naphthalic anhydride: Needs More' (green success).",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/06-before-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
+          "what_it_shows": "Before toggle 2 \u2014 1-HYDROXY still in_stock",
+          "evaluation": "Stats: 217 in_stock. Row visible with In Stock pill.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/07-after-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
+          "what_it_shows": "After toggle 2 \u2014 1-HYDROXY now needs_more",
+          "evaluation": "Stats: 216. Two stacked toasts visible. Toast queue working.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/08-before-toggle-3-1-octanol.png",
+          "what_it_shows": "Before toggle 3 \u2014 1-Octanol still in_stock",
+          "evaluation": "Row visible with In Stock pill. Stats: 216.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/09-after-toggle-3-1-octanol.png",
+          "what_it_shows": "After toggle 3 \u2014 1-Octanol now needs_more",
+          "evaluation": "Stats: 215 in_stock. Toasts: 1-HYDROXY and 1-Octanol stacked. Filter still in_stock so the 3 just-toggled items are hidden from the table.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/10-inventory-after-reload.png",
+          "what_it_shows": "Inventory after page reload (filter reset to All)",
+          "evaluation": "Stats: 280 / 215 / 5 / 1. Table shows the 3 just-toggled chemicals with orange Needs More pills. Reload count matches in-memory (delta in_stock=-3, needs_more=+3). \u2713",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/11-inventory-needs-more-filter.png",
+          "what_it_shows": "Inventory filtered to needs_more \u2014 all 5 items visible",
+          "evaluation": "5 rows: 1,8-Naphthalic, 1-HYDROXY, 1-Octanol (Chemical purple), Microcentrifuge, Vortex Mixer (Equipment gray). NOTABLE: locationCell renders 'Bench' for Microcentrifuge as the badge-grey fallback (not a typed location pill) \u2014 intentional code branch since 'Bench' is free-text not a slug in locationsBySlug. Visual inconsistency worth noting. Vortex Mixer has empty location/Updated cells.",
+          "issues_found": "OBSERVATION-36-A locationCell free-text fallback styling"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/12-dashboard-after-3-toggled.png",
+          "what_it_shows": "Dashboard after all 3 toggles",
+          "evaluation": "Inventory Status: 215 / 5 / 1 / 475 Untracked. Alert list shows 6 entries. Recent Updates: 3 'Status: needs_more \u2014 ...' commits 'just now'. \u274c VISUAL BUG: 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA row has its 'Needs More' pill wrapped to TWO LINES because the long name takes the row width, squeezing the pill. Renders as 'Needs' / 'More' on two lines.",
+          "issues_found": "BUG-36-01 dashboard alert pill wrap on long names"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/13-before-revert-1.png",
+          "what_it_shows": "Inventory needs_more filter, before reverting 1,8-Naphthalic",
+          "evaluation": "5 rows showing.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/14-after-revert-1.png",
+          "what_it_shows": "After reverting 1,8-Naphthalic to in_stock",
+          "evaluation": "Filter still needs_more. 1,8-Naphthalic now filtered out. Stats: 280 / 216 / 4 / 1. Toast: '1,8-Naphthalic anhydride: In Stock'.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/15-inventory-after-revert-reload.png",
+          "what_it_shows": "Inventory after reload following the revert",
+          "evaluation": "Stats: 280 / 216 / 4 / 1. 1,8-Naphthalic shows green In Stock pill again. \u2713 reload matches in-memory.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/16-dashboard-after-revert.png",
+          "what_it_shows": "Dashboard after the revert",
+          "evaluation": "Inventory Status: 216 / 4 / 1. Alert list now 5 entries (1,8-Naphthalic gone). 1-HYDROXY pill STILL WRAPS (fix not yet pushed at this point).",
+          "issues_found": "BUG-36-01 still present \u2014 pre-fix"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/17-wiki-page-from-alert.png",
+          "what_it_shows": "Wiki page reached by clicking the 1-HYDROXY alert link",
+          "evaluation": "Loaded ?doc=resources/1-hydroxy-3-3-trifluoromethylphenyl-urea. Header shows full name. Breadcrumb: Chemical | cas: 110923-13-2 | location: Chemical Cabinet | status: needs_more. Chemical pill is purple \u2713. Sections: Chemistry / Lab use / Safety. Print + Edit buttons present. Click-through worked.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle36/18-dashboard-AFTER-FIX.png",
+          "what_it_shows": "Dashboard after the fix deploy (re-toggled 1-HYDROXY for verification)",
+          "evaluation": "Inventory Status: 217 / 3 / 1. 1-HYDROXY title now ELLIPSES on a single line ('1-HYDROXY-3-(3-TRIFLUOROMETHYL...'), 'Needs More' pill cleanly aligned right on a single line. \u2705 FIX VERIFIED.",
+          "issues_found": "none \u2014 fix verified"
+        }
+      ],
+      "bugs": [
+        "BUG-36-01"
+      ],
+      "fixes": [
+        "FIX-36-01"
+      ],
+      "observations": [
+        "Reorder day workflow round-trips correctly: in-memory stat counts updated optimistically by setStatus(), reload counts match, dashboard inventoryStatus reflects the new counts on next page load.",
+        "setStatus() commits each change to GitHub individually \u2014 rapid impatient clicks burn one Actions minute per click. Per #124, the inline select is intentional (vs the old click-to-cycle that fired multiple commits per intended state).",
+        "OBSERVATION-36-A: locationCell falls back to badge-grey for free-text locations not present in locationsBySlug (e.g. 'Bench' for Microcentrifuge). Visually distinct from the typed location pill (icon + title) used for chemical-cabinet rows. Intentional per code comment but worth noting for design consistency.",
+        "Toast queue handles multiple back-to-back success toasts cleanly.",
+        "Cleanup script reverted the 2 still-toggled items to in_stock at end of run; final stats (218/2/1) match pre-cycle baseline. No data drift."
+      ]
     }
   ],
   "bugs_found": [
@@ -5098,6 +5228,17 @@
       "discovered_via": "visual evaluation of screenshots 03-07 \u2014 sidebar showed only category headers after each search, no doc rows visible",
       "status": "closed",
       "fix_commit": "4692e595a26acb62288a3770c72ece10c4a0ad3a"
+    },
+    {
+      "id": "BUG-36-01",
+      "cycle": 36,
+      "page": "app/dashboard.html",
+      "severity": "visual",
+      "summary": "Dashboard Inventory Status alert list \u2014 status pill wraps to two lines for items with long names",
+      "description": "loadInventoryStatus() renders each alert row as a flex container with three children: icon, title link, status pill. The pill <span> had no white-space:nowrap or flex-shrink:0, and the title <a> had no flex/min-width/text-overflow rules, so a long item title (e.g. 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA) wrapped to two lines and pushed the pill to wrap as well \u2014 the pill rendered as 'Needs' / 'More' across two lines.",
+      "discovered_via": "visual evaluation of cycle36 screenshots 12 + 16 \u2014 pill on the 1-HYDROXY row clearly two-lined while shorter rows had a one-line pill",
+      "status": "closed",
+      "fix_commit": "700ad486d3ffa827e108118a29f3af4faf41dfae"
     }
   ],
   "fixes_applied": [
@@ -5237,6 +5378,17 @@
       ],
       "description": "renderSidebar now passes a filtering flag (true when a search query or active type filter is present) to renderNode; renderNode uses (filtering || containsActive) when deciding the collapsed class so folders open up to show hits during search. Recursive call propagates filtering downward.",
       "verified": "cycle35-step29 + step30 \u2014 wiki search ethanol and NanoDrop both show expanded folders with the full list of matching docs visible (folderCollapsedCount=0, visibleItemCount jumps from 0 to 11 for ethanol)."
+    },
+    {
+      "id": "FIX-36-01",
+      "cycle": 36,
+      "bug_id": "BUG-36-01",
+      "commit": "700ad486d3ffa827e108118a29f3af4faf41dfae",
+      "files_changed": [
+        "app/dashboard.html"
+      ],
+      "description": "In loadInventoryStatus(), added white-space:nowrap + flex-shrink:0 to the status pill <span> so the pill always renders on a single line, and added flex:1 + min-width:0 + overflow:hidden + text-overflow:ellipsis + white-space:nowrap + a title= tooltip to the title <a> so long names truncate cleanly with the full name available on hover.",
+      "verified": "cycle36-step18 \u2014 re-toggled 1-HYDROXY to needs_more after deploy. Title now ellipses, pill on one line aligned right. Reverted to in_stock at end of verification."
     }
   ],
   "improvements_proposed": [
@@ -5526,7 +5678,25 @@
     "/tmp/qa-screenshots/cycle35/27-notebooks-search-empty-state.png",
     "/tmp/qa-screenshots/cycle35/28-wikilink-trail-ethanol-concept.png",
     "/tmp/qa-screenshots/cycle35/29-fix-verify-wiki-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle35/30-fix-verify-wiki-search-nanodrop.png"
+    "/tmp/qa-screenshots/cycle35/30-fix-verify-wiki-search-nanodrop.png",
+    "/tmp/qa-screenshots/cycle36/01-dashboard-baseline.png",
+    "/tmp/qa-screenshots/cycle36/02-inventory-baseline.png",
+    "/tmp/qa-screenshots/cycle36/03-inventory-filtered-in-stock.png",
+    "/tmp/qa-screenshots/cycle36/04-before-toggle-1-1-8-naphthalic-anhydride.png",
+    "/tmp/qa-screenshots/cycle36/05-after-toggle-1-1-8-naphthalic-anhydride.png",
+    "/tmp/qa-screenshots/cycle36/06-before-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
+    "/tmp/qa-screenshots/cycle36/07-after-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
+    "/tmp/qa-screenshots/cycle36/08-before-toggle-3-1-octanol.png",
+    "/tmp/qa-screenshots/cycle36/09-after-toggle-3-1-octanol.png",
+    "/tmp/qa-screenshots/cycle36/10-inventory-after-reload.png",
+    "/tmp/qa-screenshots/cycle36/11-inventory-needs-more-filter.png",
+    "/tmp/qa-screenshots/cycle36/12-dashboard-after-3-toggled.png",
+    "/tmp/qa-screenshots/cycle36/13-before-revert-1.png",
+    "/tmp/qa-screenshots/cycle36/14-after-revert-1.png",
+    "/tmp/qa-screenshots/cycle36/15-inventory-after-revert-reload.png",
+    "/tmp/qa-screenshots/cycle36/16-dashboard-after-revert.png",
+    "/tmp/qa-screenshots/cycle36/17-wiki-page-from-alert.png",
+    "/tmp/qa-screenshots/cycle36/18-dashboard-AFTER-FIX.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -5545,7 +5715,12 @@
     "Phase remains 'functional'.",
     "Cycle 19: Kayla Torres (undergrad) + confused + Search every surface. Fresh combo \u2014 confused modifier never used before, scenario never tested. Kayla searches on 5 surfaces (inventory/protocols/notebooks/wiki/waste) with a real query, a typo, weird input (emoji + em-dash + <script> XSS), and empty. Finding: XSS is properly escaped (invXssAlert=false), all 5 per-page searches work functionally, but protocols + notebooks had minimal plain-text 0-result empty states while inventory/waste used the styled .empty-state with search_off icon \u2014 fixed in this cycle. Also confirmed: dashboard has no global search (no cross-surface search exists); wiki sidebar search filters the folder tree but leaves the knowledge graph in the main pane completely unfiltered even at 0 matches (logged WIKI-GRAPH-NOT-FILTERED as OPEN for a future cycle). Swept 2 cycle-18 carry-over items to closed: (1) FAB-NEAR-WIZARD-NEXT-MOBILE \u2014 actually OVERLAPS Next button by ~34px horizontally, not just 'near' as cycle 18 described. Fixed with body.wizard-open class toggle + CSS rule hiding #issue-reporter-btn. (2) NOTEBOOKS-PERSON-PARAM-IGNORED \u2014 fixed by reading ?person=<slug> on notebooks init and pre-filling #nbSearch with the prettified slug, so the sidebar filters to just that person's folder. Onboarding wizard's success checklist 'Write your first lab notebook entry' link now correctly lands new users on their own folder. All fixes verified live post-deploy via tests/qa-cycle-19-verify.mjs \u2014 FAB display=none during wizard, personParam showsOtherFolders=false, both empty states iconText='search_off'. 28 screenshots captured in cycle19/, 5 verify screenshots. No test artifacts created on GitHub, nothing to clean up.",
     "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs \u2014 all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) \u2014 every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) \u2014 the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) \u2014 the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE.",
-    "Cycle 32: Kayla Torres (undergrad) + careful + Onboarding day. Fresh combo (careful never used by Kayla). Walked the 4-step Join the Lab wizard end-to-end, landed on the fresh person dashboard, then exercised the 3 cycle-32 sweep fixes live: notebook recent-entry date subtitle, tube of-field placeholder fit, accession Detail Sheet Link clickable. Surfaced one new visual bug (frontmatter chip URL not clickable on the wiki surface) and fixed it inline as a follow-up. All cycle-32 test artifacts cleaned up (person md + notebook entry + .gitkeep folder + probe accession reverted) via gh API. 0 functional issues at end of run."
+    "Cycle 32: Kayla Torres (undergrad) + careful + Onboarding day. Fresh combo (careful never used by Kayla). Walked the 4-step Join the Lab wizard end-to-end, landed on the fresh person dashboard, then exercised the 3 cycle-32 sweep fixes live: notebook recent-entry date subtitle, tube of-field placeholder fit, accession Detail Sheet Link clickable. Surfaced one new visual bug (frontmatter chip URL not clickable on the wiki surface) and fixed it inline as a follow-up. All cycle-32 test artifacts cleaned up (person md + notebook entry + .gitkeep folder + probe accession reverted) via gh API. 0 functional issues at end of run.",
+    {
+      "cycle": 36,
+      "date": "2026-04-25T17:00:15Z",
+      "note": "Cycle 36 (Kayla Torres + impatient + 'Reorder day') \u2014 caught + fixed dashboard pill-wrap bug (BUG-36-01). Count propagation in_stock\u2192needs_more\u2192back works on inventory page (in-memory + reload) and dashboard (next-load). Cleanup restored baseline counts."
+    }
   ],
-  "last_updated": "2026-04-25T05:14:04.756796+00:00"
+  "last_updated": "2026-04-25T17:00:15Z"
 }
