@@ -60,8 +60,30 @@ git log --oneline -20 | grep qa-cycle                      # commits made
 
 Set up a persistent Monitor watching `tail -F tests/qa-loop.log` with filter:
 ```
-grep -E --line-buffered "⚠️|Site not responding|Site still down|Reverted|phase.*complete|Stopping|Error:|QA Loop finished"
+grep -E --line-buffered "⚠️|🛑|Site not responding|Site still down|Reverted|phase.*complete|Stopping|Error:|QA Loop finished|Fast-fail|Stall|Circuit breaker"
 ```
+
+For grep-friendly per-cycle accounting, every iter now ends with a one-liner like:
+```
+  ⟶  iter=3 exit=0 elapsed=987s commit=yes qa_cycle=36→37 fast_streak=0 stall_streak=0
+```
+
+## Failure handling (built into qa-loop.sh)
+
+The orchestrator distinguishes three failure modes and backs off intelligently
+instead of burning all 25 cycles in seconds:
+
+- **Fast-fail** (exit ≠ 0 AND elapsed < 60s) — transient infra (PATH lost claude,
+  instant API auth/network error). Sleeps 600s × streak (capped at 1800s),
+  aborts after 3 consecutive.
+- **Stall** (cycle ran but produced no commit AND qa-state cycle didn't advance)
+  — agent ran but didn't land work. Aborts after 2 consecutive.
+- **Real failure** (timeout=124, site down, etc.) — handled as before.
+
+Any cycle that produces a commit OR advances qa-state.cycle resets both counters.
+Pre-flight checks abort the loop immediately if `claude`, `gtimeout`, or
+`python3.13` aren't executable at their pinned paths — no more 9-cycles-in-a-row
+"failed to run command" log spam.
 
 ## How to pause / stop
 
