@@ -1889,7 +1889,12 @@
             parentHidden.dispatchEvent(new Event('input', { bubbles: true }));
             updateParentDisplay(slug);
             closeParentDropdown();
-            if (Lab.showToast) Lab.showToast('Location: ' + slug.split('/').pop().replace(/-/g, ' '), 'success');
+            if (Lab.showToast) {
+              var idxLookup = (Lab.gh && Lab.gh._getCachedIndex && Lab.gh._getCachedIndex()) || [];
+              var locEntry = idxLookup.find(function(e) { return e && e.path && e.path.replace(/\.md$/, '') === slug; });
+              var locLabel = (locEntry && locEntry.title) || slug.split('/').pop().replace(/-/g, ' ');
+              Lab.showToast('Location: ' + locLabel, 'success');
+            }
           },
         });
       }

@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 47,
+  "cycle": 48,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -6376,6 +6376,164 @@
         "Backlink rows for fresh instances show '#q0msew - no location set' thanks to the BUG-44 hint, keeping un-edited rows visually distinct from concepts with the same title.",
         "wiki.html?doc= takes the slug WITHOUT docs/ prefix and WITHOUT .md suffix -- common test-script trap."
       ]
+    },
+    {
+      "cycle": 48,
+      "persona": "Jordan Park",
+      "modifier": "impatient",
+      "task": "Ethanol bottle day. Postdoc Jordan Park in impatient mode opens Inventory, finds Ethanol Absolute (chemical concept, purple pill), uses Add Item -> bottle of existing -> picks ethanol-absolute. Editor opens with auto-created stocks/bottle-ethanol-absolute-<rand>.md (of: resources/ethanol-absolute pre-filled). Fills Quantity=1, Unit=gallon, Lot, Expiration, then opens location picker, filters 'flammable', clicks Flammable Cabinet. Double-clicks Save (impatient). Verifies via GitHub API that the bottle file persisted with all 6 fields. Reloads inventory; opens concept popup again to inspect the INSTANCES IN LAB pane. Then drops to mobile (375x812) and re-runs the search.",
+      "scenario": "Ethanol bottle day",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step01-inventory-loaded.png",
+          "what_it_shows": "Inventory page loaded for jordan-park; orientation banner, stat cards (279 / 217 / 0 / 4), 12-tab nav, table with chemicals.",
+          "evaluation": "Clean baseline; all elements rendering; pill colors consistent.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step02-inventory-search-ethanol.png",
+          "what_it_shows": "Search 'ethanol absolute' filtered to 1 row: Ethanol Absolute, Chemical pill (purple), In Stock, 3 bottles, Flammable Cabinet.",
+          "evaluation": "Chemical pill clearly purple (correct); location pill renders 'Flammable Cabinet' with cabinet icon; row layout clean.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step03-concept-popup-open.png",
+          "what_it_shows": "Ethanol Absolute concept popup open; 3-column layout with FIELDS, body markdown, REFERENCES.",
+          "evaluation": "Header pill 'Chemical' purple; default location, status, CAS shown; 5 instances + Add instance button in column 3; markdown renders with Flammability callout.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step04-concept-pill-zoom.png",
+          "what_it_shows": "Same popup re-screenshot.",
+          "evaluation": "Confirms pill colors stable.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step05-inventory-after-popup-close.png",
+          "what_it_shows": "Back to inventory full table after closing popup; search cleared.",
+          "evaluation": "Page restored cleanly; no leftover modal artifacts.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step06-add-modal-step1.png",
+          "what_it_shows": "'Add to Inventory' modal step 1: choose between A new bottle of something we already have, or A new reagent/chemical/kit/equipment.",
+          "evaluation": "Two-step flow clear; copy is helpful.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step07-add-modal-bottle-search-empty.png",
+          "what_it_shows": "Bottle picker modal with empty search showing 40 inventory items (each with flask icon, name, type, instance-count badge).",
+          "evaluation": "List loads, search input focused, Cancel/Back buttons visible.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step08-add-modal-bottle-search-ethanol.png",
+          "what_it_shows": "Bottle picker filtered to 'ethanol absolute', single match Ethanol Absolute with 1 INSTANCE badge.",
+          "evaluation": "Filter works, single result clean.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step09-after-pick-bottle-created.png",
+          "what_it_shows": "Bottle file created and editor opened in edit mode; toast 'Created \u2014 fill in the details' visible bottom-right.",
+          "evaluation": "FIELDS column shows Bottle pill (orange flask), auto-link backlink, Name pre-filled, Of pre-filled with resources/ethanol-absolute, Parent empty, Quantity/Unit/Lot empty.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step10-bottle-editor-open-edit-mode.png",
+          "what_it_shows": "Same editor view at top of scroll.",
+          "evaluation": "All form fields visible and labeled correctly.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step11-bottle-fields-filled.png",
+          "what_it_shows": "After filling Quantity=1, Unit=gallon, Lot=LOT-QA48-2xou, Expiration=2027-04-25; Parent still empty.",
+          "evaluation": "All inputs accepted; values rendering.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step12-location-picker-open.png",
+          "what_it_shows": "Location picker dropdown anchored under Parent field; 5 top-level rooms listed (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 170 with 6 items, Robbins Hall 262, Unsorted).",
+          "evaluation": "Filter toolbar + Expand all + Collapse buttons present; rooms collapsed initially as designed.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step13-location-picker-flammable-search.png",
+          "what_it_shows": "After typing 'flammable' the tree filtered to Robbins Hall 170 > Flammable Cabinet (highlighted teal as is-hit match).",
+          "evaluation": "Filter narrowing works correctly; teal highlight signals match.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step14-location-picker-picked.png",
+          "what_it_shows": "After clicking Flammable Cabinet; Parent field now shows 'Robbins Hall 170 > Flammable Cabinet' with \u00d7 clear button. Toast bottom-right reads 'Location: cabinet flammable'.",
+          "evaluation": "Picker closed and value committed correctly. BUG: toast text shows 'cabinet flammable' (slugified) instead of the actual title 'Flammable Cabinet'.",
+          "issues_found": "toast label shows slug-formatted name instead of object title (CYCLE48-PARENT-PICK-TOAST)"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step15-after-save.png",
+          "what_it_shows": "After double-click Save; editor switched to read mode (popup). Breadcrumb at top: Robbins Hall 170 / Flammable Cabinet / Ethanol Absolute. FIELDS show Of resolved as Ethanol Absolute pill (purple chemical), Parent as Flammable Cabinet pill, Quantity 1, Unit gallon, Lot LOT-QA48-2xou, Expiration 2027-04-25, Status In Stock.",
+          "evaluation": "All fields persisted and rendered correctly. Breadcrumb hierarchy complete with correct icons. Cross-typed pills (chemical purple, container teal-grey) wired right.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step16-editor-closed.png",
+          "what_it_shows": "Modal closed; back to original inventory baseline.",
+          "evaluation": "No residue.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step17-inventory-after-add.png",
+          "what_it_shows": "Inventory after page reload + ethanol search; row qty still '3 bottles' (unchanged from step 02).",
+          "evaluation": "Functional save verified via GitHub API but the deployed object-index.json on Pages did not reflect the new bottle yet \u2014 deploy + cache lag (~40s build, ~5min raw). Not a code bug.",
+          "issues_found": "observation: deployed-index cache lag means new bottle not visible via reload until deploy completes"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step18-concept-popup-after-add.png",
+          "what_it_shows": "Concept popup re-opened after add; INSTANCES IN LAB header showing 2 (same as before add).",
+          "evaluation": "Same cache-lag pattern as step 17; popup uses _getCachedIndex which was re-fetched on reload from the deployed index.",
+          "issues_found": "observation: same cache lag, not a bug"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step19-concept-instances-pane.png",
+          "what_it_shows": "Same popup, different scroll position.",
+          "evaluation": "Confirms layout stable.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step20-inventory-mobile.png",
+          "what_it_shows": "Mobile 375x812 viewport; orientation banner stacks; stat cards 2-column grid; 12-tab top-nav collapsed (logo + avatar only); bottom-nav shows Wiki/Notebooks/Accessions/Inventory/More.",
+          "evaluation": "Responsive layout works; chemical pill (purple) and location pill render well in stacked card.",
+          "issues_found": "none (minor: lone Out of Stock card sits alone on its row, slightly unbalanced visual but not broken)"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle48/step21-inventory-mobile-search.png",
+          "what_it_shows": "Mobile inventory search 'ethanol absolute' single result Ethanol Absolute card with In Stock pill, 3 bottles, Chemical purple pill, Flammable Cabinet location pill.",
+          "evaluation": "Card layout clean and usable on phone.",
+          "issues_found": "none"
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE48-PARENT-PICK-TOAST",
+          "severity": "cosmetic",
+          "status": "fixed_this_cycle",
+          "description": "After picking a parent location in the editor's location picker, the success toast read 'Location: cabinet flammable' (slug suffix with dashes->spaces) instead of 'Location: Flammable Cabinet'. Fixed in editor-modal.js:1892 to look up the title from the cached object index and fall back to the slug-formatted text only when no entry matches."
+        }
+      ],
+      "fixes": [
+        {
+          "id": "CYCLE48-PARENT-PICK-TOAST",
+          "file": "app/js/editor-modal.js",
+          "line": 1892,
+          "description": "Replaced raw slug formatter with cached-index title lookup so the success toast displays the real location title (Flammable Cabinet) rather than the slug-derived text (cabinet flammable). Falls back to the old format if the index entry is missing."
+        }
+      ],
+      "observations": [
+        "After page.reload(), the Inventory's 'X bottles' qty for Ethanol Absolute and the concept popup's INSTANCES IN LAB count both lagged behind the freshly-created bottle. Cause: fetchObjectIndex fetches the deployed docs/object-index.json from GitHub Pages, which is built ~40s after push and CDN-cached. Within an unreloaded session, lab-file-saved -> patchObjectIndex keeps the count in sync. Not a product bug.",
+        "Chemical pill rendering verified (purple #6a1b9a soft variant) in: inventory table row, concept popup header pill, FIELDS column type pill of the bottle's Of field. Reagent pill (teal) seen on pTXB1-Tn5 plasmid row for contrast. Bottle pill (orange flask) on Type field of the new bottle.",
+        "Location picker filter + click flow works smoothly. The teal is-hit highlight on filtered matches makes the right pick obvious.",
+        "Mobile 375x812 layout: top-nav reduces to logo+avatar; bottom tab bar shows Wiki/Notebooks/Accessions/Inventory/More; cards stack and remain readable.",
+        "Carried-over open bug CYCLE45-PAGINATION-WHITESPACE deferred \u2014 fix touches the print-preview paginator at protocols.html:1277 and needs its own printing-focused cycle to verify across multiple protocols."
+      ]
     }
   ],
   "bugs_found": [
@@ -6725,6 +6883,14 @@
       "status": "closed",
       "commit": "a5c586db",
       "description": "Concept-type popups (accession, chemical, etc.) with zero existing instances did not show the 'Add instance' button. The empty-state branch in editor-modal.js's renderContentsColumn wrote 'No references to this object yet' directly, bypassing renderBacklinksPane where the button is built. Fix: always render through renderBacklinksPane so an empty backlinks array still produces the button + 'No references yet' message."
+    },
+    {
+      "id": "CYCLE48-PARENT-PICK-TOAST",
+      "cycle": 48,
+      "severity": "cosmetic",
+      "status": "closed",
+      "commit": null,
+      "description": "Editor location picker success toast displayed slug-formatted text ('cabinet flammable') instead of the location's real title ('Flammable Cabinet'). Fixed by looking up the entry in the cached object-index and using its title; falls back to the dash-stripped slug only if the entry is missing."
     }
   ],
   "fixes_applied": [
@@ -6961,7 +7127,13 @@
     },
     "5103c4bd qa-cycle-46: ?doc= deeplink support on accessions/inventory/lab-map",
     "ff072f58 qa-cycle-46: error-state title, dedupe Glacial Acetic Acid concept",
-    "a5c586db qa-cycle-47: always render backlinks pane so Add instance button shows on fresh concepts"
+    "a5c586db qa-cycle-47: always render backlinks pane so Add instance button shows on fresh concepts",
+    {
+      "cycle": 48,
+      "bug_id": "CYCLE48-PARENT-PICK-TOAST",
+      "file": "app/js/editor-modal.js",
+      "description": "Replaced raw slug formatter in onPick callback with cached-index title lookup so the success toast displays the real location title."
+    }
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -7362,7 +7534,8 @@
     "/tmp/qa-screenshots/cycle46/step103-verify-box-deeplink-popup.png",
     "/tmp/qa-screenshots/cycle46/step105-verify-tube-deeplink-popup.png",
     "/tmp/qa-screenshots/cycle46/step106-verify-inventory-deeplink-ethanol.png",
-    "/tmp/qa-screenshots/cycle47/ -- 12 screenshots evaluated (full set: 28 raw, evaluated 12 representative ones in qa-state)"
+    "/tmp/qa-screenshots/cycle47/ -- 12 screenshots evaluated (full set: 28 raw, evaluated 12 representative ones in qa-state)",
+    "/tmp/qa-screenshots/cycle48/ \u2014 21 screenshots, all read and evaluated"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
