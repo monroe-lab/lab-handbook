@@ -1,14 +1,16 @@
 ---
-type: bottle
+type: "bottle"
 title: "QA52 Ethanol Test Bottle 2"
-of: resources/ethanol-absolute
-parent: locations/cycle52-shelf-a-x3e3u
+of: "resources/ethanol-absolute"
+parent: "locations/cycle52-shelf-b-x3e3u"
 lot: "QA52-x3e3u-2"
-quantity: 500
-unit: mL
+quantity: "500"
+unit: "mL"
 expiration: "2027-12-31"
 created_at: "2026-04-25T22:35:01.655Z"
 created_by: "qa-bot"
+status: "in_stock"
+updated_at: "2026-04-25T22:35:26.765Z"
 ---
 # QA52 Ethanol Test Bottle 2
 
