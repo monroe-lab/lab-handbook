@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 34,
+  "cycle": 35,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4709,6 +4709,202 @@
         "Lab map tree starts collapsed at the room level \u2014 Pistachio DNA Box is several layers deep. The '10 items' badge on a parent row is helpful but a deep-search auto-expand would help find specific containers without manual drilling. Future enhancement, not filed as bug.",
         "Test side-effect: my Playwright `td:nth(0).click()` landed on the priority star and cycled A1-T1-E priority twice (1\u21922\u21923 stars) and bumped last_updated to 2026-04-25. Restored via direct GitHub API write at end of run. Did not leave permanent state changes in the docs."
       ]
+    },
+    {
+      "cycle": 35,
+      "persona": "Dr. Monroe",
+      "role": "pi",
+      "modifier": "cross_linker",
+      "task": "Search every surface scenario. PI in cross_linker mode walks the per-page search inputs across wiki / inventory / accessions / protocols / notebooks (one global doc-search + four per-page list-searches), evaluates pill colors, popup behavior, empty states, and wikilink trails (ethanol concept page direct via ?doc=resources/ethanol-absolute). Verifies each search surface returns the expected hits and each hit displays the right object pill (chemical purple, reagent teal, buffer orange, kit teal, accession purple, protocol purple).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle35/01-dashboard-baseline.png",
+          "shows": "PI dashboard baseline",
+          "evaluation": "Stat cards (14 Notebooks, 280 Inventory, 232 Accessions, 11 Projects, 9 People, 41 Calendar, 40 Lab Map, Tools Apps, 902 Wiki). Recent Updates lists qa-cycle-34 entries. Top nav: 10 visible tabs + + More + greymonroe avatar. Bulletin Board panel below.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/02-wiki-baseline.png",
+          "shows": "Wiki landing page",
+          "evaluation": "Type-filter chips visible at top of sidebar; categories listed below in collapsed state. Welcome graph in main pane.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/03-wiki-search-dneasy.png",
+          "shows": "Wiki search \"DNeasy\"",
+          "evaluation": "Sidebar shows 3 filtered categories (RESOURCES, STOCKS, WET LAB) but ALL collapsed \u2014 the actual matching docs are hidden. Visible item count is 0 per evaluator. UX bug: search filters categories but does not auto-expand them.",
+          "issues_found": "BUG-35-01 wiki sidebar does not auto-expand folders during active search; user has to click each category to find hits"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/04-wiki-search-ethanol.png",
+          "shows": "Wiki search \"ethanol\"",
+          "evaluation": "Same UX bug as DNeasy. 2 categories survive filter but stay collapsed.",
+          "issues_found": "BUG-35-01 (same bug)"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/05-wiki-search-pcr.png",
+          "shows": "Wiki search \"PCR\"",
+          "evaluation": "Multiple categories survive, all collapsed. Same bug.",
+          "issues_found": "BUG-35-01"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/06-wiki-search-ms-basal-salt.png",
+          "shows": "Wiki search \"MS basal salt\"",
+          "evaluation": "Categories filter correctly but no doc visible without click.",
+          "issues_found": "BUG-35-01"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/07-wiki-search-nanodrop.png",
+          "shows": "Wiki search \"NanoDrop\"",
+          "evaluation": "2 categories, collapsed. Cannot see hits.",
+          "issues_found": "BUG-35-01"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/08-inventory-baseline.png",
+          "shows": "Inventory page baseline",
+          "evaluation": "Concepts vs containers orientation banner present (teal border). 280 items, all type pills visible. Add Item / search / All Types / All Locations / All Statuses controls present.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/09-inventory-search-ethanol.png",
+          "shows": "Inventory search \"ethanol\"",
+          "evaluation": "5 hits: 2-Mercaptoethanol (Chemical, purple), Ethanol 70% (Reagent, teal), Ethanol Absolute (Chemical, purple), Formaldehyde PFA (Chemical, purple), Methanol (Chemical, purple). Pill colors correct.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/10-inventory-ethanol-popup.png",
+          "shows": "2-Mercaptoethanol popup (chemical concept)",
+          "evaluation": "Modal pill is purple Chemical. Three columns: fields (Type/Link/Name/Default Location/Status) + body (Chemistry/Lab use/Safety callouts) + contents (1 instance in lab + 14 references). Close/Delete/Edit footer.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/11-inventory-search-agarose.png",
+          "shows": "Inventory search \"agarose\"",
+          "evaluation": "1 hit: Agarose (Chemical, purple). Stat cards still show full inventory (280/218/2/1) \u2014 counts do not reflect filter, which is intended.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/12-inventory-search-tris.png",
+          "shows": "Inventory search \"tris\"",
+          "evaluation": "5 hits: 1M Tris-HCL (Buffer/Solution, orange), SDS-PAGE Running Buffer (Kit, teal), EDTA trisodium salt (Buffer/Solution), Tris base (Buffer/Solution), Tris-EDTA TE buffer (Buffer/Solution). Buffer pills are orange \u2014 distinct from Chemical/Reagent.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/13-inventory-search-empty-state.png",
+          "shows": "Inventory empty-state for nonsense search",
+          "evaluation": "Search-off icon + \"No items match your filters.\" text. Clean empty state. Stat cards remain populated.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/14-accessions-baseline.png",
+          "shows": "Accessions tracker baseline",
+          "evaluation": "What is an accession? orientation banner (purple border). 6 stat cards: 232 Accessions / 101 Active / 119 Waiting / 0 Storage / 12 Completed / 0 Archived (sums to 232). Table shows star priority + ID + Project + People + Species + Status + Note + Updated columns.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/15-accessions-search-pistachio.png",
+          "shows": "Accessions search \"pistachio\"",
+          "evaluation": "Filtered to Pistachio Pangenome rows. Stars in priority column rendering correctly. Status pills (Active/Storage/Completed) colored per type.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/16-accessions-pistachio-popup.png",
+          "shows": "J4_T1_5 (Kerman) accession popup",
+          "evaluation": "Accession pill purple at top. Fields: Type/Link/Name/Accession ID/Project/People (chips: Vianney Ahn, Matt Davis)/Species/Status (Active green pill)/Status note (QC passed)/Priority (3 gold stars)/Sequencing Type (HiFi)/Detail Sheet Link (Google Doc URL with launch icon)/Last Updated (2026-02-12). Right column \"No references to this object yet.\" correctly indicates no instances aliquoted.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/17-accessions-search-c127.png",
+          "shows": "Accessions search \"C127\"",
+          "evaluation": "Filtered to C127 cassava accessions: C127_AM, C127_GG, C127_NN, C127SE_AM, C127SE_GG, C12T2... Star ratings rendering. Status pill is Waiting (orange) for these.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/18-accessions-search-empty-state.png",
+          "shows": "Accessions empty state",
+          "evaluation": "\"No accessions match your filters.\" text + search-off icon. Stat cards persist.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/19-protocols-baseline.png",
+          "shows": "Protocols baseline",
+          "evaluation": "Sidebar shows 9 categories collapsed by default with counts: Wet Lab Basics 45, DNA Extraction 6, Library Prep & Sequencing 8, Epigenomics 4, Mutagenesis & Genetics 4, Lab Safety 11, Workflow Templates 1, Plant Harvesting 3, Shipping 2 (84 total). Empty main pane prompts \"Select a protocol\".",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/20-protocols-search-pcr.png",
+          "shows": "Protocols search \"PCR\" (control)",
+          "evaluation": "Categories AUTO-EXPAND on search: Wet Lab Basics shows PCR Genotyping + Quick DNA Extraction for PCR; Library Prep & Sequencing shows Sanger on PCR product. This is the pattern wiki should match.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/21-protocols-pcr-loaded.png",
+          "shows": "PCR Genotyping protocol loaded",
+          "evaluation": "Protocol pill (purple) at top. Title + Resources block with object pills: Equipment (Thermocycler), Reagents (MES Buffer, Mineral oil, Nuclease-Free Water, TWEEN 80), Related Protocols (5 purple Protocol pills), Contacts (Satoyo Oya person pill). All wikilinks render with proper colors per type. Time estimate, Background sections begin below.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/22-protocols-search-empty-state.png",
+          "shows": "Protocols empty-state on nonsense search",
+          "evaluation": "\"No protocols match\" empty state in sidebar. Previously-loaded PCR Genotyping doc remains in main pane (expected \u2014 search does not auto-clear loaded doc).",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/23-notebooks-baseline.png",
+          "shows": "Notebooks baseline",
+          "evaluation": "Your Notebook section (Grey Monroe 0). All Notebooks: Barb M 7, Erik Spaulding 1, Mr Freckles 1, Vianney Ahn 4, Zi Ye 1. Recent Entries listed in main pane.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/24-notebooks-search-nanodrop.png",
+          "shows": "Notebooks search \"NanoDrop\"",
+          "evaluation": "Sidebar shows \"No notebooks match\" \u2014 search appears to match titles/filenames only, not body content. The qa34 mobile entry contains NanoDrop in its body but is not surfaced. Main pane Recent Entries unchanged. Limitation, not a bug.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/25-notebooks-search-vianney.png",
+          "shows": "Notebooks search \"Vianney\"",
+          "evaluation": "Sidebar AUTO-EXPANDS Vianney Ahn folder + Fiberseq subfolder. Visible entries: MN, 2026-04-21 (in Fiberseq), qa34-5p9s01-mobile-entry, 2026-04-21. Notebooks search behaves correctly \u2014 confirms wiki bug is unique to wiki page.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/26-notebooks-vianney-loaded.png",
+          "shows": "MN notebook entry loaded",
+          "evaluation": "Title MN, frontmatter shows Person Fiberseq + Date 2026-04-21. Body has handwritten lab-notebook image inline.",
+          "issues_found": "one console 404 fired during load \u2014 likely the localStorage cache miss + GitHub API fallback path; matches the established image-fallback pattern, no regression"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/27-notebooks-search-empty-state.png",
+          "shows": "Notebooks empty-state nonsense search",
+          "evaluation": "Already-loaded MN entry visible because notebooks search empty does not clear loaded doc. Sidebar shows only the loaded entry context. Slight mismatch with empty state; not a regression.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/28-wikilink-trail-ethanol-concept.png",
+          "shows": "Ethanol Absolute concept page in wiki",
+          "evaluation": "Page header pill is Chemical (purple). Breadcrumb Resources > Ethanol Absolute. Body sections (What it is, Safety callout, etc.). Bottom-right floating \"4 connections\" mini-graph with neighbor pills. Pill color matches concept type \u2014 good.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/29-fix-verify-wiki-search-ethanol.png",
+          "shows": "Wiki search \"ethanol\" AFTER fix",
+          "evaluation": "RESOURCES and STOCKS folders auto-expanded. Visible items: 2-Mercaptoethanol (Chemical), Ethanol 70% (Reagent), Ethanol Absolute (Chemical), Formaldehyde PFA (Chemical), Methanol (Chemical) under each. Confirmed fix: 11 visible items vs 0 before.",
+          "issues_found": "none \u2014 fix confirmed"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle35/30-fix-verify-wiki-search-nanodrop.png",
+          "shows": "Wiki search \"NanoDrop\" AFTER fix",
+          "evaluation": "RESOURCES and WET LAB folders auto-expanded showing NanoDrop (Equipment) and Quantifying DNA: NanoDrop (Protocol). Both type pills colored correctly.",
+          "issues_found": "none \u2014 fix confirmed"
+        }
+      ],
+      "bugs": [
+        "BUG-35-01"
+      ],
+      "fixes": [
+        "FIX-35-01"
+      ],
+      "observations": "Per-page search surfaces are independent (no global cross-page search). Inventory/accessions/protocols/notebooks all auto-expand or surface hits inline; wiki was the lone outlier where filtered categories rendered collapsed and required an extra click per category. Comment in wiki renderNode claimed \"Auto-expand top level (depth 0) when there is an active filter\" but the code never honored it \u2014 fixed. Pill colors correct end-to-end across pages: chemical purple, reagent teal, buffer/solution orange, kit teal, equipment green, protocol purple, accession purple, person grey-blue. Stat cards on inventory/accessions stay populated under active filter (intended). Notebook search appears title-only (does not match body content like NanoDrop in qa34 mobile entry) \u2014 consistent with protocols search behavior, not flagged as bug."
     }
   ],
   "bugs_found": [
@@ -4891,7 +5087,18 @@
       "status": "fixed",
       "fix_commit": "<pending-cycle32-followup>"
     },
-    "CYCLE27-NOTEBOOK-RECENT-MN-V2 (cosmetic, fixed in cycle 33, commit d59ed437): cycle 32 extractDate fallback yielded the raw title \"MN\" for notebooks/vianney-ahn/fiberseq/MN.md. showWelcome in app/notebooks.html now awaits Lab.gh.fetchObjectIndex and uses the entry mtime (unix seconds) formatted YYYY-MM-DD when neither slug nor title yields a date. Path lookup tries \"<path>.md\" and \"<path>\". Verified deployed: subtitle now reads \"2026-04-24\"."
+    "CYCLE27-NOTEBOOK-RECENT-MN-V2 (cosmetic, fixed in cycle 33, commit d59ed437): cycle 32 extractDate fallback yielded the raw title \"MN\" for notebooks/vianney-ahn/fiberseq/MN.md. showWelcome in app/notebooks.html now awaits Lab.gh.fetchObjectIndex and uses the entry mtime (unix seconds) formatted YYYY-MM-DD when neither slug nor title yields a date. Path lookup tries \"<path>.md\" and \"<path>\". Verified deployed: subtitle now reads \"2026-04-24\".",
+    {
+      "id": "BUG-35-01",
+      "cycle": 35,
+      "page": "app/wiki.html",
+      "severity": "ux",
+      "summary": "Wiki sidebar does not auto-expand folders during active search/type filter \u2014 matching docs hidden under collapsed categories",
+      "description": "In renderNode the collapsed flag was based only on whether the folder contained the active doc. When a user searched the wiki sidebar for e.g. \"ethanol\" or \"DNeasy\", filterNode correctly pruned to matching folders, but every folder rendered collapsed by default, so the actual matching documents were not visible without an extra click on each category. Protocols and Notebooks both auto-expand on search; wiki was the outlier.",
+      "discovered_via": "visual evaluation of screenshots 03-07 \u2014 sidebar showed only category headers after each search, no doc rows visible",
+      "status": "closed",
+      "fix_commit": "4692e595a26acb62288a3770c72ece10c4a0ad3a"
+    }
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -5019,6 +5226,17 @@
       "commit": "d59ed437",
       "file": "app/notebooks.html",
       "description": "Notebook Recent Entries subtitle falls back to git mtime when neither filename nor title contain YYYY-MM-DD. Closes CYCLE27-NOTEBOOK-RECENT-MN-V2."
+    },
+    {
+      "id": "FIX-35-01",
+      "cycle": 35,
+      "bug_id": "BUG-35-01",
+      "commit": "4692e595a26acb62288a3770c72ece10c4a0ad3a",
+      "files_changed": [
+        "app/wiki.html"
+      ],
+      "description": "renderSidebar now passes a filtering flag (true when a search query or active type filter is present) to renderNode; renderNode uses (filtering || containsActive) when deciding the collapsed class so folders open up to show hits during search. Recursive call propagates filtering downward.",
+      "verified": "cycle35-step29 + step30 \u2014 wiki search ethanol and NanoDrop both show expanded folders with the full list of matching docs visible (folderCollapsedCount=0, visibleItemCount jumps from 0 to 11 for ethanol)."
     }
   ],
   "improvements_proposed": [
@@ -5278,7 +5496,37 @@
     "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated.",
     "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated.",
     "/tmp/qa-screenshots/cycle32/ \u2014 27 screenshots covering people baseline, all 4 wizard steps with before/after, fresh person dashboard, notebooks ?person= filter, notebooks landing (validates RECENT-MN sweep with 9/10 date subtitles), accession wiki page (detected separate FRONTMATTER-CHIP-URL-NOT-CLICKABLE bug), accession popup with clickable Detail Sheet Link (validates DETAIL-LINK sweep), tube editor with short of-placeholder (validates OF-PLACEHOLDER sweep), inventory baseline, post-cleanup people grid, 1024px nav, mobile dashboard + notebooks. Plus _issues.json. Read and evaluated in detail.",
-    "/tmp/qa-screenshots/cycle33/ \u2014 26 screenshots taken (24 in main run + 1 verify + previous), 9 read and evaluated. Closed CYCLE27-NOTEBOOK-RECENT-MN-V2."
+    "/tmp/qa-screenshots/cycle33/ \u2014 26 screenshots taken (24 in main run + 1 verify + previous), 9 read and evaluated. Closed CYCLE27-NOTEBOOK-RECENT-MN-V2.",
+    "/tmp/qa-screenshots/cycle35/01-dashboard-baseline.png",
+    "/tmp/qa-screenshots/cycle35/02-wiki-baseline.png",
+    "/tmp/qa-screenshots/cycle35/03-wiki-search-dneasy.png",
+    "/tmp/qa-screenshots/cycle35/04-wiki-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle35/05-wiki-search-pcr.png",
+    "/tmp/qa-screenshots/cycle35/06-wiki-search-ms-basal-salt.png",
+    "/tmp/qa-screenshots/cycle35/07-wiki-search-nanodrop.png",
+    "/tmp/qa-screenshots/cycle35/08-inventory-baseline.png",
+    "/tmp/qa-screenshots/cycle35/09-inventory-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle35/10-inventory-ethanol-popup.png",
+    "/tmp/qa-screenshots/cycle35/11-inventory-search-agarose.png",
+    "/tmp/qa-screenshots/cycle35/12-inventory-search-tris.png",
+    "/tmp/qa-screenshots/cycle35/13-inventory-search-empty-state.png",
+    "/tmp/qa-screenshots/cycle35/14-accessions-baseline.png",
+    "/tmp/qa-screenshots/cycle35/15-accessions-search-pistachio.png",
+    "/tmp/qa-screenshots/cycle35/16-accessions-pistachio-popup.png",
+    "/tmp/qa-screenshots/cycle35/17-accessions-search-c127.png",
+    "/tmp/qa-screenshots/cycle35/18-accessions-search-empty-state.png",
+    "/tmp/qa-screenshots/cycle35/19-protocols-baseline.png",
+    "/tmp/qa-screenshots/cycle35/20-protocols-search-pcr.png",
+    "/tmp/qa-screenshots/cycle35/21-protocols-pcr-loaded.png",
+    "/tmp/qa-screenshots/cycle35/22-protocols-search-empty-state.png",
+    "/tmp/qa-screenshots/cycle35/23-notebooks-baseline.png",
+    "/tmp/qa-screenshots/cycle35/24-notebooks-search-nanodrop.png",
+    "/tmp/qa-screenshots/cycle35/25-notebooks-search-vianney.png",
+    "/tmp/qa-screenshots/cycle35/26-notebooks-vianney-loaded.png",
+    "/tmp/qa-screenshots/cycle35/27-notebooks-search-empty-state.png",
+    "/tmp/qa-screenshots/cycle35/28-wikilink-trail-ethanol-concept.png",
+    "/tmp/qa-screenshots/cycle35/29-fix-verify-wiki-search-ethanol.png",
+    "/tmp/qa-screenshots/cycle35/30-fix-verify-wiki-search-nanodrop.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
