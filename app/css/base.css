@@ -279,6 +279,9 @@ tr:hover { background: var(--teal-50); }
   flex-direction: column;
   gap: 8px;
 }
+/* When the editor modal is open, push toasts above the modal footer
+   (~60px tall + 24px breathing room) so they don't cover Save / Cancel. */
+body:has(.em-overlay.open) .toast-container { bottom: 96px; }
 .toast {
   background: var(--grey-900);
   color: #fff;
