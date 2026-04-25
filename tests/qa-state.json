@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 44,
+  "cycle": 45,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5983,6 +5983,206 @@
         "addInstanceFromConcept creates a bottle at docs/stocks/bottle-<slug>-<random>.md with type/title/of frontmatter only, then opens the new bottle in edit mode focused on the parent picker — invites the user to fill in the location.",
         "Popup header bar shows just plain title text without a type pill/icon (carry-over from prior cycles); type info is in the FIELDS panel. Minor UX consistency issue but not regressed."
       ]
+    },
+    {
+      "cycle": 45,
+      "persona": "Jordan Park",
+      "modifier": "ui_critic",
+      "scenario": "Print protocol day",
+      "task": "Postdoc Jordan in ui_critic mode walks Print Preview across four protocols (pipette-school, pcr-genotyping, gel-electrophoresis, qiagen-dneasy-extraction) plus the wiki page @media print path. Verifies pages paginate at Letter size, page numbers render bottom-right, FAB stays pinned to viewport across scroll, images load before measure, FAB+iframe clean up on Exit Preview, callout blockquotes stay together, tables don't split mid-row. Heavy screenshot scrutiny: every preview open, scroll, close. Caught and fixed CYCLE45-PRINT-PILL-NOT-FLATTENED across both surfaces, then re-verified after deploy that pills print as plain underlined text (computed style border=0, border-radius=0, text-decoration=underline).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle45/01-protocols-index-before.png",
+          "shows": "Protocols index landing — 12-tab top nav (Tutorials/Notebooks/Protocols active/Accessions/Inventory/Waste/Projects/People/Calendar/Lab Map/Apps/Wiki) at 1440px viewport (no '+' overflow needed at this width). Sidebar shows 9 categories with item counts (Wet Lab Basics 45, DNA Extraction 6, Library Prep & Sequencing 8, Epigenomics 4, Mutagenesis & Genetics 4, Lab Safety 11, Workflow Templates 1, Plant Harvesting 3, Shipping 2). Empty state 'Select a protocol from the sidebar' centered.",
+          "evaluation": "Clean baseline. Nav, sidebar counts, and empty state all render correctly. Add (+) and folder buttons visible top of sidebar.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/02-pipette-school-loaded.png",
+          "shows": "Pipette School protocol loaded via ?doc=wet-lab/pipette-school. Breadcrumb 'wet-lab/pipette-school' top of action bar. Buttons: Print Preview, Rename, Duplicate, Delete, Edit. 'Protocol' frontmatter pill (purple/lavender). Title 'Pipette School'. Resources section with Equipment/Consumables/Reagents/Related Protocols pills. Time estimate, Background sections.",
+          "evaluation": "Renders cleanly. Wikilink pills for equipment/consumables show their type colors (subtle teal/blue tints). Frontmatter 'Protocol' pill correctly styled with type color.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/04-print-preview-click-immediate.png",
+          "shows": "Print preview just opened. Action bar shows 'Exit Preview' (instead of Print Preview), Rename/Duplicate/Delete/Edit. Page 1 of 10 visible: white 8.5x11 sheet on grey background, 'Protocol' frontmatter pill, title with horizontal divider, Resources with all wikilink pills (Micropipette P10/P20/P200/P1000, Pipette Tips P10/P20/P200/P1000, Filter Tips P10/P20/P200/P1000, Microtube, PCR Strip Tubes 0.2 mL, Parafilm, Tube and Sample Labeling, How to Use the Scale). Print FAB pinned bottom-right (teal).",
+          "evaluation": "VISUAL BUG (CYCLE45-PRINT-PILL-NOT-FLATTENED): wikilink pills render as colored oval chips with thin borders inside print preview. Print stylesheet at protocols.html:1156 only !important's bg/color/padding/font-size/box-shadow but NOT border, border-radius, or text-decoration. Inline border:1.5px solid <color>50; border-radius:16px; text-decoration:none; from types.js pillStyle() therefore survives. Result: print output shows colored chips with FA icons instead of plain underlined text. Print FAB and page layout otherwise correct. Issue logged + fixed in same cycle.",
+          "issues_found": [
+            "object-pill borders + icons survive in print preview iframe"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/05-print-preview-rendered.png",
+          "shows": "Same as 04 — first page of preview. Confirms the iframe rendered with .page elements. Pages: 10, FAB present, 1 image, 4 tables.",
+          "evaluation": "Same pill-flattening bug confirmed. Other than that, layout is clean and matches Letter format.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/07-print-preview-full-top.png",
+          "shows": "Full-page screenshot of all 10 pages stacked vertically inside the iframe. Page 2 contains the pipette tips image (red boxes). Pages 3-10 various content with tables, lists, callouts.",
+          "evaluation": "Pagination overall looks correct. Each page is one Letter sheet. Image is centered properly on its page (not split). Page numbers visible bottom-right of each page.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/08-print-preview-scrolled-mid.png",
+          "shows": "Page 2 with 'The Pipettes' section, table of P2/P10/P20/P200/P1000 pipettes. Pipette pills inside table cells (Micropipette P10..P1000) show oval borders. 'Tip color' column intentionally empty in source markdown.",
+          "evaluation": "Table renders cleanly with bordered cells. Pipette pills in cells are still chip-shaped (same bug). Page-1 number '1 of 10' visible at top of view confirming page numbering works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/09-print-preview-scrolled-deep.png",
+          "shows": "Page 2/3 boundary. Top of view shows large pipette tips image (red boxes) centered. Below: Filter Tips list with chip-style pills (P10/P20/P200/P1000) and a 'Tip ejection' note.",
+          "evaluation": "Image renders at full quality. Same pill-flattening bug reproduces in body text, not just Resources section.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/10-print-preview-bottom.png",
+          "shows": "Last page (10 of 10). 'When you are done' bullet list, 'Documentation' bullet list. Bottom-right shows '10 of 10'. Print FAB still visible.",
+          "evaluation": "Final page lays out fine. Trailing white space on the last page is expected (not full).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/11-print-fab-after-scroll.png",
+          "shows": "Mid scroll position — page 2 ends with 'Tips' H2 followed by lots of empty space, page 3 starts with the pipette tips image. FAB pinned bottom-right.",
+          "evaluation": "Pagination shows H2 'Tips' landing at end of page 2 with the next image-block pushed to page 3, leaving a gap. The keep-with-prev logic at protocols.html:1277 handles 'image after heading' pull-down, but the page block summary (step 13) reports page 2 ending in SUMMARY (a details-block summary, not the H2) — meaning the visible 'Tips' may actually start mid-page-2 and the orphan is a SUMMARY-not-H2 ordering quirk in the details unwrap. Logged as observation; not fixed this cycle.",
+          "issues_found": [
+            "minor: occasional bottom-of-page whitespace before image-blocks on page break"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/14-close-print-preview.png",
+          "shows": "After clicking 'Exit Preview'. Sidebar restored, breadcrumb visible, action buttons restored to 'Print Preview, Rename, Duplicate, Delete, Edit'. Original Pipette School content re-displayed.",
+          "evaluation": "Cleanup confirmed: iframe and FAB removed, rendered content un-hidden. Round-trip works.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/15-pcr-genotyping-loaded.png",
+          "shows": "PCR Genotyping protocol loaded. Resources section: Equipment Thermocycler, Reagents (MES Buffer/Mineral oil/Nuclease-Free Water/TWEEN 80), Related Protocols, Contacts (Satoyo Oya), Source: Google Doc link. Time estimate.",
+          "evaluation": "Renders cleanly. Wikilink pills show their type colors at normal screen.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/16-pcr-print-preview.png",
+          "shows": "PCR Genotyping print preview page 1. 5 pages total, 4 tables, 20 object-pills found. All 20 pills render as chip-shaped colored ovals — same bug as pipette-school. Plain 'Google Doc' http link renders as expected teal underlined text (different code path).",
+          "evaluation": "Same CYCLE45-PRINT-PILL-NOT-FLATTENED bug consistently reproduces. Plain anchors are fine. Confirms scope of fix should target only .object-pill class.",
+          "issues_found": [
+            "object-pill bug reproduced on second protocol"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/16b-pcr-print-preview-full.png",
+          "shows": "Full-page screenshot of all 5 PCR pages stacked. Each page has content + table + page number. Cycler step table, 'Master mix' table, Troubleshooting table.",
+          "evaluation": "Pagination handles tables well — they're not split mid-table (per CSS rule .lab-rendered table { page-break-inside: avoid; } in base.css).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/18-gel-electrophoresis-loaded.png",
+          "shows": "Gel Electrophoresis protocol loaded. Many Reagents pills (Agarose, Bromophenol Blue, EDTA tetrasodium salt dihydrate, EDTA trisodium salt, Ethylenediaminetetraacetic acid GMP, Glacial Acetic Acid x2, MES Buffer, Tris-EDTA TE buffer solution, Trizma base). Note duplicate 'Glacial Acetic Acid' pill — likely two separate concept entries.",
+          "evaluation": "Renders fine on screen. The duplicate Glacial Acetic Acid pills suggest either two distinct chemical entries (different lot/grade) or a duplicate concept — possible content cleanup item but not a code bug.",
+          "issues_found": [
+            "data observation: duplicate 'Glacial Acetic Acid' pill in Reagents — possibly two concept slugs for the same chemical"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/19-gel-print-preview.png",
+          "shows": "Gel Electrophoresis print preview page 1, 5 pages, 7 callouts (blockquote teal-bordered admonitions). Same chip-shaped pills throughout Resources section.",
+          "evaluation": "Callouts render with teal left border (border-left: 3pt solid #009688 from print stylesheet). Pills still chip-shaped. Source: Google Doc anchor still teal underline.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/19b-gel-print-preview-full.png",
+          "shows": "All 5 gel-electrophoresis pages stacked. Multiple callouts (blue background admonitions) on different pages. Tables for buffer recipes.",
+          "evaluation": "Callouts correctly stay together (no break-inside). One callout near bottom of a page does fit cleanly without orphaning.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/21-wiki-index-loaded.png",
+          "shows": "Wiki app landing — interactive force-directed graph with 308 nodes, type-pill filters along bottom (Person/Project/Chemical/Reagent/Container/Notebook/Equipment/Buffer/Solution/Consumable/etc.), folder tree sidebar.",
+          "evaluation": "Graph renders, sidebar renders, type filter pills colored correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/22-wiki-pipette-school.png",
+          "shows": "Wiki rendering of pipette-school doc — different rendering path than Protocols app. Action bar: Print, Edit. Same Resources section with chip pills.",
+          "evaluation": "Wiki view loads fine. 'Print' button is direct window.print() (no print-preview overlay).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/23-wiki-print-media-emulated.png",
+          "shows": "Wiki page with @media print emulated via Playwright. Top nav and sidebar properly hidden. Content visible. Pills (Micropipette/Pipette Tips/Filter Tips/Microtube/PCR Strip Tubes/Parafilm/Tube and Sample Labeling/How to Use the Scale) STILL render as chip-shaped colored pills with icons — same bug as protocols print preview.",
+          "evaluation": "BUG REPRODUCED on the wiki @media print path too. The base.css :460 .object-pill rule has the same missing-!important issue. Bug logged. Issue reporter widget bottom-right also shows during print emulation — minor, not in scope this cycle.",
+          "issues_found": [
+            "object-pill bug reproduced in base.css @media print",
+            "issue reporter widget visible during print media — should be hidden"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/23b-wiki-print-media-full.png",
+          "shows": "Full-page wiki print emulation. Whole pipette-school content visible without page chrome. Same chip-pill issue throughout.",
+          "evaluation": "Confirms the bug spans the whole rendered surface, not just visible viewport.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/24-qiagen-loaded.png",
+          "shows": "QIAGEN DNeasy Plant Extraction protocol loaded. Resources with multiple equipment, reagents, consumables, related protocols, prerequisites. Time estimate. Before You Start checklist.",
+          "evaluation": "Loads cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/25-qiagen-print-preview.png",
+          "shows": "QIAGEN print preview page 1. 4 pages, no frontmatter bar in iframe (not present in DOM), page numbers '1 of 4', '2 of 4', etc. all rendering at the correct positions.",
+          "evaluation": "Page numbering positions logged in step 26 confirm '1 of 4' etc. are inside their respective pages (inDoc:true). Same chip-pill bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/25b-qiagen-print-preview-full.png",
+          "shows": "All 4 pages of QIAGEN preview stacked. Page 1: Resources + Time estimate + Before You Start. Page 2: Background + procedure step 1. Pages 3-4: rest of procedure + troubleshooting table + documentation.",
+          "evaluation": "Pagination clean. Tables, lists, callouts all kept together. Page numbers visible bottom-right of each page.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/27-after-final-close.png",
+          "shows": "After closing print preview on QIAGEN. Sidebar visible, breadcrumb, action bar restored, original content rendered. FAB count = 0, iframe count = 0.",
+          "evaluation": "Cleanup is symmetric across Exit Preview clicks. No orphan FABs, no duplicated iframes.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/v1-pcr-print-preview-after-fix.png",
+          "shows": "Verification after deploying b7f30039: PCR Genotyping print preview page 1 with the new flattening rule. Pills (Thermocycler, MES Buffer, Mineral oil, Nuclease-Free Water, TWEEN 80, Quick DNA Extraction for PCR (Buffer A Method), Gel Electrophoresis, Sanger on PCR product, Primer Design for a Target Site, Gel Imaging and Annotation, Making an Agarose Gel, Satoyo Oya, Gel Electrophoresis again) now render as plain underlined black text — no border, no oval, no FA icons.",
+          "evaluation": "FIX CONFIRMED. Computed style after fix: bg=transparent, color=black, padding=0, border=none, border-radius=0, text-decoration=underline, icon display=none. Frontmatter 'Protocol' pill (.fm-pill, separate class) still styled correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/v1b-pcr-print-preview-after-fix-full.png",
+          "shows": "Full-page after-fix verification of all 5 PCR Genotyping print preview pages. Every pill across all pages now plain underlined text.",
+          "evaluation": "Fix holds across the entire preview, not just the first page.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle45/v2-wiki-print-media-after-fix.png",
+          "shows": "Wiki page with @media print emulated, AFTER the base.css fix. All Resources section pills (Micropipette/Pipette Tips/Filter Tips/Microtube/PCR Strip Tubes/Parafilm/Tube and Sample Labeling/How to Use the Scale) now render as plain underlined black text.",
+          "evaluation": "FIX CONFIRMED on the @media print path as well. Computed style: bg=transparent, border=0px none, border-radius=0, padding=0, text-decoration=underline.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "CYCLE45-PRINT-PILL-NOT-FLATTENED",
+        "CYCLE45-PAGINATION-WHITESPACE",
+        "CYCLE45-DUPLICATE-CHEMICAL-PILL"
+      ],
+      "fixes": [
+        "CYCLE45-PRINT-PILL-NOT-FLATTENED"
+      ],
+      "observations": [
+        "Print Preview pagination is functional across 4 protocols — pages 4/5/5/10 respectively, all with correct page numbers and Letter sizing.",
+        "Print FAB pinned to viewport (not iframe) — survives scroll. Confirmed visible at multiple scroll positions.",
+        "Iframe images wait for load before pagination (Promise.all with 4s timeout per image) — pipette-tips image rendered cleanly after measure.",
+        "Plain HTTP anchors (Google Doc link) render correctly as teal underlined text in print preview — different code path from .object-pill, unaffected by the fix.",
+        "Frontmatter 'Protocol' pill (.fm-pill class) preserves its color in print preview — that's intended (frontmatter bar is decorative print header).",
+        "Print Preview button toggles label to 'Exit Preview' (not 'Close Print Preview') — initial script assumed the wrong label and timed out; fixed mid-cycle.",
+        "Wiki @media print path successfully hides nav/sidebar/action bar (whole-page chrome). Issue reporter widget remains visible — minor, not fixed this cycle.",
+        "Pagination keep-together correctly avoids splitting tables, callouts, and images. Headings + immediate images share a page via protocols.html:1277."
+      ]
     }
   ],
   "bugs_found": [
@@ -6289,7 +6489,27 @@
       "fix_commit": "f475244f",
       "fix": "Changed the mobile card to render typeLabel inside <span class='badge' style='Lab.types.pillStyle(item.type, badge)'> so the pill style matches the desktop table — chemicals now render purple, reagents teal, etc."
     },
-    "CYCLE44-INSTANCE-ROW-NO-SUBTITLE (visual, fixed in cycle 44, commit 582c61b5): a freshly-created bottle (via \"Add instance\") with no parent / qty / lot rendered in the concept popup INSTANCES IN LAB pane with just a title and no second line, breaking the row's expected two-line layout and making N freshly-created bottles indistinguishable from each other when only one exists (cycle 39 collision branch only fired for ≥2 same-key bottles). Fix: the no-parent meta-builder branch now always emits \"#<slug-suffix> · no location set\", consistent across single + multi cases."
+    "CYCLE44-INSTANCE-ROW-NO-SUBTITLE (visual, fixed in cycle 44, commit 582c61b5): a freshly-created bottle (via \"Add instance\") with no parent / qty / lot rendered in the concept popup INSTANCES IN LAB pane with just a title and no second line, breaking the row's expected two-line layout and making N freshly-created bottles indistinguishable from each other when only one exists (cycle 39 collision branch only fired for ≥2 same-key bottles). Fix: the no-parent meta-builder branch now always emits \"#<slug-suffix> · no location set\", consistent across single + multi cases.",
+    {
+      "id": "CYCLE45-PRINT-PILL-NOT-FLATTENED",
+      "severity": "visual",
+      "status": "closed",
+      "fixed_in_cycle": 45,
+      "commit": "b7f30039",
+      "description": "In print preview (protocols.html iframe) and @media print (base.css), .object-pill wikilinks rendered as colored oval chips with FontAwesome icons instead of the intended plain underlined text. The CSS rules used !important only on background/color/padding/font-size/box-shadow, leaving the inline border:1.5px solid <color>50; border-radius:16px; text-decoration:none; from types.js pillStyle() to override. Fix: add !important to border, border-radius, box-shadow, and text-decoration; force gap to 0; hide nested <i> icons and material-icons spans (they don't render in print anyway). Result: pills now print as plain underlined black text, matching how plain anchors print and how the in-iframe stylesheet's intent was originally documented."
+    },
+    {
+      "id": "CYCLE45-PAGINATION-WHITESPACE",
+      "severity": "minor",
+      "status": "open",
+      "description": "When an image-block (or other tall block) won't fit at the bottom of a print-preview page, the paginator pushes it to the next page. Page block summary suggests this leaves the previous page ending on a SUMMARY (from a details unwrap) sometimes followed by a visible mid-page heading. Visual effect: occasional large blank space at the bottom of pages 2/3 in pipette-school. The keep-with-prev logic at protocols.html:1277 only handles 'heading immediately followed by image' — multi-block keep-together is not implemented. Logged for a future cycle; not critical for printing since the orphan headers re-anchor on the next page anyway."
+    },
+    {
+      "id": "CYCLE45-DUPLICATE-CHEMICAL-PILL",
+      "severity": "data",
+      "status": "open",
+      "description": "Gel Electrophoresis protocol Resources section displays two 'Glacial Acetic Acid' pills (likely two distinct concept entries with the same title — different slugs). Not a code bug; suggests a content audit of the chemical concept catalog could merge duplicates."
+    }
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -6516,6 +6736,12 @@
       "commit": "582c61b5",
       "file": "app/js/editor-modal.js",
       "summary": "CYCLE44-INSTANCE-ROW-NO-SUBTITLE — concept popup INSTANCES IN LAB rows for fresh bottles (no parent yet) now render with \"#<slug-suffix> · no location set\" subtitle so each row stays distinct and the user sees details still need filling."
+    },
+    {
+      "cycle": 45,
+      "commit": "b7f30039",
+      "file": "app/css/base.css and app/protocols.html",
+      "summary": "CYCLE45-PRINT-PILL-NOT-FLATTENED — wikilink .object-pill print styles now flatten correctly: !important on border, border-radius, box-shadow, text-decoration; gap forced to 0; nested <i>/material-icons hidden. Verified post-deploy with computed-style probe and visual screenshot."
     }
   ],
   "improvements_proposed": [
@@ -6879,7 +7105,34 @@
       "dir": "/tmp/qa-screenshots/cycle44-verify",
       "count": 2,
       "note": "post-fix verify — 2-bottle popup confirms \"#suffix · no location set\" subtitle for both fresh bottles (probe.json reports noLocLines=2)."
-    }
+    },
+    "/tmp/qa-screenshots/cycle45/01-protocols-index-before.png",
+    "/tmp/qa-screenshots/cycle45/02-pipette-school-loaded.png",
+    "/tmp/qa-screenshots/cycle45/04-print-preview-click-immediate.png",
+    "/tmp/qa-screenshots/cycle45/05-print-preview-rendered.png",
+    "/tmp/qa-screenshots/cycle45/07-print-preview-full-top.png",
+    "/tmp/qa-screenshots/cycle45/08-print-preview-scrolled-mid.png",
+    "/tmp/qa-screenshots/cycle45/09-print-preview-scrolled-deep.png",
+    "/tmp/qa-screenshots/cycle45/10-print-preview-bottom.png",
+    "/tmp/qa-screenshots/cycle45/11-print-fab-after-scroll.png",
+    "/tmp/qa-screenshots/cycle45/14-close-print-preview.png",
+    "/tmp/qa-screenshots/cycle45/15-pcr-genotyping-loaded.png",
+    "/tmp/qa-screenshots/cycle45/16-pcr-print-preview.png",
+    "/tmp/qa-screenshots/cycle45/16b-pcr-print-preview-full.png",
+    "/tmp/qa-screenshots/cycle45/18-gel-electrophoresis-loaded.png",
+    "/tmp/qa-screenshots/cycle45/19-gel-print-preview.png",
+    "/tmp/qa-screenshots/cycle45/19b-gel-print-preview-full.png",
+    "/tmp/qa-screenshots/cycle45/21-wiki-index-loaded.png",
+    "/tmp/qa-screenshots/cycle45/22-wiki-pipette-school.png",
+    "/tmp/qa-screenshots/cycle45/23-wiki-print-media-emulated.png",
+    "/tmp/qa-screenshots/cycle45/23b-wiki-print-media-full.png",
+    "/tmp/qa-screenshots/cycle45/24-qiagen-loaded.png",
+    "/tmp/qa-screenshots/cycle45/25-qiagen-print-preview.png",
+    "/tmp/qa-screenshots/cycle45/25b-qiagen-print-preview-full.png",
+    "/tmp/qa-screenshots/cycle45/27-after-final-close.png",
+    "/tmp/qa-screenshots/cycle45/v1-pcr-print-preview-after-fix.png",
+    "/tmp/qa-screenshots/cycle45/v1b-pcr-print-preview-after-fix-full.png",
+    "/tmp/qa-screenshots/cycle45/v2-wiki-print-media-after-fix.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -6910,5 +7163,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) — created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL → 2 bottles → 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial → 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-25"
+  "last_updated": "2026-04-25T20:25:00Z"
 }
