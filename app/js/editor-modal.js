@@ -2021,6 +2021,7 @@
           unit: entry.unit,
           parent: parentSlug,
           parentTitle: parentEntry && parentEntry.title ? parentEntry.title : null,
+          position: entry.position,
           lot: entry.lot,
           expiration: entry.expiration,
         });
@@ -2085,12 +2086,16 @@
         if (b.quantity && b.unit) meta.push(b.quantity + ' ' + b.unit);
         if (b.parent) {
           var parentLabel = b.parentTitle || b.parent.split('/').pop().replace(/-/g, ' ');
+          // Include grid position (A1, B3, …) so siblings inside a freezer box
+          // are distinguishable at a glance without opening each one.
+          if (b.position) parentLabel += ' · ' + b.position;
           meta.push(parentLabel);
         }
         var collisionKey = (b.title || '') + '|' + (b.parent || '');
         if (instanceCollisionCounts[collisionKey] > 1) {
           var disamb = b.lot ? ('lot ' + b.lot) :
             b.expiration ? ('exp ' + b.expiration) :
+            b.position ? ('@ ' + b.position) :
             b.slug ? ('#' + b.slug.split('/').pop().split('-').pop()) : '';
           if (disamb) meta.push(disamb);
         }
