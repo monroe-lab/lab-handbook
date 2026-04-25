@@ -6524,7 +6524,8 @@
           "id": "CYCLE48-PARENT-PICK-TOAST",
           "file": "app/js/editor-modal.js",
           "line": 1892,
-          "description": "Replaced raw slug formatter with cached-index title lookup so the success toast displays the real location title (Flammable Cabinet) rather than the slug-derived text (cabinet flammable). Falls back to the old format if the index entry is missing."
+          "description": "Replaced raw slug formatter with cached-index title lookup so the success toast displays the real location title (Flammable Cabinet) rather than the slug-derived text (cabinet flammable). Falls back to the old format if the index entry is missing.",
+          "verified": "/tmp/qa-screenshots/cycle48-verify/v02-after-pick-toast-visible.png \u2014 toast now reads \"Location: Flammable Cabinet\" on the live site after deploy 25f97603."
         }
       ],
       "observations": [
@@ -6889,7 +6890,7 @@
       "cycle": 48,
       "severity": "cosmetic",
       "status": "closed",
-      "commit": null,
+      "commit": "25f97603",
       "description": "Editor location picker success toast displayed slug-formatted text ('cabinet flammable') instead of the location's real title ('Flammable Cabinet'). Fixed by looking up the entry in the cached object-index and using its title; falls back to the dash-stripped slug only if the entry is missing."
     }
   ],
@@ -7132,7 +7133,8 @@
       "cycle": 48,
       "bug_id": "CYCLE48-PARENT-PICK-TOAST",
       "file": "app/js/editor-modal.js",
-      "description": "Replaced raw slug formatter in onPick callback with cached-index title lookup so the success toast displays the real location title."
+      "description": "Replaced raw slug formatter in onPick callback with cached-index title lookup so the success toast displays the real location title.",
+      "commit": "25f97603"
     }
   ],
   "improvements_proposed": [
