@@ -457,7 +457,8 @@ body:has(.em-overlay.open) .toast-container { bottom: 96px; }
   .lab-rendered blockquote { page-break-inside: avoid; break-inside: avoid; }
   .lab-rendered li:has(img) { page-break-inside: avoid; break-inside: avoid; }
   .lab-rendered h1, .lab-rendered h2, .lab-rendered h3, .lab-rendered h4 { page-break-after: avoid; break-after: avoid; }
-  .object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; }
+  .object-pill { background: none !important; color: #000 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; text-decoration: underline !important; font-size: inherit !important; gap: 0 !important; }
+  .object-pill i, .object-pill .material-icons-outlined, .object-pill .material-icons { display: none !important; }
   a { color: #000 !important; }
 }
 

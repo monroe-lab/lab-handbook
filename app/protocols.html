@@ -1153,7 +1153,8 @@ function showPrintPreview(rendered) {
       '.content details { margin: 6pt 0; }' +
       '.content details[open] summary { margin-bottom: 6pt; }' +
       '.content summary { font-weight: 600; cursor: pointer; }' +
-      '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; text-decoration: underline; font-size: inherit !important; box-shadow: none !important; }' +
+      '.object-pill { background: none !important; color: #000 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; text-decoration: underline !important; font-size: inherit !important; gap: 0 !important; }' +
+      '.object-pill i, .object-pill .material-icons-outlined, .object-pill .material-icons { display: none !important; }' +
       '.frontmatter-bar { margin: 0 0 12pt; padding: 6pt 0; border-bottom: 1pt solid #ddd; display: flex; flex-wrap: wrap; gap: 6pt; }' +
       '.frontmatter-bar .fm-pill { display: inline-block; padding: 2pt 8pt; border-radius: 10pt; font-size: 9pt; font-weight: 500; }' +
       '.print-fab { position: fixed; bottom: 24px; right: 24px; background: #009688; color: #fff; border: none; border-radius: 28px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.25); font-family: inherit; display: flex; align-items: center; gap: 8px; z-index: 100; }' +
