@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 53,
+  "cycle": 54,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -7286,6 +7286,114 @@
         "Add instance toast 'Created \u2014 fill in the details' appears bottom-right; doesn't overlap save controls. addInstanceFromConcept's 300ms+500ms timing chain feels responsive.",
         "Live patch (gh.patchObjectIndex + Lab.hierarchy.invalidate) makes new bottles appear in the parent location's contents and the concept's references pane immediately, without waiting for the GitHub Pages deploy."
       ]
+    },
+    {
+      "cycle": 54,
+      "persona": "Jordan Park",
+      "modifier": "thorough",
+      "task": "Lab notebook full day with structured H2/H3 sections, bold/italic spans, bulleted wikilink list (3 accessions + 1 chemical), 1x1 test image, save+reload+deeplink, hover/click both an accession and a chemical pill, verify popup REFERENCES backlinks include the new entry, dashboard Recent Updates feed picks it up, round-trip edit + re-save to surface image-path round-trip behavior.",
+      "scenario": "Lab notebook full day",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step01-jordan-dashboard-landing.png",
+          "shows": "Dashboard landing for greymonroe; 12-tab top nav, dashboard stats and inventory/recent-updates panels",
+          "evaluation": "Clean dashboard render. Stats: 232 accessions, 217 In Stock, 15 notebooks. 902 wiki docs.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step03-after-notebooks-load.png",
+          "shows": "Notebooks page loaded; sidebar tree with folders",
+          "evaluation": "Sidebar lists all notebooks. New Entry/New Folder buttons visible.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step05-after-new-entry-modal-open.png",
+          "shows": "New Entry modal",
+          "evaluation": "Modal opens with Type/Folder/Title/Filename fields. Brown primary button matches notebook chrome.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step07-after-create-entry-saved.png",
+          "shows": "Entry created: 'QA54 Jordan Full Day tswtos' rendered with blank template",
+          "evaluation": "View mode after create renders correctly; sidebar shows new entry highlighted.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step10-after-edit-mode-open.png",
+          "shows": "Edit mode: Toast UI WYSIWYG editor with insert pills and media bar",
+          "evaluation": "Editor chrome consistent with prior cycles.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step11-typed-content-before-image.png",
+          "shows": "WYSIWYG content typed: H2/body/H3/list/H3/paragraph",
+          "evaluation": "Wikilinks render as raw [[slug]] in editor (expected). Bullet markers look like ProseMirror placeholder dots.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step13-after-image-upload.png",
+          "shows": "After 1\u00d71 PNG upload",
+          "evaluation": "Image uploaded to GitHub; appears 1px wide in editor (test image is intentionally tiny).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step15-after-save-view-mode.png",
+          "shows": "After Cmd+S save, view mode renders the full structured doc",
+          "evaluation": "H2/H3 hierarchy correct. ALL FOUR wikilinks rendered as pills with type-specific color: A1-T1-E / A2-T1-E / A3-T2-W (accession violet #7c3aed, fingerprint icon), Acetone (chemical purple #6a1b9a, atom icon).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step23-reload-rendered-correct-slug.png",
+          "shows": "After hard reload via ?doc= URL deeplink",
+          "evaluation": "Document loads cleanly; pills/headings/lists intact.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step29-after-acc-click-popup.png",
+          "shows": "Editor-modal popup for accession A1-T1-E",
+          "evaluation": "3-col layout. Type pill 'Accession' violet, status 'Active' amber, priority 1/3 stars, People multi-pill (Zi Ye + Matt Davis), Detail Sheet Link clickable. REFERENCES panel shows our notebook entry \u2014 backlinks WORK.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step32-after-acetone-click-popup.png",
+          "shows": "Popup for chemical Acetone",
+          "evaluation": "Type pill 'Chemical' purple #6a1b9a (distinct from accession violet). Body callouts render: Chemistry blue, Lab use green, Safety amber. REFERENCES: 1 instance bottle + 5 protocols + our notebook. All cross-links resolve.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step33-dashboard-recent-updates.png",
+          "shows": "Dashboard after notebook creation",
+          "evaluation": "Recent Updates feed shows our writes in chronological order. Long filenames truncated with ellipsis.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step37-roundtrip-after-save.png",
+          "shows": "After round-trip edit + save",
+          "evaluation": "GitHub markdown shows IMAGE SRC bug: <img src='notebooks/grey-monroe/images/qa54-tswtos.png'> \u2014 docDir got prepended. Bug logged + fixed (CYCLE54-IMG-PATH-DOCDIR-COMPOUND). The structural concatenation issues in the rendered DOM are Playwright cursor-positioning artifacts (Cmd+End behavior), not app bugs.",
+          "issues": [
+            "CYCLE54-IMG-PATH-DOCDIR-COMPOUND"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png",
+          "shows": "Post-fix verification round-trip",
+          "evaluation": "Saved markdown verified via gh API: image src stayed AS 'images/qa54-tswtos.png'. Fix CONFIRMED end-to-end on the deployed site.",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        "CYCLE54-IMG-PATH-DOCDIR-COMPOUND"
+      ],
+      "fixes": [
+        "CYCLE54-IMG-PATH-DOCDIR-COMPOUND"
+      ],
+      "observations": [
+        "Backlinks across the new accession <-> chemical <-> notebook chain are working perfectly. Both popups surfaced our notebook entry as a reference; chemical popup also showed its bottle instance.",
+        "Pill colors verified via getComputedStyle: accession rgb(124,58,237)=#7c3aed, chemical rgb(106,27,154)=#6a1b9a \u2014 distinct shades, matches types.js.",
+        "Image-path round-trip bug discovered + fixed in same cycle. Root cause: resolveImagePaths(md, docPath) prepends MEDIA_BASE+docDir to relative srcs at load, but unresolveImagePaths(md) only stripped MEDIA_BASE \u2014 so each save baked another docDir copy into the markdown.",
+        "Minor polish (not fixed): References-panel display name comes from prettify(slug) so 'QA54-Jordan-Full-Day-tswtos' renders as 'Qa54 Jordan Full Day Tswtos'. Setting `title:` frontmatter would override; cosmetic.",
+        "Recent Updates filenames truncate with ellipsis \u2014 full path not visible without hovering."
+      ]
     }
   ],
   "bugs_found": [
@@ -7720,6 +7828,14 @@
       "status": "closed",
       "summary": "Locations picker filter that matches no nodes hid every row but showed no 'no matches' message \u2014 dropdown rendered as a blank panel. Easy to hit when query has spaces but slugs use hyphens (e.g. 'bench chem' against 'bench-chemistry').",
       "commit": "1f36cc25"
+    },
+    {
+      "id": "CYCLE54-IMG-PATH-DOCDIR-COMPOUND",
+      "severity": "data-loss",
+      "status": "closed",
+      "summary": "In editor-modal.js, resolveImagePaths(md, docPath) prepended MEDIA_BASE + docDir to relative <img src='images/foo.png'> on load, but unresolveImagePaths(md) only stripped MEDIA_BASE on save \u2014 so each save baked the docDir into the path. After one round-trip a notebook's image src went from 'images/foo' to 'notebooks/grey-monroe/images/foo'; the next save would push it to 'notebooks/grey-monroe/notebooks/grey-monroe/images/foo', breaking the deployed render. Fixed by threading docPath through getMarkdownClean -> unresolveImagePaths and stripping the (MEDIA_BASE+docDir) prefix before the bare MEDIA_BASE prefix. Verified by re-running a round-trip save on the live site post-deploy.",
+      "fix_commit": "5db4f0ae",
+      "verified": "Round-trip save on live site preserved <img src='images/qa54-tswtos.png'> (no docDir prefix)."
     }
   ],
   "fixes_applied": [
@@ -8033,6 +8149,11 @@
       "commit": "1f36cc25",
       "verified": true,
       "notes": "Defensive \u2014 race did not reproduce in cycle 53 but stale-closure path patched"
+    },
+    {
+      "id": "CYCLE54-IMG-PATH-DOCDIR-COMPOUND",
+      "cycle": 54,
+      "commit": "5db4f0ae"
     }
   ],
   "improvements_proposed": [
@@ -8443,7 +8564,21 @@
     },
     "/tmp/qa-screenshots/cycle50/ \u2014 33 screenshots + 7 verify screenshots + JSON metadata; every key step before/after captured + Read evaluated for nav widths, orientation banner colors, pill recoloring, mobile bottom nav, mobile More popover, FAB-overlap bug + fix",
     "/tmp/qa-screenshots/cycle51/ \u2014 25 screenshots covering cross-page wikilink crawl + URL deep-link tests at desktop 1440/1024 and mobile 375 viewports. Every screenshot read and evaluated. Bogus-deeplink popup title fix verified pre-push (live re-test will confirm post-deploy).",
-    "/tmp/qa-screenshots/cycle53/ \u2014 16 main + 6 verify (22 total), all read and evaluated"
+    "/tmp/qa-screenshots/cycle53/ \u2014 16 main + 6 verify (22 total), all read and evaluated",
+    "/tmp/qa-screenshots/cycle54/step01-jordan-dashboard-landing.png",
+    "/tmp/qa-screenshots/cycle54/step03-after-notebooks-load.png",
+    "/tmp/qa-screenshots/cycle54/step05-after-new-entry-modal-open.png",
+    "/tmp/qa-screenshots/cycle54/step07-after-create-entry-saved.png",
+    "/tmp/qa-screenshots/cycle54/step10-after-edit-mode-open.png",
+    "/tmp/qa-screenshots/cycle54/step11-typed-content-before-image.png",
+    "/tmp/qa-screenshots/cycle54/step13-after-image-upload.png",
+    "/tmp/qa-screenshots/cycle54/step15-after-save-view-mode.png",
+    "/tmp/qa-screenshots/cycle54/step23-reload-rendered-correct-slug.png",
+    "/tmp/qa-screenshots/cycle54/step29-after-acc-click-popup.png",
+    "/tmp/qa-screenshots/cycle54/step32-after-acetone-click-popup.png",
+    "/tmp/qa-screenshots/cycle54/step33-dashboard-recent-updates.png",
+    "/tmp/qa-screenshots/cycle54/step37-roundtrip-after-save.png",
+    "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
