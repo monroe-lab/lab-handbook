@@ -121,9 +121,17 @@
   }
 
   // ── Utility Functions ──
+  // Strip Unicode bidi override / isolate control characters before HTML
+  // escaping. Without this, an RLO (U+202E) inside a title flips the rest of
+  // the string visually — a "Trojan Source" attack that lets malicious or
+  // pasted text disguise itself in pills, breadcrumbs, and references panes.
+  // We keep regular RTL letters (Arabic/Hebrew) intact and only strip the
+  // 9 explicit bidi-formatting code points: LRE/RLE/PDF/LRO/RLO + LRI/RLI/FSI/PDI.
+  var BIDI_CONTROL_RE = /[‪-‮⁦-⁩]/g;
   function escHtml(s) {
+    var safe = String(s == null ? '' : s).replace(BIDI_CONTROL_RE, '');
     var d = document.createElement('div');
-    d.textContent = s;
+    d.textContent = safe;
     return d.innerHTML;
   }
 

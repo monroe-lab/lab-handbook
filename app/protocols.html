@@ -1270,11 +1270,21 @@ function showPrintPreview(rendered) {
         h += (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0);
       }
       // Keep an image together with the heading immediately before it, so
-      // the heading doesn't orphan at the bottom of a page (#93).
+      // the heading doesn't orphan at the bottom of a page (#93). cycle 49:
+      // also treat <summary> (from an unwrapped <details>) as a heading and
+      // keep tables / blockquotes / callouts together with their preceding
+      // heading the same way images are.
       var prev = idx > 0 ? blocks[idx - 1] : null;
-      var prevIsHeading = prev && prev.nodeType === 1 && /^H[1-6]$/.test(prev.tagName);
+      var prevIsHeadingLike = prev && prev.nodeType === 1 &&
+        (/^H[1-6]$/.test(prev.tagName) || prev.tagName === 'SUMMARY');
+      var blockIsTall = block.nodeType === 1 && (
+        isImageBlock(block) ||
+        block.tagName === 'TABLE' || block.tagName === 'FIGURE' ||
+        block.tagName === 'BLOCKQUOTE' ||
+        (block.classList && (block.classList.contains('callout') || block.classList.contains('admonition')))
+      );
       if (usedH > 0 && usedH + h > PAGE_H) {
-        if (prevIsHeading && isImageBlock(block) && currentContent.lastChild === prev) {
+        if (prevIsHeadingLike && blockIsTall && currentContent.lastChild === prev) {
           currentContent.removeChild(prev);
           newPage();
           currentContent.appendChild(prev);

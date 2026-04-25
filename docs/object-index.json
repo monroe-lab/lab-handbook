@@ -2893,7 +2893,7 @@
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
     "of": "resources/glacial-acetic-acid",
-    "mtime": 1775927241
+    "mtime": 1777149833
   },
   {
     "path": "stocks/bottle-glacial-acetic-acid.md",
@@ -3989,7 +3989,7 @@
     "path": "wet-lab/gel-electrophoresis.md",
     "type": "protocol",
     "title": "Gel Electrophoresis",
-    "mtime": 1776845819
+    "mtime": 1777149833
   },
   {
     "path": "wet-lab/gel-imaging-and-annotation.md",
@@ -4493,7 +4493,7 @@
     "path": "lab-safety/corrosives-sop.md",
     "type": "protocol",
     "title": "Corrosives SOP",
-    "mtime": 1775932702
+    "mtime": 1777149833
   },
   {
     "path": "lab-safety/cryogens-sop.md",
@@ -4735,9 +4735,10 @@
     "project": "Kerman Somatic",
     "accession_id": "A1_T1_W",
     "priority": "0",
+    "last_updated": "2026-04-25",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1777071765
+    "mtime": 1777150330
   },
   {
     "path": "accessions/a1-t1-w.md",
@@ -8224,18 +8225,6 @@
     "mtime": 1775868762
   },
   {
-    "path": "locations/box-libprep-moelcql6.md",
-    "type": "box",
-    "title": "Library Prep Tube Storage (QA37)",
-    "notes": "Test box created by qa-cycle-37 (Jordan Park / careful / new-box scenario). Cleaned up at end of cycle.",
-    "created_by": "greymonroe",
-    "parent": "locations/shelf-minus80-a-1",
-    "grid": "9x9",
-    "label_1": "QA37 Library Prep Tubes",
-    "label_2": "QA37-LIB",
-    "mtime": 1777136791
-  },
-  {
     "path": "locations/box-minus80-a-1-a.md",
     "type": "box",
     "title": "Box A",
@@ -8255,16 +8244,6 @@
     "label_1": "Pistachio DNA (100 tubes)",
     "label_2": "PIST-DNA",
     "mtime": 1775868762
-  },
-  {
-    "path": "locations/box-qa46-aliquots-moesm6hb.md",
-    "type": "box",
-    "title": "QA46 Aliquot Box moesm6hb",
-    "notes": "Created by qa-cycle-46 for Vianney aliquot day.",
-    "parent": "locations/shelf-minus80-a-1",
-    "grid": "9x9",
-    "label_1": "QA46 Aliquot Box moesm6hb",
-    "mtime": 1777149016
   },
   {
     "path": "locations/cabinet-chemical.md",
@@ -8627,42 +8606,6 @@
     "mtime": 1776838150
   },
   {
-    "path": "locations/tube-libprep-moelcql6-a1.md",
-    "type": "tube",
-    "title": "QA37 Library Aliquot A1",
-    "notes": "Test tube created by qa-cycle-37.",
-    "parent": "locations/box-libprep-moelcql6",
-    "position": "A1",
-    "label_1": "QA37 A1\nlib aliquot 1",
-    "label_2": "QA37-A1",
-    "of": "accessions/a1-t1-e",
-    "mtime": 1777136792
-  },
-  {
-    "path": "locations/tube-libprep-moelcql6-a2.md",
-    "type": "tube",
-    "title": "QA37 Library Aliquot A2",
-    "notes": "Test tube created by qa-cycle-37.",
-    "parent": "locations/box-libprep-moelcql6",
-    "position": "A2",
-    "label_1": "QA37 A2\nlib aliquot 2",
-    "label_2": "QA37-A2",
-    "of": "accessions/a1-t1-e",
-    "mtime": 1777136793
-  },
-  {
-    "path": "locations/tube-libprep-moelcql6-b1.md",
-    "type": "tube",
-    "title": "QA37 Library Aliquot B1",
-    "notes": "Test tube created by qa-cycle-37.",
-    "parent": "locations/box-libprep-moelcql6",
-    "position": "B1",
-    "label_1": "QA37 B1\nlib aliquot 3",
-    "label_2": "QA37-B1",
-    "of": "accessions/a1-t1-e",
-    "mtime": 1777136793
-  },
-  {
     "path": "locations/tube-pistachio-dna-extract-1.md",
     "type": "tube",
     "title": "Pistachio DNA Extract 1",
@@ -8694,78 +8637,6 @@
     "label_1": "Pistachio Tree #4\nleaf, 2026-04-01\n(backup)",
     "label_2": "PL2\n4/01",
     "mtime": 1776874728
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-a1.md",
-    "type": "tube",
-    "title": "QA46 Aliquot A1",
-    "notes": "Aliquot 1 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "A1",
-    "label_1": "QA46 A1 A2-T1-W aliquot 1",
-    "label_2": "QA46-A1",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149025
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-a2.md",
-    "type": "tube",
-    "title": "QA46 Aliquot A2",
-    "notes": "Aliquot 2 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "A2",
-    "label_1": "QA46 A2 A2-T1-W aliquot 2",
-    "label_2": "QA46-A2",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149026
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-a3.md",
-    "type": "tube",
-    "title": "QA46 Aliquot A3",
-    "notes": "Aliquot 3 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "A3",
-    "label_1": "QA46 A3 A2-T1-W aliquot 3",
-    "label_2": "QA46-A3",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149027
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-b1.md",
-    "type": "tube",
-    "title": "QA46 Aliquot B1",
-    "notes": "Aliquot 4 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "B1",
-    "label_1": "QA46 B1 A2-T1-W aliquot 4",
-    "label_2": "QA46-B1",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149027
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-b2.md",
-    "type": "tube",
-    "title": "QA46 Aliquot B2",
-    "notes": "Aliquot 5 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "B2",
-    "label_1": "QA46 B2 A2-T1-W aliquot 5",
-    "label_2": "QA46-B2",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149028
-  },
-  {
-    "path": "locations/tube-qa46-moesm6hb-c1.md",
-    "type": "tube",
-    "title": "QA46 Aliquot C1",
-    "notes": "Aliquot 6 of accession A2-T1-W, created by qa-cycle-46.",
-    "parent": "locations/box-qa46-aliquots-moesm6hb",
-    "position": "C1",
-    "label_1": "QA46 C1 A2-T1-W aliquot 6",
-    "label_2": "QA46-C1",
-    "of": "accessions/a2-t1-w",
-    "mtime": 1777149029
   },
   {
     "path": "events/2026-04-06-ms-plate-preparation-and-seed-sterilization.md",

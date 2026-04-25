@@ -149,11 +149,18 @@
       var type = (e && e.type) || 'container';
       var style = Lab.types.pillStyle(type);
       var icon = Lab.types.renderIcon ? Lab.types.renderIcon(Lab.types.get(type).icon) : Lab.types.get(type).icon;
+      // Cap each breadcrumb pill's width so a 200-char title can't blow out
+      // the row and clip past the popup edge. The title is wrapped in an
+      // ellipsis span (text-overflow needs a block-or-inline-block child of
+      // the inline-flex pill); full title is preserved in the title= attr.
+      var pillStyle = style + 'max-width:240px;';
+      var titleAttr = ' title="' + escapeHTML(title) + '"';
+      var titleSpan = '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + escapeHTML(title) + '</span>';
       var pill;
       if (isLast) {
-        pill = '<span style="' + style + 'cursor:default;font-weight:600">' + icon + ' ' + escapeHTML(title) + '</span>';
+        pill = '<span style="' + pillStyle + 'cursor:default;font-weight:600"' + titleAttr + '>' + icon + ' ' + titleSpan + '</span>';
       } else {
-        pill = '<a href="#" data-crumb-slug="' + escapeHTML(s) + '" style="' + style + 'text-decoration:none" onclick="event.preventDefault();if(window.Lab&&Lab.editorModal)Lab.editorModal.open(\'docs/' + escapeHTML(s) + '.md\')">' + icon + ' ' + escapeHTML(title) + '</a>';
+        pill = '<a href="#" data-crumb-slug="' + escapeHTML(s) + '" style="' + pillStyle + 'text-decoration:none"' + titleAttr + ' onclick="event.preventDefault();if(window.Lab&&Lab.editorModal)Lab.editorModal.open(\'docs/' + escapeHTML(s) + '.md\')">' + icon + ' ' + titleSpan + '</a>';
       }
       var sep = (i === 0) ? '' : '<span style="color:#90a4ae">/</span>';
       // Group each separator with its following pill so the separator never
@@ -198,7 +205,10 @@
   function warnings() { return _warnings.slice(); }
 
   function escapeHTML(s) {
+    // Strip Unicode bidi override / isolate controls so an RLO inside a title
+    // can't visually reverse the rest of the breadcrumb.
     return String(s == null ? '' : s)
+      .replace(/[‪-‮⁦-⁩]/g, '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
