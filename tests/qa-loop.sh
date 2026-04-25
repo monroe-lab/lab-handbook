@@ -49,8 +49,12 @@ for i in $(seq 1 $MAX_CYCLES); do
   # equivalent of the Linux `timeout` command. Prior attempt using perl+alarm+exec
   # did not enforce because alarm timers reset across exec.
   CYCLE_TIMEOUT=1500
+  # `|| true` so `set -e` + `pipefail` doesn't kill the loop when the inner
+  # claude or gtimeout exits non-zero (cycle timeout=124, API error=1, etc.).
+  # Without this, the explicit handler below never runs and the loop dies
+  # after the first non-zero cycle. Bug bit us on cycle 8 of two prior runs.
   /opt/homebrew/bin/gtimeout -k 30 "$CYCLE_TIMEOUT" \
-    claude -p "$PROMPT_TEXT" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep" 2>&1 | tee -a "$LOG_FILE"
+    claude -p "$PROMPT_TEXT" --dangerously-skip-permissions --allowedTools "Bash(timeout:300000),Edit,Write,Read,Glob,Grep" 2>&1 | tee -a "$LOG_FILE" || true
   EXIT=${PIPESTATUS[0]}
   if [ "$EXIT" = "124" ] || [ "$EXIT" = "137" ]; then
     echo "  ⏱  Cycle $i hit ${CYCLE_TIMEOUT}s wall-clock timeout (exit=$EXIT); continuing." | tee -a "$LOG_FILE"
