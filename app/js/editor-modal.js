@@ -1052,9 +1052,20 @@
         await renderContents(currentState, false);
       } catch(e) { /* non-fatal */ console.warn('renderContents failed:', e); }
     } catch(e) {
+      // qa-cycle-51: bogus / stale deep-links used to show the raw slug
+      // ("foo-does-not-exist-12345") as the popup title plus a generic
+      // "Failed to load … HTTP 404" body. Detect not-found and render
+      // a clearer "Not found" header with the slug as a sub-line.
       var titleEl = document.getElementById('em-title');
-      if (titleEl) titleEl.textContent = filePath.split('/').pop().replace(/\.md$/, '');
-      document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + window.Lab.escHtml(e.message) + '</p></div>';
+      var slugName = filePath.split('/').pop().replace(/\.md$/, '');
+      var msg = e && e.message ? String(e.message) : '';
+      var isNotFound = /404|not\s*found/i.test(msg);
+      if (titleEl) titleEl.textContent = isNotFound ? 'Document not found' : slugName;
+      var bodyHtml = isNotFound
+        ? '<p style="margin:0 0 6px"><strong>' + window.Lab.escHtml(filePath) + '</strong></p>' +
+          '<p style="color:var(--grey-500,#6b7280);font-size:13px">It may have been renamed, deleted, or never existed. Check the link or use search to find it.</p>'
+        : '<p>' + window.Lab.escHtml(msg || 'Failed to load ' + filePath) + '</p>';
+      document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span>' + bodyHtml + '</div>';
     }
   }
 
