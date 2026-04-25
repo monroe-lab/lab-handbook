@@ -644,6 +644,14 @@
     "target": "locations/fridge-4c-main"
   },
   {
+    "source": "locations/box-libprep-moelcql6",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "locations/box-libprep-moelcql6",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
     "source": "locations/box-pistachio-dna",
     "target": "locations/shelf-minus80-a-1"
   },
@@ -724,6 +732,30 @@
     "target": "locations/freezer-minus80-a"
   },
   {
+    "source": "locations/tube-libprep-moelcql6-a1",
+    "target": "accessions/a1-t1-e"
+  },
+  {
+    "source": "locations/tube-libprep-moelcql6-a1",
+    "target": "locations/box-libprep-moelcql6"
+  },
+  {
+    "source": "locations/tube-libprep-moelcql6-a2",
+    "target": "accessions/a1-t1-e"
+  },
+  {
+    "source": "locations/tube-libprep-moelcql6-a2",
+    "target": "locations/box-libprep-moelcql6"
+  },
+  {
+    "source": "locations/tube-libprep-moelcql6-b1",
+    "target": "accessions/a1-t1-e"
+  },
+  {
+    "source": "locations/tube-libprep-moelcql6-b1",
+    "target": "locations/box-libprep-moelcql6"
+  },
+  {
     "source": "locations/tube-pistachio-dna-extract-1",
     "target": "accessions/pistachio-4"
   },
@@ -750,6 +782,54 @@
   {
     "source": "locations/tube-pistachio-leaf-2",
     "target": "locations/tube-pistachio-leaf-1"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a1",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a1",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a2",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a2",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a3",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-a3",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-b1",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-b1",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-b2",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-b2",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-c1",
+    "target": "accessions/a2-t1-w"
+  },
+  {
+    "source": "locations/tube-qa46-moesm6hb-c1",
+    "target": "locations/box-qa46-aliquots-moesm6hb"
   },
   {
     "source": "notebooks/barb-m/1950-06-15",
@@ -2309,7 +2389,7 @@
   },
   {
     "source": "stocks/bottle-glacial-acetic-acid-2",
-    "target": "resources/glacial-acetic-acid-2"
+    "target": "resources/glacial-acetic-acid"
   },
   {
     "source": "stocks/bottle-glacial-acetic-acid",
@@ -3994,10 +4074,6 @@
   {
     "source": "wet-lab/gel-electrophoresis",
     "target": "resources/glacial-acetic-acid"
-  },
-  {
-    "source": "wet-lab/gel-electrophoresis",
-    "target": "resources/glacial-acetic-acid-2"
   },
   {
     "source": "wet-lab/gel-electrophoresis",

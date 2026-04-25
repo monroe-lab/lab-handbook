@@ -46,7 +46,7 @@ Our Lab contains:
 
 **H290** Bleach, [[hydroxylamine-hydrochloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], [[sodium-hydroxide]], [[phenylmethanesulfonyl-fluoride]]
 
-**H314** [[glacial-acetic-acid]], [[hydrogen-peroxide-30]], [[lithium-hydroxide-monohydrate]], [[potassium-permanganate]], [[spermidine]], [[spermine]], [[trichloroacetic-acid]], [[sodium-hydroxide]], [[glacial-acetic-acid]], [[guanidine-thiocyanate]], [[phenylmethanesulfonyl-fluoride]], [[potassium-hydroxide]], [[aceto-orcein-solution-2]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[phenol-nitroprusside-solution]], Hydrochloric acid
+**H314** [[glacial-acetic-acid]], [[hydrogen-peroxide-30]], [[lithium-hydroxide-monohydrate]], [[potassium-permanganate]], [[spermidine]], [[spermine]], [[trichloroacetic-acid]], [[sodium-hydroxide]], [[guanidine-thiocyanate]], [[phenylmethanesulfonyl-fluoride]], [[potassium-hydroxide]], [[aceto-orcein-solution-2]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[phenol-nitroprusside-solution]], Hydrochloric acid
 
 **H318** [[2-mercaptoethanol]], [[calcium-nitrate-tetrahydrate]], [[cetrimonium-bromide]], [[edta-tetrasodium-salt-dihydrate]], [[sodium-hydroxide]], [[spermidine]], [[spermine]], [[glacial-acetic-acid]], [[igepal-ca-630]], [[trichloroacetic-acid]], [[guanidine-thiocyanate]], [[phenylmethanesulfonyl-fluoride]], [[potassium-permanganate]], [[manganese-ii-chloride]], [[iron-iii-chloride]], [[potassium-hydroxide]], [[lithium-hydroxide-monohydrate]], [[sodium-bisulfite]], [[sodium-dodecyl-sulfate]], [[sodium-metabisulfite]], [[sodium-pyrophosphate-decahydrate]], [[triton-x-100]], [[hydrogen-peroxide-30]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[phenol-nitroprusside-solution]], Hydrochloric acid
 

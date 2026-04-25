@@ -1,7 +1,7 @@
 ---
 type: bottle
 title: Glacial Acetic Acid
-of: resources/glacial-acetic-acid-2
+of: resources/glacial-acetic-acid
 parent: locations/cabinet-flammable
 quantity: 500
 unit: mL
@@ -9,4 +9,4 @@ unit: mL
 
 # Glacial Acetic Acid
 
-Bottle of [[resources/glacial-acetic-acid-2]].
+Bottle of [[resources/glacial-acetic-acid]].

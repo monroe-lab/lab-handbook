@@ -10,7 +10,7 @@ title: "Gel Electrophoresis"
 
 **Equipment:** [[gel-electrophoresis-tank]], [[uv-transilluminator]]
 
-**Reagents:** [[agarose]], [[bromophenol-blue]], [[edta-tetrasodium-salt-dihydrate]], [[edta-trisodium-salt]], [[ethylenediaminetetraacetic-acid-gmp]], [[glacial-acetic-acid]], [[glacial-acetic-acid-2]], [[mes-buffer]], [[tris-edta-te-buffer-solution]], [[trizma-base]]
+**Reagents:** [[agarose]], [[bromophenol-blue]], [[edta-tetrasodium-salt-dihydrate]], [[edta-trisodium-salt]], [[ethylenediaminetetraacetic-acid-gmp]], [[glacial-acetic-acid]], [[mes-buffer]], [[tris-edta-te-buffer-solution]], [[trizma-base]]
 
 **Related Protocols:** [[pcr-genotyping]], [[quick-dna-extraction]], [[make-tae-buffer]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
 

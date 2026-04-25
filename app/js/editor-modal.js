@@ -1052,6 +1052,8 @@
         await renderContents(currentState, false);
       } catch(e) { /* non-fatal */ console.warn('renderContents failed:', e); }
     } catch(e) {
+      var titleEl = document.getElementById('em-title');
+      if (titleEl) titleEl.textContent = filePath.split('/').pop().replace(/\.md$/, '');
       document.getElementById('em-content').innerHTML = '<div class="empty-state"><span class="material-icons-outlined">error</span><p>' + window.Lab.escHtml(e.message) + '</p></div>';
     }
   }
