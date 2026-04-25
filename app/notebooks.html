@@ -884,24 +884,50 @@ async function deleteDoc() {
 }
 
 // ── Welcome ──
-function showWelcome() {
+async function showWelcome() {
   var contentEl = document.getElementById('nbContent');
   // Build flat recent list (walk tree). Extract a YYYY-MM-DD date from
-  // either the filename (preferred — e.g. notebooks/foo/2026-04-21.md) or
-  // the title prefix so the subtitle is always a date when one is available.
-  // Falls back to the raw title for non-date-named entries.
+  // either the filename (preferred — e.g. notebooks/foo/2026-04-21.md), the
+  // title prefix, or the object-index `mtime` (git commit time) so even an
+  // entry filed with a non-date filename like `MN.md` gets a real date in
+  // the subtitle instead of leaking the raw title.
   function extractDate(path, title) {
     var slug = String(path || '').replace(/\.md$/, '').split('/').pop();
     var m = slug.match(/^(\d{4}-\d{2}-\d{2})/) ||
             String(title || '').match(/(\d{4}-\d{2}-\d{2})/);
     return m ? m[1] : '';
   }
+  function fmtMtime(sec) {
+    if (!sec) return '';
+    var d = new Date(sec * 1000);
+    if (isNaN(d.getTime())) return '';
+    var y = d.getFullYear();
+    var mo = String(d.getMonth() + 1).padStart(2, '0');
+    var da = String(d.getDate()).padStart(2, '0');
+    return y + '-' + mo + '-' + da;
+  }
+  // Build path→mtime lookup from the object index. Best-effort: if it's not
+  // loaded yet we just skip the mtime fallback rather than blocking render.
+  var mtimeByPath = {};
+  try {
+    var idx = (Lab.gh._getCachedIndex && Lab.gh._getCachedIndex()) ||
+              (Lab.gh.fetchObjectIndex && await Lab.gh.fetchObjectIndex());
+    if (Array.isArray(idx)) {
+      idx.forEach(function(o) {
+        if (o && o.path && o.mtime) mtimeByPath[o.path] = o.mtime;
+      });
+    }
+  } catch(_) {}
   var recent = [];
   (function walk(node, labelChain) {
     var label = labelChain ? labelChain + ' / ' + node.label : node.label;
     if (node.dir) {
       node.items.slice(0, 3).forEach(function(it) {
         var date = extractDate(it.path, it.title);
+        if (!date) {
+          var mtime = mtimeByPath[it.path + '.md'] || mtimeByPath[it.path];
+          date = fmtMtime(mtime);
+        }
         recent.push({ folder: label, title: it.title, path: it.path, date: date });
       });
     }
