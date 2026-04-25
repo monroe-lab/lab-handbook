@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 28,
+  "cycle": 29,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -3919,6 +3919,148 @@
         "Parent-picker tree starts with initialDepth:0 (fully collapsed). To pick a deeply-nested parent like locations/cabinet-chemical (under Robbins Hall 170), the user must expand the parent room first or use the search input. Consider auto-expanding to the currently-selected parent's chain when opening the picker on an already-parented object.",
         "The locations picker's `onPick` handler is wired correctly via Lab.locationTree click delegation on .lt-row[data-act='open']. Programmatic Playwright clicks must target the .lt-row child element, not the .lt-node wrapper."
       ]
+    },
+    {
+      "cycle": 29,
+      "persona": "Jordan Park",
+      "modifier": "thorough",
+      "task": "Equipment move day scenario. Postdoc creates 3 fresh bottle instances on locations/bench-chemistry via the GitHub API (QA29 Methanol [chemical], QA29 Ethanol 70% [reagent], QA29 2-Mercaptoethanol [chemical]), then walks each one through the editor-modal parent-picker tree dropdown to relocate to locations/bench. Verifies the lab-map tree updates (Bench 2->5 children, Chemistry Bench Area 6->3 children), the popup breadcrumb on each moved bottle reflects the new path (Robbins Hall 170 > Bench > <bottle>), the parent picker breadcrumb live-updates after pick, and the of:-pill colors stay correct (chemical=purple, reagent=teal). All 3 moves persisted; all 3 final parents == locations/bench (verified via raw GitHub API).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle29/01-jordan-labmap-loaded-before.png",
+          "shows": "Lab Map page on first load: Map design in progress banner, hierarchical Locations tree collapsed to top-level rooms.",
+          "evaluation": "Clean baseline at 1366x900. 12-tab top nav + greymonroe avatar present. Locations panel with search box and Expand all / Collapse all buttons.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/02-jordan-labmap-search-qa29-before.png",
+          "shows": "Filter input set to 'QA29' immediately after seed; published object-index has only 1 of 3 new bottles visible at this moment (Pages rebuild in progress). Chemistry Bench Area shows 4 items (3 originals + 1 indexed new).",
+          "evaluation": "Reveals Pages object-index rebuild lag \u2014 60s wait was not enough for all 3 stacked PUTs to settle in the deployed JSON. Acceptable: editor reads files via direct GitHub API, not the index, so the moves still work.",
+          "issues_found": "Pages index rebuild lag (informational, not a bug); the in-memory localStorage patch layer compensates after each save."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/03-jordan-labmap-chemistry-bench-expanded-before.png",
+          "shows": "Search 'Chemistry Bench' isolates Robbins Hall 170 > Chemistry Bench Area (4 items). Both highlighted teal as match path.",
+          "evaluation": "Filter highlighting correct. Item count right-justified. No layout issues.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/04-jordan-inventory-loaded.png",
+          "shows": "Inventory page: teal-bordered orientation banner (concept vs containers), Add Item button, search/filters, table.",
+          "evaluation": "Banner correctly bordered teal. Stats cards (280 total, 218 in_stock) visible. Pill colors per type correct in table.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/05-jordan-bottle-1-popup-view.png",
+          "shows": "QA29 Methanol modt1god popup view mode. Top breadcrumb pills: Robbins Hall 170 > Chemistry Bench Area > QA29 Methanol modt1god. Of=Methanol (purple chemical pill).",
+          "evaluation": "PERFECT \u2014 chemical concept pill on 'Of' is purple matching the chemical type, NOT teal. Breadcrumb fully resolved on fresh page load.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/06-jordan-bottle-1-edit-mode.png",
+          "shows": "Edit mode entered. Parent picker trigger shows 'Robbins Hall 170 > Chemistry Bench Area' breadcrumb summary. Insert toolbar + Toast UI editor toolbar.",
+          "evaluation": "All editable fields rendered. Parent picker shows breadcrumb summary instead of raw slug \u2014 good UX. Save / Cancel / Close in modal footer.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/07-jordan-bottle-1-picker-open.png",
+          "shows": "Parent picker dropdown opened anchored below trigger. Tree shows 6 top-level locations collapsed.",
+          "evaluation": "Dropdown rendered cleanly at fixed-position anchor. Tree initially collapsed. Item count shown on the right of each parent row.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/08-jordan-bottle-1-picker-search-bench.png",
+          "shows": "Filter typed 'Bench'. Robbins Hall 170 (8 items) auto-expands; Bench and Chemistry Bench Area highlighted teal.",
+          "evaluation": "Search filter works as expected. Path-pinning behavior \u2014 parent stays expanded so user sees context.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/09-jordan-bottle-1-picker-bench-picked.png",
+          "shows": "Picked Bench. Parent picker breadcrumb live-updated to 'Robbins Hall 170 > Bench'. Toast 'Location: bench' fires bottom-right and physically covers the green Save button.",
+          "evaluation": "VISUAL BUG: toast at bottom:24px;right:24px partially covers the green Save button in the modal footer because toast z-index 99999 > modal 10000. Annoying for users wanting to click Save immediately after pick.",
+          "issues_found": "BUG visual: toast covers modal Save button when it fires from inside the editor modal. Fixed in this cycle."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/10-jordan-bottle-1-saved.png",
+          "shows": "After Save, popup back in view mode. Breadcrumb pills now: Robbins Hall 170 > Bench > QA29 Methanol modt1god. Parent field shows 'Bench' pill. 'Saved' confirmation toast at bottom-right.",
+          "evaluation": "Move persisted, breadcrumb refreshed correctly. Saved toast also covers footer briefly (3s).",
+          "issues_found": "Same toast/footer overlap as #09 \u2014 fixed."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/11-jordan-bottle-2-popup-view.png",
+          "shows": "QA29 Ethanol 70% modt1god popup view. Of=Ethanol 70% (TEAL pill \u2014 correct, this is a reagent concept). Parent=Chemistry Bench Area. NO breadcrumb pills above body title.",
+          "evaluation": "REAGENT pill correctly teal \u2014 proves chemical/reagent recolor still distinguishes the two. BUT the breadcrumb is missing here even though bottle 1's popup (screenshot 05) showed it. Race: when openPopup is called immediately after a previous save, hierarchy was just invalidated and parentChain may resolve to a chain too short, with the await crumbHTML quietly returning empty.",
+          "issues_found": "BUG visual/race: breadcrumb pills missing on bottle popup when opened shortly after a previous save (hierarchy.invalidate race). Bottle 1 (fresh page open) had it; bottles 2+3 (post-save) did not. Logged as open."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/13-jordan-bottle-2-picker-open.png",
+          "shows": "Parent picker reopened for bottle 2. Same top-level rooms list. Trigger shows 'Robbins Hall 170 > Chemistry Bench Area' as current breadcrumb summary.",
+          "evaluation": "Trigger summary correctly shows current parent. Picker dropdown unchanged from bottle 1 \u2014 good consistency.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/15-jordan-bottle-2-picker-bench-picked.png",
+          "shows": "Bottle 2 \u2014 Bench picked. Toast at bottom-right covering Save button (same toast bug).",
+          "evaluation": "Reproduces the toast/footer overlap bug.",
+          "issues_found": "Same toast/footer overlap \u2014 fixed."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/16-jordan-bottle-2-saved.png",
+          "shows": "Bottle 2 saved. Breadcrumb now Robbins Hall 170 > Bench > QA29 Ethanol 70% modt1god. Of pill teal. Parent: Bench.",
+          "evaluation": "Move stuck. Reagent pill colors preserved through save round-trip.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/17-jordan-bottle-3-popup-view.png",
+          "shows": "QA29 2-Mercaptoethanol modt1god popup view. Of='2-Mercaptoet\u2026' (purple chemical pill \u2014 correctly truncated). Parent=Chemistry Bench Area. NO breadcrumb pills.",
+          "evaluation": "Same race as bottle 2: breadcrumb missing on the just-opened popup.",
+          "issues_found": "Same breadcrumb race as #11 \u2014 logged."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/21-jordan-bottle-3-picker-bench-picked.png",
+          "shows": "Bottle 3 picker, Bench picked. Toast covering Save.",
+          "evaluation": "Same toast bug, last occurrence.",
+          "issues_found": "Fixed."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/23-jordan-labmap-after-search-qa29.png",
+          "shows": "Lab Map after all 3 moves, search 'QA29': Robbins Hall 170 > Bench (5 items) > all 3 QA29 bottles. NO QA29 entries under Chemistry Bench Area.",
+          "evaluation": "PERFECT verification \u2014 all 3 bottles successfully relocated under Bench (was 2, now 5). Tree updates immediately via patchObjectIndex localStorage layer.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/24-jordan-labmap-after-search-bench.png",
+          "shows": "Lab Map filter 'Bench': Bench (5 items) and Chemistry Bench Area (3 items) under Robbins Hall 170 (10 items).",
+          "evaluation": "PERFECT \u2014 Chemistry Bench Area count went from 6 (3 orig + 3 new) back to 3 (orig only) after the moves; Bench went from 2 -> 5. Both source AND destination counts correctly reflect the moves.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/25-jordan-moved-bottle-popup-view.png",
+          "shows": "Bottle 1 (QA29 Methanol) reopened on a fresh inventory page navigation. Breadcrumb pills: Robbins Hall 170 > Bench > QA29 Methanol modt1god.",
+          "evaluation": "End-to-end verification: move persisted, breadcrumb resolves on fresh open (no race), Of-pill still purple.",
+          "issues_found": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle29/verify-toast-after-fix.png",
+          "shows": "Post-fix: editor modal open with parent picker. Toast 'Location: bench' rendered at bottom-right, but NOW sits ABOVE the modal footer; Save and Cancel buttons fully visible.",
+          "evaluation": "Fix confirmed working. body:has(.em-overlay.open) selector lifts toast bottom from 24px to 96px when the editor is open.",
+          "issues_found": "none"
+        }
+      ],
+      "bugs": [
+        "TOAST-COVERS-MODAL-SAVE",
+        "POPUP-BREADCRUMB-RACE-AFTER-SAVE"
+      ],
+      "fixes": [
+        "TOAST-COVERS-MODAL-SAVE"
+      ],
+      "observations": [
+        "Move workflow is solid end-to-end: editor parent picker -> save -> lab-map tree updates correctly on both source (count -3) and destination (count +3) sides.",
+        "patchObjectIndex localStorage layer correctly carries pending moves across page navigation.",
+        "Chemical (purple) and reagent (teal) pill colors preserved cleanly through edit -> save -> reopen round-trip.",
+        "Pages object-index.json rebuild lag (~60s for a single push, longer for stacked pushes) \u2014 UI compensates via localStorage patches but the lab-map count seen during seed window can lag.",
+        "Frontmatter serialization: writing parent via the editor produces 'parent: \"locations/bench\"' (quoted) even when the original was unquoted ('parent: locations/bench-chemistry'). YAML treats both equivalently; cosmetic only."
+      ]
     }
   ],
   "bugs_found": [
@@ -4047,6 +4189,33 @@
       "description": "docs/stocks/bottle-test-item.md, bottle-test-item-mobile.md, bottle-ethyl-alcohol-absolute.md all referenced concept files that no longer exist (R21 dedup deleted ethyl-alcohol-absolute; the two test-items were stale fixtures with quantity 0).",
       "status": "closed",
       "fix_commit": "7cfc88c0"
+    },
+    {
+      "id": "TOAST-COVERS-MODAL-SAVE",
+      "cycle": 29,
+      "severity": "visual",
+      "status": "closed",
+      "fixed_in": "d81d6906",
+      "description": "Toast notifications fired from inside the editor modal (e.g. 'Location: <slug>' on parent picker pick, 'Saved' on em-save) appear at bottom:24px;right:24px and physically cover the green Save button. Toast z-index 99999 vs modal 10000.",
+      "evidence": [
+        "/tmp/qa-screenshots/cycle29/09-jordan-bottle-1-picker-bench-picked.png",
+        "/tmp/qa-screenshots/cycle29/15-jordan-bottle-2-picker-bench-picked.png",
+        "/tmp/qa-screenshots/cycle29/21-jordan-bottle-3-picker-bench-picked.png"
+      ],
+      "fix_summary": "Added body:has(.em-overlay.open) .toast-container { bottom: 96px; } in app/css/base.css \u2014 lifts toasts above the ~60px modal footer + 24px breathing room when the editor modal is open. Verified post-deploy in verify-toast-after-fix.png."
+    },
+    {
+      "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
+      "cycle": 29,
+      "severity": "visual",
+      "status": "open",
+      "description": "When opening object popup B immediately after saving object A (within ~3s), the breadcrumb pills above the popup body title are missing for B. The await Lab.editorModal.open() returns before parentChain async fully resolves on a freshly-invalidated hierarchy. Re-opening (or the after-save view) renders the breadcrumb fine. Bottle 1 popup (fresh page load) HAD breadcrumb; bottles 2 and 3 popups (opened post-save) did NOT. Suspected cause: hierarchy.invalidate() called inside patchObjectIndex during save clears the cached graph; the next openPopup races the rebuild and the await for parentChain returns empty silently due to the catch block at editor-modal.js ~line 968.",
+      "evidence": [
+        "/tmp/qa-screenshots/cycle29/05-jordan-bottle-1-popup-view.png (HAS breadcrumb)",
+        "/tmp/qa-screenshots/cycle29/11-jordan-bottle-2-popup-view.png (MISSING)",
+        "/tmp/qa-screenshots/cycle29/17-jordan-bottle-3-popup-view.png (MISSING)"
+      ],
+      "next_step": "Either await window.Lab.hierarchy.build() explicitly inside openPopup before parentChain, or guard the breadcrumb branch with a small retry if chain length is 1. Suggested fix: change the breadcrumb branch in openPopup to await hierarchy.build() first."
     }
   ],
   "fixes_applied": [
@@ -4141,6 +4310,12 @@
         "docs/link-index.json (rebuilt)"
       ],
       "verified": "Re-ran broken-of: scan \u2014 0 remaining."
+    },
+    {
+      "id": "TOAST-COVERS-MODAL-SAVE",
+      "cycle": 29,
+      "commit": "d81d6906",
+      "description": "Added body:has(.em-overlay.open) .toast-container { bottom: 96px; } CSS rule in app/css/base.css. Lifts the toast container above the editor modal footer when the modal is open so toasts no longer cover the Save and Cancel buttons. Verified after deploy by triggering a toast inside an open editor modal."
     }
   ],
   "improvements_proposed": [
@@ -4395,7 +4570,8 @@
     "/tmp/qa-screenshots/cycle27/step16-inventory-pills.png",
     "/tmp/qa-screenshots/cycle27/step17-notebooks-landing.png",
     "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png",
-    "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713"
+    "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713",
+    "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open)."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
