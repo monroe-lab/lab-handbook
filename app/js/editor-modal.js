@@ -1429,6 +1429,57 @@
           return;
         }
 
+        // People (multi-person) field: split on `/` or `,` (preserving any
+        // [[wikilinks]]) and render each as its own pill so the popup matches
+        // the accessions tracker table cell. Plain names render as label-only
+        // pills; wikilinks become clickable person-card links.
+        if (field.key === 'people') {
+          var raw = String(val);
+          var parts = [];
+          var buf = '';
+          var depth = 0;
+          for (var pi = 0; pi < raw.length; pi++) {
+            var ch = raw[pi], nxt = raw[pi + 1];
+            if (ch === '[' && nxt === '[') { depth++; buf += '[['; pi++; continue; }
+            if (ch === ']' && nxt === ']') { depth = Math.max(0, depth - 1); buf += ']]'; pi++; continue; }
+            if (depth === 0 && (ch === ',' || ch === '/')) { parts.push(buf); buf = ''; continue; }
+            buf += ch;
+          }
+          if (buf) parts.push(buf);
+          parts = parts.map(function(p) { return p.trim(); }).filter(Boolean);
+          var pillsHtml = parts.map(function(p) {
+            var m = p.match(/^\[\[(.+?)\]\]$/);
+            if (m) {
+              var slug = m[1];
+              var lbl = slug.split('/').pop().replace(/-/g, ' ');
+              return '<a href="wiki.html?doc=' + encodeURIComponent('people/' + slug.replace(/^people\//, '')) +
+                '" style="display:inline-block;padding:2px 10px;border-radius:12px;background:var(--teal-light,#b2dfdb);color:var(--teal-dark,#00695c);font-size:12px;font-weight:500;text-decoration:none">' +
+                escHtml(lbl) + '</a>';
+            }
+            return '<span style="display:inline-block;padding:2px 10px;border-radius:12px;background:var(--grey-100,#f3f4f6);color:var(--grey-700,#374151);font-size:12px;font-weight:500">' +
+              escHtml(p) + '</span>';
+          }).join(' ');
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;flex-wrap:wrap">' +
+            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
+            '<span style="display:flex;gap:4px;flex-wrap:wrap;flex:1 1 auto">' + pillsHtml + '</span>' +
+            '</div>';
+          return;
+        }
+
+        // Priority (accession 0-3 stars): render as ★ glyphs to match the
+        // accessions tracker table (avoids "Priority (stars) 2" looking like a
+        // raw number when the rest of the app shows ★★).
+        if (field.key === 'priority') {
+          var n = Math.max(0, Math.min(3, parseInt(val, 10) || 0));
+          var starHtml = '<span style="color:#f59e0b;letter-spacing:1px">' +
+            '★'.repeat(n) + '<span style="color:var(--grey-300,#d1d5db)">' + '★'.repeat(3 - n) + '</span></span>';
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
+            '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
+            '<span style="font-weight:500;font-size:15px">' + starHtml + '</span>' +
+            '</div>';
+          return;
+        }
+
         // Status field: render as a pill in view mode. Reagent statuses cycle
         // on click (in_stock → needs_more → out_of_stock); waste and other
         // statuses render as read-only pills. Unknown slugs get title-cased so
@@ -1893,6 +1944,8 @@
         ofRaw = ofRaw.replace(/^\.\//, '').replace(/\.md$/, '');
         if (ofRaw !== slug) continue;
         var entrySlug = entry.path.replace(/\.md$/, '');
+        var parentSlug = entry.parent || entry.location;
+        var parentEntry = parentSlug ? byPath[String(parentSlug).replace(/\.md$/, '')] : null;
         results.push({
           slug: entrySlug,
           title: entry.title || entrySlug.split('/').pop(),
@@ -1900,7 +1953,8 @@
           isInstance: true,
           quantity: entry.quantity,
           unit: entry.unit,
-          parent: entry.parent || entry.location,
+          parent: parentSlug,
+          parentTitle: parentEntry && parentEntry.title ? parentEntry.title : null,
           lot: entry.lot,
           expiration: entry.expiration,
         });
@@ -1963,7 +2017,10 @@
         var tc = Lab.types.get(b.type || 'bottle');
         var meta = [];
         if (b.quantity && b.unit) meta.push(b.quantity + ' ' + b.unit);
-        if (b.parent) meta.push(b.parent.split('/').pop().replace(/-/g, ' '));
+        if (b.parent) {
+          var parentLabel = b.parentTitle || b.parent.split('/').pop().replace(/-/g, ' ');
+          meta.push(parentLabel);
+        }
         var collisionKey = (b.title || '') + '|' + (b.parent || '');
         if (instanceCollisionCounts[collisionKey] > 1) {
           var disamb = b.lot ? ('lot ' + b.lot) :
