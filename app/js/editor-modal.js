@@ -2810,7 +2810,7 @@
 
     // Capture edited values before switching
     if (currentState.editing && currentEditor) {
-      currentState.body = getMarkdownClean(currentEditor);
+      currentState.body = getMarkdownClean(currentEditor, currentState.path);
       // Capture field values
       document.querySelectorAll('.em-field-input').forEach(function(input) {
         var key = input.dataset.key;
@@ -2894,7 +2894,7 @@
 
     // Get markdown from editor (restore wikilink pills to [[slug]] syntax)
     if (currentEditor) {
-      currentState.body = getMarkdownClean(currentEditor);
+      currentState.body = getMarkdownClean(currentEditor, currentState.path);
     }
 
     // Also include hidden fields from schema. The `type` key is deliberately
@@ -4375,15 +4375,25 @@
     return md;
   }
 
-  function unresolveImagePaths(md) {
+  function unresolveImagePaths(md, docPath) {
     // ![alt](/lab-handbook/plant-harvesting/images/foo.jpg) → ![alt](images/foo.jpg)
-    // Strip the MEDIA_BASE prefix from all image/media paths.
-    // Use a simple approach: replace /lab-handbook/ prefix from all markdown image and src paths.
-    var base = MEDIA_BASE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    var re = new RegExp('(!\\[[^\\]]*\\]\\()' + base + '([^)]+\\))', 'g');
-    md = md.replace(re, '$1$2');
-    var srcRe = new RegExp('(src=["\'])' + base + '([^"\']+["\'])', 'g');
-    md = md.replace(srcRe, '$1$2');
+    // Strip MEDIA_BASE + the document's directory so paths round-trip cleanly.
+    // Without docDir stripping, repeated saves accumulate the docDir prefix
+    // (images/foo → notebooks/grey-monroe/images/foo → notebooks/grey-monroe/notebooks/grey-monroe/images/foo).
+    var docDir = '';
+    if (docPath) {
+      var parts = docPath.replace(/^docs\//, '').split('/');
+      parts.pop();
+      if (parts.length) docDir = parts.join('/') + '/';
+    }
+    var prefix = (MEDIA_BASE + docDir).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var baseOnly = MEDIA_BASE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Strip MEDIA_BASE+docDir first (the resolved form), then any plain MEDIA_BASE (for paths that
+    // never had a docDir prepended, e.g. when docPath is unknown).
+    md = md.replace(new RegExp('(!\\[[^\\]]*\\]\\()' + prefix + '([^)]+\\))', 'g'), '$1$2');
+    md = md.replace(new RegExp('(src=["\'])' + prefix + '([^"\']+["\'])', 'g'), '$1$2');
+    md = md.replace(new RegExp('(!\\[[^\\]]*\\]\\()' + baseOnly + '([^)]+\\))', 'g'), '$1$2');
+    md = md.replace(new RegExp('(src=["\'])' + baseOnly + '([^"\']+["\'])', 'g'), '$1$2');
     return md;
   }
 
@@ -4512,13 +4522,13 @@
     return result;
   }
 
-  function getMarkdownClean(editor) {
+  function getMarkdownClean(editor, docPath) {
     var md = editor.getMarkdown();
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
     md = restoreDataUrls(md);
     md = linksToWikilinks(md);
-    md = unresolveImagePaths(md);
+    md = unresolveImagePaths(md, docPath);
     md = placeholdersToMedia(md);
     md = applyImageSizes(md);
     // Ensure a blank line after tables before the next block element.
@@ -4676,11 +4686,11 @@
 
     return {
       editor: editor,
-      getMarkdown: function() { return getMarkdownClean(editor); },
+      getMarkdown: function() { return getMarkdownClean(editor, filePath); },
       save: async function(message) {
         var gh = window.Lab.gh;
         if (!gh || !gh.isLoggedIn()) throw new Error('Not signed in');
-        var md = getMarkdownClean(editor);
+        var md = getMarkdownClean(editor, filePath);
         var result = await gh.saveFile(filePath, md, sha, message || 'Update ' + filePath.replace(/^docs\//, ''));
         sha = result.sha;
         gh.clearObjectIndexCache();
