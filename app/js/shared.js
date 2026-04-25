@@ -390,12 +390,21 @@
       var v = meta[k];
       var label = k.replace(/_/g, ' ');
       var valStr;
+      function urlOrText(s) {
+        var raw = String(s);
+        if (/^https?:\/\//i.test(raw)) {
+          return '<a href="' + escHtml(raw) + '" target="_blank" rel="noopener" ' +
+            'style="color:#0d8ea2;text-decoration:none;word-break:break-all" ' +
+            'title="' + escHtml(raw) + '">' + escHtml(raw) + '</a>';
+        }
+        return escHtml(raw);
+      }
       if (Array.isArray(v)) {
-        valStr = v.map(function(item) { return escHtml(String(item)); }).join(', ');
+        valStr = v.map(function(item) { return urlOrText(item); }).join(', ');
       } else if (typeof v === 'object') {
         return; // skip nested objects
       } else {
-        valStr = escHtml(String(v));
+        valStr = urlOrText(v);
       }
       pills.push(
         '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;' +

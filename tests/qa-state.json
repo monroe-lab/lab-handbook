@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 31,
+  "cycle": 32,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -3785,19 +3785,25 @@
           "id": "CYCLE27-NOTEBOOK-RECENT-MN",
           "severity": "cosmetic",
           "description": "Notebooks landing first recent entry \"Vianney Ahn / Fiberseq\" shows \"MN\" as subtitle instead of date YYYY-MM-DD. Other rows show dates correctly. Likely the entry has a non-date metadata value being read for the date column.",
-          "status": "open"
+          "status": "closed",
+          "commit": "03296bba",
+          "closed_in_cycle": 32
         },
         {
           "id": "CYCLE27-OF-PLACEHOLDER-TRUNCATED",
           "severity": "cosmetic",
           "description": "New Tube edit form, Of (concept slug) field placeholder reads \"e.g. accessions/pistachio-4 or re...\" \u2014 truncated, should be \"or resources/...\".",
-          "status": "open"
+          "status": "closed",
+          "commit": "03296bba",
+          "closed_in_cycle": 32
         },
         {
           "id": "CYCLE27-DETAIL-LINK-NOT-CLICKABLE",
           "severity": "ux",
           "description": "Accession popup Detail Sheet Link field shows truncated URL as plain text (\"https://docs.google.com/doc...\"), not rendered as a clickable hyperlink.",
-          "status": "open"
+          "status": "closed",
+          "commit": "03296bba",
+          "closed_in_cycle": 32
         }
       ],
       "fixes": [
@@ -4341,6 +4347,158 @@
         "All 11 nav tabs fit at 1440px without the '+' overflow popover engaging.",
         "Bulletin board section on the dashboard rendered cleanly through the dashboard's own markdown path (not Toast UI), so the Kehan Zhao content fix only affects the editor view; the dashboard render was already correct via Lab.wikilinks.preprocess."
       ]
+    },
+    {
+      "cycle": 32,
+      "persona": "Kayla Torres",
+      "modifier": "careful",
+      "scenario": "Onboarding day",
+      "phase": "functional",
+      "task": "Fresh undergrad Kayla joins the lab via the People \u2192 Join the Lab button. Walks the 4-step wizard carefully (full name, role=Undergraduate Researcher, email; pick 3 protocols from Wet Lab Basics; pick 2 projects), lands on Step 4 auto-creation + checklist, clicks 'Go to My Profile', verifies her fresh dashboard renders correctly (1 Notebook / 3 Protocols / 2 Projects). Then exercises the cycle-32 sweep fixes in-flight: visits notebooks landing to confirm Recent Entries subtitles are dates not titles (fixes CYCLE27-NOTEBOOK-RECENT-MN), opens a tube editor to confirm the `of:` placeholder fits in the input (fixes CYCLE27-OF-PLACEHOLDER-TRUNCATED), probes an accession's detail_sheet_link via direct GitHub API and verifies the popup renders it as a clickable <a href> with target=_blank and an open_in_new icon (fixes CYCLE27-DETAIL-LINK-NOT-CLICKABLE). Restores probe accession to original content, deletes the test person + notebook entry + folder via gh API.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle32/01-people-baseline.png",
+          "shows": "People grid baseline (1440\u00d7900) \u2014 9 cards including Barb M., Daniela Quiroz (sparse card with no email/role/connected items, just initials DQ), Grey Monroe (PI), Kehan Zhao, Mr. Freckles, Satoyo Oya, etc., plus a phantom 'Qa32 modv5t5f0hs' card from a still-deployed prior-cycle file (cleanup deletes the GitHub file but the live GH Pages object-index.json doesn't rebuild instantly).",
+          "evaluation": "Top nav has all 12 tabs visible at 1440 (Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, Projects, People highlighted, Calendar, Lab Map, Apps, Wiki). Cards are uniform width with blue header strip + initials avatar + role line + connected pills. Daniela Quiroz card looks empty \u2014 minor data-quality issue, not a code bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/03-after-join-click-step1.png",
+          "shows": "Wizard Step 1 of 4 modal opened \u2014 gradient blue circle with waving_hand icon, 'Welcome to the Monroe Lab!' heading, intro copy, FULL NAME input (placeholder 'e.g. Jane Smith'), ROLE select (defaults to 'Select your role...'), EMAIL input with helper text below, Next button bottom-right.",
+          "evaluation": "Modal centered, progress bar at top showing step 1/4 with the first segment filled. Inputs have the brand teal focus colour. FAB hidden during wizard (good \u2014 verified programmatically as display=none). Backdrop dim is subtle; parent People grid still readable behind. Layout clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/04-step1-filled.png",
+          "shows": "Step 1 filled with Full Name='Qa32 modv7m3xnmv', Role='Undergraduate Researcher', Email='qa32-kayla@example.com'.",
+          "evaluation": "Inputs render the typed values cleanly. Role optgroup pick survived (Undergraduate Researcher is in the Students group from ROLE_GROUPS). FULL NAME label has a red asterisk required marker \u2014 visible. No layout issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/06-step2-protocols-baseline.png",
+          "shows": "Step 2 of 4 \u2014 'Pick Your Protocols' with '0 selected' counter and a Wet Lab Basics category expanded showing 11 visible protocols (Autoclave, Bench Cleanup Protocol, What to Do When Something Breaks, Bulking Seed from Arabidopsis, Centrifuge Operation, Clean Bench, Gel Electrophoresis, Gel Imaging and Annotation, Growth Chamber Operation, Harvesting Leaf Tissue, Chemical Lookup: How to Read an SDS).",
+          "evaluation": "Header shows '(45)' on Wet Lab Basics \u2014 matches expected protocol count. Checkboxes use brand teal accent-color. Back / Skip / Next buttons in the footer. Scroll-y region is 380px max-height. Layout consistent with the design system.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/07-step2-protocols-3-picked.png",
+          "shows": "Step 2 with 3 protocols checked (Autoclave, Bench Cleanup Protocol, What to Do When Something Breaks). Header shows '3 selected'.",
+          "evaluation": "Selected count updates live via updateWizProtoCount. Three teal checkboxes filled, balance unchecked. Counter is teal-bold blue (#1565c0). No flicker, no layout shift.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/09-step3-projects-baseline.png",
+          "shows": "Step 3 of 4 \u2014 'Pick Your Projects' with 8 top-level project rows: Alfalfa Pangenome, In-House Flongle Diagnostic Pipeline, Low-Pass 1000-Sample Sequencing, Molecular Biology Training Curriculum, Mutation Accumulation, Pistachio Pangenome, Poplar Somatic Sequencing, Tudor Reader Fusion Proteins.",
+          "evaluation": "groupProtocolsByCategory walked the project paths correctly \u2014 only top-level projects (folder/index.md or single-file) appear; no nested bill-of-materials.md leaks. Counter '0 selected'. Skip button still available in case the user has no project to claim yet.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/10-step3-projects-2-picked.png",
+          "shows": "Step 3 with 2 projects checked (Alfalfa Pangenome, In-House Flongle Diagnostic Pipeline). Header reads '2 selected'.",
+          "evaluation": "Same crisp updateWizProjCount behavior as step 2. Border separators between rows render uniformly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/12-step4-creating.png",
+          "shows": "Step 4 of 4 \u2014 'You're all set!' green check_circle, status 'Creating your profile and notebook...' with 'Setting up your notebook...' below as the in-flight progress message.",
+          "evaluation": "Progress bar fully filled. Green gradient circle rendered cleanly. The 3-stage status (Creating profile \u2192 Setting up notebook \u2192 First entry \u2192 Done) progresses through the upsertFile flow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/13-step4-done-checklist.png",
+          "shows": "Step 4 complete \u2014 'Done! All files created.' in green and a Next Steps checklist with 3 items: 'Add your schedule to the lab calendar' (Go \u2192), 'Write your first lab notebook entry' (Go \u2192), 'Try the issue reporter (blue button, bottom right)' (Look for the [blue dot] button). 'Go to My Profile' primary button at bottom.",
+          "evaluation": "All 3 checklist items render with the right material icon (event, edit_note, bug_report) and styled background tile. The third item has an inline blue dot demo of the FAB instead of a Go\u2192 link \u2014 appropriate. Profile button is the right CTA.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/15-person-dashboard-fresh.png",
+          "shows": "Brand-new Qa32 modv7m3xnmv dashboard at /app/people.html?person=qa32-modv7m3xnmv \u2014 hero card with QM avatar + 'Undergraduate Researcher' label + 'View card' button, 6 stat tiles (1 Notebooks, 3 Protocols, 0 Events, 0 Inventory, 0 Locations, 2 Projects), Frequently Used empty-state, then 3 collapsed sections: LAB NOTEBOOKS (1), PROTOCOLS (3), PROJECTS (2).",
+          "evaluation": "Counts match the wizard inputs exactly \u2014 verifies that patchObjectIndex correctly inserted the person card AND the notebook entry into the in-memory overlay, and that backlinkedItems aggregator reads forward edges for the Protocols+Projects sections (cycle-18 fix). FAB visible bottom-right (cycle-19 fix restored after wizard close). Layout clean, typography consistent with the rest of the app.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/17-notebooks-person-param.png",
+          "shows": "/app/notebooks.html?person=qa32-modv7m3xnmv \u2014 sidebar pre-filled search 'Qa32 Modv7m3:' (truncated), only the QA32 MODV7M3XNMV folder expanded showing the freshly-created 2026-04-25.md entry. Right side renders the welcome Recent Entries pane (10 entries).",
+          "evaluation": "Cycle-19 NOTEBOOKS-PERSON-PARAM-IGNORED fix verified live \u2014 sidebar pre-filtered to only the user's folder via the prettified slug. Single entry row clickable. Plus icon next to the folder header allows a quick new entry.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/18-notebooks-landing.png",
+          "shows": "Notebooks landing \u2014 sidebar showing all 6 folders (Grey Monroe / Barb M / Erik Spaulding / Mr Freckles / Qa32 Modv7m3xnmv / Vianney Ahn / Zi Ye), main pane shows 8 Recent Entries with Vianney Ahn / Fiberseq \u2192 MN at the top, then 2026-04-25, 2026-04-22, 2026-04-22, 2026-04-21, 2026-04-21, 2026-04-21, 2026-04-13.",
+          "evaluation": "CYCLE32-NOTEBOOK-RECENT-MN sweep VERIFIED. 9/10 entries now show YYYY-MM-DD as the subtitle (was previously the H1-derived title for every entry). Only 'Vianney Ahn / Fiberseq \u2192 MN' falls back to title because that file (`notebooks/vianney-ahn/fiberseq/MN.md`) literally has no date in path or title \u2014 its body has `**Date:** 2026-04-21` but that's not in the object-index. The fallback to title is the correct behaviour for date-less entries; surrounded by date-stamped peers, the lone 'MN' is clearly an outlier (data-quality), not a render bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/20-accession-page.png",
+          "shows": "Wiki page for accession A1-T1-E (Kerman Somatic / Pistacia vera). Frontmatter chip bar shows: accession, accession id, project, people, species, status, status note, priority, sequencing type, detail sheet link (with the qa32 probe URL), last updated, legacy sample tracker id. Floating Connections panel says 'No wikilinks to or from this document yet'.",
+          "evaluation": "Probe URL was injected via direct GitHub API (cleared file cache + reloaded). Frontmatter chips render the URL but currently as plain text inside a chip \u2014 this surface uses /app/js/shared.js renderFrontmatterBar, which renders all values via escHtml(). Bundled this run with a follow-on edit so URLs become clickable here too (#0d8ea2 anchor + word-break). Will deploy with the cycle-32 commit.",
+          "issues_found": [
+            "FRONTMATTER-CHIP-URL-NOT-CLICKABLE (visual): the wiki frontmatter chip bar shows the detail_sheet_link URL as plain text inside the chip, not a clickable anchor. Smaller surface than the popup but the same bug shape \u2014 fixed in this cycle by extending shared.js renderFrontmatterBar to detect http(s) values and emit an <a target=_blank rel=noopener> anchor."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/21-accession-popup-fields.png",
+          "shows": "Editor-modal popup for accessions/a1-t1-e.md in view mode. Three-column layout: FIELDS panel (Type=Accession purple pill, Link wikilink, Name, Accession ID, Project, People with two pills [Zi Ye, Matt Davis], Species, Status=Active, Status note, Priority=\u2605 + 2 grey, Sequencing Type, Detail Sheet Link rendered as a teal clickable URL with open_in_new icon, Last Updated). Body shows 'Runcie -80 freezer. ~100 mg tissue in 2 mL tubes.' CONTENTS column 'No references to this object yet'.",
+          "evaluation": "CYCLE32-DETAIL-LINK-NOT-CLICKABLE sweep VERIFIED LIVE. The Detail Sheet Link row now renders <a href=https://docs.google.com/document/d/qa32probe-modv7m3xnmv target=_blank rel=noopener> with the open_in_new affordance icon (linkInfo: {found:true, isLink:true, target:'_blank', rel:'noopener', hasIcon:true}). Word-break wraps the URL across 4 lines without breaking the layout. Teal anchor color matches the brand (var(--teal,#009688)).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/23-new-tube-form.png",
+          "shows": "New Tube editor form. Type=Tube pill (teal). Of (concept slug) input shows the placeholder 'accessions/\u2026 or resources/\u2026'. Below: Parent (location picker), Position in parent, Grid (e.g. 5x1), Label 1 (full), Label 2 (grid cell). Insert pill bar across the top of the editor.",
+          "evaluation": "CYCLE32-OF-PLACEHOLDER-TRUNCATED sweep VERIFIED LIVE. Placeholder length=27 chars, input width=263px, scrollWidth=261 (placeholder fits without overflow). Both 'accessions/\u2026' and 'resources/\u2026' visible \u2014 concept-type guidance preserved. The unicode ellipsis (\u2026) replaces the original 'pistachio-4 or resources/ethanol-absolute' which was 51 chars and got truncated as '\u2026or re\u2026' in cycle 27.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/24-people-after.png",
+          "shows": "People grid AFTER cleanup ran \u2014 phantom Qa32 cards from previous runs gone (no longer in localStorage overlay), 9 organic cards visible: Barb M, Daniela Quiroz, Grey Monroe, Kehan Zhao, Mr Freckles, Satoyo Oya plus 3 more below the fold.",
+          "evaluation": "Cleanup propagated correctly \u2014 no leftover qa32 phantom cards. peopleGrid count BEFORE/AFTER both 10 (the test card was present before navigation re-fetched and replaced the patched index). myCardVisible:true confirmed via onclick attribute scan.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/25-nav-1024.png",
+          "shows": "1024\u00d7800 dashboard top nav at the breakpoint where the '+ More' overflow button kicks in. Visible: Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, then '+ More', avatar, Sign out. Cards stack 5-wide.",
+          "evaluation": "Cycle-23 NAV-MORE-BTN-CLIPS-LAST-TAB regression test passes \u2014 tabClipping=[] (zero tabs clipped). The trailing primary tab no longer truncates to 'Proj' as it did pre-cycle-23. Inventory Status card and Recent Updates render cleanly. 'qa32: probe detail_sheet_link' visible in Recent Updates with 'just now' timestamp, confirming the probe edit committed.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/26-mobile-dashboard.png",
+          "shows": "375\u00d7812 mobile dashboard \u2014 5 tile rows (Watch / 14 NOTEBOOKS / 280 INVENTORY / 232 ACCESSIONS / 11 PROJECTS / 10 PEOPLE / 41 CALENDAR / 40 LAB MAP / Tools APPS / 903 docs WIKI), then Inventory Status card with stack of needs-more / out-of-stock alert rows. Bottom tab bar Wiki / Notebooks / Accessions / Inventory / More.",
+          "evaluation": "Mobile breakpoint clean. Tiles 2-up. Bottom tab bar matches the spec (4 primary + More for overflow). Issue-reporter FAB overlaps the third inventory alert row by ~30%, but it's positioned correctly per design. Typography hierarchy respected.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle32/27-mobile-notebooks-landing.png",
+          "shows": "375\u00d7812 mobile notebooks landing \u2014 sidebar collapsed under hamburger, main pane shows Recent Entries with the same MN-then-dates pattern (Vianney Ahn / Fiberseq \u2192 MN, Qa32 Modv7m3xnmv \u2192 2026-04-25, Barb M \u2192 2026-04-22, Zi Ye \u2192 2026-04-22, Erik Spaulding \u2192 2026-04-21, Vianney Ahn \u2192 2026-04-21).",
+          "evaluation": "CYCLE32-NOTEBOOK-RECENT-MN sweep verified to also render correctly on mobile \u2014 date subtitles all YYYY-MM-DD format, no overflow, no clipping. Hamburger button bottom-left, FAB bottom-right.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "QA32-FRONTMATTER-CHIP-URL-NOT-CLICKABLE",
+          "severity": "visual",
+          "summary": "Wiki frontmatter chip bar in shared.js renderFrontmatterBar showed http(s) values as plain text inside a chip \u2014 popup got the fix in cycle 27 but this surface didn't.",
+          "evidence": "cycle32/20-accession-page.png shows the detail_sheet_link chip with plain-text URL on the wiki page header.",
+          "root_cause": "renderFrontmatterBar in shared.js only ran escHtml on every value, no URL detection.",
+          "status": "fixed",
+          "fix_commit": "<pending-cycle32-followup>"
+        }
+      ],
+      "fixes": [
+        "app/notebooks.html showWelcome \u2014 extract YYYY-MM-DD from the entry path (or title prefix) and render that as the Recent Entries subtitle, sorting by extracted date desc; falls back to title for genuinely date-less entries (commit 03296bba). Closes CYCLE27-NOTEBOOK-RECENT-MN.",
+        "app/js/types.js tube of-field placeholder shortened to 'accessions/\u2026 or resources/\u2026' (27 chars, fits in the 263px input) (commit 03296bba). Closes CYCLE27-OF-PLACEHOLDER-TRUNCATED.",
+        "app/js/editor-modal.js renderFields default branch \u2014 render http(s) values as styled <a target=_blank rel=noopener> with an open_in_new affordance icon and word-break:break-all (commit 03296bba). Closes CYCLE27-DETAIL-LINK-NOT-CLICKABLE.",
+        "app/js/shared.js renderFrontmatterBar \u2014 same URL detection extended to the wiki/protocol header chip surface so it stays consistent with the popup (commit <cycle32-followup>)."
+      ],
+      "observations": [
+        "Onboarding wizard's full 4-step flow works end-to-end with 3 GitHub API writes (person md + .gitkeep + first notebook entry). Live patchObjectIndex + patchLinkIndex make the new person + notebook visible immediately on People grid, person dashboard sections, and notebooks sidebar without waiting for the GH Pages rebuild.",
+        "Cycle-19 FAB-NEAR-WIZARD-NEXT-MOBILE fix still working: FAB display=none during the wizard, restored to flex after closeWizard.",
+        "Cycle-19 NOTEBOOKS-PERSON-PARAM-IGNORED fix still working: ?person=<slug> pre-fills #nbSearch with the prettified slug.",
+        "Cycle-23 nav fix still working at 1024\u00d7800: zero clipped tabs.",
+        "Cycle-32 Recent Entries fix gets 9/10 to render dates. The remaining 1 is a data-quality issue \u2014 `notebooks/vianney-ahn/fiberseq/MN.md` has no YYYY-MM-DD in path or title (the date lives in the body markdown, which the object-index doesn't carry). The fallback to title is correct.",
+        "Verified the Detail Sheet Link fix against a probe URL injected directly via GitHub Contents API (no editor save flow needed) \u2014 confirms the renderFields branch is the actual code path. Probe was reverted at end-of-cycle to leave A1-T1-E unchanged.",
+        "Phase remains 'functional'."
+      ]
     }
   ],
   "bugs_found": [
@@ -4514,6 +4672,14 @@
       "where": "app/js/editor-modal.js#wikilinksToLinks:4087 + linksToWikilinks:4094",
       "status": "closed",
       "fix_commit": "58df5a70"
+    },
+    {
+      "id": "QA32-FRONTMATTER-CHIP-URL-NOT-CLICKABLE",
+      "severity": "visual",
+      "title": "Wiki frontmatter chip URL rendered as plain text instead of clickable anchor (parallel to the cycle-27 popup bug)",
+      "where": "app/js/shared.js#renderFrontmatterBar",
+      "status": "fixed",
+      "fix_commit": "<pending-cycle32-followup>"
     }
   ],
   "fixes_applied": [
@@ -4632,7 +4798,11 @@
       "title": "encodeURIComponent slug into obj.link placeholder URL + decodeURIComponent on the way back so spaces survive Toast UI markdown parsing",
       "file": "app/js/editor-modal.js",
       "commit": "58df5a70"
-    }
+    },
+    "app/notebooks.html showWelcome \u2014 date-aware Recent Entries subtitle (commit 03296bba)",
+    "app/js/types.js tube of-field placeholder shortened to fit input width (commit 03296bba)",
+    "app/js/editor-modal.js renderFields URL anchor render in view mode (commit 03296bba)",
+    "app/js/shared.js renderFrontmatterBar \u2014 URL anchor render for chip surface (commit pending-cycle32-followup)"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -4889,7 +5059,8 @@
     "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713",
     "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open).",
     "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated.",
-    "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated."
+    "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated.",
+    "/tmp/qa-screenshots/cycle32/ \u2014 27 screenshots covering people baseline, all 4 wizard steps with before/after, fresh person dashboard, notebooks ?person= filter, notebooks landing (validates RECENT-MN sweep with 9/10 date subtitles), accession wiki page (detected separate FRONTMATTER-CHIP-URL-NOT-CLICKABLE bug), accession popup with clickable Detail Sheet Link (validates DETAIL-LINK sweep), tube editor with short of-placeholder (validates OF-PLACEHOLDER sweep), inventory baseline, post-cleanup people grid, 1024px nav, mobile dashboard + notebooks. Plus _issues.json. Read and evaluated in detail."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -4907,7 +5078,8 @@
     "Cycle 9: Dr. Monroe (PI) + careful + Calendar add/delete. First exercise of the calendar route across all 9 cycles. Full flow: week nav (prev/next/this-week), click-to-create at Wed 14:00 (modal prefilled from cell coords), fill title + [[Dr. Monroe]] member + notes with [[qiagen-dneasy-extraction]] wikilink, submit, event lands in correct grid cell with green Dr. Monroe pill, GH API confirms file save, click block opens editor-modal popup (type=event pill, fields, body w/ clickable QIAGEN DNeasy pill, contents), close via Escape, filter-by-Dr.-Monroe shows only our event, reload. FUNCTIONAL BUG FOUND: CALENDAR-NO-INDEX-PATCH \u2014 the event disappears after reload because openAddEvent didn't call patchObjectIndex/patchLinkIndex (same pattern as cycle-6 NOTEBOOKS-SAVE-NO-PATCH). Fix (commit 8a679ba): after gh.saveFile, call gh.patchObjectIndex with all event frontmatter + gh.patchLinkIndex against member+notes for wikilinks. Also adds 'recurrence_id' to INDEX_KEYS to mirror EXTRACT_KEYS (cycle-5 pattern). Verified via tests/qa-cycle-9-verify.mjs \u2014 afterReload.landed=true with correct day/hour, localStorage overlay keys present, link targets=['Dr. Monroe', 'qiagen-dneasy-extraction']. Also exercised: delete via Lab.gh.deleteFile (works, persists), mobile 375px (day-tab row + single-column grid), weekly recurring series (4 occurrences Apr 21\u2192May 12 all sharing recurrence_id, navigation shows occurrence next week). Swept 2 carried-over items: (1) CONCEPT-HAS-PARENT-BREADCRUMB CLOSED via app/js/hierarchy.js CONCEPT_TYPES guard (skip parent handling for reagent/chemical/buffer/solution/consumable/kit/enzyme/primer) commit a92e314 + deletion of the 2 remaining stale LabBot fixtures (labbot-freezer-item-mnthp11v, tube-item) commit f7cfe1f; (2) DNA-QUANTIFICATION-PILL-UNTYPED CLOSED as not-a-bug after investigation (the slug was a cycle-7 test typo; an unresolved slug correctly renders as a plain teal pill). Logged 3 new open cosmetic/ux items: TOPNAV-WIKI-CLIPPED (Wiki tab clips to 'Wik' at 1440), MEMBER-FIELD-RAW-WIKILINK (event popup member field not pill-upgraded like parent/of), MEMBER-COLOR-SHUFFLE (alphabetical index causes existing events to recolor when a new member joins). All cycle-9 test event files (1 single + 4 recurring + 1 verify) cleaned up via gh API.",
     "Phase remains 'functional'.",
     "Cycle 19: Kayla Torres (undergrad) + confused + Search every surface. Fresh combo \u2014 confused modifier never used before, scenario never tested. Kayla searches on 5 surfaces (inventory/protocols/notebooks/wiki/waste) with a real query, a typo, weird input (emoji + em-dash + <script> XSS), and empty. Finding: XSS is properly escaped (invXssAlert=false), all 5 per-page searches work functionally, but protocols + notebooks had minimal plain-text 0-result empty states while inventory/waste used the styled .empty-state with search_off icon \u2014 fixed in this cycle. Also confirmed: dashboard has no global search (no cross-surface search exists); wiki sidebar search filters the folder tree but leaves the knowledge graph in the main pane completely unfiltered even at 0 matches (logged WIKI-GRAPH-NOT-FILTERED as OPEN for a future cycle). Swept 2 cycle-18 carry-over items to closed: (1) FAB-NEAR-WIZARD-NEXT-MOBILE \u2014 actually OVERLAPS Next button by ~34px horizontally, not just 'near' as cycle 18 described. Fixed with body.wizard-open class toggle + CSS rule hiding #issue-reporter-btn. (2) NOTEBOOKS-PERSON-PARAM-IGNORED \u2014 fixed by reading ?person=<slug> on notebooks init and pre-filling #nbSearch with the prettified slug, so the sidebar filters to just that person's folder. Onboarding wizard's success checklist 'Write your first lab notebook entry' link now correctly lands new users on their own folder. All fixes verified live post-deploy via tests/qa-cycle-19-verify.mjs \u2014 FAB display=none during wizard, personParam showsOtherFolders=false, both empty states iconText='search_off'. 28 screenshots captured in cycle19/, 5 verify screenshots. No test artifacts created on GitHub, nothing to clean up.",
-    "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs \u2014 all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) \u2014 every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) \u2014 the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) \u2014 the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE."
+    "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs \u2014 all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) \u2014 every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) \u2014 the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) \u2014 the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE.",
+    "Cycle 32: Kayla Torres (undergrad) + careful + Onboarding day. Fresh combo (careful never used by Kayla). Walked the 4-step Join the Lab wizard end-to-end, landed on the fresh person dashboard, then exercised the 3 cycle-32 sweep fixes live: notebook recent-entry date subtitle, tube of-field placeholder fit, accession Detail Sheet Link clickable. Surfaced one new visual bug (frontmatter chip URL not clickable on the wiki surface) and fixed it inline as a follow-up. All cycle-32 test artifacts cleaned up (person md + notebook entry + .gitkeep folder + probe accession reverted) via gh API. 0 functional issues at end of run."
   ],
-  "last_updated": "2026-04-25T04:41:18.228688Z"
+  "last_updated": "2026-04-25T05:01:31.464154Z"
 }
