@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 30,
+  "cycle": 31,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4200,6 +4200,147 @@
         "Cross-linker walk path verified: inventory list -> chemical popup -> 1-instance-bottle-row click -> bottle popup with parent pill + 3-pill breadcrumb -> can pivot to accession side -> tube popup with 4-pill breadcrumb (room/freezer/shelf/box) -> body wikilinks render as clickable pills with correct icon+color per object type. No broken chain link encountered at 1440 viewport.",
         "POPUP-BREADCRUMB-RACE-AFTER-SAVE root cause: editor-modal.js:971 awaits hierarchy.parentChain before the new file appears in the cached object-index. Hierarchy.build() short-circuits to cached _graph until invalidate() fires. patchObjectIndex (which is called inside the editor-save flow) does call invalidate, but external creation paths (direct GitHub API, qa-tests, race conditions where user opens popup before save commit returns) bypass it. The fix lazily patches in the just-loaded meta only when needed, so legitimate root objects (chain.length===1 with no parent) still skip the breadcrumb without retry."
       ]
+    },
+    {
+      "cycle": 31,
+      "persona": "Dr. Monroe",
+      "modifier": "rushed",
+      "task": "Calendar add/delete + bulletin edit + dashboard review (PI rushed mode). Open dashboard, jump to calendar, click empty Sat 3pm cell, fill New Event form, hammer the OK button (race-condition test), verify single event renders + single file on disk, click event card to open editor, close, reopen, click Delete, confirm, verify card gone + persists across reload, then back to dashboard, click bulletin Edit, observe edit-mode editor, escape close, then accessions filters, then inventory orientation banner, then dashboard final.",
+      "scenario": "Calendar add/delete day + bulletin update day",
+      "phase": "functional",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle31/01-dashboard-baseline.png",
+          "shows": "Dashboard root with stats cards, inventory status, recent updates feed, bulletin board edit button visible at fold",
+          "evaluation": "Renders correctly. 11 nav tabs at 1440px, all stat cards present, bulletin Edit button teal",
+          "issues": [
+            "Watch / Tools cards lack a numeric stat \u2014 confirmed intentional (CTAs not counters)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/03-calendar-baseline.png",
+          "shows": "Calendar week view with header range and 7-column grid",
+          "evaluation": "Header reads 'Apr 20 \u2013 Apr 24, 2026' but grid renders MON\u2013SUN through Apr 26",
+          "issues": [
+            "VISUAL BUG: week label off-by-2; grid Mon\u2013Sun but label only spans Mon\u2013Fri"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/06-calendar-cell-clicked-modal.png",
+          "shows": "New Event modal open after single click on Saturday 3pm empty cell",
+          "evaluation": "Modal opens correctly with Title, Member(s), Date prefilled 04/25/2026, Start 3:00pm, End 4:00pm, Body, Repeat 'Does not repeat'",
+          "issues": [
+            "Submit/Cancel buttons sit below the fold at 1440x900 viewport; user has to scroll inside modal \u2014 minor UX"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/09-form-prefilled.png",
+          "shows": "Event form filled with title, member [[Grey Monroe]], correct prefill",
+          "evaluation": "All fields filled cleanly, member chip text intact",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/11-calendar-after-event-create.png",
+          "shows": "Calendar after submit \u2014 purple QA31 race block on SAT 3-4pm; member legend now shows Grey Monroe + barb-m",
+          "evaluation": "Single event card rendered; double-OK click did NOT duplicate the card or the disk file (verified by GitHub API list \u2014 exactly 1 file matching the unique tag)",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/13-event-editor-opened.png",
+          "shows": "Editor modal on the created event \u2014 Type=Event pill, Link=[[events/...]], Title, Date, Start 15:00, End 16:00, Member(s) chip, Created By",
+          "evaluation": "Editor renders correctly with all fields and a backlinks pane (empty as expected for a fresh event). Close/Delete/Edit buttons present",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/17-delete-confirm-modal.png",
+          "shows": "Delete Object confirm modal with title quoted and 'This cannot be undone' notice",
+          "evaluation": "Confirm dialog correct; non-recurring event so no Delete-series option (correct)",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/18-after-event-delete.png",
+          "shows": "Calendar after delete \u2014 block-card removed, success toast 'Deleted: QA31 race ...' bottom-right",
+          "evaluation": "Single-event delete works; toast clear; legend reverted to barb-m only",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/19-calendar-after-reload.png",
+          "shows": "Calendar after page reload",
+          "evaluation": "Deleted event does not reappear \u2014 delete persisted to disk and across reload",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/23-bulletin-editor-opened.png",
+          "shows": "Bulletin Board editor opened from dashboard Edit button \u2014 toolbar, insert pills, body content visible",
+          "evaluation": "Editor opens inline; Insert pills cover all object types with correct colors (Resources, Stocks, People, Protocols, Projects, Accessions, Waste, Calendar, Lab Map, Notebooks); Media pills present",
+          "issues": [
+            "VISUAL BUG: 'For [Kehan Zhao](https://obj.link/Kehan Zhao)' renders as raw markdown text \u2014 the slug with a space breaks Toast UI's link parser. Other chemical wikilinks (Sucrose, DTT, ...) render correctly because their slugs are kebab-case"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/26-accessions-baseline.png",
+          "shows": "Accessions tracker with orientation banner, status filters, table of accessions",
+          "evaluation": "Banner present (purple-bordered), 5 stat cards visible, table rows show varying statuses and priorities",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31/29-inventory-banner.png",
+          "shows": "Inventory page top with concept/instance orientation banner, type filters, table",
+          "evaluation": "Teal-bordered banner present; chemical pills purple, reagent pills teal \u2014 color distinction holds",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31-verify/A1-calendar-header.png",
+          "shows": "Calendar after fix \u2014 header reads 'Apr 20 \u2013 Apr 26, 2026'",
+          "evaluation": "Fix verified \u2014 header matches the visible Mon\u2013Sun grid range",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle31-verify/B3-bulletin-edit-mode.png",
+          "shows": "Bulletin editor after fix \u2014 Kehan Zhao now renders as a teal underlined link (in-line with Sucrose, DTT, etc.)",
+          "evaluation": "Fix verified \u2014 slug-with-space wikilinks now round-trip via percent-encoding",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "qa31-bug-1",
+          "severity": "visual",
+          "title": "Calendar week header label off-by-2 (Mon\u2013Fri instead of Mon\u2013Sun)",
+          "where": "app/calendar.html#formatWeekLabel:337-340",
+          "status": "closed",
+          "fix_commit": "58df5a70"
+        },
+        {
+          "id": "qa31-bug-2",
+          "severity": "visual",
+          "title": "Wikilink slugs with spaces (e.g. legacy [[Kehan Zhao]]) render as raw markdown text in Toast UI editor because the placeholder URL has an unescaped space",
+          "where": "app/js/editor-modal.js#wikilinksToLinks:4087 + linksToWikilinks:4094",
+          "status": "closed",
+          "fix_commit": "58df5a70"
+        }
+      ],
+      "fixes": [
+        {
+          "id": "qa31-fix-1",
+          "title": "formatWeekLabel adds +6 days to match Mon\u2013Sun grid",
+          "file": "app/calendar.html",
+          "commit": "58df5a70"
+        },
+        {
+          "id": "qa31-fix-2",
+          "title": "encodeURIComponent slug into obj.link placeholder URL + decodeURIComponent on the way back so spaces survive Toast UI markdown parsing",
+          "file": "app/js/editor-modal.js",
+          "commit": "58df5a70"
+        }
+      ],
+      "observations": [
+        "Double-click on the OK submit button in the New Event form does NOT create duplicate events. After the fast-fingered submit, exactly one file landed on disk and exactly one block-card rendered. Earlier-cycle artifacts that looked like duplicates were leftover from prior failed runs (the static object-index.json had not yet rebuilt).",
+        "Single-cell click reliably opens exactly one Lab.modal.form. The form correctly prefills the date and start_time from the clicked cell.",
+        "Single-event delete via the editor confirm modal removes the file from disk, removes the card from the grid, and persists across reload.",
+        "All 11 nav tabs fit at 1440px without the '+' overflow popover engaging.",
+        "Bulletin board section on the dashboard rendered cleanly through the dashboard's own markdown path (not Toast UI), so the Kehan Zhao content fix only affects the editor view; the dashboard render was already correct via Lab.wikilinks.preprocess."
+      ]
     }
   ],
   "bugs_found": [
@@ -4357,6 +4498,22 @@
       "next_step": "Either await window.Lab.hierarchy.build() explicitly inside openPopup before parentChain, or guard the breadcrumb branch with a small retry if chain length is 1. Suggested fix: change the breadcrumb branch in openPopup to await hierarchy.build() first.",
       "closed_in_cycle": 30,
       "closed_summary": "Fixed in editor-modal.js openPopup breadcrumb branch by retrying parentChain after patchObjectIndex when chain<2 and meta.parent exists."
+    },
+    {
+      "id": "qa31-bug-1",
+      "severity": "visual",
+      "title": "Calendar week header label off-by-2 (Mon\u2013Fri instead of Mon\u2013Sun)",
+      "where": "app/calendar.html#formatWeekLabel:337-340",
+      "status": "closed",
+      "fix_commit": "58df5a70"
+    },
+    {
+      "id": "qa31-bug-2",
+      "severity": "visual",
+      "title": "Wikilink slugs with spaces (e.g. legacy [[Kehan Zhao]]) render as raw markdown text in Toast UI editor because the placeholder URL has an unescaped space",
+      "where": "app/js/editor-modal.js#wikilinksToLinks:4087 + linksToWikilinks:4094",
+      "status": "closed",
+      "fix_commit": "58df5a70"
     }
   ],
   "fixes_applied": [
@@ -4463,6 +4620,18 @@
       "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
       "file": "app/js/editor-modal.js",
       "summary": "Retry parentChain after patching the local index with just-loaded meta when chain<2 and meta.parent exists, so freshly-created objects render their breadcrumb on first popup view."
+    },
+    {
+      "id": "qa31-fix-1",
+      "title": "formatWeekLabel adds +6 days to match Mon\u2013Sun grid",
+      "file": "app/calendar.html",
+      "commit": "58df5a70"
+    },
+    {
+      "id": "qa31-fix-2",
+      "title": "encodeURIComponent slug into obj.link placeholder URL + decodeURIComponent on the way back so spaces survive Toast UI markdown parsing",
+      "file": "app/js/editor-modal.js",
+      "commit": "58df5a70"
     }
   ],
   "improvements_proposed": [
@@ -4719,7 +4888,8 @@
     "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png",
     "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713",
     "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open).",
-    "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated."
+    "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated.",
+    "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -4738,5 +4908,6 @@
     "Phase remains 'functional'.",
     "Cycle 19: Kayla Torres (undergrad) + confused + Search every surface. Fresh combo \u2014 confused modifier never used before, scenario never tested. Kayla searches on 5 surfaces (inventory/protocols/notebooks/wiki/waste) with a real query, a typo, weird input (emoji + em-dash + <script> XSS), and empty. Finding: XSS is properly escaped (invXssAlert=false), all 5 per-page searches work functionally, but protocols + notebooks had minimal plain-text 0-result empty states while inventory/waste used the styled .empty-state with search_off icon \u2014 fixed in this cycle. Also confirmed: dashboard has no global search (no cross-surface search exists); wiki sidebar search filters the folder tree but leaves the knowledge graph in the main pane completely unfiltered even at 0 matches (logged WIKI-GRAPH-NOT-FILTERED as OPEN for a future cycle). Swept 2 cycle-18 carry-over items to closed: (1) FAB-NEAR-WIZARD-NEXT-MOBILE \u2014 actually OVERLAPS Next button by ~34px horizontally, not just 'near' as cycle 18 described. Fixed with body.wizard-open class toggle + CSS rule hiding #issue-reporter-btn. (2) NOTEBOOKS-PERSON-PARAM-IGNORED \u2014 fixed by reading ?person=<slug> on notebooks init and pre-filling #nbSearch with the prettified slug, so the sidebar filters to just that person's folder. Onboarding wizard's success checklist 'Write your first lab notebook entry' link now correctly lands new users on their own folder. All fixes verified live post-deploy via tests/qa-cycle-19-verify.mjs \u2014 FAB display=none during wizard, personParam showsOtherFolders=false, both empty states iconText='search_off'. 28 screenshots captured in cycle19/, 5 verify screenshots. No test artifacts created on GitHub, nothing to clean up.",
     "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs \u2014 all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) \u2014 every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) \u2014 the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) \u2014 the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE."
-  ]
+  ],
+  "last_updated": "2026-04-25T04:41:18.228688Z"
 }
