@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 51,
+  "cycle": 52,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -6962,6 +6962,174 @@
         "12-tab desktop nav at 1440px shows all tabs; at 1024px the +More button kicks in and hides Projects/People/Calendar/Lab Map/Apps/Wiki behind the popover.",
         "Mobile (375px) shows bottom bar with Wiki/Notebooks/Accessions/Inventory/More — spec satisfied.",
         "Accession storage-status bucket count is currently 0 (no accessions filed under `storage`). Data state, not a code bug."
+      ]
+    },
+    {
+      "cycle": 52,
+      "persona": "Dr. Monroe",
+      "modifier": "careful",
+      "scenario": "Reorder day",
+      "task": "PI in careful mode runs Reorder day end-to-end. Captures dashboard inventory baseline (217 in_stock / 2 needs_more / 1 out_of_stock / 475 untracked, 3 alert rows), navigates to Inventory, filters to in_stock, picks the first 3 chemical concepts (1,8-Naphthalic anhydride / 1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA / 1-Octanol), toggles each via the pill <select> from in_stock to needs_more (verifies toast 'Item: Needs More' on each save). Confirms stat cards rise from 2 -> 5 needs_more and 217 -> 214 in_stock. Reloads inventory page and re-confirms the new state persists (5 needs_more, all 3 selects render needs_more). Returns to dashboard and confirms the alert panel grows from 3 to 6 rows with the 3 new chemicals listed in 'warning_amber' orange. Flips 1,8-Naphthalic anhydride back to in_stock and confirms the dashboard alert panel decrements to 5 rows. Cleans up the remaining 2 candidates by flipping them back to in_stock; final inventory stats restored to 217 / 2 / 1 (matches baseline). GitHub API readback verifies all 3 source files have status: in_stock written back. No new bugs found.",
+      "phase": "functional",
+      "screenshots": [
+        {
+          "path": "cycle52/01-before-dashboard-baseline.png",
+          "shows": "Dashboard pre-load: stat cards (Sketch 12, Tutorials 14, Wiki 279, Notebook 232, Inventory 9), Inventory Status panel partially rendered with summary text + 3 alert rows (Microcentrifuge needs more, Native Barcoding Kit out of stock, Vortex Mixer needs more), Recent Updates list",
+          "evaluation": "Dashboard renders cleanly; orientation/layout consistent. Stats correct.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/02-after-dashboard-baseline-loaded.png",
+          "shows": "Same dashboard, fully loaded after waitForFunction returned. Inventory Status block shows 217 In Stock (green check), 2 Needs More (orange amber), 1 Out of Stock (red), 475 Untracked, 3 alert rows.",
+          "evaluation": "Baseline captured. Status pills render with correct colors and icons. Alert rows render with proper spacing.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/03-before-nav-inventory.png",
+          "shows": "Same dashboard, captured immediately before navigation",
+          "evaluation": "Identical to step 02; stable state.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/04-after-inventory-loaded.png",
+          "shows": "Inventory full page: orientation banner (teal left border) at top, search + filter row, stat cards (279 / 217 In Stock / 2 Needs More / 1 Out of Stock), full table of 279 rows. Most rows show Chemical (purple) pills",
+          "evaluation": "Banner visible. Pills render with correct color. Table density looks fine.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/05-after-filter-in-stock.png",
+          "shows": "Inventory filtered to In Stock. 217 rows visible. Stat 'In Stock 217' highlighted by filter logic.",
+          "evaluation": "Filter dropdown correctly shows 'In Stock'. Rows render.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/06-before-toggle-01-1-8-naphthalic-anhydride.png",
+          "shows": "Filtered list: 1,8-Naphthalic anhydride row visible at top with Chemical purple pill, In Stock green pill <select>, qty 60 g, location Chemical Cabinet",
+          "evaluation": "Pre-toggle row rendered correctly.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/07-after-toggle-01-1-8-naphthalic-anhydride.png",
+          "shows": "After save: row falls off the in_stock filter (since status is now needs_more); toast at bottom-right reads '1,8-Naphthalic anhydride: Needs More'",
+          "evaluation": "Save committed; toast confirms; filter correctly drops the row.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/06-before-toggle-02-1-hydroxy-3-3-trifluoromethylp.png",
+          "shows": "1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA row visible, In Stock pill",
+          "evaluation": "Looks fine.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/07-after-toggle-02-1-hydroxy-3-3-trifluoromethylp.png",
+          "shows": "Row falls off; toast '1-HYDROXY-3-(3-TRIFLUOROMETHYLPHENYL)UREA: Needs More'",
+          "evaluation": "Behaves consistently with the first toggle. Long all-caps title doesn't truncate the toast.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/06-before-toggle-03-1-octanol.png",
+          "shows": "1-Octanol row, In Stock, 500 mL, Flammable Cabinet",
+          "evaluation": "Pre-toggle state clean.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/07-after-toggle-03-1-octanol.png",
+          "shows": "Row falls off; toast '1-Octanol: Needs More'",
+          "evaluation": "Third toggle save committed.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/08-after-filter-needs-more.png",
+          "shows": "Inventory filtered to Needs More. Stat cards: 279 / 214 In Stock / 5 NEEDS MORE / 1 OUT OF STOCK. Five rows: 3 newly toggled chemicals + Microcentrifuge + Vortex Mixer (both 0 qty). Mid-toast 1-Octanol: Needs More",
+          "evaluation": "Counts match expectation (217 -> 214, 2 -> 5). Pills render correctly. Note: Microcentrifuge has location pill 'Bench' rendered without an icon (the chemicals' Chemical Cabinet / Flammable Cabinet pills render with a leading box icon). This is because 'Bench' is stored as a free-text location string, not a hierarchical reference. Pre-existing data quality, not a regression.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/09-before-reload-inventory.png",
+          "shows": "Captured before page.reload",
+          "evaluation": "Identical to step 08, stable state.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/10-after-reload-inventory.png",
+          "shows": "Inventory full table after hard reload. 279 rows visible.",
+          "evaluation": "Reload hydrates from object-index.json + localStorage patches (since deploy hasn't caught up yet). The 3 toggled rows now read needs_more.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/11-after-reload-filter-needs-more.png",
+          "shows": "Same as step 08 after a reload: 5 needs_more rows confirmed; UPDATED column blank for the 3 chemicals (Microcentrifuge shows 4/21/2026)",
+          "evaluation": "Persistence confirmed across reload. Note: blank UPDATED column for the 3 chemicals reflects no `updated_at` frontmatter (these legacy EHS-imported chemicals never had an updated_at) — pre-existing data property, not a bug. The patchObjectIndex doesn't synthesize a fresh mtime, so the column stays blank until next deploy refreshes the index.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/12-before-nav-back-to-dashboard.png",
+          "shows": "Inventory needs_more filtered, captured before nav",
+          "evaluation": "Pre-nav state clean.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/13-after-dashboard-with-3-needs-more.png",
+          "shows": "Dashboard reloaded post-toggles: Inventory Status panel now reads 214 In Stock / 5 Needs More / 1 Out of Stock / 475 Untracked, 6 alert rows (3 new chemicals + Microcentrifuge + Native Barcoding Kit + Vortex Mixer). Recent Updates shows the 3 new 'Status: needs_more — …' commits.",
+          "evaluation": "Dashboard correctly reflects the increment. Alert panel rows render in expected order, with proper warning_amber icons for needs_more and red cancel icon for out_of_stock.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/14-before-flipback.png",
+          "shows": "Inventory filtered to needs_more, 5 rows, before the flipback",
+          "evaluation": "Stable state.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/15-after-flipback.png",
+          "shows": "After 1,8-Naphthalic anhydride select changed to In Stock. Stat cards: 215 In Stock / 4 Needs More / 1 Out of Stock. Toast '1,8-Naphthalic anhydride: In Stock'. Row falls off filter.",
+          "evaluation": "Decrement works: 5 -> 4 needs_more, 214 -> 215 in_stock. Toast confirms.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/16-after-dashboard-final.png",
+          "shows": "Dashboard reloaded post-flipback: panel reads 215 In Stock / 4 Needs More / 1 Out of Stock, 5 alert rows.",
+          "evaluation": "Dashboard correctly decrements alert count from 6 -> 5 after one flipback. Recent Updates shows the new 'Status: in_stock' commit.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/17-before-cleanup.png",
+          "shows": "Inventory filtered to needs_more, 4 rows (the 2 originals + 2 still-toggled candidates), before cleanup",
+          "evaluation": "Stable state.",
+          "issues": []
+        },
+        {
+          "path": "cycle52/18-after-cleanup.png",
+          "shows": "After cleanup of remaining 2 candidates: stat cards back to 217 In Stock / 2 Needs More / 1 Out of Stock — matches baseline. Filtered list shows just Microcentrifuge + Vortex Mixer (the originals). Toast '1-Octanol: In Stock'.",
+          "evaluation": "Baseline restored end-to-end. Functional flow complete.",
+          "issues": []
+        }
+      ],
+      "verifications": {
+        "baseline_stats": "279 / 217 / 2 / 1",
+        "after_3_toggles_inventory": "279 / 214 / 5 / 1",
+        "after_3_toggles_dashboard_alerts": "6 alert rows (was 3)",
+        "after_reload_inventory": "279 / 214 / 5 / 1 (persistence confirmed)",
+        "after_flipback_inventory": "279 / 215 / 4 / 1",
+        "after_flipback_dashboard_alerts": "5 alert rows",
+        "after_cleanup_inventory": "279 / 217 / 2 / 1 (matches baseline)",
+        "github_api_readback": "All 3 candidate files (docs/resources/{1-8-naphthalic-anhydride, 1-hydroxy-3-3-trifluoromethylphenyl-urea, 1-octanol}.md) re-checked via gh api: status: in_stock present in frontmatter for all three"
+      },
+      "bugs": [],
+      "fixes": [],
+      "observations": [
+        "Per-row status pill <select> is the right UX for this task: dropdown is one click away, no modal needed, toast confirms each save.",
+        "patchObjectIndex correctly updates the in-memory cache so dashboard sees the change immediately on navigation, but does not synthesize an mtime — UPDATED column stays blank for items whose frontmatter has no `updated_at` until the next site deploy. Cosmetic only.",
+        "Equipment items 'Microcentrifuge' (location: Bench, plain string) and 'Vortex Mixer' (no location) render with a different location-pill style than chemicals (no icon, smaller). Pre-existing data shape, not introduced this cycle.",
+        "Filter dropdown is keyed off statusBadge select widget; the 'external' option only appears in the per-row select if the row already has external — design is intentional and helps avoid accidental flips.",
+        "First clean cycle of the run (no new bugs); cycle 51 closed CYCLE51-BOGUS-DEEPLINK-TITLE; if cycle 53 is also clean, can promote to phase: complete."
+      ],
+      "phase_change": null,
+      "carry_over_swept": [
+        {
+          "id": "CYCLE49-PICKER-INITIAL-RACE",
+          "decision": "Investigated but not patched. The reported symptom ('dropdown fails to open on first click') doesn't obviously match the source: openParentDropdown() sets dropdown.style.display = 'flex' synchronously before Lab.locationTree.attach (editor-modal.js:1850-1888), so the popover should always render on first click. A speculative ~5-line fix (await locationTree.refresh()) would address a different race (clicking inside the tree before build() finishes) and would slow every first-open by the time it takes Lab.hierarchy.build() to resolve. Without a reliable repro, deferring."
+        }
       ]
     }
   ],
