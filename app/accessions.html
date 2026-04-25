@@ -79,8 +79,11 @@
 .acc-table-wrap th { padding: 6px 10px; font-size: 11px; }
 /* Long IDs without natural break opportunities (e.g. an accession_id that
    was force-typed as 200+ identical chars) must not push the other columns
-   off-screen. Cap the ID column and force breaks inside long unbroken runs. */
-.acc-table-wrap .acc-id-cell { max-width: 360px; word-break: break-word; overflow-wrap: anywhere; }
+   off-screen. Cap the ID column and force breaks only when truly unbreakable.
+   `overflow-wrap: anywhere` was treating every hyphen/underscore in normal
+   IDs like A1-T1-E as a soft break point, stacking the ID vertically into
+   3-4 lines. `break-word` only breaks runs with no other break opportunity. */
+.acc-table-wrap .acc-id-cell { min-width: 96px; max-width: 360px; overflow-wrap: break-word; }
 .acc-table-wrap .inst-count {
   display: inline-block;
   background: var(--grey-100);
@@ -410,10 +413,11 @@ function populateFilters() {
   accessions.forEach(function(a) {
     if (a.project) projects.add(a.project);
     // People may be a comma-separated wikilink string (`[[barb-m]], [[alice]]`)
-    // or free text. Split on commas or slashes, strip wikilink brackets, dedupe.
+    // or free text. Use the shared splitter so slashes inside `[[people/slug]]`
+    // are preserved.
     if (a.people) {
-      a.people.split(/[,\/]/).forEach(function(p) {
-        p = p.trim().replace(/^\[\[|\]\]$/g, '');
+      splitPeople(a.people).forEach(function(p) {
+        p = p.replace(/^\[\[|\]\]$/g, '');
         if (p) people.add(p);
       });
     }
@@ -507,11 +511,32 @@ function priorityStarsHtml(pri, slug) {
   return html;
 }
 
+// Splits a `people:` field value on `,` or `/` BUT leaves slashes inside
+// `[[...]]` alone — otherwise `[[people/grey-monroe]]` would be torn into
+// `[[people` + `grey-monroe]]`. Used by the table cell renderer and the
+// people filter populator.
+function splitPeople(people) {
+  if (!people) return [];
+  var parts = [];
+  var buf = '';
+  var depth = 0;
+  for (var i = 0; i < people.length; i++) {
+    var ch = people[i];
+    var next = people[i + 1];
+    if (ch === '[' && next === '[') { depth++; buf += '[['; i++; continue; }
+    if (ch === ']' && next === ']') { depth = Math.max(0, depth - 1); buf += ']]'; i++; continue; }
+    if (depth === 0 && (ch === ',' || ch === '/')) { parts.push(buf); buf = ''; continue; }
+    buf += ch;
+  }
+  if (buf) parts.push(buf);
+  return parts.map(function(p) { return p.trim(); }).filter(Boolean);
+}
+
 // Render people as clickable wikilink pills. Bare names render as a label-only
 // pill; [[wikilink]] values become proper links to the person card.
 function peopleCellHtml(people) {
   if (!people) return '';
-  var parts = people.split(/[,\/]/).map(function(p) { return p.trim(); }).filter(Boolean);
+  var parts = splitPeople(people);
   return parts.map(function(p) {
     var m = p.match(/^\[\[(.+?)\]\]$/);
     if (m) {
