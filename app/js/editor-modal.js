@@ -1995,13 +1995,13 @@
     // not what it physically contains.
     setContentsHeading('References', 'link');
     var backlinks = await fetchBacklinksFor(slug);
-    if (backlinks.length) {
-      mount.innerHTML = renderBacklinksPane(backlinks);
-      bindBacklinksHandlers();
-      return;
-    }
-
-    mount.innerHTML = '<div class="em-col-empty">No references to this object yet.</div>';
+    // qa-cycle-47: even with zero backlinks, concept-type cards need the
+    // "Add instance" button so the first sample/extraction/library/bottle
+    // can be created from the popup. renderBacklinksPane already handles
+    // the empty case ("No references yet" + button); going through the
+    // empty-fallback skipped that button for fresh concepts.
+    mount.innerHTML = renderBacklinksPane(backlinks);
+    bindBacklinksHandlers();
   }
 
   function setContentsHeading(text, iconName) {
