@@ -77,6 +77,10 @@
 .acc-table-wrap { padding: 0 24px 16px; }
 .acc-table-wrap td { padding: 4px 10px; font-size: 13px; vertical-align: middle; }
 .acc-table-wrap th { padding: 6px 10px; font-size: 11px; }
+/* Long IDs without natural break opportunities (e.g. an accession_id that
+   was force-typed as 200+ identical chars) must not push the other columns
+   off-screen. Cap the ID column and force breaks inside long unbroken runs. */
+.acc-table-wrap .acc-id-cell { max-width: 360px; word-break: break-word; overflow-wrap: anywhere; }
 .acc-table-wrap .inst-count {
   display: inline-block;
   background: var(--grey-100);
@@ -616,7 +620,7 @@ function renderTable() {
     var instBadge = instCount ? '<span class="inst-count" title="' + instCount + ' physical instance' + (instCount === 1 ? '' : 's') + '">' + instCount + '</span>' : '';
     return '<tr style="cursor:pointer" onclick="openAccession(\'' + Lab.escHtml(r.slug) + '\')">' +
       '<td onclick="event.stopPropagation()">' + priorityStarsHtml(r.priority, r.slug) + '</td>' +
-      '<td><strong>' + Lab.escHtml(r.accession_id || r.title) + '</strong>' + instBadge + '</td>' +
+      '<td class="acc-id-cell"><strong>' + Lab.escHtml(r.accession_id || r.title) + '</strong>' + instBadge + '</td>' +
       '<td>' + Lab.escHtml(r.project) + '</td>' +
       '<td>' + peopleCellHtml(r.people) + '</td>' +
       '<td class="hide-mobile"><em>' + Lab.escHtml(r.species) + '</em></td>' +
@@ -721,8 +725,15 @@ async function confirmAdd() {
     created_by: user && user.login ? user.login : '',
   };
   Object.keys(meta).forEach(function(k) { if (meta[k] === '') delete meta[k]; });
-  var body = '\n# ' + accId + '\n\n' +
-    'This is the generic ' + accId + ' accession. To track physical material, ' +
+  // Escape HTML-significant chars so a name like "Foo <bar>" doesn't end up
+  // as a raw <bar> tag in the rendered popup body. Markdown renderers pass
+  // inline HTML through unchanged in headings + paragraphs, so we have to
+  // sanitize at the source.
+  var safeAccId = String(accId).replace(/[<>&]/g, function(c) {
+    return c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;';
+  });
+  var body = '\n# ' + safeAccId + '\n\n' +
+    'This is the generic ' + safeAccId + ' accession. To track physical material, ' +
     'open this card and use the **Contents** panel to add instances:\n\n' +
     '- 🌿 **Sample** — a tissue collection (leaf, seed, root)\n' +
     '- 🧪 **Extraction** — DNA or RNA prep\n' +

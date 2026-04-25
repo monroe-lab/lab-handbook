@@ -895,6 +895,11 @@ window.addEventListener('lab-file-saved', function(e) {
   if (!e.detail || !e.detail.path || !e.detail.meta) { loadInventory(); return; }
   var meta = e.detail.meta;
   if (!isInventoryType(meta.type)) { loadInventory(); return; }
+  // Bottles are aggregated under their concept's row (see loadInventory's
+  // bottlesByConcept rollup). Patching a single row can't do that aggregation
+  // — a bottle save would otherwise appear as its own row instead of bumping
+  // the concept's bottle count. Full-reload (uses patched index, so cheap).
+  if (meta.type === 'bottle') { loadInventory(); return; }
   var relPath = e.detail.path.replace(/^docs\//, '');
   var slug = relPath.replace(/\.md$/, '').split('/').pop();
   var indexEntry = Object.assign({ path: relPath }, meta);
