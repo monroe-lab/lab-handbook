@@ -36,10 +36,17 @@
     // Toast UI editor on mobile.
     // R7 #34: on mobile the submit modal is bottom-anchored so the keyboard
     // doesn't cover the submit button.
+    // qa-cycle-50: on mobile the FAB sits at right:18px / bottom:80px and
+    // overlaps content in the bottom-right corner — the mobile "More" nav
+    // popover (right:8px) and the open .em-overlay popup whose grid/list
+    // extends to the viewport edge. Hide the FAB while either is open so it
+    // can't obscure interactive content. Closes CYCLE49-MOBILE-FAB-OBSCURES-GRID.
     s.textContent =
       '@media (max-width: 768px){' +
       '  #issue-reporter-overlay{align-items:flex-start !important;padding-top:12px !important}' +
       '  #issue-reporter-modal{margin-top:0 !important;padding:16px !important}' +
+      '  body:has(#nav-more-popover) #issue-reporter-btn,' +
+      '  body:has(.em-overlay.open) #issue-reporter-btn{display:none !important}' +
       '}';
     document.head.appendChild(s);
   }
