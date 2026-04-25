@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 29,
+  "cycle": 30,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4061,6 +4061,145 @@
         "Pages object-index.json rebuild lag (~60s for a single push, longer for stacked pushes) \u2014 UI compensates via localStorage patches but the lab-map count seen during seed window can lag.",
         "Frontmatter serialization: writing parent via the editor produces 'parent: \"locations/bench\"' (quoted) even when the original was unquoted ('parent: locations/bench-chemistry'). YAML treats both equivalently; cosmetic only."
       ]
+    },
+    {
+      "cycle": 30,
+      "persona": "Vianney Ahn",
+      "modifier": "cross_linker",
+      "scenario": "Backlinks sanity",
+      "task": "Cross-linker backlinks audit. Grad-student persona walks the popup-backlinks pane on a high-fanout chemical concept (resources/2-mercaptoethanol, 14 inbound refs + 1 instance) and a high-fanout accession concept (accessions/pistachio-4, 3 instances via body wikilinks, no `of:`). Verifies INSTANCE_TYPES classification (line 1997 of editor-modal.js) splits bottle/sample/extraction/library/pool/tube into 'instances in lab' vs other refs into 'references'. Then follows the cross-link chain: chemical popup -> bottle popup -> location breadcrumb crumbs -> tube popup -> box popup. Checks chemical pill purple (#6a1b9a fa-atom) on inventory + popup header. Also reproduces and fixes POPUP-BREADCRUMB-RACE-AFTER-SAVE.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle30/01-inventory-load.png",
+          "shows": "Inventory page baseline at 1440x900. Concepts vs containers banner (teal border) at top. 280 total / 218 in stock / 2 needs more / 1 out of stock. Type pills purple (Chemical), orange (Buffer/Solution), teal (Reagent) across rows.",
+          "evaluation": "Banner present and explanatory. Search/filters render. Pills color-coded correctly per types.js: chemical=#6a1b9a purple, buffer=#e65100 orange, reagent=#009688 teal. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/02-inventory-search-mercapto.png",
+          "shows": "Filtered to '2-mercapto'. One row remains: 2-Mercaptoethanol with Chemical pill, In Stock, 50g, Corrosive Cabinet.",
+          "evaluation": "Search filter works. Single matching row, all fields populated, correct pill color. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/03-mercapto-popup-overview.png",
+          "shows": "2-Mercaptoethanol popup. FIELDS: Type=Chemical purple pill with atom icon, Link wikilink, Default Location 'Corrosive Cabinet', Status In Stock. Body has Chemistry/Lab use/Safety callouts. CONTENTS: '1 INSTANCE IN LAB' (bottle) + '16 REFERENCES' (SOPs, protocols, projects).",
+          "evaluation": "Backlinks pane correctly splits 1 instance from 16 references per INSTANCE_TYPES classification (line 1997). Add Instance button visible for concept type. Section header text + counts match. Bottle row shows '50 g \u00b7 Corrosive Cabinet' meta. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/04-mercapto-popup-top.png",
+          "shows": "Same chemical popup, scroll-top view.",
+          "evaluation": "Confirms popup layout: 3-column (FIELDS / body / CONTENTS), each pill rendered, callouts colored, no overflow, no clipping. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/05-mercapto-backlinks-detail.png",
+          "shows": "Backlinks pane detail.",
+          "evaluation": "Each reference row shows icon+title+type-label (Protocol teal, Project orange, Container blue). Cross-linker accepts: every type has correct icon and label.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/06-mercapto-bottle-clicked.png",
+          "shows": "Clicked on bottle-2-mercaptoethanol row. Popup transitions to bottle.",
+          "evaluation": "Cross-link follow works: clicking instance row navigates the popup to the bottle. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/07-mercapto-bottle-popup.png",
+          "shows": "Bottle popup. FIELDS: Type=Bottle orange pill, Link wikilink, Of (concept slug)=2-Mercaptoeth... purple chemical pill, Parent=Corrosive Cabinet container pill, Quantity 50, Unit g, Status In Stock. Breadcrumb: Robbins Hall 170 / Corrosive Cabinet / 2-Mercaptoethanol (third pill orange = bottle type). Body: 'Bottle of [pill]'. CONTENTS: 'No references to this object yet.'",
+          "evaluation": "Bottle popup is well-formed. Of-pill renders with chemical icon+color. Parent pill clickable. Breadcrumb chain complete (3 pills) and last pill orange matching the bottle type. Empty backlinks pane is graceful. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/10-popup-closed.png",
+          "shows": "Popup closed, back on inventory list.",
+          "evaluation": "Modal closes cleanly on Lab.editorModal.close() \u2014 overlay gone, page state preserved. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/11-accessions-load.png",
+          "shows": "Accessions page at 1440x900. Stat cards 232 total / 101 active / 119 waiting / 0 storage / 12 completed / 0 archived. Sort + filter dropdowns at top. Star priority column, status pills, people pills, project, species, status_note, updated. Purple-bordered concept/instance banner.",
+          "evaluation": "Page loads cleanly. Banner visible (purple border). Stats sum correctly. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/12-accessions-banner.png",
+          "shows": "Same accessions page; banner inspection.",
+          "evaluation": "Orientation banner reads 'What's an accession? An accession is the general concept of a thing \u2014 a particular tree, a genotype, a cell line, an MA line. Accessions have physical instances...' with purple left border. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/13-pistachio-popup-overview.png",
+          "shows": "Pistachio Tree #4 (accessions/pistachio-4) popup. Type=Accession purple pill. Project Pistachio Genomics, People J. Freckles, Species Pistacia vera, Status active, Sequencing Type HiFi, Priority 0 stars. Body: 'A wild pistachio tree (cultivar Y) ... Physical storage' with three sub-bullet wikilinks (Leaf Tissue Project, Pistachio Leaf 1 primary, Pistachio Leaf 2 backup, Extracted DNA tube). CONTENTS: '3 INSTANCES IN LAB': Pistachio DNA Extract 1, Pistachio Leaf 1, Pistachio Leaf 2.",
+          "evaluation": "Critical R19/R20 verification: tubes referencing the accession via body wikilinks ([[accessions/pistachio-4]]) \u2014 NOT via `of:` \u2014 are still classified as instances per INSTANCE_TYPES = { bottle, sample, extraction, library, pool, tube }. The 'instances in lab' header surfaces all 3. Cross-linker happy. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/14-pistachio-backlinks-detail.png",
+          "shows": "Same accession popup focusing on backlinks pane.",
+          "evaluation": "All 3 tubes listed. No spurious 'references' section since all 3 are instance-classified. Add Instance button below the list. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/15-tube-popup.png",
+          "shows": "Pistachio DNA Extract 1 tube popup. Breadcrumb: Robbins Hall 170 / 4C Fridge (Main) / DNA Extracts Box / Pistachio DNA Extract 1.",
+          "evaluation": "4-level breadcrumb chain correctly resolves through hierarchy. Body shows 'DNA extract of [pill: Pistachio Tree #4], extracted from [pill: Pistachio Leaf 1] using the CTAB protocol' \u2014 body wikilinks rendered as object pills. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/16-tube-popup-detail.png",
+          "shows": "Same tube popup detail.",
+          "evaluation": "Confirms all wikilinks in body are processed (Pistachio Tree #4, Pistachio Leaf 1) into clickable pills. CONTENTS: 'No references to this object yet'. Cross-linker validation: full path chemical->bottle->location and accession->tube->box->shelf->fridge->room walk renders breadcrumb pills correctly at every hop. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/19-inventory-revisit.png",
+          "shows": "Revisit inventory at 1440. Type column shows multi-color pills.",
+          "evaluation": "Spot-check pill colors: Chemical rows show purple #6a1b9a, Buffer/Solution rows show orange #e65100, Reagent (1 visible) shows teal #009688. All match types.js. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/20-inventory-pills-spot.png",
+          "shows": "Inventory pills spot-check screenshot.",
+          "evaluation": "Same as 19; archived for record. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/repro-01-inventory-loaded.png",
+          "shows": "Repro setup: inventory page loaded with stale caches before injecting fresh bottle via API.",
+          "evaluation": "Caches primed at this point. Object-index + hierarchy graph already built without the fresh bottle. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle30/repro-02-bottle-popup.png",
+          "shows": "After fix: popup for the freshly-API-created bottle (QA30 Cradle Bottle, of: 2-mercaptoethanol, parent: cabinet-corrosive). Breadcrumb 'Robbins Hall 170 / Corrosive Cabinet / QA30 Cradle Bottle' renders on FIRST popup view, despite the cache being stale before the popup opened.",
+          "evaluation": "Repro confirms POPUP-BREADCRUMB-RACE-AFTER-SAVE fix works. Without the fix, parentChain would return [] for the unknown slug and crumbHTML stays empty. With the fix, when chain.length<2 AND meta.parent is present, patchObjectIndex is called to inject the just-loaded meta into the cache; hierarchy.invalidate fires inside patchObjectIndex, and the next parentChain call resolves the chain. \u2713",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
+          "severity": "visual",
+          "status": "closed",
+          "summary": "Breadcrumb missing on popup of a freshly-saved/created object until a hard reload (because cached object-index + hierarchy graph predate the new entry)."
+        }
+      ],
+      "fixes": [
+        {
+          "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
+          "file": "app/js/editor-modal.js",
+          "lines": "around 968-985",
+          "summary": "In openPopup breadcrumb branch: if parentChain returns chain.length<2 but the just-loaded meta has a `parent:` field, patchObjectIndex(filePath, parsed.meta) to inject the meta into the in-memory cache and invalidate hierarchy, then retry parentChain once. Renders breadcrumb on first popup view rather than waiting for a reload."
+        }
+      ],
+      "observations": [
+        "INSTANCE_TYPES classification (editor-modal.js:1997) correctly counts both `of:`-driven and body-wikilink-driven instances. R19 tubes that reference an accession only via body [[wikilinks]] (no `of:` field) still get classified as 'instances in lab' rather than 'references'.",
+        "Chemical (#6a1b9a fa-atom) vs Reagent (#009688 fa-flask) pill colors render distinctly on Inventory rows AND inside the popup field-pane Of-slug pill \u2014 the recolor survives the modal context.",
+        "Cross-linker walk path verified: inventory list -> chemical popup -> 1-instance-bottle-row click -> bottle popup with parent pill + 3-pill breadcrumb -> can pivot to accession side -> tube popup with 4-pill breadcrumb (room/freezer/shelf/box) -> body wikilinks render as clickable pills with correct icon+color per object type. No broken chain link encountered at 1440 viewport.",
+        "POPUP-BREADCRUMB-RACE-AFTER-SAVE root cause: editor-modal.js:971 awaits hierarchy.parentChain before the new file appears in the cached object-index. Hierarchy.build() short-circuits to cached _graph until invalidate() fires. patchObjectIndex (which is called inside the editor-save flow) does call invalidate, but external creation paths (direct GitHub API, qa-tests, race conditions where user opens popup before save commit returns) bypass it. The fix lazily patches in the just-loaded meta only when needed, so legitimate root objects (chain.length===1 with no parent) still skip the breadcrumb without retry."
+      ]
     }
   ],
   "bugs_found": [
@@ -4208,14 +4347,16 @@
       "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
       "cycle": 29,
       "severity": "visual",
-      "status": "open",
+      "status": "closed",
       "description": "When opening object popup B immediately after saving object A (within ~3s), the breadcrumb pills above the popup body title are missing for B. The await Lab.editorModal.open() returns before parentChain async fully resolves on a freshly-invalidated hierarchy. Re-opening (or the after-save view) renders the breadcrumb fine. Bottle 1 popup (fresh page load) HAD breadcrumb; bottles 2 and 3 popups (opened post-save) did NOT. Suspected cause: hierarchy.invalidate() called inside patchObjectIndex during save clears the cached graph; the next openPopup races the rebuild and the await for parentChain returns empty silently due to the catch block at editor-modal.js ~line 968.",
       "evidence": [
         "/tmp/qa-screenshots/cycle29/05-jordan-bottle-1-popup-view.png (HAS breadcrumb)",
         "/tmp/qa-screenshots/cycle29/11-jordan-bottle-2-popup-view.png (MISSING)",
         "/tmp/qa-screenshots/cycle29/17-jordan-bottle-3-popup-view.png (MISSING)"
       ],
-      "next_step": "Either await window.Lab.hierarchy.build() explicitly inside openPopup before parentChain, or guard the breadcrumb branch with a small retry if chain length is 1. Suggested fix: change the breadcrumb branch in openPopup to await hierarchy.build() first."
+      "next_step": "Either await window.Lab.hierarchy.build() explicitly inside openPopup before parentChain, or guard the breadcrumb branch with a small retry if chain length is 1. Suggested fix: change the breadcrumb branch in openPopup to await hierarchy.build() first.",
+      "closed_in_cycle": 30,
+      "closed_summary": "Fixed in editor-modal.js openPopup breadcrumb branch by retrying parentChain after patchObjectIndex when chain<2 and meta.parent exists."
     }
   ],
   "fixes_applied": [
@@ -4316,6 +4457,12 @@
       "cycle": 29,
       "commit": "d81d6906",
       "description": "Added body:has(.em-overlay.open) .toast-container { bottom: 96px; } CSS rule in app/css/base.css. Lifts the toast container above the editor modal footer when the modal is open so toasts no longer cover the Save and Cancel buttons. Verified after deploy by triggering a toast inside an open editor modal."
+    },
+    {
+      "cycle": 30,
+      "id": "POPUP-BREADCRUMB-RACE-AFTER-SAVE",
+      "file": "app/js/editor-modal.js",
+      "summary": "Retry parentChain after patching the local index with just-loaded meta when chain<2 and meta.parent exists, so freshly-created objects render their breadcrumb on first popup view."
     }
   ],
   "improvements_proposed": [
@@ -4571,7 +4718,8 @@
     "/tmp/qa-screenshots/cycle27/step17-notebooks-landing.png",
     "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png",
     "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713",
-    "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open)."
+    "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open).",
+    "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",

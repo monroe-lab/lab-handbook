@@ -969,6 +969,16 @@
         if (window.Lab.hierarchy) {
           var slug = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
           var chain = await window.Lab.hierarchy.parentChain(slug);
+          // POPUP-BREADCRUMB-RACE-AFTER-SAVE (cycle 29): when a freshly-saved or
+          // freshly-created object isn't yet in the cached object-index,
+          // parentChain returns an empty / single-element chain even though
+          // the file's `parent:` field is on disk. Patch the in-memory index
+          // with our just-loaded meta and retry once so the breadcrumb renders
+          // on the first popup view rather than waiting for a hard reload.
+          if ((!chain || chain.length < 2) && parsed.meta && parsed.meta.parent && window.Lab.gh && window.Lab.gh.patchObjectIndex) {
+            window.Lab.gh.patchObjectIndex(filePath, parsed.meta);
+            chain = await window.Lab.hierarchy.parentChain(slug);
+          }
           if (chain && chain.length > 1) {
             crumbHTML = await window.Lab.hierarchy.breadcrumbHTML(slug);
           }
