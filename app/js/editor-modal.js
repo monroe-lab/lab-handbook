@@ -1533,13 +1533,19 @@
         // statuses render as read-only pills. Unknown slugs get title-cased so
         // a raw 'in_accumulation' never appears in the popup.
         if (field.key === 'status' && field.options) {
+          // Accession statuses (active/waiting/storage/completed/archived) mirror
+          // the colors rendered by the accessions tracker pill (see
+          // app/accessions.html STATUS_COLORS) so the modal popup matches the
+          // tracker row.
           var statusColors = {
             in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6',
             in_accumulation: '#f59e0b', ready_for_pickup: '#f9a825', picked_up: '#6b7280',
+            active: '#f59e0b', waiting: '#7c3aed', storage: '#3b82f6', completed: '#22c55e', archived: '#6b7280',
           };
           var statusLabels = {
             in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External',
             in_accumulation: 'In Accumulation', ready_for_pickup: 'Ready for Pickup', picked_up: 'Picked Up',
+            active: 'Active', waiting: 'Waiting', storage: 'Storage', completed: 'Completed', archived: 'Archived',
           };
           var isCycleable = ['in_stock','needs_more','out_of_stock','external'].indexOf(val) !== -1;
           var sColor = statusColors[val] || '#6b7280';
@@ -2673,7 +2679,7 @@
     });
 
     // On mobile: hide native toolbar, add a toggle button to show it on demand
-    if (isMobile()) setupMobileToolbarToggle(editorEl, editor);
+    if (isMobile()) setupMobileToolbarToggle(editorEl, currentEditor);
 
     // Fix table header cells so they're editable, apply image sizes, set up image fallback
     setupEditorImageFallback(editorEl);
