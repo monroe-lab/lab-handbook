@@ -246,6 +246,12 @@
       '.em-collide-pop .em-child-row{padding:4px 6px}',
       '@media(max-width:900px){.em-cols{flex-direction:column;overflow-y:auto}.em-col{flex:none!important;max-height:none;overflow-y:visible}.em-col-fields{border-right:none;border-bottom:1px solid var(--grey-200);padding:14px 18px}.em-col-contents{border-left:none;border-top:1px solid var(--grey-200)}}',
       '@media(max-width:768px){.em-modal{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0}.em-fields .form-row{flex-direction:column;gap:0}.em-rendered{padding:16px}}',
+      // qa34: on mobile the floating fab bar (cancel/save/Aa/+ at top:4
+      // right:4 height:34) and the optional format bar (top:44 height:40)
+      // overlay the editor's first lines of text. The Toast UI contents
+      // padding-top of 24px is not enough to clear them. Bump it on mobile
+      // so the fab buttons always sit over empty padding instead of words.
+      '@media(max-width:768px){.em-surface .toastui-editor-contents{padding-top:96px!important}}',
     ].join('\n');
     document.head.appendChild(style);
   }

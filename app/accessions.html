@@ -70,7 +70,11 @@
   line-height: 1.55;
 }
 .framework-banner strong { color: var(--grey-900); }
-.framework-banner .instance-icons { color: var(--grey-600); white-space: nowrap; }
+/* qa34: dropped `white-space: nowrap` — on a 375px viewport the four
+   icon+label phrases overflow the banner and the word "libraries" gets
+   clipped mid-word at the right edge. Letting them wrap normally is fine;
+   the commas already give the browser sane break points. */
+.framework-banner .instance-icons { color: var(--grey-600); }
 .framework-banner a { color: #7c3aed; text-decoration: none; font-weight: 500; }
 .framework-banner a:hover { text-decoration: underline; }
 

@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 33,
+  "cycle": 34,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4575,6 +4575,139 @@
         "Row click on inventory.html / accessions.html requires landing on the name cell \u2014 UX nit, not a regression.",
         "Orientation banners working as designed: Inventory teal border, Accessions purple border.",
         "12-tab nav overflow at 1024px: 6 primary tabs stay, the rest move into \"+ More\" popover. Tested clicking \u2014 popover opens and renders 6 entries with icons."
+      ]
+    },
+    {
+      "cycle": 34,
+      "persona": "Vianney Ahn",
+      "modifier": "explorer",
+      "task": "Aliquot day with URL deep-link manipulation. Created 3 tube instances of:[[accessions/a1-t1-e]] in box-pistachio-dna at B1/B2/B3 via GitHub API; deep-linked to accession + tube + fake-slug + path-traversal + weird-chars + deleted-tube via wiki.html?doc=. Verified graceful error UI on all invalid paths, fresh-doc render on valid paths, mobile flow at 375x812, 1024px nav overflow + More popover. Side-effect: row click on accessions table hit the priority cell (intentional inline-edit) and bumped priority \u2014 restored via API.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle34/01-dashboard-loaded.png",
+          "what_it_shows": "Dashboard 1280px: 9 visible top-nav tabs + '+ More', stats cards (14 notebooks/280 inv/232 acc/11 proj/9 ppl/41 cal/40 lab map/Tools/902 docs), Inventory Status (218/2/1/475 untracked), Recent Updates with my fresh qa-cycle-34 commits at the top.",
+          "evaluation": "All stats render, recent updates pick up my just-now commits, top nav clean. No visual issues.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/02-wiki-doc-accession-deeplink.png",
+          "what_it_shows": "wiki.html?doc=accessions/a1-t1-e \u2014 A1-T1-E accession page with purple Accession pill, title, frontmatter bar (project/people/species/status/status_note/priority/sequencing_type/detail_sheet_link/last_updated/legacy_sample_tracker_id), body 'Runcie -80 freezer. ~100 mg tissue in 2 mL tubes.'",
+          "evaluation": "Deep-link works perfectly \u2014 type pill correct color (purple #6a1b9a), all frontmatter fields visible, no overflow. Connections panel says 'No wikilinks to or from this document yet' which is technically correct (no body wikilinks; the inbound `of:` pointers from tubes are not counted by the connections graph).",
+          "issues_found": [
+            "MINOR: Connections panel undercounts \u2014 `of:` frontmatter pointers from instance objects (tubes/samples/extractions) are not represented as edges in the graph view. Users who set `of:` expect bidirectional visibility. By design today; flag as future improvement."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/03-wiki-doc-new-tube-deeplink.png",
+          "what_it_shows": "wiki.html?doc=locations/tube-qa34-moejtsqv-1 \u2014 freshly created QA34 tube. Tube pill (teal), title, slug, frontmatter (parent / position B1 / of accessions/a1-t1-e / label_1 / notes), body with two resolved wikilink pills (purple A1-T1-E accession, brown Pistachio DNA Box).",
+          "evaluation": "Fresh-doc deep-link works end-to-end. Body wikilinks resolve to correct pill colors+icons immediately. The `of:` pointer renders as a slug string in the frontmatter bar (not a clickable pill \u2014 the body wikilink IS clickable however).",
+          "issues_found": [
+            "NIT: in the frontmatter bar the `of` value 'accessions/a1-t1-e' renders as plain text rather than as an Accession pill \u2014 would be more useful if it were a clickable pill matching the body wikilink. Tracked in the popup view via the dedicated backlinks pane, but inconsistent across surfaces."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/04-inventory-page.png",
+          "what_it_shows": "Inventory page full table \u2014 teal-bordered orientation banner ('Concepts vs containers...') at top, search bar, type/location/status filter dropdowns, Add Item button, stats (280 total, 218 in stock, 60 needs more, 1 out, 0 external), table with columns Name/Type/Status/Quantity/Location.",
+          "evaluation": "Banner present and on-brand. Type column shows label-only (no fa-atom icon) \u2014 convention since cycle 20 (icon reserved for popup view). Pills colored correctly per type. No overflow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/05-lab-map-tree.png",
+          "what_it_shows": "Lab Map page \u2014 'Map design in progress' banner with floor-plan placeholder, Locations card with filter input + Expand/Collapse all, root-level location list (Asmundson, Autoclave, Genome Center, Robbins Hall 170 with '10 items' badge + expand chevron, Robbins Hall 262, Unsorted).",
+          "evaluation": "Tree renders cleanly; the '10 items' badge on Robbins Hall 170 helpfully indicates nested content. Pistachio DNA Box is nested several levels deep so it's not visible without expansion (this is the expected default-collapsed UX). My test failed to expand before clicking \u2014 operator error, not a UI bug.",
+          "issues_found": [
+            "IDEA: Filter-by-name input could auto-expand parent rooms when matches are found in deeper levels. Today filtering hides non-matching siblings but doesn't surface deeply-nested matches. Future enhancement."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/08-accessions-page.png",
+          "what_it_shows": "Accessions tracker \u2014 purple-bordered orientation banner at top, search bar, project/status/people filters, status stats (232 total, 101 active, 119 waiting, 0 storage, 12 completed, 0 archived), Add Accession card, sortable table.",
+          "evaluation": "Banner color (purple) and content correct, distinct from inventory's teal banner. All 5 status stat cards visible and counts plausible (sum 232 = 101+119+0+12+0). Table renders.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/09-accessions-search-A1T1E.png",
+          "what_it_shows": "After searching A1-T1-E \u2014 single matching row visible: 1-star priority \u2605\u2606\u2606, ID A1-T1-E with '1' badge (instance count from object index), Project Kerman Somatic, People Zi Ye + Matt Davis as pills, Species Pistacia vera (italic), Status Active, Note 'DNA extracted \u2014 Needs Clean-up', Updated 2026-03-30.",
+          "evaluation": "Search works correctly. Note: the '1' instance-count badge is stale because object-index.json had not yet been rebuilt by GitHub Actions to pick up my 3 fresh tubes (each `of: accessions/a1-t1-e`). Index lag is expected.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/10-accessions-A1T1E-popup.png",
+          "what_it_shows": "Same screen as 09 but priority is now \u2605\u2605\u2606 and Updated is 2026-04-25 \u2014 my td:nth(0).click() landed on the priority cell (which has its own click handler with stopPropagation), so the click cycled priority instead of opening the popup.",
+          "evaluation": "Working as designed: clicking on the star cell cycles priority and intentionally does NOT open the popup (event.stopPropagation in the cell's onclick). The row's open-popup handler is intentionally suppressed for priority and other inline-editable cells. The click should have targeted td:nth(1) (the ID cell) to open the popup.",
+          "issues_found": [
+            "UX: A user scanning a row visually may aim for the first column without realizing it's a star toggle. Consider adding a subtle 'click stars to set priority' tooltip on hover, or shifting the priority column to the right of the ID column. Not a regression \u2014 but the affordance is implicit. Logged as cosmetic UX nit, not fixed this cycle."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/11-wiki-fake-doc-error.png",
+          "what_it_shows": "wiki.html?doc=accessions/totally-fake-nonexistent-qa34-... \u2014 graceful 'Document not found. It may have been renamed or deleted.' message with a circled-! icon. Sidebar still rendering normally, type-filter pills + folder tree intact.",
+          "evaluation": "Error handling is correct and user-friendly. No infinite spinner, no exception, no broken layout. Sidebar remains usable.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/12-wiki-empty-doc-param.png",
+          "what_it_shows": "wiki.html?doc= (empty) \u2014 falls back to welcome view with 'Monroe Lab Wiki' title and the giant force-directed graph of all 902 docs, plus type-color legend at bottom.",
+          "evaluation": "Empty param correctly treated as no-doc and falls through to showWelcome(). Behavior matches docs/loadDoc null branch on popstate.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/13-wiki-traversal-doc-error.png",
+          "what_it_shows": "wiki.html?doc=../../../etc/passwd \u2014 graceful 'Document not found.' Same UI as 11.",
+          "evaluation": "Path-traversal-y param does NOT leak any filesystem content; GitHub Contents API normalizes/rejects the path and returns 404, which our error handler renders cleanly. No JS exception, no leak.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/14-wiki-weird-chars-doc-error.png",
+          "what_it_shows": "wiki.html?doc=foo bar/baz?qux#frag \u2014 graceful 'Document not found.'",
+          "evaluation": "URL-encoded weird chars handled cleanly. No exception, no leak.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/15-wiki-deleted-tube-deeplink.png",
+          "what_it_shows": "wiki.html?doc=locations/tube-qa34-moejtsqv-1 AFTER gh-API delete \u2014 graceful 'Document not found.' Identical UI to 11/13/14.",
+          "evaluation": "Deleted-doc deep-link gives the right error. Cache-bust worked: the recently-cached version was cleared from localStorage so the 60s-cache fallback didn't mask the delete. Good.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/16-accessions-popup-after-delete.png",
+          "what_it_shows": "Same as 10 but priority is \u2605\u2605\u2605 (3) and instance badge is now '3' \u2014 my second td:nth(0).click() bumped priority again and the index has caught up enough to count my 3 new tubes (now 2 after one delete, but index showed 3 because it had not yet picked up the delete).",
+          "evaluation": "Two side-effects: (a) my test harness clicked the priority cell twice which cycled priority to 3 \u2014 restored via API at end of cycle; (b) the instance-count badge reflects index-build cadence rather than live state.",
+          "issues_found": [
+            "TEST-HARNESS: my own script clicked td:nth(0) which is the priority cell \u2014 should have been a higher td index to open the popup. Restored A1-T1-E priority/last_updated via API after run."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/17-nav-1024-overflow.png",
+          "what_it_shows": "Dashboard at 1024px \u2014 top nav shows 6 primary tabs (Tutorials/Notebooks/Protocols/Accessions/Inventory/Waste) + '+ More' overflow. Projects, People, Calendar moved into the More popover. Recent Updates shows my Accession priority commits and tube create/delete commits.",
+          "evaluation": "Overflow logic kicks in at 1024px as expected. Six primary tabs is consistent with prior cycle observations.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/19-mobile-inventory.png",
+          "what_it_shows": "375x812 mobile inventory \u2014 orientation banner wraps cleanly, search input full-width, three filter dropdowns side-by-side, Add Item card + 4 stats cards in a 2-col grid (280 / 218 / 2 / 1), inventory items as cards. Bottom tab bar: Wiki / Notebooks / Accessions / Inventory (active, teal) / More.",
+          "evaluation": "Mobile layout is solid. Banner wrap is clean (the qa34 white-space:nowrap fix in the working tree is paying off). Inventory tab correctly highlighted teal. Item card shows Type 'Chemical' as plain text and a brown Chemical Cabinet pill for location.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle34/20-mobile-tube-deeplink.png",
+          "what_it_shows": "Mobile wiki.html?doc=locations/tube-qa34-moejtsqv-2 \u2014 Tube pill, title 'QA34 aliquot 2', slug wraps, Print/Edit buttons, frontmatter bar with all fields visible, body with two pill-resolved wikilinks. Connections panel at bottom-right shows '2 CONNECTIONS' with a tiny graph (A1-T1-E + Pistachio DNA Box edges).",
+          "evaluation": "Mobile deep-link to fresh doc works. By the time this screenshot was taken (~end of run, several minutes after creation), the link-index had rebuilt and Connections is now correctly populated \u2014 confirms the earlier 'No wikilinks yet' on screenshot 03 was index lag, not a permanent bug.",
+          "issues_found": [
+            "MINOR: at the bottom-right of the viewport the Connections panel, the lightbulb FAB (issue reporter), and the hamburger button are stacked close together \u2014 the lightbulb partially overlaps the Pistachio DNA Box node in the small graph. Cosmetic, not blocking."
+          ]
+        }
+      ],
+      "bugs": [],
+      "fixes": [],
+      "observations": [
+        "Wiki deep-link error handling is rock solid: fake doc, path-traversal, weird chars, and deleted doc all show the same graceful 'Document not found' UI \u2014 no JS exceptions, no infinite spinners, no filesystem leaks.",
+        "Empty ?doc= param correctly falls through to the welcome graph (loadDoc skipped, showWelcome called).",
+        "wiki.html `loadDoc` cache-fallback (60s lab_file_cache) correctly masks GitHub's ~30s eventual-consistency for fresh creates AND can be busted by clearing localStorage so that deletes propagate immediately.",
+        "Connections panel currently undercounts: it does not include `of:` frontmatter pointers from instance objects, only body wikilinks. After the GH Actions index rebuild (~1 min) the panel does populate from body wikilinks; the screenshot 03 'No wikilinks yet' was strictly index-lag.",
+        "Accessions table row-click \u2192 openAccession() is wired correctly, BUT the priority cell stops propagation (by design) and cycles priority on click. A user (or test) clicking the leftmost cell will cycle priority instead of opening the popup. Not a regression \u2014 but the affordance is implicit. Considered fixing by moving the click-to-edit affordance to a dedicated star icon, but the current model (whole-cell click) is intentional and matches the inline-edit UX.",
+        "Lab map tree starts collapsed at the room level \u2014 Pistachio DNA Box is several layers deep. The '10 items' badge on a parent row is helpful but a deep-search auto-expand would help find specific containers without manual drilling. Future enhancement, not filed as bug.",
+        "Test side-effect: my Playwright `td:nth(0).click()` landed on the priority star and cycled A1-T1-E priority twice (1\u21922\u21923 stars) and bumped last_updated to 2026-04-25. Restored via direct GitHub API write at end of run. Did not leave permanent state changes in the docs."
       ]
     }
   ],

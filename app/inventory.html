@@ -154,7 +154,11 @@ tr.low-stock td:first-child::before {
   line-height: 1.55;
 }
 .framework-banner strong { color: var(--grey-900); }
-.framework-banner .instance-icons { color: var(--grey-600); white-space: nowrap; }
+/* qa34: dropped `white-space: nowrap` to mirror the accessions fix —
+   the inventory phrase fits today, but a future addition to instance
+   types could overflow on a 375px viewport, and there is no need for
+   nowrap here. */
+.framework-banner .instance-icons { color: var(--grey-600); }
 .framework-banner a { color: var(--teal-dark); text-decoration: none; font-weight: 500; }
 .framework-banner a:hover { text-decoration: underline; }
 
