@@ -7,7 +7,7 @@ people: "Vianney Ahn / Matt Davis"
 species: "Pistacia vera"
 status: "active"
 status_note: "QC passed"
-priority: "0"
+priority: '3'
 sequencing_type: "HiFi"
 detail_sheet_link: "https://docs.google.com/spreadsheets/d/15UrgolI_mokQOI63vG_FZkUTp-KYBa9pXHJcCsuL4JE"
 last_updated: "2026-04-25"
