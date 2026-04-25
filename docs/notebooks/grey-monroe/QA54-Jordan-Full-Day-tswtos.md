@@ -1,4 +1,7 @@
-## Library Prep — Pistachio batch
+
+### Next steps
+
+### Run TapeStation tomorrow on extracted libraries.Library Prep — Pistachio batch
 
 **Date:** 2026-04-25. *Aim:* build PCR-free libraries for 3 accessions; QC on TapeStation.
 
@@ -13,5 +16,5 @@
 
 Followed standard protocol with two deviations: **elution** increased to 25 µL; **PCR cycles** reduced from 8 to 6 because Qubit reads were 12-15 ng/µL.
 
-<img src="images/qa54-tswtos.png" alt="qa54-tswtos" style="max-width:50%">
+<img src="notebooks/grey-monroe/images/qa54-tswtos.png" alt="qa54-tswtos" style="max-width:50%">
 
