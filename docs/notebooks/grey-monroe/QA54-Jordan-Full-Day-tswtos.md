@@ -16,5 +16,6 @@
 
 Followed standard protocol with two deviations: **elution** increased to 25 µL; **PCR cycles** reduced from 8 to 6 because Qubit reads were 12-15 ng/µL.
 
-<img src="notebooks/grey-monroe/images/qa54-tswtos.png" alt="qa54-tswtos" style="max-width:50%">
+<img src="images/qa54-tswtos.png" alt="qa54-tswtos" style="max-width:50%">
+
 
