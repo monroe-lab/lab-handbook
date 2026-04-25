@@ -448,7 +448,39 @@
     // and inline literals are never rewritten.
     html = applyChemistryRendering(html);
 
+    // QA-34: strip dangerous HTML the author may have embedded in raw markdown
+    // (e.g. a tube `notes` field that legitimately contained "<script>" — or
+    // a malicious paste in a body). marked passes inline HTML through, so a
+    // `<img src=x onerror=...>` would otherwise execute when the popup body
+    // is innerHTML'd. DOMParser parses without attaching to the live document,
+    // so img/script/etc. don't fire while we strip them.
+    html = sanitizeRenderedHTML(html);
+
     return html;
+  }
+
+  // QA-34: sanitize rendered markdown HTML before innerHTML injection.
+  // Removes <script>, <iframe>, <object>, <embed>, <style>, <link>, <meta>,
+  // <base>, <svg>, and `on*` event-handler attributes; blocks
+  // `javascript:` URIs on href/src/srcset.
+  function sanitizeRenderedHTML(htmlString) {
+    if (!htmlString || typeof DOMParser === 'undefined') return htmlString;
+    try {
+      var doc = new DOMParser().parseFromString('<!doctype html><html><body>' + htmlString + '</body></html>', 'text/html');
+      doc.querySelectorAll('script, iframe, object, embed, style, link, meta, base, svg').forEach(function(el) { el.remove(); });
+      doc.querySelectorAll('*').forEach(function(el) {
+        Array.prototype.slice.call(el.attributes).forEach(function(attr) {
+          var name = attr.name.toLowerCase();
+          if (name.indexOf('on') === 0) { el.removeAttribute(attr.name); return; }
+          if ((name === 'href' || name === 'src' || name === 'srcset' || name === 'xlink:href') && /^\s*javascript:/i.test(attr.value)) {
+            el.removeAttribute(attr.name);
+          }
+        });
+      });
+      return doc.body.innerHTML;
+    } catch (e) {
+      return htmlString;
+    }
   }
 
   // ── R10 #37: chemistry rendering helpers ──
