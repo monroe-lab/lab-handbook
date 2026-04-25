@@ -1516,9 +1516,21 @@
           return;
         }
 
+        var rawVal = String(val);
+        var valHtml;
+        if (/^https?:\/\//i.test(rawVal)) {
+          valHtml = '<a href="' + window.Lab.escHtml(rawVal) + '" target="_blank" rel="noopener" ' +
+            'style="color:var(--teal,#009688);text-decoration:none;font-weight:500;word-break:break-all" ' +
+            'title="' + window.Lab.escHtml(rawVal) + '">' +
+            window.Lab.escHtml(rawVal) +
+            ' <span class="material-icons-outlined" style="font-size:14px;vertical-align:-2px">open_in_new</span>' +
+            '</a>';
+        } else {
+          valHtml = '<span style="font-weight:500">' + window.Lab.escHtml(rawVal) + '</span>';
+        }
         html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
-          '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
-          '<span style="font-weight:500">' + window.Lab.escHtml(String(val)) + '</span>' +
+          '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
+          valHtml +
           '</div>';
       }
     });

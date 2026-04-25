@@ -886,25 +886,40 @@ async function deleteDoc() {
 // ── Welcome ──
 function showWelcome() {
   var contentEl = document.getElementById('nbContent');
-  // Build flat recent list (walk tree)
+  // Build flat recent list (walk tree). Extract a YYYY-MM-DD date from
+  // either the filename (preferred — e.g. notebooks/foo/2026-04-21.md) or
+  // the title prefix so the subtitle is always a date when one is available.
+  // Falls back to the raw title for non-date-named entries.
+  function extractDate(path, title) {
+    var slug = String(path || '').replace(/\.md$/, '').split('/').pop();
+    var m = slug.match(/^(\d{4}-\d{2}-\d{2})/) ||
+            String(title || '').match(/(\d{4}-\d{2}-\d{2})/);
+    return m ? m[1] : '';
+  }
   var recent = [];
   (function walk(node, labelChain) {
     var label = labelChain ? labelChain + ' / ' + node.label : node.label;
     if (node.dir) {
       node.items.slice(0, 3).forEach(function(it) {
-        recent.push({ folder: label, title: it.title, path: it.path });
+        var date = extractDate(it.path, it.title);
+        recent.push({ folder: label, title: it.title, path: it.path, date: date });
       });
     }
     node.children.forEach(function(ch) { walk(ch, node.dir ? label : ''); });
   })(TREE, '');
-  recent.sort(function(a, b) { return b.title.localeCompare(a.title); });
+  recent.sort(function(a, b) {
+    var ad = a.date || a.title || '';
+    var bd = b.date || b.title || '';
+    return bd.localeCompare(ad);
+  });
 
   var recentHtml = '';
   if (recent.length) {
     recentHtml = '<h3 style="font-size:15px;font-weight:600;margin:24px 0 12px">Recent Entries</h3>' +
       recent.slice(0, 10).map(function(e) {
+        var subtitle = e.date || e.title;
         return '<div onclick="loadDoc(\'' + Lab.escHtml(e.path) + '\')" style="background:#fff;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">' +
-          '<div><div style="font-weight:500">' + Lab.escHtml(e.folder) + '</div><div style="font-size:13px;color:var(--grey-500)">' + Lab.escHtml(e.title) + '</div></div>' +
+          '<div><div style="font-weight:500">' + Lab.escHtml(e.folder) + '</div><div style="font-size:13px;color:var(--grey-500)">' + Lab.escHtml(subtitle) + '</div></div>' +
           '<span class="material-icons-outlined" style="color:var(--grey-400)">chevron_right</span></div>';
       }).join('');
   }

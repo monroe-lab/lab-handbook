@@ -487,7 +487,7 @@
       fields: [
         { key: 'title',    label: 'Name',                        type: 'text', required: true },
         { key: 'type',     label: 'Type',                        type: 'hidden', value: 'tube' },
-        { key: 'of',       label: 'Of (concept slug)',           type: 'text', placeholder: 'e.g. accessions/pistachio-4 or resources/ethanol-absolute' },
+        { key: 'of',       label: 'Of (concept slug)',           type: 'text', placeholder: 'accessions/… or resources/…' },
         { key: 'parent',   label: 'Parent',                      type: 'text' },
         { key: 'position', label: 'Position in parent',          type: 'text', placeholder: 'e.g. A1 (if parent has grid)' },
         { key: 'grid',     label: 'Grid (e.g. 5x1)',             type: 'text', placeholder: 'rowsxcols, optional' },
