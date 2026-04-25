@@ -1823,6 +1823,17 @@
       }
 
       function openParentDropdown() {
+        // QA53 / CYCLE49-PICKER-INITIAL-RACE: re-resolve dropdown + trigger by
+        // id at click time. The closure refs from a prior renderForm pass
+        // can detach (e.g. after openPopup → startEditing re-renders), in
+        // which case the cached `dropdown` element is no longer in the DOM
+        // and toggling its inline display style is a no-op — the user sees
+        // the click do nothing on first attempt. Fresh lookup keeps the
+        // open in sync with the currently-mounted picker.
+        var liveDropdown = document.getElementById('em-parent-picker-dropdown');
+        var liveTrigger = document.getElementById('em-parent-picker-trigger');
+        if (liveDropdown) dropdown = liveDropdown;
+        if (liveTrigger) trigger = liveTrigger;
         if (!dropdown || !trigger) return;
         // #150: big popover. Fixed at 620px wide (or 92vw if narrower
         // viewport), ~70vh tall, always shown as a flex-column so the tree
@@ -2824,6 +2835,16 @@
     document.getElementById('em-edit-toggle').innerHTML = '<span class="material-icons-outlined" style="font-size:16px">edit</span> Edit';
     document.getElementById('em-save').style.display = 'none';
     document.getElementById('em-delete').style.display = '';
+
+    // QA53: refresh popup heading from the saved title — stopEditing was
+    // re-rendering fields/body/breadcrumb but leaving em-title stuck on the
+    // pre-edit value, so renaming an item left the modal heading stale.
+    var titleEl = document.getElementById('em-title');
+    if (titleEl) {
+      var newTitle = (currentState.meta && currentState.meta.title) ||
+        (currentState.path || '').split('/').pop().replace(/\.md$/, '');
+      titleEl.textContent = newTitle;
+    }
 
     renderFields(currentState.meta, false);
 

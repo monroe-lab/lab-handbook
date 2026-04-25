@@ -369,6 +369,9 @@
 
     // ── Filter ──
     function applyFilter(q) {
+      // Drop any prior "no results" placeholder before re-evaluating.
+      var emptyMsg = treeMount.querySelector('.lt-no-results');
+      if (emptyMsg) emptyMsg.remove();
       if (!q) {
         treeMount.querySelectorAll('.lt-node').forEach(function(n) {
           n.style.display = '';
@@ -422,6 +425,16 @@
           n.style.display = 'none';
         }
       });
+      // QA53: when no node matched, the dropdown was rendering as a blank
+      // panel with no feedback. Surface a small "no matches" placeholder
+      // so users know the filter is the reason nothing appears.
+      if (!hits.size) {
+        var msg = document.createElement('div');
+        msg.className = 'lt-no-results';
+        msg.style.cssText = 'padding:18px 14px;text-align:center;color:var(--grey-500,#6b7280);font-size:13px';
+        msg.textContent = 'No locations match "' + q + '".';
+        treeMount.appendChild(msg);
+      }
     }
 
     // Boot
