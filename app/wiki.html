@@ -416,6 +416,7 @@ function toggleType(key) {
   });
   document.getElementById('clearFiltersBtn').style.display = (activeTypes.size || document.getElementById('docSearch').value) ? '' : 'none';
   renderSidebar();
+  applyWikiGraphMatch();
 }
 
 function clearFilters() {
@@ -427,6 +428,7 @@ function clearFilters() {
   });
   document.getElementById('clearFiltersBtn').style.display = 'none';
   renderSidebar();
+  applyWikiGraphMatch();
 }
 
 // ── Tree (grouped by top-level dir) ──
@@ -848,13 +850,17 @@ function showWelcome() {
 }
 
 // ── Force-directed graph component ──
-// opts: { canvas, tooltipEl, docs:[], edges:[], onClick, interactive, focusSlug, showLabels }
+// opts: { canvas, tooltipEl, docs:[], edges:[], onClick, interactive, focusSlug, showLabels, matchSet }
 function createForceGraph(opts) {
   var canvas = opts.canvas;
   var ctx = canvas.getContext('2d');
   var dpr = window.devicePixelRatio || 1;
   var W = 0, H = 0;
   var stopped = false;
+  // matchSet: null = show all; Set<slug> = nodes outside the set are dimmed.
+  // Updated live by setMatchSet() so the welcome-pane graph reacts to the
+  // sidebar search and type-chip filters without rebuilding the whole layout.
+  var matchSet = opts.matchSet || null;
 
   // Build node objects
   var nodeMap = {};
@@ -993,7 +999,8 @@ function createForceGraph(opts) {
     edges.forEach(function(e) {
       var highlight = focusNode && (e.source === focusNode || e.target === focusNode);
       var hov = hoverNode && (e.source === hoverNode || e.target === hoverNode);
-      ctx.strokeStyle = highlight ? 'rgba(121,134,203,.7)' : (hov ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.09)');
+      var edgeOutOfMatch = matchSet && !matchSet.has(e.source.slug) && !matchSet.has(e.target.slug);
+      ctx.strokeStyle = highlight ? 'rgba(121,134,203,.7)' : (hov ? 'rgba(255,255,255,.35)' : (edgeOutOfMatch ? 'rgba(255,255,255,.025)' : 'rgba(255,255,255,.09)'));
       ctx.beginPath();
       ctx.moveTo(e.source.x, e.source.y);
       ctx.lineTo(e.target.x, e.target.y);
@@ -1003,6 +1010,7 @@ function createForceGraph(opts) {
     // Nodes
     nodes.forEach(function(n) {
       var dim = focusNode && n !== focusNode && (ADJ[focusNode.slug] || []).indexOf(n.slug) < 0;
+      if (matchSet && !matchSet.has(n.slug)) dim = true;
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
       if (n === focusNode) {
@@ -1118,7 +1126,33 @@ function createForceGraph(opts) {
   return {
     stop: function() { stopped = true; window.removeEventListener('resize', onResize); },
     redraw: function() { alpha = Math.max(alpha, 0.4); if (stopped) { stopped = false; tick(); } },
+    setMatchSet: function(s) { matchSet = (s && s.size) ? s : null; alpha = Math.max(alpha, 0.3); if (stopped) { stopped = false; tick(); } else { draw(); } },
   };
+}
+
+// Build the set of doc paths that match the current sidebar search + type
+// chip filters. Returns null when no filter is active so the graph reverts
+// to its full-color state. Walks the same TREE that filterNode uses, so the
+// graph and sidebar always see the same matches.
+function computeWikiMatchSet() {
+  var inp = document.getElementById('docSearch');
+  var q = ((inp && inp.value) || '').toLowerCase().trim();
+  if (!q && !activeTypes.size) return null;
+  var view = filterNode(TREE, q, activeTypes);
+  var set = new Set();
+  function walk(n) {
+    if (!n) return;
+    n.items.forEach(function(d) { set.add(d.path); });
+    Object.keys(n.children).forEach(function(k) { walk(n.children[k]); });
+  }
+  walk(view);
+  return set;
+}
+
+function applyWikiGraphMatch() {
+  if (welcomeGraph && welcomeGraph.setMatchSet) {
+    welcomeGraph.setMatchSet(computeWikiMatchSet());
+  }
 }
 
 // ── Mini graph for selected doc ──
@@ -1178,6 +1212,7 @@ function closeMiniGraph() {
 document.getElementById('docSearch').addEventListener('input', function() {
   document.getElementById('clearFiltersBtn').style.display = (activeTypes.size || this.value) ? '' : 'none';
   renderSidebar();
+  applyWikiGraphMatch();
 });
 
 // ── Mobile sidebar ──
