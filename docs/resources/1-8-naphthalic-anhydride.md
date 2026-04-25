@@ -1,9 +1,9 @@
 ---
-title: 1,8-Naphthalic anhydride
-type: chemical
-cas: 81-84-5
-location: Chemical Cabinet
-status: in_stock
+title: "1,8-Naphthalic anhydride"
+type: "chemical"
+cas: "81-84-5"
+location: "Chemical Cabinet"
+status: "needs_more"
 legacy_inventory_id: 12
 ---
 # 1,8-Naphthalic anhydride
