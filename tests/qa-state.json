@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 32,
+  "cycle": 33,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -4499,6 +4499,83 @@
         "Verified the Detail Sheet Link fix against a probe URL injected directly via GitHub Contents API (no editor save flow needed) \u2014 confirms the renderFields branch is the actual code path. Probe was reverted at end-of-cycle to leave A1-T1-E unchanged.",
         "Phase remains 'functional'."
       ]
+    },
+    {
+      "cycle": 33,
+      "persona": "Jordan Park",
+      "modifier": "ui_critic",
+      "task": "Chemical pill recolor + orientation banners + 12-tab nav overflow + Recent Entries date verification. Walked Inventory page, filtered to chemicals, verified all show purple #6a1b9a Chemical pill. Confirmed orientation banner present at top of Inventory (\"Concepts vs containers...\") with teal left border. Confirmed orientation banner on Accessions (\"What is an accession?...\") with purple left border. Validated 1024px viewport: nav collapses to Tutorials/Notebooks/Protocols/Accessions/Inventory/Waste + a \"+ More\" overflow popover that exposes Projects/People/Calendar/Lab Map/Apps/Wiki. Notebook recent entries scrape revealed CYCLE27-NOTEBOOK-RECENT-MN was still open: notebooks/vianney-ahn/fiberseq/MN.md is a real file with non-date filename \u2014 cycle 32 fix only handled path/title patterns. Implemented mtime-based fallback in showWelcome that reads each entry's git commit time from the object-index and formats as YYYY-MM-DD when neither slug nor title yields a date. Verified deployed: subtitle now reads \"2026-04-24\" instead of \"MN\".",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step01-inventory-loaded.png",
+          "shows": "Inventory baseline 1440px",
+          "evaluation": "Top orientation banner with teal border. 280 total / 218 in stock / 2 needs more / 1 OOS. Type column shows Chemical (purple) and Buffer/Solution (orange). Layout clean.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step03-inventory-filtered-chemical.png",
+          "shows": "Inventory filtered by type=chemical",
+          "evaluation": "All visible Type cells show purple Chemical pill (rgb(106,27,154) / #6a1b9a hex). Bg uses 7% alpha \u2014 legible.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step06-inventory-search-ethanol.png",
+          "shows": "Search \"ethanol absolute\"",
+          "evaluation": "One row \"Ethanol Absolute\" purple Chemical pill, In Stock, 2 bottles, Flammable Cabinet. Correct.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step10-accessions-loaded.png",
+          "shows": "Accessions page",
+          "evaluation": "Stats cards visible (232 active, 119 status, 12, etc.). Orientation banner with purple border. 5 status filters present.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step11-accessions-orientation-banner.png",
+          "shows": "Accessions orientation banner",
+          "evaluation": "\"What is an accession? The general concept of a thing \u2014 a particular tree, a genotype, a cell line, an MA line. Accessions have physical instances...\". Purple left border (distinct from inventory teal). Correct.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step16-notebooks-loaded.png",
+          "shows": "Notebooks Recent Entries BEFORE fix",
+          "evaluation": "BUG REPRODUCED: first card \"Vianney Ahn / Fiberseq\" subtitle = \"MN\" (raw title). Other 8 cards correctly show YYYY-MM-DD dates 2026-04-22 \u2192 2026-04-05.",
+          "issues_found": [
+            "CYCLE27-NOTEBOOK-RECENT-MN still open"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step22-nav-1024-viewport.png",
+          "shows": "Nav at 1024px viewport",
+          "evaluation": "Nav collapsed to Tutorials/Notebooks/Protocols/Accessions/Inventory/Waste + \"+ More\". Avatar+Sign out visible. No clipping.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/step23-more-popover-open.png",
+          "shows": "+ More popover open at 1024px",
+          "evaluation": "Popover appears under \"+ More\" button, lists Projects/People/Calendar/Lab Map/Apps/Wiki with icons. Z-index correct, not clipped by table.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle33/verify-notebooks-after-fix.png",
+          "shows": "Notebooks Recent Entries AFTER fix deployed",
+          "evaluation": "First card now shows \"Vianney Ahn / Fiberseq\" subtitle \"2026-04-24\" (mtime fallback). All other dates unchanged. Bug closed.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "CYCLE27-NOTEBOOK-RECENT-MN-V2"
+      ],
+      "fixes": [
+        "CYCLE27-NOTEBOOK-RECENT-MN-V2"
+      ],
+      "observations": [
+        "Chemical pill color and contrast are correct everywhere (#6a1b9a / rgb(106,27,154), 7% alpha bg).",
+        "Type column pill in inventory.html shows label as text only (no fa-atom icon). Convention since cycle 20; icon reserved for popup view.",
+        "Row click on inventory.html / accessions.html requires landing on the name cell \u2014 UX nit, not a regression.",
+        "Orientation banners working as designed: Inventory teal border, Accessions purple border.",
+        "12-tab nav overflow at 1024px: 6 primary tabs stay, the rest move into \"+ More\" popover. Tested clicking \u2014 popover opens and renders 6 entries with icons."
+      ]
     }
   ],
   "bugs_found": [
@@ -4616,7 +4693,7 @@
     "CYCLE27-PRIORITY-NOT-STARS (visual, fixed in cycle 27, commit 230d4fde): accession popup Priority field rendered raw \"2\" instead of \u2605 glyphs",
     "CYCLE27-PEOPLE-NOT-PILLS-IN-POPUP (visual, fixed in cycle 27, commit 230d4fde): accession popup People field rendered plain \"A / B\" text instead of individual pills",
     "CYCLE27-INSTANCE-SUBTITLE-SLUG (visual, fixed in cycle 27, commit 230d4fde): renderBacklinksPane displayed parent slug \"box dna extracts\" instead of title \"DNA Extracts Box\"",
-    "CYCLE27-NOTEBOOK-RECENT-MN (cosmetic, OPEN from cycle 27): first recent notebook entry shows \"MN\" instead of YYYY-MM-DD date in subtitle",
+    "CYCLE27-NOTEBOOK-RECENT-MN (cosmetic, closed in cycle 33 commit d59ed437; see CYCLE27-NOTEBOOK-RECENT-MN-V2): first recent notebook entry shows \"MN\" instead of YYYY-MM-DD date in subtitle",
     "CYCLE27-OF-PLACEHOLDER-TRUNCATED (cosmetic, OPEN from cycle 27): New Tube of-field placeholder truncated to \"or re...\"",
     "CYCLE27-DETAIL-LINK-NOT-CLICKABLE (ux, OPEN from cycle 27): accession popup Detail Sheet Link rendered as plain truncated text, not a clickable hyperlink",
     {
@@ -4680,7 +4757,8 @@
       "where": "app/js/shared.js#renderFrontmatterBar",
       "status": "fixed",
       "fix_commit": "<pending-cycle32-followup>"
-    }
+    },
+    "CYCLE27-NOTEBOOK-RECENT-MN-V2 (cosmetic, fixed in cycle 33, commit d59ed437): cycle 32 extractDate fallback yielded the raw title \"MN\" for notebooks/vianney-ahn/fiberseq/MN.md. showWelcome in app/notebooks.html now awaits Lab.gh.fetchObjectIndex and uses the entry mtime (unix seconds) formatted YYYY-MM-DD when neither slug nor title yields a date. Path lookup tries \"<path>.md\" and \"<path>\". Verified deployed: subtitle now reads \"2026-04-24\"."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -4802,7 +4880,13 @@
     "app/notebooks.html showWelcome \u2014 date-aware Recent Entries subtitle (commit 03296bba)",
     "app/js/types.js tube of-field placeholder shortened to fit input width (commit 03296bba)",
     "app/js/editor-modal.js renderFields URL anchor render in view mode (commit 03296bba)",
-    "app/js/shared.js renderFrontmatterBar \u2014 URL anchor render for chip surface (commit pending-cycle32-followup)"
+    "app/js/shared.js renderFrontmatterBar \u2014 URL anchor render for chip surface (commit pending-cycle32-followup)",
+    {
+      "cycle": 33,
+      "commit": "d59ed437",
+      "file": "app/notebooks.html",
+      "description": "Notebook Recent Entries subtitle falls back to git mtime when neither filename nor title contain YYYY-MM-DD. Closes CYCLE27-NOTEBOOK-RECENT-MN-V2."
+    }
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -5060,7 +5144,8 @@
     "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open).",
     "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated.",
     "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated.",
-    "/tmp/qa-screenshots/cycle32/ \u2014 27 screenshots covering people baseline, all 4 wizard steps with before/after, fresh person dashboard, notebooks ?person= filter, notebooks landing (validates RECENT-MN sweep with 9/10 date subtitles), accession wiki page (detected separate FRONTMATTER-CHIP-URL-NOT-CLICKABLE bug), accession popup with clickable Detail Sheet Link (validates DETAIL-LINK sweep), tube editor with short of-placeholder (validates OF-PLACEHOLDER sweep), inventory baseline, post-cleanup people grid, 1024px nav, mobile dashboard + notebooks. Plus _issues.json. Read and evaluated in detail."
+    "/tmp/qa-screenshots/cycle32/ \u2014 27 screenshots covering people baseline, all 4 wizard steps with before/after, fresh person dashboard, notebooks ?person= filter, notebooks landing (validates RECENT-MN sweep with 9/10 date subtitles), accession wiki page (detected separate FRONTMATTER-CHIP-URL-NOT-CLICKABLE bug), accession popup with clickable Detail Sheet Link (validates DETAIL-LINK sweep), tube editor with short of-placeholder (validates OF-PLACEHOLDER sweep), inventory baseline, post-cleanup people grid, 1024px nav, mobile dashboard + notebooks. Plus _issues.json. Read and evaluated in detail.",
+    "/tmp/qa-screenshots/cycle33/ \u2014 26 screenshots taken (24 in main run + 1 verify + previous), 9 read and evaluated. Closed CYCLE27-NOTEBOOK-RECENT-MN-V2."
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -5081,5 +5166,5 @@
     "Cycle 18: Alex Chen (postdoc) + thorough + New user onboarding. First exercise of /app/people.html onboarding wizard end-to-end and first fresh test of the People + Profile routes (both added to routes_tested). Wizard creates: person md + notebook folder + first notebook entry across 3 GitHub API writes. Found 3 bugs \u2014 all fixed in commit 52fcfd3: (1) PEOPLE-CARD-PILLS-BARE-SLUG (functional, widespread) \u2014 every connected pill on every person card used ?doc=<bare-slug>, 404ing for any protocol/project living in a subfolder like wet-lab/autoclave; fix resolves the slug against the cached object-index and uses obj.path (minus .md, minus /index for folder-style pages). (2) PERSON-DASHBOARD-IGNORES-FORWARD-LINKS (functional/ux) \u2014 the person dashboard aggregated inbound backlinks only, so a freshly-onboarded person landed on a 0-across-the-board dashboard despite their body having [[protocol]]/[[project]] wikilinks from the wizard; fix merges outbound edges from the link-index plus a body-parse fallback into backlinkedItems. (3) NOTEBOOK-ENTRY-NOT-PATCHED (functional) \u2014 the wizard patched only the person card into the object-index overlay, not the first notebook entry, so the Notebooks filter (path startsWith notebooks/<slug>/) read 0 until the next deploy; fix also patches the entry path with {type:'notebook', title}. Verified live via tests/qa-cycle-18-verify.mjs: autoclave pill click lands on the real protocol page (no 'Document not found'); fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project; sections expand to show the right rows. Logged 2 follow-up items as OPEN: NOTEBOOKS-PERSON-PARAM-IGNORED (wizard links to notebooks.html?person=<slug> but notebooks.html doesn't filter by it) and FAB-NEAR-WIZARD-NEXT-MOBILE (issue-reporter FAB crowds the wizard Next button at 375px). All cycle-18 test artifacts (cycle person + entry + gitkeep, verify person + entry + gitkeep) cleaned up via gh API DELETE.",
     "Cycle 32: Kayla Torres (undergrad) + careful + Onboarding day. Fresh combo (careful never used by Kayla). Walked the 4-step Join the Lab wizard end-to-end, landed on the fresh person dashboard, then exercised the 3 cycle-32 sweep fixes live: notebook recent-entry date subtitle, tube of-field placeholder fit, accession Detail Sheet Link clickable. Surfaced one new visual bug (frontmatter chip URL not clickable on the wiki surface) and fixed it inline as a follow-up. All cycle-32 test artifacts cleaned up (person md + notebook entry + .gitkeep folder + probe accession reverted) via gh API. 0 functional issues at end of run."
   ],
-  "last_updated": "2026-04-25T05:01:31.464154Z"
+  "last_updated": "2026-04-25T05:14:04.756796+00:00"
 }
