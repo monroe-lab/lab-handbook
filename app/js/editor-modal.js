@@ -1584,16 +1584,22 @@
         var rawVal = String(val);
         var valHtml;
         if (/^https?:\/\//i.test(rawVal)) {
+          // Single-line ellipsis truncation so long Google Docs / form URLs
+          // don't wrap to 5 lines inside the narrow Fields column. Full URL is
+          // preserved in title= for hover and href= for click.
           valHtml = '<a href="' + window.Lab.escHtml(rawVal) + '" target="_blank" rel="noopener" ' +
-            'style="color:var(--teal,#009688);text-decoration:none;font-weight:500;word-break:break-all" ' +
+            'style="color:var(--teal,#009688);text-decoration:none;font-weight:500;' +
+            'display:inline-flex;align-items:center;gap:4px;min-width:0;flex:1;max-width:100%" ' +
             'title="' + window.Lab.escHtml(rawVal) + '">' +
+            '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1">' +
             window.Lab.escHtml(rawVal) +
-            ' <span class="material-icons-outlined" style="font-size:14px;vertical-align:-2px">open_in_new</span>' +
+            '</span>' +
+            '<span class="material-icons-outlined" style="font-size:14px;flex-shrink:0">open_in_new</span>' +
             '</a>';
         } else {
           valHtml = '<span style="font-weight:500">' + window.Lab.escHtml(rawVal) + '</span>';
         }
-        html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px">' +
+        html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;min-width:0">' +
           '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
           valHtml +
           '</div>';

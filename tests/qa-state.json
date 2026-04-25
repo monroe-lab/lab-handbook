@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 54,
+  "cycle": 55,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5315,8 +5315,10 @@
         {
           "id": "QA39-PARENT-FIELD-TRUNCATION",
           "severity": "cosmetic",
-          "status": "open",
-          "description": "Tube popup FIELDS pane truncates the Parent pill text inside the narrow ~240px column ('QA39 LibPrep Aliqu...'). Title attr provides the full label on hover but the truncation is jarring. Consider letting the parent pill wrap, ellipsis-trimming at a word boundary, or shortening the field column label."
+          "status": "closed",
+          "closed_in_cycle": 55,
+          "closed_commit": "0088518",
+          "description": "Tube popup FIELDS pane previously truncated the Parent pill text inside the narrow ~240px column ('QA39 LibPrep Aliqu...'). Closed by the cycle 39 fields-column ellipsis fix that lets the parent pill wrap (white-space:normal + word-break:break-word + max-width:100%). Verified in cycle 55 step12 — parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
         }
       ],
       "fixes": [
@@ -7394,6 +7396,179 @@
         "Minor polish (not fixed): References-panel display name comes from prettify(slug) so 'QA54-Jordan-Full-Day-tswtos' renders as 'Qa54 Jordan Full Day Tswtos'. Setting `title:` frontmatter would override; cosmetic.",
         "Recent Updates filenames truncate with ellipsis \u2014 full path not visible without hovering."
       ]
+    },
+    {
+      "cycle": 55,
+      "persona": "Jordan Park",
+      "modifier": "cross_linker",
+      "scenario": "of: picker includes accessions",
+      "task": "Created a Library instance under accession A3-T1-S via the Add Instance flow. Probed the of-datalist composition for every of-bearing type (bottle / sample / extraction / library / pool / tube). Set parent location to box-pistachio-dna at H10 via the locations picker. Verified end-to-end cross-link round-trip: accession popup INSTANCES IN LAB shows new library with subtitle 'Pistachio DNA Box \u00b7 H10'; library popup of-pill navigates back to accession; library popup parent-pill navigates to box; box grid renders the library at H10 with correct slug+label+title attr; H10 cell click navigates back to library. Cleanup via API.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step01-accessions-baseline.png",
+          "shows": "Accessions tracker baseline: 12-tab top nav, purple-border orientation banner ('What's an accession? \u2026 physical instances'), 5-card stats row (232 Active / 101 Waiting / 119 Storage / 12 Completed / Archived), Add Accession tile, filter bar, table rows.",
+          "evaluation": "Banner visible with purple left border and the concept/instance copy. Status pills and star priority columns render correctly. Top nav highlights Accessions in purple.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step02-accession-popup-baseline.png",
+          "shows": "A3-T1-S accession popup baseline. FIELDS column: Type=Accession (purple pill, fingerprint icon), Link, Name, Project=Kerman Somatic, People=Zi Ye + Matt Davis (Person pills), Species=Pistacia vera, Status=Active (amber pill), Status note, Priority=1\u22063 stars, Sequencing Type, Detail Sheet Link (long URL wrapping over 5 lines), Last Updated. REFERENCES pane: '+ Add instance' button + 'No references yet'.",
+          "evaluation": "Popup renders cleanly. Type / Status / Priority / People all use correct R20 visual treatment. Add instance affordance always visible (cycle 47 fix verified). Cross_linker verdict: every field that should be a pill is a pill.",
+          "issues": [
+            "DETAIL-SHEET-LINK-WRAP-5-LINES (cosmetic, fixed this cycle): the docs.google.com URL wraps onto 5 lines inside the narrow Fields column because the field renderer used word-break:break-all. Replaced with single-line ellipsis truncation + open_in_new icon; full URL preserved on hover via title= and click via href=."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step03-kind-picker-open.png",
+          "shows": "Add Instance modal: 'New instance of A3-T1-S' with kind dropdown defaulting to 'Sample (leaf / tissue / seed collection)'.",
+          "evaluation": "Dropdown options: sample / extraction / library / pool. Modal dimmer over the underlying accession popup. Cancel + Create buttons.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step04-kind-picker-library-selected.png",
+          "shows": "Same modal after selecting Library (sequencing prep) from the kind dropdown.",
+          "evaluation": "Dropdown displays the chosen 'Library (sequencing prep)' label with book icon. Submit button still primary teal.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step05-after-create-library.png",
+          "shows": "Editor open on the freshly-created library file (accessions/library-a3-t1-s-ossw8u.md). FIELDS: Type=Library (teal pill, book icon), Link wikilink, Name=A3-T1-S (reused from concept), Of (accession slug)=accessions/a3-t1-s (pre-filled correctly), Prep Kit/Date/Insert Size/Molarity (empty), Parent picker trigger 'Click to select location\u2026'. Toast 'Created \u2014 fill in the details' bottom-right.",
+          "evaluation": "of-field correctly pre-filled with the parent accession slug. Type pill teal #00897b matches Library color. Created toast lands correctly.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step06-editor-of-field-state.png",
+          "shows": "Same editor state. Datalist probe captured: of-input value='accessions/a3-t1-s', em-of-datalist has 233 options, all paths under accessions/ (no stocks/, no resources/, no samples/). Sample options first 3: A1-T1-E, A1_T1_W, A1-T1-W.",
+          "evaluation": "Library of-datalist correctly scoped to accessions only \u2014 the R20 picker constraint holds. Cross-checked all 6 of-bearing types: bottle={resources:279, stocks:162} (no accessions), sample/extraction/library/pool={accessions:232}, tube={resources:279, stocks:162, accessions:232}. All match the conceptDirs branches in renderFields.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step07-library-fields-filled.png",
+          "shows": "Editor after filling Name='QA55 LibPrep moezlzs0', Prep Kit='SMRTbell prep kit 3.0', Date='2026-04-25', Insert Size='15 kb', Molarity='20 nM'. Of and Parent inputs unchanged.",
+          "evaluation": "All library-specific fields accept their values cleanly.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step08-loc-picker-open.png",
+          "shows": "Locations picker dropdown (cycle 53 redesign): top-level rooms (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 170, Robbins Hall 262, Unsorted) with collapse/expand affordances and item counts. Filter input visible, Expand all/Collapse buttons.",
+          "evaluation": "Picker uses door icons for rooms, shows '8 items' on Robbins Hall 170. Tree and toolbar look clean.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step09-loc-picker-filtered.png",
+          "shows": "Picker filtered with query 'pistachio dna': Robbins Hall 170 expanded \u2192 -80C Freezer A (4\u00d71) \u2192 Shelf 1 \u2192 Pistachio DNA Box (10\u00d710, 2 items) [highlighted teal]; also expanded path through 4C Fridge \u2192 DNA Extracts Box \u2192 Pistachio DNA Extract 1.",
+          "evaluation": "Filter surfaces deep matches and shows the lineage path so the picker is navigable. Highlighted target row uses light-teal background. Cycle 53 'no matches' fix is in place but did not need to fire here.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step10-loc-picker-picked.png",
+          "shows": "Editor after the picker click. Parent chip shows the full breadcrumb 'Robbins Hall 170 > -80C Freezer A > Shelf 1 > Pistachio DNA Box' (truncating mid-word via overflow). Toast 'Location: Pistachio DNA Box' bottom-right.",
+          "evaluation": "Toast uses the real title (not slug) \u2014 cycle 48 fix verified. Parent chip carries full ancestor crumb. Type pill still teal Library.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step11-position-filled.png",
+          "shows": "Editor unchanged visually because the Position field is below the visible viewport.",
+          "evaluation": "Position was set programmatically (verified via API) \u2014 the fact that Position lives below the fold in a long form is acceptable for now but worth noting.",
+          "issues": [
+            "POSITION-FIELD-BELOW-FOLD (minor, open): on a 900px-tall viewport the Position in parent input is below the editor's visible area; user has to scroll. Could be re-ordered to sit next to Parent."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step12-after-save.png",
+          "shows": "Library popup in view mode immediately after Save. Title 'QA55 LibPrep moezlzs0'. Full 5-pill breadcrumb at top of body: Robbins Hall 170 / -80C Freezer A / Shelf 1 / Pistachio DNA Box / QA55 LibPrep moezlzs0 (each with type-correct icon). FIELDS: Type=Library (teal), Of=A3-T1-S (purple accession pill, clickable), Parent=Pistachio DNA Box (brown box pill, clickable), Position=H10. REFERENCES 'No references yet'. Toast 'Saved'.",
+          "evaluation": "Save round-trip is perfect. Of and Parent both render as clickable pills (cycle 4 fix holds). 5-level breadcrumb renders without an orphaned slash (cycle 25 separator-pill grouping holds). Saved file YAML verified via API: of:accessions/a3-t1-s, parent:locations/box-pistachio-dna, position:H10, all four library fields preserved.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step13-editor-closed.png",
+          "shows": "Accessions tracker after popup close. Same baseline as step 1.",
+          "evaluation": "Tracker grid unchanged; modal cleared cleanly.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step14-accession-popup-after.png",
+          "shows": "A3-T1-S accession popup reopened. REFERENCES pane now shows '1 INSTANCE IN LAB' header + row 'QA55 LibPrep moezlzs0' with book icon and subtitle 'Pistachio DNA Box \u00b7 H10'. '+ Add instance' button still present.",
+          "evaluation": "Backlink registration works without a deploy: patchLinkIndex (cycle 1) + patchObjectIndex (cycle 2) overlays correctly surface the new library on the accession concept's INSTANCES IN LAB pane. Subtitle 'parent \u00b7 position' is the cycle 39 disambiguator at work.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step15-library-popup-open.png",
+          "shows": "Library popup opened by clicking the new INSTANCES IN LAB row. Same content as step 12 (title, breadcrumb, fields).",
+          "evaluation": "Clicking a backlink row navigates correctly into the instance popup. Cross_linker hop accession\u2192library works.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step16-after-of-pill-click.png",
+          "shows": "After clicking the of-pill on the library popup. Accession A3-T1-S popup is back open with 1 INSTANCE IN LAB row.",
+          "evaluation": "Of-pill click handler navigates back to the parent concept. Bidirectional cross-link verified end-to-end.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step17-library-popup-again.png",
+          "shows": "Library popup reopened (clicked the INSTANCES IN LAB row again).",
+          "evaluation": "Round-trip stable; no flicker or stale meta.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step18-after-parent-pill-click.png",
+          "shows": "Box popup 'Pistachio DNA Box' after clicking the parent-pill on the library popup. Breadcrumb (Robbins Hall 170 / -80C Freezer A / Shelf 1 / Pistachio DNA Box). Right-side CONTENTS pane visible with 10\u00d710 grid. (Image is small; see step22 zoom.)",
+          "evaluation": "Parent-pill click handler navigates to the box. Cross_linker hop library\u2192box works. The default fullPage screenshot rendered the popup small; re-shot at higher resolution as step22.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step19-box-popup-grid.png",
+          "shows": "Box popup with grid scrolled into view (rendered small).",
+          "evaluation": "Programmatic probe confirmed: 100 total cells, H10 occupied=true, slug=accessions/library-a3-t1-s-ossw8u, label='QA55 LibPrep moezlzs0', title attr matches.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step20-after-cell-click.png",
+          "shows": "After clicking grid cell H10. Library popup back open with title 'QA55 LibPrep moezlzs0'.",
+          "evaluation": "Grid cell click round-trips back to the instance popup. Cross_linker hop box\u2192library works.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step21-box-popup-revisit.png",
+          "shows": "Box popup re-opened (rendered small).",
+          "evaluation": "Breadcrumb hops capture: 3 link pills (Robbins Hall 170, -80C Freezer A, Shelf 1) above the current Box title pill.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle55/step22-box-popup-zoom.png",
+          "shows": "Re-shoot of Pistachio DNA Box popup at 1100\u00d71500 viewport. FIELDS: Type=Box (brown), Parent=Shelf 1, Grid=10\u00d710. Body: 'Standard 10\u00d710 cryobox storing pistachio project leaf tissue and extracts. Part of Shelf 1 in -80C Freezer A.' CONTENTS: '10 \u00d7 10 \u00b7 2 items' header, full 10\u00d710 grid with column headers 1-10 and row headers A-J. Cells A1 + A2 occupied with teal 'PL1' / 'PL2' labels (pre-existing tubes). H10 cell empty (post-cleanup baseline).",
+          "evaluation": "Grid renders cleanly at full viewport. Headers, dashed empty cells, and filled teal cells all crisp. Breadcrumb wraps the Pistachio DNA Box pill+slash to a second line as a unit (cycle 25 grouping).",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "DETAIL-SHEET-LINK-WRAP-5-LINES",
+          "severity": "cosmetic",
+          "summary": "Long URLs in the FIELDS column (e.g. Detail Sheet Link to a Google Doc) wrapped onto 5 lines because renderFields used word-break:break-all on http(s) anchors. Killed vertical real estate in every accession popup.",
+          "evidence": "/tmp/qa-screenshots/cycle55/step02-accession-popup-baseline.png \u2014 Detail Sheet Link occupies rows 5-9 of the Fields column.",
+          "root_cause": "renderFields URL branch in app/js/editor-modal.js used word-break:break-all + raw URL text; no max-width or ellipsis treatment.",
+          "status": "fixed"
+        }
+      ],
+      "fixes": [
+        "DETAIL-SHEET-LINK-WRAP-5-LINES \u2014 app/js/editor-modal.js renderFields URL branch: replaced word-break:break-all with single-line ellipsis (display:inline-flex, overflow:hidden text-overflow:ellipsis white-space:nowrap on the inner span, max-width:100%, flex-shrink:0 on the open_in_new icon). Title= preserves the full URL on hover; href= preserves click."
+      ],
+      "carryover_closed": [
+        {
+          "id": "QA39-PARENT-FIELD-TRUNCATION",
+          "verified": "Field-column Of/Parent pills now use white-space:normal + word-break:break-word + max-width:100% via the cycle 39 commit 0088518 (visible in app/js/editor-modal.js upgradeParentField line ~776). In cycle 55 the parent pill 'Pistachio DNA Box' (step12) and of pill 'A3-T1-S' (step12) render at full title without truncation. Marking closed."
+        }
+      ],
+      "observations": [
+        "of-datalist composition is correct per type \u2014 bottle never sees accessions; sample/extraction/library/pool see only accessions; tube sees all 4 dirs. Sanity passes for the R20 schema.",
+        "Add Instance flow pre-fills of-field with the parent concept slug (accessions/a3-t1-s for a library spawned from accession A3-T1-S). Saves cleanly.",
+        "Library popup breadcrumb is the full 5-pill chain Room \u2192 Freezer \u2192 Shelf \u2192 Box \u2192 Library. No orphaned slash on the wrapped second line (cycle 25 separator-pill grouping holds).",
+        "Both of-pill and parent-pill use JS click handlers (href='#'); click navigation works in both directions. The cross_linker round-trip accession\u2197library\u2197box\u2197cell\u2197library is unbroken.",
+        "INSTANCES IN LAB rows render with subtitle 'parent \u00b7 position' (e.g. 'Pistachio DNA Box \u00b7 H10') so siblings stay distinguishable without opening each one (cycle 39 disambiguator).",
+        "When the library inherits its name from the accession ('A3-T1-S' default) it is acceptable but could auto-suffix with the kind, e.g. 'A3-T1-S Library 1' \u2014 minor improvement opportunity.",
+        "Position field lives below the visible editor area on a 900px-tall viewport; user must scroll to fill (minor UX)."
+      ]
     }
   ],
   "bugs_found": [
@@ -8154,6 +8329,18 @@
       "id": "CYCLE54-IMG-PATH-DOCDIR-COMPOUND",
       "cycle": 54,
       "commit": "5db4f0ae"
+    },
+    {
+      "id": "DETAIL-SHEET-LINK-WRAP-5-LINES",
+      "cycle": 55,
+      "file": "app/js/editor-modal.js",
+      "summary": "renderFields URL anchor branch — replaced word-break:break-all with single-line ellipsis truncation (display:inline-flex, overflow:hidden text-overflow:ellipsis white-space:nowrap on inner span, max-width:100%, flex-shrink:0 on the open_in_new icon). Long Google Docs / form URLs in popup FIELDS columns no longer wrap to 5 lines."
+    },
+    {
+      "id": "QA39-PARENT-FIELD-TRUNCATION",
+      "cycle": 55,
+      "verified_commit": "0088518",
+      "summary": "Carry-over closed: cycle 39 fields-column wrap fix (white-space:normal + word-break:break-word + max-width:100% in upgradeParentField) confirmed in cycle 55 step12 — parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
     }
   ],
   "improvements_proposed": [
