@@ -4046,7 +4046,7 @@
       "title": "3 bottles point `of:` at deleted concept slugs",
       "description": "docs/stocks/bottle-test-item.md, bottle-test-item-mobile.md, bottle-ethyl-alcohol-absolute.md all referenced concept files that no longer exist (R21 dedup deleted ethyl-alcohol-absolute; the two test-items were stale fixtures with quantity 0).",
       "status": "closed",
-      "fix_commit": "PENDING"
+      "fix_commit": "7cfc88c0"
     }
   ],
   "fixes_applied": [
