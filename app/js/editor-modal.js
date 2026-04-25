@@ -769,9 +769,13 @@
       // titles must truncate with ellipsis so the pill stays inside the column
       // instead of overflowing into the body. Icon stays visible; only the
       // title text shrinks + ellipsis.
-      pill.setAttribute('style', style + 'max-width:100%;min-width:0;');
+      // Let long titles wrap onto a second line inside the pill rather than
+      // ellipsis-truncate mid-word. Pills are narrow because the FIELDS column
+      // is ~200px; a single-line ellipsis hides too much of titles like
+      // "QA39 LibPrep Aliquots" or "Flammable Cabinet". Vertical growth is fine.
+      pill.setAttribute('style', style + 'max-width:100%;min-width:0;white-space:normal;');
       pill.setAttribute('title', title);
-      pill.innerHTML = icon + ' <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + escHtml(title) + '</span>';
+      pill.innerHTML = icon + ' <span style="word-break:break-word;min-width:0">' + escHtml(title) + '</span>';
       pill.addEventListener('click', function(slug) {
         return function(e) {
           e.preventDefault();

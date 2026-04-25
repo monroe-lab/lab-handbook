@@ -650,8 +650,14 @@ function renderTable() {
 
   tbody.innerHTML = items.map(function(item) {
     var isAlert = item.status === 'needs_more' || item.status === 'out_of_stock';
+    // Suppress the "(N bottles)" suffix when the aggregate already says it
+    // (heterogeneous-units fallback yields quantity=count and unit=instanceLabel,
+    // so the parenthetical would just repeat the main text).
+    var suffixIsRedundant = item.containerCount > 1 &&
+      String(item.quantity) === String(item.containerCount) &&
+      item.unit === item.instanceLabel;
     var qtyHtml = Lab.escHtml(String(item.quantity)) + (item.unit ? ' ' + Lab.escHtml(item.unit) : '') +
-      (item.containerCount > 1 ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' ' + item.instanceLabel + ')</span>' : '');
+      (item.containerCount > 1 && !suffixIsRedundant ? ' <span style="color:var(--grey-500);font-size:11px">(' + item.containerCount + ' ' + item.instanceLabel + ')</span>' : '');
     var typeBadgeStyle = Lab.types.pillStyle(item.type, 'badge');
     return '<tr class="' + (isAlert ? 'low-stock' : '') + '" style="cursor:pointer" onclick="openItem(\'' + Lab.escHtml(item.slug) + '\')">' +
       '<td><strong>' + Lab.escHtml(item.name) + '</strong></td>' +
