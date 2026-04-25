@@ -2268,6 +2268,10 @@
     "target": "resources/ethanol-absolute"
   },
   {
+    "source": "stocks/bottle-ethyl-alcohol-absolute",
+    "target": "resources/ethanol-absolute"
+  },
+  {
     "source": "stocks/bottle-ethyl-methanesulfonate",
     "target": "resources/ethyl-methanesulfonate"
   },

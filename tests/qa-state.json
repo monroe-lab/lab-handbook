@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 27,
+  "cycle": 28,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -3816,6 +3816,109 @@
         "Lab Map filter by tag walks the full hierarchy (room \u2192 freezer \u2192 shelf \u2192 box \u2192 tube) and renders position pills cleanly.",
         "Verified the popup fix on the deployed live site (post-deploy 230d4fde) before cleanup."
       ]
+    },
+    {
+      "cycle": 28,
+      "persona": "Jordan Park",
+      "role": "postdoc",
+      "modifier": "rushed",
+      "scenario": "Equipment move day. Postdoc Jordan in rushed mode created 3 new bottles of [[resources/ethanol-absolute]] (chemical concept, purple pill) on the Flammable Cabinet, then moved all 3 to the Chemical Cabinet via the editor's locations picker. Verified the source-popup loses children, the destination-popup gains them, and the lab-map tree reflects the move. Also exercised: the [+ Add item] button on the cabinet popup col 3, the parent picker tree (collapsed-by-default with chevron expand), wikilink concept->bottle backlinks. Cycle re-verified that bottles are stored under docs/stocks/ (not docs/resources/) \u2014 earlier path lookup miss caused the move-step to be re-run via /tmp/qa-cycle-28-continue.mjs.",
+      "shots_taken": 32,
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step01-labmap-baseline.png",
+          "shows": "Lab Map landing",
+          "evaluation": "12-tab nav fits at 1440px (no '+' overflow needed). Locations panel shows 5 rooms + Robbins Hall 170 collapsed (10 items). Map design teaser top-left.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step02-flammable-before.png",
+          "shows": "Flammable Cabinet popup BEFORE create",
+          "evaluation": "Breadcrumb 'Robbins Hall 170 / Flammable Cabinet'. 16 bottle children, all with fa-wine-bottle icon, slug suffixes appear on duplicate names (Glacial Acetic Acid, Isopropyl alcohol). Add-item button at bottom.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step03-chemical-before.png",
+          "shows": "Chemical Cabinet popup BEFORE",
+          "evaluation": "106 children \u2014 densely populated. Renders cleanly, scrollable col 3.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step05-concept-before.png",
+          "shows": "Ethanol-absolute concept popup",
+          "evaluation": "Purple chemical pill visible top-left ('Chemical' pill matches #6a1b9a per R21). Body shows 'What it is' / 'Why we use it' / Flammability matters callout. Col 3 shows '1 instance in lab' (the existing Ethyl Alcohol Absolute bottle, now fixed) plus 5 references with correct icons.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step09-flammable-after-create.png",
+          "shows": "Flammable Cabinet popup AFTER 3 bottle creates",
+          "evaluation": "Children count 19 (was 16), 3 QA28 entries listed. Add flow worked end-to-end.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/step10-picker-open.png",
+          "shows": "Parent locations picker dropdown",
+          "evaluation": "Picker shows tree of rooms: Asmundson, Autoclave, Genome Center, Robbins 170 (collapsed, 8 items), Robbins 262, Unsorted. Search input + Expand all/Collapse buttons at top. Reasonable picker UX.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/stepC9-flammable-after-move.png",
+          "shows": "Flammable Cabinet AFTER move",
+          "evaluation": "16 children \u2014 back to baseline. QA28 bottles gone. Breadcrumb intact.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/stepC10-chemical-after-move.png",
+          "shows": "Chemical Cabinet AFTER move",
+          "evaluation": "109 children (106+3). QA28 bottles present in col 3.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/stepC11-concept-after-move.png",
+          "shows": "Ethanol-absolute concept popup AFTER move",
+          "evaluation": "Concept popup col 3 shows the QA28 bottles as 'instances in lab' + 5 references. Note: per probe, the section heads 'N instance in lab' and 'N references' render as styled <div>s (not h3/h4) \u2014 this is by design, just affected the test selector.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/stepC12-labmap-filtered-qa28.png",
+          "shows": "Lab Map tree filtered for QA28",
+          "evaluation": "Tree filter matches Chemical Cabinet (109 items, expanded), 3 QA28 bottle rows under it. Flammable Cabinet (16 items) and Corrosive Cabinet still in view because filter doesn't fully prune unrelated rows.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/zoom-flammable-cabinet.png",
+          "shows": "Zoomed Flammable Cabinet popup (post-cleanup)",
+          "evaluation": "Hi-res confirms each bottle renders with fa-wine-bottle, name, optional slug suffix in grey. 'Add item' dashed-teal button visible. Layout feels Obsidian-flavored.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle28/zoom-col3-backlinks.png",
+          "shows": "Zoomed col 3 of ethanol-absolute concept popup",
+          "evaluation": "Sections rendered as 'N instance in lab' (uppercase grey label) + bottle row with fa-wine-bottle icon and quantity subtitle, then '5 references' label + project (orange) + protocol (purple) + safety entries each with right icon and color. Backlink rendering is correct; my initial test selector was wrong (.em-child-row vs .em-backlink-row).",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "ORPHAN-BOTTLE-OF-DELETED-CONCEPT",
+          "severity": "data-integrity",
+          "description": "3 bottle files in docs/stocks/ pointed `of:` at concept slugs that no longer exist.",
+          "status": "closed"
+        }
+      ],
+      "fixes_applied": [
+        {
+          "id": "ORPHAN-BOTTLE-OF-DELETED-CONCEPT",
+          "what": "Deleted docs/stocks/bottle-test-item.md and bottle-test-item-mobile.md (both stale test fixtures with quantity 0). Re-pointed bottle-ethyl-alcohol-absolute.md from `of: resources/ethyl-alcohol-absolute` (deleted in R21) to `of: resources/ethanol-absolute` (canonical concept), updated body wikilink, added parenthetical noting the bottle's original label text. Rebuilt object-index.",
+          "verified": "Re-ran the broken-of: scan \u2014 0 remaining. Object index regenerated."
+        }
+      ],
+      "observations": [
+        "Bottles always save to docs/stocks/, not docs/resources/. R5 migration moved all 156 bottles there. Future test scripts that try to find newly-created bottles by name should grep docs/stocks/ first.",
+        "Concept-popup col 3 rows are .em-backlink-row (not .em-child-row). Section labels are styled <div>s with uppercase letter-spacing, not <h3>/<h4>. Tests probing 'backlinks count' should adjust.",
+        "Parent-picker tree starts with initialDepth:0 (fully collapsed). To pick a deeply-nested parent like locations/cabinet-chemical (under Robbins Hall 170), the user must expand the parent room first or use the search input. Consider auto-expanding to the currently-selected parent's chain when opening the picker on an already-parented object.",
+        "The locations picker's `onPick` handler is wired correctly via Lab.locationTree click delegation on .lt-row[data-act='open']. Programmatic Playwright clicks must target the .lt-row child element, not the .lt-node wrapper."
+      ]
     }
   ],
   "bugs_found": [
@@ -3935,7 +4038,16 @@
     "CYCLE27-INSTANCE-SUBTITLE-SLUG (visual, fixed in cycle 27, commit 230d4fde): renderBacklinksPane displayed parent slug \"box dna extracts\" instead of title \"DNA Extracts Box\"",
     "CYCLE27-NOTEBOOK-RECENT-MN (cosmetic, OPEN from cycle 27): first recent notebook entry shows \"MN\" instead of YYYY-MM-DD date in subtitle",
     "CYCLE27-OF-PLACEHOLDER-TRUNCATED (cosmetic, OPEN from cycle 27): New Tube of-field placeholder truncated to \"or re...\"",
-    "CYCLE27-DETAIL-LINK-NOT-CLICKABLE (ux, OPEN from cycle 27): accession popup Detail Sheet Link rendered as plain truncated text, not a clickable hyperlink"
+    "CYCLE27-DETAIL-LINK-NOT-CLICKABLE (ux, OPEN from cycle 27): accession popup Detail Sheet Link rendered as plain truncated text, not a clickable hyperlink",
+    {
+      "id": "ORPHAN-BOTTLE-OF-DELETED-CONCEPT",
+      "cycle": 28,
+      "severity": "data-integrity",
+      "title": "3 bottles point `of:` at deleted concept slugs",
+      "description": "docs/stocks/bottle-test-item.md, bottle-test-item-mobile.md, bottle-ethyl-alcohol-absolute.md all referenced concept files that no longer exist (R21 dedup deleted ethyl-alcohol-absolute; the two test-items were stale fixtures with quantity 0).",
+      "status": "closed",
+      "fix_commit": "PENDING"
+    }
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -4016,6 +4128,19 @@
         "CYCLE27-PEOPLE-NOT-PILLS-IN-POPUP",
         "CYCLE27-INSTANCE-SUBTITLE-SLUG"
       ]
+    },
+    {
+      "id": "ORPHAN-BOTTLE-OF-DELETED-CONCEPT",
+      "cycle": 28,
+      "what": "Deleted 2 stale test bottles, re-pointed Ethyl Alcohol Absolute bottle to canonical ethanol-absolute concept, rebuilt object index.",
+      "files_changed": [
+        "docs/stocks/bottle-test-item.md (deleted)",
+        "docs/stocks/bottle-test-item-mobile.md (deleted)",
+        "docs/stocks/bottle-ethyl-alcohol-absolute.md (of: re-pointed)",
+        "docs/object-index.json (rebuilt)",
+        "docs/link-index.json (rebuilt)"
+      ],
+      "verified": "Re-ran broken-of: scan \u2014 0 remaining."
     }
   ],
   "improvements_proposed": [
@@ -4269,7 +4394,8 @@
     "/tmp/qa-screenshots/cycle27/step15-wiki-search-qa27.png",
     "/tmp/qa-screenshots/cycle27/step16-inventory-pills.png",
     "/tmp/qa-screenshots/cycle27/step17-notebooks-landing.png",
-    "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png"
+    "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png",
+    "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",

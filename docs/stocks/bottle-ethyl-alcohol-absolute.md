@@ -1,7 +1,7 @@
 ---
 type: bottle
 title: Ethyl Alcohol Absolute
-of: resources/ethyl-alcohol-absolute
+of: resources/ethanol-absolute
 parent: locations/cabinet-flammable
 quantity: 8544.0
 unit: mL
@@ -9,4 +9,4 @@ unit: mL
 
 # Ethyl Alcohol Absolute
 
-Bottle of [[resources/ethyl-alcohol-absolute]].
+Bottle of [[resources/ethanol-absolute]] (labeled "Ethyl Alcohol Absolute" on the container).

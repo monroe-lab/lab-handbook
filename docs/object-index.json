@@ -2801,7 +2801,7 @@
     "quantity": 8544.0,
     "unit": "mL",
     "parent": "locations/cabinet-flammable",
-    "of": "resources/ethyl-alcohol-absolute",
+    "of": "resources/ethanol-absolute",
     "mtime": 1775927241
   },
   {
@@ -3689,26 +3689,6 @@
     "mtime": 1775927241
   },
   {
-    "path": "stocks/bottle-test-item-mobile.md",
-    "type": "bottle",
-    "title": "test item mobile",
-    "quantity": 0,
-    "unit": "each",
-    "parent": "locations/cabinet-chemical",
-    "of": "resources/test-item-mobile",
-    "mtime": 1775927241
-  },
-  {
-    "path": "stocks/bottle-test-item.md",
-    "type": "bottle",
-    "title": "test item",
-    "quantity": 0,
-    "unit": "each",
-    "parent": "locations/cabinet-chemical",
-    "of": "resources/test-item",
-    "mtime": 1775927241
-  },
-  {
     "path": "stocks/bottle-tetracycline-hydrochloride.md",
     "type": "bottle",
     "title": "Tetracycline hydrochloride",
@@ -3976,7 +3956,7 @@
     "title": "Tudor Reader Fusion Proteins",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1775899090
+    "mtime": 1776895710
   },
   {
     "path": "wet-lab/autoclave.md",
@@ -4746,7 +4726,7 @@
     "last_updated": "2026-03-30",
     "status_note": "DNA extracted \u2014 Needs Clean-up",
     "people": "Zi Ye / Matt Davis",
-    "mtime": 1776884182
+    "mtime": 1777079442
   },
   {
     "path": "accessions/a1-t1-w-2.md",
@@ -4760,7 +4740,7 @@
     "priority": "0",
     "status_note": "Tissue collected \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776884182
+    "mtime": 1777071765
   },
   {
     "path": "accessions/a1-t1-w.md",
@@ -4992,10 +4972,10 @@
     "project": "Kerman Somatic",
     "accession_id": "A4_T1_W",
     "priority": "0",
-    "last_updated": "2026-04-22",
+    "last_updated": "2026-04-24",
     "status_note": "DNA extracted \u2014 Needs extraction",
     "people": "Vianney Ahn / Zi Ye / Matt Davis",
-    "mtime": 1776884182
+    "mtime": 1777064804
   },
   {
     "path": "accessions/a4-t1-w.md",
@@ -8055,7 +8035,7 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY",
     "status_note": "On hold \u2014 Kit delays. 3 NovoGene HiFi lanes reserved (chart string in private vault)",
     "people": "Satoyo Oya",
-    "mtime": 1776884182
+    "mtime": 1776895710
   },
   {
     "path": "accessions/va-1.md",
