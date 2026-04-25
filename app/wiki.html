@@ -494,15 +494,17 @@ function filterNode(node, q, types) {
   return { dir: node.dir, label: node.label, items: matchedItems, children: matchedChildren };
 }
 
-function renderNode(node, depth) {
+function renderNode(node, depth, filtering) {
   var html = '';
   // Subfolders first
   Object.keys(node.children).sort().forEach(function(k) {
     var ch = node.children[k];
     var count = countNodeDeep(ch);
     var containsActive = currentDoc && nodeContainsDoc(ch, currentDoc);
-    // Auto-expand top level (depth 0) when there's an active filter; otherwise collapse unless contains active
-    var collapsed = containsActive ? '' : ' collapsed';
+    // Auto-expand whenever a search/type filter is active so matching docs
+    // are visible without an extra click; otherwise collapse unless this
+    // folder contains the currently-loaded doc.
+    var collapsed = (filtering || containsActive) ? '' : ' collapsed';
     var hidden = collapsed ? ' hidden' : '';
     var pad = 12 + depth * 12;
     var actionsHtml = loggedIn ?
@@ -516,7 +518,7 @@ function renderNode(node, depth) {
       '<span class="doc-folder-count">' + count + '</span>' +
       actionsHtml +
       '</div><div class="doc-items' + hidden + '">';
-    html += renderNode(ch, depth + 1);
+    html += renderNode(ch, depth + 1, filtering);
     html += '</div>';
   });
   // Then files in this node
@@ -541,13 +543,14 @@ function renderNode(node, depth) {
 function renderSidebar() {
   var treeEl = document.getElementById('docTree');
   var q = (document.getElementById('docSearch').value || '').toLowerCase().trim();
-  var view = (q || activeTypes.size) ? filterNode(TREE, q, activeTypes) : TREE;
+  var filtering = !!(q || activeTypes.size);
+  var view = filtering ? filterNode(TREE, q, activeTypes) : TREE;
 
   if (!view || (!Object.keys(view.children).length && !view.items.length)) {
     treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No documents match.</div>';
     return;
   }
-  treeEl.innerHTML = renderNode(view, 0);
+  treeEl.innerHTML = renderNode(view, 0, filtering);
 }
 
 function toggleFolder(el) {
