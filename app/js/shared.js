@@ -128,7 +128,12 @@
   }
 
   function slugify(name) {
-    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-');
+    // Cap at 80 chars. Linux ext4 filenames max out at 255 bytes; GitHub Actions
+    // runners on Ubuntu fail checkout if any tracked path exceeds that. macOS
+    // APFS allows ~1000, so a long title commits locally but breaks the deploy.
+    var s = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-');
+    if (s.length > 80) s = s.slice(0, 80).replace(/-+$/, '');
+    return s;
   }
 
   function timeAgo(dateStr) {
