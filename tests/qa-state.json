@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 39,
+  "cycle": 40,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5345,6 +5345,115 @@
         "Lab-map filter is the cleanest way to find a freshly created object \u2014 typing the box title highlights the entire ancestry chain in teal.",
         "Refresh button on lab-map header rebuilds the tree without a page reload, picking up new files immediately because saveFile + patchObjectIndex updates the in-memory index synchronously."
       ]
+    },
+    {
+      "cycle": 40,
+      "persona": "Kayla Torres",
+      "modifier": "explorer",
+      "scenario": "Cross-page wikilink crawl + URL deep-link odyssey. Undergrad Kayla starts on the dashboard, opens the QIAGEN DNeasy protocol, follows the [[ethanol-absolute]] wikilink to the chemical popup, drills into the bottle instance, then chases the parent (locations/cabinet-flammable) and breadcrumb back to Robbins Hall 170. Between hops she URL-fakes nonexistent slugs (?doc=, ?slug=, ?id=) on protocols / wiki / lab-map / inventory / accessions to verify graceful 404 / fallback behavior. Closes with a global Inventory search for ethanol \u2014 verifies chemical (purple, fa-atom) vs reagent (teal, fa-flask) pill colors and the qty column.",
+      "screenshots_count": 27,
+      "screenshots_dir": "/tmp/qa-screenshots/cycle40",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle40/01-kayla-dashboard-baseline.png",
+          "shows": "Dashboard baseline",
+          "evaluation": "12 stat cards rendering, Inventory Status, Recent Updates, Bulletin chemicals all purple #6a1b9a with fa-atom. 11 primary tabs visible at 1440px, no overflow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/03-kayla-protocol-qiagen-loaded.png",
+          "shows": "QIAGEN DNeasy protocol loaded",
+          "evaluation": "Resources block renders correctly with kit/chemical/protocol/equipment pills in correct colors. ethanol-absolute pill visible in Consumables.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/04-kayla-protocol-bad-slug.png",
+          "shows": "EXPLORER: protocols.html?doc=this-protocol-does-not-exist-xyz",
+          "evaluation": "Clean error: large ! icon + Document not found message; sidebar still renders. No regression.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/06-kayla-protocol-ethanol-pill-visible.png",
+          "shows": "ethanol-absolute pill visible",
+          "evaluation": "Pill is purple #6a1b9a + fa-atom + label Ethanol Absolute. Correct chemical type.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/07-kayla-chemical-popup-ethanol.png",
+          "shows": "Editor modal for ethanol-absolute chemical concept",
+          "evaluation": "Three-column popup: FIELDS pane (Type=Chemical purple+atom, Link wikilink, Name, Default Location, Status), body (What it is + Why we use it + Flammability admonition), CONTENTS pane shows 2 instances in lab + 5 references with correct icons per type.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/09-kayla-bottle-popup-ethanol.png",
+          "shows": "Bottle popup for stocks/bottle-ethanol-absolute",
+          "evaluation": "Cross-link chain works: top breadcrumb has all 3 levels (Robbins Hall 170 / Flammable Cabinet / Ethanol Absolute) with correct icons (door / cube / wine-bottle). FIELDS shows Of=ethanol-absolute purple pill but truncated to Ethanol Absol... \u2014 same root cause as QA39 parent truncation.",
+          "issues_found": [
+            "CYCLE40-OF-FIELD-TRUNCATION (cosmetic, fixed)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/13-kayla-wiki-bad-doc.png",
+          "shows": "EXPLORER: wiki.html?doc=fake/nonexistent-document",
+          "evaluation": "Same Document not found error UX as protocols. Sidebar 912 documents \u00b7 1539 links visible. No regression.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/14-kayla-labmap-bad-slug.png",
+          "shows": "EXPLORER: lab-map.html?slug=locations/no-such-place",
+          "evaluation": "Lab-map ignores unknown slug param and renders normally \u2014 Map design in progress placeholder + Locations tree at top level. Acceptable; slug not consumed.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/16-kayla-inventory-search-ethanol.png",
+          "shows": "Inventory filtered to ethanol \u2014 5 rows",
+          "evaluation": "Pill colors correct (Chemical purple, Reagent teal). FOUND BUG: Ethanol 70% and Ethanol Absolute show 2 bottles (2 bottles) \u2014 qty duplication. Fixed in this cycle.",
+          "issues_found": [
+            "CYCLE40-INVENTORY-QTY-DUPE (cosmetic, fixed)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/18-kayla-inventory-ethanol-row-popup.png",
+          "shows": "2-Mercaptoethanol popup",
+          "evaluation": "Three-col popup. FIELDS Type=Chemical purple, Default Location=Corrosive Cabinet, Status=In Stock. Body + safety admonition + CAS info renders correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/19-kayla-accessions-bad-slug.png",
+          "shows": "EXPLORER: accessions.html?slug=accessions/never-existed",
+          "evaluation": "Page ignores unknown slug; full table renders. Stat cards intact. Acceptable.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/21-kayla-inventory-banner.png",
+          "shows": "Inventory landing \u2014 orientation banner at top",
+          "evaluation": "Banner visible explaining Concepts vs containers. Teal-tinted accent matching inventory color.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/22-kayla-topnav-1440.png",
+          "shows": "Top nav at 1440px",
+          "evaluation": "All 11 primary tabs visible (Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, Projects, People, Calendar, Lab Map, Apps, Wiki) \u2014 no overflow at 1440px. + popover only triggers at narrower widths.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/24-verify-inventory-qty-fixed.png",
+          "shows": "POST-FIX: inventory ethanol search \u2014 qty dedup",
+          "evaluation": "Confirmed: Ethanol 70% and Ethanol Absolute now both show 2 bottles cleanly with no redundant suffix. Other rows unaffected. Fix is targeted.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle40/25-verify-bottle-popup-pill-wrap.png",
+          "shows": "POST-FIX: bottle popup parent/of pill wrap",
+          "evaluation": "Confirmed: Of (concept slug) pill now wraps Ethanol Absolute onto two lines instead of ellipsis-truncating. Pill grows vertically; row stays vertically centered.",
+          "issues_found": []
+        }
+      ],
+      "observations": [
+        "Cross-link wikilink crawl works end-to-end via the editor modal: protocol-body wikilinks open chemical popups, chemical popup right pane (em-backlink-row[data-slug]) navigates to bottle popups, bottle popup FIELDS Parent pill (a.object-pill inside [data-parent-pill]) and breadcrumb data-crumb-slug links navigate to location popups.",
+        "Bad-slug deep-links: protocols.html and wiki.html both show \"Document not found\" cleanly. accessions / inventory / lab-map silently ignore unknown slug/id params and render their full tables \u2014 acceptable but slightly inconsistent.",
+        "No JS console errors observed across any of the 23 main + 4 verify screenshots."
+      ]
     }
   ],
   "bugs_found": [
@@ -5592,12 +5701,13 @@
       "id": "QA39-PARENT-FIELD-TRUNCATION",
       "cycle": 39,
       "severity": "cosmetic",
-      "status": "open",
+      "status": "closed",
       "title": "Tube popup FIELDS column truncates parent pill text",
       "description": "In the tube popup the FIELDS pane (left col, ~240px wide) truncates the Parent pill text mid-word (e.g. 'QA39 LibPrep Aliqu...'). title attribute provides the hover tooltip but the visual truncation is jarring. Consider letting the parent pill wrap, ellipsis-trimming at a word boundary, or shortening the field label so the value gets more room.",
       "screenshot": "/tmp/qa-screenshots/cycle39/07-tube-popup-opened.png",
-      "fix_attempt": null
-    }
+      "fix_attempt": "cycle 40 commit 41605360 \u2014 switched pill text to white-space:normal + word-break:break-word in editor-modal.js upgradeParentField"
+    },
+    "CYCLE40-INVENTORY-QTY-DUPE (cosmetic, fixed in cycle 40, commit 41605360): inventory table rendered \"2 bottles (2 bottles)\" when bottle units heterogeneous; toInventoryRow falls back to count+\"bottles\" label, then qtyHtml suffix repeated it. Fix: suppress parenthetical when String(quantity)==String(containerCount) AND unit==instanceLabel."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -5785,7 +5895,19 @@
       "description": "Changed editor -> currentEditor on the setupMobileToolbarToggle call in startEditing()."
     },
     "CYCLE27-OF-PLACEHOLDER-TRUNCATED (cosmetic, fixed in cycle 39, commit 9751f0f9): tube of-field placeholder shortened from 'accessions/\u2026 or resources/\u2026' to 'e.g. accessions/a1-t1-w' so it fits inside the narrow FIELDS column.",
-    "INSTANCE-TITLES-AMBIGUOUS (minor, fixed in cycle 39, commit 9751f0f9): concept popup INSTANCES IN LAB rows now include grid position in the subtitle (e.g. 'QA39 LibPrep Aliquots \u00b7 A1') and position is a fallback disambiguator when title+parent collide and no lot/expiration is set."
+    "INSTANCE-TITLES-AMBIGUOUS (minor, fixed in cycle 39, commit 9751f0f9): concept popup INSTANCES IN LAB rows now include grid position in the subtitle (e.g. 'QA39 LibPrep Aliquots \u00b7 A1') and position is a fallback disambiguator when title+parent collide and no lot/expiration is set.",
+    {
+      "cycle": 40,
+      "summary": "CYCLE40-INVENTORY-QTY-DUPE \u2014 suppress redundant (N bottles) suffix in inventory.html line 653 when aggregate quantity already equals containerCount and unit equals instanceLabel",
+      "file": "app/inventory.html",
+      "commit": "41605360"
+    },
+    {
+      "cycle": 40,
+      "summary": "QA39-PARENT-FIELD-TRUNCATION (carry-over) \u2014 wrap long parent/of/member pill titles instead of ellipsis in editor-modal.js upgradeParentField",
+      "file": "app/js/editor-modal.js",
+      "commit": "41605360"
+    }
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -6113,7 +6235,8 @@
       "cycle": 39,
       "dir": "/tmp/qa-screenshots/cycle39",
       "count": 16
-    }
+    },
+    "/tmp/qa-screenshots/cycle40/ \u2014 27 screenshots (23 main run + 4 post-fix verify), all read and evaluated"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
