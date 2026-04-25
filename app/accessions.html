@@ -116,9 +116,12 @@
 .status-pill.grey   { background: var(--grey-200); color: var(--grey-700); }
 .status-pill.blue   { background: #dbeafe; color: #1e40af; }
 
-/* Priority / blocker */
+/* Priority / status note */
 .priority-mark { font-size: 14px; }
-.blocker-text  { font-size: 12px; color: var(--amber); max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Default note color is neutral grey; only amber for actively-blocked rows
+   (.blocker-text on rows whose status is still in the active/waiting bucket). */
+.note-text     { font-size: 12px; color: var(--grey-700); max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.note-text.blocker { color: var(--amber); }
 
 .row-actions { display: flex; gap: 4px; }
 .row-actions button {
@@ -590,8 +593,9 @@ async function commitStatus(item, newStatus) {
   parsed.meta.status = newStatus;
   parsed.meta.last_updated = new Date().toISOString().slice(0, 10);
   var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
-  await Lab.gh.saveFile(filePath, content, file.sha, 'Accession ' + (item.accession_id || item.slug) + ' → ' + newStatus);
+  var saved = await Lab.gh.saveFile(filePath, content, file.sha, 'Accession ' + (item.accession_id || item.slug) + ' → ' + newStatus);
   Lab.gh.patchObjectIndex(filePath, parsed.meta);
+  primeFileCache(filePath, content, saved && saved.sha);
   item.status = newStatus;
   item.last_updated = parsed.meta.last_updated;
   Lab.showToast((item.accession_id || item.title) + ': ' + STATUS_LABELS[newStatus], 'success');
@@ -600,13 +604,17 @@ async function commitStatus(item, newStatus) {
 
 // Cycle priority 0→1→2→3→0 with an inline commit. Same pattern as the
 // status pill — batched so clicks don't race each other on the SHA.
+// Defer computing `next` until the queued chain runs, otherwise rapid clicks
+// all read the same stale `item.priority` and coalesce to the same target.
 async function cyclePriority(slug) {
   var item = accessions.find(function(a) { return a.slug === slug; });
   if (!item) return;
-  var next = (item.priority + 1) % 4;
-  pendingCommits = pendingCommits.then(function() { return commitPriority(item, next).catch(function(e) {
-    Lab.showToast('Priority update failed: ' + e.message, 'error'); renderTable();
-  }); });
+  pendingCommits = pendingCommits.then(function() {
+    var next = ((parseInt(item.priority, 10) || 0) + 1) % 4;
+    return commitPriority(item, next).catch(function(e) {
+      Lab.showToast('Priority update failed: ' + e.message, 'error'); renderTable();
+    });
+  });
 }
 async function commitPriority(item, newPriority) {
   var filePath = 'docs/' + item.path;
@@ -615,11 +623,23 @@ async function commitPriority(item, newPriority) {
   parsed.meta.priority = String(newPriority);
   parsed.meta.last_updated = new Date().toISOString().slice(0, 10);
   var content = Lab.buildFrontmatter(parsed.meta, parsed.body);
-  await Lab.gh.saveFile(filePath, content, file.sha, 'Accession ' + (item.accession_id || item.slug) + ' priority → ' + newPriority);
+  var saved = await Lab.gh.saveFile(filePath, content, file.sha, 'Accession ' + (item.accession_id || item.slug) + ' priority → ' + newPriority);
   Lab.gh.patchObjectIndex(filePath, parsed.meta);
+  primeFileCache(filePath, content, saved && saved.sha);
   item.priority = newPriority;
   item.last_updated = parsed.meta.last_updated;
   renderTable();
+}
+
+// Keep editor-modal's lab_file_cache in sync after inline commits — without
+// this, a popup opened within 120s of file creation reloads the pre-update
+// content from cache and a subsequent Save clobbers the inline change.
+function primeFileCache(filePath, content, sha) {
+  try {
+    var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+    fileCache[filePath] = { content: content, sha: sha || (fileCache[filePath] && fileCache[filePath].sha) || null, savedAt: Date.now() };
+    localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+  } catch (e) {}
 }
 
 function renderTable() {
@@ -664,7 +684,7 @@ function renderTable() {
       '<td>' + peopleCellHtml(r.people) + '</td>' +
       '<td class="hide-mobile"><em>' + Lab.escHtml(r.species) + '</em></td>' +
       '<td>' + statusPillHtml(r.status, r.slug) + '</td>' +
-      '<td class="hide-mobile"><span class="blocker-text" title="' + Lab.escHtml(r.status_note) + '">' + Lab.escHtml(r.status_note) + '</span></td>' +
+      '<td class="hide-mobile"><span class="note-text' + ((r.status === 'active' || r.status === 'waiting') ? ' blocker' : '') + '" title="' + Lab.escHtml(r.status_note) + '">' + Lab.escHtml(r.status_note) + '</span></td>' +
       '<td class="hide-mobile" style="font-size:12px;color:var(--grey-500);white-space:nowrap">' + Lab.escHtml(r.last_updated) + '</td>' +
       '<td><div class="row-actions">' +
         '<button onclick="event.stopPropagation();openAccession(\'' + Lab.escHtml(r.slug) + '\')" title="Edit"><span class="material-icons-outlined">edit</span></button>' +
