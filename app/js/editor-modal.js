@@ -4084,21 +4084,32 @@
         var found = window.Lab.wikilinks._lookup(slug);
         if (found) title = label || found.title || slug;
       }
-      return '[' + title + '](' + OBJ_LINK_PREFIX + slug + ')';
+      // Encode the slug into the placeholder URL: a slug with a space
+      // (e.g. legacy `[[Kehan Zhao]]`) would otherwise produce
+      // `[Title](https://obj.link/Kehan Zhao)` which Toast UI's markdown
+      // parser drops on the floor and renders as raw `[Title](url)` text.
+      // qa-cycle-31.
+      return '[' + title + '](' + OBJ_LINK_PREFIX + encodeURIComponent(slug) + ')';
     });
   }
 
   // Post-process: [title](https://obj.link/slug) → [[slug]] after getMarkdown()
   function linksToWikilinks(md) {
+    // Decode percent-encoded slugs (qa-cycle-31): wikilinksToLinks now
+    // encodeURIComponent's the slug so legacy `[[Kehan Zhao]]` survives the
+    // round-trip. Decoding here restores the original wikilink.
+    function decodeSlug(s) {
+      try { return decodeURIComponent(s); } catch (e) { return s; }
+    }
     // Match clean URLs
     var re = new RegExp('\\[([^\\]]*)\\]\\(' + OBJ_LINK_PREFIX.replace(/[/.]/g, '\\$&') + '([^)]+)\\)', 'g');
     md = md.replace(re, function(match, title, slug) {
-      return '[[' + slug + ']]';
+      return '[[' + decodeSlug(slug) + ']]';
     });
     // Match escaped URLs from Toast UI (backslashes before dots, hyphens, parens)
     // e.g. \[BL21(DE3)\]\(https://obj\.link/bl21\-de3\-competent\-cells\)
     md = md.replace(/\\?\[([^\]]*)\]\\?\(https:\/\/obj\\?\.link\/((?:[^)\\]|\\.)+)\\?\)/g, function(m, title, slug) {
-      return '[[' + slug.replace(/\\/g, '') + ']]';
+      return '[[' + decodeSlug(slug.replace(/\\/g, '')) + ']]';
     });
     return md;
   }

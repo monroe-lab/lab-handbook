@@ -335,9 +335,12 @@ function formatDate(d) {
 }
 
 function formatWeekLabel(monday) {
-  var friday = new Date(monday);
-  friday.setDate(friday.getDate() + 4);
-  return formatDate(monday) + ' \u2013 ' + formatDate(friday) + ', ' + monday.getFullYear();
+  // Grid renders Mon\u2013Sun (7 days). Match the label to the visible range
+  // so the header doesn't claim the week ends on Friday while Sat/Sun
+  // columns sit visibly to the right (qa-cycle-31).
+  var sunday = new Date(monday);
+  sunday.setDate(sunday.getDate() + 6);
+  return formatDate(monday) + ' \u2013 ' + formatDate(sunday) + ', ' + monday.getFullYear();
 }
 
 function isoDate(d) {
