@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 40,
+  "cycle": 41,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5454,6 +5454,88 @@
         "Bad-slug deep-links: protocols.html and wiki.html both show \"Document not found\" cleanly. accessions / inventory / lab-map silently ignore unknown slug/id params and render their full tables \u2014 acceptable but slightly inconsistent.",
         "No JS console errors observed across any of the 23 main + 4 verify screenshots."
       ]
+    },
+    {
+      "cycle": 41,
+      "persona": "Vianney Ahn",
+      "modifier": "ui_critic",
+      "scenario": "Aliquot day: Vianney creates a fresh -80 freezer box (QA41 Aliquot Box, 9x9 grid) on shelf-minus80-a-1, then makes 6 tube instances of:[[accessions/a3-t1-s]] at grid positions A1-A6. Heavy ui_critic screenshot scrutiny on the accession popup BEFORE+AFTER aliquoting, the box popup, the tube popup, the lab-map filter+tree, the inventory orientation banner, and the top nav.",
+      "screenshots_count": 17,
+      "screenshots_dir": "/tmp/qa-screenshots/cycle41",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle41/01-vianney-accessions-landing.png",
+          "shows": "Accessions landing \u2014 purple-bordered orientation banner, 7-tile stat grid (232 ACCESSIONS / 101 ACTIVE / 119 WAITING / 0 STORAGE / 12 COMPLETED / 0 ARCHIVED + Add Accession), full table",
+          "evaluation": "Banner text legible, fingerprint icon on Accessions tab active, stats colors correct (purple/orange/yellow/blue/green/grey). No clipping.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/03-vianney-accessions-active-filter.png",
+          "shows": "After clicking Active filter chip \u2014 'All Statuses' top-right dropdown changed to 'Active', table narrowed",
+          "evaluation": "Filter chip click correctly drives the All-Statuses dropdown. Table updates. No regression.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/04-vianney-accessions-search-a3.png",
+          "shows": "Search 'a3-t1-s' \u2014 single row remains: A3-T1-S Kerman Somatic Pistacia vera Active, Note 'DNA extracted - Needs Clean-up'",
+          "evaluation": "Search narrows correctly. Row has 1 yellow star (priority=1), People pills (Zi Ye, Matt Davis), italic Pistacia vera, dropdown active status, orange status_note.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/05-vianney-accession-popup-before.png",
+          "shows": "A3-T1-S popup BEFORE aliquoting. Type=Accession purple pill+fingerprint icon, all fields rendered (Name/Accession ID/Project/People/Species/Status=Active orange/Status note/Priority 1 star/Sequencing Type/Detail Sheet Link/Last Updated). Right pane labeled CONTENTS with 'No references to this object yet.'",
+          "evaluation": "Pre-fix: right column heading 'CONTENTS' is misleading for an accession concept (concepts don't physically contain things; they're pointed at). Empty-state message actually says 'references' \u2014 heading and copy are inconsistent.",
+          "issues_found": [
+            "LABEL-MISMATCH (visual): right column heading reads 'CONTENTS' but the empty-state text and the rendered content for concepts is actually a backlinks/references pane."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/07-vianney-accession-popup-after.png",
+          "shows": "A3-T1-S popup AFTER aliquoting. Right pane labeled CONTENTS with subheader '6 REFERENCES' and 6 rows. Each row shows the LITERAL slug (tube-qa41-a3-t1-s-a1) as title and 'Container' as subtitle. Box-cube icon on each row. 'Add instance' teal button still rendered above the list.",
+          "evaluation": "Two clear visual bugs: (1) tube rows are routed to the 'others/references' branch instead of 'instances in lab' because their inferred type is 'container' (object-index hadn't yet rebuilt to include the new tubes). (2) titles are raw kebab-case slugs instead of the humanized title from frontmatter.",
+          "issues_found": [
+            "TUBE-AS-CONTAINER (visual): newly-created tubes appear under '6 REFERENCES' with subtitle 'Container' and box icon instead of '6 instances in lab' with tube icon.",
+            "RAW-SLUG-TITLE (visual): row title falls back to raw slug 'tube-qa41-a3-t1-s-a1' instead of a humanized 'QA41 A3-T1-S A1'."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/12-vianney-labmap-filter-qa41.png",
+          "shows": "Lab-map filter='qa41' \u2014 tree expands: Robbins Hall 170 -> -80C Freezer A (4x1, 4 items) -> Shelf 1 (A1, 4 items) -> QA41 Aliquot Box (9x9, 6 items) -> 6 tube children labelled QA41 A3-T1-S A1..A6 each with the tube/vial icon and a position pill (A1..A6) on the right.",
+          "evaluation": "Lab-map tree renders the new hierarchy correctly: room->freezer->shelf->box->tube. Each tube has the tube icon (fa-vial), position pill, indented under its parent box. Counts on collapse-headers (4 items, 6 items) match the actual children. This screen is great \u2014 the same data the popup pane misrendered.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/13-vianney-inventory-banner.png",
+          "shows": "Inventory landing top \u2014 teal-bordered orientation banner, 280 / 218 In Stock / 2 Needs More / 1 Out of Stock / 486 Untracked stat tiles. Table rows with chemical pills (purple) and reagent pills (teal) and locations (Chemical Cabinet, Flammable Cabinet etc.).",
+          "evaluation": "Banner renders with the right colour and copy. Stats look right. Pills correctly differentiate chemicals (purple) from reagents (teal). No layout overflow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/15-vianney-dashboard-final.png",
+          "shows": "Dashboard with 11 stat cards (Watch Tutorials, 14 Notebooks, 280 Inventory, 232 Accessions, 11 Projects, 9 People, 41 Calendar, 51 Lab Map, Tools Apps, 913 docs Wiki). Inventory Status: 218 In Stock, 2 Needs More, 1 Out of Stock, 486 Untracked. Recent Updates lists my qa-cycle-41 commits (create tube A1-A6, create test box) timestamped 1m ago.",
+          "evaluation": "Dashboard healthy. Recent updates feed picked up our cycle-41 commits with proper attribution (Grey Monroe). Inventory needs-more pills (Microcentrifuge, Vortex Mixer) and out-of-stock (Native Barcoding Kit) render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle41/v100-verify-accession-popup.png",
+          "shows": "A3-T1-S popup AFTER deploying the editor-modal.js fix and re-creating 3 verify tubes. Right pane heading is now 'link REFERENCES' (link icon + References text). Subheader '3 INSTANCES IN LAB'. Three rows: 'QA41-V Aliquot A1/A2/A3' with subtitle 'QA41-V Aliquot Box \u00b7 A1/A2/A3'. Each row has the tube/vial icon. 'Add instance' teal button preserved.",
+          "evaluation": "Fix confirmed end-to-end: heading switched to 'References' for concepts, instances grouped under 'instances in lab' with proper tube icon, titles humanized to the actual frontmatter title, subtitle shows parent box \u00b7 grid position. Screenshot v100 vs cycle41/07 is the before/after comparison.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "TUBE-AS-CONTAINER (visual, fixed in cycle 41 \u2014 commit ce5dcb09): in the editor-modal backlinks pane, freshly-created tubes/bottles/etc. that weren't yet in object-index.json fell through to type='container' fallback, showing the box-cube icon and 'Container' subtitle. Fixed by inferring type from slug prefix (tube-, bottle-, sample-, extraction-, library-, pool-) and humanizing the slug title.",
+        "LABEL-MISMATCH (visual, fixed in cycle 41 \u2014 commit ce5dcb09): right column heading was hardcoded as 'Contents' for every popup, including concept popups (accessions, chemicals) where the pane actually shows backlinks. Now switches to 'References' with a link icon when the backlinks branch renders, resets to 'Contents' on every popup open."
+      ],
+      "fixes": [
+        "ce5dcb09 \u2014 app/js/editor-modal.js: fetchBacklinksFor infers tube/bottle/sample/extraction/library/pool from the leaf prefix and humanizes the slug for the title; renderContents now sets the column heading to References+link icon when rendering the backlinks pane and resets to Contents+inventory_2 on each openPopup."
+      ],
+      "observations": [
+        "Lab-map filtered tree (screenshot 12) is the strongest UI in this flow \u2014 the same 6 tubes that misrender in the popup show with proper icons and position pills here. The data is consistent; only the popup rendering was the problem.",
+        "Accession popup correctly classified all 6 tubes as concept-instances (Add Instance button visible) but rendered them in the wrong group ('References') and with wrong subtitles. Suggests the Add-Instance gate works off of the parent type (currentState.meta.type isConceptType), independent from the per-row classification \u2014 the two should agree.",
+        "URL deep-linking via ?slug=accessions/<slug> on accessions.html and lab-map.html does NOT auto-open a popup. Worth tracking as a potential UX feature: cross-page links could deep-link if the receiving page parsed ?slug= and opened the popup, like notebooks already does for ?doc=. Not blocking.",
+        "GitHub Pages deploy queues commits with cancel-in-progress=false, so 7 back-to-back commits (1 box + 6 tubes) take ~7 deploys to fully drain. The 60s wait in the cycle script wasn't enough to fully refresh object-index \u2014 which is exactly the window where the new fix matters most."
+      ]
     }
   ],
   "bugs_found": [
@@ -5707,7 +5789,9 @@
       "screenshot": "/tmp/qa-screenshots/cycle39/07-tube-popup-opened.png",
       "fix_attempt": "cycle 40 commit 41605360 \u2014 switched pill text to white-space:normal + word-break:break-word in editor-modal.js upgradeParentField"
     },
-    "CYCLE40-INVENTORY-QTY-DUPE (cosmetic, fixed in cycle 40, commit 41605360): inventory table rendered \"2 bottles (2 bottles)\" when bottle units heterogeneous; toInventoryRow falls back to count+\"bottles\" label, then qtyHtml suffix repeated it. Fix: suppress parenthetical when String(quantity)==String(containerCount) AND unit==instanceLabel."
+    "CYCLE40-INVENTORY-QTY-DUPE (cosmetic, fixed in cycle 40, commit 41605360): inventory table rendered \"2 bottles (2 bottles)\" when bottle units heterogeneous; toInventoryRow falls back to count+\"bottles\" label, then qtyHtml suffix repeated it. Fix: suppress parenthetical when String(quantity)==String(containerCount) AND unit==instanceLabel.",
+    "TUBE-AS-CONTAINER (visual, fixed in cycle 41 \u2014 commit ce5dcb09): in the editor-modal backlinks pane, freshly-created tubes/bottles/etc. that weren't yet in object-index.json fell through to type='container' fallback, showing the box-cube icon and 'Container' subtitle. Fixed by inferring type from slug prefix (tube-, bottle-, sample-, extraction-, library-, pool-) and humanizing the slug title.",
+    "LABEL-MISMATCH (visual, fixed in cycle 41 \u2014 commit ce5dcb09): right column heading was hardcoded as 'Contents' for every popup, including concept popups (accessions, chemicals) where the pane actually shows backlinks. Now switches to 'References' with a link icon when the backlinks branch renders, resets to 'Contents' on every popup open."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -5907,7 +5991,8 @@
       "summary": "QA39-PARENT-FIELD-TRUNCATION (carry-over) \u2014 wrap long parent/of/member pill titles instead of ellipsis in editor-modal.js upgradeParentField",
       "file": "app/js/editor-modal.js",
       "commit": "41605360"
-    }
+    },
+    "ce5dcb09 \u2014 app/js/editor-modal.js: fetchBacklinksFor infers tube/bottle/sample/extraction/library/pool from the leaf prefix and humanizes the slug for the title; renderContents now sets the column heading to References+link icon when rendering the backlinks pane and resets to Contents+inventory_2 on each openPopup."
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -6236,7 +6321,16 @@
       "dir": "/tmp/qa-screenshots/cycle39",
       "count": 16
     },
-    "/tmp/qa-screenshots/cycle40/ \u2014 27 screenshots (23 main run + 4 post-fix verify), all read and evaluated"
+    "/tmp/qa-screenshots/cycle40/ \u2014 27 screenshots (23 main run + 4 post-fix verify), all read and evaluated",
+    "/tmp/qa-screenshots/cycle41/01-vianney-accessions-landing.png",
+    "/tmp/qa-screenshots/cycle41/03-vianney-accessions-active-filter.png",
+    "/tmp/qa-screenshots/cycle41/04-vianney-accessions-search-a3.png",
+    "/tmp/qa-screenshots/cycle41/05-vianney-accession-popup-before.png",
+    "/tmp/qa-screenshots/cycle41/07-vianney-accession-popup-after.png",
+    "/tmp/qa-screenshots/cycle41/12-vianney-labmap-filter-qa41.png",
+    "/tmp/qa-screenshots/cycle41/13-vianney-inventory-banner.png",
+    "/tmp/qa-screenshots/cycle41/15-vianney-dashboard-final.png",
+    "/tmp/qa-screenshots/cycle41/v100-verify-accession-popup.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
