@@ -637,7 +637,11 @@ async function createNewEntry() {
   if (!values || !values.name.trim()) return;
   var dir = values.folder;
   var rawName = values.name.trim();
-  var slug = rawName.replace(/\.md$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-|-$/g, '');
+  var slug = rawName
+    .replace(/\.md$/, '')
+    .replace(/[^a-zA-Z0-9._-]+/g, '-')
+    .replace(/[-.]{2,}/g, '-')
+    .replace(/^[-.]+|[-.]+$/g, '');
   if (!slug) return;
 
   var personLabel = prettify(dir.split('/').pop());

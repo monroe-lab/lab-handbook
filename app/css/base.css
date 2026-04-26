@@ -393,7 +393,7 @@ body:has(.em-overlay.open) .toast-container { bottom: 96px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 /* ── Rendered markdown (shared across all pages) ── */
-.lab-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); }
+.lab-rendered { font-size: 15px; line-height: 1.75; color: var(--grey-900); overflow-wrap: anywhere; word-break: break-word; }
 .lab-rendered p { margin: 10px 0; }
 .lab-rendered h1 { font-size: 26px; font-weight: 700; margin: 0 0 12px; border-bottom: 2px solid var(--grey-200); padding-bottom: 10px; }
 .lab-rendered h2 { font-size: 20px; font-weight: 600; margin: 24px 0 8px; }
