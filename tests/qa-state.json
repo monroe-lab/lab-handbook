@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 57,
+  "cycle": 58,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -7953,6 +7953,138 @@
           "description": ".acc-stats: flex-wrap \u2192 CSS grid (2fr repeat(6,1fr) with has-add-tile, repeat(6,1fr) without). Removed min-width:140 on .stat-card so columns can shrink to fit narrower viewports. Verified at 1024 / 1280 / 1366 / 1440 / 375 (mobile) \u2014 all 7 cards in 1 row at desktop, mobile preserves the existing 2-col + spanned-archived layout."
         }
       ]
+    },
+    {
+      "cycle": 58,
+      "persona": "Kayla Torres",
+      "modifier": "careful",
+      "task": "Print protocol day. Undergrad Kayla in careful mode runs the seed-sterilization protocol as a read-end-to-end exercise (Protocol pill + divider + H1, then resources/background/procedure). Switches to pipette-school (only image-rich wet-lab protocol, 238-line) for the print-preview drill. Clicks Print Preview, watches the iframe paginate to 10 pages, scrolls top -> mid -> image-page -> last page checking image rendering, pill flattening (CYCLE45 fix still good \u2014 bg transparent, color #000, underlined, no icons), and 'N of M' page numbers. Exits preview, re-runs on seed-sterilization (image-less, paginates to 6 pages), then re-runs at 1024x768 narrow viewport to confirm the iframe doesn't overflow horizontally.",
+      "screenshots": [
+        {
+          "path": "step01-seed-sterilization-loaded.png",
+          "shows": "seed-sterilization protocol loaded; Protocol pill + Resources/Equipment/Reagents/Related Protocols/Contacts/Source pills",
+          "evaluation": "renders cleanly; chemical pills (Gaseous HCl, H2O2 30%, Sodium bicarbonate, Triton X-100) all show purple background; reagent pill (Ethanol 70%) shows teal; equipment pills gray; pill colors correct per type",
+          "issues": "none"
+        },
+        {
+          "path": "step04-pipette-school-top.png",
+          "shows": "pipette-school top half \u2014 Protocol frontmatter pill, H1 'Pipette School', Resources section with equipment/consumables/reagents pills",
+          "evaluation": "all 33 object pills render; teal Pipette Tips Px series, teal microtube/parafilm; gray micropipette equipment; layout clean",
+          "issues": "none"
+        },
+        {
+          "path": "step05-pipette-school-image-in-view.png",
+          "shows": "pipette tips image in 'Tips' section after scrollIntoView",
+          "evaluation": "image (1200x800 natural) renders at correct width, surrounded by callout text below",
+          "issues": "none"
+        },
+        {
+          "path": "step07-print-preview-active.png",
+          "shows": "iframe overlay with paginated white pages on gray background; page 1 visible",
+          "evaluation": "ORIGINAL BUG OBSERVED: yellow lightbulb issue-reporter FAB visible alongside teal Print FAB in bottom-right. Frontmatter pill rendered but without the wrapper divider line (frontmatter-bar wrapper unwrapped by getBlocks)",
+          "issues": "CYCLE58-FAB-OVERLAP-IN-PRINT-PREVIEW; CYCLE58-FRONTMATTER-BAR-WRAPPER-LOST"
+        },
+        {
+          "path": "step08-print-preview-page1-top.png",
+          "shows": "page 1 with Protocol pill, Pipette School H1, Resources subsection",
+          "evaluation": "pills flattened (transparent bg, black underlined text, no icons) per CYCLE45 fix; pagination clean; page 1 has correct content",
+          "issues": "no NEW issues; same FAB-overlap"
+        },
+        {
+          "path": "step09-print-preview-mid.png",
+          "shows": "mid-document page with numbered procedure list (12 steps) and 'Common errors' table",
+          "evaluation": "numbered list renders, table has 3 equal-width columns with proper borders; no clipping; FAB overlap still present",
+          "issues": "no new"
+        },
+        {
+          "path": "step10-print-preview-image-page.png",
+          "shows": "page containing the pipette tips image with 'Tips' h3 heading kept-together",
+          "evaluation": "image renders fully (not blank); heading kept on same page as image (CYCLE45 keep-together fix working); list of tips below",
+          "issues": "no new"
+        },
+        {
+          "path": "step11-print-preview-last-page.png",
+          "shows": "last page (10 of 10) with Documentation list at bottom",
+          "evaluation": "pagination ends cleanly; bullets rendered; same FAB overlap",
+          "issues": "no new"
+        },
+        {
+          "path": "step12-print-fab-visible.png",
+          "shows": "bottom-right FAB area zoomed",
+          "evaluation": "teal Print FAB at expected position (1148,828) visible; yellow lightbulb FAB sits directly above at (1224,778) cluttering the corner",
+          "issues": "FAB overlap confirmed"
+        },
+        {
+          "path": "step13-after-exit-preview.png",
+          "shows": "back to normal protocol view after Exit Preview click",
+          "evaluation": "iframe removed, FAB removed, body class cleared, renderedDoc visible \u2014 exit teardown clean",
+          "issues": "none"
+        },
+        {
+          "path": "step15-seed-print-preview.png",
+          "shows": "seed-sterilization print preview page 1",
+          "evaluation": "Protocol pill, H1, Resources rendered; 6-page paginated layout; same FAB issue applies",
+          "issues": "no new (FAB overlap consistent across all protocols)"
+        },
+        {
+          "path": "step17-seed-pp-bottom.png",
+          "shows": "seed-sterilization page 6 of 6 \u2014 mostly empty",
+          "evaluation": "page-number '6 of 6' bottom-right; mostly whitespace because content ended on page 5 with one orphan block. Not a bug \u2014 pagination obeys page-height rules",
+          "issues": "none"
+        },
+        {
+          "path": "step19-narrow-1024-print-preview.png",
+          "shows": "1024x768 viewport print preview",
+          "evaluation": "iframe scaled to viewport width 1024; content width 1024 (no horizontal overflow); 8.5in page still centered. No body horizontal scroll",
+          "issues": "none \u2014 narrow viewport renders correctly"
+        },
+        {
+          "path": "verify-no-lightbulb-top.png",
+          "shows": "AFTER FIX: print preview page 1 with frontmatter divider visible and lightbulb FAB hidden",
+          "evaluation": "FIX VERIFIED \u2014 Protocol pill now sits inside its frontmatter-bar wrapper with bottom border (1px solid #ddd) separating it from H1; only teal Print FAB visible bottom-right, lightbulb gone",
+          "issues": "none"
+        },
+        {
+          "path": "verify-no-lightbulb-image-page.png",
+          "shows": "AFTER FIX: image-page with only teal Print FAB",
+          "evaluation": "image renders cleanly, no lightbulb overlap",
+          "issues": "none"
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE58-FAB-OVERLAP-IN-PRINT-PREVIEW",
+          "severity": "cosmetic",
+          "summary": "Yellow lightbulb #issue-reporter-btn stayed visible during print preview overlay, sitting alongside the teal Print FAB. The @media print rule already hid it for actual printing, but on-screen preview wasn't covered.",
+          "page": "app/protocols.html",
+          "status": "closed",
+          "closed_cycle": 58,
+          "closed_commit": "1865465f"
+        },
+        {
+          "id": "CYCLE58-FRONTMATTER-BAR-WRAPPER-LOST",
+          "severity": "visual",
+          "summary": "Print preview iframe rebuilt content via getBlocks(), which unwrapped <div> children including the .frontmatter-bar. Pills survived but lost the wrapper class, dropping the flex layout and bottom-border divider that the inline iframe stylesheet (.frontmatter-bar { border-bottom: 1pt solid #ddd; display: flex; ... }) targets.",
+          "page": "app/protocols.html (showPrintPreview/getBlocks)",
+          "status": "closed",
+          "closed_cycle": 58,
+          "closed_commit": "1865465f"
+        }
+      ],
+      "fixes": [
+        {
+          "commit": "1865465f",
+          "what": "Added body.print-preview-active #issue-reporter-btn { display:none } CSS rule alongside the existing print-preview-active frontmatter-bar hide. Also extended getBlocks to special-case DIV.frontmatter-bar and keep it as a single block instead of unwrapping its children."
+        }
+      ],
+      "observations": [
+        "Pipette-school print preview paginates to 10 pages, frontmatter-bar now survives with display:flex and 1px bottom border, page numbers '1 of 10' through '10 of 10' all present.",
+        "Pills inside print preview correctly render as flattened underlined black text with no icons (CYCLE45 fix still good).",
+        "Seed-sterilization (image-less) paginates to 6 pages cleanly.",
+        "1024x768 viewport: iframe content width matches viewport, no horizontal overflow.",
+        "At 1280px viewport, the protocols nav shows 9 primary tabs + '+More' overflow popover; at 1024px, 6 primary tabs + '+More'.",
+        "Test-only artifact: window.scrollTo doesn't move the protocols rendered view because the scroll container is #protoMain not window \u2014 non-issue for the test, just noting."
+      ]
     }
   ],
   "bugs_found": [
@@ -8421,7 +8553,9 @@
       "closed_cycle": 57,
       "closed_commit": "4b9202af",
       "summary": "Archived stat tile orphaned on row 2 at 1024-1280px viewports \u2014 flex-wrap layout with 7 tiles + min-width:140 wrapped the last tile alone. Fixed by switching to a CSS grid with explicit 2fr+6\u00d71fr columns (has-add-tile) so all 7 tiles share row 1 at desktop widths; mobile (\u2264768px) preserves the 2-col + spanned-archived layout."
-    }
+    },
+    "CYCLE58-FAB-OVERLAP-IN-PRINT-PREVIEW (cosmetic, fixed in cycle 58, commit 1865465f): yellow lightbulb #issue-reporter-btn stayed visible during print preview overlay; @media print rule didn't cover the on-screen preview. Added body.print-preview-active selector to hide it.",
+    "CYCLE58-FRONTMATTER-BAR-WRAPPER-LOST (visual, fixed in cycle 58, commit 1865465f): print preview's getBlocks unwrapped DIVs including .frontmatter-bar, losing the flex layout + bottom-border divider styled in the inline iframe CSS. Special-cased DIV.frontmatter-bar in getBlocks to push as a single block."
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -8774,7 +8908,8 @@
       "commit": "4b9202af",
       "file": "app/accessions.html",
       "summary": ".acc-stats flex-wrap \u2192 CSS grid; verified at 1024/1280/1366/1440/375"
-    }
+    },
+    "cycle 58 / commit 1865465f / app/protocols.html \u2014 hide #issue-reporter-btn under body.print-preview-active and preserve .frontmatter-bar wrapper inside print preview iframe getBlocks"
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -9227,7 +9362,12 @@
     "/tmp/qa-screenshots/cycle57/verify-fix-1280.png",
     "/tmp/qa-screenshots/cycle57/verify-fix-1366.png",
     "/tmp/qa-screenshots/cycle57/verify-fix-1440.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-mobile-375.png"
+    "/tmp/qa-screenshots/cycle57/verify-fix-mobile-375.png",
+    {
+      "cycle": 58,
+      "count": 22,
+      "dir": "/tmp/qa-screenshots/cycle58"
+    }
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
