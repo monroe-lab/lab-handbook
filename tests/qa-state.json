@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 55,
+  "cycle": 56,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -5318,7 +5318,7 @@
           "status": "closed",
           "closed_in_cycle": 55,
           "closed_commit": "0088518",
-          "description": "Tube popup FIELDS pane previously truncated the Parent pill text inside the narrow ~240px column ('QA39 LibPrep Aliqu...'). Closed by the cycle 39 fields-column ellipsis fix that lets the parent pill wrap (white-space:normal + word-break:break-word + max-width:100%). Verified in cycle 55 step12 — parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
+          "description": "Tube popup FIELDS pane previously truncated the Parent pill text inside the narrow ~240px column ('QA39 LibPrep Aliqu...'). Closed by the cycle 39 fields-column ellipsis fix that lets the parent pill wrap (white-space:normal + word-break:break-word + max-width:100%). Verified in cycle 55 step12 \u2014 parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
         }
       ],
       "fixes": [
@@ -7569,6 +7569,188 @@
         "When the library inherits its name from the accession ('A3-T1-S' default) it is acceptable but could auto-suffix with the kind, e.g. 'A3-T1-S Library 1' \u2014 minor improvement opportunity.",
         "Position field lives below the visible editor area on a 900px-tall viewport; user must scroll to fill (minor UX)."
       ]
+    },
+    {
+      "cycle": 56,
+      "persona": "Kayla Torres",
+      "modifier": "adversarial",
+      "scenario": "Lab notebook adversarial day",
+      "task": "Adversarial undergrad pastes a notebook title containing path-traversal slashes, an inline <script> tag, RTL Arabic/Hebrew runs, Zalgo combining marks, and emoji. Verifies (1) the slug derived by createNewEntry collapses '..' / hostile punctuation into safe runs, (2) the rendered notebook surface sanitizes <script>, <iframe>, <svg>, on*-handlers and javascript: URIs, and (3) the rendered surface wraps long unbroken tokens (3000-char block) without horizontal overflow on desktop and mobile. Also probed URL manipulation (?doc=../../../etc/passwd and ?doc=notebooks/garbage) for graceful 'Document not found' UI, and re-checked mobile bottom-nav (Wiki/Notebooks/Accessions/Inventory/More).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step01-notebooks-loaded.png",
+          "shows": "Notebooks page initial load with sidebar of person folders, '+ New Entry' button, kayla-torres signed in via token.",
+          "evaluation": "Page renders cleanly. 12-tab top nav visible, Notebooks tab active. No layout issues.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step02-notebooks-logged-in.png",
+          "shows": "Same baseline confirming token is in localStorage and the new-entry/folder buttons are visible.",
+          "evaluation": "Logged-in state correctly applied.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step03-new-entry-modal-default.png",
+          "shows": "New Entry modal default state: type=Daily entry, folder=barb-m (first), filename=2026-04-26 (today).",
+          "evaluation": "Modal renders with three correct fields. Date is today's date.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step04-new-entry-modal-blank-mode.png",
+          "shows": "Modal after switching to Blank document \u2014 title field becomes empty with placeholder.",
+          "evaluation": "Type-switch logic flips the Filename label to Title and clears the date pre-fill.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step05-adversarial-title-typed.png",
+          "shows": "Title field filled with 'qa56 ../../etc/passwd <script>alert(\"t\")</script> \ud83d\udd25\ud83d\udc80\ud83c\udf36\ufe0f \u0645\u0631\u062d\u0628\u0627 \u05e2\u05d1\u05e8\u05d9\u05ea Z\u0335\u1ea1\u0336l\u0337 entry'.",
+          "evaluation": "Input accepts arbitrary Unicode. RTL marks render correctly.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step06-after-create-entry.png",
+          "shows": "Entry created and loaded; new entry highlighted as 'qa56-..-..-etc-passwd-script-alert...'.",
+          "evaluation": "BUG: derived slug retained literal '..' sequences. Pre-fix slug regex stripped slashes but kept dots, so path-traversal text survived in URLs and filenames. H1 rendering of the title itself is fine \u2014 no script ran (no dialog, no window.__qa56_pwned).",
+          "issues": [
+            "SLUG-PATH-TRAVERSAL-DOTS"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step07-rendered-adversarial-entry.png",
+          "shows": "Reloaded notebook page after API-injecting adversarial body containing <script>, <img onerror>, <iframe>, <svg onload>, javascript: URIs, path-traversal wikilinks, RTL+Zalgo, and a 3000-char run of A's.",
+          "evaluation": "Sanitization passes: 0 <script>, 0 <iframe>, 0 <svg>, 0 on*-attrs, 0 javascript: URIs in DOM. Markdown XSS link [evil](javascript:...) renders 'evil' but href stripped. Wikilinks [[../../people/grey-monroe]] resolved to the Grey Monroe person pill (acceptable name-based resolver). BUG: long A-token causes horizontal overflow inside .lab-rendered (renderedScrollWidth 10338 vs clientWidth 820).",
+          "issues": [
+            "LONG-TOKEN-OVERFLOW"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step08-rendered-layout.png",
+          "shows": "Same rendered page from a layout-overflow check.",
+          "evaluation": "Confirms LONG-TOKEN-OVERFLOW: page-level scroll OK (1400 == viewport) but rendered-surface internal scroll on the long token.",
+          "issues": [
+            "LONG-TOKEN-OVERFLOW (duplicate)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step09-long-token-wrap.png",
+          "shows": "Scrolled-to-center view of the long token; AAAA continues off-screen.",
+          "evaluation": "No CSS wrapping (no overflow-wrap / word-break on .lab-rendered).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step10-url-path-traversal.png",
+          "shows": "?doc=../../../etc/passwd renders centered 'Document not found' empty-state with error icon.",
+          "evaluation": "Path-traversal URL is handled gracefully \u2014 no crash, clear error UI. Sidebar still functional.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step11-url-nonexistent-doc.png",
+          "shows": "?doc=notebooks/grey-monroe/totally-fake-doc-12345 \u2014 same 'Document not found' empty-state.",
+          "evaluation": "Non-existent doc shows correct error UI. The earlier text-scrape false negative was a test artifact; user-visible UI is correct.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step12-mobile-rendered-adversarial.png",
+          "shows": "375x812 mobile viewport on the adversarial entry. Title wraps onto 2 lines; long AAAA token still extends past the right edge inside the rendered surface; bottom tab bar visible.",
+          "evaluation": "Mobile bottom-nav (Wiki/Notebooks/Accessions/Inventory/More) matches run-focus expectation. Page-level scrollWidth=viewport=375. Rendered surface internal-scrolls on long token \u2014 same root cause as desktop.",
+          "issues": [
+            "LONG-TOKEN-OVERFLOW (mobile)"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step13-mobile-long-token.png",
+          "shows": "Mobile, scrolled to the long-token section. AAAA continues off the right edge.",
+          "evaluation": "Confirms mobile overflow.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step14-mobile-dashboard.png",
+          "shows": "Mobile dashboard at 375x812 \u2014 8-tile stat grid, inventory status card, sample inventory rows.",
+          "evaluation": "Dashboard mobile layout is clean. Type colors render correctly (purple accessions, teal inventory).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56/step15-sidebar-shows-entry.png",
+          "shows": "Desktop notebooks page after returning from mobile; sidebar lists the new adversarial entry under grey-monroe.",
+          "evaluation": "Sidebar correctly shows the entry. Truncation handled by existing CSS ellipsis.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step01-modal-typed.png",
+          "shows": "Re-run with same path-traversal title after fix deploy.",
+          "evaluation": "Modal accepts the title.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step02-after-create.png",
+          "shows": "Entry created post-fix; sidebar shows clean slug 'qa56v-etc-passwd-script-alert-t-s...' \u2014 no '..' anywhere.",
+          "evaluation": "FIXED: slug normalization now collapses '..' / '.-.-' runs to a single '-' and strips edges.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step03-rendered-desktop.png",
+          "shows": "Reloaded post-fix entry on 1400x900 desktop with 3000-char A-token body.",
+          "evaluation": "Long token wraps. Multiple full-width lines of A's stack vertically inside the rendered area.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step04-long-token-desktop.png",
+          "shows": "Scrolled to long-token section; AAAA breaks naturally to ~80 chars/line.",
+          "evaluation": "FIXED: renderedScrollWidth (820) == renderedClientWidth (820). No internal horizontal overflow on desktop.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step05-rendered-mobile.png",
+          "shows": "Mobile 375x812 with same long-token body.",
+          "evaluation": "Title wraps; long AAAA is wrapping to ~32 chars/line within the viewport.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle56-verify/step06-long-token-mobile.png",
+          "shows": "Mobile scrolled to long-token; clean line breaks.",
+          "evaluation": "FIXED: renderedScrollWidth (359) == renderedClientWidth (359) on mobile. Bottom nav still rendered correctly.",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "QA56-LONG-TOKEN-OVERFLOW",
+          "severity": "visual",
+          "title": "Long unbroken tokens overflow the rendered notebook surface horizontally",
+          "evidence": "Pasting a >800-char unbroken token caused renderedScrollWidth 10338 vs clientWidth 820 on a 1400px viewport, and overflow on a 375px viewport. .lab-rendered had no overflow-wrap/word-break declaration."
+        },
+        {
+          "id": "QA56-SLUG-PATH-TRAVERSAL-DOTS",
+          "severity": "minor",
+          "title": "Notebook entry slug derivation retained '..' from path-traversal-shaped titles",
+          "evidence": "createNewEntry's regex was [^a-zA-Z0-9._-]+ then strip leading/trailing '-'. A title of '../../etc/passwd' became 'qa56-..-..-etc-passwd-...'. File lands safely under docs/notebooks/grey-monroe/ (slashes are gone) but the '..' literal survives in the URL slug."
+        }
+      ],
+      "fixes": [
+        {
+          "id": "QA56-LONG-TOKEN-OVERFLOW",
+          "commit": "137e5391",
+          "files": [
+            "app/css/base.css"
+          ],
+          "summary": "Added overflow-wrap: anywhere; word-break: break-word; to .lab-rendered. Verified live: renderedScrollWidth==clientWidth on both desktop (820==820) and mobile (359==359)."
+        },
+        {
+          "id": "QA56-SLUG-PATH-TRAVERSAL-DOTS",
+          "commit": "137e5391",
+          "files": [
+            "app/notebooks.html"
+          ],
+          "summary": "Slug derivation now collapses any run of '.' and '-' to a single '-' and strips both from the leading/trailing edges. Verified live: same path-traversal title now produces 'qa56v-etc-passwd-script-alert-t-script-entry' with no '..' sequences."
+        }
+      ],
+      "observations": [
+        "sanitizeRenderedHTML in app/js/editor-modal.js is doing its job: <script>/<iframe>/<svg>/on*/javascript: URIs all stripped on the live render path. No XSS executed.",
+        "Markdown link XSS [evil](javascript:...) renders the link text but the href is stripped \u2014 confirmed via DOM scan (jsHrefLinks=0).",
+        "Wikilink resolver is name-based: [[../../people/grey-monroe]] resolves to the same Grey Monroe pill as plain [[grey-monroe]] \u2014 slugs in objectIndex are unique per name, no path-traversal lookup happens.",
+        "Path-traversal URL (?doc=../../../etc/passwd) and missing-doc URL both show the centered 'Document not found' empty-state correctly.",
+        "Mobile bottom tab bar (Wiki / Notebooks / Accessions / Inventory / More) renders on every mobile screen captured \u2014 matches the 4-primary-slot+More design described in the run focus."
+      ]
     }
   ],
   "bugs_found": [
@@ -8011,6 +8193,22 @@
       "summary": "In editor-modal.js, resolveImagePaths(md, docPath) prepended MEDIA_BASE + docDir to relative <img src='images/foo.png'> on load, but unresolveImagePaths(md) only stripped MEDIA_BASE on save \u2014 so each save baked the docDir into the path. After one round-trip a notebook's image src went from 'images/foo' to 'notebooks/grey-monroe/images/foo'; the next save would push it to 'notebooks/grey-monroe/notebooks/grey-monroe/images/foo', breaking the deployed render. Fixed by threading docPath through getMarkdownClean -> unresolveImagePaths and stripping the (MEDIA_BASE+docDir) prefix before the bare MEDIA_BASE prefix. Verified by re-running a round-trip save on the live site post-deploy.",
       "fix_commit": "5db4f0ae",
       "verified": "Round-trip save on live site preserved <img src='images/qa54-tswtos.png'> (no docDir prefix)."
+    },
+    {
+      "id": "QA56-LONG-TOKEN-OVERFLOW",
+      "cycle": 56,
+      "severity": "visual",
+      "status": "closed",
+      "fixed_in_commit": "137e5391",
+      "title": "Long unbroken tokens overflow .lab-rendered horizontally"
+    },
+    {
+      "id": "QA56-SLUG-PATH-TRAVERSAL-DOTS",
+      "cycle": 56,
+      "severity": "minor",
+      "status": "closed",
+      "fixed_in_commit": "137e5391",
+      "title": "Notebook entry slug derivation retained '..' from path-traversal-shaped titles"
     }
   ],
   "fixes_applied": [
@@ -8334,13 +8532,29 @@
       "id": "DETAIL-SHEET-LINK-WRAP-5-LINES",
       "cycle": 55,
       "file": "app/js/editor-modal.js",
-      "summary": "renderFields URL anchor branch — replaced word-break:break-all with single-line ellipsis truncation (display:inline-flex, overflow:hidden text-overflow:ellipsis white-space:nowrap on inner span, max-width:100%, flex-shrink:0 on the open_in_new icon). Long Google Docs / form URLs in popup FIELDS columns no longer wrap to 5 lines."
+      "summary": "renderFields URL anchor branch \u2014 replaced word-break:break-all with single-line ellipsis truncation (display:inline-flex, overflow:hidden text-overflow:ellipsis white-space:nowrap on inner span, max-width:100%, flex-shrink:0 on the open_in_new icon). Long Google Docs / form URLs in popup FIELDS columns no longer wrap to 5 lines."
     },
     {
       "id": "QA39-PARENT-FIELD-TRUNCATION",
       "cycle": 55,
       "verified_commit": "0088518",
-      "summary": "Carry-over closed: cycle 39 fields-column wrap fix (white-space:normal + word-break:break-word + max-width:100% in upgradeParentField) confirmed in cycle 55 step12 — parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
+      "summary": "Carry-over closed: cycle 39 fields-column wrap fix (white-space:normal + word-break:break-word + max-width:100% in upgradeParentField) confirmed in cycle 55 step12 \u2014 parent pill 'Pistachio DNA Box' and of pill 'A3-T1-S' both render at full title without truncation."
+    },
+    {
+      "id": "QA56-LONG-TOKEN-OVERFLOW",
+      "cycle": 56,
+      "commit": "137e5391",
+      "files": [
+        "app/css/base.css"
+      ]
+    },
+    {
+      "id": "QA56-SLUG-PATH-TRAVERSAL-DOTS",
+      "cycle": 56,
+      "commit": "137e5391",
+      "files": [
+        "app/notebooks.html"
+      ]
     }
   ],
   "improvements_proposed": [
@@ -8765,7 +8979,8 @@
     "/tmp/qa-screenshots/cycle54/step32-after-acetone-click-popup.png",
     "/tmp/qa-screenshots/cycle54/step33-dashboard-recent-updates.png",
     "/tmp/qa-screenshots/cycle54/step37-roundtrip-after-save.png",
-    "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png"
+    "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png",
+    "/tmp/qa-screenshots/cycle56/ + /tmp/qa-screenshots/cycle56-verify/ \u2014 21 screenshots total (15 main + 6 verify), all read and evaluated"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
