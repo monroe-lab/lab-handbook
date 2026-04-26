@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 58,
+  "cycle": 59,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8085,6 +8085,105 @@
         "At 1280px viewport, the protocols nav shows 9 primary tabs + '+More' overflow popover; at 1024px, 6 primary tabs + '+More'.",
         "Test-only artifact: window.scrollTo doesn't move the protocols rendered view because the scroll container is #protoMain not window \u2014 non-issue for the test, just noting."
       ]
+    },
+    {
+      "cycle": 59,
+      "persona": "Jordan Park",
+      "modifier": "cross_linker",
+      "scenario": "Backlinks sanity (with new library instance)",
+      "task": "Postdoc Jordan in cross_linker mode opens the Pistachio Tree #4 accession popup, walks the existing 3-instance backlinks pane (Pistachio DNA Extract 1, Leaf 1, Leaf 2 \u2014 all body-wikilinked tubes), then creates a new library instance via _addInstance({kind:'library'}) and verifies it shows up in the references column with the type icon. Cross-link verification: every backlink row should expose the parent location + grid cell so the user can find each physical tube without opening it. The new library has of: accessions/pistachio-4 in frontmatter; the existing tubes use body wikilinks instead. Cycle exposed two real bugs: body-wikilinked instances showed 'no location set' + slug suffix when their parent was indexed, and 404 popups leaked the prior popup's references column.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step01-accessions-page-baseline.png",
+          "shows": "Accessions page baseline with purple-bordered orientation banner, 6-card stat row (232 Accessions / 101 Active / 119 Waiting / 0 Storage / 12 Completed / 0 Archived), Add Accession button, and full accessions table with star priority + status pill columns",
+          "evaluation": "Banner renders correctly with the new R20 vocabulary text ('What's an accession?'). Stat cards aligned. Star priority column visible on left of each row. Status pills (Active) render in amber/orange.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step03-pistachio-4-popup-baseline.png",
+          "shows": "Pistachio Tree #4 accession popup with FIELDS panel (type=accession, accession_id=PIST-4, project, people=J. Freckles, species=Pistacia vera, status=Active, priority=0 stars, sequencing_type=HiFi), body with two wikilink groups (leaf tubes purple+teal, dna extract tube), and right column REFERENCES with 3 INSTANCES IN LAB",
+          "evaluation": "Three-column layout intact. Type pill says 'accession' with green-yellow color. References column lists Pistachio DNA Extract 1, Pistachio Leaf 1, Pistachio Leaf 2 + Add instance button. Body wikilinks render with type-coloured pills.",
+          "issues_found": [
+            "Each row in the references pane shows '#1 \u00b7 no location set' (or '#2 \u00b7 no location set') instead of the real parent location + grid cell. The tubes have parent + position in their index entries (e.g. tube-pistachio-leaf-1: parent=locations/box-pistachio-dna, position=A1) but the body-wikilink branch of fetchBacklinksFor wasn't propagating those fields \u2014 only the of:-loop was. Visible/UX bug; fixed in this cycle."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step09-after-add-library-instance.png",
+          "shows": "Editor for the newly-created library instance. Title=Pistachio Tree #4 (inherited from concept), Type=Library (teal pill), Of (accession slug)=accessions/pistachio-4, all instance-specific fields blank (Prep Kit, Date, Insert Size, Molarity, Parent, Position in parent). Right column REFERENCES = No references yet.",
+          "evaluation": "Editor opened in EDIT mode (correct for fresh instances \u2014 user fills in details next). Of-field auto-populated with the concept slug. Library type pill rendered. Body has the H1 'Pistachio Tree #4' inherited from the concept.",
+          "issues_found": [
+            "Library inherited the concept's title (Pistachio Tree #4) verbatim. Confusing \u2014 both the parent accession and the new library now have identical titles, which makes the references list ambiguous. Logged as observation; not fixed in this cycle (would change addInstanceFromConcept default-title behavior more broadly)."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step11-pistachio-4-popup-after-library-add.png",
+          "shows": "Pistachio Tree #4 popup re-opened after creating the new library \u2014 references pane visible at right",
+          "evaluation": "Hard to confirm at thumbnail size whether the new library appears. Probe script (pre-fix) confirmed it WAS added to the cached object index and DID render in the col text \u2014 but indistinguishable from existing rows because all four rows show 'no location set' + slug suffix.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step13-navigate-to-new-library-popup.png",
+          "shows": "Document not found popup for accessions/library-pistachio-4-htpl6g.md (file saved to GitHub but not yet served by the static GitHub Pages CDN). Title says 'Document not found', body explains the file may have been renamed/deleted, BUT the right column still shows 'CONTENTS \u00b7 4 INSTANCES IN LAB \u00b7 Pistachio DNA Extract 1 / #1 \u00b7 no location set / Pistachio Leaf 1 / #1 \u00b7 no location set / Pistachio Leaf 2 / #2 \u00b7 no location set / Pistachio Tree #4 / #htpl6g \u00b7 no location set + Add instance button'",
+          "evaluation": "Visible visual bug \u2014 the right column did NOT clear between popup transitions, so the previous accession's references list bled through into the not-found popup. Mixing two objects on screen at once is confusing. Fixed in this cycle by clearing #em-contents at the top of openPopup.",
+          "issues_found": [
+            "STALE-COL3-ON-OPEN: openPopup reset em-fields/em-content/em-title but not em-contents, so the right column survived the popup transition and confusingly mixed two objects on screen. Fixed."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/step15-inventory-page-orientation-banner.png",
+          "shows": "Inventory page with teal-bordered orientation banner explaining Concepts vs containers, 4-card stat row (279 Total / 217 In Stock / 0 Needs More / 0 Out of Stock \u2014 last two cards visible but counters faint), search/filter bar, and full inventory table with Type pill column",
+          "evaluation": "Banner renders with teal left border and the expected concept/instance copy. Type pills mostly look the same color in this thumbnail (chemicals, reagents, buffers all look greenish-teal); harder to distinguish chemical purple vs reagent teal at this resolution but the ui_critic would flag closer inspection.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/verify01-pistachio-fix-meta.png",
+          "shows": "POST-FIX: Pistachio Tree #4 popup with references pane now showing real parent + grid cell on each row",
+          "evaluation": "Fix verified in script log: Pistachio DNA Extract 1 \u2192 'DNA Extracts Box \u00b7 A1', Pistachio Leaf 1 \u2192 'Pistachio DNA Box \u00b7 A1', Pistachio Leaf 2 \u2192 'Pistachio DNA Box \u00b7 A2'. Body-wikilinked instances now propagate their parent + position from the index source entry. Cross_linker can scan the column and find each physical location without opening any popup.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/verify02-pistachio-after-add.png",
+          "shows": "POST-FIX: Pistachio Tree #4 popup after adding a 4th library instance",
+          "evaluation": "Script log: 4 INSTANCES IN LAB shown \u2014 three existing tubes with real parent+position, plus the new library 'Pistachio Tree #4 / #fw1619 \u00b7 no location set'. The new library correctly falls back to the slug-suffix-with-no-location-hint pattern because its parent field is still blank (user has not placed it yet). Add instance button still rendered at the bottom.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle59/verify03-404-popup-clears-col.png",
+          "shows": "POST-FIX: 404 popup for a non-existent slug \u2014 right column now properly empty",
+          "evaluation": "Fix verified. 'Document not found' header, body shows the bad path + helpful message, right column shows just the 'CONTENTS' heading with NO content beneath it. No stale references list bleeding through from the previous popup. Two-popup confusion eliminated.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE59-BACKLINK-PARENT-LOST",
+          "severity": "ux",
+          "summary": "Body-wikilinked instances on a concept's references pane showed 'no location set' + slug-suffix instead of their indexed parent + grid cell. fetchBacklinksFor's body-wikilink loop dropped parent/position/qty/unit/lot/expiration that the of:-loop already preserved.",
+          "evidence": "step03 \u2014 'Pistachio DNA Extract 1 / #1 \u00b7 no location set' (should be 'DNA Extracts Box \u00b7 A1') for all three legacy tubes that wikilink to accessions/pistachio-4 from their body rather than via of:.",
+          "root_cause": "fetchBacklinksFor at editor-modal.js ~2103 \u2014 body-wikilink branch only carried slug/title/type/isInstance, not the rich source.parent/source.position fields.",
+          "status": "fixed",
+          "commit": "c3734e6f"
+        },
+        {
+          "id": "CYCLE59-STALE-COL3-ON-OPEN",
+          "severity": "visual",
+          "summary": "When openPopup loaded a path whose file 404s (e.g. cache lag right after creating a new instance on the deployed site), the right column retained the previous popup's references list \u2014 visually mixing two objects on screen.",
+          "evidence": "step13 \u2014 'Document not found' popup for accessions/library-pistachio-4-htpl6g.md showed the prior pistachio-4 popup's '4 INSTANCES IN LAB' column intact alongside the new popup's title.",
+          "root_cause": "openPopup at editor-modal.js ~919 reset em-fields/em-content/em-title but not em-contents (the inner mount of em-col-contents).",
+          "status": "fixed",
+          "commit": "c3734e6f"
+        }
+      ],
+      "fixes": [
+        "Propagate parent/parentTitle/position/quantity/unit/lot/expiration from source index entry in fetchBacklinksFor's body-wikilink branch (app/js/editor-modal.js:2113-2129)",
+        "Clear #em-contents at the top of openPopup so the right column starts blank for every transition (app/js/editor-modal.js:929-934)"
+      ],
+      "observations": [
+        "Cross_linker confirms: with fix in place, the references column is now scannable as a parent+position table \u2014 'Pistachio DNA Box \u00b7 A1' tells the user exactly where to walk without opening every tube.",
+        "addInstanceFromConcept inherits the concept's title verbatim into the new instance (e.g. a new library of Pistachio Tree #4 is titled 'Pistachio Tree #4'). Confusing for the references list \u2014 siblings are indistinguishable by title alone. Worth a future cycle: append the kind ('Pistachio Tree #4 \u2014 library') or just use the slug suffix as the display name.",
+        "Even with the slug-suffix fallback, fresh instances with no parent yet ('Pistachio Tree #4 / #fw1619 \u00b7 no location set') stand out in the column because the suffix and the 'no location set' hint mark them as 'unfilled'.",
+        "Inventory orientation banner uses teal left border and the concept/instance vocabulary; Accessions banner uses purple left border. Color separation matches the concept-type system (teal=stocks/inventory, purple=accessions)."
+      ]
     }
   ],
   "bugs_found": [
@@ -8555,7 +8654,23 @@
       "summary": "Archived stat tile orphaned on row 2 at 1024-1280px viewports \u2014 flex-wrap layout with 7 tiles + min-width:140 wrapped the last tile alone. Fixed by switching to a CSS grid with explicit 2fr+6\u00d71fr columns (has-add-tile) so all 7 tiles share row 1 at desktop widths; mobile (\u2264768px) preserves the 2-col + spanned-archived layout."
     },
     "CYCLE58-FAB-OVERLAP-IN-PRINT-PREVIEW (cosmetic, fixed in cycle 58, commit 1865465f): yellow lightbulb #issue-reporter-btn stayed visible during print preview overlay; @media print rule didn't cover the on-screen preview. Added body.print-preview-active selector to hide it.",
-    "CYCLE58-FRONTMATTER-BAR-WRAPPER-LOST (visual, fixed in cycle 58, commit 1865465f): print preview's getBlocks unwrapped DIVs including .frontmatter-bar, losing the flex layout + bottom-border divider styled in the inline iframe CSS. Special-cased DIV.frontmatter-bar in getBlocks to push as a single block."
+    "CYCLE58-FRONTMATTER-BAR-WRAPPER-LOST (visual, fixed in cycle 58, commit 1865465f): print preview's getBlocks unwrapped DIVs including .frontmatter-bar, losing the flex layout + bottom-border divider styled in the inline iframe CSS. Special-cased DIV.frontmatter-bar in getBlocks to push as a single block.",
+    {
+      "id": "CYCLE59-BACKLINK-PARENT-LOST",
+      "cycle": 59,
+      "severity": "ux",
+      "status": "closed",
+      "commit": "c3734e6f",
+      "summary": "Body-wikilinked instances on a concept references pane showed \"no location set\" + slug-suffix instead of their indexed parent + grid cell"
+    },
+    {
+      "id": "CYCLE59-STALE-COL3-ON-OPEN",
+      "cycle": 59,
+      "severity": "visual",
+      "status": "closed",
+      "commit": "c3734e6f",
+      "summary": "404 popup retained the previous popup right column references list, mixing two objects on screen"
+    }
   ],
   "fixes_applied": [
     "Live link-index patching for instant backlinks (app/js/github-api.js + app/js/editor-modal.js, commit 642579c)",
@@ -8909,7 +9024,15 @@
       "file": "app/accessions.html",
       "summary": ".acc-stats flex-wrap \u2192 CSS grid; verified at 1024/1280/1366/1440/375"
     },
-    "cycle 58 / commit 1865465f / app/protocols.html \u2014 hide #issue-reporter-btn under body.print-preview-active and preserve .frontmatter-bar wrapper inside print preview iframe getBlocks"
+    "cycle 58 / commit 1865465f / app/protocols.html \u2014 hide #issue-reporter-btn under body.print-preview-active and preserve .frontmatter-bar wrapper inside print preview iframe getBlocks",
+    {
+      "cycle": 59,
+      "commit": "c3734e6f",
+      "files": [
+        "app/js/editor-modal.js"
+      ],
+      "summary": "Propagate parent/position from source entry in body-wikilink backlinks; clear stale right-column on every popup open"
+    }
   ],
   "improvements_proposed": [
     "Truncate label_2 only to its first line for grid-cell display so 'P4-A1' shows without losing the date line, OR shrink the date to a corner badge",
@@ -9367,7 +9490,18 @@
       "cycle": 58,
       "count": 22,
       "dir": "/tmp/qa-screenshots/cycle58"
-    }
+    },
+    "cycle59/step01-accessions-page-baseline.png",
+    "cycle59/step03-pistachio-4-popup-baseline.png",
+    "cycle59/step05-tube-leaf-1-popup.png",
+    "cycle59/step07-tube-dna-extract-1-popup.png",
+    "cycle59/step09-after-add-library-instance.png",
+    "cycle59/step11-pistachio-4-popup-after-library-add.png",
+    "cycle59/step13-navigate-to-new-library-popup.png",
+    "cycle59/step15-inventory-page-orientation-banner.png",
+    "cycle59/verify01-pistachio-fix-meta.png",
+    "cycle59/verify02-pistachio-after-add.png",
+    "cycle59/verify03-404-popup-clears-col.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -9398,5 +9532,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-26T00:27:48.817006Z"
+  "last_updated": "2026-04-25T17:55:00Z"
 }
