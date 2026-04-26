@@ -2202,9 +2202,13 @@
         }
         var collisionKey = (b.title || '') + '|' + (b.parent || '');
         if (instanceCollisionCounts[collisionKey] > 1) {
+          // qa-cycle-60: don't add `@ <position>` here — the parentLabel
+          // above already appends `· <position>` whenever b.position is
+          // set, so the disambig would render "Pistachio DNA Box · A2 ·
+          // @ A2" with the position duplicated. For position collisions
+          // fall through to lot / expiration / slug-suffix instead.
           var disamb = b.lot ? ('lot ' + b.lot) :
             b.expiration ? ('exp ' + b.expiration) :
-            b.position ? ('@ ' + b.position) :
             b.slug ? ('#' + b.slug.split('/').pop().split('-').pop()) : '';
           // Skip the slug-suffix branch when we already pushed it above for
           // the no-parent case — the row would then read "#xx · no location

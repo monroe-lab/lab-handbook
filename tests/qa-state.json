@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 59,
+  "cycle": 60,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8184,6 +8184,112 @@
         "Even with the slug-suffix fallback, fresh instances with no parent yet ('Pistachio Tree #4 / #fw1619 \u00b7 no location set') stand out in the column because the suffix and the 'no location set' hint mark them as 'unfilled'.",
         "Inventory orientation banner uses teal left border and the concept/instance vocabulary; Accessions banner uses purple left border. Color separation matches the concept-type system (teal=stocks/inventory, purple=accessions)."
       ]
+    },
+    {
+      "cycle": 60,
+      "persona": "Jordan Park",
+      "modifier": "ui_critic",
+      "scenario": "Aliquot day \u2014 pistachio-4",
+      "task": "Postdoc Jordan in ui_critic mode opens the Pistachio Tree #4 accession (HiFi project, active), creates 4 distinct-kind instances (sample/extraction/library/pool) under it via the kind-picker, places each in box-pistachio-dna at unique grid positions (A2/A3/A4/B1), then walks the resulting box grid + cross-linked instance popups + mobile views \u2014 heavily screenshotting and visually evaluating pill colors, breadcrumb chains, grid alignment, banner border colors, and instance-row meta consistency.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step01-accessions-tracker-loaded.png",
+          "shows": "Accessions tracker desktop landing \u2014 orientation banner with purple left border, 5 status stat cards (232 active, 101 active sub-bucket, 779 storage, 0 completed, 0 archived), search + 3 dropdowns, table of accessions with star priority + status pills",
+          "evaluation": "Banner border-left color is the expected purple (#7c3aed). Stat cards spaced evenly. Stars in priority column render correctly (3-star top row). Status pills colored consistently across rows.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step04-accession-popup-baseline.png",
+          "shows": "Pistachio Tree #4 accession popup before any new instances \u2014 3-column layout: fields left (type=accession purple pill, accession_id, project, people, status active green pill), body middle (title + description + Physical storage section with wikilink pills to legacy tubes), references right (3 instances: Pistachio DNA Extract 1, Leaf 1, Leaf 2)",
+          "evaluation": "Layout clean. Accession header pill is purple. Three legacy instances correctly classified under INSTANCES IN LAB heading. + Add instance button visible.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step06-jp-sample-01-kind-picker.png",
+          "shows": "Kind-picker modal overlay with select dropdown (Sample/Tissue/leaf/seed collection) + Cancel + Create buttons",
+          "evaluation": "Modal renders cleanly over the popup. Dropdown text wrapped naturally. Action buttons properly aligned right.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step08-jp-sample-03-after-create.png",
+          "shows": "Editor open immediately after sample created \u2014 Type=Sample green pill, auto-filled Tissue Type=leaf, Insert toolbar with type chips for wikilinks, body shows H1 'Pistachio Tree #4'",
+          "evaluation": "Auto-edit mode triggers correctly. Type pill green for sample. Insert chips colored per type (Resources teal, Stocks teal, Protocols purple, Projects orange, Accessions purple, Waste red, Calendar blue, Lab Map gray, Notebooks teal). Sample-default tissue_type=leaf is helpful.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step09-jp-sample-04-loc-picker-open.png",
+          "shows": "Location picker tree opened over editor \u2014 top-level list (Asmundson Growth Chamber, Autoclave Room, Genome Center, Robbins Hall 170 with 8 items, Robbins Hall 262, Unsorted), search input + Expand all/Collapse buttons",
+          "evaluation": "Picker overlay positioned in center. Tree icons render correctly. Item-count badges visible. Expand all/Collapse buttons accessible. Note: dropdown anchored to center of viewport rather than near the trigger field \u2014 may feel disconnected from the parent input below.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step10-jp-sample-05-loc-picker-search.png",
+          "shows": "Picker after typing 'pistachio dna' \u2014 tree expanded to show Robbins Hall 170 \u2192 -80C Freezer A (4\u00d71) \u2192 Shelf 1 (A1) \u2192 Pistachio DNA Box (10\u00d710) highlighted teal, plus 4C Fridge \u2192 DNA Extracts Box \u2192 Pistachio DNA Extract 1 also highlighted",
+          "evaluation": "Search highlights and tree-expand work as expected. Matched rows have teal background. Hierarchical icons (room/freezer/shelf/box/tube) all distinct.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step40-accession-popup-final.png",
+          "shows": "Pistachio Tree #4 popup after creating 4 instances \u2014 references pane now shows 7 INSTANCES IN LAB rows: 3 legacy tubes + 4 new (sample at A2, extraction A3, library A4, pool B1). Each new row reads 'Pistachio Tree #4' with subtitle 'Pistachio DNA Box \u00b7 An \u00b7 @ An'",
+          "evaluation": "Counts are accurate (7 instances total). Each row has correct type icon (vial for tubes, leaf for sample, flask-vial for extraction, book for library, diagram-project for pool). VISUAL BUG: subtitle reads 'Pistachio DNA Box \u00b7 A2 \u00b7 @ A2' \u2014 position is rendered TWICE (once via parentLabel, once via the @ disambiguator) for siblings sharing title+parent. Looks redundant.",
+          "issues_found": [
+            "redundant_position_disambig"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step42-box-popup-overview.png",
+          "shows": "Pistachio DNA Box popup \u2014 fields panel left (type=Box, link, name, parent=Shelf 1, grid 10x10, labels), breadcrumb chips top (Robbins Hall 170 \u2192 -80C Freezer A \u2192 Shelf 1), body middle, grid in right pane (very small)",
+          "evaluation": "Layout correct. Breadcrumb chain complete. The 10x10 grid in the right column is extremely cramped at desktop width \u2014 cells are ~10px wide and nearly unreadable without zoom. Mobile renders the grid full-width and is much clearer.",
+          "issues_found": [
+            "desktop_grid_too_small_in_right_pane"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step44-box-grid-A2-hover.png",
+          "shows": "Same box popup with hover on A2 cell \u2014 A2 displays orange collision indicator (ringed cell) since legacy tube-pistachio-leaf-2 + my new sample-pistachio-4 both reference A2",
+          "evaluation": "Collision detection works \u2014 orange box-shadow ring on A2 visually flags the conflict. Title attribute shows the leaf-2 tube's title (only the first occupant is rendered as primary in the cell). Correct UX behavior.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step45-instance-A3-popup.png",
+          "shows": "Extraction-pistachio-4-eh10l1 instance popup after clicking A3 cell \u2014 Type=Extraction (orange pill), of:=Pistachio Tree #4 (purple accession pill), Parent=Pistachio DNA Box, Position=A3, full breadcrumb chain across the top",
+          "evaluation": "Cross-link from grid cell \u2192 instance popup works. Type pill (Extraction orange) and Of pill (Accession purple with leaf icon) are visually distinct and correctly colored. Breadcrumb chips (Robbins Hall 170 \u2192 -80C Freezer A \u2192 Shelf 1 \u2192 Pistachio DNA Box \u2192 self) are complete and clickable.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step49-mobile-accession-popup.png",
+          "shows": "Mobile (375x812) accession popup, single-column layout \u2014 type pill, all fields stacked, body below, references at bottom",
+          "evaluation": "Mobile layout collapses cleanly to a single column. Field values stay legible. Active status pill and 0/3 priority stars render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step50-mobile-box-popup.png",
+          "shows": "Mobile box popup with breadcrumb chips wrapping to multi-line, body, CONTENTS section with grid row A visible (PL1 green, A2 orange-ringed collision, A3 + A4 Pistachio Tree #4 cells)",
+          "evaluation": "Mobile is much better for the box grid view than desktop \u2014 cells are ~30px wide, labels readable. Breadcrumb chips wrap onto two rows; arrows still visible. CONTENTS heading + meta '10 \u00d7 10 - 6 items' reads clearly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle60/step48-mobile-accessions-tracker.png",
+          "shows": "Mobile accessions tracker \u2014 collapsed top nav (Monroe Lab + Sign out), full orientation banner with purple border (8-line wrap), search, 3 filter dropdowns, 2-col stat cards grid, bottom tab bar (Wiki/Notebooks/Accessions/Inventory/More)",
+          "evaluation": "All elements responsive. Stat cards readable. Bottom 4-slot bar + More overflow visible. Banner is verbose at this width but still legible.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "Instances pane in popup duplicates position when siblings share title+parent: subtitle reads 'Pistachio DNA Box \u00b7 A2 \u00b7 @ A2'. The collision-disambiguator was appending '@ <position>' even though paren",
+        "Desktop box-popup grid rendered in the narrow right backlinks pane is too small to be useful \u2014 cells ~10px wide, labels nearly illegible. Mobile renders the grid full-width and is much clearer. Either"
+      ],
+      "fixes": [
+        "Drop position-based disambiguator in instances pane to avoid duplicating position in subtitle (parentLabel already includes it)."
+      ],
+      "observations": [
+        "All four kind variants (sample/extraction/library/pool) save with correct frontmatter: type, of:, parent:, position: all populated. type-correct=true on every saved file.",
+        "Type icons render distinctly for each instance kind: leaf (sample), flask-vial (extraction), book (library), diagram-project (pool). Pill colors also distinct.",
+        "Collision detection on A2 (legacy PL2 + new sample) renders the orange box-shadow ring as designed \u2014 correct behavior.",
+        "Backlinks pane correctly classifies legacy `tube` types AND new `sample/extraction/library/pool` types under INSTANCES IN LAB \u2014 INSTANCE_TYPES map has all 6 covered.",
+        "Mobile (375x812) box-popup grid is significantly more readable than desktop because mobile uses single-column and the grid spans full width. Desktop stuffs the grid into a ~280px right pane.",
+        "Cleanup deleted all 4 created files via gh API DELETE \u2014 no leftover noise on main."
+      ]
     }
   ],
   "bugs_found": [
@@ -8670,6 +8776,23 @@
       "status": "closed",
       "commit": "c3734e6f",
       "summary": "404 popup retained the previous popup right column references list, mixing two objects on screen"
+    },
+    {
+      "cycle": 60,
+      "severity": "visual",
+      "summary": "Instances pane in popup duplicates position when siblings share title+parent: subtitle reads 'Pistachio DNA Box \u00b7 A2 \u00b7 @ A2'. The collision-disambiguator was appending '@ <position>' even though parentLabel already includes the position. Confusing redundant noise.",
+      "where": "app/js/editor-modal.js renderBacklinksPane disambig chain (~line 2207)",
+      "evidence": "/tmp/qa-screenshots/cycle60/step40-accession-popup-final.png and final_rows in cycle60 findings \u2014 text values like 'Pistachio Tree #4Pistachio DNA Box \u00b7 A2 \u00b7 @ A2'",
+      "status": "closed",
+      "fix": "Removed the b.position branch from the disambiguator chain \u2014 fall through to lot/expiration/slug-suffix instead. parentLabel already shows '\u00b7 <position>' for any item with a position."
+    },
+    {
+      "cycle": 60,
+      "severity": "ux",
+      "summary": "Desktop box-popup grid rendered in the narrow right backlinks pane is too small to be useful \u2014 cells ~10px wide, labels nearly illegible. Mobile renders the grid full-width and is much clearer. Either widen the contents pane when a grid is present or push the grid into the body column on desktop.",
+      "where": "app/js/editor-modal.js grid rendering inside backlinks pane (~line 2324)",
+      "evidence": "/tmp/qa-screenshots/cycle60/step42-box-popup-overview.png + step43-box-grid-zoomed.png vs step50-mobile-box-popup.png",
+      "status": "open"
     }
   ],
   "fixes_applied": [
@@ -9032,6 +9155,12 @@
         "app/js/editor-modal.js"
       ],
       "summary": "Propagate parent/position from source entry in body-wikilink backlinks; clear stale right-column on every popup open"
+    },
+    {
+      "cycle": 60,
+      "summary": "Drop position-based disambiguator in instances pane to avoid duplicating position in subtitle (parentLabel already includes it).",
+      "file": "app/js/editor-modal.js",
+      "lines_changed": 7
     }
   ],
   "improvements_proposed": [
@@ -9501,7 +9630,8 @@
     "cycle59/step15-inventory-page-orientation-banner.png",
     "cycle59/verify01-pistachio-fix-meta.png",
     "cycle59/verify02-pistachio-after-add.png",
-    "cycle59/verify03-404-popup-clears-col.png"
+    "cycle59/verify03-404-popup-clears-col.png",
+    "/tmp/qa-screenshots/cycle60/ \u2014 51 screenshots, all read and evaluated (13 with detailed evaluation)"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -9532,5 +9662,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-25T17:55:00Z"
+  "last_updated": "2026-04-25T18:15:29"
 }
