@@ -220,6 +220,9 @@
 /* Print preview overlay: parent's frontmatter bar is duplicated inside the iframe,
    hide the parent's so we only see one (#bug DOUBLE-FRONTMATTER-BAR cycle 11). */
 body.print-preview-active .proto-content > .frontmatter-bar { display: none !important; }
+/* Hide the lightbulb issue-reporter FAB in print preview — only the teal Print
+   FAB should be present so the visual matches the printed output (cycle 58). */
+body.print-preview-active #issue-reporter-btn { display: none !important; }
 
 @media (max-width: 768px) {
   .proto-sidebar {
@@ -1204,6 +1207,11 @@ function showPrintPreview(rendered) {
               if (sum) result.push(sum);
               var inner = child.querySelector('div') || child;
               result = result.concat(getBlocks(inner === child ? child : inner));
+            } else if (tag === 'DIV' && child.classList && child.classList.contains('frontmatter-bar')) {
+              // The frontmatter bar carries its own flex layout + bottom border.
+              // Keep it as a single block so its wrapper styles survive into the
+              // iframe (cycle 58: was being unwrapped, leaving pills bare).
+              result.push(child);
             } else {
               result = result.concat(getBlocks(child));
             }
