@@ -926,6 +926,12 @@
     // the previously-rendered object (a concept popup leaves it as
     // "References", which would be wrong if the next popup is a box/location).
     setContentsHeading('Contents', 'inventory_2');
+    // qa-cycle-59: also clear the inner contents mount so the previous popup's
+    // backlinks list does not bleed through if the new file 404s or is slow to
+    // load. Without this, a "Document not found" popup could ship the prior
+    // object's references column intact, mixing two objects on screen.
+    var emContentsMount = document.getElementById('em-contents');
+    if (emContentsMount) emContentsMount.innerHTML = '';
     // R7 #30: reset the Edit/View toggle to "Edit" on every open. Without this,
     // if the user edits item A then opens item B directly (without first
     // clicking View to stop editing), the button still reads "View" while the
@@ -2109,11 +2115,26 @@
         var resolvedType = (source && source.type) || inferredType || 'container';
         var humanTitle = (source && source.title) ||
           leaf.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        // qa-cycle-59: propagate parent/position/quantity/unit/lot/expiration
+        // from the source index entry so body-wikilinked instances render the
+        // same rich meta line as `of:`-linked ones. Without this, legacy tubes
+        // that point at their concept via [[wikilinks]] (rather than `of:`)
+        // showed "no location set" plus a meaningless slug-suffix in the
+        // references pane even when their parent + grid cell was indexed.
+        var bwParentSlug = source ? (source.parent || source.location) : null;
+        var bwParentEntry = bwParentSlug ? byPath[String(bwParentSlug).replace(/\.md$/, '')] : null;
         results.push({
           slug: edge.source,
           title: humanTitle,
           type: resolvedType,
           isInstance: !!inferredType && !source,
+          quantity:   source && source.quantity,
+          unit:       source && source.unit,
+          parent:     bwParentSlug,
+          parentTitle: bwParentEntry && bwParentEntry.title ? bwParentEntry.title : null,
+          position:   source && source.position,
+          lot:        source && source.lot,
+          expiration: source && source.expiration,
         });
       }
       // Dedupe by slug + sort by title
