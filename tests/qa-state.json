@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 56,
+  "cycle": 57,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -7751,6 +7751,208 @@
         "Path-traversal URL (?doc=../../../etc/passwd) and missing-doc URL both show the centered 'Document not found' empty-state correctly.",
         "Mobile bottom tab bar (Wiki / Notebooks / Accessions / Inventory / More) renders on every mobile screen captured \u2014 matches the 4-primary-slot+More design described in the run focus."
       ]
+    },
+    {
+      "cycle": 57,
+      "persona": "Kayla Torres",
+      "modifier": "rushed",
+      "task": "Star priority sort scenario. Rushed undergrad opens accessions tracker, clicks \u2605 column header to sort by priority descending (verifies 3-star rows on top), clicks again to flip ascending (verifies 0-star rows on top), clicks again to flip back to desc, picks the first row with priority<3 (C127_1_hifi at pri=2), rapid-double-clicks the stars (50ms apart) to test the pendingCommits queue against race conditions, waits for settle (cycled 2\u21923\u21920 correctly), reloads to verify persistence (priority 0 saved), opens the popup to verify the priority field renders \u2606\u2606\u2606, closes popup, cycles priority 2 more times to restore original (0\u21921\u21922), final reload to confirm restore. Then sweeps other sort columns (id/project/status/last_updated), filter selects (active/storage), hover/focus states.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step01-baseline-default-sort.png",
+          "shows": "accessions tracker default load: orientation banner + filter row + stat cards + table sorted by last_updated desc",
+          "evaluation": "page renders correctly; 7 stat cards but Archived wraps to row 2 alone (Add+5 fit row 1, Archived orphan row 2)",
+          "issues": "CYCLE57-STAT-ORPHAN-WRAP at 1024-1280px viewports"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step02-after-sort-priority-desc.png",
+          "shows": "after clicking \u2605 column header \u2014 sort by priority descending",
+          "evaluation": "top 5 rows all show \u2605\u2605\u2605 (priority 3); sort works correctly; same orphan wrap",
+          "issues": "none new"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step04-after-sort-priority-asc.png",
+          "shows": "after second click \u2014 sort by priority ascending",
+          "evaluation": "top rows show \u2606\u2606\u2606 (priority 0) and rows without star data (BL21(DE3), Col-0); sort works; rows without project/people/species are taller and have visual whitespace",
+          "issues": "none \u2014 empty data is rendered as empty cells, expected behavior"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step05-after-third-click-desc-again.png",
+          "shows": "third click \u2014 back to descending",
+          "evaluation": "sort toggle works; same as step02; click direction stable",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step06-row-selected.png",
+          "shows": "scrolled to row index 10 (C127_1_hifi, \u2605\u2605\u2606) which is the first non-3-star row in desc sort",
+          "evaluation": "table renders correctly; can pick row by data-slug; star colors at priority 3 render fine for adjacent rows; Satoyo X-ray/DSB HiFi above also priority 3 (verified file)",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step07-before-rapid-click.png",
+          "shows": "C127_1_hifi at priority 2 (\u2605\u2605\u2606) before rapid click test",
+          "evaluation": "baseline state captured",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step07-after-rapid-click.png",
+          "shows": "C127_1_hifi just after two rapid clicks (50ms apart) on stars",
+          "evaluation": "stars still show \u2605\u2605\u2606 in DOM \u2014 UI does not update synchronously, queue is firing in background; row shows hover highlight (green); no race condition",
+          "issues": "none \u2014 async commit pattern is correct"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step07c-after-settle.png",
+          "shows": "after pendingCommits settled (~3-4s after rapid click)",
+          "evaluation": "C127_1_hifi disappeared from this viewport \u2014 moved to bottom of desc sort because priority went 2\u21923\u21920; the C127_1 row that took its position is now hover-highlighted; 2 rapid clicks correctly cycled 2\u21923\u21920",
+          "issues": "none \u2014 queue prevented race"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step08-after-reload.png",
+          "shows": "after page reload \u2014 default sort (last_updated desc)",
+          "evaluation": "C127_1_hifi shows \u2606\u2606\u2606 (priority 0) at top \u2014 saved value persisted across reload; orientation banner + stats render correctly",
+          "issues": "orphan wrap on archived again"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step08b-reload-sort-desc.png",
+          "shows": "after reload + sort by priority desc",
+          "evaluation": "top rows show \u2605\u2605\u2605 priority 3 \u2014 sort works after reload",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step09-popup-opened.png",
+          "shows": "editor modal popup for C127_1_hifi",
+          "evaluation": "popup shows: Type pill (Accession purple), Link wikilink, Name, Accession ID, Project, People (2 pills), Species, Status (Waiting purple pill), Status note, Priority (\u2606\u2606\u2606 stars rendered hollow for pri=0 \u2014 correct), Sequencing Type, Detail Sheet Link (truncated as \"https://docs.goo...\"), Last Updated; REFERENCES panel shows \"+ Add instance\" button and \"No references yet\"",
+          "issues": "minor \u2014 Detail Sheet Link truncated visually but not clickable to expand; this was previously logged as CYCLE27-DETAIL-LINK-NOT-CLICKABLE which was VERIFIED CLOSED in cycle 39"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step09b-popup-closed.png",
+          "shows": "after Escape \u2014 popup closed, table re-rendered in priority asc sort",
+          "evaluation": "modal closes cleanly; table state preserved",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step10-cleanup-restored.png",
+          "shows": "after cycling priority 2 more times (0\u21921\u21922) to restore original",
+          "evaluation": "priority restored to 2; queue handles sequential clicks correctly",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step11-final-reload.png",
+          "shows": "final reload to verify cleanup persisted",
+          "evaluation": "C127_1_hifi shows \u2605\u2605\u2606 (priority 2) \u2014 restored value persisted",
+          "issues": "orphan wrap"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step12-stats-visible.png",
+          "shows": "baseline stats visible after final reload",
+          "evaluation": "stats: 232 / 101 active / 119 waiting / 0 storage / 12 completed / 0 archived \u2014 totals correct",
+          "issues": "orphan wrap"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step13-filter-active.png",
+          "shows": "status filter set to \"Active\"",
+          "evaluation": "table now shows only active rows; stat numbers unchanged (filter only affects rows shown)",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step13b-filter-storage.png",
+          "shows": "status filter set to \"Storage\" (0 rows)",
+          "evaluation": "empty state with search-off icon and \"No accessions match your filters.\" message; stat cards still render normally",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step14-sort-accession_id.png",
+          "shows": "sort by ID ascending",
+          "evaluation": "rows alphabetical: A1-T1-E, A1-T1-W, A1-T2-E, A1-T2-W, A1_T1_W (underscore variant after dashes), A2-T1-E ... \u2014 ASCII sort working correctly",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step14-sort-project.png",
+          "shows": "sort by Project ascending",
+          "evaluation": "rows with no project (BL21(DE3), Col-0, Redwood DNA Sample B variants) appear first as expected (empty string sorts before strings); then Cassava C127 group; the 4 no-project rows have many empty cells \u2014 display looks sparse but renders cleanly",
+          "issues": "minor \u2014 rows with no project / no people / no last_updated have lots of whitespace; could maybe show \"\u2014\" instead but this is consistent with table behavior elsewhere"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step14-sort-status.png",
+          "shows": "sort by Status ascending",
+          "evaluation": "sort by status string (active first alphabetically); table renders correctly",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step14-sort-last_updated.png",
+          "shows": "sort by Last Updated",
+          "evaluation": "numeric sort works (descending default); newest dates at top",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step15-hover-row.png",
+          "shows": "hover over a table row",
+          "evaluation": "subtle hover state visible; rows have action icons (edit, delete) on the right edge that become visible on hover",
+          "issues": "minor \u2014 actions column is right at the page edge; on the test viewport (1280) the icons are partially clipped requiring horizontal scroll"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/step16-tab-focus.png",
+          "shows": "after 3x Tab presses to test keyboard navigation",
+          "evaluation": "focus moves through filter selects; visible focus state appears on filters; no obvious accessibility regression",
+          "issues": "none new"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/verify-fix-1024.png",
+          "shows": "fix injected via addStyleTag at 1024px \u2014 all 7 stat cards in single row",
+          "evaluation": "Add + 6 stats fit cleanly; Add subtitle wraps to 3 lines but readable; layout much better than orphan",
+          "issues": "fix verified"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/verify-fix-1280.png",
+          "shows": "fix at 1280px",
+          "evaluation": "all 7 cards in 1 row at native test viewport; Add subtitle 2 lines; no orphan",
+          "issues": "fix verified"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/verify-fix-1366.png",
+          "shows": "fix at 1366px",
+          "evaluation": "all 7 cards comfortably in 1 row; Add subtitle 2 lines",
+          "issues": "fix verified"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/verify-fix-1440.png",
+          "shows": "fix at 1440px",
+          "evaluation": "all 7 cards in 1 row with breathing room",
+          "issues": "fix verified"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle57/verify-fix-mobile-375.png",
+          "shows": "fix at 375px mobile viewport",
+          "evaluation": "mobile layout preserved: row 1 Add+Total, row 2 Active+Waiting, row 3 Storage+Completed, row 4 Archived spans full width; mobile bottom-nav (Wiki/Notebooks/Accessions/Inventory/More) renders cleanly",
+          "issues": "fix preserves mobile correctness"
+        }
+      ],
+      "observations": [
+        "pendingCommits queue handled the rapid 50ms double-click correctly: started at priority 2, two clicks \u2192 3 \u2192 0 (no race, no skip, no duplicate commit)",
+        "Reload persistence: after a pri commit the value is read back from the GitHub-saved frontmatter on next load \u2014 correct",
+        "Sort indicator arrow renders correctly on the active sort column",
+        "Empty-state for status=storage filter shows the search-off icon + \"No accessions match your filters.\" copy",
+        "Inline status pill dropdown and inline priority stars both stop click propagation correctly so they do not open the editor modal",
+        "Project sort surfaces rows with no project value at the top (empty string sorts first) \u2014 reveals 4 accessions missing the project field: BL21(DE3) Competent Cells, Col-0 Wild Type, Redwood DNA Sample B mnsinxli, Redwood DNA Sample B mnsiw64a"
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE57-STAT-ORPHAN-WRAP",
+          "severity": "cosmetic",
+          "status": "closed",
+          "fixed_in_commit": "4b9202af",
+          "page": "app/accessions.html",
+          "summary": "At desktop viewports between 1024px and 1280px, the .acc-stats container (flex-wrap, 7 children) pushed the last (Archived) stat tile alone to a second row, looking orphaned. Fix: switched to CSS grid `2fr repeat(6,1fr)` (when has-add-tile) / `repeat(6,1fr)` (when not) so all 7 tiles share the row at desktop widths. Mobile media query (max-width:768px) overrides to `1fr 1fr` and still spans the orphan with grid-column:1/-1."
+        }
+      ],
+      "fixes": [
+        {
+          "id": "FIX-CYCLE57-STAT-ORPHAN-WRAP",
+          "commit": "4b9202af",
+          "file": "app/accessions.html",
+          "description": ".acc-stats: flex-wrap \u2192 CSS grid (2fr repeat(6,1fr) with has-add-tile, repeat(6,1fr) without). Removed min-width:140 on .stat-card so columns can shrink to fit narrower viewports. Verified at 1024 / 1280 / 1366 / 1440 / 375 (mobile) \u2014 all 7 cards in 1 row at desktop, mobile preserves the existing 2-col + spanned-archived layout."
+        }
+      ]
     }
   ],
   "bugs_found": [
@@ -8209,6 +8411,16 @@
       "status": "closed",
       "fixed_in_commit": "137e5391",
       "title": "Notebook entry slug derivation retained '..' from path-traversal-shaped titles"
+    },
+    {
+      "id": "CYCLE57-STAT-ORPHAN-WRAP",
+      "cycle": 57,
+      "page": "app/accessions.html",
+      "severity": "cosmetic",
+      "status": "closed",
+      "closed_cycle": 57,
+      "closed_commit": "4b9202af",
+      "summary": "Archived stat tile orphaned on row 2 at 1024-1280px viewports \u2014 flex-wrap layout with 7 tiles + min-width:140 wrapped the last tile alone. Fixed by switching to a CSS grid with explicit 2fr+6\u00d71fr columns (has-add-tile) so all 7 tiles share row 1 at desktop widths; mobile (\u2264768px) preserves the 2-col + spanned-archived layout."
     }
   ],
   "fixes_applied": [
@@ -8555,6 +8767,13 @@
       "files": [
         "app/notebooks.html"
       ]
+    },
+    {
+      "id": "FIX-CYCLE57-STAT-ORPHAN-WRAP",
+      "cycle": 57,
+      "commit": "4b9202af",
+      "file": "app/accessions.html",
+      "summary": ".acc-stats flex-wrap \u2192 CSS grid; verified at 1024/1280/1366/1440/375"
     }
   ],
   "improvements_proposed": [
@@ -8980,7 +9199,35 @@
     "/tmp/qa-screenshots/cycle54/step33-dashboard-recent-updates.png",
     "/tmp/qa-screenshots/cycle54/step37-roundtrip-after-save.png",
     "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png",
-    "/tmp/qa-screenshots/cycle56/ + /tmp/qa-screenshots/cycle56-verify/ \u2014 21 screenshots total (15 main + 6 verify), all read and evaluated"
+    "/tmp/qa-screenshots/cycle56/ + /tmp/qa-screenshots/cycle56-verify/ \u2014 21 screenshots total (15 main + 6 verify), all read and evaluated",
+    "/tmp/qa-screenshots/cycle57/step01-baseline-default-sort.png",
+    "/tmp/qa-screenshots/cycle57/step02-after-sort-priority-desc.png",
+    "/tmp/qa-screenshots/cycle57/step04-after-sort-priority-asc.png",
+    "/tmp/qa-screenshots/cycle57/step05-after-third-click-desc-again.png",
+    "/tmp/qa-screenshots/cycle57/step06-row-selected.png",
+    "/tmp/qa-screenshots/cycle57/step07-before-rapid-click.png",
+    "/tmp/qa-screenshots/cycle57/step07-after-rapid-click.png",
+    "/tmp/qa-screenshots/cycle57/step07c-after-settle.png",
+    "/tmp/qa-screenshots/cycle57/step08-after-reload.png",
+    "/tmp/qa-screenshots/cycle57/step08b-reload-sort-desc.png",
+    "/tmp/qa-screenshots/cycle57/step09-popup-opened.png",
+    "/tmp/qa-screenshots/cycle57/step09b-popup-closed.png",
+    "/tmp/qa-screenshots/cycle57/step10-cleanup-restored.png",
+    "/tmp/qa-screenshots/cycle57/step11-final-reload.png",
+    "/tmp/qa-screenshots/cycle57/step12-stats-visible.png",
+    "/tmp/qa-screenshots/cycle57/step13-filter-active.png",
+    "/tmp/qa-screenshots/cycle57/step13b-filter-storage.png",
+    "/tmp/qa-screenshots/cycle57/step14-sort-accession_id.png",
+    "/tmp/qa-screenshots/cycle57/step14-sort-project.png",
+    "/tmp/qa-screenshots/cycle57/step14-sort-status.png",
+    "/tmp/qa-screenshots/cycle57/step14-sort-last_updated.png",
+    "/tmp/qa-screenshots/cycle57/step15-hover-row.png",
+    "/tmp/qa-screenshots/cycle57/step16-tab-focus.png",
+    "/tmp/qa-screenshots/cycle57/verify-fix-1024.png",
+    "/tmp/qa-screenshots/cycle57/verify-fix-1280.png",
+    "/tmp/qa-screenshots/cycle57/verify-fix-1366.png",
+    "/tmp/qa-screenshots/cycle57/verify-fix-1440.png",
+    "/tmp/qa-screenshots/cycle57/verify-fix-mobile-375.png"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
@@ -9011,5 +9258,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-25T14:40:45Z"
+  "last_updated": "2026-04-26T00:27:48.817006Z"
 }
