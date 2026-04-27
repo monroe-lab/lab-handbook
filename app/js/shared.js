@@ -393,6 +393,38 @@
       );
     }
 
+    // Slug → object-index entry. A frontmatter value like `of: resources/ethanol-absolute`
+    // or `parent: locations/cabinet-flammable` should render as a clickable type-colored
+    // pill, not as plain text — otherwise the cross-link crawl from bottle → concept →
+    // location → room dead-ends and users have to URL-edit to navigate.
+    var cachedIndex = (window.Lab && window.Lab.gh && window.Lab.gh._getCachedIndex)
+      ? window.Lab.gh._getCachedIndex() : null;
+    function lookupSlug(slug) {
+      if (!cachedIndex || !slug) return null;
+      if (slug.indexOf('/') === -1) return null;
+      var path = slug + '.md';
+      for (var i = 0; i < cachedIndex.length; i++) {
+        if (cachedIndex[i] && cachedIndex[i].path === path) return cachedIndex[i];
+      }
+      return null;
+    }
+    function renderSlugPill(slug, entry) {
+      var t = (window.Lab && window.Lab.types && window.Lab.types.get)
+        ? window.Lab.types.get(entry.type) : null;
+      var col = (t && t.color) || '#6b7280';
+      var rawIc = (t && t.icon) || '';
+      var ic = (window.Lab.types && window.Lab.types.renderIcon) ? window.Lab.types.renderIcon(rawIc) : '';
+      var title = (entry && entry.title) || slug.split('/').pop();
+      var base = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+      var page = entry.type === 'protocol' ? 'app/protocols.html' : 'app/wiki.html';
+      return '<a href="' + base + page + '?doc=' + encodeURIComponent(slug) + '" ' +
+        'style="display:inline-flex;align-items:center;gap:4px;padding:1px 8px;' +
+        'border-radius:10px;font-size:11px;font-weight:600;' +
+        'background:' + col + '15;color:' + col + ';' +
+        'border:1px solid ' + col + '30;text-decoration:none">' +
+        ic + ' ' + escHtml(title) + '</a>';
+    }
+
     keys.forEach(function(k) {
       if (k === 'type') return;
       var v = meta[k];
@@ -405,6 +437,8 @@
             'style="color:#0d8ea2;text-decoration:none;word-break:break-all" ' +
             'title="' + escHtml(raw) + '">' + escHtml(raw) + '</a>';
         }
+        var entry = lookupSlug(raw);
+        if (entry) return renderSlugPill(raw, entry);
         return escHtml(raw);
       }
       if (Array.isArray(v)) {
