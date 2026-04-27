@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 60,
+  "cycle": 61,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8290,6 +8290,137 @@
         "Mobile (375x812) box-popup grid is significantly more readable than desktop because mobile uses single-column and the grid spans full width. Desktop stuffs the grid into a ~280px right pane.",
         "Cleanup deleted all 4 created files via gh API DELETE \u2014 no leftover noise on main."
       ]
+    },
+    {
+      "cycle": 61,
+      "persona": "Vianney Ahn",
+      "modifier": "ui_critic",
+      "scenario": "Bulk accession tracker \u2014 R20 5-bucket lifecycle + priority stars",
+      "task": "Grad student Vianney in ui_critic mode opens /app/accessions.html, captures the orientation banner + 6 stat cards, then registers 5 fresh QA61 pistachio sublines via the Add Accession modal \u2014 one per status (active/waiting/storage/completed/archived) with priorities 3/2/1/0/0. After each create the editor popup auto-opens (asserts toast renders) and is closed without further edits. Reloads to confirm GitHub-side persistence and re-fetches stats. Then filters by each of the 5 statuses with the search narrowed to QA61, screenshots the singleton row in each bucket, and a second pass without search to verify stat-card count == table-rows count for every status. Cleans up via gh API DELETE.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step01-baseline-accessions-page.png",
+          "shows": "Accessions tracker top-of-page after auth; banner + 6 stat cards + table",
+          "evaluation": "Concept/instance orientation banner renders with the purple left border and instance icons (samples/extractions/libraries/pools). 6 stat cards visible \u2014 Add Accession (teal +), Accessions (purple fingerprint, 232), Active (yellow bolt, 101), Waiting (purple hourglass, 119), Storage (blue inventory_2, 0), Completed (green check, 12), Archived (grey archive, 0). Layout coherent.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step04-add-active-modal-filled.png",
+          "shows": "Add Accession modal with all fields filled (active + 3 stars)",
+          "evaluation": "Modal layout fine \u2014 ID/slug preview/Project/Species/People/Status/Priority spacing consistent. Slug preview shows live (`File: docs/accessions/qa61-pist-a-mohalsdv.md`). Status select shows 'Active (action needed)' with the human-readable parenthetical. Priority select shows '3-star (high)'. Hint text below explains the editor flow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step05-add-active-after-create-editor-popup.png",
+          "shows": "Editor popup automatically opens after Create with a Created toast",
+          "evaluation": "Three-column popup mounts immediately with the just-saved record loaded. Header pill is the accession color. Fields panel populated. Body shows the placeholder text with the four instance-type bullets (sample/extraction/library/pool). Right column shows INSTANCES IN LAB heading with Add instance button (teal). Toast confirms success.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step23-after-reload-stats-cards.png",
+          "shows": "Accessions tracker after page reload \u2014 all 5 QA61 rows render at the top (sorted by last_updated desc)",
+          "evaluation": "Total bumped 232 to 237. Active 101 to 102. Waiting 119 to 120. Storage 0 to 1. Completed 12 to 13. Archived 0 to 1. Each created accession landed in the correct bucket. Five new rows appear at the top of the table, each showing its priority stars (3/2/1/0/0).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step24-filter-active-search-QA61.png",
+          "shows": "Status filter=Active + search=QA61 \u2192 exactly 1 row (QA61-PIST-A)",
+          "evaluation": "Filter+search composes correctly. Stat-card row shows full-tracker counts (102 Active) while the table is narrowed to the 1 QA61 row. Priority shows 3 yellow stars.",
+          "issues_found": [
+            "VISUAL: status pill in the row reads 'Active' with a dropdown caret but the pill's intended yellow background is invisible \u2014 looked like plain text. .status-pill.yellow CSS references --yellow-light / --yellow-dark which were UNDEFINED in base.css."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step26-filter-waiting-search-QA61.png",
+          "shows": "Status filter=Waiting + search=QA61 \u2192 1 row (QA61-PIST-W)",
+          "evaluation": "1 row matches. Priority shows 2 yellow stars + 1 empty.",
+          "issues_found": [
+            "VISUAL: same pill issue \u2014 .status-pill.purple references --purple-light / --purple, both undefined \u2192 'Waiting' renders as plain text without colored background."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step28-filter-storage-search-QA61.png",
+          "shows": "Status filter=Storage + search=QA61 \u2192 1 row (QA61-PIST-S)",
+          "evaluation": "Storage pill renders correctly with light-blue (#dbeafe) background and blue (#1e40af) text \u2014 both inline values, not CSS variables. Single row matches; status-card showed 1.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step30-filter-completed-search-QA61.png",
+          "shows": "Status filter=Completed + search=QA61 \u2192 1 row (QA61-PIST-C)",
+          "evaluation": "Completed pill renders with green-light bg (defined). Text color falls back to default because --green-dark was undefined \u2014 minor visual issue (text not as crisp/dark as designed).",
+          "issues_found": [
+            "VISUAL: --green-dark used by .status-pill.green text was also undefined; falls back to inherited grey instead of the intended dark green."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step32-filter-archived-search-QA61.png",
+          "shows": "Status filter=Archived + search=QA61 \u2192 1 row (QA61-PIST-X)",
+          "evaluation": "Archived pill renders with grey-200 bg and grey-700 text \u2014 both defined CSS variables. Pill clearly visible. Pistacia atlantica species rendered in italic.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61/step29-filter-storage-all-rows.png",
+          "shows": "Status filter=Storage with empty search \u2192 exactly 1 row in tracker",
+          "evaluation": "Stat-card Storage count (1) exactly matches visible row count (1). Filter \u2194 stat-card parity holds for the new bucket.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61-verify/v01-pill-active.png",
+          "shows": "POST-FIX: active filter, status pill now has yellow background",
+          "evaluation": "Pills render with bg=#fef3c7, color=#92400e (computed). All active rows show the colored chip as designed.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61-verify/v02-pill-waiting.png",
+          "shows": "POST-FIX: waiting filter, status pill now has purple background",
+          "evaluation": "Pills render with bg=#ede9fe, color=#6a1b9a. Visual consistency with storage/completed/archived restored.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61-verify/v07-box-pistachio-dna-popup.png",
+          "shows": "POST-FIX: box-pistachio-dna popup, contents pane wider (480px) with legible 39px grid cells",
+          "evaluation": "Grid pane went from 340px to 480px when has-grid is set. 10x10 grid renders with cell labels A1 to J10, the two occupied cells (PL1, PL2 at A1+A2) clearly readable. Breadcrumb pills (Robbins Hall 170 / -80C Freezer A / Shelf 1 / Pistachio DNA Box) wrap cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle61-verify/v08-shelf-popup-no-grid.png",
+          "shows": "POST-FIX: non-grid popup (Shelf 1) keeps 340px contents pane",
+          "evaluation": "has-grid class correctly NOT applied; pane width stays at 340px showing the children list (Box A, Pistachio DNA Box) + Add item button. No regression on non-grid popups.",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE61-PILL-VARS-UNDEFINED",
+          "severity": "visual",
+          "summary": "Accession status pills for active+waiting+completed referenced CSS vars that were never defined in base.css (--yellow-light, --yellow-dark, --purple, --purple-light, --green-dark). Active and waiting pills rendered as plain text with no colored chip background; completed pill text was inherited grey instead of dark green. Storage and archived pills used inline / defined values and were unaffected.",
+          "evidence": "step24/step26/step30 screenshots show plain Active/Waiting/Completed text in the status column without the intended colored chip; computed bg before fix was rgba(0,0,0,0).",
+          "status": "fixed",
+          "fix_commit": "fbef911d"
+        },
+        {
+          "id": "CYCLE60-GRID-PANE-NARROW",
+          "severity": "ux",
+          "summary": "Box-popup grid rendered in the right contents pane was cramped \u2014 10x10 cells fit into a ~280px-effective region, making the per-cell labels (e.g. 'PL1 4/01') hard to read. Carried over from cycle 60.",
+          "evidence": "/tmp/qa-screenshots/cycle60/step42-box-popup-overview.png vs /tmp/qa-screenshots/cycle61-verify/v07-box-pistachio-dna-popup.png",
+          "status": "fixed",
+          "fix_commit": "fbef911d"
+        }
+      ],
+      "fixes": [
+        "app/css/base.css: define --yellow / --yellow-light / --yellow-dark / --purple-light / --purple-dark / --green-dark CSS variables that were referenced by .status-pill.yellow, .status-pill.purple and .status-pill.green",
+        "app/js/editor-modal.js: add .em-col-contents.has-grid CSS rule (flex 0 0 480px) and toggle the class on the contents column when a grid is rendered, so freezer-box grids on desktop have legible cell sizes"
+      ],
+      "observations": [
+        "Stat-card to filtered-table parity held for every status (active 102/102, waiting 120/120, storage 1/1, completed 13/13, archived 1/1) after the 5 inserts. Counts increment correctly by exactly +1 per status.",
+        "Add Accession modal does the right thing: persists immediately on Create, shows a toast, primes the file cache, and auto-opens the editor popup so the user can fill in body markdown / add instances without re-fetching.",
+        "Priority stars render correctly: 3/2/1/0 yellow filled+grey empty stars, with cursor cycling.",
+        "Status filter dropdown values match the STATUS_LABELS map (with parenthetical hints) and propagate cleanly through the in-memory filter pipeline.",
+        "The login-aware addBtn correctly toggles to display when Lab.gh.isLoggedIn() returns true (verified by direct page.click('#addBtn') succeeding without falling back to the JS function call).",
+        "Nav at 1440px width shows all 12 primary tabs without the '+' overflow popover (Tutorials/Notebooks/Protocols/Accessions/Inventory/Waste/Projects/People/Calendar/Lab Map/Apps/Wiki) \u2014 consistent with R20 nav design.",
+        "Concept/instance orientation banner persistent across status filter changes \u2014 purple left border holds, instance-icons stay legible.",
+        "POST-FIX has-grid class correctly applies only when meta.grid is set; opening a Shelf popup (no grid) leaves the 340px default \u2014 no layout regression on existing non-grid popups."
+      ]
     }
   ],
   "bugs_found": [
@@ -8792,7 +8923,17 @@
       "summary": "Desktop box-popup grid rendered in the narrow right backlinks pane is too small to be useful \u2014 cells ~10px wide, labels nearly illegible. Mobile renders the grid full-width and is much clearer. Either widen the contents pane when a grid is present or push the grid into the body column on desktop.",
       "where": "app/js/editor-modal.js grid rendering inside backlinks pane (~line 2324)",
       "evidence": "/tmp/qa-screenshots/cycle60/step42-box-popup-overview.png + step43-box-grid-zoomed.png vs step50-mobile-box-popup.png",
-      "status": "open"
+      "status": "closed",
+      "fix_commit": "fbef911d"
+    },
+    {
+      "id": "CYCLE61-PILL-VARS-UNDEFINED",
+      "cycle": 61,
+      "severity": "visual",
+      "summary": "Accession status pill CSS for .yellow / .purple / .green referenced CSS variables (--yellow-light, --yellow-dark, --purple-light, --purple, --green-dark) that were never defined in app/css/base.css. As a result Active and Waiting pills rendered as plain text without the intended colored chip on the Accessions tracker; Completed text fell back to default color.",
+      "evidence": "/tmp/qa-screenshots/cycle61/step24-filter-active-search-QA61.png + step26-filter-waiting-search-QA61.png; computed pill bg was rgba(0,0,0,0) before the fix",
+      "status": "fixed",
+      "fix_commit": "fbef911d"
     }
   ],
   "fixes_applied": [
@@ -9161,6 +9302,11 @@
       "summary": "Drop position-based disambiguator in instances pane to avoid duplicating position in subtitle (parentLabel already includes it).",
       "file": "app/js/editor-modal.js",
       "lines_changed": 7
+    },
+    {
+      "cycle": 61,
+      "commit": "fbef911d",
+      "summary": "Define missing CSS variables (--yellow*, --purple*, --green-dark) so all 5 status pills render with their colored chip backgrounds; widen em-col-contents to 480px when a grid is rendered (has-grid class) so freezer-box grids on desktop have legible cell sizes."
     }
   ],
   "improvements_proposed": [
@@ -9631,7 +9777,8 @@
     "cycle59/verify01-pistachio-fix-meta.png",
     "cycle59/verify02-pistachio-after-add.png",
     "cycle59/verify03-404-popup-clears-col.png",
-    "/tmp/qa-screenshots/cycle60/ \u2014 51 screenshots, all read and evaluated (13 with detailed evaluation)"
+    "/tmp/qa-screenshots/cycle60/ \u2014 51 screenshots, all read and evaluated (13 with detailed evaluation)",
+    "/tmp/qa-screenshots/cycle61/ \u2014 34 screenshots, all read and evaluated; /tmp/qa-screenshots/cycle61-verify/ \u2014 8 post-fix screenshots verifying pill colors + wider grid pane"
   ],
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
