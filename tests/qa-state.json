@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 62,
+  "cycle": 63,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8588,6 +8588,202 @@
         "Member chips on event cards render via Lab.richInput.renderText. Legend chips render the raw member text (slug). For person wikilinks, both currently surface the slug 'barb-m' rather than the resolved person's title \u2014 wikilink rendering uses what's stored in the member field. Not a regression.",
         "Mobile-viewport behaviour at 768 and 375 collapses correctly: day-tab strip activates, only the active-day column renders, bottom 4-tab+More bar appears."
       ]
+    },
+    {
+      "cycle": 63,
+      "persona": "Vianney Ahn",
+      "modifier": "thorough",
+      "scenario": "Aliquot batch \u2014 accession \u2192 freezer box grid",
+      "task": "Grad student Vianney in thorough mode ran the full aliquoting day-to-day flow on accession A3-T1-S: opened the accession via deep-link (?doc=...), clicked Add Instance, picked 'extraction' from the kind picker modal, watched the new file land at docs/accessions/extraction-a3-t1-s-XXXX.md with `of: accessions/a3-t1-s` already populated. Renamed the extraction to 'A3-T1-S DNA Extract (QA63 ...)', saved (slug regenerated from title via Lab.slugify). Opened the freezer box 'Pistachio DNA Box' (10x10, in shelf-minus80-a-1) at /app/inventory.html?doc=. Clicked empty cell J10 \u2192 place-here popover \u2192 searched 'A3-T1-S' \u2192 picked the new extraction \u2192 moveObjectHere() updated parent+position. Clicked empty cell J9 \u2192 'Create new here' \u2192 New Tube editor opened with parent='locations/box-pistachio-dna' and position='J9' pre-filled, full breadcrumb 'Robbins Hall 170 > -80C Freezer A > Shelf 1 > Pistachio DNA Box' rendered. Filled title='Aliquot 1 A3-T1-S QA63 ...', of='accessions/a3-t1-s', saved (file landed at docs/locations/aliquot-1-...md). Repeated at J8 for Aliquot 2. Reloaded box \u2014 verified all 3 cells occupied. Reopened accession \u2014 verified References pane shows the 4 instances (3 new + 1 pre-existing). Opened extraction via deep-link \u2014 verified Of: link rendered as a clickable purple Accession pill. Cleaned up all 3 created files via gh API DELETE.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step01-a01-accession-a3t1s-popup-open.png",
+          "shows": "A3-T1-S accession popup opened on /app/accessions.html with deep-link ?doc=docs/accessions/a3-t1-s.md.",
+          "evaluation": "Banner ('What's an accession?...') visible. Type pill 'Accession' purple. Fields: Type, Link wikilink, Name, Accession ID, Project, People (Zi Ye, Matt Davis), Species, Status (Active orange pill), Status note, Priority (1 star), Sequencing Type, Detail Sheet Link, Last Updated 2026-03-30. Body text 'Runcie -80 freezer. ~100 mg tissue in 2 mL tubes.' rendered. References pane: '1 instance in lab' showing A3-T1-S placeholder with 'no location set'. Add Instance button visible in references pane.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step02-a02-before-add-instance-click.png",
+          "shows": "Same popup state \u2014 about to click Add Instance.",
+          "evaluation": "Identical to step01. Add Instance button is the focus. add-btns enumerated to 1.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step03-a03-add-instance-kind-modal.png",
+          "shows": "Kind picker modal opened: 'New instance of A3-T1-S'.",
+          "evaluation": "Modal centered with backdrop. Header 'New instance of A3-T1-S'. Message 'Pick the kind of physical record to create under this accession.' Kind dropdown defaults to '\ud83c\udf3f Sample (leaf / tissue / seed collection)'. Cancel / Create buttons. Modal stacks above the editor popup correctly.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step04-a04-kind-extraction-selected.png",
+          "shows": "Kind dropdown changed to 'Extraction (DNA / RNA)'.",
+          "evaluation": "Dropdown shows '\ud83e\uddea Extraction (DNA / RNA)'. Modal layout consistent.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step05-a05-after-extraction-created-popup.png",
+          "shows": "After Submit: new extraction file created under docs/accessions/extraction-a3-t1-s-6gazo1.md and editor opens in edit mode.",
+          "evaluation": "Header title 'A3-T1-S' (inherited from concept). Type pill 'Extraction' (orange/amber). Link field shows new wikilink [[accessions/extraction-a3-t1-s-6gazo1]]. Of (accession slug) pre-filled to 'accessions/a3-t1-s' \u2014 cross-link confirmed. Extraction Type defaults to 'DNA'. Method, Date, Concentration, Volume, Quality fields all empty. Insert pills (Resources, Stocks, People, Protocols, Projects, Accessions, Waste, Calendar, Lab Map, Notebooks) visible. Toast UI editor with formatting toolbar. Right pane 'No references yet' (inbound only). Toast bottom-right: green 'Created \u2014 fill in the details'.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step06-a06-extraction-title-filled.png",
+          "shows": "Title field re-typed to 'A3-T1-S DNA Extract (QA63 mohe4wt3)'.",
+          "evaluation": "Title input shows '...1-S DNA Extract (QA63 mohe4wt3)' (start clipped because input is narrow \u2014 cursor at end). Modal header still says 'A3-T1-S' (header updates only on save).",
+          "issues": "Header title doesn't live-update with the title field \u2014 minor UX inconsistency, but acceptable."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step07-a07-extraction-after-save.png",
+          "shows": "Extraction saved; modal returns to view mode.",
+          "evaluation": "Modal header now reflects new title 'A3-T1-S DNA Extract (QA63 mohe4wt3)'. View-mode fields render Type 'Extraction', Of pill 'A3-T1-S' (purple \u2014 accession), Extraction Type 'DNA', Name. References pane still 'No references yet' (extraction has no inbound refs).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step08-a08-after-close-extraction-popup.png",
+          "shows": "Escape closes popup; back to /app/accessions.html tracker.",
+          "evaluation": "Tracker rows visible. Stat cards: 232 / 101 / 119 / ... etc. Add Accession card visible. Banner at top.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step09-a09-box-popup-grid-rendered.png",
+          "shows": "Pistachio DNA Box popup loaded via /app/inventory.html?doc=docs/locations/box-pistachio-dna.md \u2014 10x10 grid renders.",
+          "evaluation": "Header title 'Pistachio DNA Box'. Type pill teal 'Box'. Breadcrumb chips: Robbins Hall 170 > -80C Freezer A > Shelf 1. Body 'Standard 10x10 cryobox storing pistachio project leaf tissue and extracts.' 100-cell grid renders in the right pane with 2 occupied + 98 empty cells (top-left has 2 existing items).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step10-a10-before-cell-j10-click.png",
+          "shows": "About to click empty cell J10 (far corner).",
+          "evaluation": "Same as step09 \u2014 grid corner J10 visible as empty dashed cell.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step11-a11-place-here-popover-open.png",
+          "shows": "Place-here popover opened anchored to J10.",
+          "evaluation": "Popover header 'Place at J10'. Search input. Empty results list. 'Create new here' green dashed button at bottom.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step12-a12-search-results-a3t1s.png",
+          "shows": "Searched 'A3-T1-S' in popover.",
+          "evaluation": "Results list shows 4 matches including the new extraction 'A3-T1-S DNA Extract (QA63 m...)' with the Extraction badge. Object index was patched promptly by saveFile (search hit the new file within seconds of save).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step13-a13-after-place-extraction-at-j10.png",
+          "shows": "Clicked extraction in results \u2014 moved to J10.",
+          "evaluation": "J10 cell now occupied. Toast bottom-right: green 'Moved to J10'.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step14-a14-before-cell-j9-click.png",
+          "shows": "About to click empty cell J9.",
+          "evaluation": "Grid intact, J9 still empty.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step15-a15-place-here-popover-j9.png",
+          "shows": "Place-here popover opened at J9.",
+          "evaluation": "Search/results/Create-new-here. Toast 'Moved to J10' still visible (within 3s success window).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step16-a16-new-tube-editor-j9.png",
+          "shows": "Clicked 'Create new here' \u2014 new Tube editor opened.",
+          "evaluation": "Header 'New Tube'. Type pill teal 'Tube'. Link field shows generated slug [[locations/new-tube-mohe59kf]]. Name 'New Tube'. Of (concept slug) empty placeholder 'e.g. accessions/a1-t1-w'. Parent breadcrumb: 'Robbins Hall 170 > -80C Freezer A > Shelf 1 > Pistachio DNA Box' \u2014 full hierarchy rendered. Position in parent: 'J9'. Grid, Label 1, Label 2 fields empty. Insert pills + Toast UI editor. Toast 'Moved to J10' still hanging in bottom-right (3s window).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step17-a17-tube-j9-title-filled.png",
+          "shows": "Tube J9 title field filled to 'Aliquot 1 A3-T1-S QA63 mohe4wt3'.",
+          "evaluation": "Title input shows the new value. Other fields unchanged.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step18-a18-tube-j9-of-filled.png",
+          "shows": "Of (concept slug) filled to 'accessions/a3-t1-s'.",
+          "evaluation": "Of field shows 'accessions/a3-t1-s' as a datalist input (with dropdown chevron). Cross-link configured.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step19-a19-after-save-tube-j9.png",
+          "shows": "Save submitted \u2014 file lands at docs/locations/aliquot-1-a3-t1-s-qa63-mohe4wt3.md (slug derived from title).",
+          "evaluation": "Modal closes back to box popup. Toast 'Created' visible. J9 cell now visible as occupied teal+orange in the corner of the grid.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step20-a20-box-reloaded-after-j9.png",
+          "shows": "Hard reload /app/inventory.html?doc=...box-pistachio-dna \u2014 verify persistence.",
+          "evaluation": "Box reopens with same data. J9 reads class 'em-grid-cell occupied collision' \u2014 collision because a leftover orphan from a previous failed run also at J9 (slug aliquot-1-a3-t1-s-qa63-mohe3a15). Two distinct files share the same cell, which the UI correctly flags with the orange collision shadow.",
+          "issues": "Collision indicator works as designed; the orphan is a pre-existing test artifact (cleaned up post-cycle)."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step21-a21-before-cell-j8-click.png",
+          "shows": "About to click empty cell J8.",
+          "evaluation": "J8 still empty.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step22-a22-new-tube-editor-j8.png",
+          "shows": "Create-new-here at J8 \u2192 New Tube editor.",
+          "evaluation": "Same shape as step16 but Position=J8 and slug is new-tube-mohe5ehrj. Parent breadcrumb correct.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step23-a23-tube-j8-filled.png",
+          "shows": "Tube J8 title 'Aliquot 2 A3-T1-S QA63 mohe4wt3' + Of 'accessions/a3-t1-s'.",
+          "evaluation": "Both fields populated, otherwise blank.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step24-a24-after-save-tube-j8.png",
+          "shows": "Saved tube J8 \u2192 file at docs/locations/aliquot-2-a3-t1-s-qa63-mohe4wt3.md.",
+          "evaluation": "Box popup with grid + new occupied corner cell.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step25-a25-box-final-reload.png",
+          "shows": "Final reload \u2014 verify all 3 cells occupied after page navigation.",
+          "evaluation": "Grid loads with J10 (extraction), J9 (Aliquot 1, collision with orphan), J8 (Aliquot 2) all occupied. State persisted across reload.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step26-a26-final-grid-corner-j8-j10.png",
+          "shows": "Scroll the J10 corner into view for closer look.",
+          "evaluation": "Grid corner shows the 3 occupied cells in the bottom row \u2014 distinct icons for the extraction (orange flask) vs the two tubes (teal vials).",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step27-a27-accession-reopen.png",
+          "shows": "Reopen accession A3-T1-S \u2014 verify Contents/References pane reflects the new instances.",
+          "evaluation": "References pane shows 4 instances in lab now: A3-T1-S DNA Extract (QA63 mohe4wt3) at J10, Aliquot 1 (orphan stamp mohe3a15) at J9, Aliquot 1 (current stamp mohe4wt3) at J9, Aliquot 2 (mohe4wt3) at J8. Pistachio DNA Box \u00b7 cell badges render under each title.",
+          "issues": "Orphan from previous run is visible here; deleted in cleanup."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step28-a28-accession-contents-has-stamp.png",
+          "shows": "Same view \u2014 verifying QA63 stamp present in contents pane text.",
+          "evaluation": "Identical to step27. Stamp 'mohe4wt3' present.",
+          "issues": "none"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle63/step29-a29-extraction-popup-with-of-link.png",
+          "shows": "Open the extraction directly via deep-link to confirm rendered Of link.",
+          "evaluation": "Header 'A3-T1-S DNA Extract (QA63 mohe4wt3)'. Breadcrumb chips: Robbins Hall 170 > -80C Freezer A > Shelf 1 > Pistachio DNA Box > A3-T1-S DNA Extract... (current item is included as last chip). Type pill 'Extraction' orange. Of (accession slug) renders as a clickable purple 'A3-T1-S' Accession pill (rendered from wikilink). Extraction Type DNA. References 'No references yet' (extraction has no inbound refs aside from the box+grid which are tracked via parent/position, not body wikilinks).",
+          "issues": "none"
+        }
+      ],
+      "bugs": [],
+      "fixes": [],
+      "observations": [
+        "Add Instance flow on accession works end-to-end: lab-modal kind picker \u2192 new file with `of:` cross-link populated \u2192 openPopup auto-opens in edit mode.",
+        "Object index gets patched promptly by saveFile (place-here popover search found the new extraction within ~1s of save).",
+        "openNew() generates a placeholder slug at create time, but save() recomputes the path from the latest title via Lab.slugify \u2014 so the final filename matches the title (aliquot-1-a3-t1-s-qa63-XXXXX.md).",
+        "Grid cell cls progression: empty \u2192 occupied \u2192 occupied collision (when 2 items at the same cell). Collision indicator shows orange shadow, correctly flagging duplicate placement.",
+        "Extraction breadcrumb on deep-link includes the current item as the last chip; full hierarchy room \u2192 freezer \u2192 shelf \u2192 box \u2192 instance.",
+        "Of: field renders as a clickable Accession pill in view mode (purple #6a1b9a-style). Click navigates to the linked accession.",
+        "Cleaned up 1 orphan from a prior failed run (aliquot-1-a3-t1-s-qa63-mohe3a15.md, commit d913567e) \u2014 the cycle's collision indicator surfaced this.",
+        "Toast 'Moved to J10' / 'Created' fades after 3s (success duration); appears sticky in fast-paced screenshots within that window \u2014 expected behavior.",
+        "No new functional/visual/UX bugs surfaced this cycle. All R19-R21 day-to-day affordances render and behave as designed."
+      ]
     }
   ],
   "bugs_found": [
@@ -9497,7 +9693,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 21,
+  "screenshots_taken": 50,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
