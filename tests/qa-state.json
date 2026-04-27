@@ -9416,7 +9416,7 @@
       "page": "app/protocols.html",
       "severity": "ux",
       "status": "closed",
-      "fixed_in_commit": "PENDING",
+      "fixed_in_commit": "4e70a55c",
       "summary": "renameDoc() seeded `oldTitle` from `currentDoc.split('/').pop()` (the URL slug) and only overrode it from NAV. When NAV did not have the file (fresh-deploy scenarios, files added via git push since the last index rebuild, or any session where buildNav hadn't picked up the entry), the slug stayed as the rename modal's default value AND as the H1 rewrite regex's anchor. Two visible symptoms: (a) Rename Protocol modal pre-filled the URL slug instead of the human title, asking users to edit a slug as if it were their title; (b) the body H1 rewrite \u2014 `^(# )<oldTitle>$` \u2014 would not match the file's actual `# Human Title`, so after rename the page would still display the old H1 even though the breadcrumb, frontmatter, and toast all reflected the new title. Reproduced this cycle by seeding files via direct GitHub PUT (NAV had no entry). Fix: prefer `currentMeta.title` (set by loadDoc from the parsed frontmatter) as the seed, then let NAV override only when it has a non-empty title, and only fall back to the slug when neither source has a value."
     }
   ],
@@ -9805,7 +9805,7 @@
       "cycle": 64,
       "file": "app/protocols.html",
       "lines": "~1503-1512",
-      "commit": "PENDING",
+      "commit": "4e70a55c",
       "summary": "renameDoc() now derives oldTitle from currentMeta.title (set by loadDoc) before consulting NAV, and only falls back to the URL slug when neither source has a value. Fixes both the prompt-pre-fill UX issue and the H1 rewrite regex miss for files not yet present in NAV."
     }
   ],
