@@ -118,7 +118,13 @@
 }
 .status-pill.green  { background: var(--green-light); color: var(--green-dark); }
 .status-pill.yellow { background: var(--yellow-light); color: var(--yellow-dark); }
-.status-pill.purple { background: var(--purple-light); color: var(--purple); }
+/* qa66: waiting pill uses indigo (var(--purple-dark) = #4338ca), not deep
+   purple (#6a1b9a). The deep purple is reserved for the `chemical` type
+   pill (EHS-registered chemicals) and was visually clashing with the
+   waiting status pill. Indigo also matches the stat-card hourglass icon
+   color (#6366f1) and the editor-modal waiting pill — see the same
+   alignment in app/js/editor-modal.js. */
+.status-pill.purple { background: var(--purple-light); color: var(--purple-dark); }
 .status-pill.red    { background: var(--red-light); color: var(--red); }
 .status-pill.grey   { background: var(--grey-200); color: var(--grey-700); }
 .status-pill.blue   { background: #dbeafe; color: #1e40af; }

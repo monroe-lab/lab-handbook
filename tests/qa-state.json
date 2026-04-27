@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 65,
+  "cycle": 66,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -9066,6 +9066,134 @@
         "Reagent (#009688) and Kit (#00838f) pill hues are nearly indistinguishable in inventory rows \u2014 the run focus expects Kit=orange. Worth a follow-up design pass; not patched without confirmation since types.js color is the canonical source.",
         "Concept popups show '[[resources/<slug>]]' as a Link/Loc field \u2014 that's the canonical wikilink value, copy-pastable. It's intentional, not a bug."
       ]
+    },
+    {
+      "cycle": 66,
+      "persona": "Dr. Monroe",
+      "modifier": "thorough",
+      "task": null,
+      "scenario_card": "Bulk accession tracker (#13): create 10 accessions across all 5 statuses + 4 priority levels in rapid succession; verify stat-card counts vs filtered row counts; verify priority sort, search, popup, mobile.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step01-baseline.png",
+          "shows": "Accessions tracker on load \u2014 banner + 7 stat tiles + table",
+          "evaluation": "Clean. Stat tiles read 242/104/121/2/14/1. Banner has purple-left border with concept/instance explanation. Table renders 9 prior QA66 ghost rows from the deployed index (build pipeline lag, not a bug)."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step01b-stats-baseline.png",
+          "shows": "7 stat tiles in a row at desktop width",
+          "evaluation": "Add Accession (teal), Accessions (purple fingerprint), Active (yellow bolt), Waiting (indigo hourglass), Storage (blue inventory), Completed (green check), Archived (grey archive). Spacing consistent."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step01c-banner-baseline.png",
+          "shows": "Concept/instance orientation banner",
+          "evaluation": "Reads correctly with bold 'What's an accession?' lead and 4 instance-icon callouts. No text clipping on 1280px viewport."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step02a-modal-open-QA66-001.png",
+          "shows": "New Accession modal freshly opened",
+          "evaluation": "Modal centered with empty form, status defaults to active, priority defaults to 0 stars. Helper text below form is readable."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step02b-modal-filled-QA66-001.png",
+          "shows": "New Accession modal with QA66-001 filled in (active, \u2605\u2605\u2605)",
+          "evaluation": "All 7 fields populate cleanly. People field shows '[[Dr. Monroe]], [[Vianney Ahn]]' wikilink syntax. Status select shows 'Active (action needed)'. Priority shows '\u2605\u2605\u2605 (high)'."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step02c-table-after-QA66-001.png",
+          "shows": "After Create \u2014 toast 'Created: QA66-001' visible",
+          "evaluation": "Modal closed. Green success toast. Table updates with QA66-001 at top sorted by last_updated."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step11c-table-after-QA66-010.png",
+          "shows": "After 10th accession (archived) created \u2014 all 10 QA66 rows visible",
+          "evaluation": "Status pills render with correct colors per row. Active=yellow, Waiting=purple-ish, Storage=blue, Completed=green, Archived=grey. Stars render correctly across all priority levels."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step12-after-all-creates.png",
+          "shows": "Page state after all 10 creates",
+          "evaluation": "Counts read 242/104/121/2/14/1 \u2014 same as baseline because the deployed index already had QA66-001..-009 ghost entries from a prior partial run, so adds overwrote them in place. After deploy catches up these counts are correct (verified via curl object-index.json)."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step13-filter-active.png",
+          "shows": "Active filter \u2014 104 visible, 3 QA66 rows (matches expected 3 active QA66s)",
+          "evaluation": "Filter toggles correctly. Status dropdown reads 'Active'. QA66-001/002/003 all visible amongst the 104 active rows."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step14-filter-waiting.png",
+          "shows": "Waiting filter \u2014 121 visible, 2 QA66 rows",
+          "evaluation": "QA66-004 and QA66-005 are visible. Status pills render in deep purple (#6a1b9a) which is a clash with the chemical pill color \u2014 see bug entry below."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step15-filter-storage.png",
+          "shows": "Storage filter \u2014 2 visible rows, both QA66",
+          "evaluation": "QA66-006 (\u2605\u2606\u2606) and QA66-007 (\u2605\u2605\u2605) both render with blue 'Storage' pill. Kayla Torres people pill resolves correctly. Arabidopsis thaliana species rendered in italic."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step16-filter-completed.png",
+          "shows": "Completed filter \u2014 14 visible rows",
+          "evaluation": "QA66-008 / QA66-009 visible at top alongside 12 prior completed accessions. Green 'Completed' pills consistent across rows."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step17-filter-archived.png",
+          "shows": "Archived filter \u2014 1 visible row (QA66-010)",
+          "evaluation": "QA66-010 only. Grey 'Archived' pill, Dr. Monroe pill, Pistacia vera. No empty-state shown because exactly 1 row exists."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step19-sort-priority-1st-click.png",
+          "shows": "Sort by priority \u2014 3-star rows at top",
+          "evaluation": "Multiple \u2605\u2605\u2605 rows clustered at top (J4_T1_5 Kerman, QA66-007, R1_B*, R2_B* series). QA66-007 (Storage, 3 stars) sorts among the top group."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step19b-sort-priority-2nd-click.png",
+          "shows": "Sort by priority reversed \u2014 0-star rows at top",
+          "evaluation": "AL_T1_M, AL_T2_M, AL_T1_N etc 0-star rows now at top. Sort flips on second click as expected."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step20-search-QA66.png",
+          "shows": "Search 'QA66' \u2014 all 10 QA66 rows shown",
+          "evaluation": "Filter by search query returns exactly the 10 added accessions. Each row shows accurate stars, people pill, species, status pill, last_updated."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step21-popup-QA66-001.png",
+          "shows": "QA66-001 popup via deep-link ?doc=accessions/qa66-001",
+          "evaluation": "3-column layout: fields | body | references. Type pill 'Accession' (purple fingerprint). Both people pills (Dr. Monroe, Vianney Ahn) resolve as teal pills. Status 'Active' (yellow), Priority \u2605\u2605\u2605. Body content shows the 4-instance-type explainer cleanly. References pane has 'No references yet' (correct, no instances created)."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle66/step22-mobile-accessions.png",
+          "shows": "Accessions on 375x812 mobile viewport",
+          "evaluation": "Header collapses to 'Monroe Lab' + avatar. Banner wraps cleanly with no clipping (qa34 fix verified). Stat tiles in 2-col grid. Archived tile spans full width on its own row (last-child grid rule). Bottom tab bar shows Wiki/Notebooks/Accessions(active)/Inventory/More \u2014 correct."
+        }
+      ],
+      "bugs": [
+        {
+          "id": "VIS-66-WAITING-COLOR-DRIFT",
+          "cycle": 66,
+          "severity": "visual",
+          "status": "closed",
+          "summary": "Three different colors used for the 'waiting' accession status across the codebase: stat-card icon at app/accessions.html L213 = #6366f1 (indigo), CSS pill at L121 = var(--purple) = #6a1b9a (deep purple \u2014 same as chemical type), editor-modal pill at app/js/editor-modal.js L1574 = #7c3aed. Pill text was clashing with the chemical type pill (also #6a1b9a). Fix: pill CSS now uses var(--purple-dark) = #4338ca and editor-modal uses #4338ca too, both indigo and harmonized with the indigo hourglass stat-card icon. Chemical pill keeps its deep purple."
+        }
+      ],
+      "fixes": [
+        {
+          "id": "FIX-66-WAITING-INDIGO",
+          "files_changed": [
+            "app/accessions.html",
+            "app/js/editor-modal.js"
+          ],
+          "summary": "Aligned waiting status pill color with stat-card icon. accessions.html .status-pill.purple now uses var(--purple-dark) (#4338ca indigo) instead of var(--purple) (#6a1b9a). editor-modal.js statusColors.waiting changed from #7c3aed to #4338ca. The pill background remains var(--purple-light) (#ede9fe lavender). Chemical type pill is now the only consumer of #6a1b9a deep purple."
+        }
+      ],
+      "observations": [
+        "Bulk creation through the Add Accession modal works smoothly for 10 sequential creates. Each Create commits a real .md file via GitHub Contents API, patches the in-memory _objectIndex, and the table re-renders within ~1s.",
+        "After confirmAdd success, Lab.editorModal.open(path) auto-opens the new accession in edit mode for follow-up. For bulk-create flows, dismissing this modal via Escape works, but a force-remove of the .em-overlay.open class in JS evaluate is the most reliable Playwright pattern.",
+        "Counts on stat tiles update immediately when patchObjectIndex mutates the cached index. Apparent 'count drift' during the first run was actually deploy lag \u2014 the deployed object-index.json had stale ghost entries from a previous partial run. Curl confirmed correct counts post-deploy.",
+        "All 5 status filters (active/waiting/storage/completed/archived) partition correctly. Filter sum across all statuses equals statTotal \u2014 invariant holds.",
+        "Priority sort 0\u21923\u21920 cycle works correctly with two clicks giving ascending then descending. 3-star rows cluster at top on first click.",
+        "Search box filters live across ID + project + people. 'QA66' returns all 10 added accessions cleanly.",
+        "Mobile viewport (375x812): banner wraps cleanly without clipping, stat-card grid drops to 2-col, Archived tile spans full row, bottom tab bar visible.",
+        "The framework-banner border-left uses #7c3aed (purple) but the indigo stat-card icons use #6366f1; these are close enough that the visual relationship still reads as 'this is the accessions page color family'. After this cycle's fix, the pill text is also indigo (#4338ca), pulling the family closer together."
+      ]
     }
   ],
   "bugs_found": [
@@ -9611,6 +9739,13 @@
       "severity": "visual",
       "status": "open",
       "summary": "Reagent (#009688) and Kit (#00838f) pills are visually nearly identical teal hues. In inventory rows where both types appear, users can't tell them apart. Run focus suggests Kit should be orange. Not patched \u2014 color is a design call in app/js/types.js and worth a separate design pass with Grey."
+    },
+    {
+      "id": "VIS-66-WAITING-COLOR-DRIFT",
+      "cycle": 66,
+      "severity": "visual",
+      "status": "closed",
+      "summary": "Three different colors used for the 'waiting' accession status across the codebase: stat-card icon at app/accessions.html L213 = #6366f1 (indigo), CSS pill at L121 = var(--purple) = #6a1b9a (deep purple \u2014 same as chemical type), editor-modal pill at app/js/editor-modal.js L1574 = #7c3aed. Pill text was clashing with the chemical type pill (also #6a1b9a). Fix: pill CSS now uses var(--purple-dark) = #4338ca and editor-modal uses #4338ca too, both indigo and harmonized with the indigo hourglass stat-card icon. Chemical pill keeps its deep purple."
     }
   ],
   "fixes_applied": [
@@ -10008,6 +10143,14 @@
       "lines": "~393-440",
       "commit": "5121ea0e",
       "summary": "renderFrontmatterBar now resolves slug-shaped scalar/array string values (containing '/', not a URL) against window.Lab.gh._getCachedIndex() and renders them as inline clickable type-colored pills using the target type's color/icon/title. Falls back to plain-text rendering when the index isn't loaded or the slug isn't found. Restores the cross-linker workflow from bottle \u2192 concept and cabinet \u2192 room."
+    },
+    {
+      "id": "FIX-66-WAITING-INDIGO",
+      "files_changed": [
+        "app/accessions.html",
+        "app/js/editor-modal.js"
+      ],
+      "summary": "Aligned waiting status pill color with stat-card icon. accessions.html .status-pill.purple now uses var(--purple-dark) (#4338ca indigo) instead of var(--purple) (#6a1b9a). editor-modal.js statusColors.waiting changed from #7c3aed to #4338ca. The pill background remains var(--purple-light) (#ede9fe lavender). Chemical type pill is now the only consumer of #6a1b9a deep purple."
     }
   ],
   "improvements_proposed": [
@@ -10015,7 +10158,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 90,
+  "screenshots_taken": 108,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
@@ -10045,5 +10188,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-27T17:05:59"
+  "last_updated": "2026-04-27T10:37:43.967953"
 }

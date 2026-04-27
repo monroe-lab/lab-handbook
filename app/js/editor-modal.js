@@ -1571,7 +1571,7 @@
           var statusColors = {
             in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6',
             in_accumulation: '#f59e0b', ready_for_pickup: '#f9a825', picked_up: '#6b7280',
-            active: '#f59e0b', waiting: '#7c3aed', storage: '#3b82f6', completed: '#22c55e', archived: '#6b7280',
+            active: '#f59e0b', waiting: '#4338ca', storage: '#3b82f6', completed: '#22c55e', archived: '#6b7280',
           };
           var statusLabels = {
             in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External',
