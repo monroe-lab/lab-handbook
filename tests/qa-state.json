@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 68,
+  "cycle": 69,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -9499,6 +9499,172 @@
         "Tube A1 parent pill links to the new box.",
         "returnTo flow: after each tube save the popup correctly returns to the box and refreshes children."
       ]
+    },
+    {
+      "cycle": 69,
+      "persona": "Jordan Park",
+      "modifier": "rushed",
+      "task": "Accession status overhaul day \u2014 create accession, inline-cycle status to storage, rapid-click priority 0\u21923, open editor, append 2nd person via [[ wikilink autocomplete, add status_note, save, hard-reload, verify roundtrip in tracker + popup, then delete.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-01-jordan-accessions-baseline.png",
+          "shows": "Accessions tracker baseline before any actions; orientation banner visible (purple border), 232 accessions, 102 active, 119 waiting, 12 completed, 0 storage. Top nav shows the 12-tab row with '+' More overflow.",
+          "evaluation": "Banner reads correctly, status filter dropdown defaults to All Statuses, table renders with star priorities and people pills. Layout intact at 1280x900.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-02-jordan-add-modal-empty.png",
+          "shows": "New Accession modal opened, fields blank, Status defaults to Active, Priority defaults to \u2606\u2606\u2606.",
+          "evaluation": "Modal pop-in is mid-transition (slight transparency); table behind dimmed correctly; default values look right.",
+          "issues": "Screenshot captured during the .modal-overlay opacity transition \u2014 content briefly faded; not a real bug, just timing."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-03-jordan-add-modal-filled.png",
+          "shows": "Modal filled with ID=qa69-overhaul-..., Project=QA Cycle 69, Species=Pistacia vera, People=[[grey-monroe]], Status=Active, Priority=0.",
+          "evaluation": "Slug preview shows the resolved file path. People field accepts wikilink syntax. Form looks correct.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-04-jordan-editor-modal-after-create.png",
+          "shows": "Editor modal opened on the new accession after Create succeeded. 3-column layout: FIELDS / BODY / REFERENCES (with + Add instance).",
+          "evaluation": "Type chip is the purple Accession pill; body shows the placeholder content with the four instance bullets; toast 'Created: qa69-overhaul-...' renders bottom-right.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-05-jordan-tracker-row-visible.png",
+          "shows": "Tracker after closing the post-create editor; new row at top sorted by last_updated.",
+          "evaluation": "Stats updated to 233 accessions / 102 active. New row shows 0 stars, project, people pill, Pistacia vera, Active pill (yellow), no note, today's date.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-07-jordan-row-closeup-active.png",
+          "shows": "Row close-up before any inline edits.",
+          "evaluation": "ID, project, people pill (single), species italic, yellow Active pill with chevron dropdown, blank note, updated date.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-08-jordan-after-status-change-storage.png",
+          "shows": "After inline status pill change Active \u2192 Storage. Toast confirms 'qa69-overhaul-...: Storage'.",
+          "evaluation": "Stats decremented active 102\u2192101 and incremented storage 12\u219213 (sum still 233). Pill turned blue.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-10-jordan-after-priority-3stars.png",
+          "shows": "After 3 rapid clicks on the priority stars (rushed mode).",
+          "evaluation": "Stars cycled 0\u21923 and rendered as \u2605\u2605\u2605 gold; queued commits all succeeded thanks to pendingCommits chain.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-11-jordan-filter-storage-active.png",
+          "shows": "Status filter set to Storage. Only the new row renders. Stat cards: 1 Storage / 12 Completed (the 12 stat we expected to be 'completed' was always there; verified via grep 12 status:completed accessions in repo).",
+          "evaluation": "Filter works correctly, stat counts are consistent with the index after our change.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-12-jordan-editor-opened-readonly.png",
+          "shows": "Accession popup re-opened in read-only view. FIELDS column lists Type/Link/Name/Accession ID/Project/People/Species/Status/Priority(stars)/Last Updated.",
+          "evaluation": "Type chip is purple Accession pill, Status pill is BLUE (Storage), Priority shows \u2605\u2605\u2605 gold. Inline edits all roundtripped through the index \u2192 readonly view.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-13-jordan-editor-edit-mode.png",
+          "shows": "Edit mode after clicking Edit. Insert toolbar visible (Resources / Stocks / People / Protocols / Projects / Accessions / Waste / Calendar / Lab Map / Notebooks). Media row (Image, YouTube, Video). Body editor with markdown formatting toolbar.",
+          "evaluation": "All accession fields are editable. Status select reads 'storage'. Title, Project, People all populated.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-14-jordan-people-field-after-edit.png",
+          "shows": "After typing ', [[mariele-lensink]]' onto the People field. Field reads '[[grey-monroe]], [[mariele-lensink]]'. Priority dropdown reads 3.",
+          "evaluation": "Wikilink autocomplete behaviour intact for the typed wikilink.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-15-jordan-status-note-filled.png",
+          "shows": "Status note filled with 'Cold-stored 2026-04-27 \u2014 keep in -80 box D-shelf-5 until library prep.' (text scrolls horizontally inside the input, end visible).",
+          "evaluation": "Status note input accepts long strings. The single-line input scrolls rather than wrapping; consistent with other text inputs.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-17-jordan-after-save.png",
+          "shows": "After save: 'Saved' toast bottom-right; modal flips back to read-only view. People row shows 'grey monroe' + 'mariele lensink' pills wrapped to a separate line BELOW the 'People' label.",
+          "evaluation": "Roundtrip succeeded \u2014 both pills render with correct teal background. BUT the layout breaks the label/value alignment: People label sits on its own row with the pills underneath, whereas Type/Link/Name/Project/Species/Status etc. all keep label and value on the same line.",
+          "issues": "VISUAL BUG (CYCLE69-PEOPLE-ROW-WRAP): the people render block in editor-modal.js had flex-wrap:wrap on the OUTER flex row, so the inner pills span fell to a new flex line whenever it didn't fit beside the 80px label. Every other field row uses display:flex without flex-wrap, so this block was inconsistent."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-18-jordan-reload-filter-storage.png",
+          "shows": "Hard reload \u2192 filter Storage. Single row renders with \u2605\u2605\u2605, two people pills, Pistacia vera, blue Storage pill, full status_note text, 2026-04-27.",
+          "evaluation": "All R20 fields persist through a full reload. Stat cards reflect 1 Storage. Fonts/spacing look right.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-19-jordan-row-after-reload.png",
+          "shows": "Row close-up after reload.",
+          "evaluation": "Crisp pills, full note text inline, dropdown chevron on the status pill present.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-20-jordan-popup-after-reload.png",
+          "shows": "Popup re-opened post-reload. Same People-row layout glitch as cycle69-17 \u2014 label on its own row with pills below.",
+          "evaluation": "Confirms the bug is in the readonly render path, not a transient post-save state.",
+          "issues": "Same bug as CYCLE69-PEOPLE-ROW-WRAP."
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-21-jordan-cleanup-search.png",
+          "shows": "Cleanup phase: status filter cleared, search box has the test slug, only the test row visible.",
+          "evaluation": "Search + filter cooperation works; row still readable with all final-state pills.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-22-jordan-cleanup-confirm-modal.png",
+          "shows": "Delete Accession confirmation modal \u2014 captured mid opacity transition.",
+          "evaluation": "Faded look is just the .modal-overlay { transition: all .2s } catch \u2014 not a real bug. Buttons are reachable.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69/cycle69-23-jordan-cleanup-done.png",
+          "shows": "Post-delete: empty state 'No accessions match your filters.', stats back to 232 / 101 / 119 / 0 storage / 12 completed / 0 archived. Toast 'Deleted: qa69-overhaul-...'.",
+          "evaluation": "Cleanup successful, stat counts return to baseline. No orphan rows.",
+          "issues": "\u2014"
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle69-verify/verify-02-fields-column.png",
+          "shows": "Verify run: re-opened popup AFTER the editor-modal.js fix. People row label and the two pills are on the same flex row; pills wrap to a 2nd line INSIDE the value column instead of pushing the label aside.",
+          "evaluation": "Fix confirmed \u2014 every field in the FIELDS column now shares the same label-left / value-right alignment.",
+          "issues": "\u2014"
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE69-PEOPLE-ROW-WRAP",
+          "severity": "visual",
+          "summary": "Editor popup People row label fell onto its own line above the pills, breaking the label/value column alignment used by every other field. Caused by flex-wrap:wrap on the outer flex row in editor-modal.js readonly render \u2014 inner pills span couldn't fit beside the label so it wrapped to a new flex line.",
+          "status": "closed",
+          "fixed_by_commit": "62c716be",
+          "screenshots": [
+            "/tmp/qa-screenshots/cycle69/cycle69-17-jordan-after-save.png",
+            "/tmp/qa-screenshots/cycle69/cycle69-20-jordan-popup-after-reload.png"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "CYCLE69-PEOPLE-ROW-WRAP",
+          "commit": "62c716be",
+          "files": [
+            "app/js/editor-modal.js"
+          ],
+          "summary": "Drop flex-wrap:wrap from the outer People-row flex container; switch to align-items:flex-start with min-width:0 on the value span. Inner pill span keeps its own flex-wrap:wrap so multiple pills wrap inside the value column instead of pushing the label aside.",
+          "verify_screenshot": "/tmp/qa-screenshots/cycle69-verify/verify-02-fields-column.png"
+        }
+      ],
+      "observations": [
+        "Inline status-pill commit + 3 rapid priority star clicks all serialized correctly through pendingCommits (no SHA conflicts on quick succession).",
+        "Stat cards stayed consistent across all five buckets after each change. The full count (101+119+1+12+0) sums to 233 throughout.",
+        "Body of the new accession was created with `\\n#` heading + bulleted list \u2014 and after editor switched to WYSIWYG-render in read mode, the bullets and `**` bolding kept rendering correctly.",
+        "Lab.gh.patchObjectIndex + primeFileCache after both inline commit paths kept the editor popup from reading stale state on the next open.",
+        "12 completed accessions actually exist in the repo (grep status:completed). Initial '12 Completed' stat card was correct, not a bug as initially suspected when comparing pre/post screenshots.",
+        "modal-overlay opacity transition (200ms) means a screenshot taken right after .open is added captures a faded modal. Cosmetic only \u2014 Playwright timing artifact, not a real bug."
+      ]
     }
   ],
   "bugs_found": [
@@ -10089,6 +10255,17 @@
       "status": "open",
       "summary": "59 resource cards still carry non-canonical status values (51 `needed`, 8 `owned`). Code now aliases them at read-time but the underlying frontmatter is drift. Migration script could rewrite docs/resources/*.md with canonical values when convenient. Click-cycle in the popup writes canonical values forward, so this will heal incrementally as Grey clicks status pills. User-owned data; no silent rewrite.",
       "cycle": 67
+    },
+    {
+      "id": "CYCLE69-PEOPLE-ROW-WRAP",
+      "severity": "visual",
+      "summary": "Editor popup People row label fell onto its own line above the pills, breaking the label/value column alignment used by every other field. Caused by flex-wrap:wrap on the outer flex row in editor-modal.js readonly render \u2014 inner pills span couldn't fit beside the label so it wrapped to a new flex line.",
+      "status": "closed",
+      "fixed_by_commit": "62c716be",
+      "screenshots": [
+        "/tmp/qa-screenshots/cycle69/cycle69-17-jordan-after-save.png",
+        "/tmp/qa-screenshots/cycle69/cycle69-20-jordan-popup-after-reload.png"
+      ]
     }
   ],
   "fixes_applied": [
@@ -10515,6 +10692,15 @@
         "app/js/types.js",
         "app/js/editor-modal.js"
       ]
+    },
+    {
+      "id": "CYCLE69-PEOPLE-ROW-WRAP",
+      "commit": "62c716be",
+      "files": [
+        "app/js/editor-modal.js"
+      ],
+      "summary": "Drop flex-wrap:wrap from the outer People-row flex container; switch to align-items:flex-start with min-width:0 on the value span. Inner pill span keeps its own flex-wrap:wrap so multiple pills wrap inside the value column instead of pushing the label aside.",
+      "verify_screenshot": "/tmp/qa-screenshots/cycle69-verify/verify-02-fields-column.png"
     }
   ],
   "improvements_proposed": [
@@ -10522,7 +10708,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 167,
+  "screenshots_taken": 188,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
