@@ -1501,10 +1501,18 @@ async function renameDoc() {
   var gh = Lab.gh;
   if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
 
-  // Get current title
-  var oldTitle = currentDoc.split('/').pop();
+  // Get current title. Prefer the loaded frontmatter title (set by loadDoc),
+  // then NAV's cached title, and only fall back to the slug if neither is
+  // available — otherwise the rename prompt and the H1 rewrite both default
+  // to the slug, which (a) shows users the URL slug instead of their title
+  // in the prompt, and (b) makes the H1 regex below fail to match the actual
+  // human-titled heading. qa-cycle-64.
+  var slug = currentDoc.split('/').pop();
+  var oldTitle = (currentMeta && currentMeta.title) || slug;
   NAV.forEach(function(cat) {
-    cat.items.forEach(function(i) { if (i.path === currentDoc) oldTitle = i.title; });
+    cat.items.forEach(function(i) {
+      if (i.path === currentDoc && i.title) oldTitle = i.title;
+    });
   });
 
   var newTitle = await Lab.modal.prompt({ title: 'Rename Protocol', message: 'New title:', defaultValue: oldTitle });

@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 63,
+  "cycle": 64,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8784,6 +8784,110 @@
         "Toast 'Moved to J10' / 'Created' fades after 3s (success duration); appears sticky in fast-paced screenshots within that window \u2014 expected behavior.",
         "No new functional/visual/UX bugs surfaced this cycle. All R19-R21 day-to-day affordances render and behave as designed."
       ]
+    },
+    {
+      "cycle": 64,
+      "persona": "Jordan Park",
+      "modifier": "confused",
+      "scenario_card": "Rename + relink day",
+      "task": "Postdoc Jordan in confused mode renames a disposable protocol via the protocols.html Rename button in three passes (Cancel-without-typing, then a punctuation-heavy 'QA64 Renamed!! /yolo & \\\"friends\\\" \u2014 round 1' title, then a clean 'QA64 Final Renamed Protocol'). Pre-seeded a notebook entry referencing the protocol via [[wet-lab/<slug>]] (twice, on purpose). Verified end-to-end: (1) Cancel leaves the file unchanged on GitHub; (2) Rename creates the new file at the slugified path and deletes the old; (3) the body H1 is rewritten to match the new title \u2014 even when NAV doesn't have the file cached (the fix this cycle); (4) updateWikilinksAfterRename rewrites [[wet-lab/old-slug]] \u2192 [[new-slug]] in the notebook; (5) the notebook's pills resolve to the new slug AND show the new title with all punctuation/em-dash/escaped quotes intact; (6) clicking a pill navigates to the renamed protocol's protocols.html URL. Two consecutive rename passes (weird \u2192 final) both propagate cleanly.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step01-a01-notebook-baseline.png",
+          "shows": "Notebook entry rendered with two purple Protocol pills referencing the seeded protocol; both pills correctly show the human title 'QA64 Original Protocol mohf5wcd' (object-index patches are working).",
+          "evaluation": "Correct: pills are purple/teal, fa-book-open icon visible, no clipping. Title resolution proves localStorage object-index patches override the prebuilt index.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step02-a02-protocol-loaded.png",
+          "shows": "Protocols app loaded with the seeded protocol \u2014 purple Protocol pill, H1 'QA64 Original Protocol mohf5wcd', 'Print Preview / Rename / Duplicate / Delete / Edit' button row visible at top right (logged-in mode).",
+          "evaluation": "Correct. Breadcrumb path matches the URL slug. Sidebar collapsed via theme-teal nav default.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step03-a03-rename-modal-open.png",
+          "shows": "Rename Protocol modal centered over the page, input pre-filled with 'QA64 Original Protocol mohf5wcd' (the human title, not the slug \u2014 confirms the renameDoc fallback fix is working).",
+          "evaluation": "Correct. Before the fix, this field showed the URL slug 'qa64-original-protocol-mohf5wcd', which was both confusing for users and broke the H1 rewrite regex downstream.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step04-a04-after-cancel.png",
+          "shows": "Modal dismissed via Cancel button; protocol page shown unchanged. File still at original slug, no PUT issued.",
+          "evaluation": "Correct. ghGet confirmed the file path is unchanged.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step05-a05-weird-title-typed.png",
+          "shows": "Rename modal with 'QA64 Renamed!! /yolo & \"friends\" \u2014 round 1 mohf5wcd' typed into the input \u2014 punctuation including a forward slash, ampersand, double-quotes, em-dash.",
+          "evaluation": "Input accepts every special character without escape or strip on the way in. Modal layout intact \u2014 text doesn't overflow because it's a single-line input that scrolls horizontally.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step06-a06-after-weird-rename.png",
+          "shows": "Page after first rename succeeded. Breadcrumb now reads 'wet-lab/qa64-renamed-yolo-friends-round-1-mohf5wcd' (slug correctly normalized via Lab.slugify). H1 visible heading rewrote to the full new title with all punctuation. Toast bottom-right reads 'Renamed to: QA64 Renamed!! /yolo & \"friends\" \u2014 round 1 mohf5wcd'.",
+          "evaluation": "Correct end-to-end. The H1 rewrite worked because the renameDoc fix now uses currentMeta.title (instead of the slug fallback) when seeding the H1 regex.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step07-a07-notebook-after-weird-rename.png",
+          "shows": "Notebook entry reloaded after first rename. Both purple Protocol pills now display the new weird title and href targets the new bare slug. Wikilink sweep + object-index patch worked atomically across the reload.",
+          "evaluation": "Correct. Pills render full punctuation in their label (no XSS escaping issues, no truncation).",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step08-a08-after-pill-nav.png",
+          "shows": "After clicking the pill in the notebook, browser navigated to /app/protocols.html?doc=wet-lab/qa64-renamed-yolo-friends-round-1-mohf5wcd. Protocols app shows the renamed protocol with the punctuation-heavy H1.",
+          "evaluation": "Correct. Pill click handler routes Protocol-typed objects to the protocols app via location.href as designed in wikilinks.js processRenderedLinks.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step09-a09-protocol-before-final-rename.png",
+          "shows": "Protocols app showing the renamed protocol just before the second rename pass \u2014 full UI intact, button row stable.",
+          "evaluation": "Correct.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step10-a10-final-title-typed.png",
+          "shows": "Rename modal pre-filled with the previous weird title; 'QA64 Final Renamed Protocol mohf5wcd' has been typed in, replacing it.",
+          "evaluation": "Correct. The default value carries over from the most recent rename (no stale slug leak).",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step11-a11-after-final-rename.png",
+          "shows": "After second rename succeeded. Breadcrumb 'wet-lab/qa64-final-renamed-protocol-mohf5wcd', H1 'QA64 Final Renamed Protocol mohf5wcd', toast 'Renamed to: QA64 Final Renamed Protocol mohf5wcd' in bottom right.",
+          "evaluation": "Correct. Sequential renames work \u2014 old \u2192 weird \u2192 final, each step properly cleaning up the prior file and rewriting referrers.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step12-a12-notebook-final.png",
+          "shows": "Notebook reloaded after second rename. Both pills now display 'QA64 Final Renamed Protocol mohf5wcd' with the purple Protocol style. Layout unchanged from baseline; pills sit inline with the surrounding text.",
+          "evaluation": "Correct. Confirms two rename passes propagate cleanly through wikilink rewrites.",
+          "issues": ""
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle64/step13-a13-wiki-page-after-rename.png",
+          "shows": "/app/wiki.html?doc=wet-lab/qa64-final-renamed-protocol-mohf5wcd \u2014 wiki page does not auto-open the em-overlay popup for protocol type, so backlinks pane verification was via the link-index patch dump (covered in observations).",
+          "evaluation": "Expected \u2014 protocols are surfaced through their own dedicated app, not the wiki popup. Could be improved to open the em-overlay backlinks pane for cross-type backlink browsing, but that's out of scope this cycle.",
+          "issues": ""
+        }
+      ],
+      "bugs": [
+        "CYCLE64-RENAMEDOC-USES-SLUG-FOR-OLD-TITLE"
+      ],
+      "fixes": [
+        "CYCLE64-FIX-RENAMEDOC-OLDTITLE-FALLBACK"
+      ],
+      "observations": [
+        "Pre-seeding files via direct GitHub API PUT (without going through the editor's patchObjectIndex/patchLinkIndex calls) means the prebuilt object-index.json and link-index.json don't know about them, and the wikilink sweep finds zero candidates. Worked around by pre-populating localStorage `lab_index_patches` and `lab_link_index_patches` via context.addInitScript with a 'only-if-empty' guard so the rename's freshly-written patches aren't clobbered on the next reload.",
+        "Lab.slugify normalizes 'QA64 Renamed!! /yolo & \\\"friends\\\" \u2014 round 1 mohf5wcd' to 'qa64-renamed-yolo-friends-round-1-mohf5wcd' \u2014 em-dash and double-quotes both collapse to '-', the slash + ampersand + exclamation marks all collapse, multi-dashes collapse to single. Path ends up safe for ext4/APFS.",
+        "renameDoc's `renameInFlight` guard correctly prevents a double-click on OK from issuing two PUT/DELETE pairs \u2014 confirmed by the test's force-click attempt.",
+        "Lab.modal.prompt's input field accepts every special character without preprocessing \u2014 including the YAML-special double quotes \u2014 and the receiving frontmatter writer escapes them as \\\" in the saved file.",
+        "Wikilink sweep is fast \u2014 both rename passes propagated to the notebook within 1 second when the file's edge was already in `_linkIndex` (live cache + applyLinkPatches overlay).",
+        "REAL-WORLD GAP (not closed this cycle): updateWikilinksAfterRename only sees files that are either in the prebuilt link-index.json (from the most recent deploy) or in the localStorage patch overlay (from edits made in this browser session). Files that were created via Obsidian/git-push between deploys, or referenced from a file that hasn't been opened since, will NOT have their wikilinks rewritten on rename. This is a genuine correctness gap but a deeper fix (broader repo scan) is out of scope for one cycle.",
+        "Wiki page (/app/wiki.html?doc=...) does not auto-open the em-overlay popup for protocol-type files, so the backlinks pane could not be visually verified for the renamed protocol from that surface. The link-index patches snapshot from localStorage (printed in step 10) confirms the edges have been rewritten correctly.",
+        "Test artifact cleanup: 2 files deleted via gh DELETE. No GitHub side effects remain. Screenshots cleaned up via cycle directory."
+      ],
+      "page_errors": []
     }
   ],
   "bugs_found": [
@@ -9305,6 +9409,15 @@
       "status": "closed",
       "summary": "Lab.modal.form button row was clipped below the 80vh modal max-height when the form was tall (Add Event @ ~790px > 720px). Fixed with position:sticky bottom:-24px and 1px top border separator.",
       "commit": "98d5b89f"
+    },
+    {
+      "id": "CYCLE64-RENAMEDOC-USES-SLUG-FOR-OLD-TITLE",
+      "cycle": 64,
+      "page": "app/protocols.html",
+      "severity": "ux",
+      "status": "closed",
+      "fixed_in_commit": "PENDING",
+      "summary": "renameDoc() seeded `oldTitle` from `currentDoc.split('/').pop()` (the URL slug) and only overrode it from NAV. When NAV did not have the file (fresh-deploy scenarios, files added via git push since the last index rebuild, or any session where buildNav hadn't picked up the entry), the slug stayed as the rename modal's default value AND as the H1 rewrite regex's anchor. Two visible symptoms: (a) Rename Protocol modal pre-filled the URL slug instead of the human title, asking users to edit a slug as if it were their title; (b) the body H1 rewrite \u2014 `^(# )<oldTitle>$` \u2014 would not match the file's actual `# Human Title`, so after rename the page would still display the old H1 even though the breadcrumb, frontmatter, and toast all reflected the new title. Reproduced this cycle by seeding files via direct GitHub PUT (NAV had no entry). Fix: prefer `currentMeta.title` (set by loadDoc from the parsed frontmatter) as the seed, then let NAV override only when it has a non-empty title, and only fall back to the slug when neither source has a value."
     }
   ],
   "fixes_applied": [
@@ -9686,6 +9799,14 @@
         "app/js/shared.js"
       ],
       "summary": "Sticky footer on Lab.modal.form so Cancel/Submit stay visible when the form scrolls."
+    },
+    {
+      "id": "CYCLE64-FIX-RENAMEDOC-OLDTITLE-FALLBACK",
+      "cycle": 64,
+      "file": "app/protocols.html",
+      "lines": "~1503-1512",
+      "commit": "PENDING",
+      "summary": "renameDoc() now derives oldTitle from currentMeta.title (set by loadDoc) before consulting NAV, and only falls back to the URL slug when neither source has a value. Fixes both the prompt-pre-fill UX issue and the H1 rewrite regex miss for files not yet present in NAV."
     }
   ],
   "improvements_proposed": [
@@ -9693,7 +9814,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 50,
+  "screenshots_taken": 63,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
@@ -9723,5 +9844,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-25T18:15:29"
+  "last_updated": "2026-04-27T16:39:13"
 }
