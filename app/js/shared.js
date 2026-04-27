@@ -587,7 +587,12 @@
         html += '</div>';
       });
 
-      html += '<div style="display:flex;justify-content:flex-end;gap:8px">' +
+      // Sticky footer so Cancel/Submit stay visible when the form scrolls.
+      // The negative bottom + horizontal margins extend the bar to the modal's
+      // padding edges; padding inside re-adds breathing room for the buttons.
+      html += '<div style="display:flex;justify-content:flex-end;gap:8px;' +
+        'position:sticky;bottom:-24px;background:#fff;z-index:1;' +
+        'margin:8px -24px -24px;padding:14px 24px;border-top:1px solid #eee">' +
         '<button class="lab-modal-cancel" style="' + _btnCancel + '">Cancel</button>' +
         '<button class="lab-modal-ok" style="' + _btnPrimary + '">' + escHtml(submitText) + '</button>' +
       '</div>';
