@@ -6,5 +6,7 @@ extraction_type: "DNA"
 updated_at: "2026-04-27T16:06:25.909Z"
 created_at: "2026-04-27T16:06:25.909Z"
 created_by: "greymonroe"
+parent: "locations/box-pistachio-dna"
+position: "J10"
 ---
 # A3-T1-S
