@@ -198,6 +198,10 @@
       '.em-col-fields{flex:0 0 300px;border-right:1px solid var(--grey-200);padding:16px 18px;background:#fafafa}',
       '.em-col-body{flex:1 1 auto;padding:0}',
       '.em-col-contents{flex:0 0 340px;border-left:1px solid var(--grey-200);padding:16px 18px;background:#fafafa}',
+      // qa-cycle-61: grid panes need more horizontal room than the default 340px
+      // so cells render at a legible size on desktop. Layout shrinks the body
+      // column to match — grids are the dominant info on a box popup anyway.
+      '.em-col-contents.has-grid{flex:0 0 480px}',
       '.em-col-heading{font-size:11px;font-weight:700;color:var(--grey-500);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;display:flex;align-items:center;gap:6px}',
       '.em-col-empty{font-size:12px;color:var(--grey-400);font-style:italic;padding:8px 0}',
       '.em-fields{padding:0}',
@@ -2010,6 +2014,9 @@
         children = await Lab.hierarchy.childrenOf(slug);
       } catch(e) { children = []; }
     }
+
+    var contentsCol = document.getElementById('em-col-contents');
+    if (contentsCol) contentsCol.classList.toggle('has-grid', !!hasGrid);
 
     if (hasGrid) {
       setContentsHeading('Contents', 'inventory_2');
