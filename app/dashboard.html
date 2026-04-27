@@ -232,8 +232,13 @@
   var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6' };
   var STATUS_ICONS = { in_stock: 'check_circle', needs_more: 'warning_amber', ordered: 'local_shipping', out_of_stock: 'cancel', external: 'open_in_new' };
 
+  // qa-cycle-67: alias legacy non-canonical status values so 51 resource cards
+  // tagged `status: needed` and 8 tagged `status: owned` are counted in the
+  // right buckets. Without this they were silently dropped from the
+  // "Needs Ordering" alert list and undercounted in the stat cards.
+  var STATUS_ALIASES = { needed: 'needs_more', owned: 'in_stock' };
   function resolveStatus(obj) {
-    if (obj.status) return obj.status;
+    if (obj.status) return STATUS_ALIASES[obj.status] || obj.status;
     if (obj.need_more) return 'needs_more';
     return 'in_stock';
   }

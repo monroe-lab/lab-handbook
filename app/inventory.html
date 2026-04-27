@@ -487,7 +487,7 @@ function toInventoryRow(obj, bottles) {
     instanceLabel: sourceIsBottles ? 'bottles' : 'containers',
     notes: obj.notes || '',
     lowStockThreshold: obj.low_stock_threshold || 0,
-    status: obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock'),
+    status: canonStatus(obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock')),
     updatedAt: obj.updated_at || '',
     createdAt: obj.created_at || '',
     createdBy: obj.created_by || '',
@@ -576,6 +576,12 @@ function getFiltered() {
 var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External' };
 var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6' };
 var STATUS_OPTIONS = ['in_stock', 'needs_more', 'ordered', 'out_of_stock', 'external'];
+// qa-cycle-67: 51 resource cards used the non-canonical `status: needed` and 8
+// used `status: owned` from a pre-schema migration. Without this alias the
+// inventory table fell back to "In Stock" green, hiding 51 supplies that need
+// reordering, and the dashboard "Needs Ordering" counter undercounted by 51.
+var STATUS_ALIASES = { needed: 'needs_more', owned: 'in_stock' };
+function canonStatus(s) { return STATUS_ALIASES[s] || s; }
 
 // #124: status pill is a real <select> so each change is a single commit
 // (the old click-to-cycle burned a GitHub Actions run on every intermediate

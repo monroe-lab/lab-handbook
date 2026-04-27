@@ -1578,15 +1578,21 @@
             in_accumulation: 'In Accumulation', ready_for_pickup: 'Ready for Pickup', picked_up: 'Picked Up',
             active: 'Active', waiting: 'Waiting', storage: 'Storage', completed: 'Completed', archived: 'Archived',
           };
-          var isCycleable = ['in_stock','needs_more','ordered','out_of_stock','external'].indexOf(val) !== -1;
-          var sColor = statusColors[val] || '#6b7280';
-          var sLabel = statusLabels[val] || String(val).replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+          // qa-cycle-67: alias legacy non-canonical status values
+          // (`needed` → needs_more, `owned` → in_stock) before the lookup so
+          // 51 resource cards with `status: needed` render as the orange
+          // "Needs More" pill instead of an unstyled grey "Needed" pill.
+          var STATUS_ALIASES = { needed: 'needs_more', owned: 'in_stock' };
+          var canonVal = STATUS_ALIASES[val] || val;
+          var isCycleable = ['in_stock','needs_more','ordered','out_of_stock','external'].indexOf(canonVal) !== -1;
+          var sColor = statusColors[canonVal] || '#6b7280';
+          var sLabel = statusLabels[canonVal] || String(canonVal).replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
           var cls = isCycleable ? 'em-status-toggle' : 'em-status-pill';
           var cursor = isCycleable ? 'pointer' : 'default';
           var titleAttr = isCycleable ? ' title="Click to change status"' : '';
           html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center">' +
             '<span style="color:var(--grey-500);min-width:80px">' + field.label + '</span>' +
-            '<span class="' + cls + '" data-status="' + escHtml(val) + '" style="display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:600;background:' + sColor + '18;color:' + sColor + ';border:1.5px solid ' + sColor + '40;cursor:' + cursor + '"' + titleAttr + '>' + escHtml(sLabel) + '</span>' +
+            '<span class="' + cls + '" data-status="' + escHtml(canonVal) + '" style="display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:600;background:' + sColor + '18;color:' + sColor + ';border:1.5px solid ' + sColor + '40;cursor:' + cursor + '"' + titleAttr + '>' + escHtml(sLabel) + '</span>' +
             '</div>';
           return;
         }
