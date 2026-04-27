@@ -13,6 +13,12 @@
 # ═══════════════════════════════════════════════════════════
 set -euo pipefail
 
+# Ignore SIGURG. macOS sometimes delivers it during sleep/wake or via the Go
+# runtime preemption used by some tools, and a prior session died with exit
+# 144 (=128+SIGURG) mid-cycle. Default Bash action is already ignore, but
+# claude/gtimeout subprocesses can forward signals to the parent group.
+trap '' URG
+
 PROJECT_DIR="/Users/greymonroe/Dropbox/myapps/grey-matter/Obsidian_ProfessorHQ/lab"
 SITE_URL="https://monroe-lab.github.io/lab-handbook"
 STATE_FILE="tests/qa-state.json"
