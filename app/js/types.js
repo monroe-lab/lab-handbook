@@ -21,18 +21,16 @@
       fields: [
         { key: 'title',               label: 'Name',                type: 'text',   required: true },
         { key: 'type',                label: 'Type',                type: 'select',  options: ['reagent','buffer','consumable','equipment','kit','chemical','enzyme','solution'] },
-        { key: 'location',            label: 'Default Location',    type: 'select',  options: ['Chemical Cabinet','Corrosive Cabinet','Flammable Cabinet','Hazardous Cabinet','Refrigerator','Freezer -20C','Freezer -80C','Bench','Other'] },
-        { key: 'location_detail',     label: 'Location Detail',     type: 'text' },
-        // R5: `containers:` is dead — physical instances are now standalone
-        // `bottle` objects under docs/stocks/ that point at this concept via
-        // `of:`. Col 3 backlinks pane lists them automatically.
+        // No `location` / `location_detail` on concepts: physical placement
+        // lives on the bottle instances (each bottle has its own `parent:`).
+        // Col 3 backlinks pane shows the real per-bottle locations.
         { key: 'status',              label: 'Status',              type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
         { key: 'created_at',          label: 'Created',             type: 'meta_readonly' },
         { key: 'created_by',          label: 'Created by',          type: 'meta_readonly' },
         { key: 'updated_at',          label: 'Updated',             type: 'meta_readonly' },
       ],
       // Which fields to show in popup card (read-only view)
-      displayFields: ['status', 'location', 'cas', 'notes', 'updated_at'],
+      displayFields: ['status', 'cas', 'notes', 'updated_at'],
       // Which fields to show as table columns
       tableColumns: ['name', 'type', 'status', 'quantity', 'location', 'updated_at'],
     },
