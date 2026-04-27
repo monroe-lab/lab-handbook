@@ -11,6 +11,6 @@ type: notebook
 
 ## Plan
 
-Today I am following the [[wet-lab/qa64-original-protocol-mohf5wcd]] protocol while QA tests its rename behavior.
+Today I am following the [[qa64-renamed-yolo-friends-round-1-mohf5wcd]] protocol while QA tests its rename behavior.
 
-Reference: [[wet-lab/qa64-original-protocol-mohf5wcd]] (used twice on purpose, to confirm both pills update).
+Reference: [[qa64-renamed-yolo-friends-round-1-mohf5wcd]] (used twice on purpose, to confirm both pills update).
