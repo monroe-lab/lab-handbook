@@ -133,6 +133,31 @@
     return window.Lab.types ? window.Lab.types.getFields(type) : [];
   }
 
+  // Render (or hide) the small type chip in the modal header. The chip
+  // mirrors the canonical type pill so users can tell at a glance whether
+  // they're looking at a chemical, kit, tube, etc. without scanning to
+  // col 1. Pass null/undefined/'' to hide the chip.
+  function setHeaderTypeChip(typeName) {
+    var chip = document.getElementById('em-type-chip');
+    if (!chip) return;
+    if (!typeName || !window.Lab.types) {
+      chip.style.display = 'none';
+      chip.innerHTML = '';
+      return;
+    }
+    var tc = window.Lab.types.get(typeName);
+    if (!tc) {
+      chip.style.display = 'none';
+      chip.innerHTML = '';
+      return;
+    }
+    chip.style.cssText = window.Lab.types.pillStyle(typeName) +
+      ';font-size:11px;padding:3px 9px;border-radius:11px;font-weight:500;' +
+      'display:inline-flex;align-items:center;gap:4px;flex-shrink:0;line-height:1.2';
+    chip.innerHTML = window.Lab.types.renderIcon(tc.icon) + ' ' +
+      window.Lab.escHtml(tc.label || typeName);
+  }
+
   // ── Load Toast UI Editor on demand ──
   function loadToast() {
     if (toastLoaded) return Promise.resolve();
@@ -602,6 +627,7 @@
     overlayEl.innerHTML =
       '<div class="em-modal">' +
         '<div class="em-modal-header">' +
+          '<span id="em-type-chip" style="display:none"></span>' +
           '<h2 id="em-title">Loading...</h2>' +
           '<button class="modal-close" id="em-close"><span class="material-icons-outlined">close</span></button>' +
         '</div>' +
@@ -856,6 +882,7 @@
     };
 
     document.getElementById('em-title').textContent = 'New ' + (Lab.types.get(defaultType).label || 'item');
+    setHeaderTypeChip(defaultType);
     overlayEl.classList.add('open');
     // R7 #23: openNew enters edit mode directly — set the body class now
     // so the issue FAB hides (close() will clear it).
@@ -923,6 +950,7 @@
     // Reset state
     currentState = { path: filePath, sha: null, meta: {}, body: '', editing: false };
     document.getElementById('em-title').textContent = 'Loading...';
+    setHeaderTypeChip(null);
     document.getElementById('em-fields').style.display = 'none';
     document.getElementById('em-fields').innerHTML = '';
     document.getElementById('em-content').innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading...</p></div>';
@@ -996,6 +1024,7 @@
       // Title
       var title = parsed.meta.title || filePath.split('/').pop().replace('.md', '');
       document.getElementById('em-title').textContent = title;
+      setHeaderTypeChip(parsed.meta.type);
 
       // Show edit/delete for logged-in users
       if (gh.isLoggedIn()) {
@@ -1071,6 +1100,7 @@
       var msg = e && e.message ? String(e.message) : '';
       var isNotFound = /404|not\s*found/i.test(msg);
       if (titleEl) titleEl.textContent = isNotFound ? 'Document not found' : slugName;
+      setHeaderTypeChip(null);
       var bodyHtml = isNotFound
         ? '<p style="margin:0 0 6px"><strong>' + window.Lab.escHtml(filePath) + '</strong></p>' +
           '<p style="color:var(--grey-500,#6b7280);font-size:13px">It may have been renamed, deleted, or never existed. Check the link or use search to find it.</p>'
@@ -1734,6 +1764,8 @@
           b.style.borderColor = isSel ? (btc.color || '#333') : 'transparent';
           b.style.opacity = isSel ? '1' : '0.6';
         });
+        // Mirror the change in the modal-header chip so it tracks edits.
+        setHeaderTypeChip(t);
       }
       fieldsEl.querySelectorAll('[data-type-pick]').forEach(function(btn) {
         btn.addEventListener('click', function() { applyPickedType(btn.getAttribute('data-type-pick')); });
@@ -2889,6 +2921,7 @@
         (currentState.path || '').split('/').pop().replace(/\.md$/, '');
       titleEl.textContent = newTitle;
     }
+    setHeaderTypeChip(currentState.meta && currentState.meta.type);
 
     renderFields(currentState.meta, false);
 

@@ -71,7 +71,10 @@
       tableColumns: ['name', 'type', 'status', 'location', 'notes'],
     },
     kit: {
-      color: '#00838f',
+      // Amber distinguishes kits from the teal reagent / dark-teal generic
+      // pills. Keeping the fa-kit-medical icon makes the colour read as
+      // "boxed supply / pharmacy", not as a buffer or chemical.
+      color: '#ffa000',
       icon: 'fa:fa-solid fa-kit-medical',
       label: 'Kit',
       group: 'resources',
@@ -475,7 +478,10 @@
       tableColumns: null,
     },
     tube: {
-      color: '#00897b',
+      // Cyan, distinct from the library teal (#00897b) so an aliquot tube
+      // and a sequencing library never share the same pill. Icons (vial vs
+      // book) help, but the colour cue should also disambiguate.
+      color: '#00bcd4',
       icon: 'fa:fa-solid fa-vial',
       label: 'Tube',
       group: 'locations',
