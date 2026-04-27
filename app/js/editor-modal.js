@@ -1568,9 +1568,12 @@
             return '<span style="display:inline-block;padding:2px 10px;border-radius:12px;background:var(--grey-100,#f3f4f6);color:var(--grey-700,#374151);font-size:12px;font-weight:500">' +
               escHtml(p) + '</span>';
           }).join(' ');
-          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:center;flex-wrap:wrap">' +
-            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0">' + field.label + '</span>' +
-            '<span style="display:flex;gap:4px;flex-wrap:wrap;flex:1 1 auto">' + pillsHtml + '</span>' +
+          // Outer row stays nowrap so the label+pills layout matches every other
+          // field in the FIELDS column (Type, Project, Status, etc.). Pills wrap
+          // inside the value span when there are too many to fit on one line.
+          html += '<div style="display:flex;gap:8px;margin-bottom:6px;font-size:14px;align-items:flex-start">' +
+            '<span style="color:var(--grey-500);min-width:80px;flex-shrink:0;padding-top:2px">' + field.label + '</span>' +
+            '<span style="display:flex;gap:4px;flex-wrap:wrap;flex:1 1 auto;min-width:0">' + pillsHtml + '</span>' +
             '</div>';
           return;
         }
