@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 64,
+  "cycle": 65,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8888,6 +8888,184 @@
         "Test artifact cleanup: 2 files deleted via gh DELETE. No GitHub side effects remain. Screenshots cleaned up via cycle directory."
       ],
       "page_errors": []
+    },
+    {
+      "cycle": 65,
+      "persona": "Dr. Monroe",
+      "modifier": "cross_linker",
+      "scenario_card": "Cross-page wikilink crawl",
+      "task": "PI in cross_linker mode walked the full chemical \u2192 bottle \u2192 cabinet \u2192 room cross-link crawl: started on dashboard, hit /app/inventory.html (verified the teal-bordered concept-vs-container orientation banner is present), searched 'ethanol absolute' (the single matching row shows a purple Chemical pill + Flammable Cabinet location pill, matching #6a1b9a). Hit /app/accessions.html (verified the purple-bordered concept orientation banner + 5 status stat cards 232/101/119/0/12/0 + accession rows with star priorities and color-coded Active/Waiting/Active pills). Opened the QIAGEN DNeasy protocol \u2014 clicked the inline `Ethanol Absolute` chemical pill in the body and got the 3-column popup (Type=Chemical purple, 2 instances-in-lab listed as backlinks, 5 references including Bill of Materials, Flammable Liquids SOP, Protocol Template, this protocol). Direct-loaded the ethanol-absolute concept page (Chemical pill + atom icon in header, location:Flammable Cabinet text). Loaded the bottle page stocks/bottle-ethanol-absolute \u2014 and uncovered the cross-link bug: `of: resources/ethanol-absolute` and `parent: locations/cabinet-flammable` rendered as PLAIN TEXT in the frontmatter bar instead of as clickable type-colored pills, dead-ending the crawl. Patched renderFrontmatterBar in app/js/shared.js to look up slug-shaped values in the cached object index and render them as clickable type-colored pills. Verified the fix: bottle page now shows `of: \ud83e\uddec Ethanol Absolute` (purple chemical pill) and `parent: \ud83d\udce6 Flammable Cabinet` (gray container pill); cabinet-flammable page now shows `parent: \ud83d\udeaa Robbins Hall 170` (room pill); clicking each pill navigates to the right page. Also spot-checked: 12-tab nav at 1280w (9 tabs + More), 1024w (6 tabs + More with Projects/People/Calendar/Lab Map/Apps/Wiki in the More popover), and mobile 375px bottom bar (Wiki/Notebooks/Accessions/Inventory/More). Inventory reagent search confirmed kit and reagent pills are visually nearly identical (both teal hues \u2014 observation, not patched).",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step01-dashboard-loaded.png",
+          "shows": "Dashboard at 1280w with 9-tab top nav + More, stat cards (14 notebooks, 280 inventory, 232 accessions, 11 projects, 9 people, 41 calendar, 40 lab-map, Tools/Apps, 903 wiki docs), Inventory Status pane (219 In Stock / 1 Needs More / 1 Out of Stock / 476 Untracked) and Recent Updates listing the qa-cycle-64 commits.",
+          "evaluation": "Correct. Counts are reasonable, recent updates reflect last cycle's commits, no overflow.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step02-inventory-top-banner.png",
+          "shows": "Inventory page top: orientation banner reading 'Concepts vs containers. The inventory lists the general things \u2014 a chemical, a reagent, a kit. Each has physical instances: \ud83e\udea3 bottles / containers with their own locations, lots, and expirations. Link the concept from a protocol or notebook; follow through to the bottle for \"where is it in the lab?\" For physical navigation, use the Lab Map.' Followed by 5 stat cards (Total/In Stock/Needs More/Ordered/Out of Stock), filter row, and item table with chemical (purple) / buffer-solution (orange) / reagent (teal) pills.",
+          "evaluation": "Banner is present and readable; pill colors render correctly per the type contract. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step03-inventory-search-ethanol-absolute.png",
+          "shows": "Inventory filtered to 'ethanol absolute' \u2014 single row 'Ethanol Absolute' with purple Chemical pill, green In Stock, 2 bottles qty, gray Flammable Cabinet location pill.",
+          "evaluation": "Search works, type pill = purple, location pill rendered with cube icon. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step04-accessions-top-banner.png",
+          "shows": "Accessions page top: purple-bordered orientation banner ('What's an accession? The general concept ... samples / extractions / libraries / pools'), 5 status stat cards (232 ACCESSIONS / 101 ACTIVE / 119 WAITING / 0 STORAGE / 12 COMPLETED / 0 ARCHIVED), filter row (All Projects/All Statuses/All People), and accession rows with star priorities + color-coded status pills.",
+          "evaluation": "Banner present, stats look right, status pills color-coded correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step05-protocol-qiagen-dneasy.png",
+          "shows": "Protocol page wet-lab/extraction/qiagen-dneasy-extraction. Top breadcrumb 'Protocol' purple pill + title. Body shows Reagents row with 'DNeasy plant mini' kit pill (teal), then Consumables row with \ud83e\uddea Microtube + \u2697\ufe0f Ethanol Absolute (purple chemical pill with atom icon).",
+          "evaluation": "Inline `[[ethanol-absolute]]` body wikilink correctly resolves to a purple Chemical pill with the atom icon. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step06-protocol-ethanol-pill-visible.png",
+          "shows": "Same protocol page, ethanol pill scrolled into view. 26 object-pills rendered total on the page.",
+          "evaluation": "All inline body pills render correctly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step07-protocol-ethanol-popup.png",
+          "shows": "3-column popup card opened from the inline ethanol pill click. Left = Fields (Type: Chemical purple, Loc: [[resources/ethanol-absolute]] copy-pastable wikilink, Name, Status). Center = full body. Right = '2 INSTANCES IN LAB' (Ethanol Absolute, Ethyl Alcohol Absolute) + 'Add Instance' button + '5 REFERENCES' (Bill of Materials, Chemical Lookup SOP, Flammable Liquids SOP, Protocol Template, QIAGEN DNeasy Plant Extraction).",
+          "evaluation": "Popup orients the user correctly: backlinks pane lists physical bottles separately from references. Cross-linking works at the popup level. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step08-ethanol-absolute-concept.png",
+          "shows": "Direct nav to /app/wiki.html?doc=resources/ethanol-absolute. Header shows 'Chemical' purple pill, 'cas: 64-17-5', 'location: Flammable Cabinet' (text). Body has Chemistry / Why we use it sections + Flammability matters callout. 8 connections minimap.",
+          "evaluation": "Concept page renders cleanly. The location field is plain text 'Flammable Cabinet' (a label, not a slug \u2014 correct). \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step09-no-bottle-pill.png",
+          "shows": "Same concept page as step08. The full doc body does NOT list child bottles; bottle backlinks are only visible in the popup (step07).",
+          "evaluation": "Acceptable design \u2014 full wiki page focuses on prose, popup shows backlinks. Not a bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step11-bottle-page.png",
+          "shows": "Direct nav to /app/wiki.html?doc=stocks/bottle-ethanol-absolute. Header shows orange Bottle pill with wine-bottle icon, then 'of resources/ethanol-absolute' and 'parent locations/cabinet-flammable' as PLAIN TEXT (not clickable), 'quantity 1', 'unit each'. Body says 'Bottle of [Ethanol Absolute]' (inline body pill is purple, correct).",
+          "evaluation": "BUG: frontmatter `of` and `parent` slug values render as plain text instead of clickable type-colored pills. Cross-linker workflow dead-ends here \u2014 clicking the slug text does nothing.",
+          "issues_found": [
+            "BUG-BOTTLE-FRONTMATTER-PILLS-MISSING"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step12-no-cabinet-pill.png",
+          "shows": "Same as step11 \u2014 confirms no cabinet pill is reachable from the bottle's frontmatter bar.",
+          "evaluation": "Reproduces the bug.",
+          "issues_found": [
+            "BUG-BOTTLE-FRONTMATTER-PILLS-MISSING"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step14-cabinet-flammable-page.png",
+          "shows": "Cabinet page mid-load failed with 'Network error \u2014 you may be offline. Check your connection and try again.' Sidebar still rendered.",
+          "evaluation": "Transient network blip during run, not a bug. Page loads on retry (verify4).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step15-no-room-pill.png",
+          "shows": "Same network-error empty state.",
+          "evaluation": "Same transient error.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step17-room-robbins-170.png",
+          "shows": "Room page locations/room-robbins-0170 loaded cleanly. Header has gray 'Room' pill + label/notes/timestamps. Body 'The main Monroe Lab wet lab space.' + Contents section. 12 connections minimap shows freezers/fridges/Lab Orientation/Centrifuge etc.",
+          "evaluation": "Room renders correctly. Frontmatter values here are all plain labels (not slugs), so plain-text rendering is correct.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step18-lab-map-tree.png",
+          "shows": "Lab Map page \u2014 'Map design in progress' notice card + Locations tree showing Asmundson Growth Chamber / Autoclave Room / Genome Center / Robbins Hall 170 (collapsed, 11 items) / Robbins Hall 262 / Unsorted (review).",
+          "evaluation": "Tree renders correctly with room icons. Collapse/expand chevrons visible. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step19-lab-map-after-expand.png",
+          "shows": "Clicked the wrong node (Autoclave Room rather than expanding Robbins 170). Editor-modal-style 3-column popup opened: Fields (Type=Room dark teal, Link=[[locations/autoclave-room]] copy-pastable, Name), center body with two purple Autoclave pills inline, right Contents pane = 'No children yet.' + Add item button.",
+          "evaluation": "Popup behaves correctly even on accidental click. The Contents pane is the right place for child objects (parallel to the bottle backlinks pane).",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step20-inventory-reagent-search.png",
+          "shows": "Inventory filtered to 'reagent'. 10 rows: pTXB1-Tn5 Plasmid (Reagent), Bradford Reagent (Kit), Ethanol 70% (Reagent, Bench location pill), IDT oligos x3 (Reagent), Nuclease-Free Water (Reagent), pH Calibration Buffers (Reagent), Reagent Alcohol 100% (Chemical, Flammable Cabinet), TC Agar A175 (Reagent, Chemical Cabinet).",
+          "evaluation": "All type pills rendered. NOTE (visual observation): Reagent (#009688) and Kit (#00838f) are nearly indistinguishable teal hues \u2014 Bradford Reagent's Kit pill looks the same as the Reagent pills next to it. The run focus expects Kit=orange. Logged as visual observation, not patched (color is a design call).",
+          "issues_found": [
+            "VIS-OBS-KIT-VS-REAGENT-COLOR-CLASH"
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step20b-ethanol-70-concept.png",
+          "shows": "Direct nav to resources/ethanol-70 (a Reagent type, not Chemical). Header shows teal Reagent pill with flask icon, plus stale-looking unit/status frontmatter that probably belongs on a bottle, not a concept.",
+          "evaluation": "Page renders fine. Observation: ethanol-70 is classified as Reagent while ethanol-absolute is Chemical \u2014 same compound, different concentration, different EHS status. Data classification call, not a UI bug.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step21-dashboard-nav-1280.png",
+          "shows": "Dashboard at 1280w. Top nav primary tabs visible: Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, Projects, People, Calendar (9) + More.",
+          "evaluation": "9 tabs + More fits 1280w cleanly.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step22-dashboard-nav-1024.png",
+          "shows": "Dashboard at 1024w. Primary visible: Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste (6) + More. Projects/People/Calendar pushed into More overflow.",
+          "evaluation": "Responsive overflow works \u2014 primary tabs slim down and More takes the rest.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step23-more-popover-open.png",
+          "shows": "More popover open at 1024w. Lists Projects / People / Calendar / Lab Map / Apps / Wiki with icons.",
+          "evaluation": "Popover renders correctly with all overflow tabs. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/step24-mobile-bottom-nav.png",
+          "shows": "Mobile 375px viewport. Bottom tab bar shows Wiki / Notebooks / Accessions / Inventory / More with icons. Top header is compact (logo + Sign out). The popover from the prior step is still open over the layout (didn't auto-close on resize).",
+          "evaluation": "Mobile bottom bar correct. Popover-not-auto-closing-on-resize is a minor UX ish but only happens if you resize mid-session, not in real use.",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/verify1-bottle-page-after-fix.png",
+          "shows": "Bottle page after the shared.js patch deployed. Frontmatter bar now shows `of:` followed by a PURPLE 'Ethanol Absolute' pill with atom icon, and `parent:` followed by a GRAY 'Flammable Cabinet' pill with cube icon. Both clickable.",
+          "evaluation": "FIX VERIFIED. Slug values render as type-colored clickable pills. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/verify4-cabinet-page-after-fix.png",
+          "shows": "Cabinet page after deploy. Frontmatter bar shows `parent:` followed by a 'Robbins Hall 170' pill with room icon. Clickable.",
+          "evaluation": "FIX VERIFIED at the next layer of the crawl. \u2713",
+          "issues_found": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle65/verify5-after-click-room-pill.png",
+          "shows": "After clicking the room pill, navigated to the Robbins Hall 170 page (Room pill in header, label/notes/timestamps in frontmatter bar, 12-connection minimap).",
+          "evaluation": "Click navigation works end-to-end. The full bottle \u2192 cabinet \u2192 room cross-link crawl is now restored. \u2713",
+          "issues_found": []
+        }
+      ],
+      "bugs": [
+        "BUG-BOTTLE-FRONTMATTER-PILLS-MISSING",
+        "VIS-OBS-KIT-VS-REAGENT-COLOR-CLASH"
+      ],
+      "fixes": [
+        "CYCLE65-FIX-FRONTMATTER-SLUG-PILLS"
+      ],
+      "observations": [
+        "Cross-linker workflow surfaces a real cross-page bug fast: the frontmatter bar renders all values as plain text + only http(s) URLs become anchors. Slug-shaped values (a/b form, present in the object index) deserve to be clickable type-colored pills \u2014 that's what the rest of the app already does for body wikilinks. Patched.",
+        "ethanol-70 is classified as Reagent while ethanol-absolute is Chemical. Same compound, different concentration; both flammable, both EHS-relevant. Inconsistent type assignment. Data call, not patched.",
+        "Reagent (#009688) and Kit (#00838f) pill hues are nearly indistinguishable in inventory rows \u2014 the run focus expects Kit=orange. Worth a follow-up design pass; not patched without confirmation since types.js color is the canonical source.",
+        "Concept popups show '[[resources/<slug>]]' as a Link/Loc field \u2014 that's the canonical wikilink value, copy-pastable. It's intentional, not a bug."
+      ]
     }
   ],
   "bugs_found": [
@@ -9418,6 +9596,21 @@
       "status": "closed",
       "fixed_in_commit": "4e70a55c",
       "summary": "renameDoc() seeded `oldTitle` from `currentDoc.split('/').pop()` (the URL slug) and only overrode it from NAV. When NAV did not have the file (fresh-deploy scenarios, files added via git push since the last index rebuild, or any session where buildNav hadn't picked up the entry), the slug stayed as the rename modal's default value AND as the H1 rewrite regex's anchor. Two visible symptoms: (a) Rename Protocol modal pre-filled the URL slug instead of the human title, asking users to edit a slug as if it were their title; (b) the body H1 rewrite \u2014 `^(# )<oldTitle>$` \u2014 would not match the file's actual `# Human Title`, so after rename the page would still display the old H1 even though the breadcrumb, frontmatter, and toast all reflected the new title. Reproduced this cycle by seeding files via direct GitHub PUT (NAV had no entry). Fix: prefer `currentMeta.title` (set by loadDoc from the parsed frontmatter) as the seed, then let NAV override only when it has a non-empty title, and only fall back to the slug when neither source has a value."
+    },
+    {
+      "id": "BUG-BOTTLE-FRONTMATTER-PILLS-MISSING",
+      "cycle": 65,
+      "severity": "ux",
+      "status": "closed",
+      "fix_commit": "5121ea0e",
+      "summary": "renderFrontmatterBar in app/js/shared.js rendered slug-shaped frontmatter values (`of: resources/...`, `parent: locations/...`) as plain text instead of clickable type-colored pills. Cross-link crawl from bottle \u2192 concept \u2192 cabinet \u2192 room dead-ended. Fixed by looking up each scalar/array string in the cached object index and emitting an `<a>` styled with the target type's color, icon, and title."
+    },
+    {
+      "id": "VIS-OBS-KIT-VS-REAGENT-COLOR-CLASH",
+      "cycle": 65,
+      "severity": "visual",
+      "status": "open",
+      "summary": "Reagent (#009688) and Kit (#00838f) pills are visually nearly identical teal hues. In inventory rows where both types appear, users can't tell them apart. Run focus suggests Kit should be orange. Not patched \u2014 color is a design call in app/js/types.js and worth a separate design pass with Grey."
     }
   ],
   "fixes_applied": [
@@ -9807,6 +10000,14 @@
       "lines": "~1503-1512",
       "commit": "4e70a55c",
       "summary": "renameDoc() now derives oldTitle from currentMeta.title (set by loadDoc) before consulting NAV, and only falls back to the URL slug when neither source has a value. Fixes both the prompt-pre-fill UX issue and the H1 rewrite regex miss for files not yet present in NAV."
+    },
+    {
+      "id": "CYCLE65-FIX-FRONTMATTER-SLUG-PILLS",
+      "cycle": 65,
+      "file": "app/js/shared.js",
+      "lines": "~393-440",
+      "commit": "5121ea0e",
+      "summary": "renderFrontmatterBar now resolves slug-shaped scalar/array string values (containing '/', not a URL) against window.Lab.gh._getCachedIndex() and renders them as inline clickable type-colored pills using the target type's color/icon/title. Falls back to plain-text rendering when the index isn't loaded or the slug isn't found. Restores the cross-linker workflow from bottle \u2192 concept and cabinet \u2192 room."
     }
   ],
   "improvements_proposed": [
@@ -9814,7 +10015,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 63,
+  "screenshots_taken": 90,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
@@ -9844,5 +10045,5 @@
       "note": "Cycle 44 (Vianney Ahn + careful + Chemical concept+bottle linking) \u2014 created 2 fresh bottles under the Acetone chemical concept, verified rollup goes 500 mL \u2192 2 bottles \u2192 3 bottles instantly (BOTTLE-NOT-ROLLED-UP-AFTER-CREATE from cycle 20 confirmed FIXED), confirmed Of-pill cycle-4 fix still works, caught + fixed CYCLE44-INSTANCE-ROW-NO-SUBTITLE (commit 4d5e666d initial \u2192 582c61b5 v2 unifies single + multi cases). Closed two carry-over labels: BOTTLE-NOT-ROLLED-UP-AFTER-CREATE and CYCLE27-OF-PLACEHOLDER-TRUNCATED (already fixed in cycle 39, label was stale)."
     }
   ],
-  "last_updated": "2026-04-27T16:39:13"
+  "last_updated": "2026-04-27T17:05:59"
 }
