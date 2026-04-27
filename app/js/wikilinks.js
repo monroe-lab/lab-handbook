@@ -145,8 +145,8 @@
     var conf = getConf(obj.type);
     var isLow = obj.low_stock_threshold && obj.quantity != null && obj.quantity <= obj.low_stock_threshold;
     var itemStatus = obj.status ? obj.status : (obj.need_more ? 'needs_more' : 'in_stock');
-    var _statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
-    var _statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
+    var _statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External' };
+    var _statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6' };
     var esc = window.Lab ? window.Lab.escHtml : function(s) { return s; };
 
     var details = '';

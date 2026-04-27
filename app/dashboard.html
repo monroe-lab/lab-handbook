@@ -228,9 +228,9 @@
   }
 
   // ── Inventory Status ──
-  var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
-  var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
-  var STATUS_ICONS = { in_stock: 'check_circle', needs_more: 'warning_amber', out_of_stock: 'cancel', external: 'open_in_new' };
+  var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External' };
+  var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6' };
+  var STATUS_ICONS = { in_stock: 'check_circle', needs_more: 'warning_amber', ordered: 'local_shipping', out_of_stock: 'cancel', external: 'open_in_new' };
 
   function resolveStatus(obj) {
     if (obj.status) return obj.status;
@@ -254,7 +254,7 @@
     var untrackedCount = objects.filter(function(obj) {
       return isInvOrUntyped(obj.type) && !isInv(obj.type);
     }).length;
-    var counts = { in_stock: 0, needs_more: 0, out_of_stock: 0, external: 0 };
+    var counts = { in_stock: 0, needs_more: 0, ordered: 0, out_of_stock: 0, external: 0 };
     var alertItems = [];
     invItems.forEach(function(obj) {
       var s = resolveStatus(obj);
@@ -263,7 +263,7 @@
     });
 
     var summaryHtml = '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">';
-    ['in_stock','needs_more','out_of_stock','external'].forEach(function(s) {
+    ['in_stock','needs_more','ordered','out_of_stock','external'].forEach(function(s) {
       if (!counts[s]) return;
       summaryHtml += '<div style="display:flex;align-items:center;gap:4px;">' +
         '<span class="material-icons-outlined" style="font-size:16px;color:' + STATUS_COLORS[s] + ';">' + STATUS_ICONS[s] + '</span>' +

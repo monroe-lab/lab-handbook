@@ -1569,16 +1569,16 @@
           // app/accessions.html STATUS_COLORS) so the modal popup matches the
           // tracker row.
           var statusColors = {
-            in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6',
+            in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6',
             in_accumulation: '#f59e0b', ready_for_pickup: '#f9a825', picked_up: '#6b7280',
             active: '#f59e0b', waiting: '#7c3aed', storage: '#3b82f6', completed: '#22c55e', archived: '#6b7280',
           };
           var statusLabels = {
-            in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External',
+            in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External',
             in_accumulation: 'In Accumulation', ready_for_pickup: 'Ready for Pickup', picked_up: 'Picked Up',
             active: 'Active', waiting: 'Waiting', storage: 'Storage', completed: 'Completed', archived: 'Archived',
           };
-          var isCycleable = ['in_stock','needs_more','out_of_stock','external'].indexOf(val) !== -1;
+          var isCycleable = ['in_stock','needs_more','ordered','out_of_stock','external'].indexOf(val) !== -1;
           var sColor = statusColors[val] || '#6b7280';
           var sLabel = statusLabels[val] || String(val).replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
           var cls = isCycleable ? 'em-status-toggle' : 'em-status-pill';
@@ -1669,11 +1669,11 @@
       }
     }
 
-    // Wire status toggle (view mode) — cycles through in_stock → needs_more → out_of_stock
+    // Wire status toggle (view mode) — cycles in_stock → needs_more → ordered → out_of_stock
     if (!editable) {
-      var statusCycle = ['in_stock', 'needs_more', 'out_of_stock'];
-      var statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444' };
-      var statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock' };
+      var statusCycle = ['in_stock', 'needs_more', 'ordered', 'out_of_stock'];
+      var statusColors = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444' };
+      var statusLabels = { in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock' };
       fieldsEl.querySelectorAll('.em-status-toggle').forEach(function(badge) {
         badge.addEventListener('click', async function() {
           if (!currentState || !currentState.path) return;

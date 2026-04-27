@@ -24,7 +24,7 @@
         // No `location` / `location_detail` on concepts: physical placement
         // lives on the bottle instances (each bottle has its own `parent:`).
         // Col 3 backlinks pane shows the real per-bottle locations.
-        { key: 'status',              label: 'Status',              type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
+        { key: 'status',              label: 'Status',              type: 'select',  options: ['in_stock','needs_more','ordered','out_of_stock','external'], default: 'in_stock' },
         { key: 'created_at',          label: 'Created',             type: 'meta_readonly' },
         { key: 'created_by',          label: 'Created by',          type: 'meta_readonly' },
         { key: 'updated_at',          label: 'Updated',             type: 'meta_readonly' },
@@ -65,7 +65,7 @@
         // just like reagents. editor-modal's view-mode status badge cycles
         // through the states on click, and dashboard "Needs Ordering" picks
         // these up automatically.
-        { key: 'status',   label: 'Status',   type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
+        { key: 'status',   label: 'Status',   type: 'select',  options: ['in_stock','needs_more','ordered','out_of_stock','external'], default: 'in_stock' },
       ],
       displayFields: ['status', 'location', 'notes'],
       tableColumns: ['name', 'type', 'status', 'location', 'notes'],
@@ -186,7 +186,7 @@
         { key: 'level',      label: 'Level',               type: 'text', placeholder: 'e.g. full, 3/4, empty' },
         // Physical bottle can be marked "needs more" (time to open a new one)
         // or "out of stock" (bottle is empty / gone). Click-cycles in popup.
-        { key: 'status',     label: 'Status',              type: 'select',  options: ['in_stock','needs_more','out_of_stock','external'], default: 'in_stock' },
+        { key: 'status',     label: 'Status',              type: 'select',  options: ['in_stock','needs_more','ordered','out_of_stock','external'], default: 'in_stock' },
       ],
       displayFields: ['status', 'of', 'parent', 'position', 'quantity', 'unit', 'lot', 'expiration', 'acquired', 'level'],
       tableColumns: ['name', 'of', 'parent', 'quantity', 'unit', 'status', 'expiration'],

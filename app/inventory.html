@@ -230,6 +230,7 @@ tr.low-stock td:first-child::before {
       <option value="">All Statuses</option>
       <option value="in_stock">In Stock</option>
       <option value="needs_more">Needs More</option>
+      <option value="ordered">Ordered</option>
       <option value="out_of_stock">Out of Stock</option>
       <option value="external">External</option>
     </select>
@@ -256,6 +257,10 @@ tr.low-stock td:first-child::before {
     <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='needs_more';renderTable()">
       <span class="material-icons-outlined" style="color:#f59e0b">warning_amber</span>
       <div><div class="stat-value" id="statNeedsMore" style="color:#f59e0b">-</div><div class="stat-label">Needs More</div></div>
+    </div>
+    <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='ordered';renderTable()">
+      <span class="material-icons-outlined" style="color:#6366f1">local_shipping</span>
+      <div><div class="stat-value" id="statOrdered" style="color:#6366f1">-</div><div class="stat-label">Ordered</div></div>
     </div>
     <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('filterStatus').value='out_of_stock';renderTable()">
       <span class="material-icons-outlined" style="color:#ef4444">cancel</span>
@@ -568,9 +573,9 @@ function getFiltered() {
   return items;
 }
 
-var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', out_of_stock: 'Out of Stock', external: 'External' };
-var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', out_of_stock: '#ef4444', external: '#3b82f6' };
-var STATUS_OPTIONS = ['in_stock', 'needs_more', 'out_of_stock', 'external'];
+var STATUS_LABELS = { in_stock: 'In Stock', needs_more: 'Needs More', ordered: 'Ordered', out_of_stock: 'Out of Stock', external: 'External' };
+var STATUS_COLORS = { in_stock: '#22c55e', needs_more: '#f59e0b', ordered: '#6366f1', out_of_stock: '#ef4444', external: '#3b82f6' };
+var STATUS_OPTIONS = ['in_stock', 'needs_more', 'ordered', 'out_of_stock', 'external'];
 
 // #124: status pill is a real <select> so each change is a single commit
 // (the old click-to-cycle burned a GitHub Actions run on every intermediate
@@ -624,11 +629,12 @@ function renderTable() {
   var items = getFiltered();
 
   // Stats
-  var statusCounts = { in_stock: 0, needs_more: 0, out_of_stock: 0, external: 0 };
+  var statusCounts = { in_stock: 0, needs_more: 0, ordered: 0, out_of_stock: 0, external: 0 };
   inventory.forEach(function(i) { statusCounts[i.status] = (statusCounts[i.status] || 0) + 1; });
   document.getElementById('statTotal').textContent = inventory.length;
   document.getElementById('statInStock').textContent = statusCounts.in_stock;
   document.getElementById('statNeedsMore').textContent = statusCounts.needs_more;
+  document.getElementById('statOrdered').textContent = statusCounts.ordered;
   document.getElementById('statOutOfStock').textContent = statusCounts.out_of_stock;
 
   // Sort arrows
