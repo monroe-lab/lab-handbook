@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 61,
+  "cycle": 62,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -8421,6 +8421,173 @@
         "Concept/instance orientation banner persistent across status filter changes \u2014 purple left border holds, instance-icons stay legible.",
         "POST-FIX has-grid class correctly applies only when meta.grid is set; opening a Shelf popup (no grid) leaves the 340px default \u2014 no layout regression on existing non-grid popups."
       ]
+    },
+    {
+      "cycle": 62,
+      "persona": "Dr. Monroe",
+      "modifier": "explorer",
+      "scenario": "Calendar add/delete",
+      "task": "PI in explorer mode loads /calendar/ (verifies redirect to /app/calendar.html), tests junk URL params (?week=invalid&foo=bar \u2014 calendar ignores them, settles on This Week), walks the prev/next/this-week buttons, opens Add Event from the toolbar (cancels), then click-creates by clicking the empty Wed Apr 29 14:00 cell \u2014 verifies modal pre-fills (date 2026-04-29, start 14:00, end 15:00), submits a [[Grey Monroe]] event, sees the purple member-color card render in the right cell, opens via card click into the editor modal, deletes via the red Delete button + confirm, reloads to verify the event is gone, then drops viewport to 768 and 375 to check day-tab + bottom-nav behaviour.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step01-a01-calendar-redirect-result.png",
+          "shows": "after /calendar/ redirect \u2192 lands on /app/calendar.html with This Week label 'Apr 27 \u2013 May 3, 2026'",
+          "evaluation": "Redirect works, calendar loads, top nav shows 12-tab row (Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, Projects, People, Calendar (active), Lab Map, Apps, Wiki). 6 events render across MON/TUE/WED/THU/FRI 9-3pm. Member legend shows '\u25cf barb-m' only.",
+          "issues": [
+            "Member legend and event member chips render the slug 'barb-m' rather than the resolved person card title \u2014 a wikilink rendering quirk worth flagging but matches what the rich-input layer produces today."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step02-a02-calendar-with-junk-query.png",
+          "shows": "/app/calendar.html?week=2099-01-01&foo=bar",
+          "evaluation": "Calendar ignores unknown query params, defaults to current week. No console errors, grid renders normally.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step03-a03-calendar-baseline-week-grid.png",
+          "shows": "baseline This Week grid",
+          "evaluation": "Mon-Sun columns, 7am-10pm rows, six events laid out correctly with overlap-side-by-side layout (MS plate prep + Lab Meeting both in MON column).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step04-a04-after-next-week.png",
+          "shows": "after Next Week click \u2192 label May 4 \u2013 May 10, 2026",
+          "evaluation": "Same recurring events appear (weekly cadence). Next-week button is active/teal-tinted on click. Week label updated correctly. Verified May 4 2026 is a Monday.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step05-a05-after-prev-week-back.png",
+          "shows": "after Prev Week \u2192 back to Apr 27 \u2013 May 3, 2026",
+          "evaluation": "Returns to original week. Same six events render.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step06-a06-after-this-week.png",
+          "shows": "after This Week button click",
+          "evaluation": "Same as baseline. No regression.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step07-a07-add-event-modal-from-toolbar.png",
+          "shows": "Add Event modal opened from toolbar",
+          "evaluation": "Modal appears centred over backdrop. Title placeholder 'e.g. DNA extraction, Lab meeting'. Member field placeholder reads '[[name]] \u2014 type [[ to autocomplete'. Date defaults to today (04/27/2026 = Mon). Start 9:00am, End 10:00am. Body textarea with 'Becomes the body of the event page. Type [[ to link a protocol, person, sample, etc.' Repeat dropdown defaults to 'Does not repeat'.",
+          "issues": [
+            "MODAL-BUTTONS-OVERFLOW: Cancel and Create Event buttons sit BELOW the modal's max-height clipping edge (modal 720px, content 790px). User must scroll inside the modal to submit. Filed as cycle-62 bug; fixed in same cycle via sticky footer."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step08-a08-after-cancel-modal.png",
+          "shows": "after Cancel \u2192 modal dismissed",
+          "evaluation": "Modal closed cleanly, calendar visible behind. Faint teal hover-state remains on THU 3pm cell \u2014 Playwright cursor parking artefact, not a real bug.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step09-a09-before-cell-click.png",
+          "shows": "before clicking empty Wed 14:00 cell",
+          "evaluation": "Cursor positioned at WED 14:00. No modal yet.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step10-a10-cell-click-modal-prefilled.png",
+          "shows": "after click on empty WED 14:00 cell \u2014 modal opens with prefill",
+          "evaluation": "Date pre-filled to 04/29/2026 (Wed), Start 2:00pm, End 3:00pm (auto +1hr). Title and Member empty. Verified by JS probe: {date: 2026-04-29, start: 14:00, end: 15:00}.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step11-a11-modal-filled.png",
+          "shows": "modal filled with title 'QA62 PI Calendar Probe mohb9zw0', member [[Grey Monroe]], body markdown",
+          "evaluation": "Title input shows the typed text. Member input shows raw '[[Grey Monroe]]' wikilink syntax. Body textarea accepts em-dash and multi-line markdown.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step12-a12-after-submit-event-grid.png",
+          "shows": "after submit \u2192 new purple/lavender event card in WED 2-3pm cell",
+          "evaluation": "Card rendered with title, time '2:00pm \u2013 3:00pm', and '@Grey Monroe' chip. Distinct purple member-colour from the other green barb-m cards. Legend updated: '\u25cf Grey Monroe' purple + '\u25cf barb-m' green. Two toasts visible bottom-right: 'Creating 1 event(s)...' and 'Event created' (success).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step13-a13-card-rendered-zoom.png",
+          "shows": "same as step12, post-render verification",
+          "evaluation": "Inner card text reads 'QA62 PI Calendar Probe mohb9zw0\\n2:00pm \u2013 3:00pm\\nGrey Monroe' \u2014 confirmed via Playwright innerText.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step14-a14-editor-modal-opened.png",
+          "shows": "click event card \u2192 editor modal popup",
+          "evaluation": "Editor modal shows three-column layout: FIELDS (Type=Event, Link=[[events/2026-04-29-qa62-pi-calendar-probe-mohb9zw0]], Title, Date 2026-04-29, Start 14:00, End 15:00, Member(s) Grey Monroe pill, Created By greymonroe), centre body 'PI calendar probe \u2014 auto-created by QA-cycle-62. STAMP: mohb9zw0.\\n\\nLinks to [@Grey Monroe] (PI).' with the inline wikilink resolved as a person pill, and REFERENCES pane with 'Add instance' button + 'No references yet'. Bottom buttons Close / Delete (red) / Edit.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step15-a15-delete-confirm-modal.png",
+          "shows": "click Delete \u2192 2-button confirm dialog",
+          "evaluation": "Title 'Delete Object', body 'Delete \"QA62 PI Calendar Probe mohb9zw0\"?\\nThis cannot be undone.', Cancel + red Delete buttons. Single-event confirm (no recurrence variant since recurrence_id was empty).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step16-a16-after-delete.png",
+          "shows": "after delete confirm \u2192 card gone, success toast",
+          "evaluation": "WED 2-3pm cell empty again. Legend reverted to '\u25cf barb-m' only (Grey Monroe pill removed since no events left for that member). Toast 'Deleted: QA62 PI Calendar Probe mohb9zw0' visible bottom-right.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step17-a17-post-reload-grid.png",
+          "shows": "after full page reload \u2192 confirm persistence",
+          "evaluation": "Calendar grid identical to baseline (six recurring barb-m events). No QA62 card. Confirms the delete persisted to GitHub and the in-memory schedule was correctly purged.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step18-a18-narrow-viewport-768.png",
+          "shows": "viewport shrunk to 768x900 \u2014 tablet/narrow",
+          "evaluation": "Top nav collapses; day-tab strip becomes visible (Mon active by default), legend hidden. Only MON column renders (other days hidden via mobile-hide). Overlap layout still works (MS plate prep + Lab Meeting side-by-side within MON). Bottom mobile bar shows Wiki / Notebooks / Accessions / Inventory / More.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/step19-a19-narrow-viewport-375-mobile.png",
+          "shows": "viewport at 375x812 \u2014 phone",
+          "evaluation": "Header stacks: logo+sign-out, prev/next/this-week, week label, Add Event button. Day-tabs and TIME+MON column render correctly. Issue lightbulb FAB visible bottom-right. Mobile bottom bar present.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/verify01-modal-after-fix.png",
+          "shows": "Add Event modal AFTER sticky-footer fix deploy",
+          "evaluation": "Cancel and Create Event buttons now sit at the bottom of the modal with a 1px top border separator and white background. JS probe confirms okBtn rect bottom y=796 vs modal bottom y=810 \u2192 buttons are visible inside the clipping edge. Mobile probe (375x700) also confirms okBtn visibleInsideModal=true.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle62/verify02-modal-after-fix-mobile.png",
+          "shows": "Add Event modal at 375x700 after fix",
+          "evaluation": "Sticky footer holds: okBtn y=582-616 within modal y=70-630.",
+          "issues": []
+        }
+      ],
+      "bugs": [
+        {
+          "id": "CYCLE62-MODAL-BUTTONS-OVERFLOW",
+          "severity": "ux",
+          "status": "closed",
+          "summary": "Lab.modal.form-built modals (Add Event, Add Accession-style flows) overflowed their 80vh max-height when the field set ran ~790px (Title, Member, Date, Start, End, 180px Body, Repeat). The submit/cancel button row sat ~46px below the modal's clipping rectangle, requiring users to discover the inner scroll. Confirmed via Playwright probe: okBtn rect bottom y=856 vs modal.bottom y=810 on 1440x900. Same pattern would worsen on smaller viewports.",
+          "fix": "Made the button row position:sticky bottom:-24px with white background, 1px top border, and -24px horizontal margins to span the modal's full padded width (re-padded internally by 24px so buttons aren't flush). Verified: okBtn now y=762-796 within modal y=90-810; mobile (375x700) y=582-616 within modal y=70-630.",
+          "commit": "98d5b89f"
+        }
+      ],
+      "fixes": [
+        {
+          "commit": "98d5b89f",
+          "files": [
+            "app/js/shared.js"
+          ],
+          "summary": "Sticky footer on Lab.modal.form so Cancel/Submit stay visible when the form scrolls."
+        }
+      ],
+      "observations": [
+        "Calendar redirect /calendar/ \u2192 /app/calendar.html works via meta http-equiv refresh.",
+        "Calendar ignores unknown query params (?week=invalid&foo=bar) without errors.",
+        "Cell-click pre-fill works correctly: Wed 14:00 cell \u2192 modal date 2026-04-29, start 14:00, end 15:00 (+1hr default).",
+        "Member colour assignment is per-person and refreshes after creating an event whose member differs from existing ones (legend gained 'Grey Monroe' purple chip on submit, lost it on delete).",
+        "Editor modal delete flow uses the binary Lab.modal.confirm dialog for non-recurring events (no recurrence_id). Recurring events would route through the 3-button this/series/cancel modal in calendarDelete.confirmRecurring.",
+        "Member chips on event cards render via Lab.richInput.renderText. Legend chips render the raw member text (slug). For person wikilinks, both currently surface the slug 'barb-m' rather than the resolved person's title \u2014 wikilink rendering uses what's stored in the member field. Not a regression.",
+        "Mobile-viewport behaviour at 768 and 375 collapses correctly: day-tab strip activates, only the active-day column renders, bottom 4-tab+More bar appears."
+      ]
     }
   ],
   "bugs_found": [
@@ -8934,6 +9101,14 @@
       "evidence": "/tmp/qa-screenshots/cycle61/step24-filter-active-search-QA61.png + step26-filter-waiting-search-QA61.png; computed pill bg was rgba(0,0,0,0) before the fix",
       "status": "fixed",
       "fix_commit": "fbef911d"
+    },
+    {
+      "id": "CYCLE62-MODAL-BUTTONS-OVERFLOW",
+      "cycle": 62,
+      "severity": "ux",
+      "status": "closed",
+      "summary": "Lab.modal.form button row was clipped below the 80vh modal max-height when the form was tall (Add Event @ ~790px > 720px). Fixed with position:sticky bottom:-24px and 1px top border separator.",
+      "commit": "98d5b89f"
     }
   ],
   "fixes_applied": [
@@ -9307,6 +9482,14 @@
       "cycle": 61,
       "commit": "fbef911d",
       "summary": "Define missing CSS variables (--yellow*, --purple*, --green-dark) so all 5 status pills render with their colored chip backgrounds; widen em-col-contents to 480px when a grid is rendered (has-grid class) so freezer-box grids on desktop have legible cell sizes."
+    },
+    {
+      "cycle": 62,
+      "commit": "98d5b89f",
+      "files": [
+        "app/js/shared.js"
+      ],
+      "summary": "Sticky footer on Lab.modal.form so Cancel/Submit stay visible when the form scrolls."
     }
   ],
   "improvements_proposed": [
@@ -9314,472 +9497,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": [
-    "/tmp/qa-screenshots/cycle1/ \u2014 23 screenshots, all read and evaluated",
-    "/tmp/qa-screenshots/cycle2/ \u2014 33 screenshots + _log.json, evaluated before/after each action",
-    "/tmp/qa-screenshots/cycle2-verify/ \u2014 5 verification screenshots post-fix",
-    "/tmp/qa-screenshots/cycle3/ \u2014 27 screenshots + _log.json, every status toggle + dashboard/inventory state captured before/after",
-    "/tmp/qa-screenshots/cycle3-verify/ \u2014 3 verification screenshots confirming the dashboard fix",
-    "/tmp/qa-screenshots/cycle4/ \u2014 21 screenshots + _log.json, full wikilink crawl with captured popup states at each level",
-    "/tmp/qa-screenshots/cycle4-verify/ \u2014 2 verification screenshots confirming the `of` pill upgrade",
-    "/tmp/qa-screenshots/cycle5/ \u2014 30 screenshots + _log.json, full waste-container create flow with table/filter/search/reload/wiki/lab-map/dashboard states",
-    "/tmp/qa-screenshots/cycle5-verify/ \u2014 6 verification screenshots confirming INDEX_KEYS fix (row complete, filter matches, search matches, overlay persists across reload)",
-    "/tmp/qa-screenshots/cycle6/ \u2014 21 screenshots + _log.json, full notebook-create-edit-save-reload-wikilinkclick flow with table/callout/wikilinks/images all rendered + evaluated",
-    "/tmp/qa-screenshots/cycle6-verify/ \u2014 3 verification screenshots confirming both fetchTree overlay and notebook-save patch overlays",
-    "/tmp/qa-screenshots/cycle7/ \u2014 24 screenshots + _log.json covering the box-create, 3-tube-create, grid-render, breadcrumb, and parent-pill-nav flow",
-    "/tmp/qa-screenshots/cycle7-reshoot/ \u2014 5 viewport-sized re-shoots of box+tube popups after the original fullPage captures rendered too small to inspect",
-    "/tmp/qa-screenshots/cycle7-verify/ \u2014 3 screenshots (1440/900/520 viewport widths) confirming the breadcrumb-dangling-slash fix at every wrap point",
-    "/tmp/qa-screenshots/cycle8/ \u2014 29 screenshots + _log.json covering the concept+instance flow (zero-instance pick, 2 bottle creates, concept popup after, bottle popups, Of/parent pill navigation, cabinet popup, inventory grouping, lab-map filter, wiki)",
-    "/tmp/qa-screenshots/cycle8-verify/ \u2014 2 screenshots (1440/520) + _log.json confirming OF-PILL-TRUNCATED fix: pillInsideCol:true, textEllipsis:true, titleAttr populated",
-    "/tmp/qa-screenshots/cycle9/ \u2014 23 screenshots + _log.json covering the full calendar flow (baseline, prev/next/this-week nav, click-to-create on Wed 14:00, modal prefill inspection, modal fill + submit, event landing verification, editor-modal popup on click, close via Escape, filter by Dr. Monroe + reset, reload showing the functional bug, delete, reload-after-delete, mobile 375px, weekly recurring series create + repeat_until show_when verification, next-week recurring occurrence, final cleanup)",
-    "/tmp/qa-screenshots/cycle9-verify/ \u2014 3 screenshots (baseline / after-create / after-reload) + _log.json confirming both patchObjectIndex and patchLinkIndex overlays are populated (keys events/2026-04-22-verify-qa9v-*, linkPatched:true with targets=['Dr. Monroe', 'qiagen-dneasy-extraction']) and afterReload.landed=true with correct day=Wednesday hour=10",
-    "/tmp/qa-screenshots/cycle10/ \u2014 29 screenshots + _log.json covering the full equipment-move flow: inventory + labmap baselines, flammable/corrosive cabinet popups before, then for each of 3 bottles the edit-mode + picker-open + picker-filtered + picker-pick + post-save popup, flammable/corrosive cabinet popups after (16 \u2192 18 Contents count), labmap filter showing all 3 under the new cabinet, inventory search confirming the new location",
-    "/tmp/qa-screenshots/cycle10-verify/ \u2014 4 screenshots (1440 dashboard topnav, calendar baseline, event popup member pill, calendar after color test) confirming all three cycle-10 carry-over fixes: full 'Wiki' label at 1440, Member(s) field rendered as Person pill, existing event colors stable under new-member addition",
-    "/tmp/qa-screenshots/cycle11/ \u2014 21 screenshots covering the full print-preview flow on 3 protocols (pipette-school w/ 3 images + 6-page pagination, gel-electrophoresis w/ 2 images + 5-page pagination, autoclave text-only + 4-page pagination), each before+after every state change (load, scroll, print preview click, page-2 scroll, last-page scroll, FAB locate, print media emulate, exit). Every screenshot Read and visually evaluated.",
-    "/tmp/qa-screenshots/cycle11-verify/ \u2014 5 screenshots + _log.json confirming both DOUBLE-FRONTMATTER-BAR and FAB-NOT-HIDDEN-IN-PRINT fixes are live post-deploy. parentFmBar.display=none in print preview (FIX1 verified), printFab + issueFab both display=none under emulated @media print (FIX2 verified), parent fm bar restores to display=flex after Exit Preview (no regression).",
-    "/tmp/qa-screenshots/cycle12/ \u2014 27 cycle screenshots + 1 full-page + 3 verify screenshots, all read and evaluated",
-    "/tmp/qa-screenshots/cycle13b/01-dashboard-baseline.png",
-    "/tmp/qa-screenshots/cycle13b/02-ethanol70-popup-open.png",
-    "/tmp/qa-screenshots/cycle13b/03-ethanol70-popup-scrolled-backlinks.png",
-    "/tmp/qa-screenshots/cycle13b/05-bottle-ethanol70-1-popup-open.png",
-    "/tmp/qa-screenshots/cycle13b/08-box-pistachio-dna-popup-open.png",
-    "/tmp/qa-screenshots/cycle13b/10-tube-popup-open-after-grid-click.png",
-    "/tmp/qa-screenshots/cycle13b/11-gel-electrophoresis-popup-open.png",
-    "/tmp/qa-screenshots/cycle13b/13-source-popup-after-backlink-click.png",
-    "/tmp/qa-screenshots/cycle13b/15-seed-sterilization-wiki-page.png",
-    "/tmp/qa-screenshots/cycle13b/18-inventory-page-baseline.png",
-    "/tmp/qa-screenshots/cycle13b/19-inventory-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle13b/20-lab-map-baseline.png",
-    "/tmp/qa-screenshots/cycle13b/21-lab-map-filter-pistachio.png",
-    "/tmp/qa-screenshots/cycle13b/22-inventory-search-ethanol-FIXED.png",
-    "/tmp/qa-screenshots/cycle14/ \u2014 29 cycle screenshots + _log.json covering the full mobile notebook flow (baseline, hamburger, new-entry modal, create, edit, format bar, Insert sheet, image upload via DataTransfer, save, rendered scroll, reload, sidebar refresh). Every screenshot read and evaluated.",
-    "/tmp/qa-screenshots/cycle14-verify/ \u2014 4 verification screenshots + log confirming both fixes live post-deploy (navs hidden, sheet above FAB at 10050 vs 10001).",
-    "/tmp/qa-screenshots/cycle15/ \u2014 23 screenshots covering the full rename + relink flow (protocols baseline, load initial protocol, notebook with both bare + path-qualified wikilinks pre-rename, rename via double-click with prompt stub, post-rename title/URL/sidebar, old-slug deep-link showing double-prefix error, notebook reload with rewritten pills, click-through from rewritten pill, wiki old/new slug deep-links, lab-map filter, back button).",
-    "/tmp/qa-screenshots/cycle15-verify/ \u2014 6 verification screenshots confirming all three cycle-15 fixes live post-deploy: placeholder 'Search...' clean, triple-click Rename fires no error toast (friendly success only), and protocols/wiki/notebooks nonexistent-slug deep-links all show 'Document not found. It may have been renamed or deleted.'",
-    "/tmp/qa-screenshots/cycle17/ \u2014 22 screenshots, all read and evaluated. Every before/after pair captured for add-sample, filter, bulk-select, bulk-status-apply, and bulk-delete actions.",
-    "/tmp/qa-screenshots/cycle18/ \u2014 19 screenshots covering the full onboarding-wizard flow (dashboard + people baseline, wizard step 1/2/3/4, post-onboarding grid, new-card zoom, empty person-dashboard showing the bugs, notebooks baseline, ?person= filter, profile empty-state, protocol page 404, mobile pass of grid + step 1). Every screenshot Read and evaluated.",
-    "/tmp/qa-screenshots/cycle18-verify/ \u2014 8 screenshots confirming all three fixes live post-deploy: (a) existing-person autoclave pill loads docs/wet-lab/autoclave, (b) fresh-user dashboard shows 1 Notebook / 2 Protocols / 1 Project, (c) sections expand to show correctly-iconed rows. _results.json captures the programmatic assertions.",
-    "/tmp/qa-screenshots/cycle19/ \u2014 28 screenshots covering search on inventory/protocols/notebooks/wiki/waste (real query + typo + emoji + XSS + clear), dashboard baseline, people mobile + wizard open reproducing FAB overlap, and notebooks?person= reproducing the param-ignored bug. All read and evaluated.",
-    "/tmp/qa-screenshots/cycle19-verify/ \u2014 5 screenshots + _results.json confirming all 3 fixes live post-deploy: notebooks.html?person= filters sidebar to one folder, wizard hides FAB at mobile, protocols + notebooks empty states show search_off icon. Kept as regression harness.",
-    "/tmp/qa-screenshots/cycle20/step01-inventory-initial.png",
-    "/tmp/qa-screenshots/cycle20/step02-inventory-banner.png",
-    "/tmp/qa-screenshots/cycle20/step03-inventory-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle20/step04-add-btn-visible.png",
-    "/tmp/qa-screenshots/cycle20/step05-add-modal-choice.png",
-    "/tmp/qa-screenshots/cycle20/step06-bottle-search-empty.png",
-    "/tmp/qa-screenshots/cycle20/step07-bottle-search-ethanol-results.png",
-    "/tmp/qa-screenshots/cycle20/step08-editor-opened-new-bottle.png",
-    "/tmp/qa-screenshots/cycle20/step09-parent-picker-open.png",
-    "/tmp/qa-screenshots/cycle20/step10-parent-picker-search.png",
-    "/tmp/qa-screenshots/cycle20/step11-parent-picked.png",
-    "/tmp/qa-screenshots/cycle20/step12-fields-filled.png",
-    "/tmp/qa-screenshots/cycle20/step13-after-save.png",
-    "/tmp/qa-screenshots/cycle20/step14-modal-closed.png",
-    "/tmp/qa-screenshots/cycle20/step15-inventory-search-after-save.png",
-    "/tmp/qa-screenshots/cycle20/step16-concept-popup-open.png",
-    "/tmp/qa-screenshots/cycle20/step17-concept-popup-scrolled.png",
-    "/tmp/qa-screenshots/cycle20/step18-cabinet-flammable-popup.png",
-    "/tmp/qa-screenshots/cycle20-verify/step01-inventory-after-fix.png",
-    "/tmp/qa-screenshots/cycle20-verify/step03-search-ethanol.png",
-    {
-      "path": "/tmp/qa-screenshots/cycle21/01-accessions-initial.png",
-      "shows": "Accessions page initial state at 1440x900",
-      "evaluation": "Purple framework banner present. 12-tab nav shows all tabs at wide viewport. Stats: 232 total / 101 active / 119 waiting / 0 storage / 12 completed / 0 archived. Counts sum to total. All priority stars grey initially.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/02-1-after-active.png",
-      "shows": "Active filter applied via setStatusFilter",
-      "evaluation": "Yellow Active pills visible in STATUS column. Stat card Active=101 matches 101 visible rows.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/02-3-after-storage.png",
-      "shows": "Storage filter \u2014 0 rows match",
-      "evaluation": "Empty state renders \"No accessions match your filters.\" with search_off icon. Stats Storage=0 matches.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/03-after-pri-sort.png",
-      "shows": "Clicked star priority header to sort",
-      "evaluation": "Sort arrow rises on priority column \u2014 ASCENDING. With 0-star rows at top, a 3-star row would end up at the bottom, not the top. Counterintuitive for a priority column.",
-      "issues_found": [
-        "PRIORITY-SORT-ASCENDING"
-      ]
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/04-after-modal-filled.png",
-      "shows": "Add Accession modal with both species inputs filled to distinct values",
-      "evaluation": "Modal clearly shows a \"Species\" field in row 1 (holds \"TYPED-INTO-BUG-FIELD\") AND a \"Species (optional)\" field in row 2 (holds \"TYPED-INTO-REAL-FIELD\"). Two input fields labelled Species; only the second is persisted by confirmAdd.",
-      "issues_found": [
-        "DUP-SPECIES-FIELD-IN-ADD-MODAL"
-      ]
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/05-after-editor-open.png",
-      "shows": "Editor modal for A1_T1_W accession (slug a1-t1-w-2)",
-      "evaluation": "Fields panel shows Type=Accession purple pill with fingerprint icon (correct color). Accession ID / Project Kerman Somatic / People Vianney Ahn / Zi Ye / Matt Davis / Species Pistacia vera / Status Active teal pill / Status note \"Tissue collected \u2014 Needs extraction\" / Priority (stars) 0 / Sequencing Type HiFi. Contents panel \"No references to this object yet.\"",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/06-after-status-pill.png",
-      "shows": "Inline status pill dropdown changed active -> storage",
-      "evaluation": "Green success toast \"A1_T1_W: Storage\" bottom-right. Active stat card decremented 101->100. Row removed from the Active filter view. API re-read confirms file now has status: storage.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/07-after-pri-click3.png",
-      "shows": "After cycling priority stars 3x \u2014 accession now at 3 stars",
-      "evaluation": "Storage filter shows exactly 1 row: A1_T1_W, 3 gold stars, blue Storage pill, People rendered as 3 teal pills (Vianney Ahn, Zi Ye, Matt Davis), Pistacia vera italic, status_note orange, updated 2026-04-24. Stat Storage=1. Clean.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/09a-nonexistent-accession.png",
-      "shows": "Deep link ?doc=accessions/this-slug-does-not-exist-qa21",
-      "evaluation": "Friendly \"Document not found. It may have been renamed or deleted.\" with exclamation icon. Sidebar type-pill facets render correctly.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/09b-html-in-doc-param.png",
-      "shows": "Deep link with XSS payload in doc param",
-      "evaluation": "No alert popup. \"Document not found\" state. URL param is URL-decoded but never injected as DOM. Input sanitization OK.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/09c-path-traversal.png",
-      "shows": "Deep link ../../etc/passwd",
-      "evaluation": "Same \"Document not found\" state. Static-site routing treats this as a normal slug miss. No path traversal.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/09d-real-accession-wiki.png",
-      "shows": "Wiki page for the restored accession accessions/a1-t1-w-2",
-      "evaluation": "Accession purple pill at top, frontmatter chips below (status active restored, accession_id A1_T1_W, project Kerman Somatic, people, species, status note, priority 0). CONNECTIONS panel empty \u2014 normal for this isolated accession.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/09e-empty-doc.png",
-      "shows": "Empty doc param",
-      "evaluation": "Wiki graph overview renders. Graceful fallback when doc is missing.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/10a-nav-1024.png",
-      "shows": "Dashboard at 1024x800 top nav",
-      "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste, then the tab label truncates to \"Proj\" \u2014 Projects tab partially clipped by tabWrap overflow:hidden after the \"+ More\" button was shown and shrunk the container. Visual bug.",
-      "issues_found": [
-        "NAV-MORE-BTN-CLIPS-LAST-TAB"
-      ]
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/10b-nav-overflow-open.png",
-      "shows": "More overflow popover at 1024x800",
-      "evaluation": "Popover shows People, Calendar, Lab Map, Apps, Wiki as overflow. Functionally OK; the \"Proj\" truncation is still visible on the main bar.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21/11-mobile-bottom-bar.png",
-      "shows": "Mobile 375x812 dashboard with bottom bar",
-      "evaluation": "Bottom bar shows Wiki / Notebooks / Accessions / Inventory / More \u2014 matches spec. Top bar slim. Dashboard cards stack well. Issue-reporter FAB slightly overlaps the \"Out of Stock\" pill in the inventory status panel \u2014 minor.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21-verify/01-add-modal.png",
-      "shows": "Post-fix Add modal",
-      "evaluation": "Single \"Species (optional)\" label \u2014 duplicate Species input removed. Clean form: Accession ID, Project + Species (optional), Status + Priority, People.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21-verify/02-after-sort.png",
-      "shows": "Post-fix \u2605 priority header click",
-      "evaluation": "Sort arrow now descends on priority column. Top 5 visible rows all show 3 gold stars \u2014 descending correctly floats high-priority rows to the top.",
-      "issues_found": []
-    },
-    {
-      "path": "/tmp/qa-screenshots/cycle21-verify/03-nav-1024.png",
-      "shows": "Post-fix nav at 1024x800",
-      "evaluation": "Nav shows Tutorials, Notebooks, Protocols, Accessions, Inventory, Waste cleanly \u2014 no truncation. \"+ More\" button then avatar + Sign out. Projects moved to the overflow popover. Trailing-tab clip gone.",
-      "issues_found": []
-    },
-    "/tmp/qa-screenshots/cycle22/step01-01-lab-map-baseline.png",
-    "/tmp/qa-screenshots/cycle22/step02-02-shelf-popup-open.png",
-    "/tmp/qa-screenshots/cycle22/step03-02-add-new-box-blank-form.png",
-    "/tmp/qa-screenshots/cycle22/step03-03-add-new-box-filled.png",
-    "/tmp/qa-screenshots/cycle22/step03-04-after-save-returned.png",
-    "/tmp/qa-screenshots/cycle22/step04-01-shelf-popup-after-add.png",
-    "/tmp/qa-screenshots/cycle22/step06-02-new-box-grid-occupied.png",
-    "/tmp/qa-screenshots/cycle22/step07-02-after-click-a1-cell.png",
-    "/tmp/qa-screenshots/cycle22/step08-01-accession-pistachio4-popup.png",
-    "/tmp/qa-screenshots/cycle22/step09-02-lab-map-tree-search-cleared.png",
-    "/tmp/qa-screenshots/cycle22/step10-01-wiki-deeplink-to-new-box-no-modal.png",
-    "/tmp/qa-screenshots/cycle22/step11-02-place-here-popover-open.png",
-    "/tmp/qa-screenshots/cycle23/ \u2014 18 cycle screenshots (dashboard, protocols list, protocol search, DNeasy protocol, chemical/bottle/cabinet/room popups with before/after pairs, inventory, accessions, 1024px nav, 1024px overflow-open, mobile dashboard, mobile protocol) + 2 post-fix verification screenshots (1440 AFTER FIX showing all 12 tabs, 1024 AFTER FIX still showing overflow as expected). All read and evaluated.",
-    "/tmp/qa-screenshots/cycle24/ \u2014 23 screenshots covering the full adversarial bulk-add flow (baseline, modal open/filled/post-confirm \u00d7 3 adversarial inputs, full-table after, filtered, status filter cycling, priority sort \u00d7 2, popup \u00d7 3, mobile, 1024px nav). All read and evaluated. /tmp/qa-screenshots/cycle24-verify/ \u2014 4 verify screenshots + _results.json confirming 3/3 fixes live post-deploy.",
-    "/tmp/qa-screenshots/cycle25/step01-dashboard-baseline.png",
-    "/tmp/qa-screenshots/cycle25/step02-accessions-baseline.png",
-    "/tmp/qa-screenshots/cycle25/step03-inventory-baseline.png",
-    "/tmp/qa-screenshots/cycle25/step04-labmap-baseline.png",
-    "/tmp/qa-screenshots/cycle25/step05-box-popup-before.png",
-    "/tmp/qa-screenshots/cycle25/step06-accession-popup-before.png",
-    "/tmp/qa-screenshots/cycle25/step07-01-new-tube-edit-mode.png",
-    "/tmp/qa-screenshots/cycle25/step07-01-new-tube-fields-filled.png",
-    "/tmp/qa-screenshots/cycle25/step07-01-after-save.png",
-    "/tmp/qa-screenshots/cycle25/step08-box-popup-after.png",
-    "/tmp/qa-screenshots/cycle25/step09-accession-popup-after.png",
-    "/tmp/qa-screenshots/cycle25/step11-labmap-filter-run.png",
-    "/tmp/qa-screenshots/cycle25/step12-wiki-search-qa25.png",
-    "/tmp/qa-screenshots/cycle25-verify/verify01-wiki-baseline.png",
-    "/tmp/qa-screenshots/cycle25-verify/verify02-wiki-filter-pistachio.png",
-    "/tmp/qa-screenshots/cycle25-verify/verify03-wiki-after-clear.png",
-    "/tmp/qa-screenshots/cycle25-verify/verify06-tube-popup-breadcrumb.png",
-    "/tmp/qa-screenshots/cycle26/ \u2014 27 screenshots (01..28 with one gap from a non-existent + More button at 1024px probe), all read and evaluated. Plus 2 verify screenshots (27, 28) confirming the deployed fix end-to-end.",
-    "/tmp/qa-screenshots/cycle27/step01-dashboard-baseline.png",
-    "/tmp/qa-screenshots/cycle27/step02-accessions-tracker.png",
-    "/tmp/qa-screenshots/cycle27/step03-accessions-filtered-c127.png",
-    "/tmp/qa-screenshots/cycle27/step04-inventory-baseline.png",
-    "/tmp/qa-screenshots/cycle27/step05-labmap-baseline.png",
-    "/tmp/qa-screenshots/cycle27/step06-box-popup-before.png",
-    "/tmp/qa-screenshots/cycle27/step07-accession-popup-before.png",
-    "/tmp/qa-screenshots/cycle27/step08-01-after-save.png",
-    "/tmp/qa-screenshots/cycle27/step08-01-edit-mode.png",
-    "/tmp/qa-screenshots/cycle27/step08-01-fields-filled.png",
-    "/tmp/qa-screenshots/cycle27/step08-02-after-save.png",
-    "/tmp/qa-screenshots/cycle27/step08-02-edit-mode.png",
-    "/tmp/qa-screenshots/cycle27/step08-02-fields-filled.png",
-    "/tmp/qa-screenshots/cycle27/step08-03-after-save.png",
-    "/tmp/qa-screenshots/cycle27/step08-03-edit-mode.png",
-    "/tmp/qa-screenshots/cycle27/step08-03-fields-filled.png",
-    "/tmp/qa-screenshots/cycle27/step08-04-after-save.png",
-    "/tmp/qa-screenshots/cycle27/step08-04-edit-mode.png",
-    "/tmp/qa-screenshots/cycle27/step08-04-fields-filled.png",
-    "/tmp/qa-screenshots/cycle27/step10-box-popup-after.png",
-    "/tmp/qa-screenshots/cycle27/step12-accession-popup-after.png",
-    "/tmp/qa-screenshots/cycle27/step13-after-refresh.png",
-    "/tmp/qa-screenshots/cycle27/step13-interrupted-edit.png",
-    "/tmp/qa-screenshots/cycle27/step14-labmap-qa27.png",
-    "/tmp/qa-screenshots/cycle27/step15-wiki-search-qa27.png",
-    "/tmp/qa-screenshots/cycle27/step16-inventory-pills.png",
-    "/tmp/qa-screenshots/cycle27/step17-notebooks-landing.png",
-    "/tmp/qa-screenshots/cycle27-verify/verify-accession-popup.png",
-    "/tmp/qa-screenshots/cycle28/ \u2014 32 screenshots + log.json + log-continue.json + zoom-col3-probe.json. Read and evaluated every shot. \u2713",
-    "/tmp/qa-screenshots/cycle29/ \u2014 20 cycle screenshots + verify-toast-after-fix.png. Every shot read and evaluated. Two visual bugs found: TOAST-COVERS-MODAL-SAVE (fixed in commit d81d6906) and POPUP-BREADCRUMB-RACE-AFTER-SAVE (open).",
-    "/tmp/qa-screenshots/cycle30/ \u2014 18 screenshots covering chemical popup with 1+16 backlinks, bottle popup with 3-pill crumb, accession popup with 3 instances classified via body wikilinks, tube popup with 4-pill crumb, inventory pill color spot-check, plus repro+fix screenshots for POPUP-BREADCRUMB-RACE-AFTER-SAVE. Each read and evaluated.",
-    "/tmp/qa-screenshots/cycle31/ \u2014 30 cycle screenshots + _issues.json. /tmp/qa-screenshots/cycle31-verify/ \u2014 4 verify screenshots confirming Calendar week-label and wikilink slug-encoding fixes. Every screenshot read and evaluated.",
-    "/tmp/qa-screenshots/cycle32/ \u2014 27 screenshots covering people baseline, all 4 wizard steps with before/after, fresh person dashboard, notebooks ?person= filter, notebooks landing (validates RECENT-MN sweep with 9/10 date subtitles), accession wiki page (detected separate FRONTMATTER-CHIP-URL-NOT-CLICKABLE bug), accession popup with clickable Detail Sheet Link (validates DETAIL-LINK sweep), tube editor with short of-placeholder (validates OF-PLACEHOLDER sweep), inventory baseline, post-cleanup people grid, 1024px nav, mobile dashboard + notebooks. Plus _issues.json. Read and evaluated in detail.",
-    "/tmp/qa-screenshots/cycle33/ \u2014 26 screenshots taken (24 in main run + 1 verify + previous), 9 read and evaluated. Closed CYCLE27-NOTEBOOK-RECENT-MN-V2.",
-    "/tmp/qa-screenshots/cycle35/01-dashboard-baseline.png",
-    "/tmp/qa-screenshots/cycle35/02-wiki-baseline.png",
-    "/tmp/qa-screenshots/cycle35/03-wiki-search-dneasy.png",
-    "/tmp/qa-screenshots/cycle35/04-wiki-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle35/05-wiki-search-pcr.png",
-    "/tmp/qa-screenshots/cycle35/06-wiki-search-ms-basal-salt.png",
-    "/tmp/qa-screenshots/cycle35/07-wiki-search-nanodrop.png",
-    "/tmp/qa-screenshots/cycle35/08-inventory-baseline.png",
-    "/tmp/qa-screenshots/cycle35/09-inventory-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle35/10-inventory-ethanol-popup.png",
-    "/tmp/qa-screenshots/cycle35/11-inventory-search-agarose.png",
-    "/tmp/qa-screenshots/cycle35/12-inventory-search-tris.png",
-    "/tmp/qa-screenshots/cycle35/13-inventory-search-empty-state.png",
-    "/tmp/qa-screenshots/cycle35/14-accessions-baseline.png",
-    "/tmp/qa-screenshots/cycle35/15-accessions-search-pistachio.png",
-    "/tmp/qa-screenshots/cycle35/16-accessions-pistachio-popup.png",
-    "/tmp/qa-screenshots/cycle35/17-accessions-search-c127.png",
-    "/tmp/qa-screenshots/cycle35/18-accessions-search-empty-state.png",
-    "/tmp/qa-screenshots/cycle35/19-protocols-baseline.png",
-    "/tmp/qa-screenshots/cycle35/20-protocols-search-pcr.png",
-    "/tmp/qa-screenshots/cycle35/21-protocols-pcr-loaded.png",
-    "/tmp/qa-screenshots/cycle35/22-protocols-search-empty-state.png",
-    "/tmp/qa-screenshots/cycle35/23-notebooks-baseline.png",
-    "/tmp/qa-screenshots/cycle35/24-notebooks-search-nanodrop.png",
-    "/tmp/qa-screenshots/cycle35/25-notebooks-search-vianney.png",
-    "/tmp/qa-screenshots/cycle35/26-notebooks-vianney-loaded.png",
-    "/tmp/qa-screenshots/cycle35/27-notebooks-search-empty-state.png",
-    "/tmp/qa-screenshots/cycle35/28-wikilink-trail-ethanol-concept.png",
-    "/tmp/qa-screenshots/cycle35/29-fix-verify-wiki-search-ethanol.png",
-    "/tmp/qa-screenshots/cycle35/30-fix-verify-wiki-search-nanodrop.png",
-    "/tmp/qa-screenshots/cycle36/01-dashboard-baseline.png",
-    "/tmp/qa-screenshots/cycle36/02-inventory-baseline.png",
-    "/tmp/qa-screenshots/cycle36/03-inventory-filtered-in-stock.png",
-    "/tmp/qa-screenshots/cycle36/04-before-toggle-1-1-8-naphthalic-anhydride.png",
-    "/tmp/qa-screenshots/cycle36/05-after-toggle-1-1-8-naphthalic-anhydride.png",
-    "/tmp/qa-screenshots/cycle36/06-before-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
-    "/tmp/qa-screenshots/cycle36/07-after-toggle-2-1-hydroxy-3-3-trifluoromethylp.png",
-    "/tmp/qa-screenshots/cycle36/08-before-toggle-3-1-octanol.png",
-    "/tmp/qa-screenshots/cycle36/09-after-toggle-3-1-octanol.png",
-    "/tmp/qa-screenshots/cycle36/10-inventory-after-reload.png",
-    "/tmp/qa-screenshots/cycle36/11-inventory-needs-more-filter.png",
-    "/tmp/qa-screenshots/cycle36/12-dashboard-after-3-toggled.png",
-    "/tmp/qa-screenshots/cycle36/13-before-revert-1.png",
-    "/tmp/qa-screenshots/cycle36/14-after-revert-1.png",
-    "/tmp/qa-screenshots/cycle36/15-inventory-after-revert-reload.png",
-    "/tmp/qa-screenshots/cycle36/16-dashboard-after-revert.png",
-    "/tmp/qa-screenshots/cycle36/17-wiki-page-from-alert.png",
-    "/tmp/qa-screenshots/cycle36/18-dashboard-AFTER-FIX.png",
-    "/tmp/qa-screenshots/cycle37/01-accessions-mobile-baseline.png",
-    "/tmp/qa-screenshots/cycle37/02-orientation-banner-mobile.png",
-    "/tmp/qa-screenshots/cycle37/03-stats-grid-mobile.png",
-    "/tmp/qa-screenshots/cycle37/04-after-priority-sort.png",
-    "/tmp/qa-screenshots/cycle37/05-before-star-tap.png",
-    "/tmp/qa-screenshots/cycle37/06-fatal-error.png",
-    "/tmp/qa-screenshots/cycle37-verify/01-stats-grid-after-fix.png",
-    "/tmp/qa-screenshots/cycle37-verify/02-before-star-tap.png",
-    "/tmp/qa-screenshots/cycle37-verify/03-after-star-tap.png",
-    "/tmp/qa-screenshots/cycle37-verify/04-editor-modal-after-card-tap.png",
-    "/tmp/qa-screenshots/cycle37-verify/05-after-escape.png",
-    "/tmp/qa-screenshots/cycle37-verify/06-before-filter-storage.png",
-    "/tmp/qa-screenshots/cycle37-verify/07-after-filter-storage.png",
-    "/tmp/qa-screenshots/cycle37-verify/08-accession-popup-mobile.png",
-    "/tmp/qa-screenshots/cycle37-verify/09-accession-popup-contents.png",
-    "/tmp/qa-screenshots/cycle38/ \u2014 25 cycle screenshots + 9 verify screenshots, all read and evaluated. Caught MODAL-STATUS-PILL-WRONG-COLOR + MOBILE-EDIT-EDITOR-UNDEFINED. Verify pass confirms storage pill rgb(59,130,246), active pill rgb(245,158,11), Toast UI + mobile FAB bar mount with 0 page errors.",
-    {
-      "cycle": 39,
-      "dir": "/tmp/qa-screenshots/cycle39",
-      "count": 16
-    },
-    "/tmp/qa-screenshots/cycle40/ \u2014 27 screenshots (23 main run + 4 post-fix verify), all read and evaluated",
-    "/tmp/qa-screenshots/cycle41/01-vianney-accessions-landing.png",
-    "/tmp/qa-screenshots/cycle41/03-vianney-accessions-active-filter.png",
-    "/tmp/qa-screenshots/cycle41/04-vianney-accessions-search-a3.png",
-    "/tmp/qa-screenshots/cycle41/05-vianney-accession-popup-before.png",
-    "/tmp/qa-screenshots/cycle41/07-vianney-accession-popup-after.png",
-    "/tmp/qa-screenshots/cycle41/12-vianney-labmap-filter-qa41.png",
-    "/tmp/qa-screenshots/cycle41/13-vianney-inventory-banner.png",
-    "/tmp/qa-screenshots/cycle41/15-vianney-dashboard-final.png",
-    "/tmp/qa-screenshots/cycle41/v100-verify-accession-popup.png",
-    "/tmp/qa-screenshots/cycle42/ \u2014 29 screenshots covering accessions landing, all 5 status filter pill-color spot checks, add-accession modal, post-create editor open, search to find new row, inline status select active\u2192storage, inline priority cycling 0\u21921\u21922\u21923 (revealing race), editor open in view + edit mode (revealing stale cache), people field add 2nd member, status_note add, save (revealing clobber), reload + popup verify (confirming on-disk state), mobile 375x812 card view + orientation banner + popup. All read and evaluated.",
-    "/tmp/qa-screenshots/cycle42v/ \u2014 5 verification screenshots confirming all 3 fixes live post-deploy: FIX1 editor shows Storage pill after inline status change (no clobber), FIX2 three rapid clicks reach \u2605\u2605\u2605 (priority race fixed), FIX3 note text renders rgb(97,97,97) grey on Storage rows (not amber), final state status=storage priority=3 survives editor Save round-trip.",
-    "/tmp/qa-screenshots/cycle43/step01-accessions-mobile-top.png",
-    "/tmp/qa-screenshots/cycle43/step01-accessions-mobile-scrolled.png",
-    "/tmp/qa-screenshots/cycle43/step02-after-more-popover.png",
-    "/tmp/qa-screenshots/cycle43/step03-after-accession-popup.png",
-    "/tmp/qa-screenshots/cycle43/step05-empty-6x6-box-mobile.png",
-    "/tmp/qa-screenshots/cycle43/step07-box-with-3-tubes-mobile.png",
-    "/tmp/qa-screenshots/cycle43/step08-tube-A2-popup-mobile.png",
-    "/tmp/qa-screenshots/cycle43/step10-after-bottom-nav-inventory.png",
-    "/tmp/qa-screenshots/cycle43/step11-lab-map-mobile-filtered-qa43.png",
-    "/tmp/qa-screenshots/cycle43/verify-lab-map-mobile-fixed.png",
-    "/tmp/qa-screenshots/cycle43/verify-inventory-mobile-cards.png",
-    {
-      "cycle": 44,
-      "dir": "/tmp/qa-screenshots/cycle44",
-      "count": 18,
-      "note": "main-run screenshots \u2014 18 images covering inventory landing/banner/search, concept popup, Add instance flow x2, rollup verification on inventory + concept popup, bottle popup direct (Of pill), lab-map filter, dashboard. All read + evaluated."
-    },
-    {
-      "cycle": 44,
-      "dir": "/tmp/qa-screenshots/cycle44-verify",
-      "count": 2,
-      "note": "post-fix verify \u2014 2-bottle popup confirms \"#suffix \u00b7 no location set\" subtitle for both fresh bottles (probe.json reports noLocLines=2)."
-    },
-    "/tmp/qa-screenshots/cycle45/01-protocols-index-before.png",
-    "/tmp/qa-screenshots/cycle45/02-pipette-school-loaded.png",
-    "/tmp/qa-screenshots/cycle45/04-print-preview-click-immediate.png",
-    "/tmp/qa-screenshots/cycle45/05-print-preview-rendered.png",
-    "/tmp/qa-screenshots/cycle45/07-print-preview-full-top.png",
-    "/tmp/qa-screenshots/cycle45/08-print-preview-scrolled-mid.png",
-    "/tmp/qa-screenshots/cycle45/09-print-preview-scrolled-deep.png",
-    "/tmp/qa-screenshots/cycle45/10-print-preview-bottom.png",
-    "/tmp/qa-screenshots/cycle45/11-print-fab-after-scroll.png",
-    "/tmp/qa-screenshots/cycle45/14-close-print-preview.png",
-    "/tmp/qa-screenshots/cycle45/15-pcr-genotyping-loaded.png",
-    "/tmp/qa-screenshots/cycle45/16-pcr-print-preview.png",
-    "/tmp/qa-screenshots/cycle45/16b-pcr-print-preview-full.png",
-    "/tmp/qa-screenshots/cycle45/18-gel-electrophoresis-loaded.png",
-    "/tmp/qa-screenshots/cycle45/19-gel-print-preview.png",
-    "/tmp/qa-screenshots/cycle45/19b-gel-print-preview-full.png",
-    "/tmp/qa-screenshots/cycle45/21-wiki-index-loaded.png",
-    "/tmp/qa-screenshots/cycle45/22-wiki-pipette-school.png",
-    "/tmp/qa-screenshots/cycle45/23-wiki-print-media-emulated.png",
-    "/tmp/qa-screenshots/cycle45/23b-wiki-print-media-full.png",
-    "/tmp/qa-screenshots/cycle45/24-qiagen-loaded.png",
-    "/tmp/qa-screenshots/cycle45/25-qiagen-print-preview.png",
-    "/tmp/qa-screenshots/cycle45/25b-qiagen-print-preview-full.png",
-    "/tmp/qa-screenshots/cycle45/27-after-final-close.png",
-    "/tmp/qa-screenshots/cycle45/v1-pcr-print-preview-after-fix.png",
-    "/tmp/qa-screenshots/cycle45/v1b-pcr-print-preview-after-fix-full.png",
-    "/tmp/qa-screenshots/cycle45/v2-wiki-print-media-after-fix.png",
-    "/tmp/qa-screenshots/cycle46/step01-accessions-fresh-load.png",
-    "/tmp/qa-screenshots/cycle46/step02-accessions-archived-filter.png",
-    "/tmp/qa-screenshots/cycle46/step03-accessions-typo-search.png",
-    "/tmp/qa-screenshots/cycle46/step04-accessions-found-a2-t1-w.png",
-    "/tmp/qa-screenshots/cycle46/step09-lab-map-after-box-create.png",
-    "/tmp/qa-screenshots/cycle46/step11-accession-popup-via-deeplink.png",
-    "/tmp/qa-screenshots/cycle46/step101-verify-accession-deeplink-popup.png",
-    "/tmp/qa-screenshots/cycle46/step103-verify-box-deeplink-popup.png",
-    "/tmp/qa-screenshots/cycle46/step105-verify-tube-deeplink-popup.png",
-    "/tmp/qa-screenshots/cycle46/step106-verify-inventory-deeplink-ethanol.png",
-    "/tmp/qa-screenshots/cycle47/ -- 12 screenshots evaluated (full set: 28 raw, evaluated 12 representative ones in qa-state)",
-    "/tmp/qa-screenshots/cycle48/ \u2014 21 screenshots, all read and evaluated",
-    {
-      "cycle": 49,
-      "count": 30,
-      "dir": "/tmp/qa-screenshots/cycle49/"
-    },
-    "/tmp/qa-screenshots/cycle50/ \u2014 33 screenshots + 7 verify screenshots + JSON metadata; every key step before/after captured + Read evaluated for nav widths, orientation banner colors, pill recoloring, mobile bottom nav, mobile More popover, FAB-overlap bug + fix",
-    "/tmp/qa-screenshots/cycle51/ \u2014 25 screenshots covering cross-page wikilink crawl + URL deep-link tests at desktop 1440/1024 and mobile 375 viewports. Every screenshot read and evaluated. Bogus-deeplink popup title fix verified pre-push (live re-test will confirm post-deploy).",
-    "/tmp/qa-screenshots/cycle53/ \u2014 16 main + 6 verify (22 total), all read and evaluated",
-    "/tmp/qa-screenshots/cycle54/step01-jordan-dashboard-landing.png",
-    "/tmp/qa-screenshots/cycle54/step03-after-notebooks-load.png",
-    "/tmp/qa-screenshots/cycle54/step05-after-new-entry-modal-open.png",
-    "/tmp/qa-screenshots/cycle54/step07-after-create-entry-saved.png",
-    "/tmp/qa-screenshots/cycle54/step10-after-edit-mode-open.png",
-    "/tmp/qa-screenshots/cycle54/step11-typed-content-before-image.png",
-    "/tmp/qa-screenshots/cycle54/step13-after-image-upload.png",
-    "/tmp/qa-screenshots/cycle54/step15-after-save-view-mode.png",
-    "/tmp/qa-screenshots/cycle54/step23-reload-rendered-correct-slug.png",
-    "/tmp/qa-screenshots/cycle54/step29-after-acc-click-popup.png",
-    "/tmp/qa-screenshots/cycle54/step32-after-acetone-click-popup.png",
-    "/tmp/qa-screenshots/cycle54/step33-dashboard-recent-updates.png",
-    "/tmp/qa-screenshots/cycle54/step37-roundtrip-after-save.png",
-    "/tmp/qa-screenshots/cycle54/step41-verify-after-save.png",
-    "/tmp/qa-screenshots/cycle56/ + /tmp/qa-screenshots/cycle56-verify/ \u2014 21 screenshots total (15 main + 6 verify), all read and evaluated",
-    "/tmp/qa-screenshots/cycle57/step01-baseline-default-sort.png",
-    "/tmp/qa-screenshots/cycle57/step02-after-sort-priority-desc.png",
-    "/tmp/qa-screenshots/cycle57/step04-after-sort-priority-asc.png",
-    "/tmp/qa-screenshots/cycle57/step05-after-third-click-desc-again.png",
-    "/tmp/qa-screenshots/cycle57/step06-row-selected.png",
-    "/tmp/qa-screenshots/cycle57/step07-before-rapid-click.png",
-    "/tmp/qa-screenshots/cycle57/step07-after-rapid-click.png",
-    "/tmp/qa-screenshots/cycle57/step07c-after-settle.png",
-    "/tmp/qa-screenshots/cycle57/step08-after-reload.png",
-    "/tmp/qa-screenshots/cycle57/step08b-reload-sort-desc.png",
-    "/tmp/qa-screenshots/cycle57/step09-popup-opened.png",
-    "/tmp/qa-screenshots/cycle57/step09b-popup-closed.png",
-    "/tmp/qa-screenshots/cycle57/step10-cleanup-restored.png",
-    "/tmp/qa-screenshots/cycle57/step11-final-reload.png",
-    "/tmp/qa-screenshots/cycle57/step12-stats-visible.png",
-    "/tmp/qa-screenshots/cycle57/step13-filter-active.png",
-    "/tmp/qa-screenshots/cycle57/step13b-filter-storage.png",
-    "/tmp/qa-screenshots/cycle57/step14-sort-accession_id.png",
-    "/tmp/qa-screenshots/cycle57/step14-sort-project.png",
-    "/tmp/qa-screenshots/cycle57/step14-sort-status.png",
-    "/tmp/qa-screenshots/cycle57/step14-sort-last_updated.png",
-    "/tmp/qa-screenshots/cycle57/step15-hover-row.png",
-    "/tmp/qa-screenshots/cycle57/step16-tab-focus.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-1024.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-1280.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-1366.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-1440.png",
-    "/tmp/qa-screenshots/cycle57/verify-fix-mobile-375.png",
-    {
-      "cycle": 58,
-      "count": 22,
-      "dir": "/tmp/qa-screenshots/cycle58"
-    },
-    "cycle59/step01-accessions-page-baseline.png",
-    "cycle59/step03-pistachio-4-popup-baseline.png",
-    "cycle59/step05-tube-leaf-1-popup.png",
-    "cycle59/step07-tube-dna-extract-1-popup.png",
-    "cycle59/step09-after-add-library-instance.png",
-    "cycle59/step11-pistachio-4-popup-after-library-add.png",
-    "cycle59/step13-navigate-to-new-library-popup.png",
-    "cycle59/step15-inventory-page-orientation-banner.png",
-    "cycle59/verify01-pistachio-fix-meta.png",
-    "cycle59/verify02-pistachio-after-add.png",
-    "cycle59/verify03-404-popup-clears-col.png",
-    "/tmp/qa-screenshots/cycle60/ \u2014 51 screenshots, all read and evaluated (13 with detailed evaluation)",
-    "/tmp/qa-screenshots/cycle61/ \u2014 34 screenshots, all read and evaluated; /tmp/qa-screenshots/cycle61-verify/ \u2014 8 post-fix screenshots verifying pill colors + wider grid pane"
-  ],
+  "screenshots_taken": 21,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
