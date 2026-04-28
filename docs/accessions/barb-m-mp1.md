@@ -9,17 +9,16 @@ status: "active"
 priority: "1"
 last_updated: "2026-04-28"
 created_at: "2026-04-28T06:12:33.913Z"
-updated_at: "2026-04-28T06:12:33.913Z"
+updated_at: "2026-04-28T06:13:30.305Z"
 created_by: "greymonroe"
 ---
+\#\# About this line
+Mp1 stands for Mutant Pigmentation 1 — a fictional spotted-pericarp variant inspired by Barbara McClintock's transposable-element work in maize.
 
-# BARB-M-MP1
+\#\# Background
+Self-pollinated for six generations from the original spotted-kernel ear collected in the McClintock greenhouse in 1948.
 
-This is the generic BARB-M-MP1 accession. To track physical material, open this card and use the **Contents** panel to add instances:
-
-- 🌿 **Sample** — a tissue collection (leaf, seed, root)
-- 🧪 **Extraction** — DNA or RNA prep
-- 📖 **Library** — prepped sequencing library
-- 🔀 **Pool** — multiplexed pool of libraries
-
-Delete this placeholder paragraph once you add real notes.
+\#\# Phenotype notes
+\- Variegated pericarp pigmentation
+Normal vegetative growth
+Stable inheritance pattern
