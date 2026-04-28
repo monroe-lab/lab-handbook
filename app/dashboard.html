@@ -246,19 +246,13 @@
   function loadInventoryStatus(objects) {
     var el = document.getElementById('inventoryStatus');
     if (!el) return;
-    var isInv = function(t) { var c = TYPE_CONFIG[t]; return c && (c.group === 'resource' || c.group === 'stock'); };
-    // Top-card "Inventory" counts untyped items as resources (see loadStats).
-    // Mirror that here so the numbers add up: tracked statuses + untracked
-    // (untyped) = top-card total. Otherwise users see 480 vs 227 and wonder
-    // where 253 went.
-    var isInvOrUntyped = function(t) {
-      if (isInv(t)) return true;
-      return !t || !TYPE_CONFIG[t];
-    };
-    var invItems = objects.filter(function(obj) { return isInv(obj.type); });
-    var untrackedCount = objects.filter(function(obj) {
-      return isInvOrUntyped(obj.type) && !isInv(obj.type);
-    }).length;
+    // qa-cycle-70: keep the inventory-status widget in sync with the
+    // top-card "Inventory" count, which uses INV_TYPES (typed resource /
+    // stock concepts only). The previous "isInvOrUntyped" branch swept in
+    // every untyped object — bottles, accessions, locations, events — so
+    // "Untracked: 476" appeared next to "280 total" and the math didn't
+    // add up.
+    var invItems = objects.filter(function(obj) { return INV_TYPES[obj.type]; });
     var counts = { in_stock: 0, needs_more: 0, ordered: 0, out_of_stock: 0, external: 0 };
     var alertItems = [];
     invItems.forEach(function(obj) {
@@ -275,12 +269,6 @@
         '<span style="font-weight:600;color:' + STATUS_COLORS[s] + ';">' + counts[s] + '</span>' +
         '<span style="color:var(--grey-500);font-size:12px;">' + STATUS_LABELS[s] + '</span></div>';
     });
-    if (untrackedCount) {
-      summaryHtml += '<div style="display:flex;align-items:center;gap:4px;" title="Resource/stock objects without a status field">' +
-        '<span class="material-icons-outlined" style="font-size:16px;color:var(--grey-400);">help_outline</span>' +
-        '<span style="font-weight:600;color:var(--grey-500);">' + untrackedCount + '</span>' +
-        '<span style="color:var(--grey-500);font-size:12px;">Untracked</span></div>';
-    }
     summaryHtml += '</div>';
 
     if (!alertItems.length) {

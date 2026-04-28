@@ -392,7 +392,7 @@ function renderNode(node, depth, q) {
   node.items.forEach(function(item) {
     var active = currentDoc === item.path ? ' active' : '';
     var itemPad = 24 + depth * 14;
-    html += '<div class="nb-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + item.path + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
+    html += '<div class="nb-item' + active + '" style="padding-left:' + itemPad + 'px" data-path="' + item.path + '" title="' + Lab.escHtml(item.title) + '" onclick="loadDoc(\'' + item.path + '\')">' + Lab.escHtml(item.title) + '</div>';
   });
 
   // Issue #110 + #120: prominent "+ New entry in this folder" row beneath
