@@ -45,7 +45,7 @@ Restriction Digestion
 9. Deactivate enzyme at 65C for 10min
 10. Chill on ice
 
-**[[gel-electrophoresis]] (Confirmation that Digestion and Ligation were successful)**
+**Gel Electrophoresis (Confirmation that Digestion and Ligation were successful)**
 1% Agar Gel
 
 1. Combine 1g [[agarose]] for every 100mL 1X TAE Buffer
