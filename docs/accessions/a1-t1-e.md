@@ -12,6 +12,8 @@ sequencing_type: "Illumina WGS"
 detail_sheet_link: "https://docs.google.com/document/d/1OczM3x7lokk04sfGMUqjn2TAqU5SNyV33ULwk3n-QZM/edit"
 last_updated: "2026-03-30"
 legacy_sample_tracker_id: 154
+parent: "locations/new-shelf-mo8ya0v2"
+position: "A1"
 ---
 
 # A1-T1-E
