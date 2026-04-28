@@ -4,7 +4,7 @@ type: "protocol"
 ---
 # Competent Cell Transformation
 
-1. Thaw Stellar CC on ice (\~15 min)
+1. Thaw Competent Cells on ice (\~15 min)
 2. Aliquot 50 µl into 4 tubes
 3. Mix 2 µl of plasmid and 50 µl of CC by tapping/flicking
 4. Keep on ice for 20 min
