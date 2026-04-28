@@ -4865,6 +4865,11 @@
     _addContainer: addContainerRow,
     _removeContainer: removeContainerRow,
     _addInstance: addInstanceFromConcept,
+    // Tutorial / labbot hook: read-only access to the live Toast UI editor
+    // instance for the currently-open popup. Lets external scripts call
+    // editor.exec('heading', { level: 2 }) etc. without having to reach into
+    // the closure. Returns null when no popup is in edit mode.
+    _getEditor: function() { return currentEditor; },
   };
 
   // Create a new instance record from a concept item.
