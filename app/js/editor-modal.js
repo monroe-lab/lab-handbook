@@ -2587,28 +2587,44 @@
       scored.sort(function(a, b) { return a.score - b.score; });
       scored = scored.slice(0, 12);
       var html = '';
+      var actionBtnStyle = 'background:none;border:1px solid var(--grey-200);border-radius:4px;cursor:pointer;padding:3px 5px;display:inline-flex;align-items:center;color:var(--grey-600);font-family:inherit';
       for (var i = 0; i < scored.length; i++) {
         var s = scored[i];
         var tc = Lab.types.get(s.entry.type || 'container');
-        html += '<div class="em-place-result" data-slug="' + escHtml(s.slug) + '" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:4px;cursor:pointer">' +
+        html += '<div class="em-place-result" data-slug="' + escHtml(s.slug) + '" style="display:flex;align-items:center;gap:6px;padding:6px 6px;border-radius:4px">' +
           '<span style="font-size:14px">' + Lab.types.renderIcon(tc.icon) + '</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden">' +
-            '<div style="font-weight:600;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(s.entry.title || s.slug) + '</div>' +
+            '<div style="font-weight:600;color:var(--grey-800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">' + escHtml(s.entry.title || s.slug) + '</div>' +
             '<div style="font-size:11px;color:var(--grey-500);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
               '<span style="color:' + tc.color + '">' + escHtml(tc.label || s.entry.type) + '</span>' +
               (s.entry.parent ? ' · in ' + escHtml(s.entry.parent) : '') +
             '</div>' +
           '</span>' +
+          '<button type="button" class="em-place-dup" title="Duplicate as sibling here (same type and Of)" style="' + actionBtnStyle + '">' +
+            '<span class="material-icons-outlined" style="font-size:16px">content_copy</span>' +
+          '</button>' +
+          '<button type="button" class="em-place-move" title="Move this item here" style="' + actionBtnStyle + '">' +
+            '<span class="material-icons-outlined" style="font-size:16px">trending_flat</span>' +
+          '</button>' +
         '</div>';
       }
       resultsEl.innerHTML = html || '<div style="color:var(--grey-500);padding:10px;text-align:center;font-style:italic">No matches</div>';
       resultsEl.querySelectorAll('.em-place-result').forEach(function(el) {
         el.addEventListener('mouseenter', function() { el.style.background = 'var(--grey-100)'; });
         el.addEventListener('mouseleave', function() { el.style.background = ''; });
-        el.addEventListener('click', async function() {
+        var dupBtn  = el.querySelector('.em-place-dup');
+        var moveBtn = el.querySelector('.em-place-move');
+        if (dupBtn) dupBtn.addEventListener('click', async function(e) {
+          e.stopPropagation();
           var targetSlug = el.getAttribute('data-slug');
-          await moveObjectHere(targetSlug, parentSlug, cellKey);
           dismissPlaceHerePopover();
+          await duplicateObjectHere(targetSlug, parentSlug, cellKey);
+        });
+        if (moveBtn) moveBtn.addEventListener('click', async function(e) {
+          e.stopPropagation();
+          var targetSlug = el.getAttribute('data-slug');
+          dismissPlaceHerePopover();
+          await moveObjectHere(targetSlug, parentSlug, cellKey);
         });
       });
     }
@@ -2651,6 +2667,56 @@
       if (currentState) await renderContents(currentState, false);
     } catch(e) {
       if (window.Lab.showToast) Lab.showToast('Move failed: ' + e.message, 'error');
+      console.error(e);
+    }
+  }
+
+  // Duplicate an existing object as a sibling at the current cell. Inherits
+  // type and `of`, gets a fresh slug, and lands at newParent/newCellKey. Body
+  // is reset to a minimal title heading so the user starts clean. The new
+  // file opens in edit mode immediately so the user can rename and add notes
+  // (Nanodrop, harvest date, etc.) without re-typing the type/of metadata.
+  async function duplicateObjectHere(sourceSlug, newParentSlug, newCellKey) {
+    if (!sourceSlug || !newParentSlug) return;
+    var sourcePath = 'docs/' + sourceSlug + '.md';
+    try {
+      var file = await Lab.gh.fetchFile(sourcePath);
+      var parsed = window.Lab.parseFrontmatter(file.content);
+      var srcMeta = parsed.meta || {};
+      var dir = sourceSlug.split('/').slice(0, -1).join('/');
+      var typePrefix = (srcMeta.type || 'item') + '-';
+      var ofShort = '';
+      if (srcMeta.of) ofShort = String(srcMeta.of).split('/').pop() + '-';
+      var rand = Math.random().toString(36).slice(2, 8);
+      var newSlug = (dir ? dir + '/' : '') + typePrefix + ofShort + rand;
+      var newPath = 'docs/' + newSlug + '.md';
+      var newMeta = {};
+      if (srcMeta.type) newMeta.type = srcMeta.type;
+      if (srcMeta.of)   newMeta.of   = srcMeta.of;
+      newMeta.title    = srcMeta.title || sourceSlug.split('/').pop();
+      newMeta.parent   = newParentSlug;
+      newMeta.position = newCellKey;
+      var newBody = '\n# ' + (newMeta.title) + '\n';
+      var newContent = window.Lab.buildFrontmatter(newMeta, newBody);
+      var msg = 'Duplicate ' + sourceSlug + ' to ' + newParentSlug + '/' + newCellKey;
+      await Lab.gh.saveFile(newPath, newContent, null, msg);
+      Lab.gh.patchObjectIndex(newPath, newMeta);
+      if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
+      if (window.Lab.showToast) Lab.showToast('Duplicated to ' + newCellKey, 'success');
+      // Refresh contents pane so the cell shows occupied right away.
+      if (currentState) await renderContents(currentState, false);
+      // Open the new sibling and drop straight into edit mode so the user
+      // can rename + fill body. Same pattern as addInstanceFromConcept.
+      await openPopup(newPath);
+      setTimeout(function() {
+        startEditing();
+        setTimeout(function() {
+          var titleInput = document.querySelector('.em-overlay.open #em-f-title');
+          if (titleInput) { titleInput.focus(); titleInput.select(); }
+        }, 500);
+      }, 300);
+    } catch(e) {
+      if (window.Lab.showToast) Lab.showToast('Duplicate failed: ' + e.message, 'error');
       console.error(e);
     }
   }
