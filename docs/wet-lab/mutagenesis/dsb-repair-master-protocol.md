@@ -1,16 +1,14 @@
 ---
-type: protocol
+type: "protocol"
 title: "DSB DNA Repair - Master Protocol"
 ---
-
 # DSB DNA Repair - Master Protocol
-
 
 ## Resources
 
-**Reagents:** [[acrylamide]], [[agarose]], [[bis-n-n-methylene-bis-acrylamide]], [[carbenicillin-disodium-salt]], [[chloramphenicol]], [[gentamicin-sulfate-salt]], [[isopropyl-alcohol]], [[kanamycin-sulfate]], [[mes-buffer]], [[nuclease-free-water]], [[peptones-casein-tryptone]], [[sodium-dodecyl-sulfate]], [[tetracycline-hydrochloride]], [[yeast-extract]], [[zeocin]]
+**Reagents:** [[agarose]], [[carbenicillin-disodium-salt]], [[kanamycin-sulfate]], [[mes-buffer]], [[nuclease-free-water]], [[peptones-casein-tryptone]], [[sodium-dodecyl-sulfate]], [[tetracycline-hydrochloride]], [[yeast-extract]], [[zeocin]]
 
-**Related Protocols:** [[gel-electrophoresis]], [[pcr-genotyping]], [[protein-induction-bl21]]
+**Related Protocols:** [[gel-electrophoresis]], [[pcr-genotyping]]
 
 **Contacts:** [[grey-monroe]]
 
@@ -38,17 +36,15 @@ Anneal Oligos
 Ligation of pEnChimera and Oligos
 
 1. On ice combine…
-
-1. 13.5μL nuclease-free water
-2. 2.5μL digested pEnChimera
-3. 1μL oligo
-4. 2μL Ligase Buffer
-5. 1μL Ligase
-
-2. Mix by pipetting, then microfuge
-3. Incubate at RT for 10min
-4. Deactivate enzyme at 65C for 10min
-5. Chill on ice
+2. 13.5μL nuclease-free water
+3. 2.5μL digested pEnChimera
+4. 1μL oligo
+5. 2μL Ligase Buffer
+6. 1μL Ligase
+7. Mix by pipetting, then microfuge
+8. Incubate at RT for 10min
+9. Deactivate enzyme at 65C for 10min
+10. Chill on ice
 
 [[gel-electrophoresis]] (Confirmation that Digestion and Ligation were successful)
 
@@ -69,10 +65,8 @@ Ligation of pEnChimera and Oligos
 Run Gel
 
 1. Pipette solutions into wells
-
-1. pEnChimera, Digested pEnChimera, Ligated pEnChimera
-
-2. Run at 100V for 30-40min
+2. pEnChimera, Digested pEnChimera, Ligated pEnChimera
+3. Run at 100V for 30-40min
 
 Stain Gel
 
@@ -100,28 +94,22 @@ Selecting Colonies
 1. Fill PCR strips with 50µL of PCR-grade water
 2. Label carb. plate with lines to make a replica plate
 3. Select 8 single colonies from each plate
-
-1. Touch a single colony with a pipette tip
-2. Touch the tip to the replica plate
-3. Place the tip in a tube with water in the PCR strip and swirl
-
-4. Parafilm and place replica plate in incubator
+4. Touch a single colony with a pipette tip
+5. Touch the tip to the replica plate
+6. Place the tip in a tube with water in the PCR strip and swirl
+7. Parafilm and place replica plate in incubator
 
 Assemble PCR
 
 1. Combine the following to make a Primer Mix for each gRNA, vortex and microfuge
-
-1. 80µL PCR-grade water
-2. 10µL SS42 (100µM)
-3. 10µL Forward Oligo (100µM)
-
-2. On ice, combine the following to make a Premix for each gRNA, pipette to mix
-
-1. 34.2µL PCR-grade water
-2. 1.8µL Primer Mix
-3. 45µL Emerald Amp Master Mix
-
-3. Label PCR strips, add 9µL of Premix and 1µL of DNA (from “Selecting Colonies” tubes)
+2. 80µL PCR-grade water
+3. 10µL SS42 (100µM)
+4. 10µL Forward Oligo (100µM)
+5. On ice, combine the following to make a Premix for each gRNA, pipette to mix
+6. 34.2µL PCR-grade water
+7. 1.8µL Primer Mix
+8. 45µL Emerald Amp Master Mix
+9. Label PCR strips, add 9µL of Premix and 1µL of DNA (from “Selecting Colonies” tubes)
 
 Run PCR
 
@@ -137,13 +125,11 @@ Gel Electrophoresis for confirmation of PCR
 3. Pour into gel mold
 4. Let set for at least 20min to solidify
 5. Load with 2µL of the following
-
-1. 1kb+ ladder
-2. PCR results
-
-6. Run at 100V for 30-40min
-7. Rock in SYBR Gold stain for 15min
-8. Image
+6. 1kb+ ladder
+7. PCR results
+8. Run at 100V for 30-40min
+9. Rock in SYBR Gold stain for 15min
+10. Image
 
 Whole Plasmid Sequencing
 
@@ -165,16 +151,14 @@ Preparation
 Day 1
 
 1. Combine the following in a 1.5mL tube
-
-1. 1X TE Buffer to 10µL (~5-6µL)
-2. 25ng of pEnChimera + gRNA
-3. 100ng pDERC9
-
-2. Vortex briefly and microfuge
-3. On ice, thaw LR Clonase II for 2min
-4. Add 2µL LR Clonase II
+2. 1X TE Buffer to 10µL (\~5-6µL)
+3. 25ng of pEnChimera + gRNA
+4. 100ng pDERC9
 5. Vortex briefly and microfuge
-6. Incubate at RT overnight
+6. On ice, thaw LR Clonase II for 2min
+7. Add 2µL LR Clonase II
+8. Vortex briefly and microfuge
+9. Incubate at RT overnight
 
 Day 2
 
@@ -203,28 +187,22 @@ Selecting Colonies
 1. Fill PCR strips with 50µL of PCR-grade water
 2. Label carb. + kan plate with lines to make a replica plate
 3. Select 8 single colonies from each plate
-
-1. Touch a single colony with a pipette tip
-2. Touch the tip to the replica plate
-3. Place the tip in a tube with water in the PCR strip and swirl
-
-4. Parafilm and place replica plate in incubator
+4. Touch a single colony with a pipette tip
+5. Touch the tip to the replica plate
+6. Place the tip in a tube with water in the PCR strip and swirl
+7. Parafilm and place replica plate in incubator
 
 Assemble PCR
 
 1. Combine the following to make a Primer Mix for each gRNA, vortex and microfuge
-
-1. 80µL PCR-grade water
-2. 10µL KA130 (100µM)
-3. 10µL Forward Oligo (100µM)
-
-2. On ice, combine the following to make a Premix for each gRNA, pipette to mix
-
-1. 34.2µL PCR-grade water
-2. 1.8µL Primer Mix
-3. 45µL Emerald Amp Master Mix
-
-3. Label PCR strips, add 9µL of Premix and 1µL of DNA (from “Selecting Colonies” tubes)
+2. 80µL PCR-grade water
+3. 10µL KA130 (100µM)
+4. 10µL Forward Oligo (100µM)
+5. On ice, combine the following to make a Premix for each gRNA, pipette to mix
+6. 34.2µL PCR-grade water
+7. 1.8µL Primer Mix
+8. 45µL Emerald Amp Master Mix
+9. Label PCR strips, add 9µL of Premix and 1µL of DNA (from “Selecting Colonies” tubes)
 
 Run PCR
 
@@ -240,13 +218,11 @@ Gel Electrophoresis
 3. Pour into gel mold
 4. Let set for at least 20min to solidify
 5. Load with 2µL of the following
-
-1. 1kb+ ladder
-2. PCR results
-
-6. Run at 100V for 30-40min
-7. Rock in SYBR Gold stain for 15min
-8. Image
+6. 1kb+ ladder
+7. PCR results
+8. Run at 100V for 30-40min
+9. Rock in SYBR Gold stain for 15min
+10. Image
 
 Whole Plasmid Sequencing
 
