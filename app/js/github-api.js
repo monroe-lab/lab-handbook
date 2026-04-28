@@ -357,11 +357,38 @@
   }
 
   // Patch the link-index for a file we just saved. Source = path without
-  // .md, targets = wikilink slugs from the body. Replaces any prior patch
-  // entry for this source.
-  function patchLinkIndex(filePath, body) {
+  // .md, targets = wikilink slugs from the body AND from any frontmatter
+  // string fields. Replaces any prior patch entry for this source.
+  //
+  // The `meta` arg is optional; when supplied, every string-typed value (and
+  // every entry of an array-typed value) is scanned for [[wikilinks]] so that
+  // a People/Project/Of pointer in frontmatter produces real backlinks
+  // immediately (no body-mention required). Without this, an accession's
+  // `people: [[barb-m]]` field would never appear on Barb's References pane.
+  function patchLinkIndex(filePath, body, meta) {
     var source = filePath.replace(/^docs\//, '').replace(/\.md$/, '');
     var targets = extractWikilinkTargets(body);
+    if (meta && typeof meta === 'object') {
+      var seenT = {};
+      targets.forEach(function(t) { seenT[t] = true; });
+      var collect = function(val) {
+        if (val == null) return;
+        if (Array.isArray(val)) { val.forEach(collect); return; }
+        if (typeof val !== 'string') return;
+        extractWikilinkTargets(val).forEach(function(t) {
+          if (!seenT[t]) { seenT[t] = true; targets.push(t); }
+        });
+        // Also accept bare slugs in fields whose semantic is "points at": of,
+        // parent, person, project, etc. The build-time link-indexer treats
+        // these the same way, so the runtime patch should match.
+        var bareCandidate = val.trim();
+        if (bareCandidate && !/[\s\[\]]/.test(bareCandidate) && bareCandidate.indexOf('/') >= 0 && !seenT[bareCandidate]) {
+          seenT[bareCandidate] = true;
+          targets.push(bareCandidate);
+        }
+      };
+      Object.keys(meta).forEach(function(k) { collect(meta[k]); });
+    }
     var patches = getLinkPatches();
     patches[source] = { targets: targets };
     try { localStorage.setItem(LINK_PATCH_KEY, JSON.stringify(patches)); } catch(e) {}

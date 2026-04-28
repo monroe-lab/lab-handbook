@@ -2696,7 +2696,10 @@
       newMeta.title    = srcMeta.title || sourceSlug.split('/').pop();
       newMeta.parent   = newParentSlug;
       newMeta.position = newCellKey;
-      var newBody = '\n# ' + (newMeta.title) + '\n';
+      // Empty body — no H1 heading. The popup heading already shows the title
+      // (drawn from frontmatter), so an extra H1 in body would compete and
+      // become stale once the user renames the duplicate.
+      var newBody = '\n';
       var newContent = window.Lab.buildFrontmatter(newMeta, newBody);
       var msg = 'Duplicate ' + sourceSlug + ' to ' + newParentSlug + '/' + newCellKey;
       await Lab.gh.saveFile(newPath, newContent, null, msg);
@@ -3166,7 +3169,7 @@
       // Mirror the body's wikilinks into the link-index so backlinks for
       // newly-edited or freshly-created files appear immediately in the
       // referenced object's popup, instead of waiting for the next deploy.
-      if (gh.patchLinkIndex) gh.patchLinkIndex(currentState.path, currentState.body || '');
+      if (gh.patchLinkIndex) gh.patchLinkIndex(currentState.path, currentState.body || '', currentState.meta);
       if (window.Lab.hierarchy) Lab.hierarchy.invalidate();
 
       // Fire custom event so parent app can refresh

@@ -760,20 +760,27 @@ function addAccession() {
   var idInput = document.getElementById('addAccessionId');
   idInput.removeEventListener('input', updateSlugPreview);
   idInput.addEventListener('input', updateSlugPreview);
-  // R20: wire [[ autocomplete on the People field (we can type wikilinks mid-edit)
+  // R20: wire [[ autocomplete on the People AND Project fields. Both accept
+  // [[wikilinks]] so an accession can point at the real person + project
+  // cards instead of duplicating their names as plain text.
   var peopleInput = document.getElementById('addPeople');
-  if (peopleInput && window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.attachTextInput) {
-    Lab.wikilinkAutocomplete.detachTextInput(peopleInput);
-    Lab.wikilinkAutocomplete.attachTextInput(peopleInput);
-  }
+  var projectInput = document.getElementById('addProject');
+  [peopleInput, projectInput].forEach(function(el) {
+    if (el && window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.attachTextInput) {
+      Lab.wikilinkAutocomplete.detachTextInput(el);
+      Lab.wikilinkAutocomplete.attachTextInput(el);
+    }
+  });
   setTimeout(function() { idInput.focus(); }, 50);
 }
 function closeAddModal() {
   document.getElementById('addModal').classList.remove('open');
-  var peopleInput = document.getElementById('addPeople');
-  if (peopleInput && window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.detachTextInput) {
-    Lab.wikilinkAutocomplete.detachTextInput(peopleInput);
-  }
+  ['addPeople', 'addProject'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && window.Lab && Lab.wikilinkAutocomplete && Lab.wikilinkAutocomplete.detachTextInput) {
+      Lab.wikilinkAutocomplete.detachTextInput(el);
+    }
+  });
 }
 
 async function confirmAdd() {
@@ -822,6 +829,11 @@ async function confirmAdd() {
     var saved = await Lab.gh.saveFile(path, content, null, 'Add accession: ' + accId);
     Lab.showToast('Created: ' + accId, 'success');
     Lab.gh.patchObjectIndex(path, meta);
+    // Patch the link-index too so wikilinks in People/Project frontmatter
+    // produce backlinks on the referenced person/project cards immediately —
+    // without this the new accession is invisible from those cards until the
+    // next deploy rebuilds the indexed link graph.
+    if (Lab.gh.patchLinkIndex) Lab.gh.patchLinkIndex(path, body, meta);
     // Prime the editor-modal file cache so openPopup doesn't race the
     // GitHub Contents API right after a fresh create (same trick inventory
     // uses — see app/inventory.html#confirmAdd).
