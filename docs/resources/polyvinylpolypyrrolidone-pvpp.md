@@ -1,7 +1,7 @@
 ---
 title: Polyvinylpolypyrrolidone (PVPP)
 type: chemical
-status: needed
+status: needs_more
 vendor: Millipore Sigma
 catalog_number: P6755
 ---

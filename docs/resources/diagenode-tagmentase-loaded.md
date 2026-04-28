@@ -1,7 +1,7 @@
 ---
 title: Diagenode Tagmentase (ME-A/B loaded)
 type: enzyme
-status: needed
+status: needs_more
 vendor: Diagenode
 catalog_number: C01070012
 ---

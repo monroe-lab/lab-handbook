@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: DNA LoBind Tubes (1.5 mL)
-status: owned
+status: in_stock
 vendor: Eppendorf
 catalog_number: 022431021
 ---

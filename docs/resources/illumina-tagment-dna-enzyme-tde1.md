@@ -1,7 +1,7 @@
 ---
 title: Illumina Tagment DNA Enzyme (TDE1)
 type: enzyme
-status: needed
+status: needs_more
 vendor: Illumina
 catalog_number: '15027865'
 ---

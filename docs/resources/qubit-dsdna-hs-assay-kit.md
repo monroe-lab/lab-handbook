@@ -1,7 +1,7 @@
 ---
 type: kit
 title: Qubit dsDNA HS Assay Kit
-status: owned
+status: in_stock
 vendor: ThermoFisher
 catalog_number: Q32854
 ---

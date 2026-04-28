@@ -1,7 +1,7 @@
 ---
 type: kit
 title: "Qiagen DNeasy 96 Plant Kit"
-status: needed
+status: needs_more
 vendor: "Qiagen"
 catalog_number: "69181"
 ---

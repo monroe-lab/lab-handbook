@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: Flongle Flow Cells (FLO-FLG114)
-status: needed
+status: needs_more
 vendor: Oxford Nanopore
 catalog_number: FLO-FLG114
 ---

@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Slide-A-Lyzer G2 10K MWCO Dialysis Cassettes"
-status: needed
+status: needs_more
 vendor: "Thermo"
 catalog_number: "87730"
 ---

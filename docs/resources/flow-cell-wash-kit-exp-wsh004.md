@@ -1,7 +1,7 @@
 ---
 type: kit
 title: Flow Cell Wash Kit (EXP-WSH004)
-status: needed
+status: needs_more
 vendor: Oxford Nanopore
 catalog_number: EXP-WSH004
 ---

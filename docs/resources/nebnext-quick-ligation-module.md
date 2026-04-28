@@ -1,7 +1,7 @@
 ---
 type: kit
 title: NEBNext Quick Ligation Module (E6056S)
-status: needed
+status: needs_more
 vendor: NEB
 catalog_number: E6056S
 ---

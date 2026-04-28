@@ -1,7 +1,7 @@
 ---
 title: Proteinase K (Sigma P2308)
 type: enzyme
-status: needed
+status: needs_more
 vendor: Millipore Sigma
 catalog_number: P2308
 ---

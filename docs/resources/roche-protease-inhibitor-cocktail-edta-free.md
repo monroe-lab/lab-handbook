@@ -1,7 +1,7 @@
 ---
 title: Roche cOmplete Protease Inhibitor Cocktail, EDTA-free
 type: kit
-status: needed
+status: needs_more
 vendor: Roche (via Millipore Sigma)
 catalog_number: '11873580001'
 ---

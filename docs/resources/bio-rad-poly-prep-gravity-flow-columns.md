@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Poly-Prep Gravity-Flow Chromatography Columns"
-status: needed
+status: needs_more
 vendor: "Bio-Rad"
 catalog_number: "7311550"
 ---

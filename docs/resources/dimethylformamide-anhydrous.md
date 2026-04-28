@@ -1,7 +1,7 @@
 ---
 title: N,N-Dimethylformamide (DMF), Anhydrous
 type: chemical
-status: needed
+status: needs_more
 vendor: Millipore Sigma
 catalog_number: '227056'
 ---

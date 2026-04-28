@@ -1,7 +1,7 @@
 ---
 type: kit
 title: NEB Blunt/TA Ligase Master Mix (M0367S)
-status: needed
+status: needs_more
 vendor: NEB
 catalog_number: M0367S
 ---

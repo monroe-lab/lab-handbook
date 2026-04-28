@@ -1,7 +1,7 @@
 ---
 type: kit
 title: "KAPA Library Quantification Kit (Illumina, qPCR)"
-status: needed
+status: needs_more
 vendor: "Roche (KAPA Biosystems)"
 catalog_number: "KK4824"
 ---

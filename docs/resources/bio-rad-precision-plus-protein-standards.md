@@ -1,7 +1,7 @@
 ---
 title: Precision Plus Protein Standards
 type: kit
-status: needed
+status: needs_more
 vendor: Bio-Rad
 catalog_number: '1610374'
 ---

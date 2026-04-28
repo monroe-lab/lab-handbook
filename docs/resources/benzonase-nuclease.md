@@ -1,7 +1,7 @@
 ---
 title: Benzonase Nuclease
 type: enzyme
-status: needed
+status: needs_more
 vendor: Millipore Sigma
 catalog_number: E1014
 ---

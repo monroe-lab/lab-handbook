@@ -1,7 +1,7 @@
 ---
 type: equipment
 title: OT-2 Magnetic Module (GEN2)
-status: owned
+status: in_stock
 vendor: Opentrons
 ---
 # OT-2 Magnetic Module (GEN2)

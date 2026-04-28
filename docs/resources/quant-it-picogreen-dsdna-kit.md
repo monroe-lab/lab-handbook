@@ -1,7 +1,7 @@
 ---
 type: kit
 title: "Quant-iT PicoGreen dsDNA Assay Kit"
-status: needed
+status: needs_more
 vendor: "Invitrogen / Thermo"
 catalog_number: "P7589"
 ---

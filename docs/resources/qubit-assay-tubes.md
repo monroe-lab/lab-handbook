@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: Qubit Assay Tubes
-status: owned
+status: in_stock
 vendor: ThermoFisher
 catalog_number: Q32856
 ---

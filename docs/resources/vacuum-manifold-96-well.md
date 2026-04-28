@@ -1,7 +1,7 @@
 ---
 type: equipment
 title: "Vacuum Manifold, 96-well"
-status: needed
+status: needs_more
 vendor: "Qiagen or Pall"
 catalog_number: "19504 (Qiagen) / 5017 (Pall)"
 ---

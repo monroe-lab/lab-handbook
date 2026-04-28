@@ -1,7 +1,7 @@
 ---
 type: equipment
 title: OT-2 Thermocycler Module
-status: owned
+status: in_stock
 vendor: Opentrons
 ---
 # OT-2 Thermocycler Module

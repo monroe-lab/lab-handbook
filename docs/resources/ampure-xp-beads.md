@@ -1,7 +1,7 @@
 ---
 title: AMPure XP Beads
 type: kit
-status: owned
+status: in_stock
 vendor: Beckman Coulter
 catalog_number: A63881
 ---

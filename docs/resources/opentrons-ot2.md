@@ -1,7 +1,7 @@
 ---
 type: equipment
 title: Opentrons OT-2
-status: owned
+status: in_stock
 vendor: Opentrons
 ---
 # Opentrons OT-2

@@ -1,7 +1,7 @@
 ---
 title: Sera-Mag SpeedBead Carboxylate-Modified Magnetic Beads
 type: kit
-status: needed
+status: needs_more
 vendor: Cytiva
 catalog_number: '65152105050250'
 ---

@@ -1,7 +1,7 @@
 ---
 title: Laemmli Sample Buffer, 2×
 type: kit
-status: needed
+status: needs_more
 vendor: Bio-Rad
 catalog_number: '1610737'
 ---

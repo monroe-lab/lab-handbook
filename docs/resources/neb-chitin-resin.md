@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "NEB Chitin Resin"
-status: needed
+status: needs_more
 vendor: "NEB"
 catalog_number: "S6651"
 ---

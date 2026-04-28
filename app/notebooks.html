@@ -922,11 +922,20 @@ async function showWelcome() {
       });
     }
   } catch(_) {}
+  // Filter recent[] by the same docSearch query the sidebar uses, so a search
+  // narrows both panes consistently. Empty query keeps everything (globally
+  // recent is the default behavior).
+  var nbSearchEl = document.getElementById('nbSearch');
+  var qLower = (nbSearchEl ? nbSearchEl.value : '').trim().toLowerCase();
   var recent = [];
   (function walk(node, labelChain) {
     var label = labelChain ? labelChain + ' / ' + node.label : node.label;
     if (node.dir) {
       node.items.slice(0, 3).forEach(function(it) {
+        if (qLower) {
+          var hay = (it.title + ' ' + it.path + ' ' + label).toLowerCase();
+          if (hay.indexOf(qLower) === -1) return;
+        }
         var date = extractDate(it.path, it.title);
         if (!date) {
           var mtime = mtimeByPath[it.path + '.md'] || mtimeByPath[it.path];
@@ -944,8 +953,12 @@ async function showWelcome() {
   });
 
   var recentHtml = '';
-  if (recent.length) {
+  if (!recent.length && qLower) {
     recentHtml = '<h3 style="font-size:15px;font-weight:600;margin:24px 0 12px">Recent Entries</h3>' +
+      '<div style="color:var(--grey-500);font-style:italic">No entries match "' + Lab.escHtml(nbSearchEl.value) + '".</div>';
+  } else if (recent.length) {
+    recentHtml = '<h3 style="font-size:15px;font-weight:600;margin:24px 0 12px">' +
+      (qLower ? 'Matching Entries' : 'Recent Entries') + '</h3>' +
       recent.slice(0, 10).map(function(e) {
         var subtitle = e.date || e.title;
         return '<div onclick="loadDoc(\'' + Lab.escHtml(e.path) + '\')" style="background:#fff;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">' +
@@ -967,6 +980,9 @@ async function showWelcome() {
 // ── Search ──
 document.getElementById('nbSearch').addEventListener('input', function() {
   renderSidebar(this.value);
+  // Also re-render welcome (Recent Entries) when no doc is loaded, so the
+  // sidebar query filters the right pane in lockstep.
+  if (!new URLSearchParams(location.search).get('doc')) showWelcome();
 });
 
 // ── Mobile sidebar ──

@@ -1,7 +1,7 @@
 ---
 title: Tween 20 (Polysorbate 20)
 type: chemical
-status: needed
+status: needs_more
 vendor: Millipore Sigma
 catalog_number: P9416
 ---

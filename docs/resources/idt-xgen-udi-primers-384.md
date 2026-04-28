@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "IDT xGen / Custom 384 UDI Primer Set"
-status: needed
+status: needs_more
 vendor: "IDT"
 catalog_number: "custom-or-xGen"
 ---

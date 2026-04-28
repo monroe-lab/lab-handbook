@@ -1,7 +1,7 @@
 ---
 type: equipment
 title: MinION Mk1B
-status: needed
+status: needs_more
 vendor: Oxford Nanopore
 ---
 

@@ -1,7 +1,7 @@
 ---
 type: reagent
 title: "IDT Tn5ME-A Oligo"
-status: needed
+status: needs_more
 vendor: "IDT"
 catalog_number: "custom"
 ---
