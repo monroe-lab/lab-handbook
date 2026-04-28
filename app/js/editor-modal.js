@@ -5000,8 +5000,19 @@
       of: conceptSlug,
     }, '\n# ' + conceptTitle + '\n');
     try {
-      await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
+      var saved = await Lab.gh.saveFile(path, content, null, 'New instance of ' + conceptTitle);
       Lab.gh.patchObjectIndex(path, { type: instanceType, title: conceptTitle, of: conceptSlug });
+      // Prime the file cache so the immediate openPopup() that follows
+      // doesn't have to round-trip the GitHub Contents API. Without this,
+      // a freshly-created instance can take 5-15s to render its edit form
+      // (one fetch round-trip on top of the recent save), which races any
+      // automated wait-for-form-fields flow and can drop typed-in field
+      // values silently because save() collects from a half-rendered DOM.
+      try {
+        var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+        fileCache[path] = { content: content, sha: (saved && saved.sha) || null, savedAt: Date.now() };
+        localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+      } catch (e) {}
       if (Lab.hierarchy) Lab.hierarchy.invalidate();
       window.dispatchEvent(new CustomEvent('lab-file-saved', { detail: { path: path } }));
       await openPopup(path);
