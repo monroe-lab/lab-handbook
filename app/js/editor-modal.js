@@ -753,6 +753,28 @@
   // that navigates when clicked. If the slug can't be resolved in the
   // index, the placeholder stays as raw text.
   async function upgradeParentField() {
+    // Wire click handlers on the generic [[wikilink]] pills emitted by the
+    // fields-column generic fallback (e.g. Project = [[mutation-accumulation]]).
+    // These need an onclick to open the linked card in the modal.
+    document.querySelectorAll('a[data-wikilink-slug]').forEach(function(a) {
+      if (a.dataset.wikiBound) return;
+      a.dataset.wikiBound = '1';
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var slug = a.getAttribute('data-wikilink-slug');
+        if (!slug || !window.Lab.editorModal) return;
+        // Resolve the slug — accept bare leaf names (e.g. "mutation-accumulation")
+        // by searching the cached index, in addition to full paths
+        // ("projects/mutation-accumulation").
+        var idx = (window.Lab.gh && window.Lab.gh._getCachedIndex && window.Lab.gh._getCachedIndex()) || [];
+        var hit = null;
+        for (var i = 0; i < idx.length; i++) {
+          var p = idx[i].path.replace(/\.md$/, '');
+          if (p === slug || p.split('/').pop() === slug) { hit = p; break; }
+        }
+        if (hit) window.Lab.editorModal.open('docs/' + hit + '.md');
+      });
+    });
     var pills = document.querySelectorAll('[data-parent-pill], [data-of-pill], [data-member-pill]');
     if (!pills.length || !window.Lab.hierarchy) return;
     for (var i = 0; i < pills.length; i++) {
@@ -1645,6 +1667,35 @@
             '</span>' +
             '<span class="material-icons-outlined" style="font-size:14px;flex-shrink:0">open_in_new</span>' +
             '</a>';
+        } else if (rawVal.indexOf('[[') !== -1 && /\[\[([^\]]+)\]\]/.test(rawVal)) {
+          // Generic wikilink-aware fallback: any field value containing
+          // `[[slug]]` renders the wikilink portions as teal pills (clickable)
+          // and the surrounding plain text as plain text. Without this branch,
+          // fields like Project that store `[[mutation-accumulation]]` would
+          // display the literal brackets, breaking the visual contract that
+          // wikilink = clickable pill across the whole site.
+          var pieces = [];
+          var rgx = /\[\[([^\]\n|]+)(?:\|([^\]\n]*))?\]\]/g;
+          var lastIdx = 0;
+          var m;
+          while ((m = rgx.exec(rawVal)) !== null) {
+            if (m.index > lastIdx) pieces.push({ kind: 'text', text: rawVal.slice(lastIdx, m.index) });
+            var slug = m[1].trim();
+            var alias = m[2] ? m[2].trim() : null;
+            pieces.push({ kind: 'pill', slug: slug, label: alias || slug.split('/').pop().replace(/-/g, ' ') });
+            lastIdx = m.index + m[0].length;
+          }
+          if (lastIdx < rawVal.length) pieces.push({ kind: 'text', text: rawVal.slice(lastIdx) });
+          valHtml = '<span style="font-weight:500;display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center;flex:1 1 auto;min-width:0">' +
+            pieces.map(function(p) {
+              if (p.kind === 'pill') {
+                return '<a href="#" data-wikilink-slug="' + window.Lab.escHtml(p.slug) + '" ' +
+                  'style="display:inline-block;padding:2px 10px;border-radius:12px;background:var(--teal-light,#b2dfdb);color:var(--teal-dark,#00695c);font-size:12px;font-weight:500;text-decoration:none">' +
+                  window.Lab.escHtml(p.label) + '</a>';
+              }
+              return window.Lab.escHtml(p.text);
+            }).join('') +
+            '</span>';
         } else {
           valHtml = '<span style="font-weight:500">' + window.Lab.escHtml(rawVal) + '</span>';
         }
