@@ -9716,8 +9716,8 @@
     "FAB-NEAR-WIZARD-NEXT-MOBILE / FAB-OVERLAPS-WIZARD-NEXT-MOBILE (visual, closed in cycle 19, commit 1e90ba8): cycle 19 measurement confirmed actual overlap (not just proximity) \u2014 FAB {right:357} over Next {right:347} at 375px. Fix: people.html toggles body.wizard-open on openOnboardingWizard/closeWizard, and a new 'body.wizard-open #issue-reporter-btn { display: none !important; }' CSS rule hides the FAB while the overlay is open. Verified: FAB display=none, body has wizard-open class.",
     "PROTOCOLS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): protocols sidebar 0-result state was plain '<p>No protocols match</p>'; swapped to '.empty-state' div with the search_off icon, matching inventory/waste.",
     "NOTEBOOKS-EMPTY-STATE-MINIMAL (cosmetic, closed in cycle 19, commit 1e90ba8): notebooks sidebar 0-result state used inline ad-hoc styling; swapped to the standard .empty-state block with the search_off icon plus a '+' hint to create one.",
-    "WIKI-GRAPH-NOT-FILTERED (ux, OPEN from cycle 19): wiki.html sidebar search (#docSearch) filters the folder tree but the knowledge graph in the main pane stays unchanged even when the sidebar reads 'No documents match'. Larger change \u2014 logged for a future cycle. Options: filter graph nodes to match the sidebar, dim non-matching nodes, or hide the graph placeholder message when no results.",
-    "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, OPEN from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional \u2014 Recent Entries is globally recent by design \u2014 but a confused user might expect filtering. Logged as an observation rather than a bug.",
+    "WIKI-GRAPH-NOT-FILTERED (ux, CLOSED from cycle 19): wiki.html sidebar search (#docSearch) filters the folder tree but the knowledge graph in the main pane stays unchanged even when the sidebar reads 'No documents match'. Larger change \u2014 logged for a future cycle. Options: filter graph nodes to match the sidebar, dim non-matching nodes, or hide the graph placeholder message when no results. Closed: fixed in cycle 25 commit 426be61e \u2014 wiki welcome-pane force-directed graph now filters via the same docSearch + type-chip predicate as the sidebar (matchSet \u2192 dimmed nodes at ~25% alpha, faded edges).",
+    "NOTEBOOKS-RECENT-ENTRIES-NOT-FILTERED (ux, CLOSED from cycle 19, debatable): sidebar search does not filter the right-pane Recent Entries list. Behavior may be intentional \u2014 Recent Entries is globally recent by design \u2014 but a confused user might expect filtering. Logged as an observation rather than a bug. Closed: fixed in commit 7c473eaf \u2014 showWelcome() now filters recent[] by nbSearch value (title/path/folder, case-insensitive) and renders 'Matching Entries' header or 'No entries match' empty state; nbSearch input listener also re-renders welcome when no doc is loaded.",
     "INV-TYPE-BADGE-HARDCODED-TEAL (visual, closed in cycle 20, commit 3f1c5a30): every row in the Inventory table rendered its Type column badge in teal regardless of type, so Chemical / Reagent / Kit / Enzyme / Equipment / Consumable / Buffer-Solution were visually indistinguishable. Fix: replaced hardcoded 'badge badge-teal' class with inline Lab.types.pillStyle(type, 'badge') in app/inventory.html renderTable. Post-fix: 7 types render 7 distinct colors.",
     "BOTTLE-NOT-ROLLED-UP-AFTER-CREATE (ux, closed in cycle 44, commit 4d5e666d/582c61b5 \u2014 verified rollup goes 1\u21922\u21923 immediately on save without reload): right after addInstanceFromConcept saves a new bottle, it appears as its own Inventory row instead of rolling up under the concept's bottle count. Reloading the page fixes it \u2014 suggests the 'lab-file-saved' listener updates the individual row instead of rebuilding bottlesByConcept. Not fixed this cycle; transient.",
     {
@@ -9784,7 +9784,7 @@
     "CYCLE27-INSTANCE-SUBTITLE-SLUG (visual, fixed in cycle 27, commit 230d4fde): renderBacklinksPane displayed parent slug \"box dna extracts\" instead of title \"DNA Extracts Box\"",
     "CYCLE27-NOTEBOOK-RECENT-MN (cosmetic, closed in cycle 33 commit d59ed437; see CYCLE27-NOTEBOOK-RECENT-MN-V2): first recent notebook entry shows \"MN\" instead of YYYY-MM-DD date in subtitle",
     "CYCLE27-OF-PLACEHOLDER-TRUNCATED (cosmetic, closed in cycle 39 (commit 9751f0f9), label updated cycle 44): New Tube of-field placeholder truncated to \"or re...\"",
-    "CYCLE27-DETAIL-LINK-NOT-CLICKABLE (ux, OPEN from cycle 27): accession popup Detail Sheet Link rendered as plain truncated text, not a clickable hyperlink [VERIFIED CLOSED in cycle 39: editor-modal.js:1565-1571 linkifies https field values; screenshot 09 confirms teal anchor + open_in_new icon. No new commit needed.]",
+    "CYCLE27-DETAIL-LINK-NOT-CLICKABLE (ux, CLOSED from cycle 27): accession popup Detail Sheet Link rendered as plain truncated text, not a clickable hyperlink [VERIFIED CLOSED in cycle 39: editor-modal.js:1565-1571 linkifies https field values; screenshot 09 confirms teal anchor + open_in_new icon. No new commit needed.] Closed: cycle 39 verified the cycle-25 editor-modal:1565-1571 linkifier already handles https field values; teal anchor + open_in_new icon confirmed in screenshot 09. Journal flag stale, no new commit needed.",
     {
       "id": "ORPHAN-BOTTLE-OF-DELETED-CONCEPT",
       "cycle": 28,
@@ -10252,9 +10252,11 @@
     {
       "id": "CYCLE67-NEEDED-OWNED-DATA-MIGRATION",
       "severity": "data",
-      "status": "open",
+      "status": "closed",
       "summary": "59 resource cards still carry non-canonical status values (51 `needed`, 8 `owned`). Code now aliases them at read-time but the underlying frontmatter is drift. Migration script could rewrite docs/resources/*.md with canonical values when convenient. Click-cycle in the popup writes canonical values forward, so this will heal incrementally as Grey clicks status pills. User-owned data; no silent rewrite.",
-      "cycle": 67
+      "cycle": 67,
+      "commit": "7c473eaf",
+      "closure_note": "Closed: fixed in commit 7c473eaf \u2014 migrated 59 files in docs/resources/ from `needed` (51) \u2192 `needs_more` and `owned` (8) \u2192 `in_stock`. Frontmatter-only sed via /tmp/migrate_status.py."
     },
     {
       "id": "CYCLE69-PEOPLE-ROW-WRAP",
