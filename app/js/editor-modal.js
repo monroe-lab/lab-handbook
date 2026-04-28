@@ -2706,8 +2706,15 @@
       // Refresh contents pane so the cell shows occupied right away.
       if (currentState) await renderContents(currentState, false);
       // Open the new sibling and drop straight into edit mode so the user
-      // can rename + fill body. Same pattern as addInstanceFromConcept.
+      // can rename + fill body. Set returnTo + the post-save return flag so
+      // hitting Save lands the user back on the parent (the box) instead of
+      // stranding them on the duplicate. Without this, rapid sibling-stamping
+      // requires manual back-navigation between every replicate.
       await openPopup(newPath);
+      if (currentState && currentState.path === newPath) {
+        currentState.returnTo = 'docs/' + newParentSlug + '.md';
+        currentState._returnAfterSave = true;
+      }
       setTimeout(function() {
         startEditing();
         setTimeout(function() {
@@ -3177,6 +3184,14 @@
       } else if (isNew) {
         // No parent to return to — just close and let the caller handle UI.
         close();
+      } else if (currentState._returnAfterSave && returnTo) {
+        // Duplicate-as-sibling flow: the file already existed by the time we
+        // entered edit mode, but logically the user is "creating" a sibling.
+        // Honor returnTo so save+close lands them back on the parent (box),
+        // ready to stamp the next replicate.
+        currentState._returnAfterSave = false;
+        close();
+        setTimeout(function() { openPopup(returnTo); }, 80);
       } else {
         // Standard update: switch back to view mode.
         await stopEditing();
