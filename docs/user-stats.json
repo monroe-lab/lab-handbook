@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-04-29T06:26:05.702897+00:00",
-  "total_commits": 4358,
+  "generated_at": "2026-04-29T06:46:49.075682+00:00",
+  "total_commits": 4384,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4173,
+      "total_commits": 4199,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-29",
       "protocols_authored": 186,
       "notebooks_authored": 156,
-      "inventory_edits": 2205,
-      "wiki_edits": 2442,
+      "inventory_edits": 2229,
+      "wiki_edits": 2445,
       "images_uploaded": 140,
       "issue_attachments": 83,
       "issues_filed": 30,
       "locations_created": 256,
-      "items_added": 686,
+      "items_added": 695,
       "bulletin_edits": 14,
       "calendar_edits": 40,
       "annotations": 57,
@@ -24,43 +24,43 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "6dd82d1",
-          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A2",
+          "sha": "57e37cb",
+          "subject": "qa-cycle-71: seed test bottle qa71-bottle-methbut-p0q2tn",
           "date": "2026-04-29"
         },
         {
-          "sha": "adf106f",
-          "subject": "Update accessions/extraction-barb-m-mp1-kur82p.md",
+          "sha": "64dbe17",
+          "subject": "Update stocks/qa71-bottle-acetone-p0q2tn.md",
           "date": "2026-04-29"
         },
         {
-          "sha": "91ea8e1",
-          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A3",
+          "sha": "c8b570c",
+          "subject": "Update stocks/qa71-bottle-octanol-p0q2tn.md",
           "date": "2026-04-29"
         },
         {
-          "sha": "2b7f4bf",
-          "subject": "Update accessions/extraction-barb-m-mp1-sl9s6x.md",
+          "sha": "1972b78",
+          "subject": "Update stocks/qa71-bottle-methbut-p0q2tn.md",
           "date": "2026-04-29"
         },
         {
-          "sha": "cafb9e1",
-          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A4",
+          "sha": "f6c43df",
+          "subject": "qa-cycle-71: cleanup qa71-bottle-acetone-p0q2tn",
           "date": "2026-04-29"
         },
         {
-          "sha": "6ebb0aa",
-          "subject": "Update accessions/extraction-barb-m-mp1-v9mldk.md",
+          "sha": "be0727b",
+          "subject": "qa-cycle-71: cleanup qa71-bottle-octanol-p0q2tn",
           "date": "2026-04-29"
         },
         {
-          "sha": "f0092cc",
-          "subject": "Update notebook notebooks/barb-m/2026-04-13",
+          "sha": "bcfb35b",
+          "subject": "qa-cycle-71: cleanup qa71-bottle-methbut-p0q2tn",
           "date": "2026-04-29"
         },
         {
-          "sha": "cccb70a",
-          "subject": "Add 393 cassava accession concept cards + project card for Zhao et al. 2026",
+          "sha": "051418a",
+          "subject": "qa-cycle-71: clarify locations picker count label vs lab-map",
           "date": "2026-04-29"
         }
       ],

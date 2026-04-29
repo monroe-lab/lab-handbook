@@ -4,6 +4,14 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/b15-69",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/b2-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
     "source": "accessions/barb-m-mp1",
     "target": "wet-lab/extraction/hifi-dna-extraction"
   },
@@ -22,6 +30,10 @@
   {
     "source": "accessions/bl21-de3-competent-cells",
     "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "accessions/c2-35",
+    "target": "projects/pistachio-wolfskill-collection"
   },
   {
     "source": "accessions/caexxx-13",
@@ -1384,8 +1396,20 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/dpis557",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
     "source": "accessions/extraction-barb-m-mp1-6q5g1y",
     "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "accessions/golden-hills",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/gumdrop-wolfskill",
+    "target": "projects/pistachio-wolfskill-collection"
   },
   {
     "source": "accessions/hmcp-13",
@@ -1396,12 +1420,24 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/joley",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
     "source": "accessions/lonxxx-2",
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
     "source": "accessions/lonxxx-3",
     "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/lost-hills",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/n-51",
+    "target": "projects/pistachio-wolfskill-collection"
   },
   {
     "source": "accessions/orbxxx-1",
@@ -1540,6 +1576,26 @@
     "target": "locations/tube-pistachio-dna-extract-1"
   },
   {
+    "source": "accessions/s-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/s-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/s-45",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/s-48",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/s-51",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
     "source": "accessions/sample-barb-m-mp1-9ck58r",
     "target": "wet-lab/harvesting-leaf-tissue"
   },
@@ -1634,6 +1690,3366 @@
   {
     "source": "accessions/ven77",
     "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/w12-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-1-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-10-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-11-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-12-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-13-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-14-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-14-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-14-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-2-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-3-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-3-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-9-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-4-9-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-5-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-5-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-5-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-5-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-6-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-7-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-7-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-9-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-9-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-8-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpia-9-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-1-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-10-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-11-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-12-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-12-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-13-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-14-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-2-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-2-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-2-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-4-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-4-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-4-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-4-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-3-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-3-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-5-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-6-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-7-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-8-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-8-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-8-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-8-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpib-9-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-37-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-37-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-38",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-1-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-38",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-2-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-26-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-26-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-3-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-1-a",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-1-b",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-4-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-5-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-38",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-6-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-7-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-8-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-14-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-14-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpic-9-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-10-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-10-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-7-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-7-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-2-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-20-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-20-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-38",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-3-39",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-36",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-39",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-4-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-39",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-5-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-35",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-37",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-39",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-6-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-7-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpid-8-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-10-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-11-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-12-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-13-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-14-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-15-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-16-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-17-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-18-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-19-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-20-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-21-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-22-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-17",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-31",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-32",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-23-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-27",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-28",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-24-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-14",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-15",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-16",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-18",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-19",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-20",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-21",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-22",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-23",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-24",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-25",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-26",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-29",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-30",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-33",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-34",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-25-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-5-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-5-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-5-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-5-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-6-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-6-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-6-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-6-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-7-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-8-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-1",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-10",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-11",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-12",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-13",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-2",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-3",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-4",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-5",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-6",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-7",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-8",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/wpie-9-9",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "accessions/zarand",
+    "target": "projects/pistachio-wolfskill-collection"
   },
   {
     "source": "bioinformatics/claude-code-skills",
@@ -3198,6 +6614,30 @@
   {
     "source": "projects/pistachio-pangenome/index",
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/b15-69"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/golden-hills"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/lost-hills"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/joley"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/zarand"
+  },
+  {
+    "source": "projects/pistachio-wolfskill-collection",
+    "target": "accessions/gumdrop-wolfskill"
   },
   {
     "source": "projects/poplar-somatic-sequencing",
