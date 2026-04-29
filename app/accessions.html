@@ -63,6 +63,22 @@
 .acc-stats button.stat-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); }
 .acc-stats button.stat-card:active { transform: translateY(1px); }
 
+/* Stat cards double as the status filter. The currently-selected status
+   gets a colored ring + tinted background so it reads as "this is the
+   active filter," replacing the redundant All Statuses dropdown.
+   Hover hint matches button.stat-card so non-button stat-cards are also
+   visibly clickable. */
+.acc-stats .stat-card[data-statcard]:hover {
+  border-color: var(--teal);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+}
+.acc-stats .stat-card.is-filter-active {
+  border-color: currentColor;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, .15);
+  background: #fafaff;
+}
+
 /* #169: Orientation banner so new lab members understand what an
    accession is before they try to use the tracker. */
 .framework-banner {
@@ -188,14 +204,17 @@
   </div>
 
   <div class="acc-toolbar">
-    <div class="search-box">
+    <div class="search-box" style="flex:1;min-width:280px">
       <span class="material-icons-outlined">search</span>
-      <input type="text" id="searchInput" placeholder="Search accessions…">
+      <input type="text" id="searchInput" placeholder="Search accessions, projects, people, IDs, notes…">
     </div>
     <div class="filter-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <select class="filter-select" id="filterProject"><option value="">All Projects</option></select>
-      <select class="filter-select" id="filterStatus"><option value="">All Statuses</option></select>
       <select class="filter-select" id="filterPeople"><option value="">All People</option></select>
+      <!-- Status filter is now driven by the stat cards below; the select is
+           kept hidden so existing setStatusFilter() / setStatus() and edit-flow
+           handlers continue to read from a single source of truth. -->
+      <select class="filter-select" id="filterStatus" style="display:none"><option value="">All Statuses</option></select>
     </div>
   </div>
 
@@ -207,27 +226,31 @@
         <div class="stat-label">Register a new tree, line, or genotype</div>
       </div>
     </button>
-    <div class="stat-card">
+    <!-- Total card clears the status filter (= "show All Statuses").
+         Each card carries data-statcard so the active state highlights the
+         currently-applied status filter; counts re-compute as project/people/
+         search filters change so the numbers always match the visible table. -->
+    <div class="stat-card" data-statcard="" title="Show all statuses" onclick="setStatusFilter('')">
       <span class="material-icons-outlined" style="color:#7c3aed">fingerprint</span>
       <div><div class="stat-value" id="statTotal">-</div><div class="stat-label">Accessions</div></div>
     </div>
-    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('active')">
+    <div class="stat-card" data-statcard="active" onclick="setStatusFilter('active')">
       <span class="material-icons-outlined" style="color:#f59e0b">bolt</span>
       <div><div class="stat-value" id="statActive" style="color:#f59e0b">-</div><div class="stat-label">Active</div></div>
     </div>
-    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('waiting')">
+    <div class="stat-card" data-statcard="waiting" onclick="setStatusFilter('waiting')">
       <span class="material-icons-outlined" style="color:#6366f1">hourglass_empty</span>
       <div><div class="stat-value" id="statWaiting" style="color:#6366f1">-</div><div class="stat-label">Waiting</div></div>
     </div>
-    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('storage')">
+    <div class="stat-card" data-statcard="storage" onclick="setStatusFilter('storage')">
       <span class="material-icons-outlined" style="color:#3b82f6">inventory_2</span>
       <div><div class="stat-value" id="statStorage" style="color:#3b82f6">-</div><div class="stat-label">Storage</div></div>
     </div>
-    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('completed')">
+    <div class="stat-card" data-statcard="completed" onclick="setStatusFilter('completed')">
       <span class="material-icons-outlined" style="color:#22c55e">check_circle</span>
       <div><div class="stat-value" id="statCompleted" style="color:#22c55e">-</div><div class="stat-label">Completed</div></div>
     </div>
-    <div class="stat-card" style="cursor:pointer" onclick="setStatusFilter('archived')">
+    <div class="stat-card" data-statcard="archived" onclick="setStatusFilter('archived')">
       <span class="material-icons-outlined" style="color:var(--grey-500)">archive</span>
       <div><div class="stat-value" id="statArchived" style="color:var(--grey-700)">-</div><div class="stat-label">Archived</div></div>
     </div>
@@ -391,6 +414,11 @@ var STATUS_LABELS = {
 };
 
 var accessions = [];
+// Project name -> { url, slug } so the project pill can link to the actual
+// project card. Built from the same object-index fetch as accessions; any
+// project name on an accession that doesn't have a matching project file
+// renders as a plain non-link pill (a stub will surface the gap).
+var projectIndex = {};
 // Map path→instance count to render the "· N instances" badge next to each
 // accession name in the table. Built once per loadAccessions() pass.
 var instanceCountByPath = {};
@@ -405,6 +433,24 @@ async function loadAccessions() {
     accessions = index
       .filter(function(o) { return o.type === 'accession'; })
       .map(toAccessionRow);
+
+    // Build project name -> wiki-page URL lookup. Project entries come back
+    // from the object-index with `path` like 'projects/kerman-somatic.md' or
+    // nested 'projects/pistachio-pangenome/index.md'. The wiki.html viewer
+    // accepts `?doc=projects/<slug>` so we strip the .md and any /index suffix
+    // to get the doc slug. We map both the project title and the slug so an
+    // accession's project field can match either form.
+    projectIndex = {};
+    var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
+    index.filter(function(o) { return o.type === 'project'; }).forEach(function(p) {
+      var doc = (p.path || '').replace(/\.md$/, '').replace(/\/index$/, '');
+      if (!doc) return;
+      var slug = doc.split('/').pop();
+      var url = BASE + 'app/wiki.html?doc=' + encodeURIComponent(doc);
+      var entry = { url: url, slug: slug, title: p.title || slug };
+      if (p.title) projectIndex[p.title] = entry;
+      projectIndex[slug] = entry;
+    });
 
     // Count instances per accession by scanning `of:` refs. The heavy join
     // against link-index would be more thorough (it picks up body wikilinks
@@ -442,7 +488,9 @@ async function loadAccessions() {
 function populateFilters() {
   var projects = new Set(), people = new Set();
   accessions.forEach(function(a) {
-    if (a.project) projects.add(a.project);
+    // Split comma-separated project values so a single accession with two
+    // projects contributes both to the dropdown.
+    splitProjects(a.project).forEach(function(p) { projects.add(p); });
     // People may be a comma-separated wikilink string (`[[barb-m]], [[alice]]`)
     // or free text. Use the shared splitter so slashes inside `[[people/slug]]`
     // are preserved.
@@ -489,7 +537,9 @@ function getFiltered() {
   var person  = document.getElementById('filterPeople').value;
 
   var rows = accessions.filter(function(a) {
-    if (project && a.project !== project) return false;
+    // Multi-project: an accession matches if any of its (comma-separated)
+    // projects equals the filter value.
+    if (project && splitProjects(a.project).indexOf(project) < 0) return false;
     if (status && a.status !== status) return false;
     // People filter: match if the person (bare name) appears anywhere in the
     // comma/slash-separated people string, with or without [[wikilink]] wrap.
@@ -561,6 +611,46 @@ function splitPeople(people) {
   }
   if (buf) parts.push(buf);
   return parts.map(function(p) { return p.trim(); }).filter(Boolean);
+}
+
+// Splits a `project:` field on commas. Project names CAN contain commas
+// inside parens (e.g. "Cassava Landraces (New Phytologist 2026)"), so a naive
+// split would shred them — track paren depth and only break at top-level
+// commas. Slashes are NOT delimiters here (project names use them in titles).
+function splitProjects(project) {
+  if (!project) return [];
+  var parts = [];
+  var buf = '';
+  var depth = 0;
+  for (var i = 0; i < project.length; i++) {
+    var ch = project[i];
+    if (ch === '(' || ch === '[') depth++;
+    else if (ch === ')' || ch === ']') depth = Math.max(0, depth - 1);
+    if (depth === 0 && ch === ',') { parts.push(buf); buf = ''; continue; }
+    buf += ch;
+  }
+  if (buf) parts.push(buf);
+  return parts.map(function(p) { return p.trim(); }).filter(Boolean);
+}
+
+// Render `project:` as one or more clickable pills. A project that has a
+// matching project page (looked up via projectIndex by either title or slug)
+// renders as an <a> linking to its wiki page; an unrecognised project name
+// renders as a plain pill, which surfaces missing-stub gaps for follow-up.
+function projectCellHtml(project) {
+  if (!project) return '';
+  return splitProjects(project).map(function(name) {
+    var entry = projectIndex[name];
+    var pillStyle = 'display:inline-block;padding:1px 8px;margin:1px 4px 1px 0;border-radius:10px;font-size:11px;font-weight:500;';
+    if (entry) {
+      return '<a href="' + entry.url + '" class="proj-pill" onclick="event.stopPropagation()" ' +
+        'style="' + pillStyle + 'background:#fff3e0;color:#e65100;text-decoration:none">' +
+        Lab.escHtml(name) + '</a>';
+    }
+    return '<span class="proj-pill proj-pill-missing" title="No project page exists for this name yet" ' +
+      'style="' + pillStyle + 'background:var(--grey-100);color:var(--grey-700);border:1px dashed var(--grey-300)">' +
+      Lab.escHtml(name) + '</span>';
+  }).join('');
 }
 
 // Render people as clickable wikilink pills. Bare names render as a label-only
@@ -659,9 +749,27 @@ function primeFileCache(filePath, content, sha) {
 function renderTable() {
   var rows = getFiltered();
 
-  // Stats
-  var counts = { total: accessions.length, active: 0, waiting: 0, storage: 0, completed: 0, archived: 0 };
+  // Stats: counts honor the current project/people/search filters but NOT the
+  // status filter (since the cards themselves ARE the status filter — they
+  // need to show how many accessions OF EACH STATUS would match if you
+  // clicked them). This fixes the old bug where "119 Waiting" stayed global
+  // even after narrowing to a single project.
+  var q       = document.getElementById('searchInput').value.toLowerCase().trim();
+  var project = document.getElementById('filterProject').value;
+  var person  = document.getElementById('filterPeople').value;
+  var statusFilter = document.getElementById('filterStatus').value;
+  var counts = { total: 0, active: 0, waiting: 0, storage: 0, completed: 0, archived: 0 };
   accessions.forEach(function(a) {
+    if (project && splitProjects(a.project).indexOf(project) < 0) return;
+    if (person) {
+      var hayP = (a.people || '').toLowerCase();
+      if (hayP.indexOf(person.toLowerCase()) < 0) return;
+    }
+    if (q) {
+      var hay = [a.title, a.accession_id, a.species, a.project, a.people, a.sequencing_type, a.status, a.status_note].join(' ').toLowerCase();
+      if (!hay.includes(q)) return;
+    }
+    counts.total++;
     if (counts[a.status] !== undefined) counts[a.status]++;
   });
   document.getElementById('statTotal').textContent = counts.total;
@@ -670,6 +778,14 @@ function renderTable() {
   document.getElementById('statStorage').textContent = counts.storage;
   document.getElementById('statCompleted').textContent = counts.completed;
   document.getElementById('statArchived').textContent = counts.archived;
+
+  // Highlight the stat card for the currently-applied status filter (or the
+  // Total card when no status filter is set).
+  document.querySelectorAll('.acc-stats .stat-card').forEach(function(el) {
+    el.classList.remove('is-filter-active');
+  });
+  var activeCard = document.querySelector('.acc-stats .stat-card[data-statcard="' + statusFilter + '"]');
+  if (activeCard) activeCard.classList.add('is-filter-active');
 
   // Sort arrows
   document.querySelectorAll('.sort-arrow').forEach(function(el) { el.textContent = ''; });
@@ -694,7 +810,7 @@ function renderTable() {
     return '<tr style="cursor:pointer" onclick="openAccession(\'' + Lab.escHtml(r.slug) + '\')">' +
       '<td onclick="event.stopPropagation()">' + priorityStarsHtml(r.priority, r.slug) + '</td>' +
       '<td class="acc-id-cell"><strong>' + Lab.escHtml(r.accession_id || r.title) + '</strong>' + instBadge + '</td>' +
-      '<td>' + Lab.escHtml(r.project) + '</td>' +
+      '<td>' + projectCellHtml(r.project) + '</td>' +
       '<td>' + peopleCellHtml(r.people) + '</td>' +
       '<td class="hide-mobile"><em>' + Lab.escHtml(r.species) + '</em></td>' +
       '<td>' + statusPillHtml(r.status, r.slug) + '</td>' +
@@ -713,7 +829,7 @@ function renderTable() {
       '<div class="acc-card-top"><span class="acc-card-name">' + priorityStarsHtml(r.priority, r.slug) + ' ' + Lab.escHtml(r.accession_id || r.title) + '</span>' +
       statusPillHtml(r.status, r.slug) + '</div>' +
       '<div class="acc-card-meta"><span>' + (peopleCellHtml(r.people) || '—') + '</span>' +
-      '<span>' + Lab.escHtml(r.project || '—') + '</span>' +
+      '<span>' + (projectCellHtml(r.project) || '—') + '</span>' +
       (r.species ? '<span><em>' + Lab.escHtml(r.species) + '</em></span>' : '') +
       '</div>' +
       '</div>';
