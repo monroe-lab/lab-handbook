@@ -5,7 +5,7 @@
   },
   {
     "source": "accessions/barb-m-mp1",
-    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+    "target": "wet-lab/extraction/hifi-dna-extraction"
   },
   {
     "source": "accessions/barb-m-mp1",
@@ -1384,6 +1384,10 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/extraction-barb-m-mp1-6q5g1y",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
     "source": "accessions/hmcp-13",
     "target": "projects/cassava-landraces-new-phytologist"
   },
@@ -1536,7 +1540,7 @@
     "target": "locations/tube-pistachio-dna-extract-1"
   },
   {
-    "source": "accessions/sample-barb-m-mp1-134b2i",
+    "source": "accessions/sample-barb-m-mp1-9ck58r",
     "target": "wet-lab/harvesting-leaf-tissue"
   },
   {
@@ -2344,6 +2348,18 @@
     "target": "locations/tube-pistachio-leaf-1"
   },
   {
+    "source": "notebooks/barb-m/2026-04-13",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "notebooks/barb-m/2026-04-13",
+    "target": "accessions/barb-m-mp1"
+  },
+  {
+    "source": "notebooks/barb-m/2026-04-13",
+    "target": "locations/barb-m-dna-box-mp1-series"
+  },
+  {
     "source": "notebooks/vianney-ahn/2026-04-21",
     "target": "locations/room-asmundson-growth-chamber"
   },
@@ -2370,6 +2386,10 @@
   {
     "source": "people/barb-m",
     "target": "people/kehan-zhao"
+  },
+  {
+    "source": "people/erik-spaulding",
+    "target": "projects/poplar-somatic-sequencing"
   },
   {
     "source": "people/grey-monroe",
@@ -6645,31 +6665,11 @@
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "resources/acrylamide"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
     "target": "resources/agarose"
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "resources/bis-n-n-methylene-bis-acrylamide"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
     "target": "resources/carbenicillin-disodium-salt"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "resources/chloramphenicol"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "resources/gentamicin-sulfate-salt"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "resources/isopropyl-alcohol"
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
@@ -6710,10 +6710,6 @@
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
     "target": "wet-lab/pcr-genotyping"
-  },
-  {
-    "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",
-    "target": "wet-lab/mutagenesis/protein-induction-bl21"
   },
   {
     "source": "wet-lab/mutagenesis/dsb-repair-master-protocol",

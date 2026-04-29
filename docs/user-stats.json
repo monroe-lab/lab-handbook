@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-29T06:24:31.280297+00:00",
-  "total_commits": 4190,
+  "generated_at": "2026-04-29T06:26:05.702897+00:00",
+  "total_commits": 4358,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4020,
+      "total_commits": 4173,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-28",
+      "last_commit": "2026-04-29",
       "protocols_authored": 186,
       "notebooks_authored": 156,
       "inventory_edits": 2205,
-      "wiki_edits": 1924,
+      "wiki_edits": 2442,
       "images_uploaded": 140,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -24,44 +24,44 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "ae291b9",
-          "subject": "Add accession: BARB-M-MP1",
-          "date": "2026-04-28"
+          "sha": "6dd82d1",
+          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A2",
+          "date": "2026-04-29"
         },
         {
-          "sha": "8b469f0",
-          "subject": "Update accessions/barb-m-mp1.md",
-          "date": "2026-04-28"
+          "sha": "adf106f",
+          "subject": "Update accessions/extraction-barb-m-mp1-kur82p.md",
+          "date": "2026-04-29"
         },
         {
-          "sha": "32ef7de",
-          "subject": "New instance of BARB-M-MP1",
-          "date": "2026-04-28"
+          "sha": "91ea8e1",
+          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A3",
+          "date": "2026-04-29"
         },
         {
-          "sha": "7ea0d53",
-          "subject": "Update accessions/sample-barb-m-mp1-134b2i.md",
-          "date": "2026-04-28"
+          "sha": "2b7f4bf",
+          "subject": "Update accessions/extraction-barb-m-mp1-sl9s6x.md",
+          "date": "2026-04-29"
         },
         {
-          "sha": "d1b147d",
-          "subject": "Create locations/barb-m-dna-box-mp1-series.md",
-          "date": "2026-04-28"
+          "sha": "cafb9e1",
+          "subject": "Duplicate accessions/extraction-barb-m-mp1-6q5g1y to locations/barb-m-dna-box-mp1-series/A4",
+          "date": "2026-04-29"
         },
         {
-          "sha": "b163b22",
-          "subject": "New instance of BARB-M-MP1",
-          "date": "2026-04-28"
+          "sha": "6ebb0aa",
+          "subject": "Update accessions/extraction-barb-m-mp1-v9mldk.md",
+          "date": "2026-04-29"
         },
         {
-          "sha": "258f99f",
+          "sha": "f0092cc",
           "subject": "Update notebook notebooks/barb-m/2026-04-13",
-          "date": "2026-04-28"
+          "date": "2026-04-29"
         },
         {
-          "sha": "186d330",
-          "subject": "Prime file cache when creating instance from concept",
-          "date": "2026-04-28"
+          "sha": "cccb70a",
+          "subject": "Add 393 cassava accession concept cards + project card for Zhao et al. 2026",
+          "date": "2026-04-29"
         }
       ],
       "days_active": 146
@@ -129,6 +129,70 @@
         }
       ],
       "days_active": 8
+    },
+    "knbroomell": {
+      "login": "knbroomell",
+      "display_name": "knbroomell",
+      "total_commits": 12,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 2,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "e2142ff",
+          "subject": "New protocol: Mix & Go! E. coli Competent Cell Creation",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "769f8fc",
+          "subject": "Update wet-lab/mix-go-e-coli-competent-cell-creation",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "77afe25",
+          "subject": "New protocol: Competent Cell Transformation",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "ca0005a",
+          "subject": "Update wet-lab/competent-cell-transformation",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "262ebc3",
+          "subject": "Update wet-lab/competent-cell-transformation",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "9f4c61e",
+          "subject": "Update wet-lab/mutagenesis/dsb-repair-master-protocol",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "230504a",
+          "subject": "Update wet-lab/mutagenesis/dsb-repair-master-protocol",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "f6c49f9",
+          "subject": "Update wet-lab/mutagenesis/dsb-repair-master-protocol",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
     },
     "mariele-lensink": {
       "login": "mariele-lensink",
@@ -381,6 +445,65 @@
       ],
       "days_active": 1
     },
+    "inili": {
+      "login": "inili",
+      "display_name": "jianili",
+      "total_commits": 7,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 2,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 2,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "199612f",
+          "subject": "New lab member: Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "3045a81",
+          "subject": "Create notebook folder for Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c001cd5",
+          "subject": "First notebook entry for Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "d04850e",
+          "subject": "New project: Paraquat Sensitivity Test",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "bc0357f",
+          "subject": "New protocol: Paraquat Sensitivity Test",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "cb22543",
+          "subject": "Duplicate protocol: M2 Forward Genetic Screening",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "b636c45",
+          "subject": "Delete protocol: M2 Forward Genetic Screening (Copy)",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
     "yeleaf20030520": {
       "login": "yeleaf20030520",
       "display_name": "w1shyoubest",
@@ -435,6 +558,50 @@
       ],
       "days_active": 7
     },
+    "egspaulding": {
+      "login": "egspaulding",
+      "display_name": "egspaulding",
+      "total_commits": 4,
+      "first_commit": "2026-04-21",
+      "last_commit": "2026-04-29",
+      "protocols_authored": 0,
+      "notebooks_authored": 3,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "6bd2544",
+          "subject": "New notebook folder: erik-spaulding",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "d7ee362",
+          "subject": "New notebook entry: erik-spaulding/2026-04-21",
+          "date": "2026-04-21"
+        },
+        {
+          "sha": "5c97d8a",
+          "subject": "New lab member: Erik Spaulding",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "d3c17f2",
+          "subject": "First notebook entry for Erik Spaulding",
+          "date": "2026-04-29"
+        }
+      ],
+      "days_active": 8
+    },
     "limbler": {
       "login": "limbler",
       "display_name": "limbler-dot",
@@ -479,45 +646,6 @@
       ],
       "days_active": 1
     },
-    "inili": {
-      "login": "inili",
-      "display_name": "jianili",
-      "total_commits": 3,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 1,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 0,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "199612f",
-          "subject": "New lab member: Jiani Li",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "3045a81",
-          "subject": "Create notebook folder for Jiani Li",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "c001cd5",
-          "subject": "First notebook entry for Jiani Li",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 1
-    },
     "kehanzhao": {
       "login": "kehanzhao",
       "display_name": "KehanZhao",
@@ -556,79 +684,6 @@
         }
       ],
       "days_active": 1
-    },
-    "knbroomell": {
-      "login": "knbroomell",
-      "display_name": "knbroomell",
-      "total_commits": 3,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 1,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 0,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "eff19e0",
-          "subject": "New notebook folder: kaia-broomell",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "f86ccd6",
-          "subject": "New notebook entry: kaia-broomell/2026-04-28",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "6b62084",
-          "subject": "New lab member: Kaia Broomell",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 1
-    },
-    "egspaulding": {
-      "login": "egspaulding",
-      "display_name": "egspaulding",
-      "total_commits": 2,
-      "first_commit": "2026-04-21",
-      "last_commit": "2026-04-21",
-      "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 0,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 0,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "6bd2544",
-          "subject": "New notebook folder: erik-spaulding",
-          "date": "2026-04-21"
-        },
-        {
-          "sha": "d7ee362",
-          "subject": "New notebook entry: erik-spaulding/2026-04-21",
-          "date": "2026-04-21"
-        }
-      ],
-      "days_active": 8
     },
     "matthewwdavis": {
       "login": "matthewwdavis",

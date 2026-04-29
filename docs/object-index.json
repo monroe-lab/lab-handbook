@@ -3852,6 +3852,14 @@
     "mtime": 1775903435
   },
   {
+    "path": "people/erik-spaulding.md",
+    "type": "person",
+    "title": "Erik Spaulding",
+    "role": "Undergraduate Researcher",
+    "email": "egspaulding@ucdavis.edu",
+    "mtime": 1777423570
+  },
+  {
     "path": "people/grey-monroe.md",
     "type": "person",
     "title": "Grey Monroe",
@@ -3960,7 +3968,8 @@
     "status": "completed",
     "pi": "Grey Monroe",
     "lead": "Kehan Zhao",
-    "last_updated": "2026-04-28"
+    "last_updated": "2026-04-28",
+    "mtime": 1777443916
   },
   {
     "path": "projects/double-strand-break-repair-fate/index.md",
@@ -4028,6 +4037,14 @@
     "pi": "Grey Monroe"
   },
   {
+    "path": "projects/paraquat-sensitivity-test/index.md",
+    "type": "project",
+    "title": "Paraquat Sensitivity Test",
+    "status": "active",
+    "pi": "Grey Monroe",
+    "mtime": 1777411076
+  },
+  {
     "path": "projects/pistachio-pangenome/index.md",
     "type": "project",
     "title": "Pistachio Pangenome",
@@ -4087,6 +4104,12 @@
     "type": "protocol",
     "title": "Clean Bench (Laminar Flow Hood)",
     "mtime": 1775978356
+  },
+  {
+    "path": "wet-lab/competent-cell-transformation.md",
+    "type": "protocol",
+    "title": "Competent Cell Transformation",
+    "mtime": 1777409784
   },
   {
     "path": "wet-lab/gel-electrophoresis.md",
@@ -4195,6 +4218,12 @@
     "type": "protocol",
     "title": "Making Solutions",
     "mtime": 1776060130
+  },
+  {
+    "path": "wet-lab/mix-go-e-coli-competent-cell-creation.md",
+    "type": "protocol",
+    "title": "Mix & Go! E. coli Competent Cell Creation",
+    "mtime": 1777409184
   },
   {
     "path": "wet-lab/nanopore-data-retrieval.md",
@@ -4440,7 +4469,7 @@
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",
     "type": "protocol",
     "title": "DSB DNA Repair - Master Protocol",
-    "mtime": 1775832918
+    "mtime": 1777410313
   },
   {
     "path": "wet-lab/mutagenesis/fast-neutron-treatment.md",
@@ -4453,6 +4482,12 @@
     "type": "protocol",
     "title": "M2 Forward Genetic Screening",
     "mtime": 1775832918
+  },
+  {
+    "path": "wet-lab/mutagenesis/paraquat-sensitivity-test.md",
+    "type": "protocol",
+    "title": "Paraquat Sensitivity Test",
+    "mtime": 1777411920
   },
   {
     "path": "wet-lab/mutagenesis/protein-induction-bl21.md",
@@ -4705,7 +4740,7 @@
     "path": "notebooks/barb-m/2026-04-13.md",
     "type": "notebook",
     "title": "2026-04-13 \u2014 Barb M",
-    "mtime": 1777407756
+    "mtime": 1777441006
   },
   {
     "path": "notebooks/barb-m/2026-04-22.md",
@@ -4718,6 +4753,12 @@
     "type": "notebook",
     "title": "2026-04-21 \u2014 Erik Spaulding",
     "mtime": 1776806724
+  },
+  {
+    "path": "notebooks/erik-spaulding/2026-04-29.md",
+    "type": "notebook",
+    "title": "2026-04-29 \u2014 Erik Spaulding",
+    "mtime": 1777423571
   },
   {
     "path": "notebooks/jiani-li/2026-04-28.md",
@@ -5185,23 +5226,24 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/barb-m-mp1.md",
     "type": "accession",
     "title": "BARB-M-MP1",
     "status": "active",
-    "created_at": "2026-04-28T20:08:14.702Z",
+    "created_at": "2026-04-29T05:26:40.155Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-28T20:09:32.364Z",
+    "updated_at": "2026-04-29T05:27:58.123Z",
     "species": "Zea mays",
     "project": "[[mutation-accumulation]]",
     "accession_id": "BARB-M-MP1",
     "priority": "1",
-    "last_updated": "2026-04-28",
+    "last_updated": "2026-04-29",
     "people": "[[people/barb-m]]",
-    "mtime": 1777406972
+    "mtime": 1777440478
   },
   {
     "path": "accessions/bl21-de3-competent-cells.md",
@@ -5997,7 +6039,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/caexxx-16.md",
@@ -6011,7 +6054,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/caexxx-28.md",
@@ -6025,7 +6069,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/caexxx-35.md",
@@ -6039,7 +6084,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/cg1141-1.md",
@@ -6053,7 +6099,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/cm4919-1.md",
@@ -6067,7 +6114,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/cm523-7.md",
@@ -6081,7 +6129,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col-0-wild-type.md",
@@ -6108,7 +6157,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1005.md",
@@ -6122,7 +6172,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1008-1.md",
@@ -6136,7 +6187,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1008-2.md",
@@ -6150,7 +6202,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1010b.md",
@@ -6164,7 +6217,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1033.md",
@@ -6178,7 +6232,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1048.md",
@@ -6192,7 +6247,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1050.md",
@@ -6206,7 +6262,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1052.md",
@@ -6220,7 +6277,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1059.md",
@@ -6234,7 +6292,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1062c.md",
@@ -6248,7 +6307,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1065.md",
@@ -6262,7 +6322,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1068b.md",
@@ -6276,7 +6337,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1069.md",
@@ -6290,7 +6352,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1072.md",
@@ -6304,7 +6367,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1073.md",
@@ -6318,7 +6382,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1082.md",
@@ -6332,7 +6397,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1096.md",
@@ -6346,7 +6412,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col110.md",
@@ -6360,7 +6427,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1107.md",
@@ -6374,7 +6442,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1112a.md",
@@ -6388,7 +6457,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1129.md",
@@ -6402,7 +6472,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1132.md",
@@ -6416,7 +6487,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1134.md",
@@ -6430,7 +6502,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1135.md",
@@ -6444,7 +6517,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1136.md",
@@ -6458,7 +6532,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col114.md",
@@ -6472,7 +6547,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1141.md",
@@ -6486,7 +6562,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1142b.md",
@@ -6500,7 +6577,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1147.md",
@@ -6514,7 +6592,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1148.md",
@@ -6528,7 +6607,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1156.md",
@@ -6542,7 +6622,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col116.md",
@@ -6556,7 +6637,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1174.md",
@@ -6570,7 +6652,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1190.md",
@@ -6584,7 +6667,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1205.md",
@@ -6598,7 +6682,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col122.md",
@@ -6612,7 +6697,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1225.md",
@@ -6626,7 +6712,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1228.md",
@@ -6640,7 +6727,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col123.md",
@@ -6654,7 +6742,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1231.md",
@@ -6668,7 +6757,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1236.md",
@@ -6682,7 +6772,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col126.md",
@@ -6696,7 +6787,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1288.md",
@@ -6710,7 +6802,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1292.md",
@@ -6724,7 +6817,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col130.md",
@@ -6738,7 +6832,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col132.md",
@@ -6752,7 +6847,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1326.md",
@@ -6766,7 +6862,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col133.md",
@@ -6780,7 +6877,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1344.md",
@@ -6794,7 +6892,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1361.md",
@@ -6808,7 +6907,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1362-1.md",
@@ -6822,7 +6922,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1362-2.md",
@@ -6836,7 +6937,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1366.md",
@@ -6850,7 +6952,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1398.md",
@@ -6864,7 +6967,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1399.md",
@@ -6878,7 +6982,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1409.md",
@@ -6892,7 +6997,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1412.md",
@@ -6906,7 +7012,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1413.md",
@@ -6920,7 +7027,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1417.md",
@@ -6934,7 +7042,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1424.md",
@@ -6948,7 +7057,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1429.md",
@@ -6962,7 +7072,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1430.md",
@@ -6976,7 +7087,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1459.md",
@@ -6990,7 +7102,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1468.md",
@@ -7004,7 +7117,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1477.md",
@@ -7018,7 +7132,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1478.md",
@@ -7032,7 +7147,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1480.md",
@@ -7046,7 +7162,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1485.md",
@@ -7060,7 +7177,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1486.md",
@@ -7074,7 +7192,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1487.md",
@@ -7088,7 +7207,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1490.md",
@@ -7102,7 +7222,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1493.md",
@@ -7116,7 +7237,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1494.md",
@@ -7130,7 +7252,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1495.md",
@@ -7144,7 +7267,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1501.md",
@@ -7158,7 +7282,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1505.md",
@@ -7172,7 +7297,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1515.md",
@@ -7186,7 +7312,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1517.md",
@@ -7200,7 +7327,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1523.md",
@@ -7214,7 +7342,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1524.md",
@@ -7228,7 +7357,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1535.md",
@@ -7242,7 +7372,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1536.md",
@@ -7256,7 +7387,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1538.md",
@@ -7270,7 +7402,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1541.md",
@@ -7284,7 +7417,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1542.md",
@@ -7298,7 +7432,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1570.md",
@@ -7312,7 +7447,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1572.md",
@@ -7326,7 +7462,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1602.md",
@@ -7340,7 +7477,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1604.md",
@@ -7354,7 +7492,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1613.md",
@@ -7368,7 +7507,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col162.md",
@@ -7382,7 +7522,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1628.md",
@@ -7396,7 +7537,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col163.md",
@@ -7410,7 +7552,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1636.md",
@@ -7424,7 +7567,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1640.md",
@@ -7438,7 +7582,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1653.md",
@@ -7452,7 +7597,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col166.md",
@@ -7466,7 +7612,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1667.md",
@@ -7480,7 +7627,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1671.md",
@@ -7494,7 +7642,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1678.md",
@@ -7508,7 +7657,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1683.md",
@@ -7522,7 +7672,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col169.md",
@@ -7536,7 +7687,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1707.md",
@@ -7550,7 +7702,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col171.md",
@@ -7564,7 +7717,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1710.md",
@@ -7578,7 +7732,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1711.md",
@@ -7592,7 +7747,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col172.md",
@@ -7606,7 +7762,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1724.md",
@@ -7620,7 +7777,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1743.md",
@@ -7634,7 +7792,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1752.md",
@@ -7648,7 +7807,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1759.md",
@@ -7662,7 +7822,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col176.md",
@@ -7676,7 +7837,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1764b.md",
@@ -7690,7 +7852,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1774.md",
@@ -7704,7 +7867,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1784.md",
@@ -7718,7 +7882,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1787a.md",
@@ -7732,7 +7897,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1794.md",
@@ -7746,7 +7912,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col180.md",
@@ -7760,7 +7927,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1803.md",
@@ -7774,7 +7942,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1804.md",
@@ -7788,7 +7957,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1812.md",
@@ -7802,7 +7972,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1820.md",
@@ -7816,7 +7987,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1831.md",
@@ -7830,7 +8002,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1886.md",
@@ -7844,7 +8017,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col18b-1.md",
@@ -7858,7 +8032,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col18b-2.md",
@@ -7872,7 +8047,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col193.md",
@@ -7886,7 +8062,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1931.md",
@@ -7900,7 +8077,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1938.md",
@@ -7914,7 +8092,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col1945.md",
@@ -7928,7 +8107,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col196.md",
@@ -7942,7 +8122,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2007.md",
@@ -7956,7 +8137,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2014.md",
@@ -7970,7 +8152,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2017.md",
@@ -7984,7 +8167,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2026.md",
@@ -7998,7 +8182,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2034.md",
@@ -8012,7 +8197,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2043.md",
@@ -8026,7 +8212,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2047.md",
@@ -8040,7 +8227,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2054.md",
@@ -8054,7 +8242,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2058.md",
@@ -8068,7 +8257,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2059.md",
@@ -8082,7 +8272,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2062.md",
@@ -8096,7 +8287,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2088.md",
@@ -8110,7 +8302,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2103.md",
@@ -8124,7 +8317,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col213.md",
@@ -8138,7 +8332,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2153.md",
@@ -8152,7 +8347,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2165.md",
@@ -8166,7 +8362,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2173.md",
@@ -8180,7 +8377,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2177.md",
@@ -8194,7 +8392,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2181.md",
@@ -8208,7 +8407,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col219.md",
@@ -8222,7 +8422,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2196.md",
@@ -8236,7 +8437,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2205.md",
@@ -8250,7 +8452,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2206.md",
@@ -8264,7 +8467,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col221.md",
@@ -8278,7 +8482,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2214.md",
@@ -8292,7 +8497,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2215.md",
@@ -8306,7 +8512,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2231.md",
@@ -8320,7 +8527,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2238.md",
@@ -8334,7 +8542,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col224.md",
@@ -8348,7 +8557,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2251.md",
@@ -8362,7 +8572,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2252.md",
@@ -8376,7 +8587,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2255.md",
@@ -8390,7 +8602,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2256.md",
@@ -8404,7 +8617,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2259.md",
@@ -8418,7 +8632,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2260.md",
@@ -8432,7 +8647,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2266.md",
@@ -8446,7 +8662,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2312.md",
@@ -8460,7 +8677,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2348.md",
@@ -8474,7 +8692,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2357.md",
@@ -8488,7 +8707,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2377.md",
@@ -8502,7 +8722,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2401.md",
@@ -8516,7 +8737,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2419.md",
@@ -8530,7 +8752,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col242.md",
@@ -8544,7 +8767,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2440.md",
@@ -8558,7 +8782,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2452.md",
@@ -8572,7 +8797,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2459.md",
@@ -8586,7 +8812,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col246.md",
@@ -8600,7 +8827,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2466.md",
@@ -8614,7 +8842,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2479.md",
@@ -8628,7 +8857,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2489.md",
@@ -8642,7 +8872,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2524.md",
@@ -8656,7 +8887,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2528.md",
@@ -8670,7 +8902,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2532.md",
@@ -8684,7 +8917,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2540.md",
@@ -8698,7 +8932,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2542.md",
@@ -8712,7 +8947,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2549.md",
@@ -8726,7 +8962,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col255.md",
@@ -8740,7 +8977,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2557.md",
@@ -8754,7 +8992,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2585.md",
@@ -8768,7 +9007,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2588.md",
@@ -8782,7 +9022,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col260.md",
@@ -8796,7 +9037,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2617.md",
@@ -8810,7 +9052,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2618.md",
@@ -8824,7 +9067,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2624.md",
@@ -8838,7 +9082,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2627.md",
@@ -8852,7 +9097,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2629.md",
@@ -8866,7 +9112,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2635.md",
@@ -8880,7 +9127,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col265.md",
@@ -8894,7 +9142,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col267.md",
@@ -8908,7 +9157,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col269.md",
@@ -8922,7 +9172,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2694.md",
@@ -8936,7 +9187,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2697.md",
@@ -8950,7 +9202,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2701.md",
@@ -8964,7 +9217,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2704.md",
@@ -8978,7 +9232,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2709.md",
@@ -8992,7 +9247,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col2712.md",
@@ -9006,7 +9262,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col272.md",
@@ -9020,7 +9277,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col275.md",
@@ -9034,7 +9292,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col278.md",
@@ -9048,7 +9307,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col280.md",
@@ -9062,7 +9322,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col281.md",
@@ -9076,7 +9337,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col282.md",
@@ -9090,7 +9352,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col287.md",
@@ -9104,7 +9367,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col295.md",
@@ -9118,7 +9382,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col296.md",
@@ -9132,7 +9397,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col298.md",
@@ -9146,7 +9412,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col303.md",
@@ -9160,7 +9427,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col304.md",
@@ -9174,7 +9442,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col308.md",
@@ -9188,7 +9457,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col310.md",
@@ -9202,7 +9472,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col314.md",
@@ -9216,7 +9487,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col317.md",
@@ -9230,7 +9502,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col318.md",
@@ -9244,7 +9517,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col319.md",
@@ -9258,7 +9532,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col327.md",
@@ -9272,7 +9547,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col336.md",
@@ -9286,7 +9562,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col337.md",
@@ -9300,7 +9577,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col359.md",
@@ -9314,7 +9592,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col363.md",
@@ -9328,7 +9607,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col378.md",
@@ -9342,7 +9622,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col386.md",
@@ -9356,7 +9637,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col393.md",
@@ -9370,7 +9652,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col408.md",
@@ -9384,7 +9667,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col431.md",
@@ -9398,7 +9682,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col442.md",
@@ -9412,7 +9697,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col456.md",
@@ -9426,7 +9712,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col480.md",
@@ -9440,7 +9727,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col494.md",
@@ -9454,7 +9742,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col5.md",
@@ -9468,7 +9757,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col514.md",
@@ -9482,7 +9772,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col517.md",
@@ -9496,7 +9787,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col526.md",
@@ -9510,7 +9802,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col527.md",
@@ -9524,7 +9817,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col52a.md",
@@ -9538,7 +9832,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col530.md",
@@ -9552,7 +9847,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col547.md",
@@ -9566,7 +9862,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col549.md",
@@ -9580,7 +9877,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col56.md",
@@ -9594,7 +9892,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col562.md",
@@ -9608,7 +9907,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col567.md",
@@ -9622,7 +9922,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col569.md",
@@ -9636,7 +9937,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col574.md",
@@ -9650,7 +9952,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col585.md",
@@ -9664,7 +9967,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col588.md",
@@ -9678,7 +9982,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col588a.md",
@@ -9692,7 +9997,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col598.md",
@@ -9706,7 +10012,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col601.md",
@@ -9720,7 +10027,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col608.md",
@@ -9734,7 +10042,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col614.md",
@@ -9748,7 +10057,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col618.md",
@@ -9762,7 +10072,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col625.md",
@@ -9776,7 +10087,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col628.md",
@@ -9790,7 +10102,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col634.md",
@@ -9804,7 +10117,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col637.md",
@@ -9818,7 +10132,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col644.md",
@@ -9832,7 +10147,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col650.md",
@@ -9846,7 +10162,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col66.md",
@@ -9860,7 +10177,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col670a.md",
@@ -9874,7 +10192,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col695.md",
@@ -9888,7 +10207,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col705.md",
@@ -9902,7 +10222,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col710a.md",
@@ -9916,7 +10237,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col721.md",
@@ -9930,7 +10252,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col723.md",
@@ -9944,7 +10267,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col738.md",
@@ -9958,7 +10282,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col745.md",
@@ -9972,7 +10297,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col746.md",
@@ -9986,7 +10312,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col758.md",
@@ -10000,7 +10327,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col761.md",
@@ -10014,7 +10342,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col766.md",
@@ -10028,7 +10357,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col76a-1.md",
@@ -10042,7 +10372,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col76a-2.md",
@@ -10056,7 +10387,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col774.md",
@@ -10070,7 +10402,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col776.md",
@@ -10084,7 +10417,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col783.md",
@@ -10098,7 +10432,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col804.md",
@@ -10112,7 +10447,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col807.md",
@@ -10126,7 +10462,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col811.md",
@@ -10140,7 +10477,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col812.md",
@@ -10154,7 +10492,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col813.md",
@@ -10168,7 +10507,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col818.md",
@@ -10182,7 +10522,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col82.md",
@@ -10196,7 +10537,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col825a.md",
@@ -10210,7 +10552,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col827.md",
@@ -10224,7 +10567,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col838.md",
@@ -10238,7 +10582,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col841.md",
@@ -10252,7 +10597,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col845a.md",
@@ -10266,7 +10612,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col845b.md",
@@ -10280,7 +10627,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col85.md",
@@ -10294,7 +10642,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col850.md",
@@ -10308,7 +10657,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col854.md",
@@ -10322,7 +10672,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col856.md",
@@ -10336,7 +10687,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col863.md",
@@ -10350,7 +10702,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col868.md",
@@ -10364,7 +10717,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col869.md",
@@ -10378,7 +10732,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col87.md",
@@ -10392,7 +10747,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col875.md",
@@ -10406,7 +10762,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col878.md",
@@ -10420,7 +10777,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col88.md",
@@ -10434,7 +10792,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col880.md",
@@ -10448,7 +10807,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col89.md",
@@ -10462,7 +10822,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col907.md",
@@ -10476,7 +10837,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col91a-1.md",
@@ -10490,7 +10852,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col91a-2.md",
@@ -10504,7 +10867,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col922.md",
@@ -10518,7 +10882,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col93.md",
@@ -10532,7 +10897,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col933.md",
@@ -10546,7 +10912,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col938.md",
@@ -10560,7 +10927,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col945.md",
@@ -10574,7 +10942,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col948c.md",
@@ -10588,7 +10957,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col956.md",
@@ -10602,7 +10972,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col962-1.md",
@@ -10616,7 +10987,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col962-2.md",
@@ -10630,7 +11002,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col966d.md",
@@ -10644,7 +11017,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/col97.md",
@@ -10658,7 +11032,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/cs72761-batch.md",
@@ -10688,7 +11063,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/dpis128-p-afghanistania.md",
@@ -10949,11 +11325,62 @@
     "mtime": 1776884182
   },
   {
-    "path": "accessions/extraction-barb-m-mp1-1e2n5l.md",
+    "path": "accessions/extraction-barb-m-mp1-6q5g1y.md",
     "type": "extraction",
-    "title": "BARB-M-MP1",
+    "title": "Mp1 DNA - Replicate 1",
+    "date": "2026-04-22",
+    "created_at": "2026-04-29T05:33:35.666Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-29T05:33:35.666Z",
+    "extraction_type": "DNA",
+    "extraction_method": "HiFi DNA Extraction (DIY)",
+    "concentration": "60 ng/uL",
+    "parent": "locations/barb-m-dna-box-mp1-series",
+    "position": "A1",
     "of": "accessions/barb-m-mp1",
-    "mtime": 1777407277
+    "mtime": 1777440816
+  },
+  {
+    "path": "accessions/extraction-barb-m-mp1-kur82p.md",
+    "type": "extraction",
+    "title": "Mp1 DNA - Replicate 2",
+    "created_at": "2026-04-29T05:34:36.465Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-29T05:34:36.465Z",
+    "extraction_type": "DNA",
+    "concentration": "55 ng/uL",
+    "parent": "locations/barb-m-dna-box-mp1-series",
+    "position": "A2",
+    "of": "accessions/barb-m-mp1",
+    "mtime": 1777440876
+  },
+  {
+    "path": "accessions/extraction-barb-m-mp1-sl9s6x.md",
+    "type": "extraction",
+    "title": "Mp1 DNA - Replicate 3",
+    "created_at": "2026-04-29T05:35:01.103Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-29T05:35:01.103Z",
+    "extraction_type": "DNA",
+    "concentration": "72 ng/uL",
+    "parent": "locations/barb-m-dna-box-mp1-series",
+    "position": "A3",
+    "of": "accessions/barb-m-mp1",
+    "mtime": 1777440901
+  },
+  {
+    "path": "accessions/extraction-barb-m-mp1-v9mldk.md",
+    "type": "extraction",
+    "title": "Mp1 DNA - Replicate 4",
+    "created_at": "2026-04-29T05:35:26.655Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-04-29T05:35:26.655Z",
+    "extraction_type": "DNA",
+    "concentration": "48 ng/uL",
+    "parent": "locations/barb-m-dna-box-mp1-series",
+    "position": "A4",
+    "of": "accessions/barb-m-mp1",
+    "mtime": 1777440926
   },
   {
     "path": "accessions/golden-hills-p-vera.md",
@@ -10999,7 +11426,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/imper183.md",
@@ -11013,7 +11441,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/j1-t1-n-2.md",
@@ -11503,7 +11932,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/lonxxx-3.md",
@@ -11517,7 +11947,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/lost-hills-p-vera.md",
@@ -11729,7 +12160,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/orbxxx-14.md",
@@ -11743,7 +12175,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/orbxxx-15.md",
@@ -11757,7 +12190,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/orbxxx-18.md",
@@ -11771,7 +12205,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/orbxxx-9.md",
@@ -11785,7 +12220,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per407-3.md",
@@ -11799,7 +12235,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per407-4e2.md",
@@ -11813,7 +12250,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per407-4f.md",
@@ -11827,7 +12265,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per407-4g.md",
@@ -11841,7 +12280,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per410-1e.md",
@@ -11855,7 +12295,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per411-4f.md",
@@ -11869,7 +12310,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per413-5a.md",
@@ -11883,7 +12325,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2b.md",
@@ -11897,7 +12340,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2c.md",
@@ -11911,7 +12355,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2d.md",
@@ -11925,7 +12370,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2f.md",
@@ -11939,7 +12385,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2h.md",
@@ -11953,7 +12400,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-2i-1.md",
@@ -11967,7 +12415,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-3a.md",
@@ -11981,7 +12430,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-3c.md",
@@ -11995,7 +12445,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-4d.md",
@@ -12009,7 +12460,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-4f.md",
@@ -12023,7 +12475,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per415-4h.md",
@@ -12037,7 +12490,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per416-3b.md",
@@ -12051,7 +12505,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per417-3c.md",
@@ -12065,7 +12520,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per417-3f.md",
@@ -12079,7 +12535,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per421-1.md",
@@ -12093,7 +12550,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per422-13.md",
@@ -12107,7 +12565,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per424-1.md",
@@ -12121,7 +12580,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per424-3.md",
@@ -12135,7 +12595,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/per427-1.md",
@@ -12149,7 +12610,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/pgmd-2-8.md",
@@ -13375,17 +13837,17 @@
     "position": "A4"
   },
   {
-    "path": "accessions/sample-barb-m-mp1-134b2i.md",
+    "path": "accessions/sample-barb-m-mp1-9ck58r.md",
     "type": "sample",
     "title": "Mp1 Leaf Tissue 2026-04-15",
-    "created_at": "2026-04-28T20:12:55.093Z",
+    "created_at": "2026-04-29T05:30:44.414Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-28T20:12:55.093Z",
+    "updated_at": "2026-04-29T05:30:44.414Z",
     "tissue_type": "leaf",
     "collection_date": "2026-04-15",
     "parent": "locations/fridge-4c-main",
     "of": "accessions/barb-m-mp1",
-    "mtime": 1777407175
+    "mtime": 1777440644
   },
   {
     "path": "accessions/satoyo-x-ray-dsb-hifi.md",
@@ -13414,7 +13876,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/sm1495-5.md",
@@ -13428,7 +13891,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/sm2775-4.md",
@@ -13442,7 +13906,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/sm856-11.md",
@@ -13456,7 +13921,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/smb2446-2.md",
@@ -13470,7 +13936,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tai8.md",
@@ -13484,7 +13951,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-16.md",
@@ -13498,7 +13966,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-20.md",
@@ -13512,7 +13981,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-23.md",
@@ -13526,7 +13996,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-32.md",
@@ -13540,7 +14011,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-43.md",
@@ -13554,7 +14026,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-56.md",
@@ -13568,7 +14041,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tphxxx-57.md",
@@ -13582,7 +14056,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-1.md",
@@ -13596,7 +14071,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-12.md",
@@ -13610,7 +14086,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-2.md",
@@ -13624,7 +14101,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-23.md",
@@ -13638,7 +14116,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-26.md",
@@ -13652,7 +14131,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-40.md",
@@ -13666,7 +14146,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-41.md",
@@ -13680,7 +14161,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-61.md",
@@ -13694,7 +14176,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/tstxxx-77.md",
@@ -13708,7 +14191,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "accessions/va-1.md",
@@ -13876,7 +14360,8 @@
     "priority": "1",
     "last_updated": "2026-04-28",
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777443916
   },
   {
     "path": "locations/1st-shelf.md",
@@ -13898,12 +14383,12 @@
     "path": "locations/barb-m-dna-box-mp1-series.md",
     "type": "box",
     "title": "Barb M DNA Box - Mp1 Series",
-    "created_at": "2026-04-28T20:13:56.181Z",
+    "created_at": "2026-04-29T05:31:49.160Z",
     "created_by": "greymonroe",
-    "updated_at": "2026-04-28T20:13:56.181Z",
+    "updated_at": "2026-04-29T05:31:49.160Z",
     "parent": "locations/shelf-minus80-a-1",
     "grid": "9x9",
-    "mtime": 1777407236
+    "mtime": 1777440709
   },
   {
     "path": "locations/bench-chemistry.md",
