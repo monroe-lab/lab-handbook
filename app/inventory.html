@@ -390,6 +390,25 @@ tr.low-stock td:first-child::before {
             </select>
           </div>
         </div>
+        <!-- #172: EH&S registration confirmation. Chemicals (anything that
+             would go in the lab's EH&S inventory) must be registered with UC
+             Davis EH&S before being added here, otherwise the campus-level
+             inventory drifts out of sync. The checkbox is hidden for non-
+             chemical types and required for chemicals. -->
+        <div class="form-row" id="addEhsRow" style="display:none">
+          <div class="form-group" style="flex:1">
+            <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-weight:500;color:var(--grey-800)">
+              <input type="checkbox" id="addEhsRegistered" style="margin-top:3px;flex-shrink:0">
+              <span>
+                I've added this chemical to the UC Davis EH&amp;S inventory at
+                <a href="https://ehs.ucop.edu/" target="_blank" rel="noopener" style="color:var(--teal-dark)">ehs.ucop.edu</a>.
+                <span style="display:block;font-size:11px;color:var(--grey-500);font-weight:400;margin-top:2px">
+                  Required before saving. The lab handbook records this as <code>ehs_registered: true</code> on the chemical card.
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
         <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0">
           After creating, open the concept card and add bottles (individual physical containers with their own location, lot, and expiration).
         </p>
@@ -747,6 +766,21 @@ function resetAddModal() {
   document.getElementById('addLocation').value = 'Chemical Cabinet';
   document.getElementById('bottleSearch').value = '';
   document.getElementById('bottleResults').innerHTML = '';
+  // #172: EH&S checkbox state — reset and re-evaluate visibility for the
+  // freshly-defaulted type ('reagent', so hidden).
+  var ehsBox = document.getElementById('addEhsRegistered');
+  if (ehsBox) ehsBox.checked = false;
+  updateEhsRowVisibility();
+}
+
+// #172: show the EH&S confirmation row only when the user is creating a
+// `chemical` concept. UC Davis EH&S registration is the trigger; reagents,
+// kits, buffers, etc. don't need this.
+function updateEhsRowVisibility() {
+  var typeSel = document.getElementById('addType');
+  var row     = document.getElementById('addEhsRow');
+  if (!typeSel || !row) return;
+  row.style.display = typeSel.value === 'chemical' ? '' : 'none';
 }
 
 function addItem() {
@@ -834,9 +868,18 @@ function pickConceptForBottle(conceptSlug) {
 function confirmAdd() {
   var name = document.getElementById('addName').value.trim();
   if (!name) { Lab.showToast('Name is required', 'error'); return; }
+  var type = document.getElementById('addType').value;
+  // #172: chemicals require explicit EH&S registration confirmation. Block
+  // the create until the box is checked, with a clear error.
+  if (type === 'chemical') {
+    var ehsBox = document.getElementById('addEhsRegistered');
+    if (!ehsBox || !ehsBox.checked) {
+      Lab.showToast('Confirm EH&S registration at ehs.ucop.edu before creating a chemical', 'error');
+      return;
+    }
+  }
   var btn = document.querySelector('#addModal .btn-primary');
   if (btn) { btn.disabled = true; btn.textContent = 'Creating…'; }
-  var type = document.getElementById('addType').value;
   var location = document.getElementById('addLocation').value;
 
   var slug = Lab.slugify(name);
@@ -854,6 +897,7 @@ function confirmAdd() {
     updated_at: nowIso,
     created_by: user && user.login ? user.login : '',
   };
+  if (type === 'chemical') meta.ehs_registered = true;
   var content = Lab.buildFrontmatter(meta, '\n# ' + name + '\n');
 
   Lab.gh.saveFile(path, content, null, 'Add ' + type + ': ' + name).then(function(saved) {
@@ -909,6 +953,10 @@ document.getElementById('filterStatus').addEventListener('change', renderTable);
 document.getElementById('bottleSearch').addEventListener('input', function(e) {
   renderBottleResults(e.target.value);
 });
+// #172: toggle the EH&S row when the user picks/changes the type. Listener
+// attached at module load — the addType <select> exists once, so a single
+// handler is enough.
+document.getElementById('addType').addEventListener('change', updateEhsRowVisibility);
 document.querySelectorAll('.modal-overlay').forEach(function(o) {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });

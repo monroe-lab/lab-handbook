@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-29T14:28:42.442514+00:00",
-  "total_commits": 4390,
+  "generated_at": "2026-04-29T14:48:38.668295+00:00",
+  "total_commits": 4392,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4205,
+      "total_commits": 4207,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-29",
       "protocols_authored": 186,
       "notebooks_authored": 156,
-      "inventory_edits": 2229,
-      "wiki_edits": 4883,
+      "inventory_edits": 2231,
+      "wiki_edits": 4912,
       "images_uploaded": 140,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,16 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "bcfb35b",
-          "subject": "qa-cycle-71: cleanup qa71-bottle-methbut-p0q2tn",
-          "date": "2026-04-29"
-        },
-        {
-          "sha": "051418a",
-          "subject": "qa-cycle-71: clarify locations picker count label vs lab-map",
-          "date": "2026-04-29"
-        },
         {
           "sha": "d96544d",
           "subject": "Add 854 Pistachio Wolfskill Collection accession cards + project card",
@@ -61,6 +51,16 @@
         {
           "sha": "3a1b134",
           "subject": "Accessions: project pills clickable, stat cards filter status, +14 stubs",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "964720a",
+          "subject": "Project cleanup: pill links, Flongle out, Tudor->Anchor Tag, MA merge, +stubs",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "181f6c9",
+          "subject": "Add time estimates to DNA extraction protocols (#175)",
           "date": "2026-04-29"
         }
       ],

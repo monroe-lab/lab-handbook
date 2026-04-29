@@ -28,7 +28,7 @@ Non-negotiable prerequisites. No one touches a pipette, a reagent, or the growth
 
 | Protocol | Time | Description |
 | -------- | ---- | ----------- |
-| [[lab-safety-orientation]] | 1 hr | PPE (gloves, goggles, lab coat), emergency exits, eye-wash stations, safety shower locations, fire extinguishers, evacuation routes, who to call |
+| lab safety orientation *(not yet written)* | 1 hr | PPE (gloves, goggles, lab coat), emergency exits, eye-wash stations, safety shower locations, fire extinguishers, evacuation routes, who to call |
 | [[how-to-read-an-sds]] | 0.5 hr | Finding an SDS, what sections matter (hazards, first aid, spill response), where lab copies live |
 | [[spill-response]] | 0.5 hr | Decision tree: identify chemical, consult SDS, spill kit location, cleanup, when to notify EH\&S |
 | [[breakage-response]] | 0.25 hr | Broken glass cleanup, equipment failure reporting |
@@ -78,7 +78,7 @@ Operating the core equipment. Culminates in making MS media plates, which integr
 | [[water-bath-and-heat-block]] | 0.5 hr | Lab Orientation | Setting temperature, equilibration, when to use which, cleanup |
 | [[vortexer-and-mixer-use]] | 0.25 hr | — | Speed settings, vortex vs. flick vs. invert |
 | [[ph-measurement]] | 1 hr | Scale, Lab Orientation | Calibration, measuring, adjusting with acid/base, electrode storage |
-| [[ms-media-recipe]] | 1 / 3 hr | Scale, pH, Autoclave, Clean Bench | Make one batch of MS media plates. First real integrative protocol |
+| MS media recipe *(not yet written)* | 1 / 3 hr | Scale, pH, Autoclave, Clean Bench | Make one batch of MS media plates. First real integrative protocol |
 
 **Tier total: \~8 hours hands-on**
 
@@ -123,7 +123,7 @@ Tier 1 already started seeds on plates. This tier picks up from there: soil tran
 
 | Protocol | Time | Prereqs | Description |
 | -------- | ---- | ------- | ----------- |
-| [[liquid-nitrogen-safety]] | 0.5 hr | Lab Orientation | PPE, dewar handling, pouring, frostbite first aid. References Cryogens SOP |
+| liquid nitrogen safety SOP *(not yet written)* | 0.5 hr | Lab Orientation | PPE, dewar handling, pouring, frostbite first aid. References Cryogens SOP |
 | [[harvesting-leaf-tissue]] | 1 / 1.5 hr | LN2 Safety, plants with true leaves (\~3 wks) | Collection technique, flash-freezing, labeling, freezer box logging |
 
 **Tier total: \~2 hours**
@@ -134,9 +134,9 @@ The generalizable safety fundamentals (PPE, SDS, spill/breakage/sharps/waste) ar
 
 | Module | Introduced in | Covered in |
 | ------ | ------------- | ---------- |
-| [[liquid-nitrogen-safety]] | Tier 5 (Tissue Handling) | Frostbite first aid, dewar handling, pouring, PPE |
-| [[fume-hood-safety]] | Tier 7 (HiFi Extraction — BME, PVP) | When to use, airflow check, storage rules |
-| [[uv-transilluminator-safety]] | Tier 8 (Gel Imaging) | UV PPE, short-exposure vs. photo-only modes |
+| liquid nitrogen safety SOP *(not yet written)* | Tier 5 (Tissue Handling) | Frostbite first aid, dewar handling, pouring, PPE |
+| fume hood safety SOP *(not yet written)* | Tier 7 (HiFi Extraction — BME, PVP) | When to use, airflow check, storage rules |
+| UV transilluminator safety SOP *(not yet written)* | Tier 8 (Gel Imaging) | UV PPE, short-exposure vs. photo-only modes |
 
 Students revisit [[spill-response]], [[how-to-read-an-sds]], [[sharps-handling]], and [[waste-disposal-quick-reference]] from Tier 0 any time they encounter a new hazard class. Treat Tier 0 as always in force.
 

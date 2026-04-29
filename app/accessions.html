@@ -256,12 +256,51 @@
     </div>
   </div>
 
+  <!-- #170: Bulk-action bar appears when one or more rows are selected via the
+       per-row checkboxes. Lets the user change status, project, or priority
+       on the whole selection in one shot instead of clicking through each
+       row. Hidden by default. -->
+  <div id="bulkBar" style="display:none;margin:0 24px 8px;padding:10px 14px;background:#fef9e7;border:1px solid #f59e0b;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px">
+    <strong style="color:var(--grey-800)"><span id="bulkCount">0</span> selected</strong>
+    <span style="color:var(--grey-500)">·</span>
+    <label style="display:flex;align-items:center;gap:4px;margin:0">Status:
+      <select id="bulkStatus" style="font-family:inherit;padding:4px 8px;border-radius:6px;border:1px solid var(--grey-300)">
+        <option value="">— no change —</option>
+        <option value="active">Active</option>
+        <option value="waiting">Waiting</option>
+        <option value="storage">Storage</option>
+        <option value="completed">Completed</option>
+        <option value="archived">Archived</option>
+      </select>
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;margin:0">Project:
+      <input type="text" id="bulkProject" placeholder="(leave blank to skip)" style="font-family:inherit;padding:4px 8px;border-radius:6px;border:1px solid var(--grey-300);width:180px">
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;margin:0">Priority:
+      <select id="bulkPriority" style="font-family:inherit;padding:4px 8px;border-radius:6px;border:1px solid var(--grey-300)">
+        <option value="">— no change —</option>
+        <option value="0">☆☆☆ none</option>
+        <option value="1">★☆☆ low</option>
+        <option value="2">★★☆ medium</option>
+        <option value="3">★★★ high</option>
+      </select>
+    </label>
+    <button class="btn btn-primary btn-sm" onclick="_bulkApply()">Apply to selection</button>
+    <button class="btn btn-outline btn-sm" onclick="_bulkClear()">Clear selection</button>
+  </div>
   <div class="acc-table-wrap">
     <div class="table-container">
       <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Loading accessions…</p></div>
       <table id="accTable" style="display:none">
         <thead>
           <tr>
+            <!-- #170: select-all + per-row checkboxes drive the bulk-action bar
+                 above the table. Header click = toggle all currently visible
+                 rows. Stop event propagation so the click doesn't trigger the
+                 sort handler bound on the row. -->
+            <th style="width:32px" onclick="event.stopPropagation()" title="Select all visible">
+              <input type="checkbox" id="bulkSelectAll" onclick="event.stopPropagation();_bulkToggleAll(this.checked)" style="cursor:pointer">
+            </th>
             <th onclick="setSort('priority')" style="width:72px" title="Priority (0–3 stars)">★</th>
             <th onclick="setSort('accession_id')">ID <span class="sort-arrow" id="sort-accession_id"></span></th>
             <th onclick="setSort('project')">Project <span class="sort-arrow" id="sort-project"></span></th>
@@ -335,8 +374,31 @@
           </select>
         </div>
       </div>
+      <!-- #170: bulk-duplicate. When count > 1, the ID field is the BASE
+           and N accessions are created as <base>_<startNum> .. <base>_<startNum+N-1>.
+           A live preview shows the first/last names so the user knows what
+           they're committing to before clicking Create. -->
+      <div class="form-row">
+        <div class="form-group" style="flex:0 0 130px">
+          <label>Count <span style="color:var(--grey-500);font-weight:400;font-size:11px">(replicates)</span></label>
+          <input type="number" id="addCount" min="1" max="500" value="1" style="text-align:right">
+        </div>
+        <div class="form-group" style="flex:0 0 130px">
+          <label>Start at #</label>
+          <input type="number" id="addStartNum" min="0" value="1" style="text-align:right">
+        </div>
+        <div class="form-group" style="flex:1">
+          <label>Separator</label>
+          <select id="addSeparator">
+            <option value="_" selected>Underscore (e.g. Pver_1)</option>
+            <option value="-">Hyphen (e.g. Pver-1)</option>
+            <option value="">None (e.g. Pver1)</option>
+          </select>
+        </div>
+      </div>
+      <div id="addBulkPreview" style="display:none;margin-top:6px;padding:8px 10px;background:#f8fafc;border:1px solid var(--grey-200);border-radius:6px;font-size:12px;color:var(--grey-700);line-height:1.5"></div>
       <p style="color:var(--grey-500);font-size:12px;margin:4px 0 0;line-height:1.5">
-        After creating, the accession opens in edit mode. Add physical instances from its Contents column — a sample (🌿 tissue collection), extraction (🧪), library (📖), or pool (🔀) with an <code>of:</code> link back to this accession. The editor lets you add more fields (sequencing type, detail sheet link, status note) as needed.
+        After creating, the accession opens in edit mode. Add physical instances from its Contents column — a sample (🌿 tissue collection), extraction (🧪), library (📖), or pool (🔀) with an <code>of:</code> link back to this accession. The editor lets you add more fields (sequencing type, detail sheet link, status note) as needed. <strong>For Count &gt; 1 the editor will not auto-open.</strong>
       </p>
     </div>
     <div class="modal-footer">
@@ -419,6 +481,10 @@ var accessions = [];
 // project name on an accession that doesn't have a matching project file
 // renders as a plain non-link pill (a stub will surface the gap).
 var projectIndex = {};
+// #170: Set of accession slugs that are currently checked in the bulk-edit
+// UI. Survives table re-renders (sort/filter); cleared explicitly via the
+// "Clear selection" button or a successful bulk-apply.
+var bulkSelected = new Set();
 // Map path→instance count to render the "· N instances" badge next to each
 // accession name in the table. Built once per loadAccessions() pass.
 var instanceCountByPath = {};
@@ -808,7 +874,9 @@ function renderTable() {
     var pathNoExt = r.path.replace(/\.md$/, '');
     var instCount = instanceCountByPath[pathNoExt] || 0;
     var instBadge = instCount ? '<span class="inst-count" title="' + instCount + ' physical instance' + (instCount === 1 ? '' : 's') + '">' + instCount + '</span>' : '';
+    var isChecked = bulkSelected.has(r.slug) ? ' checked' : '';
     return '<tr style="cursor:pointer" onclick="openAccession(\'' + Lab.escHtml(r.slug) + '\')">' +
+      '<td onclick="event.stopPropagation()"><input type="checkbox" class="bulk-row-cb" data-slug="' + Lab.escHtml(r.slug) + '" onclick="_bulkToggleRow(this)"' + isChecked + ' style="cursor:pointer"></td>' +
       '<td onclick="event.stopPropagation()">' + priorityStarsHtml(r.priority, r.slug) + '</td>' +
       '<td class="acc-id-cell"><strong>' + Lab.escHtml(r.accession_id || r.title) + '</strong>' + instBadge + '</td>' +
       '<td>' + projectCellHtml(r.project) + '</td>' +
@@ -900,73 +968,127 @@ function closeAddModal() {
   });
 }
 
-async function confirmAdd() {
-  var accId = document.getElementById('addAccessionId').value.trim();
-  if (!accId) { Lab.showToast('Accession ID is required', 'error'); return; }
-  var btn = document.getElementById('addConfirmBtn');
-  btn.disabled = true; btn.textContent = 'Creating…';
+// #170: build the list of accession IDs the Add modal will create. With
+// count=1 it's a single-element list = [base]; with count>1 it expands to
+// [base + sep + start, base + sep + start+1, …] up to count items.
+function _bulkAccessionIds(base, count, startNum, sep) {
+  if (!base) return [];
+  if (count <= 1) return [base];
+  var ids = [];
+  for (var i = 0; i < count; i++) ids.push(base + sep + (startNum + i));
+  return ids;
+}
 
-  var slug = Lab.slugify(accId);
-  var path = 'docs/accessions/' + slug + '.md';
+// Refresh the live preview of bulk-create IDs when the user edits any of
+// the relevant fields (ID, count, start#, separator).
+function _refreshBulkPreview() {
+  var base    = document.getElementById('addAccessionId').value.trim();
+  var count   = parseInt(document.getElementById('addCount').value, 10) || 1;
+  var startN  = parseInt(document.getElementById('addStartNum').value, 10) || 1;
+  var sep     = document.getElementById('addSeparator').value;
+  var preview = document.getElementById('addBulkPreview');
+  if (!preview) return;
+  if (!base || count <= 1) { preview.style.display = 'none'; return; }
+  var ids = _bulkAccessionIds(base, count, startN, sep);
+  var sample = ids.length <= 6
+    ? ids.map(function(id) { return '<code>' + Lab.escHtml(id) + '</code>'; }).join(', ')
+    : ids.slice(0, 3).map(function(id) { return '<code>' + Lab.escHtml(id) + '</code>'; }).join(', ') +
+      ', …, ' +
+      ids.slice(-2).map(function(id) { return '<code>' + Lab.escHtml(id) + '</code>'; }).join(', ');
+  preview.innerHTML = '<strong>Will create ' + ids.length + ' accessions:</strong> ' + sample;
+  preview.style.display = '';
+}
+
+async function confirmAdd() {
+  var base = document.getElementById('addAccessionId').value.trim();
+  if (!base) { Lab.showToast('Accession ID is required', 'error'); return; }
+  var count  = parseInt(document.getElementById('addCount').value, 10) || 1;
+  var startN = parseInt(document.getElementById('addStartNum').value, 10) || 1;
+  var sep    = document.getElementById('addSeparator').value;
+  if (count < 1) count = 1;
+  if (count > 500) { Lab.showToast('Count capped at 500 — split larger batches', 'error'); return; }
+  var ids = _bulkAccessionIds(base, count, startN, sep);
+
+  var btn = document.getElementById('addConfirmBtn');
+  btn.disabled = true;
   var nowIso = new Date().toISOString();
   var user = Lab.gh.getUser && Lab.gh.getUser();
-  var meta = {
-    type: 'accession',
-    title: accId,
-    accession_id: accId,
-    species: document.getElementById('addSpeciesField').value.trim(),
-    project: document.getElementById('addProject').value.trim(),
-    people: document.getElementById('addPeople').value.trim(),
-    status: document.getElementById('addStatus').value,
+  var sharedFields = {
+    species:  document.getElementById('addSpeciesField').value.trim(),
+    project:  document.getElementById('addProject').value.trim(),
+    people:   document.getElementById('addPeople').value.trim(),
+    status:   document.getElementById('addStatus').value,
     priority: document.getElementById('addPriority').value,
-    last_updated: nowIso.slice(0, 10),
-    created_at: nowIso,
-    updated_at: nowIso,
-    created_by: user && user.login ? user.login : '',
   };
-  Object.keys(meta).forEach(function(k) { if (meta[k] === '') delete meta[k]; });
-  // Escape HTML-significant chars so a name like "Foo <bar>" doesn't end up
-  // as a raw <bar> tag in the rendered popup body. Markdown renderers pass
-  // inline HTML through unchanged in headings + paragraphs, so we have to
-  // sanitize at the source.
-  var safeAccId = String(accId).replace(/[<>&]/g, function(c) {
-    return c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;';
-  });
-  var body = '\n# ' + safeAccId + '\n\n' +
-    'This is the generic ' + safeAccId + ' accession. To track physical material, ' +
-    'open this card and use the **Contents** panel to add instances:\n\n' +
-    '- 🌿 **Sample** — a tissue collection (leaf, seed, root)\n' +
-    '- 🧪 **Extraction** — DNA or RNA prep\n' +
-    '- 📖 **Library** — prepped sequencing library\n' +
-    '- 🔀 **Pool** — multiplexed pool of libraries\n\n' +
-    'Delete this placeholder paragraph once you add real notes.\n';
-  var content = Lab.buildFrontmatter(meta, body);
 
-  try {
-    var saved = await Lab.gh.saveFile(path, content, null, 'Add accession: ' + accId);
-    Lab.showToast('Created: ' + accId, 'success');
-    Lab.gh.patchObjectIndex(path, meta);
-    // Patch the link-index too so wikilinks in People/Project frontmatter
-    // produce backlinks on the referenced person/project cards immediately —
-    // without this the new accession is invisible from those cards until the
-    // next deploy rebuilds the indexed link graph.
-    if (Lab.gh.patchLinkIndex) Lab.gh.patchLinkIndex(path, body, meta);
-    // Prime the editor-modal file cache so openPopup doesn't race the
-    // GitHub Contents API right after a fresh create (same trick inventory
-    // uses — see app/inventory.html#confirmAdd).
+  var created = 0, failed = [];
+  for (var i = 0; i < ids.length; i++) {
+    var accId = ids[i];
+    btn.textContent = ids.length > 1
+      ? 'Creating ' + (i + 1) + '/' + ids.length + '…'
+      : 'Creating…';
+
+    var slug = Lab.slugify(accId);
+    var path = 'docs/accessions/' + slug + '.md';
+    var meta = {
+      type: 'accession',
+      title: accId,
+      accession_id: accId,
+      species:  sharedFields.species,
+      project:  sharedFields.project,
+      people:   sharedFields.people,
+      status:   sharedFields.status,
+      priority: sharedFields.priority,
+      last_updated: nowIso.slice(0, 10),
+      created_at: nowIso,
+      updated_at: nowIso,
+      created_by: user && user.login ? user.login : '',
+    };
+    Object.keys(meta).forEach(function(k) { if (meta[k] === '') delete meta[k]; });
+    var safeAccId = String(accId).replace(/[<>&]/g, function(c) {
+      return c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;';
+    });
+    var body = '\n# ' + safeAccId + '\n\n' +
+      'This is the generic ' + safeAccId + ' accession. To track physical material, ' +
+      'open this card and use the **Contents** panel to add instances:\n\n' +
+      '- 🌿 **Sample** — a tissue collection (leaf, seed, root)\n' +
+      '- 🧪 **Extraction** — DNA or RNA prep\n' +
+      '- 📖 **Library** — prepped sequencing library\n' +
+      '- 🔀 **Pool** — multiplexed pool of libraries\n\n' +
+      'Delete this placeholder paragraph once you add real notes.\n';
+    var content = Lab.buildFrontmatter(meta, body);
+
     try {
-      var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
-      fileCache[path] = { content: content, sha: (saved && saved.sha) || null, savedAt: Date.now() };
-      localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
-    } catch (e) {}
-    closeAddModal();
-    btn.disabled = false; btn.textContent = 'Create';
-    Lab.editorModal.open(path);
-    loadAccessions();
-  } catch (e) {
-    Lab.showToast('Failed: ' + e.message, 'error');
-    btn.disabled = false; btn.textContent = 'Create';
+      var saved = await Lab.gh.saveFile(path, content, null, 'Add accession: ' + accId);
+      Lab.gh.patchObjectIndex(path, meta);
+      if (Lab.gh.patchLinkIndex) Lab.gh.patchLinkIndex(path, body, meta);
+      try {
+        var fileCache = JSON.parse(localStorage.getItem('lab_file_cache')) || {};
+        fileCache[path] = { content: content, sha: (saved && saved.sha) || null, savedAt: Date.now() };
+        localStorage.setItem('lab_file_cache', JSON.stringify(fileCache));
+      } catch (e) {}
+      created++;
+    } catch (e) {
+      failed.push(accId + ' (' + e.message + ')');
+    }
   }
+
+  if (failed.length) {
+    Lab.showToast('Created ' + created + ', failed ' + failed.length + ' — first error: ' + failed[0], 'error');
+  } else {
+    Lab.showToast(ids.length === 1
+      ? 'Created: ' + ids[0]
+      : 'Created ' + created + ' accessions', 'success');
+  }
+  closeAddModal();
+  btn.disabled = false; btn.textContent = 'Create';
+  // Single-create: open the new accession in the editor for follow-up edits.
+  // Bulk: don't open N popups — the user can click into the table row when
+  // they want to fill in details for a specific replicate.
+  if (ids.length === 1 && !failed.length) {
+    Lab.editorModal.open('docs/accessions/' + Lab.slugify(ids[0]) + '.md');
+  }
+  loadAccessions();
 }
 
 // Delete flow
@@ -992,6 +1114,108 @@ async function confirmDelete() {
 }
 
 // Wire events
+// #170: refresh the bulk-create preview whenever the relevant inputs change.
+['addAccessionId','addCount','addStartNum','addSeparator'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', _refreshBulkPreview);
+});
+
+// #170 multi-select bulk edit ─────────────────────────────────────────────
+function _bulkUpdateBar() {
+  var bar = document.getElementById('bulkBar');
+  document.getElementById('bulkCount').textContent = bulkSelected.size;
+  bar.style.display = bulkSelected.size > 0 ? 'flex' : 'none';
+  // Sync the select-all checkbox: checked iff every visible row is selected.
+  var visible = Array.from(document.querySelectorAll('.bulk-row-cb'));
+  var sa = document.getElementById('bulkSelectAll');
+  if (sa) sa.checked = visible.length > 0 && visible.every(function(cb) { return cb.checked; });
+}
+function _bulkToggleRow(cb) {
+  var slug = cb.getAttribute('data-slug');
+  if (cb.checked) bulkSelected.add(slug); else bulkSelected.delete(slug);
+  _bulkUpdateBar();
+}
+function _bulkToggleAll(check) {
+  document.querySelectorAll('.bulk-row-cb').forEach(function(cb) {
+    cb.checked = !!check;
+    var slug = cb.getAttribute('data-slug');
+    if (check) bulkSelected.add(slug); else bulkSelected.delete(slug);
+  });
+  _bulkUpdateBar();
+}
+function _bulkClear() {
+  bulkSelected.clear();
+  document.querySelectorAll('.bulk-row-cb').forEach(function(cb) { cb.checked = false; });
+  _bulkUpdateBar();
+}
+async function _bulkApply() {
+  var newStatus  = document.getElementById('bulkStatus').value;
+  var newProject = document.getElementById('bulkProject').value.trim();
+  var newPriStr  = document.getElementById('bulkPriority').value;
+  if (!newStatus && !newProject && !newPriStr) {
+    Lab.showToast('Pick a value to apply (status, project, or priority)', 'error');
+    return;
+  }
+  var slugs = Array.from(bulkSelected);
+  if (!slugs.length) return;
+  if (!confirm('Apply changes to ' + slugs.length + ' accessions?')) return;
+
+  // Patch each accession's frontmatter file. saveFile rewrites the whole md;
+  // we read current content, replace only the targeted fields, write back.
+  var updated = 0, failed = [];
+  for (var i = 0; i < slugs.length; i++) {
+    var slug = slugs[i];
+    var path = 'docs/accessions/' + slug + '.md';
+    try {
+      var fileObj = await Lab.gh.fetchFile(path);
+      var text = fileObj.content;
+      // Replace or add a top-level YAML key. Keep simple: replace if present
+      // (handles `key: value`, `key: "value"`, and quoted variants); else
+      // append at the end of the frontmatter block.
+      function setField(t, key, val) {
+        // value renders as YAML-safe quoted string when it contains spaces or
+        // could be misread (numbers etc. left bare).
+        var quoted = (typeof val === 'string' && /[\s:#"']/.test(val)) ? '"' + val.replace(/"/g, '\\"') + '"' : val;
+        var line = key + ': ' + quoted;
+        var pat = new RegExp('^' + key + ':[^\\n]*$', 'm');
+        if (pat.test(t)) return t.replace(pat, line);
+        // Insert just before the closing --- of the frontmatter
+        var m = t.match(/^---\n([\s\S]*?)\n---/);
+        if (!m) return t;
+        return t.replace(m[0], '---\n' + m[1] + '\n' + line + '\n---');
+      }
+      if (newStatus)  text = setField(text, 'status', newStatus);
+      if (newProject) text = setField(text, 'project', newProject);
+      if (newPriStr)  text = setField(text, 'priority', newPriStr);
+      text = setField(text, 'last_updated', new Date().toISOString().slice(0, 10));
+      await Lab.gh.saveFile(path, text, fileObj.sha, 'Bulk update accession: ' + slug);
+      // Patch in-memory cache so the next render reflects the change without a full reload.
+      var row = accessions.find(function(a) { return a.slug === slug; });
+      if (row) {
+        if (newStatus)  row.status   = newStatus;
+        if (newProject) row.project  = newProject;
+        if (newPriStr)  row.priority = parseInt(newPriStr, 10);
+        row.last_updated = new Date().toISOString().slice(0, 10);
+      }
+      updated++;
+    } catch (e) {
+      failed.push(slug + ' (' + e.message + ')');
+    }
+  }
+  if (failed.length) {
+    Lab.showToast('Updated ' + updated + ' of ' + slugs.length + '; first error: ' + failed[0], 'error');
+  } else {
+    Lab.showToast('Updated ' + updated + ' accessions', 'success');
+  }
+  _bulkClear();
+  // Reset the bar inputs
+  document.getElementById('bulkStatus').value = '';
+  document.getElementById('bulkProject').value = '';
+  document.getElementById('bulkPriority').value = '';
+  renderTable();
+}
+// ──────────────────────────────────────────────────────────────────────────
+
 ['searchInput','filterProject','filterStatus','filterPeople'].forEach(function(id) {
   document.getElementById(id).addEventListener(id === 'searchInput' ? 'input' : 'change', renderTable);
 });

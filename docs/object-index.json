@@ -3835,7 +3835,8 @@
     "path": "people/chaehee-lee.md",
     "type": "person",
     "title": "Chaehee Lee",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777472940
   },
   {
     "path": "people/daniela-quiroz.md",
@@ -3903,7 +3904,8 @@
     "path": "people/matt-davis.md",
     "type": "person",
     "title": "Matt Davis",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777472940
   },
   {
     "path": "people/mr-freckles.md",
@@ -3917,7 +3919,8 @@
     "path": "people/pablo-luna-rodriguez.md",
     "type": "person",
     "title": "Pablo Luna Rodriguez",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777472940
   },
   {
     "path": "people/percival-singson.md",
@@ -3977,6 +3980,8 @@
     "type": "project",
     "title": "Cassava C127",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Kehan Zhao",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -3988,13 +3993,15 @@
     "pi": "Grey Monroe",
     "lead": "Kehan Zhao",
     "last_updated": "2026-04-29",
-    "mtime": 1777446280
+    "mtime": 1777472940
   },
   {
     "path": "projects/col-0-plus.md",
     "type": "project",
     "title": "Col-0 Plus",
-    "status": "active",
+    "status": "completed",
+    "pi": "Grey Monroe",
+    "lead": "Vianney Ahn",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4003,6 +4010,8 @@
     "type": "project",
     "title": "DNA Repair Mutant Mutation Spectra",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Satoyo Oya",
     "last_updated": "2026-04-29"
   },
   {
@@ -4026,6 +4035,8 @@
     "type": "project",
     "title": "Kalanchoe Reference",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Vianney Ahn",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4034,6 +4045,8 @@
     "type": "project",
     "title": "Kerman Somatic",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Matt Davis",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4056,6 +4069,8 @@
     "type": "project",
     "title": "Methyltransferase Mutants",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Percival Singson",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4072,7 +4087,8 @@
     "type": "project",
     "title": "Arabidopsis Mutation Accumulation Lines",
     "status": "active",
-    "pi": "Grey Monroe"
+    "pi": "Grey Monroe",
+    "mtime": 1777472940
   },
   {
     "path": "projects/paraquat-sensitivity-test/index.md",
@@ -4087,6 +4103,8 @@
     "type": "project",
     "title": "PBTS",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Matt Davis",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4095,6 +4113,7 @@
     "type": "project",
     "title": "Pistachio Genomics",
     "status": "active",
+    "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4103,6 +4122,7 @@
     "type": "project",
     "title": "Pistachio Hybrids",
     "status": "active",
+    "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4119,6 +4139,7 @@
     "type": "project",
     "title": "Pistachio Short-Read WGS",
     "status": "active",
+    "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4144,8 +4165,10 @@
   {
     "path": "projects/walnut-cut-leaf.md",
     "type": "project",
-    "title": "Walnut cut leaf",
+    "title": "Walnut Cut Leaf",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Matt Davis",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4154,14 +4177,18 @@
     "type": "project",
     "title": "Walnut VX211",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Matt Davis",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
   {
     "path": "projects/walnut-weeping-phenotype.md",
     "type": "project",
-    "title": "Walnut weeping phenotype",
+    "title": "Walnut Weeping Phenotype",
     "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Matt Davis",
     "last_updated": "2026-04-29",
     "mtime": 1777471833
   },
@@ -4457,37 +4484,37 @@
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
     "type": "protocol",
     "title": "HiFi DNA Extraction (DIY)",
-    "mtime": 1775984624
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/extraction/hmw-extraction-challenging-plants.md",
     "type": "protocol",
     "title": "HMW Extraction for Challenging Plants",
-    "mtime": 1775858916
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/extraction/kalanchoe-ctab-extraction.md",
     "type": "protocol",
     "title": "Kalanchoe CTAB Extraction",
-    "mtime": 1775832918
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/extraction/pistachio-dna-extraction.md",
     "type": "protocol",
     "title": "Pistachio DNA Extraction (Short-Read)",
-    "mtime": 1775832918
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/extraction/qiagen-dneasy-extraction.md",
     "type": "protocol",
     "title": "QIAGEN DNeasy Plant Extraction",
-    "mtime": 1775983797
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/extraction/sorbitol-ctab-hifi-extraction.md",
     "type": "protocol",
     "title": "Sorbitol/CTAB HiFi Extraction",
-    "mtime": 1775858916
+    "mtime": 1777473575
   },
   {
     "path": "wet-lab/library-prep/operating-the-ot2-copy.md",
@@ -4505,13 +4532,13 @@
     "path": "wet-lab/library-prep/ot2-hmw-shearing.md",
     "type": "protocol",
     "title": "OT-2 HMW DNA Pipette Shearing for PacBio HiFi",
-    "mtime": 1775832918
+    "mtime": 1777472940
   },
   {
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
     "type": "protocol",
     "title": "PacBio HiFi Sequencing (Col-0)",
-    "mtime": 1775858916
+    "mtime": 1777472940
   },
   {
     "path": "wet-lab/library-prep/sanger-sequencing.md",
@@ -4523,7 +4550,7 @@
     "path": "wet-lab/library-prep/spri-beads-preparation.md",
     "type": "protocol",
     "title": "Preparing SPRI Beads",
-    "mtime": 1775982373
+    "mtime": 1777472940
   },
   {
     "path": "wet-lab/library-prep/tn5-loading-library-prep.md",
@@ -5333,7 +5360,7 @@
     "priority": "1",
     "last_updated": "2026-04-29",
     "people": "[[people/barb-m]]",
-    "mtime": 1777471833
+    "mtime": 1777472940
   },
   {
     "path": "accessions/bl21-de3-competent-cells.md",
@@ -7254,6 +7281,20 @@
     "status_note": "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA.",
     "people": "[[Kehan Zhao]]",
     "mtime": 1777446280
+  },
+  {
+    "path": "accessions/col1484.md",
+    "type": "accession",
+    "title": "COL1484",
+    "status": "archived",
+    "species": "Manihot esculenta",
+    "sequencing_type": "PacBio HiFi",
+    "project": "Cassava Landraces (New Phytologist 2026)",
+    "accession_id": "COL1484",
+    "priority": "1",
+    "last_updated": "2026-04-29",
+    "status_note": "PacBio HiFi de novo assembly only (no Illumina WGS in our batches). One of 9 HiFi-assembly accessions for Zhao et al. 2026 (New Phytologist).",
+    "people": "[[Kehan Zhao]]"
   },
   {
     "path": "accessions/col1485.md",
@@ -12083,7 +12124,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-10.md",
@@ -12097,7 +12138,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-11.md",
@@ -12111,7 +12152,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-12.md",
@@ -12125,7 +12166,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-13.md",
@@ -12139,7 +12180,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-2.md",
@@ -12153,7 +12194,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-3.md",
@@ -12167,7 +12208,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-4.md",
@@ -12181,7 +12222,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-5.md",
@@ -12195,7 +12236,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-6.md",
@@ -12209,7 +12250,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-7.md",
@@ -12223,7 +12264,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-8.md",
@@ -12237,7 +12278,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/ma-founder-9.md",
@@ -12251,7 +12292,7 @@
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
     "people": "Grey Monroe",
-    "mtime": 1776884182
+    "mtime": 1777472940
   },
   {
     "path": "accessions/orbxxx-1.md",
@@ -13967,7 +14008,7 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY",
     "status_note": "On hold \u2014 Kit delays. 3 NovoGene HiFi lanes reserved (chart string in private vault)",
     "people": "Satoyo Oya",
-    "mtime": 1776895710
+    "mtime": 1777472940
   },
   {
     "path": "accessions/sm1411-5.md",

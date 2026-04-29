@@ -641,6 +641,12 @@ async function loadDoc(docPath) {
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
             (loggedIn ?
+              // #173/#174: inline Edit hands the body to Toast UI and strips
+              // frontmatter, so role/email/tag values are unreachable from
+              // there. Pair it with a "Fields" button that opens the editor-
+              // modal popup — that surface IS frontmatter-aware (renders the
+              // schema form from types.js) and works for every signed-in user.
+              '<button class="btn btn-outline btn-sm" onclick="openFieldsModal()" title="Edit role, email, tags, and other frontmatter fields"><span class="material-icons-outlined">tune</span><span class="btn-label"> Fields</span></button>' +
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' : '') +
           '</div>' +
         '</div>' +
@@ -656,6 +662,21 @@ async function loadDoc(docPath) {
   } catch(e) {
     contentEl.innerHTML = '<div class="doc-content"><div class="empty-state"><span class="material-icons-outlined">error</span><p>' + Lab.escHtml(Lab.formatLoadError(e)) + '</p></div></div>';
   }
+}
+
+// #173/#174: Open the editor-modal popup on the current doc so the user can
+// edit `role`, `email`, tags, and any other type-defined frontmatter fields.
+// The popup is the frontmatter-aware editing surface (col 1 = type-schema
+// form, col 2 = body, col 3 = contents) — wiki.html's inline Edit only
+// handles the body. After save, the modal's `lab-file-saved` event triggers
+// loadDoc() so the rendered page picks up the new field values.
+function openFieldsModal() {
+  if (!currentDoc) return;
+  if (!Lab.editorModal || !Lab.editorModal.open) {
+    Lab.showToast('Editor not loaded yet — try again', 'error');
+    return;
+  }
+  Lab.editorModal.open('docs/' + currentDoc + '.md');
 }
 
 // ── Edit ──
@@ -805,6 +826,19 @@ async function saveDoc() {
 function cancelEdit() {
   if (currentDoc) loadDoc(currentDoc);
 }
+
+// #173/#174: when the user saves frontmatter changes via the Fields modal
+// (Lab.editorModal.open), the modal closes but the rendered wiki page still
+// shows pre-save content. Listen for the save event and re-render if the
+// saved file is the doc currently on screen.
+window.addEventListener('lab-file-saved', function(ev) {
+  var savedPath = ev && ev.detail && ev.detail.path;
+  if (!savedPath || !currentDoc) return;
+  var expected = 'docs/' + currentDoc + '.md';
+  if (savedPath === expected && !isEditing) {
+    loadDoc(currentDoc);
+  }
+});
 
 // ── Welcome (full network graph) ──
 var welcomeGraph = null;

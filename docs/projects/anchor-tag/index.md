@@ -27,13 +27,13 @@ Both with matched 3A binding-pocket-knockout negative controls for specificity e
 | PI | [[grey-monroe]] | Design, ordering, training alongside Vianney to take over the wet-lab work after her departure |
 | Jr. Specialist | [[vianney-ahn]] | Protein handling, QC, first experiments, protocol development (through end of June 2026) |
 | Postdoc (reader-fusion strategy originator) | [[satoyo-oya]] | Round 1 construct design, architecture consult (remote, in Germany) |
-| Project officer | [[stephen-difazio]] | NSF program director, endorsed the pivot to MNase/HiA5 fusions |
+| Project officer | Stephen DiFazio (NSF program officer) | NSF program director, endorsed the pivot to MNase/HiA5 fusions |
 
 **Succession plan:** Grey is training with Vianney on the full Tudor-MNase CUT&RUN and Tudor-HiA5 DiMeLo-Seq workflows during her remaining time in the lab (through June 2026), so the project continues after she leaves. Vianney should write a written SOP for each protocol before she departs.
 
 ## Equipment and reagents needed
 
-This section is the single source of truth for ordering on the project. Grey derives purchase requests from the items below and submits them through [[susan-hendrickson]] on the project's NSF EAGER chart string (see [[Accounts Overview]] in the private vault; expires 2026-05-31, so orders must be placed before the end of the month).
+This section is the single source of truth for ordering on the project. Grey derives purchase requests from the items below and submits them through Susan Hendrickson (UC Davis purchasing) on the project's NSF EAGER chart string (see Accounts Overview *(private vault)* in the private vault; expires 2026-05-31, so orders must be placed before the end of the month).
 
 ### Tier 1: required for the first experiments (order ASAP)
 
@@ -238,11 +238,11 @@ MSH6 Tudor binds H3K4me1 with EC50 ~36 µM (Aki 2023 FP data). That is on the we
 
 ## Resources
 
-- [[anchortag-proteins]] — active card with round 1 order history and round 2 reorder status
-- [[tudor-mnase-design-and-order]] — parallel active card, now folded into the round 2 order
-- [[nsf-eager-histone-code]] — the grant funding this work
-- [[genscript]] — vendor knowledge card with account details
-- [[susan-hendrickson]] — UC Davis purchasing contact
+- AnchorTag proteins *(vault)* — active card with round 1 order history and round 2 reorder status
+- Tudor-MNase design and order *(vault)* — parallel active card, now folded into the round 2 order
+- NSF EAGER "Cracking the Histone Code" — the grant funding this work
+- GenScript — vendor knowledge card with account details
+- Susan Hendrickson (UC Davis purchasing) — UC Davis purchasing contact
 - [[vianney-ahn]] — Jr. Specialist running the wet lab
 - [[satoyo-oya]] — postdoc, round 1 construct designer, in Germany
 
@@ -268,8 +268,8 @@ tudor-fusion-proteins/
 
 ## Related protocols (to be written)
 
-- [[tudor-mnase-cutrun-sop]] (to be written by Vianney before protein arrival)
-- [[tudor-hia5-dimeloseq-sop]] (to be written by Vianney before protein arrival)
-- [[tudor-fusion-in-house-qc-sop]] (to be written by Vianney before protein arrival)
-- [[hmw-dna-extraction-for-fiberseq]] (may already exist in [[wet-lab]] section)
-- [[nanopore-minion-setup-and-run]] (to be written once Nanopore hardware arrives)
+- Tudor-MNase CUT&RUN SOP *(to be written)* (to be written by Vianney before protein arrival)
+- Tudor-HiA5 DiMeLo-Seq SOP *(to be written)* (to be written by Vianney before protein arrival)
+- Tudor-fusion in-house QC SOP *(to be written)* (to be written by Vianney before protein arrival)
+- HMW DNA extraction for Fiber-Seq *(to be written)* (may already exist in wet-lab section section)
+- Nanopore MinION setup and run *(to be written)* (to be written once Nanopore hardware arrives)

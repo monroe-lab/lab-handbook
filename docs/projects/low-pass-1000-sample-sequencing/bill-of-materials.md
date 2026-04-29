@@ -18,13 +18,13 @@ Full ordering list for [[low-pass-1000-sample-sequencing]] against current lab i
 
 ## Chart string
 
-Pick from startup funds (see [[Accounts Overview]]); confirm with [[Alice Jungwirth]]. All punch-out line items will need the chart string entered per-line in Aggie Enterprise — see [[Purchasing & Procurement#System 1 Aggie Enterprise existing vendors]].
+Pick from startup funds (see Accounts Overview *(private vault)*); confirm with Alice Jungwirth (UC Davis). All punch-out line items will need the chart string entered per-line in Aggie Enterprise — see Purchasing & Procurement *(vault, System 1 Aggie Enterprise)*.
 
 ---
 
 ## Aggie Enterprise Punch-Out Orders
 
-These all go via Aggie Enterprise punch-out catalogs and can be submitted in one sitting. See [[Purchasing & Procurement#System 1 Aggie Enterprise existing vendors]]. Reassign to [[Susan Hendrickson]] once the chart string is on every line.
+These all go via Aggie Enterprise punch-out catalogs and can be submitted in one sitting. See Purchasing & Procurement *(vault, System 1 Aggie Enterprise)*. Reassign to Susan Hendrickson (UC Davis purchasing) once the chart string is on every line.
 
 ### Millipore Sigma (punch-out)
 
@@ -35,7 +35,7 @@ These all go via Aggie Enterprise punch-out catalogs and can be submitted in one
 | [[chloroform]] | 366919 | 4 L | 1 L | TOP UP | 1 L won't cover CTAB-pathway extractions at 2000 scale. Order 4 L. |
 | [[isopropyl-alcohol]] | I9516 | 4 L (mol bio) | 6 L (generic) + 2 L second bottle | TOP UP | Generic isopropanol — confirm mol-bio grade is required; if yes, order fresh I9516 4 L. |
 | [[ethanol-absolute]] | E7023 | 4–8 L (200 proof) | 1 gal (~3.8 L) | TOP UP | Ethanol washes are high-volume at 96-well × 2000 scale. Order another 4 L minimum. |
-| [[rnase-aliquot]] / RNase A bulk | R6513 | 100 mg | aliquots only | TOP UP | Have single-use aliquots; for 2000 preps order a bulk 100 mg powder bottle. |
+| [[rnase]] / RNase A bulk | R6513 | 100 mg | aliquots only | TOP UP | Have single-use aliquots; for 2000 preps order a bulk 100 mg powder bottle. |
 | [[sigma-proteinase-k]] | P2308 | 100 mg | — | ORDER NEW | Not currently stocked as a bulk reagent. |
 | [[polyvinylpyrrolidone]] (PVP-40) | PVP40 | 100 g | 1200 g | HAVE | Enormous stock. |
 | [[polyvinylpolypyrrolidone-pvpp]] (PVPP) | P6755 | 100 g | — | ORDER NEW | Different reagent from PVP-40; used together in some CTAB recipes. |
@@ -92,7 +92,7 @@ These all go via Aggie Enterprise punch-out catalogs and can be submitted in one
 
 ## PrePurchasing Orders (non-catalog vendors)
 
-Each of these needs a quote PDF attached in PrePurchasing, then assigned to [[Susan Hendrickson]]. See [[Purchasing & Procurement#System 2 PrePurchasing non-catalog vendors]].
+Each of these needs a quote PDF attached in PrePurchasing, then assigned to Susan Hendrickson (UC Davis purchasing). See Purchasing & Procurement *(vault, System 2 PrePurchasing)*.
 
 ### IDT (oligos + UDI primers)
 
@@ -191,5 +191,5 @@ Lines that drop off this total entirely because we already have the reagent: CTA
 
 - [[low-pass-1000-sample-sequencing]]
 - [[tn5-loading-library-prep]]
-- [[Purchasing & Procurement]]
-- [[Accounts Overview]]
+- Purchasing & Procurement *(vault)*
+- Accounts Overview *(private vault)*

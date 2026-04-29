@@ -38,7 +38,7 @@ Key findings: landraces retain high and novel dimensions of genetic diversity co
 
 ## Sequenced samples
 
-393 unique accessions sequenced across three Illumina WGS batches plus 9 PacBio HiFi de novo assemblies. Concept-level accession cards exist for every sample under [[accessions]] — filter by `project: "Cassava Landraces (New Phytologist 2026)"`.
+393 unique accessions sequenced across three Illumina WGS batches plus 9 PacBio HiFi de novo assemblies. Concept-level accession cards exist for every sample under Accessions — filter by `project: "Cassava Landraces (New Phytologist 2026)"`.
 
 | Group | Species | Count | Notes |
 | --- | --- | --- | --- |

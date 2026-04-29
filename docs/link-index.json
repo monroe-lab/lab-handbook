@@ -348,6 +348,10 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/col1484",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
     "source": "accessions/col1485",
     "target": "projects/cassava-landraces-new-phytologist"
   },
@@ -3132,6 +3136,66 @@
     "target": "people/satoyo-oya"
   },
   {
+    "source": "projects/cassava-c127",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "projects/col-0-plus",
+    "target": "projects/methyltransferase-mutants"
+  },
+  {
+    "source": "projects/col-0-plus",
+    "target": "projects/dna-repair-mutant-mutation-spectra"
+  },
+  {
+    "source": "projects/dna-repair-mutant-mutation-spectra",
+    "target": "projects/methyltransferase-mutants"
+  },
+  {
+    "source": "projects/dna-repair-mutant-mutation-spectra",
+    "target": "projects/col-0-plus"
+  },
+  {
+    "source": "projects/kalanchoe-reference",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/kalanchoe-reference",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/kalanchoe-reference",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "wet-lab/extraction/pistachio-dna-extraction"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "projects/pbts"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "projects/pistachio-hybrids"
+  },
+  {
+    "source": "projects/kerman-somatic",
+    "target": "projects/pistachio-short-read-wgs"
+  },
+  {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
     "target": "resources/cetrimonium-bromide"
   },
@@ -3150,6 +3214,10 @@
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
     "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
+    "target": "resources/rnase"
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
@@ -3444,6 +3512,26 @@
     "target": "wet-lab/mutagenesis/protein-induction-bl21"
   },
   {
+    "source": "projects/methyltransferase-mutants",
+    "target": "projects/dna-repair-mutant-mutation-spectra"
+  },
+  {
+    "source": "projects/methyltransferase-mutants",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/methyltransferase-mutants",
+    "target": "wet-lab/quantifying-dna-nanodrop"
+  },
+  {
+    "source": "projects/methyltransferase-mutants",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "projects/methyltransferase-mutants",
+    "target": "projects/col-0-plus"
+  },
+  {
     "source": "projects/molecular-biology-training/index",
     "target": "wet-lab/how-to-read-an-sds"
   },
@@ -3664,6 +3752,66 @@
     "target": "resources/mitomycin-c"
   },
   {
+    "source": "projects/pbts",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/pbts",
+    "target": "wet-lab/extraction/pistachio-dna-extraction"
+  },
+  {
+    "source": "projects/pbts",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/pbts",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/pbts",
+    "target": "projects/pistachio-hybrids"
+  },
+  {
+    "source": "projects/pistachio-genomics-misc",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "projects/pistachio-genomics-misc",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/pistachio-genomics-misc",
+    "target": "projects/pbts"
+  },
+  {
+    "source": "projects/pistachio-genomics-misc",
+    "target": "projects/pistachio-hybrids"
+  },
+  {
+    "source": "projects/pistachio-genomics-misc",
+    "target": "projects/pistachio-short-read-wgs"
+  },
+  {
+    "source": "projects/pistachio-hybrids",
+    "target": "projects/pbts"
+  },
+  {
+    "source": "projects/pistachio-hybrids",
+    "target": "wet-lab/extraction/pistachio-dna-extraction"
+  },
+  {
+    "source": "projects/pistachio-hybrids",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/pistachio-hybrids",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "projects/pistachio-hybrids",
+    "target": "projects/pistachio-short-read-wgs"
+  },
+  {
     "source": "projects/pistachio-pangenome/index",
     "target": "people/grey-monroe"
   },
@@ -3682,6 +3830,14 @@
   {
     "source": "projects/pistachio-pangenome/index",
     "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "projects/pistachio-short-read-wgs",
+    "target": "projects/pistachio-wolfskill-collection"
+  },
+  {
+    "source": "projects/pistachio-short-read-wgs",
+    "target": "projects/pistachio-hybrids"
   },
   {
     "source": "projects/poplar-somatic-sequencing",
@@ -3706,6 +3862,66 @@
   {
     "source": "projects/poplar-somatic-sequencing",
     "target": "lab-management/accession-tracker-guide"
+  },
+  {
+    "source": "projects/walnut-cut-leaf",
+    "target": "projects/walnut-vx211"
+  },
+  {
+    "source": "projects/walnut-cut-leaf",
+    "target": "projects/walnut-weeping-phenotype"
+  },
+  {
+    "source": "projects/walnut-cut-leaf",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/walnut-cut-leaf",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/walnut-cut-leaf",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "projects/walnut-vx211",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/walnut-vx211",
+    "target": "projects/walnut-cut-leaf"
+  },
+  {
+    "source": "projects/walnut-vx211",
+    "target": "projects/walnut-weeping-phenotype"
+  },
+  {
+    "source": "projects/walnut-vx211",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/walnut-vx211",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "projects/walnut-weeping-phenotype",
+    "target": "projects/walnut-vx211"
+  },
+  {
+    "source": "projects/walnut-weeping-phenotype",
+    "target": "projects/walnut-cut-leaf"
+  },
+  {
+    "source": "projects/walnut-weeping-phenotype",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/walnut-weeping-phenotype",
+    "target": "wet-lab/extraction/hifi-dna-extraction"
+  },
+  {
+    "source": "projects/walnut-weeping-phenotype",
+    "target": "wet-lab/quantifying-dna-qubit"
   },
   {
     "source": "resources/agarose",
