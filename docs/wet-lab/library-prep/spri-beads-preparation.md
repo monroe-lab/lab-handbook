@@ -5,14 +5,13 @@ title: "Preparing SPRI Beads"
 
 # Preparing SPRI Beads
 
-
 ## Resources
 
 **Equipment:** [[autoclave-sterilizer]]
 
 **Reagents:** [[ampure-xp-beads]], [[edta-trisodium-salt]], [[polyethylene-glycol-solid]], [[sodium-chloride]], [[tris-edta-te-buffer-solution]]
 
-**Related Protocols:** [[nbd114-multiplexed-flongle-prep]], [[tn5-loading-library-prep]], [[hifi-dna-extraction]], [[make-te-buffer]]
+**Related Protocols:** , [[tn5-loading-library-prep]], [[hifi-dna-extraction]], [[make-te-buffer]]
 
 Preparing SPRI beads
 
@@ -35,7 +34,6 @@ Solutions needed
 | NaCl | 36.5g | 7.3g |
 | EDTA 0.5M | 500ul | 100ul |
 | Tris pH8 1M | 2.5ml | 500ul |
-**After mixing NaCl-PEG solution:**
 
 - Fill up with water
 - Mix carefully and wait until solution is clear (takes an hour or so, just wait)

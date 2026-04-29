@@ -1,12 +1,11 @@
 ---
 type: project
-title: "Mutation Accumulation"
+title: "Arabidopsis Mutation Accumulation Lines"
 status: "active"
 pi: "Grey Monroe"
 ---
 
-# Mutation Accumulation
-
+# Arabidopsis Mutation Accumulation Lines
 Studying spontaneous mutation rates, spectra, and biases in Arabidopsis and other plant species.
 
 ## Team

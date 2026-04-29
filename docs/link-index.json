@@ -3120,144 +3120,16 @@
     "target": "wet-lab/extraction/sorbitol-ctab-hifi-extraction"
   },
   {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/opentrons-ot2"
+    "source": "projects/anchor-tag/index",
+    "target": "people/grey-monroe"
   },
   {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/ot2-temperature-module"
+    "source": "projects/anchor-tag/index",
+    "target": "people/vianney-ahn"
   },
   {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/ot2-magnetic-module"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/ot2-thermocycler-module"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/qubit-fluorometer"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/qubit-dsdna-hs-assay-kit"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/qubit-assay-tubes"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/ampure-xp-beads"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/dna-lobind-tubes"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/magnetic-rack"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/minion-mk1b"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/flow-cell-wash-kit-exp-wsh004"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/nebnext-ultra-ii-end-prep"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/nebnext-quick-ligation-module"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/neb-blunt-ta-ligase-master-mix"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/kingfisher-deepwell-96-plate"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/pcr-strip-tubes-0-2ml"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/nuclease-free-water"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/bovine-serum-albumin-50mg-ml"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/bill-of-materials",
-    "target": "resources/flongle-flow-cells-flo-flg114"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "resources/opentrons-ot2"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "resources/minion-mk1b"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "resources/sqk-nbd114-24"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "projects/in-house-hifi-shearing/validation-plan"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "projects/in-house-hifi-shearing/bill-of-materials"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/operating-the-ot2"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/in-house-vs-genome-center-decision"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/index",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "projects/in-house-hifi-shearing/validation-plan",
-    "target": "resources/sqk-nbd114-24"
+    "source": "projects/anchor-tag/index",
+    "target": "people/satoyo-oya"
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/bill-of-materials",
@@ -3565,7 +3437,7 @@
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/index",
-    "target": "projects/in-house-hifi-shearing/bill-of-materials"
+    "target": "projects/low-pass-1000-sample-sequencing/bill-of-materials"
   },
   {
     "source": "projects/low-pass-1000-sample-sequencing/index",
@@ -3836,18 +3708,6 @@
     "target": "lab-management/accession-tracker-guide"
   },
   {
-    "source": "projects/tudor-reader-fusions/index",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "projects/tudor-reader-fusions/index",
-    "target": "people/vianney-ahn"
-  },
-  {
-    "source": "projects/tudor-reader-fusions/index",
-    "target": "people/satoyo-oya"
-  },
-  {
     "source": "resources/agarose",
     "target": "wet-lab/gel-electrophoresis"
   },
@@ -3938,10 +3798,6 @@
   {
     "source": "resources/filter-tips-p200",
     "target": "resources/micropipette-p200"
-  },
-  {
-    "source": "resources/flow-cell-wash-kit-exp-wsh004",
-    "target": "resources/flongle-flow-cells-flo-flg114"
   },
   {
     "source": "resources/heat-block",
@@ -6622,18 +6478,6 @@
   {
     "source": "wet-lab/lab-orientation",
     "target": "locations/autoclave-room"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "resources/femtopulse"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "resources/nebnext-companion-module-ont"
-  },
-  {
-    "source": "wet-lab/library-prep/in-house-vs-genome-center-decision",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
   },
   {
     "source": "wet-lab/library-prep/operating-the-ot2-copy",

@@ -753,20 +753,6 @@
     "mtime": 1775980234
   },
   {
-    "path": "resources/flongle-flow-cells-flo-flg114.md",
-    "type": "consumable",
-    "title": "Flongle Flow Cells (FLO-FLG114)",
-    "status": "needs_more",
-    "mtime": 1777347223
-  },
-  {
-    "path": "resources/flow-cell-wash-kit-exp-wsh004.md",
-    "type": "kit",
-    "title": "Flow Cell Wash Kit (EXP-WSH004)",
-    "status": "needs_more",
-    "mtime": 1777347223
-  },
-  {
     "path": "resources/formaldehyde-16-methanol-free-pfa.md",
     "type": "chemical",
     "title": "Formaldehyde (16% methanol free) PFA",
@@ -3846,6 +3832,12 @@
     "mtime": 1775930982
   },
   {
+    "path": "people/chaehee-lee.md",
+    "type": "person",
+    "title": "Chaehee Lee",
+    "last_updated": "2026-04-29"
+  },
+  {
     "path": "people/daniela-quiroz.md",
     "type": "person",
     "title": "Daniela Quiroz",
@@ -3908,12 +3900,24 @@
     "mtime": 1777397201
   },
   {
+    "path": "people/matt-davis.md",
+    "type": "person",
+    "title": "Matt Davis",
+    "last_updated": "2026-04-29"
+  },
+  {
     "path": "people/mr-freckles.md",
     "type": "person",
     "title": "Mr. Freckles",
     "role": "PI",
     "email": "freckles@ucdavis.edu",
     "mtime": 1776060440
+  },
+  {
+    "path": "people/pablo-luna-rodriguez.md",
+    "type": "person",
+    "title": "Pablo Luna Rodriguez",
+    "last_updated": "2026-04-29"
   },
   {
     "path": "people/percival-singson.md",
@@ -3962,11 +3966,19 @@
     "pi": "Grey Monroe"
   },
   {
+    "path": "projects/anchor-tag/index.md",
+    "type": "project",
+    "title": "Anchor Tag",
+    "status": "active",
+    "pi": "Grey Monroe"
+  },
+  {
     "path": "projects/cassava-c127.md",
     "type": "project",
     "title": "Cassava C127",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/cassava-landraces-new-phytologist.md",
@@ -3983,12 +3995,13 @@
     "type": "project",
     "title": "Col-0 Plus",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
-    "path": "projects/dna-repair-mutants.md",
+    "path": "projects/dna-repair-mutant-mutation-spectra.md",
     "type": "project",
-    "title": "DNA Repair Mutants",
+    "title": "DNA Repair Mutant Mutation Spectra",
     "status": "active",
     "last_updated": "2026-04-29"
   },
@@ -4009,38 +4022,20 @@
     "mtime": 1777397636
   },
   {
-    "path": "projects/in-house-hifi-shearing/bill-of-materials.md",
-    "type": "project",
-    "title": "Bill of Materials",
-    "mtime": 1775684016
-  },
-  {
-    "path": "projects/in-house-hifi-shearing/index.md",
-    "type": "project",
-    "title": "In-House Flongle Diagnostic Pipeline",
-    "status": "active",
-    "pi": "Grey Monroe",
-    "mtime": 1775684303
-  },
-  {
-    "path": "projects/in-house-hifi-shearing/validation-plan.md",
-    "type": "project",
-    "title": "Validation Plan",
-    "mtime": 1775684016
-  },
-  {
     "path": "projects/kalanchoe-reference.md",
     "type": "project",
     "title": "Kalanchoe Reference",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/kerman-somatic.md",
     "type": "project",
     "title": "Kerman Somatic",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/low-pass-1000-sample-sequencing/bill-of-materials.md",
@@ -4057,18 +4052,12 @@
     "mtime": 1776871050
   },
   {
-    "path": "projects/ma-lines.md",
-    "type": "project",
-    "title": "MA Lines",
-    "status": "active",
-    "last_updated": "2026-04-29"
-  },
-  {
     "path": "projects/methyltransferase-mutants.md",
     "type": "project",
     "title": "Methyltransferase Mutants",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/molecular-biology-training/index.md",
@@ -4081,7 +4070,7 @@
   {
     "path": "projects/mutation-accumulation/index.md",
     "type": "project",
-    "title": "Mutation Accumulation",
+    "title": "Arabidopsis Mutation Accumulation Lines",
     "status": "active",
     "pi": "Grey Monroe"
   },
@@ -4098,21 +4087,24 @@
     "type": "project",
     "title": "PBTS",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/pistachio-genomics-misc.md",
     "type": "project",
     "title": "Pistachio Genomics",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/pistachio-hybrids.md",
     "type": "project",
     "title": "Pistachio Hybrids",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/pistachio-pangenome/index.md",
@@ -4127,7 +4119,8 @@
     "type": "project",
     "title": "Pistachio Short-Read WGS",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/pistachio-wolfskill-collection.md",
@@ -4149,33 +4142,28 @@
     "mtime": 1776876162
   },
   {
-    "path": "projects/tudor-reader-fusions/index.md",
-    "type": "project",
-    "title": "Tudor Reader Fusion Proteins",
-    "status": "active",
-    "pi": "Grey Monroe",
-    "mtime": 1776895710
-  },
-  {
     "path": "projects/walnut-cut-leaf.md",
     "type": "project",
     "title": "Walnut cut leaf",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/walnut-vx211.md",
     "type": "project",
     "title": "Walnut VX211",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "projects/walnut-weeping-phenotype.md",
     "type": "project",
     "title": "Walnut weeping phenotype",
     "status": "active",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777471833
   },
   {
     "path": "wet-lab/autoclave.md",
@@ -4500,12 +4488,6 @@
     "type": "protocol",
     "title": "Sorbitol/CTAB HiFi Extraction",
     "mtime": 1775858916
-  },
-  {
-    "path": "wet-lab/library-prep/in-house-vs-genome-center-decision.md",
-    "type": "protocol",
-    "title": "In-House vs Genome Center: HiFi Shearing and QC Decision",
-    "mtime": 1775844741
   },
   {
     "path": "wet-lab/library-prep/operating-the-ot2-copy.md",
@@ -5346,12 +5328,12 @@
     "created_by": "greymonroe",
     "updated_at": "2026-04-29T05:27:58.123Z",
     "species": "Zea mays",
-    "project": "Mutation Accumulation",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "BARB-M-MP1",
     "priority": "1",
     "last_updated": "2026-04-29",
     "people": "[[people/barb-m]]",
-    "mtime": 1777440478
+    "mtime": 1777471833
   },
   {
     "path": "accessions/bl21-de3-competent-cells.md",
@@ -12096,7 +12078,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_1",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12110,7 +12092,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_10",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12124,7 +12106,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_11",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12138,7 +12120,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_12",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12152,7 +12134,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_13",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12166,7 +12148,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_2",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12180,7 +12162,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_3",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12194,7 +12176,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_4",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12208,7 +12190,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_5",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12222,7 +12204,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_6",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12236,7 +12218,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_7",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12250,7 +12232,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_8",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -12264,7 +12246,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "MA Lines",
+    "project": "Arabidopsis Mutation Accumulation Lines",
     "accession_id": "MA_founder_9",
     "priority": "1",
     "status_note": "Not yet received \u2014 Needs planting",
@@ -13979,7 +13961,7 @@
     "status": "waiting",
     "species": "Arabidopsis thaliana",
     "sequencing_type": "HiFi",
-    "project": "DNA Repair Mutants",
+    "project": "DNA Repair Mutant Mutation Spectra",
     "accession_id": "Satoyo X-ray/DSB HiFi",
     "priority": "3",
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1_2KHtV8XsSoJgGfSpgDg0bHBWq949OTmf6sbCDHulhY",

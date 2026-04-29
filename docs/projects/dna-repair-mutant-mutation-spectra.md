@@ -1,15 +1,15 @@
 ---
 type: "project"
-title: "MA Lines"
+title: "DNA Repair Mutant Mutation Spectra"
 status: "active"
 last_updated: "2026-04-29"
 ---
 
-# MA Lines
+# DNA Repair Mutant Mutation Spectra
 
 **Species:** *Arabidopsis thaliana*
 
-Mutation accumulation lines.
+DNA repair pathway mutant lines.
 
 ## People
 

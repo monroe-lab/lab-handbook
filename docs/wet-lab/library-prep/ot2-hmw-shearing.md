@@ -5,7 +5,6 @@ title: "OT-2 HMW DNA Pipette Shearing for PacBio HiFi"
 
 # OT-2 HMW DNA Pipette Shearing for PacBio HiFi
 
-
 ## Resources
 
 **Equipment:** [[femtopulse]], [[nanodrop]], [[opentrons-ot2]], [[ot2-temperature-module]], [[ph-meter]], [[qubit-fluorometer]]
@@ -16,11 +15,11 @@ title: "OT-2 HMW DNA Pipette Shearing for PacBio HiFi"
 
 **Consumables:** [[dna-lobind-tubes]], [[kingfisher-deepwell-96-plate]], [[qubit-assay-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[operating-the-ot2]], [[ot2-automated-nbd114-prep]], [[in-house-hifi-shearing-pipeline]], [[pacbio-hifi-sequencing]]
+**Related Protocols:** [[operating-the-ot2]], , [[pacbio-hifi-sequencing]]
 
 **Contacts:** [[grey-monroe]]
 
-**Purpose:** Shear high-molecular-weight DNA on the [[opentrons-ot2]] to a 15-20 kb mean fragment size suitable for PacBio HiFi SMRTbell library prep. This is the front end of the [[in-house-hifi-shearing-pipeline]] — a pre-Genome-Center diagnostic that lets the lab catch over- and under-shearing in hours instead of weeks before committing samples to an expensive Revio run at the [[uc-davis-dna-technologies-core]]. This pipeline **complements**, does not replace, the Genome Center.
+**Purpose:** Shear high-molecular-weight DNA on the [[opentrons-ot2]] to a 15-20 kb mean fragment size suitable for PacBio HiFi SMRTbell library prep. This is the front end of the  — a pre-Genome-Center diagnostic that lets the lab catch over- and under-shearing in hours instead of weeks before committing samples to an expensive Revio run at the [[uc-davis-dna-technologies-core]]. This pipeline **complements**, does not replace, the Genome Center.
 
 **Source:** Adapted from the Sanger Tree of Life [HMW DNA Fragmentation on Opentrons OT-2 — PacBio LI version (12-22 kb)](https://www.protocols.io/view/sanger-tree-of-life-hmw-dna-fragmentation-opentron-g9cwbz2xf.html). See also the [Opentrons + Psomagen app note](https://insights.opentrons.com/hubfs/App%20Notes/Fragmenting%20High%20Molecular%20Weight%20DNA%20PacBio%20Psomagen_app%20note.pdf) and the [PacBio Hamilton Microlab Prep tech note](https://www.pacb.com/wp-content/uploads/Technical-note-High-throughput-DNA-shearing-using-Hamilton-Microlab-Prep.pdf).
 
@@ -95,7 +94,7 @@ Following [[operating-the-ot2]]:
 
 ### 5. Post-shearing aliquot and freeze
 
-1. With [[wide-bore-filter-tips-p1000]], transfer ~5 µL (~25 ng) of each sample into a fresh [[dna-lobind-tubes]] strip for QC. This goes to [[ot2-automated-nbd114-prep]].
+1. With [[wide-bore-filter-tips-p1000]], transfer ~5 µL (~25 ng) of each sample into a fresh [[dna-lobind-tubes]] strip for QC. This goes to .
 2. Transfer the remaining ~295 µL into individually labeled [[dna-lobind-tubes]] and freeze at -20 °C. This is your stockpile for SMRTbell prep ([[pacbio-hifi-sequencing]]) and for re-shearing if QC fails.
 3. Log the batch in your lab notebook with date, samples, and any deviations.
 
@@ -123,7 +122,7 @@ If a batch comes back too small (<12 kb), reduce cycles by 5 and rerun on the fr
 - No significant tail above 25 kb
 - Yield ~85-95% of input (some loss to tip retention)
 
-Verify by [[ot2-automated-nbd114-prep]] (default) or [[nbd114-multiplexed-flongle-prep]] (fallback) followed by [[flongle-sequencing-and-analysis]] on the QC aliquots. The QC library prep uses **0.6× AMPure XP** throughout — do not change the ratio without re-running the validation phase, because every change shifts the size bias and invalidates the FemtoPulse calibration. See [[in-house-hifi-shearing-pipeline]] § AMPure ratio rules.
+Verify by  (default) or  (fallback) followed by  on the QC aliquots. The QC library prep uses **0.6× AMPure XP** throughout — do not change the ratio without re-running the validation phase, because every change shifts the size bias and invalidates the FemtoPulse calibration. See  § AMPure ratio rules.
 
 ## Troubleshooting
 
@@ -133,7 +132,7 @@ Verify by [[ot2-automated-nbd114-prep]] (default) or [[nbd114-multiplexed-flongl
 | Mean fragment too large (>25 kb) with broad tail | Too few cycles | Increase cycles by 5 |
 | Bimodal distribution | Mixed input qualities or partial pre-shearing | Re-extract with fresh prep |
 | Yield <50% | Standard tips used somewhere; bead loss; aggressive vortexing | Restart with wide-bore tips, hand-mix only |
-| QC histogram looks shifted relative to FemtoPulse | Expected — see calibration in [[in-house-hifi-shearing]] § Validation Phase |
+| QC histogram looks shifted relative to FemtoPulse | Expected — see calibration in  § Validation Phase |
 
 ## Safety
 
@@ -142,9 +141,6 @@ Standard wet-lab BSL1. No new hazards beyond routine pipetting.
 ## See also
 
 - [[operating-the-ot2]]
-- [[ot2-automated-nbd114-prep]]
-- [[flongle-sequencing-and-analysis]]
-- [[in-house-hifi-shearing-pipeline]]
 - [[pacbio-hifi-sequencing]]
 - Sanger ToL [PacBio LI fragmentation](https://www.protocols.io/view/sanger-tree-of-life-hmw-dna-fragmentation-opentron-g9cwbz2xf.html)
 - Sanger ToL [ONT 30-70 kb fragmentation](https://www.protocols.io/view/sanger-tree-of-life-hmw-dna-fragmentation-opentron-hbifb2kbp.html) (parameter reference)

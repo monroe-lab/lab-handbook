@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-29T07:03:58.953774+00:00",
-  "total_commits": 4385,
+  "generated_at": "2026-04-29T14:28:42.442514+00:00",
+  "total_commits": 4390,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4200,
+      "total_commits": 4205,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-29",
       "protocols_authored": 186,
       "notebooks_authored": 156,
       "inventory_edits": 2229,
-      "wiki_edits": 3303,
+      "wiki_edits": 4883,
       "images_uploaded": 140,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,31 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "64dbe17",
-          "subject": "Update stocks/qa71-bottle-acetone-p0q2tn.md",
-          "date": "2026-04-29"
-        },
-        {
-          "sha": "c8b570c",
-          "subject": "Update stocks/qa71-bottle-octanol-p0q2tn.md",
-          "date": "2026-04-29"
-        },
-        {
-          "sha": "1972b78",
-          "subject": "Update stocks/qa71-bottle-methbut-p0q2tn.md",
-          "date": "2026-04-29"
-        },
-        {
-          "sha": "f6c43df",
-          "subject": "qa-cycle-71: cleanup qa71-bottle-acetone-p0q2tn",
-          "date": "2026-04-29"
-        },
-        {
-          "sha": "be0727b",
-          "subject": "qa-cycle-71: cleanup qa71-bottle-octanol-p0q2tn",
-          "date": "2026-04-29"
-        },
         {
           "sha": "bcfb35b",
           "subject": "qa-cycle-71: cleanup qa71-bottle-methbut-p0q2tn",
@@ -61,6 +36,31 @@
         {
           "sha": "d96544d",
           "subject": "Add 854 Pistachio Wolfskill Collection accession cards + project card",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "549f574",
+          "subject": "Wolfskill: WGS-only scope; archive Wolfskill + cassava accessions",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "b92f44d",
+          "subject": "Wolfskill project card: remove links to deleted GBS-only named cultivars",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "4ff2148",
+          "subject": "Wolfskill: Matt Davis on people field, Pat Brown is external collaborator",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "894a5b8",
+          "subject": "Wolfskill: strip [[Patrick J Brown]] wikilinks; non-lab people are plain text",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "3a1b134",
+          "subject": "Accessions: project pills clickable, stat cards filter status, +14 stubs",
           "date": "2026-04-29"
         }
       ],

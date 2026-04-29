@@ -2,7 +2,7 @@
 type: accession
 title: Satoyo X-ray/DSB HiFi
 accession_id: Satoyo X-ray/DSB HiFi
-project: DNA Repair Mutants
+project: "DNA Repair Mutant Mutation Spectra"
 people: Satoyo Oya
 species: Arabidopsis thaliana
 status: waiting

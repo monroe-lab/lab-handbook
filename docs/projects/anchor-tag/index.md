@@ -1,11 +1,11 @@
 ---
 type: project
-title: "Tudor Reader Fusion Proteins"
+title: "Anchor Tag"
 status: "active"
 pi: "Grey Monroe"
 ---
 
-# Tudor Reader Fusion Proteins
+# Anchor Tag
 
 Engineered MSH6 Tudor reader-enzyme fusion proteins for antibody-free chromatin profiling of H3K4me1 in plants. The lab is designing, ordering, and testing recombinant fusions of the MSH6 Tudor domain (which binds H3K4me1) to two catalytic modules: *Staphylococcus aureus* micrococcal nuclease (MNase) for CUT&RUN-style targeted cleavage, and the non-specific adenine methyltransferase HiA5 for DiMeLo-Seq / Fiber-Seq-style long-read methylation profiling.
 

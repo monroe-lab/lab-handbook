@@ -34,7 +34,7 @@ Key findings: landraces retain high and novel dimensions of genetic diversity co
 
 - **Variant call set:** [cassavabase.org protocol #64](https://cassavabase.org/breeders_toolbox/protocol/64) — full VCF, lifted-over genotypes for the 1,152 cassava panel. Submitted by Kehan Zhao, confirmed by Isaak Tecle (Cornell, BTI) March 2026.
 - **Raw Illumina reads:** [NCBI SRA BioProject PRJNA1228154](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1228154) (420 SRA runs; sample metadata in paper Table S1).
-- **PacBio HiFi assemblies:** raw reads on Farm under `/group/gmonroegrp3/cassava/hifi/`. Assembly outputs by [[Evan Long]]; PER413-5A reads not yet assembled.
+- **PacBio HiFi assemblies:** raw reads on Farm under `/group/gmonroegrp3/cassava/hifi/`. Assembly outputs by Evan Long (USDA-ARS); PER413-5A reads not yet assembled.
 
 ## Sequenced samples
 

@@ -2,7 +2,7 @@
 type: accession
 title: MA_founder_4
 accession_id: MA_founder_4
-project: MA Lines
+project: "Arabidopsis Mutation Accumulation Lines"
 people: Grey Monroe
 species: Arabidopsis thaliana
 status: waiting

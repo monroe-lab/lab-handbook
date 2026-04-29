@@ -5,7 +5,6 @@ title: "PacBio HiFi Sequencing (Col-0)"
 
 # PacBio HiFi Sequencing (Col-0)
 
-
 ## Resources
 
 **Equipment:** [[centrifuge]], [[clean-bench-laminar-flow]]
@@ -16,7 +15,7 @@ title: "PacBio HiFi Sequencing (Col-0)"
 
 **Consumables:** [[qubit-assay-tubes]]
 
-**Related Protocols:** [[in-house-hifi-shearing-pipeline]], [[ot2-hmw-shearing]], [[hifi-dna-extraction]]
+**Related Protocols:** , [[ot2-hmw-shearing]], [[hifi-dna-extraction]]
 
 Tab 1
 

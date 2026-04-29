@@ -434,11 +434,12 @@ async function loadAccessions() {
       .filter(function(o) { return o.type === 'accession'; })
       .map(toAccessionRow);
 
-    // Build project name -> wiki-page URL lookup. Project entries come back
-    // from the object-index with `path` like 'projects/kerman-somatic.md' or
-    // nested 'projects/pistachio-pangenome/index.md'. The wiki.html viewer
-    // accepts `?doc=projects/<slug>` so we strip the .md and any /index suffix
-    // to get the doc slug. We map both the project title and the slug so an
+    // Build project name -> projects.html URL lookup. Project entries come
+    // back from the object-index with `path` like 'projects/kerman-somatic.md'
+    // or nested 'projects/pistachio-pangenome/index.md'. The dedicated
+    // projects.html viewer (sidebar tree like Protocols) accepts
+    // `?doc=projects/<slug>` so a click on a project pill lands in the real
+    // project view, not the generic wiki page. Map both title and slug so an
     // accession's project field can match either form.
     projectIndex = {};
     var BASE = (window.Lab && window.Lab.BASE) || '/lab-handbook/';
@@ -446,7 +447,7 @@ async function loadAccessions() {
       var doc = (p.path || '').replace(/\.md$/, '').replace(/\/index$/, '');
       if (!doc) return;
       var slug = doc.split('/').pop();
-      var url = BASE + 'app/wiki.html?doc=' + encodeURIComponent(doc);
+      var url = BASE + 'app/projects.html?doc=' + encodeURIComponent(doc);
       var entry = { url: url, slug: slug, title: p.title || slug };
       if (p.title) projectIndex[p.title] = entry;
       projectIndex[slug] = entry;
