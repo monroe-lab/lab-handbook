@@ -1,78 +1,78 @@
 {
-  "generated_at": "2026-04-22T19:15:35.501584+00:00",
-  "total_commits": 3065,
+  "generated_at": "2026-04-29T06:24:31.280297+00:00",
+  "total_commits": 4190,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 2946,
+      "total_commits": 4020,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-22",
-      "protocols_authored": 176,
-      "notebooks_authored": 136,
-      "inventory_edits": 1850,
-      "wiki_edits": 1447,
-      "images_uploaded": 138,
-      "issue_attachments": 80,
+      "last_commit": "2026-04-28",
+      "protocols_authored": 186,
+      "notebooks_authored": 156,
+      "inventory_edits": 2205,
+      "wiki_edits": 1924,
+      "images_uploaded": 140,
+      "issue_attachments": 83,
       "issues_filed": 30,
-      "locations_created": 138,
-      "items_added": 637,
-      "bulletin_edits": 12,
+      "locations_created": 256,
+      "items_added": 686,
+      "bulletin_edits": 14,
       "calendar_edits": 40,
       "annotations": 57,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "4875877",
-          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.38.31-am.png",
-          "date": "2026-04-22"
+          "sha": "ae291b9",
+          "subject": "Add accession: BARB-M-MP1",
+          "date": "2026-04-28"
         },
         {
-          "sha": "d1779ce",
-          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.39.47-am.png",
-          "date": "2026-04-22"
+          "sha": "8b469f0",
+          "subject": "Update accessions/barb-m-mp1.md",
+          "date": "2026-04-28"
         },
         {
-          "sha": "f35daeb",
-          "subject": "Pin new-box-mnvmzdmc for grey-monroe",
-          "date": "2026-04-22"
+          "sha": "32ef7de",
+          "subject": "New instance of BARB-M-MP1",
+          "date": "2026-04-28"
         },
         {
-          "sha": "4d4e9c9",
-          "subject": "Pin new-box-mnvmzdmc for grey-monroe",
-          "date": "2026-04-22"
+          "sha": "7ea0d53",
+          "subject": "Update accessions/sample-barb-m-mp1-134b2i.md",
+          "date": "2026-04-28"
         },
         {
-          "sha": "6d49ca5",
-          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.43.18-am.png",
-          "date": "2026-04-22"
+          "sha": "d1b147d",
+          "subject": "Create locations/barb-m-dna-box-mp1-series.md",
+          "date": "2026-04-28"
         },
         {
-          "sha": "6c2759c",
-          "subject": "r20: accession schema overhaul \u2014 broad status buckets, stars, people wikilinks, promote biological stocks (#155-#161)",
-          "date": "2026-04-22"
+          "sha": "b163b22",
+          "subject": "New instance of BARB-M-MP1",
+          "date": "2026-04-28"
         },
         {
-          "sha": "0c727fc",
-          "subject": "Issue reporter attachment: screenshot-2026-04-22-at-11.55.25-am.png",
-          "date": "2026-04-22"
+          "sha": "258f99f",
+          "subject": "Update notebook notebooks/barb-m/2026-04-13",
+          "date": "2026-04-28"
         },
         {
-          "sha": "26a6f96",
-          "subject": "feedback round: nav reorder, of: picker, pin state, test notebooks, Add wording (#162-#167)",
-          "date": "2026-04-22"
+          "sha": "186d330",
+          "subject": "Prime file cache when creating instance from concept",
+          "date": "2026-04-28"
         }
       ],
-      "days_active": 139
+      "days_active": 146
     },
     "vianneyahn": {
       "login": "vianneyahn",
       "display_name": "vianneyahn",
-      "total_commits": 111,
+      "total_commits": 112,
       "first_commit": "2026-04-21",
-      "last_commit": "2026-04-21",
-      "protocols_authored": 2,
+      "last_commit": "2026-04-27",
+      "protocols_authored": 3,
       "notebooks_authored": 6,
       "inventory_edits": 1,
       "wiki_edits": 81,
@@ -87,11 +87,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "0ce48e6",
-          "subject": "Moved flammable-solids-sop from lab-safety",
-          "date": "2026-04-21"
-        },
         {
           "sha": "b1b31c7",
           "subject": "Move protocol-template to lab-safety",
@@ -126,6 +121,262 @@
           "sha": "e49c122",
           "subject": "Update notebook notebooks/vianney-ahn/fiberseq/MN",
           "date": "2026-04-21"
+        },
+        {
+          "sha": "c1fa091",
+          "subject": "New protocol: Universal Lab Buffers / Reagents",
+          "date": "2026-04-27"
+        }
+      ],
+      "days_active": 8
+    },
+    "mariele-lensink": {
+      "login": "mariele-lensink",
+      "display_name": "Mariele Lensink",
+      "total_commits": 12,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 1,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 4,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "87760a0",
+          "subject": "Create locations/new-container.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "cf4a2d9",
+          "subject": "Update locations/new-container.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c7863ea",
+          "subject": "Update locations/new-container.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "72efa2a",
+          "subject": "Create locations/new-container-2.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "724aa7a",
+          "subject": "Update locations/new-container-2.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "9bee14a",
+          "subject": "Create locations/new-container-3.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "e18ae10",
+          "subject": "Create locations/new-container-4.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c193d6a",
+          "subject": "Create locations/new-container-5.md",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
+    "alicepierce": {
+      "login": "alicepierce",
+      "display_name": "Alice",
+      "total_commits": 8,
+      "first_commit": "2026-04-07",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 2,
+      "images_uploaded": 0,
+      "issue_attachments": 1,
+      "issues_filed": 1,
+      "locations_created": 1,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "eaf2747",
+          "subject": "Update wet-lab/autoclave",
+          "date": "2026-04-07"
+        },
+        {
+          "sha": "05b8191",
+          "subject": "New lab member: Alice Pierce",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "dc2e6b1",
+          "subject": "Create notebook folder for Alice Pierce",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "ff050a0",
+          "subject": "First notebook entry for Alice Pierce",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "f60fc38",
+          "subject": "Create locations/gloves.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "89d6419",
+          "subject": "lab-map: re-parent locations/gloves \u2192 locations/bench",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "258eab1",
+          "subject": "New project: Double Strand Break Repair Fate",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "7352437",
+          "subject": "Issue reporter attachment: screenshot-2026-04-28-at-10.46.07-am.png",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 22
+    },
+    "chaeheelee": {
+      "login": "chaeheelee",
+      "display_name": "Chaehee Lee",
+      "total_commits": 8,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 3,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "00dabad",
+          "subject": "Create locations/1st-shelf.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "6805448",
+          "subject": "Create locations/pistachio-cenh3-antibody.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "e0c166d",
+          "subject": "Update locations/pistachio-cenh3-antibody.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c10c147",
+          "subject": "Update locations/pistachio-cenh3-antibody.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c3ae000",
+          "subject": "Create locations/new-shelf-2.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "117cea0",
+          "subject": "Update locations/new-shelf-2.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "4c2d2cd",
+          "subject": "Update locations/1st-shelf.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "a4757e5",
+          "subject": "Accession BARB-M-MP1 priority \u2192 2",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
+    "bdsingson": {
+      "login": "bdsingson",
+      "display_name": "percival-singson",
+      "total_commits": 7,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 3,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 1,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "764b9f3",
+          "subject": "Create locations/new-container.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "7c20d63",
+          "subject": "Delete docs/locations/new-container.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "275c63e",
+          "subject": "New project: Grape Protoplast LTEE",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "278b5a5",
+          "subject": "Update projects/grape-protoplast-ltee/index",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "2ba74bc",
+          "subject": "New lab member: Percival Singson",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "7453623",
+          "subject": "Create notebook folder for Percival Singson",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "92fb454",
+          "subject": "First notebook entry for Percival Singson",
+          "date": "2026-04-28"
         }
       ],
       "days_active": 1
@@ -133,17 +384,17 @@
     "yeleaf20030520": {
       "login": "yeleaf20030520",
       "display_name": "w1shyoubest",
-      "total_commits": 3,
+      "total_commits": 6,
       "first_commit": "2026-04-22",
-      "last_commit": "2026-04-22",
+      "last_commit": "2026-04-28",
       "protocols_authored": 0,
       "notebooks_authored": 2,
       "inventory_edits": 0,
-      "wiki_edits": 1,
+      "wiki_edits": 2,
       "images_uploaded": 0,
-      "issue_attachments": 0,
+      "issue_attachments": 1,
       "issues_filed": 0,
-      "locations_created": 0,
+      "locations_created": 1,
       "items_added": 0,
       "bulletin_edits": 0,
       "calendar_edits": 0,
@@ -165,9 +416,185 @@
           "sha": "a16d6f6",
           "subject": "First notebook entry for Zi Ye",
           "date": "2026-04-22"
+        },
+        {
+          "sha": "7eaa10c",
+          "subject": "Create locations/new-shelf.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "5bb66f3",
+          "subject": "Move accessions/a1-t1-e to locations/new-shelf-mo8ya0v2/A1",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "f19325f",
+          "subject": "Issue reporter attachment: screenshot-2026-04-28-at-10.33.36-am.png",
+          "date": "2026-04-28"
         }
       ],
-      "days_active": 0
+      "days_active": 7
+    },
+    "limbler": {
+      "login": "limbler",
+      "display_name": "limbler-dot",
+      "total_commits": 4,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 1,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "2138a9a",
+          "subject": "New lab member: Lili Imbler",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "dbca49b",
+          "subject": "Create notebook folder for Lili Imbler",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "b5ae4cc",
+          "subject": "First notebook entry for Lili Imbler",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "7739791",
+          "subject": "Create locations/wall-e-centrifuge.md",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
+    "inili": {
+      "login": "inili",
+      "display_name": "jianili",
+      "total_commits": 3,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "199612f",
+          "subject": "New lab member: Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "3045a81",
+          "subject": "Create notebook folder for Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c001cd5",
+          "subject": "First notebook entry for Jiani Li",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
+    "kehanzhao": {
+      "login": "kehanzhao",
+      "display_name": "KehanZhao",
+      "total_commits": 3,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 0,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 2,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "006fcf3",
+          "subject": "Create locations/kehan-s-test-object.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "62bf4c3",
+          "subject": "Delete docs/locations/kehan-s-test-object.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "4c77b10",
+          "subject": "Create locations/kehan-s-credit-card.md",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
+    },
+    "knbroomell": {
+      "login": "knbroomell",
+      "display_name": "knbroomell",
+      "total_commits": 3,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-28",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 1,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "eff19e0",
+          "subject": "New notebook folder: kaia-broomell",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "f86ccd6",
+          "subject": "New notebook entry: kaia-broomell/2026-04-28",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "6b62084",
+          "subject": "New lab member: Kaia Broomell",
+          "date": "2026-04-28"
+        }
+      ],
+      "days_active": 1
     },
     "egspaulding": {
       "login": "egspaulding",
@@ -201,7 +628,7 @@
           "date": "2026-04-21"
         }
       ],
-      "days_active": 1
+      "days_active": 8
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -235,36 +662,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 138
-    },
-    "alicepierce": {
-      "login": "alicepierce",
-      "display_name": "Alice",
-      "total_commits": 1,
-      "first_commit": "2026-04-07",
-      "last_commit": "2026-04-07",
-      "protocols_authored": 0,
-      "notebooks_authored": 0,
-      "inventory_edits": 0,
-      "wiki_edits": 0,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 0,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "eaf2747",
-          "subject": "Update wet-lab/autoclave",
-          "date": "2026-04-07"
-        }
-      ],
-      "days_active": 15
+      "days_active": 145
     }
   }
 }

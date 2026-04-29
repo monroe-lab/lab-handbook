@@ -1,0 +1,42 @@
+---
+type: "accession"
+title: "TAI8"
+accession_id: "TAI8"
+project: "Cassava Landraces (New Phytologist 2026)"
+people: "[[Kehan Zhao]]"
+species: "Manihot esculenta"
+status: "completed"
+status_note: "Sequenced for Zhao et al. 2026 (New Phytologist). Data released on cassavabase.org and NCBI SRA."
+priority: "1"
+sequencing_type: "Illumina WGS"
+last_updated: "2026-04-28"
+---
+
+# TAI8
+
+*Manihot esculenta* (cultivated cassava) sequenced for [[Kehan Zhao]]'s 2026 *New Phytologist* paper on Colombian cassava landrace genomic diversity. Origin code TAI (CIAT comparison material).
+
+## Sequencing
+
+| Platform | Run / batch | Farm path | SRA |
+| --- | --- | --- | --- |
+| Illumina WGS | Batch 2n3 (BGI, BRT_F21FTSUSAT1347_PLAhnfuR) | `/group/gmonroegrp3/cassava/Batch_2n3.tar.gz` → `clean/TAI_8/` | SRR32633375 |
+
+Farm path snapshots are accurate as of 2026-04-28.
+
+## Resources
+
+- [[Kehan Zhao]]
+- [[projects/cassava-landraces-new-phytologist|Cassava Landraces (New Phytologist 2026)]]
+- Paper: [Zhao et al. 2026 — Unlocking Genetic Diversity in Colombian Cassava Landraces (New Phytologist)](https://doi.org/10.1111/nph.70918)
+- VCF release: [cassavabase.org protocol #64](https://cassavabase.org/breeders_toolbox/protocol/64)
+- Raw reads: [NCBI SRA BioProject PRJNA1228154](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1228154)
+- SRA run: [SRR32633375](https://www.ncbi.nlm.nih.gov/sra/?term=SRR32633375) (sample alias `TAI8`)
+- Farm raw reads: `/group/gmonroegrp3/cassava/Batch_2n3.tar.gz` → `clean/TAI_8/`
+
+## Related
+
+- [[projects/cassava-landraces-new-phytologist|Cassava Landraces (New Phytologist 2026)]]
+- [[Kehan Zhao]]
+
+#accession #cassava

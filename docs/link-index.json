@@ -1,5 +1,17 @@
 [
   {
+    "source": "accessions/altxxx-9",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/barb-m-mp1",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "accessions/barb-m-mp1",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
     "source": "accessions/bl21-de3-competent-cells",
     "target": "wet-lab/mutagenesis/protein-induction-bl21"
   },
@@ -10,6 +22,34 @@
   {
     "source": "accessions/bl21-de3-competent-cells",
     "target": "resources/chloramphenicol"
+  },
+  {
+    "source": "accessions/caexxx-13",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/caexxx-16",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/caexxx-28",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/caexxx-35",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/cg1141-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/cm4919-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/cm523-7",
+    "target": "projects/cassava-landraces-new-phytologist"
   },
   {
     "source": "accessions/col-0-wild-type",
@@ -36,6 +76,1454 @@
     "target": "wet-lab/pcr-genotyping"
   },
   {
+    "source": "accessions/col1004",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1005",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1008-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1008-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1010b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1033",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1048",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1050",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1052",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1059",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1062c",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1065",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1068b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1069",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1072",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1073",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1082",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1096",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col110",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1107",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1112a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1129",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1132",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1134",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1135",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1136",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col114",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1141",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1142b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1147",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1148",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1156",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col116",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1174",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1190",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1205",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col122",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1225",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1228",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col123",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1231",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1236",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col126",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1288",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1292",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col130",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col132",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1326",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col133",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1344",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1361",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1362-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1362-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1366",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1398",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1399",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1409",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1412",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1413",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1417",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1424",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1429",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1430",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1459",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1468",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1477",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1478",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1480",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1485",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1486",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1487",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1490",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1493",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1494",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1495",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1501",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1505",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1515",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1517",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1523",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1524",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1535",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1536",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1538",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1541",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1542",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1570",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1572",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1602",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1604",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1613",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col162",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1628",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col163",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1636",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1640",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1653",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col166",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1667",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1671",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1678",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1683",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col169",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1707",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col171",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1710",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1711",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col172",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1724",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1743",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1752",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1759",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col176",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1764b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1774",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1784",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1787a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1794",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col180",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1803",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1804",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1812",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1820",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1831",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1886",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col18b-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col18b-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col193",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1931",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1938",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col1945",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col196",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2007",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2014",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2017",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2026",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2034",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2043",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2047",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2054",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2058",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2059",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2062",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2088",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2103",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col213",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2153",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2165",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2173",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2177",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2181",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col219",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2196",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2205",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2206",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col221",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2214",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2215",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2231",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2238",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col224",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2251",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2252",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2255",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2256",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2259",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2260",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2266",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2312",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2348",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2357",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2377",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2401",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2419",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col242",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2440",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2452",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2459",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col246",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2466",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2479",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2489",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2524",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2528",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2532",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2540",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2542",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2549",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col255",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2557",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2585",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2588",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col260",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2617",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2618",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2624",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2627",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2629",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2635",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col265",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col267",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col269",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2694",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2697",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2701",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2704",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2709",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col2712",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col272",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col275",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col278",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col280",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col281",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col282",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col287",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col295",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col296",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col298",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col303",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col304",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col308",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col310",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col314",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col317",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col318",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col319",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col327",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col336",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col337",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col359",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col363",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col378",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col386",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col393",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col408",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col431",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col442",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col456",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col480",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col494",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col5",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col514",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col517",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col526",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col527",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col52a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col530",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col547",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col549",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col56",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col562",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col567",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col569",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col574",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col585",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col588",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col588a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col598",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col601",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col608",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col614",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col618",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col625",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col628",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col634",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col637",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col644",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col650",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col66",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col670a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col695",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col705",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col710a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col721",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col723",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col738",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col745",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col746",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col758",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col761",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col766",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col76a-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col76a-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col774",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col776",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col783",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col804",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col807",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col811",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col812",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col813",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col818",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col82",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col825a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col827",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col838",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col841",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col845a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col845b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col85",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col850",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col854",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col856",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col863",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col868",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col869",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col87",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col875",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col878",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col88",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col880",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col89",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col907",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col91a-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col91a-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col922",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col93",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col933",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col938",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col945",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col948c",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col956",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col962-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col962-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col966d",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/col97",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/cth417-2e",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/hmcp-13",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/imper183",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/lonxxx-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/lonxxx-3",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/orbxxx-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/orbxxx-14",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/orbxxx-15",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/orbxxx-18",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/orbxxx-9",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per407-3",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per407-4e2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per407-4f",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per407-4g",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per410-1e",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per411-4f",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per413-5a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2c",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2d",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2f",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2h",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-2i-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-3a",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-3c",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-4d",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-4f",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per415-4h",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per416-3b",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per417-3c",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per417-3f",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per421-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per422-13",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per424-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per424-3",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/per427-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
     "source": "accessions/pistachio-4",
     "target": "locations/tube-pistachio-leaf-1"
   },
@@ -46,6 +1534,102 @@
   {
     "source": "accessions/pistachio-4",
     "target": "locations/tube-pistachio-dna-extract-1"
+  },
+  {
+    "source": "accessions/sample-barb-m-mp1-134b2i",
+    "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "accessions/sm1411-5",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/sm1495-5",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/sm2775-4",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/sm856-11",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/smb2446-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tai8",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-16",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-20",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-23",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-32",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-43",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-56",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tphxxx-57",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-1",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-12",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-2",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-23",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-26",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-40",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-41",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-61",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/tstxxx-77",
+    "target": "projects/cassava-landraces-new-phytologist"
+  },
+  {
+    "source": "accessions/ven77",
+    "target": "projects/cassava-landraces-new-phytologist"
   },
   {
     "source": "bioinformatics/claude-code-skills",
@@ -82,6 +1666,10 @@
   {
     "source": "bulletin",
     "target": "resources/hydrogen-peroxide-30"
+  },
+  {
+    "source": "bulletin",
+    "target": "resources/paraquat"
   },
   {
     "source": "lab-management/farm-resources-cpus-and-storage",
@@ -796,6 +2384,10 @@
     "target": "wet-lab/epigenomics/cut-and-tag"
   },
   {
+    "source": "people/kaia-broomell",
+    "target": "wet-lab/mutagenesis/dsb-repair-master-protocol"
+  },
+  {
     "source": "people/kehan-zhao",
     "target": "lab-safety/lab-safety-requirements"
   },
@@ -822,6 +2414,22 @@
   {
     "source": "people/mr-freckles",
     "target": "wet-lab/clean-bench"
+  },
+  {
+    "source": "people/percival-singson",
+    "target": "wet-lab/extraction/hmw-extraction-challenging-plants"
+  },
+  {
+    "source": "people/percival-singson",
+    "target": "wet-lab/extraction/kalanchoe-ctab-extraction"
+  },
+  {
+    "source": "people/percival-singson",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "people/percival-singson",
+    "target": "wet-lab/extraction/sorbitol-ctab-hifi-extraction"
   },
   {
     "source": "people/satoyo-oya",
