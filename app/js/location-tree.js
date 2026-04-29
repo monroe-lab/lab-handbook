@@ -225,7 +225,11 @@
       // working without having to be rewritten.
       var pos = e.position ? '<span class="lt-pos tw-pos" title="Position">' + esc(e.position) + '</span>' : '';
       var grid = e.grid ? '<span class="lt-grid tw-pos" title="Grid size" style="background:#e0f2f1;color:#00695c">' + esc(e.grid) + '</span>' : '';
-      var count = kids.length ? '<span class="lt-count tw-count">' + kids.length + ' item' + (kids.length === 1 ? '' : 's') + '</span>' : '';
+      // In picker mode (locationsOnly), the count reflects only sub-locations,
+      // not bottles/accessions/etc. — labelling them "items" misleads users
+      // who saw a higher count on lab-map for the same node.
+      var countNoun = (mode === 'picker' && locationsOnly) ? 'location' : 'item';
+      var count = kids.length ? '<span class="lt-count tw-count">' + kids.length + ' ' + countNoun + (kids.length === 1 ? '' : 's') + '</span>' : '';
       var orphanBadge = isOrphan ? '<span class="lt-orphan-badge tw-pos" title="Parent ref does not resolve" style="background:#fff3e0;color:#e65100">orphan: ' + esc(e.parent || '') + '</span>' : '';
       var dragAttr = draggable ? ' draggable="true"' : '';
 

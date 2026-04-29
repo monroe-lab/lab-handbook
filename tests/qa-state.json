@@ -1,6 +1,6 @@
 {
   "phase": "functional",
-  "cycle": 70,
+  "cycle": 71,
   "site_url": "https://monroe-lab.github.io/lab-handbook",
   "repo": "monroe-lab/lab-handbook",
   "previous_run_archive": "tests/qa-state.archive-2026-04-12.json",
@@ -9813,6 +9813,171 @@
         "DNeasy plant mini concept body is empty — many concept docs lack descriptions. Content gap worth a separate audit.",
         "Dashboard Inventory Status widget had a misleading 'Untracked: 476' that swept non-inventory objects (bottles, accessions, events). Fixed in this cycle by aligning loadInventoryStatus with loadStats' INV_TYPES filter."
       ]
+    },
+    {
+      "cycle": 71,
+      "persona": "Dr. Monroe",
+      "modifier": "confused",
+      "task": "Equipment move day — confused PI moves 3 freshly-seeded test bottles from cabinet-flammable to cabinet-corrosive via the parent location picker (with a typo correction along the way and a URL deep-link shortcut). Verify the moves on disk, in the lab-map tree, and in the target cabinet's CONTENTS pane.",
+      "screenshots": [
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-01-monroe-dashboard.png",
+          "shows": "PI's dashboard landing — 12-tab top nav with '+' More popover, 10 stats cards (21 notebooks, 280 inventory, 626 accessions, 15 projects, 16 people, 41 calendar, 52 lab map, 1340 docs wiki), Inventory Status widget, Recent Updates panel showing the qa-cycle-71 seed commits live in real time.",
+          "evaluation": "Renders cleanly. Recent updates panel correctly reflects API-driven seed commits (proves Live edit/view system is working). All cards readable, no overflow.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-02-monroe-lab-map-baseline.png",
+          "shows": "Lab Map page with placeholder floor plan + hierarchical Locations tree (Asmundson Growth Chamber / Autoclave Room / Genome Center / Robbins Hall 170 (11 items) / Robbins Hall 262 (2 items) / Unsorted (review)).",
+          "evaluation": "Tree renders, counts visible. 'Map design in progress' info box still present (known placeholder).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-03-monroe-tree-filter-flammable.png",
+          "shows": "Lab map filter input filled with 'flammable'; tree narrows to Robbins Hall 170 > Flammable Cabinet (16 items, teal-highlighted match).",
+          "evaluation": "Filter narrowing works; matched node highlighted in teal. Counts come from full childCount (includes bottles).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-04-monroe-inventory-baseline.png",
+          "shows": "Inventory page baseline at 1280px viewport with teal-bordered orientation banner, search bar, 5 stat cards, 280 row table.",
+          "evaluation": "Banner and stats render correctly. Pill colors hard to confirm at full-page zoom; checked closer in step 18 popup view.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-05-monroe-inventory-search-qa71.png",
+          "shows": "Inventory search filtered to 'qa71' returns 'No items match your filters.'",
+          "evaluation": "Behaviour is correct per the concepts/instances model — bottles aren't searchable on the concept inventory table. UX could surface instance hits but that's a known design choice (orientation banner explains it).",
+          "issues": [
+            "UX nit: search is concepts-only; users with the orientation banner mental model figure it out, but new users may expect instance-level matches."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-06-monroe-confused-wrong-bottle-popup.png",
+          "shows": "Confused PI's first click — opens the production Ethanol Absolute bottle popup. 3-column popup (Fields | Body | References). Bottle pill orange; concept pill (Ethanol Absolute) is purple #6a1b9a with atom icon.",
+          "evaluation": "Bottle vs chemical pill colors render correctly per spec. Breadcrumb fits one line for this title length.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-07-monroe-bottle1-popup-view.png",
+          "shows": "QA71 Acetone Bottle popup in view mode. Concept pill = Acetone (purple/atom = chemical). Parent = Flammable Cabinet. Quantity 250 mL. In Stock. Body 'QA cycle 71 test bottle. Will be deleted at end of cycle.'",
+          "evaluation": "All fields render with correct types/colors. Body markdown rendered cleanly.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-08-monroe-bottle1-edit-mode.png",
+          "shows": "Bottle 1 in EDIT mode. Insert pill toolbar shows 11 type pills (Resources/Stocks/People/Protocols/Projects/Accessions/Waste/Calendar/Lab Map/Notebooks). Parent field is a location-picker widget showing 'Robbins Hall 170 > Flammable Cabinet' breadcrumb with X clear and ▼ chevron.",
+          "evaluation": "Edit form renders well. Save button is teal and prominent.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-09-monroe-bottle1-parent-picker-open.png",
+          "shows": "Parent picker dropdown open below the parent field. Filter input + Expand all/Collapse buttons. 6 root locations listed with item counts.",
+          "evaluation": "Picker uses locationsOnly=true so its child counts are different from lab-map (which counts all children including bottles). Robbins Hall 170 shows 8 items here vs 11 on lab-map.",
+          "issues": [
+            "UX inconsistency: picker shows '8 items' while lab-map shows '11 items' for same node. Different counting semantics. Patched in this cycle: when locationsOnly, label as 'X locations' to disambiguate."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-10-monroe-bottle1-picker-typo-corosive.png",
+          "shows": "Picker filter with typo 'corosive' (single r) — empty state 'No locations match \"corosive\".'",
+          "evaluation": "Empty state copy is clear and quotes the user's query verbatim. Excellent feedback for confused users.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-11-monroe-bottle1-picker-fixed-corrosive.png",
+          "shows": "Filter corrected to 'corrosive'; tree narrows to Robbins Hall 170 (8 items) > Corrosive Cabinet (highlighted teal).",
+          "evaluation": "Filter narrows to the matching path correctly; the matched leaf is teal-highlighted as expected.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-12-monroe-bottle1-picker-after-pick-corrosive.png",
+          "shows": "After clicking Corrosive Cabinet: Parent field updates to 'Robbins Hall 170 > Corrosive Cabinet'; teal toast 'Location: Corrosive Cabinet' appears bottom-right; picker closes.",
+          "evaluation": "Pick flow is clean. Toast confirmation reduces ambiguity for hesitant users.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-13-monroe-bottle1-before-save.png",
+          "shows": "Pre-save state: Parent shows the new location, no other field changed.",
+          "evaluation": "Form holds the change before save; ready to commit.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-14-monroe-bottle1-after-save.png",
+          "shows": "After save: popup back to view mode, breadcrumb updated to 'Robbins Hall 170 / Corrosive Cabinet / QA71 Acetone Bottle p0q2tn', Parent pill = Corrosive Cabinet, teal Saved toast.",
+          "evaluation": "End-to-end save flow works. Breadcrumb live-updates without reopening the popup.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-15-monroe-bottle2-edit-mode.png",
+          "shows": "Bottle 2 (1-Octanol) edit mode with the same picker UX.",
+          "evaluation": "Repeatable, identical to bottle 1. Concept slug for octanol resolved to a chemical (purple atom expected after save).",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-16-monroe-bottle2-picker-corrosive.png",
+          "shows": "Bottle 2 picker filtered to corrosive, leaf highlighted.",
+          "evaluation": "Same as bottle 1 — predictable.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-17-monroe-bottle2-after-save.png",
+          "shows": "Bottle 2 saved; concept pill = 1-Octanol (purple/atom = chemical); parent = Corrosive Cabinet; Saved toast.",
+          "evaluation": "Concept pill recolor verified for 1-octanol. Save round-trip clean.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-18-monroe-bottle3-deeplink.png",
+          "shows": "URL deep-link /app/inventory.html?doc=stocks/qa71-bottle-methbut-... auto-opens the popup. Breadcrumb wraps to 2 lines because the long bottle title pushes the third pill onto a new row.",
+          "evaluation": "Deep-link works ✅. Breadcrumb wrapping is graceful (each pill already capped at max-width:240px with text-overflow ellipsis), but with 3 pills + a 30-char title they wrap. Minor visual nit; not worth tightening pill caps further (truncation kicks in fast).",
+          "issues": [
+            "Cosmetic: long titles cause breadcrumb wrap to 2 rows on narrow popup column. Already truncates at 240px per pill; further tightening would hide useful identifiers."
+          ]
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-19-monroe-bottle3-picker-corrosive.png",
+          "shows": "Bottle 3 picker filtered to corrosive.",
+          "evaluation": "Predictable.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-20-monroe-bottle3-after-save.png",
+          "shows": "Bottle 3 saved (3-Methylbutanol concept = purple/atom = chemical, parent = Corrosive Cabinet). Two stacked toasts visible (Location + Saved).",
+          "evaluation": "Stacking toasts not overlapping; clean. Concept pill correct.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-21-monroe-lab-map-after-moves.png",
+          "shows": "Lab map filtered to 'cabinet' AFTER all 3 moves: Robbins Hall 170 (11 items) > Chemical Cabinet (104 items), Corrosive Cabinet (18 items), Flammable Cabinet (16 items).",
+          "evaluation": "Tree counts updated correctly. Corrosive Cabinet went from 15 → 18 (delta +3 = our moved bottles). Flammable Cabinet stayed at 16 (3 added via API then 3 moved out = net 0). Lab-map reflects on-disk reality.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-22-monroe-cabinet-corrosive-popup.png",
+          "shows": "Corrosive Cabinet popup with CONTENTS panel (right column) listing all 18 children, including the 3 QA71 test bottles (1-Octanol, 3-MeButanol, Acetone) at the correct alphabetical position with bottle (orange) icons.",
+          "evaluation": "Backlinks pane correctly classifies the new bottles as instances-in-lab. Layout consistent. Container popup with no reverse-icon issues.",
+          "issues": []
+        },
+        {
+          "path": "/tmp/qa-screenshots/cycle71/cycle71-23-monroe-final.png",
+          "shows": "Final lab-map filtered view confirming the 18-vs-16 cabinet counts.",
+          "evaluation": "Stable state, matches step 21.",
+          "issues": []
+        }
+      ],
+      "bugs": [],
+      "fixes": [
+        "CYCLE71-PICKER-LOCATION-COUNT-LABEL"
+      ],
+      "observations": [
+        "Equipment-move-day end-to-end works: 3 bottles seeded in cabinet-flammable via API, moved one-by-one through the parent picker UI to cabinet-corrosive. Each save committed to GitHub (verified via raw fetch — all 3 'parent: locations/cabinet-corrosive'), each breadcrumb live-updated, each toast fired.",
+        "URL deep-link /app/inventory.html?doc=stocks/<slug> auto-opens the popup on navigation; useful for shareable links.",
+        "Picker UX shines: typo 'corosive' returns 'No locations match \"corosive\".'; correcting to 'corrosive' narrows the tree to the single matching leaf with teal highlight; click commits with a confirmation toast.",
+        "Lab-map tree reflects the moves correctly after a hard reload: cabinet-corrosive 15 → 18 (+3), cabinet-flammable 16 → 16 (3 added then 3 moved out). object-index.json on the deployed CDN is stale (rebuilt by a Python script, not on file edits) — the live UI uses Lab.gh.fetchObjectIndex with localStorage patches to bridge the gap. Both lab-map and the cabinet popup CONTENTS pane showed the new bottles correctly without manual refresh.",
+        "Picker child-count vs lab-map child-count diverged for the same node (Robbins Hall 170: lab-map=11 items, picker=8 items) because picker uses locationsOnly=true. Patched the picker label to 'N locations' so the difference is self-explanatory.",
+        "Concept pill colors verified end-to-end: ethanol-absolute, acetone, 1-octanol, 3-methylbutanol all render as purple #6a1b9a with fa-atom icon (chemical type). Bottle pills are orange. No regressions.",
+        "Confused PI flow worked: typo recovery, deep-link as a navigation shortcut, opening a 'wrong' bottle then closing → all transitions clean with no stuck modals or stale state."
+      ]
     }
   ],
   "bugs_found": [
@@ -10885,6 +11050,14 @@
         "app/projects.html"
       ],
       "summary": "Sidebar item rows now carry a title attribute so hovering a truncated entry reveals the full name."
+    },
+    {
+      "id": "CYCLE71-PICKER-LOCATION-COUNT-LABEL",
+      "description": "location-tree.js: in picker mode (locationsOnly=true), the per-node child count is now labelled '1 location' / 'N locations' instead of '1 item' / 'N items'. Lab-map (full mode) keeps 'item(s)'. Fixes the lab-map=11 vs picker=8 'items' confusion observed in cycle71-09 — now the picker reads '8 locations' and matches the model: only sub-locations are clickable parents, bottles aren't.",
+      "files": [
+        "app/js/location-tree.js"
+      ],
+      "status": "applied"
     }
   ],
   "improvements_proposed": [
@@ -10892,7 +11065,7 @@
     "Either omit the trailing breadcrumb slash on wrapped lines or include the current item as a final pill on the next line"
   ],
   "edge_cases_tested": [],
-  "screenshots_taken": 208,
+  "screenshots_taken": 231,
   "notes": [
     "Fresh run started 2026-04-21. Prior 8-cycle run archived to tests/qa-state.archive-2026-04-12.json.",
     "Screenshot discipline is the PRIMARY success criterion this run -- take many, READ each one, evaluate visually, log visual issues.",
