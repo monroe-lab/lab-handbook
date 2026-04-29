@@ -19,13 +19,17 @@ This panel is the working substrate for downstream pangenome and GWAS analyses: 
 
 Not yet published. Concept-level cards only — per-tree metadata (planting year, parents, phenotype) lives in Pat Brown's records.
 
-## People
+## People (Monroe Lab)
 
-- **PI:** [[Grey Monroe]] (Monroe Lab)
-- **Lead (analysis):** [[Chaehee Lee]]
+- **PI:** [[Grey Monroe]]
+- **Primary contributor (assemblies + sequencing):** [[Matt Davis]]
+- **Analysis lead (TASSEL, GWAS):** [[Chaehee Lee]]
 - **Pacha pipeline (haplotype reconstruction):** [[Pablo Luna Rodriguez]]
-- **Source / breeder:** [[Patrick J Brown]] — owns the orchard material; supplied tissue.
-- Field manager: Zachary Uebelhor (Mondays / Tuesdays at Wolfskill).
+
+## External collaborators
+
+- **Patrick J Brown** (UC Davis Plant Sciences, *not a Monroe Lab member*) — pistachio breeder; owns the Wolfskill orchard material and supplied tissue. Source / breeder, not on lab roster.
+- Zachary Uebelhor (UC Davis field manager, Mondays / Tuesdays at Wolfskill) — coordinates tissue sampling.
 
 ## Sequencing
 
