@@ -9,7 +9,7 @@ last_updated: "2026-04-29"
 
 # Pistachio Wolfskill Collection
 
-Monroe Lab Illumina whole-genome sequencing of [[Patrick J Brown]]'s *Pistacia vera* diversity collection at the **UC Davis Wolfskill Experimental Orchard** (Winters, CA). 153 unique accessions sequenced; 2 of those have technical replicates (a second extraction / library).
+Monroe Lab Illumina whole-genome sequencing of Pat Brown's *Pistacia vera* diversity collection at the **UC Davis Wolfskill Experimental Orchard** (Winters, CA). 153 unique accessions sequenced; 2 of those have technical replicates (a second extraction / library).
 
 ## Summary
 
@@ -59,7 +59,6 @@ The 774-tree GBS panel from Pat Brown's lab includes named cultivars (Golden Hil
 
 ## Related
 
-- [[Patrick J Brown]]
 - [[Chaehee Lee]]
 - [[Pablo Luna Rodriguez]]
 - [[Pistachio Pangenome]] (sibling project — phased HiFi assemblies that this WGS panel is being lifted onto)

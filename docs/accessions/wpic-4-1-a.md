@@ -14,7 +14,7 @@ last_updated: "2026-04-29"
 
 # WPIC_4_1_A
 
-*Pistacia vera* accession from [[Patrick J Brown]]'s diversity collection at the UC Davis Wolfskill Experimental Orchard (Winters, CA).
+*Pistacia vera* accession from Pat Brown's diversity collection at the UC Davis Wolfskill Experimental Orchard (Winters, CA).
 
 Whole-genome sequenced (Illumina) at Wolfskill. Reads aligned to the `Pvera_Kerman_RefGen_v1` reference.
 
@@ -28,7 +28,6 @@ Farm path snapshots are accurate as of 2026-04-29.
 
 ## Resources
 
-- [[Patrick J Brown]]
 - [[Chaehee Lee]]
 - [[Pablo Luna Rodriguez]]
 - [[projects/pistachio-wolfskill-collection|Pistachio Wolfskill Collection]]
@@ -37,7 +36,6 @@ Farm path snapshots are accurate as of 2026-04-29.
 ## Related
 
 - [[projects/pistachio-wolfskill-collection|Pistachio Wolfskill Collection]]
-- [[Patrick J Brown]]
 - [[Pistachio Pangenome]]
 
 #accession #pistachio
