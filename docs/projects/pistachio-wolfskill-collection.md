@@ -42,13 +42,9 @@ Not yet published. Concept-level cards only — per-tree metadata (planting year
 
 Legacy library IDs are prefixed `DPIS<n>` and map to current `WPI<block>_<row>_<tree>` field-grid IDs in `imputation_wgs_vera/mapping_sampleID.txt`. One sample (`DPIS557`) has no WPI mapping and is filed under its legacy ID.
 
-## Notable accessions
+## Out of scope (not in this WGS panel)
 
-- [[b15-69|B15-69]] — Female parent of ~10 wizened seedlings observed in one Wolfskill block (Apr 2026). See [[_active/wizened-pistachio-wgs|Wizened Pistachio WGS]] for the follow-up sequencing project.
-- [[golden-hills|Golden Hills]], [[lost-hills|Lost Hills]] — Major US commercial cultivars; sister selections from UC Davis breeding.
-- [[joley|Joley]] — Older US commercial cultivar.
-- [[zarand|Zarand]] — Iranian *P. vera* cultivar.
-- [[gumdrop-wolfskill|Gumdrop (Wolfskill)]] — Wolfskill source of the Gumdrop cultivar.
+The 774-tree GBS panel from Pat Brown's lab includes named cultivars (Golden Hills, Lost Hills, Joley, Zarand, Gumdrop) and the breeding selection **B15-69** (female parent of the wizened-seedling lineage — see [[_active/wizened-pistachio-wgs|Wizened Pistachio WGS]]). These are NOT in the Monroe-Lab WGS subset and therefore have no accession card in the lab handbook. When the wizened-pistachio sequencing happens (planned May 2026), those samples will get cards under that project.
 
 ## Farm data layout (snapshot 2026-04-29)
 
