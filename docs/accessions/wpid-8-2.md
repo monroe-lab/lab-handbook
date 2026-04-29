@@ -5,26 +5,26 @@ accession_id: "WPID_8_2"
 project: "Pistachio Wolfskill Collection"
 people: "[[Patrick J Brown]]"
 species: "Pistacia vera"
-status: "completed"
-status_note: "Illumina WGS at Wolfskill (Brown lab); not retained in the 774-sample GBS panel. Legacy WGS ID `DPIS353`."
+status: "archived"
+status_note: "Whole-genome sequenced at Wolfskill (Brown lab); legacy ID `DPIS353`."
 priority: "1"
 sequencing_type: "Illumina WGS"
-last_updated: "2026-04-28"
+last_updated: "2026-04-29"
 ---
 
 # WPID_8_2
 
 *Pistacia vera* accession from [[Patrick J Brown]]'s diversity collection at the UC Davis Wolfskill Experimental Orchard (Winters, CA). Wolfskill orchard block D, row 8, tree 2.
 
-Has Illumina WGS data from the Wolfskill sequencing effort, but is not retained in the 774-sample GBS diversity panel. Useful as an additional individual when assembling allele-frequency or imputation references.
+Whole-genome sequenced (Illumina) at Wolfskill. Reads aligned to the `Pvera_Kerman_RefGen_v1` reference.
 
 ## Sequencing
 
-| Platform | Reference | Farm path |
-| --- | --- | --- |
-| Illumina WGS | `Pvera_Kerman_RefGen_v1` | `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/` (legacy sample ID `DPIS353`) |
+| Platform | Reference | Legacy IDs | Farm path |
+| --- | --- | --- | --- |
+| Illumina WGS | `Pvera_Kerman_RefGen_v1` | `DPIS353` | `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/` |
 
-Farm path snapshots are accurate as of 2026-04-28.
+Farm path snapshots are accurate as of 2026-04-29.
 
 ## Resources
 
@@ -32,11 +32,7 @@ Farm path snapshots are accurate as of 2026-04-28.
 - [[Chaehee Lee]]
 - [[Pablo Luna Rodriguez]]
 - [[projects/pistachio-wolfskill-collection|Pistachio Wolfskill Collection]]
-- Panel VCFs (TASSEL output): `/group/gmonroegrp3/chaehee/pistachio/GBS_wolfskill_pjbrown/tassel_vera/vcf/`
-- GBS sample key: `/group/gmonroegrp3/chaehee/pistachio/GBS_wolfskill_pjbrown/tassel_vera/keys/pistachio_diversity_HindIII_key_220207_vera.txt` (chaehee permissions)
-- GBS raw reads: `/group/gmonroegrp3/chaehee/pistachio/GBS_wolfskill_pjbrown/raw_data/` (lane-pooled fastq.gz)
 - WGS analysis dir: `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/`
-- Legacy WGS sample ID: `DPIS353` (in `mapping_sampleID.txt`)
 
 ## Related
 

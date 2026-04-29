@@ -1,50 +1,46 @@
 ---
 type: "project"
 title: "Pistachio Wolfskill Collection"
-status: "active"
+status: "archived"
 pi: "Grey Monroe"
 lead: "Chaehee Lee"
-last_updated: "2026-04-28"
+last_updated: "2026-04-29"
 ---
 
 # Pistachio Wolfskill Collection
 
-Genotyping and partial whole-genome sequencing of [[Patrick J Brown]]'s *Pistacia vera* diversity collection at the **UC Davis Wolfskill Experimental Orchard** (Winters, CA). 854 unique accession concept cards: 774 in the GBS diversity panel, plus 80 additional samples with Illumina WGS data only.
+Monroe Lab Illumina whole-genome sequencing of [[Patrick J Brown]]'s *Pistacia vera* diversity collection at the **UC Davis Wolfskill Experimental Orchard** (Winters, CA). 153 unique accessions sequenced; 2 of those have technical replicates (a second extraction / library).
 
 ## Summary
 
-The Wolfskill orchard hosts hundreds of *P. vera* trees representing Pat Brown's pistachio breeding and germplasm program. Material spans field-grid plantings (blocks A–E), commercial cultivars used as references (Golden Hills, Lost Hills, Gumdrop, Joley, Zarand), and named breeding selections (B15-69, B2-27, C2-35, etc.). The Monroe Lab partnered with Pat Brown's lab to genotype 774 of these trees using **GBS** (HindIII restriction-site enzyme, TASSEL-GBSv2 pipeline against the `Pvera_Kerman_RefGen_v1` reference) and to generate **Illumina WGS** for ~150 individuals (used to phase / impute the GBS calls and as standalone variant calls).
+The Wolfskill orchard hosts hundreds of *P. vera* trees representing Pat Brown's pistachio breeding and germplasm program. Pat Brown's lab generated GBS data for 774 trees (separate dataset, not Monroe Lab work). The Monroe Lab whole-genome sequenced a subset for use as imputation references and stand-alone variant calls feeding pangenome and GWAS analyses.
 
 This panel is the working substrate for downstream pangenome and GWAS analyses: it underlies [[Pablo Luna Rodriguez]]'s [[Pacha]] graph-based haplotype-reconstruction pipeline (UCB1 test case), Chaehee's pangenome construction, and the GWAS for flowering / leafing date (chr 3 candidates `PvKer.03.g087700.t02` and `PvKer.03.g087730.t02` per the [[Pistachio Pangenome]] notes).
 
-Not yet a paper — published nothing on this collection so far. Cards are scaffold-quality; deeper per-tree metadata (planting year, parents, phenotype) lives in Pat Brown's records, not in this lab handbook.
+Not yet published. Concept-level cards only — per-tree metadata (planting year, parents, phenotype) lives in Pat Brown's records.
 
 ## People
 
-- **PI:** [[Grey Monroe]] (Monroe Lab, UC Davis)
-- **Lead (analysis):** [[Chaehee Lee]] (TASSEL pipeline, GWAS)
+- **PI:** [[Grey Monroe]] (Monroe Lab)
+- **Lead (analysis):** [[Chaehee Lee]]
 - **Pacha pipeline (haplotype reconstruction):** [[Pablo Luna Rodriguez]]
-- **Source / breeder:** [[Patrick J Brown]] (UC Davis Plant Sciences) — owns the orchard material; supplied tissue and field metadata.
+- **Source / breeder:** [[Patrick J Brown]] — owns the orchard material; supplied tissue.
 - Field manager: Zachary Uebelhor (Mondays / Tuesdays at Wolfskill).
 
-## Sequencing summary
+## Sequencing
 
-| Platform | Samples | Reference | Notes |
-| --- | --- | --- | --- |
-| GBS (HindIII) | 774 | `Pvera_Kerman_RefGen_v1` | Panel VCF `pistachio_diversity_HindIII_220207_vera`. Sample key: `tassel_vera/keys/pistachio_diversity_HindIII_key_220207_vera.txt` (chaehee permissions). |
-| Illumina WGS | ~155 unique (73 paired with GBS, 80 WGS-only, plus a few unmapped legacy IDs) | `Pvera_Kerman_RefGen_v1` | Legacy IDs prefixed `DPIS<n>` mapped to current `WPI*` IDs in `imputation_wgs_vera/mapping_sampleID.txt`. WGS analysis dir: `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/`. |
+| Platform | Unique accessions | Technical replicates | Reference | Farm path |
+| --- | --- | --- | --- | --- |
+| Illumina WGS | 153 | 2 accessions × 2 replicates each | `Pvera_Kerman_RefGen_v1` | `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/` |
 
-### GBS panel breakdown
+**Technical replicates** (each represents a second extraction / library prep of the same tree):
 
-| Group | Samples | Pattern | Notes |
-| --- | --- | --- | --- |
-| Block A | 68 | `WPIA_<row>_<tree>` | Field grid |
-| Block B | 60 | `WPIB_<row>_<tree>` | Field grid |
-| Block C | 215 | `WPIC_<row>_<tree>` | Field grid |
-| Block D | 122 | `WPID_<row>_<tree>` | Field grid |
-| Block E | 294 | `WPIE_<row>_<tree>` | Field grid |
-| Named cultivars / parents | 15 | e.g. `B15-69`, `Golden_Hills`, `Joley`, `Lost_Hills`, `Zarand` | Cultivars + Pat Brown breeding-line codes |
-| **Total** | **774** | | |
+| Accession | Legacy library IDs |
+| --- | --- |
+| [[wpia-11-1\|WPIA_11_1]] | `DPIS41`, `DPIS541` |
+| [[wpia-14-4\|WPIA_14_4]] | `DPIS122`, `DPIS122B` |
+
+Legacy library IDs are prefixed `DPIS<n>` and map to current `WPI<block>_<row>_<tree>` field-grid IDs in `imputation_wgs_vera/mapping_sampleID.txt`. One sample (`DPIS557`) has no WPI mapping and is filed under its legacy ID.
 
 ## Notable accessions
 
@@ -54,30 +50,20 @@ Not yet a paper — published nothing on this collection so far. Cards are scaff
 - [[zarand|Zarand]] — Iranian *P. vera* cultivar.
 - [[gumdrop-wolfskill|Gumdrop (Wolfskill)]] — Wolfskill source of the Gumdrop cultivar.
 
-## Farm data layout (snapshot 2026-04-28)
+## Farm data layout (snapshot 2026-04-29)
 
-- **GBS top-level:** `/group/gmonroegrp3/chaehee/pistachio/GBS_wolfskill_pjbrown/`
-  - Raw lane fastq.gz (7 lanes, ~57 GB compressed): `raw_data/`
-  - Trimmomatic-trimmed lane fastq.gz (top level)
-  - TASSEL-GBSv2 outputs (filtered for *P. vera*): `tassel_vera/`
-    - VCF + sample list: `tassel_vera/vcf/list_774vera.txt`
-    - Imputed calls: `tassel_vera/imputed/`
-    - WGS-imputation cross-reference: `tassel_vera/imputation_wgs_vera/mapping_sampleID.txt`
-    - GWAS analyses (PCA, kinship, flowering / LFDA / phenology): `tassel_vera/analysis/`
-  - Earlier TASSEL run (all-species): `tassel/`
-  - Helper scripts: `run_trimmomatic-R1.sh`, `job_parallel_run_trimmomatic-R1.sh`
-- **WGS analyses:** `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/`
+- **WGS analyses + variant calls:** `/group/gmonroegrp2/chaehee/pistachio/wgs_wolfskill/`
   - GWAS outputs: `gwas/mlm_output/`, `gwas/mlm_output_FLOW/`
-- **Pacha pipeline:** `/group/gmonroegrp2/chaehee/Pablo/`
-  - PanGenie / SyRI alignments: `Pablo/pangenie/`
+- **Pacha pipeline (uses these WGS calls):** `/group/gmonroegrp2/chaehee/Pablo/`
+- **DPIS<->WPI mapping (canonical):** `/group/gmonroegrp3/chaehee/pistachio/GBS_wolfskill_pjbrown/tassel_vera/imputation_wgs_vera/mapping_sampleID.txt`
 
 ## Related
 
 - [[Patrick J Brown]]
 - [[Chaehee Lee]]
 - [[Pablo Luna Rodriguez]]
-- [[Pistachio Pangenome]] (sibling project — phased HiFi assemblies of *P. vera* + wild relatives that this panel is being lifted onto)
+- [[Pistachio Pangenome]] (sibling project — phased HiFi assemblies that this WGS panel is being lifted onto)
 - [[_active/wizened-pistachio-wgs|Wizened Pistachio WGS]] (follow-up: sequencing wizened B15-69 progeny + controls)
-- [[Pacha]] (Pablo's haplotype-reconstruction pipeline; uses this panel for validation)
+- [[Pacha]] (Pablo's haplotype-reconstruction pipeline; uses this WGS panel for validation)
 
-#project #pistachio #pistacia-vera #wolfskill #breeding #gbs #gwas #pangenome #active
+#project #pistachio #pistacia-vera #wolfskill #wgs #pangenome #archived

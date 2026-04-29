@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-29T06:46:49.075682+00:00",
-  "total_commits": 4384,
+  "generated_at": "2026-04-29T07:03:58.953774+00:00",
+  "total_commits": 4385,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4199,
+      "total_commits": 4200,
       "first_commit": "2025-12-04",
       "last_commit": "2026-04-29",
       "protocols_authored": 186,
       "notebooks_authored": 156,
       "inventory_edits": 2229,
-      "wiki_edits": 2445,
+      "wiki_edits": 3303,
       "images_uploaded": 140,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "57e37cb",
-          "subject": "qa-cycle-71: seed test bottle qa71-bottle-methbut-p0q2tn",
-          "date": "2026-04-29"
-        },
         {
           "sha": "64dbe17",
           "subject": "Update stocks/qa71-bottle-acetone-p0q2tn.md",
@@ -61,6 +56,11 @@
         {
           "sha": "051418a",
           "subject": "qa-cycle-71: clarify locations picker count label vs lab-map",
+          "date": "2026-04-29"
+        },
+        {
+          "sha": "d96544d",
+          "subject": "Add 854 Pistachio Wolfskill Collection accession cards + project card",
           "date": "2026-04-29"
         }
       ],

@@ -1,10 +1,10 @@
 ---
 type: "project"
 title: "Cassava Landraces (New Phytologist 2026)"
-status: "completed"
+status: "archived"
 pi: "Grey Monroe"
 lead: "Kehan Zhao"
-last_updated: "2026-04-28"
+last_updated: "2026-04-29"
 ---
 
 # Cassava Landraces (New Phytologist 2026)
