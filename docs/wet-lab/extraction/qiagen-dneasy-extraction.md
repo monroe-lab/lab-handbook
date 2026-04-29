@@ -5,6 +5,8 @@ title: "QIAGEN DNeasy Plant Extraction"
 
 # QIAGEN DNeasy Plant Extraction
 
+**Time estimate:** ~2.5-3 hr wall time, ~1 hr hands-on (LN grind + tissue prep ~15 min, 10 min lysis at 65°C, 5 min P3 ice incubation, 5 min lysate clear spin + 2 min QIAshredder, column binding + 4 wash spins ~10 min, 5 min elution at RT, plus QC). Mostly column-spin work after lysis; no overnight steps. Suitable for batches — once you've ground tissue, multiple samples run through the columns in parallel.
+
 ## Resources
 
 **Equipment:** [[centrifuge|Microcentrifuge]], [[heat-block]] or [[water-bath]] (65C), [[vortex-mixer]]
@@ -18,12 +20,6 @@ title: "QIAGEN DNeasy Plant Extraction"
 **Prerequisites:** [[harvesting-leaf-tissue]], [[centrifuge-operation]], [[water-bath-and-heat-block]]
 
 **Purpose:** Extract genomic DNA from plant tissue using a silica-column kit. Produces higher-purity DNA than the quick extraction (Buffer A) method, suitable for PCR, Sanger sequencing, and some library preps. Not optimized for high-molecular-weight (HMW) DNA needed for long-read sequencing.
-
-## Time estimate
-
-**Wall time:** ~2.5-3 hr | **Hands-on:** ~1 hr
-
----
 
 ## Before You Start
 

@@ -4,6 +4,8 @@ title: "Sorbitol/CTAB HiFi Extraction"
 ---
 # Sorbitol/CTAB HiFi Extraction
 
+**Time estimate:** ~5-6 hr hands-on (4 sorbitol washes with 5 min spins each ~45 min, 60 min CTAB lysis at 45°C + 15-20 min RNase, 2 rounds of CI extraction with 10 min hula-mix + 10 min spin each ~45 min, 30 min SPRI bead binding + magnetic separation + 2 EtOH washes + 15 min EB elution, plus 15 min Collibri bead cleanup), then a required **overnight rest on the bench** for HMW DNA to homogenize before final QC. The slow steps are the iterative sorbitol washes (repeat until supernatant is clear/pale, not green) and the bead binding/elution incubations. Plan a full day at the bench.
+
 ## Resources
 
 **Equipment:** [[automill]], [[centrifuge]], [[clean-bench-laminar-flow]], [[fume-hood]], [[hula-mixer]], [[magnetic-rack]], [[nanodrop]], [[thermomixer]]

@@ -4,6 +4,7 @@ title: "HiFi DNA Extraction (DIY)"
 ---
 # HiFi DNA Extraction (DIY)
 
+**Time estimate:** ~3.5-4 hr hands-on (20 min grind + lysis prep, 30 min lysis + RNase at 55°C, 25 min PCI/CI extractions including spins, 30-60 min SPRI bead binding, 2x EtOH washes, 15 min EB elution, optional 15 min Collibri bead step), plus a required **overnight rest on the bench** for HMW DNA to homogenize before QC. Active bench time is mostly waiting on incubations and magnetic separations — plan a half-day with another task to fill gaps.
 
 ## Resources
 

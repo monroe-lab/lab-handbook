@@ -5,6 +5,7 @@ title: "Pistachio DNA Extraction (Short-Read)"
 
 # Pistachio DNA Extraction (Short-Read)
 
+**Time estimate:** ~2-2.5 hr hands-on (LN grind + tissue prep ~15 min, 20 min lysis at 65°C, 10-15 min P3 ice incubation, QIAshredder + DNeasy column spins ~15 min, 4 wash spins ~10 min, 5 min elution, plus QC). Mostly column-spin work after lysis — relatively fast compared to HMW protocols. No overnight steps. The slowest step is the 65°C lysis incubation; everything else is short spins and washes.
 
 ## Resources
 

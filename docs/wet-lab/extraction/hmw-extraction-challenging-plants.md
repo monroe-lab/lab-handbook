@@ -5,6 +5,7 @@ title: "HMW Extraction for Challenging Plants"
 
 # HMW Extraction for Challenging Plants
 
+**Time estimate:** ~5-6 hr hands-on (3-4 sorbitol washes ~45 min with spins, 60 min CTAB lysis at 45°C + 15-20 min RNase, 2 rounds of CI extraction with 10 min hula-mix + 10 min spin each, 30 min SPRI bead binding + 2 EtOH washes + 15 min EB elution, plus a 15 min Collibri bead cleanup step), then a required **overnight rest on the bench** before final QC. The slow steps are the iterative sorbitol washes (this is the whole point — repeat until supernatant is clear) and the bead binding/elution incubations. Plan a full day.
 
 ## Resources
 

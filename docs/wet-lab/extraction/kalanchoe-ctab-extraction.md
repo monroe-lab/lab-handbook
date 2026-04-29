@@ -5,6 +5,7 @@ title: "Kalanchoe CTAB Extraction"
 
 # Kalanchoe CTAB Extraction
 
+**Time estimate:** ~4-5 hr hands-on for the core extraction (LN grind + buffer prep ~30 min, 1 hr proteinase K lysis at 60°C, 2 rounds of chloroform:isoamyl extraction with 15 min + 5 min spins, isopropanol precipitation 1 hr at -20°C minimum, pellet wash + ethanol washes ~30 min, RNase digest 1 hr at 37°C), plus **2-3 hr additional** for the required Kalanchoe-specific cleanup (SPRI bead purification 30-60 min OR Monarch spin column ~20 min). The isopropanol precipitation step can be extended to **overnight at -20°C** to maximize yield — if you do that, this is a 2-day protocol. Slowest steps: lysis incubation, isopropanol precipitation, RNase digest.
 
 ## Resources
 
