@@ -4,9 +4,11 @@ type: "protocol"
 ---
 # Paraquat Sensitivity Test
 
-Resources: [[paraquat]]
-People: [[grey-monroe]], [[satoyo-oya]], [[jiani-li]]
-SOP: [[hazardous-drug-sop]]
+**Resources:** [[paraquat]], 
+
+**People:** [[grey-monroe]], [[satoyo-oya]], [[jiani-li]]
+
+**SOP:** [[hazardous-drug-sop]]
 
 ### Objective
 
@@ -14,11 +16,10 @@ Test the sensitivity of msh6, modified MSH6s and atx1/2/r7 mutants to the putati
 
 ### Note on Paraquat
 
-Synonym; Methyl viologen dichloride hydrate  257.16 g/mol 
-Product: Sigma 856177-1G.
-Please take a look at the Safety Data Sheet ([SDS](https://www.sigmaaldrich.com/US/en/sds/ALDRICH/856177?srsltid=AfmBOorJwo_PvCCQ0RnGouRQ9JBRcGAlXLUl23QXr5-HiPbv784yefgE))
-SOP
-Toxic! Work under the Chemical hood, wear PPE (double layers of nitril gloves, lab coats, face shield). Dispose gloves and wash your hands well after handling. Never drain to sink. Contaminated media/plasticwares should be disposed of as hazardous waste (the large plastic bag in the right back of the chemical hood). 
+Synonym: Methyl viologen dichloride hydrate  257.16 g/mol 
+Product: Sigma 856177-1G ([Safety Data Sheet](https://www.sigmaaldrich.com/US/en/sds/ALDRICH/856177?srsltid=AfmBOorJwo_PvCCQ0RnGouRQ9JBRcGAlXLUl23QXr5-HiPbv784yefgE))
+Toxic! Work under the Chemical hood, wear PPE (double layers of nitrile gloves, lab coats, face shield). Dispose gloves and wash your hands well after handling. Never drain to the sink. Contaminated media/plasticware should be disposed of as hazardous waste ( in the large plastic bag in the right back of the chemical hood. 
+
 Prosperity
 Very soluble in water. Stable in acid or neutral solutions but decomposes in the presence of UV light, unstable in alkaline solutions, inactivated by inert clays and ionic surfactants. So in cases of spill, some alkaline solutions or SDS (the detergent you are familiar with) may be used to decontaminate the surface. In case of spills 
 When is it safe to touch?
@@ -26,7 +27,7 @@ When is it safe to touch?
 PEL = Permissible Exposure Limit (PEL), are the concentration of a hazardous substance in the air averaged over an 8-hour workday and a 40-hour workweek to which it is believed that workers may be repeatedly exposed, day after day, for a working lifetime without adverse effects. 
 Our working solution ; 750 µM solution = 0.193 mg/ml.  2 µM media= 514.32 mg/m^3.  Therefore these are well above PEL. Never touch directly. When 2 µM is diluted to 1/1000, okay to touch.
 
-1.5 M stock solution can be made by adding 2.6 ml of UPW to the 1G of Paraquat, and it should be stored in the mutagen container in the chemical hood. The stock solution is stable at room temperature.
+1.5 M stock solution can be made by adding 2.6 ml of UPW to 1G of Paraquat, and it should be stored in the mutagen container in the chemical hood. The stock solution is stable at room temperature.
 
 Before starting the project
 
@@ -39,12 +40,9 @@ Before starting the project
 ### Overview of the procedure
 
 Firstly, do an experiment with only WT to get a “kill curve”. This is a pilot experiment to determine the right dose of paraquat and right timing to score the phenotype. Apply various doses of paraquat to WT. If the dose is too high, the plants will die. If the dose is too small, there will be no detectable phenotype. If you score The objective is to identify a dose that nearly halves the phenotype score;
-
-<br>
 Once you know the right dose from the kill curve experiment, apply that dose to WT and mutants, and score the phenotype. Replicate this twice.
 
-<br>
-### Detailed Procedure for True leaf extension assay
+### Detailed Procedure for True Leaf Extension Assay
 
 #### Kill curve
 
