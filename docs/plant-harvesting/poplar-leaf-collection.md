@@ -4,51 +4,46 @@
 
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
-**Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab for the CBI / JGI 512691 project. This protocol covers tree selection, leaf-cluster choice, labeling, and on-site preservation. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
+**Purpose:** Collect and label leaf tissue from field-grown poplar trees for whole-genome somatic mutation sequencing in the Monroe Lab for the CBI / JGI 512691 project. Shipping to UC Davis is covered separately in [[shipping/shipping-samples-to-monroe-lab]].
 
-> **Updated 2026-04-30** after the JGI initiation call (proposal 512691). Sampling is now **one tube per tree, ~4 g of apical / first-flush bud tissue.** Earlier "two adjacent clusters" design retired.
+> **Updated 2026-05-02** after the JGI initiation call (proposal 512691). Earlier "two adjacent clusters" design retired.
 
 ## Quick summary
 
 For each tree:
 
-1. Pick the **most-branched branch** on the tree — the branch with the most branching events between its tip and the main trunk
-2. At the **tip of that branch**, locate the **apical bud cluster** — the youngest, freshest tissue (the "first flush")
-3. Strip leaves and immature leaflets off — **leaves only, no woody stem, please** — into a single labeled tube or foil pouch. Target **~4 g** of tissue (about a small handful)
-4. **Flash-freeze immediately** (liquid nitrogen or directly on dry ice)
-5. Record block / row / position (or tree tag) and the line ID in the sample sheet
+1. Pick the **most-branched branch** on the tree — the branch separated from the main stem by multiple branch events (sub-branch off a side branch off the main trunk).
+2. At the **tip of that branch**, take the **youngest leaves** (the apical bud / first-flush tissue at the very end of the shoot).
+3. Strip leaves into a **50 mL Falcon tube** (or equivalent container) — fill it **loose** (not packed). Approximate is fine; doesn't need to be exact. **All tissue must come from the one branch tip** — don't combine across branches or trees.
+4. **Flash-freeze immediately** (liquid nitrogen or directly on dry ice).
+5. Label clearly. Record block / row / position (or tree tag) and the line ID in the sample sheet.
+6. Ship frozen on dry ice to the Monroe Lab at UC Davis (see [[shipping/shipping-samples-to-monroe-lab]]).
 
-**Davis only:** 3 trees (1 WT717 + 1 Empty Vector + 1 most-branched transgenic) get an additional **whole-canopy collection** — see [Davis whole-canopy collection](#davis-whole-canopy-collection-3-trees-only) section near the bottom of this protocol.
+> ⚠️ **Collect ASAP.** JGI strongly recommends collecting on the earliest reasonable timeline. Older leaves accumulate secondary metabolites that yield less reliable DNA extractions, especially for the long-read libraries.
 
-> ⚠️ **Collect ASAP.** JGI strongly recommends collecting on the earliest reasonable timeline. Older leaves accumulate secondary metabolites that yield less reliable DNA extractions, especially for the long-read (PacBio HiFi) libraries. Sooner is better than later.
+> 📝 **Davis only:** 3 trees (1 WT717 + 1 Empty Vector + 1 most-branched transgenic) get an additional **whole-canopy collection** — see [Davis whole-canopy collection](#davis-whole-canopy-collection-3-trees-only) section near the bottom of this protocol.
 
 ![screenshot-2026-04-20-at-8.43.30-am](plant-harvesting/images/screenshot-2026-04-20-at-8.43.30-am.png)
 
 <br>
 ***
 
-## Logic of this sampling schema
+## Why this sampling design
 
-We're trying to detect somatic mutations that arose before, during, and after tissue culture and now in the field. Three design choices:
+We're trying to detect somatic mutations that arose before, during, and after tissue culture and now in the field. Two design choices:
 
-* **Pick a branch several branching events out from the main trunk.** Each new axillary branch is founded by a small handful of cells from the parent meristem. That cellular bottleneck "fixes" any mutations from those founder cells across the whole new branch's lineage in each cell layer. The more bottlenecks between trunk and leaf, the more likely a somatic mutation is at high VAF (close to fixed) rather than chimeric. High-VAF mutations are much easier to call reliably from sequencing.
-* **Apical bud / first-flush tissue at the tip of the branch.** Per JGI guidance for poplar (initiation call 2026-04-29): poplar leaves accumulate secondary metabolites (polyphenols / polysaccharides) that interfere with DNA extraction and library construction. The youngest tissue at the very tip of the shoot has the lowest secondary-metabolite load and the highest DNA yield, and is what JGI / HudsonAlpha need for HMW DNA → PacBio HiFi.
-* **One tube per tree, ~4 g.** A single 4 g aliquot of fresh-frozen apical tissue supplies both library types: ~1 g goes to AGI (Jayson Talag) for Illumina extraction, the rest is reserved for HMW DNA extraction → PacBio HiFi (for the 24-tree long-read subset). No need to collect two clusters.
+* **Most-branched branch.** Each new axillary branch is founded by a small handful of cells from the parent meristem — a cellular bottleneck that "fixes" any mutations in the new lineage. The more bottlenecks between trunk and tip, the more likely a somatic mutation is at high VAF (close to fixed) and easy to call from sequencing.
+* **Youngest tissue at the branch tip.** Per JGI guidance for poplar (initiation call 2026-04-29): poplar leaves accumulate secondary metabolites (polyphenols / polysaccharides) that interfere with DNA extraction. The youngest tissue at the very tip of the shoot has the lowest secondary-metabolite load and the highest DNA yield, and is what JGI / HudsonAlpha need for HMW DNA → PacBio HiFi.
 
 ## Procedure
 
 ### 1\. Select the tree
 
-For each line:
+For each line: find any healthy tree of that line. If a specific tree from the field map is dead, missing, or hard to reach, **just pick another tree of the same line**. Record block / row / position (or tree tag).
 
-1. Find any healthy tree of that line. If you have a specific suggested tree from the field map, great — use it. **If that tree is dead, missing, or hard to reach, just pick another tree of the same line.**
-2. Record **block, row, position** (or tree tag).
+### 2\. Select the branch
 
-### 2\. Select the branch — pick the **most-branched** branch on the tree
-
-On the tree, scan the canopy and find the **branch with the most branching events between its tip and the main trunk** — i.e., a sub-branch off a side branch off the main stem, ideally several bifurcations deep. The more branchings between trunk and tip, the more cellular bottlenecks the lineage has been through, and the more likely a somatic mutation in that tip's tissue is at high VAF (close to fixed) rather than chimeric.
-
-If multiple branches look comparably branched, pick the bushiest / most vigorous one.
+Scan the canopy and find the **branch with the most branching events between its tip and the main trunk** — typically a sub-branch off a side branch off the main stem, ideally several bifurcations deep. If multiple branches look comparably branched, pick the bushiest / most vigorous one.
 
 Avoid:
 
@@ -56,26 +51,25 @@ Avoid:
 * Suckers from the very base of the trunk (often a different cell lineage)
 * Heavily defoliated or dieback branches
 
-### 3\. Locate the apical bud / first flush
+### 3\. Collect the youngest leaves from the branch tip
 
-At the **tip of your chosen side branch**, find the apical bud — the cluster of newest, smallest, still-expanding leaves at the very end of the shoot. This is the "first flush" tissue.
+At the **tip of your chosen branch**, find the **apical bud** — the cluster of newest, smallest, still-expanding leaves at the very end of the shoot. This is the "first flush" tissue.
 
 * **Youngest available, healthy.** Avoid damaged, diseased, or insect-eaten tissue.
-* **Just the freshest growth.** Skip older, fully-hardened leaves further down the branch — secondary metabolites are highest in those.
-* **One tube per tree.** No more C1/C2 cluster split — a single 4 g tube per tree feeds both Illumina and PacBio downstream.
+* **Just the freshest growth.** Skip older, fully-hardened leaves further down the branch.
+* **All tissue from the one branch tip.** Don't combine across branches or trees.
+* **One tube per tree.**
 
 ### 4\. Strip and bag
 
 For each tree:
 
-1. **Strip the leaf blades and immature leaflets from the petiole and stem.** Collect blade tissue only — no woody stem. The whole apical bud cluster is fine; you don't need to dissect each leaflet.
-2. Drop the tissue directly into a labeled tube or **foil pouch** (foil pouches are equivalent to tubes/envelopes in this protocol — use whatever you have). No need to squash; just drop it in.
-3. **Target ~4 g per tree.** That's roughly a small handful of bud + young-leaf tissue. If a single apical bud doesn't get you to 4 g, take a second apical bud from the *same branch* (still distal, still first-flush). Don't combine across branches or trees.
-4. Label per the section below.
-5. **Flash-freeze immediately** in liquid nitrogen or directly on dry ice.
+1. **Strip the leaf blades and immature leaflets from the petiole and stem.** Collect blade tissue only — no woody stem.
+2. Drop the tissue directly into a **50 mL Falcon tube** or equivalent (foil pouches work too — same idea). Fill it loose, not packed; approximate is fine. A loosely-filled 50 mL Falcon is plenty (~15–20 g of fresh young leaves).
+3. Label per the section below.
+4. **Flash-freeze immediately** in liquid nitrogen or directly on dry ice.
 
-> ⚠️ **Warning: avoid cross contamination between trees**
-> If using scissors / shears, clean with 70% ethanol between trees.
+> ⚠️ **Avoid cross-contamination between trees.** If using scissors / shears, clean with 70% ethanol between trees.
 
 ### 5\. Label the tubes
 
@@ -114,8 +108,8 @@ In addition to the standard one-tube-per-tree collection above, three Davis tree
 
 **What to collect per canopy tree (5 tubes per tree, 15 tubes total across the 3 trees):**
 
-1. **`B0` — trunk-apex meristem.** The terminal meristem at the very top of the main stem. Collect ~4 g of the youngest leaves / unfurling buds at the trunk apex.
-2. **`B1`, `B2`, `B3`, `B4` — four major laterals top-to-bottom.** Pick the four most prominent lateral branches distributed along the trunk (e.g., one near the top, two mid, one near the base — pick whichever four are most distinct and easy to identify on the branching diagram). For each lateral, take ~4 g of apical-bud / first-flush tissue from the **tip** of that lateral (i.e., the most distal, freshest growth on that branch).
+1. **`B0` — trunk-apex meristem.** The terminal meristem at the very top of the main stem. Take the youngest leaves / unfurling buds at the trunk apex; fill a 50 mL Falcon tube loose.
+2. **`B1`, `B2`, `B3`, `B4` — four major laterals top-to-bottom.** Pick the four most prominent lateral branches distributed along the trunk (e.g., one near the top, two mid, one near the base). For each lateral, follow the standard rule: most-branched part of that lateral, youngest leaves at the tip, fill a 50 mL Falcon tube loose.
 
 **Branching diagram:** Sketch a quick diagram of the tree showing the trunk and the 4 laterals you sampled, with `B1`–`B4` labels and approximate height / orientation on the trunk. Take a phone photo of the diagram and email it to the Monroe lab. This is the key reference for analysis.
 
@@ -157,8 +151,18 @@ The **shorthand** code goes on the tube label.
 
 ***
 
-## Preservation/Shipping
+## Preservation / Shipping
 
 **Required: flash-freeze on-site.** Drop each tube/pouch into liquid nitrogen or directly onto dry ice immediately after the tissue goes in. Transfer to a −80 °C freezer as soon as you're back from the field.
 
-Ship per [[shipping/shipping-samples-to-monroe-lab]] — frozen on dry ice, overnight, Monday through Wednesday only.
+Ship per [[shipping/shipping-samples-to-monroe-lab]] — frozen on dry ice, overnight, Monday through Wednesday only. All sites ship to the Monroe Lab at UC Davis.
+
+***
+
+## Site-by-site coverage
+
+| Site | Trees | Notes |
+|---|---|---|
+| **UC Davis** | 44 (41 standard + 3 whole-canopy) | Standard collection on 41 trees; 3 trees (WT, EV, 1 most-branched transgenic) also get a 5-tube whole-canopy collection. Coordinated by [[Marie Klein]] + Zi Ye. |
+| **UMES (Maryland)** | 21 | 1 tree per line (18 transgenic events + WT + EV) + 1 border 717 guard tree. Standard collection only. Marie is the project liaison. |
+| **Westport (Oregon)** | 21 | Same as UMES: 1 tree per line + 1 border 717 guard. Standard collection only. Marie is the project liaison. |
