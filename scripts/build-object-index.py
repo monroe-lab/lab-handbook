@@ -31,6 +31,7 @@ OBJECT_DIRS = [
     "wet-lab/mutagenesis",
     "bioinformatics",
     "lab-management",
+    "lab-management/genomics-internship",
     "lab-safety",
     "workflow-templates",
     "notebooks",

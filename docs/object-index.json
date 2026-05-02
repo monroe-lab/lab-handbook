@@ -3973,7 +3973,8 @@
     "type": "project",
     "title": "Anchor Tag",
     "status": "active",
-    "pi": "Grey Monroe"
+    "pi": "Grey Monroe",
+    "mtime": 1777474140
   },
   {
     "path": "projects/cassava-c127.md",
@@ -3983,7 +3984,7 @@
     "pi": "Grey Monroe",
     "lead": "Kehan Zhao",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/cassava-landraces-new-phytologist.md",
@@ -3993,7 +3994,7 @@
     "pi": "Grey Monroe",
     "lead": "Kehan Zhao",
     "last_updated": "2026-04-29",
-    "mtime": 1777472940
+    "mtime": 1777474140
   },
   {
     "path": "projects/col-0-plus.md",
@@ -4003,7 +4004,7 @@
     "pi": "Grey Monroe",
     "lead": "Vianney Ahn",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/dna-repair-mutant-mutation-spectra.md",
@@ -4012,7 +4013,8 @@
     "status": "active",
     "pi": "Grey Monroe",
     "lead": "Satoyo Oya",
-    "last_updated": "2026-04-29"
+    "last_updated": "2026-04-29",
+    "mtime": 1777474140
   },
   {
     "path": "projects/double-strand-break-repair-fate/index.md",
@@ -4038,7 +4040,7 @@
     "pi": "Grey Monroe",
     "lead": "Vianney Ahn",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/kerman-somatic.md",
@@ -4048,13 +4050,13 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/low-pass-1000-sample-sequencing/bill-of-materials.md",
     "type": "project",
     "title": "Bill of Materials \u2014 Low-Pass 1000-Sample Sequencing",
-    "mtime": 1776870495
+    "mtime": 1777474140
   },
   {
     "path": "projects/low-pass-1000-sample-sequencing/index.md",
@@ -4072,7 +4074,7 @@
     "pi": "Grey Monroe",
     "lead": "Percival Singson",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/molecular-biology-training/index.md",
@@ -4080,7 +4082,7 @@
     "title": "Molecular Biology Training Curriculum",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1776799459
+    "mtime": 1777474140
   },
   {
     "path": "projects/mutation-accumulation/index.md",
@@ -4106,7 +4108,7 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/pistachio-genomics-misc.md",
@@ -4115,7 +4117,7 @@
     "status": "active",
     "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/pistachio-hybrids.md",
@@ -4124,7 +4126,7 @@
     "status": "active",
     "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/pistachio-pangenome/index.md",
@@ -4141,7 +4143,7 @@
     "status": "active",
     "pi": "Grey Monroe",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/pistachio-wolfskill-collection.md",
@@ -4151,7 +4153,7 @@
     "pi": "Grey Monroe",
     "lead": "Chaehee Lee",
     "last_updated": "2026-04-29",
-    "mtime": 1777449087
+    "mtime": 1777474140
   },
   {
     "path": "projects/poplar-somatic-sequencing.md",
@@ -4170,7 +4172,7 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/walnut-vx211.md",
@@ -4180,7 +4182,7 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "projects/walnut-weeping-phenotype.md",
@@ -4190,7 +4192,7 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-04-29",
-    "mtime": 1777471833
+    "mtime": 1777474140
   },
   {
     "path": "wet-lab/autoclave.md",
@@ -4604,7 +4606,7 @@
     "path": "wet-lab/mutagenesis/paraquat-sensitivity-test.md",
     "type": "protocol",
     "title": "Paraquat Sensitivity Test",
-    "mtime": 1777411920
+    "mtime": 1777591458
   },
   {
     "path": "wet-lab/mutagenesis/protein-induction-bl21.md",
@@ -4731,6 +4733,36 @@
     "type": "guide",
     "title": "Undergrad Onboarding Checklist",
     "mtime": 1775712811
+  },
+  {
+    "path": "lab-management/genomics-internship/capstone-rubric.md",
+    "type": "guide",
+    "title": "Genomics Internship \u2014 Capstone Rubric"
+  },
+  {
+    "path": "lab-management/genomics-internship/contamination-escape.md",
+    "type": "guide",
+    "title": "Genomics Internship \u2014 Contamination Escape Protocol"
+  },
+  {
+    "path": "lab-management/genomics-internship/index.md",
+    "type": "guide",
+    "title": "Monroe Lab Genomics Internship"
+  },
+  {
+    "path": "lab-management/genomics-internship/lab-prep-checklist.md",
+    "type": "guide",
+    "title": "Genomics Internship \u2014 Lab-Side Prep Checklist"
+  },
+  {
+    "path": "lab-management/genomics-internship/phase-0-checklist.md",
+    "type": "guide",
+    "title": "Genomics Internship \u2014 Phase 0 Checklist"
+  },
+  {
+    "path": "lab-management/genomics-internship/weekly-self-check.md",
+    "type": "guide",
+    "title": "Genomics Internship \u2014 Weekly Self-Check"
   },
   {
     "path": "lab-safety/acutely-toxic-solids-liquids-sop.md",
@@ -7294,7 +7326,8 @@
     "priority": "1",
     "last_updated": "2026-04-29",
     "status_note": "PacBio HiFi de novo assembly only (no Illumina WGS in our batches). One of 9 HiFi-assembly accessions for Zhao et al. 2026 (New Phytologist).",
-    "people": "[[Kehan Zhao]]"
+    "people": "[[Kehan Zhao]]",
+    "mtime": 1777474140
   },
   {
     "path": "accessions/col1485.md",
@@ -16800,6 +16833,16 @@
     "mtime": 1777397981
   },
   {
+    "path": "locations/4th-shelf.md",
+    "type": "shelf",
+    "title": "4th Shelf ",
+    "created_at": "2026-04-30T03:52:00.942Z",
+    "created_by": "w1shyoubest",
+    "updated_at": "2026-04-30T03:52:00.942Z",
+    "parent": "locations/fridge-4c-main",
+    "mtime": 1777521121
+  },
+  {
     "path": "locations/autoclave-room.md",
     "type": "room",
     "title": "Autoclave Room (Shared, Robbins Hall)",
@@ -16886,6 +16929,37 @@
     "parent": "locations/room-robbins-0170",
     "label_1": "Flammable Cabinet",
     "mtime": 1775895055
+  },
+  {
+    "path": "locations/cutana-chic-cut-run-kit.md",
+    "type": "container",
+    "title": "CUTANA CHIC/CUT&RUN Kit",
+    "created_at": "2026-04-30T03:38:10.376Z",
+    "created_by": "w1shyoubest",
+    "updated_at": "2026-04-30T03:38:39.320Z",
+    "parent": "locations/bench",
+    "position": "Above EVE",
+    "mtime": 1777520319
+  },
+  {
+    "path": "locations/epicypher-cutana-4-c.md",
+    "type": "box",
+    "title": "EpiCypher Cutana (4\u00b0C)",
+    "created_at": "2026-04-30T03:53:33.707Z",
+    "created_by": "w1shyoubest",
+    "updated_at": "2026-04-30T03:53:33.707Z",
+    "parent": "locations/4th-shelf",
+    "mtime": 1777521214
+  },
+  {
+    "path": "locations/epicypher-cutana-frozen-20-c.md",
+    "type": "box",
+    "title": "EpiCypher Cutana (Frozen -20\u00b0C)",
+    "created_at": "2026-04-30T03:45:51.334Z",
+    "created_by": "w1shyoubest",
+    "updated_at": "2026-04-30T03:50:10.062Z",
+    "parent": "locations/1st-shelf",
+    "mtime": 1777521010
   },
   {
     "path": "locations/freezer-minus20.md",
@@ -17812,7 +17886,7 @@
     "path": "plant-harvesting/poplar-leaf-collection.md",
     "type": "protocol",
     "title": "Collecting Poplar Leaves for Somatic Mutation Sequencing",
-    "mtime": 1776692660
+    "mtime": 1777753109
   },
   {
     "path": "plant-harvesting/transgenic-waste.md",

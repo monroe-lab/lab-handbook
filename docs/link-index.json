@@ -2320,6 +2320,82 @@
     "target": "bioinformatics/interacting-with-farm"
   },
   {
+    "source": "lab-management/genomics-internship/capstone-rubric",
+    "target": "lab-management/genomics-internship/contamination-escape"
+  },
+  {
+    "source": "lab-management/genomics-internship/capstone-rubric",
+    "target": "waste/index"
+  },
+  {
+    "source": "lab-management/genomics-internship/capstone-rubric",
+    "target": "lab-management/genomics-internship/weekly-self-check"
+  },
+  {
+    "source": "lab-management/genomics-internship/contamination-escape",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "lab-management/genomics-internship/contamination-escape",
+    "target": "lab-management/genomics-internship/lab-prep-checklist"
+  },
+  {
+    "source": "lab-management/genomics-internship/contamination-escape",
+    "target": "lab-management/genomics-internship/capstone-rubric"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "wet-lab/quick-dna-extraction"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "lab-management/genomics-internship/contamination-escape"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "lab-management/genomics-internship/capstone-rubric"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "lab-management/genomics-internship/weekly-self-check"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "lab-management/genomics-internship/phase-0-checklist"
+  },
+  {
+    "source": "lab-management/genomics-internship/index",
+    "target": "lab-management/genomics-internship/lab-prep-checklist"
+  },
+  {
+    "source": "lab-management/genomics-internship/lab-prep-checklist",
+    "target": "lab-management/genomics-internship/capstone-rubric"
+  },
+  {
+    "source": "lab-management/genomics-internship/lab-prep-checklist",
+    "target": "lab-management/genomics-internship/contamination-escape"
+  },
+  {
+    "source": "lab-management/genomics-internship/phase-0-checklist",
+    "target": "people/kehan-zhao"
+  },
+  {
+    "source": "lab-management/genomics-internship/phase-0-checklist",
+    "target": "wet-lab/pipette-school"
+  },
+  {
+    "source": "lab-management/genomics-internship/weekly-self-check",
+    "target": "waste/index"
+  },
+  {
+    "source": "lab-management/genomics-internship/weekly-self-check",
+    "target": "lab-management/genomics-internship/capstone-rubric"
+  },
+  {
     "source": "lab-management/lab-expectations",
     "target": "wet-lab/autoclave"
   },
@@ -3102,10 +3178,6 @@
   {
     "source": "plant-harvesting/flammable-solids-sop",
     "target": "resources/fume-hood"
-  },
-  {
-    "source": "plant-harvesting/poplar-leaf-collection",
-    "target": "shipping/shipping-samples-to-monroe-lab"
   },
   {
     "source": "projects/alfalfa-pangenome/index",
@@ -7502,6 +7574,26 @@
   {
     "source": "wet-lab/mutagenesis/m2-forward-genetic-screening",
     "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "wet-lab/mutagenesis/paraquat-sensitivity-test",
+    "target": "resources/paraquat"
+  },
+  {
+    "source": "wet-lab/mutagenesis/paraquat-sensitivity-test",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/mutagenesis/paraquat-sensitivity-test",
+    "target": "people/satoyo-oya"
+  },
+  {
+    "source": "wet-lab/mutagenesis/paraquat-sensitivity-test",
+    "target": "people/jiani-li"
+  },
+  {
+    "source": "wet-lab/mutagenesis/paraquat-sensitivity-test",
+    "target": "workflow-templates/hazardous-drug-sop"
   },
   {
     "source": "wet-lab/mutagenesis/protein-induction-bl21",
