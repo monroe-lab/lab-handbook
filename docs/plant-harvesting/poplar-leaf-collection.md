@@ -64,8 +64,6 @@ Phone: 279-222-8881
 - **Option A — we send a prepaid label.** Email Grey **~1 day before ship date** with: tube count, gross weight (kg), box dimensions, dry ice weight (kg), ship-from address, intended ship date. We'll put a prepaid label together and email it to you to print.
 - **Option B — ship on your own carrier and we'll reimburse.** Just send Grey the tracking number on ship day.
 
-Full shipping guide: [[shipping/shipping-samples-to-monroe-lab]].
-
 ## Davis whole-canopy add-on (3 trees only)
 
 For 3 specific Davis trees (1 WT + 1 EV + 1 most-branched transgenic), collect **5 tubes per tree** instead of 1: one from the trunk apex (`B0`) and one each from 4 major laterals top-to-bottom (`B1`–`B4`). Apply the standard sampling rule on each branch. Tube label adds the branch suffix: `DAV-B1R2P3-WT-B0`. Sketch a quick branching diagram per tree and email the photo to the lab.
