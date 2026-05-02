@@ -7,6 +7,9 @@ For each tree: fill a **50 mL Falcon tube** (or equivalent) **loose** with the *
 
 **Oregon (Westport) and Maryland (UMES) sites:** 21 trees per site — 1 tree per line (the 18 transgenic events + WT717 + Empty Vector) + 1 border 717 tree. Pick whichever rep is convenient; just record the block/row/position in the tube label so we can find it again if needed.
 
+**Questions? Call or email Grey anytime — happy to talk anything through.**
+**Grey Monroe** · `gmonroe@ucdavis.edu` · **279-222-8881**
+
 ![Poplar sampling diagram — branch events and youngest leaves](plant-harvesting/images/poplar-sampling-diagram.png)
 
 ## Sampling rule
