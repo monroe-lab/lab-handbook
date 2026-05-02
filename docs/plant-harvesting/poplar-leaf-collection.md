@@ -20,6 +20,8 @@ For each tree:
 
 **Davis only:** 3 trees (1 WT717 + 1 Empty Vector + 1 most-branched transgenic) get an additional **whole-canopy collection** — see [Davis whole-canopy collection](#davis-whole-canopy-collection-3-trees-only) section near the bottom of this protocol.
 
+> ⚠️ **Collect ASAP.** JGI strongly recommends collecting on the earliest reasonable timeline. Older leaves accumulate secondary metabolites that yield less reliable DNA extractions, especially for the long-read (PacBio HiFi) libraries. Sooner is better than later.
+
 ![screenshot-2026-04-20-at-8.43.30-am](plant-harvesting/images/screenshot-2026-04-20-at-8.43.30-am.png)
 
 <br>
