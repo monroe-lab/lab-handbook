@@ -10,20 +10,22 @@
 
 ## Quick summary
 
-For each tree:
+Preferences (not rigid rules — approximate is fine):
 
-1. Pick the **most-branched branch** on the tree — the branch separated from the main stem by multiple branch events (sub-branch off a side branch off the main trunk).
-2. At the **tip of that branch**, take the **youngest leaves** (the apical bud / first-flush tissue at the very end of the shoot).
-3. Strip leaves into a **50 mL Falcon tube** (or equivalent container) — fill it **loose** (not packed). Approximate is fine; doesn't need to be exact. **All tissue must come from the one branch tip** — don't combine across branches or trees.
-4. **Flash-freeze immediately** (liquid nitrogen or directly on dry ice).
-5. Label clearly. Record block / row / position (or tree tag) and the line ID in the sample sheet.
-6. Ship frozen on dry ice to the Monroe Lab at UC Davis (see [[shipping/shipping-samples-to-monroe-lab]]).
+1. **Pick a branched branch** on the tree. **Preferable:** a branch separated from the main stem by **2 or more branch events** (a sub-branch off a side branch off the main trunk). See diagram below.
+2. **Take the youngest leaves** at the tip of that branch — the apical bud / first-flush tissue at the very end of the shoot.
+3. Strip leaves into a **50 mL Falcon tube** (or equivalent — envelope, foil pouch, whatever you've got). **Fill it loose**, not packed.
+4. **Minimum 6 g of tissue.** A loosely-filled 50 mL Falcon tube clears that easily (~15–20 g) — extra is good, gives us backup tissue if extraction has issues.
+5. **All tissue from the same branch tip.** Don't mix across branches or trees.
+6. **Flash-freeze immediately** (liquid nitrogen or directly on dry ice).
+7. Label clearly. Record block / row / position (or tree tag) and the line ID in the sample sheet.
+8. Ship frozen on dry ice to the Monroe Lab at UC Davis (see [[shipping/shipping-samples-to-monroe-lab]]).
 
 > ⚠️ **Collect ASAP.** JGI strongly recommends collecting on the earliest reasonable timeline. Older leaves accumulate secondary metabolites that yield less reliable DNA extractions, especially for the long-read libraries.
 
 > 📝 **Davis only:** 3 trees (1 WT717 + 1 Empty Vector + 1 most-branched transgenic) get an additional **whole-canopy collection** — see [Davis whole-canopy collection](#davis-whole-canopy-collection-3-trees-only) section near the bottom of this protocol.
 
-![screenshot-2026-04-20-at-8.43.30-am](plant-harvesting/images/screenshot-2026-04-20-at-8.43.30-am.png)
+![Poplar sampling diagram — branch events and youngest leaves](plant-harvesting/images/poplar-sampling-diagram.png)
 
 <br>
 ***
