@@ -3,7 +3,9 @@
 
 # Collecting Poplar Leaves for Somatic Mutation Sequencing
 
-For each tree: fill a **50 mL Falcon tube** (or equivalent) **loose** with the **youngest leaves from a single branch tip**, flash-freeze, label, ship on dry ice to UC Davis.
+For each tree: fill a **50 mL Falcon tube** (or equivalent) **loose** with the **youngest leaves from a single branch tip**, flash-freeze, label clearly, ship on dry ice to UC Davis.
+
+**Oregon (Westport) and Maryland (UMES) sites:** 21 trees per site — 1 tree per line (the 18 transgenic events + WT717 + Empty Vector) + 1 border 717 tree. Pick whichever rep is convenient; just record the block/row/position in the tube label so we can find it again if needed.
 
 ![Poplar sampling diagram — branch events and youngest leaves](plant-harvesting/images/poplar-sampling-diagram.png)
 
@@ -28,7 +30,7 @@ Format: **`{SITE}-{TreeRef}-{LineShort}`**
 
 **Examples:** `DAV-B1R4P2-CK54` · `MAR-T17-WT` · `ORE-T03-717`
 
-Write the ID with permanent marker on the **tube body and the cap**.
+**Label both the tube body AND the cap** with permanent marker. Clear labels matter most — mix-ups here can't be fixed downstream.
 
 ### Line ID lookup table
 
