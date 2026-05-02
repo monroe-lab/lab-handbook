@@ -59,7 +59,10 @@ Davis, CA 95616 USA
 Phone: 279-222-8881
 ```
 
-Email Grey ~1 week before ship date with: tube count, gross weight (kg), box dimensions, dry ice weight (kg), ship-from address, intended ship date. We generate a **prepaid label** for you to print. Or ship via your own carrier and we reimburse.
+**Two options, whichever is easier on your end:**
+
+- **Option A — we send a prepaid label.** Email Grey **~1 day before ship date** with: tube count, gross weight (kg), box dimensions, dry ice weight (kg), ship-from address, intended ship date. We'll put a prepaid label together and email it to you to print.
+- **Option B — ship on your own carrier and we'll reimburse.** Just send Grey the tracking number on ship day.
 
 Full shipping guide: [[shipping/shipping-samples-to-monroe-lab]].
 
