@@ -124,9 +124,9 @@ Each tree contributes **two adjacent leaf clusters** from a side branch with mul
 
 ---
 
-## Davis Transgenic Site 2 — additional CJ lines (scoping, May 2026)
+## Davis Transgenic Site 2 — additional CJ lines
 
-Marie sent over (2026-05-03) the planting list for **Transgenic Site 2** at Davis: 61 events from CJ also planted in the Davis field. We are interested in sequencing one rep of each as an extension of this project. **Not yet scoped into the JGI 96+24 budget — needs a separate plan.** Source: `/Users/greymonroe/Dropbox/myfiles/transgenic site 2 poplar.pdf`.
+Marie sent over (2026-05-03) the planting list for **Transgenic Site 2** at Davis: 61 events from CJ also planted in the Davis field. **Plan:** collect leaf tissue from all 61 events (1 tree, 1 leaf cluster per event = 61 tubes), short-read only. Sequence as many as JGI capacity allows; cover any remainder with lab funds. No long-read on Site 2 events for now. Source: `/Users/greymonroe/Dropbox/myfiles/transgenic site 2 poplar.pdf`.
 
 ### Lignin / cell-wall pathway constructs (pCC series)
 
@@ -137,7 +137,7 @@ Marie sent over (2026-05-03) the planting list for **Transgenic Site 2** at Davi
 | 3 | pCC1019 (35S::PtF5H1 RNAi) | 1019-41 |
 | 4 | pCC1019 (35S::PtF5H1 RNAi) | 1019-90 |
 | 5 | pCC1020 (35S::PtF5H2 RNAi) | 1020-75 |
-| 6 | pCC1020 (35S::PtF5H2 RNAi) | 1025-98 ⚠️ label mismatch — likely typo for 1020-98, confirm with Marie |
+| 6 | pCC1020 (35S::PtF5H2 RNAi) | 1020-98 |
 | 7 | pCC1034 (AtC4H::PtF5H1) | 1034-12 |
 | 8 | pCC1034 (AtC4H::PtF5H1) | 1034-23 |
 | 9 | pCC1035 (AtC4H::PtF5H2) | 1035-24 |
@@ -206,19 +206,11 @@ Marie sent over (2026-05-03) the planting list for **Transgenic Site 2** at Davi
 
 ### Tallies
 
-- 61 events total
+- 61 events total → 61 tubes (1 tree × 1 leaf cluster per event)
 - 12 lignin/cell-wall (6 constructs × 2 events)
 - 42 other transgenic events (across 14 construct categories)
 - 7 controls (3 × WT717 + LBL1–4)
 - 2 Cas9-EV events (rows 36, 41)
-
-### Open scoping questions
-
-- One rep per event = 61 short-read libraries (or 122 tubes if we keep the 2-cluster-per-tree convention used at Site 1). How does this fit alongside the existing 96 + 24 JGI allocation?
-- Long-read coverage on any of these? (Current plan reserves 24 long-read slots all for the Site 1 cohort.)
-- Confirm row 6 (`1025-98`) with Marie.
-- Is "Transgenic Site 2" managed by the same field crew (Jack Bailey-Bale) as Transgenic 1? Same collection pass or separate trip?
-- LBL1–4: are these additional control lines, or labeled events from a separate construct? Confirm with Marie / CJ.
 
 ---
 
