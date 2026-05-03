@@ -7,6 +7,7 @@ email: "bdsingson@ucdavis.edu"
 # Percival Singson
 
 ## Protocols
+- [[grape-feeder-cell-dna-extraction]]
 - [[hmw-extraction-challenging-plants]]
 - [[kalanchoe-ctab-extraction]]
 - [[qiagen-dneasy-extraction]]

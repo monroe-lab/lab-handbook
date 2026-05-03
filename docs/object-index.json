@@ -4027,9 +4027,11 @@
   {
     "path": "projects/grape-protoplast-ltee/index.md",
     "type": "project",
-    "title": "Grape Protoplast LTEE",
+    "title": "Grape Feeder Cell Mutation Accumulation",
     "status": "active",
     "pi": "Grey Monroe",
+    "lead": "Percival Singson",
+    "last_updated": "2026-05-02",
     "mtime": 1777397636
   },
   {
@@ -4483,6 +4485,11 @@
     "mtime": 1775980234
   },
   {
+    "path": "wet-lab/extraction/grape-feeder-cell-dna-extraction.md",
+    "type": "protocol",
+    "title": "Grape Feeder Cell DNA Extraction"
+  },
+  {
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
     "type": "protocol",
     "title": "HiFi DNA Extraction (DIY)",
@@ -4737,32 +4744,38 @@
   {
     "path": "lab-management/genomics-internship/capstone-rubric.md",
     "type": "guide",
-    "title": "Genomics Internship \u2014 Capstone Rubric"
+    "title": "Genomics Internship \u2014 Capstone Rubric",
+    "mtime": 1777762197
   },
   {
     "path": "lab-management/genomics-internship/contamination-escape.md",
     "type": "guide",
-    "title": "Genomics Internship \u2014 Contamination Escape Protocol"
+    "title": "Genomics Internship \u2014 Contamination Escape Protocol",
+    "mtime": 1777762197
   },
   {
     "path": "lab-management/genomics-internship/index.md",
     "type": "guide",
-    "title": "Monroe Lab Genomics Internship"
+    "title": "Monroe Lab Genomics Internship",
+    "mtime": 1777762197
   },
   {
     "path": "lab-management/genomics-internship/lab-prep-checklist.md",
     "type": "guide",
-    "title": "Genomics Internship \u2014 Lab-Side Prep Checklist"
+    "title": "Genomics Internship \u2014 Lab-Side Prep Checklist",
+    "mtime": 1777762197
   },
   {
     "path": "lab-management/genomics-internship/phase-0-checklist.md",
     "type": "guide",
-    "title": "Genomics Internship \u2014 Phase 0 Checklist"
+    "title": "Genomics Internship \u2014 Phase 0 Checklist",
+    "mtime": 1777762197
   },
   {
     "path": "lab-management/genomics-internship/weekly-self-check.md",
     "type": "guide",
-    "title": "Genomics Internship \u2014 Weekly Self-Check"
+    "title": "Genomics Internship \u2014 Weekly Self-Check",
+    "mtime": 1777762197
   },
   {
     "path": "lab-safety/acutely-toxic-solids-liquids-sop.md",

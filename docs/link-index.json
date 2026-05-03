@@ -3129,6 +3129,10 @@
   },
   {
     "source": "people/percival-singson",
+    "target": "wet-lab/extraction/grape-feeder-cell-dna-extraction"
+  },
+  {
+    "source": "people/percival-singson",
     "target": "wet-lab/extraction/hmw-extraction-challenging-plants"
   },
   {
@@ -3226,6 +3230,22 @@
   {
     "source": "projects/dna-repair-mutant-mutation-spectra",
     "target": "projects/col-0-plus"
+  },
+  {
+    "source": "projects/grape-protoplast-ltee/index",
+    "target": "people/percival-singson"
+  },
+  {
+    "source": "projects/grape-protoplast-ltee/index",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "projects/grape-protoplast-ltee/index",
+    "target": "wet-lab/extraction/grape-feeder-cell-dna-extraction"
+  },
+  {
+    "source": "projects/grape-protoplast-ltee/index",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
   },
   {
     "source": "projects/kalanchoe-reference",
@@ -5793,6 +5813,54 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-dimelo-seq",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/water-bath"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/heat-block"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/vortex-mixer"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/dneasy-plant-mini"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "resources/ethanol-absolute"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "wet-lab/quantifying-dna-qubit"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "wet-lab/pcr-genotyping"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
+    "target": "people/percival-singson"
+  },
+  {
+    "source": "wet-lab/extraction/grape-feeder-cell-dna-extraction",
     "target": "people/grey-monroe"
   },
   {
