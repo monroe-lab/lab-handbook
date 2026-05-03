@@ -124,6 +124,104 @@ Each tree contributes **two adjacent leaf clusters** from a side branch with mul
 
 ---
 
+## Davis Transgenic Site 2 — additional CJ lines (scoping, May 2026)
+
+Marie sent over (2026-05-03) the planting list for **Transgenic Site 2** at Davis: 61 events from CJ also planted in the Davis field. We are interested in sequencing one rep of each as an extension of this project. **Not yet scoped into the JGI 96+24 budget — needs a separate plan.** Source: `/Users/greymonroe/Dropbox/myfiles/transgenic site 2 poplar.pdf`.
+
+### Lignin / cell-wall pathway constructs (pCC series)
+
+| Row | Construct | Event |
+|---|---|---|
+| 1 | pCC0998 (35S::PtCOMT1 RNAi) | 0998-30 |
+| 2 | pCC0998 (35S::PtCOMT1 RNAi) | 0998-45 |
+| 3 | pCC1019 (35S::PtF5H1 RNAi) | 1019-41 |
+| 4 | pCC1019 (35S::PtF5H1 RNAi) | 1019-90 |
+| 5 | pCC1020 (35S::PtF5H2 RNAi) | 1020-75 |
+| 6 | pCC1020 (35S::PtF5H2 RNAi) | 1025-98 ⚠️ label mismatch — likely typo for 1020-98, confirm with Marie |
+| 7 | pCC1034 (AtC4H::PtF5H1) | 1034-12 |
+| 8 | pCC1034 (AtC4H::PtF5H1) | 1034-23 |
+| 9 | pCC1035 (AtC4H::PtF5H2) | 1035-24 |
+| 10 | pCC1035 (AtC4H::PtF5H2) | 1035-41 |
+| 11 | pCC1049 (AtC4H::PtC3'H1 RNAi) | 1049-15 |
+| 12 | pCC1049 (AtC4H::PtC3'H1 RNAi) | 1049-39 |
+
+### Other transgenic events
+
+| Row | Construct | Event |
+|---|---|---|
+| 13 | AN1/2-KO | 128-67 |
+| 14 | AN1/2-KO | 128-7 |
+| 15 | 35S::AN-Q11 | 191-13 |
+| 16 | 35S::AN-Q11 | 191-21 |
+| 17 | 35S::AN-Q11 | 191-43 |
+| 18 | 35S::AN-Q15 | 192-31 |
+| 19 | 35S::AN-Q15 | 192-5 |
+| 20 | 35S::AN-Q15 | 192-6 |
+| 21 | XB-mKO | 193-16 |
+| 22 | XB-mKO | 193-31 |
+| 23 | XB-mKO | 193-37 |
+| 24 | RGA-4xKO | 267-17 |
+| 25 | RGA-4xKO | 267-24 |
+| 26 | RGA-4xKO | 267-49 |
+| 27 | RGA-4xKO | 267-9 |
+| 28 | 35S::BOOSTER | 284-34 |
+| 29 | 35S::BOOSTER | 284-42 |
+| 30 | 35S::BOOSTER | 284-60 |
+| 31 | 35S::ATPase-eGFP-OE | 317-22 |
+| 32 | 35S::ATPase-eGFP-OE | 317-45 |
+| 33 | 35S::bHLH60-eGFP-OE | 327-24 |
+| 34 | 35S::bHLH60-eGFP-OE | 327-25 |
+| 35 | 35S::bHLH60-eGFP-OE | 327-9 |
+| 36 | Cas9-EV | 59-70 |
+| 37 | AtC4H::CtCBM11-IBP | BIBP GV 10 |
+| 38 | AtC4H::CtCBM11-IBP | BIBP GV 12 |
+| 39 | AtC4H::CtCBM11-IBP | BIBP GV 13 |
+| 40 | AtC4H::CtCBM11-IBP | BIBP GV 16 |
+| 41 | Cas9-EV | Cas9-19 |
+| 42 | AtC4H::AtF5H O/E | F5H 37-2 |
+| 43 | AtC4H::AtF5H O/E | F5H 64-1 |
+| 44 | AtC4H::AtF5H O/E | F5H 82 |
+| 45 | AtC4H::AtF5H O/E | F5H 85 |
+| 46 | AtC4H::AtF5H O/E | F5H 85-9 |
+| 47 | 35S::AtRGIL6 | Myst6 15 |
+| 48 | 35S::AtRGIL6 | Myst6 2 |
+| 49 | 35S::AtRGIL6 | Myst6 34 |
+| 50 | 35S::AtRGIL6 | Myst6 37 |
+| 51 | 35S::AtRGIL6 | Myst6 43 |
+| 52 | 35S::AtRGIL6 | Myst6 7 |
+| 53 | 35S::PtLecRLK1 | pp19 |
+| 54 | 35S::PtLecRLK1 | pp7 |
+
+### Controls
+
+| Row | Construct | Event |
+|---|---|---|
+| 55 | WT717 | WT717 |
+| 56 | WT717 | WT717 |
+| 57 | WT717 | WT717 |
+| 58 | LBL1 | LBL1 |
+| 59 | LBL2 | LBL2 |
+| 60 | LBL3 | LBL3 |
+| 61 | LBL4 | LBL4 |
+
+### Tallies
+
+- 61 events total
+- 12 lignin/cell-wall (6 constructs × 2 events)
+- 42 other transgenic events (across 14 construct categories)
+- 7 controls (3 × WT717 + LBL1–4)
+- 2 Cas9-EV events (rows 36, 41)
+
+### Open scoping questions
+
+- One rep per event = 61 short-read libraries (or 122 tubes if we keep the 2-cluster-per-tree convention used at Site 1). How does this fit alongside the existing 96 + 24 JGI allocation?
+- Long-read coverage on any of these? (Current plan reserves 24 long-read slots all for the Site 1 cohort.)
+- Confirm row 6 (`1025-98`) with Marie.
+- Is "Transgenic Site 2" managed by the same field crew (Jack Bailey-Bale) as Transgenic 1? Same collection pass or separate trip?
+- LBL1–4: are these additional control lines, or labeled events from a separate construct? Confirm with Marie / CJ.
+
+---
+
 ## Protocols
 
 - [[poplar-leaf-collection]] -- Tree, branch, and leaf-cluster selection; labeling; flash-freeze on site
