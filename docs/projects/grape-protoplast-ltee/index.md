@@ -47,9 +47,8 @@ The dedicated extraction protocol [[grape-feeder-cell-dna-extraction]] walks thr
 ## Plan of attack
 
 1. **Charcoal separation test.** Take a small aliquot of feeder suspension. Try differential sedimentation. Check washed pellet under inverted light microscope. Try a NaCl wash if gravity alone doesn't separate cleanly. This is the first thing to figure out.
-2. **Extraction test.** Once you have charcoal-free cells, extract DNA with [[qiagen-dneasy-extraction|DNeasy Plant Mini]]. Nanodrop, Qubit, gel. Yield + purity check.
-3. **PCR validation.** Amplify a grape housekeeping gene (e.g. *VvACTIN1* or *VvGAPDH*). Clean band = enzymatically competent.
-4. **Pilot sequencing.** Extract DNA from 2-3 time points, send to SeqCenter or UCD DNA Technologies Core for Illumina WGS. Decide depth + budget once extraction is reproducible.
+2. **Extraction test.** Once you have charcoal-free cells, extract DNA with [[qiagen-dneasy-extraction|DNeasy Plant Mini]]. Qubit + NanoDrop. Run a gel only if those look off.
+3. **Pilot sequencing.** Extract DNA from 2-3 time points, send to SeqCenter or UCD DNA Technologies Core for Illumina WGS. Decide depth + budget once extraction is reproducible.
 
 ## Sequencing math
 

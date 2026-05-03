@@ -16,7 +16,7 @@ title: "Grape Feeder Cell DNA Extraction"
 
 **Optional:** acid-washed sand or zirconia beads (mechanical disruption if needed), pectolyase Y-23 (loosen embedded charcoal — only if differential sedimentation fails), 40-70 µm cell strainer (only if filtering is the path forward), NaCl 5 M stock (high-salt wash variant)
 
-**Related Protocols:** [[qiagen-dneasy-extraction]], [[quantifying-dna-qubit]], [[gel-electrophoresis]], [[pcr-genotyping]]
+**Related Protocols:** [[qiagen-dneasy-extraction]], [[quantifying-dna-qubit]], [[gel-electrophoresis]]
 
 **Contacts:** [[percival-singson]], [[grey-monroe]]
 
@@ -111,17 +111,11 @@ Lower elution volume → higher concentration. 50 µL gives best Qubit ng/µL fo
 - 260/280: target ≥1.8. <1.8 → protein contamination.
 - 260/230: target ≥1.8. <1.8 → polysaccharide / phenol / salt carryover. Common with plant material; can inhibit library prep enzymes.
 
-### Integrity
+### Integrity (optional, only if Qubit/NanoDrop look off)
 
 - Run on 0.8% agarose, 1× TAE, 80V, 30-45 min.
 - Want a tight high-MW band, minimal smearing. Smear → degraded DNA.
-
-### Enzymatic competence (PCR validation)
-
-Before sending anything for sequencing:
-
-- Amplify a known grape housekeeping gene — *VvACTIN1* or *VvGAPDH*. Stock primers may already exist in [[primer-stocks-grape]] (check inventory) or order from IDT.
-- Clean band on a gel = DNA is enzymatically competent. You're good to proceed to library prep.
+- Skip this for routine extractions where Qubit + NanoDrop are clean.
 
 ## Targets
 
@@ -130,8 +124,7 @@ Before sending anything for sequencing:
 | Total yield | **≥500 ng per sample** (10 ng/µL × 50 µL elution) |
 | 260/280 | ≥1.8 |
 | 260/230 | ≥1.8 |
-| Gel | tight HMW band, minimal smear |
-| PCR | clean single band on housekeeping gene |
+| Gel (only if running) | tight HMW band, minimal smear |
 
 If a sample falls short on yield, **pool 2 extractions from the same time point** rather than push library prep at low input.
 
@@ -143,7 +136,6 @@ If a sample falls short on yield, **pool 2 extractions from the same time point*
 | Yield 100-400 ng | Cell walls under-disrupted | Add bead/sand mechanical step |
 | Bad 260/280 (<1.7) | Protein carryover | Add second AW2 wash, longer dry spin |
 | Bad 260/230 (<1.7) | Polysaccharides / ethanol carryover | Longer dry spin, 65°C heat block 3-5 min before elution. Pre-bind 0.5× SPRI cleanup as last resort. |
-| PCR fails despite OK Qubit | RNA inflating Qubit, real DNA is low; or PCR inhibitor | Confirm with Qubit BR (dsDNA-specific). Add inhibitor-tolerant polymerase or dilute template. |
 | Cells lyse during charcoal wash | Mannitol osmotic balance off | Confirm 0.4 M concentration; cells should be osmotically stable here |
 
 ## Notes for first-time runs
@@ -154,8 +146,7 @@ If a sample falls short on yield, **pool 2 extractions from the same time point*
 
 ## Optional — items not in standard lab stock
 
-If you want to try the harder-tissue paths and the lab doesn't have them, flag to Grey for ordering:
+If you want to try the harder-charcoal-separation paths and the lab doesn't have them, flag to Grey for ordering:
 
-- Pectolyase Y-23 (Seishin Pharmaceutical / Cosmo Bio) — only if differential sedimentation + NaCl wash both fail
-- 40-70 µm reusable or disposable cell strainers (Corning, BD Falcon, or pluriSelect) — only if filtering is the chosen path
-- Stock primers for *VvACTIN1* / *VvGAPDH* (IDT) — if not already in lab primer collection
+- **40-70 µm cell strainers** (Corning / BD Falcon / pluriSelect) — only if filtering becomes the chosen path. Not currently in lab stock.
+- **Pectolyase Y-23** (Seishin Pharmaceutical / Cosmo Bio) — only if differential sedimentation + NaCl wash both fail. Not currently in lab stock.
