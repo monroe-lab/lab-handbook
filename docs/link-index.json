@@ -1432,6 +1432,426 @@
     "target": "projects/cassava-landraces-new-phytologist"
   },
   {
+    "source": "accessions/ore-717",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-717",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-717",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-717",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-717",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-ck107",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-ck107",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-ck107",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-ck107",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-ck107",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-ck45",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-ck45",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-ck45",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-ck45",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-ck45",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-ck54",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-ck54",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-ck54",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-ck54",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-ck54",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-co61",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-co61",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-co61",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-co61",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-co61",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-co74",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-co74",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-co74",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-co74",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-co74",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-co78",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-co78",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-co78",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-co78",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-co78",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-do214",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-do214",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-do214",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-do214",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-do214",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-do29",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-do29",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-do29",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-do29",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-do29",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-do89",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-do89",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-do89",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-do89",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-do89",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-eo17",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-eo17",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-eo17",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-eo17",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-eo17",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-eo24",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-eo24",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-eo24",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-eo24",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-eo24",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-eo5",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-eo5",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-eo5",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-eo5",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-eo5",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-ev",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-ev",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-ev",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-ev",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-ev",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-wt",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-wt",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-wt",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-wt",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-wt",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xk1",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xk1",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xk1",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xk1",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xk1",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xk15",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xk15",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xk15",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xk15",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xk15",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xk59",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xk59",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xk59",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xk59",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xk59",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xo22",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xo22",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xo22",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xo22",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xo22",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xo60",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xo60",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xo60",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xo60",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xo60",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "accessions/ore-xo72",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/ore-xo72",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/ore-xo72",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "accessions/ore-xo72",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "accessions/ore-xo72",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
     "source": "accessions/per407-3",
     "target": "projects/cassava-landraces-new-phytologist"
   },
@@ -1550,6 +1970,174 @@
   {
     "source": "accessions/sample-barb-m-mp1-9ck58r",
     "target": "wet-lab/harvesting-leaf-tissue"
+  },
+  {
+    "source": "accessions/sample-ore-717",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-717",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-ck107",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-ck107",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-ck45",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-ck45",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-ck54",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-ck54",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-co61",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-co61",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-co74",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-co74",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-co78",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-co78",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-do214",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-do214",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-do29",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-do29",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-do89",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-do89",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-eo17",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-eo17",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-eo24",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-eo24",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-eo5",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-eo5",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-ev",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-ev",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-wt",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-wt",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xk1",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xk1",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xk15",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xk15",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xk59",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xk59",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xo22",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xo22",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xo60",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xo60",
+    "target": "locations/bag-poplar-westport-2026-05-07"
+  },
+  {
+    "source": "accessions/sample-ore-xo72",
+    "target": "plant-harvesting/poplar-leaf-collection"
+  },
+  {
+    "source": "accessions/sample-ore-xo72",
+    "target": "locations/bag-poplar-westport-2026-05-07"
   },
   {
     "source": "accessions/sm1411-5",
@@ -2894,6 +3482,22 @@
   {
     "source": "locations/autoclave-room",
     "target": "wet-lab/autoclave"
+  },
+  {
+    "source": "locations/bag-poplar-westport-2026-05-07",
+    "target": "projects/poplar-somatic-sequencing"
+  },
+  {
+    "source": "locations/bag-poplar-westport-2026-05-07",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "locations/bag-poplar-westport-2026-05-07",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "locations/bag-poplar-westport-2026-05-07",
+    "target": "plant-harvesting/poplar-leaf-collection"
   },
   {
     "source": "locations/bench-chemistry",

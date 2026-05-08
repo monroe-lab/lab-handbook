@@ -1,70 +1,70 @@
 {
-  "generated_at": "2026-04-29T14:48:38.668295+00:00",
-  "total_commits": 4392,
+  "generated_at": "2026-05-08T17:38:42.607912+00:00",
+  "total_commits": 4423,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4207,
+      "total_commits": 4224,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-04-29",
-      "protocols_authored": 186,
+      "last_commit": "2026-05-08",
+      "protocols_authored": 187,
       "notebooks_authored": 156,
       "inventory_edits": 2231,
-      "wiki_edits": 4912,
-      "images_uploaded": 140,
+      "wiki_edits": 4963,
+      "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
       "locations_created": 256,
       "items_added": 695,
       "bulletin_edits": 14,
       "calendar_edits": 40,
-      "annotations": 57,
+      "annotations": 58,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "d96544d",
-          "subject": "Add 854 Pistachio Wolfskill Collection accession cards + project card",
-          "date": "2026-04-29"
+          "sha": "57a492a",
+          "subject": "Poplar collection: prominent contact info at top",
+          "date": "2026-05-02"
         },
         {
-          "sha": "549f574",
-          "subject": "Wolfskill: WGS-only scope; archive Wolfskill + cassava accessions",
-          "date": "2026-04-29"
+          "sha": "9e16f0b",
+          "subject": "Genomics Internship: draft curriculum spine for #52",
+          "date": "2026-05-02"
         },
         {
-          "sha": "b92f44d",
-          "subject": "Wolfskill project card: remove links to deleted GBS-only named cultivars",
-          "date": "2026-04-29"
+          "sha": "5bb0158",
+          "subject": "Grape feeder cell mutation accumulation: project + extraction protocol",
+          "date": "2026-05-03"
         },
         {
-          "sha": "4ff2148",
-          "subject": "Wolfskill: Matt Davis on people field, Pat Brown is external collaborator",
-          "date": "2026-04-29"
+          "sha": "913ec4a",
+          "subject": "Grape feeder cell extraction: drop PCR validation step",
+          "date": "2026-05-03"
         },
         {
-          "sha": "894a5b8",
-          "subject": "Wolfskill: strip [[Patrick J Brown]] wikilinks; non-lab people are plain text",
-          "date": "2026-04-29"
+          "sha": "f3f1f80",
+          "subject": "Poplar somatic seq: add Davis Transgenic Site 2 line list (61 CJ events) for sequencing scoping",
+          "date": "2026-05-03"
         },
         {
-          "sha": "3a1b134",
-          "subject": "Accessions: project pills clickable, stat cards filter status, +14 stubs",
-          "date": "2026-04-29"
+          "sha": "ad04ab3",
+          "subject": "Poplar somatic seq: lock Site 2 plan (61 events, 1 tree/1 cluster, short-read only); fix row 6 line ID",
+          "date": "2026-05-03"
         },
         {
-          "sha": "964720a",
-          "subject": "Project cleanup: pill links, Flongle out, Tudor->Anchor Tag, MA merge, +stubs",
-          "date": "2026-04-29"
+          "sha": "7f50cec",
+          "subject": "PBTS: log Novogene HiFi QC report (12 samples, ~96 Gb avg, ~18 kb N50)",
+          "date": "2026-05-08"
         },
         {
-          "sha": "181f6c9",
-          "subject": "Add time estimates to DNA extraction protocols (#175)",
-          "date": "2026-04-29"
+          "sha": "7e5122b",
+          "subject": "-80C Freezer A: fix shelf ordering \u2014 top 2 open, bottom 2 racked",
+          "date": "2026-05-08"
         }
       ],
-      "days_active": 146
+      "days_active": 155
     },
     "vianneyahn": {
       "login": "vianneyahn",
@@ -128,7 +128,71 @@
           "date": "2026-04-27"
         }
       ],
-      "days_active": 8
+      "days_active": 17
+    },
+    "yeleaf20030520": {
+      "login": "yeleaf20030520",
+      "display_name": "w1shyoubest",
+      "total_commits": 18,
+      "first_commit": "2026-04-22",
+      "last_commit": "2026-05-08",
+      "protocols_authored": 0,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 2,
+      "images_uploaded": 2,
+      "issue_attachments": 1,
+      "issues_filed": 0,
+      "locations_created": 5,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 1,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "f45cbf4",
+          "subject": "Upload epicypher-20-.jpg",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "c9064a8",
+          "subject": "Update locations/epicypher-cutana-frozen-20-c.md",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "0a79590",
+          "subject": "Create locations/4th-shelf.md",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "691d67f",
+          "subject": "Upload epicypher-cutana-4-c-.jpg",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "be3f5d0",
+          "subject": "Annotate images/epicypher-cutana-4-c--annotated.png",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "799fa44",
+          "subject": "Create locations/epicypher-cutana-4-c.md",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "d346cce",
+          "subject": "Update wet-lab/extraction/pistachio-dna-extraction",
+          "date": "2026-05-08"
+        },
+        {
+          "sha": "427ff89",
+          "subject": "Update wet-lab/extraction/pistachio-dna-extraction",
+          "date": "2026-05-08"
+        }
+      ],
+      "days_active": 16
     },
     "knbroomell": {
       "login": "knbroomell",
@@ -192,7 +256,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
+      "days_active": 10
     },
     "mariele-lensink": {
       "login": "mariele-lensink",
@@ -256,7 +320,71 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
+      "days_active": 10
+    },
+    "inili": {
+      "login": "inili",
+      "display_name": "jianili",
+      "total_commits": 9,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-04-30",
+      "protocols_authored": 2,
+      "notebooks_authored": 2,
+      "inventory_edits": 0,
+      "wiki_edits": 2,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "3045a81",
+          "subject": "Create notebook folder for Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "c001cd5",
+          "subject": "First notebook entry for Jiani Li",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "d04850e",
+          "subject": "New project: Paraquat Sensitivity Test",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "bc0357f",
+          "subject": "New protocol: Paraquat Sensitivity Test",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "cb22543",
+          "subject": "Duplicate protocol: M2 Forward Genetic Screening",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "b636c45",
+          "subject": "Delete protocol: M2 Forward Genetic Screening (Copy)",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "66bcaf7",
+          "subject": "Update wet-lab/mutagenesis/paraquat-sensitivity-test",
+          "date": "2026-04-30"
+        },
+        {
+          "sha": "96b2c77",
+          "subject": "Update wet-lab/mutagenesis/paraquat-sensitivity-test",
+          "date": "2026-04-30"
+        }
+      ],
+      "days_active": 10
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -320,7 +448,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 22
+      "days_active": 31
     },
     "chaeheelee": {
       "login": "chaeheelee",
@@ -384,7 +512,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
+      "days_active": 10
     },
     "bdsingson": {
       "login": "bdsingson",
@@ -443,120 +571,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
-    },
-    "inili": {
-      "login": "inili",
-      "display_name": "jianili",
-      "total_commits": 7,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 2,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 2,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 0,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "199612f",
-          "subject": "New lab member: Jiani Li",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "3045a81",
-          "subject": "Create notebook folder for Jiani Li",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "c001cd5",
-          "subject": "First notebook entry for Jiani Li",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "d04850e",
-          "subject": "New project: Paraquat Sensitivity Test",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "bc0357f",
-          "subject": "New protocol: Paraquat Sensitivity Test",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "cb22543",
-          "subject": "Duplicate protocol: M2 Forward Genetic Screening",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "b636c45",
-          "subject": "Delete protocol: M2 Forward Genetic Screening (Copy)",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 1
-    },
-    "yeleaf20030520": {
-      "login": "yeleaf20030520",
-      "display_name": "w1shyoubest",
-      "total_commits": 6,
-      "first_commit": "2026-04-22",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 2,
-      "images_uploaded": 0,
-      "issue_attachments": 1,
-      "issues_filed": 0,
-      "locations_created": 1,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "d591cab",
-          "subject": "New lab member: Zi Ye",
-          "date": "2026-04-22"
-        },
-        {
-          "sha": "31d2a00",
-          "subject": "Create notebook folder for Zi Ye",
-          "date": "2026-04-22"
-        },
-        {
-          "sha": "a16d6f6",
-          "subject": "First notebook entry for Zi Ye",
-          "date": "2026-04-22"
-        },
-        {
-          "sha": "7eaa10c",
-          "subject": "Create locations/new-shelf.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "5bb66f3",
-          "subject": "Move accessions/a1-t1-e to locations/new-shelf-mo8ya0v2/A1",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "f19325f",
-          "subject": "Issue reporter attachment: screenshot-2026-04-28-at-10.33.36-am.png",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 7
+      "days_active": 10
     },
     "egspaulding": {
       "login": "egspaulding",
@@ -600,7 +615,7 @@
           "date": "2026-04-29"
         }
       ],
-      "days_active": 8
+      "days_active": 17
     },
     "limbler": {
       "login": "limbler",
@@ -644,7 +659,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
+      "days_active": 10
     },
     "kehanzhao": {
       "login": "kehanzhao",
@@ -683,7 +698,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 1
+      "days_active": 10
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -717,7 +732,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 145
+      "days_active": 154
     }
   }
 }
