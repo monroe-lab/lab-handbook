@@ -1,8 +1,7 @@
 ---
-type: protocol
+type: "protocol"
 title: "PacBio HiFi Sequencing (Col-0)"
 ---
-
 # PacBio HiFi Sequencing (Col-0)
 
 ## Resources
@@ -25,33 +24,27 @@ Check PacBio [notes](https://www.pacb.com/wp-content/uploads/Technical-Note-Prep
 
 Submitting samples for pipette shearing:
 
-- Dilute each sample to <10ng/µL in 200-500 µL. It's important not to have a concentration higher than 10ng/µL.
-- Make sure that all the samples have the same volume (even if concentrations are different; though best to keep both concentration and volume consistent if possible).
+* Dilute each sample to <5ng/µL in 200-500 µL. It's important not to have a concentration higher than 5ng/µL.
+* Make sure that all the samples have the same volume (even if concentrations are different; though best to keep both concentration and volume consistent if possible).
 
 Library Prep for PacBio Sequencing
 
 [protocol for library prep kit](https://www.pacb.com/wp-content/uploads/Procedure-checklist-Preparing-multiplexed-whole-genome-and-amplicon-libraries-using-the-HiFi-plex-prep-kit-96.pdf)
 
-- First bead cleanup step - used the 96-well magnet and added SMRTbeads directly to the plate used for shearing
+* First bead cleanup step - used the 96-well magnet and added SMRTbeads directly to the plate used for shearing
+* Next time, recommend NOT using this method as it is difficult to see supernatant or ethanol left behind during discard and wash steps + balancing [[centrifuge]];
+* Instead transfer all 300ul of the pipet-sheared DNA samples to new lo-bind 1.5ml tubes, then add 1X volume of beads
+* Use 1ml 80% ethanol during wash steps
+* Tips from Noravit at the Genome Center:
+* While the maximum input for sequencing is 300ng per sample, for the very first bead-clean up step, expecting 10-30% loss, used ALL the DNA from pipette shearing (350ng)
+* \*\*Increase the time for the Repair step. While the protocol says to run for 30 minutes, increase to 1 hour at 37C. Some people will even incubate at RT for this repair step.
+* Sample pooling:
+* Make sure the volume is 25ul, as it is the largest input volume for LightBench.
+* According to Oanh, to be on the safe side of LightBench size selection, “please provide a minimum of 1 ug in 25 ul. If the next library has a similar (size-distribution) profile to the first library, 1 ug in 25 ul should be sufficient.”
+* Satoyo: Previously, the final pooled library resulting from 300 ng x 20 samples was 1.8 µg. You are in a bit of a tight spot.
+* It is important that the size-distribution of samples are consistent, as variable fragment size (shorter fragments) will reduce read quality & yield.
 
-- Next time, recommend NOT using this method as it is difficult to see supernatant or ethanol left behind during discard and wash steps + balancing [[centrifuge]];
-- Instead transfer all 300ul of the pipet-sheared DNA samples to new lo-bind 1.5ml tubes, then add 1X volume of beads
-
-- Use 1ml 80% ethanol during wash steps
-
-- Tips from Noravit at the Genome Center:
-
-- While the maximum input for sequencing is 300ng per sample, for the very first bead-clean up step, expecting 10-30% loss, used ALL the DNA from pipette shearing (350ng)
-- **Increase the time for the Repair step. While the protocol says to run for 30 minutes, increase to 1 hour at 37C. Some people will even incubate at RT for this repair step.
-
-- Sample pooling:
-
-- Make sure the volume is 25ul, as it is the largest input volume for LightBench.
-- According to Oanh, to be on the safe side of LightBench size selection, “please provide a minimum of 1 ug in 25 ul. If the next library has a similar (size-distribution) profile to the first library, 1 ug in 25 ul should be sufficient.”
-- Satoyo: Previously, the final pooled library resulting from 300 ng x 20 samples was 1.8 µg. You are in a bit of a tight spot.
-- It is important that the size-distribution of samples are consistent, as variable fragment size (shorter fragments) will reduce read quality & yield.
-
----
+***
 
 Concentration Range for Qubit Assays:
 
@@ -59,7 +52,7 @@ Used dsDNA BR to quantify HMW DNA extractions
 
 Used dsDNA 1X HS to quantify pooled libraries.
 
----
+***
 
 Results from QC and Pipette Shearing - 1st pool
 
@@ -69,21 +62,20 @@ Note low fragment size for VA\_1 and VA\_9; the normal expected fragment size di
 
 Same samples as above, post-shearing:
 
-- Uniform distribution after pipette shearing across samples;
-
-- Mean ~22kb
-- Mode
+* Uniform distribution after pipette shearing across samples;
+* Mean \~22kb
+* Mode
 
 QC of Libraries Pooled (Pool #1) 10/08/2025:
 
----
+***
 
 Qubit Measurement from Genome Center: 11 ng/ul in 23 ul, 253 ng ← this is too low for Sequencing & LightBench Size Selection
 
 Expected quality of sequencing given QC results?
 
-- Look at median length; is median length << or considerably = to the average size?
-- [https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf](https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf)
+* Look at median length; is median length << or considerably = to the average size?
+* [https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf](https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf)
 
 Sent rest of HMW DNA to be pipette sheared & second library prep:
 
@@ -91,8 +83,8 @@ Sent rest of HMW DNA to be pipette sheared & second library prep:
 
 QC of sheared DNA (same samples as before):
 
-- Mean fragment sizes = 17474, 20265, 17389
-- Modes: 18241, 19201, 19500
+* Mean fragment sizes = 17474, 20265, 17389
+* Modes: 18241, 19201, 19500
 
 After library prep of pool #2, the final concentration was 36.4ng/ul in 25ul.
 
@@ -100,33 +92,32 @@ Pooled together Pool #1 (11ng/ul in 23ul) + Pool #2 using SMRTBell Cleanup Beads
 
 FINAL concentration of pool to be sequenced = 43.8ng/ul in 26ul (Qubit measurement)
 
----
+***
 
 QC for final pooled libraries (Pool 1 + Pool 2) sent for LightBench size-selection and sequencing:
 
-- Mean fragment size = 19772 bp
-- Mode of distribution = 18150 bp
-- Concentration of final pool: 48ng/ul in 25ul
-
-- The size cut-off for LightBench will be <12kb.
+* Mean fragment size = 19772 bp
+* Mode of distribution = 18150 bp
+* Concentration of final pool: 48ng/ul in 25ul
+* The size cut-off for LightBench will be <12kb.
 
 Calculating expected sequencing yields:
 
 Genome size \* desired coverage =>
 
----
+***
 
 01/08/2026
 
 Large fraction of non-barcoded reads → this might be due to potential contamination in barcoding wells used (especially for pool 1)
 
-- Also since the quality score of the non-barcoded reads are comparable to the samples’ qualities
+* Also since the quality score of the non-barcoded reads are comparable to the samples’ qualities
 
-Pool 1: 11\*ng/ul in 22ul = 253ng (~23%)
+Pool 1: 11\*ng/ul in 22ul = 253ng (\~23%)
 
-Pool 2: 34.6\*ng/ul in 25ul. = 865 ng (~77%)
+Pool 2: 34.6\*ng/ul in 25ul. = 865 ng (\~77%)
 
-Merged pool for submission: ​​43.8ng/ul in 25ul (used beads to concentrate into 25ul)
+Merged pool for submission: 43.8ng/ul in 25ul (used beads to concentrate into 25ul)
 
 (\*when re-measured before merging two pools together)
 
