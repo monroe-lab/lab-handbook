@@ -28,8 +28,8 @@ title: "Pistachio DNA Extraction (Short-Read)"
 **Protocol:**
 
 1. **Weigh 80–100 mg of fresh tissue and put two medium-sized beads into each 2ml microtube, keep the tubes submerged in liquid nitrogen to prevent thawing, then grind the samples into a fine powder using a TissueLyser.**
-2. **Add 800 μL of Buffer AP1 (Lysis Buffer) and 10 μL of RNase A. Vortex vigorously and incubate for 20 minutes at 65°C. Invert the tube every 3–5 minutes during the incubation.** 
-3. **Add 260 μL of Buffer P3. Mix thoroughly by inverting or vortexing the tube, then incubate for 10–15 minutes at room temperature (to precipitate polysaccharides and proteins).** 
+2. **Add 800 μL of Buffer AP1 (Lysis Buffer) and 10 μL of RNase A. Vortex vigorously and incubate for 20 minutes at 65°C. Invert the tube every 3–5 minutes during the incubation.**
+3. **Add 260 μL of Buffer P3. Mix thoroughly by inverting or vortexing the tube, then incubate for 10–15 minutes at room temperature (to precipitate polysaccharides and proteins).**
 4. **Centrifuge the lysate for 5 min at 20,000 x g (14,000 rpm).**
 5. **Pipet the lysate into a QIAshredder spin column placed in a 2 ml collection tube (650 μL per spin). Centrifuge for 2 min at 20,000 x g. Repeat if there is remaining lysate.**
 6. **Carefully transfer the flow-through into a new tube without disturbing the pellet. Estimate or measure the exact volume of the flow-through.**
@@ -38,12 +38,11 @@ title: "Pistachio DNA Extraction (Short-Read)"
 9. **Place the spin column into a new 2 mL collection tube. Add 500 μL of Buffer AW2, close the cap securely, and invert the tube to wash the inner walls. Centrifuge for 1 min at ≥6,000 x g, then discard the flow-through.**
 10. **Add another 500 μl Buffer AW2, invert the tube again. Centrifuge for 2 min at 20,000 x g.**
 11. **Add 500 μl of freshly prepared 80% EtOH, centrifuge for 1 min at ≥6,000 x g, then discard the flow-through.**
-12. **Add another 500 μl of 80% EtOH. Centrifuge for 2 min at 20,000 x g.** 
+12. **Add another 500 μl of 80% EtOH. Centrifuge for 2 min at 20,000 x g.**
 13. **Discard the flow-through. Centrifuge the EMPTY column again for 2 min at 20,000 x g to completely dry the membrane. Then, open the cap and let it sit at a heat block (65°C)for 3-5 minutes to allow any residual ethanol to evaporate.**
 14. **Transfer the spin column to a new 1.5 ml microcentrifuge tube.**
-15. **Elution: Add 35 μl of PRE-WARMED (55°C) Buffer EB directly to the center of the membrane. Incubate for 5 min at Room Temperature or 55°C. Centrifuge for 1 min at ≥6000 x g to elute.** 
+15. **Elution: Add 35 μl of PRE-WARMED (55°C) Buffer EB directly to the center of the membrane. Incubate for 5 min at Room Temperature or 55°C. Centrifuge for 1 min at ≥6000 x g to elute.**
 
-<br>
 <br>
 <br>
 <br>
@@ -72,6 +71,6 @@ title: "Pistachio DNA Extraction (Short-Read)"
 <br>
 <br>
 <br>
-**Based on experiences with DNA extractions for short-read sequencing of Kerman samples, performing 1 to 2 rounds of bead clean-up following the Plant Mini Kit extraction is generally sufficient to obtain clean samples. However, for problematic samples that consistently yield poor results, it is highly recommended to perform a CTAB wash as a pre-treatment step. The detailed procedure for this can be found in** HMW
+**Based on experiences with DNA extractions for short-read sequencing of Kerman samples, performing 1 to 2 rounds of bead clean-up following the Plant Mini Kit extraction is generally sufficient to obtain clean samples. However, for problematic samples that consistently yield poor results, it is highly recommended to perform a CTAB wash as a pre-treatment step. The detailed procedure for this can be found in** https://monroe-lab.github.io/lab-handbook/app/protocols.html?doc=wet-lab%2Fextraction%2Fhmw-extraction-challenging-plants
 
 <br>
