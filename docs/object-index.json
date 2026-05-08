@@ -3928,7 +3928,7 @@
     "title": "Percival Singson",
     "role": "Undergraduate Researcher",
     "email": "bdsingson@ucdavis.edu",
-    "mtime": 1777397826
+    "mtime": 1777770953
   },
   {
     "path": "people/satoyo-oya.md",
@@ -4032,7 +4032,7 @@
     "pi": "Grey Monroe",
     "lead": "Percival Singson",
     "last_updated": "2026-05-02",
-    "mtime": 1777397636
+    "mtime": 1777771531
   },
   {
     "path": "projects/kalanchoe-reference.md",
@@ -4109,8 +4109,8 @@
     "status": "active",
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
-    "last_updated": "2026-04-29",
-    "mtime": 1777474140
+    "last_updated": "2026-05-07",
+    "mtime": 1778260601
   },
   {
     "path": "projects/pistachio-genomics-misc.md",
@@ -4164,7 +4164,7 @@
     "status": "active",
     "pi": "Grey Monroe",
     "lead": "Grey Monroe",
-    "mtime": 1776876162
+    "mtime": 1777845949
   },
   {
     "path": "projects/walnut-cut-leaf.md",
@@ -4487,7 +4487,8 @@
   {
     "path": "wet-lab/extraction/grape-feeder-cell-dna-extraction.md",
     "type": "protocol",
-    "title": "Grape Feeder Cell DNA Extraction"
+    "title": "Grape Feeder Cell DNA Extraction",
+    "mtime": 1777771531
   },
   {
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
@@ -4511,7 +4512,7 @@
     "path": "wet-lab/extraction/pistachio-dna-extraction.md",
     "type": "protocol",
     "title": "Pistachio DNA Extraction (Short-Read)",
-    "mtime": 1777473575
+    "mtime": 1778208976
   },
   {
     "path": "wet-lab/extraction/qiagen-dneasy-extraction.md",
@@ -17126,7 +17127,7 @@
     "created_by": "greymonroe",
     "updated_at": "2026-04-22T06:06:35.199Z",
     "parent": "locations/freezer-minus80-a",
-    "position": "C1",
+    "position": "B1",
     "mtime": 1776838020
   },
   {
@@ -17137,7 +17138,7 @@
     "created_by": "greymonroe",
     "updated_at": "2026-04-22T06:39:39.671Z",
     "parent": "locations/freezer-minus80-a",
-    "position": "B1",
+    "position": "C1",
     "grid": "1x6",
     "mtime": 1776839979
   },
