@@ -65,6 +65,8 @@ Per-sample HiFi read statistics (from Novogene Table 3.1):
 
 Read length distributions per sample are in Figures 3.2–3.13 of the linked HTML report. Yields and N50s are uniform across the batch; no obvious outlier flagged in the report. Raw HiFi BAMs / FASTQs are downloaded from Novogene separately and not bundled with this QC HTML.
 
+**Note on the library QC flag (Apr 30, 2026):** At the library-QC stage, Novogene (Yanan Liu) flagged `R2_B4_C1` as having "failed" QC due to slightly lower total yield, and warned the sequencing output for that sample might be below normal. Grey approved proceeding anyway. The final HiFi data is fine: `R2_B4_C1` came in at **92.9 Gb / N50 18.4 kb** — about 3 Gb under the batch mean and **not even the lowest in the batch** (`R2_B2_C3` 87.1 Gb, `R1_B2_C9` 89.4 Gb). Practical takeaway: Novogene's library-QC failure threshold has margin; a flagged library can still produce a perfectly usable sample.
+
 ## Field experiment
 
 - Material received from 3 nurseries (5, 2, and 3 clones respectively).
