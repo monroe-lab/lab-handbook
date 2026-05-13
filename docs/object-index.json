@@ -4110,7 +4110,7 @@
     "pi": "Grey Monroe",
     "lead": "Matt Davis",
     "last_updated": "2026-05-07",
-    "mtime": 1778260601
+    "mtime": 1778307317
   },
   {
     "path": "projects/pistachio-genomics-misc.md",
@@ -4165,6 +4165,15 @@
     "pi": "Grey Monroe",
     "lead": "Grey Monroe",
     "mtime": 1777845949
+  },
+  {
+    "path": "projects/sierra-gold-tc-chromosome-stability.md",
+    "type": "project",
+    "title": "Sierra Gold Tissue Culture Chromosome Stability",
+    "status": "active",
+    "pi": "Grey Monroe",
+    "lead": "Grey Monroe",
+    "last_updated": "2026-05-12"
   },
   {
     "path": "projects/walnut-cut-leaf.md",
@@ -4548,7 +4557,7 @@
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
     "type": "protocol",
     "title": "PacBio HiFi Sequencing (Col-0)",
-    "mtime": 1777472940
+    "mtime": 1778284224
   },
   {
     "path": "wet-lab/library-prep/sanger-sequencing.md",
@@ -12432,7 +12441,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-ck107.md",
@@ -12450,7 +12460,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-ck45.md",
@@ -12468,7 +12479,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-ck54.md",
@@ -12486,7 +12498,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-co61.md",
@@ -12504,7 +12517,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-co74.md",
@@ -12522,7 +12536,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-co78.md",
@@ -12540,7 +12555,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-do214.md",
@@ -12558,7 +12574,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-do29.md",
@@ -12576,7 +12593,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-do89.md",
@@ -12594,7 +12612,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-eo17.md",
@@ -12612,7 +12631,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-eo24.md",
@@ -12630,7 +12650,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-eo5.md",
@@ -12648,7 +12669,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-ev.md",
@@ -12666,7 +12688,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-wt.md",
@@ -12684,7 +12707,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xk1.md",
@@ -12702,7 +12726,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xk15.md",
@@ -12720,7 +12745,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xk59.md",
@@ -12738,7 +12764,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xo22.md",
@@ -12756,7 +12783,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xo60.md",
@@ -12774,7 +12802,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/ore-xo72.md",
@@ -12792,7 +12821,8 @@
     "detail_sheet_link": "https://docs.google.com/spreadsheets/d/1XsnoTtnIW0kkQ7n9-2Z5YB0wjm4lMzpF5xIdsmcB-iI/",
     "last_updated": "2026-05-08",
     "status_note": "Tissue collected \u2014 Westport leaf in -80 Freezer A, Shelf 1, awaiting extraction",
-    "people": "Kehan Zhao / Grey Monroe"
+    "people": "Kehan Zhao / Grey Monroe",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/per407-3.md",
@@ -14430,7 +14460,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-717"
+    "of": "accessions/ore-717",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-ck107.md",
@@ -14442,7 +14473,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-ck107"
+    "of": "accessions/ore-ck107",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-ck45.md",
@@ -14454,7 +14486,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-ck45"
+    "of": "accessions/ore-ck45",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-ck54.md",
@@ -14466,7 +14499,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-ck54"
+    "of": "accessions/ore-ck54",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-co61.md",
@@ -14478,7 +14512,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-co61"
+    "of": "accessions/ore-co61",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-co74.md",
@@ -14490,7 +14525,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-co74"
+    "of": "accessions/ore-co74",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-co78.md",
@@ -14502,7 +14538,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-co78"
+    "of": "accessions/ore-co78",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-do214.md",
@@ -14514,7 +14551,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-do214"
+    "of": "accessions/ore-do214",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-do29.md",
@@ -14526,7 +14564,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-do29"
+    "of": "accessions/ore-do29",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-do89.md",
@@ -14538,7 +14577,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-do89"
+    "of": "accessions/ore-do89",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-eo17.md",
@@ -14550,7 +14590,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-eo17"
+    "of": "accessions/ore-eo17",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-eo24.md",
@@ -14562,7 +14603,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-eo24"
+    "of": "accessions/ore-eo24",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-eo5.md",
@@ -14574,7 +14616,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-eo5"
+    "of": "accessions/ore-eo5",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-ev.md",
@@ -14586,7 +14629,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-ev"
+    "of": "accessions/ore-ev",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-wt.md",
@@ -14598,7 +14642,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-wt"
+    "of": "accessions/ore-wt",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xk1.md",
@@ -14610,7 +14655,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xk1"
+    "of": "accessions/ore-xk1",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xk15.md",
@@ -14622,7 +14668,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xk15"
+    "of": "accessions/ore-xk15",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xk59.md",
@@ -14634,7 +14681,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xk59"
+    "of": "accessions/ore-xk59",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xo22.md",
@@ -14646,7 +14694,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xo22"
+    "of": "accessions/ore-xo22",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xo60.md",
@@ -14658,7 +14707,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xo60"
+    "of": "accessions/ore-xo60",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/sample-ore-xo72.md",
@@ -14670,7 +14720,8 @@
     "tissue_type": "leaf",
     "collection_date": "2026-05-05",
     "parent": "locations/bag-poplar-westport-2026-05-07",
-    "of": "accessions/ore-xo72"
+    "of": "accessions/ore-xo72",
+    "mtime": 1778261940
   },
   {
     "path": "accessions/satoyo-x-ray-dsb-hifi.md",
@@ -17501,7 +17552,19 @@
     "created_by": "greymonroe",
     "updated_at": "2026-05-08T17:38:22.369Z",
     "parent": "locations/shelf-minus80-a-1",
-    "label_1": "Westport Poplar 2026-05-07"
+    "label_1": "Westport Poplar 2026-05-07",
+    "mtime": 1778261940
+  },
+  {
+    "path": "locations/bag-sierra-gold-mother-trees-2026-05-01.md",
+    "type": "container",
+    "title": "Sierra Gold Mother Tree Leaf Tubes (2026-05-01)",
+    "notes": "Bag holding 3 \u00d7 50 mL falcon tubes of leaf tissue from Sierra Gold Nurseries mother trees \u2014 one each from the FRP Clonal UCB-1, Platinum, and Yankee mother trees. Tubes labeled and dated 05/1/2026. Delivered with the first Sierra Gold TC sample batch by Micah Stevens / Steven Lee. Stored on the top shelf of -80C Freezer A. Mother-tree planting dates per Micah: Yankee 2021, Platinum 2020, FRP Clonal 2019.",
+    "created_at": "2026-05-12T16:30:00.000Z",
+    "created_by": "greymonroe",
+    "updated_at": "2026-05-12T16:30:00.000Z",
+    "parent": "locations/shelf-minus80-a-1",
+    "label_1": "Sierra Gold Mother Trees 2026-05-01"
   },
   {
     "path": "locations/barb-m-dna-box-mp1-series.md",

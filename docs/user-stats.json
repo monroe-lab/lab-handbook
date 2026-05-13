@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-05-08T17:38:42.607912+00:00",
-  "total_commits": 4423,
+  "generated_at": "2026-05-13T00:52:23.848799+00:00",
+  "total_commits": 4426,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4224,
+      "total_commits": 4226,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-05-08",
+      "last_commit": "2026-05-09",
       "protocols_authored": 187,
       "notebooks_authored": 156,
       "inventory_edits": 2231,
-      "wiki_edits": 4963,
+      "wiki_edits": 5009,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
-      "locations_created": 256,
+      "locations_created": 257,
       "items_added": 695,
       "bulletin_edits": 14,
       "calendar_edits": 40,
@@ -23,16 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "57a492a",
-          "subject": "Poplar collection: prominent contact info at top",
-          "date": "2026-05-02"
-        },
-        {
-          "sha": "9e16f0b",
-          "subject": "Genomics Internship: draft curriculum spine for #52",
-          "date": "2026-05-02"
-        },
         {
           "sha": "5bb0158",
           "subject": "Grape feeder cell mutation accumulation: project + extraction protocol",
@@ -62,16 +52,26 @@
           "sha": "7e5122b",
           "subject": "-80C Freezer A: fix shelf ordering \u2014 top 2 open, bottom 2 racked",
           "date": "2026-05-08"
+        },
+        {
+          "sha": "d7fa3fa",
+          "subject": "Poplar somatic: register 21 ORE-* accessions from Westport (Carl, 2026-05-07)",
+          "date": "2026-05-08"
+        },
+        {
+          "sha": "f390412",
+          "subject": "PBTS: log that Novogene's R2_B4_C1 QC-fail did not pan out",
+          "date": "2026-05-09"
         }
       ],
-      "days_active": 155
+      "days_active": 160
     },
     "vianneyahn": {
       "login": "vianneyahn",
       "display_name": "vianneyahn",
-      "total_commits": 112,
+      "total_commits": 113,
       "first_commit": "2026-04-21",
-      "last_commit": "2026-04-27",
+      "last_commit": "2026-05-08",
       "protocols_authored": 3,
       "notebooks_authored": 6,
       "inventory_edits": 1,
@@ -87,11 +87,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "b1b31c7",
-          "subject": "Move protocol-template to lab-safety",
-          "date": "2026-04-21"
-        },
         {
           "sha": "1deeeb1",
           "subject": "Moved protocol-template from workflow-templates",
@@ -126,9 +121,14 @@
           "sha": "c1fa091",
           "subject": "New protocol: Universal Lab Buffers / Reagents",
           "date": "2026-04-27"
+        },
+        {
+          "sha": "5c9160b",
+          "subject": "Update wet-lab/library-prep/pacbio-hifi-sequencing",
+          "date": "2026-05-08"
         }
       ],
-      "days_active": 17
+      "days_active": 22
     },
     "yeleaf20030520": {
       "login": "yeleaf20030520",
@@ -192,7 +192,7 @@
           "date": "2026-05-08"
         }
       ],
-      "days_active": 16
+      "days_active": 21
     },
     "knbroomell": {
       "login": "knbroomell",
@@ -256,7 +256,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "mariele-lensink": {
       "login": "mariele-lensink",
@@ -320,7 +320,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "inili": {
       "login": "inili",
@@ -384,7 +384,7 @@
           "date": "2026-04-30"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -448,7 +448,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 31
+      "days_active": 36
     },
     "chaeheelee": {
       "login": "chaeheelee",
@@ -512,7 +512,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "bdsingson": {
       "login": "bdsingson",
@@ -571,7 +571,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "egspaulding": {
       "login": "egspaulding",
@@ -615,7 +615,7 @@
           "date": "2026-04-29"
         }
       ],
-      "days_active": 17
+      "days_active": 22
     },
     "limbler": {
       "login": "limbler",
@@ -659,7 +659,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "kehanzhao": {
       "login": "kehanzhao",
@@ -698,7 +698,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 10
+      "days_active": 15
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -732,7 +732,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 154
+      "days_active": 159
     }
   }
 }

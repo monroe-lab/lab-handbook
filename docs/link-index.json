@@ -3500,6 +3500,18 @@
     "target": "plant-harvesting/poplar-leaf-collection"
   },
   {
+    "source": "locations/bag-sierra-gold-mother-trees-2026-05-01",
+    "target": "locations/shelf-minus80-a-1"
+  },
+  {
+    "source": "locations/bag-sierra-gold-mother-trees-2026-05-01",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "locations/bag-sierra-gold-mother-trees-2026-05-01",
+    "target": "projects/sierra-gold-tc-chromosome-stability"
+  },
+  {
     "source": "locations/bench-chemistry",
     "target": "resources/analytical-balance"
   },
@@ -4558,6 +4570,26 @@
   {
     "source": "projects/poplar-somatic-sequencing",
     "target": "lab-management/accession-tracker-guide"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "projects/pbts"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "projects/kerman-somatic"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "locations/bag-sierra-gold-mother-trees-2026-05-01"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "projects/pistachio-hybrids"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "projects/pistachio-short-read-wgs"
   },
   {
     "source": "projects/walnut-cut-leaf",
