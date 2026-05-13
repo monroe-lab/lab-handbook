@@ -50,13 +50,13 @@ Before harvesting each culture container:T ake a clear photo of the culture cont
 For each culture container:
 
 1. Identify visually distinct shoot clusters.
-2.  Locate the black callus mass associated with each cluster.
-3.  Carefully harvest green plant material from one individual clump source.
-4.  Try to collect the entire plantlet or connected group of shoots from that clump.
-5.  Avoid collecting media.
-6.  Avoid mixing material between separate clumps.
-7.  Place harvested material into the appropriate labeled 15 mL Falcon tube.
-8. Notes
+2. Locate the black callus mass associated with each cluster.
+3. Carefully harvest green plant material from one individual clump source.
+4. Try to collect the entire plantlet or connected group of shoots from that clump.
+5. Avoid collecting media.
+6. Avoid mixing material between separate clumps.
+7. Place harvested material into the appropriate labeled 15 mL Falcon tube.
+8. Notes (if you see something odd or interesting note it). 
 
 > ⚠️ **Warning**
 > A single harvested source may contain multiple small shoots if they originate from the same callus.
