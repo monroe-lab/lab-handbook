@@ -4585,6 +4585,14 @@
   },
   {
     "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "wet-lab/sierra-gold-tc-tissue-harvest"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "projects/sierra-gold-tc-chromosome-stability",
     "target": "projects/pistachio-hybrids"
   },
   {
@@ -8938,6 +8946,26 @@
   {
     "source": "wet-lab/sharps-handling",
     "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/sierra-gold-tc-tissue-harvest",
+    "target": "projects/sierra-gold-tc-chromosome-stability"
+  },
+  {
+    "source": "wet-lab/sierra-gold-tc-tissue-harvest",
+    "target": "wet-lab/extraction/qiagen-dneasy-extraction"
+  },
+  {
+    "source": "wet-lab/sierra-gold-tc-tissue-harvest",
+    "target": "resources/ethanol-70"
+  },
+  {
+    "source": "wet-lab/sierra-gold-tc-tissue-harvest",
+    "target": "locations/freezer-minus80-a"
+  },
+  {
+    "source": "wet-lab/sierra-gold-tc-tissue-harvest",
+    "target": "wet-lab/tube-and-sample-labeling"
   },
   {
     "source": "wet-lab/spill-response",

@@ -4173,7 +4173,8 @@
     "status": "active",
     "pi": "Grey Monroe",
     "lead": "Grey Monroe",
-    "last_updated": "2026-05-12"
+    "last_updated": "2026-05-12",
+    "mtime": 1778633572
   },
   {
     "path": "projects/walnut-cut-leaf.md",
@@ -4438,6 +4439,11 @@
     "type": "protocol",
     "title": "Sharps Handling and Disposal",
     "mtime": 1775980234
+  },
+  {
+    "path": "wet-lab/sierra-gold-tc-tissue-harvest.md",
+    "type": "protocol",
+    "title": "Sierra Gold TC Tissue Harvest"
   },
   {
     "path": "wet-lab/spill-response.md",
@@ -17564,7 +17570,8 @@
     "created_by": "greymonroe",
     "updated_at": "2026-05-12T16:30:00.000Z",
     "parent": "locations/shelf-minus80-a-1",
-    "label_1": "Sierra Gold Mother Trees 2026-05-01"
+    "label_1": "Sierra Gold Mother Trees 2026-05-01",
+    "mtime": 1778633572
   },
   {
     "path": "locations/barb-m-dna-box-mp1-series.md",
@@ -17719,16 +17726,6 @@
     "mtime": 1777397523
   },
   {
-    "path": "locations/kehan-s-credit-card.md",
-    "type": "container",
-    "title": "Kehan's credit card",
-    "created_at": "2026-04-28T17:36:21.987Z",
-    "created_by": "KehanZhao",
-    "updated_at": "2026-04-28T17:36:21.987Z",
-    "parent": "locations/room-robbins-262",
-    "mtime": 1777397782
-  },
-  {
     "path": "locations/location-unsorted.md",
     "type": "container",
     "title": "Unsorted (review)",
@@ -17866,6 +17863,17 @@
     "updated_at": "2026-04-28T17:31:04.865Z",
     "parent": "locations/freezer-minus20",
     "mtime": 1777397465
+  },
+  {
+    "path": "locations/pistachio-cenh3-antibody-2.md",
+    "type": "container",
+    "title": "Pistachio CENH3 Antibody",
+    "created_at": "2026-05-12T18:24:20.644Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-12T18:24:20.644Z",
+    "parent": "locations/rack-4-1",
+    "position": "F4",
+    "mtime": 1778610261
   },
   {
     "path": "locations/pistachio-cenh3-antibody.md",

@@ -101,14 +101,16 @@ A formal per-container sampling sheet still needs to be built. Scale target: hun
 
 ## Pipeline
 
-1. DNA extraction from TC plantlet tissue (protocol TBD — likely standard CTAB / silica-column on the small leaf material from each jar)
-2. Library prep: short-read WGS for the bulk of samples; PacBio HiFi on a small panel for structural-variation resolution
-3. Sequencing: Novogene (short-read), Genome Center (HiFi)
-4. Analysis: chromosome-scale read-depth and BAF for aneuploidy; structural-variant calling for chromothripsis-like events; per-line and per-init mutation-accumulation
-5. Reference: [[pistachio-pangenome|Pistachio Pangenome]] phased assemblies provide the *P. integerrima* / hybrid scaffold
+1. **Tissue harvest** — [[sierra-gold-tc-tissue-harvest]]. ~5 plantlets per 15 mL falcon, all from a single callus cluster. Photograph source box, log each tube as its own accession with callus notes.
+2. **DNA extraction** — [[qiagen-dneasy-extraction|Qiagen DNeasy 96 Plant Kit]], 50–100 mg fresh tissue per well.
+3. **Library prep:** short-read WGS for the bulk of samples; PacBio HiFi on a small panel for structural-variation resolution.
+4. **Sequencing:** Novogene (short-read), Genome Center (HiFi).
+5. **Analysis:** chromosome-scale read-depth and BAF for aneuploidy; structural-variant calling for chromothripsis-like events; per-line and per-init mutation accumulation; mother-tree vs TC divergence.
+6. **Reference:** [[pistachio-pangenome|Pistachio Pangenome]] phased assemblies provide the *P. integerrima* / hybrid scaffold.
 
 ## Resources
 
+- **Sampling protocol:** [[sierra-gold-tc-tissue-harvest]]
 - [[Sierra Gold Nurseries]] — collaborator card (org-level)
 - Micah Stevens · micah@sgtrees.com · 502-553-5290
 - Reid Robinson · Reid@sgtrees.com

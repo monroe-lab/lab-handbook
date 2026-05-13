@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-05-13T00:52:23.848799+00:00",
-  "total_commits": 4426,
+  "generated_at": "2026-05-13T01:17:26.514376+00:00",
+  "total_commits": 4429,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4226,
+      "total_commits": 4227,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-05-09",
+      "last_commit": "2026-05-13",
       "protocols_authored": 187,
       "notebooks_authored": 156,
       "inventory_edits": 2231,
-      "wiki_edits": 5009,
+      "wiki_edits": 5015,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
-      "locations_created": 257,
+      "locations_created": 258,
       "items_added": 695,
       "bulletin_edits": 14,
       "calendar_edits": 40,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "5bb0158",
-          "subject": "Grape feeder cell mutation accumulation: project + extraction protocol",
-          "date": "2026-05-03"
-        },
         {
           "sha": "913ec4a",
           "subject": "Grape feeder cell extraction: drop PCR validation step",
@@ -62,6 +57,11 @@
           "sha": "f390412",
           "subject": "PBTS: log that Novogene's R2_B4_C1 QC-fail did not pan out",
           "date": "2026-05-09"
+        },
+        {
+          "sha": "884130c",
+          "subject": "Add Sierra Gold TC chromosome stability project",
+          "date": "2026-05-13"
         }
       ],
       "days_active": 160
@@ -573,6 +573,55 @@
       ],
       "days_active": 15
     },
+    "kehanzhao": {
+      "login": "kehanzhao",
+      "display_name": "KehanZhao",
+      "total_commits": 5,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-05-12",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 0,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 3,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "006fcf3",
+          "subject": "Create locations/kehan-s-test-object.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "62bf4c3",
+          "subject": "Delete docs/locations/kehan-s-test-object.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "4c77b10",
+          "subject": "Create locations/kehan-s-credit-card.md",
+          "date": "2026-04-28"
+        },
+        {
+          "sha": "e8cb433",
+          "subject": "Delete docs/locations/kehan-s-credit-card.md",
+          "date": "2026-05-12"
+        },
+        {
+          "sha": "a7b3254",
+          "subject": "Create locations/pistachio-cenh3-antibody-2.md",
+          "date": "2026-05-12"
+        }
+      ],
+      "days_active": 15
+    },
     "egspaulding": {
       "login": "egspaulding",
       "display_name": "egspaulding",
@@ -656,45 +705,6 @@
         {
           "sha": "7739791",
           "subject": "Create locations/wall-e-centrifuge.md",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 15
-    },
-    "kehanzhao": {
-      "login": "kehanzhao",
-      "display_name": "KehanZhao",
-      "total_commits": 3,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 0,
-      "notebooks_authored": 0,
-      "inventory_edits": 0,
-      "wiki_edits": 0,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 2,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "006fcf3",
-          "subject": "Create locations/kehan-s-test-object.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "62bf4c3",
-          "subject": "Delete docs/locations/kehan-s-test-object.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "4c77b10",
-          "subject": "Create locations/kehan-s-credit-card.md",
           "date": "2026-04-28"
         }
       ],
