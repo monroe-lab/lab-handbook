@@ -53,19 +53,20 @@ title: "Pistachio DNA Extraction (Short-Read)"
 **• Preheat Buffer EB to 55–65°C in a heating block or water bath.**
 
 **Clean-up Protocol:**
-**1\. Note: Vortex the Collibri beads thoroughly to ensure they are completely resuspended before use\. Add 1\.65 volumes of Collibri beads to the extracted DNA solution\(e\.g\.\, for 33 μL eluate\, add 54\.45 μL beads\)\. Mix thoroughly by vortexing or pipetting\.**
-**2\. Incubate at room temperature for 5 minutes to allow DNA binding to beads\.**
-**3\. Place tubes on a magnetic rack and wait until the solution becomes clear \(approximately 2–3 minutes\)\. Tip: If the solution appears clear\, wait an additional 30 seconds to ensure complete bead separation\.**
-**4\. Carefully remove and discard the supernatant without disturbing the bead pellet\.**
-**5\. Add 1 mL of freshly prepared 80% ethanol to the beads\. Invert the tubes 10–15 times to wash\.**
-**6\. Return tubes to the magnetic rack and wait until the solution is clear\. Carefully remove and discard the ethanol\.**
-**7\. Repeat the ethanol wash step \(steps 5–6\) one more time\.**
-**8\. After the second wash\, briefly spin down the tubes and place them back on the magnetic rack\. Remove as much residual ethanol as possible by gradually using pipettes with decreasing volume ranges \(e\.g\.\, start with a 100\-1000 μL pipette\, then use a 20\-200 μL\, and finally a 0\.2\-2 μL pipette\) to safely aspirate all remaining liquid without disturbing the pellet\.**
-**9\. Allow the beads to air\-dry at room temperature for 3\-5 minutes until no ethanol residue is visible \(do not over\-dry\)\.**
-**10\. Add 22 μL of pre\-warmed \(55–65°C\) Buffer EB directly to the bead pellet\.**
-**11\. Pipette up and down to resuspend the beads\, then incubate for 5 minutes at room temperature\.**
-**12\. Place tubes on the magnetic rack and wait until the solution is clear \(approximately 2 minutes\)\.**
-**13\. Carefully transfer the eluted DNA solution to a new 1\.5 mL microcentrifuge tube without disturbing the bead pellet\.**
+
+1. **Note: Vortex the Collibri beads thoroughly to ensure they are completely resuspended before use. Add 1.65 volumes of Collibri beads to the extracted DNA solution (e.g., for 33 μL eluate, add 54.45 μL beads). Mix thoroughly by vortexing or pipetting.**
+2. **Incubate at room temperature for 5 minutes to allow DNA binding to beads.**
+3. **Place tubes on a magnetic rack and wait until the solution becomes clear (approximately 2–3 minutes). Tip: If the solution appears clear, wait an additional 30 seconds to ensure complete bead separation.**
+4. **Carefully remove and discard the supernatant without disturbing the bead pellet.**
+5. **Add 1 mL of freshly prepared 80% ethanol to the beads. Invert the tubes 10–15 times to wash.**
+6. **Return tubes to the magnetic rack and wait until the solution is clear. Carefully remove and discard the ethanol.**
+7. **Repeat the ethanol wash step (steps 5–6) one more time.**
+8. **After the second wash, briefly spin down the tubes and place them back on the magnetic rack. Remove as much residual ethanol as possible by gradually using pipettes with decreasing volume ranges (e.g., start with a 100-1000 μL pipette, then use a 20-200 μL, and finally a 0.2-2 μL pipette) to safely aspirate all remaining liquid without disturbing the pellet.**
+9. **Allow the beads to air-dry at room temperature for 3-5 minutes until no ethanol residue is visible (do not over-dry).**
+10. **Add 22 μL of pre-warmed (55–65°C) Buffer EB directly to the bead pellet.**
+11. **Pipette up and down to resuspend the beads, then incubate for 5 minutes at room temperature.**
+12. **Place tubes on the magnetic rack and wait until the solution is clear (approximately 2 minutes).**
+13. **Carefully transfer the eluted DNA solution to a new 1.5 mL microcentrifuge tube without disturbing the bead pellet.**
 
 <br>
 <br>

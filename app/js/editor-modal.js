@@ -4750,6 +4750,14 @@
     // Matches a table row (line containing |) immediately followed by a
     // non-empty, non-table line (no blank line in between).
     md = md.replace(/(\|[^\n]*\|[ \t]*\n)(?=[^\n|])/g, '$1\n');
+    // Issue #176: Toast UI sometimes serializes adjacent bold-wrapped
+    // paragraphs that look like numbered list items (e.g. `**1\. text**`,
+    // `**2\. text**`) without blank lines between them — typically after
+    // pastes from Google Docs. They appear as separate lines in the editor
+    // but markdown collapses single-newline-separated text into one
+    // paragraph at render time. Insert a blank line between adjacent
+    // `**N. ...**` paragraph lines so each item renders as its own block.
+    md = md.replace(/^(\*\*\d+\\?\.[^\n]*\*\*)\n(?=\*\*\d+\\?\.)/gm, '$1\n\n');
     return md;
   }
 
