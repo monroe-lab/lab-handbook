@@ -1034,6 +1034,10 @@ These are problems with the test bot itself, not the site:
 
 17. **Dashboard bulletin wikilinks don't render as pills** — Wikilinks on the bulletin board show as plain text instead of styled pills. (Issue #14, open)
 
+18. **Numbered list paragraphs collapse in view mode** — Editor was emitting adjacent bold-wrapped pseudo-list paragraphs (`**1\. text**`, `**2\. text**`) on consecutive lines with no blank lines between them, typically after Google Docs pastes. Markdown then merged them into one giant paragraph at render even though the editor showed them as separate lines. **Fixed:** `getMarkdownClean` now inserts a blank line between adjacent `**N. ...**` paragraph lines. The Clean-up Protocol section of `pistachio-dna-extraction.md` was rewritten to use real numbered-list syntax matching the upper Protocol section. (Issue #176)
+
+19. **Google Docs paste mangles numbered lists** — Pasting a numbered list from Google Docs produced bold pseudo-paragraphs instead of a real `<ol>`. Google Docs wraps the entire selection in `<b style="font-weight:normal">` (a cosmetic artifact, not real bold); Toast UI's clipboard parser treats that as bold-everywhere, so list items end up flattened. **Fixed:** new capture-phase paste handler in `editor-modal.js` detects Google Docs clipboard HTML (via `docs-internal-guid-…` id or the fake-normal-weight wrapper), strips the wrapper, walks the DOM into clean markdown (lists, paragraphs, headings, links with Google redirect unwrap, inline bold/italic via span styles), and inserts via markdown-mode switch so Toast UI re-parses it as proper list nodes. Image-paste and non-Google-Docs HTML pastes are untouched. Unit coverage in `tests/gdocs-paste-177.test.mjs` (8 fixtures: numbered, bulleted, inline bold, inline italic, redirect link unwrap, headings, nested lists, multi-paragraph). (Issue #177)
+
 ---
 
 ## Architecture notes for future agents
