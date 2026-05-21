@@ -4164,6 +4164,45 @@
     // Insert media bar after the category pills bar
     insertBar.parentNode.insertBefore(mediaBar, insertBar.nextSibling);
 
+    // ── Clipboard paste: intercept Google Docs HTML and clean it up ──
+    // When users copy from Google Docs and paste here, Toast UI's parser
+    // mishandles the HTML — numbered/bulleted lists end up flattened into
+    // bold pseudo-paragraphs (`**1. text**`) instead of real list nodes,
+    // because Google Docs wraps the whole selection in a cosmetic
+    // `<b style="font-weight:normal">` that ProseMirror reads as bold.
+    // We detect the Google Docs signature, convert the clipboard HTML to
+    // markdown ourselves, and insert it via markdown mode so the editor
+    // re-parses it cleanly. (#177)
+    setTimeout(function() {
+      var gdocsTarget = containerEl.querySelector('.toastui-editor-ww-container') ||
+                        containerEl.querySelector('.ProseMirror') ||
+                        containerEl;
+      if (!gdocsTarget || gdocsTarget._gdocsPasteSetup) return;
+      gdocsTarget._gdocsPasteSetup = true;
+      gdocsTarget.addEventListener('paste', function(e) {
+        var cd = e.clipboardData;
+        if (!cd) return;
+        // If there's an image in the clipboard, defer to the image paste handler.
+        if (cd.files && cd.files.length) {
+          for (var i = 0; i < cd.files.length; i++) {
+            if (cd.files[i].type && cd.files[i].type.startsWith('image/')) return;
+          }
+        }
+        var html = cd.getData('text/html');
+        if (!html) return;
+        // Only intercept pastes that bear Google Docs' fingerprint, to avoid
+        // breaking pastes from sources Toast UI already handles correctly.
+        if (!/docs-internal-guid|font-weight:\s*normal/i.test(html)) return;
+        var md = googleDocsHtmlToMarkdown(html);
+        if (!md) return;
+        e.preventDefault();
+        e.stopPropagation();
+        editor.changeMode('markdown');
+        editor.replaceSelection('\n\n' + md + '\n\n');
+        editor.changeMode('wysiwyg');
+      }, true); // capture phase — run before Toast UI's own paste handler
+    }, 400);
+
     // ── Clipboard paste: intercept image data and upload to docs/images/ ──
     // Toast UI's default paste handler inserts images as inline base64 data URLs
     // in the markdown. That bloats the file (a 2MB photo becomes a 2.6MB markdown
@@ -4674,6 +4713,165 @@
     // Collapse runs of 3+ newlines back to a single blank line.
     md = md.replace(/\n{3,}/g, '\n\n');
     return md;
+  }
+
+  // Convert clipboard HTML (specifically the structure Google Docs produces)
+  // into markdown. Toast UI's native paste parser stumbles on Google Docs HTML:
+  // it wraps every selection in `<b id="docs-internal-guid-..." style="font-weight:normal">`,
+  // which ProseMirror interprets as bold-everywhere, so numbered lists end up as
+  // bold pseudo-paragraphs (`**1. text**`) instead of real <ol> nodes. We strip
+  // the cosmetic wrapper and walk the DOM ourselves, emitting clean markdown
+  // that the editor can re-parse into proper list nodes. (#177)
+  function googleDocsHtmlToMarkdown(html) {
+    var doc;
+    try { doc = new DOMParser().parseFromString(html, 'text/html'); }
+    catch (e) { return ''; }
+    if (!doc || !doc.body) return '';
+    // Strip <b style="font-weight:normal"> — a Google Docs paste artifact, not real bold.
+    doc.body.querySelectorAll('b').forEach(function(b) {
+      var style = (b.getAttribute('style') || '').toLowerCase().replace(/\s+/g, '');
+      if (style.indexOf('font-weight:normal') !== -1 || style.indexOf('font-weight:400') !== -1) {
+        var parent = b.parentNode;
+        while (b.firstChild) parent.insertBefore(b.firstChild, b);
+        parent.removeChild(b);
+      }
+    });
+    doc.body.querySelectorAll('meta, style, script, link').forEach(function(el) { el.remove(); });
+    var md = walkHtmlForMarkdown(doc.body, { listStack: [] });
+    // Collapse 3+ newlines down to a blank-line separator; trim outer whitespace.
+    md = md.replace(/\n{3,}/g, '\n\n').replace(/^\s+|\s+$/g, '');
+    return md;
+  }
+
+  // Recursive HTML→markdown walker used by googleDocsHtmlToMarkdown. Handles the
+  // tags Google Docs (and similar rich editors) emit for list + paragraph
+  // structure: ol/ul/li, p, br, strong/b, em/i, a, headings, code, blockquote.
+  // Span-with-style inline formatting (font-weight, font-style) is detected so
+  // bold/italic survive the round-trip. The `inline` flag tells the walker that
+  // it's inside an inline element (<span>, <strong>, <a>, etc.) where leading
+  // whitespace in text nodes is significant and must NOT be stripped.
+  function walkHtmlForMarkdown(node, ctx, inline) {
+    var out = '';
+    var children = node.childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.nodeType === 3) { // text
+        var t = child.nodeValue.replace(/[\t\n\r ]+/g, ' ');
+        // At the start of a block context, drop leading whitespace so HTML
+        // source indentation (e.g. newline + spaces between `</li>` and `<li>`)
+        // doesn't show up as document indentation. Inside an inline element,
+        // leading space is meaningful (e.g. ` of buffer` after a bold span).
+        if (!inline && (out === '' || /\n$/.test(out))) t = t.replace(/^\s+/, '');
+        out += t;
+        continue;
+      }
+      if (child.nodeType !== 1) continue;
+      var tag = child.tagName.toLowerCase();
+      var inner;
+      switch (tag) {
+        case 'p':
+        case 'div':
+          inner = walkHtmlForMarkdown(child, ctx, false).replace(/^\s+|\s+$/g, '');
+          if (!inner) break;
+          if (ctx.listStack.length) out += inner + '\n';
+          else out += inner + '\n\n';
+          break;
+        case 'br':
+          out += '\n';
+          break;
+        case 'strong':
+        case 'b':
+          inner = walkHtmlForMarkdown(child, ctx, true);
+          out += wrapInline(inner, '**');
+          break;
+        case 'em':
+        case 'i':
+          inner = walkHtmlForMarkdown(child, ctx, true);
+          out += wrapInline(inner, '*');
+          break;
+        case 'u':
+        case 'sub':
+        case 'sup':
+        case 'font':
+          out += walkHtmlForMarkdown(child, ctx, true);
+          break;
+        case 'a':
+          inner = walkHtmlForMarkdown(child, ctx, true).replace(/^\s+|\s+$/g, '');
+          var href = child.getAttribute('href') || '';
+          // Google Docs wraps external links in a redirect: https://www.google.com/url?q=ACTUAL&sa=...
+          href = href.replace(/^https?:\/\/(?:www\.)?google\.com\/url\?q=([^&]+).*$/, function(m, u) {
+            try { return decodeURIComponent(u); } catch (e) { return m; }
+          });
+          if (href && inner) out += '[' + inner + '](' + href + ')';
+          else out += inner;
+          break;
+        case 'ol':
+        case 'ul':
+          ctx.listStack.push({ type: tag, index: 0 });
+          inner = walkHtmlForMarkdown(child, ctx, false);
+          ctx.listStack.pop();
+          // Blank line before/after the list block (only at top level).
+          if (ctx.listStack.length === 0) out += '\n' + inner.replace(/\n+$/, '') + '\n\n';
+          else out += inner;
+          break;
+        case 'li':
+          var top = ctx.listStack[ctx.listStack.length - 1] || { type: 'ul', index: 0 };
+          top.index++;
+          var marker = top.type === 'ol' ? (top.index + '. ') : '- ';
+          var indent = '   '.repeat(Math.max(0, ctx.listStack.length - 1));
+          inner = walkHtmlForMarkdown(child, ctx, false).replace(/^\s+|\s+$/g, '');
+          // Continuation lines (nested lists, paragraph wraps) already carry
+          // any indentation they need from the inner walk; emit them as-is.
+          var lines = inner.split('\n');
+          out += indent + marker + lines[0];
+          for (var k = 1; k < lines.length; k++) out += '\n' + lines[k];
+          out += '\n';
+          break;
+        case 'h1':
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+          inner = walkHtmlForMarkdown(child, ctx, false).replace(/^\s+|\s+$/g, '');
+          out += '\n' + '#'.repeat(parseInt(tag.charAt(1), 10)) + ' ' + inner + '\n\n';
+          break;
+        case 'code':
+          out += '`' + walkHtmlForMarkdown(child, ctx, true) + '`';
+          break;
+        case 'pre':
+          out += '\n```\n' + child.textContent + '\n```\n\n';
+          break;
+        case 'blockquote':
+          inner = walkHtmlForMarkdown(child, ctx, false).replace(/^\s+|\s+$/g, '');
+          out += inner.split('\n').map(function(l) { return '> ' + l; }).join('\n') + '\n\n';
+          break;
+        case 'hr':
+          out += '\n---\n\n';
+          break;
+        case 'span':
+          // Google Docs encodes bold/italic via inline styles on <span>.
+          var s = (child.getAttribute('style') || '').toLowerCase();
+          var bold = /font-weight:\s*(?:bold|600|700|800|900)/.test(s);
+          var italic = /font-style:\s*italic/.test(s);
+          inner = walkHtmlForMarkdown(child, ctx, true);
+          if (italic) inner = wrapInline(inner, '*');
+          if (bold) inner = wrapInline(inner, '**');
+          out += inner;
+          break;
+        default:
+          out += walkHtmlForMarkdown(child, ctx, inline);
+      }
+    }
+    return out;
+  }
+
+  // Wrap inner text with a markdown delimiter, preserving leading/trailing
+  // whitespace outside the delimiter so we don't get `** word **` (invalid bold).
+  function wrapInline(inner, delim) {
+    var m = inner.match(/^(\s*)([\s\S]*?)(\s*)$/);
+    if (!m || !m[2]) return inner;
+    return m[1] + delim + m[2] + delim + m[3];
   }
 
   // Replace any data URLs that ProseMirror synced back into markdown with real paths.
