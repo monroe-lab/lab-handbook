@@ -4,7 +4,7 @@ title: "Pistachio DNA Extraction (Short-Read)"
 ---
 # Pistachio DNA Extraction (Short-Read)
 
-**Time estimate:** \~2-2.5 hr hands-on (LN grind + tissue prep \~15 min, 20 min lysis at 65°C, 10-15 min P3 ice incubation, QIAshredder + DNeasy column spins \~15 min, 4 wash spins \~10 min, 5 min elution, plus QC). Mostly column-spin work after lysis — relatively fast compared to HMW protocols. No overnight steps. The slowest step is the 65°C lysis incubation; everything else is short spins and washes.
+**Time estimate:** \~4 hr hands-on (LN grind + tissue prep \~15 min, 20 min lysis at 65°C, 10-15 min P3 ice incubation, QIAshredder + DNeasy column spins \~15 min, 4 wash spins \~10 min, 5 min elution, plus QC). Mostly column-spin work after lysis — relatively fast compared to HMW protocols. No overnight steps. The slowest step is the 65°C lysis incubation; everything else is short spins and washes.
 
 ## Resources
 
@@ -46,7 +46,6 @@ title: "Pistachio DNA Extraction (Short-Read)"
 <br>
 <br>
 <br>
-<br>
 **Clean-up Pre-treatment:**
 **• Remove Collibri beads from 4°C storage to room temperature (15–25°C) for at least 30 minutes before use.**
 **• Prepare fresh 80% ethanol for the wash steps.**
@@ -68,7 +67,6 @@ title: "Pistachio DNA Extraction (Short-Read)"
 12. **Place tubes on the magnetic rack and wait until the solution is clear (approximately 2 minutes).**
 13. **Carefully transfer the eluted DNA solution to a new 1.5 mL microcentrifuge tube without disturbing the bead pellet.**
 
-<br>
 <br>
 <br>
 <br>
