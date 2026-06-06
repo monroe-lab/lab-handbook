@@ -38,6 +38,5 @@ Concentrating DNA still shows no DNA in all samples treated with MNase → perha
 Next time:
 
 * INCREASE DNA input 100ng → 500 or 1ug.
-* DILUTE MNase input (1:4, 1:8, 1:20, 1:40) and no need to test longer incubation times.
+* DILUTE MNase input and no need to test longer incubation times.
 
-<br>
