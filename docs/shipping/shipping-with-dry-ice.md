@@ -13,6 +13,7 @@ In order to ship **hazardous materials** (**Category B**, **excepted quantities*
 * Shipping manifest stating samples are non-hazardous and non-toxic
 
 *Note: If samples are hazardous or toxic, additional contacts and procedures are required — consult your supervisor before proceeding.*
+
 **Packing**
 
 1. Place samples inside the styrofoam inner box with dry ice.
