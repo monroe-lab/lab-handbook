@@ -12,7 +12,11 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  # Let a newer push supersede an in-flight/queued Pages deployment instead of
+  # queueing behind it. Rapid successive notebook saves otherwise stack up Pages
+  # deployments that collide and fail with "Deployment failed, try again later"
+  # (transient GitHub Pages error), flooding authors with failed-run emails.
+  cancel-in-progress: true
 
 jobs:
   build:

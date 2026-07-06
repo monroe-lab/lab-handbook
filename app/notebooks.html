@@ -197,6 +197,7 @@ var currentDoc = null;  // path relative to docs/, no .md (e.g., notebooks/barb-
 var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
+var originalContentLen = 0;  // length of the doc loaded into the editor, for the empty/shrink save guard
 
 function unsavedGuard(e) { e.preventDefault(); e.returnValue = ''; }
 var loggedIn = false;
@@ -752,6 +753,7 @@ async function startEdit() {
   try {
     var result = await Lab.gh.fetchFile(filePath);
     currentSha = result.sha;
+    originalContentLen = (result.content || '').trim().length;
 
     contentEl.innerHTML =
       '<div class="nb-content">' +
@@ -784,8 +786,35 @@ async function saveDoc() {
   btn.disabled = true;
   btn.innerHTML = '<span class="material-icons-outlined">hourglass_empty</span> Saving...';
 
+  function restoreSaveBtn() {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+  }
+
   try {
     var md = editorInstance.getMarkdown();
+
+    // Data-loss guard (issue #185): the editor can come up empty — content
+    // failed to load, or Toast UI returned '' from a serialization hiccup —
+    // and without this check saveDoc() commits an empty string straight over
+    // the real entry, silently wiping it (there is no autosave, issue #181).
+    // Refuse to overwrite a non-empty doc with empty/near-empty content, and
+    // make the drastic-shrink case a confirm rather than a silent wipe.
+    var trimmedLen = md.trim().length;
+    if (trimmedLen === 0 && originalContentLen > 0) {
+      Lab.showToast('The editor looks empty — refusing to overwrite your entry. Reload the page to recover it; do not close this tab if you have unsaved text.', 'error');
+      restoreSaveBtn();
+      return;
+    }
+    if (originalContentLen > 200 && trimmedLen < originalContentLen * 0.25) {
+      var proceed = await Lab.modal.confirm({
+        title: 'Save much shorter entry?',
+        message: 'This save is a lot shorter than what was loaded (' + trimmedLen + ' vs ' + originalContentLen + ' characters). If that is not intentional, cancel and check your text.',
+        confirmText: 'Save anyway',
+        danger: true
+      });
+      if (!proceed) { restoreSaveBtn(); return; }
+    }
 
     var editorImages = {};
     var editorSurface = document.getElementById('editorSurface');
@@ -851,8 +880,7 @@ async function saveDoc() {
     document.getElementById('nbMain').scrollTop = 0;
   } catch(e) {
     Lab.showToast('Save failed: ' + e.message, 'error');
-    btn.disabled = false;
-    btn.innerHTML = '<span class="material-icons-outlined">save</span> Save';
+    restoreSaveBtn();
   }
 }
 
