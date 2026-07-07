@@ -198,9 +198,53 @@ var currentSha = null;
 var isEditing = false;
 var editorInstance = null;
 var originalContentLen = 0;  // length of the doc loaded into the editor, for the empty/shrink save guard
+var editBaseline = '';       // editor markdown at edit-start, to detect unsaved changes on cancel
 
 function unsavedGuard(e) { e.preventDefault(); e.returnValue = ''; }
 var loggedIn = false;
+
+// ── Draft autosave (issue #181) ──
+// The editor has no server-side autosave, so a crash, an accidental
+// navigation, or the empty-editor wipe (issue #185) can lose typed work that
+// was never committed. As a safety net we mirror the editor's markdown into
+// localStorage a couple seconds after each change, keyed per document. On
+// re-entering edit mode we offer to restore a newer local draft; a successful
+// save or an explicit discard clears it.
+var draftTimer = null;
+function draftKey(doc) { return 'nb-draft:' + doc; }
+function saveDraft() {
+  if (!isEditing || !editorInstance || !currentDoc) return;
+  try {
+    var md = editorInstance.getMarkdown();
+    // Never persist an empty draft over a real one — that would let the wipe
+    // scenario propagate into the recovery store.
+    if (!md || !md.trim()) return;
+    localStorage.setItem(draftKey(currentDoc), JSON.stringify({
+      md: md, sha: currentSha, ts: (new Date()).toISOString()
+    }));
+  } catch(e) { /* quota or serialization — non-fatal, just no draft */ }
+}
+function scheduleDraftSave() {
+  if (draftTimer) clearTimeout(draftTimer);
+  draftTimer = setTimeout(saveDraft, 1500);
+}
+function loadDraft(doc) {
+  try { return JSON.parse(localStorage.getItem(draftKey(doc))); } catch(e) { return null; }
+}
+function clearDraft(doc) {
+  if (draftTimer) { clearTimeout(draftTimer); draftTimer = null; }
+  try { localStorage.removeItem(draftKey(doc)); } catch(e) {}
+}
+function draftAgeLabel(iso) {
+  try {
+    var mins = Math.round(((new Date()) - new Date(iso)) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + ' min ago';
+    var hrs = Math.round(mins / 60);
+    if (hrs < 24) return hrs + ' hr ago';
+    return new Date(iso).toLocaleString();
+  } catch(e) { return 'earlier'; }
+}
 
 function prettify(slug) {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
@@ -755,6 +799,22 @@ async function startEdit() {
     currentSha = result.sha;
     originalContentLen = (result.content || '').trim().length;
 
+    // Offer to recover a newer local draft (crash / accidental navigation /
+    // an earlier failed save) if one exists and actually differs from what's
+    // on the server. Otherwise start from the freshly loaded content.
+    var initialContent = result.content;
+    var draft = loadDraft(currentDoc);
+    if (draft && draft.md && draft.md.trim() && draft.md.trim() !== (result.content || '').trim()) {
+      var restore = await Lab.modal.confirm({
+        title: 'Restore unsaved draft?',
+        message: 'A draft of this entry saved on this device (' + draftAgeLabel(draft.ts) + ') was not committed. Restore it, or discard it and open the saved version?',
+        confirmText: 'Restore draft',
+        cancelText: 'Discard'
+      });
+      if (restore) initialContent = draft.md;
+      else clearDraft(currentDoc);
+    }
+
     contentEl.innerHTML =
       '<div class="nb-content">' +
         '<div class="nb-edit-bar">' +
@@ -767,12 +827,19 @@ async function startEdit() {
         '<div class="nb-editor-surface em-surface" id="editorSurface"></div>' +
       '</div>';
 
+    var editorSurface = document.getElementById('editorSurface');
     editorInstance = await Lab.editorModal.initFullpage(
-      document.getElementById('editorSurface'),
-      result.content,
+      editorSurface,
+      initialContent,
       filePath,
       currentSha
     );
+    // Baseline the editor's own serialization (not the raw file) so an
+    // untouched entry round-trips equal and cancel doesn't false-prompt.
+    try { editBaseline = editorInstance.getMarkdown(); } catch(e) { editBaseline = ''; }
+    // Mirror edits into the local draft store (debounced) so work survives a
+    // crash or navigation before the next commit.
+    editorSurface._onchange = scheduleDraftSave;
   } catch(e) {
     Lab.showToast('Failed to load for editing: ' + e.message, 'error');
     isEditing = false;
@@ -831,6 +898,8 @@ async function saveDoc() {
     var filePath = 'docs/' + currentDoc + '.md';
     var result = await Lab.gh.saveFile(filePath, md, currentSha, 'Update notebook ' + currentDoc);
     currentSha = result.sha;
+    // Committed successfully — the local recovery draft is no longer needed.
+    clearDraft(currentDoc);
     // Keep the link-index patch overlay in sync so wikilinks added or removed
     // in this edit show up as backlinks on their targets immediately. Also
     // patch the object index so the entry's frontmatter (title, type, person
@@ -884,8 +953,23 @@ async function saveDoc() {
   }
 }
 
-function cancelEdit() {
-  if (currentDoc) loadDoc(currentDoc);
+async function cancelEdit() {
+  if (!currentDoc) return;
+  var changed = false;
+  if (editorInstance) {
+    try { changed = editorInstance.getMarkdown().trim() !== editBaseline.trim(); } catch(e) { changed = false; }
+  }
+  if (changed) {
+    var discard = await Lab.modal.confirm({
+      title: 'Discard changes?',
+      message: 'Your unsaved edits to this entry will be lost.',
+      confirmText: 'Discard',
+      danger: true
+    });
+    if (!discard) return;
+    clearDraft(currentDoc);
+  }
+  loadDoc(currentDoc);
 }
 
 async function deleteDoc() {
