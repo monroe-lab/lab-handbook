@@ -139,6 +139,34 @@
       throw new Error('Failed to load ' + path + ' (HTTP ' + resp.status + ')');
     }
     var data = await resp.json();
+
+    // GitHub's Contents API only inlines base64 for blobs up to 1 MB. For files
+    // between 1 MB and 100 MB it returns `encoding: "none"` and an EMPTY
+    // `content` string. Decoding that yields "", so the editor would silently
+    // come up blank — and the next save then overwrites the real entry with
+    // whatever little was typed, wiping everything that was there. Notebook
+    // entries with pasted screenshots (stored inline as base64 data URIs)
+    // routinely cross 1 MB, so this is the data-loss bug behind "editing an
+    // entry deletes all my previously saved writing." Fall back to the Blobs
+    // API, which returns base64 for blobs up to 100 MB, keyed by the blob sha
+    // the Contents API still hands back even when it omits the content.
+    if ((data.encoding === 'none' || !data.content) && data.sha && data.size > 0) {
+      var blobResp = await offlineAwareFetch(API + '/repos/' + REPO + '/git/blobs/' + data.sha + '?_t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
+      if (!blobResp.ok) {
+        handleAuthError(blobResp);
+        throw new Error('Failed to load ' + path + ' (blob HTTP ' + blobResp.status + ')');
+      }
+      var blob = await blobResp.json();
+      if (blob.encoding !== 'base64' || typeof blob.content !== 'string') {
+        throw new Error('Failed to load ' + path + ' (unexpected blob encoding)');
+      }
+      return {
+        content: window.Lab.decodeGitHub(blob.content),
+        sha: data.sha,
+        path: path
+      };
+    }
+
     return {
       content: window.Lab.decodeGitHub(data.content),
       sha: data.sha,
