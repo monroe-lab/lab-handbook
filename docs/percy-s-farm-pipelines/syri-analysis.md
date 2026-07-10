@@ -8,7 +8,7 @@ type: "protocol"
 
 SyRI is a conda program that can be used to generate chromosome synteny analysis, or visual representations of structural variants that have arisen in your genomes of interest. This protocol is specific to doing SyRI analysis on long read sequences.
 
-**Necessary CONDA programs for your environment:**
+## **Necessary CONDA programs for your environment:**
 
 * syri (creates syntenic analysis)
 * hifiasm (assembles HiFi reads from raw data)
@@ -29,4 +29,3 @@ All of these can be installed using `conda install [program name] -c bioconda`
     1. Align the two assembled/scaffolded genomes using minimap2
     2. Convert the produced BAM file to a SAM file
     3. Run SyRI to create syntenic alignments. (make sure you are using the right version of pandas, otherwise SyRI will have a language error, as of 7/10/26 need to use a pandas<2.0 version)
-
