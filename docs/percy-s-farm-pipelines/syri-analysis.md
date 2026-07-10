@@ -19,4 +19,14 @@ SyRI is a conda program that can be used to generate chromosome synteny analysis
 
 All of these can be installed using `conda install [program name] -c bioconda`
 
-<br>
+## Pipeline Workflow Overview
+
+1. Obtain raw, unaligned reads
+2. Assemble the genomes using hifiasm
+3. Scaffold using RagTag to label chromosomes and identify extra contigs (this step will require a reference genome from NCBI or TAIR, easier to download from TAIR.)
+4. Remove extra contigs using samtools faidx and create new files if applicable.
+5. Using these new files, run SyRI. Your SyRI script should:
+    1. Align the two assembled/scaffolded genomes using minimap2
+    2. Convert the produced BAM file to a SAM file
+    3. Run SyRI to create syntenic alignments. (make sure you are using the right version of pandas, otherwise SyRI will have a language error, as of 7/10/26 need to use a pandas<2.0 version)
+
