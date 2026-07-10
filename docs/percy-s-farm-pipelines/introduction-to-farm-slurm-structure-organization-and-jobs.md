@@ -16,6 +16,6 @@ Think of the terminal as a big filing cabinet. Within the cabinet can be folders
 * `ls [directory name]` lists off the files/subdirectories in a directory that is located within your current directory without calling/entering it. Can also use `ls [path to directory from current location]` to list off contents of a directory you are not currently in.
 * `mkdir [directory name]` makes a new directory
 * `mv [current file name] [new file name]` renames a file within the current directory
-* `mv [file name] [path to desired new file location, ex. /group/gmonroegrp2/percy/` moves the location of a file to a new directory
+* `mv [file name] [path to desired new file location, ex. /group/gmonroegrp2/percy/]` moves the location of a file to a new directory
 * `rm [filename]` deletes a file within your current directory **PERMANENTLY.** Use this command with caution.
 * `rm -r [directory name]` deletes a directory and all of the files with it **PERMANENTLY.** Use this command with caution.
