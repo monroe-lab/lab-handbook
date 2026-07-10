@@ -8,7 +8,7 @@ type: "protocol"
 
 SyRI is a conda program that can be used to generate chromosome synteny analysis, or visual representations of structural variants that have arisen in your genomes of interest. This protocol is specific to doing SyRI analysis on long read sequences.
 
-## **Necessary CONDA programs for your environment:**
+## Necessary CONDA programs for your environment:
 
 * syri (creates syntenic analysis)
 * hifiasm (assembles HiFi reads from raw data)
