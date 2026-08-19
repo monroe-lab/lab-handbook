@@ -14,7 +14,7 @@ title: "PacBio HiFi Sequencing (Col-0)"
 
 **Consumables:** [[qubit-assay-tubes]]
 
-**Related Protocols:** , [[ot2-hmw-shearing]], [[hifi-dna-extraction]]
+**Related Protocols:** [[ot2-hmw-shearing]], [[hifi-dna-extraction]], [[hmw-size-selection]], [[fiber-seq-master-protocol]]
 
 Tab 1
 

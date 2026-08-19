@@ -14,7 +14,7 @@ title: "HiFi DNA Extraction (DIY)"
 
 **Reagents:** [[1-8-naphthalic-anhydride]], [[1m-tris-hcl-ph-8-8-5]], [[chloroform]], [[chloroform-isoamyl-alcohol-24-1]], [[dnase]], [[ethanol-70]], [[isopropyl-alcohol]], [[mes-buffer]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[polyethylene-glycol-solid]], [[potassium-acetate]], [[sodium-acetate-anhydrous]], [[sodium-dodecyl-sulfate]], [[tris-base]]
 
-**Related Protocols:** [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]], [[in-house-hifi-shearing-pipeline]]
+**Related Protocols:** [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]], [[hmw-extraction-challenging-plants]], [[fiber-seq-hmw-extraction]], [[ot2-hmw-shearing]]
 
 **Contacts:** [[grey-monroe]], [[kehan-zhao]], [[satoyo-oya]]
 

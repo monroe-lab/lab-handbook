@@ -16,7 +16,7 @@ title: "CUT&Tag Protocol"
 
 **Consumables:** [[qubit-assay-tubes]]
 
-**Related Protocols:** [[chip-seq]], [[fiber-seq-dimelo-seq]], [[tn5-loading-library-prep]]
+**Related Protocols:** [[chip-seq]], [[fiber-seq-master-protocol]], [[tn5-loading-library-prep]]
 
 **Contacts:** [[grey-monroe]]
 

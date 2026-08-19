@@ -13,7 +13,7 @@ title: "ChIP-seq Protocol (Copy)"
 
 **Reagents:** [[2-mercaptoethanol]], [[dimethyl-sulfoxide]], [[ethanol-70]], [[formaldehyde-16-methanol-free-pfa]], [[glycine]], [[hepes]], [[igepal-ca-630]], [[lithium-chloride]], [[mes-buffer]], [[methanol]], [[phenylmethanesulfonyl-fluoride]], [[rnase-aliquot]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[spermidine]], [[spermine]], [[sucrose]], [[tris-edta-te-buffer-solution]], [[triton-x-100]]
 
-**Related Protocols:** [[chip-seq]], [[cut-and-tag]], [[fiber-seq-dimelo-seq]]
+**Related Protocols:** [[chip-seq]], [[cut-and-tag]], [[fiber-seq-master-protocol]]
 
 **Contacts:** [[grey-monroe]]
 

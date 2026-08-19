@@ -12,7 +12,7 @@ title: "ChIP-seq Protocol"
 
 **Reagents:** [[2-mercaptoethanol]], [[4-morpholineethanesulfonic-acid]], [[dextran]], [[diethyl-pyrocarbonate]], [[dimethyl-sulfoxide]], [[ethanol-70]], [[ficoll-400]], [[formaldehyde-16-methanol-free-pfa]], [[glycerol-50-aqueous-solution]], [[glycine]], [[hepes]], [[igepal-ca-630]], [[lithium-chloride]], [[mes-buffer]], [[methanol]], [[phenylmethanesulfonyl-fluoride]], [[piperazine-1-4-bis-2-ethanesulfonic-acid]], [[pipes-dipotassium-salt]], [[rnase-aliquot]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[sodium-pyrophosphate-decahydrate]], [[spermidine]], [[spermine]], [[sucrose]], [[tapso]], [[tham]], [[tricine]], [[tris-edta-te-buffer-solution]], [[triton-x-100]]
 
-**Related Protocols:** [[cut-and-tag]], [[fiber-seq-dimelo-seq]]
+**Related Protocols:** [[cut-and-tag]], [[fiber-seq-master-protocol]]
 
 **Contacts:** [[grey-monroe]]
 

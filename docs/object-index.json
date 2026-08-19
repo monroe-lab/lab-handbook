@@ -382,6 +382,12 @@
     "mtime": 1776885361
   },
   {
+    "path": "resources/cell-strainer-70um.md",
+    "type": "consumable",
+    "title": "Cell Strainer, 70 \u00b5m",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/celldrop.md",
     "type": "equipment",
     "title": "CellDrop",
@@ -611,6 +617,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/dpni.md",
+    "type": "enzyme",
+    "title": "DpnI",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
     "type": "chemical",
     "title": "EDTA tetrasodium salt dihydrate",
@@ -640,6 +652,12 @@
     "type": "kit",
     "title": "Emerald Amp MAX PCR Master Mix",
     "mtime": 1775980234
+  },
+  {
+    "path": "resources/epicypher-cutana-hia5.md",
+    "type": "enzyme",
+    "title": "EpiCypher CUTANA Hia5",
+    "status": "needs_more"
   },
   {
     "path": "resources/epoch-96-well-silica-filter-plate.md",
@@ -1142,6 +1160,12 @@
     "mtime": 1776885361
   },
   {
+    "path": "resources/macs-smartstrainer-30um.md",
+    "type": "consumable",
+    "title": "MACS SmartStrainer, 30 \u00b5m",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
     "type": "chemical",
     "title": "Magnesium acetate tetrahydrate",
@@ -1288,6 +1312,12 @@
     "cas": "50-07-7",
     "legacy_inventory_id": 8,
     "mtime": 1776885361
+  },
+  {
+    "path": "resources/monarch-spin-gdna-extraction-kit.md",
+    "type": "kit",
+    "title": "Monarch Spin gDNA Extraction Kit",
+    "status": "needs_more"
   },
   {
     "path": "resources/mortar-and-pestle.md",
@@ -1628,6 +1658,12 @@
     "mtime": 1776885361
   },
   {
+    "path": "resources/promega-wizard-hmw-dna-extraction-kit.md",
+    "type": "kit",
+    "title": "Promega Wizard HMW DNA Extraction Kit",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/qiagen-dneasy-96-plant-kit.md",
     "type": "kit",
     "title": "Qiagen DNeasy 96 Plant Kit",
@@ -1668,6 +1704,12 @@
     "mtime": 1775895055
   },
   {
+    "path": "resources/rcutsmart-buffer.md",
+    "type": "buffer",
+    "title": "rCutSmart Buffer",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
     "type": "chemical",
     "title": "Reagent Alcohol 100% (200 proof, Denatured)",
@@ -1702,6 +1744,12 @@
     "title": "Roche cOmplete Protease Inhibitor Cocktail, EDTA-free",
     "status": "needs_more",
     "mtime": 1777347223
+  },
+  {
+    "path": "resources/s-adenosylmethionine.md",
+    "type": "reagent",
+    "title": "S-Adenosylmethionine (SAM)",
+    "status": "needs_more"
   },
   {
     "path": "resources/sigma-proteinase-k.md",
@@ -4174,7 +4222,7 @@
     "pi": "Grey Monroe",
     "lead": "Grey Monroe",
     "last_updated": "2026-05-12",
-    "mtime": 1778633572
+    "mtime": 1778635059
   },
   {
     "path": "projects/walnut-cut-leaf.md",
@@ -4443,7 +4491,8 @@
   {
     "path": "wet-lab/sierra-gold-tc-tissue-harvest.md",
     "type": "protocol",
-    "title": "Sierra Gold TC Tissue Harvest"
+    "title": "Sierra Gold TC Tissue Harvest",
+    "mtime": 1778635059
   },
   {
     "path": "wet-lab/spill-response.md",
@@ -4500,6 +4549,11 @@
     "mtime": 1775980234
   },
   {
+    "path": "wet-lab/extraction/fiber-seq-hmw-extraction.md",
+    "type": "protocol",
+    "title": "Post-labeling HMW DNA Extraction for Fiber-seq"
+  },
+  {
     "path": "wet-lab/extraction/grape-feeder-cell-dna-extraction.md",
     "type": "protocol",
     "title": "Grape Feeder Cell DNA Extraction",
@@ -4540,6 +4594,11 @@
     "type": "protocol",
     "title": "Sorbitol/CTAB HiFi Extraction",
     "mtime": 1777473575
+  },
+  {
+    "path": "wet-lab/library-prep/hmw-size-selection.md",
+    "type": "protocol",
+    "title": "HMW Library Size Selection"
   },
   {
     "path": "wet-lab/library-prep/operating-the-ot2-copy.md",
@@ -4602,10 +4661,24 @@
     "mtime": 1775858916
   },
   {
-    "path": "wet-lab/epigenomics/fiber-seq-dimelo-seq.md",
+    "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
     "type": "protocol",
-    "title": "Fiber-Seq / DiMeLo-Seq",
-    "mtime": 1775858916
+    "title": "Hia5 m6A Labeling Reaction for Fiber-seq"
+  },
+  {
+    "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
+    "type": "protocol",
+    "title": "Fiber-seq Master Protocol"
+  },
+  {
+    "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
+    "type": "protocol",
+    "title": "Plant Nuclei Isolation for Fiber-seq"
+  },
+  {
+    "path": "wet-lab/epigenomics/hia5-dpni-activity-assay.md",
+    "type": "protocol",
+    "title": "Hia5 DpnI Activity Assay"
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",
@@ -4997,6 +5070,12 @@
     "type": "notebook",
     "title": "MN",
     "mtime": 1776799153
+  },
+  {
+    "path": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log.md",
+    "type": "notebook",
+    "title": "Fiber-Seq / DiMeLo-Seq Development Log",
+    "date": "2026-03-06"
   },
   {
     "path": "notebooks/vianney-ahn/qa34-5p9s01-mobile-entry.md",
@@ -18151,6 +18230,13 @@
     "label_1": "Pistachio Tree #4\nleaf, 2026-04-01\n(backup)",
     "label_2": "PL2\n4/01",
     "mtime": 1776874728
+  },
+  {
+    "path": "locations/uc-davis-dna-technologies-core.md",
+    "type": "room",
+    "title": "UC Davis DNA Technologies Core",
+    "notes": "UC Davis Genome Center sequencing core. PacBio Revio, ONT PromethION, Element AVITI, Illumina. Also runs LightBench size selection and FemtoPulse QC as a service.",
+    "label_1": "DNA Technologies & Expression Analysis Core"
   },
   {
     "path": "locations/wall-e-centrifuge.md",

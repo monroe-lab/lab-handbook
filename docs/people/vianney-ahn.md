@@ -8,7 +8,7 @@ favorites:
     type: "protocol"
   - slug: "quantifying-dna-nanodrop"
     type: "protocol"
-  - slug: "fiber-seq-dimelo-seq"
+  - slug: "fiber-seq-master-protocol"
     type: "protocol"
 ---
 # Vianney Ahn

@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-05-13T01:17:26.514376+00:00",
-  "total_commits": 4429,
+  "generated_at": "2026-08-19T02:28:05.203621+00:00",
+  "total_commits": 4430,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4227,
+      "total_commits": 4228,
       "first_commit": "2025-12-04",
       "last_commit": "2026-05-13",
-      "protocols_authored": 187,
+      "protocols_authored": 188,
       "notebooks_authored": 156,
       "inventory_edits": 2231,
-      "wiki_edits": 5015,
+      "wiki_edits": 5020,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "913ec4a",
-          "subject": "Grape feeder cell extraction: drop PCR validation step",
-          "date": "2026-05-03"
-        },
         {
           "sha": "f3f1f80",
           "subject": "Poplar somatic seq: add Davis Transgenic Site 2 line list (61 CJ events) for sequencing scoping",
@@ -62,9 +57,14 @@
           "sha": "884130c",
           "subject": "Add Sierra Gold TC chromosome stability project",
           "date": "2026-05-13"
+        },
+        {
+          "sha": "e5c7217",
+          "subject": "Add Sierra Gold TC tissue-harvest protocol",
+          "date": "2026-05-13"
         }
       ],
-      "days_active": 160
+      "days_active": 258
     },
     "vianneyahn": {
       "login": "vianneyahn",
@@ -78,7 +78,7 @@
       "wiki_edits": 81,
       "images_uploaded": 1,
       "issue_attachments": 6,
-      "issues_filed": 12,
+      "issues_filed": 14,
       "locations_created": 1,
       "items_added": 1,
       "bulletin_edits": 0,
@@ -128,7 +128,7 @@
           "date": "2026-05-08"
         }
       ],
-      "days_active": 22
+      "days_active": 120
     },
     "yeleaf20030520": {
       "login": "yeleaf20030520",
@@ -192,7 +192,7 @@
           "date": "2026-05-08"
         }
       ],
-      "days_active": 21
+      "days_active": 119
     },
     "knbroomell": {
       "login": "knbroomell",
@@ -256,7 +256,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "mariele-lensink": {
       "login": "mariele-lensink",
@@ -320,7 +320,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "inili": {
       "login": "inili",
@@ -384,7 +384,7 @@
           "date": "2026-04-30"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -448,7 +448,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 36
+      "days_active": 134
     },
     "chaeheelee": {
       "login": "chaeheelee",
@@ -512,7 +512,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "bdsingson": {
       "login": "bdsingson",
@@ -571,7 +571,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "kehanzhao": {
       "login": "kehanzhao",
@@ -620,7 +620,7 @@
           "date": "2026-05-12"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "egspaulding": {
       "login": "egspaulding",
@@ -664,7 +664,7 @@
           "date": "2026-04-29"
         }
       ],
-      "days_active": 22
+      "days_active": 120
     },
     "limbler": {
       "login": "limbler",
@@ -708,7 +708,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 15
+      "days_active": 113
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -742,7 +742,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 159
+      "days_active": 257
     }
   }
 }

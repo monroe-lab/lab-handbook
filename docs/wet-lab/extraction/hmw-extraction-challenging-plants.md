@@ -15,7 +15,7 @@ title: "HMW Extraction for Challenging Plants"
 
 **Reagents:** [[2-mercaptoethanol]], [[ammonium-acetate]], [[ampure-xp-beads]], [[cesium-chloride]], [[chloroform]], [[chloroform-isoamyl-alcohol-24-1]], [[dnase]], [[ethanol-70]], [[guanidine-thiocyanate]], [[guanidine-thiocyanate-2]], [[isopropyl-alcohol]], [[lithium-chloride]], [[mes-buffer]], [[phenol-chloroform-isoamyl-alcohol-25-24-1]], [[polyvinylpyrrolidone]], [[potassium-acetate]], [[sodium-bisulfite]], [[sodium-metabisulfite]], [[sodium-sulfite]], [[tris-base]], [[tween-80]]
 
-**Related Protocols:** [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]]
+**Related Protocols:** [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[kalanchoe-ctab-extraction]], [[fiber-seq-hmw-extraction]]
 
 **Contacts:** [[grey-monroe]]
 

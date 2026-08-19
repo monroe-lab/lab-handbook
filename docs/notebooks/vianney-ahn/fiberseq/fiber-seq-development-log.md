@@ -1,9 +1,29 @@
 ---
-type: protocol
-title: "Fiber-Seq / DiMeLo-Seq"
+type: notebook
+title: "Fiber-Seq / DiMeLo-Seq Development Log"
+person: vianney-ahn
+date: 2026-03-06
 ---
 
-# Fiber-Seq / DiMeLo-Seq
+# Fiber-Seq / DiMeLo-Seq Development Log
+
+> **This is a development log, not a protocol.** It is the chronological record of
+> [[vianney-ahn]]'s Fiber-seq method development, March to June 2026: dated experiment
+> entries, reaction setup tables, gel readouts, and options that were tried and
+> rejected. Do not run a bench experiment from this page.
+>
+> For runnable protocols start at [[fiber-seq-master-protocol]].
+>
+> **Provenance and known gaps.** This page was transcribed from the Google Doc
+> *Fiber-Seq Experiments - Initial Tests* around April 2026, and captures only that
+> doc's *Overview of Fiber-Seq*, *Fiber-Seq Experiments*, and *PNAS article protocol*
+> tabs. The doc's *Protocol* tab (the lab's own activation buffer, nuclei isolation
+> protocol, and CTAB extraction) and everything after roughly 04.15.2026 are **not**
+> in this transcription, including: the 05.01.2026 FemtoPulse traces and Noravit
+> Chumchim's damage-vs-shearing advice, the 05.06 and 05.18.2026 PBTS pistachio runs,
+> the 06.18.2026 reaction tests, and the decision not to size select the first pooled
+> libraries. Those sections were read directly from the source doc on 2026-08-18 and
+> used to write the protocol pages. For the complete record, go to the Google Doc.
 
 
 ## Resources
