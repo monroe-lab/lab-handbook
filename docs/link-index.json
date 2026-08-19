@@ -2913,7 +2913,7 @@
   },
   {
     "source": "lab-management/genomics-internship/capstone-rubric",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "lab-management/genomics-internship/capstone-rubric",
@@ -2977,7 +2977,7 @@
   },
   {
     "source": "lab-management/genomics-internship/weekly-self-check",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "lab-management/genomics-internship/weekly-self-check",
@@ -3700,10 +3700,6 @@
     "target": "locations/barb-m-dna-box-mp1-series"
   },
   {
-    "source": "notebooks/vianney-ahn/2026-04-21",
-    "target": "locations/room-asmundson-growth-chamber"
-  },
-  {
     "source": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log",
     "target": "people/vianney-ahn"
   },
@@ -3818,6 +3814,10 @@
   {
     "source": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log",
     "target": "people/grey-monroe"
+  },
+  {
+    "source": "notebooks/zi-ye/2026-04-22",
+    "target": "accessions/a1-t1-w-2"
   },
   {
     "source": "people/barb-m",
@@ -5961,7 +5961,7 @@
   },
   {
     "source": "waste/bme-chloroform-phenol-waste",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "waste/index",
@@ -5977,7 +5977,7 @@
   },
   {
     "source": "waste/nib-buffer-bme-waste",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "waste/paraquat-solid-waste",
@@ -5985,7 +5985,7 @@
   },
   {
     "source": "waste/paraquat-solid-waste",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "waste/paraquat-wash-waste",
@@ -5993,7 +5993,7 @@
   },
   {
     "source": "waste/paraquat-wash-waste",
-    "target": "waste/index"
+    "target": "percy-s-farm-pipelines/index"
   },
   {
     "source": "wet-lab/autoclave",

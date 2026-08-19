@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-19T02:28:05.203621+00:00",
-  "total_commits": 4430,
+  "generated_at": "2026-08-19T02:29:42.185644+00:00",
+  "total_commits": 4585,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4228,
+      "total_commits": 4236,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-05-13",
-      "protocols_authored": 188,
+      "last_commit": "2026-08-19",
+      "protocols_authored": 194,
       "notebooks_authored": 156,
-      "inventory_edits": 2231,
-      "wiki_edits": 5020,
+      "inventory_edits": 2239,
+      "wiki_edits": 5029,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
-      "locations_created": 258,
-      "items_added": 695,
+      "locations_created": 259,
+      "items_added": 703,
       "bulletin_edits": 14,
       "calendar_edits": 40,
       "annotations": 58,
@@ -24,44 +24,44 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "f3f1f80",
-          "subject": "Poplar somatic seq: add Davis Transgenic Site 2 line list (61 CJ events) for sequencing scoping",
-          "date": "2026-05-03"
-        },
-        {
-          "sha": "ad04ab3",
-          "subject": "Poplar somatic seq: lock Site 2 plan (61 events, 1 tree/1 cluster, short-read only); fix row 6 line ID",
-          "date": "2026-05-03"
-        },
-        {
-          "sha": "7f50cec",
-          "subject": "PBTS: log Novogene HiFi QC report (12 samples, ~96 Gb avg, ~18 kb N50)",
-          "date": "2026-05-08"
-        },
-        {
-          "sha": "7e5122b",
-          "subject": "-80C Freezer A: fix shelf ordering \u2014 top 2 open, bottom 2 racked",
-          "date": "2026-05-08"
-        },
-        {
-          "sha": "d7fa3fa",
-          "subject": "Poplar somatic: register 21 ORE-* accessions from Westport (Carl, 2026-05-07)",
-          "date": "2026-05-08"
-        },
-        {
-          "sha": "f390412",
-          "subject": "PBTS: log that Novogene's R2_B4_C1 QC-fail did not pan out",
-          "date": "2026-05-09"
-        },
-        {
-          "sha": "884130c",
-          "subject": "Add Sierra Gold TC chromosome stability project",
+          "sha": "fc828f8",
+          "subject": "New protocol: Harvesting microshoot cultures",
           "date": "2026-05-13"
         },
         {
-          "sha": "e5c7217",
-          "subject": "Add Sierra Gold TC tissue-harvest protocol",
+          "sha": "75e4849",
+          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
           "date": "2026-05-13"
+        },
+        {
+          "sha": "29ca5b1",
+          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
+          "date": "2026-05-13"
+        },
+        {
+          "sha": "b62b256",
+          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
+          "date": "2026-05-13"
+        },
+        {
+          "sha": "6e7e8c4",
+          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
+          "date": "2026-05-13"
+        },
+        {
+          "sha": "fc12c3c",
+          "subject": "Fix deploy-failure emails and silent notebook wipe",
+          "date": "2026-07-06"
+        },
+        {
+          "sha": "b0e8a75",
+          "subject": "Add local draft autosave for notebook editor (issue #181)",
+          "date": "2026-07-07"
+        },
+        {
+          "sha": "071c7e4",
+          "subject": "Fiber-seq protocol buildout: 6 protocol pages + 9 resource cards",
+          "date": "2026-08-19"
         }
       ],
       "days_active": 258
@@ -69,14 +69,14 @@
     "vianneyahn": {
       "login": "vianneyahn",
       "display_name": "vianneyahn",
-      "total_commits": 113,
+      "total_commits": 124,
       "first_commit": "2026-04-21",
-      "last_commit": "2026-05-08",
+      "last_commit": "2026-06-06",
       "protocols_authored": 3,
-      "notebooks_authored": 6,
+      "notebooks_authored": 9,
       "inventory_edits": 1,
       "wiki_edits": 81,
-      "images_uploaded": 1,
+      "images_uploaded": 3,
       "issue_attachments": 6,
       "issues_filed": 14,
       "locations_created": 1,
@@ -88,60 +88,124 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "1deeeb1",
-          "subject": "Moved protocol-template from workflow-templates",
-          "date": "2026-04-21"
+          "sha": "56fd328",
+          "subject": "Delete notebook entry: 2026-04-21",
+          "date": "2026-06-06"
         },
         {
-          "sha": "6433517",
-          "subject": "Update plant-harvesting/transgenic-waste",
-          "date": "2026-04-21"
+          "sha": "29e4269",
+          "subject": "Upload anchortag_newupdates_june2026.jpg",
+          "date": "2026-06-06"
         },
         {
-          "sha": "3f52960",
-          "subject": "Update wet-lab/quantifying-dna-nanodrop",
-          "date": "2026-04-21"
+          "sha": "8e75d65",
+          "subject": "Upload pxl_20260606_004536710.jpg",
+          "date": "2026-06-06"
         },
         {
-          "sha": "c75fceb",
-          "subject": "Update wet-lab/quantifying-dna-nanodrop",
-          "date": "2026-04-21"
+          "sha": "377164a",
+          "subject": "Update notebook notebooks/vianney-ahn/Validate-MNase-Acitivty",
+          "date": "2026-06-06"
         },
         {
-          "sha": "54c43fa",
-          "subject": "Upload 17767991406126834312397088505298.jpg",
-          "date": "2026-04-21"
+          "sha": "b4a41ee",
+          "subject": "Delete notebook entry: 2026-04-21",
+          "date": "2026-06-06"
         },
         {
-          "sha": "e49c122",
-          "subject": "Update notebook notebooks/vianney-ahn/fiberseq/MN",
-          "date": "2026-04-21"
+          "sha": "50a3630",
+          "subject": "Delete notebook entry: MN",
+          "date": "2026-06-06"
         },
         {
-          "sha": "c1fa091",
-          "subject": "New protocol: Universal Lab Buffers / Reagents",
-          "date": "2026-04-27"
+          "sha": "61a035a",
+          "subject": "New notebook folder: vianney-ahn/anchortag",
+          "date": "2026-06-06"
         },
         {
-          "sha": "5c9160b",
-          "subject": "Update wet-lab/library-prep/pacbio-hifi-sequencing",
-          "date": "2026-05-08"
+          "sha": "2b9e26e",
+          "subject": "Update notebook notebooks/vianney-ahn/Validate-MNase-Acitivty",
+          "date": "2026-06-06"
         }
       ],
       "days_active": 120
     },
+    "bdsingson": {
+      "login": "bdsingson",
+      "display_name": "percival-singson",
+      "total_commits": 122,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-07-14",
+      "protocols_authored": 2,
+      "notebooks_authored": 22,
+      "inventory_edits": 0,
+      "wiki_edits": 24,
+      "images_uploaded": 0,
+      "issue_attachments": 1,
+      "issues_filed": 0,
+      "locations_created": 3,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "6a99aef",
+          "subject": "Update percy-s-farm-pipelines/introduction-to-farm-slurm-structure-organization-and-jobs",
+          "date": "2026-07-10"
+        },
+        {
+          "sha": "508c156",
+          "subject": "Update percy-s-farm-pipelines/introduction-to-farm-slurm-structure-organization-and-jobs",
+          "date": "2026-07-10"
+        },
+        {
+          "sha": "6cff4bc",
+          "subject": "Update percy-s-farm-pipelines/introduction-to-farm-slurm-structure-organization-and-jobs",
+          "date": "2026-07-10"
+        },
+        {
+          "sha": "d291ae3",
+          "subject": "New notebook entry: percival-singson/2026-07-13",
+          "date": "2026-07-13"
+        },
+        {
+          "sha": "b5675df",
+          "subject": "Update notebook notebooks/percival-singson/2026-07-13",
+          "date": "2026-07-13"
+        },
+        {
+          "sha": "5b20301",
+          "subject": "Update notebook notebooks/percival-singson/2026-07-13",
+          "date": "2026-07-14"
+        },
+        {
+          "sha": "6008a0c",
+          "subject": "Update notebook notebooks/percival-singson/2026-07-13",
+          "date": "2026-07-14"
+        },
+        {
+          "sha": "8c4703d",
+          "subject": "Update notebook notebooks/percival-singson/2026-07-13",
+          "date": "2026-07-14"
+        }
+      ],
+      "days_active": 113
+    },
     "yeleaf20030520": {
       "login": "yeleaf20030520",
       "display_name": "w1shyoubest",
-      "total_commits": 18,
+      "total_commits": 25,
       "first_commit": "2026-04-22",
-      "last_commit": "2026-05-08",
+      "last_commit": "2026-08-18",
       "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 2,
-      "images_uploaded": 2,
-      "issue_attachments": 1,
+      "notebooks_authored": 3,
+      "inventory_edits": 1,
+      "wiki_edits": 3,
+      "images_uploaded": 3,
+      "issue_attachments": 2,
       "issues_filed": 0,
       "locations_created": 5,
       "items_added": 0,
@@ -152,47 +216,111 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "f45cbf4",
-          "subject": "Upload epicypher-20-.jpg",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "c9064a8",
-          "subject": "Update locations/epicypher-cutana-frozen-20-c.md",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "0a79590",
-          "subject": "Create locations/4th-shelf.md",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "691d67f",
-          "subject": "Upload epicypher-cutana-4-c-.jpg",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "be3f5d0",
-          "subject": "Annotate images/epicypher-cutana-4-c--annotated.png",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "799fa44",
-          "subject": "Create locations/epicypher-cutana-4-c.md",
-          "date": "2026-04-30"
-        },
-        {
-          "sha": "d346cce",
-          "subject": "Update wet-lab/extraction/pistachio-dna-extraction",
-          "date": "2026-05-08"
-        },
-        {
           "sha": "427ff89",
           "subject": "Update wet-lab/extraction/pistachio-dna-extraction",
           "date": "2026-05-08"
+        },
+        {
+          "sha": "53796e3",
+          "subject": "Accession J3_T2_W \u2192 completed",
+          "date": "2026-05-18"
+        },
+        {
+          "sha": "1d9de1f",
+          "subject": "Issue reporter attachment: screenshot-2026-05-18-at-3.25.40-pm.png",
+          "date": "2026-05-18"
+        },
+        {
+          "sha": "e2b93ca",
+          "subject": "New notebook folder: pistachio-kerman",
+          "date": "2026-05-18"
+        },
+        {
+          "sha": "77affa2",
+          "subject": "Update notebook notebooks/zi-ye/2026-04-22",
+          "date": "2026-05-18"
+        },
+        {
+          "sha": "4a7acd3",
+          "subject": "Update stocks/bottle-dneasy-plant-mini.md",
+          "date": "2026-05-18"
+        },
+        {
+          "sha": "d0ed968",
+          "subject": "Update wet-lab/extraction/pistachio-dna-extraction",
+          "date": "2026-05-23"
+        },
+        {
+          "sha": "fd5ce57",
+          "subject": "Upload screenshot-2026-08-13-at-3.41.41-pm.png",
+          "date": "2026-08-18"
         }
       ],
       "days_active": 119
+    },
+    "kehanzhao": {
+      "login": "kehanzhao",
+      "display_name": "KehanZhao",
+      "total_commits": 16,
+      "first_commit": "2026-04-28",
+      "last_commit": "2026-06-25",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 3,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 11,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "124cb12",
+          "subject": "Create locations/cassava-paul-12-14-15.md",
+          "date": "2026-05-14"
+        },
+        {
+          "sha": "a5ca251",
+          "subject": "Create locations/cassava-paul-16-17-19.md",
+          "date": "2026-05-14"
+        },
+        {
+          "sha": "aace6ab",
+          "subject": "Create locations/cassava-paul-22-24.md",
+          "date": "2026-05-14"
+        },
+        {
+          "sha": "620c8cf",
+          "subject": "Create locations/cassava-paul-27.md",
+          "date": "2026-05-14"
+        },
+        {
+          "sha": "e93dee2",
+          "subject": "Create locations/cassava-paul-28-31-60.md",
+          "date": "2026-05-14"
+        },
+        {
+          "sha": "506bedf",
+          "subject": "New document: shipping/shipping-with-dry-ice.md",
+          "date": "2026-06-25"
+        },
+        {
+          "sha": "0a488ee",
+          "subject": "Update document shipping/shipping-with-dry-ice",
+          "date": "2026-06-25"
+        },
+        {
+          "sha": "c5138cf",
+          "subject": "Update document shipping/shipping-with-dry-ice",
+          "date": "2026-06-25"
+        }
+      ],
+      "days_active": 113
     },
     "knbroomell": {
       "login": "knbroomell",
@@ -514,114 +642,6 @@
       ],
       "days_active": 113
     },
-    "bdsingson": {
-      "login": "bdsingson",
-      "display_name": "percival-singson",
-      "total_commits": 7,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-04-28",
-      "protocols_authored": 0,
-      "notebooks_authored": 2,
-      "inventory_edits": 0,
-      "wiki_edits": 3,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 1,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "764b9f3",
-          "subject": "Create locations/new-container.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "7c20d63",
-          "subject": "Delete docs/locations/new-container.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "275c63e",
-          "subject": "New project: Grape Protoplast LTEE",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "278b5a5",
-          "subject": "Update projects/grape-protoplast-ltee/index",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "2ba74bc",
-          "subject": "New lab member: Percival Singson",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "7453623",
-          "subject": "Create notebook folder for Percival Singson",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "92fb454",
-          "subject": "First notebook entry for Percival Singson",
-          "date": "2026-04-28"
-        }
-      ],
-      "days_active": 113
-    },
-    "kehanzhao": {
-      "login": "kehanzhao",
-      "display_name": "KehanZhao",
-      "total_commits": 5,
-      "first_commit": "2026-04-28",
-      "last_commit": "2026-05-12",
-      "protocols_authored": 0,
-      "notebooks_authored": 0,
-      "inventory_edits": 0,
-      "wiki_edits": 0,
-      "images_uploaded": 0,
-      "issue_attachments": 0,
-      "issues_filed": 0,
-      "locations_created": 3,
-      "items_added": 0,
-      "bulletin_edits": 0,
-      "calendar_edits": 0,
-      "annotations": 0,
-      "lines_added": 0,
-      "lines_removed": 0,
-      "recent_commits": [
-        {
-          "sha": "006fcf3",
-          "subject": "Create locations/kehan-s-test-object.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "62bf4c3",
-          "subject": "Delete docs/locations/kehan-s-test-object.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "4c77b10",
-          "subject": "Create locations/kehan-s-credit-card.md",
-          "date": "2026-04-28"
-        },
-        {
-          "sha": "e8cb433",
-          "subject": "Delete docs/locations/kehan-s-credit-card.md",
-          "date": "2026-05-12"
-        },
-        {
-          "sha": "a7b3254",
-          "subject": "Create locations/pistachio-cenh3-antibody-2.md",
-          "date": "2026-05-12"
-        }
-      ],
-      "days_active": 113
-    },
     "egspaulding": {
       "login": "egspaulding",
       "display_name": "egspaulding",
@@ -709,6 +729,45 @@
         }
       ],
       "days_active": 113
+    },
+    "noreply": {
+      "login": "noreply",
+      "display_name": "Claude",
+      "total_commits": 3,
+      "first_commit": "2026-05-20",
+      "last_commit": "2026-07-07",
+      "protocols_authored": 0,
+      "notebooks_authored": 0,
+      "inventory_edits": 0,
+      "wiki_edits": 0,
+      "images_uploaded": 0,
+      "issue_attachments": 0,
+      "issues_filed": 0,
+      "locations_created": 0,
+      "items_added": 0,
+      "bulletin_edits": 0,
+      "calendar_edits": 0,
+      "annotations": 0,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "recent_commits": [
+        {
+          "sha": "1f93a76",
+          "subject": "Fix numbered-list paragraphs collapsing in view mode (#176)",
+          "date": "2026-05-20"
+        },
+        {
+          "sha": "c598528",
+          "subject": "Fix Google Docs paste mangling numbered lists (#177)",
+          "date": "2026-05-21"
+        },
+        {
+          "sha": "eb80722",
+          "subject": "Fix notebook entry wipe: load >1 MB entries via Blobs API (issue #185)",
+          "date": "2026-07-07"
+        }
+      ],
+      "days_active": 91
     },
     "matthewwdavis": {
       "login": "matthewwdavis",

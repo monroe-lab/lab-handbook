@@ -385,7 +385,8 @@
     "path": "resources/cell-strainer-70um.md",
     "type": "consumable",
     "title": "Cell Strainer, 70 \u00b5m",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/celldrop.md",
@@ -620,7 +621,8 @@
     "path": "resources/dpni.md",
     "type": "enzyme",
     "title": "DpnI",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
@@ -657,7 +659,8 @@
     "path": "resources/epicypher-cutana-hia5.md",
     "type": "enzyme",
     "title": "EpiCypher CUTANA Hia5",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/epoch-96-well-silica-filter-plate.md",
@@ -1163,7 +1166,8 @@
     "path": "resources/macs-smartstrainer-30um.md",
     "type": "consumable",
     "title": "MACS SmartStrainer, 30 \u00b5m",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
@@ -1317,7 +1321,8 @@
     "path": "resources/monarch-spin-gdna-extraction-kit.md",
     "type": "kit",
     "title": "Monarch Spin gDNA Extraction Kit",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/mortar-and-pestle.md",
@@ -1661,7 +1666,8 @@
     "path": "resources/promega-wizard-hmw-dna-extraction-kit.md",
     "type": "kit",
     "title": "Promega Wizard HMW DNA Extraction Kit",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/qiagen-dneasy-96-plant-kit.md",
@@ -1707,7 +1713,8 @@
     "path": "resources/rcutsmart-buffer.md",
     "type": "buffer",
     "title": "rCutSmart Buffer",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
@@ -1749,7 +1756,8 @@
     "path": "resources/s-adenosylmethionine.md",
     "type": "reagent",
     "title": "S-Adenosylmethionine (SAM)",
-    "status": "needs_more"
+    "status": "needs_more",
+    "mtime": 1787106536
   },
   {
     "path": "resources/sigma-proteinase-k.md",
@@ -2766,12 +2774,16 @@
   {
     "path": "stocks/bottle-dneasy-plant-mini.md",
     "type": "bottle",
-    "title": "DNeasy plant mini",
-    "quantity": 1,
+    "title": "DNeasy plant mini (Kerman)",
+    "quantity": "1",
     "unit": "box",
+    "status": "in_stock",
+    "created_at": "2026-05-18T22:44:59.241Z",
+    "created_by": "w1shyoubest",
+    "updated_at": "2026-05-18T22:44:59.241Z",
     "parent": "locations/new-container-mnubklee",
     "of": "resources/dneasy-plant-mini",
-    "mtime": 1775927241
+    "mtime": 1779144299
   },
   {
     "path": "stocks/bottle-edta-tetrasodium-salt-dihydrate.md",
@@ -3999,7 +4011,7 @@
     "title": "Vianney Ahn",
     "role": "Lab Technician",
     "email": "a.vianney221@gmail.com",
-    "mtime": 1776799106
+    "mtime": 1787106536
   },
   {
     "path": "people/zi-ye.md",
@@ -4549,9 +4561,22 @@
     "mtime": 1775980234
   },
   {
+    "path": "wet-lab/extraction/charcoal-ctab.md",
+    "type": "protocol",
+    "title": "Charcoal CTAB",
+    "mtime": 1781726696
+  },
+  {
+    "path": "wet-lab/extraction/charcoal-purification-dna-extraction-protocol.md",
+    "type": "protocol",
+    "title": "Charcoal Purification DNA Extraction Protocol",
+    "mtime": 1781719525
+  },
+  {
     "path": "wet-lab/extraction/fiber-seq-hmw-extraction.md",
     "type": "protocol",
-    "title": "Post-labeling HMW DNA Extraction for Fiber-seq"
+    "title": "Post-labeling HMW DNA Extraction for Fiber-seq",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/extraction/grape-feeder-cell-dna-extraction.md",
@@ -4563,13 +4588,13 @@
     "path": "wet-lab/extraction/hifi-dna-extraction.md",
     "type": "protocol",
     "title": "HiFi DNA Extraction (DIY)",
-    "mtime": 1777473575
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/extraction/hmw-extraction-challenging-plants.md",
     "type": "protocol",
     "title": "HMW Extraction for Challenging Plants",
-    "mtime": 1777473575
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/extraction/kalanchoe-ctab-extraction.md",
@@ -4581,7 +4606,7 @@
     "path": "wet-lab/extraction/pistachio-dna-extraction.md",
     "type": "protocol",
     "title": "Pistachio DNA Extraction (Short-Read)",
-    "mtime": 1778208976
+    "mtime": 1779496578
   },
   {
     "path": "wet-lab/extraction/qiagen-dneasy-extraction.md",
@@ -4598,7 +4623,8 @@
   {
     "path": "wet-lab/library-prep/hmw-size-selection.md",
     "type": "protocol",
-    "title": "HMW Library Size Selection"
+    "title": "HMW Library Size Selection",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/library-prep/operating-the-ot2-copy.md",
@@ -4616,13 +4642,13 @@
     "path": "wet-lab/library-prep/ot2-hmw-shearing.md",
     "type": "protocol",
     "title": "OT-2 HMW DNA Pipette Shearing for PacBio HiFi",
-    "mtime": 1777472940
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
     "type": "protocol",
     "title": "PacBio HiFi Sequencing (Col-0)",
-    "mtime": 1778284224
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/library-prep/sanger-sequencing.md",
@@ -4646,39 +4672,43 @@
     "path": "wet-lab/epigenomics/chip-seq-copy.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol (Copy)",
-    "mtime": 1775930982
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/chip-seq.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol",
-    "mtime": 1775930982
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/cut-and-tag.md",
     "type": "protocol",
     "title": "CUT&Tag Protocol",
-    "mtime": 1775858916
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
     "type": "protocol",
-    "title": "Hia5 m6A Labeling Reaction for Fiber-seq"
+    "title": "Hia5 m6A Labeling Reaction for Fiber-seq",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
-    "title": "Fiber-seq Master Protocol"
+    "title": "Fiber-seq Master Protocol",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
     "type": "protocol",
-    "title": "Plant Nuclei Isolation for Fiber-seq"
+    "title": "Plant Nuclei Isolation for Fiber-seq",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/epigenomics/hia5-dpni-activity-assay.md",
     "type": "protocol",
-    "title": "Hia5 DpnI Activity Assay"
+    "title": "Hia5 DpnI Activity Assay",
+    "mtime": 1787106536
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",
@@ -5048,28 +5078,136 @@
     "mtime": 1777397829
   },
   {
+    "path": "notebooks/percival-singson/2026-05-21.md",
+    "type": "notebook",
+    "title": "2026-05-21 \u2014 Percival Singson",
+    "mtime": 1779415724
+  },
+  {
+    "path": "notebooks/percival-singson/2026-05-26.md",
+    "type": "notebook",
+    "title": "2026-05-26 \u2014 Percival Singson",
+    "mtime": 1779832670
+  },
+  {
+    "path": "notebooks/percival-singson/2026-05-28.md",
+    "type": "notebook",
+    "title": "2026-05-28 \u2014 Percival Singson",
+    "mtime": 1780012440
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-09.md",
+    "type": "notebook",
+    "title": "2026-06-09 \u2014 Percival Singson",
+    "mtime": 1781040655
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-10.md",
+    "type": "notebook",
+    "title": "2026-06-10 \u2014 Percival Singson",
+    "mtime": 1781125257
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-11.md",
+    "type": "notebook",
+    "title": "2026-06-11 \u2014 Percival Singson",
+    "mtime": 1781214594
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-12.md",
+    "type": "notebook",
+    "title": "2026-06-12 \u2014 Percival Singson",
+    "mtime": 1781301941
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-15.md",
+    "type": "notebook",
+    "title": "2026-06-15 \u2014 Percival Singson",
+    "mtime": 1781560495
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-16.md",
+    "type": "notebook",
+    "title": "2026-06-16 \u2014 Percival Singson",
+    "mtime": 1781642501
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-17.md",
+    "type": "notebook",
+    "title": "2026-06-17 \u2014 Percival Singson",
+    "mtime": 1781729670
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-18.md",
+    "type": "notebook",
+    "title": "2026-06-18 \u2014 Percival Singson",
+    "mtime": 1781814211
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-22.md",
+    "type": "notebook",
+    "title": "2026-06-22 \u2014 Percival Singson",
+    "mtime": 1782150963
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-26.md",
+    "type": "notebook",
+    "title": "2026-06-26 \u2014 Percival Singson",
+    "mtime": 1782505934
+  },
+  {
+    "path": "notebooks/percival-singson/2026-06-29.md",
+    "type": "notebook",
+    "title": "2026-06-29 \u2014 Percival Singson",
+    "mtime": 1782756822
+  },
+  {
+    "path": "notebooks/percival-singson/2026-07-02.md",
+    "type": "notebook",
+    "title": "2026-07-02 \u2014 Percival Singson",
+    "mtime": 1783026074
+  },
+  {
+    "path": "notebooks/percival-singson/2026-07-06.md",
+    "type": "notebook",
+    "title": "2026 07 06",
+    "mtime": 1783367178
+  },
+  {
+    "path": "notebooks/percival-singson/2026-07-08.md",
+    "type": "notebook",
+    "title": "2026-07-08 \u2014 Percival Singson",
+    "mtime": 1783540111
+  },
+  {
+    "path": "notebooks/percival-singson/2026-07-10.md",
+    "type": "notebook",
+    "title": "2026-07-10 \u2014 Percival Singson",
+    "mtime": 1783708957
+  },
+  {
+    "path": "notebooks/percival-singson/2026-07-13.md",
+    "type": "notebook",
+    "title": "2026-07-13 \u2014 Percival Singson",
+    "mtime": 1783991542
+  },
+  {
+    "path": "notebooks/percival-singson/What-is-this-grape-medium-5-19-26.md",
+    "type": "notebook",
+    "title": "2026-05-19 \u2014 Percival Singson",
+    "mtime": 1779230894
+  },
+  {
     "path": "notebooks/template.md",
     "type": "notebook",
     "title": "Daily Entry Template",
     "mtime": 1775196429
   },
   {
-    "path": "notebooks/vianney-ahn/2026-04-21.md",
+    "path": "notebooks/vianney-ahn/Validate-MNase-Acitivty.md",
     "type": "notebook",
-    "title": "2026-04-21 \u2014 Vianney Ahn",
-    "mtime": 1776794891
-  },
-  {
-    "path": "notebooks/vianney-ahn/fiberseq/2026-04-21.md",
-    "type": "notebook",
-    "title": "2026-04-21 \u2014 Fiberseq",
-    "mtime": 1776796697
-  },
-  {
-    "path": "notebooks/vianney-ahn/fiberseq/MN.md",
-    "type": "notebook",
-    "title": "MN",
-    "mtime": 1776799153
+    "title": "Validate MNase Acitivty",
+    "mtime": 1780710705
   },
   {
     "path": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log.md",
@@ -5087,7 +5225,7 @@
     "path": "notebooks/zi-ye/2026-04-22.md",
     "type": "notebook",
     "title": "2026-04-22 \u2014 Zi Ye",
-    "mtime": 1776817153
+    "mtime": 1779143616
   },
   {
     "path": "waste/bme-chloroform-phenol-waste.md",
@@ -11969,15 +12107,16 @@
     "path": "accessions/j3-t2-w.md",
     "type": "accession",
     "title": "J3_T2_W",
-    "status": "waiting",
+    "status": "completed",
     "species": "Pistacia vera",
     "sequencing_type": "Illumina WGS",
     "project": "Kerman Somatic",
     "accession_id": "J3_T2_W",
     "priority": "1",
+    "last_updated": "2026-05-18",
     "status_note": "On hold \u2014 Previous extraction failed",
     "people": "Matt Davis",
-    "mtime": 1776884182
+    "mtime": 1779140919
   },
   {
     "path": "accessions/j4-t1-5-kerman.md",
@@ -17679,6 +17818,16 @@
     "mtime": 1775895055
   },
   {
+    "path": "locations/bottom-drawer.md",
+    "type": "shelf",
+    "title": "Bottom Drawer",
+    "created_at": "2026-06-09T17:05:17.910Z",
+    "created_by": "percival-singson",
+    "updated_at": "2026-06-09T17:05:17.910Z",
+    "parent": "locations/freezer-minus20",
+    "mtime": 1781024718
+  },
+  {
     "path": "locations/box-dna-extracts.md",
     "type": "box",
     "title": "DNA Extracts Box",
@@ -17733,6 +17882,94 @@
     "parent": "locations/room-robbins-0170",
     "label_1": "Flammable Cabinet",
     "mtime": 1775895055
+  },
+  {
+    "path": "locations/cassava-monica.md",
+    "type": "container",
+    "title": "Cassava Monica",
+    "created_at": "2026-05-14T23:28:24.305Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:28:24.305Z",
+    "parent": "locations/rack-3-1",
+    "position": "A1",
+    "mtime": 1778801304
+  },
+  {
+    "path": "locations/cassava-paul-01-05.md",
+    "type": "container",
+    "title": "Cassava Paul 01&05",
+    "created_at": "2026-05-14T23:29:02.149Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:29:02.149Z",
+    "parent": "locations/rack-3-1",
+    "position": "B1",
+    "mtime": 1778801342
+  },
+  {
+    "path": "locations/cassava-paul-04.md",
+    "type": "container",
+    "title": "Cassava Paul 04",
+    "created_at": "2026-05-14T23:29:35.600Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:29:35.600Z",
+    "parent": "locations/rack-3-1",
+    "position": "C1",
+    "mtime": 1778801376
+  },
+  {
+    "path": "locations/cassava-paul-12-14-15.md",
+    "type": "container",
+    "title": "Cassava Paul 12&14&15",
+    "created_at": "2026-05-14T23:30:09.063Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:30:09.063Z",
+    "parent": "locations/rack-3-1",
+    "position": "D1",
+    "mtime": 1778801409
+  },
+  {
+    "path": "locations/cassava-paul-16-17-19.md",
+    "type": "container",
+    "title": "Cassava Paul 16&17&19",
+    "created_at": "2026-05-14T23:30:44.973Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:30:44.973Z",
+    "parent": "locations/rack-3-1",
+    "position": "E1",
+    "mtime": 1778801445
+  },
+  {
+    "path": "locations/cassava-paul-22-24.md",
+    "type": "container",
+    "title": "Cassava Paul 22&24",
+    "created_at": "2026-05-14T23:31:09.971Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:31:09.971Z",
+    "parent": "locations/rack-3-1",
+    "position": "F1",
+    "mtime": 1778801470
+  },
+  {
+    "path": "locations/cassava-paul-27.md",
+    "type": "container",
+    "title": "Cassava Paul 27",
+    "created_at": "2026-05-14T23:31:29.134Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:31:29.134Z",
+    "parent": "locations/rack-3-1",
+    "position": "A2",
+    "mtime": 1778801489
+  },
+  {
+    "path": "locations/cassava-paul-28-31-60.md",
+    "type": "container",
+    "title": "Cassava Paul 28&31&60",
+    "created_at": "2026-05-14T23:31:56.220Z",
+    "created_by": "KehanZhao",
+    "updated_at": "2026-05-14T23:31:56.220Z",
+    "parent": "locations/rack-3-1",
+    "position": "B2",
+    "mtime": 1778801516
   },
   {
     "path": "locations/cutana-chic-cut-run-kit.md",
@@ -17803,6 +18040,16 @@
     "updated_at": "2026-04-28T17:31:18.220Z",
     "parent": "locations/bench",
     "mtime": 1777397523
+  },
+  {
+    "path": "locations/grape-suspensions-2-17-26-5-28-26.md",
+    "type": "box",
+    "title": "Grape Suspensions (2/17/26-5/28/26)",
+    "created_at": "2026-06-09T17:06:32.614Z",
+    "created_by": "percival-singson",
+    "updated_at": "2026-06-09T17:06:32.614Z",
+    "parent": "locations/bottom-drawer",
+    "mtime": 1781024793
   },
   {
     "path": "locations/location-unsorted.md",
@@ -18236,7 +18483,8 @@
     "type": "room",
     "title": "UC Davis DNA Technologies Core",
     "notes": "UC Davis Genome Center sequencing core. PacBio Revio, ONT PromethION, Element AVITI, Illumina. Also runs LightBench size selection and FemtoPulse QC as a service.",
-    "label_1": "DNA Technologies & Expression Analysis Core"
+    "label_1": "DNA Technologies & Expression Analysis Core",
+    "mtime": 1787106536
   },
   {
     "path": "locations/wall-e-centrifuge.md",
@@ -18695,6 +18943,12 @@
     "mtime": 1776798195
   },
   {
+    "path": "plant-harvesting/harvesting-microshoot-cultures.md",
+    "type": "protocol",
+    "title": "Harvesting microshoot cultures",
+    "mtime": 1778704198
+  },
+  {
     "path": "plant-harvesting/poplar-leaf-collection.md",
     "type": "protocol",
     "title": "Collecting Poplar Leaves for Somatic Mutation Sequencing",
@@ -18717,5 +18971,11 @@
     "type": "protocol",
     "title": "Shipping Frozen Samples to the Monroe Lab (Collaborator Guide)",
     "mtime": 1776694182
+  },
+  {
+    "path": "shipping/shipping-with-dry-ice.md",
+    "type": "protocol",
+    "title": "Shipping with dry ice",
+    "mtime": 1782419276
   }
 ]
