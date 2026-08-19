@@ -37,79 +37,80 @@ A lab wiki and handbook for the Monroe Lab at UC Davis, built as a static site w
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
-| Static site generator | MkDocs Material | Renders markdown into a themed, searchable site |
-| Hosting | GitHub Pages | Served from the `gh-pages` environment via Actions |
-| Build/deploy | GitHub Actions | `.github/workflows/deploy.yml` — builds on push to `main`, deploys automatically (~40s) |
-| Password gate | Client-side JS | SHA-256 hash check in `overrides/main.html`, sessionStorage-based. Not real security — just a basic barrier. |
-| Markdown editor | Custom app (Toast UI Editor) | `docs/editor/index.html` — WYSIWYG Google Docs-like editor, commits via GitHub API |
-| Inventory app | Custom app | `docs/inventory-app/index.html` — CRUD inventory management, commits via GitHub API |
-| Inventory popups | JS on wiki pages | `docs/javascripts/inventory-links.js` — detects `inventory://` links, shows popup cards |
-| Wikilink support | mkdocs-roamlinks-plugin | Resolves `[[wikilinks]]` in markdown (for Obsidian compatibility) |
+| Site shell | Custom JS app in `app/` | Plain HTML/JS pages (no framework, no bundler) that fetch and render markdown from `docs/` client-side |
+| Content | Markdown in `docs/` | Every page is a `.md` file with YAML frontmatter. There is **no nav file** — pages are auto-discovered |
+| Object index | `scripts/build-object-index.py` | Scans `OBJECT_DIRS` under `docs/`, emits `docs/object-index.json` + `docs/link-index.json`. This is what powers search, type browsing, and backlinks |
+| Hosting | GitHub Pages | Deployed from an artifact, not a `gh-pages` branch |
+| Build/deploy | GitHub Actions | `.github/workflows/deploy.yml` — on push to `main`, runs `check-fab.py` + `build-object-index.py`, assembles `_deploy/` from `docs/` + `app/`, uploads to Pages (~40s) |
+| Password gate | Client-side JS | SHA-256 check in `app/js/shared.js` (`PW_HASH`), sessionStorage key `monroe-lab-auth`. Not real security — just a barrier |
+| GitHub auth | PAT in `localStorage` | Key `gh_lab_token` (see `app/js/github-api.js`). Fine-grained PAT scoped to `monroe-lab/lab-handbook`, Contents read/write |
+| Wikilinks | `app/js/wikilinks.js` + `link-index.json` | `[[target]]` resolved client-side; see resolution rules below |
+
+> **NOT MkDocs.** This repo used to be MkDocs Material and no longer is. There is no
+> `mkdocs.yml`, no `overrides/main.html`, no `requirements.txt`, no `mkdocs serve`, and no
+> roamlinks plugin. If you see instructions referencing any of those, they are stale. The
+> untracked `site/` directory at the repo root is leftover MkDocs build output (gitignored).
 
 ## Directory Structure
 
 ```
 .
-├── .claude/                    # Claude Code config
-│   ├── CLAUDE.md               # This file
-│   └── skills/                 # Claude Code skills for Farm workflows
-├── .github/workflows/
-│   └── deploy.yml              # GitHub Actions: build MkDocs → deploy to Pages
-├── .pages.yml                  # Pages CMS config (mostly unused now, editor app replaced it)
-├── docs/                       # MkDocs source directory — everything in here becomes the site
-│   ├── index.md                # Homepage
-│   ├── bioinformatics/         # Farm cluster guides, Linux tutorials, coding philosophy
-│   ├── wet-lab/                # Protocols: PCR, gel electrophoresis, seed sterilization, etc.
-│   ├── lab-safety/             # Chemical inventory (EHS export)
-│   ├── workflow-templates/     # BLAST, HiFi pipeline, Strelka2 templates
-│   ├── editor/
-│   │   └── index.html          # Rich markdown editor app (standalone, not processed by MkDocs)
-│   ├── inventory-app/
-│   │   ├── index.html          # Inventory management app (standalone)
-│   │   └── inventory.json      # Inventory data (the source of truth for lab inventory)
-│   ├── admin/
-│   │   ├── index.html          # Redirects to Pages CMS (legacy, editor app is preferred)
-│   │   └── config.yml          # Pages CMS config
-│   ├── javascripts/
-│   │   └── inventory-links.js  # Handles inventory:// link popups on rendered wiki pages
-│   └── stylesheets/
-│       └── password-gate.css   # (mostly unused now, styles are inline in overrides/main.html)
-├── overrides/
-│   └── main.html               # MkDocs Material template override — password gate lives here
-├── templates/                  # Original Farm workflow templates (sbatch scripts, envs)
-├── mkdocs.yml                  # MkDocs config: nav, theme, plugins, extensions
-├── requirements.txt            # Python deps: mkdocs-material, mkdocs-roamlinks-plugin
-└── README.md                   # Original lab handbook README (for GitHub visitors)
+├── .claude/CLAUDE.md           # This file
+├── .github/workflows/deploy.yml
+├── app/                        # The site shell — one HTML file per view
+│   ├── index.html              # Dashboard (root redirects here)
+│   ├── protocols.html          # Renders any docs/ markdown: ?doc=<path-without-.md>
+│   ├── inventory.html, people.html, projects.html, notebooks.html,
+│   │   accessions.html, calendar.html, graph.html, lab-map.html, waste.html,
+│   │   plasmid-viewer.html, primer-designer.html, solution-maker.html, ...
+│   ├── css/
+│   └── js/                     # shared.js (gate+BASE), github-api.js, wikilinks.js,
+│                               # editor-modal.js, annotate.js, nav.js, types.js, ...
+├── docs/                       # All content. Becomes the site root.
+│   ├── object-index.json       # GENERATED — do not hand-edit
+│   ├── link-index.json         # GENERATED — do not hand-edit
+│   ├── user-stats.json         # GENERATED — do not hand-edit
+│   ├── resources/              # chemical / consumable / equipment / kit / buffer / enzyme / reagent
+│   ├── locations/ stocks/ waste/ samples/ accessions/ people/ events/
+│   ├── projects/               # recursive (**/*.md)
+│   ├── notebooks/              # recursive (**/*.md)
+│   ├── wet-lab/{extraction,library-prep,epigenomics,mutagenesis}/
+│   ├── bioinformatics/ lab-safety/ lab-management/ workflow-templates/
+│   └── plant-harvesting/ shipping/
+├── scripts/                    # build-object-index.py, build-user-stats.py, check-fab.py, migrations
+├── tests/                      # labbot.mjs (Playwright) + STATUS.md
+└── site/                       # gitignored leftover from the MkDocs era — ignore it
 ```
 
 ## How Things Connect
 
 ### Viewing the site
-1. User visits `monroe-lab.github.io/lab-handbook/`
-2. Password gate (JS in `overrides/main.html`) blocks content until password is entered
-3. Password hash checked against SHA-256 in the template. Current password: `monroelab`
-4. On success, `sessionStorage` flag set, gate removed. Persists for the browser session.
+1. User visits `monroe-lab.github.io/lab-handbook/` → meta-refresh to `app/`
+2. `app/js/shared.js` gates on password, then on a GitHub PAT (two steps)
+3. Password `monroelab`, hashed to `PW_HASH` in `shared.js`; success sets `sessionStorage['monroe-lab-auth']`
+4. `404.html` redirects old MkDocs-style URLs to `app/protocols.html?doc=<path>`, so pre-existing links still work
 
-### Editing content (editor app)
-1. User goes to `/editor/` (linked from nav bar as "Edit Wiki")
-2. Toast UI Editor loads in WYSIWYG-only mode (no raw markdown visible)
-3. File browser sidebar shows all `.md` files from `docs/` (fetched via GitHub Trees API)
-4. User selects a file, edits visually, clicks Save
-5. App PUTs the updated content to GitHub Contents API (base64 encoded, with SHA for conflict safety)
-6. GitHub Actions auto-rebuilds the site
+### Adding a page
+There is no nav to edit. Drop a `.md` file into one of the `OBJECT_DIRS` (see
+`scripts/build-object-index.py`) with frontmatter containing at least `type` and `title`, rerun
+`build-object-index.py`, and it appears. Files whose names start with `_` are skipped. Only
+`projects/` and `notebooks/` recurse; every other directory is scanned flat, so a page in an
+unlisted subdirectory will silently not appear.
 
-### Editing inventory
-1. User goes to `/inventory-app/`
-2. App loads `inventory.json` from the repo
-3. User adds/edits/deletes items via forms
-4. Changes committed to `inventory.json` via GitHub Contents API
-5. Inventory data is also used by wiki pages — `inventory://` links in markdown render as teal pills with popup cards
+### Wikilink resolution (`scripts/build-object-index.py`)
+`[[target]]` resolves by, in order:
+1. exact path relative to `docs/`, minus `.md`
+2. case-insensitive **basename stem** match
 
-### GitHub authentication for editing
-Both the editor and inventory apps use a **GitHub Personal Access Token (PAT)** stored in `localStorage` (key: `github-token`). Shared between both apps (same origin). Lab members generate a fine-grained PAT scoped to `monroe-lab/lab-handbook` with Contents read/write permission. One-time setup per browser.
+Consequence worth knowing: **a directory containing only `index.md` is unreachable by basename
+wikilink** (e.g. `projects/anchor-tag/index.md`). Link to those with a relative markdown link
+instead. Aliased wikilinks work as `[[target|Alias]]`, but **inside a markdown table the pipe
+must be escaped**: `[[target\|Alias]]`.
 
-### Inventory links in protocols
-Markdown files can contain links like `[🧪 MS Basal Salt Mixture](inventory://1)` where `1` is the item ID from `inventory.json`. On rendered wiki pages, `inventory-links.js` converts these into styled teal pills. Clicking them shows a popup with quantity, location, notes, SDS search link, and link to the inventory app. The editor app has an "Insert Inventory Item" toolbar button that generates these links.
+### Editing content
+Lab members edit in-browser via the editor modal (`app/js/editor-modal.js`), which commits
+through the GitHub Contents API using their PAT. Grey edits files directly in Obsidian and
+pushes. Both paths land in the same repo and trigger the same deploy.
 
 ## Obsidian Vault Integration
 
@@ -121,10 +122,12 @@ This repo is cloned into Grey's Obsidian vault at `Obsidian_ProfessorHQ/lab/`. T
 - `git pull` to get lab members' web edits
 
 **Lab members' workflow:**
-- Edit via the editor app at `/editor/` or the inventory app at `/inventory-app/`
+- Edit via the in-browser editor modal or the inventory view in `app/`
 - Changes commit directly to the repo and auto-deploy
 
-Wikilinks like `[[seed-sterilization]]` resolve by filename in Obsidian regardless of directory depth.
+Wikilinks like `[[seed-sterilization]]` resolve by filename in Obsidian regardless of directory
+depth, and the site's basename-stem fallback matches that behavior — which is why the two stay
+compatible. The exception is the `index.md`-only directory case noted above.
 
 ## Collaborators
 
@@ -133,27 +136,33 @@ greymonroe, AlicePierce, mariele-lensink, Satoyo08, KehanZhao, ChaeheeLee, matth
 
 ## Known Issues / TODO
 
-- **Editor and inventory app have inconsistent UI** — built in separate passes, need a design consistency pass (header style, token indicator, button styles)
-- **Editor toolbar icons** — some Toast UI Editor icons may not render on all browsers due to CSS sprite handling
-- **Inventory link insertion in editor** — uses a mode-switch hack (markdown → wysiwyg) that may lose cursor position
-- **No offline/local preview** — `mkdocs serve` requires Python + deps installed locally
-- **Wikilink warnings during build** — links to vault-only files (people cards, action cards) produce warnings. These are harmless — those files don't exist in the repo.
-- **`templates/` directory** — original sbatch scripts and env files from the old repo structure. The MkDocs nav points to flattened copies in `docs/workflow-templates/`. The root `templates/` dir is kept for backward compatibility but could be cleaned up.
-- **Pages CMS config** — `.pages.yml` and `docs/admin/` are mostly vestigial. The custom editor app replaced Pages CMS. Can be removed.
+- **Dead wikilinks accumulate when pages are deleted.** Deleting a page does not clean up links
+  to it, and the cleanup that removed the Flongle pages left empty link slots
+  (`[[a]], , [[b]]`) and a dangling clause mid-sentence in `ot2-hmw-shearing` and
+  `pacbio-hifi-sequencing` — fixed 2026-08-19, but the class of bug will recur. After deleting
+  a page, grep for its slug across `docs/` **and** `people/*.md` frontmatter `favorites:` lists.
+- **`site/` at the repo root** — gitignored leftover MkDocs build output. Harmless, but it will
+  confuse a grep. Could be deleted.
+- **No local preview story** — the app fetches `docs/` over HTTP relative to `BASE`, so opening
+  `app/index.html` from `file://` does not work. Serve the repo root over HTTP if you need one.
+
+## Checking for dead links
+
+```bash
+grep -roh '\[\[[^]]*\]\]' docs --include='*.md' \
+  | sed 's/\[\[//; s/\]\]//; s/\\|.*//; s/|.*//' | sort -u > /tmp/links.txt
+find docs -name '*.md' -not -name '_*' | xargs -n1 basename | sed 's/\.md$//' | sort -u > /tmp/cards.txt
+comm -23 /tmp/links.txt /tmp/cards.txt
+```
+
+Note for zsh: it does **not** word-split unquoted variables, so a `$FILES` variable holding
+space-separated paths is passed as one argument. Use `${=FILES}` or list the files literally.
 
 ## Changing the Password
 
 1. Generate a new hash: `echo -n "newpassword" | shasum -a 256`
-2. Replace the hash in `overrides/main.html` (the `EXPECTED_HASH` variable)
-3. Commit and push — site rebuilds automatically
-
-## Local Development
-
-```bash
-pip install -r requirements.txt
-mkdocs serve
-# Site at http://localhost:8000/lab-handbook/
-```
+2. Replace `PW_HASH` in `app/js/shared.js`
+3. Commit and push — the site redeploys automatically
 
 ## LabBot — Automated Testing
 
@@ -202,6 +211,6 @@ cat tests/fix-progress.json         # see progress
 ## Key Design Decisions
 
 - **GitHub PAT over OAuth** — OAuth requires a proxy server. PATs are simpler (one-time paste) and work directly with the GitHub API. The tradeoff is each lab member generates their own token.
-- **Standalone HTML apps over MkDocs plugins** — The editor and inventory apps are plain HTML files, not processed by MkDocs. This keeps them self-contained and avoids MkDocs build complexity.
-- **`inventory.json` as data store** — Inventory data lives as a JSON file in the repo. This means it's version-controlled, visible in the vault, and editable by Grey Matter agents. No external database.
+- **Dropped MkDocs for a custom JS app** — the site now renders markdown client-side from `app/`. This removed the nav file, the theme override, and the Python build dependency; the cost is that rendering behavior lives in `app/js/` rather than a documented plugin.
+- **Markdown files as the data store** — inventory, people, locations, and samples are all `.md` files with YAML frontmatter under `docs/`, not a database or a JSON blob. Version-controlled, visible in the Obsidian vault, readable by Grey Matter agents, and diffable. The JSON files (`object-index.json`, `link-index.json`, `user-stats.json`) are **derived artifacts** — regenerate them, never hand-edit.
 - **Password gate is client-side only** — Not real security. The repo is private and Pages is served privately, but the password gate is an additional (cosmetic) barrier. If real security is needed, use Cloudflare Access.
