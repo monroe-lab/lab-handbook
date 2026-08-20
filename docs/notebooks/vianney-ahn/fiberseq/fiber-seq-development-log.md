@@ -12,7 +12,7 @@ date: 2026-03-06
 > entries, reaction setup tables, gel readouts, and options that were tried and
 > rejected. Do not run a bench experiment from this page.
 >
-> For runnable protocols start at [[fiber-seq-master-protocol]].
+> For runnable protocols start at [[1-fiber-seq-master-protocol]].
 >
 > **Provenance and known gaps.** This page was transcribed from the Google Doc
 > *Fiber-Seq Experiments - Initial Tests* around April 2026, and captures only that
