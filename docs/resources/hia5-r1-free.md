@@ -1,13 +1,12 @@
 ---
-type: enzyme
+type: "enzyme"
 title: "Hia5, free (GenScript round 1)"
-status: needs_more
-vendor: GenScript
-catalog_number: U9375BAEG0-7
-lot: U9375BAEG0-7/P19KL001
-location: ""
+status: "ordered"
+vendor: "GenScript"
+catalog_number: "U9375BAEG0-7"
+lot: "U9375BAEG0-7/P19KL001"
 concentration: "<0.01 mg/mL"
-acquired: 2026-01-06
+acquired: "2026-01-06"
 ---
 
 # Hia5, free (GenScript round 1)
