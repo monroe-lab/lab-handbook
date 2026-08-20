@@ -9,7 +9,7 @@ catalog_number: B6004
 # rCutSmart Buffer
 
 NEB's universal 10X restriction digest buffer, supplied with (and used for) [[dpni]] in
-[[dpni-methylation-check]]. B6004S is 5 mL of the 10X stock.
+[[4-dpni-methylation-check]]. B6004S is 5 mL of the 10X stock.
 
 > ℹ️ **Composition (1X)**
 >
@@ -29,4 +29,4 @@ NEB's universal 10X restriction digest buffer, supplied with (and used for) [[dp
 ## See also
 
 - [[dpni]]
-- [[dpni-methylation-check]]
+- [[4-dpni-methylation-check]]
