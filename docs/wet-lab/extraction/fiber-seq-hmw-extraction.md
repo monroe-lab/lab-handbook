@@ -14,7 +14,7 @@ with the fragment length and purity a PacBio HiFi run needs. This is a different
 ordinary plant HMW extraction: the input is a nuclei lysate that already contains 1% SDS, and
 the DNA has to stay long.
 
-**When to run it.** Immediately after [[fiber-seq-hia5-labeling]], straight from the stopped
+**When to run it.** Immediately after [[3-hia5-m6a-labeling-reaction-for-fiber-seq]], straight from the stopped
 reaction. **Do not freeze before extracting** — the only freezing recorded in the dev log is the
 03.18.2026 samples, held at -20 °C *after* extraction.
 
@@ -285,14 +285,14 @@ them here.
 
 **Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]]
 
-**Related Protocols:** [[fiber-seq-hia5-labeling]], [[fiber-seq-master-protocol]], [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[spri-beads-preparation]], [[ot2-hmw-shearing]]
+**Related Protocols:** [[3-hia5-m6a-labeling-reaction-for-fiber-seq]], [[fiber-seq-master-protocol]], [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[spri-beads-preparation]], [[ot2-hmw-shearing]]
 
 **Contacts:** [[grey-monroe]]
 
 **See also**
 
 - [[fiber-seq-master-protocol]] — the hub
-- [[fiber-seq-hia5-labeling]] — the step immediately before this one
+- [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] — the step immediately before this one
 - [[dpni-methylation-check]] — the go/no-go check on the extracted DNA
 - [[ot2-hmw-shearing]] — the shear-or-skip decision that follows
 - [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]] — the lab's non-Fiber-seq HMW routes
