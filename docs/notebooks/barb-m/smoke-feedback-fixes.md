@@ -1,10 +1,9 @@
 ---
-type: notebook
-title: Smoke Feedback Fixes
+type: "notebook"
+title: "Smoke Renamed Title"
 ---
 
-# Smoke Feedback Fixes
-
+# Smoke Renamed Title
 first paragraph
 
 last paragraph
