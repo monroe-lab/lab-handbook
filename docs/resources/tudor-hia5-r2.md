@@ -88,7 +88,7 @@ contradict it — if you change a status, change it there first.
 existence is Vianney's 2026-08-06 Slack message, which is hedged and carries no data.
 
 The obvious first experiment is a DpnI methylation check against EpiCypher CUTANA Hia5 as the
-known-good control — see [[hia5-enzyme-activity-test]].
+known-good control — see [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]].
 
 ## Sequence
 
@@ -161,7 +161,7 @@ which confirms the record describes the protein that actually shipped.
 
 ## See also
 
-- [[hia5-enzyme-activity-test]] — the DpnI activity assay this construct still needs
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the DpnI activity assay this construct still needs
 - [[dpni-methylation-check]] — the gel readout
 - [[tudor-hia5-r1]] — the round-1 version that failed to express
 - [[hia5-protein-stocks]] — combined stock reference for both GenScript orders
