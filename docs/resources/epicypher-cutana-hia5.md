@@ -14,7 +14,7 @@ Fiber-seq. This is the lab's **working reference enzyme** — the one used when 
 fusion constructs, whose whole
 point is to add targeting on top of this activity.
 
-Used by [[fiber-seq-hia5-labeling]] and, as the known-good control, by
+Used by [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] and, as the known-good control, by
 [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]].
 
 > ℹ️ **Product facts**
@@ -44,7 +44,7 @@ Used by [[fiber-seq-hia5-labeling]] and, as the known-good control, by
 ## See also
 
 - [[fiber-seq-master-protocol]] — the hub protocol
-- [[fiber-seq-hia5-labeling]] — where it is used
+- [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] — where it is used
 - [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the in vitro activity check
 - [[dpni-methylation-check]] — the gel readout
 - [[hia5-protein-stocks]] — the in-house constructs this enzyme is the control for
