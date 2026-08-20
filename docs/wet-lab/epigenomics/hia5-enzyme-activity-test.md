@@ -190,8 +190,10 @@ round-2 evidence sharpened 2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet.
 (*Fiber-Seq Experiments* tab, entries 03.06 / 03.16 / 03.25 / 03.30.2026) and the
 *AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Stock concentrations, purities and the
 footnotes explaining how the sub-floor values were derived come from the Google Sheet
-*AnchorTag/RUN_NEW*, tabs `Jan2026`, `June2026` and `AnchorTag` — on [[vianney-ahn|Vianney]]'s
-UC Davis Drive, ownership not yet transferred. Method adapted from the protocols.io
+*AnchorTag/RUN_NEW*, tabs `Jan2026`, `June2026` and `AnchorTag` — read the **lab-owned copy**
+in `Monroe Lab / Order/Inventory/Space / Protein Stocks`
+([open](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit)),
+snapshotted and verified against the original on 2026-08-20. Method adapted from the protocols.io
 procedure for testing nanobody-Hia5 fusions (`g3iibykcf`).
 
 ### Open questions

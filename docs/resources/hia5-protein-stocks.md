@@ -201,8 +201,12 @@ GenScript order reports, COAs, expression report and nuclease test for orders U9
 (round 1) and U4194NJYG0 (round 2), plus correspondence with Sophie Yang, Annie Fan and
 Claire Fan. Bench-recorded concentrations, the round-2 working-up and the footnotes on how
 the sub-floor values were computed come from the Google Sheet *AnchorTag/RUN_NEW*, tabs
-`Jan2026` and `June2026` — currently on [[vianney-ahn|Vianney]]'s UC Davis Drive, **ownership
-not yet transferred to the lab.**
+`Jan2026` and `June2026`. Cite the **lab-owned copy**, `AnchorTag_RUN_NEW (lab copy of
+Vianney's, 2026-08-20)`, in `Monroe Lab / Order/Inventory/Space / Protein Stocks`:
+[open](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit).
+Every figure on this page was verified identical between the original and the copy on
+2026-08-20. The original is on [[vianney-ahn|Vianney]]'s UC Davis account and still active —
+**the copy is a snapshot, not a mirror.**
 
 Updated 2026-08-20 with the round-2 bench table and the derivation of the round-1 sub-floor
 concentrations.

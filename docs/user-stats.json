@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-20T10:27:17.550785+00:00",
-  "total_commits": 4590,
+  "generated_at": "2026-08-20T10:36:48.820671+00:00",
+  "total_commits": 4591,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4241,
+      "total_commits": 4242,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-20",
       "protocols_authored": 196,
       "notebooks_authored": 156,
-      "inventory_edits": 2246,
-      "wiki_edits": 5043,
+      "inventory_edits": 2247,
+      "wiki_edits": 5046,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "fc12c3c",
-          "subject": "Fix deploy-failure emails and silent notebook wipe",
-          "date": "2026-07-06"
-        },
         {
           "sha": "b0e8a75",
           "subject": "Add local draft autosave for notebook editor (issue #181)",
@@ -61,6 +56,11 @@
         {
           "sha": "90ef08e",
           "subject": "Fiber-seq protocols: put intro and procedure above the fold",
+          "date": "2026-08-20"
+        },
+        {
+          "sha": "907ad2a",
+          "subject": "Fold AnchorTag/RUN_NEW spreadsheet evidence into Fiber-seq pages",
           "date": "2026-08-20"
         }
       ],

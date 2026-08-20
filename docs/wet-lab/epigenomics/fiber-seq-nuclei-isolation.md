@@ -250,8 +250,10 @@ in the whole Fiber-seq chain.
 
 **Source.** Lab protocol from the *Fiber-Seq Experiments - Initial Tests* Google Doc,
 *Protocol* tab, adapted from [PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122).
-CellDrop counts come from the Google Sheet *AnchorTag/RUN_NEW*, `NUCLEI` tab — on
-[[vianney-ahn|Vianney]]'s UC Davis Drive, ownership not yet transferred.
+CellDrop counts come from the Google Sheet *AnchorTag/RUN_NEW*, `NUCLEI` tab — read the
+**lab-owned copy** in `Monroe Lab / Order/Inventory/Space / Protein Stocks`
+([open](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit)),
+snapshotted and verified against the original on 2026-08-20.
 Background on why each step exists is in [[fiber-seq-master-protocol]].
 
 **Input range provenance.** 500 mg to 3 g of tissue; both fresh and -80 °C frozen Col-0

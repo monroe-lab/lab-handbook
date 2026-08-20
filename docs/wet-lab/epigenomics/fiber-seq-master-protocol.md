@@ -244,8 +244,10 @@ verdict table revised 2026-08-20 after a primary-source recheck of the round-2 c
 **Source.** Lab development record — [[fiber-seq-development-log]] and the source Google
 Doc *Fiber-Seq Experiments - Initial Tests* (2026), *Protocol* tab. Round-2 inventory and the
 June 2026 experiment log come from the Google Sheet *AnchorTag/RUN_NEW*
-(tabs `June2026`, `Jan2026`, `AnchorTag`, `NUCLEI`), which is on
-[[vianney-ahn|Vianney]]'s UC Davis Drive.
+(tabs `June2026`, `Jan2026`, `AnchorTag`, `NUCLEI`). Read the **lab-owned copy** in
+`Monroe Lab / Order/Inventory/Space / Protein Stocks`:
+[AnchorTag_RUN_NEW (lab copy of Vianney's, 2026-08-20)](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit).
+All five tabs and every cited range were verified identical to the original on 2026-08-20.
 Published plant methods: [PNAS 2025 plant Fiber-seq](https://www.pnas.org/doi/10.1073/pnas.2516708122)
 and the [Nature Plants maize TE paper, May 2025](https://www.nature.com/articles/s41477-025-02002-z).
 Commercial reference: Epicypher CUTANA Fiber-seq product documentation.
@@ -294,10 +296,15 @@ What the record actually says about the Hia5 constructs, and what it does not:
   on [Anchor Tag](../../projects/anchor-tag/index.md) that round 2 is unscored and why. Per
   Vianney (Slack, 2026-08-11) the round-2 tubes are dated — June/July dates are the newer
   batch.]`
-- `[VERIFY: the AnchorTag/RUN_NEW spreadsheet this page now cites is owned by Vianney's UC
-  Davis account, not the lab's. Ownership has not been transferred. If that account is
-  deprovisioned at offboarding, the round-2 inventory and the entire June 2026 experiment log
-  go with it. Transfer ownership.]`
+- `[VERIFY: a lab-owned copy of AnchorTag/RUN_NEW was made 2026-08-20, so the data survives
+  Vianney's offboarding — but the ORIGINAL is still his and still being edited (last modified
+  2026-08-20). The copy is a snapshot and will drift. Either transfer ownership of the original
+  and delete the copy, or agree that the copy is now the lab's record of it. Do not leave two
+  live versions.]`
+- `[VERIFY: the same offboarding exposure applies to the four GenScript protein COA PDFs in
+  Monroe Lab / Order/Inventory/Space / Protein Stocks — all four are owned by vahn@ucdavis.edu.
+  These have NOT been copied. Sweep that folder, and Vianney's other lab folders (FiberSeq,
+  CUT/Anchor&Tag, Lab Management Guides), for anything else owned by his account.]`
 - `[VERIFY: plants are assumed to have negligible endogenous 6mA background, which is what
   makes the m6A signal interpretable. Checking this against the lab's existing Arabidopsis
   HiFi data was flagged as a to-do in the development log and has never been done. Do it
