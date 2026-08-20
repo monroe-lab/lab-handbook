@@ -930,7 +930,7 @@
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
     "status": "needs_more",
-    "mtime": 1787226118
+    "mtime": 1787226846
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -4709,19 +4709,19 @@
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
     "title": "Fiber-seq Master Protocol",
-    "mtime": 1787226118
+    "mtime": 1787226846
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
     "type": "protocol",
     "title": "Plant Nuclei Isolation for Fiber-seq",
-    "mtime": 1787222215
+    "mtime": 1787226846
   },
   {
     "path": "wet-lab/epigenomics/hia5-enzyme-activity-test.md",
     "type": "protocol",
     "title": "Hia5 Enzyme Activity Test (in vitro)",
-    "mtime": 1787222215
+    "mtime": 1787226846
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",

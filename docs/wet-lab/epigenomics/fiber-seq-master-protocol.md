@@ -14,6 +14,17 @@ nucleosome positioning at single-molecule, near-nucleotide resolution. Intact nu
 with [[epicypher-cutana-hia5|Hia5]], a non-sequence-specific m6A methyltransferase (MTase), and
 the resulting methylation pattern is read directly off PacBio HiFi reads.
 
+![Fiber-seq overview: an m6A methyltransferase marks accessible adenines around nucleosomes and a bound transcription factor, long gDNA fragments are isolated, and PacBio CCS reads out the m6A pattern as chromatin architecture](../../images/fiber-seq-overview-schematic.png)
+
+*The logic behind every step below. Accessible adenines get marked in intact nuclei (step 2),
+long fragments are isolated (steps 3 and 5), and CCS with m6A calling turns the methylation
+pattern into a footprint map (step 7). The methylated bases are the accessible ones — protein
+footprints are the **gaps**. Note the 15 kb in the middle panel is the schematic's number, not
+a lab target; see step 5 for what the lab actually aims at.*
+
+> `[VERIFY: figure source and attribution. Added by Grey 2026-08-20; the publication or talk it
+> came from is not recorded. Credit it before this page is shared outside the lab.]`
+
 **When to use this page.** This is the hub — a decision map, not a bench procedure. Read it
 first, then work through the linked step pages in order. Each of those pages is the thing you
 actually run at the bench.
