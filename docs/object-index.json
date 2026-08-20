@@ -4776,7 +4776,7 @@
     "path": "wet-lab/epigenomics/chip-seq.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol",
-    "mtime": 1787106536
+    "mtime": 1787256724
   },
   {
     "path": "wet-lab/fiber-seq/1-1-sometimes-hia5-enzyme-activity-test-in-vitro.md",
@@ -19039,6 +19039,14 @@
     "end_time": "11:00",
     "member": "all",
     "mtime": 1775992501
+  },
+  {
+    "path": "tasks/welcome-to-the-task-board.md",
+    "type": "task",
+    "title": "Welcome to the task board \u2014 drag me to Done",
+    "status": "todo",
+    "created_at": "2026-08-20T00:00:00+00:00",
+    "created_by": "greymonroe"
   },
   {
     "path": "plant-harvesting/flammable-solids-sop.md",

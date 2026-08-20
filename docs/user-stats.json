@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-20T12:45:42.364924+00:00",
-  "total_commits": 4618,
+  "generated_at": "2026-08-20T23:54:49.901339+00:00",
+  "total_commits": 4676,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4269,
+      "total_commits": 4327,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-20",
-      "protocols_authored": 196,
-      "notebooks_authored": 158,
-      "inventory_edits": 2320,
-      "wiki_edits": 5061,
+      "protocols_authored": 201,
+      "notebooks_authored": 159,
+      "inventory_edits": 2343,
+      "wiki_edits": 5072,
       "images_uploaded": 147,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -24,43 +24,43 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "a6bfa3b",
-          "subject": "smoke test cleanup",
+          "sha": "7c64135",
+          "subject": "Rename: DpnI Methylation Check \u2192 (4) DpnI Methylation Check",
           "date": "2026-08-20"
         },
         {
-          "sha": "32dd7fa",
-          "subject": "STATUS.md: R22 (full-text search) + R23 (feedback fixes) rows, backlog triage summary; add feedback-fixes smoke test",
+          "sha": "5024f89",
+          "subject": "Renamed dpni-methylation-check to 4-dpni-methylation-check",
           "date": "2026-08-20"
         },
         {
-          "sha": "1881e07",
-          "subject": "Unflag all 59 needs_more inventory items to in_stock (#189)",
+          "sha": "61c90b1",
+          "subject": "Update wikilinks: dpni-methylation-check \u2192 4-dpni-methylation-check",
           "date": "2026-08-20"
         },
         {
-          "sha": "7ef60fc",
-          "subject": "Fiber-seq hub: correct the two-day timing, note MinION as a possible readout",
+          "sha": "2f6cf19",
+          "subject": "Update wikilinks: dpni-methylation-check \u2192 4-dpni-methylation-check",
           "date": "2026-08-20"
         },
         {
-          "sha": "a91fc1b",
-          "subject": "color span test",
+          "sha": "abe2c57",
+          "subject": "Update wet-lab/fiber-seq/1-fiber-seq-master-protocol",
           "date": "2026-08-20"
         },
         {
-          "sha": "0f2023a",
-          "subject": "Update notebook notebooks/barb-m/smoke-color-span",
+          "sha": "f4dfb2b",
+          "subject": "Update wet-lab/fiber-seq/1-fiber-seq-master-protocol",
           "date": "2026-08-20"
         },
         {
-          "sha": "640708d",
-          "subject": "cleanup",
+          "sha": "8035638",
+          "subject": "Refactor PacBio HiFi protocol: generic library-prep/submission protocol, Col-0 run history moved to project card",
           "date": "2026-08-20"
         },
         {
-          "sha": "b188f0c",
-          "subject": "Add per-construct inventory cards for all nine Anchor Tag enzymes",
+          "sha": "c657f9a",
+          "subject": "Delete chip-seq-copy: unfinished duplicate; fold its fume-hood warning into chip-seq",
           "date": "2026-08-20"
         }
       ],

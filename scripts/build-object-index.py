@@ -43,6 +43,7 @@ OBJECT_DIRS = [
     "accessions",
     "locations",
     "events",
+    "tasks",
     "plant-harvesting",
     "shipping",
 ]
@@ -76,6 +77,8 @@ EXTRACT_KEYS = [
     "of", "lot", "expiration", "acquired", "level",
     # Calendar event fields (R17 migration from schedule.json to markdown)
     "date", "start_time", "end_time", "member",
+    # Kanban board task fields (app/board.html)
+    "due",
     # Recurrence grouping for events created as a series (issue #104). All
     # occurrences share the same recurrence_id so the editor can offer a
     # "delete entire series" option.

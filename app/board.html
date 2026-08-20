@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board - Monroe Lab</title>
+<link rel="stylesheet" href="css/base.css">
+<style>
+.board-page { padding: 0; display: flex; flex-direction: column; min-height: calc(100vh - 60px); }
+
+.board-header {
+  background: #fff;
+  padding: 20px 28px 16px;
+  border-bottom: 1px solid var(--grey-200);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.board-header h1 {
+  margin: 0;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #c2185b;
+}
+.board-header h1 .material-icons-outlined { font-size: 26px; }
+.board-header .board-sub { color: var(--grey-600); font-size: 13px; margin: 0; flex-basis: 100%; }
+#boardFilter {
+  margin-left: auto;
+  padding: 8px 12px;
+  border: 1px solid var(--grey-300);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  width: 220px;
+}
+
+.board-cols {
+  display: flex;
+  gap: 16px;
+  padding: 20px 28px 40px;
+  align-items: flex-start;
+  overflow-x: auto;
+  flex: 1;
+}
+.board-col {
+  background: var(--grey-100);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  min-width: 270px;
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 180px);
+}
+.board-col-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--grey-800);
+}
+.board-col-head .col-dot { width: 10px; height: 10px; border-radius: 50%; }
+.board-col-head .col-count {
+  margin-left: auto;
+  background: var(--grey-200);
+  color: var(--grey-700);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 8px;
+}
+.board-quickadd { padding: 0 10px 8px; }
+.board-quickadd input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px dashed var(--grey-400);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #fff;
+}
+.board-quickadd input:focus { outline: none; border-color: #c2185b; border-style: solid; }
+.board-cards {
+  padding: 4px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  min-height: 60px;
+  flex: 1;
+}
+.board-col.drag-over { background: #fce4ec; border-color: #c2185b; }
+
+.task-card {
+  background: #fff;
+  border: 1px solid var(--grey-200);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: grab;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 0.12s;
+}
+.task-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.task-card:active { cursor: grabbing; }
+.task-card.dragging { opacity: 0.4; }
+.task-card .tc-title { font-size: 14px; font-weight: 600; color: var(--grey-900); line-height: 1.35; }
+.task-card.done .tc-title { text-decoration: line-through; color: var(--grey-500); }
+.task-card .tc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+  font-size: 12px;
+  align-items: center;
+}
+.task-card .tc-meta:empty { margin-top: 0; }
+.tc-chip {
+  background: var(--grey-100);
+  color: var(--grey-700);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tc-chip.person { background: #e3f2fd; color: #1565c0; }
+.tc-chip.project { background: #fff3e0; color: #e65100; }
+.tc-chip.due { background: var(--grey-100); color: var(--grey-700); }
+.tc-chip.due.overdue { background: #ffebee; color: #c62828; font-weight: 700; }
+.board-empty { color: var(--grey-500); font-size: 13px; text-align: center; padding: 10px 0; }
+
+@media (max-width: 768px) {
+  .board-cols { padding: 12px 12px 90px; }
+  .board-header { padding: 14px 16px 12px; }
+  #boardFilter { width: 100%; margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="board-page">
+  <div class="board-header">
+    <h1><span class="material-icons-outlined">view_kanban</span> Task Board</h1>
+    <input type="text" id="boardFilter" placeholder="Filter by title, person, project…" autocomplete="off">
+    <p class="board-sub">Drag cards between columns to update status. Type in a column's box and hit Enter to add a task. Click a card to open or edit it.</p>
+  </div>
+  <div class="board-cols" id="boardCols">
+    <div class="board-empty" style="padding:30px">Loading board…</div>
+  </div>
+</div>
+
+<script src="js/lab.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  var esc = null; // bound after Lab loads
+  var COLUMNS = [
+    { key: 'todo',        label: 'To do',       color: '#90a4ae' },
+    { key: 'in_progress', label: 'In progress', color: '#1e88e5' },
+    { key: 'done',        label: 'Done',        color: '#43a047' },
+  ];
+  var tasks = [];       // [{path, title, status, people, project, due, created_at}]
+  var filterQ = '';
+  var saving = {};      // path → true while a status write is in flight
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function stripLinks(s) {
+    return String(s || '').replace(/\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g, '$1');
+  }
+
+  async function loadTasks() {
+    var index = await Lab.gh.fetchObjectIndex();
+    tasks = index.filter(function(e) { return e.type === 'task'; });
+  }
+
+  function matchesFilter(t) {
+    if (!filterQ) return true;
+    var hay = (t.title + ' ' + stripLinks(t.people) + ' ' + (t.project || '')).toLowerCase();
+    return hay.indexOf(filterQ) >= 0;
+  }
+
+  function sortTasks(list) {
+    // Due-dated tasks first (soonest at top), then the rest newest-created first.
+    return list.slice().sort(function(a, b) {
+      if (a.due && b.due) return a.due < b.due ? -1 : 1;
+      if (a.due) return -1;
+      if (b.due) return 1;
+      var ca = a.created_at || '', cb = b.created_at || '';
+      return ca > cb ? -1 : 1;
+    });
+  }
+
+  function cardHtml(t) {
+    var html = '<div class="task-card' + (t.status === 'done' ? ' done' : '') + '" draggable="true" data-path="' + esc(t.path) + '">';
+    html += '<div class="tc-title">' + esc(t.title || t.path) + '</div>';
+    var chips = '';
+    stripLinks(t.people).split(',').map(function(p) { return p.trim(); }).filter(Boolean).forEach(function(p) {
+      chips += '<span class="tc-chip person">' + esc(p) + '</span>';
+    });
+    if (t.project) chips += '<span class="tc-chip project">' + esc(t.project) + '</span>';
+    if (t.due) {
+      var overdue = t.status !== 'done' && t.due < todayStr();
+      chips += '<span class="tc-chip due' + (overdue ? ' overdue' : '') + '">' +
+        '<span class="material-icons-outlined" style="font-size:12px;vertical-align:-2px">event</span> ' + esc(t.due) + '</span>';
+    }
+    html += '<div class="tc-meta">' + chips + '</div></div>';
+    return html;
+  }
+
+  function render() {
+    var mount = document.getElementById('boardCols');
+    var html = '';
+    COLUMNS.forEach(function(col) {
+      var colTasks = sortTasks(tasks.filter(function(t) { return (t.status || 'todo') === col.key && matchesFilter(t); }));
+      html += '<div class="board-col" data-status="' + col.key + '">';
+      html += '<div class="board-col-head"><span class="col-dot" style="background:' + col.color + '"></span>' +
+        esc(col.label) + '<span class="col-count">' + colTasks.length + '</span></div>';
+      html += '<div class="board-quickadd"><input type="text" placeholder="+ Add a task, press Enter" data-status="' + col.key + '"></div>';
+      html += '<div class="board-cards" data-status="' + col.key + '">';
+      if (!colTasks.length) html += '<div class="board-empty">No tasks</div>';
+      colTasks.forEach(function(t) { html += cardHtml(t); });
+      html += '</div></div>';
+    });
+    mount.innerHTML = html;
+    wire(mount);
+  }
+
+  function wire(mount) {
+    // Drag sources
+    mount.querySelectorAll('.task-card').forEach(function(card) {
+      card.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', card.dataset.path);
+        e.dataTransfer.effectAllowed = 'move';
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', function() { card.classList.remove('dragging'); });
+      card.addEventListener('click', function() {
+        if (window.Lab.editorModal) Lab.editorModal.open('docs/' + card.dataset.path);
+      });
+    });
+    // Drop targets — the whole column accepts drops
+    mount.querySelectorAll('.board-col').forEach(function(col) {
+      col.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        col.classList.add('drag-over');
+      });
+      col.addEventListener('dragleave', function(e) {
+        if (!col.contains(e.relatedTarget)) col.classList.remove('drag-over');
+      });
+      col.addEventListener('drop', function(e) {
+        e.preventDefault();
+        col.classList.remove('drag-over');
+        var path = e.dataTransfer.getData('text/plain');
+        if (path) moveTask(path, col.dataset.status);
+      });
+    });
+    // Quick-add inputs
+    mount.querySelectorAll('.board-quickadd input').forEach(function(input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        var title = input.value.trim();
+        if (!title) return;
+        input.value = '';
+        createTask(title, input.dataset.status);
+      });
+    });
+  }
+
+  // ── Status change (drag-and-drop) ──
+  async function moveTask(relPath, newStatus) {
+    var t = tasks.find(function(x) { return x.path === relPath; });
+    if (!t || t.status === newStatus || saving[relPath]) return;
+    var oldStatus = t.status;
+    t.status = newStatus;         // optimistic
+    render();
+    saving[relPath] = true;
+    var fullPath = 'docs/' + relPath;
+    try {
+      var file = await Lab.gh.fetchFile(fullPath);
+      var text = file.content;
+      var fmMatch = text.match(/^---\s*\n([\s\S]*?)\n---/);
+      if (!fmMatch) throw new Error('No frontmatter in ' + relPath);
+      var fm = fmMatch[1];
+      if (/^status:\s*.*$/m.test(fm)) {
+        fm = fm.replace(/^status:\s*.*$/m, 'status: ' + newStatus);
+      } else {
+        fm = fm + '\nstatus: ' + newStatus;
+      }
+      var newText = '---\n' + fm + '\n---' + text.slice(fmMatch[0].length);
+      await Lab.gh.saveFile(fullPath, newText, file.sha, 'board: ' + relPath.split('/').pop() + ' → ' + newStatus);
+      var parsed = Lab.parseFrontmatter(newText);
+      if (parsed && parsed.meta) Lab.gh.patchObjectIndex(fullPath, parsed.meta);
+      if (window.Lab.showToast) Lab.showToast('Moved to ' + newStatus.replace('_', ' '), 'success');
+    } catch (err) {
+      t.status = oldStatus;       // revert
+      render();
+      if (window.Lab.showToast) Lab.showToast('Move failed: ' + err.message, 'error');
+      console.error('moveTask failed:', err);
+    } finally {
+      delete saving[relPath];
+    }
+  }
+
+  // ── Quick-add ──
+  async function createTask(title, status) {
+    var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'task';
+    if (tasks.some(function(t) { return t.path === 'tasks/' + slug; })) {
+      slug += '-' + Date.now().toString(36);
+    }
+    var relPath = 'tasks/' + slug;
+    var user = Lab.gh.getUser();
+    var fm = '---\n' +
+      'type: task\n' +
+      'title: ' + JSON.stringify(title) + '\n' +
+      'status: ' + status + '\n' +
+      'created_at: ' + new Date().toISOString() + '\n' +
+      (user && user.login ? 'created_by: ' + user.login + '\n' : '') +
+      '---\n';
+    var entry = { path: relPath, type: 'task', title: title, status: status, created_at: new Date().toISOString() };
+    tasks.push(entry);            // optimistic
+    render();
+    try {
+      await Lab.gh.saveFile('docs/' + relPath + '.md', fm, null, 'board: add task "' + title + '"');
+      Lab.gh.patchObjectIndex('docs/' + relPath + '.md', { type: 'task', title: title, status: status, created_at: entry.created_at });
+      if (window.Lab.showToast) Lab.showToast('Task added', 'success');
+    } catch (err) {
+      tasks = tasks.filter(function(t) { return t !== entry; });
+      render();
+      if (window.Lab.showToast) Lab.showToast('Add failed: ' + err.message, 'error');
+      console.error('createTask failed:', err);
+    }
+  }
+
+  // ── Boot ──
+  function boot() {
+    esc = Lab.escHtml;
+    document.getElementById('boardFilter').addEventListener('input', function(e) {
+      filterQ = (e.target.value || '').toLowerCase().trim();
+      render();
+    });
+    // Editor saves (edit/delete/create from the modal) patch the shared index;
+    // re-pull it so the board reflects those changes without a page reload.
+    window.addEventListener('lab-file-saved', function() {
+      setTimeout(function() { loadTasks().then(render); }, 150);
+    });
+    loadTasks().then(render).catch(function(err) {
+      document.getElementById('boardCols').innerHTML =
+        '<div class="board-empty" style="padding:30px">Failed to load board: ' + Lab.escHtml(err.message) + '</div>';
+    });
+  }
+
+  if (window.Lab && window.Lab.escHtml) boot();
+  else window.addEventListener('load', boot);
+})();
+</script>
+</body>
+</html>

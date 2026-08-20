@@ -398,6 +398,26 @@
       displayFields: ['of', 'pool_date', 'molarity', 'parent'],
       tableColumns: ['name', 'of', 'pool_date', 'molarity', 'parent'],
     },
+    task: {
+      // Kanban board cards (app/board.html). Lightweight to-do objects that
+      // move between todo / in_progress / done columns by drag-and-drop.
+      color: '#c2185b',
+      icon: 'fa:fa-solid fa-list-check',
+      label: 'Task',
+      group: 'tasks',
+      fields: [
+        { key: 'title',      label: 'Title',      type: 'text',   required: true },
+        { key: 'type',       label: 'Type',       type: 'hidden', value: 'task' },
+        { key: 'status',     label: 'Status',     type: 'select', options: ['todo','in_progress','done'], default: 'todo' },
+        { key: 'people',     label: 'People',     type: 'text',   placeholder: '[[name1]], [[name2]] — wikilinks to person cards' },
+        { key: 'project',    label: 'Project',    type: 'text',   placeholder: 'e.g. PBTS, MA Lines' },
+        { key: 'due',        label: 'Due',        type: 'text',   placeholder: 'YYYY-MM-DD (optional)' },
+        { key: 'created_at', label: 'Created',    type: 'meta_readonly' },
+        { key: 'created_by', label: 'Created by', type: 'meta_readonly' },
+      ],
+      displayFields: ['status', 'people', 'project', 'due', 'created_by'],
+      tableColumns: ['name', 'status', 'people', 'project', 'due'],
+    },
     guide: {
       color: '#0277bd',
       icon: 'fa:fa-solid fa-graduation-cap',
@@ -624,6 +644,14 @@
       dir: 'notebooks',
       defaultType: 'notebook',
     },
+    tasks: {
+      label: 'Tasks',
+      icon: 'view_kanban',
+      color: '#c2185b',
+      types: ['task'],
+      dir: 'tasks',
+      defaultType: 'task',
+    },
   };
 
   // ── Helpers ──
@@ -712,6 +740,8 @@
     // promote them to a concept/instance split like R5 did for reagents,
     // revisit this.)
     if (t.group === 'stocks') return false;
+    // Board tasks recur ("Order tips" every month) — no title uniqueness.
+    if (typeName === 'task') return false;
     return true;
   }
 

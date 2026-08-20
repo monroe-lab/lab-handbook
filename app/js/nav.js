@@ -20,6 +20,7 @@
     { label: 'Inventory',  href: BASE + 'app/inventory.html',  icon: 'science' },
     { label: 'Waste',      href: BASE + 'app/waste.html',      icon: 'delete' },
     { label: 'Projects',   href: BASE + 'app/projects.html',   icon: 'folder_special' },
+    { label: 'Board',      href: BASE + 'app/board.html',      icon: 'view_kanban' },
     { label: 'People',     href: BASE + 'app/people.html',     icon: 'people' },
     { label: 'Calendar',   href: BASE + 'app/calendar.html',   icon: 'calendar_month' },
     { label: 'Lab Map',    href: BASE + 'app/lab-map.html',    icon: 'map' },
@@ -35,6 +36,7 @@
     var path = location.pathname;
     if (path.includes('/dashboard'))      return 'Home';
     if (path.includes('/projects'))       return 'Projects';
+    if (path.includes('/board'))          return 'Board';
     if (path.includes('/accessions') || path.includes('/sample-tracker')) return 'Accessions';
     if (path.includes('/notebook'))       return 'Notebooks';
     if (path.includes('/calendar'))       return 'Calendar';
