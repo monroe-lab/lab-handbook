@@ -1,7 +1,7 @@
 ---
 type: "enzyme"
 title: "Tudor-Hia5 (GenScript round 1)"
-status: "ordered"
+status: "out_of_stock"
 vendor: "GenScript"
 catalog_number: "U9375BAEG0-10"
 lot: "U9375BAEG0-10/P19KL001"
