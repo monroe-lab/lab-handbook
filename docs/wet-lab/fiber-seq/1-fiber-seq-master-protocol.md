@@ -40,7 +40,7 @@ culture have both been run; walnut is listed in the development log but never ru
 
 ## Procedure — the step map
 
-### 1. Isolate nuclei — [[fiber-seq-nuclei-isolation]]
+### 1. Isolate nuclei — [[2-plant-nuclei-isolation-for-fiber-seq]]
 
 Tissue in, counted nuclei out. Grind 500 mg–3 g in liquid nitrogen, lyse 20 min on ice in
 nuclei isolation buffer, filter, and wash twice by centrifugation. **The count is the gate
@@ -176,7 +176,7 @@ Documented incubations only. Hands-on time has never been recorded. The day grou
 
 | Day | Stage | Documented elapsed |
 | --- | --- | --- |
-| **1** | [[fiber-seq-nuclei-isolation]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
+| **1** | [[2-plant-nuclei-isolation-for-fiber-seq]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
 | **1** | [[fiber-seq-hia5-labeling]] | 5 min pellet spin + **10 min reaction** |
 | **2** | [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
 | **2** | QC — [[dpni-methylation-check]] | 1 h digest + ~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\|the in vitro enzyme test]]) |
@@ -197,7 +197,7 @@ least get the reaction into lysis.
 | Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[fiber-seq-hia5-labeling]] |
 | Low 260/230, DNA will not behave downstream | Guanidine carryover from column extraction | [[fiber-seq-hmw-extraction]] |
 | Short fragments on the FemtoPulse trace | Mechanical shearing (tolerable) vs degradation (not) | [[fiber-seq-hmw-extraction]] |
-| Nuclei count implausible against pellet size | CellDrop under-counting, unresolved | [[fiber-seq-nuclei-isolation]] |
+| Nuclei count implausible against pellet size | CellDrop under-counting, unresolved | [[2-plant-nuclei-isolation-for-fiber-seq]] |
 | Sequencing returned no m6A calls at all | Base kinetics not enabled | Step 7 above |
 
 ## Background — why this works
@@ -365,7 +365,7 @@ What the record actually says about the Hia5 constructs, and what it does not:
 
 **Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[fiber-seq-nuclei-isolation]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
+**Related Protocols:** [[2-plant-nuclei-isolation-for-fiber-seq]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
 
 **Contacts:** [[grey-monroe]]
 
