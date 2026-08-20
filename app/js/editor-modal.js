@@ -125,8 +125,24 @@
 
   var TOAST_CSS = 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
   var TOAST_JS = 'https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js';
+  // #187: color-syntax plugin (text color toolbar + <span style="color:..">
+  // round-trip). The plugin needs tui-color-picker loaded first.
+  var COLOR_PICKER_CSS = 'https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css';
+  var COLOR_PICKER_JS = 'https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.js';
+  var COLOR_PLUGIN_CSS = 'https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css';
+  var COLOR_PLUGIN_JS = 'https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js';
   var toastLoaded = false;
   var toastLoadPromise = null;
+
+  // Plugins for every editor instance. Registered even on mobile (where the
+  // toolbar is empty): the plugin extends the document model, so colored
+  // spans in existing content survive a mobile edit instead of being
+  // silently stripped. Returns [] if the plugin script failed to load —
+  // the editor works fine without it, colors just get dropped as before.
+  function editorPlugins() {
+    var p = window.toastui && toastui.Editor && toastui.Editor.plugin;
+    return (p && p.colorSyntax) ? [p.colorSyntax] : [];
+  }
 
   // Field schemas come from the unified type system (types.js)
   function getSchema(type) {
@@ -163,20 +179,36 @@
     if (toastLoaded) return Promise.resolve();
     if (toastLoadPromise) return toastLoadPromise;
 
-    toastLoadPromise = new Promise(function(resolve, reject) {
-      // CSS
+    function addCss(href) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = TOAST_CSS;
+      link.href = href;
       document.head.appendChild(link);
+    }
+    function addScript(src) {
+      return new Promise(function(resolve, reject) {
+        var script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = function() { reject(new Error('Failed to load ' + src)); };
+        document.head.appendChild(script);
+      });
+    }
 
-      // JS
-      var script = document.createElement('script');
-      script.src = TOAST_JS;
-      script.onload = function() { toastLoaded = true; resolve(); };
-      script.onerror = function() { reject(new Error('Failed to load Toast UI Editor')); };
-      document.head.appendChild(script);
-    });
+    toastLoadPromise = (function() {
+      addCss(TOAST_CSS);
+      addCss(COLOR_PICKER_CSS);
+      addCss(COLOR_PLUGIN_CSS);
+      return addScript(TOAST_JS)
+        .then(function() {
+          // #187: color plugin is best-effort — a CDN failure here must not
+          // block the editor itself (color just won't be offered).
+          return addScript(COLOR_PICKER_JS)
+            .then(function() { return addScript(COLOR_PLUGIN_JS); })
+            .catch(function(e) { console.warn('color-syntax plugin unavailable:', e.message); });
+        })
+        .then(function() { toastLoaded = true; });
+    })();
     return toastLoadPromise;
   }
 
@@ -941,6 +973,7 @@
       minHeight: '500px',
       initialValue: '',
       usageStatistics: false,
+      plugins: editorPlugins(),
       toolbarItems: isMobile() ? [] :
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
@@ -2970,6 +3003,7 @@
       minHeight: '500px',
       initialValue: prepared,
       usageStatistics: false,
+      plugins: editorPlugins(),
       toolbarItems: isMobile() ? [] :
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
     });
@@ -5108,6 +5142,7 @@
       height: availableHeight + 'px',
       initialValue: prepared,
       usageStatistics: false,
+      plugins: editorPlugins(),
       toolbarItems: isMobile() ? [] :
         [['heading', 'bold', 'italic', 'strike'], ['hr', 'quote'], ['ul', 'ol', 'task'], ['table', 'link', 'code']],
       events: {
