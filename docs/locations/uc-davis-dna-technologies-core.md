@@ -23,7 +23,7 @@ Website: <https://dnatech.ucdavis.edu/>
 > ⚠️ **Base kinetics is not the default.** A Revio run submitted without base kinetics enabled
 > returns ordinary HiFi reads with no methylation information, which makes a Fiber-seq
 > experiment unrecoverable. Confirm it in writing on the submission. See
-> [[fiber-seq-master-protocol]].
+> [[1-fiber-seq-master-protocol]].
 
 ## Instruments
 
@@ -45,4 +45,4 @@ MiSeq.
 - [[pacbio-hifi-sequencing]] — the lab's submission record
 - [[hmw-size-selection]]
 - [[ot2-hmw-shearing]]
-- [[fiber-seq-master-protocol]]
+- [[1-fiber-seq-master-protocol]]
