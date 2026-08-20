@@ -1,7 +1,7 @@
 ---
 type: "enzyme"
 title: "Hia5, free (GenScript round 1)"
-status: "ordered"
+status: "out_of_stock"
 vendor: "GenScript"
 catalog_number: "U9375BAEG0-7"
 lot: "U9375BAEG0-7/P19KL001"
