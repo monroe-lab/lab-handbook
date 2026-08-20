@@ -19,7 +19,7 @@ does not care where the methylation came from.
 - After [[fiber-seq-hia5-labeling]] — you labeled nuclei, extracted the HMW DNA, and want to
   know whether the labeling worked before spending a Revio cell on it. This is the go/no-go
   gate on real Fiber-seq material.
-- After [[hia5-enzyme-activity-test]] — you ran a purified enzyme prep on naked DNA in vitro
+- After [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — you ran a purified enzyme prep on naked DNA in vitro
   and need a readout for it.
 
 **Time:** 1 h digestion + ~45 min gel run, plus pouring and imaging. Half a day if you are
@@ -87,7 +87,7 @@ ones you added when you record the gel.
 | **Unmethylated input, ±DpnI** (a matched pair of the same DNA that never saw Hia5) | Catches endogenous or contaminating m6A in the source DNA. If this pair digests, your positives mean nothing | First time you use a new DNA source or species. The dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open question |
 | **[[epicypher-cutana-hia5]]-treated positive, +DpnI** | Proves the DpnI, buffer, and gel are all working on a day when everything else came back negative | Any run where a negative result would be a consequential conclusion |
 | **DNA ladder** | Lets you say *how* short the smear is, not just that it exists | Cheap. Include it unless you are tight on wells |
-| **Hia5 titration series** (each ±DpnI) | Turns yes/no into a rough dose-response | Comparing constructs or lots — see [[hia5-enzyme-activity-test]] |
+| **Hia5 titration series** (each ±DpnI) | Turns yes/no into a rough dose-response | Comparing constructs or lots — see [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] |
 | **Timecourse** (each ±DpnI) | Same, over incubation time | The 03.16.2026 run used 5 / 20 / 60 min |
 
 > **If you drop anything, do not drop aliquot A.** A gel of +DpnI lanes alone cannot
@@ -136,10 +136,10 @@ pre-existing methylation and every other lane on the gel is confounded.
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | No digestion in any lane | DpnI never went in, wrong buffer, or dead enzyme | Confirm the digestion buffer is rCutSmart and that DpnI actually went into aliquot B. Run an [[epicypher-cutana-hia5]]-treated positive to exonerate the digestion |
-| No digestion, digestion known good | The upstream Hia5 (MTase) step failed | Go to [[hia5-enzyme-activity-test]] § Troubleshooting — SAM is highly labile and degrades with freeze/thaw, so suspect it before the enzyme |
+| No digestion, digestion known good | The upstream Hia5 (MTase) step failed | Go to [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] § Troubleshooting — SAM is highly labile and degrades with freeze/thaw, so suspect it before the enzyme |
 | No-DpnI aliquot also smeared | Shearing during handling, or degraded input | Wide-bore tips throughout, no vortexing. Re-extract if the stock itself is gone |
 | Unmethylated control digested | Endogenous m6A in the source DNA, or Hia5 carryover between tubes | Check whether the source could already be methylated; use fresh tips and a fresh dilution series |
-| Partial digestion only at the highest Hia5 input | Low Hia5 activity | See [[hia5-enzyme-activity-test]] — increase Hia5, increase incubation, or match on active enzyme rather than total protein mass |
+| Partial digestion only at the highest Hia5 input | Low Hia5 activity | See [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — increase Hia5, increase incubation, or match on active enzyme rather than total protein mass |
 
 ## Background — why this works
 
@@ -163,7 +163,7 @@ one give visibly different lanes, and no quantification is needed to tell them a
 
 **Page history.** Written 2026-08-18. Split out of the former combined "Hia5 DpnI Activity
 Assay" page on 2026-08-20, because testing an enzyme prep and testing a DNA sample are
-different questions. The reaction half lives on [[hia5-enzyme-activity-test]].
+different questions. The reaction half lives on [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]].
 
 **Where the input amounts come from.** The lab has run this at 100 ng (03.30.2026 in vitro
 test, and the 06.14.2026 setup) and at 50 ng (03.30.2026 verification of the 03.25.2026
@@ -194,13 +194,13 @@ on [[fiber-seq-master-protocol]]. Do not duplicate them here.
 
 **Consumables:** [[pcr-strip-tubes-0-2ml]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[hia5-enzyme-activity-test]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[fiber-seq-master-protocol]], [[gel-electrophoresis]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
+**Related Protocols:** [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[fiber-seq-master-protocol]], [[gel-electrophoresis]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
 
 **Contacts:** [[grey-monroe]]
 
 **See also**
 
-- [[hia5-enzyme-activity-test]] — the in vitro enzyme test that uses this page as its readout
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the in vitro enzyme test that uses this page as its readout
 - [[fiber-seq-hia5-labeling]] — the in-nuclei labeling reaction this page gates
 - [[fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
 - [[dpni]] · [[rcutsmart-buffer]]
