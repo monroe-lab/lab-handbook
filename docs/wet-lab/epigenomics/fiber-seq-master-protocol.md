@@ -15,11 +15,11 @@ title: "Fiber-seq Master Protocol"
 
 **Kits:** [[qubit-dsdna-hs-assay-kit]]
 
-**Reagents:** [[epicypher-cutana-hia5]], [[s-adenosylmethionine]], [[spermidine]], [[sucrose]]
+**Reagents:** [[epicypher-cutana-hia5]], [[hia5-protein-stocks]], [[s-adenosylmethionine]], [[spermidine]], [[sucrose]]
 
 **Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[fiber-seq-nuclei-isolation]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[hia5-dpni-activity-assay]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
+**Related Protocols:** [[fiber-seq-nuclei-isolation]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[hia5-enzyme-activity-test]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
 
 **Contacts:** [[grey-monroe]]
 
@@ -118,7 +118,7 @@ Documented incubations only. Hands-on time has never been recorded.
 | [[fiber-seq-nuclei-isolation]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
 | [[fiber-seq-hia5-labeling]] | 5 min pellet spin + **10 min reaction** |
 | [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
-| QC — [[hia5-dpni-activity-assay]] | 1 h MTase step + 1 h digest + ~45 min gel |
+| QC — [[dpni-methylation-check]] | 1 h digest + ~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\|the in vitro enzyme test]]) |
 | QC — FemtoPulse, Qubit, NanoDrop | — |
 | Shearing → library → sequencing | Days to weeks, at the core |
 
@@ -163,7 +163,7 @@ Straight from the SDS-stopped reaction, no freeze in between. **CTAB + chlorofor
 SeraMag beads is the lab default** (Grey, 2026-08-18), established after the NEB spin-column
 route failed on this input.
 
-### 4. Confirm labeling worked — [[hia5-dpni-activity-assay]]
+### 4. Confirm labeling worked — [[dpni-methylation-check]]
 
 Take a small aliquot of the extracted DNA, digest with DpnI, run a gel. DpnI cuts GATC only
 when the adenine is methylated, so digestion is a direct readout of whether Hia5 did
@@ -205,17 +205,19 @@ own recommendations for native whole-genome applications.
 
 **This table is the single source of truth for construct verdicts** (Grey, 2026-08-18).
 Other pages link here rather than repeating it. Established by primary-source check of the
-development record on 2026-08-18.
+development record on 2026-08-18, round-2 status revised 2026-08-20. Concentrations, purities
+and lot details for every construct live on [[hia5-protein-stocks]].
 
 | Enzyme | Status | Use for production Fiber-seq? |
 | --- | --- | --- |
 | [[epicypher-cutana-hia5]] | Validated, commercial | **Yes — the only validated option** |
-| free Hia5 (GenScript) | Project-stage, no individual verdict recorded | No |
-| pA-Hia5 | Project-stage, no individual verdict recorded | No |
-| pAG-Hia5 | Project-stage, **no written verdict anywhere** | No |
+| free Hia5 (GenScript, round 1) | Project-stage, no individual verdict recorded | No |
+| pA-Hia5 (round 1) | Project-stage, no individual verdict recorded | No |
+| pAG-Hia5 (round 1) | Project-stage, **no written verdict anywhere** | No |
 | Tudor-Hia5 (round 1) | **Failed** the 03.30.2026 DpnI assay | No |
-| 3ATudor-Hia5 | Project-stage; binding-pocket knockout, i.e. a negative control | No |
-| Tudor-Hia5 (round 2, MBP-fused) | **Never scored** | No |
+| 3ATudor-Hia5 (round 1) | Project-stage; binding-pocket knockout, i.e. a negative control | No |
+| Tudor-Hia5 (round 2, MBP-fused) | **Reported functional, never scored** — see below | Not yet |
+| 3ATudor-Hia5 (round 2, MBP-fused) | Same reported-but-unscored status; negative control regardless | No |
 
 What the record actually says, and what it does not:
 
@@ -229,15 +231,28 @@ What the record actually says, and what it does not:
   **Epicypher-Hia5-treated Fiber-seq nuclei** — a different experiment with no Tudor
   construct in it. **Do not conflate these two sentences.** Conflating them is how the lab's
   notes previously recorded the Tudor result backwards.
-- **Round-2 Tudor-Hia5 (June 2026, MBP-fused, ~70% purity) has never been scored.** Setup was
-  documented 06.14.2026 and a gel was run and photographed, but never interpreted.
+- **Round 2 (June 2026, MBP-fused) is reported functional but has never been scored.** The
+  only statement is [[vianney-ahn|Vianney]]'s, verbatim from a Slack DM on 2026-08-06:
+  *"I did test the Hia5 from the more recent shipment from June, and they seem to be
+  functional."* Take it as suggestive, not as a result — it names no construct (the June
+  shipment contained both the wild-type and the 3A negative control), points at no gel or
+  date, and is hedged. The 06.14.2026 setup was documented and then the record stops with no
+  outcome written down. No functional QC was ordered from GenScript for round 2 either; the
+  purchased QC was SDS-PAGE and Western blot only. See [[hia5-enzyme-activity-test]] § Round 2.
 
 > **Critical:** The only Hia5 the lab can currently claim as validated for production
 > Fiber-seq is [[epicypher-cutana-hia5]]. The Tudor and pA/pAG constructs are project-stage
 > reagents from [Anchor Tag](../../projects/anchor-tag/index.md) and must not be treated as interchangeable with it.
 
-> `[VERIFY: score the June 2026 round-2 Tudor gel, or record explicitly on [Anchor Tag](../../projects/anchor-tag/index.md)
-> that it is unscored and why.]`
+> **Even a scored gel would only establish half of it.** The DpnI readout measures methylation.
+> Whether a fusion's reader domain actually binds its target has never been tested and needs a
+> separate DiMeLo-seq-style experiment. "Tudor-Hia5 is functional" from a gel means the Hia5
+> half works.
+
+> `[VERIFY: score the June/July 2026 round-2 gels construct by construct, or record explicitly
+> on [Anchor Tag](../../projects/anchor-tag/index.md) that round 2 is unscored and why. Per
+> Vianney (Slack, 2026-08-11) the round-2 tubes are dated — June/July dates are the newer
+> batch.]`
 
 ## Expected output
 
@@ -261,7 +276,7 @@ this buildout (Grey, 2026-08-18) and will get its own page.**
 
 | Symptom | Likely cause | Where to look |
 | --- | --- | --- |
-| No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[hia5-dpni-activity-assay]] |
+| No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[dpni-methylation-check]], then [[hia5-enzyme-activity-test]] |
 | m6A too high, footprints washed out | Too much enzyme or too long an incubation | [[fiber-seq-hia5-labeling]] |
 | Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[fiber-seq-hia5-labeling]] |
 | Low 260/230, DNA will not behave downstream | Guanidine carryover from column extraction | [[fiber-seq-hmw-extraction]] |

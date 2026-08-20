@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-19T02:29:42.185644+00:00",
-  "total_commits": 4585,
+  "generated_at": "2026-08-20T08:52:27.104779+00:00",
+  "total_commits": 4587,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4236,
+      "total_commits": 4238,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-19",
       "protocols_authored": 194,
       "notebooks_authored": 156,
       "inventory_edits": 2239,
-      "wiki_edits": 5029,
+      "wiki_edits": 5032,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,16 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "fc828f8",
-          "subject": "New protocol: Harvesting microshoot cultures",
-          "date": "2026-05-13"
-        },
-        {
-          "sha": "75e4849",
-          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
-          "date": "2026-05-13"
-        },
         {
           "sha": "29ca5b1",
           "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
@@ -62,9 +52,19 @@
           "sha": "071c7e4",
           "subject": "Fiber-seq protocol buildout: 6 protocol pages + 9 resource cards",
           "date": "2026-08-19"
+        },
+        {
+          "sha": "654fd18",
+          "subject": "Rebuild object/link/user indexes after Fiber-seq buildout",
+          "date": "2026-08-19"
+        },
+        {
+          "sha": "a5809d3",
+          "subject": "Rewrite architecture docs: this is not MkDocs anymore",
+          "date": "2026-08-19"
         }
       ],
-      "days_active": 258
+      "days_active": 259
     },
     "vianneyahn": {
       "login": "vianneyahn",
@@ -128,7 +128,7 @@
           "date": "2026-06-06"
         }
       ],
-      "days_active": 120
+      "days_active": 121
     },
     "bdsingson": {
       "login": "bdsingson",
@@ -192,7 +192,7 @@
           "date": "2026-07-14"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "yeleaf20030520": {
       "login": "yeleaf20030520",
@@ -256,7 +256,7 @@
           "date": "2026-08-18"
         }
       ],
-      "days_active": 119
+      "days_active": 120
     },
     "kehanzhao": {
       "login": "kehanzhao",
@@ -320,7 +320,7 @@
           "date": "2026-06-25"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "knbroomell": {
       "login": "knbroomell",
@@ -384,7 +384,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "mariele-lensink": {
       "login": "mariele-lensink",
@@ -448,7 +448,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "inili": {
       "login": "inili",
@@ -512,7 +512,7 @@
           "date": "2026-04-30"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "alicepierce": {
       "login": "alicepierce",
@@ -576,7 +576,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 134
+      "days_active": 135
     },
     "chaeheelee": {
       "login": "chaeheelee",
@@ -640,7 +640,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "egspaulding": {
       "login": "egspaulding",
@@ -684,7 +684,7 @@
           "date": "2026-04-29"
         }
       ],
-      "days_active": 120
+      "days_active": 121
     },
     "limbler": {
       "login": "limbler",
@@ -728,7 +728,7 @@
           "date": "2026-04-28"
         }
       ],
-      "days_active": 113
+      "days_active": 114
     },
     "noreply": {
       "login": "noreply",
@@ -767,7 +767,7 @@
           "date": "2026-07-07"
         }
       ],
-      "days_active": 91
+      "days_active": 92
     },
     "matthewwdavis": {
       "login": "matthewwdavis",
@@ -801,7 +801,7 @@
           "date": "2025-12-05"
         }
       ],
-      "days_active": 257
+      "days_active": 258
     }
   }
 }

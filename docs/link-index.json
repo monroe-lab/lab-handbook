@@ -3976,6 +3976,26 @@
     "target": "people/satoyo-oya"
   },
   {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
+  },
+  {
     "source": "projects/cassava-c127",
     "target": "projects/cassava-landraces-new-phytologist"
   },
@@ -4877,7 +4897,11 @@
   },
   {
     "source": "resources/dpni",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/dpni",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
   },
   {
     "source": "resources/dpni",
@@ -4897,11 +4921,19 @@
   },
   {
     "source": "resources/epicypher-cutana-hia5",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
   },
   {
     "source": "resources/epicypher-cutana-hia5",
     "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/epicypher-cutana-hia5",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/epicypher-cutana-hia5",
+    "target": "resources/hia5-protein-stocks"
   },
   {
     "source": "resources/epicypher-cutana-hia5",
@@ -4950,6 +4982,22 @@
   {
     "source": "resources/heat-block",
     "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
     "source": "resources/hifi-lysis-buffer",
@@ -5205,7 +5253,7 @@
   },
   {
     "source": "resources/rcutsmart-buffer",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
     "source": "resources/s-adenosylmethionine",
@@ -5213,7 +5261,11 @@
   },
   {
     "source": "resources/s-adenosylmethionine",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/s-adenosylmethionine",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
     "source": "resources/s-adenosylmethionine",
@@ -6596,6 +6648,78 @@
     "target": "people/grey-monroe"
   },
   {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/thermocycler"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/gel-electrophoresis-tank"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/uv-transilluminator"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/dpni"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/rcutsmart-buffer"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/agarose"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
     "target": "resources/thermocycler"
   },
@@ -6673,7 +6797,11 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
@@ -6721,6 +6849,10 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "resources/s-adenosylmethionine"
   },
   {
@@ -6757,7 +6889,11 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
@@ -6786,6 +6922,10 @@
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "wet-lab/epigenomics/chip-seq"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "people/vianney-ahn"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
@@ -6860,75 +7000,59 @@
     "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
   },
   {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "resources/thermocycler"
   },
   {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/gel-electrophoresis-tank"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/uv-transilluminator"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/dpni"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/rcutsmart-buffer"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "resources/s-adenosylmethionine"
   },
   {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/agarose"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/lambda-dna-standard"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/pcr-strip-tubes-0-2ml"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "wet-lab/gel-electrophoresis"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "wet-lab/making-an-agarose-gel"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "wet-lab/gel-imaging-and-annotation"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "resources/epicypher-cutana-hia5"
   },
   {
-    "source": "wet-lab/epigenomics/hia5-dpni-activity-assay",
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/lambda-dna-standard"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/pcr-strip-tubes-0-2ml"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "people/vianney-ahn"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
   },
   {
@@ -7053,7 +7177,7 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/epigenomics/hia5-dpni-activity-assay"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",

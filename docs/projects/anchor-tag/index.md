@@ -266,10 +266,20 @@ tudor-fusion-proteins/
     └── construct_designs/            Output: FASTA + GenBank + HTML for each construct
 ```
 
-## Related protocols (to be written)
+## Related protocols
+
+Written 2026-08-18/20:
+
+- [[hia5-protein-stocks]] — every construct from both GenScript rounds: MW, concentration,
+  purity, lot, and the caveats that go with them
+- [[hia5-enzyme-activity-test]] — the in-house "does this prep methylate?" test (the
+  Tudor-fusion QC SOP below, as actually run)
+- [[dpni-methylation-check]] — the gel readout for that test
+- [[fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
+- [[fiber-seq-hmw-extraction]] — HMW DNA extraction for Fiber-seq
+
+Still to be written:
 
 - Tudor-MNase CUT&RUN SOP *(to be written)* (to be written by Vianney before protein arrival)
-- Tudor-HiA5 DiMeLo-Seq SOP *(to be written)* (to be written by Vianney before protein arrival)
-- Tudor-fusion in-house QC SOP *(to be written)* (to be written by Vianney before protein arrival)
-- HMW DNA extraction for Fiber-Seq *(to be written)* (may already exist in wet-lab section section)
+- Tudor-HiA5 DiMeLo-Seq SOP *(to be written)* — the target-binding half, still untested
 - Nanopore MinION setup and run *(to be written)* (to be written once Nanopore hardware arrives)

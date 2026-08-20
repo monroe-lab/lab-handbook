@@ -13,8 +13,9 @@ carries an N6-methyl group**. That conditional behavior is what makes it a reage
 just a cutter: on otherwise identical DNA, digestion is a direct binary readout of whether an
 adenine methyltransferase was active.
 
-This is the entire basis of [[hia5-dpni-activity-assay]] — the lab's assay for whether a Hia5
-or Hia5-fusion protein methylates at all.
+This is the entire basis of [[dpni-methylation-check]], the lab's gel readout for whether a
+DNA sample carries m6A, and of [[hia5-enzyme-activity-test]], which uses that readout to ask
+whether a Hia5 or Hia5-fusion protein methylates at all.
 
 > ℹ️ **Chemistry**
 >
@@ -36,6 +37,7 @@ or Hia5-fusion protein methylates at all.
 
 ## See also
 
-- [[hia5-dpni-activity-assay]] — the assay this enzyme drives
+- [[dpni-methylation-check]] — the assay this enzyme drives
+- [[hia5-enzyme-activity-test]] — the enzyme test that assay reads out
 - [[rcutsmart-buffer]] — the digestion buffer
 - [[fiber-seq-master-protocol]]

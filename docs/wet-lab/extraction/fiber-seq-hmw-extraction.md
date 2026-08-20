@@ -238,7 +238,7 @@ and go straight into library prep.
 
 ## Verify labeling before you spend money
 
-Take a small aliquot of the extracted DNA and run [[hia5-dpni-activity-assay]] to confirm m6A
+Take a small aliquot of the extracted DNA and run [[dpni-methylation-check]] to confirm m6A
 is present. **This is the go/no-go gate before library prep.** It is what the 03.30.2026
 verification of the 03.25.2026 samples did, and it costs one gel against the price of a
 sequencing run on unlabeled DNA.
@@ -270,7 +270,7 @@ sequencing run on unlabeled DNA.
 
 - [[fiber-seq-master-protocol]] — the hub
 - [[fiber-seq-hia5-labeling]] — the step immediately before this one
-- [[hia5-dpni-activity-assay]] — the go/no-go check on the extracted DNA
+- [[dpni-methylation-check]] — the go/no-go check on the extracted DNA
 - [[ot2-hmw-shearing]] — the shear-or-skip decision that follows
 - [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]] — the lab's non-Fiber-seq HMW routes
 - [[spri-beads-preparation]]

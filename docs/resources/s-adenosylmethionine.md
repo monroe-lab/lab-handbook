@@ -28,13 +28,15 @@ Supplied by NEB as **B9003S at 32 mM**.
 
 > 💡 **Lab use**
 >
-> Used in both [[fiber-seq-hia5-labeling]] (in-nuclei labeling) and [[hia5-dpni-activity-assay]]
-> (in-vitro activity check). SAM concentration is one of the deliberately titrated variables in
-> the assay — see the Critical note on that page before changing it.
+> Used in both [[fiber-seq-hia5-labeling]] (in-nuclei labeling) and
+> [[hia5-enzyme-activity-test]] (in-vitro activity check). The two protocols deliberately use
+> different SAM concentrations — 800 uM vs 160 uM — see the Critical note on either page
+> before changing one to match the other.
 
 ## See also
 
 - [[fiber-seq-hia5-labeling]]
-- [[hia5-dpni-activity-assay]]
+- [[hia5-enzyme-activity-test]]
+- [[dpni-methylation-check]]
 - [[epicypher-cutana-hia5]]
 - [[fiber-seq-master-protocol]]

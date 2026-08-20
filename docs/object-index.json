@@ -926,6 +926,12 @@
     "mtime": 1776885361
   },
   {
+    "path": "resources/hia5-protein-stocks.md",
+    "type": "enzyme",
+    "title": "Hia5 Protein Stocks (in-house, GenScript)",
+    "status": "needs_more"
+  },
+  {
     "path": "resources/hifi-lysis-buffer.md",
     "type": "buffer",
     "title": "HiFi Lysis Buffer",
@@ -4687,6 +4693,11 @@
     "mtime": 1787106536
   },
   {
+    "path": "wet-lab/epigenomics/dpni-methylation-check.md",
+    "type": "protocol",
+    "title": "DpnI Methylation Check"
+  },
+  {
     "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
     "type": "protocol",
     "title": "Hia5 m6A Labeling Reaction for Fiber-seq",
@@ -4705,10 +4716,9 @@
     "mtime": 1787106536
   },
   {
-    "path": "wet-lab/epigenomics/hia5-dpni-activity-assay.md",
+    "path": "wet-lab/epigenomics/hia5-enzyme-activity-test.md",
     "type": "protocol",
-    "title": "Hia5 DpnI Activity Assay",
-    "mtime": 1787106536
+    "title": "Hia5 Enzyme Activity Test (in vitro)"
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",

@@ -17,7 +17,7 @@ title: "Hia5 m6A Labeling Reaction for Fiber-seq"
 
 **Consumables:** [[wide-bore-filter-tips-p200]], [[wide-bore-filter-tips-p1000]], [[dna-lobind-tubes]]
 
-**Related Protocols:** [[fiber-seq-master-protocol]], [[fiber-seq-nuclei-isolation]], [[fiber-seq-hmw-extraction]], [[hia5-dpni-activity-assay]]
+**Related Protocols:** [[fiber-seq-master-protocol]], [[fiber-seq-nuclei-isolation]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[hia5-enzyme-activity-test]]
 
 **Contacts:** [[grey-monroe]]
 
@@ -85,7 +85,7 @@ The lab's working table, from the *Protocol* tab:
 > **Critical — unresolved discrepancy on spermidine.** The source document contains **two**
 > activation buffer tables that disagree on spermidine by 10×. The *Protocol* tab gives
 > **0.5 mM**, matching both plant papers. The earlier *Fiber-Seq Experiments* tab, whose
-> buffer is used for the [[hia5-dpni-activity-assay]], gives **0.05 mM**. Both tables compute
+> buffer is used for the [[hia5-enzyme-activity-test]], gives **0.05 mM**. Both tables compute
 > correctly for their own stated final concentration, so this is a genuine difference in the
 > target, not a dilution-math slip. Do not silently reconcile them.
 > `[VERIFY: which concentration was actually used in the 05.2026 and 06.2026 runs?]`
@@ -234,14 +234,14 @@ truth. Do not restate verdicts here.
 ## Expected output
 
 An SDS-stopped nuclei lysate ready for extraction. **There is no visible readout at this step.**
-Confirmation that labeling worked comes from [[hia5-dpni-activity-assay]] after the DNA is
+Confirmation that labeling worked comes from [[dpni-methylation-check]] after the DNA is
 extracted — which is why that assay is the go/no-go gate before sequencing.
 
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
-| No m6A on the DpnI gel | Dead SAM (freeze/thaw), dead enzyme, or a project-stage construct | Use fresh SAM; run [[hia5-dpni-activity-assay]] on the enzyme lot itself against lambda DNA before blaming the sample |
+| No m6A on the DpnI gel | Dead SAM (freeze/thaw), dead enzyme, or a project-stage construct | Use fresh SAM; run [[hia5-enzyme-activity-test]] on the enzyme lot itself against lambda DNA before blaming the sample |
 | Over-labeling — inferred nucleosomes shorter than ~150 bp | Too much enzyme or too long an incubation | Return to 0.5 µL / 10 min; the 5–7% m6A window is the target, see [[fiber-seq-master-protocol]] |
 | Nuclei not fully submerged in the reaction | Too many nuclei for the volume | Flagged at the 12.3M half-scale test, 03.18.2026 — reduce input or scale volume up |
 | Signal weak but present | Under-labeling | Options recorded 03.30.2026: raise enzyme, extend incubation, or both |
@@ -256,5 +256,6 @@ The activation buffer itself carries no unusual hazards.
 - [[fiber-seq-master-protocol]] — the hub, the Hia5 verdict table, and the Fiber-seq background
 - [[fiber-seq-nuclei-isolation]] — the previous step
 - [[fiber-seq-hmw-extraction]] — the next step
-- [[hia5-dpni-activity-assay]] — how you find out whether this worked
+- [[dpni-methylation-check]] — how you find out whether this worked
+- [[hia5-enzyme-activity-test]] — whether the enzyme lot was any good in the first place
 - [[fiber-seq-development-log]]
