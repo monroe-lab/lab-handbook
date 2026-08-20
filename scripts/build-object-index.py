@@ -29,6 +29,8 @@ OBJECT_DIRS = [
     "wet-lab/extraction",
     "wet-lab/library-prep",
     "wet-lab/epigenomics",
+    "wet-lab/fiber-seq",
+    "wet-lab/cutrun-cuttag",
     "wet-lab/mutagenesis",
     "bioinformatics",
     "lab-management",

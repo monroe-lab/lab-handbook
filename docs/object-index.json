@@ -969,12 +969,11 @@
     "path": "resources/hia5-r1-free.md",
     "type": "enzyme",
     "title": "Hia5, free (GenScript round 1)",
-    "location": "",
-    "status": "needs_more",
+    "status": "in_stock",
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-7/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787229912
+    "mtime": 1787245384
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -2208,12 +2207,11 @@
     "path": "resources/tudor-hia5-r1.md",
     "type": "enzyme",
     "title": "Tudor-Hia5 (GenScript round 1)",
-    "location": "",
-    "status": "needs_more",
+    "status": "in_stock",
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-10/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787229912
+    "mtime": 1787245360
   },
   {
     "path": "resources/tudor-hia5-r2.md",
@@ -4787,40 +4785,34 @@
     "mtime": 1787106536
   },
   {
-    "path": "wet-lab/epigenomics/cut-and-tag.md",
+    "path": "wet-lab/fiber-seq/dpni-methylation-check.md",
     "type": "protocol",
-    "title": "CUT&Tag Protocol",
-    "mtime": 1787106536
+    "title": "DpnI Methylation Check"
   },
   {
-    "path": "wet-lab/epigenomics/dpni-methylation-check.md",
+    "path": "wet-lab/fiber-seq/fiber-seq-hia5-labeling.md",
     "type": "protocol",
-    "title": "DpnI Methylation Check",
-    "mtime": 1787227888
+    "title": "Hia5 m6A Labeling Reaction for Fiber-seq"
   },
   {
-    "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
+    "path": "wet-lab/fiber-seq/fiber-seq-master-protocol.md",
     "type": "protocol",
-    "title": "Hia5 m6A Labeling Reaction for Fiber-seq",
-    "mtime": 1787218028
+    "title": "Fiber-seq Master Protocol"
   },
   {
-    "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
+    "path": "wet-lab/fiber-seq/fiber-seq-nuclei-isolation.md",
     "type": "protocol",
-    "title": "Fiber-seq Master Protocol",
-    "mtime": 1787229912
+    "title": "Plant Nuclei Isolation for Fiber-seq"
   },
   {
-    "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
+    "path": "wet-lab/fiber-seq/hia5-enzyme-activity-test.md",
     "type": "protocol",
-    "title": "Plant Nuclei Isolation for Fiber-seq",
-    "mtime": 1787226846
+    "title": "Hia5 Enzyme Activity Test (in vitro)"
   },
   {
-    "path": "wet-lab/epigenomics/hia5-enzyme-activity-test.md",
+    "path": "wet-lab/cutrun-cuttag/cut-and-tag.md",
     "type": "protocol",
-    "title": "Hia5 Enzyme Activity Test (in vitro)",
-    "mtime": 1787229912
+    "title": "CUT&Tag Protocol"
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",
