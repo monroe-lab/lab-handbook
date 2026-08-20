@@ -12,7 +12,7 @@ catalog_number: 130-098-458
 released nuclei while retaining tissue debris, cell-wall fragments, and clumps.
 
 Specified in the published plant Fiber-seq methods and used by
-[[fiber-seq-nuclei-isolation]].
+[[2-plant-nuclei-isolation-for-fiber-seq]].
 
 > 💡 **Lab use**
 >
@@ -25,6 +25,6 @@ Specified in the published plant Fiber-seq methods and used by
 
 ## See also
 
-- [[fiber-seq-nuclei-isolation]]
+- [[2-plant-nuclei-isolation-for-fiber-seq]]
 - [[cell-strainer-70um]]
 - [[fiber-seq-master-protocol]]
