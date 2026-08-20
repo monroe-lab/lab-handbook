@@ -62,6 +62,8 @@ Auth uses `gh auth token` — no setup needed if `gh` CLI is logged in.
 
 **Open issues:** #52 (Molecular Plant Biology Training Curriculum) and #136 (video walkthrough ingest → extract inventory + locations + draft lab map from a narrated lab-walk video) — both substantial content/feature projects deferred to dedicated sessions.
 
+**Feedback backlog (open, from lab members Jun–Jul 2026, triage in progress 2026-08-20):** #178 (image annotations not saved in notebook), #179 (re-organize notebook entries), #180 (can't delete a table), #181 (no autosave — local-draft safety net partially addresses), #182 (can't edit title of a previous entry), #183 (GitHub Action failure emails confusing members), #184 (Enter-created paragraph gaps lost on save), #185 (notebook wipe — root cause fixed as bug #20 below, pending verification + close), #187 (text colors/highlighting in protocols).
+
 ## Round 1: Location hierarchy data model (2026-04-10, Issue #18)
 
 Backend-first implementation of the hierarchical location/object system. No new UI yet — R2 adds the tree view, R3 adds grid renderers.

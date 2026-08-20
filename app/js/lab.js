@@ -5,6 +5,7 @@
 (function() {
   var scripts = [
     'js/shared.js',
+    'js/search.js',
     'js/types.js',
     'js/github-api.js',
     'js/hierarchy.js',

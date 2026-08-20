@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .DS_Store
 node_modules/
+# Generated at deploy time by build-object-index.py; too large/churny to track
+docs/search-index.json

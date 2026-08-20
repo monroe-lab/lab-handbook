@@ -176,6 +176,20 @@
 /* Drag and drop */
 .proto-item[draggable="true"] { cursor: grab; }
 .proto-item.dragging { opacity: .4; }
+
+/* Full-text search results (#188) */
+.proto-result {
+  display: block;
+  padding: 8px 16px 8px 24px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  transition: background .1s;
+}
+.proto-result:hover { background: var(--grey-100); }
+.proto-result .pr-title { font-size: 13px; color: var(--grey-800); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.proto-result .pr-cat { font-size: 11px; color: var(--grey-500); }
+.proto-result .pr-snippet { font-size: 12px; color: var(--grey-600); line-height: 1.4; margin-top: 2px; }
+.proto-result .pr-snippet mark, .proto-result .pr-title mark { background: #fff3c4; color: inherit; padding: 0 1px; border-radius: 2px; }
 .proto-items.drag-over { background: var(--teal-50); outline: 2px dashed var(--teal); outline-offset: -2px; border-radius: 4px; }
 .proto-category.drag-over-cat { background: var(--teal-50); color: var(--teal); }
 .proto-cat-rename {
@@ -1647,8 +1661,44 @@ function showWelcome() {
 }
 
 // ── Search ──
+// #188: full-text ranked search over protocol bodies via Lab.search. The
+// title-only tree filter renders instantly as a fallback; ranked results with
+// snippets replace it as soon as the search index answers.
+var searchSeq = 0;
+
+function renderSearchResults(q, results) {
+  var tree = document.getElementById('protoTree');
+  if (!results.length) {
+    tree.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">search_off</span><p>No protocols match</p></div>';
+    return;
+  }
+  var catByPath = {};
+  allProtocols.forEach(function(p) { catByPath[p.path] = p.category; });
+  var html = '';
+  results.forEach(function(r) {
+    var path = r.path.replace(/\.md$/, '');
+    html += '<div class="proto-result" data-path="' + Lab.escHtml(path) + '" onclick="loadDoc(\'' + Lab.escHtml(path) + '\')">' +
+      '<div class="pr-title">' + Lab.escHtml(r.title) + ' <span class="pr-cat">· ' + Lab.escHtml(catByPath[path] || '') + '</span></div>' +
+      (r.snippet ? '<div class="pr-snippet">' + r.snippet + '</div>' : '') +
+      '</div>';
+  });
+  tree.innerHTML = html;
+}
+
 document.getElementById('protoSearch').addEventListener('input', function() {
-  renderSidebar(this.value);
+  var q = this.value;
+  if (!q.trim() || !window.Lab.search) {
+    renderSidebar(q);
+    return;
+  }
+  renderSidebar(q); // instant title filter while the index loads
+  var seq = ++searchSeq;
+  var paths = allProtocols.map(function(p) { return p.path; });
+  Lab.search.query(q, { paths: paths }).then(function(results) {
+    if (seq !== searchSeq) return; // stale — user kept typing
+    if (!document.getElementById('protoSearch').value.trim()) return;
+    renderSearchResults(q, results);
+  });
 });
 
 // ── Mobile sidebar ──

@@ -78,6 +78,13 @@
   cursor: pointer; transition: background .1s;
   white-space: nowrap; overflow: hidden;
 }
+/* Full-text search results (#188) */
+.doc-result { display: block; padding: 8px 14px; cursor: pointer; transition: background .1s; }
+.doc-result:hover { background: var(--grey-100); }
+.doc-result .dr-title { font-size: 13px; color: var(--grey-800); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.doc-result .dr-dir { font-size: 11px; color: var(--grey-500); font-weight: 400; }
+.doc-result .dr-snippet { font-size: 12px; color: var(--grey-600); line-height: 1.4; margin-top: 2px; }
+.doc-result .dr-snippet mark, .doc-result .dr-title mark { background: #fff3c4; color: inherit; padding: 0 1px; border-radius: 2px; }
 .doc-item:hover { background: var(--grey-100); color: var(--grey-900); }
 .doc-item.active { background: #e8eaf6; color: #3f51b5; font-weight: 500; border-left: 3px solid #3f51b5; padding-left: 19px; }
 .doc-item-title { overflow: hidden; text-overflow: ellipsis; flex: 1; }
@@ -548,9 +555,44 @@ function renderSidebar() {
 
   if (!view || (!Object.keys(view.children).length && !view.items.length)) {
     treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No documents match.</div>';
+  } else {
+    treeEl.innerHTML = renderNode(view, 0, filtering);
+  }
+
+  // #188: when a text query is active, upgrade the title-filtered tree to
+  // ranked full-text results (with snippets) once the search index answers.
+  if (q && window.Lab && Lab.search) {
+    var seq = ++wikiSearchSeq;
+    Lab.search.query(q, { types: activeTypes.size ? activeTypes : null }).then(function(results) {
+      if (seq !== wikiSearchSeq) return; // stale — query changed meanwhile
+      var nowQ = (document.getElementById('docSearch').value || '').toLowerCase().trim();
+      if (nowQ !== q) return;
+      renderWikiSearchResults(results);
+    });
+  }
+}
+
+var wikiSearchSeq = 0;
+
+function renderWikiSearchResults(results) {
+  var treeEl = document.getElementById('docTree');
+  // Only docs the wiki actually lists
+  var docs = results.map(function(r) {
+    return { r: r, d: DOC_BY_PATH[r.path.replace(/\.md$/, '')] };
+  }).filter(function(x) { return !!x.d; });
+
+  if (!docs.length) {
+    treeEl.innerHTML = '<div style="padding:20px;color:var(--grey-500);font-size:14px;text-align:center">No documents match.</div>';
     return;
   }
-  treeEl.innerHTML = renderNode(view, 0, filtering);
+  var html = '';
+  docs.forEach(function(x) {
+    html += '<div class="doc-result" data-path="' + Lab.escHtml(x.d.path) + '" onclick="loadDoc(\'' + Lab.escHtml(x.d.path) + '\')" title="' + Lab.escHtml(x.d.relPath) + '">' +
+      '<div class="dr-title">' + Lab.escHtml(x.d.title) + ' <span class="dr-dir">· ' + Lab.escHtml(x.d.dir || '') + '</span></div>' +
+      (x.r.snippet ? '<div class="dr-snippet">' + x.r.snippet + '</div>' : '') +
+      '</div>';
+  });
+  treeEl.innerHTML = html;
 }
 
 function toggleFolder(el) {

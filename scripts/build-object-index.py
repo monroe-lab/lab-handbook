@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = ROOT / "docs"
 OUTPUT = DOCS_DIR / "object-index.json"
 LINK_OUTPUT = DOCS_DIR / "link-index.json"
+SEARCH_OUTPUT = DOCS_DIR / "search-index.json"
 
 WIKILINK_RE = re.compile(r"\[\[([^\[\]\|#]+?)(?:\|[^\[\]]*)?(?:#[^\[\]]*)?\]\]")
 
@@ -307,6 +308,63 @@ def build_link_index():
     print(f"Built link index: {len(edges)} edges -> {LINK_OUTPUT.relative_to(ROOT)}")
 
 
+# Inline base64 images (pasted screenshots) routinely push notebook entries
+# past 1 MB; they carry no searchable text and would bloat the index ~70x.
+DATA_URI_RE = re.compile(r"data:[a-zA-Z0-9/+.-]+;base64,[A-Za-z0-9+/=\s]{40,}")
+MD_IMAGE_RE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
+MD_LINK_URL_RE = re.compile(r"\[([^\]]*)\]\((?:[^)]*)\)")
+
+
+def build_search_index():
+    """Emit docs/search-index.json: full-text corpus for client-side ranked
+    search (issue #188). Covers every .md under docs/ (matching what
+    wiki.html lists), not just OBJECT_DIRS."""
+    # Titles/types from the object index where available
+    try:
+        obj_index = {e["path"]: e for e in json.load(open(OUTPUT))}
+    except (OSError, json.JSONDecodeError):
+        obj_index = {}
+
+    entries = []
+    for md_file in sorted(DOCS_DIR.rglob("*.md")):
+        if md_file.name.startswith("_") or md_file.name.lower() == "readme.md":
+            continue
+        rel_path = str(md_file.relative_to(DOCS_DIR))
+        try:
+            text = md_file.read_text(errors="replace")
+        except OSError:
+            continue
+        body = FRONTMATTER_RE.sub("", text, count=1)
+        body = DATA_URI_RE.sub(" ", body)
+        body = MD_IMAGE_RE.sub(" ", body)
+        body = MD_LINK_URL_RE.sub(r"\1", body)  # keep link labels, drop URLs
+        body = re.sub(r"[ \t]+", " ", body)
+        body = re.sub(r"\n{3,}", "\n\n", body).strip()
+        if len(body) > 60000:
+            body = body[:60000]
+
+        meta = obj_index.get(rel_path, {})
+        title = meta.get("title")
+        if not title:
+            title = md_file.stem.replace("-", " ").replace("_", " ").title()
+            for line in body.splitlines()[:5]:
+                if line.startswith("# "):
+                    title = line[2:].strip()
+                    break
+        entries.append({
+            "path": rel_path,
+            "title": title,
+            "type": meta.get("type") or infer_type_from_path(rel_path) or "",
+            "text": body,
+        })
+
+    with open(SEARCH_OUTPUT, "w") as f:
+        json.dump(entries, f, separators=(",", ":"), ensure_ascii=False)
+    size_mb = SEARCH_OUTPUT.stat().st_size / 1e6
+    print(f"Built search index: {len(entries)} docs, {size_mb:.1f} MB -> {SEARCH_OUTPUT.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
     build_index()
     build_link_index()
+    build_search_index()
