@@ -10,7 +10,7 @@ status: in_stock
 [[macs-smartstrainer-30um]]. It removes bulk tissue debris that would otherwise clog the 30 µm
 strainer.
 
-Used by [[fiber-seq-nuclei-isolation]].
+Used by [[2-plant-nuclei-isolation-for-fiber-seq]].
 
 > `[VERIFY: vendor and catalog number. The 70 µm step appears in the lab's nuclei isolation
 > record but no source names a specific product. Check what is actually stocked before ordering
@@ -19,5 +19,5 @@ Used by [[fiber-seq-nuclei-isolation]].
 
 ## See also
 
-- [[fiber-seq-nuclei-isolation]]
+- [[2-plant-nuclei-isolation-for-fiber-seq]]
 - [[macs-smartstrainer-30um]]
