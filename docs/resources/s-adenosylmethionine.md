@@ -24,18 +24,18 @@ Supplied by NEB as **B9003S at 32 mM**.
 > - A methylation reaction that fails with no other explanation should be re-run with a new SAM
 >   aliquot before the enzyme is blamed.
 > - Supplement long incubations — the lab's labeling protocol re-spikes SAM partway through
->   rather than relying on the initial charge. See [[fiber-seq-hia5-labeling]].
+>   rather than relying on the initial charge. See [[3-hia5-m6a-labeling-reaction-for-fiber-seq]].
 
 > 💡 **Lab use**
 >
-> Used in both [[fiber-seq-hia5-labeling]] (in-nuclei labeling) and
+> Used in both [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] (in-nuclei labeling) and
 > [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] (in-vitro activity check). The two protocols deliberately use
 > different SAM concentrations — 800 uM vs 160 uM — see the Critical note on either page
 > before changing one to match the other.
 
 ## See also
 
-- [[fiber-seq-hia5-labeling]]
+- [[3-hia5-m6a-labeling-reaction-for-fiber-seq]]
 - [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]]
 - [[dpni-methylation-check]]
 - [[epicypher-cutana-hia5]]
