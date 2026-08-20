@@ -238,10 +238,14 @@ to one factor. The lab's [Anchor Tag](../../projects/anchor-tag/index.md) constr
 
 **Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Construct
 verdict table revised 2026-08-20 after a primary-source recheck of the round-2 claim. Reordered
-2026-08-20 to put the step map above the reference material.
+2026-08-20 to put the step map above the reference material. Round-2 evidence extended
+2026-08-20 from the `AnchorTag/RUN_NEW` spreadsheet.
 
 **Source.** Lab development record — [[fiber-seq-development-log]] and the source Google
-Doc *Fiber-Seq Experiments - Initial Tests* (2026), *Protocol* tab.
+Doc *Fiber-Seq Experiments - Initial Tests* (2026), *Protocol* tab. Round-2 inventory and the
+June 2026 experiment log come from the Google Sheet *AnchorTag/RUN_NEW*
+(tabs `June2026`, `Jan2026`, `AnchorTag`, `NUCLEI`), which is on
+[[vianney-ahn|Vianney]]'s UC Davis Drive.
 Published plant methods: [PNAS 2025 plant Fiber-seq](https://www.pnas.org/doi/10.1073/pnas.2516708122)
 and the [Nature Plants maize TE paper, May 2025](https://www.nature.com/articles/s41477-025-02002-z).
 Commercial reference: Epicypher CUTANA Fiber-seq product documentation.
@@ -263,11 +267,21 @@ What the record actually says about the Hia5 constructs, and what it does not:
 - **Round 2 (June 2026, MBP-fused) is reported functional but has never been scored.** The
   only statement is [[vianney-ahn|Vianney]]'s, verbatim from a Slack DM on 2026-08-06:
   *"I did test the Hia5 from the more recent shipment from June, and they seem to be
-  functional."* Take it as suggestive, not as a result — it names no construct (the June
-  shipment contained both the wild-type and the 3A negative control), points at no gel or
-  date, and is hedged. The 06.14.2026 setup was documented and then the record stops with no
-  outcome written down. No functional QC was ordered from GenScript for round 2 either; the
-  purchased QC was SDS-PAGE and Western blot only. See [[hia5-enzyme-activity-test]] § Round 2.
+  functional."* Take it as suggestive, not as a result — it names no construct, points at no
+  gel or date, and is hedged. The shipment held **four** proteins, not two: Round2_A
+  Tudor-Hia5, Round2_E 3ATudor-Hia5, Round2_C Tudor-MNase and Round2_F 3ATudor-MNase. "The
+  Hia5 from the June shipment" therefore narrows to A and E at best, and does not distinguish
+  between them. The 06.14.2026 setup was documented and then the record stops with no outcome
+  written down. No functional QC was ordered from GenScript for round 2 either; the purchased
+  QC was SDS-PAGE and Western blot only. See [[hia5-enzyme-activity-test]] § Round 2.
+- **The June 2026 bench record contains no Hia5 work at all.** The `AnchorTag/RUN_NEW`
+  spreadsheet — the lab's own round-2 inventory and experiment log — has ~50 experiment rows
+  dated 06/08/2026 through 06/29/2026, and the enzyme column on every one of them reads
+  `Tudor-MNase` or `3ATudor-MNase`. Not one Hia5 row. The same sheet's inventory tab fills in
+  vial counts (`6 × 4.00 mL`) and worked-out per-reaction dilutions for both **MNase** rows and
+  leaves both columns **blank for both Hia5 rows**. The consistent reading is that the round-2
+  Hia5 proteins were received, never worked up, and never run — which is why this table keeps
+  them at *reported, unscored*.
 
 > **Even a scored gel would only establish half of it.** The DpnI readout measures methylation.
 > Whether a fusion's reader domain actually binds its target has never been tested and needs a
@@ -280,6 +294,10 @@ What the record actually says about the Hia5 constructs, and what it does not:
   on [Anchor Tag](../../projects/anchor-tag/index.md) that round 2 is unscored and why. Per
   Vianney (Slack, 2026-08-11) the round-2 tubes are dated — June/July dates are the newer
   batch.]`
+- `[VERIFY: the AnchorTag/RUN_NEW spreadsheet this page now cites is owned by Vianney's UC
+  Davis account, not the lab's. Ownership has not been transferred. If that account is
+  deprovisioned at offboarding, the round-2 inventory and the entire June 2026 experiment log
+  go with it. Transfer ownership.]`
 - `[VERIFY: plants are assumed to have negligible endogenous 6mA background, which is what
   makes the m6A signal interpretable. Checking this against the lab's existing Arabidopsis
   HiFi data was flagged as a to-do in the development log and has never been done. Do it

@@ -5001,11 +5001,15 @@
   },
   {
     "source": "resources/hia5-protein-stocks",
-    "target": "wet-lab/epigenomics/dpni-methylation-check"
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
     "source": "resources/hia5-protein-stocks",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+    "target": "people/vianney-ahn"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
     "source": "resources/hifi-lysis-buffer",
@@ -6989,6 +6993,10 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "people/vianney-ahn"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
     "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
@@ -7053,11 +7061,11 @@
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+    "target": "people/vianney-ahn"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "people/vianney-ahn"
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",

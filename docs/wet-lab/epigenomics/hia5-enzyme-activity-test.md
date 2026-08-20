@@ -183,11 +183,15 @@ Hia5 in regions that are and are not nucleosome-protected.
 ## Notes, open questions and sources
 
 **Page history.** Written 2026-08-18. Split out of the former combined "Hia5 DpnI Activity
-Assay" page on 2026-08-20; the gel readout moved to [[dpni-methylation-check]].
+Assay" page on 2026-08-20; the gel readout moved to [[dpni-methylation-check]]. Dosing and
+round-2 evidence sharpened 2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet.
 
 **Source.** Lab implementation in the *Fiber-Seq Experiments - Initial Tests* Google Doc
 (*Fiber-Seq Experiments* tab, entries 03.06 / 03.16 / 03.25 / 03.30.2026) and the
-*AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Method adapted from the protocols.io
+*AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Stock concentrations, purities and the
+footnotes explaining how the sub-floor values were derived come from the Google Sheet
+*AnchorTag/RUN_NEW*, tabs `Jan2026`, `June2026` and `AnchorTag` — on [[vianney-ahn|Vianney]]'s
+UC Davis Drive, ownership not yet transferred. Method adapted from the protocols.io
 procedure for testing nanobody-Hia5 fusions (`g3iibykcf`).
 
 ### Open questions
@@ -239,17 +243,38 @@ is the single place it is kept current.
 Neither overturns the result. Both mean it should be re-run before "Tudor-Hia5 does not
 methylate" is treated as a settled property of the construct.
 
-**1. The proteins were dosed by total mass, not by active enzyme.** The 03.30 note records
-*"Added 0.034ng of each protein stock per reaction"* and *"Used 11.72ul of the protein
-stock."* Equal total protein mass across constructs whose stocks range from **<30% to 95%
-purity** means the actual amount of Hia5 delivered differed by more than 3× between tubes.
-Round-1 Tudor-Hia5 (<30% pure) received less than a third the active enzyme that pA-Hia5
-(95% pure) did. The nM figures on [[hia5-protein-stocks]] are computed from **total** protein
-and are **not** purity-corrected, so they do not close this gap either.
+**1. The proteins were dosed by total mass, not by active enzyme — and the mass itself was
+computed from an upper bound.** The 03.30 note records *"Added 0.034ng of each protein stock
+per reaction"* and *"Used 11.72ul of the protein stock."* Equal total protein mass across
+constructs whose stocks range from **<30% to 95% purity** already means the actual amount of
+Hia5 delivered differed by more than 3× between tubes.
 
-> `[VERIFY: was the 03.30 dosing intended to be equal total mass, or equal active enzyme? If
-> equal mass, the Tudor-Hia5 failure is confounded with its low purity and the comparison
-> should be repeated at matched active-enzyme input before the construct is written off.]`
+The `Jan2026` tab of *AnchorTag/RUN_NEW* makes it worse, in its own footnotes: *"For samples
+with purity of NA, they indicate any purity that is less than 30% --> used 29% as estimate"*
+and *"for samples with conc listed as 0.01mg/ml, they are actually <0.01; removed < for
+calculations."* Round-1 Tudor-Hia5 is one of the two constructs those footnotes apply to. So
+its working concentration of 0.0029 mg/mL is **0.01 × 0.29, a ceiling multiplied by a
+ceiling** — the true value is lower than 0.0029 by an unknown factor. The 11.72 µL that was
+pipetted therefore delivered **less** than the intended 0.034 µg, and less active enzyme
+again on top of that.
+
+**The molar comparison is the sharpest way to see it.** From the same tab, in the same units,
+in the same run:
+
+| Construct | Purity | Working conc (mg/mL) | nM stock |
+| --- | --- | --- | --- |
+| Tudor-Hia5 | N/A, i.e. **<30%** (estimated 29%) | 0.0029 **(upper bound)** | **65.33** |
+| 3ATudor-Hia5 | ≥70% | 0.028 | **635.04** |
+
+The construct that "failed" ran at roughly **one tenth the molarity of its own negative
+control**, and its true figure is lower still. A ~10× enzyme deficit is more than enough to
+produce a blank lane on a 5-minute-to-1-hour DpnI timecourse without the protein being dead.
+
+> `[VERIFY: was the 03.30 dosing intended to be equal total mass, or equal active enzyme?
+> Either way the Tudor-Hia5 failure is confounded with its concentration and purity, and the
+> comparison should be repeated at matched active-enzyme input before the construct is written
+> off. The round-1 tubes may no longer be worth this — the round-2 MBP fusions exist precisely
+> because round-1 expression failed.]`
 
 **2. The recorded unit is wrong — it must be 0.034 µg, not 0.034 ng.** The two numbers in the
 note only agree at µg: 0.034 µg ÷ 0.0029 µg/µL (= 0.0029 mg/mL, the round-1 Tudor-Hia5 and
@@ -280,10 +305,17 @@ The only statement the lab has is [[vianney-ahn|Vianney]]'s, from a Slack DM on
 
 **Treat this as suggestive, not as a result.** Specifically:
 
-- It **names no construct**. "The Hia5 from the June shipment" covers both round-2 Hia5
-  fusions, and one of those two — **3ATudor-Hia5 — is the binding-pocket negative control.**
-  Its methylation activity being intact is expected and carries no information about the
-  wild-type construct.
+- It **names no construct**. The June shipment held **four** proteins — Round2_A Tudor-Hia5,
+  Round2_E 3ATudor-Hia5, Round2_C Tudor-MNase and Round2_F 3ATudor-MNase. "The Hia5 from the
+  June shipment" narrows to A and E at best, and one of those two — **3ATudor-Hia5 — is the
+  binding-pocket negative control.** Its methylation activity being intact is expected and
+  carries no information about the wild-type construct.
+- **The June 2026 bench record contains no Hia5 work at all.** The `AnchorTag` tab of
+  *AnchorTag/RUN_NEW* logs ~50 experiments dated 06/08/2026–06/29/2026 and the enzyme column
+  reads `Tudor-MNase` or `3ATudor-MNase` on every single row. The `June2026` inventory tab
+  fills in vial counts and per-reaction dilutions for both MNase constructs and leaves both
+  columns blank for both Hia5 constructs. June 2026 bench effort went into MNase; the round-2
+  Hia5 proteins look received but never worked up.
 - It is hedged — *"seem to be functional"* — and points at no gel, date, or lane.
 - **No functional QC was ordered from GenScript for round 2.** The purchased QC was SDS-PAGE
   and Western blot only; the vault record states plainly that functional activity QC was to be

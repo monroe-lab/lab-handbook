@@ -78,10 +78,21 @@ The values the lab actually used when setting up the March 2026 assays:
 | Tudor-Hia5 | 0.0029 | <30 | 65.33 |
 | 3ATudor-Hia5 | 0.028 | 70 | 635.04 |
 
-> `[VERIFY: the bench value 0.0029 mg/mL is consistent with GenScript's "<0.01" (it is below
-> their reporting floor, not in conflict with it), but the **identical** 0.0029 / <30 pair is
-> assigned to both free Hia5 and Tudor-Hia5, which may be a placeholder carried across rather
-> than two independent measurements. Confirm against the CoAs before quoting either number.]`
+> **These are derived numbers, not measurements — treat 0.0029 mg/mL as an upper bound.**
+> The `Jan2026` tab of *AnchorTag/RUN_NEW* carries the two footnotes that generate them,
+> verbatim: *"For samples with purity of NA, they indicate any purity that is less than 30%
+> --> used 29% as estimate"* and *"for samples with conc listed as 0.01mg/ml, they are actually
+> <0.01; removed < for calculations."* So 0.0029 = 0.01 × 0.29, where **both** inputs are
+> ceilings: the true concentration is below 0.01 mg/mL and the true purity is below 30%. The
+> real active-enzyme concentration is lower than 0.0029 mg/mL by an unknown factor, possibly a
+> large one.
+>
+> That also explains why free Hia5 and Tudor-Hia5 carry the *identical* 0.0029 / <30 pair —
+> not a placeholder copied across, but the same formula applied to the same two ceiling values,
+> because GenScript reported both constructs identically. The consequence is that Tudor-Hia5
+> was dosed at **65.33 nM against its own 3A negative control at 635.04 nM — roughly 10×
+> more enzyme in the control tube.** See [[hia5-enzyme-activity-test]] for why that confounds
+> the 03.30.2026 result.
 
 The two asterisked rows in the source table carry the footnote *"omitted for now, due to lack
 of protein stock…"* — meaning they were left out of the **03.06.2026** titration, not that they
@@ -118,6 +129,37 @@ Claire Fan, 2026-05-12: *"protein Round2_A… (item-1) and Round2_E… (item-11)
 lower purity due to partial fragmentation."* Grey declined a second purification round on
 GenScript's warning that it could increase degradation.
 
+### Bench-recorded round-2 stocks (`June2026` tab, AnchorTag/RUN_NEW)
+
+The lab's own working-up of the four round-2 tubes. Unlike the GenScript table above, these
+figures are **purity-corrected**: `conc × purity` gives the "effective" column, and the nM
+figures are computed from that, against the **intact fusion** MW (MBP still attached).
+
+| Construct | MW (kDa) | Conc (mg/mL) | Total (mg) | Purity | Effective conc (mg/mL) | nM stock | ng/µL | Vials logged | Working dilution logged |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Round2_A_MBP-HRV3C-Tudor-Hia5-6His | 84.509 | 0.40 | 9.6 | 70% | 0.280 | 3,313.26 | 280 | — | — |
+| Round2_E_MBP-HRV3C-3ATudor-Hia5-6His | 84.210 | 0.41 | 8.2 | 65% | 0.2665 | 3,164.71 | 266.5 | — | — |
+| Round2_C_MBP-HRV3C-Tudor-MNase-6His | 68.372 | 1.82 | 43.68 | 90% | 1.638 | 23,957.18 | 1,638 | 6 × 4.00 mL | 2.44 µL protein + 197.56 µL storage buffer (1:2) |
+| Round2_F_MBP-HRV3C-3ATudor-MNase-6His | 68.072 | 1.74 | 41.76 | 90% | 1.566 | 23,005.05 | 1,566 | 6 × 4.00 mL | 2.55 µL protein + 197.45 µL storage buffer (1:2) |
+
+> **The two Hia5 rows were never worked up.** Both the vial-count and the working-dilution
+> columns are filled in for the MNase pair and **blank for the Hia5 pair**. Pair that with the
+> `AnchorTag` experiment log in the same workbook — ~50 rows dated 06/08/2026–06/29/2026, every
+> one of them `Tudor-MNase` or `3ATudor-MNase`, **zero Hia5 rows** — and the picture is that
+> round-2 Hia5 arrived, went in the freezer, and was never taken to the bench. This is the
+> documentary basis for the *reported functional, never scored* verdict on
+> [[fiber-seq-master-protocol]].
+>
+> `[VERIFY: GenScript's paperwork records 6 vials for Round2_A and 5 for Round2_E; the lab
+> sheet records none. Absence of a logged count is not evidence the vials are missing — but
+> nobody has confirmed they are in the freezer either. Count them.]`
+
+Even at round 2's much improved yield, a Hia5 fusion tube is **~5.9× more dilute by mass**
+(0.280 vs 1.638 mg/mL effective) and **~7.2× more dilute molar** (3,313 vs 23,957 nM) than an
+MNase tube from the same order. That gap is the downstream consequence of the expression
+penalty documented below, and it is why a Hia5 reaction cannot simply reuse an MNase dilution
+scheme.
+
 `[VERIFY: the COA lot numbers index differently from the order item numbers (-1↔-4, -11↔-14,
 -6↔-9, -16↔-19). Both appear in GenScript's own paperwork. Match on construct name, not on
 number, when pulling a vial.]`
@@ -152,6 +194,18 @@ That in-house test was set up on 06.14.2026 and never scored. See
 
 GenScript account **G5512511**. Project managers over time: Sophie Yang and Annie Fan
 (round 1 and the round-2 quote), Claire Fan (round-2 QC and shipping).
+
+## Sources
+
+GenScript order reports, COAs, expression report and nuclease test for orders U9375BAEG0
+(round 1) and U4194NJYG0 (round 2), plus correspondence with Sophie Yang, Annie Fan and
+Claire Fan. Bench-recorded concentrations, the round-2 working-up and the footnotes on how
+the sub-floor values were computed come from the Google Sheet *AnchorTag/RUN_NEW*, tabs
+`Jan2026` and `June2026` — currently on [[vianney-ahn|Vianney]]'s UC Davis Drive, **ownership
+not yet transferred to the lab.**
+
+Updated 2026-08-20 with the round-2 bench table and the derivation of the round-1 sub-floor
+concentrations.
 
 ## See also
 

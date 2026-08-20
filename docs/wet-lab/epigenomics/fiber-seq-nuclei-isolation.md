@@ -99,8 +99,10 @@ dilutions in H₂O**.
 > **Critical — nuclei counting is a known unresolved weak point.** The 03.18.2026 entry records
 > that the resuspended pellet volume was far larger than the count predicted, with *"many doubts
 > that the CellDrop is under-counting the nuclei"* and the note **"NEED TO OPTIMIZE NUCLEI
-> COUNTING."** This was never resolved. Treat any CellDrop count as a lower bound, and
-> sanity-check it against pellet size before dosing the reaction. See § Notes.
+> COUNTING."** This was never resolved, and the lab's own replicate counts show the count moving
+> with the dilution you happen to pick — up to **~7× across a 1:4 to 1:100 series on one
+> sample.** Treat any CellDrop count as a lower bound, sanity-check it against pellet size, and
+> read § Nuclei counting — what the replicate data shows before you dose anything off it.
 
 ## Variation
 
@@ -166,12 +168,57 @@ A pale, clean nuclei pellet with minimal green material, resuspended in the work
 with a CellDrop count in the 1–6 million range for the intended reaction. Visible green or
 brown color means chloroplast and debris carryover, which will cost you DNA purity downstream.
 
+## Nuclei counting — what the replicate data shows
+
+The `NUCLEI` tab of the *AnchorTag/RUN_NEW* spreadsheet is the only quantitative record the lab
+has on this. It logs the CellDrop reading, the dilution factor, and the back-calculated
+original concentration. **If the instrument were counting correctly, that last column would be
+constant across dilutions of the same sample. It is not.**
+
+One sample, counted seven times:
+
+| Dilution | Back-calculated nuclei/mL in the original |
+| --- | --- |
+| 1:4 | 2.73 × 10⁶ |
+| 1:4 | 3.21 × 10⁶ |
+| 1:8 | 2.80 × 10⁶ |
+| 1:8 | 5.66 × 10⁶ |
+| 1:20 | 4.86 × 10⁶ |
+| 1:100 | 1.54 × 10⁷ |
+| 1:100 | 1.96 × 10⁷ |
+
+**The answer rises monotonically with how much you diluted, spanning ~7× from 2.73 × 10⁶ to
+1.96 × 10⁷.** Two readings at the same 1:8 dilution also differ 2-fold from each other, so
+there is substantial scatter on top of the trend.
+
+What this is consistent with — and it is an interpretation, not a scored result — is
+**concentration-dependent under-counting**: at low dilution the nuclei are dense enough that the
+instrument merges or misses them, and only the heavily diluted readings approach the true value.
+That is the same direction as the 03.18.2026 note about the pellet looking bigger than the
+count. It also means the least-diluted reading is the least trustworthy one.
+
+Practical consequences until this is settled:
+
+- **Do not count at a single dilution.** Step 5 specifies 1:8 and 1:50 for this reason; if the
+  two disagree by more than ~2×, the number is not usable for dosing.
+- **The 1:8 reading is likely an underestimate.** If you dose enzyme off it you will
+  over-label — and over-labeling shows up as inferred nucleosome lengths shorter than the real
+  ~150 bp, which you will not discover until after sequencing.
+- **Nothing here establishes a correction factor.** Do not scale by 7×, or by anything else.
+  The fix is an independent method, not a fudge factor.
+
+> `[VERIFY: this whole section rests on one sample's dilution series with no orthogonal
+> reference count. A hemocytometer or flow-cytometry cross-check on a single well-mixed prep,
+> counted across the same 1:4 → 1:100 series, would settle both the direction and the
+> magnitude. It has never been done.]`
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | Green or brown pellet, lots of debris | Too much starting tissue; incomplete filtering | Drop back toward 500 mg; check the strainer step actually ran to completion; add the optional extra NIB wash described in [[fiber-seq-hia5-labeling]] step 1 |
-| Count implausible against pellet size | CellDrop under-counting (known, unresolved) | Treat the count as a lower bound; do not scale enzyme off it blindly |
+| Count implausible against pellet size | CellDrop under-counting (known, unresolved) | Treat the count as a lower bound; do not scale enzyme off it blindly — see § Nuclei counting |
+| Two dilutions give very different counts | Concentration-dependent under-counting | Expected, not an error you made; the number is not usable for dosing if they disagree by more than ~2× |
 | Nuclei will not fully submerge in the reaction volume | Too many nuclei for the volume | Flagged at the 12.3M half-scale test on 03.18.2026 — reduce input or scale the volume up |
 | Low yield | Incomplete grinding, or thawing before lysis | Regrind; keep tissue frozen until buffer is added |
 
@@ -198,10 +245,13 @@ in the whole Fiber-seq chain.
 ## Notes, open questions and sources
 
 **Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Reordered
-2026-08-20 to put the procedure above the reference material.
+2026-08-20 to put the procedure above the reference material. Counting section added
+2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet.
 
 **Source.** Lab protocol from the *Fiber-Seq Experiments - Initial Tests* Google Doc,
 *Protocol* tab, adapted from [PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122).
+CellDrop counts come from the Google Sheet *AnchorTag/RUN_NEW*, `NUCLEI` tab — on
+[[vianney-ahn|Vianney]]'s UC Davis Drive, ownership not yet transferred.
 Background on why each step exists is in [[fiber-seq-master-protocol]].
 
 **Input range provenance.** 500 mg to 3 g of tissue; both fresh and -80 °C frozen Col-0
@@ -213,7 +263,12 @@ seedlings have been used. PNAS 2025 uses ~500 mg of fresh tissue as its standard
 - `[VERIFY: which filtration route was actually used in the 05.2026 PBTS runs and the 06.2026
   tests. The Protocol tab says the two-step 70 µm → 30–40 µm route, but it predates those runs.]`
 - `[VERIFY: has a nuclei counting method been settled since March 2026? A hemocytometer or
-  flow-cytometry cross-check would close the CellDrop under-counting question.]`
+  flow-cytometry cross-check would close the CellDrop under-counting question. The dilution
+  series in § Nuclei counting is the strongest evidence the lab has and it is still one sample,
+  unreplicated across preps.]`
+- `[VERIFY: the NUCLEI tab does not record which prep, date or tissue mass its counted samples
+  came from — only a sample label. Tying that series to a specific isolation would let the
+  count be compared against pellet size and yield.]`
 - `[VERIFY: is the protoplast route worth testing, or deliberately not? Protoplasting is slow
   and species-specific, but it is what the published results were generated from.]`
 
