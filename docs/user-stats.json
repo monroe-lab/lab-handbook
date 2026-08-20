@@ -1,33 +1,28 @@
 {
-  "generated_at": "2026-08-20T08:52:27.104779+00:00",
-  "total_commits": 4587,
+  "generated_at": "2026-08-20T09:09:40.185233+00:00",
+  "total_commits": 4588,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4238,
+      "total_commits": 4239,
       "first_commit": "2025-12-04",
-      "last_commit": "2026-08-19",
-      "protocols_authored": 194,
+      "last_commit": "2026-08-20",
+      "protocols_authored": 196,
       "notebooks_authored": 156,
-      "inventory_edits": 2239,
-      "wiki_edits": 5032,
+      "inventory_edits": 2244,
+      "wiki_edits": 5036,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
       "locations_created": 259,
-      "items_added": 703,
+      "items_added": 704,
       "bulletin_edits": 14,
       "calendar_edits": 40,
       "annotations": 58,
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "29ca5b1",
-          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
-          "date": "2026-05-13"
-        },
         {
           "sha": "b62b256",
           "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
@@ -62,6 +57,11 @@
           "sha": "a5809d3",
           "subject": "Rewrite architecture docs: this is not MkDocs anymore",
           "date": "2026-08-19"
+        },
+        {
+          "sha": "1b8edac",
+          "subject": "Split the Hia5 DpnI assay into enzyme test + digestion readout",
+          "date": "2026-08-20"
         }
       ],
       "days_active": 259

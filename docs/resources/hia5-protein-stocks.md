@@ -7,6 +7,11 @@ vendor: GenScript
 
 # Hia5 Protein Stocks (in-house, GenScript)
 
+**Hia5 is the methyltransferase (MTase)** — a bacterial non-sequence-specific N6-adenine DNA
+methyltransferase that writes m6A onto accessible adenines using SAM as the methyl donor. It is
+the catalytic module in every construct on this page. (The other enzyme it is always paired
+with, [[dpni|DpnI]], is a restriction enzyme that *detects* m6A; it never writes it.)
+
 Every in-house Hia5 and Hia5-fusion protein the lab has had made, across two GenScript orders.
 This is the reference for concentration, purity, molecular weight, and what each construct
 actually is. For the commercial reference enzyme see [[epicypher-cutana-hia5]]; for what has

@@ -13,6 +13,11 @@ carries an N6-methyl group**. That conditional behavior is what makes it a reage
 just a cutter: on otherwise identical DNA, digestion is a direct binary readout of whether an
 adenine methyltransferase was active.
 
+**DpnI does not methylate anything.** In this lab's workflow the methyltransferase is
+**[[epicypher-cutana-hia5|Hia5]]** — Hia5 writes the m6A, DpnI reports it. Keep the two
+straight: they appear on the same gel and in the same protocols, but Hia5 is the enzyme under
+test and DpnI is the instrument testing it.
+
 This is the entire basis of [[dpni-methylation-check]], the lab's gel readout for whether a
 DNA sample carries m6A, and of [[hia5-enzyme-activity-test]], which uses that readout to ask
 whether a Hia5 or Hia5-fusion protein methylates at all.
@@ -29,8 +34,8 @@ whether a Hia5 or Hia5-fusion protein methylates at all.
 > 💡 **Lab use**
 >
 > Read the gel, not the enzyme: **smear/laddering = methylation succeeded; intact band =
-> the methyltransferase did nothing.** Always run an unmethylated no-enzyme control on the same
-> gel, because a failed digest and a failed methylation look identical without it.
+> the methyltransferase (Hia5) did nothing.** Always run an unmethylated no-Hia5 control on the
+> same gel, because a failed digest and a failed methylation look identical without it.
 >
 > The assay tests **methylation only**. It says nothing about whether a targeted fusion
 > construct binds its intended target — that requires a separate DiMeLo-seq-style experiment.

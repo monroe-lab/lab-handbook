@@ -51,10 +51,13 @@ resolves the primary architecture of chromatin along its underlying DNA template
 **individual multi-kilobase molecules**, which is what makes it possible to ask whether a
 promoter and its enhancer were open on the *same* fiber.
 
-### Why a non-specific m6A MTase reports accessibility
+### Why Hia5, a non-specific m6A MTase, reports accessibility
 
-Hia5 is a bacterial N6-adenine DNA methyltransferase with no sequence-context preference.
-Applied to intact nuclei, it methylates any adenine it can physically reach. DNA that is
+**Hia5 is the methyltransferase** in this workflow — a bacterial N6-adenine DNA
+methyltransferase (MTase) with no sequence-context preference. It is the enzyme that writes the
+m6A mark, and nothing else in the protocol methylates DNA. (The other enzyme you will meet,
+[[dpni|DpnI]], is a restriction enzyme used only to *detect* that mark on a gel.)
+Applied to intact nuclei, Hia5 methylates any adenine it can physically reach. DNA that is
 wrapped in a nucleosome or occupied by a transcription factor is shielded, so **a protein
 footprint appears as a localized gap in m6A along a single long read**. Two size classes of
 methylase-accessible region are expected, and both were seen in the original work: elements

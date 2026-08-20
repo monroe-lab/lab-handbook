@@ -7,16 +7,16 @@ pi: "Grey Monroe"
 
 # Anchor Tag
 
-Engineered MSH6 Tudor reader-enzyme fusion proteins for antibody-free chromatin profiling of H3K4me1 in plants. The lab is designing, ordering, and testing recombinant fusions of the MSH6 Tudor domain (which binds H3K4me1) to two catalytic modules: *Staphylococcus aureus* micrococcal nuclease (MNase) for CUT&RUN-style targeted cleavage, and the non-specific adenine methyltransferase HiA5 for DiMeLo-Seq / Fiber-Seq-style long-read methylation profiling.
+Engineered MSH6 Tudor reader-enzyme fusion proteins for antibody-free chromatin profiling of H3K4me1 in plants. The lab is designing, ordering, and testing recombinant fusions of the MSH6 Tudor domain (which binds H3K4me1) to two catalytic modules: *Staphylococcus aureus* micrococcal nuclease (MNase) for CUT&RUN-style targeted cleavage, and the non-specific adenine methyltransferase Hia5 for DiMeLo-Seq / Fiber-Seq-style long-read methylation profiling.
 
-The project is the critical-path deliverable for the [NSF EAGER "Cracking the Histone Code"](../../index.md) grant (NSF 2317191, ending 2026-05-31) and is the scientific basis for the pivot from the original Tn5-based AnchorTag approach to MNase/HiA5 fusions.
+The project is the critical-path deliverable for the [NSF EAGER "Cracking the Histone Code"](../../index.md) grant (NSF 2317191, ending 2026-05-31) and is the scientific basis for the pivot from the original Tn5-based AnchorTag approach to MNase/Hia5 fusions.
 
 ## Goal
 
 Produce, in milligram quantities and with confirmed enzymatic activity, two tag-free or minimally-tagged fusion proteins:
 
 - **Tudor-MNase** — targeted DNA cleavage at H3K4me1 nucleosomes (CUT&RUN workflow).
-- **Tudor-HiA5** — targeted adenine methylation at H3K4me1 nucleosomes (DiMeLo-Seq / Fiber-Seq workflow, read out by Nanopore long-read sequencing).
+- **Tudor-Hia5** — targeted adenine methylation at H3K4me1 nucleosomes (DiMeLo-Seq / Fiber-Seq workflow, read out by Nanopore long-read sequencing).
 
 Both with matched 3A binding-pocket-knockout negative controls for specificity experiments.
 
@@ -27,9 +27,9 @@ Both with matched 3A binding-pocket-knockout negative controls for specificity e
 | PI | [[grey-monroe]] | Design, ordering, training alongside Vianney to take over the wet-lab work after her departure |
 | Jr. Specialist | [[vianney-ahn]] | Protein handling, QC, first experiments, protocol development (through end of June 2026) |
 | Postdoc (reader-fusion strategy originator) | [[satoyo-oya]] | Round 1 construct design, architecture consult (remote, in Germany) |
-| Project officer | Stephen DiFazio (NSF program officer) | NSF program director, endorsed the pivot to MNase/HiA5 fusions |
+| Project officer | Stephen DiFazio (NSF program officer) | NSF program director, endorsed the pivot to MNase/Hia5 fusions |
 
-**Succession plan:** Grey is training with Vianney on the full Tudor-MNase CUT&RUN and Tudor-HiA5 DiMeLo-Seq workflows during her remaining time in the lab (through June 2026), so the project continues after she leaves. Vianney should write a written SOP for each protocol before she departs.
+**Succession plan:** Grey is training with Vianney on the full Tudor-MNase CUT&RUN and Tudor-Hia5 DiMeLo-Seq workflows during her remaining time in the lab (through June 2026), so the project continues after she leaves. Vianney should write a written SOP for each protocol before she departs.
 
 ## Equipment and reagents needed
 
@@ -52,10 +52,10 @@ This section is the single source of truth for ordering on the project. Grey der
 - **What to order:** **MinION Mk1D** (the current generation, standalone USB device) or **MinION Mk1B** (older, laptop-tethered, cheaper). Mk1D is the better choice for Grey's lab — integrated compute, no dependency on a laptop sitting nearby, runs as a small appliance.
   - MinION Mk1D Starter Pack typically includes: 1× MinION Mk1D device, 1× MinION Flow Cell (R10.4.1), 1× Ligation Sequencing Kit (V14), configuration/materials kit. Starter pack is the right SKU for a first-time lab.
   - Expected cost range: ~$5k for the Mk1B starter pack, ~$8–10k for the Mk1D starter pack (confirm on nanoporetech.com/store)
-- **Why this matters for the project:** DiMeLo-Seq and Fiber-Seq readout for the Tudor-HiA5 experiments depends on modified-base calling (m6A) on long reads. Without an in-house Nanopore, each DiMeLo-Seq experiment has to go to the UC Davis DNA Technologies Core or similar, adding 2–4 weeks per run. An in-house MinION cuts the turnaround to same-day.
+- **Why this matters for the project:** DiMeLo-Seq and Fiber-Seq readout for the Tudor-Hia5 experiments depends on modified-base calling (m6A) on long reads. Without an in-house Nanopore, each DiMeLo-Seq experiment has to go to the UC Davis DNA Technologies Core or similar, adding 2–4 weeks per run. An in-house MinION cuts the turnaround to same-day.
 - **Order timing:** ASAP. Ideally arrives before the GenScript proteins, so Grey has time to set up, run basecaller training, and do one test sequencing run on lambda DNA before the real experiments start.
 - **Also needed with the device:**
-  - Additional MinION Flow Cells R10.4.1 (FLO-MIN114), at least 2 extras beyond the one in the starter pack — one for the first Tudor-HiA5 test run, one in reserve. Flow cells are perishable (~6 month shelf life from ship date) so don't over-order.
+  - Additional MinION Flow Cells R10.4.1 (FLO-MIN114), at least 2 extras beyond the one in the starter pack — one for the first Tudor-Hia5 test run, one in reserve. Flow cells are perishable (~6 month shelf life from ship date) so don't over-order.
   - **Dorado** basecaller — free, open-source from ONT, handles m6A modification calling. Install on Grey's Mac or Farm.
 
 #### 3. Epicypher designer nucleosomes — H3K4me1 modified mononucleosomes
@@ -66,7 +66,7 @@ This section is the single source of truth for ordering on the project. Grey der
   - Specifically: **H3K4me1 mononucleosome** (check epicypher.com catalog for current SKU; their H3K4me1 dNuc is typically sold as ~50 µg tubes)
   - Matched control: **recombinant unmodified mononucleosome** (same backbone, no modification)
 - **Expected cost:** ~$300–500 per tube for each dNuc (check current pricing). Order one H3K4me1 and one unmodified control, minimum.
-- **Why this matters:** Essential for the targeting QC experiment. The first "does our reagent actually work" question the lab will ask is: does WT Tudor-MNase (or Tudor-HiA5) preferentially act on H3K4me1-modified nucleosomes vs unmodified? The 3A negative control should fail to discriminate. Without these reference nucleosomes, that experiment is not possible.
+- **Why this matters:** Essential for the targeting QC experiment. The first "does our reagent actually work" question the lab will ask is: does WT Tudor-MNase (or Tudor-Hia5) preferentially act on H3K4me1-modified nucleosomes vs unmodified? The 3A negative control should fail to discriminate. Without these reference nucleosomes, that experiment is not possible.
 - **Storage:** -80 °C, single-use aliquots recommended. Order timing: so they arrive alongside the GenScript proteins.
 - **Alternative vendor:** Active Motif also sells semi-synthetic nucleosomes with defined modifications. Epicypher is the standard for CUT&RUN / CUT&Tag reagent validation so I'd start there.
 
@@ -107,7 +107,7 @@ Nothing to order if these are already stocked, but worth confirming before the p
 
 | Item | Status |
 |------|--------|
-| Round 1 GenScript order (U9375BAEG0) data analyzed | Done. Wild-type Tudor-HiA5 failed (<0.06 mg). Solubility-partner hypothesis confirmed by the yield pattern. See `~/Dropbox/Research/tudor-fusion-proteins/round2_design/round1_analysis.md` |
+| Round 1 GenScript order (U9375BAEG0) data analyzed | Done. Wild-type Tudor-Hia5 failed (<0.06 mg). Solubility-partner hypothesis confirmed by the yield pattern. See `~/Dropbox/Research/tudor-fusion-proteins/round2_design/round1_analysis.md` |
 | Round 2 constructs designed | Done. A, C, E, F. Architecture = M + MBP + HRV3C site + Tudor (WT or 3A) + (G4S)4 linker + enzyme + 6xHis |
 | Sequence provenance verified | Done. Tudor is byte-identical to Satoyo round 1, MSH6_tudor_domains.fa published entry, and a contiguous slice of AtMSH6 residues 119-184 (UniProt O04716). See `~/Dropbox/Research/tudor-fusion-proteins/round2_design/verify_tudor.py` output |
 | GenScript round 2 quote request drafted | Done. `draft-20260411-genscript-tudor-round2` in the Grey Matter queue, pending review |
@@ -115,7 +115,7 @@ Nothing to order if these are already stocked, but worth confirming before the p
 | AlphaFold structure prediction | In progress. Inputs prepped at `alphafold_inputs/`. Running Boltz locally, Farm AF3 setup underway |
 | In-house QC SOP written | Not started |
 | CUT&RUN protocol written (for Tudor-MNase) | Not started. Based on Skene & Henikoff 2017 eLife |
-| DiMeLo-Seq protocol written (for Tudor-HiA5) | Not started. Based on Altemose 2022 DiMeLo-Seq paper |
+| DiMeLo-Seq protocol written (for Tudor-Hia5) | Not started. Based on Altemose 2022 DiMeLo-Seq paper |
 | Nanopore sequencer purchased | Not yet. Grey decided on 2026-04-11. Order ASAP |
 
 ## Timeline
@@ -173,7 +173,7 @@ Working backward from the NSF EAGER NCE 2 end date (2026-05-31):
 ### While GenScript is producing (weeks 1–6)
 
 - [ ] Vianney writes Tudor-MNase CUT&RUN SOP (based on Skene & Henikoff 2017 eLife, not the CUT&Tag protocol)
-- [ ] Vianney writes Tudor-HiA5 DiMeLo-Seq SOP (based on Altemose 2022)
+- [ ] Vianney writes Tudor-Hia5 DiMeLo-Seq SOP (based on Altemose 2022)
 - [ ] Grey sets up Nanopore sequencer, completes basecalling / mod-calling training
 - [ ] Confirm HMW DNA extraction pipeline gives reliable yield (>50 kb average fragment length post-shearing for Fiber-Seq)
 - [ ] Grey shadows Vianney through full Arabidopsis nuclei prep protocol
@@ -208,11 +208,11 @@ Tudor-MNase is added to permeabilized Arabidopsis nuclei in Ca²⁺-free buffer.
 
 **Matched negative control (construct F, 3ATudor-MNase):** same protocol, but the 3A mutations abolish H3K4me1 binding. Any signal in this lane is background (nonspecific DNA cleavage, incomplete targeting, etc.). The WT - 3A difference is the targeted-cleavage signal.
 
-### The DiMeLo-Seq side (Tudor-HiA5, construct A)
+### The DiMeLo-Seq side (Tudor-Hia5, construct A)
 
-Tudor-HiA5 is added to permeabilized nuclei in a buffer containing SAM (the methyl donor). The Tudor domain docks onto H3K4me1 nucleosomes. HiA5 continuously deposits m6A marks on nearby DNA (non-sequence-specific). Unlike MNase, HiA5 does not need a trigger — activity is constant. Reaction is stopped, nuclei are lysed, **HMW DNA is extracted without fragmentation**, and run on Nanopore. Basecalling with m6A modification calling (Dorado or similar) reveals where m6A was deposited along each long read, identifying the in-nucleo footprint of MSH6 Tudor binding at single-molecule resolution.
+Tudor-Hia5 is added to permeabilized nuclei in a buffer containing SAM (the methyl donor). The Tudor domain docks onto H3K4me1 nucleosomes. Hia5 continuously deposits m6A marks on nearby DNA (non-sequence-specific). Unlike MNase, Hia5 does not need a trigger — activity is constant. Reaction is stopped, nuclei are lysed, **HMW DNA is extracted without fragmentation**, and run on Nanopore. Basecalling with m6A modification calling (Dorado or similar) reveals where m6A was deposited along each long read, identifying the in-nucleo footprint of MSH6 Tudor binding at single-molecule resolution.
 
-**Matched negative control (construct E, 3ATudor-HiA5):** same protocol with the binding-knockout variant. Background m6A should be uniform across reads. The WT - 3A difference is the targeted methylation signal.
+**Matched negative control (construct E, 3ATudor-Hia5):** same protocol with the binding-knockout variant. Background m6A should be uniform across reads. The WT - 3A difference is the targeted methylation signal.
 
 **The Nanopore purchase enables this side of the project** — without in-house long-read sequencing, Fiber-Seq / DiMeLo-Seq requires outside sequencing cores (UC Davis DNA Tech Core or similar) which adds weeks of turnaround per experiment. An in-house MinION lets Vianney / Grey run a DiMeLo-Seq experiment and see results the same week.
 
@@ -228,13 +228,13 @@ MSH6 Tudor binds H3K4me1 with EC50 ~36 µM (Aki 2023 FP data). That is on the we
 
 1. **MNase is Ca²⁺-activated.** Tudor-MNase is not a drop-in replacement for Tudor-Tn5 in the existing CUT&Tag protocol. Binding buffer must be Ca²⁺-free (or EGTA-containing) until you want cleavage. Cleavage is triggered with 2 mM CaCl₂. Reaction is quenched with 5 mM EGTA or EDTA. Cross-contamination from Ca²⁺ in nearby buffers can cause premature cleavage — use dedicated labware for this workflow.
 
-2. **HiA5 needs SAM.** Tudor-HiA5 requires S-adenosyl methionine (SAM) in the reaction buffer as the methyl donor. Without SAM, no m6A is deposited regardless of binding. Confirm SAM stock is fresh (SAM degrades over time at -20 °C).
+2. **Hia5 needs SAM.** Tudor-Hia5 requires S-adenosyl methionine (SAM) in the reaction buffer as the methyl donor. Without SAM, no m6A is deposited regardless of binding. Confirm SAM stock is fresh (SAM degrades over time at -20 °C).
 
-3. **DpnI digestion readout for HiA5 activity.** DpnI cuts G[m6A]TC but not GATC. Mix Tudor-HiA5 with naked plasmid DNA + SAM, incubate, then add DpnI. If the plasmid is cut, Tudor-HiA5 methylated it. Simple and cheap in-house QC.
+3. **DpnI digestion readout for Hia5 activity.** DpnI cuts G[m6A]TC but not GATC. Mix Tudor-Hia5 with naked plasmid DNA + SAM, incubate, then add DpnI. If the plasmid is cut, Tudor-Hia5 methylated it. Simple and cheap in-house QC.
 
 4. **Post-HRV3C cleavage scar.** Constructs A/C/E/F as currently designed start with `(GP)Tudor...` after HRV3C cleavage (if we ever cleave them). The `GP` scar is on the N-terminus of the Tudor domain and is outside the aromatic binding pocket, so it does not affect function.
 
-5. **HMW DNA for DiMeLo-Seq is the weak link on the Tudor-HiA5 side.** Fiber-Seq / DiMeLo-Seq requires long intact DNA fragments (>50 kb, ideally >100 kb) for Nanopore library prep. Standard extraction protocols (CTAB, DNeasy) produce 10-30 kb fragments. The lab's HMW pipeline needs to be validated before the Tudor-HiA5 experiment will give useful data.
+5. **HMW DNA for DiMeLo-Seq is the weak link on the Tudor-Hia5 side.** Fiber-Seq / DiMeLo-Seq requires long intact DNA fragments (>50 kb, ideally >100 kb) for Nanopore library prep. Standard extraction protocols (CTAB, DNeasy) produce 10-30 kb fragments. The lab's HMW pipeline needs to be validated before the Tudor-Hia5 experiment will give useful data.
 
 ## Resources
 
@@ -281,5 +281,5 @@ Written 2026-08-18/20:
 Still to be written:
 
 - Tudor-MNase CUT&RUN SOP *(to be written)* (to be written by Vianney before protein arrival)
-- Tudor-HiA5 DiMeLo-Seq SOP *(to be written)* — the target-binding half, still untested
+- Tudor-Hia5 DiMeLo-Seq SOP *(to be written)* — the target-binding half, still untested
 - Nanopore MinION setup and run *(to be written)* (to be written once Nanopore hardware arrives)

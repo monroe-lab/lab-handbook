@@ -4897,6 +4897,10 @@
   },
   {
     "source": "resources/dpni",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/dpni",
     "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
@@ -4982,6 +4986,10 @@
   {
     "source": "resources/heat-block",
     "target": "wet-lab/nanopore-rapid-library-prep"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/dpni"
   },
   {
     "source": "resources/hia5-protein-stocks",
@@ -6921,6 +6929,10 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/dpni"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "wet-lab/epigenomics/chip-seq"
   },
   {
@@ -7042,6 +7054,10 @@
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/dpni"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",

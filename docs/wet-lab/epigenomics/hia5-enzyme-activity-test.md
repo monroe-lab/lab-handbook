@@ -38,8 +38,13 @@ procedure for testing nanobody-Hia5 fusions (`g3iibykcf`)
 
 ## Background
 
-Hia5 is a bacterial N6-adenine methyltransferase with no sequence specificity beyond needing
-an accessible adenine. In a Fiber-seq experiment it works on chromatin inside intact nuclei
+**Hia5 is the methyltransferase** — a bacterial N6-adenine DNA methyltransferase (**MTase**)
+with no sequence specificity beyond needing an accessible adenine. It is the enzyme that
+*writes* m6A, using SAM as the methyl donor. Everywhere these pages say "the MTase," they mean
+Hia5 or a Hia5 fusion; the only other enzyme in this workflow, [[dpni|DpnI]], is a restriction
+enzyme that *reads* the mark on [[dpni-methylation-check]] and never methylates anything.
+
+In a Fiber-seq experiment Hia5 works on chromatin inside intact nuclei
 ([[fiber-seq-hia5-labeling]]). Here it works on naked, protein-free HMW DNA, which removes
 chromatin as a variable: **if the enzyme cannot methylate naked DNA, nothing downstream is
 worth attempting.**
@@ -72,7 +77,7 @@ tables.]`
 
 ## Time estimate
 
-1 h MTase reaction, then hand off to [[dpni-methylation-check]] (1 h digest + ~45 min gel).
+1 h Hia5 (MTase) reaction, then hand off to [[dpni-methylation-check]] (1 h digest + ~45 min gel).
 Half a day end to end.
 
 ## Required input
@@ -160,7 +165,7 @@ input corrupts it.
 
 ### 3. Stop the reaction
 
-Add **6 µL of 10% SDS** and vortex to mix (06.14.2026 procedure). This denatures the MTase so
+Add **6 µL of 10% SDS** and vortex to mix (06.14.2026 procedure). This denatures Hia5 so
 it cannot keep working during the digestion step.
 
 `[VERIFY: the March 2026 runs do not record an SDS stop. Confirm whether SDS was added then
@@ -283,7 +288,7 @@ The only statement the lab has is [[vianney-ahn|Vianney]]'s, from a Slack DM on
 | Nothing methylated, including the Epicypher control | Dead SAM, or wrong buffer | SAM is highly labile and degrades with freeze/thaw — use a fresh aliquot before suspecting any enzyme. Confirm the activation buffer was made fresh |
 | Epicypher worked, the construct did not | Genuinely low activity, or too little active enzyme delivered | Options recorded 03.30.2026: increase enzyme (0.034 → 0.05 µg per reaction, or more), increase incubation time, or both. If the stock is low-purity, match on active enzyme rather than total protein mass |
 | Partial methylation only at the highest input | Low activity, or a stock concentration error | Repeat with a fresh dilution series; verify the concentration used in the nM calculation against [[hia5-protein-stocks]] |
-| No-enzyme control also methylated | MTase carryover between tubes, or endogenous m6A in the source DNA | Fresh tips per tube. Check whether the source DNA could already be methylated — the dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open task |
+| No-enzyme control also methylated | Hia5 carryover between tubes, or endogenous m6A in the source DNA | Fresh tips per tube. Check whether the source DNA could already be methylated — the dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open task |
 | Every lane is smeared, including undigested | Shearing during handling | Wide-bore tips throughout; do not vortex except for the SDS stop |
 
 ## Safety

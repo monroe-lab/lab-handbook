@@ -33,7 +33,7 @@ Background on why each step exists is in [[fiber-seq-master-protocol]].
 ## Background
 
 Fiber-seq needs **intact nuclei, not naked DNA** — the entire signal depends on chromatin
-proteins still being bound so they can protect their footprints from the methyltransferase.
+proteins still being bound so they can protect their footprints from Hia5, the m6A methyltransferase.
 Everything in this protocol is in service of that.
 
 What the buffer components do:

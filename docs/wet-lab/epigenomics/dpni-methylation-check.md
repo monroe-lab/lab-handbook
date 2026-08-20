@@ -26,6 +26,14 @@ DpnI cuts `GATC` only when the adenine is methylated, so methylated DNA gets cho
 smear and unmethylated DNA stays high molecular weight. This page is the **readout**. It does
 not care where the methylation came from.
 
+> **Two enzymes, opposite jobs — do not confuse them.**
+> **[[epicypher-cutana-hia5|Hia5]] is the methyltransferase (MTase).** It is the enzyme that
+> *writes* m6A onto adenines, and it is the thing being tested. It is never added on this
+> page — it acted upstream, in [[fiber-seq-hia5-labeling]] or [[hia5-enzyme-activity-test]].
+> **[[dpni|DpnI]] is a restriction enzyme.** It *reads* m6A by cutting methylated `GATC`, and
+> it is the only enzyme you pipette here. Wherever this page says "MTase," it means Hia5 (or
+> a Hia5 fusion such as Tudor-Hia5 or pA/G-Hia5).
+
 Two things send work here:
 
 - **[[fiber-seq-hia5-labeling]]** — you labeled nuclei, extracted the HMW DNA, and want to
@@ -41,6 +49,10 @@ procedure for testing nanobody-Hia5 fusions (`g3iibykcf`)
 `[VERIFY: resolve the full protocols.io URL and title before publishing]`.
 
 ## Background
+
+In this lab's workflow the m6A always comes from **Hia5**, a bacterial non-sequence-specific
+N6-adenine methyltransferase — the MTase. Hia5 (free, or fused to a targeting domain) is what
+deposits the methyl mark upstream; this page only detects it.
 
 DpnI recognizes `GATC` but only cuts when the adenine in that site carries the N6-methyl
 group. This is the same logic DamID is built on. So:
@@ -62,7 +74,7 @@ lanes, and no quantification is needed to tell them apart.
 ## Time estimate
 
 1 h digestion + ~45 min gel run, plus gel pouring and imaging. Half a day if you are also
-running the upstream MTase reaction.
+running the upstream Hia5 methylation reaction.
 
 ## Required input
 
@@ -122,10 +134,10 @@ ones you added when you record the gel.
 
 | Optional addition | What it buys you | When it is worth a well |
 | --- | --- | --- |
-| **Unmethylated input, ±DpnI** (a matched pair of the same DNA that never saw MTase) | Catches endogenous or contaminating m6A in the source DNA. If this pair digests, your positives mean nothing | First time you use a new DNA source or species. The dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open question |
+| **Unmethylated input, ±DpnI** (a matched pair of the same DNA that never saw Hia5) | Catches endogenous or contaminating m6A in the source DNA. If this pair digests, your positives mean nothing | First time you use a new DNA source or species. The dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open question |
 | **[[epicypher-cutana-hia5]]-treated positive, +DpnI** | Proves the DpnI, buffer, and gel are all working on a day when everything else came back negative | Any run where a negative result would be a consequential conclusion |
 | **DNA ladder** | Lets you say *how* short the smear is, not just that it exists | Cheap. Include it unless you are tight on wells |
-| **Enzyme titration series** (each ±DpnI) | Turns yes/no into a rough dose-response | Comparing constructs or lots — see [[hia5-enzyme-activity-test]] |
+| **Hia5 titration series** (each ±DpnI) | Turns yes/no into a rough dose-response | Comparing constructs or lots — see [[hia5-enzyme-activity-test]] |
 | **Timecourse** (each ±DpnI) | Same, over incubation time | The 03.16.2026 run used 5 / 20 / 60 min |
 
 > **If you drop anything, do not drop aliquot A.** A gel of +DpnI lanes alone cannot
@@ -138,7 +150,7 @@ ones you added when you record the gel.
 - **Aliquot B** (+DpnI), methylated: visibly shorter — a low smear or a collapsed band.
 - **Aliquot B** (+DpnI), unmethylated: indistinguishable from A.
 
-**Complete digestion of HMW DNA at the lowest enzyme input you tested indicates high
+**Complete digestion of HMW DNA at the lowest Hia5 input you tested indicates high
 activity.** In the March 2026 titrations that point was 25 nM.
 
 ## Interpreting results
@@ -146,7 +158,7 @@ activity.** In the March 2026 titrations that point was 25 nM.
 | A | B | Read as |
 | --- | --- | --- |
 | HMW | Smeared | m6A present. Methylation worked |
-| HMW | HMW | No detectable m6A. Either the MTase did nothing, or the DNA never saw it |
+| HMW | HMW | No detectable m6A. Either Hia5 did nothing, or the DNA never saw it |
 | Smeared | Smeared | **Uninterpretable.** The input was already degraded. Re-extract or re-handle and repeat |
 | Smeared | HMW | Impossible with a correct setup. Suspect a tube swap or a loading error |
 
@@ -158,10 +170,10 @@ pre-existing methylation and every other lane on the gel is confounded.
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | No digestion in any lane | DpnI never went in, wrong buffer, or dead enzyme | Confirm the digestion buffer is rCutSmart and that DpnI actually went into aliquot B. Run an [[epicypher-cutana-hia5]]-treated positive to exonerate the digestion |
-| No digestion, digestion known good | The MTase step failed | Go to [[hia5-enzyme-activity-test]] § Troubleshooting — SAM is highly labile and degrades with freeze/thaw, so suspect it before the enzyme |
+| No digestion, digestion known good | The upstream Hia5 (MTase) step failed | Go to [[hia5-enzyme-activity-test]] § Troubleshooting — SAM is highly labile and degrades with freeze/thaw, so suspect it before the enzyme |
 | No-DpnI aliquot also smeared | Shearing during handling, or degraded input | Wide-bore tips throughout, no vortexing. Re-extract if the stock itself is gone |
-| Unmethylated control digested | Endogenous m6A in the source DNA, or MTase carryover between tubes | Check whether the source could already be methylated; use fresh tips and a fresh dilution series |
-| Partial digestion only at the highest enzyme input | Low enzyme activity | See [[hia5-enzyme-activity-test]] — increase enzyme, increase incubation, or match on active enzyme rather than total protein mass |
+| Unmethylated control digested | Endogenous m6A in the source DNA, or Hia5 carryover between tubes | Check whether the source could already be methylated; use fresh tips and a fresh dilution series |
+| Partial digestion only at the highest Hia5 input | Low Hia5 activity | See [[hia5-enzyme-activity-test]] — increase Hia5, increase incubation, or match on active enzyme rather than total protein mass |
 
 ## Safety
 
