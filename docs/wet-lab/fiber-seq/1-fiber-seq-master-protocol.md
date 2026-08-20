@@ -192,7 +192,7 @@ least get the reaction into lysis.
 
 | Symptom | Likely cause | Where to look |
 | --- | --- | --- |
-| No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[dpni-methylation-check]], then [[hia5-enzyme-activity-test]] |
+| No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[dpni-methylation-check]], then [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] |
 | m6A too high, footprints washed out | Too much enzyme or too long an incubation | [[fiber-seq-hia5-labeling]] |
 | Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[fiber-seq-hia5-labeling]] |
 | Low 260/230, DNA will not behave downstream | Guanidine carryover from column extraction | [[fiber-seq-hmw-extraction]] |
@@ -310,7 +310,7 @@ What the record actually says about the Hia5 constructs, and what it does not:
   Hia5 from the June shipment" therefore narrows to A and E at best, and does not distinguish
   between them. The 06.14.2026 setup was documented and then the record stops with no outcome
   written down. No functional QC was ordered from GenScript for round 2 either; the purchased
-  QC was SDS-PAGE and Western blot only. See [[hia5-enzyme-activity-test]] § Round 2.
+  QC was SDS-PAGE and Western blot only. See [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] § Round 2.
 - **The June 2026 bench record contains no Hia5 work at all.** The `AnchorTag/RUN_NEW`
   spreadsheet — the lab's own round-2 inventory and experiment log — has **70 experiment rows**
   across four dates (06/08, 06/11, 06/15 and 06/29 2026), and the enzyme column reads
@@ -365,7 +365,7 @@ What the record actually says about the Hia5 constructs, and what it does not:
 
 **Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[fiber-seq-nuclei-isolation]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[hia5-enzyme-activity-test]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
+**Related Protocols:** [[fiber-seq-nuclei-isolation]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
 
 **Contacts:** [[grey-monroe]]
 
