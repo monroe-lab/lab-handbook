@@ -14,13 +14,13 @@ accessible DNA is methylated and protein-bound DNA is left unmethylated. This te
 reaction *is* the Fiber-seq signal. Everything before it is preparation and everything after
 it is readout.
 
-**When to run it.** Immediately after [[fiber-seq-nuclei-isolation]], with counted nuclei
+**When to run it.** Immediately after [[2-plant-nuclei-isolation-for-fiber-seq]], with counted nuclei
 pelleted and ready to resuspend. Go straight into [[fiber-seq-hmw-extraction]] afterwards —
 do not freeze between the SDS stop and the extraction.
 
 **Time:** 5 min pellet spin plus ~10 min setup, then a **10 min reaction**. Buffer can be made
 ahead; **SAM is added at the activation step, not stored in the buffer.**
-**Input:** counted nuclei from [[fiber-seq-nuclei-isolation]], aliquoted to the target number
+**Input:** counted nuclei from [[2-plant-nuclei-isolation-for-fiber-seq]], aliquoted to the target number
 and pelleted at 1,400 × g for 5 min. **Lab default 1 million; working range 1–6 million.**
 
 > **Three things about this step drive everything.**
@@ -79,7 +79,7 @@ Resuspend the nuclei in 1 mL NIB storage buffer. If the sample is oxidized or he
 contaminated with cell debris, let it settle briefly and transfer only the nuclei-containing
 supernatant to a new 1.5 mL tube. Count on the [[celldrop]] at **1:8 and 1:50 dilutions in H₂O**.
 
-See the counting caveat on [[fiber-seq-nuclei-isolation]] — the CellDrop is suspected of
+See the counting caveat on [[2-plant-nuclei-isolation-for-fiber-seq]] — the CellDrop is suspected of
 under-counting and this was never resolved.
 
 ### 3. Aliquot and pellet
@@ -269,14 +269,14 @@ a lab result. Construct-by-construct Hia5 verdicts are maintained on
 
 **Consumables:** [[wide-bore-filter-tips-p200]], [[wide-bore-filter-tips-p1000]], [[dna-lobind-tubes]]
 
-**Related Protocols:** [[fiber-seq-master-protocol]], [[fiber-seq-nuclei-isolation]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[hia5-enzyme-activity-test]]
+**Related Protocols:** [[fiber-seq-master-protocol]], [[2-plant-nuclei-isolation-for-fiber-seq]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[hia5-enzyme-activity-test]]
 
 **Contacts:** [[grey-monroe]]
 
 **See also**
 
 - [[fiber-seq-master-protocol]] — the hub, the Hia5 verdict table, and the Fiber-seq background
-- [[fiber-seq-nuclei-isolation]] — the previous step
+- [[2-plant-nuclei-isolation-for-fiber-seq]] — the previous step
 - [[fiber-seq-hmw-extraction]] — the next step
 - [[dpni-methylation-check]] — how you find out whether this worked
 - [[hia5-enzyme-activity-test]] — whether the enzyme lot was any good in the first place
