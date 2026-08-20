@@ -1,9 +1,14 @@
----
-type: "notebook"
-title: "Smoke Renamed Title"
+***
+
+type: "notebook"title: "Smoke Renamed Title"
 ---
 
 # Smoke Renamed Title
+
 first paragraph
 
 last paragraph
+
+ 
+
+after the gap
