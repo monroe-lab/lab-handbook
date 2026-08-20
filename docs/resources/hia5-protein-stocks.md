@@ -15,7 +15,7 @@ with, [[dpni|DpnI]], is a restriction enzyme that *detects* m6A; it never writes
 Every in-house Hia5 and Hia5-fusion protein the lab has had made, across two GenScript orders.
 This is the reference for concentration, purity, molecular weight, and what each construct
 actually is. For the commercial reference enzyme see [[epicypher-cutana-hia5]]; for what has
-and has not been tested see [[hia5-enzyme-activity-test]].
+and has not been tested see [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]].
 
 Project context: [Anchor Tag](../projects/anchor-tag/index.md).
 
@@ -100,7 +100,7 @@ The values the lab actually used when setting up the March 2026 assays:
 > 11.72 µL of Tudor-Hia5 against 1.21 µL of 3ATudor-Hia5, both landing on 0.034 µg. An earlier
 > version of this page said Tudor-Hia5 "ran at roughly one tenth the molarity of its own
 > control"; that read the stock column as the dose and is **retracted (2026-08-20)**. The real
-> confound is purity, not molarity — see [[hia5-enzyme-activity-test]] § *Two things that
+> confound is purity, not molarity — see [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] § *Two things that
 > complicate the 03.30 Tudor-Hia5 verdict*.
 
 The two asterisked rows in the source table carry the footnote *"omitted for now, due to lack
@@ -198,7 +198,7 @@ is recorded in the vault verbatim: *"Functional activity QC done in-house, not r
 GenScript."*
 
 That in-house test was set up on 06.14.2026 and never scored. See
-[[hia5-enzyme-activity-test]] § Round 2 for what the record does and does not support.
+[[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] § Round 2 for what the record does and does not support.
 
 ## Ordering contacts
 
@@ -250,7 +250,7 @@ reading was retracted the same day (see the note under the round-1 table).
 | [[tudor-hia5-r1]] — Tudor-Hia5 | [[3atudor-mnase-r2]] — Round2_F |
 | [[3atudor-hia5-r1]] — 3ATudor-Hia5 | |
 
-- [[hia5-enzyme-activity-test]] — how to test a lot before using it
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — how to test a lot before using it
 - [[dpni-methylation-check]] — the gel readout
 - [[epicypher-cutana-hia5]] — the commercial reference enzyme
 - [[fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
