@@ -1,13 +1,12 @@
 ---
-type: enzyme
+type: "enzyme"
 title: "Tudor-Hia5 (GenScript round 1)"
-status: needs_more
-vendor: GenScript
-catalog_number: U9375BAEG0-10
-lot: U9375BAEG0-10/P19KL001
-location: ""
+status: "ordered"
+vendor: "GenScript"
+catalog_number: "U9375BAEG0-10"
+lot: "U9375BAEG0-10/P19KL001"
 concentration: "<0.01 mg/mL"
-acquired: 2026-01-06
+acquired: "2026-01-06"
 ---
 
 # Tudor-Hia5 (GenScript round 1)
