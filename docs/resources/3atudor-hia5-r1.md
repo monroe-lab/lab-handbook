@@ -59,7 +59,7 @@ assay.
 **Project-stage; binding-pocket knockout, i.e. a negative control.** Not a
 candidate for production Fiber-seq under any circumstances, by design.
 
-The authoritative verdict table lives on [[fiber-seq-master-protocol]]. This page must not
+The authoritative verdict table lives on [[1-fiber-seq-master-protocol]]. This page must not
 contradict it — if you change a status, change it there first.
 
 ## Tests run
@@ -168,6 +168,6 @@ decimal places, for all ten items in the order. The sequence above is the ordere
 - [[hia5-enzyme-activity-test]] — the DpnI activity assay these constructs were run in
 - [[dpni-methylation-check]] — the gel readout
 - [[hia5-protein-stocks]] — combined stock reference for both GenScript orders
-- [[fiber-seq-master-protocol]] — the construct verdict table, single source of truth for status
+- [[1-fiber-seq-master-protocol]] — the construct verdict table, single source of truth for status
 - [Anchor Tag](../projects/anchor-tag/index.md) — the project these constructs belong to
 - [[epicypher-cutana-hia5]] — the validated commercial Hia5 these are measured against
