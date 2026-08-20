@@ -16,7 +16,7 @@ does not care where the methylation came from.
 
 **When to run it.**
 
-- After [[fiber-seq-hia5-labeling]] — you labeled nuclei, extracted the HMW DNA, and want to
+- After [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] — you labeled nuclei, extracted the HMW DNA, and want to
   know whether the labeling worked before spending a Revio cell on it. This is the go/no-go
   gate on real Fiber-seq material.
 - After [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — you ran a purified enzyme prep on naked DNA in vitro
@@ -194,14 +194,14 @@ on [[fiber-seq-master-protocol]]. Do not duplicate them here.
 
 **Consumables:** [[pcr-strip-tubes-0-2ml]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[fiber-seq-master-protocol]], [[gel-electrophoresis]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
+**Related Protocols:** [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[3-hia5-m6a-labeling-reaction-for-fiber-seq]], [[fiber-seq-hmw-extraction]], [[fiber-seq-master-protocol]], [[gel-electrophoresis]], [[making-an-agarose-gel]], [[gel-imaging-and-annotation]]
 
 **Contacts:** [[grey-monroe]]
 
 **See also**
 
 - [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the in vitro enzyme test that uses this page as its readout
-- [[fiber-seq-hia5-labeling]] — the in-nuclei labeling reaction this page gates
+- [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] — the in-nuclei labeling reaction this page gates
 - [[fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
 - [[dpni]] · [[rcutsmart-buffer]]
 - [[fiber-seq-development-log]]
