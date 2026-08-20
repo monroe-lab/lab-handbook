@@ -1,0 +1,17 @@
+{
+  "title": "Expected result: genotyping PCR",
+  "theme": "dark",
+  "ladder": "1kb",
+  "lanes": [
+    {"label": "Ladder", "ladder": true},
+    {"label": "WT", "bands": [{"size": 1200}]},
+    {"label": "Homozygous", "bands": [{"size": 800, "label": "mutant allele (800 bp)"}]},
+    {"label": "Heterozygous", "bands": [{"size": 1200}, {"size": 800}]},
+    {"label": "gDNA (degraded)", "bands": [{"size": 9000, "intensity": 0.7}], "smear": {"from": 9000, "to": 400, "intensity": 0.25}},
+    {"label": "NTC", "bands": []}
+  ],
+  "annotations": [
+    {"lane": "WT", "size": 1200, "text": "WT allele (1.2 kb)"}
+  ],
+  "caption": ["NTC must be blank. A smear like lane 5 means degraded template; re-extract."]
+}
