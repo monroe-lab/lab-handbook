@@ -5,39 +5,200 @@ title: "Post-labeling HMW DNA Extraction for Fiber-seq"
 
 # Post-labeling HMW DNA Extraction for Fiber-seq
 
-> **Draft — not yet bench-verified.** Written 2026-08-18 from the lab's Fiber-seq
-> development record. Confirm every volume and concentration against your own run
-> before relying on it. Unresolved values are marked `[VERIFY: ...]`.
+> **Draft — not yet bench-verified.** Confirm every volume and concentration against your own
+> run before relying on it. Unresolved values are collected under § Notes, open questions and
+> sources.
 
-## Resources
+**What this does.** Recovers high-molecular-weight DNA from SDS-stopped, Hia5-labeled nuclei
+with the fragment length and purity a PacBio HiFi run needs. This is a different problem from
+ordinary plant HMW extraction: the input is a nuclei lysate that already contains 1% SDS, and
+the DNA has to stay long.
 
-**Equipment:** [[centrifuge]], [[hula-mixer]], [[femtopulse]], [[nanodrop]], [[qubit-fluorometer]], [[magnetic-rack]]
+**When to run it.** Immediately after [[fiber-seq-hia5-labeling]], straight from the stopped
+reaction. **Do not freeze before extracting** — the only freezing recorded in the dev log is the
+03.18.2026 samples, held at -20 °C *after* extraction.
 
-**Kits:** [[qubit-dsdna-hs-assay-kit]]
+**Time:** roughly half a day, most of it incubation. 20 min lysis at 55 °C, 10 min clearing spin,
+~10 min chloroform mixing + 10 min phase spin, 30 min bead binding, then washes, elution, and the
+secondary cleanup.
+**Input:** the SDS-stopped labeling reaction — typically 110 µL (100 µL reaction + 10 µL of 10%
+SDS), from one million nuclei per treatment.
 
-**Reagents:** [[cetrimonium-bromide|CTAB]], [[polyvinylpyrrolidone|PVP-40]], [[tris-base]], [[edta-trisodium-salt|EDTA]], [[sodium-chloride]], [[chloroform-isoamyl-alcohol-24-1]], [[cytiva-sera-mag-speedbead-carboxyl]], [[colibri-dna-library-cleanup-kit|Colibri beads]], [[ethanol-70]], [[sigma-proteinase-k]], [[rnase]]
+> **Method: CTAB + chloroform-isoamyl + SeraMag beads is the lab default** (Grey, 2026-08-18).
+> The NEB spin-column route was tried and abandoned — it clogs on this input and gives poor
+> 260/230. The full comparison and the FemtoPulse evidence behind that call are under
+> § Method choice.
 
-**Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]]
+> **Length is the whole game.** A PacBio HiFi read cannot be longer than the molecule it came
+> from, so every kilobase lost to shearing is chromatin architecture you never see. Wide-bore
+> tips, slow pipetting, inversion rather than vortexing — every ordinary handling shortcut in
+> this protocol costs read length.
 
-**Related Protocols:** [[fiber-seq-hia5-labeling]], [[fiber-seq-master-protocol]], [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[spri-beads-preparation]], [[ot2-hmw-shearing]]
+## Materials
 
-**Contacts:** [[grey-monroe]]
+### Nuclei CTAB Lysis Buffer
 
-**Purpose:** Recover high-molecular-weight DNA from SDS-stopped, Hia5-labeled nuclei with
-the fragment length and purity a PacBio HiFi run needs. This is a different problem from
-ordinary plant HMW extraction: the input is a nuclei lysate that already contains 1% SDS,
-and the DNA has to stay long.
+| Component | Final | Stock | To make 10 mL |
+| --- | --- | --- | --- |
+| [[edta-trisodium-salt\|EDTA]] pH 8.0 | 20 mM | 0.5 M | 400 µL |
+| Tris-HCl pH 8.0 | 100 mM | 1 M | 1 mL |
+| [[sodium-chloride]] | 1.4 M | 5 M | 2.8 mL |
+| [[cetrimonium-bromide\|CTAB]] | 2% | solid | 0.2 g |
+| [[polyvinylpyrrolidone\|PVP-40]] | 1% | solid | 0.1 g |
 
-**Source:** Vianney Ahn's CTAB + chloroform-isoamyl protocol from the *Fiber-Seq Experiments -
-Initial Tests* Google Doc, *Protocol* tab, written from experience because
-[PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122) specifies a CTAB extraction but
-publishes no protocol — only a reagent list. CTAB buffer composition adapted from *A high
-quality, high molecular weight DNA extraction method for PacBio HiFi genome sequencing of
-recalcitrant plants* `[VERIFY: resolve full citation and DOI before publishing — the source
-doc gives the title only]`. Method-choice evidence from the 03.18 / 03.23 / 03.25 / 05.01 /
-05.18.2026 entries in the *Fiber-Seq Experiments* tab.
+Make up to volume with DI water and autoclave. CTAB and PVP-40 go in as solids, so the
+percentages are w/v.
 
-## Background
+Add **1% PVPP (v/v) fresh, right before use** — this is separate from the PVP-40 in the
+buffer above.
+
+> ⚠️ **PVP-40 vs PVPP is unresolved — see § Notes before you make this buffer.** They are
+> different reagents, both appear in the source record, and nobody has confirmed whether the lab
+> uses one, the other, or both.
+
+### Other reagents
+
+- Room-temperature [[chloroform-isoamyl-alcohol-24-1]] (24:1)
+- 0.4% [[cytiva-sera-mag-speedbead-carboxyl]] (SeraMag) — see [[spri-beads-preparation]]
+- [[colibri-dna-library-cleanup-kit|Colibri beads]] for the conditional third cleanup
+- 80% ethanol, made fresh
+- Pre-warmed elution buffer
+- RNase A, Proteinase K
+
+### Consumables
+
+- [[dna-lobind-tubes]], 1.5 mL
+- [[wide-bore-filter-tips-p1000]] — use these for every transfer of DNA-containing liquid
+
+## Procedure
+
+### 1. Lysis
+
+To the SDS-stopped reaction add **500 µL CTAB lysis buffer with 1% PVPP**, **12 µL RNase A**,
+and **3.5 µL Proteinase K** (⚠️ concentration and units unresolved — see § Notes). Mix gently by
+pipette. Incubate **55 °C for 20 min**.
+
+### 2. Clear the debris
+
+Centrifuge **4,400 × g for 10 min**. Transfer the supernatant to a new tube, **noting the
+volume transferred**. If less than 400 µL came across, top up to 400 µL with nuclease-free
+water — the chloroform step in the next section adds an equal volume, so the volume has to be
+known.
+
+### 3. Chloroform extraction
+
+Add an **equal volume of room-temperature chloroform-isoamyl alcohol (24:1)**. Invert
+**20 times**, then **10 min at room temperature on the [[hula-mixer]] at 20 rpm**.
+
+### 4. Phase separation
+
+Centrifuge **5,000 × g for 10 min at room temperature**. **In the fume hood,** transfer the
+**upper aqueous phase** to a fresh 1.5 mL tube. Leave the interface behind — chasing the last
+few microliters pulls protein across.
+
+### 5. Bead binding
+
+Add an **equal volume of 0.4% SeraMag beads**. Mix by inverting **20–25 times** and incubate
+**30 min at room temperature on the hula mixer at 10 rpm**.
+
+### 6. Wash and elute
+
+Spin the tubes down and place on the [[magnetic-rack]]. Wait until the solution is clear, then
+remove the supernatant. **Two washes with 80% ethanol.** Elute in **30–50 µL of pre-warmed
+EB**.
+
+### 7. Secondary cleanup
+
+Clean with **0.4% SeraMag beads at 1.05× volume** (⚠️ a conflicting entry calls this "0.4X
+Collibri" — see § Notes).
+
+> **Critical — do not skip this.** The 05.18.2026 entry is unambiguous: *"Definitely include
+> the secondary... beads cleanup."* It is what made the CTAB route give consistent HMW DNA
+> across the Z01 / Z02 / X03 samples.
+
+### 8. Conditional third cleanup
+
+Run the eluate on the [[femtopulse]]. **If the trace shows a minor peak below 8 kb,** do a
+further round with **0.2× Collibri beads** to pull the short fragments out.
+
+### 9. Verify labeling before you spend money
+
+Take a small aliquot of the extracted DNA and run [[dpni-methylation-check]] to confirm m6A
+is present. **This is the go/no-go gate before library prep.** It is what the 03.30.2026
+verification of the 03.25.2026 samples did, and it costs one gel against the price of a
+sequencing run on unlabeled DNA.
+
+## Safety
+
+- **Chloroform-isoamyl alcohol is fume-hood only.** Both the mixing and the post-spin phase
+  transfer happen in the hood. Chloroform is a **halogenated** solvent — keep it separate from
+  the non-halogenated (ethanol, methanol, isopropanol) waste stream. See
+  [[waste-disposal-quick-reference]]; the lab's active container for this stream is
+  [[bme-chloroform-phenol-waste]].
+- **CTAB** is a skin, eye, and respiratory irritant — weigh it out carefully and avoid
+  raising dust.
+- **β-mercaptoethanol** is not used in this protocol, but is in the upstream nuclei isolation.
+- Standard BSL1 otherwise.
+
+---
+
+## Expected output
+
+- **Purity:** 260/280 ≈ 1.8–1.9 and 260/230 > 2.0. The 03.23.2026 SPRI cleanup achieved
+  **260/280 = 1.868, 260/230 = 2.362** at **80% recovery** (25 µL of 20.6 ng/µL in, ≈500 ng;
+  50 µL of 8.00 ng/µL out, 400 ng).
+- **Length:** on the FemtoPulse, **more than 50% of the DNA above 30 kb with no prominent
+  peak below 20 kb.** Per Noravit, samples meeting that bar *"are likely to have ~20 kb mode
+  size after pipette shearing"* — which is the input the library prep wants.
+- **Yield:** not recorded numerically anywhere in the dev log for the CTAB route — see § Notes.
+
+Take the trace to [[ot2-hmw-shearing]] before deciding to shear. If the pre-shear distribution
+is already narrow with the mode in the target range, Noravit's advice is to **skip shearing**
+and go straight into library prep.
+
+## Method choice — why CTAB
+
+**Lab default: CTAB + chloroform-isoamyl + SeraMag beads.** (Grey, 2026-08-18.)
+
+| Method | Status | Why |
+| --- | --- | --- |
+| **CTAB + CI + SeraMag** | **Lab default** | Consistent HMW yield (05.18.2026); the route Noravit recommended after seeing the traces |
+| [[monarch-spin-gdna-extraction-kit]] (NEB T3010) | Tried, abandoned | Nuclei pellet clogs the column filter; guanidine carryover gives poor 260/230 |
+| [[promega-wizard-hmw-dna-extraction-kit]] (A2920) | Never tried in-lab | What both published plant Fiber-seq papers use |
+
+The evidence for the default is the **05.01.2026 FemtoPulse comparison**. Three samples
+(FS_1, FS_6, FS_10S) were extracted on NEB spin columns and one (FS_T3_3) by CTAB on isolated
+nuclei. Noravit's read of the four traces: the three column samples shared a method and shared
+the problem, and *"the damage here is likely caused by the extraction method."* His
+recommendation was explicit — *"I would highly suggest using DNA from the same extraction
+method as sample 4 to guarantee better sequencing results."* Sample 4 was the CTAB extraction.
+The 05.18.2026 entry then confirmed it in practice: *"New CTAB extraction yields consistent
+HMW DNA."*
+
+> **Critical — why the NEB columns were abandoned.** Two independent failures, both recorded:
+> **(1) Flow.** 03.25.2026 — the nuclei pellet blocks the column filter, so supernatant that
+> still contains DNA never binds and simply flows through, *"even at max speed and increased
+> duration."* **(2) Purity.** 03.18.2026 — concentration and 260/280 were fine but the
+> **260/230 was very low**, from guanidine salt carryover off the column. Two workarounds were
+> logged (a third ethanol wash; or pellet the debris after lysis and load only the
+> supernatant) and a SPRI cleanup did rescue the contaminated sample, but CTAB is where the
+> lab landed. Do not restart on columns without reading the 05.01 trace comparison first.
+
+The A2920 Promega kit is worth flagging because **both** published plant Fiber-seq papers use
+it and the lab never tried it — see § Notes.
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Low 260/230 | Guanidine carryover (column routes), or CTAB/polysaccharide carryover | SPRI cleanup rescued this on 03.23.2026 at 80% recovery. On columns, an extra ethanol wash was the logged workaround; better, use CTAB |
+| Column will not flow | Nuclei pellet clogging the filter | Pellet the debris after lysis and load only the supernatant, or switch to CTAB (what the lab did) |
+| Short fragments on FemtoPulse | Mechanical shearing **or** chemical degradation | Work out which. Shearing (pipetting, beads, columns, over-grinding) is tolerable; degradation from poor tissue preservation or prolonged harsh-chemical exposure is not and will give short polymerase reads. If the extraction method is the only variable between samples, suspect the method |
+| Minor peak below 8 kb | Incomplete size cleanup | Additional round with 0.2× Collibri beads |
+| Protein or interface carryover after CI | Aqueous phase taken too greedily | Leave more margin above the interface; re-extract with CI if needed |
+| Wide size distribution across samples | Inconsistent extraction between samples | Match distributions before pooling — see [[pacbio-hifi-sequencing]] |
+
+## Background — why this works
 
 **Why length is the whole game.** A PacBio HiFi read cannot be longer than the molecule it
 was made from. Fiber-seq's entire value proposition is reading the methylation footprint
@@ -73,200 +234,62 @@ A trace alone cannot tell you which one you are looking at. That asymmetry is th
 lab moved off the column route rather than trying to tune it: a method whose damage mode is
 unknown is not worth optimizing.
 
-## Time estimate
+## Notes, open questions and sources
 
-20 min lysis at 55 °C, 10 min clearing spin, ~10 min chloroform mixing plus a 10 min phase
-spin, 30 min bead binding, then washes and elution, plus the secondary cleanup. Roughly half
-a day, most of it incubation.
+**Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Reordered
+2026-08-20 to put the procedure above the reference material.
 
-`[VERIFY: hands-on time is not recorded anywhere in the development log.]`
+**Source.** Vianney Ahn's CTAB + chloroform-isoamyl protocol from the *Fiber-Seq Experiments -
+Initial Tests* Google Doc, *Protocol* tab, written from experience because
+[PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122) specifies a CTAB extraction but
+publishes no protocol — only a reagent list. CTAB buffer composition adapted from *A high
+quality, high molecular weight DNA extraction method for PacBio HiFi genome sequencing of
+recalcitrant plants*. Method-choice evidence from the 03.18 / 03.23 / 03.25 / 05.01 /
+05.18.2026 entries in the *Fiber-Seq Experiments* tab.
 
-## Required input
+### Open questions
 
-The SDS-stopped labeling reaction straight from [[fiber-seq-hia5-labeling]] — typically
-110 µL (100 µL reaction + 10 µL of 10% SDS). One million nuclei per treatment is the
-documented input.
+- `[VERIFY: resolve the full citation and DOI for the "high quality, high molecular weight DNA
+  extraction method for PacBio HiFi genome sequencing of recalcitrant plants" paper before
+  publishing — the source doc gives the title only.]`
+- `[VERIFY: PVP-40 and PVPP are different reagents — soluble polyvinylpyrrolidone versus
+  insoluble cross-linked polyvinylpolypyrrolidone. The lab's buffer table lists PVP-40 at 1%
+  as a buffer component, while the reference paper's text (and the CTAB & CI protocol step)
+  calls for 1% PVPP added right before use. Both appear. Confirm whether the lab uses one,
+  the other, or genuinely both.]`
+- `[VERIFY: Proteinase K concentration and units at step 1 — the source doc truncates this line
+  mid-phrase. The volume (3.5 µL) is recorded; the stock it was drawn from is not.]`
+- `[VERIFY: bead conflict at step 7. The Protocol tab says the secondary cleanup is 0.4% SeraMag
+  at 1.05× volume, with 0.2X Collibri only as a conditional third round. The 05.18.2026 entry
+  instead calls the secondary cleanup "0.4X Collibri beads." Note also that "0.4%" is a bead
+  concentration and "0.4X"/"0.2X" are volume ratios, so these are not the same quantity even
+  though the number matches. Confirm which bead and which ratio was actually run on the
+  05.2026 samples.]`
+- `[VERIFY: is the Promega A2920 route worth testing as a benchmark against in-house CTAB? It
+  is the only method with published Fiber-seq results behind it.]`
+- `[VERIFY: no per-run yield from the CTAB route is recorded numerically anywhere in the dev
+  log. Record it on the next run.]`
+- `[VERIFY: hands-on time is not recorded anywhere in the development log.]`
 
-Do not freeze before extracting. The only freezing recorded in the dev log is the
-03.18.2026 samples, which were held at -20 °C **after** extraction.
+**What the lab has and has not established.** Construct-by-construct verdicts for the upstream
+Hia5 proteins are maintained in one place, on [[fiber-seq-master-protocol]]. Do not duplicate
+them here.
 
-## Choosing an extraction method
+## Resources and links
 
-**Lab default: CTAB + chloroform-isoamyl + SeraMag beads.** (Grey, 2026-08-18.)
+**Equipment:** [[centrifuge]], [[hula-mixer]], [[femtopulse]], [[nanodrop]], [[qubit-fluorometer]], [[magnetic-rack]]
 
-| Method | Status | Why |
-| --- | --- | --- |
-| **CTAB + CI + SeraMag** | **Lab default** | Consistent HMW yield (05.18.2026); the route Noravit recommended after seeing the traces |
-| [[monarch-spin-gdna-extraction-kit]] (NEB T3010) | Tried, abandoned | Nuclei pellet clogs the column filter; guanidine carryover gives poor 260/230 |
-| [[promega-wizard-hmw-dna-extraction-kit]] (A2920) | Never tried in-lab | What both published plant Fiber-seq papers use |
+**Kits:** [[qubit-dsdna-hs-assay-kit]]
 
-The evidence for the default is the **05.01.2026 FemtoPulse comparison**. Three samples
-(FS_1, FS_6, FS_10S) were extracted on NEB spin columns and one (FS_T3_3) by CTAB on isolated
-nuclei. Noravit's read of the four traces: the three column samples shared a method and shared
-the problem, and *"the damage here is likely caused by the extraction method."* His
-recommendation was explicit — *"I would highly suggest using DNA from the same extraction
-method as sample 4 to guarantee better sequencing results."* Sample 4 was the CTAB extraction.
-The 05.18.2026 entry then confirmed it in practice: *"New CTAB extraction yields consistent
-HMW DNA."*
+**Reagents:** [[cetrimonium-bromide|CTAB]], [[polyvinylpyrrolidone|PVP-40]], [[tris-base]], [[edta-trisodium-salt|EDTA]], [[sodium-chloride]], [[chloroform-isoamyl-alcohol-24-1]], [[cytiva-sera-mag-speedbead-carboxyl]], [[colibri-dna-library-cleanup-kit|Colibri beads]], [[ethanol-70]], [[sigma-proteinase-k]], [[rnase]]
 
-> **Critical — why the NEB columns were abandoned.** Two independent failures, both recorded:
-> **(1) Flow.** 03.25.2026 — the nuclei pellet blocks the column filter, so supernatant that
-> still contains DNA never binds and simply flows through, *"even at max speed and increased
-> duration."* **(2) Purity.** 03.18.2026 — concentration and 260/280 were fine but the
-> **260/230 was very low**, from guanidine salt carryover off the column. Two workarounds were
-> logged (a third ethanol wash; or pellet the debris after lysis and load only the
-> supernatant) and a SPRI cleanup did rescue the contaminated sample, but CTAB is where the
-> lab landed. Do not restart on columns without reading the 05.01 trace comparison first.
+**Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]]
 
-The A2920 Promega kit is worth flagging because **both** published plant Fiber-seq papers use
-it and the lab never tried it. `[VERIFY: is the Promega A2920 route worth testing as a
-benchmark against in-house CTAB? It is the only method with published Fiber-seq results
-behind it.]`
+**Related Protocols:** [[fiber-seq-hia5-labeling]], [[fiber-seq-master-protocol]], [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[spri-beads-preparation]], [[ot2-hmw-shearing]]
 
-## Required materials
+**Contacts:** [[grey-monroe]]
 
-### Nuclei CTAB Lysis Buffer
-
-| Component | Final | Stock | To make 10 mL |
-| --- | --- | --- | --- |
-| [[edta-trisodium-salt\|EDTA]] pH 8.0 | 20 mM | 0.5 M | 400 µL |
-| Tris-HCl pH 8.0 | 100 mM | 1 M | 1 mL |
-| [[sodium-chloride]] | 1.4 M | 5 M | 2.8 mL |
-| [[cetrimonium-bromide\|CTAB]] | 2% | solid | 0.2 g |
-| [[polyvinylpyrrolidone\|PVP-40]] | 1% | solid | 0.1 g |
-
-Make up to volume with DI water and autoclave. CTAB and PVP-40 go in as solids, so the
-percentages are w/v.
-
-Add **1% PVPP (v/v) fresh, right before use** — this is separate from the PVP-40 in the
-buffer above.
-
-> `[VERIFY: PVP-40 and PVPP are different reagents — soluble polyvinylpyrrolidone versus
-> insoluble cross-linked polyvinylpolypyrrolidone. The lab's buffer table lists PVP-40 at 1%
-> as a buffer component, while the reference paper's text (and the CTAB & CI protocol step)
-> calls for 1% PVPP added right before use. Both appear. Confirm whether the lab uses one,
-> the other, or genuinely both.]`
-
-### Other reagents
-
-- Room-temperature [[chloroform-isoamyl-alcohol-24-1]] (24:1)
-- 0.4% [[cytiva-sera-mag-speedbead-carboxyl]] (SeraMag) — see [[spri-beads-preparation]]
-- [[colibri-dna-library-cleanup-kit|Colibri beads]] for the conditional third cleanup
-- 80% ethanol, made fresh
-- Pre-warmed elution buffer
-- RNase A, Proteinase K
-
-### Consumables
-
-- [[dna-lobind-tubes]], 1.5 mL
-- [[wide-bore-filter-tips-p1000]] — use these for every transfer of DNA-containing liquid
-
-## Procedure
-
-> **Handle everything gently.** Wide-bore tips, slow pipetting, inversion rather than
-> vortexing. Every ordinary handling shortcut in this protocol costs read length.
-
-### 1. Lysis
-
-To the SDS-stopped reaction add **500 µL CTAB lysis buffer with 1% PVPP**, **12 µL RNase A**,
-and **3.5 µL Proteinase** `[VERIFY: Proteinase K concentration and units — the source doc
-truncates this line mid-phrase]`. Mix gently by pipette. Incubate **55 °C for 20 min**.
-
-### 2. Clear the debris
-
-Centrifuge **4,400 × g for 10 min**. Transfer the supernatant to a new tube, **noting the
-volume transferred**. If less than 400 µL came across, top up to 400 µL with nuclease-free
-water — the chloroform step in the next section adds an equal volume, so the volume has to be
-known.
-
-### 3. Chloroform extraction
-
-Add an **equal volume of room-temperature chloroform-isoamyl alcohol (24:1)**. Invert
-**20 times**, then **10 min at room temperature on the [[hula-mixer]] at 20 rpm**.
-
-### 4. Phase separation
-
-Centrifuge **5,000 × g for 10 min at room temperature**. **In the fume hood,** transfer the
-**upper aqueous phase** to a fresh 1.5 mL tube. Leave the interface behind — chasing the last
-few microliters pulls protein across.
-
-### 5. Bead binding
-
-Add an **equal volume of 0.4% SeraMag beads**. Mix by inverting **20–25 times** and incubate
-**30 min at room temperature on the hula mixer at 10 rpm**.
-
-### 6. Wash and elute
-
-Spin the tubes down and place on the [[magnetic-rack]]. Wait until the solution is clear, then
-remove the supernatant. **Two washes with 80% ethanol.** Elute in **30–50 µL of pre-warmed
-EB**.
-
-### 7. Secondary cleanup
-
-Clean with **0.4% SeraMag beads at 1.05× volume**.
-
-> **Critical — do not skip this.** The 05.18.2026 entry is unambiguous: *"Definitely include
-> the secondary... beads cleanup."* It is what made the CTAB route give consistent HMW DNA
-> across the Z01 / Z02 / X03 samples.
-
-### 8. Conditional third cleanup
-
-Run the eluate on the [[femtopulse]]. **If the trace shows a minor peak below 8 kb,** do a
-further round with **0.2× Collibri beads** to pull the short fragments out.
-
-> `[VERIFY: bead conflict. The Protocol tab says the secondary cleanup is 0.4% SeraMag at
-> 1.05× volume, with 0.2X Collibri only as a conditional third round. The 05.18.2026 entry
-> instead calls the secondary cleanup "0.4X Collibri beads." Note also that "0.4%" is a bead
-> concentration and "0.4X"/"0.2X" are volume ratios, so these are not the same quantity even
-> though the number matches. Confirm which bead and which ratio was actually run on the
-> 05.2026 samples.]`
-
-## Expected output
-
-- **Purity:** 260/280 ≈ 1.8–1.9 and 260/230 > 2.0. The 03.23.2026 SPRI cleanup achieved
-  **260/280 = 1.868, 260/230 = 2.362** at **80% recovery** (25 µL of 20.6 ng/µL in, ≈500 ng;
-  50 µL of 8.00 ng/µL out, 400 ng).
-- **Length:** on the FemtoPulse, **more than 50% of the DNA above 30 kb with no prominent
-  peak below 20 kb.** Per Noravit, samples meeting that bar *"are likely to have ~20 kb mode
-  size after pipette shearing"* — which is the input the library prep wants.
-- **Yield:** `[VERIFY: no per-run yield from the CTAB route is recorded numerically anywhere
-  in the dev log. Record it on the next run.]`
-
-Take the trace to [[ot2-hmw-shearing]] before deciding to shear. If the pre-shear distribution
-is already narrow with the mode in the target range, Noravit's advice is to **skip shearing**
-and go straight into library prep.
-
-## Verify labeling before you spend money
-
-Take a small aliquot of the extracted DNA and run [[dpni-methylation-check]] to confirm m6A
-is present. **This is the go/no-go gate before library prep.** It is what the 03.30.2026
-verification of the 03.25.2026 samples did, and it costs one gel against the price of a
-sequencing run on unlabeled DNA.
-
-## Troubleshooting
-
-| Symptom | Likely cause | Fix |
-| --- | --- | --- |
-| Low 260/230 | Guanidine carryover (column routes), or CTAB/polysaccharide carryover | SPRI cleanup rescued this on 03.23.2026 at 80% recovery. On columns, an extra ethanol wash was the logged workaround; better, use CTAB |
-| Column will not flow | Nuclei pellet clogging the filter | Pellet the debris after lysis and load only the supernatant, or switch to CTAB (what the lab did) |
-| Short fragments on FemtoPulse | Mechanical shearing **or** chemical degradation | Work out which. Shearing (pipetting, beads, columns, over-grinding) is tolerable; degradation from poor tissue preservation or prolonged harsh-chemical exposure is not and will give short polymerase reads. If the extraction method is the only variable between samples, suspect the method |
-| Minor peak below 8 kb | Incomplete size cleanup | Additional round with 0.2× Collibri beads |
-| Protein or interface carryover after CI | Aqueous phase taken too greedily | Leave more margin above the interface; re-extract with CI if needed |
-| Wide size distribution across samples | Inconsistent extraction between samples | Match distributions before pooling — see [[pacbio-hifi-sequencing]] |
-
-## Safety
-
-- **Chloroform-isoamyl alcohol is fume-hood only.** Both the mixing and the post-spin phase
-  transfer happen in the hood. Chloroform is a **halogenated** solvent — keep it separate from
-  the non-halogenated (ethanol, methanol, isopropanol) waste stream. See
-  [[waste-disposal-quick-reference]]; the lab's active container for this stream is
-  [[bme-chloroform-phenol-waste]].
-- **CTAB** is a skin, eye, and respiratory irritant — weigh it out carefully and avoid
-  raising dust.
-- **β-mercaptoethanol** is not used in this protocol, but is in the upstream nuclei isolation.
-- Standard BSL1 otherwise.
-
-## See also
+**See also**
 
 - [[fiber-seq-master-protocol]] — the hub
 - [[fiber-seq-hia5-labeling]] — the step immediately before this one

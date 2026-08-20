@@ -5,70 +5,35 @@ title: "Plant Nuclei Isolation for Fiber-seq"
 
 # Plant Nuclei Isolation for Fiber-seq
 
-> **Draft — not yet bench-verified.** Written 2026-08-18 from the lab's Fiber-seq
-> development record. Confirm every volume and concentration against your own run
-> before relying on it. Unresolved values are marked `[VERIFY: ...]`.
+> **Draft — not yet bench-verified.** Confirm every volume and concentration against your own
+> run before relying on it. Unresolved values are collected under § Notes, open questions and
+> sources.
 
-## Resources
+**What this does.** Turns ground plant tissue into clean, intact, counted nuclei — the input to
+the Hia5 labeling reaction. Nuclei quality drives everything downstream: debris carryover clogs
+extraction columns and depresses DNA purity, and an inaccurate count means the labeling reaction
+is dosed wrong.
 
-**Equipment:** [[automill]], [[celldrop]], [[centrifuge]]
+**When to run it.**
 
-**Reagents:** [[sucrose]], [[tris-base]], [[magnesium-chloride]], [[triton-x-100]], [[2-mercaptoethanol]], [[roche-protease-inhibitor-cocktail-edta-free]]
+- Immediately before [[fiber-seq-hia5-labeling]]. Nuclei go straight into the activation buffer;
+  this is not a step you park overnight.
+- Any time you need nuclei rather than naked DNA — [[cut-and-tag]] uses a sibling of this method.
 
-**Consumables:** [[macs-smartstrainer-30um]], [[cell-strainer-70um]], [[wide-bore-filter-tips-p1000]]
+**Time:** roughly half a day. Grind → 20 min lysis on ice → filter → 2 × 15 min spins at 4 °C →
+count.
+**Input:** 500 mg to 3 g of tissue, fresh or frozen at -80 °C.
 
-**Related Protocols:** [[fiber-seq-master-protocol]], [[fiber-seq-hia5-labeling]], [[cut-and-tag]]
+> **Intact nuclei, not naked DNA.** The entire Fiber-seq signal depends on chromatin proteins
+> still being bound so they can protect their footprints from [[epicypher-cutana-hia5|Hia5]], the
+> m6A methyltransferase. Every step here exists to keep nuclei whole and their proteins on.
 
-**Contacts:** [[grey-monroe]]
+> **More tissue is not better.** The 03.25.2026 side-by-side found visibly more green material,
+> debris, and intact cells in the 1 g isolate than in the 500 mg isolate. That debris carryover is
+> what clogged the NEB spin columns downstream (see [[fiber-seq-hmw-extraction]]). If you scale
+> tissue up, expect to pay for it in cleanup.
 
-**Purpose:** Produce clean, intact, counted plant nuclei as input to the Hia5 labeling
-reaction. Nuclei quality drives everything downstream: debris carryover clogs extraction
-columns and depresses DNA purity, and an inaccurate count means the labeling reaction is
-dosed wrong.
-
-**Source:** Lab protocol from the *Fiber-Seq Experiments - Initial Tests* Google Doc,
-*Protocol* tab, adapted from [PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122).
-Background on why each step exists is in [[fiber-seq-master-protocol]].
-
-## Background
-
-Fiber-seq needs **intact nuclei, not naked DNA** — the entire signal depends on chromatin
-proteins still being bound so they can protect their footprints from Hia5, the m6A methyltransferase.
-Everything in this protocol is in service of that.
-
-What the buffer components do:
-
-- **Sucrose (0.25 M)** — osmotic support, keeps nuclei from bursting.
-- **Triton X-100 (1%)** — strips organellar and plasma membranes while leaving the nuclear
-  envelope intact. This is what removes chloroplasts.
-- **β-mercaptoethanol (5 mM)** — reducing agent against the phenolics that plant tissue
-  releases on grinding.
-- **Protease inhibitor (1×)** — keeps the chromatin proteins intact. Degrade them and you
-  lose the footprints you are trying to measure.
-
-Plant tissue is harder than cultured cells here because of the cell wall (needs cryogenic
-grinding), chloroplasts, phenolics, and starch. The counting step is the weakest measurement
-in the whole Fiber-seq chain — see the Critical note at step 5.
-
-## Time estimate
-
-Grind → 20 min lysis on ice → filter → 2 × 15 min spins at 4 °C → count. Roughly half a day
-including counting.
-
-`[VERIFY: hands-on time not recorded anywhere in the development log.]`
-
-## Required input
-
-500 mg to 3 g of tissue. Both fresh and -80 °C frozen Col-0 seedlings have been used. PNAS
-2025 uses ~500 mg of fresh tissue as its standard. See the variation tables below for how
-mass maps to yield and cleanliness.
-
-> **Critical:** More tissue is not simply better. The 03.25.2026 side-by-side comparison
-> found visibly more green material, debris, and intact cells in the 1 g isolate than in the
-> 500 mg isolate. That debris carryover is what clogged the NEB spin columns downstream (see
-> [[fiber-seq-hmw-extraction]]). If you scale tissue up, expect to pay for it in cleanup.
-
-## Required materials
+## Materials
 
 ### Equipment
 
@@ -116,9 +81,8 @@ Filter the lysate through a 70 µm cell strainer, then through a 30–40 µm str
 
 > **Variation.** The lab protocol uses the two-step 70 µm → 30–40 µm filtration above.
 > PNAS 2025 uses a **single 30 µm MACS SmartStrainer** (Miltenyi Biotec Cat. #130-098-458).
-> Both routes are documented; the lab has not recorded a comparison.
-> `[VERIFY: which route was actually used in the 05.2026 PBTS runs and the 06.2026 tests.
-> The Protocol tab says two-step, but it predates those runs.]`
+> Both routes are documented; the lab has not recorded a comparison, and which route the recent
+> runs actually used is unresolved — see § Notes.
 
 ### 4. Pellet and wash
 
@@ -132,13 +96,11 @@ Resuspend the nuclei in the working buffer for the next protocol — for Fiber-s
 activation buffer in [[fiber-seq-hia5-labeling]]. Count on the [[celldrop]] at **1:8 and 1:50
 dilutions in H₂O**.
 
-> **Critical — nuclei counting is a known unresolved weak point.** The 03.18.2026 entry
-> records that the resuspended pellet volume was far larger than the count predicted, with
-> *"many doubts that the CellDrop is under-counting the nuclei"* and the note
-> **"NEED TO OPTIMIZE NUCLEI COUNTING."** This was never resolved. Treat any CellDrop count
-> as a lower bound, and sanity-check it against pellet size before dosing the reaction.
-> `[VERIFY: has a counting method been settled since March 2026? A hemocytometer or
-> flow-cytometry cross-check would close this.]`
+> **Critical — nuclei counting is a known unresolved weak point.** The 03.18.2026 entry records
+> that the resuspended pellet volume was far larger than the count predicted, with *"many doubts
+> that the CellDrop is under-counting the nuclei"* and the note **"NEED TO OPTIMIZE NUCLEI
+> COUNTING."** This was never resolved. Treat any CellDrop count as a lower bound, and
+> sanity-check it against pellet size before dosing the reaction. See § Notes.
 
 ## Variation
 
@@ -188,9 +150,15 @@ papers use 1–6 million nuclei in a 100 µL reaction.
 > Both plant papers describe **protoplasts** (1–5 million, spun at 2,000 × g) rather than
 > nuclei from ground tissue as the input to the labeling reaction. The lab uses ground-tissue
 > nuclei throughout. This is a real methodological divergence from the published protocol, not
-> a detail.
-> `[VERIFY: is the protoplast route worth testing, or deliberately not? Protoplasting is slow
-> and species-specific, but it is what the published results were generated from.]`
+> a detail. Whether to test the protoplast route is an open question — see § Notes.
+
+## Safety
+
+- **Liquid nitrogen** — cryo gloves, face shield, ventilated area. Never seal a container of it.
+- **β-mercaptoethanol** — add in the fume hood; strong odor and a respiratory irritant.
+- Standard BSL1 otherwise.
+
+---
 
 ## Expected output
 
@@ -207,13 +175,65 @@ brown color means chloroplast and debris carryover, which will cost you DNA puri
 | Nuclei will not fully submerge in the reaction volume | Too many nuclei for the volume | Flagged at the 12.3M half-scale test on 03.18.2026 — reduce input or scale the volume up |
 | Low yield | Incomplete grinding, or thawing before lysis | Regrind; keep tissue frozen until buffer is added |
 
-## Safety
+## Background — why this works
 
-- **Liquid nitrogen** — cryo gloves, face shield, ventilated area. Never seal a container of it.
-- **β-mercaptoethanol** — add in the fume hood; strong odor and a respiratory irritant.
-- Standard BSL1 otherwise.
+Fiber-seq needs **intact nuclei, not naked DNA**. The entire signal depends on chromatin
+proteins still being bound so they can protect their footprints from Hia5, the m6A
+methyltransferase. Everything in this protocol is in service of that.
 
-## See also
+What the buffer components do:
+
+- **Sucrose (0.25 M)** — osmotic support, keeps nuclei from bursting.
+- **Triton X-100 (1%)** — strips organellar and plasma membranes while leaving the nuclear
+  envelope intact. This is what removes chloroplasts.
+- **β-mercaptoethanol (5 mM)** — reducing agent against the phenolics that plant tissue
+  releases on grinding.
+- **Protease inhibitor (1×)** — keeps the chromatin proteins intact. Degrade them and you
+  lose the footprints you are trying to measure.
+
+Plant tissue is harder than cultured cells here because of the cell wall (needs cryogenic
+grinding), chloroplasts, phenolics, and starch. The counting step is the weakest measurement
+in the whole Fiber-seq chain.
+
+## Notes, open questions and sources
+
+**Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Reordered
+2026-08-20 to put the procedure above the reference material.
+
+**Source.** Lab protocol from the *Fiber-Seq Experiments - Initial Tests* Google Doc,
+*Protocol* tab, adapted from [PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122).
+Background on why each step exists is in [[fiber-seq-master-protocol]].
+
+**Input range provenance.** 500 mg to 3 g of tissue; both fresh and -80 °C frozen Col-0
+seedlings have been used. PNAS 2025 uses ~500 mg of fresh tissue as its standard.
+
+### Open questions
+
+- `[VERIFY: hands-on time not recorded anywhere in the development log.]`
+- `[VERIFY: which filtration route was actually used in the 05.2026 PBTS runs and the 06.2026
+  tests. The Protocol tab says the two-step 70 µm → 30–40 µm route, but it predates those runs.]`
+- `[VERIFY: has a nuclei counting method been settled since March 2026? A hemocytometer or
+  flow-cytometry cross-check would close the CellDrop under-counting question.]`
+- `[VERIFY: is the protoplast route worth testing, or deliberately not? Protoplasting is slow
+  and species-specific, but it is what the published results were generated from.]`
+
+**What the lab has and has not established.** Construct-by-construct verdicts for the Hia5
+proteins used downstream are maintained in one place, on [[fiber-seq-master-protocol]]. Do not
+duplicate them here.
+
+## Resources and links
+
+**Equipment:** [[automill]], [[celldrop]], [[centrifuge]]
+
+**Reagents:** [[sucrose]], [[tris-base]], [[magnesium-chloride]], [[triton-x-100]], [[2-mercaptoethanol]], [[roche-protease-inhibitor-cocktail-edta-free]]
+
+**Consumables:** [[macs-smartstrainer-30um]], [[cell-strainer-70um]], [[wide-bore-filter-tips-p1000]]
+
+**Related Protocols:** [[fiber-seq-master-protocol]], [[fiber-seq-hia5-labeling]], [[cut-and-tag]]
+
+**Contacts:** [[grey-monroe]]
+
+**See also**
 
 - [[fiber-seq-master-protocol]] — the hub, and where the Fiber-seq background lives
 - [[fiber-seq-hia5-labeling]] — the next step

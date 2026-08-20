@@ -5,92 +5,33 @@ title: "Hia5 Enzyme Activity Test (in vitro)"
 
 # Hia5 Enzyme Activity Test (in vitro)
 
-> **Draft — not yet bench-verified.** Written 2026-08-18, split out of the former combined
-> "Hia5 DpnI Activity Assay" page on 2026-08-20. Confirm every volume and concentration
-> against your own run before relying on it. Unresolved values are marked `[VERIFY: ...]`.
+> **Draft — not yet bench-verified.** Confirm every volume and concentration against your own
+> run before relying on it. Unresolved values are collected under § Notes, open questions and
+> sources.
 
-## Resources
+**What this does.** Answers one question about a tube of purified protein: **does this Hia5
+prep methylate adenine at all?** Purified enzyme, naked HMW DNA, SAM, one hour at 37 °C.
 
-**Equipment:** [[thermocycler]]
+**When to run it.** On every new protein lot before committing it to a Fiber-seq experiment,
+and whenever you want to compare [[hia5-protein-stocks|constructs]] against each other.
 
-**Reagents:** [[s-adenosylmethionine]], [[epicypher-cutana-hia5]], [[lambda-dna-standard]]
-
-**Consumables:** [[pcr-strip-tubes-0-2ml]], [[wide-bore-filter-tips-p200]]
-
-**Related Protocols:** [[dpni-methylation-check]], [[fiber-seq-hia5-labeling]], [[fiber-seq-master-protocol]]
-
-**Contacts:** [[grey-monroe]]
-
-**Purpose:** Answer one question about a tube of purified protein: **does this Hia5 prep
-methylate adenine at all?** Purified enzyme, naked HMW DNA, SAM, one hour. Run it on every new
-protein lot before committing it to a Fiber-seq experiment, and whenever you want to compare
-[[hia5-protein-stocks|constructs]] against each other.
-
-**This page is the reaction. The readout lives on [[dpni-methylation-check]].** They were one
-page until 2026-08-20 and were split because they answer different questions: this one tests
-an enzyme, that one tests a DNA sample.
-
-**Source:** Lab implementation in the *Fiber-Seq Experiments - Initial Tests* Google Doc
-(*Fiber-Seq Experiments* tab, entries 03.06 / 03.16 / 03.25 / 03.30.2026) and the
-*AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Method adapted from the protocols.io
-procedure for testing nanobody-Hia5 fusions (`g3iibykcf`)
-`[VERIFY: resolve the full protocols.io URL and title before publishing]`.
-
-## Background
-
-**Hia5 is the methyltransferase** — a bacterial N6-adenine DNA methyltransferase (**MTase**)
-with no sequence specificity beyond needing an accessible adenine. It is the enzyme that
-*writes* m6A, using SAM as the methyl donor. Everywhere these pages say "the MTase," they mean
-Hia5 or a Hia5 fusion; the only other enzyme in this workflow, [[dpni|DpnI]], is a restriction
-enzyme that *reads* the mark on [[dpni-methylation-check]] and never methylates anything.
-
-In a Fiber-seq experiment Hia5 works on chromatin inside intact nuclei
-([[fiber-seq-hia5-labeling]]). Here it works on naked, protein-free HMW DNA, which removes
-chromatin as a variable: **if the enzyme cannot methylate naked DNA, nothing downstream is
-worth attempting.**
-
-Conditions are deliberately harsher than a real labeling run — **37 °C for 1 h** here versus
-25 °C for 10 min in nuclei. The goal is to saturate the DNA and get an unambiguous gel, not to
-hit the 5–7% m6A window Fiber-seq needs. Do not carry these conditions into a labeling
-reaction.
-
-**Two functions, only one tested here.** The [Anchor Tag](../../projects/anchor-tag/index.md)
-fusion constructs need to do two things: (1) methylate, and (2) bind their target through the
-fused reader domain. **This test only measures (1).** A construct can pass here and still be
-useless if the fused domain does not bind. Target binding needs a separate DiMeLo-seq-style
-experiment, which the dev log proposes and which has never been run.
-
-> This is the single most common misreading of the lab's Hia5 results. "Tudor-Hia5 is
-> functional" from a gel like this means *the Hia5 half works*. It says nothing about whether
-> the Tudor half finds H3K4me1.
-
-**The 601 sequence.** The source protocol also uses a 147 bp artificial nucleosome-positioning
-sequence ("601") wrapped into artificial chromatin. Because a nucleosome physically occludes
-the DNA it wraps, the 601 region shows **protection from methylation** — the same footprinting
-principle Fiber-seq depends on, in a defined single-nucleosome system. For the fusion
-constructs it also raises the open question recorded in the dev log: if nucleosomes block
-methylation, can a targeted Hia5 fusion still map histone modifications at the nucleosome it
-is recruited to? The recorded plan was to compare m6A/A for free Hia5 versus antibody-directed
-Hia5 in regions that are and are not nucleosome-protected. `[VERIFY: was the 601 / artificial
-chromatin arm ever actually run? Only the naked-HMW-DNA version appears in the results
-tables.]`
-
-## Time estimate
-
-1 h Hia5 (MTase) reaction, then hand off to [[dpni-methylation-check]] (1 h digest + ~45 min gel).
+**Time:** 1 h reaction, then hand off to [[dpni-methylation-check]] (1 h digest + ~45 min gel).
 Half a day end to end.
+**Input:** purified Hia5 or Hia5-fusion protein, 100 ng clean HMW DNA per reaction, fresh SAM.
 
-## Required input
+> **This page is the reaction. The readout lives on [[dpni-methylation-check]].** They were one
+> page until 2026-08-20 and were split because they answer different questions: this one tests
+> an enzyme, that one tests a DNA sample.
 
-- **Purified Hia5 or Hia5-fusion protein.** See [[hia5-protein-stocks]] for what the lab has,
-  at what concentration and purity, and which round it came from.
-- **Clean HMW DNA, 100 ng per reaction**, or ONT bacterial lambda DNA
-  ([[lambda-dna-standard]]) as in the original protocol (2 µL of 50 ng/µL = 100 ng). The
-  06.14.2026 run used 100 ng of HMW DNA per reaction.
-- **Fresh [[s-adenosylmethionine]]** — NEB B9003S, 32 mM. SAM is highly labile and degrades
-  with freeze/thaw. A dead SAM aliquot is the most common cause of a false negative here.
+> **Hia5 is the methyltransferase (MTase)** — the enzyme that *writes* m6A, and the thing under
+> test here. [[dpni|DpnI]], used downstream, is a restriction enzyme that only *reads* the mark.
 
-## Required materials
+> **Two functions, only one tested here.** The [Anchor Tag](../../projects/anchor-tag/index.md)
+> fusions must (1) methylate and (2) bind their target through the fused reader domain. **This
+> test measures only (1).** "Tudor-Hia5 is functional" from this gel means *the Hia5 half
+> works*. It says nothing about whether the Tudor half finds H3K4me1 — see § Background.
+
+## Materials
 
 ### Reaction components
 
@@ -99,6 +40,13 @@ Half a day end to end.
 | HMW DNA | Volume giving 100 ng per reaction |
 | Purified Hia5 / Hia5 fusion | Titrate — see § Dosing below |
 | Activation buffer with [[s-adenosylmethionine]] | **20 µL** per reaction, SAM at **160 µM** |
+
+Use **clean HMW DNA**, or ONT bacterial lambda DNA ([[lambda-dna-standard]]) as in the
+original protocol (2 µL of 50 ng/µL = 100 ng). The 06.14.2026 run used 100 ng of HMW DNA per
+reaction.
+
+Use **fresh [[s-adenosylmethionine]]** — NEB B9003S, 32 mM. SAM is highly labile and degrades
+with freeze/thaw. A dead SAM aliquot is the most common cause of a false negative here.
 
 > **Critical — do not "reconcile" the two SAM concentrations.** This test uses **160 µM** SAM.
 > The Fiber-seq labeling reaction uses **800 µM** (see [[fiber-seq-hia5-labeling]]). They
@@ -111,14 +59,8 @@ Same activation buffer as the labeling reaction, with SAM added to 160 µM inste
 Make **200 µL** and add 1 µL of the 32 mM SAM stock. The 06.14.2026 run used the
 **sucrose-containing** version of the activation buffer.
 
-> **Critical — spermidine discrepancy.** The activation buffer table printed alongside this
-> assay lists spermidine at **0.05 mM final**, while the buffer table on the *Protocol* tab
-> lists **0.5 mM final** — a genuine 10× difference. Both tables are internally
-> self-consistent (their stock-to-volume arithmetic checks out at their own stated target), so
-> this is a difference in the intended concentration, not a dilution-math slip. See
-> [[fiber-seq-hia5-labeling]], where the same conflict is flagged.
-> `[VERIFY: which spermidine concentration was actually used on the bench, and which is
-> correct? This has never been resolved in the dev log.]`
+> ⚠️ **Spermidine is unresolved — read § Notes before you make this buffer.** The two source
+> tables disagree by 10× (0.05 mM vs 0.5 mM final). Nobody has settled which was used.
 
 ## Dosing
 
@@ -134,7 +76,7 @@ levels — **300 / 150 / 75 / 30 ng** — against a fixed 100 ng of HMW DNA.
 > The nM column on [[hia5-protein-stocks]] is computed from **total** protein concentration.
 > For a stock at <30% purity, "50 nM" means 50 nM of protein in the tube, of which most is not
 > Hia5. When you compare constructs, decide up front whether you are matching total mass or
-> matching active enzyme, and write down which. See § What the lab has and has not established.
+> matching active enzyme, and write down which.
 
 Useful cross-protocol reference points from the dev log:
 
@@ -142,9 +84,6 @@ Useful cross-protocol reference points from the dev log:
   for 10 min.
 - DiMeLo-seq recommends **200 nM in 200 µL** for 1–5 million nuclei. The 50 nM point in this
   test is ¼ of that.
-- The log's own inference: if Fiber-seq behaves like ATAC-seq, DiMeLo-seq requires a
-  **higher** Hia5 input than Fiber-seq does. `[VERIFY: this is reasoning in the dev log, not a
-  measured result.]`
 
 ## Procedure
 
@@ -163,13 +102,14 @@ input corrupts it.
 
 **37 °C for 1 h.**
 
+Conditions here are deliberately harsher than a real labeling run — 37 °C for 1 h versus 25 °C
+for 10 min in nuclei. The goal is to saturate the DNA and get an unambiguous gel, not to hit
+the 5–7% m6A window Fiber-seq needs. **Do not carry these conditions into a labeling reaction.**
+
 ### 3. Stop the reaction
 
 Add **6 µL of 10% SDS** and vortex to mix (06.14.2026 procedure). This denatures Hia5 so
 it cannot keep working during the digestion step.
-
-`[VERIFY: the March 2026 runs do not record an SDS stop. Confirm whether SDS was added then
-too, and whether the SDS carryover affects the DpnI digestion that follows.]`
 
 ### 4. Read it out
 
@@ -189,15 +129,93 @@ At minimum:
 Worth adding when comparing constructs:
 
 - **A purity-matched or active-enzyme-matched dose**, not just an equal total-mass dose. See
-  below for why.
+  § Notes for why this matters.
 
-## What the lab has and has not established
+## Safety
 
-This section records the primary record, which is easy to read as saying more than it does.
-The maintained construct-by-construct verdict table lives on [[fiber-seq-master-protocol]] —
-that is the single place it is kept current.
+Standard BSL1. SDS is an irritant. Gel work per [[dpni-methylation-check]] and
+[[gel-imaging-and-annotation]].
 
-### Round 1 (Dec 2025 GenScript order), tested March 2026
+---
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Nothing methylated, including the Epicypher control | Dead SAM, or wrong buffer | SAM is highly labile and degrades with freeze/thaw — use a fresh aliquot before suspecting any enzyme. Confirm the activation buffer was made fresh |
+| Epicypher worked, the construct did not | Genuinely low activity, or too little active enzyme delivered | Options recorded 03.30.2026: increase enzyme (0.034 → 0.05 µg per reaction, or more), increase incubation time, or both. If the stock is low-purity, match on active enzyme rather than total protein mass |
+| Partial methylation only at the highest input | Low activity, or a stock concentration error | Repeat with a fresh dilution series; verify the concentration used in the nM calculation against [[hia5-protein-stocks]] |
+| No-enzyme control also methylated | Hia5 carryover between tubes, or endogenous m6A in the source DNA | Fresh tips per tube. Check whether the source DNA could already be methylated — the dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open task |
+| Every lane is smeared, including undigested | Shearing during handling | Wide-bore tips throughout; do not vortex except for the SDS stop |
+
+## Background — why this works
+
+**Hia5 is the methyltransferase** — a bacterial N6-adenine DNA methyltransferase (**MTase**)
+with no sequence specificity beyond needing an accessible adenine. It is the enzyme that
+*writes* m6A, using SAM as the methyl donor. Everywhere these pages say "the MTase," they mean
+Hia5 or a Hia5 fusion; the only other enzyme in this workflow, [[dpni|DpnI]], is a restriction
+enzyme that *reads* the mark on [[dpni-methylation-check]] and never methylates anything.
+
+In a Fiber-seq experiment Hia5 works on chromatin inside intact nuclei
+([[fiber-seq-hia5-labeling]]). Here it works on naked, protein-free HMW DNA, which removes
+chromatin as a variable: **if the enzyme cannot methylate naked DNA, nothing downstream is
+worth attempting.**
+
+**Two functions, only one tested here.** The [Anchor Tag](../../projects/anchor-tag/index.md)
+fusion constructs need to do two things: (1) methylate, and (2) bind their target through the
+fused reader domain. **This test only measures (1).** A construct can pass here and still be
+useless if the fused domain does not bind. Target binding needs a separate DiMeLo-seq-style
+experiment, which the dev log proposes and which has never been run.
+
+> This is the single most common misreading of the lab's Hia5 results. "Tudor-Hia5 is
+> functional" from a gel like this means *the Hia5 half works*. It says nothing about whether
+> the Tudor half finds H3K4me1.
+
+**The 601 sequence.** The source protocol also uses a 147 bp artificial nucleosome-positioning
+sequence ("601") wrapped into artificial chromatin. Because a nucleosome physically occludes
+the DNA it wraps, the 601 region shows **protection from methylation** — the same footprinting
+principle Fiber-seq depends on, in a defined single-nucleosome system. For the fusion
+constructs it also raises the open question recorded in the dev log: if nucleosomes block
+methylation, can a targeted Hia5 fusion still map histone modifications at the nucleosome it
+is recruited to? The recorded plan was to compare m6A/A for free Hia5 versus antibody-directed
+Hia5 in regions that are and are not nucleosome-protected.
+
+## Notes, open questions and sources
+
+**Page history.** Written 2026-08-18. Split out of the former combined "Hia5 DpnI Activity
+Assay" page on 2026-08-20; the gel readout moved to [[dpni-methylation-check]].
+
+**Source.** Lab implementation in the *Fiber-Seq Experiments - Initial Tests* Google Doc
+(*Fiber-Seq Experiments* tab, entries 03.06 / 03.16 / 03.25 / 03.30.2026) and the
+*AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Method adapted from the protocols.io
+procedure for testing nanobody-Hia5 fusions (`g3iibykcf`).
+
+### Open questions
+
+- **Spermidine, 10× unresolved.** The activation buffer table printed alongside this assay
+  lists spermidine at **0.05 mM final**, while the buffer table on the *Protocol* tab lists
+  **0.5 mM final**. Both tables are internally self-consistent (their stock-to-volume
+  arithmetic checks out at their own stated target), so this is a difference in the intended
+  concentration, not a dilution-math slip. The same conflict is flagged on
+  [[fiber-seq-hia5-labeling]].
+  `[VERIFY: which spermidine concentration was actually used on the bench, and which is
+  correct? This has never been resolved in the dev log.]`
+- `[VERIFY: the March 2026 runs do not record an SDS stop. Confirm whether SDS was added then
+  too, and whether the SDS carryover affects the DpnI digestion that follows.]`
+- `[VERIFY: was the 601 / artificial chromatin arm ever actually run? Only the naked-HMW-DNA
+  version appears in the results tables.]`
+- `[VERIFY: resolve the full protocols.io URL and title for g3iibykcf before publishing.]`
+- The dev log infers that if Fiber-seq behaves like ATAC-seq, DiMeLo-seq requires a **higher**
+  Hia5 input than Fiber-seq does. `[VERIFY: this is reasoning in the dev log, not a measured
+  result.]`
+
+### What the lab has and has not established
+
+This records the primary record, which is easy to read as saying more than it does. The
+maintained construct-by-construct verdict table lives on [[fiber-seq-master-protocol]] — that
+is the single place it is kept current.
+
+#### Round 1 (Dec 2025 GenScript order), tested March 2026
 
 - **03.30.2026, verbatim from the source doc:** *"ONLY Tudor-Hia5 reactions did not
   successfully methylate adenine."* Round-1 wild-type Tudor-Hia5 **failed**. The word "ONLY"
@@ -216,7 +234,7 @@ that is the single place it is kept current.
   Tudor construct. **Do not conflate these two sentences.** Conflating them is how the lab's
   notes previously ended up recording the Tudor result backwards.
 
-### Two things that complicate the 03.30 Tudor-Hia5 verdict
+#### Two things that complicate the 03.30 Tudor-Hia5 verdict
 
 Neither overturns the result. Both mean it should be re-run before "Tudor-Hia5 does not
 methylate" is treated as a settled property of the construct.
@@ -243,7 +261,7 @@ volume would be 0.0117 µL, a thousand-fold smaller and unpipettable. Read the e
 > `[VERIFY: confirm against Vianney's bench notebook, which the entry says holds the exact
 > volumes used. The µg reading is arithmetic on the doc's own numbers, not a bench record.]`
 
-### Round 2 (June 2026 shipment) — suggestive, not scored
+#### Round 2 (June 2026 shipment) — suggestive, not scored
 
 The round-2 constructs are MBP fusions that were **never cleaved**, so what is in the tube is
 the intact ~84.5 kDa fusion, not the ~41.5 kDa Hia5 module. See [[hia5-protein-stocks]].
@@ -281,22 +299,19 @@ The only statement the lab has is [[vianney-ahn|Vianney]]'s, from a Slack DM on
 > Fiber-seq is [[epicypher-cutana-hia5]]. Every
 > [Anchor Tag](../../projects/anchor-tag/index.md) construct is a project-stage reagent.
 
-## Troubleshooting
+## Resources and links
 
-| Symptom | Likely cause | Fix |
-| --- | --- | --- |
-| Nothing methylated, including the Epicypher control | Dead SAM, or wrong buffer | SAM is highly labile and degrades with freeze/thaw — use a fresh aliquot before suspecting any enzyme. Confirm the activation buffer was made fresh |
-| Epicypher worked, the construct did not | Genuinely low activity, or too little active enzyme delivered | Options recorded 03.30.2026: increase enzyme (0.034 → 0.05 µg per reaction, or more), increase incubation time, or both. If the stock is low-purity, match on active enzyme rather than total protein mass |
-| Partial methylation only at the highest input | Low activity, or a stock concentration error | Repeat with a fresh dilution series; verify the concentration used in the nM calculation against [[hia5-protein-stocks]] |
-| No-enzyme control also methylated | Hia5 carryover between tubes, or endogenous m6A in the source DNA | Fresh tips per tube. Check whether the source DNA could already be methylated — the dev log flags checking Arabidopsis HiFi data for endogenous 6mA as an open task |
-| Every lane is smeared, including undigested | Shearing during handling | Wide-bore tips throughout; do not vortex except for the SDS stop |
+**Equipment:** [[thermocycler]]
 
-## Safety
+**Reagents:** [[s-adenosylmethionine]], [[epicypher-cutana-hia5]], [[lambda-dna-standard]]
 
-Standard BSL1. SDS is an irritant. Gel work per [[dpni-methylation-check]] and
-[[gel-imaging-and-annotation]].
+**Consumables:** [[pcr-strip-tubes-0-2ml]], [[wide-bore-filter-tips-p200]]
 
-## See also
+**Related Protocols:** [[dpni-methylation-check]], [[fiber-seq-hia5-labeling]], [[fiber-seq-master-protocol]]
+
+**Contacts:** [[grey-monroe]]
+
+**See also**
 
 - [[dpni-methylation-check]] — the readout for this test
 - [[hia5-protein-stocks]] — what is in the freezer, at what concentration and purity

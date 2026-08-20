@@ -6657,6 +6657,42 @@
   },
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/dpni"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "resources/rcutsmart-buffer"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/making-an-agarose-gel"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/gel-electrophoresis"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "wet-lab/epigenomics/dpni-methylation-check",
     "target": "resources/thermocycler"
   },
   {
@@ -6666,14 +6702,6 @@
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
     "target": "resources/uv-transilluminator"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "resources/dpni"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "resources/rcutsmart-buffer"
   },
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
@@ -6689,31 +6717,7 @@
   },
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
     "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/gel-electrophoresis"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/making-an-agarose-gel"
-  },
-  {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "wet-lab/gel-imaging-and-annotation"
   },
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
@@ -6721,11 +6725,39 @@
   },
   {
     "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "resources/epicypher-cutana-hia5"
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
   },
   {
-    "source": "wet-lab/epigenomics/dpni-methylation-check",
-    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "wet-lab/epigenomics/fiber-seq-nuclei-isolation"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/spermidine"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/sucrose"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/wide-bore-filter-tips-p200"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/wide-bore-filter-tips-p1000"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
@@ -6733,7 +6765,11 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/centrifuge"
+    "target": "resources/celldrop"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
@@ -6741,11 +6777,19 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/s-adenosylmethionine"
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/sucrose"
+    "target": "resources/dpni"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/centrifuge"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "target": "resources/s-adenosylmethionine"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
@@ -6769,10 +6813,6 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/spermidine"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
     "target": "resources/bovine-serum-albumin-50mg-ml"
   },
   {
@@ -6781,47 +6821,75 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/wide-bore-filter-tips-p200"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/dna-lobind-tubes"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/epigenomics/fiber-seq-nuclei-isolation"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/epigenomics/dpni-methylation-check"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
     "target": "people/grey-monroe"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
-    "target": "resources/celldrop"
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
   },
   {
-    "source": "wet-lab/epigenomics/fiber-seq-hia5-labeling",
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/fiber-seq-nuclei-isolation"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/femtopulse"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/library-prep/hmw-size-selection"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/dpni"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/cut-and-tag"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "wet-lab/epigenomics/chip-seq"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "people/vianney-ahn"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
@@ -6830,10 +6898,6 @@
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "resources/centrifuge"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "resources/femtopulse"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
@@ -6853,14 +6917,6 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "resources/epicypher-cutana-hia5"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "resources/hia5-protein-stocks"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "resources/s-adenosylmethionine"
   },
   {
@@ -6885,59 +6941,23 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/fiber-seq-nuclei-isolation"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/dpni-methylation-check"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/library-prep/hmw-size-selection"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/cut-and-tag"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "people/grey-monroe"
   },
   {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
   },
   {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "resources/dpni"
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "wet-lab/epigenomics/cut-and-tag"
   },
   {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "wet-lab/epigenomics/chip-seq"
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "resources/epicypher-cutana-hia5"
   },
   {
-    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
-    "target": "people/vianney-ahn"
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
@@ -6945,15 +6965,31 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "resources/celldrop"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
     "target": "resources/centrifuge"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "resources/celldrop"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "resources/wide-bore-filter-tips-p1000"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
     "target": "resources/sucrose"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "resources/triton-x-100"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "resources/roche-protease-inhibitor-cocktail-edta-free"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
@@ -6965,15 +7001,7 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
     "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "resources/roche-protease-inhibitor-cocktail-edta-free"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
@@ -6985,27 +7013,7 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "wet-lab/epigenomics/cut-and-tag"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
     "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
-    "target": "wet-lab/extraction/fiber-seq-hmw-extraction"
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-nuclei-isolation",
@@ -7013,7 +7021,15 @@
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "resources/thermocycler"
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/dpni"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
@@ -7021,11 +7037,31 @@
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/lambda-dna-standard"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "resources/epicypher-cutana-hia5"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "resources/lambda-dna-standard"
+    "target": "wet-lab/gel-imaging-and-annotation"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "people/vianney-ahn"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/thermocycler"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
@@ -7037,35 +7073,7 @@
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "wet-lab/epigenomics/dpni-methylation-check"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "resources/hia5-protein-stocks"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "resources/dpni"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "people/vianney-ahn"
-  },
-  {
-    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
-    "target": "wet-lab/gel-imaging-and-annotation"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
@@ -7073,7 +7081,35 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/centrifuge"
+    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/sodium-chloride"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/chloroform-isoamyl-alcohol-24-1"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/cytiva-sera-mag-speedbead-carboxyl"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/library-prep/spri-beads-preparation"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/colibri-dna-library-cleanup-kit"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/dna-lobind-tubes"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/wide-bore-filter-tips-p1000"
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
@@ -7081,7 +7117,51 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/magnetic-rack"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
     "target": "resources/femtopulse"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/waste-disposal-quick-reference"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "waste/bme-chloroform-phenol-waste"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/library-prep/ot2-hmw-shearing"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/monarch-spin-gdna-extraction-kit"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/promega-wizard-hmw-dna-extraction-kit"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "locations/uc-davis-dna-technologies-core"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
+    "target": "resources/centrifuge"
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
@@ -7090,10 +7170,6 @@
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
     "target": "resources/qubit-fluorometer"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/magnetic-rack"
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
@@ -7117,22 +7193,6 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/sodium-chloride"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/chloroform-isoamyl-alcohol-24-1"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/cytiva-sera-mag-speedbead-carboxyl"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/colibri-dna-library-cleanup-kit"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
     "target": "resources/ethanol-70"
   },
   {
@@ -7145,22 +7205,6 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/dna-lobind-tubes"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/wide-bore-filter-tips-p1000"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/epigenomics/fiber-seq-hia5-labeling"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
     "target": "wet-lab/extraction/hifi-dna-extraction"
   },
   {
@@ -7169,43 +7213,7 @@
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/library-prep/spri-beads-preparation"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/library-prep/ot2-hmw-shearing"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
     "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "locations/uc-davis-dna-technologies-core"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/monarch-spin-gdna-extraction-kit"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "resources/promega-wizard-hmw-dna-extraction-kit"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/epigenomics/dpni-methylation-check"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/library-prep/pacbio-hifi-sequencing"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "wet-lab/waste-disposal-quick-reference"
-  },
-  {
-    "source": "wet-lab/extraction/fiber-seq-hmw-extraction",
-    "target": "waste/bme-chloroform-phenol-waste"
   },
   {
     "source": "wet-lab/extraction/fiber-seq-hmw-extraction",

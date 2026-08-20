@@ -622,7 +622,7 @@
     "type": "enzyme",
     "title": "DpnI",
     "status": "needs_more",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
@@ -930,7 +930,7 @@
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
     "status": "needs_more",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -4041,7 +4041,7 @@
     "title": "Anchor Tag",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "projects/cassava-c127.md",
@@ -4697,7 +4697,7 @@
     "path": "wet-lab/epigenomics/dpni-methylation-check.md",
     "type": "protocol",
     "title": "DpnI Methylation Check",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
@@ -4709,19 +4709,19 @@
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
     "title": "Fiber-seq Master Protocol",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
     "type": "protocol",
     "title": "Plant Nuclei Isolation for Fiber-seq",
-    "mtime": 1787106536
+    "mtime": 1787216998
   },
   {
     "path": "wet-lab/epigenomics/hia5-enzyme-activity-test.md",
     "type": "protocol",
     "title": "Hia5 Enzyme Activity Test (in vitro)",
-    "mtime": 1787216002
+    "mtime": 1787216998
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",

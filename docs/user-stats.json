@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-20T09:09:40.185233+00:00",
-  "total_commits": 4588,
+  "generated_at": "2026-08-20T09:26:51.073536+00:00",
+  "total_commits": 4589,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4239,
+      "total_commits": 4240,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-20",
       "protocols_authored": 196,
       "notebooks_authored": 156,
-      "inventory_edits": 2244,
-      "wiki_edits": 5036,
+      "inventory_edits": 2246,
+      "wiki_edits": 5040,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "b62b256",
-          "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
-          "date": "2026-05-13"
-        },
         {
           "sha": "6e7e8c4",
           "subject": "Update plant-harvesting/harvesting-microshoot-cultures",
@@ -61,6 +56,11 @@
         {
           "sha": "1b8edac",
           "subject": "Split the Hia5 DpnI assay into enzyme test + digestion readout",
+          "date": "2026-08-20"
+        },
+        {
+          "sha": "86e446b",
+          "subject": "Make explicit throughout that Hia5 is the methyltransferase, DpnI the readout",
           "date": "2026-08-20"
         }
       ],
