@@ -78,11 +78,12 @@ Run the extracted DNA on the [[femtopulse]] before deciding anything.
 
 ### 6. Size selection — [[hmw-size-selection]]
 
-> **Decision point.** The lab deliberately did **not** size select the first pooled
-> Fiber-seq libraries, because round 1 was a labeling-conditions experiment and short
-> fragments were kept on purpose to see whether they carry distinct accessibility signal.
-> That is not a general recommendation. See that page for when the answer flips and for the
-> LightBench and Pippin HT reference parameters.
+Optional, and decided from the FemtoPulse trace. Cutting short fragments buys HiFi yield on a
+production run; on a troubleshooting run they are worth keeping. That page has the decision
+table.
+
+> **Critical:** the Genome Center's LightBench takes **1 µg in a maximum of 25 µL**, so a pool
+> under **40 ng/µL** is not eligible at all. Concentrate before submitting, not after.
 
 ### 7. Library prep and sequencing — [[pacbio-hifi-sequencing]]
 
