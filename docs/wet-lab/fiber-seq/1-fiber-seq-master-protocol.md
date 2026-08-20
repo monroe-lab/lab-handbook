@@ -111,17 +111,17 @@ every test it has been through, and a place to record its freezer location.
 | Enzyme | Status | Use for production Fiber-seq? |
 | ------ | ------ | ----------------------------- |
 | [[epicypher-cutana-hia5]] | Validated, commercial | **Yes — the only validated option** |
-| [[hia5-r1-free\]] | Project-stage, no individual verdict recorded | No |
-| [[pa-hia5-r1\]] | Project-stage, no individual verdict recorded | No |
-| [[pag-hia5-r1\]] | Project-stage, **no written verdict anywhere** | No |
-| [[tudor-hia5-r1\]] | **Failed** the 03.30.2026 DpnI assay | No |
-| [[3atudor-hia5-r1\]] | Project-stage; binding-pocket knockout, i.e. a negative control | No |
-| [[tudor-hia5-r2\]] | **Reported functional, never scored** — see § Notes | Not yet |
-| [[3atudor-hia5-r2\]] | Same reported-but-unscored status; negative control regardless | No |
+| [[hia5-r1-free\) | Project-stage, no individual verdict recorded | No |
+| [pa-hia5-r1](https://obj.link/pa-hia5-r1\) | Project-stage, no individual verdict recorded | No |
+| [pag-hia5-r1](https://obj.link/pag-hia5-r1\) | Project-stage, **no written verdict anywhere** | No |
+| [tudor-hia5-r1](https://obj.link/tudor-hia5-r1\) | **Failed** the 03.30.2026 DpnI assay | No |
+| [3atudor-hia5-r1](https://obj.link/3atudor-hia5-r1\) | Project-stage; binding-pocket knockout, i.e. a negative control | No |
+| [tudor-hia5-r2](https://obj.link/tudor-hia5-r2\) | **Reported functional, never scored** — see § Notes | Not yet |
+| [3atudor-hia5-r2](https://obj.link/3atudor-hia5-r2\) | Same reported-but-unscored status; negative control regardless | No |
 
 > **Critical:** The only Hia5 the lab can currently claim as validated for production
 > Fiber-seq is [[epicypher-cutana-hia5]]. The Tudor and pA/pAG constructs are project-stage
-> reagents from [Anchor Tag](../../projects/anchor-tag/index.md) and must not be treated as
+> reagents from [Anchor Tag](../../projects/anchor-tag/index.md]] and must not be treated as
 > interchangeable with it. What the record does and does not actually say, verdict by verdict,
 > is laid out under § Notes — read it before citing any of these statuses.
 
@@ -170,7 +170,7 @@ Documented incubations only. Hands-on time has never been recorded. The day grou
 | **1** | [[2-plant-nuclei-isolation-for-fiber-seq]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
 | **1** | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] | 5 min pellet spin + **10 min reaction** |
 | **2** | [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
-| **2** | QC — [[dpni-methylation-check]] | 1 h digest + \~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\]]) |
+| **2** | QC — [[dpni-methylation-check]] | 1 h digest \+ \~45 min gel \(plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\)) |
 | after | QC — FemtoPulse, Qubit, NanoDrop | — |
 | after | Shearing → library → sequencing | Days to weeks, at the core |
 
@@ -185,9 +185,9 @@ least get the reaction into lysis.
 | ------- | ------------ | ------------- |
 | No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[dpni-methylation-check]], then [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] |
 | m6A too high, footprints washed out | Too much enzyme or too long an incubation | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] |
-| Inferred nucleosomes shorter than \~150 bp | Over-labeling | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] |
+| Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] |
 | Low 260/230, DNA will not behave downstream | Guanidine carryover from column extraction | [[fiber-seq-hmw-extraction]] |
-| Short fragments on the FemtoPulse trace | Mechanical shearing (tolerable) vs degradation (not) | [[fiber-seq-hmw-extraction]] |
+| Short fragments on the FemtoPulse trace | Mechanical shearing (tolerable]] vs degradation (not) | [[fiber-seq-hmw-extraction]] |
 | Nuclei count implausible against pellet size | CellDrop under-counting, unresolved | [[2-plant-nuclei-isolation-for-fiber-seq]] |
 | Sequencing returned no m6A calls at all | Base kinetics not enabled | Step 7 above |
 
