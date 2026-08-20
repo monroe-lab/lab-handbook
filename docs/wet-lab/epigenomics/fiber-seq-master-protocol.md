@@ -22,9 +22,6 @@ pattern into a footprint map (step 7). The methylated bases are the accessible o
 footprints are the **gaps**. Note the 15 kb in the middle panel is the schematic's number, not
 a lab target; see step 5 for what the lab actually aims at.*
 
-> `[VERIFY: figure source and attribution. Added by Grey 2026-08-20; the publication or talk it
-> came from is not recorded. Credit it before this page is shared outside the lab.]`
-
 **When to use this page.** This is the hub — a decision map, not a bench procedure. Read it
 first, then work through the linked step pages in order. Each of those pages is the thing you
 actually run at the bench.
