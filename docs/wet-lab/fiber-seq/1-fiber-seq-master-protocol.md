@@ -47,7 +47,7 @@ nuclei isolation buffer, filter, and wash twice by centrifugation. **The count i
 for step 2**, and it is also the weakest measurement in the chain — see that page's note on
 CellDrop under-counting.
 
-### 2. Label with Hia5 — [[fiber-seq-hia5-labeling]]
+### 2. Label with Hia5 — [[3-hia5-m6a-labeling-reaction-for-fiber-seq]]
 
 The whole experiment. Resuspend counted nuclei in activation buffer with SAM, add Hia5,
 **10 min at 25 °C**, stop with SDS to 1% final. Nuclei input and reaction volume are both
@@ -177,7 +177,7 @@ Documented incubations only. Hands-on time has never been recorded. The day grou
 | Day | Stage | Documented elapsed |
 | --- | --- | --- |
 | **1** | [[2-plant-nuclei-isolation-for-fiber-seq]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
-| **1** | [[fiber-seq-hia5-labeling]] | 5 min pellet spin + **10 min reaction** |
+| **1** | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] | 5 min pellet spin + **10 min reaction** |
 | **2** | [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
 | **2** | QC — [[dpni-methylation-check]] | 1 h digest + ~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\|the in vitro enzyme test]]) |
 | after | QC — FemtoPulse, Qubit, NanoDrop | — |
@@ -193,8 +193,8 @@ least get the reaction into lysis.
 | Symptom | Likely cause | Where to look |
 | --- | --- | --- |
 | No m6A on the DpnI gel | Dead SAM, dead enzyme, or a project-stage construct | [[dpni-methylation-check]], then [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] |
-| m6A too high, footprints washed out | Too much enzyme or too long an incubation | [[fiber-seq-hia5-labeling]] |
-| Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[fiber-seq-hia5-labeling]] |
+| m6A too high, footprints washed out | Too much enzyme or too long an incubation | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] |
+| Inferred nucleosomes shorter than ~150 bp | Over-labeling | [[3-hia5-m6a-labeling-reaction-for-fiber-seq]] |
 | Low 260/230, DNA will not behave downstream | Guanidine carryover from column extraction | [[fiber-seq-hmw-extraction]] |
 | Short fragments on the FemtoPulse trace | Mechanical shearing (tolerable) vs degradation (not) | [[fiber-seq-hmw-extraction]] |
 | Nuclei count implausible against pellet size | CellDrop under-counting, unresolved | [[2-plant-nuclei-isolation-for-fiber-seq]] |
@@ -365,7 +365,7 @@ What the record actually says about the Hia5 constructs, and what it does not:
 
 **Consumables:** [[dna-lobind-tubes]], [[wide-bore-filter-tips-p1000]], [[wide-bore-filter-tips-p200]]
 
-**Related Protocols:** [[2-plant-nuclei-isolation-for-fiber-seq]], [[fiber-seq-hia5-labeling]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
+**Related Protocols:** [[2-plant-nuclei-isolation-for-fiber-seq]], [[3-hia5-m6a-labeling-reaction-for-fiber-seq]], [[fiber-seq-hmw-extraction]], [[dpni-methylation-check]], [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], [[hmw-size-selection]], [[ot2-hmw-shearing]], [[pacbio-hifi-sequencing]], [[cut-and-tag]]
 
 **Contacts:** [[grey-monroe]]
 
