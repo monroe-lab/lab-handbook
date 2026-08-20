@@ -281,7 +281,11 @@
   // ── Status change (drag-and-drop) ──
   async function moveTask(relPath, newStatus) {
     var t = tasks.find(function(x) { return x.path === relPath; });
-    if (!t || t.status === newStatus || saving[relPath]) return;
+    if (!t || t.status === newStatus) return;
+    if (saving[relPath]) {
+      if (window.Lab.showToast) Lab.showToast('Still saving that card — try again in a moment', 'info');
+      return;
+    }
     var oldStatus = t.status;
     t.status = newStatus;         // optimistic
     render();
@@ -330,6 +334,7 @@
       '---\n';
     var entry = { path: relPath, type: 'task', title: title, status: status, created_at: new Date().toISOString() };
     tasks.push(entry);            // optimistic
+    saving[relPath] = true;       // block drag-moves until the create commit lands
     render();
     try {
       await Lab.gh.saveFile('docs/' + relPath + '.md', fm, null, 'board: add task "' + title + '"');
@@ -340,6 +345,8 @@
       render();
       if (window.Lab.showToast) Lab.showToast('Add failed: ' + err.message, 'error');
       console.error('createTask failed:', err);
+    } finally {
+      delete saving[relPath];
     }
   }
 
