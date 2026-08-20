@@ -19,7 +19,7 @@ straight: they appear on the same gel and in the same protocols, but Hia5 is the
 test and DpnI is the instrument testing it.
 
 This is the entire basis of [[dpni-methylation-check]], the lab's gel readout for whether a
-DNA sample carries m6A, and of [[hia5-enzyme-activity-test]], which uses that readout to ask
+DNA sample carries m6A, and of [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]], which uses that readout to ask
 whether a Hia5 or Hia5-fusion protein methylates at all.
 
 > ℹ️ **Chemistry**
@@ -43,6 +43,6 @@ whether a Hia5 or Hia5-fusion protein methylates at all.
 ## See also
 
 - [[dpni-methylation-check]] — the assay this enzyme drives
-- [[hia5-enzyme-activity-test]] — the enzyme test that assay reads out
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the enzyme test that assay reads out
 - [[rcutsmart-buffer]] — the digestion buffer
 - [[fiber-seq-master-protocol]]
