@@ -100,7 +100,7 @@ different protein, not this one.
 >
 > Because the dose was normalised by mass, the ~10× spread in the nM column is **not** a
 > difference in delivered enzyme. The confound that survives is purity, not molarity — see
-> [[hia5-enzyme-activity-test]].
+> [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]].
 
 ## Sequence
 
@@ -168,7 +168,7 @@ decimal places, for all ten items in the order. The sequence above is the ordere
 
 ## See also
 
-- [[hia5-enzyme-activity-test]] — the DpnI activity assay these constructs were run in
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the DpnI activity assay these constructs were run in
 - [[dpni-methylation-check]] — the gel readout
 - [[hia5-protein-stocks]] — combined stock reference for both GenScript orders
 - [[fiber-seq-master-protocol]] — the construct verdict table, single source of truth for status
