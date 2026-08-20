@@ -302,7 +302,7 @@ Written 2026-08-18/20:
   purity, lot, and the caveats that go with them
 - [[hia5-enzyme-activity-test]] — the in-house "does this prep methylate?" test (the
   Tudor-fusion QC SOP below, as actually run)
-- [[dpni-methylation-check]] — the gel readout for that test
+- [[4-dpni-methylation-check]] — the gel readout for that test
 - [[1-fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
 - [[fiber-seq-hmw-extraction]] — HMW DNA extraction for Fiber-seq
 
