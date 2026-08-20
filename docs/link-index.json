@@ -6648,124 +6648,20 @@
     "target": "people/grey-monroe"
   },
   {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "wet-lab/epigenomics/chip-seq"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "source": "wet-lab/epigenomics/chip-seq",
     "target": "resources/autoclave-sterilizer"
   },
   {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "source": "wet-lab/epigenomics/chip-seq",
     "target": "resources/bioruptor"
   },
   {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "source": "wet-lab/epigenomics/chip-seq",
     "target": "resources/centrifuge"
   },
   {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
+    "source": "wet-lab/epigenomics/chip-seq",
     "target": "resources/fume-hood"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/mortar-and-pestle"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/tube-rotator"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/2-mercaptoethanol"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/dimethyl-sulfoxide"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/ethanol-70"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/formaldehyde-16-methanol-free-pfa"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/glycine"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/hepes"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/igepal-ca-630"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/lithium-chloride"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/mes-buffer"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/methanol"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/phenylmethanesulfonyl-fluoride"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/sodium-chloride"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/sodium-dodecyl-sulfate"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/spermidine"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/spermine"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/sucrose"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/tris-edta-te-buffer-solution"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "resources/triton-x-100"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "wet-lab/cutrun-cuttag/cut-and-tag"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq-copy",
-    "target": "people/grey-monroe"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq",
-    "target": "resources/autoclave-sterilizer"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq",
-    "target": "resources/bioruptor"
-  },
-  {
-    "source": "wet-lab/epigenomics/chip-seq",
-    "target": "resources/centrifuge"
   },
   {
     "source": "wet-lab/epigenomics/chip-seq",

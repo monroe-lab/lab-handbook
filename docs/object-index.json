@@ -4773,12 +4773,6 @@
     "mtime": 1775858916
   },
   {
-    "path": "wet-lab/epigenomics/chip-seq-copy.md",
-    "type": "protocol",
-    "title": "ChIP-seq Protocol (Copy)",
-    "mtime": 1787106536
-  },
-  {
     "path": "wet-lab/epigenomics/chip-seq.md",
     "type": "protocol",
     "title": "ChIP-seq Protocol",

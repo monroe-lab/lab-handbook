@@ -8,7 +8,7 @@ title: "ChIP-seq Protocol"
 
 ## Resources
 
-**Equipment:** [[autoclave-sterilizer]], [[bioruptor]], [[centrifuge]], [[mortar-and-pestle]], [[tube-rotator]]
+**Equipment:** [[autoclave-sterilizer]], [[bioruptor]], [[centrifuge]], [[fume-hood]], [[mortar-and-pestle]], [[tube-rotator]]
 
 **Reagents:** [[2-mercaptoethanol]], [[4-morpholineethanesulfonic-acid]], [[dextran]], [[diethyl-pyrocarbonate]], [[dimethyl-sulfoxide]], [[ethanol-70]], [[ficoll-400]], [[formaldehyde-16-methanol-free-pfa]], [[glycerol-50-aqueous-solution]], [[glycine]], [[hepes]], [[igepal-ca-630]], [[lithium-chloride]], [[mes-buffer]], [[methanol]], [[phenylmethanesulfonyl-fluoride]], [[piperazine-1-4-bis-2-ethanesulfonic-acid]], [[pipes-dipotassium-salt]], [[rnase-aliquot]], [[sodium-chloride]], [[sodium-dodecyl-sulfate]], [[sodium-pyrophosphate-decahydrate]], [[spermidine]], [[spermine]], [[sucrose]], [[tapso]], [[tham]], [[tricine]], [[tris-edta-te-buffer-solution]], [[triton-x-100]]
 
@@ -133,6 +133,9 @@ Materials
 - A bucket of ice
 
 Procedure
+
+> ⚠️ **Warning**
+> use in fume hood
 
 Thaw the chromatin on ice and add 1 µl (1 mg/ml) of antibody per sample
 
