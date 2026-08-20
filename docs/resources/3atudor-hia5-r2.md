@@ -151,7 +151,7 @@ which confirms the record describes the protein that actually shipped.
 
 ## See also
 
-- [[hia5-enzyme-activity-test]] — the DpnI activity assay this construct still needs
+- [[1-1-sometimes-hia5-enzyme-activity-test-in-vitro]] — the DpnI activity assay this construct still needs
 - [[dpni-methylation-check]] — the gel readout
 - [[tudor-hia5-r1]] — the round-1 version that failed to express
 - [[hia5-protein-stocks]] — combined stock reference for both GenScript orders
