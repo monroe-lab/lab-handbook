@@ -149,8 +149,9 @@ figures are computed from that, against the **intact fusion** MW (MBP still atta
 
 > **The two Hia5 rows were never worked up.** Both the vial-count and the working-dilution
 > columns are filled in for the MNase pair and **blank for the Hia5 pair**. Pair that with the
-> `AnchorTag` experiment log in the same workbook — ~50 rows dated 06/08/2026–06/29/2026, every
-> one of them `Tudor-MNase` or `3ATudor-MNase`, **zero Hia5 rows** — and the picture is that
+> `AnchorTag` experiment log in the same workbook — **70 rows** carrying a Sample ID, dated
+> 06/08, 06/11, 06/15 and 06/29 2026, reading `Tudor-MNase` on 43, `3ATudor-MNase` on 24 and
+> `pAG-MNase` on 3, **zero Hia5 rows** — and the picture is that
 > round-2 Hia5 arrived, went in the freezer, and was never taken to the bench. This is the
 > documentary basis for the *reported functional, never scored* verdict on
 > [[fiber-seq-master-protocol]].

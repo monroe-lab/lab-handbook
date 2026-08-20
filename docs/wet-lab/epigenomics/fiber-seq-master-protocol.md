@@ -12,7 +12,9 @@ title: "Fiber-seq Master Protocol"
 **What this does.** Fiber-seq maps chromatin accessibility, transcription-factor occupancy, and
 nucleosome positioning at single-molecule, near-nucleotide resolution. Intact nuclei are treated
 with [[epicypher-cutana-hia5|Hia5]], a non-sequence-specific m6A methyltransferase (MTase), and
-the resulting methylation pattern is read directly off PacBio HiFi reads.
+the resulting methylation pattern is read directly off long reads. PacBio HiFi is the readout
+everything below is written around, but see step 7 — it is no longer the only platform on the
+table.
 
 ![Fiber-seq overview: an m6A methyltransferase marks accessible adenines around nucleosomes and a bound transcription factor, long gDNA fragments are isolated, and PacBio CCS reads out the m6A pattern as chromatin architecture](../../images/fiber-seq-overview-schematic.png)
 
@@ -26,15 +28,16 @@ a lab target; see step 5 for what the lab actually aims at.*
 first, then work through the linked step pages in order. Each of those pages is the thing you
 actually run at the bench.
 
-**Time:** nuclei isolation through extraction is a **full day**, with the DpnI gel on a following
-day. Library prep and sequencing add days to weeks at the core.
+**Time:** two days, more or less (Grey, 2026-08-20). **Day 1 is nuclei isolation plus the Hia5
+labeling reaction** (steps 1–2). **Day 2 is the HMW extraction and the DpnI check** (steps 3–4).
+Size QC, library prep and sequencing follow after that and add days to weeks at the core.
 **Input:** fresh or -80 °C frozen tissue. Arabidopsis Col-0 seedlings and pistachio (PBTS) shoot
 culture have both been run; walnut is listed in the development log but never run.
 
 > **Two checks decide whether the experiment produced data at all.** (1) The DpnI gel at step 4
 > is the go/no-go gate before you spend money — a Revio run on unlabeled DNA gives you a
-> perfectly good genome and zero Fiber-seq data. (2) Sequencing must be run with **base kinetics
-> enabled**; m6A is called from polymerase kinetics, not from sequence.
+> perfectly good genome and zero Fiber-seq data. (2) On PacBio, sequencing must be run with
+> **base kinetics enabled**; m6A is called from polymerase kinetics, not from sequence.
 
 ## Procedure — the step map
 
@@ -92,9 +95,18 @@ HiFi plex prep kit 96.** Library input in the published work was 3.5 µg of DNA;
 0.5–2 µg of gDNA is typical, but the real requirement comes from the sequencing platform's
 own recommendations for native whole-genome applications.
 
-> **Critical:** Sequencing must be run with **base kinetics enabled**. m6A is called from
-> polymerase kinetics, not from sequence. Without kinetics there are no `MM`/`ML` tags, no
+> **Critical:** On PacBio, sequencing must be run with **base kinetics enabled**. m6A is called
+> from polymerase kinetics, not from sequence. Without kinetics there are no `MM`/`ML` tags, no
 > m6A calls, and the entire experiment is wasted.
+
+**Nanopore is on the table too.** Grey has flagged (2026-08-20) that the lab may bring in a
+**MinION** for Fiber-seq testing, so the readout is no longer assumed to be HiFi only. Nothing
+upstream of step 7 changes — nuclei, labeling, extraction and the DpnI gate are platform-agnostic,
+and the DpnI check is if anything more valuable when you are also validating a new readout. What
+does not carry over is this step's PacBio-specific detail: the base-kinetics setting, the
+SMRTbell/HiFi plex prep, and the `MM`/`ML` tags all belong to PacBio. How the lab would call m6A
+off nanopore reads has not been worked out here yet, and no MinION run has been done. Treat this
+as a stated intention, not a procedure.
 
 ## Which Hia5 do I use?
 
@@ -152,16 +164,22 @@ this buildout (Grey, 2026-08-18) and will get its own page.**
 
 ## Timing detail
 
-Documented incubations only. Hands-on time has never been recorded.
+Documented incubations only. Hands-on time has never been recorded. The day grouping is Grey's
+(2026-08-20) and is approximate.
 
-| Stage | Documented elapsed |
-| --- | --- |
-| [[fiber-seq-nuclei-isolation]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
-| [[fiber-seq-hia5-labeling]] | 5 min pellet spin + **10 min reaction** |
-| [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
-| QC — [[dpni-methylation-check]] | 1 h digest + ~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\|the in vitro enzyme test]]) |
-| QC — FemtoPulse, Qubit, NanoDrop | — |
-| Shearing → library → sequencing | Days to weeks, at the core |
+| Day | Stage | Documented elapsed |
+| --- | --- | --- |
+| **1** | [[fiber-seq-nuclei-isolation]] | 20 min lysis on ice + 2 × 15 min spins, plus grinding, filtering and counting |
+| **1** | [[fiber-seq-hia5-labeling]] | 5 min pellet spin + **10 min reaction** |
+| **2** | [[fiber-seq-hmw-extraction]] | 20 min lysis at 55 °C + 10 min spin + 10 min CI mixing + 10 min spin + 30 min bead binding + washes |
+| **2** | QC — [[dpni-methylation-check]] | 1 h digest + ~45 min gel (plus 1 h MTase step if you are also running [[hia5-enzyme-activity-test\|the in vitro enzyme test]]) |
+| after | QC — FemtoPulse, Qubit, NanoDrop | — |
+| after | Shearing → library → sequencing | Days to weeks, at the core |
+
+Note the seam: [[fiber-seq-hmw-extraction]] says to go straight from the SDS-stopped labeling
+reaction into CTAB lysis with no freeze in between, so in practice the day-1/day-2 boundary
+falls inside the extraction rather than cleanly before it. Plan day 1 to run long enough to at
+least get the reaction into lysis.
 
 ## Troubleshooting
 
