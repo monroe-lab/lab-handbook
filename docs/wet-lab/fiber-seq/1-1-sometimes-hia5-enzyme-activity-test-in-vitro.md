@@ -1,9 +1,9 @@
 ---
 type: "protocol"
-title: "1.1 (sometimes) Hia5 Enzyme Activity Test (in vitro)"
+title: "(1.1 sometimes) Hia5 Enzyme Activity Test (in vitro)"
 ---
 
-# 1.1 (sometimes) Hia5 Enzyme Activity Test (in vitro)
+# (1.1 sometimes) Hia5 Enzyme Activity Test (in vitro)
 > **Draft — not yet bench-verified.** Confirm every volume and concentration against your own
 > run before relying on it. Unresolved values are collected under § Notes, open questions and
 > sources.
