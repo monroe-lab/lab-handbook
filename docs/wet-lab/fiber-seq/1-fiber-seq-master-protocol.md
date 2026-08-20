@@ -1,9 +1,9 @@
 ---
 type: "protocol"
-title: "1) Fiber-seq Master Protocol"
+title: "(1) Fiber-seq Master Protocol"
 ---
 
-# 1) Fiber-seq Master Protocol
+# (1) Fiber-seq Master Protocol
 > **Draft — not yet bench-verified.** Confirm every volume and concentration against your own
 > run before relying on it. Unresolved values are collected under § Notes, open questions and
 > sources.
