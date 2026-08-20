@@ -113,24 +113,32 @@ as a stated intention, not a procedure.
 **This table is the single source of truth for construct verdicts** (Grey, 2026-08-18).
 Other pages link here rather than repeating it. Established by primary-source check of the
 development record on 2026-08-18, round-2 status revised 2026-08-20. Concentrations, purities
-and lot details for every construct live on [[hia5-protein-stocks]].
+and lot details for every construct live on [[hia5-protein-stocks]]. Each construct name in the
+table links to its own card, which carries the full amino-acid sequence, the QC as delivered,
+every test it has been through, and a place to record its freezer location.
 
 | Enzyme | Status | Use for production Fiber-seq? |
 | --- | --- | --- |
 | [[epicypher-cutana-hia5]] | Validated, commercial | **Yes — the only validated option** |
-| free Hia5 (GenScript, round 1) | Project-stage, no individual verdict recorded | No |
-| pA-Hia5 (round 1) | Project-stage, no individual verdict recorded | No |
-| pAG-Hia5 (round 1) | Project-stage, **no written verdict anywhere** | No |
-| Tudor-Hia5 (round 1) | **Failed** the 03.30.2026 DpnI assay | No |
-| 3ATudor-Hia5 (round 1) | Project-stage; binding-pocket knockout, i.e. a negative control | No |
-| Tudor-Hia5 (round 2, MBP-fused) | **Reported functional, never scored** — see § Notes | Not yet |
-| 3ATudor-Hia5 (round 2, MBP-fused) | Same reported-but-unscored status; negative control regardless | No |
+| [[hia5-r1-free\|free Hia5 (GenScript, round 1)]] | Project-stage, no individual verdict recorded | No |
+| [[pa-hia5-r1\|pA-Hia5 (round 1)]] | Project-stage, no individual verdict recorded | No |
+| [[pag-hia5-r1\|pAG-Hia5 (round 1)]] | Project-stage, **no written verdict anywhere** | No |
+| [[tudor-hia5-r1\|Tudor-Hia5 (round 1)]] | **Failed** the 03.30.2026 DpnI assay | No |
+| [[3atudor-hia5-r1\|3ATudor-Hia5 (round 1)]] | Project-stage; binding-pocket knockout, i.e. a negative control | No |
+| [[tudor-hia5-r2\|Tudor-Hia5 (round 2, MBP-fused)]] | **Reported functional, never scored** — see § Notes | Not yet |
+| [[3atudor-hia5-r2\|3ATudor-Hia5 (round 2, MBP-fused)]] | Same reported-but-unscored status; negative control regardless | No |
 
 > **Critical:** The only Hia5 the lab can currently claim as validated for production
 > Fiber-seq is [[epicypher-cutana-hia5]]. The Tudor and pA/pAG constructs are project-stage
 > reagents from [Anchor Tag](../../projects/anchor-tag/index.md) and must not be treated as
 > interchangeable with it. What the record does and does not actually say, verdict by verdict,
 > is laid out under § Notes — read it before citing any of these statuses.
+
+Round 2 also delivered two **MNase** fusions, [[tudor-mnase-r2]] and [[3atudor-mnase-r2]]. They
+are deliberately absent from the table above because they are not Fiber-seq reagents at all: MNase
+cuts DNA, it does not methylate it, so no dose of it will ever produce m6A and a DpnI gel says
+nothing about it. They belong to the CUT&RUN-style arm of [Anchor Tag](../../projects/anchor-tag/index.md)
+and are the only round-2 proteins with a substantial bench history.
 
 ## Safety
 

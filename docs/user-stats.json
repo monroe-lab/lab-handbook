@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-08-20T11:41:48.704073+00:00",
-  "total_commits": 4593,
+  "generated_at": "2026-08-20T12:44:56.362600+00:00",
+  "total_commits": 4614,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4244,
+      "total_commits": 4265,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-20",
       "protocols_authored": 196,
-      "notebooks_authored": 156,
-      "inventory_edits": 2248,
-      "wiki_edits": 5051,
-      "images_uploaded": 144,
+      "notebooks_authored": 157,
+      "inventory_edits": 2310,
+      "wiki_edits": 5057,
+      "images_uploaded": 147,
       "issue_attachments": 83,
       "issues_filed": 30,
       "locations_created": 259,
@@ -24,43 +24,43 @@
       "lines_removed": 0,
       "recent_commits": [
         {
-          "sha": "654fd18",
-          "subject": "Rebuild object/link/user indexes after Fiber-seq buildout",
-          "date": "2026-08-19"
-        },
-        {
-          "sha": "a5809d3",
-          "subject": "Rewrite architecture docs: this is not MkDocs anymore",
-          "date": "2026-08-19"
-        },
-        {
-          "sha": "1b8edac",
-          "subject": "Split the Hia5 DpnI assay into enzyme test + digestion readout",
+          "sha": "e8eef60",
+          "subject": "smoke test cleanup",
           "date": "2026-08-20"
         },
         {
-          "sha": "86e446b",
-          "subject": "Make explicit throughout that Hia5 is the methyltransferase, DpnI the readout",
+          "sha": "20a3fde",
+          "subject": "smoke test scratch entry",
           "date": "2026-08-20"
         },
         {
-          "sha": "90ef08e",
-          "subject": "Fiber-seq protocols: put intro and procedure above the fold",
+          "sha": "9d9b098",
+          "subject": "Rename notebook entry: Smoke Feedback Fixes \u2192 Smoke Renamed Title",
           "date": "2026-08-20"
         },
         {
-          "sha": "907ad2a",
-          "subject": "Fold AnchorTag/RUN_NEW spreadsheet evidence into Fiber-seq pages",
+          "sha": "3e19c78",
+          "subject": "Update notebook notebooks/barb-m/smoke-feedback-fixes",
           "date": "2026-08-20"
         },
         {
-          "sha": "bcb7c5e",
-          "subject": "Cite the lab-owned copy of AnchorTag/RUN_NEW, not Vianney's original",
+          "sha": "a6bfa3b",
+          "subject": "smoke test cleanup",
           "date": "2026-08-20"
         },
         {
-          "sha": "a01bce7",
-          "subject": "Correct Vianney's pronouns (she/her) and the Drive-provenance VERIFY",
+          "sha": "32dd7fa",
+          "subject": "STATUS.md: R22 (full-text search) + R23 (feedback fixes) rows, backlog triage summary; add feedback-fixes smoke test",
+          "date": "2026-08-20"
+        },
+        {
+          "sha": "1881e07",
+          "subject": "Unflag all 59 needs_more inventory items to in_stock (#189)",
+          "date": "2026-08-20"
+        },
+        {
+          "sha": "7ef60fc",
+          "subject": "Fiber-seq hub: correct the two-day timing, note MinION as a possible readout",
           "date": "2026-08-20"
         }
       ],

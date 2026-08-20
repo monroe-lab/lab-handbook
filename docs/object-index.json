@@ -56,6 +56,36 @@
     "mtime": 1776885361
   },
   {
+    "path": "resources/3atudor-hia5-r1.md",
+    "type": "enzyme",
+    "title": "3ATudor-Hia5 (GenScript round 1)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "0.04 mg/mL",
+    "lot": "U9375BAEG0-1/P19KL001",
+    "acquired": "2026-01-06"
+  },
+  {
+    "path": "resources/3atudor-hia5-r2.md",
+    "type": "enzyme",
+    "title": "3ATudor-Hia5, round 2 (MBP-fused)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "0.41 mg/mL",
+    "lot": "U4194NJYG0-14/P02LE001",
+    "acquired": "2026-05-26"
+  },
+  {
+    "path": "resources/3atudor-mnase-r2.md",
+    "type": "enzyme",
+    "title": "3ATudor-MNase, round 2 (MBP-fused)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "1.74 mg/mL",
+    "lot": "U4194NJYG0-19/P02LE001",
+    "acquired": "2026-05-26"
+  },
+  {
     "path": "resources/4-morpholineethanesulfonic-acid.md",
     "type": "buffer",
     "title": "4-Morpholineethanesulfonic acid",
@@ -930,7 +960,17 @@
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787228913
+  },
+  {
+    "path": "resources/hia5-r1-free.md",
+    "type": "enzyme",
+    "title": "Hia5, free (GenScript round 1)",
+    "location": "",
+    "status": "needs_more",
+    "concentration": "<0.01 mg/mL",
+    "lot": "U9375BAEG0-7/P19KL001",
+    "acquired": "2026-01-06"
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -1455,6 +1495,26 @@
     "title": "OT-2 Thermocycler Module",
     "status": "in_stock",
     "mtime": 1777347223
+  },
+  {
+    "path": "resources/pa-hia5-r1.md",
+    "type": "enzyme",
+    "title": "pA-Hia5 (GenScript round 1)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "0.04 mg/mL",
+    "lot": "U9375BAEG0-8/P19KL001",
+    "acquired": "2026-01-06"
+  },
+  {
+    "path": "resources/pag-hia5-r1.md",
+    "type": "enzyme",
+    "title": "pAG-Hia5 (GenScript round 1)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "0.08 mg/mL",
+    "lot": "U9375BAEG0-9/P19KL001",
+    "acquired": "2026-01-06"
   },
   {
     "path": "resources/parafilm.md",
@@ -2137,6 +2197,36 @@
     "type": "equipment",
     "title": "Tube Rotator",
     "mtime": 1775895055
+  },
+  {
+    "path": "resources/tudor-hia5-r1.md",
+    "type": "enzyme",
+    "title": "Tudor-Hia5 (GenScript round 1)",
+    "location": "",
+    "status": "needs_more",
+    "concentration": "<0.01 mg/mL",
+    "lot": "U9375BAEG0-10/P19KL001",
+    "acquired": "2026-01-06"
+  },
+  {
+    "path": "resources/tudor-hia5-r2.md",
+    "type": "enzyme",
+    "title": "Tudor-Hia5, round 2 (MBP-fused)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "0.40 mg/mL",
+    "lot": "U4194NJYG0-4/P02LE001",
+    "acquired": "2026-05-26"
+  },
+  {
+    "path": "resources/tudor-mnase-r2.md",
+    "type": "enzyme",
+    "title": "Tudor-MNase, round 2 (MBP-fused)",
+    "location": "",
+    "status": "in_stock",
+    "concentration": "1.82 mg/mL",
+    "lot": "U4194NJYG0-9/P02LE001",
+    "acquired": "2026-05-26"
   },
   {
     "path": "resources/tween-20.md",
@@ -4709,7 +4799,7 @@
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
     "title": "Fiber-seq Master Protocol",
-    "mtime": 1787228344
+    "mtime": 1787228913
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",

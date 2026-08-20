@@ -3965,6 +3965,14 @@
   },
   {
     "source": "projects/anchor-tag/index",
+    "target": "resources/tudor-mnase-r2"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "projects/anchor-tag/index",
     "target": "people/grey-monroe"
   },
   {
@@ -3974,6 +3982,34 @@
   {
     "source": "projects/anchor-tag/index",
     "target": "people/satoyo-oya"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/hia5-r1-free"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/pa-hia5-r1"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/pag-hia5-r1"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/3atudor-hia5-r1"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/3atudor-hia5-r2"
+  },
+  {
+    "source": "projects/anchor-tag/index",
+    "target": "resources/3atudor-mnase-r2"
   },
   {
     "source": "projects/anchor-tag/index",
@@ -4828,6 +4864,106 @@
     "target": "wet-lab/quantifying-dna-qubit"
   },
   {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/3atudor-hia5-r1",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/3atudor-hia5-r2",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "resources/tudor-mnase-r2"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "resources/3atudor-hia5-r2"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/3atudor-mnase-r2",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
     "source": "resources/agarose",
     "target": "wet-lab/gel-electrophoresis"
   },
@@ -5001,6 +5137,42 @@
   },
   {
     "source": "resources/hia5-protein-stocks",
+    "target": "resources/hia5-r1-free"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/pa-hia5-r1"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/pag-hia5-r1"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/3atudor-hia5-r1"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/3atudor-hia5-r2"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/tudor-mnase-r2"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
+    "target": "resources/3atudor-mnase-r2"
+  },
+  {
+    "source": "resources/hia5-protein-stocks",
     "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
   },
   {
@@ -5010,6 +5182,34 @@
   {
     "source": "resources/hia5-protein-stocks",
     "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/hia5-r1-free",
+    "target": "resources/epicypher-cutana-hia5"
   },
   {
     "source": "resources/hifi-lysis-buffer",
@@ -5186,6 +5386,62 @@
   {
     "source": "resources/ot2-thermocycler-module",
     "target": "resources/opentrons-ot2"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/pa-hia5-r1",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/pag-hia5-r1",
+    "target": "resources/epicypher-cutana-hia5"
   },
   {
     "source": "resources/petri-dishes-100mm",
@@ -5390,6 +5646,98 @@
   {
     "source": "resources/tris-edta-te-buffer-solution",
     "target": "resources/edta-trisodium-salt"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/tudor-hia5-r1",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "resources/epicypher-cutana-hia5"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "wet-lab/epigenomics/dpni-methylation-check"
+  },
+  {
+    "source": "resources/tudor-hia5-r2",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "wet-lab/epigenomics/fiber-seq-master-protocol"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "notebooks/vianney-ahn/Validate-MNase-Acitivty"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "resources/3atudor-hia5-r2"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "resources/hia5-protein-stocks"
+  },
+  {
+    "source": "resources/tudor-mnase-r2",
+    "target": "resources/epicypher-cutana-hia5"
   },
   {
     "source": "resources/vortex-mixer",
@@ -6873,6 +7221,14 @@
   },
   {
     "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/tudor-mnase-r2"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
+    "target": "resources/3atudor-mnase-r2"
+  },
+  {
+    "source": "wet-lab/epigenomics/fiber-seq-master-protocol",
     "target": "wet-lab/epigenomics/hia5-enzyme-activity-test"
   },
   {
@@ -7061,6 +7417,26 @@
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/hia5-r1-free"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/pa-hia5-r1"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/tudor-hia5-r1"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/3atudor-hia5-r1"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/pag-hia5-r1"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "people/vianney-ahn"
   },
   {
@@ -7078,6 +7454,22 @@
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
     "target": "people/grey-monroe"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/tudor-hia5-r2"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/3atudor-hia5-r2"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/tudor-mnase-r2"
+  },
+  {
+    "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",
+    "target": "resources/3atudor-mnase-r2"
   },
   {
     "source": "wet-lab/epigenomics/hia5-enzyme-activity-test",

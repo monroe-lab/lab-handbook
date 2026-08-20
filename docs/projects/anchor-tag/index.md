@@ -15,8 +15,8 @@ The project is the critical-path deliverable for the [NSF EAGER "Cracking the Hi
 
 Produce, in milligram quantities and with confirmed enzymatic activity, two tag-free or minimally-tagged fusion proteins:
 
-- **Tudor-MNase** — targeted DNA cleavage at H3K4me1 nucleosomes (CUT&RUN workflow).
-- **Tudor-Hia5** — targeted adenine methylation at H3K4me1 nucleosomes (DiMeLo-Seq / Fiber-Seq workflow, read out by Nanopore long-read sequencing).
+- **[[tudor-mnase-r2|Tudor-MNase]]** — targeted DNA cleavage at H3K4me1 nucleosomes (CUT&RUN workflow).
+- **[[tudor-hia5-r2|Tudor-Hia5]]** — targeted adenine methylation at H3K4me1 nucleosomes (DiMeLo-Seq / Fiber-Seq workflow, read out by Nanopore long-read sequencing).
 
 Both with matched 3A binding-pocket-knockout negative controls for specificity experiments.
 
@@ -265,6 +265,34 @@ tudor-fusion-proteins/
     ├── alphafold_inputs/             FASTAs ready for AF server / Boltz / Farm
     └── construct_designs/            Output: FASTA + GenBank + HTML for each construct
 ```
+
+## Construct inventory cards
+
+Every protein this project has ordered has an inventory card carrying its full amino-acid
+sequence, GenScript QC, the tests it has been through, notebook links, and freezer location.
+Added 2026-08-20.
+
+**Round 1 — GenScript U9375BAEG0 (Dec 2025 order, arrived 2026-01-06).** Untagged/pA-tagged
+constructs, no solubility partner. Two of the five essentially failed to express.
+
+| Card | Construct | Note |
+| --- | --- | --- |
+| [[hia5-r1-free]] | free Hia5 | <0.06 mg total, <30% pure |
+| [[pa-hia5-r1]] | pA-Hia5 | 0.24 mg, ≥95% pure — the best-expressing round-1 tube |
+| [[pag-hia5-r1]] | pAG-Hia5 | 0.48 mg, ≥85% pure; the mass reference for round-1 dosing |
+| [[tudor-hia5-r1]] | Tudor-Hia5 | <0.06 mg, <30% pure; the construct that failed 03.30.2026 |
+| [[3atudor-hia5-r1]] | 3ATudor-Hia5 | 0.24 mg, ≥70% pure; matched binding-pocket control |
+
+**Round 2 — GenScript U4194NJYG0 (Apr 2026 order, arrived 2026-05-26).** MBP-HRV3C fusions,
+ordered specifically because round-1 expression failed. Never cleaved, so what is in the tube
+is the intact fusion.
+
+| Card | Construct | Note |
+| --- | --- | --- |
+| [[tudor-hia5-r2]] | Round2_A | 9.6 mg, ≥70%; not yet activity-scored |
+| [[3atudor-hia5-r2]] | Round2_E | 8.2 mg, ≥65%; matched 3A control |
+| [[tudor-mnase-r2]] | Round2_C | 43.7 mg, ≥90%; the June 2026 workhorse |
+| [[3atudor-mnase-r2]] | Round2_F | 41.8 mg, ≥90%; matched 3A control |
 
 ## Related protocols
 

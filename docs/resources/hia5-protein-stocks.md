@@ -45,13 +45,17 @@ Common to all round-1 items: *E. coli* based system, 0.2 L expression volume, Ni
 Strep column purification, storage buffer **50 mM Tris-HCl, 150 mM NaCl, 10% glycerol,
 pH 8.0**, 3 mL per tube, 2 tubes per item.
 
-| Item | Construct | MW (kDa) | Conc (mg/mL) | A260/280 | Purity | Total (mg) |
-| --- | --- | --- | --- | --- | --- | --- |
-| -7 | (AA)Hia5-6His | 35.502 | <0.01 | 2.129 | N/A | <0.06 |
-| -8 | (AA)pA-Hia5-6His | 52.735 | 0.04 | 0.797 | ≥95% | 0.24 |
-| -9 | (AA)pAG-Hia5-6His | 60.003 | 0.08 | 0.863 | ≥85% | 0.48 |
-| -10 | (AA)Tudor-Hia5-6His | 44.391 | <0.01 | 0.275 | N/A | <0.06 |
-| -1 | (AA)3ATudor-Hia5-6His | 44.092 | 0.04 | 0.768 | ≥70% | 0.24 |
+| Item | Construct | Card | MW (kDa) | Conc (mg/mL) | A260/280 | Purity | Total (mg) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| -7 | (AA)Hia5-6His | [[hia5-r1-free]] | 35.502 | <0.01 | 2.129 | N/A | <0.06 |
+| -8 | (AA)pA-Hia5-6His | [[pa-hia5-r1]] | 52.735 | 0.04 | 0.797 | ≥95% | 0.24 |
+| -9 | (AA)pAG-Hia5-6His | [[pag-hia5-r1]] | 60.003 | 0.08 | 0.863 | ≥85% | 0.48 |
+| -10 | (AA)Tudor-Hia5-6His | [[tudor-hia5-r1]] | 44.391 | <0.01 | 0.275 | N/A | <0.06 |
+| -1 | (AA)3ATudor-Hia5-6His | [[3atudor-hia5-r1]] | 44.092 | 0.04 | 0.768 | ≥70% | 0.24 |
+
+**Every construct above has its own inventory card** carrying its full amino-acid sequence,
+per-construct QC, tests run, and freezer location. This page is the combined view; the cards
+are where per-tube facts live.
 
 GenScript's footnote, verbatim: *"'N/A' indicates that the purity is less than 30%."*
 So items -7 and -10 are **not** unmeasured — they are below the reporting floor. Sophie Yang,
@@ -123,12 +127,12 @@ Vector pET30a, Arctic Express(DE3) primary / BL21 Star(DE3) backup, 0.5 mM IPTG,
 18 °C, **Ni column only**. Architecture: `Protein Length = 756 aa; MBP: 4-367; HRV 3C
 protease site: 374-381; His6: 751-756`. Genuine bare His6 — no Strep tag this round.
 
-| Item | Construct | Lot | MW (kDa) | Conc | Amount | Purity | Vials |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| -1 | Round2_A_MBP-HRV3C-Tudor-Hia5-6His | U4194NJYG0-4/P02LE001 | 84.509 | 0.40 mg/mL (Bradford) | 9.60 mg | ≥70% | 6 × 4.00 mL |
-| -11 | Round2_E_MBP-HRV3C-3ATudor-Hia5-6His | U4194NJYG0-14/P02LE001 | 84.210 | 0.41 mg/mL | 8.20 mg | ≥65% | 5 × 4.00 mL |
-| -6 | Round2_C_MBP-HRV3C-Tudor-MNase-6His | U4194NJYG0-9/P02LE001 | 68.372 | 1.82 mg/mL | 43.68 mg | ≥90% | 6 × 4.00 mL |
-| -16 | Round2_F_MBP-HRV3C-3ATudor-MNase-6His | U4194NJYG0-19/P02LE001 | 68.072 | 1.74 mg/mL | 41.76 mg | ≥90% | 6 × 4.00 mL |
+| Item | Construct | Card | Lot | MW (kDa) | Conc | Amount | Purity | Vials |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| -1 | Round2_A_MBP-HRV3C-Tudor-Hia5-6His | [[tudor-hia5-r2]] | U4194NJYG0-4/P02LE001 | 84.509 | 0.40 mg/mL (Bradford) | 9.60 mg | ≥70% | 6 × 4.00 mL |
+| -11 | Round2_E_MBP-HRV3C-3ATudor-Hia5-6His | [[3atudor-hia5-r2]] | U4194NJYG0-14/P02LE001 | 84.210 | 0.41 mg/mL | 8.20 mg | ≥65% | 5 × 4.00 mL |
+| -6 | Round2_C_MBP-HRV3C-Tudor-MNase-6His | [[tudor-mnase-r2]] | U4194NJYG0-9/P02LE001 | 68.372 | 1.82 mg/mL | 43.68 mg | ≥90% | 6 × 4.00 mL |
+| -16 | Round2_F_MBP-HRV3C-3ATudor-MNase-6His | [[3atudor-mnase-r2]] | U4194NJYG0-19/P02LE001 | 68.072 | 1.74 mg/mL | 41.76 mg | ≥90% | 6 × 4.00 mL |
 
 Claire Fan, 2026-05-12: *"protein Round2_A… (item-1) and Round2_E… (item-11) shows slightly
 lower purity due to partial fragmentation."* Grey declined a second purification round on
@@ -235,6 +239,16 @@ concentrations. The `nM stock` column was **not** the delivered dose; a claim bu
 reading was retracted the same day (see the note under the round-1 table).
 
 ## See also
+
+**Per-construct inventory cards** — sequence, QC, tests run, freezer location:
+
+| Round 1 (U9375BAEG0) | Round 2 (U4194NJYG0) |
+| --- | --- |
+| [[hia5-r1-free]] — free Hia5 | [[tudor-hia5-r2]] — Round2_A |
+| [[pa-hia5-r1]] — pA-Hia5 | [[3atudor-hia5-r2]] — Round2_E |
+| [[pag-hia5-r1]] — pAG-Hia5 | [[tudor-mnase-r2]] — Round2_C |
+| [[tudor-hia5-r1]] — Tudor-Hia5 | [[3atudor-mnase-r2]] — Round2_F |
+| [[3atudor-hia5-r1]] — 3ATudor-Hia5 | |
 
 - [[hia5-enzyme-activity-test]] — how to test a lot before using it
 - [[dpni-methylation-check]] — the gel readout

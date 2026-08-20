@@ -230,10 +230,13 @@ is the single place it is kept current.
   implies free Hia5, pA-Hia5, 3ATudor-Hia5 and the Epicypher control all worked in that run,
   but the doc records **no individual verdict** for any of them, and no images were interpreted
   construct by construct.
-- The 03.30.2026 gel tested five proteins in triplicate timepoints: E1–E3 Epicypher Hia5,
-  A1–A3 free Hia5, B1–B3 pA-Hia5, C1–C3 Tudor-Hia5, D1–D3 3ATudor-Hia5 — all at 100 ng HMW
-  DNA, DpnI-digested, at 5 min / 20 min / 1 h.
-- **pAG-Hia5 has no written verdict anywhere.** It was not in the 03.30.2026 run at all. It
+- The 03.30.2026 gel tested five proteins in triplicate timepoints: E1–E3
+  [[epicypher-cutana-hia5|Epicypher Hia5]], A1–A3 [[hia5-r1-free|free Hia5]], B1–B3
+  [[pa-hia5-r1|pA-Hia5]], C1–C3 [[tudor-hia5-r1|Tudor-Hia5]], D1–D3
+  [[3atudor-hia5-r1|3ATudor-Hia5]] — all at 100 ng HMW DNA, DpnI-digested, at
+  5 min / 20 min / 1 h. Each construct's own card records its series letter and what is (and
+  is not) known about its result.
+- **[[pag-hia5-r1|pAG-Hia5]] has no written verdict anywhere.** It was not in the 03.30.2026 run at all. It
   appears only in an undated titration table and the 03.16.2026 timecourse — gels that were
   run and photographed but never given a conclusion in text.
 - **A separate 03.30.2026 note, *"Samples are successfully methylated,"* is about a different
@@ -382,6 +385,10 @@ The only statement the lab has is [[vianney-ahn|Vianney]]'s, from a Slack DM on
 
 - [[dpni-methylation-check]] — the readout for this test
 - [[hia5-protein-stocks]] — what is in the freezer, at what concentration and purity
+- Per-construct inventory cards, round 1: [[hia5-r1-free]] · [[pa-hia5-r1]] ·
+  [[pag-hia5-r1]] · [[tudor-hia5-r1]] · [[3atudor-hia5-r1]]
+- Per-construct inventory cards, round 2: [[tudor-hia5-r2]] · [[3atudor-hia5-r2]] ·
+  [[tudor-mnase-r2]] · [[3atudor-mnase-r2]]
 - [[fiber-seq-hia5-labeling]] — the in-nuclei labeling reaction this test qualifies an enzyme for
 - [[fiber-seq-master-protocol]] — the hub, and the maintained construct verdict table
 - [Anchor Tag](../../projects/anchor-tag/index.md) — the Hia5 fusion construct project
