@@ -184,13 +184,15 @@ Hia5 in regions that are and are not nucleosome-protected.
 
 **Page history.** Written 2026-08-18. Split out of the former combined "Hia5 DpnI Activity
 Assay" page on 2026-08-20; the gel readout moved to [[dpni-methylation-check]]. Dosing and
-round-2 evidence sharpened 2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet.
+round-2 evidence sharpened 2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet. A claim that
+Tudor-Hia5 ran at a tenth its control's molarity was **retracted 2026-08-20** after the
+`Jan2026 - 2` tab showed the per-reaction volumes were mass-normalised.
 
 **Source.** Lab implementation in the *Fiber-Seq Experiments - Initial Tests* Google Doc
 (*Fiber-Seq Experiments* tab, entries 03.06 / 03.16 / 03.25 / 03.30.2026) and the
 *AnchorTag_NewUpdates_June2026* doc (06.14.2026 entry). Stock concentrations, purities and the
 footnotes explaining how the sub-floor values were derived come from the Google Sheet
-*AnchorTag/RUN_NEW*, tabs `Jan2026`, `June2026` and `AnchorTag` — read the **lab-owned copy**
+*AnchorTag/RUN_NEW*, tabs `Jan2026`, `Jan2026 - 2`, `June2026` and `AnchorTag` — read the **lab-owned copy**
 in `Monroe Lab / Order/Inventory/Space / Protein Stocks`
 ([open](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit)),
 snapshotted and verified against the original on 2026-08-20. Method adapted from the protocols.io
@@ -260,23 +262,54 @@ ceiling** — the true value is lower than 0.0029 by an unknown factor. The 11.7
 pipetted therefore delivered **less** than the intended 0.034 µg, and less active enzyme
 again on top of that.
 
-**The molar comparison is the sharpest way to see it.** From the same tab, in the same units,
-in the same run:
+**Where the 11.72 µL came from.** The `Jan2026 - 2` tab of *AnchorTag/RUN_NEW* is the
+calculation sheet behind the 03.30 dosing. It carries a column headed `for 0.034ng`, annotated
+one row above as **`(eq. of 0.5ul pAG-Hia5)`** — the dose was pegged to half a microlitre of
+pAG-Hia5 and every other construct was scaled to match it *by mass*:
 
-| Construct | Purity | Working conc (mg/mL) | nM stock |
-| --- | --- | --- | --- |
-| Tudor-Hia5 | N/A, i.e. **<30%** (estimated 29%) | 0.0029 **(upper bound)** | **65.33** |
-| 3ATudor-Hia5 | ≥70% | 0.028 | **635.04** |
+| Construct | Purity | Working conc (mg/mL) | nM stock | µL for the 0.034 dose | µL for 25 nM in 20 µL |
+| --- | --- | --- | --- | --- | --- |
+| Hia5 | N/A, i.e. **<30%** (est. 29%) | 0.0029 **(upper bound)** | 81.69 | 11.72 | 6.12 |
+| pA-Hia5 | ≥95% | 0.038 | 720.58 | 0.89 | 0.69 |
+| pAG-Hia5 | ≥85% | 0.068 | 1133.28 | **0.50** | 0.44 |
+| Tudor-Hia5 | N/A, i.e. **<30%** (est. 29%) | 0.0029 **(upper bound)** | 65.33 | **11.72** | 7.65 |
+| 3ATudor-Hia5 | ≥70% | 0.028 | 635.04 | **1.21** | 0.79 |
 
-The construct that "failed" ran at roughly **one tenth the molarity of its own negative
-control**, and its true figure is lower still. A ~10× enzyme deficit is more than enough to
-produce a blank lane on a 5-minute-to-1-hour DpnI timecourse without the protein being dead.
+Two things fall out of that table, and the second corrects an earlier version of this page.
 
-> `[VERIFY: was the 03.30 dosing intended to be equal total mass, or equal active enzyme?
-> Either way the Tudor-Hia5 failure is confounded with its concentration and purity, and the
-> comparison should be repeated at matched active-enzyme input before the construct is written
-> off. The round-1 tubes may no longer be worth this — the round-2 MBP fusions exist precisely
-> because round-1 expression failed.]`
+**The unit really is µg.** 0.5 µL of pAG-Hia5 at 0.068 mg/mL is **34 ng = 0.034 µg**, and
+34 ng ÷ 2.9 ng/µL gives exactly the 11.72 µL in the note. The `ng` in the column header is a
+units slip in the sheet itself, not just in the 03.30 entry.
+
+**The dose was normalised, so the stock-concentration gap is not a delivered-enzyme gap.**
+Tudor-Hia5's stock is ~10× more dilute than its 3A control's, but the sheet cancels that with
+volume: 11.72 µL versus 1.21 µL, both landing on 0.034 µg. The two constructs are within 1% of
+each other in MW (42.9 vs 42.6 kDa), so equal mass is equal moles here. An earlier version of
+this page compared the two **stock** molarities (65.33 vs 635.04 nM) and concluded the failing
+construct ran at a tenth the molarity of its own control. That was wrong — it read a stock
+concentration as a delivered dose. Retracted 2026-08-20.
+
+What survives is narrower, and still enough to require a re-run:
+
+- **Equal mass is not equal active enzyme.** Tudor-Hia5 is <30% pure against ≥70% for the 3A
+  control, so at matched mass the failing tube got at most ~40% as much actual protein — and
+  since 29% is a ceiling, the true shortfall is unbounded below.
+- **The mass itself is a ceiling times a ceiling.** 0.0029 mg/mL is `0.01 × 0.29`, so 11.72 µL
+  delivered *less* than 0.034 µg by an unknown factor.
+- **11.72 µL is most of the reaction.** Against the sheet's own 20 µL reaction volume that is
+  ~59% storage buffer (50 mM Tris, 150 mM NaCl, 10% glycerol) in the tube, versus ~6% for the
+  3A control at 1.21 µL. The two lanes differ in salt and glycerol as well as in enzyme.
+
+> `[VERIFY: the 03.30 note records a single volume — "Used 11.72ul of the protein stock" — but
+> the sheet computes a different volume for every construct. If 11.72 µL was actually pipetted
+> into every tube rather than the per-construct volume, the 3A control received ~10× MORE
+> protein than Tudor-Hia5, not an equal mass, and the confound is much larger. Vianney's bench
+> notebook is the only place that distinguishes these two readings.]`
+
+> `[VERIFY: whichever reading is right, the Tudor-Hia5 failure is confounded with its purity,
+> and the comparison should be repeated at matched active-enzyme input before the construct is
+> written off. The round-1 tubes may no longer be worth this — the round-2 MBP fusions exist
+> precisely because round-1 expression failed.]`
 
 **2. The recorded unit is wrong — it must be 0.034 µg, not 0.034 ng.** The two numbers in the
 note only agree at µg: 0.034 µg ÷ 0.0029 µg/µL (= 0.0029 mg/mL, the round-1 Tudor-Hia5 and

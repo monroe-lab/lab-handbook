@@ -100,8 +100,9 @@ dilutions in H₂O**.
 > that the resuspended pellet volume was far larger than the count predicted, with *"many doubts
 > that the CellDrop is under-counting the nuclei"* and the note **"NEED TO OPTIMIZE NUCLEI
 > COUNTING."** This was never resolved, and the lab's own replicate counts show the count moving
-> with the dilution you happen to pick — up to **~7× across a 1:4 to 1:100 series on one
-> sample.** Treat any CellDrop count as a lower bound, sanity-check it against pellet size, and
+> with the dilution you happen to pick — **3× to 6× across a 1:4 to 1:100 series, replicated on
+> three separate samples.** Treat any CellDrop count as a lower bound, sanity-check it against
+> pellet size, and
 > read § Nuclei counting — what the replicate data shows before you dose anything off it.
 
 ## Variation
@@ -175,21 +176,32 @@ has on this. It logs the CellDrop reading, the dilution factor, and the back-cal
 original concentration. **If the instrument were counting correctly, that last column would be
 constant across dilutions of the same sample. It is not.**
 
-One sample, counted seven times:
+**Three independent samples were each put through the same dilution series**, in duplicate at
+every step. Back-calculated nuclei/mL in the original, averaged over each duplicate pair:
 
-| Dilution | Back-calculated nuclei/mL in the original |
-| --- | --- |
-| 1:4 | 2.73 × 10⁶ |
-| 1:4 | 3.21 × 10⁶ |
-| 1:8 | 2.80 × 10⁶ |
-| 1:8 | 5.66 × 10⁶ |
-| 1:20 | 4.86 × 10⁶ |
-| 1:100 | 1.54 × 10⁷ |
-| 1:100 | 1.96 × 10⁷ |
+| Dilution | Sample 1 | Sample 2 | Sample 3 |
+| --- | --- | --- | --- |
+| 1:4 | 2.97 × 10⁶ | 2.66 × 10⁶ | 2.77 × 10⁶ |
+| 1:8 | 4.23 × 10⁶ | 3.66 × 10⁶ | 3.09 × 10⁶ |
+| 1:20 | 4.86 × 10⁶ | 6.11 × 10⁶ | 3.69 × 10⁶ |
+| 1:100 | **1.75 × 10⁷** | **8.08 × 10⁶** | **9.50 × 10⁶** |
+| 1:200 | — | 6.54 × 10⁶ | 7.14 × 10⁶ |
 
-**The answer rises monotonically with how much you diluted, spanning ~7× from 2.73 × 10⁶ to
-1.96 × 10⁷.** Two readings at the same 1:8 dilution also differ 2-fold from each other, so
-there is substantial scatter on top of the trend.
+**The answer climbs with how much you diluted, in all three samples independently** — 5.9×,
+3.0× and 3.4× respectively going from 1:4 to 1:100. That is the part to take seriously: it is
+not one sample's bad series, it replicates.
+
+Two further features of the same data:
+
+- **The duplicates scatter badly.** Sample 1's two 1:8 readings differ 2-fold (2.80 vs
+  5.66 × 10⁶); sample 3's two 1:200 readings differ 5-fold (1.19 × 10⁷ vs 2.38 × 10⁶). The
+  trend is visible *through* substantial noise, not on top of a clean measurement.
+- **1:200 breaks the trend and gets noisier.** In both samples that reached it, 1:200 came back
+  *lower* than 1:100 — consistent with too few nuclei per field to count reliably. Somewhere
+  around 1:100 the two error sources cross over.
+
+An earlier version of this section reported sample 1 alone as "one sample, counted seven
+times." Corrected 2026-08-20 after reading the full tab.
 
 What this is consistent with — and it is an interpretation, not a scored result — is
 **concentration-dependent under-counting**: at low dilution the nuclei are dense enough that the
@@ -204,13 +216,14 @@ Practical consequences until this is settled:
 - **The 1:8 reading is likely an underestimate.** If you dose enzyme off it you will
   over-label — and over-labeling shows up as inferred nucleosome lengths shorter than the real
   ~150 bp, which you will not discover until after sequencing.
-- **Nothing here establishes a correction factor.** Do not scale by 7×, or by anything else.
-  The fix is an independent method, not a fudge factor.
+- **Nothing here establishes a correction factor.** The three samples disagree on the size of
+  the effect (3.0× to 5.9×), so do not scale by 5×, or by anything else. The fix is an
+  independent method, not a fudge factor.
 
-> `[VERIFY: this whole section rests on one sample's dilution series with no orthogonal
-> reference count. A hemocytometer or flow-cytometry cross-check on a single well-mixed prep,
-> counted across the same 1:4 → 1:100 series, would settle both the direction and the
-> magnitude. It has never been done.]`
+> `[VERIFY: the direction replicates across three samples, but there is no orthogonal reference
+> count anywhere in the record — every number in the tab comes from the same CellDrop. A
+> hemocytometer or flow-cytometry cross-check on a single well-mixed prep, counted across the
+> same 1:4 → 1:100 series, would settle the magnitude. It has never been done.]`
 
 ## Troubleshooting
 
@@ -246,7 +259,8 @@ in the whole Fiber-seq chain.
 
 **Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Reordered
 2026-08-20 to put the procedure above the reference material. Counting section added
-2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet.
+2026-08-20 from the *AnchorTag/RUN_NEW* spreadsheet, and corrected the same day after reading
+the full `NUCLEI` tab: the dilution effect replicates across three samples, not one.
 
 **Source.** Lab protocol from the *Fiber-Seq Experiments - Initial Tests* Google Doc,
 *Protocol* tab, adapted from [PNAS 2025](https://www.pnas.org/doi/10.1073/pnas.2516708122).

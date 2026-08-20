@@ -89,10 +89,15 @@ The values the lab actually used when setting up the March 2026 assays:
 >
 > That also explains why free Hia5 and Tudor-Hia5 carry the *identical* 0.0029 / <30 pair —
 > not a placeholder copied across, but the same formula applied to the same two ceiling values,
-> because GenScript reported both constructs identically. The consequence is that Tudor-Hia5
-> was dosed at **65.33 nM against its own 3A negative control at 635.04 nM — roughly 10×
-> more enzyme in the control tube.** See [[hia5-enzyme-activity-test]] for why that confounds
-> the 03.30.2026 result.
+> because GenScript reported both constructs identically.
+
+> **The nM column is a stock concentration, not a delivered dose.** The `Jan2026 - 2` tab
+> converts these stocks into per-reaction volumes that deliberately cancel the 10× spread —
+> 11.72 µL of Tudor-Hia5 against 1.21 µL of 3ATudor-Hia5, both landing on 0.034 µg. An earlier
+> version of this page said Tudor-Hia5 "ran at roughly one tenth the molarity of its own
+> control"; that read the stock column as the dose and is **retracted (2026-08-20)**. The real
+> confound is purity, not molarity — see [[hia5-enzyme-activity-test]] § *Two things that
+> complicate the 03.30 Tudor-Hia5 verdict*.
 
 The two asterisked rows in the source table carry the footnote *"omitted for now, due to lack
 of protein stock…"* — meaning they were left out of the **03.06.2026** titration, not that they
@@ -225,7 +230,8 @@ Every figure on this page was verified identical between the original and the co
 **the copy is a snapshot, not a mirror.**
 
 Updated 2026-08-20 with the round-2 bench table and the derivation of the round-1 sub-floor
-concentrations.
+concentrations. The `nM stock` column was **not** the delivered dose; a claim built on that
+reading was retracted the same day (see the note under the round-1 table).
 
 ## See also
 

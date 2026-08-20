@@ -239,12 +239,13 @@ to one factor. The lab's [Anchor Tag](../../projects/anchor-tag/index.md) constr
 **Page history.** Written 2026-08-18 from the lab's Fiber-seq development record. Construct
 verdict table revised 2026-08-20 after a primary-source recheck of the round-2 claim. Reordered
 2026-08-20 to put the step map above the reference material. Round-2 evidence extended
-2026-08-20 from the `AnchorTag/RUN_NEW` spreadsheet.
+2026-08-20 from the `AnchorTag/RUN_NEW` spreadsheet, with the experiment-row count corrected
+from "~50" to the actual 70 the same day.
 
 **Source.** Lab development record — [[fiber-seq-development-log]] and the source Google
 Doc *Fiber-Seq Experiments - Initial Tests* (2026), *Protocol* tab. Round-2 inventory and the
 June 2026 experiment log come from the Google Sheet *AnchorTag/RUN_NEW*
-(tabs `June2026`, `Jan2026`, `AnchorTag`, `NUCLEI`). Read the **lab-owned copy** in
+(tabs `June2026`, `Jan2026`, `Jan2026 - 2`, `AnchorTag`, `NUCLEI`). Read the **lab-owned copy** in
 `Monroe Lab / Order/Inventory/Space / Protein Stocks`:
 [AnchorTag_RUN_NEW (lab copy of Vianney's, 2026-08-20)](https://docs.google.com/spreadsheets/d/16YT_2reiyBNsnpwCbjCaFuVPBMVdYS8eX3SZL6LWZcw/edit).
 All five tabs and every cited range were verified identical to the original on 2026-08-20.
@@ -277,9 +278,10 @@ What the record actually says about the Hia5 constructs, and what it does not:
   written down. No functional QC was ordered from GenScript for round 2 either; the purchased
   QC was SDS-PAGE and Western blot only. See [[hia5-enzyme-activity-test]] § Round 2.
 - **The June 2026 bench record contains no Hia5 work at all.** The `AnchorTag/RUN_NEW`
-  spreadsheet — the lab's own round-2 inventory and experiment log — has ~50 experiment rows
-  dated 06/08/2026 through 06/29/2026, and the enzyme column on every one of them reads
-  `Tudor-MNase` or `3ATudor-MNase`. Not one Hia5 row. The same sheet's inventory tab fills in
+  spreadsheet — the lab's own round-2 inventory and experiment log — has **70 experiment rows**
+  across four dates (06/08, 06/11, 06/15 and 06/29 2026), and the enzyme column reads
+  `Tudor-MNase` on 43 of them, `3ATudor-MNase` on 24, and `pAG-MNase` on 3. Not one Hia5 row.
+  The same sheet's inventory tab fills in
   vial counts (`6 × 4.00 mL`) and worked-out per-reaction dilutions for both **MNase** rows and
   leaves both columns **blank for both Hia5 rows**. The consistent reading is that the round-2
   Hia5 proteins were received, never worked up, and never run — which is why this table keeps
