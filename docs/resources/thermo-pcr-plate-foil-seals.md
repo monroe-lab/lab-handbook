@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Foil Seals for PCR Plates (Thermo AB0626)"
-status: needs_more
+status: in_stock
 vendor: "Thermo"
 catalog_number: "AB0626"
 ---

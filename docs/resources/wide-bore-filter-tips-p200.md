@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: Wide-Bore Filter Tips, P200
-status: needs_more
+status: in_stock
 vendor: Rainin
 catalog_number: 30389218
 ---

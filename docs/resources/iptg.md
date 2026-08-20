@@ -1,7 +1,7 @@
 ---
 title: IPTG (Isopropyl β-D-1-thiogalactopyranoside)
 type: chemical
-status: needs_more
+status: in_stock
 vendor: Millipore Sigma
 catalog_number: I6758
 ---

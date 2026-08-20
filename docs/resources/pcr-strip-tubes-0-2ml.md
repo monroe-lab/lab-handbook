@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: PCR Strip Tubes (0.2 mL)
-status: needs_more
+status: in_stock
 vendor: Generic
 ---
 

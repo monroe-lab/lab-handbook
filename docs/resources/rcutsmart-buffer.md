@@ -1,7 +1,7 @@
 ---
 type: buffer
 title: "rCutSmart Buffer"
-status: needs_more
+status: in_stock
 vendor: New England Biolabs
 catalog_number: B6004
 ---

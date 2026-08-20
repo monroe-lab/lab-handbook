@@ -1,7 +1,7 @@
 ---
 type: reagent
 title: "IDT Tn5MErev Oligo (5' phosphate)"
-status: needs_more
+status: in_stock
 vendor: "IDT"
 catalog_number: "custom"
 ---

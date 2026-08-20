@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "MACS SmartStrainer, 30 µm"
-status: needs_more
+status: in_stock
 vendor: Miltenyi Biotec
 catalog_number: 130-098-458
 ---

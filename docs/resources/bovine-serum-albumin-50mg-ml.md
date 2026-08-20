@@ -1,7 +1,7 @@
 ---
 title: Bovine Serum Albumin (50 mg/mL)
 type: kit
-status: needs_more
+status: in_stock
 vendor: Invitrogen
 catalog_number: AM2616
 ---

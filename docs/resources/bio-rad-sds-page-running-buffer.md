@@ -1,7 +1,7 @@
 ---
 title: SDS-PAGE Running Buffer (Tris/Glycine/SDS)
 type: kit
-status: needs_more
+status: in_stock
 vendor: Bio-Rad
 catalog_number: '1610772'
 ---

@@ -1,7 +1,7 @@
 ---
 type: kit
 title: NEBNext Companion Module for Oxford Nanopore Ligation Sequencing (E7180S)
-status: needs_more
+status: in_stock
 vendor: NEB
 catalog_number: E7180S
 ---

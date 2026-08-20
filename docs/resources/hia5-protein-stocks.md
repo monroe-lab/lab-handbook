@@ -1,7 +1,7 @@
 ---
 type: enzyme
 title: "Hia5 Protein Stocks (in-house, GenScript)"
-status: needs_more
+status: in_stock
 vendor: GenScript
 ---
 

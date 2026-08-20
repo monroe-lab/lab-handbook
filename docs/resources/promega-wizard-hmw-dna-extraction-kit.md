@@ -1,7 +1,7 @@
 ---
 type: kit
 title: "Promega Wizard HMW DNA Extraction Kit"
-status: needs_more
+status: in_stock
 vendor: Promega
 catalog_number: A2920
 ---

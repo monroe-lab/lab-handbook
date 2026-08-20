@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Cell Strainer, 70 µm"
-status: needs_more
+status: in_stock
 ---
 
 # Cell Strainer, 70 µm

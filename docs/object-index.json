@@ -100,7 +100,7 @@
     "path": "resources/addgene-ptxb1-tn5-plasmid.md",
     "type": "reagent",
     "title": "pTXB1-Tn5 Plasmid (Addgene 60240)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -228,42 +228,42 @@
     "path": "resources/benzonase-nuclease.md",
     "type": "enzyme",
     "title": "Benzonase Nuclease",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bio-rad-laemmli-sample-buffer-2x.md",
     "type": "kit",
     "title": "Laemmli Sample Buffer, 2\u00d7",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bio-rad-mini-protean-tgx-4-20.md",
     "type": "consumable",
     "title": "Mini-PROTEAN TGX Precast Gels, 4-20%",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bio-rad-poly-prep-gravity-flow-columns.md",
     "type": "consumable",
     "title": "Poly-Prep Gravity-Flow Chromatography Columns",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bio-rad-precision-plus-protein-standards.md",
     "type": "kit",
     "title": "Precision Plus Protein Standards",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bio-rad-sds-page-running-buffer.md",
     "type": "kit",
     "title": "SDS-PAGE Running Buffer (Tris/Glycine/SDS)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -294,14 +294,14 @@
     "path": "resources/bovine-serum-albumin-50mg-ml.md",
     "type": "kit",
     "title": "Bovine Serum Albumin (50 mg/mL)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/bradford-reagent.md",
     "type": "kit",
     "title": "Bradford Reagent (Coomassie G-250)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -385,7 +385,7 @@
     "path": "resources/cell-strainer-70um.md",
     "type": "consumable",
     "title": "Cell Strainer, 70 \u00b5m",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787106536
   },
   {
@@ -449,7 +449,7 @@
     "path": "resources/chrome-steel-grinding-balls-5-32.md",
     "type": "consumable",
     "title": "Chrome Steel Grinding Balls, 5/32 inch",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -496,7 +496,7 @@
     "path": "resources/cytiva-sera-mag-speedbead-carboxyl.md",
     "type": "kit",
     "title": "Sera-Mag SpeedBead Carboxylate-Modified Magnetic Beads",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -539,7 +539,7 @@
     "path": "resources/diagenode-tagmentase-loaded.md",
     "type": "enzyme",
     "title": "Diagenode Tagmentase (ME-A/B loaded)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -564,7 +564,7 @@
     "path": "resources/dimethylformamide-anhydrous.md",
     "type": "chemical",
     "title": "N,N-Dimethylformamide (DMF), Anhydrous",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -580,7 +580,7 @@
     "path": "resources/dithiothreitol-dtt.md",
     "type": "chemical",
     "title": "DTT (Dithiothreitol)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -621,7 +621,7 @@
     "path": "resources/dpni.md",
     "type": "enzyme",
     "title": "DpnI",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787216998
   },
   {
@@ -659,14 +659,14 @@
     "path": "resources/epicypher-cutana-hia5.md",
     "type": "enzyme",
     "title": "EpiCypher CUTANA Hia5",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787216002
   },
   {
     "path": "resources/epoch-96-well-silica-filter-plate.md",
     "type": "consumable",
     "title": "96-well Silica Filter Plates",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -877,7 +877,7 @@
     "path": "resources/greiner-black-96-well-fluorescence-plate.md",
     "type": "consumable",
     "title": "Black 96-well Fluorescence Plates",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -929,7 +929,7 @@
     "path": "resources/hia5-protein-stocks.md",
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787226846
   },
   {
@@ -979,28 +979,28 @@
     "path": "resources/idt-tn5me-a-oligo.md",
     "type": "reagent",
     "title": "IDT Tn5ME-A Oligo",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/idt-tn5me-b-oligo.md",
     "type": "reagent",
     "title": "IDT Tn5ME-B Oligo",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/idt-tn5merev-oligo.md",
     "type": "reagent",
     "title": "IDT Tn5MErev Oligo (5' phosphate)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/idt-xgen-udi-primers-384.md",
     "type": "consumable",
     "title": "IDT xGen / Custom 384 UDI Primer Set",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1016,7 +1016,7 @@
     "path": "resources/illumina-tagment-dna-enzyme-tde1.md",
     "type": "enzyme",
     "title": "Illumina Tagment DNA Enzyme (TDE1)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1041,7 +1041,7 @@
     "path": "resources/iptg.md",
     "type": "chemical",
     "title": "IPTG (Isopropyl \u03b2-D-1-thiogalactopyranoside)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1102,7 +1102,7 @@
     "path": "resources/kingfisher-deepwell-96-plate.md",
     "type": "consumable",
     "title": "KingFisher 96 Deep-Well Plate (2 mL)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1127,7 +1127,7 @@
     "path": "resources/lambda-dna-standard.md",
     "type": "kit",
     "title": "Lambda DNA Standard",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1173,7 +1173,7 @@
     "path": "resources/macs-smartstrainer-30um.md",
     "type": "consumable",
     "title": "MACS SmartStrainer, 30 \u00b5m",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787106536
   },
   {
@@ -1312,7 +1312,7 @@
     "path": "resources/minion-mk1b.md",
     "type": "equipment",
     "title": "MinION Mk1B",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1328,7 +1328,7 @@
     "path": "resources/monarch-spin-gdna-extraction-kit.md",
     "type": "kit",
     "title": "Monarch Spin gDNA Extraction Kit",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787106536
   },
   {
@@ -1366,42 +1366,42 @@
     "path": "resources/neb-blunt-ta-ligase-master-mix.md",
     "type": "kit",
     "title": "NEB Blunt/TA Ligase Master Mix (M0367S)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/neb-chitin-resin.md",
     "type": "consumable",
     "title": "NEB Chitin Resin",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/neb-q5-hotstart-polymerase.md",
     "type": "enzyme",
     "title": "NEB Q5 HotStart High-Fidelity Polymerase",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/nebnext-companion-module-ont.md",
     "type": "kit",
     "title": "NEBNext Companion Module for Oxford Nanopore Ligation Sequencing (E7180S)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/nebnext-quick-ligation-module.md",
     "type": "kit",
     "title": "NEBNext Quick Ligation Module (E6056S)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/nebnext-ultra-ii-end-prep.md",
     "type": "kit",
     "title": "NEBNext Ultra II End Repair / dA-Tailing Module (E7546S)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1425,7 +1425,7 @@
     "path": "resources/nuclease-free-water.md",
     "type": "reagent",
     "title": "Nuclease-Free Water",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1477,7 +1477,7 @@
     "path": "resources/pcr-strip-tubes-0-2ml.md",
     "type": "consumable",
     "title": "PCR Strip Tubes (0.2 mL)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1585,7 +1585,7 @@
     "path": "resources/polyvinylpolypyrrolidone-pvpp.md",
     "type": "chemical",
     "title": "Polyvinylpolypyrrolidone (PVPP)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1673,21 +1673,21 @@
     "path": "resources/promega-wizard-hmw-dna-extraction-kit.md",
     "type": "kit",
     "title": "Promega Wizard HMW DNA Extraction Kit",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787106536
   },
   {
     "path": "resources/qiagen-dneasy-96-plant-kit.md",
     "type": "kit",
     "title": "Qiagen DNeasy 96 Plant Kit",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/quant-it-picogreen-dsdna-kit.md",
     "type": "kit",
     "title": "Quant-iT PicoGreen dsDNA Assay Kit",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -1720,7 +1720,7 @@
     "path": "resources/rcutsmart-buffer.md",
     "type": "buffer",
     "title": "rCutSmart Buffer",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787216002
   },
   {
@@ -1742,35 +1742,35 @@
     "path": "resources/roche-kapa-hifi-hotstart-readymix.md",
     "type": "kit",
     "title": "KAPA HiFi HotStart ReadyMix",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/roche-kapa-library-quant-kit-qpcr.md",
     "type": "kit",
     "title": "KAPA Library Quantification Kit (Illumina, qPCR)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/roche-protease-inhibitor-cocktail-edta-free.md",
     "type": "kit",
     "title": "Roche cOmplete Protease Inhibitor Cocktail, EDTA-free",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/s-adenosylmethionine.md",
     "type": "reagent",
     "title": "S-Adenosylmethionine (SAM)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1787216002
   },
   {
     "path": "resources/sigma-proteinase-k.md",
     "type": "enzyme",
     "title": "Proteinase K (Sigma P2308)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -2037,28 +2037,28 @@
     "path": "resources/thermo-96-well-pcr-plate-semi-skirted.md",
     "type": "consumable",
     "title": "96-well PCR Plates, Semi-skirted (Thermo AB0900)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/thermo-dnase-i-rnase-free.md",
     "type": "enzyme",
     "title": "DNase I, RNase-free (Thermo EN0521)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/thermo-pcr-plate-foil-seals.md",
     "type": "consumable",
     "title": "Foil Seals for PCR Plates (Thermo AB0626)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/thermo-slide-a-lyzer-g2-10k-mwco-cassettes.md",
     "type": "consumable",
     "title": "Slide-A-Lyzer G2 10K MWCO Dialysis Cassettes",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -2077,7 +2077,7 @@
     "path": "resources/tn5-unloaded-blank.md",
     "type": "enzyme",
     "title": "Unloaded (Blank) Tn5 Transposase",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -2142,7 +2142,7 @@
     "path": "resources/tween-20.md",
     "type": "chemical",
     "title": "Tween 20 (Polysorbate 20)",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -2173,14 +2173,14 @@
     "path": "resources/vacuum-manifold-96-well.md",
     "type": "equipment",
     "title": "Vacuum Manifold, 96-well",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/vortex-mixer.md",
     "type": "equipment",
     "title": "Vortex Mixer",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1776815619
   },
   {
@@ -2199,14 +2199,14 @@
     "path": "resources/wide-bore-filter-tips-p1000.md",
     "type": "consumable",
     "title": "Wide-Bore Filter Tips, P1000",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
     "path": "resources/wide-bore-filter-tips-p200.md",
     "type": "consumable",
     "title": "Wide-Bore Filter Tips, P200",
-    "status": "needs_more",
+    "status": "in_stock",
     "mtime": 1777347223
   },
   {
@@ -4697,7 +4697,7 @@
     "path": "wet-lab/epigenomics/dpni-methylation-check.md",
     "type": "protocol",
     "title": "DpnI Methylation Check",
-    "mtime": 1787218028
+    "mtime": 1787227888
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-hia5-labeling.md",
@@ -4709,7 +4709,7 @@
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
     "title": "Fiber-seq Master Protocol",
-    "mtime": 1787226846
+    "mtime": 1787228344
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
@@ -5183,8 +5183,8 @@
   {
     "path": "notebooks/percival-singson/2026-07-06.md",
     "type": "notebook",
-    "title": "2026 07 06",
-    "mtime": 1783367178
+    "title": "2026-07-06 \u2014 Percival Singson",
+    "mtime": 1787227757
   },
   {
     "path": "notebooks/percival-singson/2026-07-08.md",

@@ -1,7 +1,7 @@
 ---
 type: "equipment"
 title: "Vortex Mixer"
-status: "needs_more"
+status: in_stock
 ---
 # Vortex Mixer
 

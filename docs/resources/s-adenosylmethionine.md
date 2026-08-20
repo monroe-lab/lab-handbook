@@ -1,7 +1,7 @@
 ---
 type: reagent
 title: "S-Adenosylmethionine (SAM)"
-status: needs_more
+status: in_stock
 vendor: New England Biolabs
 catalog_number: B9003S
 ---

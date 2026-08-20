@@ -1,7 +1,7 @@
 ---
 title: NEB Q5 HotStart High-Fidelity Polymerase
 type: enzyme
-status: needs_more
+status: in_stock
 vendor: NEB
 catalog_number: M0493
 ---

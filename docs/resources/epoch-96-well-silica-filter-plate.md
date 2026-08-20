@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "96-well Silica Filter Plates"
-status: needs_more
+status: in_stock
 vendor: "Epoch Life Science"
 catalog_number: "2060-050"
 ---

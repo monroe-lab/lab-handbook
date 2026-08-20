@@ -1,7 +1,7 @@
 ---
 title: KAPA HiFi HotStart ReadyMix
 type: kit
-status: needs_more
+status: in_stock
 vendor: Roche (KAPA Biosystems)
 catalog_number: KK2602
 ---

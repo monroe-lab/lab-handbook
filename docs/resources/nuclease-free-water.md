@@ -1,7 +1,7 @@
 ---
 type: reagent
 title: Nuclease-Free Water
-status: needs_more
+status: in_stock
 vendor: ThermoFisher
 catalog_number: AM9937
 ---

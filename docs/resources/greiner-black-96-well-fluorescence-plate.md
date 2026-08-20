@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Black 96-well Fluorescence Plates"
-status: needs_more
+status: in_stock
 vendor: "Greiner"
 catalog_number: "655096"
 ---

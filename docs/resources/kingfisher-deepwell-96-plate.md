@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: KingFisher 96 Deep-Well Plate (2 mL)
-status: needs_more
+status: in_stock
 vendor: ThermoFisher
 catalog_number: 95040450
 ---

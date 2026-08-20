@@ -1,7 +1,7 @@
 ---
 type: kit
 title: NEBNext Ultra II End Repair / dA-Tailing Module (E7546S)
-status: needs_more
+status: in_stock
 vendor: NEB
 catalog_number: E7546S
 ---

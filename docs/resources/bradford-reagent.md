@@ -1,7 +1,7 @@
 ---
 title: Bradford Reagent (Coomassie G-250)
 type: kit
-status: needs_more
+status: in_stock
 vendor: Millipore Sigma
 catalog_number: B6916
 ---

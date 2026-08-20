@@ -1,7 +1,7 @@
 ---
 type: reagent
 title: "pTXB1-Tn5 Plasmid (Addgene 60240)"
-status: needs_more
+status: in_stock
 vendor: "Addgene"
 catalog_number: "60240"
 ---

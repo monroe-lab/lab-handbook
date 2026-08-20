@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Chrome Steel Grinding Balls, 5/32 inch"
-status: needs_more
+status: in_stock
 vendor: "Craig Ball Sales"
 catalog_number: "bulk"
 ---

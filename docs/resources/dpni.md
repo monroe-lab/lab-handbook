@@ -1,7 +1,7 @@
 ---
 type: enzyme
 title: "DpnI"
-status: needs_more
+status: in_stock
 vendor: New England Biolabs
 catalog_number: R0176
 ---

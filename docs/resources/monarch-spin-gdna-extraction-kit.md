@@ -1,7 +1,7 @@
 ---
 type: kit
 title: "Monarch Spin gDNA Extraction Kit"
-status: needs_more
+status: in_stock
 vendor: New England Biolabs
 catalog_number: T3010S / T3010L
 ---

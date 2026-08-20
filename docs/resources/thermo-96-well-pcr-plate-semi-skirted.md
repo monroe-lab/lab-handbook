@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "96-well PCR Plates, Semi-skirted (Thermo AB0900)"
-status: needs_more
+status: in_stock
 vendor: "Thermo (Armadillo/ABI)"
 catalog_number: "AB0900"
 ---

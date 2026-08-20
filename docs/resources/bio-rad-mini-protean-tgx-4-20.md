@@ -1,7 +1,7 @@
 ---
 type: consumable
 title: "Mini-PROTEAN TGX Precast Gels, 4-20%"
-status: needs_more
+status: in_stock
 vendor: "Bio-Rad"
 catalog_number: "4561094"
 ---

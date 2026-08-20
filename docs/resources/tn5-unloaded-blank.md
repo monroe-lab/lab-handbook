@@ -1,7 +1,7 @@
 ---
 title: Unloaded (Blank) Tn5 Transposase
 type: enzyme
-status: needs_more
+status: in_stock
 vendor: NEB or Diagenode
 catalog_number: TBD
 ---

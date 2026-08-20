@@ -1,7 +1,7 @@
 ---
 type: enzyme
 title: "EpiCypher CUTANA Hia5"
-status: needs_more
+status: in_stock
 vendor: EpiCypher
 catalog_number: 15-1032
 ---

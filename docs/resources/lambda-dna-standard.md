@@ -1,7 +1,7 @@
 ---
 title: Lambda DNA Standard
 type: kit
-status: needs_more
+status: in_stock
 vendor: Millipore Sigma
 catalog_number: D1501
 ---

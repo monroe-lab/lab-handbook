@@ -1,7 +1,7 @@
 ---
 title: DNase I, RNase-free (Thermo EN0521)
 type: enzyme
-status: needs_more
+status: in_stock
 vendor: Thermo
 catalog_number: EN0521
 ---

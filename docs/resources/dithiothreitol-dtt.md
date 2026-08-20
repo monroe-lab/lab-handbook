@@ -1,7 +1,7 @@
 ---
 title: DTT (Dithiothreitol)
 type: chemical
-status: needs_more
+status: in_stock
 vendor: Millipore Sigma
 catalog_number: D0632
 ---
