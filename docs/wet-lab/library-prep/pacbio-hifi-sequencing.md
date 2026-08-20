@@ -1,8 +1,11 @@
 ---
 type: "protocol"
-title: "PacBio HiFi Sequencing (Col-0)"
+title: "PacBio HiFi Library Prep & Sequencing Submission"
 ---
-# PacBio HiFi Sequencing (Col-0)
+# PacBio HiFi Library Prep & Sequencing Submission
+
+> ℹ️ **About this protocol**
+> Species-agnostic workflow for taking HMW gDNA through shearing, HiFi library prep, pooling, size selection, and submission to the UC Davis Genome Center. Species-specific decisions live upstream in the extraction protocols (step 0) and in your project's run plan (genome size, coverage, multiplexing). Restructured by Claude from the lab's Col-0 Plus run notes (see [[col-0-plus]] for the original run record) — verify volumes and steps against the official PacBio procedure checklist linked below before your first run.
 
 ## Resources
 
@@ -14,129 +17,67 @@ title: "PacBio HiFi Sequencing (Col-0)"
 
 **Consumables:** [[qubit-assay-tubes]]
 
-**Related Protocols:** [[ot2-hmw-shearing]], [[hifi-dna-extraction]], [[hmw-size-selection]], [[fiber-seq-master-protocol]]
+**Related Protocols:** [[hifi-dna-extraction]], [[sorbitol-ctab-hifi-extraction]], [[hmw-extraction-challenging-plants]], [[ot2-hmw-shearing]], [[hmw-size-selection]], [[fiber-seq-master-protocol]]
 
-Tab 1
+**PacBio references:**
 
-x[Col-0 HMW gDNA extractions & libraries](https://docs.google.com/spreadsheets/d/1nWy1T0GWThBWpcfzS10ANcgUsvvXtHLdVDAryb4O0ow/edit?usp=sharing)
+* [Preparing DNA for HiFi sequencing — extraction & QC technical note](https://www.pacb.com/wp-content/uploads/Technical-Note-Preparing-DNA-for-PacBio-HiFi-Sequencing-Extraction-and-Quality-Control.pdf)
+* [HiFi plex prep kit 96 procedure checklist](https://www.pacb.com/wp-content/uploads/Procedure-checklist-Preparing-multiplexed-whole-genome-and-amplicon-libraries-using-the-HiFi-plex-prep-kit-96.pdf)
+* [HiFi library prep technical overview](https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf)
+* [What is a SMRT cell?](https://www.pacb.com/blog/smrt-cell/)
 
-Check PacBio [notes](https://www.pacb.com/wp-content/uploads/Technical-Note-Preparing-DNA-for-PacBio-HiFi-Sequencing-Extraction-and-Quality-Control.pdf) on preparing samples for sequencing
+## Step 0 — Plan the run (project-level decisions)
 
-Submitting samples for pipette shearing:
+Before touching a pipette, settle these with your project lead. They are project decisions, not protocol steps:
 
-* Dilute each sample to <5ng/µL in 200-500 µL. It's important not to have a concentration higher than 5ng/µL.
-* Make sure that all the samples have the same volume (even if concentrations are different; though best to keep both concentration and volume consistent if possible).
+* **Genome size × desired coverage × number of samples = total Gb needed.** Ask the Genome Center for the current per-SMRT-cell yield to convert that into cells and multiplexing level.
+* **Which extraction protocol.** HMW extraction is where species actually matters. Use the protocol matched to your tissue: [[hifi-dna-extraction]] (Arabidopsis and other tractable tissue), [[sorbitol-ctab-hifi-extraction]], [[charcoal-ctab]], [[kalanchoe-ctab-extraction]], [[pistachio-dna-extraction]], or [[hmw-extraction-challenging-plants]] for polysaccharide/phenolic-rich material.
+* **Record-keeping.** Set up a run sheet (samples, extraction dates, concentrations, barcode wells) before starting. Record adapter/barcode wells **digitally, as you go** — a lost piece of paper caused a real demultiplexing headache on a past run.
 
-Library Prep for PacBio Sequencing
+## Step 1 — HMW gDNA QC
 
-[protocol for library prep kit](https://www.pacb.com/wp-content/uploads/Procedure-checklist-Preparing-multiplexed-whole-genome-and-amplicon-libraries-using-the-HiFi-plex-prep-kit-96.pdf)
+1. Quantify extractions with Qubit **dsDNA BR** (broad range — HMW extractions are usually too concentrated for HS).
+2. Check the fragment size distribution before committing to shearing. Flag any sample whose distribution runs short — short input fragments propagate into short libraries and reduce read quality and yield.
 
-* First bead cleanup step - used the 96-well magnet and added SMRTbeads directly to the plate used for shearing
-* Next time, recommend NOT using this method as it is difficult to see supernatant or ethanol left behind during discard and wash steps + balancing [[centrifuge]];
-* Instead transfer all 300ul of the pipet-sheared DNA samples to new lo-bind 1.5ml tubes, then add 1X volume of beads
-* Use 1ml 80% ethanol during wash steps
-* Tips from Noravit at the Genome Center:
-* While the maximum input for sequencing is 300ng per sample, for the very first bead-clean up step, expecting 10-30% loss, used ALL the DNA from pipette shearing (350ng)
-* \*\*Increase the time for the Repair step. While the protocol says to run for 30 minutes, increase to 1 hour at 37C. Some people will even incubate at RT for this repair step.
-* Sample pooling:
-* Make sure the volume is 25ul, as it is the largest input volume for LightBench.
-* According to Oanh, to be on the safe side of LightBench size selection, “please provide a minimum of 1 ug in 25 ul. If the next library has a similar (size-distribution) profile to the first library, 1 ug in 25 ul should be sufficient.”
-* Satoyo: Previously, the final pooled library resulting from 300 ng x 20 samples was 1.8 µg. You are in a bit of a tight spot.
-* It is important that the size-distribution of samples are consistent, as variable fragment size (shorter fragments) will reduce read quality & yield.
+## Step 2 — Submit for pipette shearing
 
-***
+The Genome Center performs pipette shearing. Submission requirements:
 
-Concentration Range for Qubit Assays:
+1. Dilute each sample to **< 5 ng/µL** in 200–500 µL. Do not exceed 5 ng/µL — this matters for shearing uniformity.
+2. Make all sample volumes **equal**, even if concentrations differ (best is both equal, if you can).
+3. After shearing, QC again: expect a uniform distribution with a mean around ~17–22 kb (past runs: means 17.4–20.3 kb, modes 18.2–19.5 kb).
 
-Used dsDNA BR to quantify HMW DNA extractions
+## Step 3 — Library prep (HiFi plex prep kit 96)
 
-Used dsDNA 1X HS to quantify pooled libraries.
+Follow the [PacBio procedure checklist](https://www.pacb.com/wp-content/uploads/Procedure-checklist-Preparing-multiplexed-whole-genome-and-amplicon-libraries-using-the-HiFi-plex-prep-kit-96.pdf), with these lab-learned modifications:
 
-***
+1. **First bead cleanup: work in tubes, not the shearing plate.** Transfer the full ~300 µL of sheared DNA to fresh lo-bind 1.5 mL tubes, then add 1× volume of SMRTbeads. (Doing the cleanup directly in the 96-well plate on the plate magnet made it hard to see residual supernatant/ethanol during discards, and made [[centrifuge]] balancing awkward — don't repeat it.)
+2. Use **1 mL 80% ethanol** for wash steps.
+3. **Use all your DNA at the first cleanup.** Max sequencing input is 300 ng/sample, but expect 10–30% loss at this step — going in with everything (e.g. 350 ng) is fine. Tip from Noravit at the Genome Center.
+4. **Extend the repair step to 1 hour at 37 °C** (the checklist says 30 min; some labs run it at RT). Also a Noravit recommendation — improves library yield.
+5. **Barcodes: use a fresh index plate if at all possible.** A re-used, much-handled 96-well adapter plate is the suspected cause of a large non-barcoded read fraction on a past run (cross-contamination between wells). At minimum, seal carefully and log every well used.
 
-Results from QC and Pipette Shearing - 1st pool
+## Step 4 — Pooling and size selection
 
-Subset of HMW gDNA samples from extraction:
+1. Pool barcoded libraries; final pool volume **25 µL** (the maximum LightBench input volume).
+2. Provide **at least 1 µg in 25 µL** for LightBench size selection (Oanh, Genome Center: "to be on the safe side"). If the pool is short of this, sequencing and size selection both suffer — a past 253 ng pool was flagged as too low.
+3. Keep size distributions **consistent across samples in a pool** — shorter-fragment samples drag down read quality and yield for the whole pool.
+4. Typical LightBench cutoff for these libraries: **< 12 kb removed**. Confirm the cutoff with the Genome Center for your run.
+5. If combining pools, concentrate with SMRTbell cleanup beads at 1× and re-quantify.
 
-Note low fragment size for VA\_1 and VA\_9; the normal expected fragment size distribution is  HiFi extraction VA\_13
+## Step 5 — Final QC and submission
 
-Same samples as above, post-shearing:
+1. Quantify the final pool with Qubit **dsDNA 1X HS**.
+2. Sanity-check the size distribution: is the **median** read length close to the mean, or much lower? A median well below the mean means a short-fragment shoulder that will cost yield (see the [technical overview](https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf)).
+3. Submit with the run sheet: sample ↔ barcode-well mapping, concentrations, expected genome sizes.
 
-* Uniform distribution after pipette shearing across samples;
-* Mean \~22kb
-* Mode
+## Common pitfalls
 
-QC of Libraries Pooled (Pool #1) 10/08/2025:
+* Bead cleanups on the shearing plate (see step 3.1) — do them in tubes.
+* Re-used barcode plates → non-barcoded/misassigned reads at demultiplexing.
+* Barcode records on paper → unrecoverable if lost; keep the run sheet current as you pipette.
+* Low-concentration samples can be consumed entirely by the first library prep attempt, leaving nothing for a re-prep — check remaining mass before committing marginal samples to a pool.
 
-***
+## Example run record
 
-Qubit Measurement from Genome Center: 11 ng/ul in 23 ul, 253 ng ← this is too low for Sequencing & LightBench Size Selection
-
-Expected quality of sequencing given QC results?
-
-* Look at median length; is median length << or considerably = to the average size?
-* [https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf](https://www.pacb.com/wp-content/uploads/Technical-overview-HiFi-library-preparation-using-HiFi-prep-kits-for-high-throughput-sequencing-on-PacBio-long-read-systems.pdf)
-
-Sent rest of HMW DNA to be pipette sheared & second library prep:
-
-\*NOTE: this second pool is missing VA\_9, though it was submitted for shearing.
-
-QC of sheared DNA (same samples as before):
-
-* Mean fragment sizes = 17474, 20265, 17389
-* Modes: 18241, 19201, 19500
-
-After library prep of pool #2, the final concentration was 36.4ng/ul in 25ul.
-
-Pooled together Pool #1 (11ng/ul in 23ul) + Pool #2 using SMRTBell Cleanup Beads at 1X ratio.
-
-FINAL concentration of pool to be sequenced = 43.8ng/ul in 26ul (Qubit measurement)
-
-***
-
-QC for final pooled libraries (Pool 1 + Pool 2) sent for LightBench size-selection and sequencing:
-
-* Mean fragment size = 19772 bp
-* Mode of distribution = 18150 bp
-* Concentration of final pool: 48ng/ul in 25ul
-* The size cut-off for LightBench will be <12kb.
-
-Calculating expected sequencing yields:
-
-Genome size \* desired coverage =>
-
-***
-
-01/08/2026
-
-Large fraction of non-barcoded reads → this might be due to potential contamination in barcoding wells used (especially for pool 1)
-
-* Also since the quality score of the non-barcoded reads are comparable to the samples’ qualities
-
-Pool 1: 11\*ng/ul in 22ul = 253ng (\~23%)
-
-Pool 2: 34.6\*ng/ul in 25ul. = 865 ng (\~77%)
-
-Merged pool for submission: 43.8ng/ul in 25ul (used beads to concentrate into 25ul)
-
-(\*when re-measured before merging two pools together)
-
-Pool 1 should be 253
-
-Thank you for taking the time to help us with the demultiplexing details, given the suboptimal library prep conditions.
-
-The second library prep was done with the same biological samples (i.e. same DNA pool) however with 1 sample missing as a low amount of DNA that was extracted for that sample and was used in entirety for the first  The library prep protocol/kit that I used was the HiFi plex prep kit 96 following this protocol. The only change that I made during the second pool I prepared was that I increased the repair step from 30 minutes to 1 hour based on advice I received from Noravit to help increase library yield. As I was preparing the second library pool the first preparation was kept in the -20C freezer.
-
-I am highly confident that all the indexes for the first pool that I prepared are correct.
-
-However, one potential source of error from my part during the second library preparation was that I had written down all the adapter wells used on a piece of paper, and lost that piece of paper. I backtracked from the plates
-
-One thing to note was that for the second library preparation, the record of adapter wells used was written down on paper.
-
-The only potential issue that I can think of leading to a mixup with the barcodes during the library prep process was that I used the 96 well adapter index plate that we have been re-using in our lab for some time. There may have been potential cross-contamination between indexes in the plate.
-
-Overview of PacBio
-
-Overview of PacBio Sequencing
-
-[https://www.pacb.com/blog/smrt-cell/](https://www.pacb.com/blog/smrt-cell/)
+The Col-0 Plus panel (11 Col-0/derivative samples, Oct 2025 – Jan 2026) is the run this protocol was distilled from, including the QC numbers and the demultiplexing postmortem: [[col-0-plus]] · [Col-0 HMW gDNA extractions & libraries sheet](https://docs.google.com/spreadsheets/d/1nWy1T0GWThBWpcfzS10ANcgUsvvXtHLdVDAryb4O0ow/edit?usp=sharing)

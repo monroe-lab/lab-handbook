@@ -64,7 +64,7 @@
     "concentration": "0.04 mg/mL",
     "lot": "U9375BAEG0-1/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787229912
+    "mtime": 1787246434
   },
   {
     "path": "resources/3atudor-hia5-r2.md",
@@ -75,7 +75,7 @@
     "concentration": "0.41 mg/mL",
     "lot": "U4194NJYG0-14/P02LE001",
     "acquired": "2026-05-26",
-    "mtime": 1787229912
+    "mtime": 1787246435
   },
   {
     "path": "resources/3atudor-mnase-r2.md",
@@ -419,7 +419,7 @@
     "type": "consumable",
     "title": "Cell Strainer, 70 \u00b5m",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246452
   },
   {
     "path": "resources/celldrop.md",
@@ -655,7 +655,7 @@
     "type": "enzyme",
     "title": "DpnI",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246436
   },
   {
     "path": "resources/edta-tetrasodium-salt-dihydrate.md",
@@ -693,7 +693,7 @@
     "type": "enzyme",
     "title": "EpiCypher CUTANA Hia5",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246481
   },
   {
     "path": "resources/epoch-96-well-silica-filter-plate.md",
@@ -963,7 +963,7 @@
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
     "status": "in_stock",
-    "mtime": 1787229912
+    "mtime": 1787246438
   },
   {
     "path": "resources/hia5-r1-free.md",
@@ -973,7 +973,7 @@
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-7/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787245384
+    "mtime": 1787246440
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -1217,7 +1217,7 @@
     "type": "consumable",
     "title": "MACS SmartStrainer, 30 \u00b5m",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246453
   },
   {
     "path": "resources/magnesium-acetate-tetrahydrate.md",
@@ -1508,7 +1508,7 @@
     "concentration": "0.04 mg/mL",
     "lot": "U9375BAEG0-8/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787229912
+    "mtime": 1787246441
   },
   {
     "path": "resources/pag-hia5-r1.md",
@@ -1519,7 +1519,7 @@
     "concentration": "0.08 mg/mL",
     "lot": "U9375BAEG0-9/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787229912
+    "mtime": 1787246443
   },
   {
     "path": "resources/parafilm.md",
@@ -1786,7 +1786,7 @@
     "type": "buffer",
     "title": "rCutSmart Buffer",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246509
   },
   {
     "path": "resources/reagent-alcohol-100-200-proof-denatured.md",
@@ -1829,7 +1829,7 @@
     "type": "reagent",
     "title": "S-Adenosylmethionine (SAM)",
     "status": "in_stock",
-    "mtime": 1787228734
+    "mtime": 1787246482
   },
   {
     "path": "resources/sigma-proteinase-k.md",
@@ -2211,7 +2211,7 @@
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-10/P19KL001",
     "acquired": "2026-01-06",
-    "mtime": 1787245360
+    "mtime": 1787246445
   },
   {
     "path": "resources/tudor-hia5-r2.md",
@@ -2222,7 +2222,7 @@
     "concentration": "0.40 mg/mL",
     "lot": "U4194NJYG0-4/P02LE001",
     "acquired": "2026-05-26",
-    "mtime": 1787229912
+    "mtime": 1787246446
   },
   {
     "path": "resources/tudor-mnase-r2.md",
@@ -4138,7 +4138,7 @@
     "title": "Anchor Tag",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1787229912
+    "mtime": 1787246511
   },
   {
     "path": "projects/cassava-c127.md",
@@ -4168,7 +4168,7 @@
     "pi": "Grey Monroe",
     "lead": "Vianney Ahn",
     "last_updated": "2026-04-29",
-    "mtime": 1777474140
+    "mtime": 1787247497
   },
   {
     "path": "projects/dna-repair-mutant-mutation-spectra.md",
@@ -4680,7 +4680,7 @@
     "path": "wet-lab/extraction/fiber-seq-hmw-extraction.md",
     "type": "protocol",
     "title": "Post-labeling HMW DNA Extraction for Fiber-seq",
-    "mtime": 1787218028
+    "mtime": 1787246478
   },
   {
     "path": "wet-lab/extraction/grape-feeder-cell-dna-extraction.md",
@@ -4751,8 +4751,8 @@
   {
     "path": "wet-lab/library-prep/pacbio-hifi-sequencing.md",
     "type": "protocol",
-    "title": "PacBio HiFi Sequencing (Col-0)",
-    "mtime": 1787106536
+    "title": "PacBio HiFi Library Prep & Sequencing Submission",
+    "mtime": 1787247497
   },
   {
     "path": "wet-lab/library-prep/sanger-sequencing.md",
@@ -4785,29 +4785,34 @@
     "mtime": 1787106536
   },
   {
-    "path": "wet-lab/fiber-seq/dpni-methylation-check.md",
+    "path": "wet-lab/fiber-seq/1-1-sometimes-hia5-enzyme-activity-test-in-vitro.md",
     "type": "protocol",
-    "title": "DpnI Methylation Check"
+    "title": "(1.1 sometimes) Hia5 Enzyme Activity Test (in vitro)",
+    "mtime": 1787246488
   },
   {
-    "path": "wet-lab/fiber-seq/fiber-seq-hia5-labeling.md",
+    "path": "wet-lab/fiber-seq/1-fiber-seq-master-protocol.md",
     "type": "protocol",
-    "title": "Hia5 m6A Labeling Reaction for Fiber-seq"
+    "title": "(1) Fiber-seq Master Protocol",
+    "mtime": 1787247009
   },
   {
-    "path": "wet-lab/fiber-seq/fiber-seq-master-protocol.md",
+    "path": "wet-lab/fiber-seq/2-plant-nuclei-isolation-for-fiber-seq.md",
     "type": "protocol",
-    "title": "Fiber-seq Master Protocol"
+    "title": "(2) Plant Nuclei Isolation for Fiber-seq",
+    "mtime": 1787246450
   },
   {
-    "path": "wet-lab/fiber-seq/fiber-seq-nuclei-isolation.md",
+    "path": "wet-lab/fiber-seq/3-hia5-m6a-labeling-reaction-for-fiber-seq.md",
     "type": "protocol",
-    "title": "Plant Nuclei Isolation for Fiber-seq"
+    "title": "(3) Hia5 m6A Labeling Reaction for Fiber-seq",
+    "mtime": 1787246475
   },
   {
-    "path": "wet-lab/fiber-seq/hia5-enzyme-activity-test.md",
+    "path": "wet-lab/fiber-seq/4-dpni-methylation-check.md",
     "type": "protocol",
-    "title": "Hia5 Enzyme Activity Test (in vitro)"
+    "title": "(4) DpnI Methylation Check",
+    "mtime": 1787246507
   },
   {
     "path": "wet-lab/cutrun-cuttag/cut-and-tag.md",
@@ -5317,7 +5322,8 @@
     "path": "notebooks/vianney-ahn/fiberseq/fiber-seq-development-log.md",
     "type": "notebook",
     "title": "Fiber-Seq / DiMeLo-Seq Development Log",
-    "date": "2026-03-06"
+    "date": "2026-03-06",
+    "mtime": 1787246388
   },
   {
     "path": "notebooks/vianney-ahn/qa34-5p9s01-mobile-entry.md",
@@ -18588,7 +18594,7 @@
     "title": "UC Davis DNA Technologies Core",
     "notes": "UC Davis Genome Center sequencing core. PacBio Revio, ONT PromethION, Element AVITI, Illumina. Also runs LightBench size selection and FemtoPulse QC as a service.",
     "label_1": "DNA Technologies & Expression Analysis Core",
-    "mtime": 1787106536
+    "mtime": 1787246387
   },
   {
     "path": "locations/wall-e-centrifuge.md",
