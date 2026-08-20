@@ -63,7 +63,8 @@
     "status": "in_stock",
     "concentration": "0.04 mg/mL",
     "lot": "U9375BAEG0-1/P19KL001",
-    "acquired": "2026-01-06"
+    "acquired": "2026-01-06",
+    "mtime": 1787229912
   },
   {
     "path": "resources/3atudor-hia5-r2.md",
@@ -73,7 +74,8 @@
     "status": "in_stock",
     "concentration": "0.41 mg/mL",
     "lot": "U4194NJYG0-14/P02LE001",
-    "acquired": "2026-05-26"
+    "acquired": "2026-05-26",
+    "mtime": 1787229912
   },
   {
     "path": "resources/3atudor-mnase-r2.md",
@@ -83,7 +85,8 @@
     "status": "in_stock",
     "concentration": "1.74 mg/mL",
     "lot": "U4194NJYG0-19/P02LE001",
-    "acquired": "2026-05-26"
+    "acquired": "2026-05-26",
+    "mtime": 1787229912
   },
   {
     "path": "resources/4-morpholineethanesulfonic-acid.md",
@@ -960,7 +963,7 @@
     "type": "enzyme",
     "title": "Hia5 Protein Stocks (in-house, GenScript)",
     "status": "in_stock",
-    "mtime": 1787228913
+    "mtime": 1787229912
   },
   {
     "path": "resources/hia5-r1-free.md",
@@ -970,7 +973,8 @@
     "status": "needs_more",
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-7/P19KL001",
-    "acquired": "2026-01-06"
+    "acquired": "2026-01-06",
+    "mtime": 1787229912
   },
   {
     "path": "resources/hifi-lysis-buffer.md",
@@ -1504,7 +1508,8 @@
     "status": "in_stock",
     "concentration": "0.04 mg/mL",
     "lot": "U9375BAEG0-8/P19KL001",
-    "acquired": "2026-01-06"
+    "acquired": "2026-01-06",
+    "mtime": 1787229912
   },
   {
     "path": "resources/pag-hia5-r1.md",
@@ -1514,7 +1519,8 @@
     "status": "in_stock",
     "concentration": "0.08 mg/mL",
     "lot": "U9375BAEG0-9/P19KL001",
-    "acquired": "2026-01-06"
+    "acquired": "2026-01-06",
+    "mtime": 1787229912
   },
   {
     "path": "resources/parafilm.md",
@@ -2206,7 +2212,8 @@
     "status": "needs_more",
     "concentration": "<0.01 mg/mL",
     "lot": "U9375BAEG0-10/P19KL001",
-    "acquired": "2026-01-06"
+    "acquired": "2026-01-06",
+    "mtime": 1787229912
   },
   {
     "path": "resources/tudor-hia5-r2.md",
@@ -2216,7 +2223,8 @@
     "status": "in_stock",
     "concentration": "0.40 mg/mL",
     "lot": "U4194NJYG0-4/P02LE001",
-    "acquired": "2026-05-26"
+    "acquired": "2026-05-26",
+    "mtime": 1787229912
   },
   {
     "path": "resources/tudor-mnase-r2.md",
@@ -2226,7 +2234,8 @@
     "status": "in_stock",
     "concentration": "1.82 mg/mL",
     "lot": "U4194NJYG0-9/P02LE001",
-    "acquired": "2026-05-26"
+    "acquired": "2026-05-26",
+    "mtime": 1787229912
   },
   {
     "path": "resources/tween-20.md",
@@ -4131,7 +4140,7 @@
     "title": "Anchor Tag",
     "status": "active",
     "pi": "Grey Monroe",
-    "mtime": 1787216998
+    "mtime": 1787229912
   },
   {
     "path": "projects/cassava-c127.md",
@@ -4799,7 +4808,7 @@
     "path": "wet-lab/epigenomics/fiber-seq-master-protocol.md",
     "type": "protocol",
     "title": "Fiber-seq Master Protocol",
-    "mtime": 1787228913
+    "mtime": 1787229912
   },
   {
     "path": "wet-lab/epigenomics/fiber-seq-nuclei-isolation.md",
@@ -4811,7 +4820,7 @@
     "path": "wet-lab/epigenomics/hia5-enzyme-activity-test.md",
     "type": "protocol",
     "title": "Hia5 Enzyme Activity Test (in vitro)",
-    "mtime": 1787226846
+    "mtime": 1787229912
   },
   {
     "path": "wet-lab/mutagenesis/dsb-repair-master-protocol.md",
