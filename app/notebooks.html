@@ -768,6 +768,7 @@ async function loadDoc(docPath) {
             '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
             (loggedIn ?
               '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span><span class="btn-label"> Delete</span></button>' +
+              '<button class="btn btn-outline btn-sm" onclick="renameEntry()"><span class="material-icons-outlined">drive_file_rename_outline</span><span class="btn-label"> Rename</span></button>' +
               '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' : '') +
           '</div>' +
         '</div>' +
@@ -931,6 +932,7 @@ async function saveDoc() {
           '<div style="display:flex;gap:8px">' +
             '<button class="btn btn-outline btn-sm" onclick="window.print()"><span class="material-icons-outlined">print</span><span class="btn-label"> Print</span></button>' +
             '<button class="btn btn-outline btn-sm" style="color:var(--red)" onclick="deleteDoc()"><span class="material-icons-outlined">delete</span><span class="btn-label"> Delete</span></button>' +
+            '<button class="btn btn-outline btn-sm" onclick="renameEntry()"><span class="material-icons-outlined">drive_file_rename_outline</span><span class="btn-label"> Rename</span></button>' +
             '<button class="btn btn-outline btn-sm" onclick="startEdit()"><span class="material-icons-outlined">edit</span><span class="btn-label"> Edit</span></button>' +
           '</div>' +
         '</div>' +
@@ -970,6 +972,79 @@ async function cancelEdit() {
     clearDraft(currentDoc);
   }
   loadDoc(currentDoc);
+}
+
+// ── Rename / move entry (#179, #182) ──
+// Title lives in frontmatter (hidden from the editor), so users had no way
+// to change it; and entries couldn't move between folders. One modal does
+// both: title edits rewrite frontmatter + matching H1 in place; folder
+// changes create-at-new-path + delete-old (same pattern as protocols
+// renameDoc). The filename (slug) is preserved on moves.
+var renameInFlight = false;
+async function renameEntry() {
+  if (!currentDoc || renameInFlight) return;
+  var gh = Lab.gh;
+  if (!gh || !gh.isLoggedIn()) { Lab.showToast('Sign in first', 'error'); return; }
+  renameInFlight = true;
+  try {
+    var filePath = 'docs/' + currentDoc + '.md';
+    var result = await gh.fetchFile(filePath);
+    var parsed = Lab.parseFrontmatter(result.content);
+    var slug = currentDoc.split('/').pop();
+    var oldTitle = (parsed.meta && parsed.meta.title) || slug;
+    var oldDir = currentDoc.replace(/^notebooks\//, '').split('/').slice(0, -1).join('/');
+    var allDirs = getAllDirs();
+    if (allDirs.indexOf(oldDir) < 0) allDirs.unshift(oldDir);
+
+    var values = await Lab.modal.form({
+      title: 'Rename / Move Entry',
+      submitText: 'Save',
+      fields: [
+        { key: 'title', label: 'Title', type: 'text', default: oldTitle },
+        { key: 'folder', label: 'Folder', type: 'select', default: oldDir,
+          options: allDirs.map(function(d) { return { value: d, label: d }; }) }
+      ]
+    });
+    if (!values) return;
+    var newTitle = (values.title || '').trim() || oldTitle;
+    var newDir = values.folder || oldDir;
+    if (newTitle === oldTitle && newDir === oldDir) return;
+
+    parsed.meta.title = newTitle;
+    if (!parsed.meta.type) parsed.meta.type = 'notebook';
+    var newBody = parsed.body;
+    if (newTitle !== oldTitle) {
+      newBody = newBody.replace(
+        new RegExp('^(# )' + oldTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*$', 'm'),
+        '$1' + newTitle
+      );
+    }
+    var newContent = Lab.buildFrontmatter(parsed.meta, newBody);
+
+    if (newDir !== oldDir) {
+      var newDocPath = 'notebooks/' + newDir + '/' + slug;
+      var newFilePath = 'docs/' + newDocPath + '.md';
+      var clash = false;
+      try { await gh.fetchFile(newFilePath); clash = true; } catch(e) { /* free */ }
+      if (clash) { Lab.showToast('An entry "' + slug + '" already exists in ' + newDir, 'error'); return; }
+      await gh.saveFile(newFilePath, newContent, null, 'Move notebook entry: ' + oldDir + '/' + slug + ' → ' + newDir + '/' + slug);
+      await gh.deleteFile(filePath, result.sha, 'Moved ' + slug + ' to ' + newDir);
+      if (gh.patchObjectIndex) gh.patchObjectIndex(newFilePath, parsed.meta);
+      if (gh.removeFromObjectIndex) gh.removeFromObjectIndex(filePath);
+      await loadTree();
+      Lab.showToast('Moved to ' + newDir, 'success');
+      loadDoc(newDocPath);
+    } else {
+      await gh.saveFile(filePath, newContent, result.sha, 'Rename notebook entry: ' + oldTitle + ' → ' + newTitle);
+      if (gh.patchObjectIndex) gh.patchObjectIndex(filePath, parsed.meta);
+      Lab.showToast('Renamed', 'success');
+      loadDoc(currentDoc);
+    }
+  } catch(e) {
+    Lab.showToast('Rename failed: ' + e.message, 'error');
+  } finally {
+    renameInFlight = false;
+  }
 }
 
 async function deleteDoc() {

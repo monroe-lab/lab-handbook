@@ -1009,7 +1009,9 @@
         catch(cbErr) { console.error('annotate: save callback error:', cbErr); }
       }
 
-      window.Lab.showToast('Annotations saved!', 'success');
+      // #178: the annotated PNG is committed, but the entry itself still
+      // references it only in the editor buffer — be honest about that.
+      window.Lab.showToast('Annotation saved — hit Save on the entry to keep it', 'success');
     } catch(e) {
       window.Lab.showToast('Save failed: ' + e.message, 'error');
       return;

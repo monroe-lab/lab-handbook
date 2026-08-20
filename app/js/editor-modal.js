@@ -4302,10 +4302,31 @@
               delete _imgSizes[relativeSrc];
               _imgSizes[annotatedPath] = oldSize;
             }
-            // Replace the old image path with the annotated one
-            md = md.replace(relativeSrc, annotatedPath);
+            // Replace the old image path with the annotated one. The src can
+            // appear in several shapes (markdown image, <img> tag from a
+            // resize, URL-encoded) — try each and warn instead of silently
+            // no-oping, which left the entry pointing at the un-annotated
+            // image (#178).
+            var candidates = [relativeSrc, oldSrc, encodeURI(relativeSrc), decodeURI(relativeSrc)];
+            var swapped = false;
+            for (var ci = 0; ci < candidates.length && !swapped; ci++) {
+              if (candidates[ci] && md.indexOf(candidates[ci]) !== -1) {
+                md = md.split(candidates[ci]).join(annotatedPath);
+                swapped = true;
+              }
+            }
+            if (!swapped) {
+              window.Lab.showToast('Annotated image uploaded, but the entry still references the original — swap it manually or re-save', 'error');
+            }
             editor.setMarkdown(md);
             editor.changeMode('wysiwyg');
+            // #178: the swap above only changes the editor buffer. Fire the
+            // container's change hook (notebooks.html wires draft autosave to
+            // it) so the annotation isn't lost if the user navigates away
+            // before hitting Save.
+            try {
+              if (typeof containerEl._onchange === 'function') containerEl._onchange();
+            } catch (err) { /* autosave is a safety net, never block the swap */ }
             // Track data URL → real path and show preview without corrupting ProseMirror
             _dataUrlToPath[dataUrl] = annotatedPath;
             setTimeout(function() {
@@ -4939,6 +4960,15 @@
     var md = editor.getMarkdown();
     // Clean up zero-width spaces we injected into empty table header cells
     md = md.replace(/\u200B/g, '');
+    // #184: preserve Enter-created blank gaps. Toast UI serializes each empty
+    // WYSIWYG paragraph as a standalone <br> line; the renderer strips those
+    // (they break table parsing) and markdown collapses consecutive blank
+    // lines, so intentional gaps vanished on save. Convert each standalone
+    // <br> line into a paragraph holding a single non-breaking space \u2014 the
+    // same spacer idiom the daily template uses (#143) \u2014 which survives the
+    // round-trip and renders as an empty line. Inline <br> (mid-text, in
+    // table cells) doesn't match: the line must contain only the tag.
+    md = md.replace(/^[ \t]*<br[ \t]*\/?>[ \t]*$/gm, '\u00A0\n');
     md = restoreDataUrls(md);
     md = linksToWikilinks(md);
     md = unresolveImagePaths(md, docPath);
