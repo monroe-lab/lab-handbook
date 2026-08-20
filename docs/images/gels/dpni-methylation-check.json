@@ -1,0 +1,25 @@
+{
+  "title": "Expected result: DpnI methylation check (A = -DpnI, B = +DpnI)",
+  "theme": "dark",
+  "ladder": "lambda-hindiii",
+  "height": 420,
+  "lanes": [
+    {"label": "Ladder", "ladder": true},
+    {"label": "Methylated  A", "bands": [{"size": 38000, "thickness": 8}]},
+    {"label": "Methylated  B", "bands": [{"size": 38000, "intensity": 0.15, "thickness": 6}], "smear": {"from": 1500, "to": 120, "intensity": 0.32}},
+    {"label": "Unmethylated  A", "bands": [{"size": 38000, "thickness": 8}]},
+    {"label": "Unmethylated  B", "bands": [{"size": 38000, "thickness": 8}]},
+    {"label": "Degraded input  A", "bands": [{"size": 38000, "intensity": 0.2, "thickness": 6}], "smear": {"from": 12000, "to": 300, "intensity": 0.28}},
+    {"label": "Degraded input  B", "bands": [{"size": 38000, "intensity": 0.2, "thickness": 6}], "smear": {"from": 12000, "to": 300, "intensity": 0.28}}
+  ],
+  "annotations": [
+    {"lane": "Methylated  A", "size": 38000, "text": "Intact HMW input"},
+    {"lane": "Methylated  B", "size": 400, "text": "m6A present: collapsed to smear"},
+    {"lane": "Unmethylated  B", "size": 38000, "text": "No m6A: B looks like A"},
+    {"lane": "Degraded input  B", "size": 900, "text": "Degraded: uninterpretable"}
+  ],
+  "caption": [
+    "Read each sample as A vs B. HMW in A and a low smear in B means methylation worked.",
+    "If A is already smeared, the input was degraded and the result cannot be scored - re-extract."
+  ]
+}

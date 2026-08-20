@@ -102,6 +102,10 @@ Standard BSL1. Gel stain handling and UV or blue-light imaging per
 
 ## Expected output
 
+![Expected result: DpnI methylation check. A = no DpnI, B = plus DpnI. Methylated sample: A is high molecular weight, B collapses to a low smear. Unmethylated sample: B looks like A. Degraded input: both A and B are smeared and cannot be scored.](../../images/gels/dpni-methylation-check.svg)
+
+*Illustrative gel (not a real image). Read each sample as A versus B.*
+
 - **Aliquot A** (no DpnI): high molecular weight, one tight band or a high smear. Same as the
   original input.
 - **Aliquot B** (+DpnI), methylated: visibly shorter — a low smear or a collapsed band.

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="702" height="613" viewBox="0 0 702 613" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<defs><filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.7"/></filter><filter id="b2" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.6"/></filter><filter id="b3" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+<rect width="702" height="613" fill="#101318"/>
+<text x="351.0" y="22" text-anchor="middle" font-size="15" font-weight="600" fill="#e8ebef">Expected result: DpnI methylation check (A = -DpnI, B = +DpnI)</text>
+<rect x="84" y="123" width="418" height="420" rx="6" fill="#1a1f26" stroke="#252b34" stroke-width="1"/>
+<rect x="99.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="117.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 117.0 115)">Ladder</text>
+<rect x="99.52" y="199.9" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="201.4" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="252.2" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="253.7" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="273.2" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="274.7" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="297.0" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="298.5" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="333.6" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="335.1" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="341.5" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="343.0" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="99.52" y="416.0" width="38.96" height="8" rx="4.0" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="101.52" y="417.5" width="34.96" height="5" rx="2.5" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="157.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="175.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 175.0 115)">Methylated  A</text>
+<rect x="157.52" y="169.5" width="38.96" height="11.0" rx="5.5" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="159.52" y="171.0" width="34.96" height="8.0" rx="4.0" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="215.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="233.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 233.0 115)">Methylated  B</text>
+<defs><linearGradient id="sm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f2f5f9" stop-opacity="0"/><stop offset="18%" stop-color="#f2f5f9" stop-opacity="0.32"/><stop offset="82%" stop-color="#f2f5f9" stop-opacity="0.32"/><stop offset="100%" stop-color="#f2f5f9" stop-opacity="0"/></linearGradient></defs>
+<rect x="217.52" y="363.1" width="34.96" height="147.0" fill="url(#sm1)" filter="url(#b3)"/>
+<rect x="215.52" y="170.5" width="38.96" height="9.0" rx="4.5" fill="#f2f5f9" opacity="0.07" filter="url(#b2)"/>
+<rect x="217.52" y="172.0" width="34.96" height="6.0" rx="3.0" fill="#f2f5f9" opacity="0.15" filter="url(#b1)"/>
+<rect x="273.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="291.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 291.0 115)">Unmethylated  A</text>
+<rect x="273.52" y="169.5" width="38.96" height="11.0" rx="5.5" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="275.52" y="171.0" width="34.96" height="8.0" rx="4.0" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="331.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="349.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 349.0 115)">Unmethylated  B</text>
+<rect x="331.52" y="169.5" width="38.96" height="11.0" rx="5.5" fill="#f2f5f9" opacity="0.45" filter="url(#b2)"/>
+<rect x="333.52" y="171.0" width="34.96" height="8.0" rx="4.0" fill="#f2f5f9" opacity="1.00" filter="url(#b1)"/>
+<rect x="389.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="407.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 407.0 115)">Degraded input  A</text>
+<defs><linearGradient id="sm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f2f5f9" stop-opacity="0"/><stop offset="18%" stop-color="#f2f5f9" stop-opacity="0.28"/><stop offset="82%" stop-color="#f2f5f9" stop-opacity="0.28"/><stop offset="100%" stop-color="#f2f5f9" stop-opacity="0"/></linearGradient></defs>
+<rect x="391.52" y="242.1" width="34.96" height="214.6" fill="url(#sm2)" filter="url(#b3)"/>
+<rect x="389.52" y="170.5" width="38.96" height="9.0" rx="4.5" fill="#f2f5f9" opacity="0.09" filter="url(#b2)"/>
+<rect x="391.52" y="172.0" width="34.96" height="6.0" rx="3.0" fill="#f2f5f9" opacity="0.20" filter="url(#b1)"/>
+<rect x="447.68" y="137" width="38.64" height="9" rx="2" fill="#0a0c10"/>
+<text x="465.0" y="115" font-size="12" fill="#e8ebef" transform="rotate(-40 465.0 115)">Degraded input  B</text>
+<defs><linearGradient id="sm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f2f5f9" stop-opacity="0"/><stop offset="18%" stop-color="#f2f5f9" stop-opacity="0.28"/><stop offset="82%" stop-color="#f2f5f9" stop-opacity="0.28"/><stop offset="100%" stop-color="#f2f5f9" stop-opacity="0"/></linearGradient></defs>
+<rect x="449.52" y="242.1" width="34.96" height="214.6" fill="url(#sm3)" filter="url(#b3)"/>
+<rect x="447.52" y="170.5" width="38.96" height="9.0" rx="4.5" fill="#f2f5f9" opacity="0.09" filter="url(#b2)"/>
+<rect x="449.52" y="172.0" width="34.96" height="6.0" rx="3.0" fill="#f2f5f9" opacity="0.20" filter="url(#b1)"/>
+<text x="74" y="207.4" text-anchor="end" font-size="10.5" fill="#9aa3ad">23.1 kb</text>
+<line x1="78" y1="203.9" x2="83" y2="203.9" stroke="#9aa3ad" stroke-width="1"/>
+<text x="74" y="259.7" text-anchor="end" font-size="10.5" fill="#9aa3ad">9.4 kb</text>
+<line x1="78" y1="256.2" x2="83" y2="256.2" stroke="#9aa3ad" stroke-width="1"/>
+<text x="74" y="280.7" text-anchor="end" font-size="10.5" fill="#9aa3ad">6.6 kb</text>
+<line x1="78" y1="277.2" x2="83" y2="277.2" stroke="#9aa3ad" stroke-width="1"/>
+<text x="74" y="304.5" text-anchor="end" font-size="10.5" fill="#9aa3ad">4.4 kb</text>
+<line x1="78" y1="301.0" x2="83" y2="301.0" stroke="#9aa3ad" stroke-width="1"/>
+<text x="74" y="341.1" text-anchor="end" font-size="10.5" fill="#9aa3ad">2.3 kb</text>
+<line x1="78" y1="337.6" x2="83" y2="337.6" stroke="#9aa3ad" stroke-width="1"/>
+<text x="74" y="423.5" text-anchor="end" font-size="10.5" fill="#9aa3ad">564 bp</text>
+<line x1="78" y1="420.0" x2="83" y2="420.0" stroke="#9aa3ad" stroke-width="1"/>
+<path d="M 196.3 175.0 L 510.0 175.0" fill="none" stroke="#7fd1ff" stroke-width="1" opacity="0.55" stroke-dasharray="3 3"/>
+<circle cx="196.3" cy="175.0" r="1.8" fill="#7fd1ff"/>
+<text x="516" y="178.5" font-size="11.5" fill="#7fd1ff">Intact HMW input</text>
+<path d="M 370.3 175.0 L 510.0 191.0" fill="none" stroke="#7fd1ff" stroke-width="1" opacity="0.55" stroke-dasharray="3 3"/>
+<circle cx="370.3" cy="175.0" r="1.8" fill="#7fd1ff"/>
+<text x="516" y="194.5" font-size="11.5" fill="#7fd1ff">No m6A: B looks like A</text>
+<path d="M 486.3 392.8 L 510.0 392.8" fill="none" stroke="#7fd1ff" stroke-width="1" opacity="0.55" stroke-dasharray="3 3"/>
+<circle cx="486.3" cy="392.8" r="1.8" fill="#7fd1ff"/>
+<text x="516" y="396.3" font-size="11.5" fill="#7fd1ff">Degraded: uninterpretable</text>
+<path d="M 254.3 440.0 L 510.0 440.0" fill="none" stroke="#7fd1ff" stroke-width="1" opacity="0.55" stroke-dasharray="3 3"/>
+<circle cx="254.3" cy="440.0" r="1.8" fill="#7fd1ff"/>
+<text x="516" y="443.5" font-size="11.5" fill="#7fd1ff">m6A present: collapsed to smear</text>
+<text x="84" y="567" font-size="11.5" fill="#9aa3ad">Read each sample as A vs B. HMW in A and a low smear in B means methylation worked.</text>
+<text x="84" y="585" font-size="11.5" fill="#9aa3ad">If A is already smeared, the input was degraded and the result cannot be scored - re-extract.</text>
+</svg>
