@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-20T10:36:48.820671+00:00",
-  "total_commits": 4591,
+  "generated_at": "2026-08-20T11:19:30.178560+00:00",
+  "total_commits": 4592,
   "users": {
     "greymonroe": {
       "login": "greymonroe",
       "display_name": "Grey Monroe",
-      "total_commits": 4242,
+      "total_commits": 4243,
       "first_commit": "2025-12-04",
       "last_commit": "2026-08-20",
       "protocols_authored": 196,
       "notebooks_authored": 156,
-      "inventory_edits": 2247,
-      "wiki_edits": 5046,
+      "inventory_edits": 2248,
+      "wiki_edits": 5049,
       "images_uploaded": 144,
       "issue_attachments": 83,
       "issues_filed": 30,
@@ -23,11 +23,6 @@
       "lines_added": 0,
       "lines_removed": 0,
       "recent_commits": [
-        {
-          "sha": "b0e8a75",
-          "subject": "Add local draft autosave for notebook editor (issue #181)",
-          "date": "2026-07-07"
-        },
         {
           "sha": "071c7e4",
           "subject": "Fiber-seq protocol buildout: 6 protocol pages + 9 resource cards",
@@ -61,6 +56,11 @@
         {
           "sha": "907ad2a",
           "subject": "Fold AnchorTag/RUN_NEW spreadsheet evidence into Fiber-seq pages",
+          "date": "2026-08-20"
+        },
+        {
+          "sha": "bcb7c5e",
+          "subject": "Cite the lab-owned copy of AnchorTag/RUN_NEW, not Vianney's original",
           "date": "2026-08-20"
         }
       ],

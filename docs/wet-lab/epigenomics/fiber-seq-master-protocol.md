@@ -297,14 +297,19 @@ What the record actually says about the Hia5 constructs, and what it does not:
   Vianney (Slack, 2026-08-11) the round-2 tubes are dated — June/July dates are the newer
   batch.]`
 - `[VERIFY: a lab-owned copy of AnchorTag/RUN_NEW was made 2026-08-20, so the data survives
-  Vianney's offboarding — but the ORIGINAL is still his and still being edited (last modified
+  Vianney's offboarding — but the ORIGINAL is still hers and still being edited (last modified
   2026-08-20). The copy is a snapshot and will drift. Either transfer ownership of the original
   and delete the copy, or agree that the copy is now the lab's record of it. Do not leave two
   live versions.]`
-- `[VERIFY: the same offboarding exposure applies to the four GenScript protein COA PDFs in
-  Monroe Lab / Order/Inventory/Space / Protein Stocks — all four are owned by vahn@ucdavis.edu.
-  These have NOT been copied. Sweep that folder, and Vianney's other lab folders (FiberSeq,
-  CUT/Anchor&Tag, Lab Management Guides), for anything else owned by his account.]`
+- `[VERIFY: the GenScript paperwork for BOTH Hia5 orders (U9375BAEG0 round 1, U4194NJYG0
+  round 2) — the COAs, the expression report and the nuclease test that every concentration,
+  MW and purity figure on hia5-protein-stocks is sourced to — exists ONLY as Gmail attachments.
+  A Drive search for "U4194NJYG0", "U9375BAEG0" and "Hia5" returns zero files. It is in Grey's
+  own mailbox so it is not an offboarding risk, but it is unfiled and unretrievable by anyone
+  else. Save them into Monroe Lab / Order/Inventory/Space / Protein Stocks. Checked 2026-08-20.]`
+- `[VERIFY: sweep Vianney's other lab folders (FiberSeq, CUT/Anchor&Tag, Lab Management Guides)
+  for anything else owned by her account. The four Tn5 COA PDFs that were in Protein Stocks
+  were copied to lab ownership on 2026-08-20; that folder is now clear, the others are not.]`
 - `[VERIFY: plants are assumed to have negligible endogenous 6mA background, which is what
   makes the m6A signal interpretable. Checking this against the lab's existing Arabidopsis
   HiFi data was flagged as a to-do in the development log and has never been done. Do it
