@@ -197,9 +197,25 @@ GenScript account **G5512511**. Project managers over time: Sophie Yang and Anni
 
 ## Sources
 
-GenScript order reports, COAs, expression report and nuclease test for orders U9375BAEG0
-(round 1) and U4194NJYG0 (round 2), plus correspondence with Sophie Yang, Annie Fan and
-Claire Fan. Bench-recorded concentrations, the round-2 working-up and the footnotes on how
+**The GenScript paperwork is now filed in Drive.** It used to exist only as Gmail attachments;
+on 2026-08-20 it was pulled out and filed under
+`Monroe Lab / Order/Inventory/Space / Protein Stocks`:
+
+- **[GenScript U9375BAEG0 — round 1 Hia5](https://drive.google.com/drive/folders/1itEKdxC--p8gxotMPqIX_Tlhm8W5Azss)**
+  (5 files) — order report, nuclease test, order summary, clone strategy, location map.
+- **[GenScript U4194NJYG0 — round 2 MBP fusions](https://drive.google.com/drive/folders/1rf8tK58JlVViJEoFJV6sO1TV-oIwQrPp)**
+  (11 files) — all four COAs, the expression report, the SDS-PAGE/Western QC deck, the quote,
+  and the four delivered `.gp` sequence files.
+
+> **The round-2 COAs were read and checked against this page on 2026-08-20.** Round2_A and
+> Round2_E match on every field the table above quotes — MW, concentration, amount, purity,
+> vial count, lot number, storage buffer, Ni-column-only purification, and the
+> `756 aa; MBP 4-367; HRV 3C 374-381; His6 751-756` architecture. The odd **5-vial** count for
+> Round2_E against 6 for the others is confirmed by its COA, not a transcription error.
+
+Sources: GenScript order reports, COAs, expression report and nuclease test for orders
+U9375BAEG0 (round 1) and U4194NJYG0 (round 2), plus correspondence with Sophie Yang, Annie Fan
+and Claire Fan. Bench-recorded concentrations, the round-2 working-up and the footnotes on how
 the sub-floor values were computed come from the Google Sheet *AnchorTag/RUN_NEW*, tabs
 `Jan2026` and `June2026`. Cite the **lab-owned copy**, `AnchorTag_RUN_NEW (lab copy of
 Vianney's, 2026-08-20)`, in `Monroe Lab / Order/Inventory/Space / Protein Stocks`:

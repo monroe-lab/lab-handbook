@@ -301,12 +301,11 @@ What the record actually says about the Hia5 constructs, and what it does not:
   2026-08-20). The copy is a snapshot and will drift. Either transfer ownership of the original
   and delete the copy, or agree that the copy is now the lab's record of it. Do not leave two
   live versions.]`
-- `[VERIFY: the GenScript paperwork for BOTH Hia5 orders (U9375BAEG0 round 1, U4194NJYG0
-  round 2) — the COAs, the expression report and the nuclease test that every concentration,
-  MW and purity figure on hia5-protein-stocks is sourced to — exists ONLY as Gmail attachments.
-  A Drive search for "U4194NJYG0", "U9375BAEG0" and "Hia5" returns zero files. It is in Grey's
-  own mailbox so it is not an offboarding risk, but it is unfiled and unretrievable by anyone
-  else. Save them into Monroe Lab / Order/Inventory/Space / Protein Stocks. Checked 2026-08-20.]`
+- **Resolved 2026-08-20.** The GenScript paperwork for both Hia5 orders (U9375BAEG0 round 1,
+  U4194NJYG0 round 2) previously existed only as Gmail attachments — a Drive search for those
+  IDs returned zero files. All 16 documents are now filed under
+  `Monroe Lab / Order/Inventory/Space / Protein Stocks`, and the round-2 COAs were read and
+  checked against the figures on [[hia5-protein-stocks]]. See that page for the folder links.
 - `[VERIFY: sweep Vianney's other lab folders (FiberSeq, CUT/Anchor&Tag, Lab Management Guides)
   for anything else owned by her account. The four Tn5 COA PDFs that were in Protein Stocks
   were copied to lab ownership on 2026-08-20; that folder is now clear, the others are not.]`
