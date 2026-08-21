@@ -6276,6 +6276,10 @@
     "target": "resources/zeocin"
   },
   {
+    "source": "tasks/welcome-to-the-task-board",
+    "target": "people/grey-monroe"
+  },
+  {
     "source": "waste/bme-chloroform-phenol-waste",
     "target": "percy-s-farm-pipelines/index"
   },

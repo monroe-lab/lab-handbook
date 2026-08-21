@@ -63,6 +63,11 @@
         var slug = target.split('/').pop();
         obj = objectLookup[slug];
       }
+      // Title-style links ([[Grey Monroe]]) — try the slugified form.
+      if (!obj) {
+        var slugified = target.split('/').pop().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        obj = objectLookup[slugified];
+      }
 
       if (!obj) {
         // Unknown link — style as a plain grey pill
