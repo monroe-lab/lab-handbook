@@ -320,10 +320,12 @@
   // ── Quick-add ──
   async function createTask(title, status) {
     var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'task';
-    if (tasks.some(function(t) { return t.path === 'tasks/' + slug; })) {
+    if (tasks.some(function(t) { return t.path === 'tasks/' + slug + '.md'; })) {
       slug += '-' + Date.now().toString(36);
     }
-    var relPath = 'tasks/' + slug;
+    // Index entry paths include the .md extension — keep ours consistent so
+    // drag-moves and card-clicks resolve the same file.
+    var relPath = 'tasks/' + slug + '.md';
     var user = Lab.gh.getUser();
     var fm = '---\n' +
       'type: task\n' +
@@ -337,8 +339,8 @@
     saving[relPath] = true;       // block drag-moves until the create commit lands
     render();
     try {
-      await Lab.gh.saveFile('docs/' + relPath + '.md', fm, null, 'board: add task "' + title + '"');
-      Lab.gh.patchObjectIndex('docs/' + relPath + '.md', { type: 'task', title: title, status: status, created_at: entry.created_at });
+      await Lab.gh.saveFile('docs/' + relPath, fm, null, 'board: add task "' + title + '"');
+      Lab.gh.patchObjectIndex('docs/' + relPath, { type: 'task', title: title, status: status, created_at: entry.created_at });
       if (window.Lab.showToast) Lab.showToast('Task added', 'success');
     } catch (err) {
       tasks = tasks.filter(function(t) { return t !== entry; });
