@@ -17,6 +17,7 @@
     'js/location-tree.js',
     'js/annotate.js',
     'js/issue-reporter.js',
+    'js/ask.js',
   ];
 
   // Inherit cache-bust param from our own src (e.g. lab.js?v=abc123)
