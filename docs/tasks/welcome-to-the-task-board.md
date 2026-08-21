@@ -1,7 +1,7 @@
 ---
 type: task
 title: Welcome to the task board — drag me to Done
-status: todo
+status: in_progress
 created_at: 2026-08-20T00:00:00Z
 created_by: greymonroe
 ---
