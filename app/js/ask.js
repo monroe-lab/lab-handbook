@@ -17,9 +17,11 @@
   var KEY_STORE = 'gemini_api_key';
   var MODEL_STORE = 'gemini_model';
   var API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
-  // Preference order; the setup step picks the first one the key's account
-  // actually serves (from ListModels), so model-name drift doesn't break us.
-  var PREFERRED_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-flash-latest'];
+  // Fallbacks only — setup picks the newest plain "gemini-N.N-flash" the
+  // key's account serves (from ListModels). Google also 404s models that are
+  // listed but closed to new users, naming the replacement in the error;
+  // callGemini parses that and auto-switches (self-healing on deprecation).
+  var PREFERRED_MODELS = ['gemini-flash-latest', 'gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
 
   var history = [];   // [{role: 'user'|'model', text}] — session only
   var busy = false;
@@ -83,15 +85,28 @@
       parts: [{ text: instructions + '\nSOURCES:\n' + (context || '(no matching pages found)') + '\n\nQUESTION: ' + question }]
     });
 
+    var body = JSON.stringify({ contents: convo, generationConfig: { temperature: 0.2, maxOutputTokens: 800 } });
     var resp = await fetch(API_BASE + '/models/' + model + ':generateContent?key=' + encodeURIComponent(key), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: convo, generationConfig: { temperature: 0.2, maxOutputTokens: 800 } })
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body
     });
     if (!resp.ok) {
       var errText = '';
       try { errText = (await resp.json()).error.message; } catch (e) {}
-      throw new Error('Gemini API error ' + resp.status + (errText ? ': ' + errText : ''));
+      // Deprecated-model 404s name the replacement ("update your code to use
+      // models/gemini-X-flash") — switch to it and retry once.
+      var repl = resp.status === 404 && errText.match(/use\s+models\/([\w.-]+)/i);
+      if (repl && repl[1] !== model) {
+        localStorage.setItem(MODEL_STORE, repl[1]);
+        resp = await fetch(API_BASE + '/models/' + repl[1] + ':generateContent?key=' + encodeURIComponent(key), {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body
+        });
+        if (!resp.ok) {
+          try { errText = (await resp.json()).error.message; } catch (e2) {}
+          throw new Error('Gemini API error ' + resp.status + (errText ? ': ' + errText : ''));
+        }
+      } else {
+        throw new Error('Gemini API error ' + resp.status + (errText ? ': ' + errText : ''));
+      }
     }
     var data = await resp.json();
     var parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
@@ -106,7 +121,13 @@
     if (!resp.ok) throw new Error('Key rejected (HTTP ' + resp.status + '). Check it at aistudio.google.com/apikey');
     var data = await resp.json();
     var names = (data.models || []).map(function(m) { return (m.name || '').replace(/^models\//, ''); });
-    var model = null;
+    // Prefer the NEWEST plain "gemini-N.N-flash" (older ones can be listed
+    // yet closed to new users), then the static preference list.
+    var versioned = names
+      .map(function(n) { var m = n.match(/^gemini-(\d+(?:\.\d+)?)-flash$/); return m && { name: n, v: parseFloat(m[1]) }; })
+      .filter(Boolean)
+      .sort(function(a, b) { return b.v - a.v; });
+    var model = versioned.length ? versioned[0].name : null;
     for (var i = 0; i < PREFERRED_MODELS.length && !model; i++) {
       if (names.indexOf(PREFERRED_MODELS[i]) >= 0) model = PREFERRED_MODELS[i];
     }
