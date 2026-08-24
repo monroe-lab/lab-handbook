@@ -53,6 +53,11 @@ await check('retrieval builds grounded context for "where is the agarose"', asyn
   if (!/agarose/i.test(ctx)) throw new Error('agarose not retrieved');
 });
 
+await check('typo "ha5" fuzzy-retrieves hia5 sources', async () => {
+  const ctx = await page.evaluate(() => Lab.ask._buildContext('what is ha5'));
+  if (!/hia5/i.test(ctx)) throw new Error('hia5 not in fuzzy context: ' + ctx.slice(0, 200));
+});
+
 await check('panel opens and accepts a question', async () => {
   await page.click('#ask-fab');
   await page.waitForSelector('#ask-input', { timeout: 5000 });

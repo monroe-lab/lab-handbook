@@ -28,12 +28,62 @@
 
   function esc(s) { return window.Lab && Lab.escHtml ? Lab.escHtml(s) : String(s); }
 
+  // ── Fuzzy matching (typo tolerance) ──
+  function editDistance(a, b) {
+    if (Math.abs(a.length - b.length) > 2) return 99;
+    var prev = [], cur = [];
+    for (var j = 0; j <= b.length; j++) prev[j] = j;
+    for (var i = 1; i <= a.length; i++) {
+      cur = [i];
+      for (var k = 1; k <= b.length; k++) {
+        cur[k] = Math.min(prev[k] + 1, cur[k - 1] + 1, prev[k - 1] + (a[i - 1] === b[k - 1] ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+
+  // Find objects whose title/slug words are within edit distance 1-2 of a
+  // question token — catches "ha5" → "hia5", "agarrose" → "agarose".
+  function fuzzyMatches(question, index) {
+    var tokens = question.toLowerCase().split(/[^a-z0-9]+/).filter(function(t) { return t.length >= 3; });
+    var scored = [];
+    index.forEach(function(e) {
+      var words = ((e.title || '') + ' ' + e.path.replace(/\.md$/, '').split('/').pop())
+        .toLowerCase().split(/[^a-z0-9]+/).filter(function(w) { return w.length >= 3; });
+      var best = 99;
+      tokens.forEach(function(t) {
+        words.forEach(function(w) {
+          var d = editDistance(t, w);
+          if (w.indexOf(t) === 0 && t.length >= 4) d = Math.min(d, 1); // prefix counts
+          if (d < best) best = d;
+        });
+      });
+      if (best <= 2) scored.push({ entry: e, d: best });
+    });
+    scored.sort(function(a, b) { return a.d - b.d; });
+    return scored.slice(0, 5).map(function(s) { return s.entry; });
+  }
+
   // ── Retrieval: build grounded context for a question ──
   async function buildContext(question) {
     var hits = await Lab.search.query(question, { limit: 8 });
     var index = await Lab.gh.fetchObjectIndex();
     var byPath = {};
     index.forEach(function(e) { byPath[e.path.replace(/\.md$/, '')] = e; });
+
+    // Thin results → typo-tolerant fallback over object titles/slugs
+    if (hits.length < 3) {
+      var seen = {};
+      hits.forEach(function(h) { seen[h.path.replace(/\.md$/, '')] = true; });
+      fuzzyMatches(question, index).forEach(function(e) {
+        var slug = e.path.replace(/\.md$/, '');
+        if (!seen[slug]) {
+          seen[slug] = true;
+          hits.push({ path: e.path, title: (e.title || slug) + ' (close match — possible typo in question)', type: e.type, snippet: '' });
+        }
+      });
+    }
 
     var blocks = [];
     for (var i = 0; i < hits.length; i++) {
@@ -74,6 +124,8 @@
       '- Cite sources inline by writing their [[slug]] token exactly as given (double brackets). ' +
       'Cite every object you mention.\n' +
       '- For "where is X" questions, give the physical location chain from "located in".\n' +
+      '- If a source is marked "close match — possible typo", the user likely misspelled it: ' +
+      'answer for that object and note the corrected name.\n' +
       '- If the sources do not contain the answer, say you could not find it in the handbook ' +
       'and suggest what to search for instead. Never invent facts, quantities, or locations.\n';
 
@@ -85,10 +137,23 @@
       parts: [{ text: instructions + '\nSOURCES:\n' + (context || '(no matching pages found)') + '\n\nQUESTION: ' + question }]
     });
 
-    var body = JSON.stringify({ contents: convo, generationConfig: { temperature: 0.2, maxOutputTokens: 800 } });
+    // thinkingBudget 0 turns off hidden "thinking" tokens — on thinking-capable
+    // Flash models they count against maxOutputTokens and truncated answers
+    // mid-sentence (broken [[links]]). Grounded lookups don't need thinking,
+    // and it's faster without. Models that reject the field get a retry without.
+    var genCfg = { temperature: 0.2, maxOutputTokens: 4096, thinkingConfig: { thinkingBudget: 0 } };
+    var mkBody = function(cfg) { return JSON.stringify({ contents: convo, generationConfig: cfg }); };
+    var body = mkBody(genCfg);
     var resp = await fetch(API_BASE + '/models/' + model + ':generateContent?key=' + encodeURIComponent(key), {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body
     });
+    if (resp.status === 400) {
+      // Possibly thinkingConfig unsupported on this model — retry without it
+      body = mkBody({ temperature: 0.2, maxOutputTokens: 4096 });
+      resp = await fetch(API_BASE + '/models/' + model + ':generateContent?key=' + encodeURIComponent(key), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body
+      });
+    }
     if (!resp.ok) {
       var errText = '';
       try { errText = (await resp.json()).error.message; } catch (e) {}
@@ -145,6 +210,10 @@
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
       .replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, function(m, target, label) {
         return '<a href="obj://' + esc(target) + '">' + esc(label || target.split('/').pop()) + '</a>';
+      })
+      // Unclosed [[slug at end of a truncated answer — still make it a pill
+      .replace(/\[\[([\w][\w\/.-]*)\s*$/, function(m, target) {
+        return '<a href="obj://' + esc(target) + '">' + esc(target.split('/').pop()) + '</a>';
       })
       .replace(/\n/g, '<br>');
     container.innerHTML = html;
