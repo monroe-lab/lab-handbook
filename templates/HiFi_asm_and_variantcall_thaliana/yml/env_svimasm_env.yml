@@ -1,0 +1,9 @@
+name: svimasm_env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - svim-asm
+  - gcc=13
+  - samtools
+prefix: /home/soya/.conda/envs/svimasm_env

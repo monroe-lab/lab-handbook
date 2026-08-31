@@ -1,0 +1,9 @@
+name: ragtag-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - ragtag
+  - unimap
+prefix: /home/soya/.conda/envs/ragtag-env

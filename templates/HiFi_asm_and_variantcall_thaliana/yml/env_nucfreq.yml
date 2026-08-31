@@ -1,0 +1,22 @@
+name: nucfreq
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - gcc=13
+  - pandas
+  - pip
+  - matplotlib
+  - python=3.9
+  - snakemake
+  - pysam
+  - tqdm
+  - numpy
+  - seaborn
+  - bedtools
+  - samtools
+  - pybedtools
+  - scipy
+  - biopython
+  - click
+prefix: /group/gmonroegrp2/soya/conda_envs/nucfreq

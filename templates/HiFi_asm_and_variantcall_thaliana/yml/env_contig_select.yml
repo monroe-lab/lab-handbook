@@ -1,0 +1,11 @@
+name: contig_select
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - seqkit
+  - gfatools
+  - bandage
+  - quast
+prefix: /home/soya/.conda/envs/contig_select
