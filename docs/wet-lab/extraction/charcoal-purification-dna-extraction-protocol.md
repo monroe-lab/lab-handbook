@@ -2,7 +2,7 @@
 title: "Charcoal Purification DNA Extraction Protocol"
 type: "protocol"
 ---
-# Charcoal Purification DNA Extraction Protocol
+# Acid-Base Charcoal Purification DNA Extraction Protocol
 
 *Created by percival-singson on 2026-06-17*
 
@@ -62,6 +62,8 @@ type: "protocol"
 8. Centrifuge at max speed for 30 more seconds and discard the remaining flow through.
 9. Place the spin column in a 1.5mL collection tube and add **50uL EB buffer**. Wait 1 minute, then centrifuge for 1 minute at maximum speed. Discard spin column.
 10. Store DNA in the freezer for future use if not quantifying immediately.
+
+ 
 
  
 
